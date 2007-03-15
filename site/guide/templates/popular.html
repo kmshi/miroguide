@@ -1,0 +1,24 @@
+{% load i18n channel_extras  helper_extras %}
+{% extends 'base.html' %}
+{% block content %}
+<div class="channel-list-page">
+<div class="popular-channel-list">
+    <h1>{% blocktrans with popular_window_select.current_choice_label as view %}
+    Most Popular {{ view }}
+    {% endblocktrans %}
+    {% show_view_select popular_window_select %}
+    </h1>
+    <div class="clear"></div>
+    <ul class="channel-list">
+    {% for channel in pager.items %}
+        <li>
+            <div class="position">{{ forloop.counter }}.</div>
+            {% show_channel_in_list channel %}
+            <div class="clear"></div>
+        </li>
+    {% endfor %}
+    </ul>
+    {% show_pager pager %}
+</div>
+</div>
+{% endblock %}

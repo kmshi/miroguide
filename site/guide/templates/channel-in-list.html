@@ -1,0 +1,17 @@
+{% load helper_extras i18n %}
+<div class="channel channel-in-list">
+    <div class="half-size-list">
+        {% twocolumns %}
+            <div class="screenshot">
+                {{ channel.thumb_165_110 }}
+            </div>
+        {% splitcolumns %}
+            <h2 class="title">{{ channel.name_as_link }}</h2>
+            <div class="description">{{ channel.description }}</div>
+            <div class="big-buttons">
+                <a {% link channel.get_subscription_url "action add" %}><span>{% trans "Add" %}</span></a>
+                <a {% link channel.get_absolute_url "action info-button" %}><span>{% trans "Details" %}</span></a>
+            </div>
+        {% endtwocolumns %}
+    </div>
+</div>

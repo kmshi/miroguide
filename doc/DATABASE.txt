@@ -1,0 +1,51 @@
+Channelguide doesn't use the standard django database package.  There are a
+couple reasons for this:
+
+ * It's fairly restrictive.  You can't create a table with a composite primary
+   key.  You can't have a field be a aggregation (for example, 
+   channels.subscriptions.count is SELECT COUNT(*) from channel_subscription
+   where channel_id=<channel id>).
+
+ * It's not obvious how to create a InnoDB table.  The docs say to change the
+ system wide mysql config file, but this doesn't seem like a good option.
+
+ * It doesn't support updates to the database schema.
+
+So instead I (BDK) created a new db system based off of sqlalchemy.
+SQLAlchemy is pretty awesome and gives you all kinds of control over your
+database.  It doesn't support schema changes itself, but it's flexible enough
+that it was easy to add it on.
+
+---- DATABASE SCHEMA / UPDATES ----
+
+The database schema is created by running each script from the db/updates
+directory.
+
+If you want to change the database schema, just add a new file to db/updates.
+If you need to do something more complicated that MySQL can handle you can use
+a python script (see db/test_update_dirs/robot/3_change_model_name.py)
+
+For each app, there is a module named tables.py.  It defines the tables used
+by that app for SQLAlchemy.  Unfortunately, there's a bunch of redundancy
+between tables.py and the database upgrade scripts, but there are some
+benefits.  For one, it's nice when writing code to use tables.py as a
+reference.  Also, it's nessecary if you want to use sqlalchemy to set
+default/on-update values (which is nessecary because MySQL doesn't handle
+functions as default values well).
+
+---- NOTES ----
+
+I prefixed all tablenames with "cg_".  Channelguide shares a database with
+videobomb and this is a way to keep it from messing with its namespace too
+much.
+
+Some of the SQL is MySQL specific.  I tried to limit this as much as possible,
+but in some cases it seemed like the best way.  I don't see us switching
+database backends anytime soon, so it shouldn't be a problem.
+
+---- MANAGEMENT SCRIPT ----
+
+manage.py in the top-level directory started off as the stardard django
+management script, but it's been modified a bunch to work with our db system.
+However, it should be very easy to use, just type "manage syncdb" to bring the
+database up to date.

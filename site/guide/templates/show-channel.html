@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load channel_extras i18n %}
+{% load note_extras %}
+{% block content %}
+{% show_channel_full channel %}
+<div class="channel-full-separator"></div>
+<h2 class="recent-videos-header">
+{% blocktrans %}
+Recent Videos on this Channel <span class="sub-header">(to see all videos on
+this channel, add it)</span>
+{% endblocktrans %}
+</h2>
+{% for item in items %}
+  {% show_item item %}
+{% endfor %}
+{% show_channel_notes notes channel %}
+{% endblock %}

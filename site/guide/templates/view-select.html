@@ -1,0 +1,11 @@
+{% load i18n helper_extras %}
+<span class="view-select">
+    <span class="view-text">{% trans "View:" %}</span>
+    {% for link in view_select.view_links %}
+        {% if not link.is_current %}
+            <a {% link link.url "option" %}>{{ link.label }}</a>
+        {% else %}
+            <span class="option">{{ link.label }}</span>
+        {% endif %}
+    {% endfor %}
+</span>

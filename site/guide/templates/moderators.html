@@ -1,0 +1,15 @@
+{% load helper_extras user %}
+{% extends 'base.html' %}
+{% block content %}
+<div class="moderator-page">
+<h1>Moderators </h1>
+<ul>
+    {% for mod in moderators %}
+    <li>{% show_user mod %}</li>
+    {% endfor %}
+</ul>
+</div>
+
+{% show_pager pager %}
+{%endblock%}
+

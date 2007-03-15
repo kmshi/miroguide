@@ -1,0 +1,28 @@
+{% load i18n helper_extras %}
+<div class="channel channel-mini">
+    <div class="channel-top">
+        <div class="channel-bottom">
+            <div class="channel-inner">
+                <div class="info">
+                    <h4 class="title">{{ channel.name_as_link }}</h3>
+                </div>
+                <div class="count">
+                    {% ifequal count "subscribers" %}
+                    {% blocktrans with channel.subscription_count as count %}
+                    {{ count }} subscribes
+                    {% endblocktrans %}
+                    {% endifequal %}
+                    {% ifequal count "episodes" %}
+                    {% blocktrans with channel.item_count as count %}
+                    {{ count }} shows
+                    {% endblocktrans %}
+                    {% endifequal %}
+                </div>
+                <div class="screenshot">
+                    {{ channel.thumb_60_40 }}
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>

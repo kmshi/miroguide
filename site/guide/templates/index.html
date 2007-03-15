@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load channel_extras helper_extras i18n %}
+
+{% block head-extra %}
+    <script src="{{ BASE_URL}}js/feature_rotate.js" type="text/javascript" language="JavaScript"></script>
+{% endblock %}
+
+{% block onload-extra %}scheduleFeatureRotate();{% endblock %}
+
+{% block content %}
+<div class="front-page">
+<div id="featured-list-container">
+    <ul class="two-column-list" id="featured-list">
+{% for channel in featured_channels %}
+        <li class="column {% if forloop.first %}first-column{% endif %}">
+{% show_channel_feature channel %}
+        </li>
+{% endfor %}
+    </ul>
+</div>
+<div class="clear"></div>
+{% twocolumns %}
+    <h2>{% trans "Random Category" %}</h2>
+    <div id="category-peek">
+        {% if category_peek %}
+        {% include "channels/category-peek.html" %}
+        {% endif %}
+    </div>
+{% splitcolumns %}
+    <div class="front-page-quick-list">
+        {% twocolumns %}
+            <h2><a {% link "channels/popular" %}>{% trans "Popular Today" %}</a></h2>
+            {% for channel in popular_channels %}
+                <div class="position">{{ forloop.counter }}.</div>
+                {% show_channel_mini channel "subscribers" %}
+                <div class="clear"></div>
+            {% endfor %}
+            {% whitebutton "channels/popular" %}
+                {% trans "View All Popular" %}
+            {% endwhitebutton %}
+       {% splitcolumns %}
+            <h2><a {% link "channels/recent" %}>{% trans "Just Added" %}</a></h2>
+            {% for channel in new_channels %}
+                {% show_channel_mini channel "episodes" %}
+                <div class="clear"></div>
+            {% endfor %}
+            {% whitebutton "channels/recent" %}
+                {% trans "View All New" %}
+            {% endwhitebutton %}
+       {% endtwocolumns %}
+    </div>
+{% endtwocolumns %}
+<div class="clear"></div>
+
+<div class="category-list">
+<h2>{% trans "All Categories" %}</h2>
+{% fourcolumnloop with category in categories rotated %}
+  <a {% link category.get_absolute_url %}>{{ category.name }}</a>
+{% endfourcolumnloop %}
+</div>
+
+<div class="links">
+    {% twocolumns %}
+    <div class="blog-posts">
+        <h2>{% trans "Recent News" %}</h2>
+        <ul>
+        {% for post in blog_posts %}
+            <li class="blog-post">
+                <h3 class="title">{{ post.title }} </h3>
+                {{ post.body|truncatewords:15 }}
+                <a href="{{ post.url }}">{% trans "read more" %}</a>
+            </li>
+        {% endfor %}
+        </ul>
+        <h3><a href="http://www.getdemocracy.com/news/">{% trans "Democracy Player Blog &gt;&gt;" %}</a></h3>
+    </div>
+    {% splitcolumns %}
+    <div class="help-links">
+        <h2>{% trans "Submit a Channel" %}</h2>
+        <p>{% trans "The guide is open to everyone.  Do you have an RSS feed?  Do you know of a great feed that isn't listed in the guide?" %}
+        <BR>
+        <a {% link "channels/submit" %}>{% trans "Submit a channel to the Guide!" %}</a>
+        </p>
+        <p>{% trans "Want to make your own channel?" %}
+        <a href="" >{% trans "Here's How." %}</a>
+        </p>
+        <p>{% trans "Looking for ways to publicize your channel?" %}
+        <a href="" >{% trans "Here are 10 tips." %}</a>
+        </p>
+        <h2>{% trans "Get Help" %}</h2>
+        <p>{% trans "Do you have any questions about the Guide or Democracy Player?" %}
+        <BR>
+        {% trans "Are you running into problems?" %}
+        <a href="" >{% trans "Check out our help page." %}</a>
+
+    </div>
+    {% endtwocolumns %}
+</div>
+<div class="clear"></div>
+<div class="about">
+{% blocktrans %}
+The Democracy Channel Guide is part of the Democracy: Internet TV
+Platform.<BR>
+Democracy is made by the Participatory Culture Foundation, a non-profit
+organization.<BR>
+Visit <a href="http://www.getdemocracy.com/">getdemocracy.com</a> for more information
+{% endblocktrans %}
+</div>
+
+</div>
+{% endblock %}

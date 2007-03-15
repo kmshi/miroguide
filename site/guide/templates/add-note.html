@@ -1,0 +1,13 @@
+<h3>Add Note:</h3>
+<form action="{{ BASE_URL }}notes/new" method="POST">
+    <input type="hidden" name="channel-id" value="{{ channel.id }}">
+    <input type="hidden" name="type" value="{{ type }}">
+    <table border=0 cellpadding=0 cellspacing=2>
+        <tr><td>Title:</td><td><input size=40 name="title"></td></tr>
+        <tr><td>Body:</td><td><textarea cols=40 rows=8 name="body"></textarea></td></tr>
+        {% if show_email_checkbox %}
+        <tr><td>Email Owner:</td><td><input type="checkbox" checked name="send-email"></td></tr>
+        {% endif %}
+        <tr><td></td><td><input type="submit" value="create note"></td></tr>
+    </table>
+</form>

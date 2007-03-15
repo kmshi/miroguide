@@ -1,0 +1,17 @@
+{% load i18n channel_extras  helper_extras %}
+{% extends 'base.html' %}
+{% block content %}
+<div class="channel-list-page">
+    <h1>
+        {{ header }}
+        {% if order_select %}{% show_view_select order_select %}{% endif %}
+    </h1>
+    <div class="clear"></div>
+    <div class="channel-list">
+      {% twocolumnloop with channel in pager.items %}
+          {% show_channel_in_list channel %}
+      {% endtwocolumnloop %}
+    </div>
+    {% show_pager pager %}
+</div>
+{% endblock %}

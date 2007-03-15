@@ -1,0 +1,69 @@
+{% load i18n channel_extras  helper_extras %}
+{% extends 'base.html' %}
+{% block content %}
+<div class="search-page">
+
+    <div class="group-matches">
+        {% if languages %}
+        <h1>{% trans "Matching Languages" %}</h1>
+        <ul>
+        {% for language in languages %}
+          <li>{{ language.link }} ({{ language.channel_count }})</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if tags %}
+        <h1>{% trans "Matching Tags" %}</h1>
+        <ul>
+        {% for tag in tags %}
+          <li>{{ tag.link }} ({{ tag.channel_count }})</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if categories %}
+        <h1>{% trans "Matching Categories" %}</h1>
+        <ul>
+        {% for cat in categories %}
+          <li>{{ cat.link }} ({{ cat.channel_count }})</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+
+<div class="channel-matches">
+    <h1>{% blocktrans %}{{ channels_count }} Channels Match '{{ search_query }}'{% endblocktrans %}</h1>
+    {% if channels %}
+    <ul>
+    {% for channel in channels %}
+        <li{% if forloop.last %} class="last-row"{% endif %}>
+          {% show_channel_in_list channel %}
+        </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if extra_channels %}
+    <div class="more-channel-matches">
+        {{ more_channels_link }}
+    </div>
+    {% endif %}
+</div>
+<div class="clear"></div>
+
+{% if channels_with_items %}
+<h1>{% blocktrans %}Channel With Videos Matching '{{ search_query }}'{% endblocktrans %}</h1>
+{% twocolumnloop with channel in channels_with_items %}
+ {% show_channel_in_list channel %}
+{% endtwocolumnloop %}
+
+{% if extra_channels_with_items %}
+<div class="more-channel-matches">
+    {{ more_channels_link }}
+</div>
+        {% endif %}
+{% endif %}
+
+</div>
+{% endblock %}

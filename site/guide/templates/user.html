@@ -1,0 +1,11 @@
+{% load helper_extras %}
+<div class="user">
+    {% if viewing_user.is_admin %}
+    <div class="role-info">
+        <div class="role">{{ user.role_string }}</div>
+        {% formbutton user.get_absolute_url "promote" %}
+        {% formbutton user.get_absolute_url "demote" %}
+        {% endif %}
+    </div>
+    <a {% link user.channel_url %}>{{ user }}</a>
+</div>

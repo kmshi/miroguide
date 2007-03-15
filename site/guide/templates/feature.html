@@ -1,0 +1,16 @@
+{% load i18n helper_extras %}
+<div class="channel channel-feature">
+    <div class="channel-inner">
+        <div class="info big-buttons-gray">
+            <a {% link channel.get_subscription_url "action add" %}>Add Channel</a>
+            <a {% link channel.get_absolute_url "action info-button" %}>Details</a>
+            <p> {{ channel.get_episodes_str }} </p>
+        </div>
+        <div class="screenshot">
+            {{ channel.thumb_252_169 }}
+        </div>
+        <div class="clear"></div>
+    </div>
+    <h2 class="title"><span class="featured-label">Featured</span> {{ channel.name_as_link }}</h2>
+    <p class="description">{{ channel.description }}</p>
+</div>

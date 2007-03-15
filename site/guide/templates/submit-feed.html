@@ -1,0 +1,30 @@
+{% load i18n helper_extras %}
+{% extends 'base.html' %}
+{% block content %}
+<div class="submit-feed-page">
+
+<div class="explanation">
+    <h1>{% trans "Submit Your Channel to the Guide" %}</h1>
+    <p>{% blocktrans %}Before you submit your channel, please test it in
+    Democracy Player to make sure it works.  Go to 'Add Channel' in the
+    'Channels' menu and paste in the URL for your video RSS feed.  If your
+    videos download and play, then the channel is working.
+    {% endblocktrans %}</p>
+    <p>{% blocktrans %}If you have any problems submitting your channel or if
+    you are trying to update a channel that is already listed in the Guide,
+    email us: cg@pculture.org.{% endblocktrans %}</p>
+</div>
+
+<h1>{% trans "Step 1: Enter the Feed URL" %}</h1>
+<p class="form-instructions">{% blocktrans %}Enter the address of your video RSS
+feed.  For example: http://Seed-Magazine.blip.tv/?skin=rss{% endblocktrans %}</p>
+
+<div class="big-form">
+    <form method="POST" enctype="multipart/form-data" action="{{BASE_URL}}channels/submit/step1">
+    {% show_form form %}
+    <input type="submit" class="submit" value="{% trans "Next Step" %} &gt;&gt;">
+    </form>
+</div>
+
+</div>
+{%endblock%}

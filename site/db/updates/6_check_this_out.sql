@@ -1,0 +1,1 @@
+ALTER TABLE cg_channel ADD COLUMN check_this_out TINYINT(1) DEFAULT 0 NOT NULL;

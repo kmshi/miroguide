@@ -1,0 +1,15 @@
+{% if notes %}
+<ul class="note-list">
+{% for note in notes %}
+    <li>
+        <div class="delete-button">
+        <form action="{{ note.get_absolute_url }}" method="POST">
+            <input type="hidden" name="action" value="delete">
+            <input type="submit" value="delete note">
+        </form>
+        </div>
+        <h3>{{ note.title }}</h3>{{ note.body|linebreaks}}
+    </li>
+{% endfor %}
+</ul>
+{% endif %}

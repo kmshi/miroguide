@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="POST" enctype="multipart/form-data" action="{{BASE_URL}}accounts/create">
+<table>
+{{ form.as_table }}
+<tr><td colspan=2> <input type="submit" /></td></tr>
+</table>
+</form>
+{%endblock%}

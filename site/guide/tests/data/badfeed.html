@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+
+<title>Democracy: Internet TV</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="/stylesheets/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/stylesheets/bar.css" type="text/css" media="screen" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/news/feed">
+<script src="/js/intl.js" type="text/javascript"></script>
+<script src="/js/projectswitch.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="header">
+    <div id="header-top">
+        <h1><a href="/">Democracy - Internet TV Platform - Free and Open Source</a></h1>
+        <div id="header-top-right">
+            <div id="language-select">
+<!--
+                <form name="locale" action="changelocale.php" method="GET" onsubmit="return onLocaleSubmit();">
+                <select name="localeselect">
+    <option value="en_US.UTF-8" >English (US)</option>
+                </select>
+                <input type="submit" value="change">
+                </form>
+-->
+            </div>
+            <ul id="nav-main">
+                <li><a href="/downloads/">Downloads</a></li>
+                <li><a href="http://forum.getdemocracy.com">Forums</a></li>
+                <li><a href="/donate/">Donate</a></li>
+                <li><a href="/help/">Help</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/news/">Blog</a><a href="/news/feed/"><img src='/images/feed-white.gif' border="0" /></a></li>
+            </ul>
+        </div>
+    </div>
+    <h2 id="sub-banner">Democracy. The only video player you need.</h2>
+<div id="main">
+    <div id="callout">
+        <div id="callout-right">
+            <div id="awesome">
+                ...but what makes it <strong>awesome</strong>?            </div>
+            <ul class="featureRolls">
+                <li id="project1Link" onmouseover="javascript:switchProjectTab(0);">
+                    <strong>1. Play Anything</strong><br />
+    Play virtually any video-- Quicktime, WMV, MPEG, AVI, XVID, and more.  Browse your collection, make playlists, stay organized. One homebase for all your videos.            </li>
+            <li id="project2Link"  onmouseover="javascript:switchProjectTab(1);">
+                <strong>2. Get Internet TV Shows</strong><br />
+    Subscribe to any video RSS feed, podcast, or video blog. Explore hundreds of free channels with the built-in Channel Guide.            </li>
+            <li id="project3Link"  onmouseover="javascript:switchProjectTab(2);">
+                <strong>3. Search YouTube</strong><br />
+    Download and save videos from YouTube, Google Video, Yahoo Video, and other sites.            </li>
+            <li id="project4Link"  onmouseover="javascript:switchProjectTab(3);">
+                <strong>4. High Definition and Fullscreen</strong><br />
+    Your computer screen is a high-def display.  Watch free HD videos in gorgeous fullscreen.            </li>
+
+            <li id="project5Link"  onmouseover="javascript:switchProjectTab(4);">
+                <strong>5. Torrent Power</strong><br />
+    Easily download any BitTorrent file.  Fast.  Then watch it in the same app. Simple.            </li>
+        </ul>
+
+        </div>
+        <div class="screenshot-holder" id="project0">
+            <img src="/images/win-front-page-screenshots/00.jpg" />
+        </div>
+        <div class="screenshot-holder" id="project1" style="display: none">
+            <img src="/images/win-front-page-screenshots/01.jpg" />
+        </div>
+        <div class="screenshot-holder" id="project2"  style="display: none">
+            <img src="/images/win-front-page-screenshots/02.jpg" />
+        </div>
+
+        <div class="screenshot-holder" id="project3"  style="display: none">
+            <img src="/images/win-front-page-screenshots/03.jpg" />
+        </div>
+
+        <div class="screenshot-holder" id="project4"  style="display: none">
+            <img src="/images/win-front-page-screenshots/04.jpg" />
+        </div>
+
+        <div class="screenshot-holder" id="project5"  style="display: none">
+            <img src="/images/win-front-page-screenshots/05.jpg" />
+        </div>
+        <div id="downloadarea">
+        <script language="JavaScript">
+	<!--
+function getfile(file, spawnpage)
+{
+  var browser = (window.navigator.userAgent.indexOf("SV1") != -1);
+  window.open(file,'downloading','toolbar=0,location=no,directories=0,status=0, scrollbars=no,resizable=0,width=1,height=1,top=0,left=0');
+  window.focus();
+  location.href = spawnpage;
+}
+
+ if (navigator.appVersion.indexOf("Win")!=-1)
+		{
+   if ( window.navigator.userAgent.indexOf("MSIE") != -1 ) {
+		document.write('<div id="download-button"><a href="javascript:getfile(\'http://ftp.osuosl.org/pub/pculture.org/democracy/win/Democracy-0.9.2.exe\', \'/downloads/windows.php\');"><h3>Free Download</h3>0.9.2 for Windows</a></div><div id="download-versions">Other versions: <a href="/downloads/osx_front.php">Mac OSX</a> - <a href="/downloads/#linux">Linux</a></div>');
+   }
+   else {
+		document.write('<div id="download-button"><a href="/downloads/windows_front.php"><h3>Free Download</h3>0.9.2 for Windows</a></div><div id="download-versions">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Other versions: <a href="/downloads/osx_front.php">Mac OSX</a> - <a href="/downloads/#linux">Linux</a></div>');
+   }
+
+		}
+	else if (navigator.appVersion.indexOf("Mac")!=-1)
+		{
+		document.write('<div id="download-button"><a href="/downloads/osx_front.php"><h3>Free Download</h3>0.9.2 for Mac OS X - Universal</a></div><div id="download-versions">Other versions: <a href="/downloads/windows_front.php">Windows</a> - <a href="/downloads/#linux">Linux</a></div>	');
+		}
+	else if (navigator.appVersion.indexOf("X11")!=-1)
+		{
+		document.write('<div id="download-button"><a href="/downloads/#linux"><h3>Free Download</h3>0.9.2 for Linux</a></div><div id="download-versions">Other versions: <a href="/downloads/osx_front.php">Mac OSX</a> - <a href="/downloads/windows_front.php">Windows</a></div>');
+		}
+	else
+		{
+		document.write('<div id="download-button"><a href="javascript:getfile(\'http://ftp.osuosl.org/pub/pculture.org/democracy/win/Democracy-0.9.2.exe\', \'/downloads/windows.php\');"><h3>Free Download</h3>0.9.2 for Windows</a></div><div id="download-versions">Other versions: <a href="/downloads/osx_front.php">Mac OSX</a> - <a href="/downloads/#linux">Linux</a></div>');
+		}
+	//-->
+</script>
+
+
+	
+        </div>
+    </div>
+</div>
+<div id="content">
+    <div id="content-left">
+    <h2>It's better for you.</h2>
+    <div id="quote">"Want to see the future of Net video? Download the open source Democracy Player"        <span class="quote-byline">-Wired Magazine</span>
+    </div>
+    <p>It's pretty simple.  You get a better internet video experience with Democracy Player because you can do more and you can do it more easily.  Some people call it a 'TiVo for the internet' or a 'Firefox for videos'.</p>
+    <p>Democracy Player is free, open source, and built by a non-profit organization.  Our goal isn't to make money off of you.  Our goal is to give you the best possible video experience.</p>
+    <h2>It's better for the internet.</h2>
+    <p>Television is the most powerful medium in our culture, and it's moving online.  There's a huge oppurtunity to hear new voices.  But if video on the internet is dominated by just one or two huge video websites, we're all in serious trouble.   Openness, competition, and decentralization make the internet work. We need to ensure that online video has that same freedom.</p>
+    <p>Democracy Player keeps online video open by letting you connect to all of the big video hosting sites and thousands of independent publishers, all in one place.  Don't get locked in to one video host.        <br />
+        <a href="/articles/future_of_video.php">Read more about the future of online video &gt;&gt;</a>
+    </p>
+    <h2>It's better software.</h2>
+    <p>We have two crucial advantages over traditional software companies. First, being a non-profit organization means our mission is to support our users, not create profits for investors. Second, by making our software free and open-source, anyone can contribute to helping us make the best video application in the world.</p>
+    <p>Democracy Player is not just an innovative user experience.  Our engineers have created a new approach to building a cross-platform application.  Using some of the best open-source technologies, including Mozilla, XUL Runner, VLC, and Python, we have created a new software platform.        <a href="/code">Get our code and get involved &gt;&gt;</a>
+    </p>
+    <p id="content-quote">"As easy as turning on a TV"<br />
+        <span class="quote-byline">-Cory Doctorow, BoingBoing.net</span></p>
+</div>
+<div id="content-right">
+    <div id="subnews">
+        <h2>Democracy News</h2>
+        <a href="/news/feed/" class="newsrss">RSS Feed</a>
+        <ul>
+            <li><a href="/jobs/">Now hiring: Software Developer</a></li>
+            <li><a href="/news/2006/11/democracy-092-released-faster-and-smarter/">Democracy Player 0.9.2 Released!</a></li>
+            <li><a href="http://www.thechannelchannel.tv">The Channel Channel<br />60 second previews of internet TV channels</a></li>
+            <li><a href="/articles/future_of_video.php">The Future of Video: Openness Matters.</a></li>
+        </ul>
+        <a href="/news/" class="morenews">More news...</a>
+    </div>
+    <div class="clearer"></div>
+    <div id="otherplat">
+        <h3>Make your own Channel</h3>
+        <p>Don't just watch internet videos, make your own video RSS channel!  Want to promote the channel you already have?  We can help!</p>
+        <p><strong><a href="/make/">Make Internet TV &gt;&gt;</a></strong></p>
+    </div>
+    <div id="otherplat">
+        <h3>More Tools</h3>
+        <p>We are working to build internet TV tools that put people in control of media.            <a href="http://www.participatoryculture.org/">Learn More &gt;&gt;</a>
+        </p>
+        <div id="otherplat-right">
+            <a href="http://videobomb.com"><img src="images/img_videobomb.gif" border="0" /></a>
+            <a href="http://videobomb.com" class="plathead">Video Bomb</a><br />The best videos from everywhere on the web. Star your favorites to push them to the front page. You can even star within Democracy Player.<br />
+        </div>
+        <div id="otherplat-left">
+            <a href="/broadcast/"><img src="images/img_broadcastmachine.gif" border="0" /></a>
+            <a href="/broadcast/" class="plathead">Broadcast Machine</a><br />
+            Free software for your website to publish videos into a channel and create a browsable web gallery. RSS, BitTorrent, and an easy to use interface.<br />
+        </div>
+        <div class="clearer"></div>
+    </div>
+    <p id="support-democracy">
+        <img src="images/img_supportdemocracy.gif" /><br />
+        <strong><a href="/buttons/">Put a Democracy button on your site!</a></strong>
+    </p>
+</div>
+<div class="clearer"></div>
+<div id="footer">
+		<ul>
+			<li>
+				<a href="/watch/">Watch TV</a>
+					<ul>
+						<li><a href="/downloads/">Download Player</a></li>
+						<li><a href="/walkthrough/">Screenshots</a></li>
+						<li><a href="/walkthrough/">Walkthrough</a></li>
+					</ul>
+			</li>
+			<li>
+				<a href="/make/">Make TV</a>
+					<ul>
+						<li><a href="http://subscribe.getdemocracy.com/">1-Click Subscribe Buttons</li>
+						<li><a href="/broadcast/">Broadcast Machine</a></li>
+						<li><a href="/help/faq/index.php#05-02">FAQ: Channel Types</a></li>
+						<li><a href="/make/channel-guide/">Make a Channel</a></li>
+						<li><a href="/make/channel-examples.php">Examples of channels</a></li>
+						<li><a href="https://channelguide.participatoryculture.org">Channel Guide</a></li>
+
+					</ul>
+			</li>
+			<li>
+				<a href="/code/">Code</a>
+					<ul>
+						<li><a href="https://develop.participatoryculture.org/democracy/">Developer Center</a></li>
+						<li><a href="https://develop.participatoryculture.org/democracy/browser/trunk/tv/">Source Code</a></li>
+						<li><a href="https://develop.participatoryculture.org/democracy/report">Bug Tracker</a></li>
+						<li><a href="https://launchpad.net/products/democracy/trunk/+pots/democracyplayer">Translations</a></li>
+					</ul>
+			</li>
+			<li>
+				<a href="/help/">Help Center</a>
+					<ul>
+						<li><a href="/help/faq/#viewers">Viewer FAQ</a></li>
+						<li><a href="/help/faq/#creators">Creator FAQ</a></li>
+						<li><a href="http://forum.getdemocracy.com/">Discussion Forums</a></li>
+					</ul>
+			</li>
+			<li>
+				<a href="/about/">About Democracy</a>
+					<ul>
+						<li><a href="/news/">News / Blog</a></li>
+						<li><a href="/press/">Press</a></li>
+						<li><a href="/contact/">Contact</a></li>
+						<li><a href="/store/">Store</a></li>
+						<li><a href="/jobs/">Jobs</a></li>
+						<li><a href="https://secure.democracyinaction.org/dia/organizations/pcf/shop/custom.jsp?donate_page_KEY=1283&t=Democracy.dwt">Donate</a></li>
+					</ul>
+			</li>
+		</ul>
+		<p><br />Democracy is a project of the <a href="http://participatoryculture.org">Participatory Culture Foundation</a></p>
+		<div class="clearer"></div>
+		</div>
+		
+		<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+		</script>
+		<script type="text/javascript">
+		_uacct = "UA-163840-3";
+		urchinTracker();
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load channel_extras helper_extras note_extras %}
+
+{% block content %}
+<div class="unapproved-channel-list">
+<h1>{{ header }}</h1>
+<ul class="channel-list">
+  {% for channel in channels %}
+    <li>{% show_channel_full channel %}</li>
+  {% endfor %}
+</ul>
+{% show_pager pager %}
+</div>
+{% endblock %}
+

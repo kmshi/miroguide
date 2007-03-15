@@ -1,0 +1,16 @@
+{% load i18n channel_extras  helper_extras %}
+{% extends 'base.html' %}
+{% block content %}
+<div class="channel-list-page">
+<div class="recent-channel-list">
+<h1>{% trans "Recently Added" %}</h1>
+{% for group in channels_by_date %}
+    <h2 class="date">{{ group.date|date:"l, F j"}}</h2>
+    {% twocolumnloop with channel in group.channels %}
+        {% show_channel_in_list channel %}
+    {% endtwocolumnloop %}
+{% endfor %}
+    {% show_pager pager %}
+</div>
+</div>
+{% endblock %}

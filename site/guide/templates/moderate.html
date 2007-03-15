@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load channel_extras helper_extras note_extras i18n %}
+{% block content %}
+<div class="moderate-page">
+
+<div class="links">
+{% twocolumns %}
+<h2><a {% link "channels/unapproved/new" %}>
+        {% blocktrans with new_count as count %}
+        {{ count }} Unreviewed channels
+        {% endblocktrans %}</a>
+</h2>
+<h2><a {% link "channels/unapproved/dont-know" %}>
+        {% blocktrans with dont_know_count as count %}
+        {{ count }} Don't know channels
+        {% endblocktrans %}</a>
+</h2>
+<h2><a {% link "channels/unapproved/waiting" %}>
+        {% blocktrans with waiting_count as count %}
+        {{ count }} Channels waiting for Reply
+        {% endblocktrans %}</a>
+</h2>
+<h2><a {% link "channels/unapproved/rejected" %}>
+        {% blocktrans with rejected_count as count %}
+        {{ count }} Rejected channels
+        {% endblocktrans %}</a>
+</h2>
+{% splitcolumns %}
+<h2><a {% link "accounts/search" %}>{% trans "Search For Users" %}</a></h2>
+<h2><a {% link "accounts/moderators" %}>{% trans "Moderator list" %}</a></h2>
+{% endtwocolumns %}
+</div>
+
+<div class="posts">
+{% twocolumns %}
+    <h2 class="check-out">Latest Posts 
+    <a {% link "notes/moderator-board" %}>(go to board)</a>
+    </h2>
+    {% show_note_list latest_posts %}
+    <a {% link "notes/moderator-board" %}>See more posts</a>
+{% splitcolumns %}
+    <h2 class="check-out">Shared by Moderators</h2>
+    {% for channel in shared_channels %}
+    {% show_channel_in_list channel %}
+    {% endfor %}
+{% endtwocolumns %}
+</div>
+
+</div>
+{% endblock %}

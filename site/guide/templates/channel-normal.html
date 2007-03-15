@@ -1,0 +1,18 @@
+{% load helper_extras %}
+<div class="channel channel-normal">
+    <div class="channel-top">
+        <div class="channel-bottom">
+            <div class="channel-inner">
+                <div class="info small-buttons">
+                    <a {% link channel.get_subscription_url "action add" %}>Add</a>
+                    <a {% link channel.get_absolute_url "action info-button" %}>Details</a>
+                </div>
+                <div class="screenshot">
+                    {{ channel.thumb_120_80 }}
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <h3 class="title">{{ channel.name_as_link }}</h3>
+</div>

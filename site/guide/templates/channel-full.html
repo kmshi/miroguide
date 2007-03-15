@@ -1,0 +1,33 @@
+{% load helper_extras channel_extras %}
+<div class="channel channel-full">
+    {% twocolumns %}
+        <div class="screenshot">
+            {{ channel.thumb_370_247 }}
+        </div>
+    {% splitcolumns %}
+        <h1 class="title">
+            <a {% link channel.get_absolute_url %}>{{ channel.name }}</a>
+        </h1>
+        <ul>
+            <li class="description">{{ channel.description }}</li>
+            <li class="website">{{ channel.website_url|urlize }}</li>
+            <li>
+                <span class="categories">
+{% for cat in channel.categories %} {{ cat }} {% endfor %}
+                  </span>
+                <img class="category-tag-separator"
+                      src="{{ BASE_URL }}images/category-tag-separator.png" alt="">
+                  <span class="tags">
+{% for tag in channel.tags %} {{ tag.link }} {% endfor %}
+                  </span>
+            </li>
+            <li class="big-buttons">
+                <a {% link channel.get_subscription_url "action add" %}>Add Channel</a>
+                <div class="clear"></div>
+            </li>
+            {% if user.is_moderator %}
+                {% show_moderate_actions channel %}
+            {% endif %}
+        </ul>
+    {% endtwocolumns %}
+</div>

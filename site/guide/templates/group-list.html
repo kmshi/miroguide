@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load helper_extras %}
+{% block content %}
+<h1 class="group-list-name">{{ group_name }}</h1>
+<ul class="group-list">
+{% for group in groups %}
+  {% if group.channel_count %}
+  <li>{{ group.link }} <span class="channel-count">{{ group.channel_count}} Channels</span></li>
+  {% endif %}
+{% endfor %}
+</ul>
+{% endblock %}

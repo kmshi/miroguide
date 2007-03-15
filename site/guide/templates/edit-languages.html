@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>All Languages</h2>
+<UL>
+{% for language in languages %}
+    <LI>
+    {{ language }}
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <form class="inline" method="POST" action="{{BASE_URL}}languages/change_name">
+        <input type="hidden" name="id" value="{{ language.id }}">
+        <input name="name"> 
+        <input type="submit" value="change name">
+    </form>
+    <form class="inline" method="POST" action="{{BASE_URL}}languages/delete">
+        <input type="hidden" name="id" value="{{ language.id }}">
+        <input type="submit" value="delete">
+    </form>
+    </LI>
+{% endfor %}
+</UL>
+<BR>
+<HR>
+<BR>
+<h2>New Language</h2>
+<form method="POST" action="{{BASE_URL}}languages/add">
+    <input name="name"> <input type="submit" value="add">
+</form>
+{% endblock %}

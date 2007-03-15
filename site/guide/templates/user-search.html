@@ -1,0 +1,29 @@
+{% load helper_extras user %}
+{% extends 'base.html' %}
+{% block content %}
+<div class="user-search-page">
+
+{% if not query %}
+<h1>Search Users</h1>
+{% endif %}
+
+<form method="GET" action="{{BASE_URL}}accounts/search">
+    <input name="query" value="{{ query }}">
+    <input type="submit" value="search">
+</form>
+
+{% if query %}
+<h1 class="results-label">Results for "{{ query }}" </h1>
+{% endif %}
+
+<ul>
+    {% for result in results %}
+    <li>{% show_user result %}</li>
+    {% endfor %}
+</ul>
+
+{% if pager %}{% show_pager pager %}{% endif %}
+
+</div>
+{%endblock%}
+

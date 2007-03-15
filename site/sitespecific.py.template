@@ -1,0 +1,34 @@
+# Absolute path to the directory that holds media.
+# Example: "/home/media/media.lawrence.com/"
+MEDIA_ROOT = FILL ME IN
+
+# URL that handles the media served from MEDIA_ROOT.
+# Example: "http://media.lawrence.com"
+MEDIA_URL = FILL ME IN
+
+DATABASE_ENGINE = 'mysql'
+DATABASE_NAME = FILL ME IN
+DATABASE_USER = FILL ME IN
+DATABASE_PASSWORD = FILL ME IN
+DATABASE_HOST = FILL ME IN
+DATABASE_PORT = FILL ME IN
+
+# name to put on outgoing emails
+EMAIL_FROM = FILL ME IN
+EMAIL_ENABLED = False
+
+# Local time zone for this installation. All choices can be found here:
+# http://www.postgresql.org/docs/current/static/datetime-keywords.html#DATETIME-TIMEZONE-SET-TABLE
+# Example: US/Eastern
+TIME_ZONE = FILL ME IN
+
+# Make this unique, and don't share it with anybody.
+# Example: 'sdzqwb$$dw0ojx^i(^wkskp3c@xu4unq$qyzj2_5ng3d05a+74'
+SECRET_KEY = FILL ME IN
+
+TEMPLATE_DIRS = (
+    '/path/to/channelguide/templates',
+)
+
+# Added by PCF for the Channel guide.
+BASE_URL = FILL ME IN

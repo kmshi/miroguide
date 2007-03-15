@@ -1,0 +1,32 @@
+{% load i18n helper_extras %}
+{% extends 'base.html' %}
+{% block content %}
+<div class="login-page">
+
+{% if message %}<p class="message">{{ message }}</p>{% endif %}
+
+<div class="login-form big-form">
+    <h2>{% trans "Login" %}</h2>
+    <form method="POST" action="{{ BASE_URL }}accounts/login{% if next %}?next={{ next }}{% endif %}">
+        <input type="hidden" name="which-form" value="login">
+        {% show_form login_form %}
+        <input type="submit" class="submit" value="{% trans "Login" %} &gt;&gt;">
+    </form>
+</div>
+<div class="divider"></div>
+<h2>{% trans "Register" %}</h2>
+<p class="form-instructions">{% blocktrans %}Registering is free and just takes
+a few seconds.{% endblocktrans %}<BR>
+{% blocktrans %}Do you have a videobomb account?  If so, you are already
+registered, login above.{% endblocktrans %}</p>
+<div class="register-form big-form">
+    <form method="POST" action="{{ BASE_URL }}accounts/register{% if next %}?next={{ next }}{% endif %}">
+        <input type="hidden" name="which-form" value="register">
+        {% show_form register_form %}
+        <input type="submit" class="submit" value="{% trans "Register" %} &gt;&gt;">
+    </form>
+</div>
+
+</div>
+
+{% endblock %}
