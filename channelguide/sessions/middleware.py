@@ -7,6 +7,7 @@ from django.utils.cache import patch_vary_headers
 
 from models import Session
 from channelguide import util
+from channelguide.db import dbutil
 
 class CGSessionWrapper(SessionWrapper):
     def __init__(self, request):
@@ -47,7 +48,7 @@ class SessionMiddleware(object):
                     request.session.session_key)
             session.set_data(request.session._session)
             session.update_expire_date()
-            util.save_if_new(request.db_session, session)
+            dbutil.save_if_new(request.db_session, session)
             util.set_cookie(response, settings.SESSION_COOKIE_NAME,
                     session.session_key, settings.SESSION_COOKIE_AGE)
         return response
