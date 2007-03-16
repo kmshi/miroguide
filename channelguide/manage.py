@@ -192,7 +192,7 @@ del action_mapping['test']
 
 def add_static_urls():
     static_patterns = []
-    base_dir = os.path.abspath(os.path.join(__file__, '..', 'static'))
+    base_dir = os.path.abspath(os.path.join(__file__, '..', '..', 'static'))
     for dir in ('css', 'media', 'images', 'js'):
         static_patterns.append((r'^%s/(?P<path>.*)$' % dir, 
             'django.views.static.serve',
