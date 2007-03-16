@@ -480,6 +480,11 @@ li.blog-post .title {
     text-align: center;
 }
 
+.edit-languages-page .language-name {
+    min-width: 100px;
+    float: left;
+}
+
 .moderate-page .links {
     padding: 10px 0px;
     border-bottom: 1px solid #ccc;

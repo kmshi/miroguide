@@ -3,10 +3,9 @@ from django.http import Http404
 from sqlalchemy import desc
 
 from channelguide import util
-from channelguide.auth.decorators import moderator_required, login_required
-from channelguide.channels.models import Channel
-from channelguide.notes.models import ChannelNote, ModeratorPost
-from channelguide.templatehelpers import Pager
+from channelguide.guide.auth import moderator_required, login_required
+from channelguide.guide.models import Channel, ChannelNote, ModeratorPost
+from channelguide.guide.templateutil import Pager
 
 @login_required
 def add_note(request):
@@ -40,7 +39,7 @@ def moderator_board(request):
     posts = query.select(order_by=desc(ModeratorPost.c.created_at))
     pager =  Pager(5, posts, request)
 
-    return util.render_to_response(request, 'notes/moderator-board.html', {
+    return util.render_to_response(request, 'moderator-board.html', {
         'posts': pager.items,
         'pager': pager,
         })

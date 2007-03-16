@@ -1,7 +1,5 @@
-from channelguide.auth.models import User
+from channelguide.guide.models import User
 from channelguide.testframework import TestCase
-
-import models
 
 class LanguageTest(TestCase):
     def setUp(self):
@@ -24,7 +22,7 @@ class LanguageTest(TestCase):
 
     def get_languages_from_moderate_page(self):
         response = self.get_page("/languages/moderate")
-        return response.context[1]['languages']
+        return response.context[0]['languages']
 
     def check_language_names(self, language_list, *names):
         self.assertEquals(len(language_list), len(names))

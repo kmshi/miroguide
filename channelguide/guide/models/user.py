@@ -3,7 +3,7 @@ from channelguide.db import DBObject
 from channelguide.guide import tables
 from channelguide.guide.exceptions import AuthError
 
-class UserBase(DBObject):
+class UserBase(object):
     def check_is_authenticated(self):
         if not self.is_authenticated():
             raise AuthError("Moderator Access Required")
@@ -42,7 +42,7 @@ class AnonymousUser(UserBase):
     def is_supermoderator(self): return False
     def is_admin(self): return False
 
-class User(UserBase):
+class User(UserBase, DBObject):
     USER = 'U'
     MODERATOR = 'M'
     SUPERMODERATOR = 'S'

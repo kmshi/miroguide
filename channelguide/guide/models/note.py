@@ -1,11 +1,8 @@
-from sqlalchemy import mapper, backref, relation, object_session
-
 from channelguide import util
-from channelguide.auth.models import User
-from channelguide.channels.models import Channel
-import tables
+from channelguide.db import DBObject
+from user import User
 
-class NoteBase(object):
+class NoteBase(DBObject):
     def __init__(self, user, title, body):
         self.user = user
         self.title = title
@@ -25,8 +22,7 @@ class ModeratorPost(NoteBase):
         return util.make_absolute_url("notes/post-%d" % self.id)
 
     def send_email(self):
-        session = object_session(self)
-        query = session.query(User)
+        query = self.session().query(User)
         moderators = query.select(User.c.role.in_(*User.ALL_MODERATOR_ROLES))
         emails = [mod.email for mod in moderators]
         util.send_mail(self.title, self.body, emails)
@@ -58,13 +54,3 @@ class ChannelNote(NoteBase):
 
     def send_email(self):
         util.send_mail(self.title, self.body, self.channel.owner.email)
-
-mapper(ModeratorPost, tables.moderator_post, properties={
-        'user': relation(User, backref=backref('moderator_posts',
-            private=True)),
-        })
-
-mapper(ChannelNote, tables.channel_note, properties={
-        'channel': relation(Channel, backref=backref('notes', private=True)),
-        'user': relation(User, backref=backref('notes', private=True)),
-        })

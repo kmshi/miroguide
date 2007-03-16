@@ -109,21 +109,21 @@ class NavLinkNode(template.Node):
             css_class = None
         return util.make_link_attributes(self.relative_path, css_class)
 
-@register.inclusion_tag('templatehelpers/formbutton.html')
+@register.inclusion_tag('guide/formbutton.html')
 def formbutton(url, action, label=None):
     if label is None:
         label = action
     return {'url': url, 'action': action, 'label': label}
 
-@register.inclusion_tag('templatehelpers/form.html')
+@register.inclusion_tag('guide/form.html')
 def show_form(form):
     return {'form': form, 'BASE_URL': settings.BASE_URL }
 
-@register.inclusion_tag('templatehelpers/pager.html')
+@register.inclusion_tag('guide/pager.html')
 def show_pager(pager):
     return {'pager': pager}
 
-@register.inclusion_tag('templatehelpers/view-select.html')
+@register.inclusion_tag('guide/view-select.html')
 def show_view_select(view_select):
     return {'view_select': view_select}
 

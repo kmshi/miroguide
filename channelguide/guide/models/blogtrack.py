@@ -1,9 +1,7 @@
-from sqlalchemy import mapper
+from channelguide.db import DBObject
+from channelguide.guide import feedutil
 
-from channelguide.util import feedutil
-import tables
-
-class PCFBlogPost(object):
+class PCFBlogPost(DBObject):
     @staticmethod
     def from_feedparser_entry(entry):
         post = PCFBlogPost()
@@ -11,5 +9,3 @@ class PCFBlogPost(object):
         post.body = feedutil.to_utf8(entry.description)
         post.url = entry.link
         return post
-
-mapper(PCFBlogPost, tables.pcf_blog_post)

@@ -1,4 +1,4 @@
-from channelguide.auth.models import User
+from channelguide.guide.models import User
 from channelguide.testframework import TestCase
 
 class AccountTest(TestCase):
@@ -54,10 +54,10 @@ class ModerateUserTest(TestCase):
         self.login(self.adrian)
         response = self.get_page("/accounts/search", data={'query': 'yahoo'})
         self.assertLoginRedirect(response)
-        response = self.post_data("/accounts/user/%d" % self.bob.id, 
+        response = self.post_data("/accounts/%d" % self.bob.id, 
                 {'action': 'promote'})
         self.assertLoginRedirect(response)
-        response = self.post_data("/accounts/user/%d" % self.bob.id, 
+        response = self.post_data("/accounts/%d" % self.bob.id, 
                 {'action': 'demote'})
         self.assertLoginRedirect(response)
 
@@ -76,7 +76,7 @@ class ModerateUserTest(TestCase):
         self.check_search('blahblah') # no users should be returned
 
     def check_promote_demote(self, user, action, new_role):
-        self.post_data("/accounts/user/%d" % user.id, {'action': action})
+        self.post_data("/accounts/%d" % user.id, {'action': action})
         self.refresh_connection()
         self.db_session.refresh(user)
         self.assertEquals(user.role, new_role)

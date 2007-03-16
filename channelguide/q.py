@@ -10,12 +10,9 @@ Or you can add some test statements at the end of this file run "python q.py".
 import manage
 
 from sqlalchemy import *
-from channelguide.channels.models import *
 from channelguide import db
-from channelguide.auth.models import User
-
-from channelguide.channels.tables import *
-from channelguide.auth.tables import *
+from channelguide.guide.models import *
+from channelguide.guide.tables import *
 
 sess = create_session(db.engine)
 channels = sess.query(Channel).select(order_by=desc(Channel.c.modified))[:10]

@@ -1,3 +1,7 @@
+"""submitform.py.  Channel submission form.  This is fairly complicated, so
+it's split off into its own module.
+"""
+
 from urlparse import urljoin, urlparse
 import os
 import tempfile
@@ -7,11 +11,10 @@ from django.conf import settings
 import django.newforms as forms
 from django.newforms.forms import BoundField
 
-from channelguide.util import read_file, write_file
-from channelguide.util.djangoutil import (Form, WideCharField, WideURLField,
-        WideChoiceField)
-from channelguide.languages.models import Language
-from models import Category, Channel
+from channelguide import util
+from channelguide.guide.models import Language, Category, Channel
+from fields import WideCharField, WideURLField, WideChoiceField
+from form import Form
 
 class DBChoiceField(WideChoiceField):
     def update_choices(self):
@@ -73,7 +76,7 @@ class ChannelThumbnailWidget(forms.Widget):
         elif data.get(hidden_name):
             path = os.path.join(settings.MEDIA_ROOT, 'tmp',
                     data.get(hidden_name))
-            return read_file(path)
+            return util.read_file(path)
         else:
             return None
 
@@ -98,7 +101,7 @@ class ChannelThumbnailWidget(forms.Widget):
             os.makedirs(temp_dir)
         fd, path = tempfile.mkstemp(prefix='', dir=temp_dir, suffix=ext)
         os.close(fd)
-        write_file(path, content)
+        util.write_file(path, content)
         self.submitted_thumb_path = os.path.basename(path)
 
 def try_to_download_thumb(url):

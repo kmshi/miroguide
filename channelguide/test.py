@@ -70,10 +70,9 @@ def load_tests():
     loader = TestLoader()
     loader.suiteClass = OptionAwareTestLoader
     if parsed_args:
-        load_from_apps = ['channelguide.%s' % app for app in parsed_args]
+        names = ['channelguide.guide.tests.%s' % mod for mod in parsed_args]
     else:
-        load_from_apps = settings.INSTALLED_APPS
-    names = ['%s.tests' % app for app in load_from_apps]
+        names = ['channelguide.guide.tests']
     # if there's an import error, loadTestsFromNames doesn't give a good
     # traceback, force the issue here.
     for name in names:

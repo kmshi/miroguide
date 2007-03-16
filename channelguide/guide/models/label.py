@@ -3,6 +3,7 @@ categories which are defined by the moderaters and tags which are
 user-created.
 """
 
+from channelguide import util
 from channelguide.db import DBObject
 
 class Label(DBObject):

@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
 
-urlpatterns = patterns('channelguide.notes.views',
+urlpatterns = patterns('channelguide.guide.views.notes',
     (r'^new$', 'add_note'),
     (r'^(\d+)$', 'note'),
     (r'^moderator-board$', 'moderator_board'),

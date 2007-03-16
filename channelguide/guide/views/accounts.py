@@ -2,12 +2,11 @@ from django.http import HttpResponseRedirect
 from django.utils.translation import gettext as _
 import django.newforms as forms
 
-from channelguide.auth import logout, login
-from channelguide.auth.decorators import moderator_required
-from channelguide.auth.models import User
-from channelguide.templatehelpers import Pager
 from channelguide import util
-from forms import LoginForm, RegisterForm
+from channelguide.guide.auth import logout, login, moderator_required
+from channelguide.guide.forms import LoginForm, RegisterForm
+from channelguide.guide.models import User
+from channelguide.guide.templateutil import Pager
 
 def get_login_message(next_url):
     if next_url.startswith("channels/submit"):
@@ -38,7 +37,7 @@ def login_view(request):
     elif register_form.is_valid():
         login(request, register_form.clean_data['user'])
         return util.redirect(next)
-    return util.render_to_response(request, 'accounts/login.html', { 
+    return util.render_to_response(request, 'login.html', { 
         'next' : request.GET.get('next'),
         'login_form': login_form,
         'register_form': register_form,
@@ -96,12 +95,12 @@ def create_user(request):
         form = CreateUserForm(request.db_session, request.POST)
         if form.is_valid():
             form.save_user(request.db_session)
-            return util.redirect("accounts/after-create")
-    return util.render_to_response(request, 'accounts/create.html', 
+            return util.redirect("user/after-create")
+    return util.render_to_response(request, 'create.html', 
             {'form': form})
 
 def after_create(request):
-    return util.render_to_response(request, 'accounts/after_create.html')
+    return util.render_to_response(request, 'after_create.html')
 
 def user(request, id):
     query = request.db_session.query(User)
@@ -129,7 +128,7 @@ def search(request):
         pager =  Pager(10, select, request)
         results = pager.items
 
-    return util.render_to_response(request, 'accounts/search.html', {
+    return util.render_to_response(request, 'user-search.html', {
         'query': query,
         'pager': pager,
         'results': results,
@@ -140,7 +139,7 @@ def moderators(request):
     q = request.db_session.query(User, order_by=User.c.username)
     select = q.select().filter(User.c.role.in_(*User.ALL_MODERATOR_ROLES))
     pager =  Pager(15, select, request)
-    return util.render_to_response(request, 'accounts/moderators.html', {
+    return util.render_to_response(request, 'moderators.html', {
         'moderators': pager.items,
         'pager': pager,
     })

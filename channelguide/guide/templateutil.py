@@ -1,6 +1,10 @@
 """Helper classes for the templates"""
 
+from sqlalchemy import desc
+
 from urllib import urlencode
+from channelguide import util
+from channelguide.guide.models import Channel
 
 class Pager(object):
     """Handles splitting a large group of results into separate pages."""
@@ -136,3 +140,41 @@ class ViewSelect(object):
                 'is_current': (self.current_choice == choice),
                 'label': label
             }
+
+class OrderBySelect(ViewSelect):
+    view_choices = [
+            ('popular', _('Most Popular')),
+            ('date', _('Most Recent')),
+            ('alphabetical', _('A-Z')),
+    ]
+
+    def __init__(self, request, base_url):
+        self.base_url = base_url
+        super(OrderBySelect, self).__init__(request)
+
+def make_two_column_list(request, id, class_, header_string, join_path=None, 
+        join_clause=None):
+    """Handles making pages for tags/categories/languages."""
+
+    group = util.get_object_or_404(request.db_session.query(class_), id)
+    order_by = request.GET.get('view', 'popular')
+    query = request.db_session.query(Channel)
+    select = query.select_by(state=Channel.APPROVED)
+    if join_path:
+        select = select.filter(query.join_via(join_path))
+    if join_clause:
+        select = select.filter(join_clause)
+    select = select.filter(class_.c.id==id)
+    if order_by == 'alphabetical':
+        select = select.order_by(Channel.c.name)
+    elif order_by == 'popular':
+        select = select.order_by(desc(Channel.c.subscription_count))
+    else:
+        select = select.order_by(desc(Channel.c.modified))
+    pager =  Pager(8, select, request)
+    return util.render_to_response(request, 'two-column-list.html', {
+        'header': header_string % group, 
+        'pager': pager,
+        'order_select': OrderBySelect(request, group.get_absolute_url()),
+    })
+

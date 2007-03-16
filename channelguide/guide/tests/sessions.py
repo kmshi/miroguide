@@ -8,8 +8,8 @@ from sqlalchemy import create_session
 from channelguide.testframework import TestCase
 from channelguide import db
 from channelguide.db.middleware import DBMiddleware
-from middleware import SessionMiddleware
-from models import Session
+from channelguide.sessions.middleware import SessionMiddleware
+from channelguide.sessions.models import Session
 
 class SessionTest(TestCase):
     def test_session_exists(self):

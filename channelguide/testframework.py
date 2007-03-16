@@ -46,7 +46,7 @@ class TestCase(unittest.TestCase):
     """Base class for the channelguide unittests."""
 
     def setUp(self):
-        from channelguide.languages.models import Language
+        from channelguide.guide.models import Language
         self.connection = db.connect()
         self.db_session = create_session(bind_to=self.connection)
         self.log_filter = TestLogFilter()
@@ -133,7 +133,7 @@ class TestCase(unittest.TestCase):
         self.connection.execute("COMMIT")
 
     def make_user(self, username, password='password', role='U'):
-        from channelguide.auth.models import User
+        from channelguide.guide.models import User
         user = User(username, password)
         user.role = role
         user.email = "%s@pculture.org" % username
@@ -141,7 +141,7 @@ class TestCase(unittest.TestCase):
         return user
 
     def make_channel(self, owner):
-        from channelguide.channels.models import Channel
+        from channelguide.guide.models import Channel
         channel = Channel()
         channel.language = self.language
         channel.owner = owner
@@ -171,9 +171,13 @@ class TestCase(unittest.TestCase):
 
     def check_response(self, response):
         if response.status_code == 500:
+            if isinstance(response.context, list):
+                context = response.context[0]
+            else:
+                context = response.context
             trace = traceback.format_exception(
-                    response.context['exception_value'],
-                    response.context['exception_type'],
+                    context['exception_value'],
+                    context['exception_type'],
                     self.get_traceback_from_response(response))
             trace = '\n'.join(trace)
             raise ValueError("Got 500 status code.  Traceback:\n\n%s" % trace)

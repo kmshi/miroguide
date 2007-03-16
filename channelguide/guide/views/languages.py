@@ -1,26 +1,25 @@
-from channelguide.auth.decorators import moderator_required
 from channelguide import util
-from models import Language
-
-from channelguide.channels.views import make_two_column_list
-from channelguide.channels.tables import language_join
-
+from channelguide.guide.auth import moderator_required
+from channelguide.guide.models import Language, Channel
+from channelguide.guide.templateutil import make_two_column_list
 
 def index(request):
     q = request.db_session.query(Language)
-    return util.render_to_response(request, 'channels/group-list.html', {
+    return util.render_to_response(request, 'group-list.html', {
         'group_name': _('Channels by Language'),
         'groups': q.select(order_by=Language.c.name),
     })
 
 def view(request, id):
+    q = request.db_session.query(Channel)
+    join_clause = q.join_to('language') | q.join_to('secondary_languages')
     return make_two_column_list(request, id, Language, _('Language: %s'),
-            join_clause=language_join)
+            join_clause=join_clause)
 
 @moderator_required
 def moderate(request):
     query = request.db_session.query(Language, order_by='name')
-    return util.render_to_response(request, 'languages/moderate.html', {
+    return util.render_to_response(request, 'edit-languages.html', {
         'languages': query.select().list(),
     })
 

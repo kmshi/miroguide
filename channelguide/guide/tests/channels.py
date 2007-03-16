@@ -4,14 +4,12 @@ import os
 from django.conf import settings
 from sqlalchemy import desc
 
-from models import Channel, Category, Tag, Item
-from channelguide.auth.models import User
-from channelguide.languages.models import Language
+from channelguide.guide.models import Channel, Category, Tag, Item, User, Language
 from channelguide.testframework import TestCase
 from channelguide.util import read_file, random_string
 
 def test_data_path(filename):
-    return os.path.join('channels', 'test_data', filename)
+    return os.path.join(os.path.dirname(__file__), 'data', filename)
 
 def test_data_url(filename):
     return 'file://' + os.path.abspath(test_data_path(filename))
@@ -205,8 +203,8 @@ class ChannelItemTest(ChannelTestBase):
         channel.state = Channel.APPROVED
         non_active = self.make_channel()
         channel.categories.append(foo)
-        #non_active.categories.append(bar)
-        self.save_to_db(channel, non_active)
+        non_active.categories.append(bar)
+        self.save_to_db(channel, non_active, foo, bar)
         self.db_session.refresh(foo)
         self.db_session.refresh(bar)
         test(foo, 1)
@@ -272,8 +270,7 @@ class SubmitChannelTest(TestCase):
 
     def check_submit_url_failed(self, response):
         self.assertEquals(response.status_code, 200)
-        self.assertEquals(response.template[0].name,
-                'channels/submit-feed.html')
+        self.assertEquals(response.template[0].name, 'guide/submit-feed.html')
 
     def check_submit_url_worked(self, response):
         self.assertEquals(response.status_code, 302)
@@ -282,7 +279,7 @@ class SubmitChannelTest(TestCase):
 
     def check_submit_failed(self, response):
         self.assertEquals(response.status_code, 200)
-        self.assertEquals(response.template[0].name, 'channels/submit.html')
+        self.assertEquals(response.template[0].name, 'guide/submit.html')
 
     def check_submit_worked(self, response, thumb_name='thumbnail.jpg'):
         self.assertEquals(response.status_code, 302)

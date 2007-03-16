@@ -1,0 +1,81 @@
+{% load i18n cg_helpers %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>Democracy</title>
+    <meta name="author" content="author" lang="en"/>
+    <meta name="copyright" content="Copyright 2006"/>     
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta name="robots" content="index,follow"/>
+    <meta name="revisit-after" content="14 days"/>
+    <meta http-equiv="imagetoolbar" content="no"/>  
+    <meta name="language" content="en"/>
+    <link rel="StyleSheet" type="text/css" href="{{ BASE_URL }}css/screen.css">
+    <script src="{{ BASE_URL}}js/channelguide.js" type="text/javascript" language="JavaScript"></script>
+{% block head-extra %}{% endblock %}
+</head>
+<body onload="{% block onload-extra %}{% endblock%}">
+    <div id="accessability">
+      <a href="#content">Skip to content</a>
+    </div>
+    <div id="navigation">
+        <div class="links">
+            <ul class="quick-links">
+                <li class="previous"><a href="#" onclick="history.back(); return false;" ><span class="hidden">Previous</span></a></li>
+                <li class="next"><a href="#" onclick="history.forward(); return false;" ><span class="hidden">Next</span></a></li>
+            </ul>
+            <ul class="main-navigation">
+                <li><a {% navlink "" %}>{% trans "Front Page" %}</a></li>
+                <li><a {% navlink "channels/by-name" %}>{% trans "A - Z" %}</a></li>
+                <li><a {% navlink "categories/" %}>{% trans "Categories" %}</a></li>
+                <li><a {% navlink "channels/recent" %}>{% trans "Recent" %}</a></li>
+                <li><a {% navlink "channels/features" %}>{% trans "Featured" %}</a></li>
+                <li><a {% navlink "channels/popular" %}>{% trans "Popular" %}</a></li>
+                <li><a {% navlink "tags/" %}>{% trans "Tags" %}</a></li>
+                <li><a {% navlink "languages/" %}>{% trans "Languages" %}</a></li>
+                {% if not user.is_authenticated %}
+                <li><a {% navlink "accounts/login" %}>{% trans "Login" %}</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <img id="load-indicator" src="{{ BASE_URL }}images/load-indicator.gif">
+    </div>
+    <div id="page">
+        {% if user.is_authenticated %}
+        <div id="account-bar">
+            <div class="right">
+                {{ user }}
+                {% if user.is_moderator %}
+                <a {% link "moderate" %}>{% trans "moderate" %}</a>
+                {% endif %}
+                <a {% link "accounts/logout" %}>{% trans "logout" %}</a>
+            </div>
+            <div class="left">
+                {% if user.channels %}
+                <a {% link user.channel_url %}>{% trans "My Submitted Channels" %}</a>
+                {% endif %}
+                <a {% link "channels/submit" %}>{% trans "Submit A Channel" %}</a>
+            </div>
+        </div>
+        {% endif %}
+        <div id="top-bar">
+            <h2 class="tagline">Over 1,000 channels, all free.</h2>
+            <form action="{{ BASE_URL }}search" onclick="showLoadIndicator();" method="get" id="search-form">
+                <label class="hidden" for="search-text">Search</label>
+                <input type="text" name="query" value="{{ search_query }}" id="search-text" >
+                <input type="submit" id="search-submit" value="Search Channels" >
+            </form>
+        </div>
+        <div id="content-top">
+        <div id="content-bottom">
+        <div id="content">
+            {% block content %}{% endblock %}
+            <div class="clear"></div>
+        </div>
+        </div>
+        </div>
+    </div>
+</body>
+</html>

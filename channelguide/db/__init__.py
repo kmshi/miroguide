@@ -9,7 +9,8 @@ import hacks
 import os
 import re
 
-from sqlalchemy import create_engine, create_session, BoundMetaData
+from sqlalchemy import (create_engine, create_session, BoundMetaData,
+        object_session, class_mapper)
 from sqlalchemy.engine.url import URL
 from django.conf import settings
 # NOTE: this next imports configures sqlalchemy to use the SelectResults 
@@ -17,7 +18,7 @@ from django.conf import settings
 # http://www.sqlalchemy.org/docs/plugins.myt#plugins_selectresults
 import sqlalchemy.mods.selectresults
 
-from channelguide.util import read_file
+from channelguide import util
 import version
 import update
 
@@ -50,32 +51,17 @@ def syncdb(bind_to=None):
 def execute_file(path):
     empty_re = re.compile(r'\s*$')
     comment_re = re.compile(r'\s*--')
-    for statement in read_file(path).split(';'):
+    for statement in util.read_file(path).split(';'):
         if not (empty_re.match(statement) or comment_re.match(statement)):
             engine.execute(statement)
 
-def add_aggregate_column(function, from_obj, *filters):
-    """Add a column that is a scalar subquery column to a select statement.
+class DBObject(object):
+    def session(self):
+        return object_session(self)
 
-    Arguments:
+    @classmethod
+    def mapper(cls):
+        return class_mapper(cls)
 
-    function -- aggregate function to use
-    from_obj -- from_obj to perform the subquery on.  
-    """
-    subquery = select([function], from_obj=from_obj, scalar=True)
-    for filter in filters:
-        select.append_whereclause(filter)
-    return select
-
-    if defaultwhereclause:
-        for col in table.col:
-            for fk in col.foreign_keys:
-                if fk.references(primary):
-                    crit.append(primary.corresponding_column(fk.column) == fk.parent)
-                    constraints.add(fk.constraint)
-                    self.foreignkey = fk.parent
-
-    pass
-
-def count_column(table, whereclauseextra=None):
-    pass
+    def connection(self):
+        return self.session().connection(self.mapper())

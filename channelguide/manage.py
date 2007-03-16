@@ -192,13 +192,13 @@ del action_mapping['test']
 
 def add_static_urls():
     static_patterns = []
-    base_dir = os.path.abspath(os.path.join(__file__, '..', '..', 'static'))
+    base_dir = os.path.abspath(os.path.join(__file__, '..', 'static'))
     for dir in ('css', 'media', 'images', 'js'):
         static_patterns.append((r'^%s/(?P<path>.*)$' % dir, 
             'django.views.static.serve',
             {'document_root': os.path.join(base_dir, dir)}))
-    from channelguide import urls
-    urls.urlpatterns.extend(patterns ('', *static_patterns))
+    from channelguide.guide.urls import root
+    root.urlpatterns.extend(patterns ('', *static_patterns))
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG,

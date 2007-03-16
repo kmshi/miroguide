@@ -1,11 +1,8 @@
 from django.test.client import Client
 
-from channelguide.auth.models import User
-from channelguide.channels.models import Channel
+from channelguide.guide.models import User, Channel, ChannelNote, ModeratorPost
 from channelguide.testframework import TestCase
-
-from models import ChannelNote, ModeratorPost
-from util import get_note_info
+from channelguide.guide.notes import get_note_info
 
 class NotesTest(TestCase):
     def setUp(self):

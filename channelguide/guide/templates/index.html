@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load channel_extras helper_extras i18n %}
+{% load channels cg_helpers i18n %}
 
 {% block head-extra %}
     <script src="{{ BASE_URL}}js/feature_rotate.js" type="text/javascript" language="JavaScript"></script>
@@ -23,7 +23,7 @@
     <h2>{% trans "Random Category" %}</h2>
     <div id="category-peek">
         {% if category_peek %}
-        {% include "channels/category-peek.html" %}
+        {% include "guide/category-peek.html" %}
         {% endif %}
     </div>
 {% splitcolumns %}

@@ -1,8 +1,14 @@
+import urllib2
+
 from django import newforms as forms
 from django.utils.translation import gettext as _
 
-from channelguide.auth.models import User
-from channelguide.util.djangoutil import Form, WideCharField
+from channelguide.guide.models import User, Channel
+from channelguide.lib import feedparser
+from channelguide.guide.feedutil import to_utf8
+from fields import WideCharField
+from form import Form
+from submitform import SubmitChannelForm
 
 class UsernameField(WideCharField):
     def clean(self, value):
@@ -56,14 +62,6 @@ class RegisterForm(Form):
         self.db_session.save(user)
         self.clean_data['user'] = user
         return Form.clean(self)
-import django.newforms as forms
-import urllib2
-from django.utils.translation import gettext as _
-
-from channelguide.lib import feedparser
-from channelguide.util.feedutil import to_utf8
-from channelguide.util.djangoutil import Form, WideCharField
-from models import Channel
 
 class RSSFeedField(WideCharField):
     def clean(self, value):

@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
 
-urlpatterns = patterns('channelguide.channels.views',
+urlpatterns = patterns('channelguide.guide.views.channels',
     (r'^submitted_thumbnails/(\d+)$', 'submitted_thumbnail'),
     (r'^(\d+)$', 'channel'),
     (r'^popular$', 'popular'),

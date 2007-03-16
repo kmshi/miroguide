@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="edit-languages-page">
 <h2>All Languages</h2>
 <UL>
 {% for language in languages %}
     <LI>
-    {{ language }}
+    <div class="language-name">{{ language }}</div>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <form class="inline" method="POST" action="{{BASE_URL}}languages/change_name">
         <input type="hidden" name="id" value="{{ language.id }}">
@@ -25,4 +26,5 @@
 <form method="POST" action="{{BASE_URL}}languages/add">
     <input name="name"> <input type="submit" value="add">
 </form>
+</div>
 {% endblock %}

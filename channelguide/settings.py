@@ -1,6 +1,8 @@
 # Django settings for channelguide project.
 
 # sitespecific.py stores all server specific data. 
+import os
+
 from sitespecific import *
 from urlparse import urlparse
 
@@ -37,26 +39,23 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'channelguide.db.middleware.DBMiddleware',
     'channelguide.sessions.middleware.SessionMiddleware',
-    'channelguide.auth.middleware.UserMiddleware',
+    'channelguide.guide.middleware.UserMiddleware',
 )
 
-ROOT_URLCONF = 'channelguide.urls'
+ROOT_URLCONF = 'channelguide.guide.urls.root'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.debug",
     "django.core.context_processors.i18n",
-    "channelguide.util.djangoutil.context_processor",
+    "channelguide.context_processors.guide",
 )
 
 INSTALLED_APPS = (
-    'channelguide.accounts',
-    'channelguide.auth',
-    'channelguide.languages',
-    'channelguide.channels',
-    'channelguide.db',
-    'channelguide.notes',
-    'channelguide.templatehelpers',
-    'channelguide.sessions',
+    'channelguide.guide',
+)
+
+TEMPLATE_DIRS = (
+    os.path.abspath(os.path.join(os.path.dirname(__file__), 'templates')),
 )
 
 # Channelguide specific settings...

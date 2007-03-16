@@ -1,10 +1,7 @@
-from sqlalchemy import mapper, and_, select, func
-
-import tables as t
-from channelguide.channels.tables import channel, secondary_language_map
 from channelguide import util
+from channelguide.db import DBObject
 
-class Language(object):
+class Language(DBObject):
     """Languages are names for the different languages a channel can be in.
     NOTE: we purposely don't associate languages with ISO codes.  ISO codes
     are for written language, which is distinct from spoken language.
@@ -30,15 +27,3 @@ class Language(object):
 
     def __repr__(self):
         return '%s(%r)' % (self.__class__.__name__, self.name)
-
-language_select = select([t.language,
-    util.count_subquery('channel_count_primary', channel,
-        channel.c.state == 'A'),
-    select([func.count('*')], 
-        and_(secondary_language_map.c.language_id == t.language.c.id,
-            channel.c.state == 'A'),
-        from_obj=[secondary_language_map.join(channel)], scalar=True
-        ).label('channel_count_secondary'),
-    ])
-
-mapper(Language, language_select.alias())

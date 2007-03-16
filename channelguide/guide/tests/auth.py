@@ -1,8 +1,8 @@
 import os
 
 from channelguide import db
-from channelguide.auth import login, logout, SESSION_KEY
-from channelguide.channels.models import Channel
+from channelguide.guide.auth import login, logout, SESSION_KEY
+from channelguide.guide.models import Channel
 from channelguide.testframework import TestCase
 from channelguide.util import read_file, hash_string
 
