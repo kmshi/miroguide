@@ -109,32 +109,27 @@ def all_channel_iterator_threaded(progress_string, flush_every_x_channels,
         worker.join()
     pprinter.loop_done()
 
-def refresh_thumbnails(args):
-    "Create any missing channel thumbnails."""
-    from channelguide import db
-    from channelguide.guide.models import Channel
-    db_session = create_session(bind_to=db.engine)
-    overwrite = False
+def update_thumbnails(args):
+    "Update channel thumbnails."""
+    redownload = overwrite = False
     sizes = []
     for arg in args[2:]:
         if arg in ('-o', '--overwrite'):
             overwrite = True
+        elif arg in ('-r', '--redownload'):
+            redownload = True
         else:
             sizes.append(arg)
     if sizes == []:
         sizes = None
-    channels = db_session.query(Channel).select().list()
-    pprinter = util.ProgressPrinter("refreshing thumbnails", len(channels))
-    for channel in channels:
+    def callback(channel):
         try:
-            channel.refresh_thumbnails(overwrite, sizes)
-            db_session.flush([channel])
+            channel.update_thumbnails(overwrite, redownload, sizes)
         except:
-            logging.warn("Error refreshing thumbnails for channel %d (%s)" %
-                    (channel.id, channel.name))
-        pprinter.iteration_done()
-    pprinter.loop_done()
-refresh_thumbnails.args = '[size] [--overwrite]'
+            print "\nError updating thumbnails for %s\n\n%s\n" % \
+                    (channel, traceback.format_exc())
+    all_channel_iterator_threaded("updating thumbnails", 40, callback)
+update_thumbnails.args = '[size] [--overwrite]'
 
 def update_items(args):
     """Update the items for each channel."""
@@ -148,11 +143,11 @@ def update_items(args):
 update_items.args = ''
 
 
-def refresh_search_data(args):
+def update_search_data(args):
     "Update the search data for each channel."
     for channel in all_channel_iterator("updating search data", 10):
-        channel.refresh_search_data()
-refresh_search_data.args = ''
+        channel.update_search_data()
+update_search_data.args = ''
 
 def fix_utf8_strings(args):
     "Update the search data for each channel."
@@ -204,8 +199,8 @@ del action_mapping['validate']
 
 action_mapping['syncdb'] = syncdb
 action_mapping['convert_old_data'] = convert_old_data
-action_mapping['refresh_thumbnails'] = refresh_thumbnails
-action_mapping['refresh_search_data'] = refresh_search_data
+action_mapping['update_thumbnails'] = update_thumbnails
+action_mapping['update_search_data'] = update_search_data
 action_mapping['fix_utf8_strings'] = fix_utf8_strings
 action_mapping['update_items'] = update_items
 action_mapping['drop_channel_data'] = drop_channel_data

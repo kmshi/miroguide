@@ -24,8 +24,10 @@ class Item(DBObject, Thumbnailable, FullTextSearchable):
         url = self.thumb_url(108, 81)
         return '<img width="108" height="81" src="%s" alt="%s">' % (url, self.name)
 
-    def download_thumbnail(self):
-        if self.thumbnail_url is not None and not self.thumbnail_exists():
+    def download_thumbnail(self, redownload=False):
+        if self.thumbnail_url is None:
+            return
+        if not self.thumbnail_exists() or redownload:
             util.ensure_dir_exists(settings.IMAGE_DOWNLOAD_CACHE_DIR)
             cache_path = os.path.join(settings.IMAGE_DOWNLOAD_CACHE_DIR,
                     util.hash_string(self.thumbnail_url))
