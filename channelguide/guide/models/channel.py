@@ -8,7 +8,7 @@ from sqlalchemy import select
 
 from channelguide.db import DBObject
 from channelguide import util
-from channelguide.guide import feedutil, tables
+from channelguide.guide import feedutil, tables, exceptions
 from channelguide.guide.thumbnail import Thumbnailable
 from channelguide.lib import feedparser
 
@@ -132,10 +132,21 @@ class Channel(DBObject, Thumbnailable, FullTextSearchable):
         for item in self.items:
             feedutil.fix_utf8_strings(item)
 
-    def update_items(self, db_session, feedparser_input=None):
+    def update_items(self, feedparser_input=None):
         try:
             if feedparser_input is None:
-                parsed = feedparser.parse(self.url)
+                parsed = feedparser.parse(self.url,
+                        modified=self.feed_modified,
+                        etag=self.feed_etag)
+                if hasattr(parsed, 'status') and parsed.status == 304:
+                    return
+                if hasattr(parsed, 'modified'):
+                    if (self.feed_modified is not None and 
+                            parsed.modified <= self.feed_modified):
+                        return
+                    self.feed_modified = parsed.modified
+                if hasattr(parsed, 'etag'):
+                    self.feed_etag = parsed.etag
             else:
                 parsed = feedparser.parse(feedparser_input)
         except:
@@ -148,19 +159,18 @@ class Channel(DBObject, Thumbnailable, FullTextSearchable):
                     continue
                 try:
                     items.append(Item.from_feedparser_entry(entry))
-                except ValueError, e:
+                except exceptions.EntryMissingDataError:
+                    pass
+                except exceptions.FeedparserEntryError, e:
                     logging.warn("Error converting feedparser entry: %s (%s)" 
                             % (e, self))
-            self._replace_items(db_session, items)
-            db_session.flush(self.items)
-            for item in self.items:
-                item.download_thumbnail()
-            db_session.flush(self.items)
+            self._replace_items(items)
 
-    def _replace_items(self, db_session, items):
+    def _replace_items(self, items):
         """Replace the items currently in the channel with a new list of
         items."""
 
+        db_session = self.session()
         for i in self.items:
             db_session.delete(i)
         for i in items:

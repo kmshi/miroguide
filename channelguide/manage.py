@@ -17,6 +17,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'channelguide.settings'
 import itertools
 import logging
 import threading
+import traceback
 import Queue
 
 from django.conf.urls.defaults import patterns
@@ -43,10 +44,75 @@ def convert_old_data(args):
     convert_old_data(args[2], args[3])
 convert_old_data.args = '<videobomb db name> <channelguide db name>'
 
+def all_channel_iterator(progress_string, flush_every_x_channels):
+    """Helper method to iterate over all channels.  It will yield each channel
+    in order, and print progress info."""
+
+    from channelguide import db
+    from channelguide.guide.models import Channel
+
+    db_session = create_session(bind_to=db.engine)
+    query = db_session.query(Channel).options(eagerload('items'))
+    pprinter = util.ProgressPrinter(progress_string, query.count())
+    count = itertools.count()
+    print "fetching channels..."
+    results = query.select()
+    for channel in results:
+        yield channel
+        if count.next() % flush_every_x_channels == 0:
+            db_session.flush()
+            db_session.clear()
+        pprinter.iteration_done()
+    pprinter.loop_done()
+    db_session.flush()
+
+def all_channel_iterator_threaded(progress_string, flush_every_x_channels,
+        worker_callback, thread_count=10):
+    """Helper method to iterate over all channels.  It works like
+    all_channel_iterator, but instead of yielding channels it creates
+    a group of threads.  worker_callback is called for each channel in the DB.
+    """
+    from channelguide import db
+    from channelguide.guide.models import Channel
+
+    connection = db.connect()
+    db_session = create_session(bind_to=connection)
+    query = db_session.query(Channel).options(eagerload('items'))
+    channel_queue = Queue.Queue()
+    print "fetching channels..."
+    for channel in query.select():
+        channel_queue.put(channel.id)
+    pprinter = util.ProgressPrinter(progress_string, query.count())
+    connection.close()
+    class WorkerThread(threading.Thread):
+        def __init__(self):
+            threading.Thread.__init__(self)
+            self.db_session = create_session(bind_to=db.engine)
+        def run(self):
+            count = itertools.count()
+            while True:
+                try:
+                    id = channel_queue.get(block=False)
+                except Queue.Empty:
+                    break
+                else:
+                    channel = self.db_session.get(Channel, id)
+                    worker_callback(channel)
+                    if count.next() % flush_every_x_channels == 0:
+                        self.db_session.flush()
+                        self.db_session.clear()
+                    pprinter.iteration_done()
+    workers = [WorkerThread() for i in range(thread_count)]
+    for worker in workers:
+        worker.start()
+    for worker in workers:
+        worker.join()
+    pprinter.loop_done()
+
 def refresh_thumbnails(args):
     "Create any missing channel thumbnails."""
     from channelguide import db
-    from channelguide.channels.models import Channel
+    from channelguide.guide.models import Channel
     db_session = create_session(bind_to=db.engine)
     overwrite = False
     sizes = []
@@ -71,59 +137,16 @@ def refresh_thumbnails(args):
 refresh_thumbnails.args = '[size] [--overwrite]'
 
 def update_items(args):
-    "Update the items in each channel."""
-    from channelguide import db
-    from channelguide.channels.models import Channel
-    channel_queue = Queue.Queue()
-    db_session = create_session(bind_to=db.engine)
-    q = db_session.query(Channel)
-    for channel in q.select(order_by=desc('creation_time')):
-        channel_queue.put(channel.id)
-    db_session.close()
-    pprinter = util.ProgressPrinter("refreshing items", channel_queue.qsize())
-    class WorkerThread(threading.Thread):
-        def __init__(self):
-            threading.Thread.__init__(self)
-            self.db_session = create_session(bind_to=db.engine)
-        def run(self):
-            while True:
-                try:
-                    id = channel_queue.get(block=False)
-                except Queue.Empty:
-                    break
-                else:
-                    channel = self.db_session.get(Channel, id)
-                    try:
-                        channel.update_items(self.db_session)
-                    except:
-                        print "\nError updating items for %s" % channel
-                    pprinter.iteration_done()
-    workers = [WorkerThread() for i in range(10)]
-    for worker in workers:
-        worker.start()
-    for worker in workers:
-        worker.join()
-    pprinter.loop_done()
+    """Update the items for each channel."""
+    def callback(channel):
+        try:
+            channel.update_items()
+        except:
+            print "\nError updating items for %s\n\n%s\n" % \
+                    (channel, traceback.format_exc())
+    all_channel_iterator_threaded("updating items", 40, callback)
 update_items.args = ''
 
-def all_channel_iterator(progress_string, flush_every_x_channels):
-    from channelguide import db
-    from channelguide.channels.models import Channel
-
-    db_session = create_session(bind_to=db.engine)
-    query = db_session.query(Channel).options(eagerload('tags'),
-            eagerload('categories'), eagerload('secondary_languages'))
-    pprinter = util.ProgressPrinter(progress_string, query.count())
-    count = itertools.count()
-    print "fetching channels..."
-    results = query.select()
-    for channel in results:
-        yield channel
-        if count.next() % flush_every_x_channels == 0:
-            db_session.flush()
-        pprinter.iteration_done()
-    pprinter.loop_done()
-    db_session.flush()
 
 def refresh_search_data(args):
     "Update the search data for each channel."

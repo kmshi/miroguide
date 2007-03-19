@@ -77,3 +77,7 @@ TEMPLATE_DIRS = ( TEMPLATE_DIR, ) # to make django happy
 # Channelguide specific settings...
 SUBSCRIBE_URL = 'http://subscribe.getdemocracy.com/?url1=%(url)s'
 BASE_URL_PATH = urlparse(BASE_URL)[2]
+SOCKET_TIMEOUT = 10
+
+import socket
+socket.setdefaulttimeout(SOCKET_TIMEOUT)

@@ -1,0 +1,2 @@
+ALTER TABLE cg_channel ADD COLUMN feed_modified DATETIME NULL;
+ALTER TABLE cg_channel ADD COLUMN feed_etag VARCHAR(255) NULL;

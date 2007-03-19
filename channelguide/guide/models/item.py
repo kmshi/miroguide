@@ -6,9 +6,8 @@ from django.conf import settings
 
 from channelguide import util
 from channelguide.db import DBObject
-from channelguide.guide import feedutil
+from channelguide.guide import feedutil, exceptions
 from channelguide.guide.thumbnail import Thumbnailable
-from channelguide.guide.exceptions import FeedparserEntryError
 from search import FullTextSearchable, ItemSearchData
 
 class Item(DBObject, Thumbnailable, FullTextSearchable):
@@ -45,11 +44,12 @@ class Item(DBObject, Thumbnailable, FullTextSearchable):
     def from_feedparser_entry(entry):
         enclosure = feedutil.get_first_video_enclosure(entry)
         if enclosure is None:
-            raise FeedparserEntryError("No video enclosure")
+            raise exceptions.FeedparserEntryError("No video enclosure")
         rv = Item()
         try:
             rv.name = feedutil.to_utf8(entry['title'])
             rv.url = feedutil.to_utf8(enclosure['url'])
+            rv.mime_type = feedutil.to_utf8(enclosure['type'])
             try:
                 rv.desciption = feedutil.to_utf8(enclosure['text'])
             except KeyError:
@@ -60,16 +60,19 @@ class Item(DBObject, Thumbnailable, FullTextSearchable):
                     # entry['description'] and it isn't present a feedparser
                     # raises a TypeError instead of a KeyError
                     raise KeyError('description')
-            rv.mime_type = feedutil.to_utf8(enclosure['type'])
         except KeyError, e:
-            raise FeedparserEntryError("Missing required data: %s" %
-                    e.args[0])
+            raise exceptions.EntryMissingDataError(e.args[0])
         try:
             rv.size = feedutil.to_utf8(enclosure['length'])
         except KeyError:
             rv.size = None
         try:
-            rv.date = datetime(*entry['updated_parsed'][:6])
+            updated_parsed = entry['updated_parsed']
+            if updated_parsed is None:
+                # I think this is a feedparser bug, if you can't parse the
+                # updated time, why set the attribute?
+                raise KeyError('updated_parsed')
+            rv.date = datetime(*updated_parsed[:6])
         except KeyError:
             rv.date = None
         rv.thumbnail_url = feedutil.get_thumbnail_url(entry)
