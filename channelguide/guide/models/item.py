@@ -1,6 +1,10 @@
 from datetime import datetime
+import os
 import urllib2
 
+from django.conf import settings
+
+from channelguide import util
 from channelguide.db import DBObject
 from channelguide.guide import feedutil
 from channelguide.guide.thumbnail import Thumbnailable
@@ -22,13 +26,20 @@ class Item(DBObject, Thumbnailable, FullTextSearchable):
         return '<img width="108" height="81" src="%s" alt="%s">' % (url, self.name)
 
     def download_thumbnail(self):
-        if self.thumbnail_url is not None:
-            try:
-                image_data = urllib2.urlopen(self.thumbnail_url).read()
-            except urllib2.URLError, ValueError:
-                pass
+        if self.thumbnail_url is not None and not self.thumbnail_exists():
+            util.ensure_dir_exists(settings.IMAGE_DOWNLOAD_CACHE_DIR)
+            cache_path = os.path.join(settings.IMAGE_DOWNLOAD_CACHE_DIR,
+                    util.hash_string(self.thumbnail_url))
+            if os.path.exists(cache_path):
+                image_data = util.read_file(cache_path)
             else:
-                self.save_thumbnail(image_data)
+                try:
+                    image_data = urllib2.urlopen(self.thumbnail_url).read()
+                except urllib2.URLError, ValueError:
+                    return
+                else:
+                    util.write_file(cache_path, image_data)
+            self.save_thumbnail(image_data)
 
     @staticmethod
     def from_feedparser_entry(entry):

@@ -76,6 +76,8 @@ class TestCase(unittest.TestCase):
         self.connection.close()
         if os.path.exists(settings.MEDIA_ROOT):
             shutil.rmtree(settings.MEDIA_ROOT)
+        if os.path.exists(settings.IMAGE_DOWNLOAD_CACHE_DIR):
+            shutil.rmtree(settings.IMAGE_DOWNLOAD_CACHE_DIR)
 
     def assertSameSet(self, iterable1, iterable2):
         self.assertEquals(set(iterable1), set(iterable2))

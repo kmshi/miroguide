@@ -6,6 +6,7 @@ from urllib import quote, urlopen
 from urlparse import urlparse
 import Queue
 import md5
+import os
 import random
 import re
 import string
@@ -243,3 +244,7 @@ def flatten(*args):
                 yield i
         else: 
             yield obj
+
+def ensure_dir_exists(dir):
+    if not os.path.exists(dir):
+        os.makedirs(dir)

@@ -1,4 +1,3 @@
-# Django settings for channelguide project.
 
 # sitespecific.py stores all server specific data. 
 import os
@@ -52,11 +51,28 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 INSTALLED_APPS = (
     'channelguide.guide',
+    'channelguide.db',
+    'channelguide.sessions',
 )
 
-TEMPLATE_DIRS = (
-    os.path.abspath(os.path.join(os.path.dirname(__file__), 'templates')),
-)
+# URLs
+
+MEDIA_URL = BASE_URL + "media/"
+IMAGES_URL = BASE_URL + "images/"
+
+# directories
+SITE_DIR = os.path.abspath(os.path.dirname(__file__))
+ROOT_DIR = os.path.abspath(os.path.join(SITE_DIR, '..'))
+
+TEMPLATE_DIR = os.path.join(SITE_DIR, 'templates')
+
+STATIC_DIR = os.path.join(ROOT_DIR, 'static')
+IMAGES_DIR = os.path.join(STATIC_DIR, 'images')
+MEDIA_ROOT = os.path.join(STATIC_DIR, 'media')
+
+IMAGE_DOWNLOAD_CACHE_DIR = os.path.join(ROOT_DIR, 'image-download-cache')
+
+TEMPLATE_DIRS = ( TEMPLATE_DIR, ) # to make django happy
 
 # Channelguide specific settings...
 SUBSCRIBE_URL = 'http://subscribe.getdemocracy.com/?url1=%(url)s'

@@ -16,14 +16,13 @@ class Thumbnailable(object):
     This class create multiple thumbnails from a given full-sized image.
     
     Classes using this mixin must define THUMBNAIL_DIR and THUMBNAIL_SIZES as
-    class attributes.
+    class attributes.  The should also have a thumbnail_extension attribute
+    that gets saved to the DB.
     """
 
     def get_filename(self):
         if self.id is None:
             raise ValueError("Must be saved first")
-        elif self.thumbnail_extension is None:
-            return "missing.png"
         else:
             return "%d.%s" % (self.id, self.thumbnail_extension)
 
@@ -35,6 +34,8 @@ class Thumbnailable(object):
         return os.path.join(thumb_dir, self.get_filename())
 
     def thumb_url(self, width, height):
+        if not self.thumbnail_exists():
+            return settings.IMAGES_URL + 'missing.png'
         return urljoin(settings.MEDIA_URL, '%s/%dx%d/%s' % 
                 (self.THUMBNAIL_DIR, width, height, self.get_filename()))
 
@@ -74,3 +75,6 @@ class Thumbnailable(object):
             thumb_path = self.thumb_path("%dx%d" % (width, height))
             if overwrite or not os.path.exists(thumb_path):
                 self._make_thumbnail(image_data, width, height)
+
+    def thumbnail_exists(self):
+        return self.thumbnail_extension is not None

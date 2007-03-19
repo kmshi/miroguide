@@ -6,7 +6,7 @@ from sqlalchemy import desc
 
 from channelguide.guide.models import Channel, Category, Tag, Item, User, Language
 from channelguide.testframework import TestCase
-from channelguide.util import read_file, random_string
+from channelguide.util import read_file, random_string, hash_string
 
 def test_data_path(filename):
     return os.path.join(os.path.dirname(__file__), 'data', filename)
@@ -172,14 +172,23 @@ class ChannelItemTest(ChannelTestBase):
         self.assertEquals(date.minute, 44)
 
     def test_thumbnails(self):
+        width, height = Item.THUMBNAIL_SIZES[0]
+        dir = '%dx%d' % (width, height)
         self.channel.update_items(self.db_session, 
                 feedparser_input=open(test_data_path('thumbnails.xml')))
         self.assertEquals(self.channel.items[0].thumbnail_url,
                 "http://www.getdemocracy.com/images/"
                 "x11-front-page-screenshots/02.jpg")
         thumb_path = os.path.join(settings.MEDIA_ROOT, Item.THUMBNAIL_DIR,
-                '108x81', '%d.jpeg' % self.channel.items[0].id)
+                dir, '%d.jpeg' % self.channel.items[0].id)
+        cache_path = os.path.join(settings.IMAGE_DOWNLOAD_CACHE_DIR,
+                hash_string(self.channel.items[0].thumbnail_url))
         self.assert_(os.path.exists(thumb_path))
+        self.assert_(os.path.exists(cache_path))
+        self.assert_(self.channel.items[0].thumbnail_exists())
+        self.assert_(not self.channel.items[1].thumbnail_exists())
+        self.assertEquals(self.channel.items[1].thumb_url(width, height),
+                settings.IMAGES_URL + "missing.png")
 
     def test_item_info(self):
         self.db_session.refresh(self.channel)

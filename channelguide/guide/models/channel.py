@@ -207,4 +207,3 @@ class Channel(DBObject, Thumbnailable, FullTextSearchable):
         if limit is not None:
             select.limit(limit)
         return select.list()
-
