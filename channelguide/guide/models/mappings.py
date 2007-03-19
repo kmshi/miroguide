@@ -47,9 +47,14 @@ mapper(Channel, channel_select.alias(),
         'language': relation(Language),
         'secondary_languages': relation(Language,
             secondary=tables.secondary_language_map),
+        'search_data': relation(ChannelSearchData, private=True,
+            uselist=False, backref='channel'),
     })
 # items
-mapper(Item, tables.item)
+mapper(Item, tables.item, properties={
+        'search_data': relation(ItemSearchData, private=True, uselist=False,
+            backref='item'),
+    })
 # search data
 mapper(ChannelSearchData, tables.channel_search_data)
 mapper(ItemSearchData, tables.item_search_data)
@@ -112,4 +117,3 @@ mapper(ChannelNote, tables.channel_note, properties={
         })
 # blog posts
 mapper(PCFBlogPost, tables.pcf_blog_post)
-

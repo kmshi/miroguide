@@ -4,19 +4,19 @@ import logging
 import traceback
 
 from django.utils.translation import ngettext
-from sqlalchemy import select
+from sqlalchemy import select, desc, func
 
-from channelguide.db import DBObject
+from channelguide.db import DBObject, dbutil
 from channelguide import util
 from channelguide.guide import feedutil, tables, exceptions
 from channelguide.guide.thumbnail import Thumbnailable
 from channelguide.lib import feedparser
 
-from search import FullTextSearchable, ChannelSearchData
 from item import Item
 from label import Tag, TagMap
+import search
 
-class Channel(DBObject, Thumbnailable, FullTextSearchable):
+class Channel(DBObject, Thumbnailable):
     """An RSS feed containing videos for use in Democracy."""
     NEW = 'N'
     WAITING = 'W'
@@ -43,18 +43,6 @@ class Channel(DBObject, Thumbnailable, FullTextSearchable):
             (252, 169),
             (370, 247),
     ]
-
-    search_data_class = ChannelSearchData
-    search_attributes_important = ('name',)
-    def get_search_data(self):
-        simple_attrs = ('short_description', 'description', 'url',
-                'website_url', 'publisher')
-        values = [getattr(self, attr) for attr in simple_attrs]
-        values.append(self.language.name)
-        for attr in ('tags', 'categories', 'secondary_languages'):
-            for obj in getattr(self, attr):
-                values.append(obj.name)
-        return ' '.join(values)
 
     def __str__(self):
         return "%s (%s)" % (self.name, self.url)
@@ -123,10 +111,67 @@ class Channel(DBObject, Thumbnailable, FullTextSearchable):
             item.download_thumbnail(redownload)
             item.refresh_thumbnails(overwrite, sizes)
 
-    def refresh_search_data(self):
-        FullTextSearchable.refresh_search_data(self)
+    def update_search_data(self):
+        if self.search_data is None:
+            self.search_data = search.ChannelSearchData()
+            self.session().save(self.search_data)
+        self.search_data.text = self.get_search_data()
+        self.search_data.important_text = self.name
         for item in self.items:
-            item.refresh_search_data()
+            item.update_search_data()
+
+    def get_search_data(self):
+        simple_attrs = ('short_description', 'description', 'url',
+                'website_url', 'publisher')
+        values = [getattr(self, attr) for attr in simple_attrs]
+        values.append(self.language.name)
+        for attr in ('tags', 'categories', 'secondary_languages'):
+            for obj in getattr(self, attr):
+                values.append(obj.name)
+        return ' '.join(values)
+
+    @staticmethod
+    def do_search(db_session, terms, limit, where):
+        query = db_session.query(Channel)
+        where &= query.join_to('search_data')
+        score = search.score_column(search.ChannelSearchData, terms)
+        sql_query = select(list(Channel.c) + [score.label('score')], where)
+        sql_query.order_by(desc('score'))
+        sql_query.limit = limit
+        results = db_session.connection(Channel.mapper()).execute(sql_query)
+        return query.instances(results)
+
+    @staticmethod
+    def search(db_session, terms, limit=None):
+        if not isinstance(terms, list):
+            terms = [terms]
+        where = search.where_clause(search.ChannelSearchData, terms)
+        return Channel.do_search(db_session, terms, limit, where)
+
+    @staticmethod
+    def search_count(connection, terms):
+        if not isinstance(terms, list):
+            terms = [terms]
+        where = search.where_clause(search.ChannelSearchData, terms)
+        sql_query = tables.channel.join(tables.channel_search_data).count(where)
+        return connection.execute(sql_query).scalar()
+
+    @staticmethod
+    def search_items(db_session, terms, limit=None):
+        if not isinstance(terms, list):
+            terms = [terms]
+        channel_ids = Item.search_for_channel_ids(db_session, terms)
+        where = Channel.c.id.in_(*channel_ids)
+        return Channel.do_search(db_session, terms, limit, where)
+
+    @staticmethod
+    def search_items_count(connection, terms):
+        if not isinstance(terms, list):
+            terms = [terms]
+        where = search.where_clause(search.ItemSearchData, terms)
+        sql_query = select([dbutil.count_distinct(tables.item.c.channel_id)],
+                where, from_obj=[tables.item.join(tables.item_search_data)])
+        return connection.execute(sql_query).scalar()
 
     def fix_utf8_strings(self):
         feedutil.fix_utf8_strings(self)
@@ -208,13 +253,3 @@ class Channel(DBObject, Thumbnailable, FullTextSearchable):
             self.moderator_shared_at = datetime.now()
         else:
             self.moderator_shared_at = None
-
-    @classmethod
-    def search_items(cls, db_session, query, limit=None):
-        connection = db_session.connection(cls.mapper())
-        item_ids = Item.id_search(connection, query)
-        q = db_session.query(Channel)
-        select = q.select(q.join_to('items') & Item.c.id.in_(*item_ids))
-        if limit is not None:
-            select.limit(limit)
-        return select.list()

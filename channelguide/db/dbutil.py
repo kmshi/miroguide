@@ -2,6 +2,8 @@ import random
 
 from sqlalchemy import func, select, Select, class_mapper
 from sqlalchemy.exceptions import InvalidRequestError
+from sqlalchemy.sql import (_BinaryClause, _CompoundClause, text, literal,
+        _CompareMixin)
 
 def select_random(select_result, count=1):
     row_count = select_result.count()
@@ -84,3 +86,18 @@ def save_if_new(session, obj):
     key = class_mapper(obj.__class__).instance_key(obj)
     if key not in session.identity_map:
         session.save(obj)
+
+class MatchClause(_BinaryClause, _CompareMixin):
+    def __init__(self, columns, query, boolean=False):
+        self.boolean = boolean
+        self.match = func.match(*columns)
+        query_clauses = [text('('), literal(query)]
+        if self.boolean:
+            query_clauses.append("IN BOOLEAN MODE")
+        query_clauses.append(text(')'))
+        self.query = _CompoundClause(None, *query_clauses)
+        _BinaryClause.__init__(self, self.match, self.query, "AGAINST")
+
+def match(columns, query, boolean=False):
+    """MySQL match query."""
+    return MatchClause(columns, query, boolean)

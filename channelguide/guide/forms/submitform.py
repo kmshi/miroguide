@@ -225,7 +225,7 @@ class SubmitChannelForm(Form):
         self.db_session.flush()
         if self.clean_data['thumbnail_file']:
             channel.save_thumbnail(self.clean_data['thumbnail_file'])
-        channel.refresh_search_data()
+        channel.update_search_data()
         return channel
 
     def save_submitted_thumbnail(self):

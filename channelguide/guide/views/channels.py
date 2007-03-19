@@ -281,17 +281,20 @@ def search(request):
     more_channels_link = util.make_link(href, label)
     channels = Channel.search(request.db_session, terms,
             limit=CHANNEL_LIMIT)
-    channels_count = Channel.count_search_results(request.connection, terms)
+    channels_count = Channel.search_count(request.connection, terms)
     channels_with_items = Channel.search_items(request.db_session, terms,
-            limit=CHANNEL_ITEM_MATCH_LIMIT+1)
+            limit=CHANNEL_ITEM_MATCH_LIMIT)
+    channels_with_items_count = Channel.search_items_count(request.connection,
+            terms)
 
     return util.render_to_response(request, 'channel-search.html', {
         'channels': channels,
         'channels_count': channels_count,
-        'extra_channels': channels_count > CHANNEL_LIMIT,
         'channels_with_items': channels_with_items[:CHANNEL_ITEM_MATCH_LIMIT],
+        'channels_with_items_count': channels_with_items_count,
+        'extra_channels': channels_count > CHANNEL_LIMIT,
         'extra_channels_with_items': 
-            len(channels_with_items) > CHANNEL_ITEM_MATCH_LIMIT,
+            channels_with_items_count > CHANNEL_ITEM_MATCH_LIMIT,
         'tags': search_results(request.db_session, Tag, terms),
         'languages': search_results(request.db_session, Language, terms),
         'categories': search_results(request.db_session, Category, terms),

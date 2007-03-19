@@ -22,7 +22,7 @@ import Queue
 
 from django.conf.urls.defaults import patterns
 from django.core import management 
-from sqlalchemy import create_session, eagerload, desc
+from sqlalchemy import create_session, eagerload, desc, exists, not_
 action_mapping = management.DEFAULT_ACTION_MAPPING.copy()
 original_action_mapping_keys = action_mapping.keys()
 
@@ -61,7 +61,6 @@ def all_channel_iterator(progress_string, flush_every_x_channels):
         yield channel
         if count.next() % flush_every_x_channels == 0:
             db_session.flush()
-            db_session.clear()
         pprinter.iteration_done()
     pprinter.loop_done()
     db_session.flush()
@@ -145,6 +144,14 @@ update_items.args = ''
 
 def update_search_data(args):
     "Update the search data for each channel."
+    from channelguide.guide import tables
+    from channelguide import db
+    connection = db.connect()
+    connection.execute("""DELETE FROM cg_item_search_data
+WHERE NOT EXISTS (SELECT * FROM cg_channel_item WHERE id=item_id)""")
+    connection.execute("""DELETE FROM cg_channel_search_data
+WHERE NOT EXISTS (SELECT * FROM cg_channel WHERE id=channel_id)""")
+
     for channel in all_channel_iterator("updating search data", 10):
         channel.update_search_data()
 update_search_data.args = ''

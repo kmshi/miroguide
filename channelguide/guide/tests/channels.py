@@ -160,7 +160,7 @@ class ChannelItemTest(ChannelTestBase):
             self.assertEquals(self.channel.items[i].name, correct_titles[i])
 
     def test_parse(self):
-        self.channel.update_items(self.db_session, 
+        self.channel.update_items(
                 feedparser_input=open(test_data_path('feed.xml')))
         self.check_item_titles('rb_06_dec_13', 'rb_06_dec_12', 'rb_06_dec_11',
                 'rb_06_dec_08', 'rb_06_dec_07')
@@ -174,8 +174,10 @@ class ChannelItemTest(ChannelTestBase):
     def test_thumbnails(self):
         width, height = Item.THUMBNAIL_SIZES[0]
         dir = '%dx%d' % (width, height)
-        self.channel.update_items(self.db_session, 
+        self.channel.update_items(
                 feedparser_input=open(test_data_path('thumbnails.xml')))
+        self.db_session.flush()
+        self.channel.update_thumbnails()
         self.assertEquals(self.channel.items[0].thumbnail_url,
                 "http://www.getdemocracy.com/images/"
                 "x11-front-page-screenshots/02.jpg")
@@ -193,7 +195,7 @@ class ChannelItemTest(ChannelTestBase):
     def test_item_info(self):
         self.db_session.refresh(self.channel)
         self.assertEquals(self.channel.item_count, 0)
-        self.channel.update_items(self.db_session, 
+        self.channel.update_items(
                 feedparser_input=open(test_data_path('feed.xml')))
         self.db_session.flush()
         self.db_session.refresh(self.channel)
