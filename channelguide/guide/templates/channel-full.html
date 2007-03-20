@@ -10,7 +10,7 @@
         </h1>
         <ul>
             <li class="description">{{ channel.description }}</li>
-            <li class="website">{{ channel.website_url|urlize }}</li>
+            <li class="website">{{ channel.website_link }}</li>
             <li>
                 <span class="categories">
 {% for cat in channel.categories %} {{ cat }} {% endfor %}

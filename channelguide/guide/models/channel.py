@@ -261,6 +261,14 @@ class Channel(DBObject, Thumbnailable):
     def name_as_link(self):
         return util.make_link(self.get_absolute_url(), self.name)
 
+    def website_link(self):
+        url_label = self.url
+        url_label = util.chop_prefix(url_label, 'http://')
+        url_label = util.chop_prefix(url_label, 'https://')
+        url_label = util.chop_prefix(url_label, 'www.')
+        print util.make_link(self.url, url_label)
+        return util.make_link(self.url, url_label)
+
     def change_state(self, newstate):
         self.state = newstate
         if newstate == self.APPROVED:

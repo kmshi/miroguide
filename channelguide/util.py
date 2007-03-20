@@ -248,3 +248,9 @@ def flatten(*args):
 def ensure_dir_exists(dir):
     if not os.path.exists(dir):
         os.makedirs(dir)
+
+def chop_prefix(value, prefix):
+    if value.startswith(prefix):
+        return value[len(prefix):]
+    else:
+        return value
