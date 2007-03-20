@@ -10,12 +10,12 @@ icon_source_dir = os.path.join(icon_dir, 'source')
 
 # icons are stored a name -> size
 big_icons = {
-        'add-big': 22,
-        'info-big': 27,
+        'add-big': 24,
+        'info-big': 24,
 }
 
 small_icons = {
-        'add-small': 19,
+        'add-small': 16,
         'info-small': 16,
 }
 icons = small_icons.copy()
@@ -37,8 +37,8 @@ def compose(source, dest):
 
 def make_icons():
     make_icons_big_on_featured()
-    make_icons_small_on_silver()
     make_icons_big_on_blue()
+    make_icons_small_on_silver()
 
 def make_icons_on_color(icons, name_extra, color):
     for name, size in icons:
@@ -63,7 +63,7 @@ def make_icons_big_on_blue():
 def make_icons_big_on_featured():
     for name, size in big_icons.items():
         if 'add' in name:
-            offset = 20
+            offset = 23
         else:
             offset = 81
         source = source_path(name)

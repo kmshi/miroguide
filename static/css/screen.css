@@ -674,41 +674,21 @@ li.blog-post .title {
     text-decoration: none;
 }
 
-.channel .actions .big .add .icon {
-    height: 22px;
-    width: 22px;
-    margin-top: 3px;
-    margin-bottom: 2px;
+.channel .actions .big .icon {
+    height: 24px;
+    width: 24px;
 }
 
-.channel .actions .big .add:hover .icon {
-    background-position: 0px -22px;
+.channel .actions .big a:hover .icon {
+    background-position: 0px -24px;
 }
 
-.channel .actions .big .info-button .icon {
-    height: 27px;
-    width: 27px;
-}
-
-.channel .actions .big .info-button:hover .icon {
-    background-position: 0px -27px;
-}
-
-.channel .actions .small .add .icon {
-    height: 19px;
-    width: 19px;
-}
-
-.channel .actions .small .add:hover .icon {
-    background-position: 0px -19px;
-}
-
-.channel .actions .small .info-button .icon {
+.channel .actions .small .icon {
     height: 16px;
     width: 16px;
 }
 
-.channel .actions .small .info-button:hover .icon {
+.channel .actions .small a:hover .icon {
     background-position: 0px -16px;
 }
 
@@ -955,10 +935,6 @@ li.blog-post .title {
 .channel-full .category-tag-separator {
     margin: 0px 2px;
     vertical-align: middle;
-}
-
-.channel-full .big-buttons {
-    margin-bottom: 15px;
 }
 
 .channel-full .channel-action {
