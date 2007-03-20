@@ -7,7 +7,7 @@ Channel.channels and Item.item).
 """
 
 from sqlalchemy import (mapper, relation, MapperExtension, and_, select, func,
-        backref)
+        backref, desc)
 
 from channelguide.db import dbutil
 from channelguide.guide import tables
@@ -43,7 +43,9 @@ channel_select = select([tables.channel,
     ])
 mapper(Channel, channel_select.alias(),
         extension=ChannelMapperExtension(), properties={
-        'items': relation(Item, private=True, backref='channel'),
+        'items': relation(Item, private=True,
+            order_by=desc(tables.item.c.date),
+            backref='channel'),
         'language': relation(Language),
         'secondary_languages': relation(Language,
             secondary=tables.secondary_language_map),

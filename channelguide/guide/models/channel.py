@@ -212,16 +212,34 @@ class Channel(DBObject, Thumbnailable):
                             % (e, self))
             self._replace_items(items)
 
-    def _replace_items(self, items):
+    def _replace_items(self, new_items):
         """Replace the items currently in the channel with a new list of
         items."""
 
-        db_session = self.session()
+        to_delete = set(self.items)
+        to_add = set(new_items)
+
+        items_by_url = {}
+        items_by_guid = {}
         for i in self.items:
+            if i.url is not None:
+                items_by_url[i.url] = i
+            if i.id is not None:
+                items_by_guid[i.id] = i
+        for i in new_items:
+            if i.id in items_by_guid:
+                to_delete.discard(items_by_guid[i.id])
+                to_add.discard(i)
+            elif i.url in items_by_url:
+                to_delete.discard(items_by_url[i.url])
+                to_add.discard(i)
+        db_session = self.session()
+        for i in to_delete:
             db_session.delete(i)
-        for i in items:
-            self.items.append(i)
-            db_session.save(i)
+        for i in new_items:
+            if i in to_add:
+                self.items.append(i)
+                db_session.save(i)
 
     def _thumb_html(self, width, height):
         thumb_url = self.thumb_url(width, height)

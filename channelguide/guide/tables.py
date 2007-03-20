@@ -112,6 +112,7 @@ item = Table('cg_channel_item', db.metadata,
         Column("thumbnail_url", String(255), nullable=True),
         Column("thumbnail_extension", String(8), nullable=True),
         Column("size", Integer),
+        Column("guid", String(255), nullable=True),
         Column('date', DateTime()))
 
 channel_search_data = Table('cg_channel_search_data', db.metadata,

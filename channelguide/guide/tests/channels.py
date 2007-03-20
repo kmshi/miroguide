@@ -170,6 +170,47 @@ class ChannelItemTest(ChannelTestBase):
         self.assertEquals(date.day, 13)
         self.assertEquals(date.hour, 13)
         self.assertEquals(date.minute, 44)
+        self.assertEquals(self.channel.items[0].guid, 
+                'http://www.rocketboom.com'
+                '/vlog/archives/2006/12/rb_06_dec_13.html')
+
+    def test_duplicates_not_replaced(self):
+        """Test that when we update a feed, we only replace thumbnails if 
+        the enclousre URL is different and the GUID is different.
+        """
+        self.channel.update_items(
+                feedparser_input=open(test_data_path('feed.xml')))
+        self.db_session.flush()
+        old_ids = [item.id for item in self.channel.items]
+        self.channel.update_items(
+                feedparser_input=open(test_data_path('feed-future.xml')))
+        # 2 new channels, 2 channels are gone, the rest are the same
+        # That the new feed has some entries where the GUID stays the same and
+        # some where the enclosure URL stays the same
+        # It also has 2 entries with the same enclosure URL to try to mess
+        # with the CG logic
+        self.db_session.flush()
+        self.db_session.expire(self.channel)
+        new_ids = [item.id for item in self.channel.items]
+        self.assert_(new_ids[0] not in old_ids)
+        self.assert_(new_ids[1] not in old_ids)
+        self.assert_(old_ids[-1] not in new_ids)
+        self.assert_(old_ids[-2] not in new_ids)
+        self.assertEquals(new_ids[2:], old_ids[0:-2])
+
+    def test_future_corner_cases(self):
+        """Test some corder cases when we update a feed, duplicate URLS,
+        duplicate GUIDs, items missing GUIDs and URLS.
+        """
+        self.channel.update_items(
+                feedparser_input=open(test_data_path('feed-future.xml')))
+        self.db_session.flush()
+        self.channel.update_items(
+                feedparser_input=open(test_data_path('feed-future-corner-cases.xml')))
+        self.db_session.flush()
+        self.db_session.refresh(self.channel)
+        # Maybe we should test the behaviour here, but the main thing is the
+        # guide shouldn't crash
 
     def test_thumbnails(self):
         width, height = Item.THUMBNAIL_SIZES[0]

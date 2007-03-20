@@ -82,6 +82,10 @@ class Item(DBObject, Thumbnailable):
         except KeyError:
             rv.size = None
         try:
+            rv.guid = feedutil.to_utf8(entry['id'])
+        except KeyError:
+            rv.guid = None
+        try:
             updated_parsed = entry['updated_parsed']
             if updated_parsed is None:
                 # I think this is a feedparser bug, if you can't parse the
