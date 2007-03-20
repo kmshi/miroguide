@@ -66,7 +66,7 @@
         </div>
     </div>
     <div id="page">
-        <div id="top-bar">
+        <div id="search-bar">
             <h2 class="tagline">Over 1,000 channels, all free.</h2>
             <form action="{{ BASE_URL }}search" onclick="showLoadIndicator();" method="get" id="search-form">
                 <label class="hidden" for="search-text">Search</label>
@@ -74,12 +74,10 @@
                 <input type="submit" id="search-submit" value="Search Channels" >
             </form>
         </div>
-        <div id="content-top">
         <div id="content-bottom">
         <div id="content">
             {% block content %}{% endblock %}
             <div class="clear"></div>
-        </div>
         </div>
         </div>
     </div>

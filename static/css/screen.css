@@ -149,7 +149,7 @@ div.clear {
 
 #content {
     background: #333355;
-    padding: 0px 17px;
+    padding: 20px 17px 0px 17px;
     background: url(images/page-content-middle.png) top left repeat-y;
 }
 
@@ -348,18 +348,18 @@ div.clear {
     margin-left: 10px;
 }
 
-#top-bar {
-    background: url(images/top-bar.png) no-repeat left top;
-    height: 19px;
+#search-bar {
+    background: url(images/search-bar.png) no-repeat left top;
+    height: 18px;
     padding: 14px 15px;
     margin-top: 10px;
-    margin-bottom: 10px;
 }
 
-#top-bar .tagline {
+#search-bar .tagline {
     float: right;
     font-weight: normal;
     font-size: 120%;
+    color: #191a26;
 }
 
 #search-form input {
