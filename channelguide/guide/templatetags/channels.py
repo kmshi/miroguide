@@ -11,12 +11,12 @@ def show_channel_full(context, channel):
 def show_moderate_actions(channel):
     return {'channel': channel, 'BASE_URL': settings.BASE_URL}
 
-@register.inclusion_tag('guide/feature.html')
+@register.inclusion_tag('guide/channel-feature.html')
 def show_channel_feature(channel):
     return {'channel': channel}
 
-@register.inclusion_tag('guide/channel-normal.html')
-def show_channel_normal(channel):
+@register.inclusion_tag('guide/channel-in-category.html')
+def show_channel_in_category(channel):
     return {'channel': channel}
 
 @register.inclusion_tag('guide/channel-in-list.html')

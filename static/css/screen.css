@@ -793,47 +793,47 @@ li.blog-post .title {
 
 /* CSS For the normal channels */
 
-.channel-normal .channel-top {
-    background-image: url(images/channel-normal-top.png);
+.channel-in-category .channel-top {
+    background-image: url(images/channel-in-category-top.png);
     padding-top: 2px;
 }
 
-.channel-normal .channel-bottom {
-    background-image: url(images/channel-normal-bottom.png);
+.channel-in-category .channel-bottom {
+    background-image: url(images/channel-in-category-bottom.png);
 }
 
-.channel-normal .info {
+.channel-in-category .info {
     color: #666;
     padding: 10px 5px 0px 5px;
     width: 40px;
 }
 
-.channel-normal .screenshot {
+.channel-in-category .screenshot {
     width: 120px;
     height: 80px;
 }
 
-.channel-normal .actions a {
+.channel-in-category .actions a {
     font-size: 90%;
 }
 
-.channel-normal .actions .add .icon {
+.channel-in-category .actions .add .icon {
     margin: auto;
     background-image: url(images/icons/add-small-silver.png);
 }
 
-.channel-normal .actions .info-button .icon {
+.channel-in-category .actions .info-button .icon {
     margin: auto;
     background-image: url(images/icons/info-small-silver.png);
 }
 
-.channel-normal .actions .info-button {
+.channel-in-category .actions .info-button {
     margin-top: 5px;
 }
 
-.channel-normal .title a {
+.channel-in-category .title a {
     padding-top: 10px;
-    background: url(images/channel-normal-title-stripes.png) left top repeat-x;
+    background: url(images/channel-in-category-title-stripes.png) left top repeat-x;
     font-size: 90%;
     color: black;
 }
