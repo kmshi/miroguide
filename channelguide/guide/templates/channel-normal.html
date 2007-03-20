@@ -1,11 +1,21 @@
-{% load cg_helpers %}
+{% load i18n cg_helpers %}
 <div class="channel channel-normal">
     <div class="channel-top">
         <div class="channel-bottom">
             <div class="channel-inner">
-                <div class="info small-buttons">
-                    <a {% link channel.get_subscription_url "action add" %}>Add</a>
-                    <a {% link channel.get_absolute_url "action info-button" %}>Details</a>
+                <div class="info">
+                    <div class="actions">
+                    <div class="small">
+                        <a {% link channel.get_subscription_url "add" %}>
+                            <div class="icon"></div>
+                            {% trans "Add" %}
+                        </a>
+                        <a {% link channel.get_absolute_url "info-button" %}>
+                            <div class="icon"></div>
+                            {% trans "Details" %}
+                        </a>
+                    </div>
+                    </div>
                 </div>
                 <div class="screenshot">
                     {{ channel.thumb_120_80 }}

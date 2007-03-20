@@ -1,9 +1,19 @@
 {% load i18n cg_helpers %}
 <div class="channel channel-feature">
     <div class="channel-inner">
-        <div class="info big-buttons-gray">
-            <a {% link channel.get_subscription_url "action add" %}>Add Channel</a>
-            <a {% link channel.get_absolute_url "action info-button" %}>Details</a>
+        <div class="info">
+            <div class="actions">
+            <div class="big">
+                <a {% link channel.get_subscription_url "add" %}>
+                    <div class="icon"></div>
+                    {% trans "Add Channel" %}
+                </a>
+                <a {% link channel.get_absolute_url "info-button" %}>
+                    <div class="icon"></div>
+                    {% trans "Details" %}
+                </a>
+            </div>
+            </div>
             <p> {{ channel.get_episodes_str }} </p>
         </div>
         <div class="screenshot">

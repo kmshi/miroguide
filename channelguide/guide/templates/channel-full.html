@@ -1,4 +1,4 @@
-{% load cg_helpers channels %}
+{% load cg_helpers channels i18n %}
 <div class="channel channel-full">
     {% twocolumns %}
         <div class="screenshot">
@@ -21,9 +21,14 @@
 {% for tag in channel.tags %} {{ tag.link }} {% endfor %}
                   </span>
             </li>
-            <li class="big-buttons">
-                <a {% link channel.get_subscription_url "action add" %}>Add Channel</a>
-                <div class="clear"></div>
+            <li class="actions">
+            <div class="big horizontal">
+                <a {% link channel.get_subscription_url "add" %}>
+                    <div class="icon"></div>
+                    {% trans "Add Channel" %}
+                </a>
+            </div>
+            <div class="clear"></div>
             </li>
             {% if user.is_moderator %}
                 {% show_moderate_actions channel %}

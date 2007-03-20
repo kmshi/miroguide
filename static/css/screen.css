@@ -656,68 +656,64 @@ li.blog-post .title {
     background: #000;
 }
 
-.channel .action {
+.channel .actions a {
     display: block;
     color: #3c3c3c;
     margin: auto;
-    background-position: 50% 0%;
-    background-repeat: no-repeat;
 }
 
-.channel .action:hover {
+.channel .actions a:hover {
     text-decoration: none;
 }
 
-.channel .big-buttons a.add {
-    background-image: url(images/icons/add_27.png);
+.channel .actions .big .add .icon {
+    height: 22px;
+    width: 22px;
+    margin-top: 3px;
+    margin-bottom: 2px;
 }
 
-.channel .big-buttons a.add:hover {
-    background-image: url(images/icons/add_27_hover.png);
+.channel .actions .big .add:hover .icon {
+    background-position: 0px -22px;
 }
 
-.channel .big-buttons a.info-button {
-    background-image: url(images/icons/info_27.png);
+.channel .actions .big .info-button .icon {
+    height: 27px;
+    width: 27px;
 }
 
-.channel .big-buttons a.info-button:hover {
-    background-image: url(images/icons/info_27_hover.png);
+.channel .actions .big .info-button:hover .icon {
+    background-position: 0px -27px;
 }
 
-
-.channel .small-buttons a.add {
-    background-image: url(images/icons/add_16.png);
+.channel .actions .small .add .icon {
+    height: 19px;
+    width: 19px;
 }
 
-.channel .small-buttons a.add:hover {
-    background-image: url(images/icons/add_16_hover.png);
+.channel .actions .small .add:hover .icon {
+    background-position: 0px -19px;
 }
 
-.channel .small-buttons a.info-button {
-    background-image: url(images/icons/info_16.png);
+.channel .actions .small .info-button .icon {
+    height: 16px;
+    width: 16px;
 }
 
-.channel .small-buttons a.info-button:hover {
-    background-image: url(images/icons/info_16_hover.png);
-
+.channel .actions .small .info-button:hover .icon {
+    background-position: 0px -16px;
 }
 
-.channel .big-buttons-gray a.add {
-    background-image: url(images/icons/add_27_gray.png);
+.channel .actions .horizontal .icon {
+    float: left;
+    margin-right: 5px;
 }
 
-.channel .big-buttons-gray a.info-button {
-    background-image: url(images/icons/info_27_gray.png);
+.channel .actions .horizontal a {
+    float: left;
+    vertical-align: middle;
+    line-height: 27px;
 }
-
-.channel .big-buttons-gray a.add:hover {
-    background-image: url(images/icons/add_27_hover.png);
-}
-
-.channel .big-buttons-gray a.info-button:hover {
-    background-image: url(images/icons/info_27_hover.png);
-}
-
 
 /* CSS For the featured channels */
 
@@ -757,20 +753,26 @@ li.blog-post .title {
     height: 169px;
 }
 
-.channel-feature .action {
+.channel-feature .actions a {
     font-weight: bold;
-    padding-top: 27px;
 }
 
-.channel-feature .add {
-    margin-top: 10px;
+.channel-feature .actions .add {
+    margin-top: 13px;
 }
 
-.channel-feature .info-button {
+.channel-feature .actions .add .icon {
+    margin: auto;
+    background-image: url(images/icons/add-big-feature.png);
+}
+
+.channel-feature .actions .info-button .icon {
+    margin: auto;
+    background-image: url(images/icons/info-big-feature.png);
+}
+
+.channel-feature .actions .info-button {
     margin-top: 20px;
-}
-
-.channel-feature .info-button:hover {
 }
 
 .channel-feature .title {
@@ -811,12 +813,21 @@ li.blog-post .title {
     height: 80px;
 }
 
-.channel-normal .action {
+.channel-normal .actions a {
     font-size: 90%;
-    padding-top: 19px;
 }
 
-.channel-normal .info-button {
+.channel-normal .actions .add .icon {
+    margin: auto;
+    background-image: url(images/icons/add-small-silver.png);
+}
+
+.channel-normal .actions .info-button .icon {
+    margin: auto;
+    background-image: url(images/icons/info-small-silver.png);
+}
+
+.channel-normal .actions .info-button {
     margin-top: 5px;
 }
 
@@ -912,15 +923,13 @@ li.blog-post .title {
     text-decoration: none;
 }
 
-.channel-full a.action {
-    padding-left: 31px;
-    margin-right: 20px;
-    height: 23px;
-    line-height: 23px;
-    float: left;
+.channel-full .actions .add .icon {
+    background-image: url(images/icons/add-big-blue.png);
+}
+
+.channel-full .actions a {
     color: white;
     text-decoration: none;
-    background: left 50% no-repeat;
     font-weight: bold;
 }
 
@@ -1042,44 +1051,42 @@ li.blog-post .title {
     height: 5em;
 }
 
-.channel-in-list a.action {
-    padding-left: 24px;
-    height: 27px;
-    float: left;
+.channel-in-list .actions .add .icon {
+    background-image: url(images/icons/add-big-blue.png);
+}
+
+.channel-in-list .actions .info-button .icon {
+    background-image: url(images/icons/info-big-blue.png);
+}
+
+.channel-in-list .actions a {
     color: white;
-    text-decoration: none;
-    background: left 50% no-repeat;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .channel-in-list a.add {
+    margin-left: 3px;
     margin-right: 25px;
-}
-
-
-.channel-in-list a.action span {
-    margin-left: 6px;
-    vertical-align: bottom;
-    line-height: 27px;
 }
 
 /* Category sneak peek */
 
 div.category-peek-top {
-    padding-top: 10px;
+    padding-top: 19px;
     width: 370px;
     background: url(images/category-peek-top.png) left top no-repeat;
 }
 
 div.category-peek-bottom {
-    padding-bottom: 10px;
+    padding-bottom: 19px;
     background: url(images/category-peek-bottom.png) left bottom no-repeat;
 }
 
 div.category-peek {
     color: white;
     min-height: 350px;
-    background: #c4c4c3 url(images/category-peek-bg.png) left bottom repeat-x;
+    background: url(images/category-peek-bg.png) left top repeat-y;
     padding: 5px 10px;
 }
 

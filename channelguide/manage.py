@@ -188,6 +188,15 @@ def update_blog_posts(args):
     db_session.flush()
 update_blog_posts.args = ''
 
+def make_icons(args):
+    """Blend the channel icons for add and info against backgrounds, this is a
+    workaround since IE doesn't support png alpha translucency.
+    """
+    from channelguide import icons
+    icons.make_icons()
+
+make_icons.args = ''
+
 # Remove django default actions that we don't use.  Many of these probably
 # would screw things up fairly bad.
 del action_mapping['startproject']
@@ -213,6 +222,7 @@ action_mapping['update_items'] = update_items
 action_mapping['drop_channel_data'] = drop_channel_data
 action_mapping['drop_users'] = drop_users
 action_mapping['update_blog_posts'] = update_blog_posts
+action_mapping['make_icons'] = make_icons
 del action_mapping['test']
 
 def add_static_urls():
