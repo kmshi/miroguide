@@ -5,7 +5,7 @@ def cg_include(module):
 
 urlpatterns = patterns('channelguide.guide.views',
     (r'^$', 'frontpage.index'),
-    (r'^category-peek-fragment$', 'frontpage.peek_fragment'),
+    (r'^category-peek-fragment$', 'frontpage.category_peek_fragment'),
     (r'^moderate$', 'channels.moderate'),
     (r'^search$', 'channels.search'),
     (r'^search-more-channels$', 'channels.search_more'),

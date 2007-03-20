@@ -38,6 +38,7 @@ def compose(source, dest):
 def make_icons():
     make_icons_big_on_featured()
     make_icons_big_on_blue()
+    make_icons_big_on_pink()
     make_icons_small_on_silver()
 
 def make_icons_on_color(icons, name_extra, color):
@@ -59,6 +60,9 @@ def make_icons_small_on_silver():
 
 def make_icons_big_on_blue():
     make_icons_on_color(big_icons.items(), 'blue', '#333355')
+
+def make_icons_big_on_pink():
+    make_icons_on_color(big_icons.items(), 'pink', '#8d4158')
 
 def make_icons_big_on_featured():
     for name, size in big_icons.items():

@@ -483,6 +483,15 @@ li.blog-post .title {
     text-decoration: underline;
 }
 
+.search-page .channel-in-list .actions .add .icon {
+    background-image: url(images/icons/add-big-pink.png);
+}
+
+.search-page .channel-in-list .actions .info-button .icon {
+    background-image: url(images/icons/info-big-pink.png);
+}
+
+
 .more-channel-matches {
     font-size: 150%;
     text-align: center;
@@ -1083,6 +1092,7 @@ div.category-peek {
 .category-peek h3 {
     color: #000;
     float: left;
+    padding-top: 1px;
 }
 
 .category-peek h3 span {
@@ -1106,7 +1116,7 @@ div.category-peek {
 
 .category-peek a.next {
     background-image: url(images/icons/next.png);
-    margin-left: 4px;
+    margin-right: 4px;
 }
 
 .category-peek .two-column-list li {

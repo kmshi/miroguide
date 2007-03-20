@@ -68,7 +68,7 @@ def index(request):
     post_query = request.db_session.query(PCFBlogPost,
             order_by=PCFBlogPost.c.position)
 
-    return util.render_to_response(request, 'index.html', {
+    return util.render_to_response(request, 'frontpage.html', {
         'popular_channels': get_popular_channels(channel_query, 7),
         'new_channels': get_new_channels(channel_query, 7),
         'featured_channels': get_featured_channels(channel_query),
