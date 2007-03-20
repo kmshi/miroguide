@@ -1,5 +1,6 @@
+{% load cg_helpers i18n %}
 {% extends 'base.html' %}
-{% load cg_helpers %}
+{% block title %}Democracy - {{ group_name }}{%endblock %}
 {% block content %}
 <h1 class="group-list-name">{{ group_name }}</h1>
 <ul class="group-list">

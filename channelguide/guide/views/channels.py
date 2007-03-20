@@ -313,7 +313,7 @@ def search_more(request):
         return util.render_to_response(request, 'search-more.html', {})
 
     return util.render_to_response(request, 'search-more.html', {
-        'initial_search_query': query.strip(),
+        'search_query': query.strip(),
         'channels': Channel.search(request.db_session, terms),
         'channels_with_items': Channel.search_items(request.db_session,
             terms),

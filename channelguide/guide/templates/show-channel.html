@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% load channels i18n %}
-{% load notes %}
+{% load channels i18n notes %}
+{% block title %}{{ channel.name }} - Democracy{%endblock %}
 {% block content %}
 {% show_channel_full channel %}
 {% if items %}
