@@ -105,7 +105,7 @@ div.clear {
 .white-button-left {
     color: #000;
     display: block;
-    padding-left: 11px;
+    padding-left: 9px;
     background: url(images/white-button-left.png) top left no-repeat;
 }
 
@@ -114,13 +114,8 @@ div.clear {
 }
 
 .white-button-right {
-    padding-right: 10px;
+    padding-right: 15px;
     background: url(images/white-button-right.png) top right no-repeat;
-}
-
-.white-button-arrow {
-    padding-right: 9px;
-    background: url(images/white-button-arrow.png) top right no-repeat;
 }
 
 .white-button-content {
@@ -1084,6 +1079,18 @@ div.category-peek {
     padding: 5px 10px;
 }
 
+.category-peek .white-button-left {
+    background: url(images/white-button-silver-left.png) top left no-repeat;
+}
+
+.category-peek .white-button-right {
+    background: url(images/white-button-silver-right.png) top right no-repeat;
+}
+
+.category-peek .white-button-content {
+    background: url(images/white-button-silver-middle.png) top left repeat-x;
+}
+
 .category-peek-seperator {
     height: 25px;
     background: url(images/category-peek-separator.png) 0% 50% repeat-x;
@@ -1156,56 +1163,6 @@ div.category-peek {
     float: left;
     width: 20px;
     font-weight: bold;
-}
-
-/* Tag box */
-
-.tag-box-top {
-    background: url(images/tag-box-top.png) left top no-repeat;
-    padding-top: 10px;
-}
-
-.tag-box-bottom {
-    background: url(images/tag-box-bottom.png) left bottom no-repeat;
-    padding-bottom: 10px;
-}
-
-.tag-box {
-    background: url(images/tag-box-bg.png) left top repeat-y;
-    height: 50px;
-    padding: 5px 20px 10px 40px;
-}
-
-.tag-box .left-side {
-    width: 100px;
-    text-align: center;
-    float: left;
-    margin-right: 50px;
-}
-
-.tag-box .view-all-tags {
-    background: url(images/view-all-tags.png) no-repeat left top;
-    display: block;
-    height: 19px;
-    margin: 0px auto;
-    width: 88px;
-}
-
-.tag-box h2 {
-    font-size: 200%;
-}
-
-.tag-box li {
-    display: block;
-    font-weight: bold;
-    width: 110px;
-    float: left;
-    margin-top: 5px;
-    text-align: center;
-}
-
-.tag-box .count {
-    font-weight: normal;
 }
 
 h2.note-title {

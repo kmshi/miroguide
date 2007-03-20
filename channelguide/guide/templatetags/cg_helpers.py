@@ -25,7 +25,7 @@ def make_text_or_variable_node(parser, expression):
 def do_white_button(parser, token):
     tokens = token.split_contents()
     css_classes = ( "white-button-left", "white-button-right",
-            "white-button-arrow", "white-button-content", )
+            "white-button-content", )
     nodelist = parser.parse(('endwhitebutton',))
     parser.delete_first_token()
     url_node = make_text_or_variable_node(parser, tokens[1])
