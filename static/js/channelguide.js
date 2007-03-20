@@ -52,3 +52,9 @@ function ajaxLink(url, id) {
     request.send(null);
     return false;
 }
+
+function handleFormLink(url) {
+    showLoadIndicator();
+    window.location.href = url;
+    return false;
+}

@@ -563,7 +563,7 @@ li.blog-post .title {
     border: 1px solid #b4b210;
 }
 
-.login-page .divider {
+.divider {
     margin: 40px 0px;
     border-top: 1px solid #fff;
 }
@@ -952,12 +952,12 @@ li.blog-post .title {
     margin-bottom: 15px;
 }
 
-.channel-full .moderator-action {
+.channel-full .channel-action {
     margin-top: 5px;
     padding: 5px;
 }
 
-.channel-full .moderator-action input {
+.channel-full .channel-action input {
     font-size: 80%;
     padding: 0px 5px;
 }
