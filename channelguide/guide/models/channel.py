@@ -130,6 +130,9 @@ class Channel(DBObject, Thumbnailable):
                 values.append(obj.name)
         return ' '.join(values)
 
+    def get_missing_image_url(self, width, height):
+        return ''
+
     @staticmethod
     def do_search(db_session, terms, limit, where):
         query = db_session.query(Channel)

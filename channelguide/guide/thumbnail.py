@@ -33,9 +33,12 @@ class Thumbnailable(object):
             os.makedirs(thumb_dir)
         return os.path.join(thumb_dir, self.get_filename())
 
+    def get_missing_image_url(self, width, heigt):
+        return settings.IMAGES_URL + 'missing.png'
+
     def thumb_url(self, width, height):
         if not self.thumbnail_exists():
-            return settings.IMAGES_URL + 'missing.png'
+            return self.get_missing_image_url(width, height)
         return urljoin(settings.MEDIA_URL, '%s/%dx%d/%s' % 
                 (self.THUMBNAIL_DIR, width, height, self.get_filename()))
 
