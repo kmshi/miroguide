@@ -542,3 +542,53 @@ class ModerateChannelTest(ChannelTestBase):
         check_state(Channel.REJECTED)
         check_state(Channel.WAITING)
         check_state(Channel.DONT_KNOW)
+
+class ChannelSearchTest(ChannelTestBase):
+    def setUp(self):
+        ChannelTestBase.setUp(self)
+        self.channel.update_items(
+                feedparser_input=open(test_data_path('feed.xml')))
+        self.channel.name = "Rocketboom"
+        self.channel.description = ("Daily with Joanne Colan "
+                "(that's right... Joanne Colan")
+        self.channel.update_search_data()
+        # make bogus channels so that the the fulltext indexes work
+        for x in range(10):
+            c = self.make_channel()
+            c.update_search_data()
+        self.db_session.flush()
+
+    def channel_search(self, query):
+        return Channel.search(self.db_session, [query])
+
+    def search_items(self, query):
+        return Channel.search_items(self.db_session, [query])
+
+    def channel_search_count(self, query):
+        return Channel.search_count(self.connection, [query])
+
+    def search_items_count(self, query):
+        return Channel.search_items_count(self.connection, [query])
+
+    def test_channel_search(self):
+        self.assertSameSet(self.channel_search("Rocketboom"), [self.channel])
+        self.assertEquals(self.channel_search_count("Rocketboom"), 1)
+        self.assertSameSet(self.channel_search("Sprocketboom"), [])
+        self.assertEquals(self.channel_search_count("Sprocketboom"), 0)
+
+    def test_item_search(self):
+        self.assertSameSet(self.search_items("rb_06_dec_13"), [self.channel])
+        self.assertEquals(self.search_items_count("rb_06_dec_1"), 1)
+        self.assertSameSet(self.search_items("ze frank"), [])
+        self.assertEquals(self.search_items_count("ze frank"), 0)
+
+    def test_ordering(self):
+        channel2 = self.make_channel()
+        channel2.name = "Colan"
+        channel2.update_search_data()
+        self.db_session.flush()
+        # Having "Colan" in the title should trump "Colan" in the description
+        results = self.channel_search("Colan")
+        self.assertEquals(results[0].name, channel2.name)
+        self.assertEquals(results[1].name, self.channel.name)
+        self.assertEquals(len(results), 2)

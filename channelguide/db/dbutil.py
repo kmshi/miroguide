@@ -90,7 +90,7 @@ def save_if_new(session, obj):
 class MatchClause(_BinaryClause, _CompareMixin):
     def __init__(self, columns, query, boolean=False):
         self.boolean = boolean
-        self.match = func.match(*columns)
+        self.match = func.MATCH(*columns)
         query_clauses = [text('('), literal(query)]
         if self.boolean:
             query_clauses.append("IN BOOLEAN MODE")
