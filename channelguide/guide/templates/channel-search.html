@@ -2,7 +2,6 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="search-page">
-
     <div class="group-matches">
         {% if languages %}
         <h1>{% trans "Matching Languages" %}</h1>
@@ -53,7 +52,9 @@
 <div class="clear"></div>
 
 {% if channels_with_items %}
-<h1>{% blocktrans %}Channel With Videos Matching '{{ search_query }}'{% endblocktrans %}</h1>
+<div class="channel-item-matches">
+<h2>{% blocktrans %}Channel With Videos Matching '{{ search_query }}'{% endblocktrans %}</h2>
+<div class="divider"></div>
 {% twocolumnloop with channel in channels_with_items %}
  {% show_channel_in_list channel %}
 {% endtwocolumnloop %}
@@ -64,6 +65,6 @@
 </div>
         {% endif %}
 {% endif %}
-
+</div>
 </div>
 {% endblock %}

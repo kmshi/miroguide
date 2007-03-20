@@ -459,14 +459,18 @@ li.blog-post .title {
 
 .search-page .channel-matches {
     background-color: #8d4158;
-    padding: 15px 50px 30px 10px;
+    padding: 15px 50px 15px 20px;
     width: 420px;
+}
+
+.search-page .channel-matches .channel-in-list {
+    padding-left: 40px;
 }
 
 .search-page .group-matches {
     float: right;
-    width: 260px;
-    padding-left: 20px;
+    width: 240px;
+    margin-left: 25px;
 }
 
 .search-page .group-matches ul {
@@ -476,6 +480,15 @@ li.blog-post .title {
 
 .search-page .group-matches a {
     text-decoration: underline;
+}
+
+.search-page .channel-item-matches {
+    padding-top: 45px;
+}
+
+.search-page .channel-item-matches .divider {
+    margin-top: 0px;
+    margin-bottom: 20px;
 }
 
 .search-page .channel-in-list .actions .add .icon {
@@ -488,6 +501,7 @@ li.blog-post .title {
 
 
 .more-channel-matches {
+    padding-top: 10px;
     font-size: 150%;
     text-align: center;
 }
