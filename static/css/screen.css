@@ -167,7 +167,7 @@ div.clear {
 /* forms */
 
 .big-form h2 {
-    font-size: 150%;
+    font-size: 180%;
     margin-bottom: 30px;
 }
 
@@ -192,7 +192,7 @@ div.clear {
 .big-form .form-inputs .label {
     display: block;
     float: left;
-    margin-right: 25px;
+    margin-right: 18px;
     width: 260px;
     text-align: right;
     vertical-align: middle;
@@ -212,21 +212,21 @@ div.clear {
 }
 
 .big-form .wide-field, .big-form input.submit {
-    font-size: 120%;
-    width: 280px;
+    font-size: 100%;
+    width: 287px;
     border: 0px;
     margin: 0px;
     padding: 2px 5px;
 }
 
 .big-form select.wide-field {
-    width: 290px;
+    width: 297px;
     padding: 0px;
 }
 
 .big-form .help-text {
     margin-top: 2px;
-    margin-left: 280px;
+    margin-left: 287px;
     font-size: 80%;
 }
 
@@ -418,6 +418,10 @@ div.clear {
 .front-page .category-list li.column {
     width: 182px;
     margin-top: 10px;
+}
+
+.front-page .category-list h2 {
+    padding-bottom: 10px;
 }
 
 .front-page .category-list a {
@@ -781,7 +785,8 @@ li.blog-post .title {
 
 .channel-feature .title {
     font-size: 130%;
-    margin-bottom: 2px;
+    margin-top: 2px;
+    margin-bottom: 1px;
     overflow: hidden;
 }
 

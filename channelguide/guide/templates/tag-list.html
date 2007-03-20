@@ -6,5 +6,6 @@
 {% threecolumnloop with tag in pager.items rotated %}
   {{ tag.link }} <span class="channel-count">{{ tag.channel_count}} Channels</span>
 {% endthreecolumnloop %}
+</div>
 {% show_pager pager %}
 {% endblock %}

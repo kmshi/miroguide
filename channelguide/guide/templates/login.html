@@ -14,12 +14,12 @@
     </form>
 </div>
 <div class="divider"></div>
+<div class="register-form big-form">
 <h2>{% trans "Register" %}</h2>
 <p class="form-instructions">{% blocktrans %}Registering is free and just takes
 a few seconds.{% endblocktrans %}<BR>
 {% blocktrans %}Do you have a videobomb account?  If so, you are already
 registered, login above.{% endblocktrans %}</p>
-<div class="register-form big-form">
     <form method="POST" action="{{ BASE_URL }}accounts/register{% if next %}?next={{ next }}{% endif %}">
         <input type="hidden" name="which-form" value="register">
         {% show_form register_form %}

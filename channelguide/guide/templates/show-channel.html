@@ -3,6 +3,7 @@
 {% load notes %}
 {% block content %}
 {% show_channel_full channel %}
+{% if items %}
 <div class="channel-full-separator"></div>
 <h2 class="recent-videos-header">
 {% blocktrans %}
@@ -13,5 +14,6 @@ this channel, add it)</span>
 {% for item in items %}
   {% show_item item %}
 {% endfor %}
+{% endif %}
 {% show_channel_notes notes channel %}
 {% endblock %}
