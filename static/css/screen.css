@@ -261,7 +261,7 @@ div.clear {
 }
 
 #navigation .quick-links {
-    padding: 7px 0px 0px 2px;
+    padding: 7px 8px 0px 8px;
     float: left;
     width: 40px;
 }
@@ -315,6 +315,7 @@ div.clear {
     padding: 8px;
     font-size: 90%;
     font-weight: bold;
+    color: #111;
 }
 
 #account-bar-inner {
