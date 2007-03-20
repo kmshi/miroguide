@@ -1,4 +1,4 @@
-<li class="moderator-action">
+<li class="channel-action">
     {% if channel.is_approved %}
     <form method="POST" action="{{ channel.get_absolute_url }}">
         <input type="hidden" name="action" value="change-state">
@@ -14,8 +14,8 @@
     </form>
     {% endif %}
 </li>
-<li class="moderator-action">
-    <form action="{{ BASE_URL }}channels/{{ channel.id }}" method="POST">
+<li class="channel-action">
+    <form method="POST" action="{{ channel.get_absolute_url }}">
         <input type="hidden" name="action" value="toggle-moderator-share">
         {% if channel.moderator_shared_at %}
         <input type="submit" value="Unshare with moderators">

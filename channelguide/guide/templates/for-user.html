@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load channels cg_helpers i18n %}
+{% block content %}
+<div class="channels-for-user">
+{% ifequal user for_user %}
+  <h1>{% trans "My submitted channels" %}</h1>
+{% else %}
+  <h1>{% blocktrans %}Submitted channels for {{ for_user }}{% endblocktrans %}</h1>
+{% endifequal %}
+{% if channels %}
+<ul class="channel-list">
+  {% for channel in channels %}
+    <li>
+        {% show_channel_full channel %}
+        {% if not forloop.last %}
+        <div class="divider"></div>
+        {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+</div>
+{% show_pager pager %}
+{% else %}
+<h2>{% trans "No channels were found" %}</h2>
+{% endif %}
+{% endblock %}
+

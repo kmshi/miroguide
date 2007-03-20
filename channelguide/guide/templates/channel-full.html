@@ -33,6 +33,13 @@
             {% if user.is_moderator %}
                 {% show_moderate_actions channel %}
             {% endif %}
+            {% if show_edit_button %}
+            <li class="channel-action">
+            <form action="#" method="GET" onsubmit="return handleFormLink('{{ channel.get_edit_url }}');">
+                    <input type="submit" value="{% trans "Edit" %}">
+                </form>
+            </li>
+            {% endif %}
         </ul>
     {% endtwocolumns %}
 </div>

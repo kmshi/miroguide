@@ -10,7 +10,7 @@ from channelguide import util
 from channelguide.guide.auth import moderator_required, login_required
 from channelguide.guide.forms import SubmitChannelForm, FeedURLForm
 from channelguide.guide.models import (Channel, Category, Tag, Item, Language,
-        ModeratorPost)
+        ModeratorPost, User)
 from channelguide.guide.notes import get_note_info
 from channelguide.guide.templateutil import Pager, ViewSelect
 
@@ -317,4 +317,17 @@ def search_more(request):
         'channels': Channel.search(request.db_session, terms),
         'channels_with_items': Channel.search_items(request.db_session,
             terms),
+        })
+
+def for_user(request, user_id):
+    user_query = request.db_session.query(User)
+    channel_query = request.db_session.query(Channel)
+    user = util.get_object_or_404(user_query, user_id)
+    select = channel_query.select_by(owner=user)
+    pager =  Pager(10, select, request)
+
+    return util.render_to_response(request, 'for-user.html', {
+        'for_user': user,
+        'channels': pager.items,
+        'pager': pager,
         })

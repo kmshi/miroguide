@@ -14,4 +14,5 @@ urlpatterns = patterns('channelguide.guide.views.channels',
     (r'^submit/step1$', 'submit_feed'),
     (r'^submit/step2$', 'submit_channel'),
     (r'^submit/after$', 'after_submit'),
+    (r'^user/(\d+)$', 'for_user'),
 )

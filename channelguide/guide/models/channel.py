@@ -50,6 +50,9 @@ class Channel(DBObject, Thumbnailable):
     def get_absolute_url(self):
         return util.make_absolute_url('channels/%d' % self.id)
 
+    def get_edit_url(self):
+        return util.make_absolute_url('channels/edit/%d' % self.id)
+
     def get_subscription_url(self):
         return util.make_absolute_url('channels/subscribe/%d' % self.id)
 

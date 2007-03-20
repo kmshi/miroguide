@@ -4,7 +4,9 @@ register = Library()
 
 @register.inclusion_tag('guide/channel-full.html', takes_context=True)
 def show_channel_full(context, channel):
-    return {'channel': channel, 'user': context['user'], 
+    user = context['user']
+    return {'channel': channel, 'user': user,
+            'show_edit_button': user.can_edit_channel(channel),
             'BASE_URL': settings.BASE_URL}
 
 @register.inclusion_tag('guide/moderate-actions.html')
