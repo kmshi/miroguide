@@ -46,9 +46,8 @@ a {
 }
 
 a:hover {
-    text-decoration: underline !important;
+    text-decoration: underline;
 }
-
 
 img {
     border: 0px;
@@ -247,7 +246,7 @@ div.clear {
 /* Individual elements */
 
 #navigation {
-    background: #b2b2b1 url(images/navigation_bg.png) repeat-x left top;
+    background: #b2b2b1 url(images/navigation-bg.png) repeat-x left top;
     height: 32px;
     background-color: white;
 }
@@ -279,26 +278,24 @@ div.clear {
 
 #navigation .previous a {
     background-image: url(images/navigation/previous.png);
-    width: 17px;
+    width: 20px;
 }
 
 #navigation .next a {
     background-image: url(images/navigation/next.png);
-    width: 18px;
+    width: 20px;
 }
 
 #navigation .main-navigation li {
-    background: transparent url(images/navigation_sep.png) no-repeat left bottom;
-    padding-left: 2px;
     height: 32px;
     text-align: center;
 }
 
 #navigation .main-navigation a {
-    color: #282828;
-    height: 33px;
+    color: #fff;
+    height: 32px;
     overflow: hidden;
-    line-height: 33px;
+    line-height: 32px;
     font-weight: bold;
     vertical-align: middle;
     display: block;
@@ -306,8 +303,7 @@ div.clear {
 }
 
 #navigation .main-navigation a.current-page, #navigation .main-navigation a:hover {
-    background: #242424;
-    color: #fff;
+    background: url(images/navigation-bg-hover.png) repeat-x left top;
     text-decoration: none;
 }
 
@@ -319,15 +315,23 @@ div.clear {
 }
 
 #account-bar {
-    background: #8A4557;
+    background: url(images/account-bar.png) repeat-x left top;
     height: 12px;
     padding: 8px;
     font-size: 90%;
     font-weight: bold;
 }
 
+#account-bar-inner {
+    margin: auto;
+    width: 784px;
+    text-align: left;
+}
+
+
 #account-bar  a {
     text-decoration: underline;
+    color: #111;
 }
 
 #account-bar .left a {

@@ -35,16 +35,13 @@
                 <li><a {% navlink "channels/popular" %}>{% trans "Popular" %}</a></li>
                 <li><a {% navlink "tags/" %}>{% trans "Tags" %}</a></li>
                 <li><a {% navlink "languages/" %}>{% trans "Languages" %}</a></li>
-                {% if not user.is_authenticated %}
-                <li><a {% navlink "accounts/login" %}>{% trans "Login" %}</a></li>
-                {% endif %}
             </ul>
         </div>
         <img id="load-indicator" src="{{ BASE_URL }}images/load-indicator.gif">
     </div>
-    <div id="page">
-        {% if user.is_authenticated %}
-        <div id="account-bar">
+    <div id="account-bar">
+        <div id="account-bar-inner">
+            {% if user.is_authenticated %}
             <div class="right">
                 {{ user }}
                 {% if user.is_moderator %}
@@ -58,8 +55,17 @@
                 {% endif %}
                 <a {% link "channels/submit" %}>{% trans "Submit A Channel" %}</a>
             </div>
+            {% else %}
+            <div class="right">
+                <a {% link "accounts/login" %}>{% trans "Login" %}</a>
+            </div>
+            <div class="left">
+                <a {% link "channels/submit" %}>{% trans "Submit A Channel" %}</a>
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
+    </div>
+    <div id="page">
         <div id="top-bar">
             <h2 class="tagline">Over 1,000 channels, all free.</h2>
             <form action="{{ BASE_URL }}search" onclick="showLoadIndicator();" method="get" id="search-form">
