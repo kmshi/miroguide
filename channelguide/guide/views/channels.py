@@ -2,7 +2,7 @@ import urllib
 import re
 
 from django.conf import settings
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.utils.translation import gettext as _
 from sqlalchemy import desc, eagerload, null
 
@@ -152,6 +152,15 @@ def subscribe(request, id):
     channel.add_subscription(request.connection)
     subscribe_url = settings.SUBSCRIBE_URL % { 'url': channel.url }
     return HttpResponseRedirect(subscribe_url)
+
+def subscribe_hit(request, id):
+    """Used by our ajax call handleSubscriptionLink.  It will get a security
+    error if we redirect it to a URL outside the channelguide, so we don't do
+    that
+    """
+    channel = util.get_object_or_404(request.db_session.query(Channel), id)
+    channel.add_subscription(request.connection)
+    return HttpResponse("Hit successfull")
 
 class PopularWindowSelect(ViewSelect):
     view_choices = [

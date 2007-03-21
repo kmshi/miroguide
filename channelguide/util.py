@@ -207,15 +207,18 @@ def call_command(*args):
     else:
         return stdout
 
-def make_link_attributes(href, css_class=None):
+def make_link_attributes(href, css_class=None, **extra_link_attributes):
     if '://' not in href:
         href = settings.BASE_URL + href
+    attributes = []
+    attributes.append('href="%s"' % href)
+    if 'onclick' not in extra_link_attributes:
+        attributes.append('onclick="showLoadIndicator();"')
     if css_class:
-        css_class_str = ' class="%s"' % css_class
-    else:
-        css_class_str = ''
-    return 'href="%s" %s onclick="showLoadIndicator();"' % \
-            (href, css_class_str)
+        attributes.append('class="%s"' % css_class)
+    for name, value in extra_link_attributes.items():
+        attributes.append('%s="%s"' % (name, value))
+    return ' '.join(attributes)
 
 def rotate_grid(list, columns):
     """Used to make columned lists be ordered by column instead of rows.  For
@@ -234,8 +237,9 @@ def rotate_grid(list, columns):
 def random_string(length):
     return ''.join(random.choice(string.letters) for i in xrange(length))
 
-def make_link(href, label, css_class=None):
-    return '<a %s>%s</a>' % (make_link_attributes(href, css_class), label)
+def make_link(href, label, css_class=None, **extra_link_attributes):
+    attrs = make_link_attributes(href, css_class, **extra_link_attributes)
+    return '<a %s>%s</a>' % (attrs, label)
 
 def flatten(*args):
     for obj in args: 

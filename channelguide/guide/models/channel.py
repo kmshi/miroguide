@@ -1,8 +1,10 @@
 from datetime import datetime
 from glob import glob
+from urllib import quote
 import logging
 import traceback
 
+from django.conf import settings
 from django.utils.translation import ngettext
 from sqlalchemy import select, desc, func
 
@@ -52,6 +54,14 @@ class Channel(DBObject, Thumbnailable):
 
     def get_edit_url(self):
         return util.make_absolute_url('channels/edit/%d' % self.id)
+
+    def subscription_link(self):
+        cg_link = util.make_absolute_url('channels/subscribe-hit/%d' %
+                self.id)
+        subscribe_link = settings.SUBSCRIBE_URL % { 'url': quote(self.url) }
+        return util.make_link_attributes(cg_link, "add",
+                onclick="return handleSubscriptionLink('%s', '%s');" %
+                (cg_link, subscribe_link))
 
     def get_subscription_url(self):
         return util.make_absolute_url('channels/subscribe/%d' % self.id)

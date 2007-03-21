@@ -4,7 +4,7 @@
         <div class="info">
             <div class="actions">
             <div class="big">
-                <a {% link channel.get_subscription_url "add" %}>
+                <a {{ channel.subscription_link }}>
                     <div class="icon"></div>
                     {% trans "Add Channel" %}
                 </a>

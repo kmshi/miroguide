@@ -37,20 +37,40 @@ function makeXMLHttpRequest() {
     return null;
 }
 
-function ajaxLink(url, id) {
+function doAjaxCall(url, callback) {
     var request = makeXMLHttpRequest();
-    var elt = document.getElementById(id);
-    if (!request || !elt) return true;
+    if (!request) return false;
     request.onreadystatechange = function() {
          if (request.readyState == 4) {
             if (request.status == 200) {
-                elt.innerHTML = request.responseText;
+                callback(request);
             }
          }
     };
     request.open('GET', url, true);
     request.send(null);
+    return true;
+}
+
+function ajaxLink(url, id) {
+    var elt = document.getElementById(id);
+    if (!elt) return true;
+    function callback(request) {
+        elt.innerHTML = request.responseText;
+    }
+    if (!doAjaxCall(url, callback)) return true;
     return false;
+}
+
+/* Handle a subscription link.  We need to hit the channelguide URL, then make
+ * the browser navigate to the subscribe link.  This is basically a hack
+ * because some older version of democracy get confused because the
+ * channelguide URL redirects te the subscribe_url.
+ */
+function handleSubscriptionLink(channel_guide_url, subscribe_url) {
+   function callback(request) { window.location.href = subscribe_url; }
+   if(!doAjaxCall(channel_guide_url, callback)) return true;
+   return false;
 }
 
 function handleFormLink(url) {

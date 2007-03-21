@@ -10,7 +10,7 @@
             <div class="description">{{ channel.description }}</div>
             <div class="actions">
             <div class="big horizontal">
-                <a {% link channel.get_subscription_url "add" %}>
+                <a {{ channel.subscription_link }}>
                     <div class="icon"></div>
                     {% trans "Add" %}
                 </a>
