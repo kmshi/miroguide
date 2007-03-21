@@ -82,3 +82,5 @@ def category_peek_fragment(request):
         'category_peek': make_category_peek(request),
     })
 
+def refresh(request):
+    return util.render_to_response(request, 'refresh.html')
