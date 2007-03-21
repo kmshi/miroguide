@@ -208,8 +208,8 @@ def call_command(*args):
         return stdout
 
 def make_link_attributes(href, css_class=None, **extra_link_attributes):
-    if '://' not in href:
-        href = settings.BASE_URL + href
+    if '://' not in href and href != '#':
+        href = make_absolute_url(href)
     attributes = []
     attributes.append('href="%s"' % href)
     if 'onclick' not in extra_link_attributes:

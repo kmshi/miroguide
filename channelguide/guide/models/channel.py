@@ -59,7 +59,7 @@ class Channel(DBObject, Thumbnailable):
         cg_link = util.make_absolute_url('channels/subscribe-hit/%d' %
                 self.id)
         subscribe_link = settings.SUBSCRIBE_URL % { 'url': quote(self.url) }
-        return util.make_link_attributes(cg_link, "add",
+        return util.make_link_attributes('#', "add",
                 onclick="return handleSubscriptionLink('%s', '%s');" %
                 (cg_link, subscribe_link))
 
