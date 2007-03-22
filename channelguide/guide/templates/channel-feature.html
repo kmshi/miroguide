@@ -17,7 +17,7 @@
             <p> {{ channel.get_episodes_str }} </p>
         </div>
         <div class="screenshot">
-            {{ channel.thumb_252_169 }}
+            <a {% link channel.get_absolute_url %}>{{ channel.thumb_252_169 }}</a>
         </div>
         <div class="clear"></div>
     </div>

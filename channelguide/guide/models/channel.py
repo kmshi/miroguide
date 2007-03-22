@@ -259,8 +259,7 @@ class Channel(DBObject, Thumbnailable):
 
     def _thumb_html(self, width, height):
         thumb_url = self.thumb_url(width, height)
-        img = '<img src="%s" alt="%s">' % (thumb_url, self.name)
-        return util.make_link(self.get_absolute_url(), img)
+        return '<img src="%s" alt="%s">' % (thumb_url, self.name)
 
     def thumb_60_40(self): return self._thumb_html(60, 40)
     def thumb_120_80(self): return self._thumb_html(120, 80)

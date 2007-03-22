@@ -2,11 +2,20 @@
 <div class="channel channel-full">
     {% twocolumns %}
         <div class="screenshot">
-            {{ channel.thumb_370_247 }}
+            {% if link_to_channel %}
+                <a {% link channel.get_absolute_url %}>{{ channel.thumb_370_247 }}</a>
+            {% else %}
+                {{ channel.thumb_370_247 }}
+            {% endif %}
+
         </div>
     {% splitcolumns %}
         <h1 class="title">
-            <a {% link channel.get_absolute_url %}>{{ channel.name }}</a>
+            {% if link_to_channel %}
+                <a {% link channel.get_absolute_url %}>{{ channel.name }}</a>
+            {% else %}
+                {{ channel.name }}
+            {% endif %}
         </h1>
         <ul>
             <li class="description">{{ channel.description }}</li>

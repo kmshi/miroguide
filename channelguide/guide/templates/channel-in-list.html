@@ -3,7 +3,7 @@
     <div class="half-size-list">
         {% twocolumns %}
             <div class="screenshot">
-                {{ channel.thumb_165_110 }}
+                <a {% link channel.get_absolute_url %}>{{ channel.thumb_165_110 }}</a>
             </div>
         {% splitcolumns %}
             <h2 class="title">{{ channel.name_as_link }}</h2>

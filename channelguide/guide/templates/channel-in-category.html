@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="screenshot">
-                    {{ channel.thumb_120_80 }}
+                    <a {% link channel.get_absolute_url %}>{{ channel.thumb_120_80 }}</a>
                 </div>
                 <div class="clear"></div>
             </div>
