@@ -322,7 +322,7 @@ class SubmitChannelTest(TestCase):
 
     def check_submit_url_failed(self, response):
         self.assertEquals(response.status_code, 200)
-        self.assertEquals(response.template[0].name, 'guide/submit-feed.html')
+        self.assertEquals(response.template[0].name, 'guide/submit-feed-url.html')
 
     def check_submit_url_worked(self, response):
         self.assertEquals(response.status_code, 302)
@@ -331,7 +331,7 @@ class SubmitChannelTest(TestCase):
 
     def check_submit_failed(self, response):
         self.assertEquals(response.status_code, 200)
-        self.assertEquals(response.template[0].name, 'guide/submit.html')
+        self.assertEquals(response.template[0].name, 'guide/submit-channel.html')
 
     def check_submit_worked(self, response, thumb_name='thumbnail.jpg'):
         self.assertEquals(response.status_code, 302)

@@ -84,7 +84,7 @@ class ChannelThumbnailWidget(forms.Widget):
         if self.submitted_thumb_path is None:
             return None
         return urljoin(settings.MEDIA_URL, 
-                'tmp/%s' % self.submitted_thumb_path)
+                'tmp/%s' % self.submitted_thumb_path_resized())
 
     def save_submitted_thumbnail(self, data, name):
         hidden_name = self.get_hidden_name(name)
@@ -97,12 +97,23 @@ class ChannelThumbnailWidget(forms.Widget):
     def save_thumb_content(self, filename, content):
         ext = os.path.splitext(filename)[1]
         temp_dir = os.path.join(settings.MEDIA_ROOT, 'tmp')
-        if not os.path.exists(temp_dir):
-            os.makedirs(temp_dir)
+        util.ensure_dir_exists(temp_dir)
         fd, path = tempfile.mkstemp(prefix='', dir=temp_dir, suffix=ext)
         os.close(fd)
         util.write_file(path, content)
         self.submitted_thumb_path = os.path.basename(path)
+        self.resize_submitted_thumb()
+
+    def resize_submitted_thumb(self):
+        width, height = Channel.THUMBNAIL_SIZES[-1]
+        temp_dir = os.path.join(settings.MEDIA_ROOT, 'tmp')
+        source = os.path.join(temp_dir, self.submitted_thumb_path)
+        dest = os.path.join(temp_dir, self.submitted_thumb_path_resized())
+        util.make_thumbnail(source, dest, width, height)
+
+    def submitted_thumb_path_resized(self):
+        path, ext = os.path.splitext(self.submitted_thumb_path)
+        return path + '-resized' + ext
 
 def try_to_download_thumb(url):
     try:
@@ -146,7 +157,7 @@ class SubmitChannelForm(Form):
                         'format.'),
             required=False)
     thumbnail_file = forms.Field(widget=ChannelThumbnailWidget, 
-            label=_('Upload Channel Thumbnail'))
+            label=_('To Upload an Image:'))
 
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)

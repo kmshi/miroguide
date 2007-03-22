@@ -14,21 +14,22 @@ for you below.  Feel free to update or change any of it.
     {% show_form form %}
 <div class="thumbnail-select">
 <h2>{% trans "Channel Thumbnail" %}</h2>
-<p>{% blocktrans %}
-The Channel Thumbnail is extremely important for people using the
-guide.  Please try to create an attractive image that represents your
-channel (logo, thumbnail, etc).
-{% endblocktrans %}</p>
+<p>{% blocktrans %}Remember that creating a good channel thumbnail is one of
+the most important ways to attract new viewers.  It's worth making an effort
+to do something beautiful.  You can also update the image after you submit
+your channel.{% endblocktrans %}</p>
+{% if submitted_thumb_url and detected_thumbnail %}
+<h3>{% trans "We have found an image in your feed.  You can either use this image or upload a different one." %}</h3>
+{% endif %}
 {{ form.thumbnail_widget.label_tag }}
 {{ form.thumbnail_widget }}
 {% if submitted_thumb_url %}
-  <img width="370" height="247" src="{{ submitted_thumb_url }}" />
   {% if detected_thumbnail %}
-    <h3>{% trans "We have detected a channel thumbnail." %}</h3>
+    <h4>{% trans "Current image (from the feed)" %}</h4>
   {% else %}
-    <h3>{% trans "Uploaded thumbnail." %}</h3>
+    <h4>{% trans "Current image (uploaded)" %}</h4>
   {% endif %}
-  <p>{% trans "If you would like to use a different image instead, upload it now." %}</p>
+  <img width="370" height="247" src="{{ submitted_thumb_url }}" />
 {% endif %}
 </div>
     <input type="submit" class="submit" value="{% trans "Next Step" %} &gt;&gt;">

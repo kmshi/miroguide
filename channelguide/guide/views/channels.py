@@ -73,7 +73,7 @@ def submit_feed(request):
         if form.is_valid():
             request.session[SESSION_KEY] = form.get_feed_data()
             return util.redirect("channels/submit/step2")
-    return util.render_to_response(request, 'submit-feed.html', 
+    return util.render_to_response(request, 'submit-feed-url.html', 
             {'form': form})
 
 @login_required
@@ -102,7 +102,7 @@ def submit_channel(request):
     context = form.get_template_data()
     context['detected_thumbnail'] = session_dict.get('detected_thumbnail',
             False)
-    return util.render_to_response(request, 'submit.html', context)
+    return util.render_to_response(request, 'submit-channel.html', context)
 
 def channel(request, id):
     if request.method == 'GET':
