@@ -3,20 +3,10 @@
 {% block title %}Democracy - {% blocktrans %}Search for '{{ search_query }}'{% endblocktrans %}{%endblock %}
 {% block content %}
 <div class="search-page">
-
-{% if channels %}
-<h1>{% trans "Channels" %}</h1>
-{% twocolumnloop with channel in channels %}
+<h1>{{ title }}</h1>
+{% twocolumnloop with channel in results %}
 {% show_channel_in_list channel %}
 {% endtwocolumnloop %}
-{% endif %}
-
-{% if channels_with_items %}
-<h1>{% blocktrans with search_query as search %}Channel With Videos Matching {{ search }}{% endblocktrans %}</h1>
-{% twocolumnloop with channel in channels_with_items %}
-{% show_channel_in_list channel %}
-{% endtwocolumnloop %}
-{% endif %}
-
+{% show_pager pager %}
 </div>
 {% endblock %}

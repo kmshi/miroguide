@@ -1,6 +1,3 @@
-import urllib
-import re
-
 from django.conf import settings
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.utils.translation import gettext as _
@@ -9,8 +6,7 @@ from sqlalchemy import desc, eagerload, null
 from channelguide import util
 from channelguide.guide.auth import moderator_required, login_required
 from channelguide.guide.forms import SubmitChannelForm, FeedURLForm
-from channelguide.guide.models import (Channel, Category, Tag, Item, Language,
-        ModeratorPost, User)
+from channelguide.guide.models import Channel, Item, ModeratorPost, User
 from channelguide.guide.notes import get_note_info
 from channelguide.guide.templateutil import Pager, ViewSelect
 
@@ -253,80 +249,6 @@ def recent(request):
         'channels_by_date': group_channels_by_date(pager.items),
     })
 
-
-def get_search_terms(query):
-    return [term for term in re.split("\s", query.strip())]
-
-def terms_too_short(terms):
-    return len([term for term in terms if len(term) >= 3]) == 0
-
-def search_results(session, class_, terms, search_attribute='name'):
-    select = session.query(class_).select()
-    if class_ is not Language:
-        select = select.filter(class_.c.channel_count > 0)
-    else:
-        select = select.filter((class_.c.channel_count_primary > 0) |
-                (class_.c.channel_count_secondary > 0))
-
-    search_column = class_.c[search_attribute]
-    for term in terms:
-        select = select.filter(search_column.like('%s%%' % term))
-    return select.list()
-
-def search(request):
-    CHANNEL_LIMIT = 10
-    CHANNEL_ITEM_MATCH_LIMIT = 20
-    try:
-        query = request.GET['query']
-    except:
-        raise Http404
-
-    terms = get_search_terms(query)
-    if terms_too_short(terms):
-        return util.render_to_response(request, 'channel-search.html', {})
-
-    href = 'search-more-channels?query=' + urllib.quote_plus(query)
-    label = _('More channels with videos that match this search.')
-    more_channels_link = util.make_link(href, label)
-    channels = Channel.search(request.db_session, terms,
-            limit=CHANNEL_LIMIT)
-    channels_count = Channel.search_count(request.connection, terms)
-    channels_with_items = Channel.search_items(request.db_session, terms,
-            limit=CHANNEL_ITEM_MATCH_LIMIT)
-    channels_with_items_count = Channel.search_items_count(request.connection,
-            terms)
-
-    return util.render_to_response(request, 'channel-search.html', {
-        'channels': channels,
-        'channels_count': channels_count,
-        'channels_with_items': channels_with_items[:CHANNEL_ITEM_MATCH_LIMIT],
-        'channels_with_items_count': channels_with_items_count,
-        'extra_channels': channels_count > CHANNEL_LIMIT,
-        'extra_channels_with_items': 
-            channels_with_items_count > CHANNEL_ITEM_MATCH_LIMIT,
-        'tags': search_results(request.db_session, Tag, terms),
-        'languages': search_results(request.db_session, Language, terms),
-        'categories': search_results(request.db_session, Category, terms),
-        'search_query': query.strip(),
-        'more_channels_link': more_channels_link,
-        })
-
-def search_more(request):
-    try:
-        query = request.GET['query']
-    except:
-        raise Http404
-
-    terms = get_search_terms(query)
-    if terms_too_short(terms):
-        return util.render_to_response(request, 'search-more.html', {})
-
-    return util.render_to_response(request, 'search-more.html', {
-        'search_query': query.strip(),
-        'channels': Channel.search(request.db_session, terms),
-        'channels_with_items': Channel.search_items(request.db_session,
-            terms),
-        })
 
 def for_user(request, user_id):
     user_query = request.db_session.query(User)

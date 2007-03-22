@@ -6,8 +6,43 @@ from urllib import urlencode
 from channelguide import util
 from channelguide.guide.models import Channel
 
-class Pager(object):
+class ManualPager(object):
     """Handles splitting a large group of results into separate pages."""
+
+    def __init__(self, items_per_page, total_items, items_callback, request):
+        """Construct a Pager.  Arguments:
+
+        items_per_page -- number of items per page
+        total_items -- total number of results
+        items_callback -- function to build the results list.  It should take
+            in 2 parameters, offset and count and return only those results.
+        request -- current request
+
+        """
+        try:
+            self.current_page = int(request.GET.get('page', 1))
+        except ValueError:
+            raise Http404
+        self.items_per_page = items_per_page
+        # Need to clear order_by before getting a count
+        self.total_items = total_items
+        self.calc_range()
+        self.links = PageLinks(self.current_page, self.total_pages, request)
+        self.items = items_callback(self.start_item-1, self.items_per_page)
+
+    def calc_range(self):
+        self.start_item = (self.current_page-1)* self.items_per_page + 1
+        self.end_item = self.start_item + self.items_per_page-1
+        self.start_item = max(1, self.start_item)
+        self.end_item = min(self.total_items, self.end_item)
+        self.total_pages = ((self.total_items + self.items_per_page-1) /
+                self.items_per_page)
+
+class Pager(ManualPager):
+    """Handles splitting a large group of results into separate pages.
+    
+    Gets the results from an SQLAlchemy SelectResults object.
+    """
 
     def __init__(self, items_per_page, select, request):
         """Construct a Pager.  Arguments:
@@ -17,25 +52,11 @@ class Pager(object):
         request -- current request
         """
 
-        try:
-            self.current_page = int(request.GET.get('page', 1))
-        except ValueError:
-            raise Http404
-        self.items_per_page = items_per_page
-        # Need to clear order_by before getting a count
-        self.total_items = select.order_by(None).count()
-        self.calc_range()
-        self.items = select.offset(self.start_item-1).limit(self.items_per_page)
-        self.items = self.items.list()
-        self.links = PageLinks(self.current_page, self.total_pages, request)
-
-    def calc_range(self):
-        self.start_item = (self.current_page-1)* self.items_per_page + 1
-        self.end_item = self.start_item + self.items_per_page-1
-        self.start_item = max(1, self.start_item)
-        self.end_item = min(self.total_items, self.end_item)
-        self.total_pages = ((self.total_items + self.items_per_page-1) /
-                self.items_per_page)
+        def callback(offset, limit):
+            return select.offset(offset).limit(limit).list()
+        total_items = select.order_by(None).count()
+        super(Pager, self).__init__(items_per_page, total_items, callback,
+                request)
 
 class PageLinks(object):
     LINKS_BEFORE_CURRENT = 5

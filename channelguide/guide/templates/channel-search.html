@@ -33,10 +33,10 @@
     </div>
 
 <div class="channel-matches">
-    <h1>{% blocktrans %}{{ channels_count }} Channels Match '{{ search_query }}'{% endblocktrans %}</h1>
-    {% if channels %}
+    <h1>{% blocktrans %}{{ results_count }} Channels Match '{{ search_query }}'{% endblocktrans %}</h1>
+    {% if results %}
     <ul>
-    {% for channel in channels %}
+    {% for channel in results %}
         <li{% if forloop.last %} class="last-row"{% endif %}>
           {% show_channel_in_list channel %}
         </li>
@@ -44,25 +44,25 @@
     </ul>
     {% endif %}
 
-    {% if extra_channels %}
+    {% if extra_results %}
     <div class="more-channel-matches">
-        {{ more_channels_link }}
+        {{ more_results_link }}
     </div>
     {% endif %}
 </div>
 <div class="clear"></div>
 
-{% if channels_with_items %}
+{% if item_results %}
 <div class="channel-item-matches">
-<h2>{% blocktrans %}Channel With Videos Matching '{{ search_query }}'{% endblocktrans %}</h2>
+<h2>{% blocktrans %}{{ item_results_count }} Channel Videos Match '{{ search_query }}'{% endblocktrans %}</h2>
 <div class="divider"></div>
-{% twocolumnloop with channel in channels_with_items %}
+{% twocolumnloop with channel in item_results %}
  {% show_channel_in_list channel %}
 {% endtwocolumnloop %}
 
-{% if extra_channels_with_items %}
+{% if extra_item_results %}
 <div class="more-channel-matches">
-    {{ more_channels_link }}
+    {{ more_results_link_items }}
 </div>
         {% endif %}
 {% endif %}

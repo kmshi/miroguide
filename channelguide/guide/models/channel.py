@@ -147,22 +147,23 @@ class Channel(DBObject, Thumbnailable):
         return ''
 
     @staticmethod
-    def do_search(db_session, terms, limit, where):
+    def do_search(db_session, terms, offset, limit, where):
         query = db_session.query(Channel)
         where &= query.join_to('search_data')
         score = search.score_column(search.ChannelSearchData, terms)
         sql_query = select(list(Channel.c) + [score.label('score')], where)
         sql_query.order_by(desc('score'))
+        sql_query.offset = offset
         sql_query.limit = limit
         results = db_session.connection(Channel.mapper()).execute(sql_query)
         return query.instances(results)
 
     @staticmethod
-    def search(db_session, terms, limit=None):
+    def search(db_session, terms, offset=0, limit=None):
         if not isinstance(terms, list):
             terms = [terms]
         where = search.where_clause(search.ChannelSearchData, terms)
-        return Channel.do_search(db_session, terms, limit, where)
+        return Channel.do_search(db_session, terms, offset, limit, where)
 
     @staticmethod
     def search_count(connection, terms):
@@ -173,12 +174,12 @@ class Channel(DBObject, Thumbnailable):
         return connection.execute(sql_query).scalar()
 
     @staticmethod
-    def search_items(db_session, terms, limit=None):
+    def search_items(db_session, terms, offset=0, limit=None):
         if not isinstance(terms, list):
             terms = [terms]
         channel_ids = Item.search_for_channel_ids(db_session, terms)
         where = Channel.c.id.in_(*channel_ids)
-        return Channel.do_search(db_session, terms, limit, where)
+        return Channel.do_search(db_session, terms, offset, limit, where)
 
     @staticmethod
     def search_items_count(connection, terms):

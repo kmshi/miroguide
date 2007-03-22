@@ -157,7 +157,7 @@ class SubmitChannelForm(Form):
                         'format.'),
             required=False)
     thumbnail_file = forms.Field(widget=ChannelThumbnailWidget, 
-            label=_('To Upload an Image:'))
+            label=_('Upload Image'))
 
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
