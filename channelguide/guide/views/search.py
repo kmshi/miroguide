@@ -47,10 +47,14 @@ def search(request):
         query = request.GET['query']
     except:
         raise Http404
+    query = query.strip()
 
     terms = get_search_terms(query)
     if terms_too_short(terms):
-        return util.render_to_response(request, 'channel-search.html', {})
+        return util.render_to_response(request, 'channel-search.html', {
+            'results_count': 0,
+            'search_query': query,
+            })
 
     results = Channel.search(request.db_session, terms, limit=FRONT_PAGE_LIMIT)
     results_count = Channel.search_count(request.connection, terms)
@@ -68,7 +72,7 @@ def search(request):
         'tags': search_results(request.db_session, Tag, terms),
         'languages': search_results(request.db_session, Language, terms),
         'categories': search_results(request.db_session, Category, terms),
-        'search_query': query.strip(),
+        'search_query': query,
         'more_results_link': more_results_link(query, results_count),
         'more_results_link_items': more_results_link_items(query, 
             item_results_count),

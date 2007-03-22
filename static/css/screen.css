@@ -85,11 +85,6 @@ li.column {
     width: 190px;
 }
 
-.half-size-list .two-column-list li.column {
-    width: 180px;
-    margin-left: 10px;
-}
-
 li.first-column {
     margin-left: 0px !important;
     clear: left;
@@ -119,10 +114,11 @@ div.clear {
 }
 
 .white-button-content {
-    height: 19px;
+    height: 16px;
     background: url(images/white-button-middle.png) top left repeat-x;
     text-align: center;
-    line-height: 14px;
+    line-height: 16px;
+    vertical-align: middle;
 }
 
 .white-button-content span {
@@ -211,7 +207,7 @@ div.clear {
     width: 287px;
     border: 0px;
     margin: 0px;
-    padding: 2px 5px;
+    padding: 0px 5px;
 }
 
 .big-form select.wide-field {
@@ -289,6 +285,7 @@ div.clear {
 #navigation .main-navigation a {
     color: #fff;
     line-height: 38px;
+    font-size: 110%;
     font-weight: bold;
     vertical-align: middle;
     display: block;
@@ -730,7 +727,7 @@ li.blog-post .title {
 .channel .actions .horizontal a {
     float: left;
     vertical-align: middle;
-    line-height: 27px;
+    line-height: 24px;
 }
 
 /* CSS For the featured channels */
@@ -1060,6 +1057,16 @@ li.blog-post .title {
     overflow: hidden;
 }
 
+.channel-in-list .two-column-list li.first-column {
+    width: 180px;
+}
+
+.channel-in-list .two-column-list li.second-column {
+    width: 186px;
+    margin-left: 4px;
+}
+
+
 .channel-in-list .title {
     margin-bottom: 2px;
 }
@@ -1109,8 +1116,15 @@ div.category-peek {
     padding: 0px 10px;
 }
 
+.category-peek .heading {
+    margin-bottom: 5px;
+    vertical-align: middle;
+    line-height: 1.25;
+}
+
 .category-peek .white-button-left {
     background: url(images/white-button-silver-left.png) top left no-repeat;
+    float: right;
 }
 
 .category-peek .white-button-right {
@@ -1130,6 +1144,7 @@ div.category-peek {
     color: #000;
     float: left;
     padding-top: 1px;
+    font-size: 110%;
 }
 
 .category-peek h3 span {
@@ -1140,7 +1155,7 @@ div.category-peek {
 .category-peek .nav-button {
     width: 14px;
     height: 14px;
-    margin-top: 2px;
+    margin-top: 3px;
     background: left top no-repeat;
     display: block;
     float: left;
@@ -1162,15 +1177,11 @@ div.category-peek {
 
 .category-peek .two-column-list li.column {
     width: 170px;
+    margin-left: 10px;
 }
 
 .category-peek .two-column-list li.last-row {
     margin-bottom: 0px;
-}
-
-.category-peek .white-button-left {
-    float: right;
-    margin-bottom: 5px;
 }
 
 /* quick-lists (the list of popular/new shows on the right hand side) */

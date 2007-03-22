@@ -27,14 +27,14 @@
                 <li class="next"><a href="#" onclick="history.forward(); return false;" ><span class="hidden">Next</span></a></li>
             </ul>
             <ul class="main-navigation">
-                <li><a {% navlink "" %}>{% trans "Front Page" %}</a></li>
-                <li><a {% navlink "channels/by-name" %}>{% trans "A - Z" %}</a></li>
-                <li><a {% navlink "categories/" %}>{% trans "Categories" %}</a></li>
-                <li><a {% navlink "channels/recent" %}>{% trans "Recent" %}</a></li>
-                <li><a {% navlink "channels/features" %}>{% trans "Featured" %}</a></li>
+                <li><a {% navlink "" %}>{% trans "Home" %}</a></li>
                 <li><a {% navlink "channels/popular" %}>{% trans "Popular" %}</a></li>
+                <li><a {% navlink "channels/features" %}>{% trans "Featured" %}</a></li>
+                <li><a {% navlink "channels/recent" %}>{% trans "Recent" %}</a></li>
+                <li><a {% navlink "categories/" %}>{% trans "Categories" %}</a></li>
                 <li><a {% navlink "tags/" %}>{% trans "Tags" %}</a></li>
                 <li><a {% navlink "languages/" %}>{% trans "Languages" %}</a></li>
+                <li><a {% navlink "channels/by-name" %}>{% trans "A - Z" %}</a></li>
             </ul>
         </div>
         <img id="load-indicator" src="{{ BASE_URL }}images/load-indicator.gif">
@@ -77,7 +77,6 @@
         <div id="content-bottom">
         <div id="content">
             {% block content %}{% endblock %}
-            <div class="clear"></div>
         </div>
         </div>
     </div>
