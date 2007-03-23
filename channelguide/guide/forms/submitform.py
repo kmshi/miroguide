@@ -8,6 +8,7 @@ import tempfile
 import urllib2
 
 from django.conf import settings
+from django.utils.translation import gettext as _
 import django.newforms as forms
 from django.newforms.forms import BoundField
 
@@ -83,7 +84,8 @@ class ChannelThumbnailWidget(forms.Widget):
     def get_url(self):
         if self.submitted_thumb_path is None:
             return None
-        return urljoin(settings.MEDIA_URL, 
+        else:
+            return urljoin(settings.MEDIA_URL, 
                 'tmp/%s' % self.submitted_thumb_path_resized())
 
     def save_submitted_thumbnail(self, data, name):
@@ -171,7 +173,7 @@ class SubmitChannelForm(Form):
             # thumbnail_file is special cased
             if field.name != 'thumbnail_file': 
                 yield field
-    
+
     def thumbnail_widget(self):
         return BoundField(self, self.fields['thumbnail_file'],
                 'thumbnail_file')
@@ -222,14 +224,18 @@ class SubmitChannelForm(Form):
 
     def save_channel(self, creator, feed_url):
         channel = Channel()
+        channel.url = feed_url
+        channel.owner = creator
+        self.update_channel(channel)
+        return channel
+
+    def update_channel(self, channel):
         simple_cols = ('name', 'website_url', 'short_description',
                 'description', 'publisher', 'hi_def')
         for attr in simple_cols:
             setattr(channel, attr, self.clean_data[attr])
-        channel.url = feed_url
-        channel.owner = creator
         if self.clean_data['tags']:
-            channel.add_tags(creator, self.clean_data['tags'])
+            channel.add_tags(channel.owner, self.clean_data['tags'])
         self.add_categories(channel)
         self.add_languages(channel)
         self.db_session.save(channel)
@@ -237,7 +243,6 @@ class SubmitChannelForm(Form):
         if self.clean_data['thumbnail_file']:
             channel.save_thumbnail(self.clean_data['thumbnail_file'])
         channel.update_search_data()
-        return channel
 
     def save_submitted_thumbnail(self):
         thumb_widget = self.fields['thumbnail_file'].widget
@@ -245,3 +250,40 @@ class SubmitChannelForm(Form):
 
     def user_uploaded_file(self):
         return self.data.get('thumbnail_file') is not None
+
+class EditChannelForm(SubmitChannelForm):
+    def __init__(self, db_session, channel, data=None):
+        self.base_fields = SubmitChannelForm.base_fields
+        # django hack
+        super(EditChannelForm, self).__init__(db_session, data)
+        self.channel = channel
+        self.fields['thumbnail_file'].required = False
+        self.set_image_from_channel = False
+        if data is None:
+            self.set_defaults_from_channel()
+
+    def get_template_data(self):
+        data = super(EditChannelForm, self).get_template_data()
+        if data['submitted_thumb_url'] is None:
+            data['submitted_thumb_url'] = self.channel.thumb_url(370, 247)
+            self.set_image_from_channel = True
+        return data
+
+    def set_defaults_from_channel(self):
+        for key in ('name', 'hi_def', 'website_url', 'short_description',
+                'description', 'publisher'):
+            self.fields[key].initial = getattr(self.channel, key)
+        self.fields['language'].initial = self.channel.language.id
+        tag_names = [tag.name for tag in self.channel.get_tags_for_owner()]
+        self.fields['tags'].initial = ', '.join(tag_names)
+        def set_from_list(key, list, index):
+            try:
+                self.fields[key].initial = list[index].id
+            except IndexError:
+                pass
+        set_from_list('language2', self.channel.secondary_languages, 0)
+        set_from_list('language3', self.channel.secondary_languages, 1)
+        set_from_list('category1', self.channel.categories, 0)
+        set_from_list('category2', self.channel.categories, 1)
+        set_from_list('category3', self.channel.categories, 2)
+

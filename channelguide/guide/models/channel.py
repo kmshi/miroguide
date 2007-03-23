@@ -6,7 +6,7 @@ import traceback
 
 from django.conf import settings
 from django.utils.translation import ngettext
-from sqlalchemy import select, desc, func
+from sqlalchemy import select, desc, func, eagerload
 
 from channelguide.db import DBObject, dbutil
 from channelguide import util
@@ -81,6 +81,14 @@ class Channel(DBObject, Thumbnailable):
             db_session.flush([tag])
         if not db_session.get(TagMap, (self.id, user.id, tag.id)):
             self.tag_maps.append(TagMap(self, user, tag))
+
+    def get_tags_for_user(self, user):
+        db_session = self.session()
+        q = db_session.query(TagMap).options(eagerload('tag'))
+        return [m.tag for m in q.select_by(user=user, channel=self)]
+
+    def get_tags_for_owner(self):
+        return self.get_tags_for_user(self.owner)
 
     def add_tags(self, user, tags):
         """Tag this channel with a list of tags."""
@@ -276,7 +284,6 @@ class Channel(DBObject, Thumbnailable):
         url_label = util.chop_prefix(url_label, 'http://')
         url_label = util.chop_prefix(url_label, 'https://')
         url_label = util.chop_prefix(url_label, 'www.')
-        print util.make_link(self.url, url_label)
         return util.make_link(self.url, url_label)
 
     def change_state(self, newstate):

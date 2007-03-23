@@ -8,7 +8,7 @@ from channelguide.lib import feedparser
 from channelguide.guide.feedutil import to_utf8
 from fields import WideCharField
 from form import Form
-from submitform import SubmitChannelForm
+from submitform import SubmitChannelForm, EditChannelForm
 
 class UsernameField(WideCharField):
     def clean(self, value):

@@ -1,38 +1,12 @@
-{% load i18n cg_helpers %}
-{% extends 'base.html' %}
+{% load i18n %}
+{% extends 'channel-form.html' %}
 {% block title %}Democracy - {% trans "Submit Channel" %}{%endblock %}
-{% block content %}
-<div class="submit-feed-page">
+{% block heading %}
 <h1>{% trans "Step 2: Tell Us About Your Channel" %}</h1>
 <p class="form-instructions">{% blocktrans %}
 The feed you entered appears to be working correctly.  Now we need some more
 details.  If there was info about the channel in the feed, we've entered that
 for you below.  Feel free to update or change any of it.
 {% endblocktrans %}</p>
-<div class="big-form">
-<form method="POST" enctype="multipart/form-data" action="{{BASE_URL}}channels/submit/step2">
-    {% show_form form %}
-<div class="thumbnail-select">
-<h2>{% trans "Channel Thumbnail" %}</h2>
-<p>{% blocktrans %}Remember that creating a good channel thumbnail is one of
-the most important ways to attract new viewers.  It's worth making an effort
-to do something beautiful.  You can also update the image after you submit
-your channel.{% endblocktrans %}</p>
-{% if submitted_thumb_url and detected_thumbnail %}
-<h3>{% trans "We have found an image in your feed.  You can either use this image or upload a different one." %}</h3>
-{% endif %}
-{{ form.thumbnail_widget.label_tag }}
-{{ form.thumbnail_widget }}
-{% if submitted_thumb_url %}
-  {% if detected_thumbnail %}
-    <h4>{% trans "Current image (from the feed)" %}</h4>
-  {% else %}
-    <h4>{% trans "Current image (uploaded)" %}</h4>
-  {% endif %}
-  <img width="370" height="247" src="{{ submitted_thumb_url }}" />
-{% endif %}
-</div>
-    <input type="submit" class="submit" value="{% trans "Next Step" %} &gt;&gt;">
-</form>
-</div>
 {%endblock%}
+{% block submit-text %}{% trans "Next Step" %} &gt;&gt;{% endblock %}

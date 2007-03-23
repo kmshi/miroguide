@@ -4,8 +4,8 @@ from django.utils.translation import gettext as _
 from sqlalchemy import desc, eagerload, null
 
 from channelguide import util
+from channelguide.guide import forms
 from channelguide.guide.auth import moderator_required, login_required
-from channelguide.guide.forms import SubmitChannelForm, FeedURLForm
 from channelguide.guide.models import Channel, Item, ModeratorPost, User
 from channelguide.guide.notes import get_note_info
 from channelguide.guide.templateutil import Pager, ViewSelect
@@ -63,9 +63,9 @@ def destroy_submit_url_session(request):
 def submit_feed(request):
     destroy_submit_url_session(request)
     if request.method != 'POST':
-        form = FeedURLForm(request.db_session)
+        form = forms.FeedURLForm(request.db_session)
     else:
-        form = FeedURLForm(request.db_session, request.POST.copy())
+        form = forms.FeedURLForm(request.db_session, request.POST.copy())
         if form.is_valid():
             request.session[SESSION_KEY] = form.get_feed_data()
             return util.redirect("channels/submit/step2")
@@ -78,12 +78,12 @@ def submit_channel(request):
         return util.redirect('channels/submit/step1')
     session_dict = request.session[SESSION_KEY]
     if request.method != 'POST':
-        form = SubmitChannelForm(request.db_session)
+        form = forms.SubmitChannelForm(request.db_session)
         form.set_defaults(session_dict)
         session_dict['detected_thumbnail'] = form.set_image_from_feed
         request.session.modified = True
     else:
-        form = SubmitChannelForm(request.db_session, 
+        form = forms.SubmitChannelForm(request.db_session, 
                 util.copy_post_and_files(request))
         if form.user_uploaded_file():
             session_dict['detected_thumbnail'] = False
@@ -96,8 +96,10 @@ def submit_channel(request):
         else:
             form.save_submitted_thumbnail()
     context = form.get_template_data()
-    context['detected_thumbnail'] = session_dict.get('detected_thumbnail',
-            False)
+    if session_dict.get('detected_thumbnail'):
+        context['thumbnail_description'] = _("Current image (from the feed)")
+    else:
+        context['thumbnail_description'] = _("Current image (uploaded)")
     return util.render_to_response(request, 'submit-channel.html', context)
 
 def channel(request, id):
@@ -262,3 +264,24 @@ def for_user(request, user_id):
         'channels': pager.items,
         'pager': pager,
         })
+
+def edit_channel(request, id):
+    query = request.db_session.query(Channel)
+    channel = util.get_object_or_404(query, id)
+    request.user.check_can_edit(channel)
+    if request.method != 'POST':
+        form = forms.EditChannelForm(request.db_session, channel)
+    else:
+        form = forms.EditChannelForm(request.db_session, channel,
+                util.copy_post_and_files(request))
+        if form.is_valid():
+            form.update_channel(channel)
+            return util.redirect(channel.get_absolute_url())
+        else:
+            form.save_submitted_thumbnail()
+    context = form.get_template_data()
+    if form.set_image_from_channel:
+        context['thumbnail_description'] = _("Current image (no change)")
+    else:
+        context['thumbnail_description'] = _("Current image (uploaded)")
+    return util.render_to_response(request, 'edit-channel.html', context)
