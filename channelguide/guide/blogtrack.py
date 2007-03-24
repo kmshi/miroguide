@@ -1,7 +1,8 @@
-PCF_BLOG_FEED_URL = 'http://www.getdemocracy.com/news/feed/'
+import feedparser
 
 from models import PCFBlogPost
-from channelguide.lib import feedparser
+
+PCF_BLOG_FEED_URL = 'http://www.getdemocracy.com/news/feed/'
 
 def fetch_new():
     feed = feedparser.parse(PCF_BLOG_FEED_URL)

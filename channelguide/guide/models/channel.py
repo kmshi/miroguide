@@ -1,6 +1,7 @@
 from datetime import datetime
 from glob import glob
 from urllib import quote
+import feedparser
 import logging
 import traceback
 
@@ -12,7 +13,6 @@ from channelguide.db import DBObject, dbutil
 from channelguide import util
 from channelguide.guide import feedutil, tables, exceptions
 from channelguide.guide.thumbnail import Thumbnailable
-from channelguide.lib import feedparser
 
 from item import Item
 from label import Tag, TagMap

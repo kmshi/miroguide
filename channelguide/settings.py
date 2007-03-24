@@ -35,6 +35,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'channelguide.cache.CacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'channelguide.db.middleware.DBMiddleware',
     'channelguide.sessions.middleware.SessionMiddleware',
@@ -65,6 +66,7 @@ SITE_DIR = os.path.abspath(os.path.dirname(__file__))
 ROOT_DIR = os.path.abspath(os.path.join(SITE_DIR, '..'))
 
 TEMPLATE_DIR = os.path.join(SITE_DIR, 'templates')
+EXTERNAL_LIBRARY_DIR = os.path.join(SITE_DIR, 'lib')
 
 STATIC_DIR = os.path.join(ROOT_DIR, 'static')
 IMAGES_DIR = os.path.join(STATIC_DIR, 'images')
@@ -81,3 +83,5 @@ SOCKET_TIMEOUT = 10
 
 import socket
 socket.setdefaulttimeout(SOCKET_TIMEOUT)
+import sys
+sys.path.insert(0, EXTERNAL_LIBRARY_DIR)

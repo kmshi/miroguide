@@ -9,7 +9,7 @@ from django.http import HttpRequest, HttpResponse
 from django.test.client import Client
 from sqlalchemy import BoundMetaData, Table, create_session
 
-from channelguide import db
+from channelguide import db, cache
 from channelguide.db import version
 from channelguide import util
 
@@ -56,6 +56,7 @@ class TestCase(unittest.TestCase):
         self.starting_db_version = version.get_version(self.connection)
         util.emailer = self.catch_email
         self.emails = []
+        cache.disable_cache = True
         self.client = Client()
 
     def catch_email(self, title, body, email_from, recipient_list):
@@ -225,10 +226,13 @@ class TestCase(unittest.TestCase):
 
     def process_response(self, request):
         response = HttpResponse()
+        self.process_response_middleware(request, response)
+        return response
+
+    def process_response_middleware(self, request, response):
         for obj in reversed(self.get_middleware_objects()):
             if hasattr(obj, 'process_response'):
                 response = obj.process_response(request, response)
-        return response
 
     def process_exception(self, request, exception):
         for obj in reversed(self.get_middleware_objects()):

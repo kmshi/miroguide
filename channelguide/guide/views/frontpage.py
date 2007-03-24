@@ -3,6 +3,7 @@ import urllib
 from sqlalchemy import desc, func
 
 from channelguide import util
+from channelguide.cache import cache_page_externally_for
 from channelguide.db import dbutil
 from channelguide.guide.models import Channel, Category, PCFBlogPost
 
@@ -62,6 +63,7 @@ def make_category_peek(request):
     }
 
 
+@cache_page_externally_for(300)
 def index(request):
     channel_query = request.db_session.query(Channel)
     category_query = request.db_session.query(Category)

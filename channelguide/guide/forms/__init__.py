@@ -1,10 +1,10 @@
+import feedparser
 import urllib2
 
 from django import newforms as forms
 from django.utils.translation import gettext as _
 
 from channelguide.guide.models import User, Channel
-from channelguide.lib import feedparser
 from channelguide.guide.feedutil import to_utf8
 from fields import WideCharField
 from form import Form

@@ -5,6 +5,7 @@ Database functions for channelguide.
 
 # import hacks as soon as possible, since it makes changes to sqlalchemy
 import hacks
+import cache
 
 import os
 import re
@@ -12,11 +13,13 @@ import re
 from sqlalchemy import (create_engine, create_session, BoundMetaData,
         object_session, class_mapper)
 from sqlalchemy.engine.url import URL
+from sqlalchemy.orm.mapper import global_extensions
 from django.conf import settings
 # NOTE: this next imports configures sqlalchemy to use the SelectResults 
 # extension for all Mapper queries.  See:
 # http://www.sqlalchemy.org/docs/plugins.myt#plugins_selectresults
 import sqlalchemy.mods.selectresults
+global_extensions.append(cache.CacheClearer)
 
 from channelguide import util
 import version

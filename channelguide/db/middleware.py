@@ -15,9 +15,10 @@ class DBMiddleware(object):
         request.transaction.add(request.connection)
 
     def process_response(self, request, response):
-        if request.transaction:
+        if hasattr(request, 'transaction') and request.transaction:
             request.transaction.commit()
-        request.connection.close()
+        if hasattr(request, 'connection'):
+            request.connection.close()
         return response
 
     def process_exception(self, request, exception):

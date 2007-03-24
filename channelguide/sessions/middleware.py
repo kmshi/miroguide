@@ -43,7 +43,7 @@ class SessionMiddleware(object):
         # If request.session was modified, or if response.session was set, save
         # those changes and set a session cookie.
         patch_vary_headers(response, ('Cookie',))
-        if request.session.modified:
+        if hasattr(request, 'session') and request.session.modified:
             session = Session.get_from_key(request.db_session, 
                     request.session.session_key)
             session.set_data(request.session._session)
