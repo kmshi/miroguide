@@ -24,7 +24,8 @@ class ModeratorPost(NoteBase):
     def send_email(self):
         query = self.session().query(User)
         moderators = query.select(User.c.role.in_(*User.ALL_MODERATOR_ROLES))
-        emails = [mod.email for mod in moderators]
+        emails = [mod.email for mod in moderators 
+                if mod.moderator_board_emails]
         util.send_mail(self.title, self.body, emails)
 
 class ChannelNote(NoteBase):

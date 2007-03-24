@@ -143,3 +143,16 @@ def moderators(request):
         'moderators': pager.items,
         'pager': pager,
     })
+
+@moderator_required
+def moderator_board_emails(request, id):
+    query = request.db_session.query(User)
+    user = util.get_object_or_404(query, id)
+    user.moderator_board_emails = (request.POST.get('set-to') == 'enable')
+    return util.redirect('moderate')
+
+def status_emails(request, id):
+    query = request.db_session.query(User)
+    user = util.get_object_or_404(query, id)
+    user.status_emails = (request.POST.get('set-to') == 'enable')
+    return util.redirect('moderate')

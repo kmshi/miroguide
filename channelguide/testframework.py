@@ -62,11 +62,11 @@ class TestCase(unittest.TestCase):
     def catch_email(self, title, body, email_from, recipient_list):
         self.emails.append({'title': title, 'body': body, 
             'email_from': email_from, 'recipient_list': recipient_list})
+        self.sanity_check_email(self.emails[-1])
 
-    def sanity_check_emails(self):
-        for email in self.emails:
-            self.assertEquals(type(email['email_from']), str)
-            self.assertEquals(type(email['recipient_list']), list)
+    def sanity_check_email(self, email):
+        self.assertEquals(type(email['email_from']), str)
+        self.assertEquals(type(email['recipient_list']), list)
 
     def tearDown(self):
         self.resume_logging()

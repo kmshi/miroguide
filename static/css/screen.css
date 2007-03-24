@@ -527,6 +527,15 @@ li.blog-post .title {
     font-size: 70%;
 }
 
+.moderate-page .moderator-board-emails {
+    margin-top: 20px;
+}
+
+.moderate-page form h2 {
+    float: left;
+    width: 300px;
+}
+
 .user-search-page .results-label {
     margin-top: 10px;
 }

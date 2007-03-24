@@ -117,7 +117,6 @@ class NotesPageTest(TestCase):
         self.db_session.refresh(self.channel)
         self.assertEquals(len(self.channel.notes), 2)
         self.assertEquals(len(self.emails), 1)
-        self.sanity_check_emails()
 
     def test_email_checkbox(self):
         channel_path = "/channels/%d" % self.channel.id
@@ -205,7 +204,6 @@ class NotesPageTest(TestCase):
         self.check_can_email(self.user, False)
         self.check_can_email(self.moderator, True)
         self.check_can_email(self.supermod, True)
-        self.sanity_check_emails()
 
 class ModeratorPostTest(TestCase):
     def setUp(self):

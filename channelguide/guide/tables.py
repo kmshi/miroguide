@@ -34,6 +34,9 @@ user = Table('user', db.metadata,
         Column('im_username', String(35), nullable=True),
         Column('im_type', String(25), nullable=True),
         Column('hashed_password', String(40), nullable=False),
+        Column('moderator_board_emails', Boolean(), PassiveDefault(1),
+            nullable=False),
+        Column('status_emails', Boolean(), PassiveDefault(1), nullable=False),
         Column('email_updates', Boolean, PassiveDefault('0'), nullable=False))
 
 moderator_action = Table('cg_moderator_action', db.metadata,
