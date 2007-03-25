@@ -16,7 +16,6 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'channelguide.settings'
 
 import itertools
 import logging
-import threading
 import traceback
 import Queue
 
@@ -44,69 +43,23 @@ def convert_old_data(args):
     convert_old_data(args[2], args[3])
 convert_old_data.args = '<videobomb db name> <channelguide db name>'
 
-def all_channel_iterator(progress_string, flush_every_x_channels):
+def all_channel_iterator(flush_every_x_channels):
     """Helper method to iterate over all channels.  It will yield each channel
-    in order, and print progress info."""
+    in order.
+    """
 
     from channelguide import db
     from channelguide.guide.models import Channel
 
     db_session = create_session(bind_to=db.engine)
     query = db_session.query(Channel).options(eagerload('items'))
-    pprinter = util.ProgressPrinter(progress_string, query.count())
     count = itertools.count()
-    print "fetching channels..."
     results = query.select()
     for channel in results:
         yield channel
         if count.next() % flush_every_x_channels == 0:
             db_session.flush()
-        pprinter.iteration_done()
-    pprinter.loop_done()
     db_session.flush()
-
-def all_channel_iterator_threaded(progress_string, flush_every_x_channels,
-        worker_callback, thread_count=10):
-    """Helper method to iterate over all channels.  It works like
-    all_channel_iterator, but instead of yielding channels it creates
-    a group of threads.  worker_callback is called for each channel in the DB.
-    """
-    from channelguide import db
-    from channelguide.guide.models import Channel
-
-    connection = db.connect()
-    db_session = create_session(bind_to=connection)
-    query = db_session.query(Channel).options(eagerload('items'))
-    channel_queue = Queue.Queue()
-    print "fetching channels..."
-    for channel in query.select():
-        channel_queue.put(channel.id)
-    pprinter = util.ProgressPrinter(progress_string, query.count())
-    connection.close()
-    class WorkerThread(threading.Thread):
-        def __init__(self):
-            threading.Thread.__init__(self)
-            self.db_session = create_session(bind_to=db.engine)
-        def run(self):
-            count = itertools.count()
-            while True:
-                try:
-                    id = channel_queue.get(block=False)
-                except Queue.Empty:
-                    break
-                else:
-                    channel = self.db_session.get(Channel, id)
-                    worker_callback(channel)
-                    if count.next() % flush_every_x_channels == 0:
-                        self.db_session.flush()
-                        self.db_session.clear()
-                    pprinter.iteration_done()
-    workers = [WorkerThread() for i in range(thread_count)]
-    for worker in workers:
-        worker.start()
-    for worker in workers:
-        worker.join()
-    pprinter.loop_done()
 
 def update_thumbnails(args):
     "Update channel thumbnails."""
@@ -121,28 +74,25 @@ def update_thumbnails(args):
             sizes.append(arg)
     if sizes == []:
         sizes = None
-    def callback(channel):
+    for channel in all_channel_iterator(40):
         try:
             channel.update_thumbnails(overwrite, redownload, sizes)
         except:
-            print "\nError updating thumbnails for %s\n\n%s\n" % \
-                    (channel, traceback.format_exc())
-    all_channel_iterator_threaded("updating thumbnails", 40, callback)
+            logging.warn("\nError updating thumbnails for %s\n\n%s\n" % 
+                    (channel, traceback.format_exc()))
 update_thumbnails.args = '[size] [--overwrite]'
 
-def update_items(args):
+def update_items(args=None):
     """Update the items for each channel."""
-    def callback(channel):
+    for channel in all_channel_iterator(40):
         try:
             channel.update_items()
         except:
-            print "\nError updating items for %s\n\n%s\n" % \
-                    (channel, traceback.format_exc())
-    all_channel_iterator_threaded("updating items", 40, callback)
+            logging.warn("\nError updating items for %s\n\n%s\n" % 
+                    (channel, traceback.format_exc()))
 update_items.args = ''
 
-
-def update_search_data(args):
+def update_search_data(args=None):
     "Update the search data for each channel."
     from channelguide.guide import tables
     from channelguide import db
@@ -152,13 +102,13 @@ WHERE NOT EXISTS (SELECT * FROM cg_channel_item WHERE id=item_id)""")
     connection.execute("""DELETE FROM cg_channel_search_data
 WHERE NOT EXISTS (SELECT * FROM cg_channel WHERE id=channel_id)""")
 
-    for channel in all_channel_iterator("updating search data", 10):
+    for channel in all_channel_iterator(10):
         channel.update_search_data()
 update_search_data.args = ''
 
 def fix_utf8_strings(args):
     "Update the search data for each channel."
-    for channel in all_channel_iterator("fixing utf-8 data", 100):
+    for channel in all_channel_iterator(100):
         channel.fix_utf8_strings()
 fix_utf8_strings.args = ''
 
