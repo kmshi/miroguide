@@ -10,59 +10,6 @@ from fields import WideCharField
 from form import Form
 from submitform import SubmitChannelForm, EditChannelForm
 
-class UsernameField(WideCharField):
-    def clean(self, value):
-        value = WideCharField.clean(self, value)
-        user = self.db_session.query(User).get_by(username=value)
-        if user is None:
-            raise forms.ValidationError(_("That username is not valid."))
-        else:
-            return user
-
-class LoginForm(Form):
-    username = UsernameField(max_length=40)
-    password = WideCharField(max_length=40, widget=forms.PasswordInput)
-
-    def clean(self):
-        user = self.clean_data.get('username')
-        password = self.clean_data.get('password')
-        errors = []
-        if user is not None and password is not None:
-            if not user.check_password(password):
-                errors.append(_("That password is not valid."))
-        if errors:
-            raise forms.ValidationError(errors)
-        self.clean_data['user'] = user
-        return Form.clean(self)
-
-class RegisterForm(Form):
-    username = WideCharField(max_length=40, label=_("Pick a username"))
-    email = WideCharField(max_length=100, label=_("Email address"))
-    password = WideCharField(max_length=40, widget=forms.PasswordInput,
-            label=_("Pick a password"))
-    password_check = WideCharField(max_length=40, widget=forms.PasswordInput,
-            label=_("Re-type the password"))
-
-    def clean(self):
-        username = self.clean_data.get('username')
-        email = self.clean_data.get('email')
-        password = self.clean_data.get('password')
-        password_check = self.clean_data.get('password_check')
-        errors = []
-        query = self.db_session.query(User)
-        if query.get_by(username=username):
-            errors.append(_("That username is taken."))
-        if query.get_by(email=email):
-            errors.append(_("That email address is taken."))
-        if password is not None and password != password_check:
-            errors.append(_("Passwords don't match"))
-        if errors:
-            raise forms.ValidationError(errors)
-        user = User(username, password)
-        self.db_session.save(user)
-        self.clean_data['user'] = user
-        return Form.clean(self)
-
 class RSSFeedField(WideCharField):
     def clean(self, value):
         url = super(RSSFeedField, self).clean(value)

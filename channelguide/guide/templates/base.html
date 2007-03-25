@@ -54,6 +54,7 @@
                 <a {% link user.channel_url %}>{% trans "My Submitted Channels" %}</a>
                 {% endif %}
                 <a {% link "channels/submit" %}>{% trans "Submit A Channel" %}</a>
+                <a {% link user.get_absolute_url %}>{% trans "Update Account Info" %}</a>
             </div>
             {% else %}
             <div class="right">

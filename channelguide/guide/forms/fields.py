@@ -16,3 +16,5 @@ class WideURLField(WideMixin, forms.URLField):
     pass
 class WideChoiceField(WideMixin, forms.ChoiceField):
     pass
+class WideEmailField(WideMixin, forms.EmailField):
+    pass

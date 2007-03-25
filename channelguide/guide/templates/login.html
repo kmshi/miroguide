@@ -21,7 +21,7 @@
 a few seconds.{% endblocktrans %}<BR>
 {% blocktrans %}Do you have a videobomb account?  If so, you are already
 registered, login above.{% endblocktrans %}</p>
-    <form method="POST" action="{{ BASE_URL }}accounts/register{% if next %}?next={{ next }}{% endif %}">
+    <form method="POST" action="{{ BASE_URL }}accounts/login{% if next %}?next={{ next }}{% endif %}">
         <input type="hidden" name="which-form" value="register">
         {% show_form register_form %}
         <input type="submit" class="submit" value="{% trans "Register" %} &gt;&gt;">

@@ -50,7 +50,8 @@ def main(args):
     if saw_error:
         sys.exit(1)
     else:
-        print 'All systems go'
+        print ('Dependencies look okay.'
+                'Make sure %s is writable by the apache user' % media_dir)
 
 if __name__ == '__main__':
     main(sys.argv)

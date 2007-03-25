@@ -62,7 +62,7 @@ class User(UserBase, DBObject):
             self.set_password(password)
 
     def get_absolute_url(self):
-        return util.make_absolute_url("accounts/user/%d" % self.id)
+        return util.make_absolute_url("accounts/%d" % self.id)
 
     def promote(self):
         if self.role == self.ADMIN:

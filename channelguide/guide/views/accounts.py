@@ -4,7 +4,7 @@ import django.newforms as forms
 
 from channelguide import util
 from channelguide.guide.auth import logout, login, moderator_required
-from channelguide.guide.forms import LoginForm, RegisterForm
+from channelguide.guide.forms import user as user_forms
 from channelguide.guide.models import User
 from channelguide.guide.templateutil import Pager
 
@@ -29,13 +29,13 @@ def login_view(request):
         register_data = request.POST
     else:
         message = get_login_message(next)
-    login_form = LoginForm(request.db_session, login_data)
-    register_form = RegisterForm(request.db_session, register_data)
+    login_form = user_forms.LoginForm(request.db_session, login_data)
+    register_form = user_forms.RegisterForm(request.db_session, register_data)
     if login_form.is_valid():
-        login(request, login_form.clean_data['user'])
+        login(request, login_form.get_user())
         return util.redirect(next)
     elif register_form.is_valid():
-        login(request, register_form.clean_data['user'])
+        login(request, register_form.make_user())
         return util.redirect(next)
     return util.render_to_response(request, 'login.html', { 
         'next' : request.GET.get('next'),
@@ -48,71 +48,37 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
 
-class NewUserField(forms.CharField):
-    def clean(self, value):
-        rv = super(NewUserField, self).clean(value)
-        if self.db_session.query(User).get_by(username=value):
-            raise forms.ValidationError(_("username already taken"))
-        return rv
-
-class NewEmailField(forms.EmailField):
-    def clean(self, value):
-        rv = super(NewEmailField, self).clean(value)
-        if self.db_session.query(User).get_by(email=value):
-            raise forms.ValidationError(_("email already taken"))
-        return rv
-
-class CreateUserForm(forms.Form):
-    username = NewUserField(max_length=25)
-    email = NewEmailField(max_length=100)
-    password = forms.CharField(max_length=30, widget=forms.PasswordInput)
-    password2 = forms.CharField(max_length=30, widget=forms.PasswordInput,
-            label=_("Confirm Password"))
-
-    def __init__(self, db_session, data=None):
-        super(CreateUserForm, self).__init__(data)
-        self.fields['email'].db_session = db_session
-        self.fields['username'].db_session = db_session
-
-    def clean(self):
-        if (self.data['password'] and self.data['password2'] and
-                self.data['password'] != self.data['password2']):
-            raise forms.ValidationError(_("Passwords don't match"))
-        return super(CreateUserForm, self).clean()
-
-    def save_user(self, db_session):
-        u = User()
-        u.username = self.clean_data['username']
-        u.email = self.clean_data['email']
-        u.set_password(self.clean_data['password'])
-        db_session.save(u)
-        return u
-
-def create_user(request):
-    if request.method != 'POST':
-        form = CreateUserForm(request.db_session)
-    else:
-        form = CreateUserForm(request.db_session, request.POST)
-        if form.is_valid():
-            form.save_user(request.db_session)
-            return util.redirect("user/after-create")
-    return util.render_to_response(request, 'create.html', 
-            {'form': form})
-
-def after_create(request):
-    return util.render_to_response(request, 'after_create.html')
-
 def user(request, id):
     query = request.db_session.query(User)
     user = util.get_object_or_404(query, id)
-    action = request.POST.get('action')
-    if action == 'promote':
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        if action == 'promote':
+            request.user.check_is_admin()
+            user.promote()
+        elif action == 'demote':
+            request.user.check_is_admin()
+            user.demote()
+        elif action == 'edit':
+            return edit_user_form(request, user)
+        return util.redirect_to_referrer(request)
+    else:
+        return edit_user_form(request, user)
+
+def edit_user_form(request, user):
+    if request.user is user:
         request.user.check_is_admin()
-        user.promote()
-    elif action == 'demote':
-        request.user.check_is_admin()
-        user.demote()
-    return util.redirect_to_referrer(request)
+    if request.method == 'POST':
+        form = user_forms.EditUserForm(request.db_session, user, request.POST)
+        if form.is_valid():
+            form.update_user()
+            if user is request.user:
+                login(request, user) # needed to handle password changes
+            return util.redirect(user.get_absolute_url())
+    else:
+        form = user_forms.EditUserForm(request.db_session, user)
+    return util.render_to_response(request, 'edit-user.html', {
+        'form': form})
 
 @moderator_required
 def search(request):
