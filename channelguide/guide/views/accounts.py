@@ -66,7 +66,7 @@ def user(request, id):
         return edit_user_form(request, user)
 
 def edit_user_form(request, user):
-    if request.user is user:
+    if request.user is not user:
         request.user.check_is_admin()
     if request.method == 'POST':
         form = user_forms.EditUserForm(request.db_session, user, request.POST)

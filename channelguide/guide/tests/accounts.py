@@ -96,3 +96,23 @@ class ModerateUserTest(TestCase):
         self.check_promote_demote(self.cathy, 'demote', User.MODERATOR)
         self.check_promote_demote(self.cathy, 'demote', User.USER)
         self.check_promote_demote(self.cathy, 'demote', User.USER)
+
+class EditUserTest(TestCase):
+    def setUp(self):
+        TestCase.setUp(self)
+        self.user = self.make_user('mary')
+        self.admin = self.make_user('joe', role=User.ADMIN)
+        self.other_user = self.make_user('bobby', role=User.MODERATOR)
+
+    def check_can_see_edit_page(self, user, should_see):
+        self.login(user)
+        url = '/accounts/%d' % self.user.id
+        if should_see:
+            self.assertCanAccess(url)
+        else:
+            self.assertLoginRedirect(url)
+
+    def test_permissions(self):
+        self.check_can_see_edit_page(self.user, True)
+        self.check_can_see_edit_page(self.admin, True)
+        self.check_can_see_edit_page(self.other_user, False)
