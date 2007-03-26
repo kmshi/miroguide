@@ -197,20 +197,28 @@ class SubmitChannelForm(Form):
                 self.fields['thumbnail_file'].widget.get_url(),
         }
 
-    def add_mapped_objects(self, class_, collection, keys,
-            ignore_ids=None):
+    def find_mapped_objects(self, class_, keys, ignore_ids=None):
         if ignore_ids is None:
             ignore_ids = []
         already_added = set(ignore_ids)
+        rv = []
         for name in keys:
             id = self.clean_data[name]
             if id is None:
                 continue
             id = int(id)
             if id not in already_added:
-                obj = self.db_session.get(class_, id)
-                collection.append(obj)
+                rv.append(self.db_session.get(class_, id))
                 already_added.add(id)
+        return rv
+
+    def add_mapped_objects(self, class_, collection, keys, ignore_ids=None):
+        new = self.find_mapped_objects(class_, keys, ignore_ids)
+        old = set(collection) - set(new)
+        for obj in old:
+            collection.remove(obj)
+        for obj in new:
+            collection.append(obj)
 
     def add_categories(self, channel):
         self.add_mapped_objects(Category, channel.categories,
@@ -286,4 +294,3 @@ class EditChannelForm(SubmitChannelForm):
         set_from_list('category1', self.channel.categories, 0)
         set_from_list('category2', self.channel.categories, 1)
         set_from_list('category3', self.channel.categories, 2)
-

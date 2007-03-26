@@ -974,16 +974,18 @@ li.blog-post .title {
     text-decoration: none;
     font-weight: bold;
     font-size: 130%;
+    margin: 15px 0px;
 }
 
 .channel-full .categories {
-    color: #666;
-    font-weight: bold;
-    font-size: 120%;
+    float: left;
+    min-width: 100px;
+    max-width: 250px;
+    margin-right: 20px;
 }
 
-.channel-full .tags a {
-    color: #666;
+.channel-full .website {
+    margin-top: 20px;
 }
 
 .channel-full .category-tag-separator {
@@ -992,8 +994,7 @@ li.blog-post .title {
 }
 
 .channel-full .channel-action {
-    margin-top: 5px;
-    padding: 5px;
+    margin-top: 10px;
 }
 
 .channel-full .channel-action input {

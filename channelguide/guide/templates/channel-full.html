@@ -9,6 +9,20 @@
             {% endif %}
 
         </div>
+        {% if user.is_moderator or show_edit_button %}
+        <ul>
+        {% if user.is_moderator %}
+            {% show_moderate_actions channel %}
+        {% endif %}
+        {% if show_edit_button %}
+        <li class="channel-action">
+        <form action="#" method="GET" onsubmit="return handleFormLink('{{ channel.get_edit_url }}');">
+                <input type="submit" value="{% trans "Edit" %}">
+            </form>
+        </li>
+        {% endif %}
+        </ul>
+        {% endif %}
     {% splitcolumns %}
         <h1 class="title">
             {% if link_to_channel %}
@@ -17,38 +31,33 @@
                 {{ channel.name }}
             {% endif %}
         </h1>
-        <ul>
-            <li class="description">{{ channel.description }}</li>
-            <li class="website">{{ channel.website_link }}</li>
-            <li>
-                <span class="categories">
-{% for cat in channel.categories %} {{ cat }} {% endfor %}
-                  </span>
-                <img class="category-tag-separator"
-                      src="{{ BASE_URL }}images/category-tag-separator.png" alt="">
-                  <span class="tags">
-{% for tag in channel.tags %} {{ tag.link }} {% endfor %}
-                  </span>
-            </li>
-            <li class="actions">
+        <div class="description">{{ channel.description }}</div>
+        <div class="actions">
             <div class="big horizontal">
                 <a {{ channel.subscription_link }}>
                     <div class="icon"></div>
                     {% trans "Add Channel" %}
                 </a>
             </div>
-            <div class="clear"></div>
-            </li>
-            {% if user.is_moderator %}
-                {% show_moderate_actions channel %}
-            {% endif %}
-            {% if show_edit_button %}
-            <li class="channel-action">
-            <form action="#" method="GET" onsubmit="return handleFormLink('{{ channel.get_edit_url }}');">
-                    <input type="submit" value="{% trans "Edit" %}">
-                </form>
-            </li>
-            {% endif %}
+        </div>
+        <div class="clear"></div>
+        <div class="categories">
+            <h3>{% trans "Categories" %}</h3>
+            {% for cat in channel.categories %}
+                {{ cat.link }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </div>
+        <div class="tags">
+            <h3>{% trans "Tags" %}</h3>
+            {% for tag in channel.tags %}
+                {{ tag.link }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </div>
+        <div class="clear"></div>
+        <div class="website">
+            <h3>{% trans "Website" %}</h3>
+            {{ channel.website_link }}
+        </div>
         </ul>
     {% endtwocolumns %}
 </div>
