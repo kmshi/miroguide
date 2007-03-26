@@ -1,7 +1,3 @@
-# URL that handles the media served from MEDIA_ROOT.
-# Example: "http://media.lawrence.com"
-MEDIA_URL = FILL ME IN
-
 DATABASE_ENGINE = 'mysql'
 DATABASE_NAME = FILL ME IN
 DATABASE_USER = FILL ME IN

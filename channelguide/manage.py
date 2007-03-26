@@ -16,6 +16,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'channelguide.settings'
 
 import itertools
 import logging
+import re
 import socket
 import traceback
 import Queue
@@ -148,6 +149,15 @@ def make_icons(args):
 
 make_icons.args = ''
 
+def fix_channel_names(args):
+    """Fix channel names by removing leading spaces from them."""
+
+    for channel in all_channel_iterator(40):
+        if channel.name.strip() != channel.name:
+            print "%r -> %r" % (channel.name, channel.name.strip())
+            channel.name = channel.name.strip()
+fix_channel_names.args = ''
+
 # Remove django default actions that we don't use.  Many of these probably
 # would screw things up fairly bad.
 del action_mapping['startproject']
@@ -174,6 +184,7 @@ action_mapping['drop_channel_data'] = drop_channel_data
 action_mapping['drop_users'] = drop_users
 action_mapping['update_blog_posts'] = update_blog_posts
 action_mapping['make_icons'] = make_icons
+action_mapping['fix_channel_names'] = fix_channel_names
 del action_mapping['test']
 
 def add_static_urls():
