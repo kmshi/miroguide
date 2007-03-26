@@ -1,3 +1,8 @@
+from datetime import datetime
+
+from django.conf import settings
+from django.utils.translation import gettext as _
+
 from channelguide import util
 from channelguide.db import DBObject
 from channelguide.guide import tables
@@ -23,6 +28,10 @@ class UserBase(object):
     def check_can_edit(self, channel):
         if not self.can_edit_channel(channel):
             raise AuthError("Permission denied for %s" % channel)
+
+    def check_same_user(self, other):
+        if self is not other:
+            raise AuthError("Access denied for account: %s" % other)
 
     def is_authenticated(self):
         raise NotImplementedError()
@@ -114,3 +123,43 @@ class User(UserBase, DBObject):
     def add_moderator_action(self, channel, action):
         self.connection().execute(tables.moderator_action.insert(), 
                 user_id=self.id, channel_id=channel.id, action=action)
+
+    def make_new_auth_token(self):
+        if self.auth_token is None:
+            self.auth_token = UserAuthToken()
+        else:
+            self.auth_token.update()
+
+    def delete_auth_token(self):
+        if self.auth_token is not None:
+            self.session().delete(self.auth_token)
+
+class UserAuthToken(object):
+    def __init__(self):
+        self.update()
+
+    def update(self):
+        self.expires = datetime.now() + settings.AUTH_TOKEN_EXPIRATION_TIME
+        self.token = util.random_string(40)
+
+    def is_valid(self):
+        return self.expires > datetime.now()
+
+    @staticmethod
+    def find_token(db_session, string):
+        token = db_session.query(UserAuthToken).get_by(token=string)
+        if token is None:
+            return None
+        elif token.is_valid():
+            return token
+        else:
+            db_session.delete(token)
+            return None
+
+    def send_email(self):
+        url = util.make_absolute_url('accounts/change-password', 
+                {'token': self.token})
+        title = _("Forgot Password - Democracy Channel Guide")
+        body = _("To set a new password for your Channel Guide account "
+                "click here: %(url)s.") % {'url': url}
+        util.send_mail(title, body, self.user.email)

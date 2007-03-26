@@ -3,15 +3,13 @@
 {% block title %}Democracy - {% trans "Update Account Info" %}{%endblock %}
 {% block content %}
 <div class="edit-user-page">
-
-{% if message %}<p class="message">{{ message }}</p>{% endif %}
-<div class="edit-user-form">
-<div class="big-form">
-    <h2>{% trans "Update Account Info " %}</h2>
-    <form method="POST" action="{{ user.get_absolute_url }}">
-        <input type="hidden" name="action" value="edit">
-        {% show_form form %}
-        <input type="submit" class="submit" value="{% trans "Update" %} &gt;&gt;">
-    </form>
+    <div class="big-form">
+        <h2>{% trans "Update Account Info " %}</h2>
+        <form method="POST" action="{{ user.get_absolute_url }}">
+            <input type="hidden" name="action" value="edit">
+            {% show_form form %}
+            <input type="submit" class="submit" value="{% trans "Update" %} &gt;&gt;">
+        </form>
+    </div>
 </div>
 {% endblock %}

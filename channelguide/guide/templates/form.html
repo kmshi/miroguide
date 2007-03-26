@@ -5,7 +5,7 @@
        <ul>
        {% for error in form.error_list %}
        <li>
-         {% if error.name %}<span class="name">{{ error.name }}</span>{% endif %}
+         {% if error.name %}<span class="name">{{ error.name }}:</span>{% endif %}
          {{ error.message}}
        </li>
        {% endfor %}

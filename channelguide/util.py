@@ -38,8 +38,16 @@ def import_last_component(name):
         mod = getattr(mod, comp)
     return mod
 
-def make_absolute_url(relative_url):
-    return settings.BASE_URL + relative_url
+def make_absolute_url(relative_url, get_data=None):
+    return settings.BASE_URL + relative_url + format_get_data(get_data)
+
+def format_get_data(get_data):
+    if not get_data:
+        return ''
+    parts = []
+    for key, value in get_data.items():
+        parts.append('%s=%s' % (key, quote(value)))
+    return '?' + '&'.join(parts)
 
 def get_absolute_url_path(relative_url):
     return urlparse(make_absolute_url(relative_url))[2]
@@ -51,9 +59,10 @@ def get_relative_path(request):
     else:
         return path
 
-def redirect(url):
+def redirect(url, get_data=None):
     if '://' not in url:
         url = make_absolute_url(url)
+    url += format_get_data(get_data)
     return HttpResponseRedirect(url)
 
 def redirect_to_referrer(request):
@@ -258,3 +267,9 @@ def chop_prefix(value, prefix):
         return value[len(prefix):]
     else:
         return value
+
+def create_post_form(form, request):
+    if request.method == 'POST':
+        return form(request.db_session, request.POST)
+    else:
+        return form(request.db_session)

@@ -14,7 +14,7 @@ from channelguide.guide import tables
 from blogtrack import PCFBlogPost
 from label import Category, Tag, TagMap
 from language import Language
-from user import User
+from user import User, UserAuthToken
 from item import Item
 from note import ChannelNote, ModeratorPost
 from search import ItemSearchData, ChannelSearchData
@@ -61,13 +61,16 @@ mapper(Item, tables.item, properties={
 mapper(ChannelSearchData, tables.channel_search_data)
 mapper(ItemSearchData, tables.item_search_data)
 # users
+mapper(UserAuthToken, tables.user_auth_token)
 user_select = select([tables.user,
     dbutil.aggregate_subquery('moderator_action_count',
         dbutil.count_distinct(tables.moderator_action.c.channel_id),
         tables.moderator_action),
     ])
-user_mapper = mapper(User, user_select.alias(), properties={
-    'channels': relation(Channel, private=True, backref='owner')
+mapper(User, user_select.alias(), properties={
+    'channels': relation(Channel, private=True, backref='owner'),
+    'auth_token': relation(UserAuthToken, private=True, uselist=False,
+        backref='user'),
     })
 # categories
 category_select = select([tables.category,

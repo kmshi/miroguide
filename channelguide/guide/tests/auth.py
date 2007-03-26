@@ -1,10 +1,12 @@
 import os
 
-from channelguide import db
+from django.conf import settings
+
+from channelguide import db, util
+from channelguide.guide import tables
 from channelguide.guide.auth import login, logout, SESSION_KEY
-from channelguide.guide.models import Channel
+from channelguide.guide.models import Channel, UserAuthToken
 from channelguide.testframework import TestCase
-from channelguide.util import read_file, hash_string
 
 class AuthTest(TestCase):
     def setUp(self):
@@ -40,8 +42,7 @@ class AuthTest(TestCase):
         channel = self.make_channel(self.user)
         channel2 = self.make_channel(self.user)
         def check_count(correct_count):
-            self.refresh_connection()
-            self.db_session.refresh(self.user)
+            self.refresh_db_object(self.user)
             current_count = self.user.moderator_action_count
             self.assertEquals(current_count, correct_count)
         self.user.add_moderator_action(channel, Channel.APPROVED)
@@ -51,3 +52,111 @@ class AuthTest(TestCase):
         self.user.add_moderator_action(channel2, Channel.APPROVED)
         check_count(2)
 
+class AuthTokenTest(TestCase):
+    def setUp(self):
+        TestCase.setUp(self)
+        self.user = self.make_user("janet")
+
+    def find_auth_token(self):
+        self.db_session.flush()
+        token = self.user.auth_token.token
+        return UserAuthToken.find_token(self.db_session, token)
+
+    def test_check(self):
+        self.user.make_new_auth_token()
+        self.assert_(self.find_auth_token())
+
+    def test_expires(self):
+        self.user.make_new_auth_token()
+        self.user.auth_token.expires -= settings.AUTH_TOKEN_EXPIRATION_TIME
+        self.db_session.flush()
+        self.assert_(not self.find_auth_token())
+
+    def check_auth_token_count(self, count_check):
+        select = tables.user_auth_token.count()
+        count = self.connection.execute(select).scalar()
+        self.assertEquals(count, count_check)
+
+    def test_delete(self):
+        self.user.make_new_auth_token()
+        self.db_session.flush()
+        self.check_auth_token_count(1)
+        self.user.delete_auth_token()
+        self.db_session.flush()
+        self.check_auth_token_count(0)
+
+    def test_update(self):
+        self.user.make_new_auth_token()
+        first_token = self.user.auth_token.token
+        self.user.make_new_auth_token()
+        self.db_session.flush()
+        self.check_auth_token_count(1)
+        self.assertNotEqual(first_token, self.user.auth_token.token)
+
+class AuthTokenWebTest(TestCase):
+    def setUp(self):
+        TestCase.setUp(self)
+        self.user = self.make_user('chris')
+        self.user.email = 'chris@pculture.org'
+        self.db_session.flush()
+
+    def request_auth_token(self):
+        self.post_data('/accounts/forgot-password', {'email': self.user.email})
+        self.refresh_db_object(self.user)
+        self.assert_(self.user.auth_token is not None)
+
+    def submit_new_password(self, password, password2=None):
+        if password2 is None:
+            password2 = password
+        return self.post_data('/accounts/change-password/%d' % self.user.id,
+                data = {'password': password, 'password2': password2})
+
+    def test_send_email(self):
+        self.request_auth_token()
+        self.assertEquals(len(self.emails), 1)
+        self.assertEquals(self.emails[0]['recipient_list'], [self.user.email])
+        self.refresh_db_object(self.user)
+        url = util.make_absolute_url('accounts/change-password?token=' +
+                self.user.auth_token.token)
+        self.assert_(url in self.emails[0]['body'])
+
+    def page_has_password_form(self, token):
+        url = '/accounts/change-password'
+        if token:
+            response = self.get_page(url, data={'token': token})
+        else:
+            response = self.get_page(url)
+        template = response.template[0].name
+        if template == 'guide/bad-auth-token.html':
+            return False
+        elif template == 'guide/change-password.html':
+            return True
+        else:
+            raise AssertionError("bad template file: " + template)
+
+    def test_password_form_page(self):
+        self.assert_(not self.page_has_password_form(token=None))
+        self.assert_(not self.page_has_password_form(token='abcdef'))
+        self.get_page('/accounts/forgot-password', 
+                data={'email': self.user.email})
+        self.request_auth_token()
+        token = self.user.auth_token.token
+        self.assert_(self.page_has_password_form(token=token))
+        # token should be deleted now
+        self.assert_(not self.page_has_password_form(token=token))
+
+    def test_change_password_permisions(self):
+        self.submit_new_password('changetest', 'changetest')
+        self.refresh_db_object(self.user)
+        self.assert_(not self.user.check_password("changetest"))
+
+    def test_change_password(self):
+        self.request_auth_token()
+        response = self.get_page('/accounts/change-password',
+                data={'token': self.user.auth_token.token})
+        self.submit_new_password('changetest', 'notthesame')
+        self.refresh_db_object(self.user)
+        self.assert_(not self.user.check_password("changetest"))
+        self.submit_new_password('changetest', 'changetest')
+        self.refresh_db_object(self.user)
+        self.assert_(self.user.check_password("changetest"))

@@ -7,6 +7,9 @@
 {% if message %}<p class="message">{{ message }}</p>{% endif %}
 
 <div class="login-form big-form">
+    <div class="forgot-password">
+            <a href="{{ BASE_URL }}accounts/forgot-password">Forgot Password</a>
+    </div>
     <h2>{% trans "Login" %}</h2>
     <form method="POST" action="{{ BASE_URL }}accounts/login{% if next %}?next={{ next }}{% endif %}">
         <input type="hidden" name="which-form" value="login">

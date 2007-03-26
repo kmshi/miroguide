@@ -12,7 +12,7 @@ class AccountTest(TestCase):
 
     def register_data(self):
         return {'username': 'mike', 'email': 'mike@mike.com',
-                'password': 'password', 'password_check': 'password',
+                'password': 'password', 'password2': 'password',
                 'which-form': 'register' }
 
     def bad_login_data(self):

@@ -13,13 +13,20 @@ class NewUserField(WideCharField):
 
 class NewEmailField(WideEmailField):
     def clean(self, value):
-        rv = super(NewEmailField, self).clean(value)
+        value = super(NewEmailField, self).clean(value)
         if value == self.initial:
             # don't check if the user isn't changing the value
-            return rv
+            return value
         if self.db_session.query(User).get_by(email=value):
             raise forms.ValidationError(_("email already taken"))
-        return rv
+        return value
+
+class ExistingEmailField(WideEmailField):
+    def clean(self, value):
+        value = super(ExistingEmailField, self).clean(value)
+        if self.db_session.query(User).get_by(email=value) is None:
+            raise forms.ValidationError(_("email not found"))
+        return value
 
 class UsernameField(WideCharField):
     def clean(self, value):
@@ -109,8 +116,11 @@ class EditUserForm(PasswordComparingForm):
         if self.clean_data.get('password'):
             self.user.set_password(self.clean_data['password'])
 
-class UpdatePasswordForm(PasswordComparingForm):
+class ChangePasswordForm(PasswordComparingForm):
     password = WideCharField(max_length=30, widget=forms.PasswordInput,
-            label=_('Change Password'))
+            label=_('Set a new Password'))
     password2 = WideCharField(max_length=30, widget=forms.PasswordInput,
             label=_("Confirm Password"), required=False)
+
+class AuthTokenRequestForm(Form):
+    email = ExistingEmailField()

@@ -24,5 +24,6 @@ TIME_ZONE = FILL ME IN
 # Example: 'sdzqwb$$dw0ojx^i(^wkskp3c@xu4unq$qyzj2_5ng3d05a+74'
 SECRET_KEY = FILL ME IN
 
-# Added by PCF for the Channel guide.
 BASE_URL = FILL ME IN
+
+DISABLE_CACHE = False

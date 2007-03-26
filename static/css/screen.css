@@ -595,6 +595,15 @@ li.blog-post .title {
     border: 1px solid #b4b210;
 }
 
+.login-page .forgot-password {
+    float: right;
+}
+
+.login-page .forgot-password a {
+    font-size: 110%;
+    text-decoration: underline;
+}
+
 .divider {
     margin: 40px 0px;
     border-top: 1px solid #fff;
@@ -665,6 +674,12 @@ li.blog-post .title {
 .submit-thanks-page li {
     margin-top: 5px;
 }
+
+.forgot-password-page p.explanation {
+    margin-bottom: 10px;
+    font-size: 120%;
+}
+
 
 /* CSS Applying to all channel divs (feature, normal and small) */
 

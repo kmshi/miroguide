@@ -1,9 +1,10 @@
 
-# sitespecific.py stores all server specific data. 
 import os
-
-from sitespecific import *
+from datetime import timedelta
 from urlparse import urlparse
+
+# sitespecific.py stores all server specific data. 
+from sitespecific import *
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -80,6 +81,7 @@ TEMPLATE_DIRS = ( TEMPLATE_DIR, ) # to make django happy
 SUBSCRIBE_URL = 'http://subscribe.getdemocracy.com/?url1=%(url)s'
 BASE_URL_PATH = urlparse(BASE_URL)[2]
 SOCKET_TIMEOUT = 10
+AUTH_TOKEN_EXPIRATION_TIME = timedelta(days=1)
 
 import socket
 socket.setdefaulttimeout(SOCKET_TIMEOUT)

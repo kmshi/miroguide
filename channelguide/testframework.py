@@ -135,6 +135,10 @@ class TestCase(unittest.TestCase):
     def refresh_connection(self):
         self.connection.execute("COMMIT")
 
+    def refresh_db_object(self, obj):
+        self.refresh_connection()
+        self.db_session.refresh(obj)
+
     def make_user(self, username, password='password', role='U'):
         from channelguide.guide.models import User
         user = User(username, password)

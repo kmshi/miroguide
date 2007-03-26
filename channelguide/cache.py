@@ -50,9 +50,10 @@ class CacheMiddleware(object):
 
         cache_control = request.META.get('HTTP_CACHE_CONTROL', '')
         if 'no-cache' in cache_control:
+            request._cache_update_cache = True
             return None
         cached_response = memcache_client.get(get_cache_key(request))
-        if cached_response is None or disable_cache:
+        if cached_response is None or disable_cache or settings.DISABLE_CACHE:
             request._cache_update_cache = True
             return None
         else:

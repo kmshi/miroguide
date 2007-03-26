@@ -148,3 +148,9 @@ tag_map = Table('cg_tag_map', db.metadata,
             nullable=False, primary_key=True),
         Column('tag_id', Integer, ForeignKey('cg_tag.id'),
             nullable=False, primary_key=True))
+
+user_auth_token = Table('cg_user_auth_token', db.metadata,
+        Column('user_id', Integer, ForeignKey('user.id'), primary_key=True,
+            nullable=False),
+        Column('token', String(255), nullable=False),
+        Column('expires', DateTime(), nullable=False))

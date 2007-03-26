@@ -5,7 +5,7 @@ import django.newforms as forms
 from channelguide import util
 from channelguide.guide.auth import logout, login, moderator_required
 from channelguide.guide.forms import user as user_forms
-from channelguide.guide.models import User
+from channelguide.guide.models import User, UserAuthToken
 from channelguide.guide.templateutil import Pager
 
 def get_login_message(next_url):
@@ -122,3 +122,51 @@ def status_emails(request, id):
     user = util.get_object_or_404(query, id)
     user.status_emails = (request.POST.get('set-to') == 'enable')
     return util.redirect('moderate')
+
+def forgot_password(request):
+    form = util.create_post_form(user_forms.AuthTokenRequestForm, request)
+    if form.is_valid():
+        email=form.clean_data['email']
+        query = request.db_session.query(User)
+        user = query.get_by(email=email)
+        user.make_new_auth_token()
+        user.auth_token.send_email()
+        return util.redirect("accounts/auth-token-sent", {'email': email})
+    else:
+        return util.render_to_response(request, 'auth-token-request.html', {
+            'form': form,
+        })
+
+def auth_token_sent(request):
+    return util.render_to_response(request, 'auth-token-sent.html', {
+            'email': request.GET.get('email')
+        })
+
+def change_password(request):
+    token = request.GET.get("token")
+    db_token = UserAuthToken.find_token(request.db_session, token)
+    if db_token is not None:
+        login(request, db_token.user)
+        request.user.delete_auth_token()
+        form = user_forms.ChangePasswordForm(request.db_session)
+        return util.render_to_response(request, 'change-password.html', { 
+            'form': form,
+        })
+    else:
+        return util.render_to_response(request, 'bad-auth-token.html')
+
+def change_password_submit(request, id):
+    query = request.db_session.query(User)
+    user = util.get_object_or_404(query, id)
+    request.user.check_same_user(user)
+    form = user_forms.ChangePasswordForm(request.db_session, request.POST)
+    if form.is_valid():
+        user.set_password(form.clean_data['password'])
+        login(request, user) # needed to handle password changes
+        return util.redirect('accounts/password-changed')
+    return util.render_to_response(request, 'change-password.html', { 
+        'form': form,
+    })
+
+def password_changed(request):
+    return util.render_to_response(request, 'password-changed.html')
