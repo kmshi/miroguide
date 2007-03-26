@@ -161,5 +161,6 @@ class UserAuthToken(object):
                 {'token': self.token})
         title = _("Forgot Password - Democracy Channel Guide")
         body = _("To set a new password for your Channel Guide account "
-                "click here: %(url)s.") % {'url': url}
+                "'%(user)s' click here:\n%(url)s.") % \
+                        {'url': url, 'user': self.user.username }
         util.send_mail(title, body, self.user.email)

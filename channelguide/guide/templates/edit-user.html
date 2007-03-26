@@ -1,10 +1,10 @@
 {% load i18n cg_helpers %}
 {% extends 'base.html' %}
-{% block title %}Democracy - {% trans "Update Account Info" %}{%endblock %}
+{% block title %}Democracy - {% trans "Update My Profile" %}{%endblock %}
 {% block content %}
 <div class="edit-user-page">
     <div class="big-form">
-        <h2>{% trans "Update Account Info " %}</h2>
+        <h2>{% trans "Update My Profile " %}</h2>
         <form method="POST" action="{{ user.get_absolute_url }}">
             <input type="hidden" name="action" value="edit">
             {% show_form form %}

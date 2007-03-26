@@ -184,7 +184,7 @@ div.clear {
     display: block;
     float: left;
     margin-right: 18px;
-    width: 260px;
+    width: 350px;
     text-align: right;
     line-height: 130%;
 }
@@ -202,21 +202,21 @@ div.clear {
 }
 
 .big-form .wide-field, .big-form input.submit {
-    font-size: 100%;
-    width: 287px;
+    font-size: 120%;
+    width: 207px;
     border: 0px;
     margin: 0px;
-    padding: 0px 5px;
+    padding: 2px 5px;
 }
 
 .big-form select.wide-field {
-    width: 297px;
+    width: 217px;
     padding: 0px;
 }
 
 .big-form .help-text {
     margin-top: 2px;
-    margin-left: 287px;
+    margin-left: 207px;
     font-size: 80%;
 }
 
@@ -309,7 +309,7 @@ div.clear {
     padding: 8px;
     font-size: 90%;
     font-weight: bold;
-    color: #111;
+    color: #fff;
 }
 
 #account-bar-inner {
@@ -321,7 +321,7 @@ div.clear {
 
 #account-bar  a {
     text-decoration: underline;
-    color: #111;
+    color: #fff;
 }
 
 #account-bar .left a {
