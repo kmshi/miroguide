@@ -633,3 +633,65 @@ class ChannelSearchTest(ChannelTestBase):
         self.assertEquals(results[0].name, channel2.name)
         self.assertEquals(results[1].name, self.channel.name)
         self.assertEquals(len(results), 2)
+
+class EditChannelTest(ChannelTestBase):
+    def setUp(self):
+        ChannelTestBase.setUp(self)
+        self.categories = {}
+        self.languages = {}
+        self.tags = {}
+        self.make_category("arts")
+        self.make_category("tech")
+        self.make_category("comedy")
+        self.make_language("piglatin")
+        self.make_language("klingon")
+        self.channel.categories.append(self.categories['arts'])
+        self.channel.categories.append(self.categories['tech'])
+        self.channel.add_tag(self.ralph, "funny")
+        self.channel.add_tag(self.ralph, "awesome")
+        self.save_to_db(self.channel)
+
+    def make_category(self, name):
+        cat = Category(name)
+        self.categories[name] = cat
+        self.save_to_db(cat)
+
+    def make_language(self, name):
+        language = Language(name)
+        self.languages[name] = language
+        self.save_to_db(language)
+
+    def test_permissions(self):
+        mod = self.make_user('jody', role=User.MODERATOR)
+        other_user = self.make_user('bob')
+        url = '/channels/edit/%d' % self.channel.id
+        self.check_page_access(mod, url, True)
+        self.check_page_access(self.ralph, url, True)
+        self.check_page_access(other_user, url, False)
+
+    def test_change(self):
+        self.login(self.ralph)
+        data = {
+                'category1': self.categories['arts'].id,
+                'category3': self.categories['comedy'].id,
+                'language': self.languages['klingon'].id,
+                'language2': self.languages['piglatin'].id,
+                'tags': 'funny, cool, booya',
+                'publisher': 'some guy',
+                'name': 'cool vids',
+                'short_description': 'wow',
+                'description': 'These are the best.',
+                'website_url': 'http://www.google.com/',
+        }
+        url = '/channels/edit/%d' % self.channel.id
+        self.post_data(url, data)
+        self.refresh_db_object(self.channel)
+        self.assertEquals(self.channel.publisher, 'some guy')
+        self.assertEquals(self.channel.language.name, 'klingon')
+        self.check_names(self.channel.categories, 'arts', 'comedy')
+        self.check_names(self.channel.tags, 'funny', 'cool', 'booya')
+        self.check_names(self.channel.secondary_languages, 'piglatin')
+
+    def check_names(self, name_list, *correct_names):
+        names = [i.name for i in name_list]
+        self.assertSameSet(names, correct_names)

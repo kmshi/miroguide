@@ -102,6 +102,13 @@ class TestCase(unittest.TestCase):
             response = response_or_url
         self.assertEquals(response.status_code, 200)
 
+    def check_page_access(self, user, url, should_access):
+        self.login(user)
+        if should_access:
+            self.assertCanAccess(url)
+        else:
+            self.assertLoginRedirect(url)
+
     def reopen_connection(self):
         self.connection.close()
         self.connection = db.connect()

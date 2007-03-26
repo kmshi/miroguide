@@ -72,15 +72,21 @@ class Channel(DBObject, Thumbnailable):
     def add_tag(self, user, tag_name):
         """Add a tag to this channel."""
         db_session = self.session()
-        existing = db_session.query(Tag).select_by(name=tag_name).list()
-        if len(existing) > 0:
-            tag = existing[0]
-        else:
+        tag = db_session.query(Tag).get_by(name=tag_name)
+        if tag is None:
             tag = Tag(tag_name)
             db_session.save(tag)
             db_session.flush([tag])
         if not db_session.get(TagMap, (self.id, user.id, tag.id)):
             self.tag_maps.append(TagMap(self, user, tag))
+
+    def delete_tag(self, user, tag_name):
+        db_session = self.session()
+        tag = db_session.query(Tag).get_by(name=tag_name)
+        if tag is not None:
+            tag_map = db_session.get(TagMap, (self.id, user.id, tag.id))
+            if tag_map is not None:
+                db_session.delete(tag_map)
 
     def get_tags_for_user(self, user):
         db_session = self.session()

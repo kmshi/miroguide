@@ -243,6 +243,9 @@ class SubmitChannelForm(Form):
         for attr in simple_cols:
             setattr(channel, attr, self.clean_data[attr])
         if self.clean_data['tags']:
+            for tag in channel.get_tags_for_user(channel.owner):
+                if tag.name not in self.clean_data['tags']:
+                    channel.delete_tag(channel.owner, tag)
             channel.add_tags(channel.owner, self.clean_data['tags'])
         self.add_categories(channel)
         self.add_languages(channel)
