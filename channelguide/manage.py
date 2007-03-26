@@ -26,6 +26,7 @@ from django.core import management
 from sqlalchemy import create_session, eagerload, desc, exists, not_
 action_mapping = management.DEFAULT_ACTION_MAPPING.copy()
 original_action_mapping_keys = action_mapping.keys()
+print_stuff = False
 
 from channelguide import util
 
@@ -45,7 +46,7 @@ def convert_old_data(args):
     convert_old_data(args[2], args[3])
 convert_old_data.args = '<videobomb db name> <channelguide db name>'
 
-def all_channel_iterator(flush_every_x_channels):
+def all_channel_iterator(task_description, flush_every_x_channels):
     """Helper method to iterate over all channels.  It will yield each channel
     in order.
     """
@@ -56,12 +57,22 @@ def all_channel_iterator(flush_every_x_channels):
     db_session = create_session(bind_to=db.engine)
     query = db_session.query(Channel).options(eagerload('items'))
     count = itertools.count()
-    results = query.select()
+    if print_stuff:
+        print "fetching channels..."
+    select = query.select()
+    results = select.list()
+    if print_stuff:
+        pprinter = util.ProgressPrinter(task_description, select.count())
+        pprinter.print_status()
     for channel in results:
         yield channel
         if count.next() % flush_every_x_channels == 0:
             db_session.flush()
+        if print_stuff:
+            pprinter.iteration_done()
     db_session.flush()
+    if print_stuff:
+        pprinter.loop_done()
 
 def update_thumbnails(args):
     "Update channel thumbnails."""
@@ -76,7 +87,7 @@ def update_thumbnails(args):
             sizes.append(arg)
     if sizes == []:
         sizes = None
-    for channel in all_channel_iterator(40):
+    for channel in all_channel_iterator('updating thumbnails', 40):
         try:
             channel.update_thumbnails(overwrite, redownload, sizes)
         except:
@@ -86,7 +97,7 @@ update_thumbnails.args = '[size] [--overwrite]'
 
 def update_items(args=None):
     """Update the items for each channel."""
-    for channel in all_channel_iterator(40):
+    for channel in all_channel_iterator('updating items', 40):
         try:
             channel.update_items()
         except:
@@ -104,13 +115,13 @@ WHERE NOT EXISTS (SELECT * FROM cg_channel_item WHERE id=item_id)""")
     connection.execute("""DELETE FROM cg_channel_search_data
 WHERE NOT EXISTS (SELECT * FROM cg_channel WHERE id=channel_id)""")
 
-    for channel in all_channel_iterator(10):
+    for channel in all_channel_iterator('updating search data', 10):
         channel.update_search_data()
 update_search_data.args = ''
 
 def fix_utf8_strings(args):
     "Update the search data for each channel."
-    for channel in all_channel_iterator(100):
+    for channel in all_channel_iterator('fixing utf8 data', 100):
         channel.fix_utf8_strings()
 fix_utf8_strings.args = ''
 
@@ -149,15 +160,6 @@ def make_icons(args):
 
 make_icons.args = ''
 
-def fix_channel_names(args):
-    """Fix channel names by removing leading spaces from them."""
-
-    for channel in all_channel_iterator(40):
-        if channel.name.strip() != channel.name:
-            print "%r -> %r" % (channel.name, channel.name.strip())
-            channel.name = channel.name.strip()
-fix_channel_names.args = ''
-
 # Remove django default actions that we don't use.  Many of these probably
 # would screw things up fairly bad.
 del action_mapping['startproject']
@@ -184,7 +186,6 @@ action_mapping['drop_channel_data'] = drop_channel_data
 action_mapping['drop_users'] = drop_users
 action_mapping['update_blog_posts'] = update_blog_posts
 action_mapping['make_icons'] = make_icons
-action_mapping['fix_channel_names'] = fix_channel_names
 del action_mapping['test']
 
 def add_static_urls():
@@ -205,6 +206,7 @@ if __name__ == "__main__":
                     format='%(levelname)s %(message)s',
                     stream=sys.stderr)
     set_socket_timeout()
+    print_stuff = True
     add_static_urls()
     if (len(sys.argv) > 1 and sys.argv[1] not in original_action_mapping_keys
             and sys.argv[1] in action_mapping):

@@ -2,6 +2,8 @@
 ripped out from democracy.
 """
 
+from sqlalchemy import String
+
 def get_first_video_enclosure(entry):
     """Find the first video enclosure in a feedparser entry.  Returns the
     enclosure, or None if no video enclosure is found.
@@ -55,6 +57,27 @@ def to_utf8(feedparser_string):
     if str is None:
         return None
     elif type(feedparser_string) is str:
-        return feedparser_string.decode('utf-8', 'replace').encode('utf-8')
+        return feedparser_string.decode('utf-8', 'ignore').encode('utf-8')
     else:
         return feedparser_string.encode('utf-8')
+
+string_column_cache = {}
+def get_string_columns(obj):
+    try:
+        return string_column_cache[obj.__class__]
+    except KeyError:
+        cols = [c for c in obj.c if isinstance(c.type, String)]
+        string_column_cache[obj.__class__] = cols
+        return cols
+
+def fix_utf8_strings(obj):
+    # cache string columns for fast access
+    for c in get_string_columns(obj):
+        org = getattr(obj, c.name)
+        if org is None:
+            continue
+        fixed = to_utf8(org)
+        if org != fixed:
+            setattr(obj, c.name, fixed)
+
+

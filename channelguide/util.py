@@ -174,16 +174,20 @@ class ProgressPrinter:
         self.total = total
         throttle_interval = max(10, min(100, total / 1000))
         self.throttler = cycle(xrange(throttle_interval))
-        self.count = count(1)
+        self.count = 0
+
+    def print_status(self):
+        sys.stdout.write("\r%s (%d/%d) %.1f%%" % (self.prefix, self.count,
+            self.total, self.count * 100.0 / self.total))
+        sys.stdout.flush()
 
     def iteration_done(self):
-        current = self.count.next()
+        self.count += 1
         if self.throttler.next() == 0:
-            sys.stdout.write("\r%s (%d/%d) %.1f%%" % (self.prefix, current,
-                self.total, current * 100.0 / self.total))
-            sys.stdout.flush()
+            self.print_status()
 
     def loop_done(self):
+        self.print_status()
         print
 
 def grab_urls(urls, num_threads=5):
