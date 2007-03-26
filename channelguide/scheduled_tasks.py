@@ -50,6 +50,7 @@ def setup_logging():
 
 if __name__ == '__main__':
     setup_logging()
+    manage.set_socket_timeout()
     db_session = create_session(bind_to=db.engine)
     logging.info("Starting new log")
     tasks.run_tasks(db_session)

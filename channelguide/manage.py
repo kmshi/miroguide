@@ -16,6 +16,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'channelguide.settings'
 
 import itertools
 import logging
+import socket
 import traceback
 import Queue
 
@@ -185,10 +186,14 @@ def add_static_urls():
     from channelguide.guide.urls import root
     root.urlpatterns.extend(patterns ('', *static_patterns))
 
+def set_socket_timeout():
+    socket.setdefaulttimeout(10) # makes update_items not take forever
+
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG,
                     format='%(levelname)s %(message)s',
                     stream=sys.stderr)
+    set_socket_timeout()
     add_static_urls()
     if (len(sys.argv) > 1 and sys.argv[1] not in original_action_mapping_keys
             and sys.argv[1] in action_mapping):
