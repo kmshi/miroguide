@@ -12,7 +12,8 @@ body {
     font: normal 75% Arial, sans-serif;
     /*letter-spacing: -0.01em;*/
     text-align: center;
-    line-height: 1.25;
+    line-height: 1.24; 
+    /* Should be 1,25, but this fixes safari rounding bugs */
 }
 
 p {
