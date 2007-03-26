@@ -157,8 +157,18 @@ def make_icons(args):
     """
     from channelguide import icons
     icons.make_icons()
-
 make_icons.args = ''
+
+def remove_blank_space(args):
+    """Remove blank space from the start/end of channel names and
+    descriptions.
+    """
+    for channel in all_channel_iterator("removing blank space", 40):
+        if channel.name.strip() != channel.name:
+            channel.name = channel.name.strip()
+        if channel.description.strip() != channel.description:
+            channel.description = channel.description.strip()
+remove_blank_space.args = ''
 
 # Remove django default actions that we don't use.  Many of these probably
 # would screw things up fairly bad.
@@ -186,6 +196,7 @@ action_mapping['drop_channel_data'] = drop_channel_data
 action_mapping['drop_users'] = drop_users
 action_mapping['update_blog_posts'] = update_blog_posts
 action_mapping['make_icons'] = make_icons
+action_mapping['remove_blank_space'] = remove_blank_space
 del action_mapping['test']
 
 def add_static_urls():
