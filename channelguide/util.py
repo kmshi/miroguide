@@ -60,7 +60,7 @@ def get_relative_path(request):
         return path
 
 def redirect(url, get_data=None):
-    if '://' not in url:
+    if url_is_relative(url):
         url = make_absolute_url(url)
     url += format_get_data(get_data)
     return HttpResponseRedirect(url)
@@ -221,8 +221,11 @@ def call_command(*args):
     else:
         return stdout
 
+def url_is_relative(url):
+    return '://' not in url and url != '#' and not url.startswith("/")
+
 def make_link_attributes(href, css_class=None, **extra_link_attributes):
-    if '://' not in href and href != '#':
+    if url_is_relative(href):
         href = make_absolute_url(href)
     attributes = []
     attributes.append('href="%s"' % href)
