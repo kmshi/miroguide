@@ -173,12 +173,20 @@ class OrderBySelect(ViewSelect):
         self.base_url = base_url
         super(OrderBySelect, self).__init__(request)
 
+def get_order_by_from_request(request, column_source):
+    order_by = request.GET.get('view')
+    if order_by == 'alphabetical':
+        return column_source.name
+    elif order_by == 'date':
+        return desc(column_source.modified)
+    else:
+        return desc(column_source.subscription_count)
+
 def make_two_column_list(request, id, class_, header_string, join_path=None, 
         join_clause=None):
     """Handles making pages for tags/categories/languages."""
 
     group = util.get_object_or_404(request.db_session.query(class_), id)
-    order_by = request.GET.get('view', 'popular')
     query = request.db_session.query(Channel)
     select = query.select_by(state=Channel.APPROVED)
     if join_path:
@@ -186,12 +194,7 @@ def make_two_column_list(request, id, class_, header_string, join_path=None,
     if join_clause:
         select = select.filter(join_clause)
     select = select.filter(class_.c.id==id)
-    if order_by == 'alphabetical':
-        select = select.order_by(Channel.c.name)
-    elif order_by == 'popular':
-        select = select.order_by(desc(Channel.c.subscription_count))
-    else:
-        select = select.order_by(desc(Channel.c.modified))
+    select.order_by(get_order_by_from_request(request, Channel.c))
     pager =  Pager(8, select, request)
     return util.render_to_response(request, 'two-column-list.html', {
         'header': header_string % group, 

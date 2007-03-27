@@ -1,7 +1,12 @@
+from copy import copy
+
+from sqlalchemy import exists, func, select
+
 from channelguide import util
+from channelguide.guide import tables, templateutil 
 from channelguide.guide.auth import moderator_required
 from channelguide.guide.models import Language, Channel
-from channelguide.guide.templateutil import make_two_column_list
+from channelguide.guide.models.mappings import channel_select
 
 def index(request):
     q = request.db_session.query(Language)
@@ -10,11 +15,45 @@ def index(request):
         'groups': q.select(order_by=Language.c.name),
     })
 
+def add_language_whereclause(select, language):
+    select.append_whereclause(tables.language.c.id == language.id)
+    join_primary = (tables.channel.c.primary_language_id==tables.language.c.id)
+    join_secondary = exists(['*'], 
+        (tables.channel.c.id==tables.secondary_language_map.c.channel_id) &
+        (tables.language.c.id==tables.secondary_language_map.c.language_id))
+    select.append_whereclause(join_primary | join_secondary)
+
+def count_channels_by_language(language):
+    rv = select([func.count('*')], from_obj=[tables.channel])
+    add_language_whereclause(rv, language)
+    return rv
+
+def select_channels_by_language(language):
+    select = copy(channel_select)
+    add_language_whereclause(select, language)
+    return select
+
+def make_channels_pager(request, language):
+    count_select = count_channels_by_language(language)
+    count = request.connection.execute(count_select).scalar()
+    select = select_channels_by_language(language)
+    select.order_by(templateutil.get_order_by_from_request(request, select.c))
+    query = request.db_session.query(Channel)
+    def callback(offset, limit):
+        select.offset = offset
+        select.limit = limit
+        return query.instances(request.connection.execute(select))
+    return templateutil.ManualPager(8, count, callback, request)
+
 def view(request, id):
-    q = request.db_session.query(Channel)
-    join_clause = q.join_to('language') | q.join_to('secondary_languages')
-    return make_two_column_list(request, id, Language, _('Language: %s'),
-            join_clause=join_clause)
+    language = util.get_object_or_404(request.db_session.query(Language), id)
+    pager = make_channels_pager(request, language)
+    return util.render_to_response(request, 'two-column-list.html', {
+        'header': _("Language: %s") % language.name,
+        'pager': pager,
+        'order_select': templateutil.OrderBySelect(request, 
+            language.get_absolute_url()),
+    })
 
 @moderator_required
 def moderate(request):

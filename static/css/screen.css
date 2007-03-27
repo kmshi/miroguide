@@ -1256,7 +1256,7 @@ h2.note-title {
 }
 
 .group-list {
-    margin-top: 25px;
+    padding: 25px 0px;
 }
 
 .group-list li {
