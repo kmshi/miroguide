@@ -170,6 +170,12 @@ def remove_blank_space(args):
             channel.description = channel.description.strip()
 remove_blank_space.args = ''
 
+def clear_cache(args):
+    """Clear all cached pages.  """
+    from channelguide import cache
+    cache.clear_cache()
+clear_cache.args = ''
+
 # Remove django default actions that we don't use.  Many of these probably
 # would screw things up fairly bad.
 del action_mapping['startproject']
@@ -197,6 +203,7 @@ action_mapping['drop_users'] = drop_users
 action_mapping['update_blog_posts'] = update_blog_posts
 action_mapping['make_icons'] = make_icons
 action_mapping['remove_blank_space'] = remove_blank_space
+action_mapping['clear_cache'] = clear_cache
 del action_mapping['test']
 
 def add_static_urls():
