@@ -6,6 +6,11 @@ from sqlalchemy.sql import (_BinaryClause, _CompoundClause, text, literal,
         _CompareMixin)
 
 def select_random(select_result, count=1):
+    all_results = select_result.list()
+    if count >= len(all_results):
+        return all_results
+    else:
+        return random.sample(select_result.list(), count)
     row_count = select_result.count()
     # The following is a completely blind opmitization without any numbers
     # behind it, but my intuition tells me that method 1 is faster when the
