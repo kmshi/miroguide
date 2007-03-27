@@ -69,7 +69,7 @@
     <div id="page">
         <div id="search-bar">
             <h2 class="tagline">Over 1,000 channels, all free.</h2>
-            <form action="{{ BASE_URL }}search" onclick="showLoadIndicator();" method="get" id="search-form">
+            <form action="{{ BASE_URL }}search" onsubmit="showLoadIndicator();" method="get" id="search-form">
                 <label class="hidden" for="search-text">Search</label>
                 <input type="text" name="query" value="{{ search_query }}" id="search-text" >
                 <input type="submit" id="search-submit" value="Search Channels" >
