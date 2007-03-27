@@ -139,7 +139,7 @@ def show(request, id):
     return util.render_to_response(request, 'show-channel.html', {
         'channel': channel,
         'notes': get_note_info(channel, request.user),
-        'items': items.order_by(Item.c.date)[:6].list(),
+        'items': items.order_by(desc(Item.c.date))[:6].list(),
     })
 
 def after_submit(request):
