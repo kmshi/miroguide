@@ -19,8 +19,6 @@ from django.utils.decorators import decorator_from_middleware
 from channelguide import util
 
 memcache_client = memcache.Client(settings.MEMCACHED_SERVERS)
-memcache_client.flush_all()
-time.sleep(1) # hack so that the flush_all happens
 disable_cache = False
 
 def get_cache_key(request):
