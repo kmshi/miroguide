@@ -111,6 +111,7 @@ def make_thumbnail(source_path, dest_path, width, height):
     # http://www.imagemagick.org/Usage/thumbnails/
     border_width = max(width, height) / 2
     call_command("convert",  source_path, 
+            "-strip",
             "-resize", "%dx%d>" % (width, height), 
             "-gravity", "center", "-bordercolor", "black",
             "-border", "%s" % border_width,
