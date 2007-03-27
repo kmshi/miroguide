@@ -194,7 +194,7 @@ def make_two_column_list(request, id, class_, header_string, join_path=None,
     if join_clause:
         select = select.filter(join_clause)
     select = select.filter(class_.c.id==id)
-    select.order_by(get_order_by_from_request(request, Channel.c))
+    select = select.order_by(get_order_by_from_request(request, Channel.c))
     pager =  Pager(8, select, request)
     return util.render_to_response(request, 'two-column-list.html', {
         'header': header_string % group, 
