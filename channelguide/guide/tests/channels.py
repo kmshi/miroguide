@@ -218,7 +218,7 @@ class ChannelItemTest(ChannelTestBase):
         self.channel.update_items(
                 feedparser_input=open(test_data_path('thumbnails.xml')))
         self.db_session.flush()
-        self.channel.update_thumbnails()
+        self.channel.download_item_thumbnails()
         self.assertEquals(self.channel.items[0].thumbnail_url,
                 "http://www.getdemocracy.com/images/"
                 "x11-front-page-screenshots/02.jpg")
