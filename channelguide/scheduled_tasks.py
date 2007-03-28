@@ -1,5 +1,6 @@
 import manage # must be 1st because it sets up sys.path
 
+import fcntl
 import logging
 import logging.handlers
 import os
@@ -60,7 +61,20 @@ def setup_logging():
 
 if __name__ == '__main__':
     setup_logging()
-    db_session = create_session(bind_to=db.engine)
-    logging.info("--------- START ----------")
-    tasks.run_tasks(db_session)
-    logging.info("---------  END  ----------")
+    try:
+        lock_path = os.path.join(settings.SITE_DIR, 'tasks.lock')
+        lock_file = open(lock_path, 'w')
+        fcntl.flock(lock_file.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except IOError:
+        logging.warn("Could not obtain lock for %s.  Not starting." %
+                lock_path)
+    else:
+        db_session = create_session(bind_to=db.engine)
+        logging.info("--------- START ----------")
+        tasks.run_tasks(db_session)
+        logging.info("---------  END  ----------")
+        lock_file.close()
+        try:
+            os.remove(lock_path)
+        except IOError:
+            pass
