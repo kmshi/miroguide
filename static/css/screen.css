@@ -297,10 +297,10 @@ div.clear {
 }
 
 #navigation #load-indicator {
-    position: absolute;
+    position: fixed;
     display: none;
-    top: 5px;
-    right: 15px;
+    top: 10px;
+    right: 10px;
 }
 
 #account-bar {
