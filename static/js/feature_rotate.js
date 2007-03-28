@@ -9,8 +9,27 @@ var FEATURE_ROTATE_TIMEOUT = 15; // rotate timeout in seconds
 var featureList = null;
 
 function scheduleFeatureRotate() {
+   loadHiddenScreenshots();
    if(!featureList) featureList = findFeatures();
    setTimeout(rotateFeatures, FEATURE_ROTATE_TIMEOUT * 1000);
+}
+
+function loadHiddenScreenshots() {
+   var i = 1;
+   while(true) {
+     var screenshot = document.getElementById('feature-screenshot-' + i);
+     i += 1;
+     if(!screenshot) break;
+     var fakeScreenshot = screenshot.childNodes[0];
+     if(fakeScreenshot.nodeType != 3) continue;
+     var re = /src:\s*"([^"]*)".*alt:\s*"([^"]*)"/
+     var matches = re.exec(fakeScreenshot.nodeValue);
+     if(!matches) continue;
+     realScreenshot = new Image(); 
+     realScreenshot.src = matches[1];
+     realScreenshot.alt = matches[2];
+     screenshot.replaceChild(realScreenshot, fakeScreenshot);
+  }
 }
 
 function rotateFeatures() {

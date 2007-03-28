@@ -69,11 +69,13 @@ def index(request):
     category_query = request.db_session.query(Category)
     post_query = request.db_session.query(PCFBlogPost,
             order_by=PCFBlogPost.c.position)
+    featured_channels = get_featured_channels(channel_query).list()
 
     return util.render_to_response(request, 'frontpage.html', {
         'popular_channels': get_popular_channels(channel_query, 7),
         'new_channels': get_new_channels(channel_query, 7),
-        'featured_channels': get_featured_channels(channel_query),
+        'featured_channels': featured_channels[:2],
+        'featured_channels_hidden': featured_channels[2:],
         'category_peek': make_category_peek(request),
         'blog_posts': post_query.select(limit=3),
         'categories': category_query.select(order_by=Category.c.name),

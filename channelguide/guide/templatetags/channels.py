@@ -24,7 +24,11 @@ def show_moderate_actions(channel):
 
 @register.inclusion_tag('guide/channel-feature.html')
 def show_channel_feature(channel):
-    return {'channel': channel}
+    return {'channel': channel }
+
+@register.inclusion_tag('guide/channel-feature-no-image.html')
+def show_channel_feature_no_image(channel, position):
+    return {'channel': channel, 'position': position}
 
 @register.inclusion_tag('guide/channel-in-category.html')
 def show_channel_in_category(channel):

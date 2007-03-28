@@ -17,7 +17,9 @@
             <p> {{ channel.get_episodes_str }} </p>
         </div>
         <div class="screenshot">
+            {% block screenshot %}
             <a {% link channel.get_absolute_url %}>{{ channel.thumb_252_169 }}</a>
+            {% endblock %}
         </div>
         <div class="clear"></div>
     </div>

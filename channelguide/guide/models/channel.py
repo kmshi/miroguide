@@ -297,6 +297,10 @@ class Channel(DBObject, Thumbnailable):
     def thumb_252_169(self): return self._thumb_html(252, 169)
     def thumb_370_247(self): return self._thumb_html(370, 247)
 
+    def fake_feature_thumb(self): 
+        thumb_url = self.thumb_url(252, 169)
+        return 'src: "%s" alt:"%s"' % (thumb_url, self.name)
+
     def name_as_link(self):
         return util.make_link(self.get_absolute_url(), self.name)
 
