@@ -209,21 +209,29 @@ class Channel(DBObject, Thumbnailable):
         for item in self.items:
             feedutil.fix_utf8_strings(item)
 
+    def download_feed(self):
+        if self.feed_modified:
+            modified = self.feed_modified.timetuple(),
+        else:
+            modified = None
+        parsed = feedparser.parse(self.url, modified=modified,
+                etag=self.feed_etag)
+        if hasattr(parsed, 'status') and parsed.status == 304:
+            return
+        if hasattr(parsed, 'modified'):
+            new_modified = feedutil.struct_time_to_datetime(parsed.modified)
+            if (self.feed_modified is not None and 
+                    new_modified <= self.feed_modified):
+                return
+            self.feed_modified = new_modified
+        if hasattr(parsed, 'etag'):
+            self.feed_etag = parsed.etag
+        return parsed
+
     def update_items(self, feedparser_input=None):
         try:
             if feedparser_input is None:
-                parsed = feedparser.parse(self.url,
-                        modified=self.feed_modified,
-                        etag=self.feed_etag)
-                if hasattr(parsed, 'status') and parsed.status == 304:
-                    return
-                if hasattr(parsed, 'modified'):
-                    if (self.feed_modified is not None and 
-                            parsed.modified <= self.feed_modified):
-                        return
-                    self.feed_modified = parsed.modified
-                if hasattr(parsed, 'etag'):
-                    self.feed_etag = parsed.etag
+                parsed = self.download_feed()
             else:
                 parsed = feedparser.parse(feedparser_input)
         except:

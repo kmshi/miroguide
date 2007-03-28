@@ -2,6 +2,8 @@
 ripped out from democracy.
 """
 
+from datetime import datetime
+
 from sqlalchemy import String
 
 def get_first_video_enclosure(entry):
@@ -80,4 +82,5 @@ def fix_utf8_strings(obj):
         if org != fixed:
             setattr(obj, c.name, fixed)
 
-
+def struct_time_to_datetime(time):
+    return datetime(*time[:6])

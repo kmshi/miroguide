@@ -91,7 +91,7 @@ class Item(DBObject, Thumbnailable):
                 # I think this is a feedparser bug, if you can't parse the
                 # updated time, why set the attribute?
                 raise KeyError('updated_parsed')
-            rv.date = datetime(*updated_parsed[:6])
+            rv.date = feedutil.struct_time_to_datetime(updated_parsed)
         except KeyError:
             rv.date = None
         rv.thumbnail_url = feedutil.get_thumbnail_url(entry)
