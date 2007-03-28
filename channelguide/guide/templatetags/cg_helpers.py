@@ -119,6 +119,14 @@ def formbutton(url, action, label=None):
 def show_form(form):
     return {'form': form, 'BASE_URL': settings.BASE_URL }
 
+@register.inclusion_tag('guide/form-errors.html')
+def show_form_errors(form):
+    return {'form': form }
+
+@register.inclusion_tag('guide/form-field.html')
+def show_form_field(field):
+    return {'field': field }
+
 @register.inclusion_tag('guide/pager.html')
 def show_pager(pager):
     return {'pager': pager}

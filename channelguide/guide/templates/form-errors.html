@@ -1,0 +1,14 @@
+{% load i18n %}
+{% if form.errors %}
+   <div class="form-errors">
+       <h2>{% trans "Sorry!" %}</h2>
+       <ul>
+       {% for error in form.error_list %}
+       <li>
+         {% if error.name %}<span class="name">{{ error.name }}:</span>{% endif %}
+         {{ error.message}}
+       </li>
+       {% endfor %}
+       </ul>
+   </div>
+{% endif %}

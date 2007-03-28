@@ -7,7 +7,21 @@
         <h2>{% trans "Update My Profile " %}</h2>
         <form method="POST" action="{{ user.get_absolute_url }}">
             <input type="hidden" name="action" value="edit">
-            {% show_form form %}
+            {% show_form_errors form %}
+            <ul class="form-inputs">
+                {% for field in form.field_list %}
+                    <li>
+                        {% show_form_field field %}
+                        {% ifequal field.name "password2" %}
+                        <div class="divider"></div>
+                        {% endifequal %}
+                    </li>
+                {% endfor %}
+            </ul>
+            {% for field in form.hidden_field_list %}
+            {{ field }}
+            {% endfor %}
+
             <input type="submit" class="submit" value="{% trans "Update" %} &gt;&gt;">
         </form>
     </div>

@@ -1,0 +1,9 @@
+{% load i18n %}
+<div class="label">
+    {% if field.errors %}<img src="{{ BASE_URL }}images/form-error-arrow.png" alt="error"> {% endif %}
+    {{ field.label_tag|linebreaksbr }}
+</div>
+{{ field }}
+{% if field.field.help_text %}
+<div class="help-text">{{ field.field.help_text }}</div>
+{% endif %}

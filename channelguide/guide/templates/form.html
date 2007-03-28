@@ -1,29 +1,8 @@
-{% load i18n %}
-{% if form.errors %}
-   <div class="form-errors">
-       <h2>{% trans "Sorry!" %}</h2>
-       <ul>
-       {% for error in form.error_list %}
-       <li>
-         {% if error.name %}<span class="name">{{ error.name }}:</span>{% endif %}
-         {{ error.message}}
-       </li>
-       {% endfor %}
-       </ul>
-   </div>
-{% endif %}
+{% load cg_helpers i18n %}
+{% show_form_errors form %}
 <ul class="form-inputs">
     {% for field in form.field_list %}
-    <li>
-        <div class="label">
-            {% if field.errors %}<img src="{{ BASE_URL }}images/form-error-arrow.png" alt="error"> {% endif %}
-            {{ field.label_tag|linebreaksbr }}
-        </div>
-        {{ field }}
-        {% if field.field.help_text %}
-        <div class="help-text">{{ field.field.help_text }}</div>
-        {% endif %}
-    </li>
+        <li>{% show_form_field field %}</li>
     {% endfor %}
 </ul>
 {% for field in form.hidden_field_list %}
