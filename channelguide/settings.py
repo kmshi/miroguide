@@ -66,7 +66,17 @@ IMAGES_URL = BASE_URL + "images/"
 SITE_DIR = os.path.abspath(os.path.dirname(__file__))
 ROOT_DIR = os.path.abspath(os.path.join(SITE_DIR, '..'))
 
-TEMPLATE_DIR = os.path.join(SITE_DIR, 'templates')
+OPTIMIZED_TEMPLATE_DIR = os.path.join(SITE_DIR, 'templates-optimized')
+NORMAL_TEMPLATE_DIR = os.path.join(SITE_DIR, 'templates')
+def pick_template_dir():
+    if not os.path.exists(OPTIMIZED_TEMPLATE_DIR):
+        return NORMAL_TEMPLATE_DIR
+    source_stat = os.stat(os.path.join(SITE_DIR, 'guide', 'templates'))
+    optimized_stat = os.stat(OPTIMIZED_TEMPLATE_DIR)
+    if source_stat.st_mtime > optimized_stat.st_mtime:
+        return NORMAL_TEMPLATE_DIR
+    return OPTIMIZED_TEMPLATE_DIR
+TEMPLATE_DIR = pick_template_dir()
 EXTERNAL_LIBRARY_DIR = os.path.join(SITE_DIR, 'lib')
 
 STATIC_DIR = os.path.join(ROOT_DIR, 'static')

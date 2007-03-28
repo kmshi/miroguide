@@ -17,9 +17,11 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'channelguide.settings'
 import itertools
 import logging
 import re
+import shutil
 import socket
 import traceback
 import Queue
+from glob import glob
 
 from django.conf.urls.defaults import patterns
 from django.core import management 
@@ -176,6 +178,24 @@ def clear_cache(args):
     cache.clear_cache()
 clear_cache.args = ''
 
+def optimize_templates(args):
+    """Makes versions of the template files that are more space-efficient.
+    Currently this means removing a bunch of whitepace.
+    """
+    from django.conf import settings
+    from channelguide import util
+    source_dir = os.path.join(settings.NORMAL_TEMPLATE_DIR, "guide")
+    dest_dir = os.path.join(settings.OPTIMIZED_TEMPLATE_DIR, "guide")
+    shutil.rmtree(dest_dir)
+    util.ensure_dir_exists(dest_dir)
+    for file in os.listdir(source_dir):
+        if not file.endswith(".html"):
+            continue
+        content = util.read_file(os.path.join(source_dir, file))
+        optimized = "\n".join(line.strip() for line in content.split("\n"))
+        util.write_file(os.path.join(dest_dir, file), optimized)
+optimize_templates.args = ''
+
 # Remove django default actions that we don't use.  Many of these probably
 # would screw things up fairly bad.
 del action_mapping['startproject']
@@ -204,6 +224,7 @@ action_mapping['update_blog_posts'] = update_blog_posts
 action_mapping['make_icons'] = make_icons
 action_mapping['remove_blank_space'] = remove_blank_space
 action_mapping['clear_cache'] = clear_cache
+action_mapping['optimize_templates'] = optimize_templates
 del action_mapping['test']
 
 def add_static_urls():
