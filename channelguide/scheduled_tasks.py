@@ -21,6 +21,9 @@ def delete_old_sessions():
 def delete_old_thumbnails():
     logging.info('Deleting old thumbnails')
     media_tmp_dir = os.path.join(settings.MEDIA_ROOT, 'tmp')
+    if not os.path.exists(media_tmp_dir):
+        logging.warn("%s doesn't exist" % media_tmp_dir)
+        return
     one_day = 60 * 60 * 24
     for filename in os.listdir(media_tmp_dir):
         path = os.path.abspath(os.path.join(media_tmp_dir, filename))
