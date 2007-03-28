@@ -186,7 +186,8 @@ def optimize_templates(args):
     from channelguide import util
     source_dir = os.path.join(settings.NORMAL_TEMPLATE_DIR, "guide")
     dest_dir = os.path.join(settings.OPTIMIZED_TEMPLATE_DIR, "guide")
-    shutil.rmtree(dest_dir)
+    if os.path.exists(dest_dir):
+        shutil.rmtree(dest_dir)
     util.ensure_dir_exists(dest_dir)
     for file in os.listdir(source_dir):
         if not file.endswith(".html"):
