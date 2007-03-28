@@ -122,7 +122,7 @@ class Channel(DBObject, Thumbnailable):
             values['timestamp'] = timestamp
         connection.execute(tables.channel_subscription.insert(), values)
 
-    def update_thumbnails(self, overwrite=False, redownload=False, sizes=None):
+    def update_thumbnails(self, overwrite=False, sizes=None):
         """Recreate the thumbnails using the original data."""
 
         if self.thumbnail_extension is None:
@@ -135,8 +135,13 @@ class Channel(DBObject, Thumbnailable):
 
         Thumbnailable.refresh_thumbnails(self, overwrite, sizes)
         for item in self.items:
-            item.download_thumbnail(redownload)
             item.refresh_thumbnails(overwrite, sizes)
+
+    def download_item_thumbnails(self, redownload=False):
+        """Download item thumbnails."""
+
+        for item in self.items:
+            item.download_thumbnail(redownload)
 
     def update_search_data(self):
         if self.search_data is None:

@@ -40,6 +40,13 @@ def update_items():
     logging.info('Updating Items')
     manage.update_items()
 
+@run_every_day
+def update_thumbnails():
+    logging.info('downloading Thumbnails')
+    manage.download_thumbnails()
+    logging.info('Updating Thumbnails')
+    manage.update_items()
+
 def setup_logging():
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
@@ -50,7 +57,7 @@ def setup_logging():
 
 if __name__ == '__main__':
     setup_logging()
-    manage.set_socket_timeout()
     db_session = create_session(bind_to=db.engine)
-    logging.info("Starting new log")
+    logging.info("--------- START ----------")
     tasks.run_tasks(db_session)
+    logging.info("---------  END  ----------")
