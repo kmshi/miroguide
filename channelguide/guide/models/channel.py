@@ -222,12 +222,12 @@ class Channel(DBObject, Thumbnailable):
         parsed = feedparser.parse(self.url, modified=modified,
                 etag=self.feed_etag)
         if hasattr(parsed, 'status') and parsed.status == 304:
-            return
+            return None
         if hasattr(parsed, 'modified'):
             new_modified = feedutil.struct_time_to_datetime(parsed.modified)
             if (self.feed_modified is not None and 
                     new_modified <= self.feed_modified):
-                return
+                return None
             self.feed_modified = new_modified
         if hasattr(parsed, 'etag'):
             self.feed_etag = parsed.etag
@@ -237,6 +237,8 @@ class Channel(DBObject, Thumbnailable):
         try:
             if feedparser_input is None:
                 parsed = self.download_feed()
+                if parsed is None:
+                    return
             else:
                 parsed = feedparser.parse(feedparser_input)
         except:
