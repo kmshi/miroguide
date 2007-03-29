@@ -11,11 +11,10 @@
 <div class="front-page">
 <div id="featured-list-container">
     <ul class="two-column-list" id="featured-list">
-        <li class="column first-column">
-{% show_channel_feature featured_channels.0 %}
-        </li>
-        <li class="column">
-{% show_channel_feature featured_channels.1 %}
+{% for channel in featured_channels %}
+        <li class="column{% if forloop.first %} first-column{% endif %}">
+        {% show_channel_feature channel %}
+{% endfor %}
         </li>
 {% for channel in featured_channels_hidden %}
         <li class="column">
