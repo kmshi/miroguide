@@ -4,6 +4,7 @@ from channelguide import util
 from channelguide.guide.models import Category
 from channelguide.guide.templateutil import make_two_column_list
 
+@cache.aggresively_cache
 def index(request):
     q = request.db_session.query(Category)
     select = q.select(order_by=desc(Category.c.channel_count))
@@ -12,7 +13,7 @@ def index(request):
         'groups': select,
     })
 
+@cache.aggresively_cache
 def category(request, id):
     return make_two_column_list(request, id, Category, _('Category: %s'), 
             join_path=['categories'])
-

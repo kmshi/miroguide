@@ -177,6 +177,7 @@ class PopularWindowSelect(ViewSelect):
         else:
             return _("All-Time")
 
+@cache.aggresively_cache
 def popular(request):
     window = request.GET.get('view', 'today')
     query = request.db_session.query(Channel)
@@ -208,11 +209,13 @@ def make_simple_list(request, query, header, order_by):
         'pager': pager,
     })
 
+@cache.aggresively_cache
 def by_name(request):
     query = request.db_session.query(Channel).select_by(state=Channel.APPROVED)
     return make_simple_list(request, query, _("Channels By Name"),
             Channel.c.name)
 
+@cache.aggresively_cache
 def features(request):
     query = request.db_session.query(Channel)
     query = query.select_by(state=Channel.APPROVED, featured=1)
@@ -240,6 +243,7 @@ def group_channels_by_date(channels):
         retval.append({'date': current_date, 'channels': channels_in_date})
     return retval
 
+@cache.aggresively_cache
 def recent(request):
     query = request.db_session.query(Channel)
     select = query.select_by(state=Channel.APPROVED)

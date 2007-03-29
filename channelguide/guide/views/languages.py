@@ -8,6 +8,7 @@ from channelguide.guide.auth import moderator_required
 from channelguide.guide.models import Language, Channel
 from channelguide.guide.models.mappings import channel_select
 
+@cache.aggresively_cache
 def index(request):
     q = request.db_session.query(Language)
     return util.render_to_response(request, 'group-list.html', {
@@ -45,6 +46,7 @@ def make_channels_pager(request, language):
         return query.instances(request.connection.execute(select))
     return templateutil.ManualPager(8, count, callback, request)
 
+@cache.aggresively_cache
 def view(request, id):
     language = util.get_object_or_404(request.db_session.query(Language), id)
     pager = make_channels_pager(request, language)

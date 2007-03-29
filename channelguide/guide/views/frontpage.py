@@ -81,10 +81,12 @@ def index(request):
         'categories': category_query.select(order_by=Category.c.name),
     })
 
+@cache.aggresively_cache
 def category_peek_fragment(request):
     return util.render_to_response(request, 'category-peek.html', {
         'category_peek': make_category_peek(request),
     })
 
+@cache.cache_page_externally_for(60 * 60 * 24)
 def refresh(request):
     return util.render_to_response(request, 'refresh.html')

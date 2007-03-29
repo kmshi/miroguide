@@ -42,6 +42,7 @@ def search_results(session, class_, terms, search_attribute='name'):
         select = select.filter(search_column.like('%s%%' % term))
     return select.list()
 
+@cache.aggresively_cache
 def search(request):
     try:
         query = request.GET['query']
@@ -99,10 +100,12 @@ def do_search_more(request, title, search_func, search_count_func):
         'pager': pager,
         })
 
+@cache.aggresively_cache
 def search_more(request):
     title = _('Channels Matching %s')
     return do_search_more(request, title, Channel.search, Channel.search_count)
 
+@cache.aggresively_cache
 def search_more_items(request):
     title = _('Channels With Videos Matching %s')
     return do_search_more(request, title, Channel.search_items,

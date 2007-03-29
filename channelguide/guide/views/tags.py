@@ -4,6 +4,7 @@ from channelguide import util
 from channelguide.guide.models import Tag
 from channelguide.guide.templateutil import Pager, make_two_column_list
 
+@cache.aggresively_cache
 def index(request):
     q = request.db_session.query(Tag)
     select = q.select(order_by=desc(Tag.c.channel_count))
@@ -12,7 +13,7 @@ def index(request):
         'pager': pager,
     })
 
+@cache.aggresively_cache
 def tag(request, id):
     return make_two_column_list(request, id, Tag, _('Tag: %s'),
             join_path=['tags'])
-
