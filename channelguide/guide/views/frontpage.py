@@ -8,7 +8,7 @@ from channelguide.guide.models import Channel, Category, PCFBlogPost
 
 def get_popular_channels(channel_query, count):
    select = channel_query.select_by(state=Channel.APPROVED)
-   return select.order_by(desc(Channel.c.subscription_count))[:count]
+   return select.order_by(desc(Channel.c.subscription_count_today))[:count]
 
 def get_featured_channels(channel_query):
    select = channel_query.select_by(state=Channel.APPROVED, featured=1)
