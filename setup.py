@@ -6,6 +6,7 @@ from os.path import dirname, join, exists, abspath, isdir
 from stat import *
 import sys
 import subprocess
+import textwrap
 
 base_dir = abspath(dirname(__file__))
 static_dir = join(base_dir, 'static')
@@ -50,8 +51,10 @@ def main(args):
     if saw_error:
         sys.exit(1)
     else:
-        print ('Dependencies look okay.'
+        output = ('Dependencies look okay.  '
                 'Make sure %s is writable by the apache user' % media_dir)
+        for line in textwrap.wrap(output, 78):
+            print line
 
 if __name__ == '__main__':
     main(sys.argv)
