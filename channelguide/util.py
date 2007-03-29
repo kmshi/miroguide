@@ -178,8 +178,12 @@ class ProgressPrinter:
         self.count = 0
 
     def print_status(self):
+        try:
+            percent = self.count * 100.0 / self.total
+        except ZeroDivisionError:
+            percent = 100.0
         sys.stdout.write("\r%s (%d/%d) %.1f%%" % (self.prefix, self.count,
-            self.total, self.count * 100.0 / self.total))
+            self.total, percent))
         sys.stdout.flush()
 
     def iteration_done(self):

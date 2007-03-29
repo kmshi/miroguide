@@ -1,5 +1,6 @@
 import urllib
 
+from django.conf import settings
 from sqlalchemy import desc, func
 
 from channelguide import util, cache
@@ -89,4 +90,5 @@ def category_peek_fragment(request):
 
 @cache.cache_page_externally_for(60 * 60 * 24)
 def refresh(request):
-    return util.render_to_response(request, 'refresh.html')
+    return util.render_to_response(request, 'refresh.html',
+            {'BASE_URL_FULL': settings.BASE_URL_FULL })

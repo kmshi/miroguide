@@ -1,5 +1,6 @@
 import os
-cg_basedir = os.path.abspath(os.path.join(__file__, '..', '..'))
+convert_dir = os.path.abspath(os.path.dirname(__file__))
+cg_basedir = os.path.abspath(os.path.join(convert_dir, '..', 'channelguide'))
 import sys
 sys.path.append(os.path.abspath(os.path.join(cg_basedir, '..')))
 os.environ['DJANGO_SETTINGS_MODULE'] = 'channelguide.settings'
@@ -30,7 +31,7 @@ def execute_sql_file(sql_path):
     os.system(cmd)
 
 def execute_convert_sql_file(convert_name):
-    sql_path = os.path.join(cg_basedir, 'convert', convert_name)
+    sql_path = os.path.join(convert_dir, convert_name)
     execute_sql_file(sql_path)
 
 def execute_sql(sql, use_db_name=True):
@@ -46,7 +47,7 @@ def drop_tables(*tables):
 
 def fix_utf8():
     from channelguide import db
-    from channelguide.channels.models import Channel
+    from channelguide.guide.models import Channel
     connection = db.connect()
     session = create_session(bind_to=connection)
     query = session.query(Channel).options(eagerload('items'))
@@ -62,7 +63,7 @@ def fix_utf8():
 
 def convert_thumbnails():
     from channelguide import db
-    from channelguide.channels.models import Channel
+    from channelguide.guide.models import Channel
     connection = db.connect()
     # calculate what to download
     to_download = {}
@@ -100,9 +101,9 @@ def convert_thumbnails():
         pprinter.iteration_done()
     pprinter.loop_done()
 
-def main():
-    execute_sql("DROP DATABASE channelguide", use_db_name=False)
-    execute_sql("CREATE DATABASE channelguide", use_db_name=False)
+def main(dbname):
+    execute_sql("DROP DATABASE %s" % dbname, use_db_name=False)
+    execute_sql("CREATE DATABASE %s" % dbname, use_db_name=False)
     os.system("python %s syncdb" % (os.path.join(cg_basedir, 'manage.py')))
     print "loading channelguide data"
     execute_sql_file('cg.sql')
@@ -123,4 +124,4 @@ def main():
     drop_tables('user_cache', 'user_auth_hashes', 'users')
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[1])
