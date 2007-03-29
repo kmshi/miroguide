@@ -15,6 +15,8 @@ UPDATE user
             WHERE user_cache.username=user.username),
         city=(SELECT city FROM user_cache
             WHERE user_cache.username=user.username),
+        image_ext=(SELECT SUBSTRING_INDEX(image, '.', -1) FROM user_cache
+            WHERE user_cache.username=user.username),
         state=(SELECT state FROM user_cache
             WHERE user_cache.username=user.username),
         country=(SELECT country FROM user_cache
