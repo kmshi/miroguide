@@ -39,33 +39,7 @@
         </div>
         <img id="load-indicator" src="{{ BASE_URL }}images/load-indicator.gif">
     </div>
-    <div id="account-bar">
-        <div id="account-bar-inner">
-            {% if user.is_authenticated %}
-            <div class="right">
-                {{ user }}
-                {% if user.is_moderator %}
-                <a {% link "moderate" %}>{% trans "moderate" %}</a>
-                {% endif %}
-                <a {% link user.get_absolute_url %}>{% trans "profile" %}</a>
-                <a {% link "accounts/logout" %}>{% trans "logout" %}</a>
-            </div>
-            <div class="left">
-                {% if user.channels %}
-                <a {% link user.channel_url %}>{% trans "My Submitted Channels" %}</a>
-                {% endif %}
-                <a {% link "channels/submit" %}>{% trans "Submit A Channel" %}</a>
-            </div>
-            {% else %}
-            <div class="right">
-                <a {% link "accounts/login" %}>{% trans "Login / Register" %}</a>
-            </div>
-            <div class="left">
-                <a {% link "channels/submit" %}>{% trans "Submit A Channel" %}</a>
-            </div>
-            {% endif %}
-        </div>
-    </div>
+    {% show_account_bar user %}
     <div id="page">
         <div id="search-bar">
             <h2 class="tagline">Over 1,000 channels, all free.</h2>

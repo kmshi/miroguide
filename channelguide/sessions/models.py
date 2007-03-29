@@ -5,7 +5,7 @@ import random
 from django.conf import settings
 from sqlalchemy import mapper
 
-from channelguide import db
+from channelguide import db, cache
 from channelguide.sessions import tables
 from channelguide.util import hash_string
 
@@ -52,3 +52,4 @@ class Session(object):
         return session
 
 mapper(Session, tables.sessions)
+cache.dont_clear_cache_for(Session)

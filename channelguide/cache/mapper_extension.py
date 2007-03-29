@@ -1,18 +1,16 @@
-"""Add hooks so when we change anything in the DB we clear the cache."""
+from sqlalchemy import MapperExtension
 
-from sqlalchemy import MapperExtension, EXT_PASS
-
-from channelguide import cache
+from client import clear_cache
 
 clear_cache_exceptions = set()
 def dont_clear_cache_for(class_):
     """When objects of this class change, we don't need to clear the cache."""
     clear_cache_exceptions.add(class_)
 
-class CacheClearer(MapperExtension):
+class CacheClearMapperExtension(MapperExtension):
     def handle_change(self, mapper, connection, instance):
         if instance.__class__ not in clear_cache_exceptions:
-            cache.clear_cache()
+            clear_cache()
 
     def after_insert(self, mapper, connection, instance):
         self.handle_change(mapper, connection, instance)

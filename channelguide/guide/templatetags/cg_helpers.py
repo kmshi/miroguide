@@ -115,6 +115,10 @@ def formbutton(url, action, label=None):
         label = action
     return {'url': url, 'action': action, 'label': label}
 
+@register.inclusion_tag('guide/account-bar.html')
+def show_account_bar(user):
+    return {'user': user}
+
 @register.inclusion_tag('guide/form.html')
 def show_form(form):
     return {'form': form, 'BASE_URL': settings.BASE_URL }

@@ -56,8 +56,13 @@ class TestCase(unittest.TestCase):
         self.starting_db_version = version.get_version(self.connection)
         util.emailer = self.catch_email
         self.emails = []
-        cache.disable_cache = True
+        settings.DISABLE_CACHE = True
         self.client = Client()
+        self.changed_settings = []
+
+    def change_setting_for_test(name, value):
+        self.changed_settings.append((name, getattr(settings, name)))
+        setattr(settings, name, value)
 
     def catch_email(self, title, body, email_from, recipient_list):
         self.emails.append({'title': title, 'body': body, 
@@ -79,6 +84,8 @@ class TestCase(unittest.TestCase):
             shutil.rmtree(settings.MEDIA_ROOT)
         if os.path.exists(settings.IMAGE_DOWNLOAD_CACHE_DIR):
             shutil.rmtree(settings.IMAGE_DOWNLOAD_CACHE_DIR)
+        for name, oldvalue in self.changed_settings:
+            setattr(settings, name, oldvalue)
 
     def assertSameSet(self, iterable1, iterable2):
         self.assertEquals(set(iterable1), set(iterable2))

@@ -5,7 +5,6 @@ Database functions for channelguide.
 
 # import hacks as soon as possible, since it makes changes to sqlalchemy
 import hacks
-import cache
 
 import os
 import re
@@ -19,7 +18,9 @@ from django.conf import settings
 # extension for all Mapper queries.  See:
 # http://www.sqlalchemy.org/docs/plugins.myt#plugins_selectresults
 import sqlalchemy.mods.selectresults
-global_extensions.append(cache.CacheClearer)
+# Add our mapper extension that clears the cache when any object changes.
+from channelguide import cache
+global_extensions.append(cache.CacheClearMapperExtension)
 
 from channelguide import util
 import version

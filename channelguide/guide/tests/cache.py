@@ -10,7 +10,7 @@ from channelguide.testframework import TestCase
 class CacheTest(TestCase):
     def setUp(self):
         TestCase.setUp(self)
-        channelguide_cache.disable_cache = False
+        self.change_setting_for_test("DISABLE_CACHE", False)
         self.middleware = channelguide_cache.CacheMiddleware()
         time.sleep(1) 
         # hack because we may have called memcached.flush_all recently.
