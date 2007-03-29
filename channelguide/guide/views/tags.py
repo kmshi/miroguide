@@ -1,6 +1,6 @@
 from sqlalchemy import desc
 
-from channelguide import util
+from channelguide import util, cache
 from channelguide.guide.models import Tag
 from channelguide.guide.templateutil import Pager, make_two_column_list
 

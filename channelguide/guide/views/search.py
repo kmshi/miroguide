@@ -4,7 +4,7 @@ import re
 
 from django.utils.translation import gettext as _
 
-from channelguide import util
+from channelguide import util, cache
 from channelguide.guide.templateutil import ManualPager
 from channelguide.guide.models import Channel, Category, Tag, Item, Language
 

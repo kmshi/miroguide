@@ -1,6 +1,6 @@
 from sqlalchemy import desc
 
-from channelguide import util
+from channelguide import util, cache
 from channelguide.guide.models import Category
 from channelguide.guide.templateutil import make_two_column_list
 

@@ -2,7 +2,7 @@ from copy import copy
 
 from sqlalchemy import exists, func, select
 
-from channelguide import util
+from channelguide import util, cache
 from channelguide.guide import tables, templateutil 
 from channelguide.guide.auth import moderator_required
 from channelguide.guide.models import Language, Channel

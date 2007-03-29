@@ -3,7 +3,7 @@ from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.utils.translation import gettext as _
 from sqlalchemy import desc, eagerload, null
 
-from channelguide import util
+from channelguide import util, cache
 from channelguide.guide import forms
 from channelguide.guide.auth import moderator_required, login_required
 from channelguide.guide.models import Channel, Item, ModeratorPost, User
