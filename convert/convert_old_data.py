@@ -101,17 +101,21 @@ def convert_thumbnails():
         pprinter.iteration_done()
     pprinter.loop_done()
 
-def main(dbname):
-    execute_sql("DROP DATABASE %s" % dbname, use_db_name=False)
-    execute_sql("CREATE DATABASE %s" % dbname, use_db_name=False)
+def main():
+    print "ARE YOU SURE YOU WANT TO REPLACE %s?" % settings.DATABASE_NAME
+    print "Enter to continue, Ctrl-C to quit"
+    raw_input()
+    execute_sql("DROP DATABASE %s" % settings.DATABASE_NAME, use_db_name=False)
+    execute_sql("CREATE DATABASE %s" % settings.DATABASE_NAME, use_db_name=False)
     os.system("python %s syncdb" % (os.path.join(cg_basedir, 'manage.py')))
     print "loading channelguide data"
     execute_sql_file('cg.sql')
     print "converting channelguide data"
     execute_convert_sql_file('convert_cg.sql')
-    print "converting thumbnails"
+    print "fixing utf8 data"
     if '--no-utf8-fix' not in sys.argv:
         fix_utf8()
+    print "converting thumbnails"
     if '--no-thumbs' not in sys.argv:
         convert_thumbnails()
     drop_tables('channel_categories', 'channel_featured', 'channel_info',
@@ -124,4 +128,4 @@ def main(dbname):
     drop_tables('user_cache', 'user_auth_hashes', 'users')
 
 if __name__ == '__main__':
-    main(sys.argv[1])
+    main()

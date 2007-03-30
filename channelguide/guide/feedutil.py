@@ -59,7 +59,14 @@ def to_utf8(feedparser_string):
     if str is None:
         return None
     elif type(feedparser_string) is str:
-        return feedparser_string.decode('utf-8', 'ignore').encode('utf-8')
+        try:
+            decoded = feedparser_string.decode('utf-8')
+        except UnicodeError:
+            try:
+                decoded = feedparser_string.decode('latin-1')
+            except UnicodeError:
+                decoded = feedparser_string.decode('utf-8', 'ignore')
+        return decoded.encode('utf-8')
     else:
         return feedparser_string.encode('utf-8')
 
