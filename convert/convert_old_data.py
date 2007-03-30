@@ -125,7 +125,7 @@ def main():
     execute_sql_file('vb.sql')
     print "converting videobomb data"
     execute_convert_sql_file('convert_vb.sql')
-    drop_tables('user_cache', 'user_auth_hashes', 'users')
+    drop_tables('user_cache', 'users')
 
 if __name__ == '__main__':
     main()
