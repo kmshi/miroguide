@@ -52,10 +52,9 @@ class CacheMiddleware(CacheMiddlewareBase):
             # Maybe this is the test browser, which sends the HTTP_COOKIE
             # value as an python Cookie object
             return (request.path, request.META['QUERY_STRING'],
-                    request.META['HTTP_COOKIE'].output())
+                    cookie.output())
         else:
-            return (request.path, request.META['QUERY_STRING'],
-                    request.META.get('HTTP_COOKIE'))
+            return (request.path, request.META['QUERY_STRING'], cookie)
 
 class AggressiveCacheMiddleware(CacheMiddlewareBase):
     """Aggresively Caches a page.  This should only be used for pages that

@@ -1,9 +1,9 @@
 from django.conf import settings
-from django.core import cache as django_cache
 from django.http import HttpRequest, HttpResponse
 
-from channelguide import cache as channelguide_cache
 from channelguide import util
+from channelguide import cache as cg_cache 
+# importing it as cache breaks the unit test suite for some reason.
 import time
 from channelguide.testframework import TestCase
 
@@ -11,14 +11,14 @@ class CacheTest(TestCase):
     def setUp(self):
         TestCase.setUp(self)
         self.change_setting_for_test("DISABLE_CACHE", False)
-        self.middleware = channelguide_cache.CacheMiddleware()
+        self.middleware = cg_cache.middleware.CacheMiddleware()
         time.sleep(1) 
         # hack because we may have called memcached.flush_all recently.
         # Because memcached has a resolution of 1 second, we need this to make
         # sure flush_all goes through.
 
     def tearDown(self):
-        channelguide_cache.memcache_client.flush_all()
+        cg_cache.clear_cache()
         TestCase.tearDown(self)
 
     def make_request(self, path, query=None):
@@ -60,7 +60,7 @@ class CacheTest(TestCase):
     def test_expire(self):
         path = self.rand_path()
         self.make_request_cached(path)
-        channelguide_cache.clear_cache()
+        cg_cache.clear_cache()
         self.assert_(not self.is_request_cached(path))
 
     def test_default_cache_control(self):
@@ -75,7 +75,7 @@ class CacheTest(TestCase):
         request = self.make_request(path)
         self.middleware.process_request(request)
         response = self.make_response()
-        channelguide_cache.cache_externally_for(response, 123)
+        response.headers['Cache-Control'] = 'max-age=123'
         self.process_response_middleware(request, response)
         self.assertEquals(response.headers['Cache-Control'], 'max-age=123')
 
@@ -98,3 +98,24 @@ class CacheTest(TestCase):
         channel.name = "NEW ONE"
         self.db_session.flush()
         self.assert_(not self.is_request_cached(path))
+
+    def test_with_logins(self):
+        user = self.make_user("userkelly")
+        user2 = self.make_user("userbobby")
+        anon_page = self.get_page('/front')
+        self.login(user)
+        kelly_page = self.get_page('/front')
+        self.login(user2)
+        bobby_page = self.get_page('/front')
+        self.logout()
+        anon2_page = self.get_page('/front')
+
+        self.assert_('userbobby' not in anon_page.content)
+        self.assert_('userbobby' not in kelly_page.content)
+        self.assert_('userbobby' in bobby_page.content)
+        self.assert_('userbobby' not in anon_page.content)
+
+        self.assert_('userkelly' not in anon_page.content)
+        self.assert_('userkelly' in kelly_page.content)
+        self.assert_('userkelly' not in bobby_page.content)
+        self.assert_('userkelly' not in anon_page.content)

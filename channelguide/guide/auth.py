@@ -7,6 +7,7 @@ def login(request, user):
     """Try to log a user in."""
 
     request.session[SESSION_KEY] = (user.username, user.hashed_password)
+    request.session.change_session_key()
     request.user = user
     return True
 
@@ -16,6 +17,7 @@ def logout(request):
         del request.session[SESSION_KEY]
     except KeyError:
         pass
+    request.session.change_session_key()
     request.user = AnonymousUser()
 
 # decorators... pretty much stolen from django code

@@ -87,11 +87,6 @@ def aggregate_subquery(label, aggregate_function, table, *filters):
 def count_subquery(label, table, *filters):
     return aggregate_subquery(label, func.count('*'), table, *filters)
 
-def save_if_new(session, obj):
-    key = class_mapper(obj.__class__).instance_key(obj)
-    if key not in session.identity_map:
-        session.save(obj)
-
 class MatchClause(_BinaryClause, _CompareMixin):
     def __init__(self, columns, query, boolean=False):
         self.boolean = boolean

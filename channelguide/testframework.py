@@ -60,7 +60,7 @@ class TestCase(unittest.TestCase):
         self.client = Client()
         self.changed_settings = []
 
-    def change_setting_for_test(name, value):
+    def change_setting_for_test(self, name, value):
         self.changed_settings.append((name, getattr(settings, name)))
         setattr(settings, name, value)
 
@@ -180,6 +180,9 @@ class TestCase(unittest.TestCase):
         data = {'username': username, 'password': password,
                 'which-form': 'login' }
         return self.client.post('/accounts/login', data)
+
+    def logout(self):
+        return self.client.get('/accounts/logout')
 
     def get_traceback_from_response(self, response):
         if type(response.context) != list:
