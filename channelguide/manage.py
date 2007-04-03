@@ -265,16 +265,7 @@ def clear_cache(args):
     cache.clear_cache()
 clear_cache.args = ''
 
-def optimize_templates(args):
-    """Makes versions of the template files that are more space-efficient.
-    Currently this means removing a bunch of whitepace.
-    """
-    from django.conf import settings
-    from channelguide import util
-    source_dir = os.path.join(settings.NORMAL_TEMPLATE_DIR, "guide")
-    dest_dir = os.path.join(settings.OPTIMIZED_TEMPLATE_DIR, "guide")
-    if os.path.exists(dest_dir):
-        shutil.rmtree(dest_dir)
+def optimize_template_dir(source_dir, dest_dir):
     util.ensure_dir_exists(dest_dir)
     for file in os.listdir(source_dir):
         if not file.endswith(".html"):
@@ -282,6 +273,21 @@ def optimize_templates(args):
         content = util.read_file(os.path.join(source_dir, file))
         optimized = "\n".join(line.strip() for line in content.split("\n"))
         util.write_file(os.path.join(dest_dir, file), optimized)
+
+def optimize_templates(args):
+    """Makes versions of the template files that are more space-efficient.
+    Currently this means removing a bunch of whitepace.
+    """
+    from django.conf import settings
+    from channelguide import util
+    source_dir = settings.NORMAL_TEMPLATE_DIR
+    dest_dir = settings.OPTIMIZED_TEMPLATE_DIR
+    if os.path.exists(dest_dir):
+        shutil.rmtree(dest_dir)
+    optimize_template_dir(source_dir, dest_dir)
+    optimize_template_dir(os.path.join(source_dir, 'guide'),
+            os.path.join(dest_dir, 'guide'))
+
 optimize_templates.args = ''
 
 # Remove django default actions that we don't use.  Many of these probably
