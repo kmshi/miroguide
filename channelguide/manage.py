@@ -135,7 +135,7 @@ def fetch_single_channel(db_session, args, arg_help):
 
 def update_items(args=None):
     """Update the items for each channel."""
-    spawn_children('updating items', "update_item", 8)
+    spawn_children('updating items', "update_item", 4)
 update_items.args = ''
 
 def download_thumbnails(args=None):
@@ -143,7 +143,7 @@ def download_thumbnails(args=None):
     if args is None:
         args = []
     extra_args = ' '.join(args[2:])
-    spawn_children('updating thumbnails', "download_thumbnail", 8, extra_args)
+    spawn_children('updating thumbnails', "download_thumbnail", 4, extra_args)
 download_thumbnails.args = '[--redownload]'
 
 def update_item(args):

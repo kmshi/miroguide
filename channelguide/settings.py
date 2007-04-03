@@ -6,7 +6,6 @@ from urlparse import urlparse
 # sitespecific.py stores all server specific data. 
 from sitespecific import *
 
-DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 APPEND_SLASH = False
