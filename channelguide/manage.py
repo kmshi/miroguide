@@ -49,16 +49,20 @@ def convert_old_data(args):
     convert_old_data(args[2], args[3])
 convert_old_data.args = '<videobomb db name> <channelguide db name>'
 
+def make_session():
+    from channelguide import db
+    connection = db.connect()
+    return create_session(bind_to=connection)
+
 FLUSH_EVERY_X_CHANNELS = 50
 def all_channel_iterator(task_description):
     """Helper method to iterate over all channels.  It will yield each channel
     in order.
     """
 
-    from channelguide import db
     from channelguide.guide.models import Channel
 
-    db_session = create_session(bind_to=db.engine)
+    db_session = make_session()
     query = db_session.query(Channel).options(eagerload('items'))
     count = itertools.count()
     if print_stuff:
@@ -91,9 +95,6 @@ def spawn_children(task_description, action_name, thread_count, extra_args=''):
     """Works with update_items and download_thumbnails to manage child processes
     that update the individual channels.
     """
-
-    from channelguide import db
-    from channelguide.guide.models import Channel
 
     channel_ids = get_channel_ids()
     id_queue = Queue.Queue()
@@ -147,8 +148,7 @@ download_thumbnails.args = '[--redownload]'
 
 def update_item(args):
     """Update a single channel's item"""
-    from channelguide import db
-    db_session = create_session(bind_to=db.engine)
+    db_session = make_session()
     channel = fetch_single_channel(db_session, args, update_item.args)
     if channel is not None:
         try:
@@ -166,7 +166,7 @@ def download_thumbnail(args):
 
     set_short_socket_timeout()
     redownload = (len(args) > 3 and args[3] in ('-r', '--redownload'))
-    db_session = create_session(bind_to=db.engine)
+    db_session = make_session()
     channel = fetch_single_channel(db_session, args, download_thumbnail.args)
     if channel is not None:
         try:
@@ -234,9 +234,8 @@ drop_users.args = ''
 
 def update_blog_posts(args):
     "Update posts from PCF's blog."
-    from channelguide import db
     from channelguide import blogtrack
-    db_session = create_session(bind_to=db.engine)
+    db_session = make_session()
     blogtrack.update_posts(db_session)
     db_session.flush()
 update_blog_posts.args = ''
