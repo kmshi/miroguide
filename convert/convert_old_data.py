@@ -82,6 +82,7 @@ def convert_thumbnails():
     session = create_session(bind_to=connection)
     pprinter = util.ProgressPrinter("storing thumbnails", 
             len(to_download) + len(local_files))
+    count = itertools.count()
     def save_thumbnail(id, data):
         channel = session.get(Channel, nid)
         if channel is not None:
@@ -90,6 +91,8 @@ def convert_thumbnails():
             except Exception, e:
                 print
                 print "Error saving thumbnail for %s (%s)" % (id, e)
+            if count.next() % 100 == 0:
+                session.flush()
 
     for nid, url in to_download.items():
         this_image_data = image_data[url]
@@ -100,6 +103,7 @@ def convert_thumbnails():
         save_thumbnail(nid, util.read_file(path))
         pprinter.iteration_done()
     pprinter.loop_done()
+    session.flush()
 
 def main():
     print "ARE YOU SURE YOU WANT TO REPLACE %s?" % settings.DATABASE_NAME
