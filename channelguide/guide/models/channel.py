@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from glob import glob
 from urllib import quote
 import feedparser
@@ -113,14 +113,24 @@ class Channel(DBObject, Thumbnailable):
                 'count': count
         }
 
-    def add_subscription(self, connection, timestamp=None):
+    def add_subscription(self, connection, ip_address, timestamp=None):
         if self.id is None:
             msg = "Channel must be saved before add_subscription() is called"
             raise ValueError(msg)
-        values = {'channel_id': self.id}
-        if timestamp is not None:
-            values['timestamp'] = timestamp
-        connection.execute(tables.channel_subscription.insert(), values)
+        if timestamp is None:
+            timestamp = datetime.now()
+
+        table = tables.channel_subscription
+        select = table.count(table.c.ip_address==ip_address)
+        week_ago = timestamp - timedelta(weeks=1)
+        select.append_whereclause(table.c.timestamp > week_ago)
+        if connection.execute(select).scalar() > 0:
+            return
+
+        values = {'channel_id': self.id, 'ip_address': ip_address}
+        values['timestamp'] = timestamp
+        connection.execute(table.insert(), values)
+
 
     def update_thumbnails(self, overwrite=False, sizes=None):
         """Recreate the thumbnails using the original data."""

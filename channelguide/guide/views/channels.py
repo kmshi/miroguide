@@ -147,7 +147,8 @@ def after_submit(request):
 
 def subscribe(request, id):
     channel = util.get_object_or_404(request.db_session.query(Channel), id)
-    channel.add_subscription(request.connection)
+    channel.add_subscription(request.connection,
+            request.META.get('REMOTE_ADDR', '0.0.0.0'))
     subscribe_url = settings.SUBSCRIBE_URL % { 'url': channel.url }
     return HttpResponseRedirect(subscribe_url)
 
@@ -157,7 +158,8 @@ def subscribe_hit(request, id):
     that
     """
     channel = util.get_object_or_404(request.db_session.query(Channel), id)
-    channel.add_subscription(request.connection)
+    channel.add_subscription(request.connection,
+            request.META.get('REMOTE_ADDR', '0.0.0.0'))
     return HttpResponse("Hit successfull")
 
 class PopularWindowSelect(ViewSelect):

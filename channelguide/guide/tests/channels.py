@@ -121,26 +121,37 @@ class ChannelModelTest(ChannelTestBase):
         self.assertRaises(ValueError, c.save_thumbnail,
                 read_file(test_data_path('thumbnail.jpg')))
 
+    def check_subscription_counts(self, total, month, today):
+        self.db_session.refresh(self.channel)
+        self.assertEquals(self.channel.subscription_count, total)
+        self.assertEquals(self.channel.subscription_count_month, month)
+        self.assertEquals(self.channel.subscription_count_today, today)
+
     def test_subscription_counts(self):
         now = datetime.now()
         week = timedelta(days=7)
-        def check_counts(total, month, today):
-            self.db_session.refresh(self.channel)
-            self.assertEquals(self.channel.subscription_count, total)
-            self.assertEquals(self.channel.subscription_count_month, month)
-            self.assertEquals(self.channel.subscription_count_today, today)
 
-        check_counts(0, 0, 0)
-        self.channel.add_subscription(self.connection)
-        check_counts(1, 1, 1)
-        self.channel.add_subscription(self.connection, timestamp=now-week*1)
-        check_counts(2, 2, 1)
-        self.channel.add_subscription(self.connection, timestamp=now-week*6)
-        check_counts(3, 2, 1)
+        self.check_subscription_counts(0, 0, 0)
+        self.channel.add_subscription(self.connection, '1.1.1.1', now)
+        self.check_subscription_counts(1, 1, 1)
+        self.channel.add_subscription(self.connection, '1.1.1.2', now-week*1)
+        self.check_subscription_counts(2, 2, 1)
+        self.channel.add_subscription(self.connection, '1.1.1.3', now-week*6)
+        self.check_subscription_counts(3, 2, 1)
+
+    def test_subscription_spam_prevention(self):
+        now = datetime.now()
+        next_week = now + timedelta(days=7)
+        self.channel.add_subscription(self.connection, '1.1.1.1', now)
+        self.check_subscription_counts(1, 1, 1)
+        self.channel.add_subscription(self.connection, '1.1.1.1', now)
+        self.check_subscription_counts(1, 1, 1)
+        self.channel.add_subscription(self.connection, '1.1.1.1', next_week)
+        self.check_subscription_counts(2, 2, 2)
 
     def test_delete(self):
         ben = self.make_user('ben')
-        self.channel.add_subscription(self.connection)
+        self.channel.add_subscription(self.connection, '1.1.1.1')
         self.channel.add_tag(ben, 'cool')
         self.db_session.flush()
         self.db_session.delete(self.channel)

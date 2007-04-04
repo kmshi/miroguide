@@ -101,6 +101,7 @@ channel_note = Table('cg_channel_note', db.metadata,
 channel_subscription = Table('cg_channel_subscription', db.metadata,
         Column('channel_id', Integer, ForeignKey('cg_channel.id'),
             nullable=False),
+        Column('ip_address', String(16), nullable=False),
         Column('timestamp', DateTime, nullable=False, default=func.now()))
 
 item = Table('cg_channel_item', db.metadata,
