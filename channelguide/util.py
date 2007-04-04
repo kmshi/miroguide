@@ -138,7 +138,7 @@ def get_object_or_404(query, id):
     else:
         return obj
 
-def send_mail(title, body, recipient_list):
+def send_mail(title, body, recipient_list, email_from=None):
     global emailer
     if type(recipient_list) is str:
         recipient_list = [recipient_list]
@@ -148,7 +148,9 @@ def send_mail(title, body, recipient_list):
         email_func = django_send_mail
     else:
         email_func = emailer
-    return email_func(title, body, settings.EMAIL_FROM, recipient_list)
+    if email_from is None:
+        email_from = settings.EMAIL_FROM
+    return email_func(title, body, email_from, recipient_list)
 
 class URLGrabber(threading.Thread):
     def __init__(self, in_queue, out_queue):

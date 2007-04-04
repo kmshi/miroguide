@@ -21,12 +21,12 @@ class ModeratorPost(NoteBase):
     def get_absolute_url(self):
         return util.make_absolute_url("notes/post-%d" % self.id)
 
-    def send_email(self):
+    def send_email(self, sender):
         query = self.session().query(User)
         moderators = query.select(User.c.role.in_(*User.ALL_MODERATOR_ROLES))
         emails = [mod.email for mod in moderators 
                 if mod.moderator_board_emails]
-        util.send_mail(self.title, self.body, emails)
+        util.send_mail(self.title, self.body, emails, email_from=sender.email)
 
 class ChannelNote(NoteBase):
     # codes for the type column
@@ -53,5 +53,6 @@ class ChannelNote(NoteBase):
         return ChannelNote(request.user, request.POST['title'],
                 request.POST['body'], note_type)
 
-    def send_email(self):
-        util.send_mail(self.title, self.body, self.channel.owner.email)
+    def send_email(self, sender):
+        util.send_mail(self.title, self.body, self.channel.owner.email,
+                email_from=sender.email)

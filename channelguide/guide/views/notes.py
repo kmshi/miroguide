@@ -19,7 +19,7 @@ def add_note(request):
     note = ChannelNote.create_note_from_request(request)
     channel.notes.append(note)
     if request.POST.get('send-email') and request.user.is_moderator():
-        note.send_email()
+        note.send_email(request.user)
     return util.redirect('channels/%d#notes' % channel.id)
 
 @moderator_required
@@ -48,7 +48,7 @@ def moderator_board(request):
 def add_moderator_post(request):
     post = ModeratorPost.create_note_from_request(request)
     if request.POST.get('send-email') and request.user.is_supermoderator():
-        post.send_email()
+        post.send_email(request.user)
     return util.redirect('notes/moderator-board')
 
 @moderator_required

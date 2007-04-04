@@ -198,6 +198,11 @@ class NotesPageTest(TestCase):
         else:
             self.assertEquals(len(self.emails), start_count)
 
+    def test_email_from(self):
+        self.login(self.moderator)
+        page = self.post_data("/notes/new", self.make_note_post_data(True))
+        self.assertEquals(self.emails[0]['email_from'], self.moderator.email)
+
     def test_email_auth(self):
         self.check_can_email(None, False)
         self.check_can_email(self.random_user, False)
@@ -282,3 +287,13 @@ class ModeratorPostTest(TestCase):
         self.check_email_auth(self.user, False)
         self.check_email_auth(self.mod, False)
         self.check_email_auth(self.supermod, True)
+
+    def test_email_from(self):
+        self.post_data('/notes/new-moderator-post',
+                self.new_post_data_email, login_as=self.supermod)
+        self.assertEquals(self.emails[0]['email_from'], self.supermod.email)
+
+    def test_to_lines(self):
+        self.post_data('/notes/new-moderator-post',
+                self.new_post_data_email, login_as=self.supermod)
+        self.assertEquals(self.emails[0]['to'], self.supermod.email)
