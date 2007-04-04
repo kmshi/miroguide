@@ -148,6 +148,7 @@ download_thumbnails.args = '[--redownload]'
 
 def update_item(args):
     """Update a single channel's item"""
+    set_short_socket_timeout()
     db_session = make_session()
     channel = fetch_single_channel(db_session, args, update_item.args)
     if channel is not None:
