@@ -11,6 +11,7 @@ import re
 
 from sqlalchemy import (create_engine, create_session, BoundMetaData,
         object_session, class_mapper)
+from sqlalchemy.pool import SingletonThreadPool
 from sqlalchemy.engine.url import URL
 from sqlalchemy.orm.mapper import global_extensions
 from django.conf import settings
@@ -34,7 +35,7 @@ if settings.DATABASE_PORT:
     engine_url += ':%s' % settings.DATABASE_PORT
 engine_url += '/%s' % settings.DATABASE_NAME
 
-engine = create_engine(engine_url)
+engine = create_engine(engine_url, poolclass=SingletonThreadPool)
 metadata = BoundMetaData(engine)
 
 def connect():

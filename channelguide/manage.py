@@ -293,19 +293,14 @@ optimize_templates.args = ''
 
 # Remove django default actions that we don't use.  Many of these probably
 # would screw things up fairly bad.
-del action_mapping['startproject']
-del action_mapping['adminindex']
-del action_mapping['createcachetable']
-del action_mapping['install']
-del action_mapping['reset']
-del action_mapping['sql']
-del action_mapping['sqlall']
-del action_mapping['sqlclear']
-del action_mapping['sqlindexes']
-del action_mapping['sqlinitialdata']
-del action_mapping['sqlreset']
-del action_mapping['sqlsequencereset']
-del action_mapping['validate']
+
+for key in ['startproject', 'adminindex', 'createcachetable', 'install',
+        'reset', 'sql', 'sqlall', 'sqlclear', 'sqlindexes', 'sqlinitialdata',
+        'sqlreset', 'sqlsequencereset', 'validate']:
+    try:
+        del action_mapping[key]
+    except KeyError:
+        pass
 
 action_mapping['syncdb'] = syncdb
 action_mapping['convert_old_data'] = convert_old_data
