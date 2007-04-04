@@ -18,7 +18,7 @@ class EmailDisableTest(TestCase):
         self.bob.moderator_board_emails = True
         self.db_session.flush()
         note = ModeratorPost(self.bob, 'hi', 'body')
-        note.send_email()
+        note.send_email(self.bob)
         self.check_email_list(self.bob)
 
     def test_webpages(self):

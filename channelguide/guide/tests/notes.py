@@ -273,12 +273,17 @@ class ModeratorPostTest(TestCase):
         self.check_delete_auth(self.mod, False)
         self.check_delete_auth(self.supermod, True)
 
+    def moderater_count(self):
+        query = self.db_session.query(User)
+        return len(query.select(User.c.role.in_(*User.ALL_MODERATOR_ROLES)))
+
     def check_email_auth(self, user, can_email):
         start_count = len(self.emails)
         page = self.post_data('/notes/new-moderator-post',
                 self.new_post_data_email, login_as=user)
         if can_email:
-            self.assertEqual(len(self.emails), start_count + 1)
+            self.assertEqual(len(self.emails), start_count +
+                    self.moderater_count())
         else:
             self.assertEqual(len(self.emails), start_count)
 
@@ -296,4 +301,15 @@ class ModeratorPostTest(TestCase):
     def test_to_lines(self):
         self.post_data('/notes/new-moderator-post',
                 self.new_post_data_email, login_as=self.supermod)
-        self.assertEquals(self.emails[0]['to'], self.supermod.email)
+
+        sent_emails = set()
+        for e in self.emails:
+            for recipient in e['recipient_list']:
+                if recipient in sent_emails:
+                    raise AssertionError("Duplicate to")
+                sent_emails.add(recipient)
+        query = self.db_session.query(User)
+        mods = query.select(User.c.role.in_(*User.ALL_MODERATOR_ROLES))
+        mod_emails = [mod.email for mod in mods]
+        self.assertSameSet(sent_emails, mod_emails)
+

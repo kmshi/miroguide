@@ -150,7 +150,8 @@ def send_mail(title, body, recipient_list, email_from=None):
         email_func = emailer
     if email_from is None:
         email_from = settings.EMAIL_FROM
-    return email_func(title, body, email_from, recipient_list)
+    for email_to in recipient_list:
+        email_func(title, body, email_from, [email_to])
 
 class URLGrabber(threading.Thread):
     def __init__(self, in_queue, out_queue):
