@@ -233,9 +233,9 @@ def drop_users(args):
     conn.execute("DELETE FROM user")
 drop_users.args = ''
 
-def update_blog_posts(args):
+def update_blog_posts(args=None):
     "Update posts from PCF's blog."
-    from channelguide import blogtrack
+    from channelguide.guide import blogtrack
     db_session = make_session()
     blogtrack.update_posts(db_session)
     db_session.flush()

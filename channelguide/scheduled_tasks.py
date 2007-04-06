@@ -49,7 +49,12 @@ def update_thumbnails():
     logging.info('downloading Thumbnails')
     manage.download_thumbnails()
     logging.info('Updating Thumbnails')
-    manage.update_items()
+    manage.update_thumbnails([])
+
+@run_every_hour
+def update_blog_posts():
+    logging.info('updating blog posts')
+    manage.update_blog_posts()
 
 def setup_logging():
     logger = logging.getLogger()
