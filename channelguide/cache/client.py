@@ -16,5 +16,13 @@ if settings.MEMCACHED_SERVERS:
 else:
     memcache_client = FakeClient()
 
+def set(key, value):
+    key = settings.CACHE_PREFIX + key
+    memcache_client.set(key, value)
+
+def get(key):
+    key = settings.CACHE_PREFIX + key
+    return memcache_client.get(key)
+
 def clear_cache():
     memcache_client.flush_all()

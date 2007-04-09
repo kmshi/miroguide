@@ -5,7 +5,7 @@ from django.conf import settings
 from django.core.handlers.wsgi import WSGIRequest
 from django.template import Context, loader
 
-from client import memcache_client
+import client
 
 class CacheMiddlewareBase(object):
     def get_cache_key_tuple(self, request): 
@@ -29,7 +29,7 @@ class CacheMiddlewareBase(object):
     def process_request(self, request):
         if not self.can_cache_request(request):
             return None
-        cached_object = memcache_client.get(self.get_cache_key(request))
+        cached_object = client.get(self.get_cache_key(request))
         if cached_object is None or settings.DISABLE_CACHE:
             return None
         else:
@@ -41,7 +41,7 @@ class CacheMiddlewareBase(object):
             response.headers['Cache-Control'] = 'max-age=0'
         if (request.method == 'GET' and response.status_code == 200 and 
                 not hasattr(request, '_cache_hit')):
-            memcache_client.set(self.get_cache_key(request), 
+            client.set(self.get_cache_key(request), 
                     self.response_to_cache_object(request, response))
         return response
 

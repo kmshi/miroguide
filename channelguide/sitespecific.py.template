@@ -22,5 +22,8 @@ SECRET_KEY = FILL ME IN
 BASE_URL = FILL ME IN
 BASE_URL_FULL = BASE_URL
 
+# String to prefix cache entries with.  Any string unique to this server will
+# do.
+CACHE_PREFIX = FILL ME IN
 DISABLE_CACHE = False
 DEBUG = True
