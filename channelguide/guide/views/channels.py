@@ -113,8 +113,10 @@ def channel(request, id):
             request.user.check_is_moderator()
             channel.toggle_moderator_share()
         elif action == 'feature':
+            request.user.check_is_supermoderator()
             channel.featured = True
         elif action == 'unfeature':
+            request.user.check_is_supermoderator()
             channel.featured = False
         elif action == 'change-state':
             submit_value = request.POST['submit']
