@@ -77,7 +77,7 @@ def do_link(parser, token):
     except IndexError:
         css_class = None
 
-    url_node = make_text_or_variable_node(parser, tokens[1])
+    url_node = make_text_or_variable_node(parser, relative_link)
     return LinkNode(url_node, css_class)
 
 class LinkNode(template.Node):
@@ -88,6 +88,43 @@ class LinkNode(template.Node):
     def render(self, context):
         relative_url = self.url_node.render(context)
         return util.make_link_attributes(relative_url, self.css_class)
+
+@register.tag('ajaxlink')
+def do_link(parser, token):
+    tokens = token.split_contents()
+    syntax_msg = 'syntax is link <ajax-url> "node-id" <fallback-url> ["css-class"]'
+    if len(tokens) not in (4, 5):
+        raise template.TemplateSyntaxError(syntax_msg)
+    ajax_url_node = make_text_or_variable_node(parser, tokens[1])
+    fallback_url_node = make_text_or_variable_node(parser, tokens[3])
+    try:
+        css_class = tokens[4]
+    except IndexError:
+        css_class = None
+    else:
+        if not quoted_attribute(css_class):
+            raise template.TemplateSyntaxError(syntax_msg)
+        css_class = unquote_attribute(css_class)
+    node_id = tokens[2]
+    if not quoted_attribute(node_id):
+        raise template.TemplateSyntaxError(syntax_msg)
+    node_id = unquote_attribute(node_id)
+
+    return AjaxLinkNode(ajax_url_node, node_id, fallback_url_node, css_class)
+
+class AjaxLinkNode(template.Node):
+    def __init__(self, ajax_url_node, node_id, fallback_url_node, css_class):
+        self.ajax_url_node = ajax_url_node
+        self.node_id = node_id
+        self.fallback_url_node = fallback_url_node
+        self.css_class = css_class
+
+    def render(self, context):
+        ajax_url = self.ajax_url_node.render(context)
+        fallback_url = self.fallback_url_node.render(context)
+        onclick = "return ajaxLink('%s', '%s');" % (ajax_url, self.node_id)
+        return util.make_link_attributes(fallback_url, self.css_class,
+                onclick=onclick)
 
 @register.tag('navlink')
 def do_navlink(parser, token):
@@ -246,6 +283,6 @@ class ColumnLoopNode(template.Node):
             output.append('<li class="%s">' % css_class)
             output.append(self.nodelist.render(context))
             output.append('</li>\n')
-        output.append('</li></ul><div class="clear"></div>')
+        output.append('</ul><div class="clear"></div>')
         return ''.join(output)
 

@@ -1,19 +1,19 @@
 {% load i18n cg_helpers %}
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html>
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title>{% block title %}{% trans "Democracy" %}{% endblock %}</title>
-    <meta name="author" content="author" lang="en"/>
-    <meta name="copyright" content="Copyright 2006"/>     
-    <meta name="description" content=""/>
-    <meta name="keywords" content=""/>
-    <meta name="robots" content="index,follow"/>
-    <meta name="revisit-after" content="14 days"/>
-    <meta http-equiv="imagetoolbar" content="no"/>  
-    <meta name="language" content="en"/>
+    <meta name="author" content="author" lang="en">
+    <meta name="copyright" content="Copyright 2006">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="robots" content="index,follow">
+    <meta name="revisit-after" content="14 days">
+    <meta http-equiv="imagetoolbar" content="no">
+    <meta name="language" content="en">
     <link rel="StyleSheet" type="text/css" href="{{ BASE_URL }}css/screen.css">
-    <script src="{{ BASE_URL}}js/channelguide.js" type="text/javascript" language="JavaScript"></script>
+    <script src="{{ BASE_URL}}js/channelguide.js" type="text/javascript"></script>
 {% block head-extra %}{% endblock %}
 </head>
 <body onload="{% block onload-extra %}{% endblock%}">
@@ -37,16 +37,18 @@
                 <li><a {% navlink "channels/by-name" %}>{% trans "A - Z" %}</a></li>
             </ul>
         </div>
-        <img id="load-indicator" src="{{ BASE_URL }}images/load-indicator.gif">
+        <img id="load-indicator" alt="loading" src="{{ BASE_URL }}images/load-indicator.gif">
     </div>
     {% show_account_bar user %}
     <div id="page">
         <div id="search-bar">
             <h2 class="tagline">Over 1,000 channels, all free.</h2>
             <form action="{{ BASE_URL }}search" onsubmit="showLoadIndicator();" method="get" id="search-form">
-                <label class="hidden" for="search-text">Search</label>
-                <input type="text" name="query" value="{{ search_query }}" id="search-text" >
-                <input type="submit" id="search-submit" value="Search Channels" >
+                <div>
+                    <label class="hidden" for="search-text">Search</label>
+                    <input type="text" name="query" value="{{ search_query }}" id="search-text" >
+                    <input type="submit" id="search-submit" value="Search Channels" >
+                </div>
             </form>
         </div>
         <div id="content-bottom">

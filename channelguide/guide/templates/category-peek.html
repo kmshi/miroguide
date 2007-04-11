@@ -6,8 +6,8 @@
         {% whitebutton category_peek.category.get_absolute_url %}
             {% blocktrans with category_peek.category.name as category %}View All {{ category }}{% endblocktrans %}
         {% endwhitebutton %}
-        <a onclick="return ajaxLink('{{ category_peek.prev_url_ajax }}', 'category-peek');" {% link category_peek.prev_url "previous image-link nav-button" %}> <span class="hidden">prev</span></a>
-        <a onclick="return ajaxLink('{{ category_peek.next_url_ajax }}', 'category-peek');" {% link category_peek.next_url "next image-link nav-button" %}> <span class="hidden">next</span></a>
+        <a {% ajaxlink category_peek.prev_url_ajax "category-peek" category_peek.prev_url "previous image-link nav-button" %}> <span class="hidden">prev</span></a>
+        <a {% ajaxlink category_peek.next_url_ajax "category-peek" category_peek.next_url "next image-link nav-button" %}> <span class="hidden">next</span></a>
         <h3>{{ category_peek.category.name }} <span>({{ category_peek.category.channel_count }})</span></h3>
         <div class="clear"></div>
     </div>
