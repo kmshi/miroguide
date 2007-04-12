@@ -503,9 +503,17 @@ li.blog-post .title {
     text-align: center;
 }
 
-.edit-languages-page .language-name {
+.edit-categories-page .name {
     min-width: 100px;
     float: left;
+}
+
+.edit-categories-page .delete-button {
+    margin-left: 20px;
+}
+
+.edit-categories-page li {
+    padding: 4px;
 }
 
 .moderate-page .links {
