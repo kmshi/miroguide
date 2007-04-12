@@ -1,10 +1,11 @@
 from copy import copy
 
+from django.conf import settings
 from sqlalchemy import exists, func, select
 
 from channelguide import util, cache
 from channelguide.guide import tables, templateutil 
-from channelguide.guide.auth import moderator_required
+from channelguide.guide.auth import admin_required
 from channelguide.guide.models import Language, Channel
 from channelguide.guide.models.mappings import channel_select
 
@@ -57,28 +58,30 @@ def view(request, id):
             language.get_absolute_url()),
     })
 
-@moderator_required
+@admin_required
 def moderate(request):
     query = request.db_session.query(Language, order_by='name')
-    return util.render_to_response(request, 'edit-languages.html', {
-        'languages': query.select().list(),
+    return util.render_to_response(request, 'edit-categories.html', {
+        'header': _('Edit Languages'),
+        'action_url_prefix': settings.BASE_URL + "languages",
+        'categories': query.select().list(),
     })
 
-@moderator_required
+@admin_required
 def add(request):
     if request.method == 'POST':
         new_lang = Language(request.POST['name'])
         request.db_session.save(new_lang)
     return util.redirect('languages/moderate')
 
-@moderator_required
+@admin_required
 def delete(request):
     if request.method == 'POST':
         lang = request.db_session.get(Language, request.POST['id'])
         request.db_session.delete(lang)
     return util.redirect('languages/moderate')
 
-@moderator_required
+@admin_required
 def change_name(request):
     if request.method == 'POST':
         lang = request.db_session.get(Language, request.POST['id'])

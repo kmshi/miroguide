@@ -140,7 +140,11 @@ class NavLinkNode(template.Node):
         self.relative_path = relative_path
 
     def render(self, context):
-        if self.path == context['request'].path:
+        try:
+            request_path = context['request'].path
+        except KeyError:
+            request_path = None
+        if self.path == request_path:
             css_class = 'current-page'
         else:
             css_class = None

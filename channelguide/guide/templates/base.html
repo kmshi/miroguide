@@ -39,7 +39,9 @@
         </div>
         <img id="load-indicator" alt="loading" src="{{ BASE_URL }}images/load-indicator.gif">
     </div>
+    {% if user %}
     {% show_account_bar user %}
+    {% endif %}
     <div id="page">
         <div id="search-bar">
             <h2 class="tagline">Over 1,000 channels, all free.</h2>

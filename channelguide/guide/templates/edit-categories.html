@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="edit-categories-page">
+<h2>{{ header }}</h2>
+<UL>
+{% for category in categories %}
+    <LI>
+    <div class="name">{{ category }}</div>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <form class="inline" method="POST" action="{{ action_url_prefix }}/change_name">
+        <input type="hidden" name="id" value="{{ category.id }}">
+        <input name="name"> 
+        <input type="submit" value="change name">
+    </form>
+    <form class="inline" method="POST" action="{{ action_url_prefix }}/delete">
+        <input type="hidden" name="id" value="{{ category.id }}">
+        <input class="delete-button" type="submit" value="delete">
+    </form>
+    </LI>
+{% endfor %}
+</UL>
+<BR>
+<HR>
+<BR>
+<h2>New Language</h2>
+<form method="POST" action="{{ action_url_prefix }}/add">
+    <input name="name"> <input type="submit" value="add">
+</form>
+</div>
+{% endblock %}

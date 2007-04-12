@@ -9,17 +9,6 @@ class LanguageTest(TestCase):
         self.make_user('joe')
         self.make_user('bobby', role=User.MODERATOR)
 
-    def test_login_required(self):
-        self.assertLoginRedirect('/languages/moderate')
-        self.assertLoginRedirect('/languages/add')
-        self.assertLoginRedirect('/languages/delete')
-        self.assertLoginRedirect('/languages/change_name')
-        self.login('joe')
-        self.assertLoginRedirect('/languages/moderate')
-        self.assertLoginRedirect('/languages/add')
-        self.assertLoginRedirect('/languages/delete')
-        self.assertLoginRedirect('/languages/change_name')
-
     def get_languages_from_moderate_page(self):
         response = self.get_page("/languages/moderate")
         return response.context[0]['languages']
@@ -44,3 +33,14 @@ class LanguageTest(TestCase):
             'name': 'fooese'})
         languages = self.get_languages_from_moderate_page()
         self.check_language_names(languages, 'fooese')
+
+    def test_moderate_access(self):
+        super_mod = self.make_user('wendy', role=User.SUPER_MODERATOR)
+        admin = self.make_user('mork', role=User.ADMIN)
+        self.check_page_access(super_mod, "/language_list/change_name", False)
+        self.check_page_access(super_mod, "/language_list/add", False)
+        self.check_page_access(super_mod, "/language_list/delete", False)
+
+        self.check_page_access(admin, "/language_list/change_name", True)
+        self.check_page_access(admin, "/language_list/add", True)
+        self.check_page_access(admin, "/language_list/delete", True)
