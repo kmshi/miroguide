@@ -179,6 +179,7 @@ class Channel(DBObject, Thumbnailable):
     def do_search(db_session, terms, offset, limit, where):
         query = db_session.query(Channel)
         where &= query.join_to('search_data')
+        where &= (Channel.c.state == Channel.APPROVED)
         score = search.score_column(search.ChannelSearchData, terms)
         sql_query = select(list(Channel.c) + [score.label('score')], where)
         sql_query.order_by(desc('score'))
@@ -199,6 +200,9 @@ class Channel(DBObject, Thumbnailable):
         if not isinstance(terms, list):
             terms = [terms]
         where = search.where_clause(search.ChannelSearchData, terms)
+        where &= (tables.channel_search_data.c.channel_id ==
+                tables.channel.c.id)
+        where &= (tables.channel.c.state == Channel.APPROVED)
         sql_query = tables.channel.join(tables.channel_search_data).count(where)
         return connection.execute(sql_query).scalar()
 
