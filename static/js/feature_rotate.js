@@ -25,7 +25,7 @@ function loadHiddenScreenshots() {
      var re = /src:\s*"([^"]*)".*alt:\s*"([^"]*)"/
      var matches = re.exec(fakeScreenshot.nodeValue);
      if(!matches) continue;
-     realScreenshot = new Image(); 
+     var realScreenshot = new Image(); 
      realScreenshot.src = matches[1];
      realScreenshot.alt = matches[2];
      screenshot.replaceChild(realScreenshot, fakeScreenshot);
