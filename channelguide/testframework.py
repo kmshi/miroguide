@@ -107,7 +107,14 @@ class TestCase(unittest.TestCase):
             response = self.get_page(response_or_url, login_as)
         else:
             response = response_or_url
-        self.assertEquals(response.status_code, 200)
+        if response.status_code == 200:
+            return
+        elif response.status_code == 302:
+            location_path = response.headers['Location'].split('?')[0]
+            self.assertNotEquals(location_path,
+                    util.make_absolute_url('accounts/login'))
+        else:
+            raise AssertionError("Bad status code: %s" % response.status_code)
 
     def check_page_access(self, user, url, should_access):
         self.login(user)

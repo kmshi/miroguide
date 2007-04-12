@@ -7,11 +7,11 @@ class LanguageTest(TestCase):
         self.db_session.delete(self.language)
         self.db_session.flush()
         self.make_user('joe')
-        self.make_user('bobby', role=User.MODERATOR)
+        self.make_user('bobby', role=User.ADMIN)
 
     def get_languages_from_moderate_page(self):
         response = self.get_page("/languages/moderate")
-        return response.context[0]['languages']
+        return response.context[0]['categories']
 
     def check_language_names(self, language_list, *names):
         self.assertEquals(len(language_list), len(names))
@@ -35,12 +35,14 @@ class LanguageTest(TestCase):
         self.check_language_names(languages, 'fooese')
 
     def test_moderate_access(self):
-        super_mod = self.make_user('wendy', role=User.SUPER_MODERATOR)
+        super_mod = self.make_user('wendy', role=User.SUPERMODERATOR)
         admin = self.make_user('mork', role=User.ADMIN)
-        self.check_page_access(super_mod, "/language_list/change_name", False)
-        self.check_page_access(super_mod, "/language_list/add", False)
-        self.check_page_access(super_mod, "/language_list/delete", False)
+        self.check_page_access(super_mod, "/languages/moderate", False)
+        self.check_page_access(super_mod, "/languages/change_name", False)
+        self.check_page_access(super_mod, "/languages/add", False)
+        self.check_page_access(super_mod, "/languages/delete", False)
 
-        self.check_page_access(admin, "/language_list/change_name", True)
-        self.check_page_access(admin, "/language_list/add", True)
-        self.check_page_access(admin, "/language_list/delete", True)
+        self.check_page_access(admin, "/languages/moderate", True)
+        self.check_page_access(admin, "/languages/change_name", True)
+        self.check_page_access(admin, "/languages/add", True)
+        self.check_page_access(admin, "/languages/delete", True)
