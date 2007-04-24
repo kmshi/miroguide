@@ -11,7 +11,7 @@ class Language(DBObject):
         self.name = name
 
     def get_absolute_url(self):
-        return util.make_absolute_url('languages/%d' % self.id)
+        return util.make_url('languages/%d' % self.id)
 
     def link(self):
         return util.make_link(self.get_absolute_url(), str(self))

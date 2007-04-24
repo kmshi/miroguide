@@ -19,7 +19,7 @@ class ModeratorPost(NoteBase):
                 request.POST['body'])
 
     def get_absolute_url(self):
-        return util.make_absolute_url("notes/post-%d" % self.id)
+        return util.make_url("notes/post-%d" % self.id)
 
     def send_email(self, sender):
         query = self.session().query(User)
@@ -38,7 +38,7 @@ class ChannelNote(NoteBase):
         self.type = type
 
     def get_absolute_url(self):
-        return util.make_absolute_url("notes/%d" % self.id)
+        return util.make_url("notes/%d" % self.id)
 
     @staticmethod
     def create_note_from_request(request):

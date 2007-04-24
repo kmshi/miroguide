@@ -604,9 +604,11 @@ class ChannelSearchTest(ChannelTestBase):
         self.channel.description = ("Daily with Joanne Colan "
                 "(that's right... Joanne Colan")
         self.channel.update_search_data()
+        self.channel.state = Channel.APPROVED
         # make bogus channels so that the the fulltext indexes work
         for x in range(10):
             c = self.make_channel()
+            c.state = Channel.APPROVED
             c.update_search_data()
         self.db_session.flush()
 
@@ -637,6 +639,7 @@ class ChannelSearchTest(ChannelTestBase):
     def test_ordering(self):
         channel2 = self.make_channel()
         channel2.name = "Colan"
+        channel2.state = Channel.APPROVED
         channel2.update_search_data()
         self.db_session.flush()
         # Having "Colan" in the title should trump "Colan" in the description

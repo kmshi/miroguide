@@ -25,14 +25,14 @@ class Category(Label):
     channel's submitter.
     """
     def get_absolute_url(self):
-        return util.make_absolute_url('categories/%d' % self.id)
+        return util.make_url('categories/%d' % self.id)
 
 class Tag(Label):
     """Tags are user created labels.  Any string of text can be a tag and any
     user can tag any channel.
     """
     def get_absolute_url(self):
-        return util.make_absolute_url('tags/%d' % self.id)
+        return util.make_url('tags/%d' % self.id)
 
 class TagMap(object):
     def __init__(self, channel, user, tag):

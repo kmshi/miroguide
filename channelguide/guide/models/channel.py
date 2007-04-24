@@ -50,13 +50,13 @@ class Channel(DBObject, Thumbnailable):
         return "%s (%s)" % (self.name, self.url)
 
     def get_absolute_url(self):
-        return util.make_absolute_url('channels/%d' % self.id)
+        return util.make_url('channels/%d' % self.id)
 
     def get_edit_url(self):
-        return util.make_absolute_url('channels/edit/%d' % self.id)
+        return util.make_url('channels/edit/%d' % self.id)
 
     def subscription_link(self):
-        cg_link = util.make_absolute_url('channels/subscribe-hit/%d' %
+        cg_link = util.make_url('channels/subscribe-hit/%d' %
                 self.id)
         subscribe_link = settings.SUBSCRIBE_URL % { 'url': quote(self.url) }
         return util.make_link_attributes(subscribe_link, "add",
@@ -64,7 +64,7 @@ class Channel(DBObject, Thumbnailable):
                 (cg_link, subscribe_link))
 
     def get_subscription_url(self):
-        return util.make_absolute_url('channels/subscribe/%d' % self.id)
+        return util.make_url('channels/subscribe/%d' % self.id)
 
     def is_approved(self):
         return self.state == self.APPROVED

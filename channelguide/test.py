@@ -11,6 +11,8 @@ import logging
 
 from django.conf import settings
 import django.test.utils
+from channelguide import init
+init.init_external_libraries()
 
 class TestLogHandler(logging.Handler):
     def emit(self, record):

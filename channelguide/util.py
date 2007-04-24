@@ -39,6 +39,9 @@ def import_last_component(name):
     return mod
 
 def make_absolute_url(relative_url, get_data=None):
+    return settings.BASE_URL_FULL + relative_url + format_get_data(get_data)
+
+def make_url(relative_url, get_data=None):
     return settings.BASE_URL + relative_url + format_get_data(get_data)
 
 def format_get_data(get_data):
@@ -48,9 +51,6 @@ def format_get_data(get_data):
     for key, value in get_data.items():
         parts.append('%s=%s' % (key, quote(value)))
     return '?' + '&'.join(parts)
-
-def get_absolute_url_path(relative_url):
-    return urlparse(make_absolute_url(relative_url))[2]
 
 def get_relative_path(request):
     path = request.get_full_path()
@@ -233,7 +233,7 @@ def url_is_relative(url):
 
 def make_link_attributes(href, css_class=None, **extra_link_attributes):
     if url_is_relative(href):
-        href = make_absolute_url(href)
+        href = make_url(href)
     attributes = []
     attributes.append('href="%s"' % href)
     if 'onclick' not in extra_link_attributes:

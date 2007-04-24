@@ -175,7 +175,7 @@ class PopularWindowSelect(ViewSelect):
             ('alltime', _('All-Time')),
     ]
 
-    base_url = util.make_absolute_url('channels/popular')
+    base_url = util.make_url('channels/popular')
 
     def current_choice_label(self):
         if self.current_choice == 'today':
