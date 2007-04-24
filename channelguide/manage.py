@@ -339,6 +339,8 @@ if __name__ == "__main__":
                     stream=sys.stderr)
     print_stuff = True
     add_static_urls()
+    from channelguide import init
+    init.init_external_libraries()
     if (len(sys.argv) > 1 and sys.argv[1] not in original_action_mapping_keys
             and sys.argv[1] in action_mapping):
         func = action_mapping[sys.argv[1]]

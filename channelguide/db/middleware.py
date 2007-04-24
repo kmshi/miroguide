@@ -1,5 +1,22 @@
-from channelguide import db
+import logging
+
 from sqlalchemy import create_session
+from django.dispatch import dispatcher
+from django.core import signals
+
+from channelguide import db
+
+import time
+import os
+last_time = time.time()
+def status_update():
+    global last_time
+    now = time.time()
+    if now - last_time < 60:
+        return
+    pid = os.getpid()
+    logging.info("%s: %s", pid, db.pool.status())
+    last_time = now
 
 class DBMiddleware(object):
     """Adds a SQLAlchemy connection and session object to each request.
@@ -13,12 +30,17 @@ class DBMiddleware(object):
         request.db_session = create_session(bind_to=request.connection)
         request.transaction = request.db_session.create_transaction()
         request.transaction.add(request.connection)
+        # Hooking up to the request_finished signal seems like the most robust
+        # way to close the connection.  Doing this in process_response doesn't
+        # work in several cases, the most notable one is if the 404 template
+        # is missing.
+        dispatcher.connect(request.connection.close, 
+                signal=signals.request_finished)
+        status_update()
 
     def process_response(self, request, response):
         if hasattr(request, 'transaction') and request.transaction:
             request.transaction.commit()
-        if hasattr(request, 'connection'):
-            request.connection.close()
         return response
 
     def process_exception(self, request, exception):

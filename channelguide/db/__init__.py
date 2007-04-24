@@ -11,8 +11,8 @@ import re
 
 from sqlalchemy import (create_engine, create_session, BoundMetaData,
         object_session, class_mapper)
-from sqlalchemy.pool import SingletonThreadPool
 from sqlalchemy.engine.url import URL
+from sqlalchemy.pool import QueuePool
 from sqlalchemy.orm.mapper import global_extensions
 from django.conf import settings
 # NOTE: this next imports configures sqlalchemy to use the SelectResults 
@@ -35,7 +35,9 @@ if settings.DATABASE_PORT:
     engine_url += ':%s' % settings.DATABASE_PORT
 engine_url += '/%s' % settings.DATABASE_NAME
 
-engine = create_engine(engine_url, poolclass=SingletonThreadPool)
+engine = create_engine(engine_url, poolclass=QueuePool,
+        max_overflow=5, pool_size=settings.MAX_DB_CONNECTIONS-5)
+pool = engine.connection_provider._pool
 metadata = BoundMetaData(engine)
 
 def connect():

@@ -14,7 +14,8 @@ from channelguide import db
 from channelguide.guide.models import *
 from channelguide.guide.tables import *
 
-sess = create_session(db.engine)
+connection = db.connect()
+sess = create_session(connection)
 channels = sess.query(Channel).select(order_by=desc(Channel.c.modified))[:10]
 tags = sess.query(Tag).select()[:10]
 cats = sess.query(Category).select()[:10]

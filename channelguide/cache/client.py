@@ -1,5 +1,6 @@
 import memcache
 from django.conf import settings
+from threading import Lock
 
 class FakeClient(object):
     def get(self, key):
@@ -16,13 +17,27 @@ if settings.MEMCACHED_SERVERS:
 else:
     memcache_client = FakeClient()
 
+memcache_client_lock = Lock()
+
 def set(key, value):
     key = settings.CACHE_PREFIX + key
-    memcache_client.set(key, value)
+    memcache_client_lock.acquire()
+    try:
+        memcache_client.set(key, value)
+    finally:
+        memcache_client_lock.release()
 
 def get(key):
     key = settings.CACHE_PREFIX + key
-    return memcache_client.get(key)
+    memcache_client_lock.acquire()
+    try:
+        return memcache_client.get(key)
+    finally:
+        memcache_client_lock.release()
 
 def clear_cache():
-    memcache_client.flush_all()
+    memcache_client_lock.acquire()
+    try:
+        memcache_client.flush_all()
+    finally:
+        memcache_client_lock.release()

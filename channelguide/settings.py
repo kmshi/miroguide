@@ -91,9 +91,5 @@ SUBSCRIBE_URL = 'http://subscribe.getdemocracy.com/?url1=%(url)s'
 BASE_URL_PATH = urlparse(BASE_URL)[2]
 AUTH_TOKEN_EXPIRATION_TIME = timedelta(days=1)
 
-# This section is for setup stuff that should happen once per mod_python
-# interpreter
-import sys
-sys.path.insert(0, EXTERNAL_LIBRARY_DIR)
-import random
-random.seed()
+MAX_THREADS = 30
+MAX_DB_CONNECTIONS = 10
