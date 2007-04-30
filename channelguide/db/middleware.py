@@ -6,18 +6,6 @@ from django.core import signals
 
 from channelguide import db
 
-import time
-import os
-last_time = time.time()
-def status_update():
-    global last_time
-    now = time.time()
-    if now - last_time < 60:
-        return
-    pid = os.getpid()
-    logging.info("%s: %s", pid, db.pool.status())
-    last_time = now
-
 class DBMiddleware(object):
     """Adds a SQLAlchemy connection and session object to each request.
     
