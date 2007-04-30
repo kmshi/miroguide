@@ -24,7 +24,6 @@ class DBMiddleware(object):
         # is missing.
         dispatcher.connect(request.connection.close, 
                 signal=signals.request_finished)
-        status_update()
 
     def process_response(self, request, response):
         if hasattr(request, 'transaction') and request.transaction:
