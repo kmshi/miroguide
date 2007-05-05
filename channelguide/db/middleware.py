@@ -6,6 +6,20 @@ from django.core import signals
 
 from channelguide import db
 
+class ConnectionCloser(object):
+    def __init__(self, connection):
+        self.connection = connection
+        # Hooking up to the request_finished signal seems like the most robust
+        # way to close the connection.  Doing this in process_response from a
+        # middleware object doesn't work in several cases, the most notable
+        # one is if the 404 template is missing.
+        dispatcher.connect(self.close_connection,
+                signal=signals.request_finished, weak=False)
+    def close_connection(self):
+        dispatcher.disconnect(self.close_connection,
+                signal=signals.request_finished, weak=False)
+        self.connection.close()
+
 class DBMiddleware(object):
     """Adds a SQLAlchemy connection and session object to each request.
     
@@ -18,12 +32,7 @@ class DBMiddleware(object):
         request.db_session = create_session(bind_to=request.connection)
         request.transaction = request.db_session.create_transaction()
         request.transaction.add(request.connection)
-        # Hooking up to the request_finished signal seems like the most robust
-        # way to close the connection.  Doing this in process_response doesn't
-        # work in several cases, the most notable one is if the 404 template
-        # is missing.
-        dispatcher.connect(request.connection.close, 
-                signal=signals.request_finished)
+        ConnectionCloser(request.connection)
 
     def process_response(self, request, response):
         if hasattr(request, 'transaction') and request.transaction:
