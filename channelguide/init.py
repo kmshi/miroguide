@@ -21,7 +21,11 @@ def init_logging():
     handler.setFormatter(logging.Formatter('%(asctime)s [%(levelname)s] %(message)s'))
     logger.addHandler(handler)
     uid = os.getuid()
-    login = os.environ.get('LOGNAME', '<unknown>')
+    try:
+        import pwd
+        login = pwd.getpwuid(uid)[0]
+    except:
+        login = '<unknown>'
     logging.info("---- New Log (uid: %s, login: %s) -----", uid, login)
 
 def log_error():
