@@ -105,7 +105,11 @@ class ChannelThumbnailWidget(forms.Widget):
         os.close(fd)
         util.write_file(path, content)
         self.submitted_thumb_path = os.path.basename(path)
-        self.resize_submitted_thumb()
+        try:
+            self.resize_submitted_thumb()
+        except:
+            self.submitted_thumb_path = None
+            raise
 
     def resize_submitted_thumb(self):
         width, height = Channel.THUMBNAIL_SIZES[-1]
