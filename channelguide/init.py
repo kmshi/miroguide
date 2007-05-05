@@ -20,7 +20,9 @@ def init_logging():
     handler = logging.handlers.RotatingFileHandler(log_path, maxBytes=2**20)
     handler.setFormatter(logging.Formatter('%(asctime)s [%(levelname)s] %(message)s'))
     logger.addHandler(handler)
-    logging.info("---- New Log -----")
+    uid = os.getuid()
+    login = os.environ.get('LOGNAME', '<unknown>')
+    logging.info("---- New Log (uid: %s, login: %s) -----", uid, login)
 
 def log_error():
     logging.error("Unhandled Exception: %s", traceback.format_exc())
