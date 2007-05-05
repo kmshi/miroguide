@@ -13,6 +13,7 @@ import django.newforms as forms
 from django.newforms.forms import BoundField
 
 from channelguide import util
+import logging
 from channelguide.guide.models import Language, Category, Channel
 from fields import WideCharField, WideURLField, WideChoiceField
 from form import Form
@@ -187,8 +188,13 @@ class SubmitChannelForm(Form):
             if content:
                 widget = self.fields['thumbnail_file'].widget
                 url_path = urlparse(saved_data['thumbnail_url'])[2]
-                widget.save_thumb_content(url_path, content)
-                self.set_image_from_feed = True
+                try:
+                    widget.save_thumb_content(url_path, content)
+                except Exception, e:
+                    logging.warn("Couldn't convert image from %s. Error:\n%s",
+                            saved_data['thumbnail_url'], e)
+                else:
+                    self.set_image_from_feed = True
 
     def get_template_data(self):
         return { 

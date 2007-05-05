@@ -220,11 +220,12 @@ def grab_urls(urls, num_threads=5):
     return results
 
 def call_command(*args):
-    pipe = subprocess.Popen(args, stdout=subprocess.PIPE)
+    pipe = subprocess.Popen(args, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE)
     stdout, stderr = pipe.communicate()
     if pipe.returncode != 0:
-        raise OSError("call_command with %s has return code %s" % 
-                (args, pipe.returncode))
+        raise OSError("Error running %r: %s\n(return code %s)" % 
+                (args, stderr, pipe.returncode))
     else:
         return stdout
 
@@ -272,6 +273,20 @@ def flatten(*args):
                 yield i
         else: 
             yield obj
+
+def ensure_list(obj):
+    if hasattr(obj, '__iter__'):
+        return obj
+    else:
+        return [obj]
+
+def ensure_tuple(obj):
+    if isinstance(obj, tuple):
+        return obj
+    elif hasattr(obj, '__iter__'):
+        return tuple(obj)
+    else:
+        return (obj,)
 
 def ensure_dir_exists(dir):
     if not os.path.exists(dir):
