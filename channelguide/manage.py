@@ -339,11 +339,18 @@ if __name__ == "__main__":
                     stream=sys.stderr)
     print_stuff = True
     add_static_urls()
+    try:
+        action = sys.argv[1]
+    except IndexError:
+        action = None
     from channelguide import init
-    init.init_external_libraries()
-    if (len(sys.argv) > 1 and sys.argv[1] not in original_action_mapping_keys
-            and sys.argv[1] in action_mapping):
-        func = action_mapping[sys.argv[1]]
+    if action == 'runserver':
+        init.initialize()
+    else:
+        init.init_external_libraries()
+    if (action not in original_action_mapping_keys and 
+            action in action_mapping):
+        func = action_mapping[action]
         func(sys.argv)
     else:
         management.execute_from_command_line(action_mapping, sys.argv)

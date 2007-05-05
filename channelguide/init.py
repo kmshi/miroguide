@@ -7,8 +7,11 @@ import logging.handlers
 import random
 import os
 import sys
+import traceback
 
 from django.conf import settings
+from django.core import signals
+from django.dispatch import dispatcher
 
 def init_logging():
     logger = logging.getLogger()
@@ -19,10 +22,14 @@ def init_logging():
     logger.addHandler(handler)
     logging.info("---- New Log -----")
 
+def log_error():
+    logging.error("Unhandled Exception: %s", traceback.format_exc())
+
 def init_external_libraries():
     sys.path.insert(0, settings.EXTERNAL_LIBRARY_DIR)
 
 def initialize():
     init_logging()
+    dispatcher.connect(log_error, signal=signals.got_request_exception)
     init_external_libraries()
     random.seed()
