@@ -1,4 +1,6 @@
 import manage # must be 1st because it sets up sys.path
+from channelguide import init
+init.init_external_libraries()
 
 import fcntl
 import logging

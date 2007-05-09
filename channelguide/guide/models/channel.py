@@ -230,7 +230,7 @@ class Channel(DBObject, Thumbnailable):
 
     def download_feed(self):
         if self.feed_modified:
-            modified = self.feed_modified.timetuple(),
+            modified = self.feed_modified.timetuple()
         else:
             modified = None
         parsed = feedparser.parse(self.url, modified=modified,
