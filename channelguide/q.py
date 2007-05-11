@@ -8,8 +8,13 @@ Typical usage is:
 Or you can add some test statements at the end of this file run "python q.py".
 """
 import manage
+import time
+import datetime
+import itertools
 
 from sqlalchemy import *
+from channelguide import init
+init.init_external_libraries()
 from channelguide import db
 from channelguide.guide.models import *
 from channelguide.guide.tables import *

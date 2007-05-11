@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2.4
 import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
@@ -36,10 +36,6 @@ def main(args):
 def parse_args(args):
     global options, parsed_args
     parser = OptionParser(usage="usage: %prog [options] [app1] [app2] ...")
-    parser.add_option("-m", "--method", dest="method",
-                      help="test case method name", metavar="METHOD")
-    parser.add_option("-c", "--class", dest="klass",
-                      help="test case class name", metavar="CLASS")
     parser.add_option("-v", "--verbose", dest="verbose", action="store_true")
     (options, parsed_args) = parser.parse_args()
 
@@ -62,24 +58,24 @@ class OptionAwareTestLoader(TestSuite):
             test_id_parts = testCase.id().split(".")
             method = test_id_parts[-1]
             klass = test_id_parts[-2]
-            if options.klass is not None and klass != options.klass:
-                return
-            if options.method is not None and method != options.method:
-                return
+            module_name = testCase.__class__.__module__.split('.')[-1]
+            for arg in parsed_args:
+                if arg not in (method, klass, module_name):
+                    return
         TestSuite.addTest(self, testCase)
+
+test_packages = [
+        'channelguide.guide.tests',
+        'channelguide.newdb.tests',
+]
 
 def load_tests():
     loader = TestLoader()
     loader.suiteClass = OptionAwareTestLoader
-    if parsed_args:
-        names = ['channelguide.guide.tests.%s' % mod for mod in parsed_args]
-    else:
-        names = ['channelguide.guide.tests']
-    # if there's an import error, loadTestsFromNames doesn't give a good
-    # traceback, force the issue here.
-    for name in names:
-        __import__(name)
-    tests = loader.loadTestsFromNames(names)
+    for package in test_packages:
+        # forcing the improt now gives us better error messages sometimes
+        __import__(package)
+    tests = loader.loadTestsFromNames(test_packages)
     return tests
 
 if __name__ == '__main__':
