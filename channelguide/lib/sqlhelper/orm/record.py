@@ -1,9 +1,9 @@
 from itertools import izip
 
 from exceptions import NotFoundError, TooManyResultsError
-from sql import clause
-import query
-import sql
+from sqlhelper import sql
+from sqlhelper.orm import query
+from sqlhelper.sql import clause
 
 def ensure_list(obj):
     if hasattr(obj, '__iter__'):
