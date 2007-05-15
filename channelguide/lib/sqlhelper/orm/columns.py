@@ -20,7 +20,7 @@ class ColumnStore(object):
 
     def add_to_select(self, select):
         for column in self.columns:
-            select.add_column(str(column))
+            column.add_to_select(select)
 
     def __iter__(self):
         return iter(self.columns)
@@ -54,6 +54,9 @@ class ColumnBase(object):
         self.default = default
         self.onupdate = onupdate
 
+    def add_to_select(self, select):
+        select.add_column(self.fullname())
+
     def is_concrete(self):
         """Is this column "concrete" meaning it's actually stored in the
         database (i.e. not a Subselect column).
@@ -72,16 +75,13 @@ class ColumnBase(object):
         return data
 
     def __str__(self):
-        return self.expression()
+        return self.fullname()
 
     def fullname(self):
         if self.table is not None:
             return '%s.%s' % (self.table.name, self.name)
         else:
             return self.name
-
-    def expression(self):
-        return self.fullname()
 
     def _sql_operator(self, other, operator):
         if isinstance(other, ColumnBase):
@@ -146,9 +146,12 @@ class Boolean(ColumnBase):
 
 class Subselect(ColumnBase):
     """Column that represents a SQL scalar subselect."""
-    def __init__(self, name, sql, *args, **kwargs):
+    def __init__(self, name, select, *args, **kwargs):
         ColumnBase.__init__(self, name, *args, **kwargs)
-        self.sql = sql
+        self.select = select
+
+    def add_to_select(self, select):
+        select.add_column(self.select.as_subquery(self.fullname()))
 
     def is_concrete(self):
         return False
@@ -162,5 +165,5 @@ class Subselect(ColumnBase):
         else:
             return self.name
 
-    def expression(self):
-        return "(%s) AS %s" % (self.sql, self.fullname())
+    def __str__(self):
+        return str(self.subquery)

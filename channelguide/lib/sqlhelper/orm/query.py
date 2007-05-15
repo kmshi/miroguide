@@ -77,6 +77,10 @@ class TableSelector(Selector):
         self.c.add_columns(columns)
         return self
 
+    def load(self, column_name):
+        self.add_column(getattr(self.table.c, column_name))
+        return self
+
     def make_record(self, rowid, data):
         record = self.table.record_class()
         record.rowid = rowid

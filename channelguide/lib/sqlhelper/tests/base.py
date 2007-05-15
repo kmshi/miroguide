@@ -207,22 +207,21 @@ foo_table.many_to_many('categories', category_table, category_map_table,
 category_map_table.many_to_one('foo', foo_table)
 category_map_table.many_to_one('category', category_table)
 
+foo_table.add_count_column('category_count', category_map_table)
+
 class Foo(orm.Record): 
     table = foo_table
-    category_count_column = columns.Subselect('category_count',
-            'SELECT COUNT(*) FROM category_map WHERE foo_id=foo.id')
-    bar_count_column = columns.Subselect('bar_count',
-            'SELECT COUNT(*) FROM bar WHERE foo_id=foo.id')
+    bar_count_column = foo_table.make_count_column('bar_count', bar_table)
     @classmethod
     def query_with_category_count(cls):
-        return cls.query().add_column(cls.category_count_column)
+        return cls.query().load('category_count')
     @classmethod
     def query_with_bar_count(cls):
         return cls.query().add_column(cls.bar_count_column)
     @classmethod
     def query_with_counts(cls):
-        return cls.query().add_columns(cls.bar_count_column,
-                cls.category_count_column)
+        q = cls.query().load('category_count')
+        return q.add_column(cls.bar_count_column)
 class FooExtra(orm.Record): 
     table = foo_extra_table
 class Bar(orm.Record): 

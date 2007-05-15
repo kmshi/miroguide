@@ -12,8 +12,9 @@ The 'id' column can be accessed by foo.c.id (or foo.columns[0], foo.c[0],
 etc).
 """
 
+from sqlhelper.sql import Select
 from relations import OneToMany, ManyToOne, ManyToMany, OneToOne
-from columns import ColumnStore
+from columns import ColumnStore, Subselect
 
 class Table(object):
     def __init__(self, name, *columns):
@@ -50,6 +51,21 @@ class Table(object):
 
     def concrete_columns(self):
         return [c for c in self.columns if c.is_concrete()]
+
+    def make_count_column(self, name, other_table, optional=True, *extra_wheres):
+        count_select = Select()
+        count_select.add_column("COUNT(*)")
+        count_select.add_from(other_table.name)
+        join_column = self.find_foreign_key(other_table, search_reverse=True)
+        count_select.add_where(join_column==join_column.ref)
+        for where in extra_wheres:
+            count_select.add_where(where)
+        column = Subselect(name, count_select, optional=optional)
+        column.table = self
+        return column
+
+    def add_count_column(self, *args, **kwargs):
+        self.columns.add_column(self.make_count_column(*args, **kwargs))
 
     def primary_key_from_row(self, row):
         return tuple(row[i] for i in self.primary_key_indicies)
