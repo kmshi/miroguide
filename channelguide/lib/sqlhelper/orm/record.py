@@ -17,7 +17,7 @@ class RecordMetaclass(type):
     I tried to keep this as simple as possible, to avoid a lot of magic.  It
     cheks for the "table" attribute, and if it's present it does 2 things:
 
-    * Set makes the "c" attribute be an reference to table.c
+    * Set makes the "c" attribute be an reference to table.columns
     * Sets table.record_class
     """
 
@@ -108,21 +108,21 @@ class Record(object):
 
     @classmethod
     def query(cls, *filter_args, **filter_kwargs):
-        query = cls.table.query()
-        query.filter(*filter_args, **filter_kwargs)
-        return query
+        retval = query.Query(cls.table)
+        retval.filter(*filter_args, **filter_kwargs)
+        return retval
 
     @classmethod
     def get(cls, cursor, id, load=None, join=None):
-        query = cls.query()
+        retval = query.Query(cls.table)
         for col, value in zip(cls.table.primary_keys, ensure_list(id)):
-            query.filter(col==value)
+            retval.filter(col==value)
         if load is not None:
-            query.load(*ensure_list(load))
+            retval.load(*ensure_list(load))
         if join is not None:
-            query.join(*ensure_list(join))
+            retval.join(*ensure_list(join))
         try:
-            return query.get(cursor)
+            return retval.get(cursor)
         except NotFoundError:
             raise NotFoundError("Record with id %s not found" % id)
         except TooManyResultsError:

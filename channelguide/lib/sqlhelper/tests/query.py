@@ -1,7 +1,7 @@
 import datetime 
 
 from sqlhelper import orm
-from base import TestCase, Foo, Bar, Category, CategoryMap, Types
+from base import TestCase, Foo, Bar, Category, CategoryMap, Types, FooExtra
 
 class QueryTest(TestCase):
     def checkFoos(self, foos, value_check):
@@ -105,6 +105,20 @@ class QueryTest(TestCase):
             self.assertSameSet([c.id for c in cat.foos],
                     self.category_to_foos.get(cat.id, []))
 
+    def test_one_to_one(self):
+        foos = Foo.query().join("extra").execute(self.cursor)
+        self.checkFoos(foos, self.foo_values)
+        for foo in foos:
+            if foo.id in self.foo_extra_values:
+                self.assertEquals(foo.extra.extra_info,
+                        self.foo_extra_values[foo.id])
+            else:
+                self.assertEquals(foo.extra, None)
+        foo_extras = FooExtra.query().join("foo").execute(self.cursor)
+        self.assertEquals(len(foo_extras), len(self.foo_extra_values))
+        for extra in foo_extras:
+            self.assertEquals(extra.foo.id, extra.id)
+
     def test_subselect(self):
         foos = Foo.query_with_counts().execute(self.cursor)
         for foo in foos:
@@ -179,3 +193,4 @@ class QueryTest(TestCase):
         query.join('bars', 'categories').limit(3)
         results = query.execute(self.cursor)
         self.assertEquals(len(results), 3)
+

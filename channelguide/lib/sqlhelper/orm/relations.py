@@ -70,6 +70,33 @@ class ManyToOne(Relation):
     def do_join(self, record, related_record):
         setattr(record, self.name, related_record)
 
+class OneToOne(Relation):
+    def __init__(self, name, column, related_table):
+        """Create a one-to-one relation
+
+        Arguments:
+
+        name -- name of the relation.  This will be the attribute that
+            gets created in join().
+        column -- column that defines the relationship, i.e. a foreign
+            key that belongs to the table and references the related table's
+            primary key.
+        """
+        if column.ref is None:
+            raise ValueError("column is not a foreign key")
+        super(OneToOne, self).__init__(name, column.table, related_table)
+        self.column = column
+
+    def add_joins(self, select):
+        select.add_join(self.related_table, self.column==self.column.ref,
+                'LEFT')
+
+    def init_record(self, record):
+        setattr(record, self.name, None)
+
+    def do_join(self, record, related_record):
+        setattr(record, self.name, related_record)
+
 class NToManyMixin(object):
     """Mixin for one-to-many and many-to-many relations."""
 

@@ -72,6 +72,12 @@ id INT(11) NOT NULL AUTO_INCREMENT,
 name VARCHAR(40) NOT NULL,
 PRIMARY KEY (id))
 ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
+        self.cursor.execute("""CREATE TABLE foo_extra (
+id INT(11) NOT NULL,
+extra_info VARCHAR(40) NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (id) REFERENCES foo (id) ON DELETE CASCADE)
+ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
         self.cursor.execute("""CREATE TABLE types (
 id INT(11) NOT NULL AUTO_INCREMENT,
 string VARCHAR(40) NOT NULL,
@@ -104,12 +110,15 @@ PRIMARY KEY (category_id, foo_id)
         self.cursor.execute("DROP TABLE category_map")
         self.cursor.execute("DROP TABLE category")
         self.cursor.execute("DROP TABLE bar")
+        self.cursor.execute("DROP TABLE foo_extra")
         self.cursor.execute("DROP TABLE foo")
         self.cursor.execute("DROP TABLE types")
         return
 
     def populate_test_tables(self):
         self.populate_foo()
+        self.populate_foo_extra()
+        self.populate_types()
         self.populate_bar()
         self.populate_categories()
 
@@ -120,7 +129,14 @@ PRIMARY KEY (category_id, foo_id)
         for id, name in self.foo_values:
             self.cursor.execute("INSERT INTO foo(id, name) VALUES (%s, %s)",
                     (id, name))
-        self.foo_extra_values = [ (3, 'bacon'), (2, 'oj') ]
+
+    def populate_foo_extra(self):
+        self.foo_extra_values = { 3: 'bacon', 2: 'oj' }
+        for id, extra in self.foo_extra_values.items():
+            sql = "INSERT INTO foo_extra(id, extra_info) VALUES(%s, %s)"
+            self.cursor.execute(sql, (id, extra))
+
+    def populate_types(self):
         self.cursor.execute("INSERT INTO "
                 "types(id, string, date, boolean, null_ok) "
                 "VALUES (2, 'false', '2005-08-02 15:00:25', 0, NULL)")
@@ -162,6 +178,9 @@ PRIMARY KEY (category_id, foo_id)
 foo_table = orm.Table('foo', 
         columns.Int('id', primary_key=True, auto_increment=True), 
         columns.String('name', 40))
+foo_extra_table = orm.Table('foo_extra', 
+        columns.Int('id', primary_key=True, fk=foo_table.c.id),
+        columns.String('extra_info', 255))
 
 bar_table = orm.Table('bar', 
         columns.Int('id', primary_key=True, auto_increment=True), 
@@ -182,6 +201,7 @@ types_table = orm.Table('types',
         columns.Int('null_ok'))
 
 foo_table.one_to_many('bars', bar_table, backref='parent')
+foo_table.one_to_one('extra', foo_extra_table, backref='foo')
 foo_table.many_to_many('categories', category_table, category_map_table,
         backref='foos')
 category_map_table.many_to_one('foo', foo_table)
@@ -203,7 +223,8 @@ class Foo(orm.Record):
     def query_with_counts(cls):
         return cls.query().add_columns(cls.bar_count_column,
                 cls.category_count_column)
-
+class FooExtra(orm.Record): 
+    table = foo_extra_table
 class Bar(orm.Record): 
     table = bar_table
 class Category(orm.Record): 
