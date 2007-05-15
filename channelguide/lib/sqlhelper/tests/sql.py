@@ -13,7 +13,7 @@ class SelectTest(TestCase):
         select = sql.Select()
         select.add_columns('foo.id', 'foo.name')
         select.add_from('foo')
-        select.wheres.append(clause.Where('id=%s', [2]) | 
+        select.add_where(clause.Where('id=%s', [2]) | 
                 clause.Where('id=%s', [3]))
         matched_values = [(id, name) for id, name in self.foo_values 
             if id in (2,3)]

@@ -2,11 +2,14 @@
 
 Most of the Statement subclasses are just a container for lists of Clause
 objects with a compile() method that builds the statement.  In general, they
-can be altered in 2 ways:
+can be altered in several ways:
   - Adding Clause objects to the lists directory:
      select.wheres.append(WhereClause('foo.id=%s', 123456)
   - By using a helper method, that builds the clause for you:
      select.add_where('foo.id=%s', 123456)
+  - You can usually use the helper method to add the clause as well:
+     select.add_where(WhereClause('foo.id=%s', 123456))
+  
 """
 
 import logging
@@ -33,6 +36,16 @@ class Statement(object):
             msg = "Error running %s: %s" % (debug_string, e)
             raise SQLError(msg)
 
+    def ensure_clause(self, clause_class, string_or_clause, args):
+        if isinstance(string_or_clause, clause.Clause):
+            if not args:
+                return string_or_clause
+            else:
+                raise ValueError("Can't specify args when passing in a "
+                        "Clause object")
+        else:
+            return clause_class(string_or_clause, args)
+
     def make_debug_string(self, text, args):
         return "%s\n\nARGS: %r" % (text, args)
 
@@ -54,20 +67,20 @@ class Select(Statement):
         self.offset = None
 
     def add_column(self, column, *args):
-        self.columns.append(clause.Column(column, args))
+        self.columns.append(self.ensure_clause(clause.Column, column, args))
 
     def add_columns(self, *columns):
         for column in columns:
             self.add_column(column)
 
     def add_from(self, table, *args):
-        self.froms.append(clause.Table(table, args))
+        self.froms.append(self.ensure_clause(clause.Table, table, args))
 
     def add_where(self, where, *args):
-        self.wheres.append(clause.Where(where, args))
+        self.wheres.append(self.ensure_clause(clause.Where, where, args))
 
     def add_having(self, having, *args):
-        self.havings.append(clause.Having(having, args))
+        self.havings.append(self.ensure_clause(clause.Having, having, args))
 
     def add_join(self, table, on, type='INNER'):
         if not hasattr(table, '__iter__'):
@@ -139,10 +152,10 @@ class Update(Statement):
         self.wheres = []
     
     def add_value(self, column, value):
-        self.sets.append(clause.Set(column, value))
+        self.sets.append(self.ensure_clause(clause.Set, column, value))
 
     def add_where(self, where, *args):
-        self.wheres.append(clause.Where(where, args))
+        self.wheres.append(self.ensure_clause(clause.Where, where, args))
 
     def compile(self):
         comp = StatementCompilation()
@@ -159,7 +172,7 @@ class Delete(Statement):
         self.wheres = []
 
     def add_where(self, where, *args):
-        self.wheres.append(clause.Where(where, args))
+        self.wheres.append(self.ensure_clause(clause.Where, where, args))
     
     def compile(self):
         comp = StatementCompilation()
