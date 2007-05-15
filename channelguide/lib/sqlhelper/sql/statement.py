@@ -1,0 +1,211 @@
+"""SQL statements.  
+
+Most of the Statement subclasses are just a container for lists of Clause
+objects with a compile() method that builds the statement.  In general, they
+can be altered in 2 ways:
+  - Adding Clause objects to the lists directory:
+     select.wheres.append(WhereClause('foo.id=%s', 123456)
+  - By using a helper method, that builds the clause for you:
+     select.add_where('foo.id=%s', 123456)
+"""
+
+import logging
+import clause
+from exceptions import SQLError
+
+class Statement(object):
+    """Base class for SQL statements."""
+
+    def compile(self):
+        """compile this statement into something that can be passed to the
+        database.  Returns (sql, args) where sql is an sql string and args are
+        arguments to use to fill in the format arguments.
+        """
+        raise NotImplementedError()
+
+    def execute(self, cursor):
+        text, args = self.compile()
+        debug_string = self.make_debug_string(text, args)
+        logging.sql(debug_string)
+        try:
+            cursor.execute(text, args)
+        except Exception, e:
+            msg = "Error running %s: %s" % (debug_string, e)
+            raise SQLError(msg)
+
+    def make_debug_string(self, text, args):
+        return "%s\n\nARGS: %r" % (text, args)
+
+    def __str__(self):
+        text, args = self.compile()
+        return self.make_debug_string(text, args)
+
+class Select(Statement):
+    """SQL SELECT statement."""
+
+    def __init__(self):
+        self.columns = []
+        self.froms = []
+        self.wheres = []
+        self.havings = []
+        self.joins = []
+        self.order_by = None
+        self.limit = None
+        self.offset = None
+
+    def add_column(self, column, *args):
+        self.columns.append(clause.Column(column, args))
+
+    def add_columns(self, *columns):
+        for column in columns:
+            self.add_column(column)
+
+    def add_from(self, table, *args):
+        self.froms.append(clause.Table(table, args))
+
+    def add_where(self, where, *args):
+        self.wheres.append(clause.Where(where, args))
+
+    def add_having(self, having, *args):
+        self.havings.append(clause.Having(having, args))
+
+    def add_join(self, table, on, type='INNER'):
+        if not hasattr(table, '__iter__'):
+            self.joins.append(clause.Join(table, on, type))
+        else:
+            self.joins.append(clause.MultiJoin(table, on, type))
+
+    def count(self, cursor):
+        s = Select()
+        s.add_columns('COUNT(*)')
+        s.froms = self.froms
+        s.wheres = self.wheres
+        return s.execute(cursor)[0][0]
+
+    def compile(self):
+        comp = StatementCompilation()
+        comp.add_text("SELECT ")
+        comp.join_clauses(self.columns, ', ')
+        comp.add_text("\nFROM ")
+        comp.join_clauses(self.froms, ', ')
+        comp.add_text("\n")
+        comp.add_clauses(self.joins)
+        comp.add_where_list(self.wheres)
+        comp.add_having_list(self.havings)
+        if self.order_by is not None:
+            comp.add_text("ORDER BY %s\n" % self.order_by)
+        if self.limit is not None or self.offset is not None:
+            if self.offset is None:
+                offset = 0
+            else:
+                offset = self.offset
+            if self.limit is None:
+                limit = 9999999
+            else:
+                limit = self.limit
+            comp.add_text('LIMIT %s,%s\n', offset, limit)
+        return comp.finalize()
+
+    def as_subquery(self, name):
+        return clause.Subquery(self, name)
+
+    def execute(self, cursor):
+        Statement.execute(self, cursor)
+        return cursor.fetchall()
+
+class Insert(Statement):
+    def __init__(self, table):
+        self.table = table
+        self.columns = []
+        self.values = []
+
+    def add_value(self, column, value):
+        self.columns.append(clause.Column(column, []))
+        self.values.append(clause.Value(value))
+
+    def compile(self):
+        comp = StatementCompilation()
+        comp.add_text('INSERT INTO %s(' % self.table)
+        comp.join_clauses(self.columns, ', ')
+        comp.add_text(')\nVALUES(')
+        comp.join_clauses(self.values, ', ')
+        comp.add_text(')')
+        return comp.finalize()
+
+class Update(Statement):
+    def __init__(self, table):
+        self.table = table
+        self.sets = []
+        self.wheres = []
+    
+    def add_value(self, column, value):
+        self.sets.append(clause.Set(column, value))
+
+    def add_where(self, where, *args):
+        self.wheres.append(clause.Where(where, args))
+
+    def compile(self):
+        comp = StatementCompilation()
+        comp.add_text("UPDATE %s\n" % self.table)
+        comp.add_text("SET ")
+        comp.join_clauses(self.sets, ', ')
+        comp.add_text("\n")
+        comp.add_where_list(self.wheres)
+        return comp.finalize()
+
+class Delete(Statement):
+    def __init__(self, table):
+        self.table = table
+        self.wheres = []
+
+    def add_where(self, where, *args):
+        self.wheres.append(clause.Where(where, args))
+    
+    def compile(self):
+        comp = StatementCompilation()
+        comp.add_text('DELETE FROM %s\n' % self.table)
+        comp.add_where_list(self.wheres)
+        return comp.finalize()
+
+class StatementCompilation(object):
+    """Used to store parts of a SQL statement while it's being compiled."""
+    def __init__(self):
+        self.parts = []
+        self.args = []
+
+    def add_text(self, text, *args):
+        self.parts.append(text)
+        self.args.extend(args)
+
+    def add_clause(self, clause):
+        self.add_text(clause.text, *clause.args)
+
+    def add_clauses(self, clauses, with_newlines=True):
+        for clause in clauses:
+            self.add_text(clause.text, *clause.args)
+            if with_newlines:
+                self.add_text("\n")
+
+    def join_clauses(self, clause_list, join_string, conversion=None):
+        text, args = clause.join_clauses(clause_list, join_string, conversion)
+        self.add_text(text, *args)
+
+    def finalize(self):
+        return (''.join(self.parts), self.args)
+
+    def add_filter_list(self, filter_class, filters):
+        if len(filters) == 0:
+            return
+        elif len(filters) == 1:
+            combined = filters[0]
+        else:
+            combined = filter_class.and_together(filters)
+        self.parts.append('%s %s\n' % (filter_class.clause_string, 
+            combined.text))
+        self.args.extend(combined.args)
+
+    def add_where_list(self, wheres):
+        self.add_filter_list(clause.Where, wheres)
+
+    def add_having_list(self, havings):
+        self.add_filter_list(clause.Having, havings)

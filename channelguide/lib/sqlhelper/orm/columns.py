@@ -1,0 +1,166 @@
+import logging
+from sqlhelper.sql import clause
+
+class ColumnStore(object):
+    """Stores a bunch of columns.  Columns can be accessed as attributes, or
+    by iterating through the ColumnStore object.
+    """
+    def __init__(self, columns=None):
+        self.columns = []
+        if columns is not None:
+            self.add_columns(columns)
+
+    def add_column(self, column):
+        self.columns.append(column)
+        setattr(self, column.name, column)
+
+    def add_columns(self, columns):
+        for column in columns:
+            self.add_column(column)
+
+    def add_to_select(self, select):
+        for column in self.columns:
+            select.add_column(str(column))
+
+    def __iter__(self):
+        return iter(self.columns)
+    def __len__(self):
+        return len(self.columns)
+
+class ColumnBase(object):
+    def __init__(self, name, primary_key=False, auto_increment=False, fk=None,
+            optional=False, default=None, onupdate=None): 
+        """Construct a column.  
+        
+        Arguments:
+
+        name -- name of the column
+        primary_key -- is the column is one of the primary keys for its table?
+        auto_increment -- does this column an auto-incremented primary key?
+        fk -- specifies that this column is a foreign key to that references
+            another column.
+        default -- default value for the column, this can be either a literal
+           value, or a callable.
+        onupdate -- callable that updates this column on every update
+        """
+        if auto_increment and not primary_key:
+            raise ValueError("auto_increment can only be set for primary keys")
+        self.name = name
+        self.primary_key = primary_key
+        self.auto_increment = auto_increment
+        self.table = None
+        self.ref = fk
+        self.optional = optional
+        self.default = default
+        self.onupdate = onupdate
+
+    def is_concrete(self):
+        """Is this column "concrete" meaning it's actually stored in the
+        database (i.e. not a Subselect column).
+        """
+        return True
+
+    def make_filter(self, string, args):
+        return clause.Where(string, args)
+
+    def convert_from_db(self, data):
+        """Convert data coming from MySQL."""
+        return data
+
+    def convert_for_db(self, data):
+        """Convert data before it gets sent to MySQL."""
+        return data
+
+    def __str__(self):
+        return self.expression()
+
+    def fullname(self):
+        if self.table is not None:
+            return '%s.%s' % (self.table.name, self.name)
+        else:
+            return self.name
+
+    def expression(self):
+        return self.fullname()
+
+    def _sql_operator(self, other, operator):
+        if isinstance(other, ColumnBase):
+            string = '%s %s %s' % (self.fullname(), operator, other)
+            args = []
+        else:
+            string = '%s %s %%s' % (self.fullname(), operator)
+            args = [other]
+        return self.make_filter(string, args)
+
+    def __eq__(self, other):
+        return self._sql_operator(other, '=')
+    def __gt__(self, other):
+        return self._sql_operator(other, '>')
+    def __lt__(self, other):
+        return self._sql_operator(other, '<')
+    def __ge__(self, other):
+        return self._sql_operator(other, '>=')
+    def __le__(self, other):
+        return self._sql_operator(other, '<=')
+
+    def in_(self, possible_values):
+        percents = ['%s' for values in possible_values]
+        string = "%s IN (%s)" % (self.fullname(), ', '.join(percents))
+        return self.make_filter(string, possible_values)
+
+    def validate(self, value):
+        if not self.do_validate(value):
+            self.on_validate_error(value)
+
+    def do_validate(self, value):
+        """Can be overridden by subclasses to validate a value to be
+        stored.
+        """
+        return True
+
+    def on_validate_error(self, value):
+        raise ValueError("%s is not a valid value")
+
+class Int(ColumnBase):
+    pass
+
+class String(ColumnBase):
+    def __init__(self, name, length=None, *args, **kwargs):
+        ColumnBase.__init__(self, name, *args, **kwargs)
+        self.length = length
+
+    def convert_for_db(self, data):
+        if self.length is not None and len(data) > self.length:
+            logging.warn("Truncating data %r for column %s", data,
+                    self.fullname())
+            data = data[:self.length]
+        return data
+
+class DateTime(ColumnBase):
+    pass
+
+class Boolean(ColumnBase):
+    def convert_from_db(self, data):
+        """Convert data coming from MySQL."""
+        return bool(data)
+
+class Subselect(ColumnBase):
+    """Column that represents a SQL scalar subselect."""
+    def __init__(self, name, sql, *args, **kwargs):
+        ColumnBase.__init__(self, name, *args, **kwargs)
+        self.sql = sql
+
+    def is_concrete(self):
+        return False
+
+    def make_filter(self, string, args):
+        return clause.Having(string, args)
+
+    def fullname(self):
+        if self.table is not None:
+            return "%s_%s" % (self.table.name, self.name)
+        else:
+            return self.name
+
+    def expression(self):
+        return "(%s) AS %s" % (self.sql, self.fullname())

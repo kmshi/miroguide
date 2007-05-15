@@ -1,0 +1,13 @@
+# You just need to define a connect() function that connects to a test
+# database.  It can use any DB module that conforms to the python DB api.
+
+import <some module>
+def connect():
+    return <some module>.connect(blah blah blah)
+
+def get_table_names(cursor):
+    """Return a list of the names for all tables.  This works for MySQL, but
+    should be changed for other DBs.
+    """
+    cursor.execute("SHOW TABLES")
+    return [row[0] for row in cursor.fetchall()]
