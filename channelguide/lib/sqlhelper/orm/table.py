@@ -20,31 +20,30 @@ class Table(object):
     def __init__(self, name, *columns):
         self.name = name
         self.relations = {}
-        self.init_columns(columns)
-        self.record_class = None
-
-    def init_columns(self, columns):
-        # ensure that non-optional columns come before optional columns.
-        # Otherwile primary_key_from_row() won't work right
-        self.regular_columns = [c for c in columns if not c.optional]
-        self.optional_columns = [c for c in columns if c.optional]
-        self.columns = ColumnStore(self.regular_columns + self.optional_columns)
+        self.regular_columns = []
+        self.optional_columns = []
+        self.columns = ColumnStore()
         self.c = self.columns
         self.primary_keys = []
-        self.primary_key_indicies = []
-        i = 0
         self.auto_increment_column = None
-        for column in self.columns:
-            column.table = self
-            if column.primary_key:
-                self.primary_keys.append(column)
-                self.primary_key_indicies.append(i)
-            if column.auto_increment:
-                if self.auto_increment_column is not None:
-                    raise ValueError("Only 1 auto-increment column allowed")
-                else:
-                    self.auto_increment_column = column
-            i += 1
+        for column in columns:
+            self.add_column(column)
+        self.record_class = None
+
+    def add_column(self, column):
+        self.columns.add_column(column)
+        column.table = self
+        if column.primary_key:
+            self.primary_keys.append(column)
+        if column.optional:
+            self.optional_columns.append(column)
+        else:
+            self.regular_columns.append(column)
+        if column.auto_increment:
+            if self.auto_increment_column is not None:
+                raise ValueError("Only 1 auto-increment column allowed")
+            else:
+                self.auto_increment_column = column
 
     def __str__(self):
         return self.name
@@ -52,20 +51,31 @@ class Table(object):
     def concrete_columns(self):
         return [c for c in self.columns if c.is_concrete()]
 
+    def select(self):
+        s = Select()
+        for column in self.regular_columns:
+            column.add_to_select(s)
+        s.add_from(self.name)
+        return s
+
+    def select_count(self):
+        s = Select()
+        s.add_column("COUNT(*)")
+        s.add_from(self.name)
+        return s
+
     def make_count_column(self, name, other_table, optional=True, *extra_wheres):
-        count_select = Select()
-        count_select.add_column("COUNT(*)")
-        count_select.add_from(other_table.name)
+        select = other_table.select_count()
         join_column = self.find_foreign_key(other_table, search_reverse=True)
-        count_select.add_where(join_column==join_column.ref)
+        select.add_where(join_column==join_column.ref)
         for where in extra_wheres:
-            count_select.add_where(where)
-        column = Subselect(name, count_select, optional=optional)
+            select.add_where(where)
+        column = Subselect(name, select, optional=optional)
         column.table = self
         return column
 
     def add_count_column(self, *args, **kwargs):
-        self.columns.add_column(self.make_count_column(*args, **kwargs))
+        self.add_column(self.make_count_column(*args, **kwargs))
 
     def primary_key_from_row(self, row):
         return tuple(row[i] for i in self.primary_key_indicies)
@@ -174,4 +184,3 @@ class Table(object):
         if backref is not None:
             other_table.relations[backref] = OneToOne(backref, join_column,
                     self)
-

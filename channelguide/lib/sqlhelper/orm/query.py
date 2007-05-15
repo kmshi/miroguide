@@ -6,7 +6,7 @@ converting them to Record objects.  Join objects do the same for joined
 tables.
 """
 
-from itertools import izip
+from itertools import izip, count
 
 from exceptions import NotFoundError, TooManyResultsError
 from sqlhelper import sql
@@ -24,7 +24,7 @@ class Selector(object):
     """Base class for Query, Join and ResultJoiner."""
     def __init__(self, table):
         self.table = table
-        self.c = columns.ColumnStore(table.regular_columns)
+        self.c = columns.ColumnStore()
         self.joins = {}
 
     def get_column(self, name_or_column):
@@ -54,20 +54,16 @@ class Selector(object):
             join.c.add_to_select(select)
             join.relation.add_joins(select)
 
-    def consume_data(self, row_iter):
-        """Read data from a row to make our tables's record_class.  This
-        method expects row_iter to be positioned at the begining of this
-        Selectors's data.  Afterwards row_iter will be at the start of
-        the next block of data.
-        """
-        return [row_iter.next() for i in range(len(self.c))]
-
-    def make_record(self, data):
+    def make_record(self, rowid, data):
         """Create a record from the data that was consumed."""
-        raise NotImplentedError()
+        raise NotImplementedError()
 
 class TableSelector(Selector):
     """Selector that selects an entire table."""
+
+    def __init__(self, table):
+        Selector.__init__(self, table)
+        self.c.add_columns(table.regular_columns)
 
     def add_column(self, column):
         self.c.add_column(column)
@@ -198,9 +194,7 @@ class Query(TableSelector):
             raise TooManyResultsError("Too many records returned")
 
     def count(self, cursor):
-        select = sql.Select()
-        select.add_column('COUNT(*)')
-        select.add_from(self.table.name)
+        select = self.table.select_count()
         self.add_filters(select)
         return select.execute(cursor)[0][0]
 
@@ -221,6 +215,16 @@ class ResultHandler(object):
         self.records = []
         self.children = [ResultHandler(join) for join in
                 selector.joins.values()]
+        self.primary_key_indicies = []
+        for i, column in izip(count(), selector.c):
+            if column.primary_key:
+                self.primary_key_indicies.append(i)
+
+    def read_data(self, row_iter):
+        return [row_iter.next() for i in xrange(len(self.selector.c))]
+
+    def primary_key_from_data(self, data):
+        return tuple(data[i] for i in self.primary_key_indicies)
 
     def handle_data(self, row_iter):
         """Handles incoming data from the database.  
@@ -230,8 +234,8 @@ class ResultHandler(object):
         After handle_data, it will point at the next record.
         """
 
-        data = self.selector.consume_data(row_iter)
-        pk = self.selector.table.primary_key_from_row(data)
+        data = self.read_data(row_iter)
+        pk = self.primary_key_from_data(data)
         if null_primary_key(pk):
             return None # Left join resulted in a NULL result
         if pk in self.record_map:
