@@ -182,9 +182,11 @@ class Query(TableSelector):
         subquery.offset = self._offset
         return subquery
 
-    def execute(self, cursor):
+    def execute(self, cursor, select=None):
+        if select is None:
+            select = self.make_select()
         result_handler = ResultHandler(self)
-        for row in self.make_select().execute(cursor):
+        for row in select.execute(cursor):
             row_iter = iter(row)
             result_handler.handle_data(row_iter)
         return result_handler.make_results()
