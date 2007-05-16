@@ -337,7 +337,12 @@ class ResultJoiner(Selector):
             select.wheres.append(clause.Where.or_together(wheres))
         return select
 
+    def no_joins(self):
+        return len(self.joins) == 0
+
     def execute(self, cursor):
+        if self.no_joins():
+            return
         result_handler = ResultHandler(self)
         result_handler.add_records(self.result_set)
         for record in result_handler.records:

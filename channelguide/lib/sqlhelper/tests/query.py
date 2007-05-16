@@ -182,6 +182,13 @@ class QueryTest(TestCase):
         foo.join("bars").execute(self.cursor)
         self.check_bars(foo)
 
+    def test_join_twice(self):
+        foo = Foo.get(self.cursor, 2)
+        foo.join("bars").execute(self.cursor)
+        join = foo.join("bars")
+        self.assert_(join.no_joins())
+        join.execute(self.cursor)
+
     def test_join_to_results_multiple_primary_keys(self):
         query = CategoryMap.query()
         query.filter(CategoryMap.c.foo_id.in_([1,2]))

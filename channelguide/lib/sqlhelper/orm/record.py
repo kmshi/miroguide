@@ -145,5 +145,7 @@ class Record(object):
         return clause.Where.and_together(wheres)
 
     def join(self, *relation_names):
+        relation_names = [name for name in relation_names \
+                if not hasattr(self, name) ]
         me_list = query.ResultSet(self.__class__.table, [self])
         return me_list.join(*relation_names)
