@@ -1,5 +1,5 @@
 from sqlhelper import orm
-from base import TestCase, Foo, Bar, Category, CategoryMap, Types
+from base import TestCase, Foo, Bar, Category, CategoryMap, Types, FooExtra
 from datetime import datetime, timedelta
 
 class UpdateTest(TestCase):
@@ -76,6 +76,33 @@ class AutoAssignmentTest(TestCase):
         first_date = type.date
         type.save(self.cursor)
         self.assert_(type.date > first_date)
+
+    def test_set_foreign_keys(self):
+        foo = Foo()
+        foo.name = '123123'
+        foo.save(self.cursor)
+        bar = Bar()
+        bar.name = 'something'
+        bar.parent = foo
+        bar.save(self.cursor)
+        self.assertEquals(bar.foo_id, foo.id)
+        foo_extra = FooExtra()
+        foo_extra.extra_info = 'abcdef'
+        foo_extra.foo = foo
+        foo_extra.save(self.cursor)
+        self.assertEquals(foo_extra.id, foo.id)
+
+    def test_dont_overwrite_foreign_keys(self):
+        foo = Foo()
+        foo.name = '123123'
+        foo.save(self.cursor)
+        bar = Bar()
+        bar.name = 'something'
+        bar.foo_id = 3
+        bar.foo = foo
+        bar.save(self.cursor)
+        self.assertEquals(bar.foo_id, 3)
+
 
 class ConvertForDBTest(TestCase):
     def test_string_conversion(self):

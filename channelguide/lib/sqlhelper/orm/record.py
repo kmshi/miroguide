@@ -3,6 +3,7 @@ from itertools import izip
 from exceptions import NotFoundError, TooManyResultsError
 from sqlhelper import sql
 from sqlhelper.orm import query
+from sqlhelper.orm.relations import ManyToOne, OneToOne
 from sqlhelper.sql import clause
 
 def ensure_list(obj):
@@ -60,10 +61,24 @@ class Record(object):
         return self.rowid is not None
 
     def save(self, cursor):
+        self.set_foreign_keys_from_relations()
         if self.exists_in_db():
             self.update(cursor)
         else:
             self.insert(cursor)
+
+    def set_foreign_keys_from_relations(self):
+        for relation in self.table.relations.values():
+            try:
+                related_record = getattr(self, relation.name)
+            except AttributeError:
+                continue
+            if (isinstance(relation, ManyToOne) or
+                (isinstance(relation, OneToOne) and 
+                relation.column.table is self.table) and
+                not hasattr(self, relation.column.name)):
+                value = getattr(related_record, relation.column.ref.name)
+                setattr(self, relation.column.name, value)
 
     def set_column_defaults(self):
         for column in self.table.concrete_columns():
