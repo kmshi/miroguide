@@ -47,10 +47,10 @@ class Table(object):
             else:
                 self.auto_increment_column = column
 
-    def add_subquery_column(self, name, select):
+    def add_subquery_column(self, name, select, optional=True):
         """Helper metod to build a Subquery column and add it to this table.
         """
-        self.add_column(Subquery(name, select))
+        self.add_column(Subquery(name, select, optional=optional))
 
     def __str__(self):
         return self.name

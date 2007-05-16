@@ -139,7 +139,7 @@ class Insert(Statement):
         self.values = []
 
     def add_value(self, column, value):
-        self.columns.append(clause.Column(column, []))
+        self.columns.append(clause.Column(column))
         self.values.append(clause.Value(value))
 
     def compile(self):

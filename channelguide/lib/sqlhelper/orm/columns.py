@@ -83,6 +83,9 @@ class ColumnBase(object):
         else:
             return self.name
 
+    def count_distinct(self):
+        return clause.Column("COUNT(DISTINCT(%s))" % self.fullname())
+
     def _sql_operator(self, other, operator):
         if isinstance(other, ColumnBase):
             string = '%s %s %s' % (self.fullname(), operator, other)

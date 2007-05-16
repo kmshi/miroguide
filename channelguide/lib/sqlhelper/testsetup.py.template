@@ -1,9 +1,26 @@
-# You just need to define a connect() function that connects to a test
-# database.  It can use any DB module that conforms to the python DB api.
+# You just need to define a few functions that set up the test environment.
+# The implementations below work with MySQL.  But you can use any DB module
+# that conforms to the python DB api.
 
 import <some module>
+
 def connect():
-    return <some module>.connect(blah blah blah)
+    return MySQLdb.connect(db='sqlhelper_testing', user=<user>, passwd=<pasword>)
+
+def create_database():
+    """Create a new database to use for testing, then return a cursor to
+    that database.
+    """
+    connection = MySQLdb.connect( user=<user>, passwd=<pasword>)
+    cursor = connection.cursor()
+    cursor.execute("CREATE DATABASE sqlhelper_testing")
+    connection.close()
+
+def drop_database():
+    connection = MySQLdb.connect( user=<user>, passwd=<pasword>)
+    cursor = connection.cursor()
+    cursor.execute("DROP DATABASE sqlhelper_testing")
+    connection.close()
 
 def get_table_names(cursor):
     """Return a list of the names for all tables.  This works for MySQL, but

@@ -56,11 +56,14 @@ class Record(object):
     def __init__(self):
         self.rowid=None
 
+    def exists_in_db(self):
+        return self.rowid is not None
+
     def save(self, cursor):
-        if self.rowid is None:
-            self.insert(cursor)
-        else:
+        if self.exists_in_db():
             self.update(cursor)
+        else:
+            self.insert(cursor)
 
     def set_column_defaults(self):
         for column in self.table.concrete_columns():

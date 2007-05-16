@@ -7,14 +7,23 @@ import sys
 import logging
 
 def main(args):
+    import testsetup
     fix_path()
     parse_args(args)
-    drop_all_tables()
     tests = load_tests()
     runner = TextTestRunner()
     if options.verbose:
         runner.verbosity = 2
-    runner.run(tests)
+    try:
+        # clear out old test databases if they're around
+        testsetup.drop_database()
+    except:
+        pass
+    testsetup.create_database()
+    try:
+        runner.run(tests)
+    finally:
+        testsetup.drop_database()
 
 def fix_path():
     try:
@@ -41,32 +50,6 @@ class OptionAwareTestLoader(TestSuite):
                 if arg not in (method, klass, module_name, package_name):
                     return
         TestSuite.addTest(self, testCase)
-
-def drop_all_tables():
-    from sqlhelper import testsetup
-    connection = testsetup.connect()
-    cursor = connection.cursor()
-    try:
-        # this is a little tricky, because foreign keys might force us to
-        # delete tables in a specific order.  Figure that out with brute
-        # force.
-        all_tables = testsetup.get_table_names(cursor)
-        table_count = len(all_tables)
-        while all_tables:
-            for table in all_tables:
-                try:
-                    cursor.execute("DROP TABLE %s" % table)
-                except:
-                    pass
-                else:
-                    all_tables.remove(table)
-            if len(all_tables) == table_count:
-                raise AssertionError("Couldn't drop any of these tables: %s",
-                        all_tables)
-            else:
-                table_count = len(all_tables)
-    finally:
-        connection.close()
 
 def load_tests():
     loader = TestLoader()

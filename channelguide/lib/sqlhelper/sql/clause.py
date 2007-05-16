@@ -1,6 +1,8 @@
 class Clause(object):
-    def __init__(self, text, args):
+    def __init__(self, text, args=None):
         self.text = text
+        if args is None:
+            args = []
         self.args = args
 
     def __str__(self):
