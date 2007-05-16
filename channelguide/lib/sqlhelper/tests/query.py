@@ -133,7 +133,7 @@ class QueryTest(TestCase):
         for extra in foo_extras:
             self.assertEquals(extra.foo.id, extra.id)
 
-    def test_subselect(self):
+    def test_subquery(self):
         foos = Foo.query_with_counts().execute(self.cursor)
         for foo in foos:
             categories = self.foo_to_categories.get(foo.id, [])
@@ -141,14 +141,14 @@ class QueryTest(TestCase):
             bars = self.foo_to_bars.get(foo.id, [])
             self.assertEquals(foo.bar_count, len(bars))
 
-    def test_subselect_filter(self):
+    def test_subquery_filter(self):
         query = Foo.query_with_counts()
         query.filter(query.c.category_count > 2)
         foos = query.execute(self.cursor)
         for foo in foos:
             self.assert_(foo.category_count > 2)
 
-    def test_subselect_orderby(self):
+    def test_subquery_orderby(self):
         query = Foo.query_with_counts().order_by('bar_count')
         results = query.execute(self.cursor)
         for i in range(len(results) - 1):

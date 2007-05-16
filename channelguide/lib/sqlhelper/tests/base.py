@@ -196,7 +196,7 @@ PRIMARY KEY (category_id, foo_id, other_column)
 foo_table = orm.Table('foo', 
         columns.Int('id', primary_key=True, auto_increment=True), 
         columns.String('name', 40),
-        columns.Subselect('category_count', """\
+        columns.Subquery('category_count', """\
 SELECT COUNT(*) 
 FROM category_map AS map 
 WHERE map.foo_id=foo.id""", optional=True))
@@ -239,7 +239,7 @@ category_map_table.many_to_one('category', category_table)
 
 class Foo(orm.Record): 
     table = foo_table
-    bar_count_column = columns.Subselect('bar_count', """\
+    bar_count_column = columns.Subquery('bar_count', """\
 SELECT COUNT(*) FROM bar WHERE bar.foo_id=foo.id""")
     @classmethod
     def query_with_category_count(cls):

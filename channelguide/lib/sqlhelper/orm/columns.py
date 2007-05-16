@@ -59,7 +59,7 @@ class ColumnBase(object):
 
     def is_concrete(self):
         """Is this column "concrete" meaning it's actually stored in the
-        database (i.e. not a Subselect column).
+        database (i.e. not a Subquery column).
         """
         return True
 
@@ -144,7 +144,7 @@ class Boolean(ColumnBase):
         """Convert data coming from MySQL."""
         return bool(data)
 
-class Subselect(ColumnBase):
+class Subquery(ColumnBase):
     """Column that represents a SQL scalar subselect."""
     def __init__(self, name, select, *args, **kwargs):
         ColumnBase.__init__(self, name, *args, **kwargs)

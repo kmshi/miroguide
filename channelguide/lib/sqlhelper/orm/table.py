@@ -16,7 +16,7 @@ from sqlhelper.sql import clause
 from sqlhelper.sql import Select
 from relations import (OneToMany, ManyToOne, ManyToMany, OneToOne,
         ManyToManyExists)
-from columns import ColumnStore, Subselect
+from columns import ColumnStore, Subquery
 
 class Table(object):
     def __init__(self, name, *columns):
@@ -46,6 +46,11 @@ class Table(object):
                 raise ValueError("Only 1 auto-increment column allowed")
             else:
                 self.auto_increment_column = column
+
+    def add_subquery_column(self, name, select):
+        """Helper metod to build a Subquery column and add it to this table.
+        """
+        self.add_column(Subquery(name, select))
 
     def __str__(self):
         return self.name
