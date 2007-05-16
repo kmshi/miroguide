@@ -114,10 +114,14 @@ class Query(TableSelector):
         else:
             raise TypeError("Wrong type for filter: %s" % type(filter))
 
-    def order_by(self, column, desc=False):
-        self._order_by = self.get_column(column).fullname()
+    def order_by(self, order_by, desc=False):
+        try:
+            order_by = self.get_column(order_by).fullname()
+        except AttributeError:
+            pass
         if desc:
-            self._order_by += ' DESC'
+            order_by += ' DESC'
+        self._order_by = clause.Literal(order_by)
         return self
 
     def limit(self, count):

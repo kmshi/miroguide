@@ -9,7 +9,7 @@ can be altered in several ways:
      select.add_where('foo.id=%s', 123456)
   - You can usually use the helper method to add the clause as well:
      select.add_where(WhereClause('foo.id=%s', 123456))
-  
+
 """
 
 import logging
@@ -108,7 +108,12 @@ class Select(Statement):
         comp.add_where_list(self.wheres)
         comp.add_having_list(self.havings)
         if self.order_by is not None:
-            comp.add_text("ORDER BY %s\n" % self.order_by)
+            comp.add_text("ORDER BY ")
+            if isinstance(self.order_by, clause.Clause):
+                comp.add_clause(self.order_by)
+            else:
+                comp.add_text(self.order_by)
+            comp.add_text('\n')
         if self.limit is not None or self.offset is not None:
             if self.offset is None:
                 offset = 0
