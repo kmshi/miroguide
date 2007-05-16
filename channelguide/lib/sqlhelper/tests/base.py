@@ -214,7 +214,7 @@ category_map_table = orm.Table('category_map',
 category_map_with_dups_table = orm.Table('category_map_with_dups',
         columns.Int('foo_id', fk=foo_table.c.id, primary_key=True),
         columns.Int('category_id', fk=category_table.c.id, primary_key=True),
-        columns.Int('other_column'),
+        columns.Int('other_column', primary_key=True),
     )
 types_table = orm.Table('types',
         columns.Int('id', primary_key=True, auto_increment=True), 
@@ -228,7 +228,7 @@ foo_table.one_to_one('extra', foo_extra_table, backref='foo')
 foo_table.many_to_many('categories', category_table, category_map_table,
         backref='foos')
 foo_table.many_to_many('categories_with_dups', category_table,
-        category_map_with_dups_table, has_dups=True, backref='foos')
+        category_map_with_dups_table, backref='foos')
 category_map_table.many_to_one('foo', foo_table)
 category_map_table.many_to_one('category', category_table)
 

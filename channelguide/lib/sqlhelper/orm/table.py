@@ -138,8 +138,7 @@ class Table(object):
         """
         other_table.many_to_one(backref, self, backref=name)
 
-    def many_to_many(self, name, other_table, join_table, backref=None,
-            has_dups=False):
+    def many_to_many(self, name, other_table, join_table, backref=None):
         """Add a many-to-many relation from this table to another table.
 
         join_table is a table that maps this table to the other table.  It
@@ -152,24 +151,16 @@ class Table(object):
             Int('bar_id', fk=bar.id))
 
         foo.many_to_many('bars', bar, foo_map, backref='foos')
-
-        Use has_dups=True if there are duplicate values in the join table for
-        foreign keys that reference the 2 tables.  Instead of a simple join,
-        an EXISTS subquery will be used to join the 2 tables.
         """
 
         join_column = join_table.find_foreign_key(self)
         other_join_column = join_table.find_foreign_key(other_table)
 
-        if not has_dups:
-            relation_class = ManyToMany
-        else:
-            relation_class = ManyToManyExists
-        self.relations[name] = relation_class(name, join_column,
+        self.relations[name] = ManyToMany(name, join_column,
                 other_join_column)
         if backref is not None:
             other_table.relations[backref] = \
-                    relation_class(backref, other_join_column, join_column)
+                    ManyToMany(backref, other_join_column, join_column)
 
     def one_to_one(self, name, other_table, backref=None, join_column=None):
         """Add a one-to-one relation from this table to another table.

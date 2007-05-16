@@ -165,12 +165,37 @@ class ManyToMany(NToManyMixin, Relation):
         self.foreign_key = foreign_key
         self.relation_fk = relation_fk
         self.join_table = foreign_key.table
+        self.use_exists_subquery = self._needs_exists_subquery()
+
+    def _needs_exists_subquery(self):
+        """If there can be duplicate values in the join table for our 2
+        foreign keys, then we need to handle the join specially.  Simply
+        joining the tables together would result in a lot of extra rows, so
+        instead we use an EXISTS subquery.  (see _add_joins_with_exists()).
+        """
+        foreign_keys = set([self.foreign_key, self.relation_fk])
+        primary_keys = set(self.join_table.primary_keys)
+        return not primary_keys.issubset(foreign_keys)
 
     def add_joins(self, select):
+        if not self.use_exists_subquery:
+            self._add_joins_simple(select)
+        else:
+            self._add_joins_with_exists(select)
+
+    def _add_joins_simple(self, select):
         tables = (self.join_table, self.related_table)
         where = ((self.foreign_key==self.foreign_key.ref) &
                 (self.relation_fk==self.relation_fk.ref))
         select.add_join(tables, where, 'LEFT')
+
+    def _add_joins_with_exists(self, select):
+        subquery = Select()
+        subquery.add_column('*')
+        subquery.add_from(self.join_table.name)
+        subquery.add_where(self.foreign_key==self.foreign_key.ref)
+        subquery.add_where(self.relation_fk==self.relation_fk.ref)
+        select.add_join(self.related_table, subquery.as_exists(), 'LEFT')
 
     def handle_list_add(self, cursor, parent_record, record):
         insert = Insert(self.join_table)
@@ -199,14 +224,6 @@ class ManyToManyExists(ManyToMany):
     This is slower, but works in cases where there are duplicate values for
     the foreign keys in the table.
     """
-
-    def add_joins(self, select):
-        subquery = Select()
-        subquery.add_column('*')
-        subquery.add_from(self.join_table.name)
-        subquery.add_where(self.foreign_key==self.foreign_key.ref)
-        subquery.add_where(self.relation_fk==self.relation_fk.ref)
-        select.add_join(self.related_table, subquery.as_exists(), 'LEFT')
 
 class RelationList(object):
     """List of records returned by a one-to-many/many-to-many relation.

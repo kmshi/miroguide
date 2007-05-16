@@ -106,6 +106,9 @@ class QueryTest(TestCase):
                     self.category_to_foos.get(cat.id, []))
 
     def test_many_to_many_with_dups(self):
+        foo_relations = Foo.table.relations
+        self.assert_(not foo_relations['categories'].use_exists_subquery)
+        self.assert_(foo_relations['categories_with_dups'].use_exists_subquery)
         query = Foo.query().join('categories_with_dups')
         rows_seen = set()
         for row in query.make_select().execute(self.cursor):
