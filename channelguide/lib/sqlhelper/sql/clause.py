@@ -63,8 +63,17 @@ class Join(Clause):
 
 class MultiJoin(Join):
     def __init__(self, tables, on, type='INNER'):
-        table = '(%s)' % (' CROSS JOIN '.join(str(t) for t in tables))
+        table = '(%s)' % (' JOIN '.join(str(t) for t in tables))
         Join.__init__(self, table, on, type)
+
+class JoinedTable(Table):
+    """Table joined to other tables.  For example:
+    "foo JOIN bar ON bar.foo_id=foo.id"
+    """
+    def __init__(self, table, *joins):
+        join_text, join_args = join_clauses(joins, ' ')
+        self.text = '%s %s' % (table, join_text)
+        self.args = join_args
 
 class Set(Clause):
     def __init__(self, name, value):

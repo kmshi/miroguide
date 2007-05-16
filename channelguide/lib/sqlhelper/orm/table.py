@@ -12,6 +12,7 @@ The 'id' column can be accessed by foo.c.id (or foo.columns[0], foo.c[0],
 etc).
 """
 
+from sqlhelper.sql import clause
 from sqlhelper.sql import Select
 from relations import (OneToMany, ManyToOne, ManyToMany, OneToOne,
         ManyToManyExists)
@@ -64,6 +65,21 @@ class Table(object):
         s.add_column("COUNT(*)")
         s.add_from(self.name)
         return s
+
+    def join(self, other, join_column=None):
+        """Create a JoinedTable clause that consists of this table joined to
+        another table.
+
+        Here's a typical usage:
+        select.add_from(table1.join(table2))
+
+        In most cases the column to join on can be found automatically, but if
+        this doesn't work join_column can be specified.
+        """
+        if join_column is None:
+            join_column = self.find_foreign_key(other, search_reverse=True)
+        join = clause.Join(other.name, join_column==join_column.ref)
+        return clause.JoinedTable(self.name, join)
 
     def primary_key_from_row(self, row):
         return tuple(row[i] for i in self.primary_key_indicies)
