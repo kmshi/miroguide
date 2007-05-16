@@ -105,6 +105,17 @@ class QueryTest(TestCase):
             self.assertSameSet([c.id for c in cat.foos],
                     self.category_to_foos.get(cat.id, []))
 
+    def test_many_to_many_with_dups(self):
+        query = Foo.query().join('categories_with_dups')
+        rows_seen = set()
+        for row in query.make_select().execute(self.cursor):
+            if row in rows_seen:
+                raise AssertionError("Duplicate row selected")
+            rows_seen.add(row)
+        for foo in query.execute(self.cursor):
+            self.assertSameSet( [c.id for c in foo.categories_with_dups],
+                    self.foo_to_categories.get(foo.id, []))
+
     def test_one_to_one(self):
         foos = Foo.query().join("extra").execute(self.cursor)
         self.checkFoos(foos, self.foo_values)
@@ -201,4 +212,3 @@ class QueryTest(TestCase):
         query.join('bars', 'categories').limit(3)
         results = query.execute(self.cursor)
         self.assertEquals(len(results), 3)
-

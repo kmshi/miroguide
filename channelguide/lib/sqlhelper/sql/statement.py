@@ -122,6 +122,10 @@ class Select(Statement):
     def as_subquery(self, name):
         return clause.Subquery(self, name)
 
+    def as_exists(self):
+        text, args = self.compile()
+        return clause.Where("EXISTS (%s)" % text, args)
+
     def execute(self, cursor):
         Statement.execute(self, cursor)
         return cursor.fetchall()

@@ -13,7 +13,8 @@ etc).
 """
 
 from sqlhelper.sql import Select
-from relations import OneToMany, ManyToOne, ManyToMany, OneToOne
+from relations import (OneToMany, ManyToOne, ManyToMany, OneToOne,
+        ManyToManyExists)
 from columns import ColumnStore, Subselect
 
 class Table(object):
@@ -64,8 +65,17 @@ class Table(object):
         s.add_from(self.name)
         return s
 
-    def make_count_column(self, name, other_table, optional=True, *extra_wheres):
-        select = other_table.select_count()
+    def make_count_column(self, name, other_table, *extra_wheres, **kwargs):
+        optional = kwargs.pop('optional', True)
+        column = kwargs.pop('column', None)
+        if kwargs:
+            raise TypeError("Extra keyword arguments: %s" % kwargs.keys())
+        select = Select()
+        if column is None:
+            select.add_column('COUNT(*)')
+        else:
+            select.add_column('COUNT DISTINCT(%s)' % column.fullname())
+        select.add_from(other_table.name)
         join_column = self.find_foreign_key(other_table, search_reverse=True)
         select.add_where(join_column==join_column.ref)
         for where in extra_wheres:
@@ -128,7 +138,8 @@ class Table(object):
         """
         other_table.many_to_one(backref, self, backref=name)
 
-    def many_to_many(self, name, other_table, join_table, backref=None):
+    def many_to_many(self, name, other_table, join_table, backref=None,
+            has_dups=False):
         """Add a many-to-many relation from this table to another table.
 
         join_table is a table that maps this table to the other table.  It
@@ -141,15 +152,24 @@ class Table(object):
             Int('bar_id', fk=bar.id))
 
         foo.many_to_many('bars', bar, foo_map, backref='foos')
+
+        Use has_dups=True if there are duplicate values in the join table for
+        foreign keys that reference the 2 tables.  Instead of a simple join,
+        an EXISTS subquery will be used to join the 2 tables.
         """
 
         join_column = join_table.find_foreign_key(self)
         other_join_column = join_table.find_foreign_key(other_table)
 
-        self.relations[name] = ManyToMany(name, join_column, other_join_column)
+        if not has_dups:
+            relation_class = ManyToMany
+        else:
+            relation_class = ManyToManyExists
+        self.relations[name] = relation_class(name, join_column,
+                other_join_column)
         if backref is not None:
             other_table.relations[backref] = \
-                    ManyToMany(backref, other_join_column, join_column)
+                    relation_class(backref, other_join_column, join_column)
 
     def one_to_one(self, name, other_table, backref=None, join_column=None):
         """Add a one-to-one relation from this table to another table.

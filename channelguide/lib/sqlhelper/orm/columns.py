@@ -148,10 +148,15 @@ class Subselect(ColumnBase):
     """Column that represents a SQL scalar subselect."""
     def __init__(self, name, select, *args, **kwargs):
         ColumnBase.__init__(self, name, *args, **kwargs)
-        self.select = select
+        if isinstance(select, str):
+            self.select_text = select
+            self.select_args = []
+        else:
+            self.select_text, self.select_args = select.compile()
 
     def add_to_select(self, select):
-        select.add_column(self.select.as_subquery(self.fullname()))
+        subquery = '(%s) AS %s' % (self.select_text, self.fullname())
+        select.add_column(subquery, *self.select_args)
 
     def is_concrete(self):
         return False

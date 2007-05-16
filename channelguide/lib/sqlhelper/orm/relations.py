@@ -10,7 +10,7 @@ This module assumes that foreign keys references primary keys and are
 single-columned.  Hopefully this isn't too restrictive.
 """
 
-from sqlhelper.sql import Delete, Insert
+from sqlhelper.sql import Delete, Insert, Select
 
 class Relation(object):
     """Base class for all relations."""
@@ -193,6 +193,20 @@ class ManyToMany(NToManyMixin, Relation):
         parent_join_value = getattr(parent_record, self.foreign_key.ref.name)
         delete.wheres.append(self.foreign_key==parent_join_value)
         delete.execute(cursor)
+
+class ManyToManyExists(ManyToMany):
+    """Many-to-many relation that uses an EXISTS subquery to join the records.
+    This is slower, but works in cases where there are duplicate values for
+    the foreign keys in the table.
+    """
+
+    def add_joins(self, select):
+        subquery = Select()
+        subquery.add_column('*')
+        subquery.add_from(self.join_table.name)
+        subquery.add_where(self.foreign_key==self.foreign_key.ref)
+        subquery.add_where(self.relation_fk==self.relation_fk.ref)
+        select.add_join(self.related_table, subquery.as_exists(), 'LEFT')
 
 class RelationList(object):
     """List of records returned by a one-to-many/many-to-many relation.

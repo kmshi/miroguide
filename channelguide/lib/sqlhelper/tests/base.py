@@ -105,15 +105,23 @@ FOREIGN KEY (category_id) REFERENCES category (id) ON DELETE CASCADE,
 FOREIGN KEY (foo_id) REFERENCES foo (id) ON DELETE CASCADE,
 PRIMARY KEY (category_id, foo_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
+        self.cursor.execute("""CREATE TABLE category_map_with_dups (
+category_id INT(11),
+foo_id INT(11),
+other_column INT(11),
+FOREIGN KEY (category_id) REFERENCES category (id) ON DELETE CASCADE,
+FOREIGN KEY (foo_id) REFERENCES foo (id) ON DELETE CASCADE,
+PRIMARY KEY (category_id, foo_id, other_column)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
 
     def drop_test_tables(self):
+        self.cursor.execute("DROP TABLE category_map_with_dups")
         self.cursor.execute("DROP TABLE category_map")
         self.cursor.execute("DROP TABLE category")
         self.cursor.execute("DROP TABLE bar")
         self.cursor.execute("DROP TABLE foo_extra")
         self.cursor.execute("DROP TABLE foo")
         self.cursor.execute("DROP TABLE types")
-        return
 
     def populate_test_tables(self):
         self.populate_foo()
@@ -170,10 +178,20 @@ PRIMARY KEY (category_id, foo_id)
             for cat_id in category_ids:
                 self.cursor.execute("INSERT INTO category_map "
                 "(foo_id, category_id) VALUES (%s, %s)", (foo_id, cat_id))
+                self.cursor.execute("INSERT INTO category_map_with_dups "
+                        "(foo_id, category_id, other_column) "
+                        "VALUES (%s, %s, 1)", (foo_id, cat_id))
+                self.cursor.execute("INSERT INTO category_map_with_dups "
+                        "(foo_id, category_id, other_column) "
+                        "VALUES (%s, %s, 2)", (foo_id, cat_id))
+                self.cursor.execute("INSERT INTO category_map_with_dups "
+                        "(foo_id, category_id, other_column) "
+                        "VALUES (%s, %s, 3)", (foo_id, cat_id))
                 try:
                     self.category_to_foos[cat_id].append(foo_id)
                 except KeyError:
                     self.category_to_foos[cat_id] = [foo_id]
+
 
 foo_table = orm.Table('foo', 
         columns.Int('id', primary_key=True, auto_increment=True), 
@@ -193,6 +211,11 @@ category_map_table = orm.Table('category_map',
         columns.Int('foo_id', fk=foo_table.c.id, primary_key=True),
         columns.Int('category_id', fk=category_table.c.id, primary_key=True),
     )
+category_map_with_dups_table = orm.Table('category_map_with_dups',
+        columns.Int('foo_id', fk=foo_table.c.id, primary_key=True),
+        columns.Int('category_id', fk=category_table.c.id, primary_key=True),
+        columns.Int('other_column'),
+    )
 types_table = orm.Table('types',
         columns.Int('id', primary_key=True, auto_increment=True), 
         columns.String('string', 200, default="booya"),
@@ -204,6 +227,8 @@ foo_table.one_to_many('bars', bar_table, backref='parent')
 foo_table.one_to_one('extra', foo_extra_table, backref='foo')
 foo_table.many_to_many('categories', category_table, category_map_table,
         backref='foos')
+foo_table.many_to_many('categories_with_dups', category_table,
+        category_map_with_dups_table, has_dups=True, backref='foos')
 category_map_table.many_to_one('foo', foo_table)
 category_map_table.many_to_one('category', category_table)
 
