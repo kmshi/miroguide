@@ -89,6 +89,12 @@ class ConvertForDBTest(TestCase):
         self.check_logging(warnings=1)
         self.assertEquals(f.name, 'a' * 40)
 
+    def test_string_conversion_null(self):
+        type = Types()
+        type.boolean = True
+        type.null_ok = None
+        type.save(self.cursor)
+
 class _RelationListTest(TestCase):
     # NOTE by prefixing the class name with _, it doesn't get exported.  This
     # is good, we don't want to run these tests, only the tests of our

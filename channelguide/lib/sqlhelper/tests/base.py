@@ -83,7 +83,7 @@ id INT(11) NOT NULL AUTO_INCREMENT,
 string VARCHAR(40) NOT NULL,
 date DATETIME NOT NULL,
 boolean TINYINT(1) NOT NULL,
-null_ok INT NULL,
+null_ok VARCHAR(20) NULL,
 PRIMARY KEY (id))
 ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
         self.cursor.execute("""CREATE TABLE bar (
@@ -226,7 +226,7 @@ types_table = orm.Table('types',
         columns.String('string', 200, default="booya"),
         columns.DateTime('date', default=datetime.now, onupdate=datetime.now),
         columns.Boolean('boolean'),
-        columns.Int('null_ok'))
+        columns.String('null_ok', 20))
 
 foo_table.one_to_many('bars', bar_table, backref='parent')
 foo_table.one_to_one('extra', foo_extra_table, backref='foo')

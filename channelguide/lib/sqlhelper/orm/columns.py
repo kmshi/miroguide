@@ -100,6 +100,8 @@ class ColumnBase(object):
 
     def __eq__(self, other):
         return self._sql_operator(other, '=')
+    def __ne__(self, other):
+        return self._sql_operator(other, '!=')
     def __gt__(self, other):
         return self._sql_operator(other, '>')
     def __lt__(self, other):
@@ -139,7 +141,8 @@ class String(ColumnBase):
         self.length = length
 
     def convert_for_db(self, data):
-        if self.length is not None and len(data) > self.length:
+        if (self.length is not None and data is not None and 
+                len(data) > self.length):
             logging.warn("Truncating data %r for column %s", data,
                     self.fullname())
             data = data[:self.length]
