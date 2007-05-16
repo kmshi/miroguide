@@ -57,13 +57,13 @@ class Table(object):
         s = Select()
         for column in self.regular_columns:
             column.add_to_select(s)
-        s.add_from(self.name)
+        s.add_from(self)
         return s
 
     def select_count(self):
         s = Select()
         s.add_column("COUNT(*)")
-        s.add_from(self.name)
+        s.add_from(self)
         return s
 
     def join(self, other, join_column=None):

@@ -36,15 +36,15 @@ class Statement(object):
             msg = "Error running %s: %s" % (debug_string, e)
             raise SQLError(msg)
 
-    def ensure_clause(self, clause_class, string_or_clause, args):
-        if isinstance(string_or_clause, clause.Clause):
+    def ensure_clause(self, clause_class, clause_arg, args):
+        if isinstance(clause_arg, clause.Clause):
             if not args:
-                return string_or_clause
+                return clause_arg
             else:
                 raise ValueError("Can't specify args when passing in a "
                         "Clause object")
         else:
-            return clause_class(string_or_clause, args)
+            return clause_class(str(clause_arg), args)
 
     def make_debug_string(self, text, args):
         return "%s\n\nARGS: %r" % (text, args)
@@ -56,7 +56,7 @@ class Statement(object):
 class Select(Statement):
     """SQL SELECT statement."""
 
-    def __init__(self):
+    def __init__(self, *columns):
         self.columns = []
         self.froms = []
         self.wheres = []
@@ -65,6 +65,8 @@ class Select(Statement):
         self.order_by = None
         self.limit = None
         self.offset = None
+        for column in columns:
+            self.add_column(column)
 
     def add_column(self, column, *args):
         self.columns.append(self.ensure_clause(clause.Column, column, args))

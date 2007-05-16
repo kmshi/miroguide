@@ -131,7 +131,7 @@ class Query(TableSelector):
         select = sql.Select()
         if not self._need_subquery():
             self.c.add_to_select(select)
-            select.add_from(self.table.name)
+            select.add_from(self.table)
             self.add_filters(select)
             select.limit = self._limit
             select.offset = self._offset
@@ -170,7 +170,7 @@ class Query(TableSelector):
     def _make_subquery(self):
         subquery = sql.Select()
         self.c.add_to_select(subquery)
-        subquery.add_from(self.table.name)
+        subquery.add_from(self.table)
         self.add_filters(subquery)
         subquery.order_by = self._order_by
         subquery.limit = self._limit
@@ -318,7 +318,7 @@ class ResultJoiner(Selector):
 
     def make_select(self):
         select = sql.Select()
-        select.add_from(self.table.name)
+        select.add_from(self.table)
         self.c.add_to_select(select)
         self.add_joins(select)
         if len(self.result_set.table.primary_keys) == 1:
