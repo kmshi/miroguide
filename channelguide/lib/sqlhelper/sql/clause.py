@@ -9,9 +9,17 @@ class Clause(object):
         return "%s ARGS: %r" % (self.text, self.args)
 
 class Value(Clause):
+    """Value that gets quoted by the database."""
+
     def __init__(self, value):
         self.text = '%s'
         self.args = [value]
+
+class Literal(Clause):
+    """Value that we avoid quoting by the database."""
+    def __init__(self, value):
+        self.text = str(value)
+        self.args = []
 
 class Column(Clause):
     """Column in a SELECT statement."""
@@ -92,3 +100,5 @@ def join_clauses(clause_list, join_string, conversion=None):
     for clause in clause_list:
         args.extend(clause.args)
     return text, args
+
+NOW = Clause("NOW()")

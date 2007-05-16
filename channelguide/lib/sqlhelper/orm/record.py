@@ -109,6 +109,10 @@ class Record(object):
         delete.wheres.append(self.rowid_where())
         delete.execute(cursor)
 
+    def delete_if_exists(self, cursor):
+        if self.exists_in_db():
+            self.delete(cursor)
+
     @classmethod
     def query(cls, *filter_args, **filter_kwargs):
         retval = query.Query(cls.table)

@@ -88,8 +88,11 @@ class ColumnBase(object):
 
     def _sql_operator(self, other, operator):
         if isinstance(other, ColumnBase):
-            string = '%s %s %s' % (self.fullname(), operator, other)
+            string = '%s %s %s' % (self.fullname(), operator, other.fullname())
             args = []
+        elif isinstance(other, clause.Clause):
+            string = '%s %s %s' % (self.fullname(), operator, other.text)
+            args = other.args
         else:
             string = '%s %s %%s' % (self.fullname(), operator)
             args = [other]
@@ -105,6 +108,9 @@ class ColumnBase(object):
         return self._sql_operator(other, '>=')
     def __le__(self, other):
         return self._sql_operator(other, '<=')
+
+    def like(self, other):
+        return self._sql_operator(other, 'LIKE')
 
     def in_(self, possible_values):
         percents = ['%s' for values in possible_values]

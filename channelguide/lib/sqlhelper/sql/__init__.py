@@ -7,3 +7,4 @@ This package defines 2 types of classes:
 """
 from exceptions import SQLError
 from statement import Select, Insert, Delete, Update
+from clause import Literal
