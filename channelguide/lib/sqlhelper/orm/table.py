@@ -65,28 +65,6 @@ class Table(object):
         s.add_from(self.name)
         return s
 
-    def make_count_column(self, name, other_table, *extra_wheres, **kwargs):
-        optional = kwargs.pop('optional', True)
-        column = kwargs.pop('column', None)
-        if kwargs:
-            raise TypeError("Extra keyword arguments: %s" % kwargs.keys())
-        select = Select()
-        if column is None:
-            select.add_column('COUNT(*)')
-        else:
-            select.add_column('COUNT DISTINCT(%s)' % column.fullname())
-        select.add_from(other_table.name)
-        join_column = self.find_foreign_key(other_table, search_reverse=True)
-        select.add_where(join_column==join_column.ref)
-        for where in extra_wheres:
-            select.add_where(where)
-        column = Subselect(name, select, optional=optional)
-        column.table = self
-        return column
-
-    def add_count_column(self, *args, **kwargs):
-        self.add_column(self.make_count_column(*args, **kwargs))
-
     def primary_key_from_row(self, row):
         return tuple(row[i] for i in self.primary_key_indicies)
 

@@ -195,7 +195,12 @@ PRIMARY KEY (category_id, foo_id, other_column)
 
 foo_table = orm.Table('foo', 
         columns.Int('id', primary_key=True, auto_increment=True), 
-        columns.String('name', 40))
+        columns.String('name', 40),
+        columns.Subselect('category_count', """\
+SELECT COUNT(*) 
+FROM category_map AS map 
+WHERE map.foo_id=foo.id""", optional=True))
+
 foo_extra_table = orm.Table('foo_extra', 
         columns.Int('id', primary_key=True, fk=foo_table.c.id),
         columns.String('extra_info', 255))
@@ -232,11 +237,10 @@ foo_table.many_to_many('categories_with_dups', category_table,
 category_map_table.many_to_one('foo', foo_table)
 category_map_table.many_to_one('category', category_table)
 
-foo_table.add_count_column('category_count', category_map_table)
-
 class Foo(orm.Record): 
     table = foo_table
-    bar_count_column = foo_table.make_count_column('bar_count', bar_table)
+    bar_count_column = columns.Subselect('bar_count', """\
+SELECT COUNT(*) FROM bar WHERE bar.foo_id=foo.id""")
     @classmethod
     def query_with_category_count(cls):
         return cls.query().load('category_count')
