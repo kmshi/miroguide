@@ -9,7 +9,7 @@ tables.
 from itertools import izip, count
 
 from exceptions import NotFoundError, TooManyResultsError
-from sqlhelper import sql
+from sqlhelper import sql, util
 from sqlhelper.sql import clause
 import columns
 import relations
@@ -191,7 +191,9 @@ class Query(TableSelector):
             result_handler.handle_data(row_iter)
         return result_handler.make_results()
 
-    def get(self, cursor):
+    def get(self, cursor, id):
+        for col, value in zip(self.table.primary_keys, util.ensure_list(id)):
+            self.filter(col==value)
         results = self.execute(cursor)
         if len(results) == 1:
             return results[0]

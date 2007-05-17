@@ -66,8 +66,6 @@ class QueryTest(TestCase):
         foo = Foo.get(self.cursor, 3)
         self.assertEquals(foo.id, 3)
         self.assertRaises(orm.NotFoundError, Foo.get, self.cursor, 999999)
-        s = Foo.query(Foo.c.id > 2)
-        self.assertRaises(orm.TooManyResultsError, s.get, self.cursor)
 
     def test_count(self):
         s = Foo.query().filter((Foo.c.id == 4) | (Foo.c.id <= 2))

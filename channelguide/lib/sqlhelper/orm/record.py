@@ -1,16 +1,10 @@
 from itertools import izip
 
 from exceptions import NotFoundError, TooManyResultsError
-from sqlhelper import sql, signals
+from sqlhelper import sql, signals, util
 from sqlhelper.orm import query
 from sqlhelper.orm.relations import ManyToOne, OneToOne
 from sqlhelper.sql import clause
-
-def ensure_list(obj):
-    if hasattr(obj, '__iter__'):
-        return obj
-    else:
-        return [obj]
 
 class RecordMetaclass(type):
     """Metaclass for Record objects.  
@@ -145,14 +139,12 @@ class Record(object):
     @classmethod
     def get(cls, cursor, id, load=None, join=None):
         retval = query.Query(cls.table)
-        for col, value in zip(cls.table.primary_keys, ensure_list(id)):
-            retval.filter(col==value)
         if load is not None:
-            retval.load(*ensure_list(load))
+            retval.load(*util.ensure_list(load))
         if join is not None:
-            retval.join(*ensure_list(join))
+            retval.join(*util.ensure_list(join))
         try:
-            return retval.get(cursor)
+            return retval.get(cursor, id)
         except NotFoundError:
             raise NotFoundError("Record with id %s not found" % id)
         except TooManyResultsError:
