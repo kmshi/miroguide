@@ -191,9 +191,11 @@ class Query(TableSelector):
             result_handler.handle_data(row_iter)
         return result_handler.make_results()
 
-    def get(self, cursor, id):
-        for col, value in zip(self.table.primary_keys, util.ensure_list(id)):
-            self.filter(col==value)
+    def get(self, cursor, id=None):
+        if id is not None:
+            id_values = util.ensure_list(id)
+            for col, value in zip(self.table.primary_keys, id_values):
+                self.filter(col==value)
         results = self.execute(cursor)
         if len(results) == 1:
             return results[0]
