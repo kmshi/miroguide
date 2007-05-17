@@ -15,9 +15,11 @@ can be altered in several ways:
 import logging
 import clause
 from exceptions import SQLError
+from sqlhelper import signals
 
 class Statement(object):
     """Base class for SQL statements."""
+    __signal__ = None
 
     def compile(self):
         """compile this statement into something that can be passed to the
@@ -27,6 +29,8 @@ class Statement(object):
         raise NotImplementedError()
 
     def execute(self, cursor):
+        if self.__class__.__signal__ is not None:
+            self.__class__.__signal__.emit(self)
         text, args = self.compile()
         debug_string = self.make_debug_string(text, args)
         logging.sql(debug_string)
@@ -138,6 +142,8 @@ class Select(Statement):
         return cursor.fetchall()
 
 class Insert(Statement):
+    __signal__ = signals.sql_insert
+
     def __init__(self, table):
         self.table = table
         self.columns = []
@@ -157,6 +163,8 @@ class Insert(Statement):
         return comp.finalize()
 
 class Update(Statement):
+    __signal__ = signals.sql_update
+
     def __init__(self, table):
         self.table = table
         self.sets = []
@@ -178,6 +186,8 @@ class Update(Statement):
         return comp.finalize()
 
 class Delete(Statement):
+    __signal__ = signals.sql_delete
+
     def __init__(self, table):
         self.table = table
         self.wheres = []

@@ -1,7 +1,7 @@
 from itertools import izip
 
 from exceptions import NotFoundError, TooManyResultsError
-from sqlhelper import sql
+from sqlhelper import sql, signals
 from sqlhelper.orm import query
 from sqlhelper.orm.relations import ManyToOne, OneToOne
 from sqlhelper.sql import clause
@@ -94,6 +94,7 @@ class Record(object):
                 setattr(self, column.name, column.onupdate())
 
     def insert(self, cursor):
+        signals.record_insert.emit(self)
         insert = sql.Insert(self.table)
         self.set_column_defaults()
         self.add_values_to_saver(insert)
@@ -104,6 +105,7 @@ class Record(object):
         self.rowid = self.primary_key_values()
 
     def update(self, cursor):
+        signals.record_update.emit(self)
         update = sql.Update(self.table)
         update.wheres.append(self.rowid_where())
         self.run_column_onupdates()
@@ -120,6 +122,7 @@ class Record(object):
             setattr(self, column.name, data)
 
     def delete(self, cursor):
+        signals.record_delete.emit(self)
         delete = sql.Delete(self.table)
         delete.wheres.append(self.rowid_where())
         delete.execute(cursor)
