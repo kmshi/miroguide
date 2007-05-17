@@ -77,7 +77,12 @@ class Record(object):
                 (isinstance(relation, OneToOne) and 
                 relation.column.table is self.table) and
                 not hasattr(self, relation.column.name)):
-                value = getattr(related_record, relation.column.ref.name)
+                try:
+                    value = getattr(related_record, relation.column.ref.name)
+                except AttributeError:
+                    # the related record doesn't have a value for this column
+                    # either
+                    continue
                 setattr(self, relation.column.name, value)
 
     def set_column_defaults(self):
