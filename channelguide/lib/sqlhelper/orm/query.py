@@ -95,7 +95,7 @@ class Query(TableSelector):
         TableSelector.__init__(self, table)
         self.wheres = []
         self.havings = []
-        self._order_by = None
+        self._order_by = []
         self.desc = False
         self._limit = None
         self._offset = None
@@ -117,13 +117,14 @@ class Query(TableSelector):
             raise TypeError("Wrong type for filter: %s" % type(filter))
 
     def order_by(self, order_by, desc=False):
+        if order_by is None:
+            self._order_by = []
+            return self
         try:
             order_by = self.get_column(order_by).fullname()
         except AttributeError:
             pass
-        if desc:
-            order_by += ' DESC'
-        self._order_by = clause.Literal(order_by)
+        self._order_by.append(clause.OrderBy(order_by, desc))
         return self
 
     def limit(self, count):

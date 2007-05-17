@@ -66,7 +66,7 @@ class Select(Statement):
         self.wheres = []
         self.havings = []
         self.joins = []
-        self.order_by = None
+        self.order_by = []
         self.limit = None
         self.offset = None
         for column in columns:
@@ -94,6 +94,9 @@ class Select(Statement):
         else:
             self.joins.append(clause.MultiJoin(table, on, type))
 
+    def add_order_by(self, order_by, desc=False):
+        self.order_by.append(clause.OrderBy(order_by, desc))
+
     def count(self, cursor):
         s = Select()
         s.add_columns('COUNT(*)')
@@ -111,12 +114,9 @@ class Select(Statement):
         comp.add_clauses(self.joins)
         comp.add_where_list(self.wheres)
         comp.add_having_list(self.havings)
-        if self.order_by is not None:
+        if self.order_by:
             comp.add_text("ORDER BY ")
-            if isinstance(self.order_by, clause.Clause):
-                comp.add_clause(self.order_by)
-            else:
-                comp.add_text(self.order_by)
+            comp.join_clauses(self.order_by, ', ')
             comp.add_text('\n')
         if self.limit is not None or self.offset is not None:
             if self.offset is None:

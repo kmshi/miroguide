@@ -52,6 +52,23 @@ class QueryTest(TestCase):
         for i in range(len(results) - 1):
             self.assert_(results[i].name >= results[i+1].name)
 
+    def test_multiple_order_by(self):
+        query = Foo.query_with_bar_count().order_by('bar_count', desc=True)
+        query.order_by('name', desc=False)
+        results = query.execute(self.cursor)
+        for i in range(len(results) - 1):
+            self.assert_(results[i].bar_count >= results[i+1].bar_count)
+            if results[i].bar_count == results[i+1].bar_count:
+                self.assert_(results[i].name <= results[i+1].name)
+
+    def test_reset_order_by(self):
+        query = Foo.query().order_by('id', desc=False)
+        query.order_by(None)
+        query.order_by('name')
+        results = query.execute(self.cursor)
+        for i in range(len(results) - 1):
+            self.assert_(results[i].name <= results[i+1].name)
+
     def test_limit(self):
         results = Foo.query().limit(2).execute(self.cursor)
         self.assertEquals(len(results), 2)

@@ -65,6 +65,14 @@ class Having(Filter):
     """SQL HAVING clause."""
     clause_string = 'HAVING'
 
+class OrderBy(Clause):
+    """ORDER BY clause."""
+    def __init__(self, column, desc=False):
+        self.text = str(column)
+        if desc:
+            self.text += ' DESC'
+        self.args = []
+
 class Join(Clause):
     """SQL JOIN clause."""
     def __init__(self, table, on, type='INNER'):
