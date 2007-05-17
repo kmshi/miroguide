@@ -5,6 +5,5 @@ This package defines 2 types of classes:
       etc).  
     * Clause objects are the building blocks used to create statements.
 """
-from exceptions import SQLError
 from statement import Select, Insert, Delete, Update
 from clause import Literal

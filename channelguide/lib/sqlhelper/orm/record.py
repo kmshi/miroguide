@@ -1,7 +1,7 @@
 from itertools import izip
 
-from exceptions import NotFoundError, TooManyResultsError
 from sqlhelper import sql, signals, util
+from sqlhelper.exceptions import NotFoundError, TooManyResultsError
 from sqlhelper.orm import query
 from sqlhelper.orm.relations import ManyToOne, OneToOne
 from sqlhelper.sql import clause

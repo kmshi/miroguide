@@ -14,8 +14,8 @@ can be altered in several ways:
 
 import logging
 import clause
-from exceptions import SQLError
 from sqlhelper import signals
+from sqlhelper.exceptions import SQLError, NotFoundError, TooManyResultsError
 
 class Statement(object):
     """Base class for SQL statements."""
@@ -99,7 +99,7 @@ class Select(Statement):
         s.add_columns('COUNT(*)')
         s.froms = self.froms
         s.wheres = self.wheres
-        return s.execute(cursor)[0][0]
+        return self.execute_scalar(cursor)
 
     def compile(self):
         comp = StatementCompilation()
@@ -140,6 +140,20 @@ class Select(Statement):
     def execute(self, cursor):
         Statement.execute(self, cursor)
         return cursor.fetchall()
+
+    def execute_scalar(self, cursor):
+        """Execute a scalar SELECT.  This only works for selects that return a
+        single column and a single row.
+        """
+        if len(self.columns) != 1:
+            raise ValueError("execute_scalar must be called with 1 column.")
+        results = self.execute(cursor)
+        if len(results) == 1:
+            return results[0][0]
+        elif len(results) == 0:
+            raise NotFoundError("Row not found")
+        else:
+            raise TooManyResultsError("Too many rows returned")
 
 class Insert(Statement):
     __signal__ = signals.sql_insert

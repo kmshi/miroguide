@@ -1,4 +1,4 @@
-from sqlhelper import orm
+from sqlhelper import orm, NotFoundError
 from base import TestCase, Foo, Bar, Category, CategoryMap, Types, FooExtra
 from datetime import datetime, timedelta
 
@@ -47,7 +47,7 @@ class UpdateTest(TestCase):
         self.assertEquals(f.rowid, (2000,))
         f2 = Foo.get(self.cursor, 2000)
         self.assertEquals(f2.name, f.name)
-        self.assertRaises(orm.NotFoundError, Foo.get, self.cursor, 1000)
+        self.assertRaises(NotFoundError, Foo.get, self.cursor, 1000)
 
     def test_delete(self):
         for type in Types.query().execute(self.cursor):

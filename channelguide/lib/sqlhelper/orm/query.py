@@ -8,8 +8,8 @@ tables.
 
 from itertools import izip, count
 
-from exceptions import NotFoundError, TooManyResultsError
 from sqlhelper import sql, util
+from sqlhelper.exceptions import NotFoundError, TooManyResultsError
 from sqlhelper.sql import clause
 import columns
 import relations

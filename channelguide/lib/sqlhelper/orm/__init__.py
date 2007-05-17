@@ -11,6 +11,5 @@ logging.addLevelName(5, "SQL")
 logging.sql = lambda msg, *args, **kargs: logging.log(5, msg, *args, **kargs)
 logging.SQL = 5
 
-from exceptions import NotFoundError, TooManyResultsError
 from table import Table
 from record import Record
