@@ -30,9 +30,14 @@ class Relation(object):
         self.table = table
         self.related_table = related_table
 
-    def add_joins(self, select):
+    def add_joins(self, select, table, related_table):
         """Add joins to a Select object so that this relation's table is
         included in the result.
+
+        One tricky part is that tables get aliased when we build the SELECT
+        statements to allow for more than 1 relation for a given table.  The
+        possibly aliased tables get passed into add_joins() so that we can
+        join with the correct columns.
         """
         raise NotImplementedError()
 
@@ -47,7 +52,20 @@ class Relation(object):
         """Perform the join."""
         raise NotImplementedError()
 
-class ManyToOne(Relation):
+class SimpleJoiner(Relation):
+    """Handles joins using a single foreign key column."""
+
+    def add_joins(self, select, table, related_table):
+        if self.column.table is self.table:
+            fk = table.get_column(self.column.name)
+            ref = related_table.get_column(self.column.ref.name)
+            select.add_join(related_table, fk==ref)
+        else:
+            fk = related_table.get_column(self.column.name)
+            ref = table.get_column(self.column.ref.name)
+            select.add_join(related_table, fk==ref, 'LEFT')
+
+class ManyToOne(SimpleJoiner):
     def __init__(self, name, column):
         """Create a many-to-one relation
 
@@ -64,13 +82,10 @@ class ManyToOne(Relation):
         super(ManyToOne, self).__init__(name, column.table, column.ref.table)
         self.column = column
 
-    def add_joins(self, select):
-        select.add_join(self.related_table, self.column==self.column.ref)
-
     def do_join(self, record, related_record):
         setattr(record, self.name, related_record)
 
-class OneToOne(Relation):
+class OneToOne(SimpleJoiner):
     def __init__(self, name, column, related_table):
         """Create a one-to-one relation
 
@@ -79,17 +94,17 @@ class OneToOne(Relation):
         name -- name of the relation.  This will be the attribute that
             gets created in join().
         column -- column that defines the relationship, i.e. a foreign
-            key that belongs to the table and references the related table's
-            primary key.
+            key that belongs to either the table or the related table.  It
+            should reference the other table's primary key.
         """
         if column.ref is None:
             raise ValueError("column is not a foreign key")
-        super(OneToOne, self).__init__(name, column.table, related_table)
+        if column.table is not related_table:
+            table = column.table
+        else:
+            table = column.ref.table
+        super(OneToOne, self).__init__(name, table, related_table)
         self.column = column
-
-    def add_joins(self, select):
-        select.add_join(self.related_table, self.column==self.column.ref,
-                'LEFT')
 
     def init_record(self, record):
         setattr(record, self.name, None)
@@ -107,7 +122,7 @@ class NToManyMixin(object):
         result_list = getattr(record, self.name)
         result_list.records.append(related_record)
 
-class OneToMany(NToManyMixin, Relation):
+class OneToMany(NToManyMixin, SimpleJoiner):
     def __init__(self, name, column):
         """Create a one-to-many relation
 
@@ -123,10 +138,6 @@ class OneToMany(NToManyMixin, Relation):
             raise ValueError("column is not a foreign key")
         super(OneToMany, self).__init__(name, column.ref.table, column.table)
         self.column = column
-
-    def add_joins(self, select):
-        select.add_join(self.related_table, self.column==self.column.ref,
-                'LEFT')
 
     def handle_list_add(self, cursor, parent_record, record):
         join_value = getattr(parent_record, self.column.ref.name)
@@ -177,25 +188,31 @@ class ManyToMany(NToManyMixin, Relation):
         primary_keys = set(self.join_table.primary_keys)
         return not primary_keys.issubset(foreign_keys)
 
-    def add_joins(self, select):
+    def add_joins(self, select, table, related_table):
         if not self.use_exists_subquery:
-            self._add_joins_simple(select)
+            self._add_joins_simple(select, table, related_table)
         else:
-            self._add_joins_with_exists(select)
+            self._add_joins_with_exists(select, table, related_table)
 
-    def _add_joins_simple(self, select):
-        tables = (self.join_table, self.related_table)
-        where = ((self.foreign_key==self.foreign_key.ref) &
-                (self.relation_fk==self.relation_fk.ref))
-        select.add_join(tables, where, 'LEFT')
+    def _add_joins_simple(self, select, table, related_table):
+        join_table_alias = 'j_%s' % self.name
+        join_table = self.join_table.alias(join_table_alias)
+        where1 = (join_table.get_column(self.foreign_key.name) ==
+                table.get_column(self.foreign_key.ref.name))
+        where2 = (join_table.get_column(self.relation_fk.name) ==
+                related_table.get_column(self.relation_fk.ref.name))
+        select.add_join((join_table, related_table), where1 & where2, 'LEFT')
 
-    def _add_joins_with_exists(self, select):
+    def _add_joins_with_exists(self, select, table, related_table):
         subquery = Select()
         subquery.add_column('*')
+        # no need to alias join_table, since it's only used in the subquery
         subquery.add_from(self.join_table.name)
-        subquery.add_where(self.foreign_key==self.foreign_key.ref)
-        subquery.add_where(self.relation_fk==self.relation_fk.ref)
-        select.add_join(self.related_table, subquery.as_exists(), 'LEFT')
+        subquery.add_where(self.foreign_key ==
+                table.get_column(self.foreign_key.ref.name))
+        subquery.add_where(self.relation_fk ==
+                related_table.get_column(self.relation_fk.ref.name))
+        select.add_join(related_table, subquery.as_exists(), 'LEFT')
 
     def handle_list_add(self, cursor, parent_record, record):
         insert = Insert(self.join_table)
@@ -218,12 +235,6 @@ class ManyToMany(NToManyMixin, Relation):
         parent_join_value = getattr(parent_record, self.foreign_key.ref.name)
         delete.wheres.append(self.foreign_key==parent_join_value)
         delete.execute(cursor)
-
-class ManyToManyExists(ManyToMany):
-    """Many-to-many relation that uses an EXISTS subquery to join the records.
-    This is slower, but works in cases where there are duplicate values for
-    the foreign keys in the table.
-    """
 
 class RelationList(object):
     """List of records returned by a one-to-many/many-to-many relation.

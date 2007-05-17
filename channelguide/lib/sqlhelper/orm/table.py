@@ -12,9 +12,10 @@ The 'id' column can be accessed by foo.c.id (or foo.columns[0], foo.c[0],
 etc).
 """
 
+from copy import copy
+
 from sqlhelper.sql import clause, Select, Insert, Delete, Update
-from relations import (OneToMany, ManyToOne, ManyToMany, OneToOne,
-        ManyToManyExists)
+from relations import OneToMany, ManyToOne, ManyToMany, OneToOne
 from columns import ColumnStore, Subquery
 
 class Table(object):
@@ -54,8 +55,14 @@ class Table(object):
     def __str__(self):
         return self.name
 
+    def get_column(self, name):
+        return getattr(self.columns, name)
+
     def concrete_columns(self):
-        return [c for c in self.columns if c.is_concrete()]
+        return [c for c in self.columns if not isinstance(c, Subquery)]
+
+    def alias(self, name):
+        return AliasedTable(self, name)
 
     def select(self):
         s = Select()
@@ -166,8 +173,8 @@ class Table(object):
         self.relations[name] = ManyToMany(name, join_column,
                 other_join_column)
         if backref is not None:
-            other_table.relations[backref] = \
-                    ManyToMany(backref, other_join_column, join_column)
+            other_table.relations[backref] = ManyToMany(backref,
+                    other_join_column, join_column)
 
     def one_to_one(self, name, other_table, backref=None, join_column=None):
         """Add a one-to-one relation from this table to another table.
@@ -202,3 +209,16 @@ class Table(object):
         if backref is not None:
             other_table.relations[backref] = OneToOne(backref, join_column,
                     self)
+
+class AliasedTable(Table):
+    """Table that's aliased to a different name (SELECT * FROM foo as bar)."""
+    def __init__(self, real_table, alias):
+        Table.__init__(self, alias)
+        self.real_table = real_table
+        self.relations = real_table.relations
+        self.record_class = real_table.record_class
+        for column in real_table.columns:
+            self.add_column(copy(column))
+
+    def __str__(self):
+        return '%s AS %s' % (self.real_table.name, self.name)

@@ -57,12 +57,6 @@ class ColumnBase(object):
     def add_to_select(self, select):
         select.add_column(self.fullname())
 
-    def is_concrete(self):
-        """Is this column "concrete" meaning it's actually stored in the
-        database (i.e. not a Subquery column).
-        """
-        return True
-
     def make_filter(self, string, args):
         return clause.Where(string, args)
 
@@ -169,9 +163,6 @@ class Subquery(ColumnBase):
     def add_to_select(self, select):
         subquery = '(%s) AS %s' % (self.select_text, self.fullname())
         select.add_column(subquery, *self.select_args)
-
-    def is_concrete(self):
-        return False
 
     def make_filter(self, string, args):
         return clause.Having(string, args)

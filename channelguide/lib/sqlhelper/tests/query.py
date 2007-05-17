@@ -218,22 +218,6 @@ class QueryTest(TestCase):
         correct_ids += [(2, value) for value in self.foo_to_categories[2]]
         self.assertSameSet(seen_ids, correct_ids)
 
-    def test_join_with_extra_columns(self):
-        query = Bar.query().join('parent')
-        query.joins['parent'].add_column(Foo.bar_count_column)
-        for bar in query.execute(self.cursor):
-            foo = bar.parent
-            bars = self.foo_to_bars.get(foo.id, [])
-            self.assertEquals(foo.bar_count, len(bars))
-
-    def test_join_with_load(self):
-        query = Bar.query().join('parent')
-        query.joins['parent'].load('category_count')
-        for bar in query.execute(self.cursor):
-            foo = bar.parent
-            categories = self.foo_to_categories.get(foo.id, [])
-            self.assertEquals(foo.category_count, len(categories))
-
     def test_join_with_limit(self):
         query = Foo.query().filter(Foo.c.id>1)
         query.join('bars', 'categories').limit(3)
