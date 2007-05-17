@@ -145,7 +145,7 @@ class Insert(Statement):
     __signal__ = signals.sql_insert
 
     def __init__(self, table):
-        self.table = table
+        self.table_name = str(table)
         self.columns = []
         self.values = []
 
@@ -155,7 +155,7 @@ class Insert(Statement):
 
     def compile(self):
         comp = StatementCompilation()
-        comp.add_text('INSERT INTO %s(' % self.table)
+        comp.add_text('INSERT INTO %s(' % self.table_name)
         comp.join_clauses(self.columns, ', ')
         comp.add_text(')\nVALUES(')
         comp.join_clauses(self.values, ', ')
@@ -166,7 +166,7 @@ class Update(Statement):
     __signal__ = signals.sql_update
 
     def __init__(self, table):
-        self.table = table
+        self.table_name = str(table)
         self.sets = []
         self.wheres = []
     
@@ -178,7 +178,7 @@ class Update(Statement):
 
     def compile(self):
         comp = StatementCompilation()
-        comp.add_text("UPDATE %s\n" % self.table)
+        comp.add_text("UPDATE %s\n" % self.table_name)
         comp.add_text("SET ")
         comp.join_clauses(self.sets, ', ')
         comp.add_text("\n")
@@ -189,7 +189,7 @@ class Delete(Statement):
     __signal__ = signals.sql_delete
 
     def __init__(self, table):
-        self.table = table
+        self.table_name = str(table)
         self.wheres = []
 
     def add_where(self, where, *args):
@@ -197,7 +197,7 @@ class Delete(Statement):
     
     def compile(self):
         comp = StatementCompilation()
-        comp.add_text('DELETE FROM %s\n' % self.table)
+        comp.add_text('DELETE FROM %s\n' % self.table_name)
         comp.add_where_list(self.wheres)
         return comp.finalize()
 
