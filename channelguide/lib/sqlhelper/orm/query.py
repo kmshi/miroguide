@@ -79,12 +79,14 @@ class TableSelector(Selector):
         return self
 
     def make_record(self, rowid, data):
-        record = self.table.record_class()
+        record_class = self.table.record_class
+        record = record_class.__new__(record_class)
         record.rowid = rowid
         for column, obj in izip(self.c, data):
             setattr(record, column.name, column.convert_from_db(obj))
         for join in self.joins.values():
             join.relation.init_record(record)
+        record.on_restore()
         return record
 
 class Query(TableSelector):

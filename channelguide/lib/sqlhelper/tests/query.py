@@ -222,3 +222,13 @@ class QueryTest(TestCase):
         query.join('bars', 'categories').limit(3)
         results = query.execute(self.cursor)
         self.assertEquals(len(results), 3)
+
+    def test_on_restore(self):
+        def fake_on_restore(self):
+            self.on_restore_called = True
+        Foo.on_restore = fake_on_restore
+        try:
+            foo = Foo.get(self.cursor, 1)
+            self.assert_(hasattr(foo, 'on_restore_called'))
+        finally:
+            del Foo.on_restore

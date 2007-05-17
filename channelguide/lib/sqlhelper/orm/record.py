@@ -41,18 +41,27 @@ class Record(object):
     example, if a record's table contains the column, Column("foo", Int),
     then c.foo will reference it.
 
-    Records have a single attribute: rowid.  rowid is the list of primary key
-    values for the DB row that this record came from, or None if the record
-    didn't come from the database.
+    NOTE:  when a Record comes from the database.  __init__ isn't called.  The
+    idea is that fetching an object from the database is more like unpickling
+    it, than constructing a new one.  If you want code to be run when a record
+    comes is fetched from the database either use __new__ or on_restore().
+
+    Also, records that exist in the database, either because they were fetched
+    from the database, or because save() was called have an attribute rowid.
+    rowid is the list of primary key values for the DB row that this record
+    came from.  
     """
 
     __metaclass__ = RecordMetaclass
 
-    def __init__(self):
-        self.rowid=None
+    def on_restore(self):
+        """Can be overriden by subclasses to handle restoring a record from
+        the database.
+        """
+        pass
 
     def exists_in_db(self):
-        return self.rowid is not None
+        return hasattr(self, 'rowid')
 
     def save(self, cursor):
         self.set_foreign_keys_from_relations()
