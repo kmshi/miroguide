@@ -153,6 +153,10 @@ class Insert(Statement):
         self.columns.append(clause.Column(column))
         self.values.append(clause.Value(value))
 
+    def add_values(self, **values):
+        for column, value in values.items():
+            self.add_value(column, value)
+
     def compile(self):
         comp = StatementCompilation()
         comp.add_text('INSERT INTO %s(' % self.table_name)
@@ -172,6 +176,10 @@ class Update(Statement):
     
     def add_value(self, column, value):
         self.sets.append(self.ensure_clause(clause.Set, column, value))
+
+    def add_values(self, **values):
+        for column, value in values.items():
+            self.add_value(column, value)
 
     def add_where(self, where, *args):
         self.wheres.append(self.ensure_clause(clause.Where, where, args))

@@ -12,8 +12,7 @@ The 'id' column can be accessed by foo.c.id (or foo.columns[0], foo.c[0],
 etc).
 """
 
-from sqlhelper.sql import clause
-from sqlhelper.sql import Select
+from sqlhelper.sql import clause, Select, Insert, Delete, Update
 from relations import (OneToMany, ManyToOne, ManyToMany, OneToOne,
         ManyToManyExists)
 from columns import ColumnStore, Subquery
@@ -70,6 +69,15 @@ class Table(object):
         s.add_column("COUNT(*)")
         s.add_from(self)
         return s
+
+    def insert(self):
+        return Insert(self)
+
+    def delete(self):
+        return Delete(self)
+
+    def update(self):
+        return Update(self)
 
     def join(self, other, join_column=None):
         """Create a JoinedTable clause that consists of this table joined to
