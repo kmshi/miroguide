@@ -1,6 +1,28 @@
 import logging
 from sqlhelper.sql import clause
 
+class ColumnFilterMixin(object):
+    """WHERE/HAVING clause that comes from a column.  The nice thing about
+    these is that they can change the column to handle aliased tables.
+    """
+    def __init__(self, column, string, args):
+        self.column = column
+        self.string = string
+        self.args = args
+
+    def compile(self):
+        text = self.string.replace('##column##', self.column.fullname())
+        return text, self.args
+
+    def alias(self, aliased_table):
+        self.column = aliased_table.get_column(self.column.name)
+
+class ColumnWhere(ColumnFilterMixin, clause.Where):
+    pass
+
+class ColumnHaving(ColumnFilterMixin, clause.Having):
+    pass
+
 class ColumnStore(object):
     """Stores a bunch of columns.  Columns can be accessed as attributes, or
     by iterating through the ColumnStore object.
@@ -58,7 +80,7 @@ class ColumnBase(object):
         select.add_column(self.fullname())
 
     def make_filter(self, string, args):
-        return clause.Where(string, args)
+        return ColumnWhere(self, string, args)
 
     def convert_from_db(self, data):
         """Convert data coming from MySQL."""
@@ -69,6 +91,9 @@ class ColumnBase(object):
         return data
 
     def __str__(self):
+        return self.fullname()
+
+    def make_clause_string(self):
         return self.fullname()
 
     def fullname(self):
@@ -82,13 +107,13 @@ class ColumnBase(object):
 
     def _sql_operator(self, other, operator):
         if isinstance(other, ColumnBase):
-            string = '%s %s %s' % (self.fullname(), operator, other.fullname())
+            string = '##column## %s %s' % (operator, other.fullname())
             args = []
         elif isinstance(other, clause.Clause):
-            string = '%s %s %s' % (self.fullname(), operator, other.text)
+            string = '##column## %s %s' % (operator, other.text)
             args = other.args
         else:
-            string = '%s %s %%s' % (self.fullname(), operator)
+            string = '##column## %s %%s' % (operator)
             args = [other]
         return self.make_filter(string, args)
 
@@ -109,8 +134,8 @@ class ColumnBase(object):
         return self._sql_operator(other, 'LIKE')
 
     def in_(self, possible_values):
-        percents = ['%s' for values in possible_values]
-        string = "%s IN (%s)" % (self.fullname(), ', '.join(percents))
+        percent_s = ['%s' for values in possible_values]
+        string = "##column## IN (%s)" % (', '.join(percent_s))
         return self.make_filter(string, possible_values)
 
     def validate(self, value):
@@ -165,7 +190,7 @@ class Subquery(ColumnBase):
         select.add_column(subquery, *self.select_args)
 
     def make_filter(self, string, args):
-        return clause.Having(string, args)
+        return ColumnHaving(self, string, args)
 
     def fullname(self):
         if self.table is not None:

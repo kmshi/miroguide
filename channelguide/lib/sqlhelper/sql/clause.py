@@ -5,7 +5,17 @@ class Clause(object):
             args = []
         self.args = args
 
+    def compile(self):
+        """Return a string and a set of format arguments that represents this
+        clause.
+
+        Subclasses may override this to provide more complex behaviour.
+        """
+
+        return self.text, self.args
+
     def __str__(self):
+        text, args = self.compile()
         return "%s ARGS: %r" % (self.text, self.args)
 
 class Value(Clause):
@@ -37,19 +47,12 @@ class Filter(Clause):
     """Base class for WHERE and HAVING clauses."""
 
     @classmethod
-    def _and_or_together(cls, terms, operator):
-        if len(terms) == 1:
-            return terms[0]
-        text, args = join_clauses(terms, ' %s ' % operator, conversion='(%s)')
-        return cls(text, args)
-
-    @classmethod
     def and_together(cls, terms):
-        return cls._and_or_together(terms, 'AND')
+        return cls._and_or_together('AND', terms)
 
     @classmethod
     def or_together(cls, terms):
-        return cls._and_or_together(terms, 'OR')
+        return cls._and_or_together('OR', terms)
 
     def __and__(self, other):
         return self.__class__.and_together((self, other))
@@ -61,9 +64,35 @@ class Where(Filter):
     """SQL WHERE clause."""
     clause_string = 'WHERE'
 
+    @classmethod
+    def _and_or_together(cls, operator, terms):
+        return WhereList(operator, terms)
+
 class Having(Filter):
     """SQL HAVING clause."""
     clause_string = 'HAVING'
+
+    @classmethod
+    def _and_or_together(cls, operator, terms):
+        return HavingList(operator, terms)
+
+class FilterListMixin(Where):
+    def __init__(self, operator, terms):
+        self.operator = operator
+        self.terms = terms
+
+    def compile(self):
+        if len(self.terms) == 1:
+            return self.terms[0].compile()
+        else:
+            return join_clauses(self.terms, ' %s ' % self.operator,
+                    conversion='(%s)')
+
+class WhereList(FilterListMixin, Where):
+    pass
+
+class HavingList(FilterListMixin, Having):
+    pass
 
 class OrderBy(Clause):
     """ORDER BY clause."""
@@ -76,8 +105,14 @@ class OrderBy(Clause):
 class Join(Clause):
     """SQL JOIN clause."""
     def __init__(self, table, on, type='INNER'):
-        self.text = "%s JOIN %s ON %s" % (type, table, on.text)
-        self.args = on.args
+        self.table = table
+        self.on = on
+        self.type = type
+
+    def compile(self):
+        on_text, on_args = self.on.compile()
+        text = "%s JOIN %s ON %s" % (self.type, self.table, on_text)
+        return text, on_args
 
 class MultiJoin(Join):
     def __init__(self, tables, on, type='INNER'):
@@ -99,14 +134,15 @@ class Set(Clause):
         self.args = [value]
 
 def join_clauses(clause_list, join_string, conversion=None):
+    compiled = [clause.compile() for clause in clause_list]
     if conversion is None:
-        parts = [c.text for c in clause_list]
+        parts = [c[0] for c in compiled]
     else:
-        parts = [conversion % c.text for c in clause_list]
-    text = join_string.join(parts)
-    args = []
-    for clause in clause_list:
-        args.extend(clause.args)
-    return text, args
+        parts = [conversion % c[0] for c in compiled]
+    joined_text = join_string.join(parts)
+    joined_args = []
+    for text, args in compiled:
+        joined_args.extend(args)
+    return joined_text, joined_args
 
-NOW = Clause("NOW()")
+NOW = Literal("NOW()")

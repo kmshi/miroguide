@@ -227,6 +227,23 @@ class QueryTest(TestCase):
         results = query.execute(self.cursor)
         self.assertEquals(len(results), 3)
 
+    def test_join_with_filter(self):
+        query = Bar.query().join('parent')
+        query.filter_join('parent', id=1)
+        correct_ids = []
+        for id, foo_id, name in self.bar_values:
+            if foo_id == 1:
+                correct_ids.append(id)
+        self.assertEquals(query.count(self.cursor), len(correct_ids))
+        returned_ids = [bar.id for bar in query.execute(self.cursor)]
+        self.assertSameSet(correct_ids, returned_ids)
+
+        query2 = Foo.query().join('bars', 'categories')
+        self.assertRaises(TypeError, query2.filter_join, 'bars',
+                Bar.c.name=='booya')
+        self.assertRaises(TypeError, query2.filter_join, 'categories',
+                Category.c.name=='catcat')
+
     def test_on_restore(self):
         def fake_on_restore(self):
             self.on_restore_called = True

@@ -33,6 +33,14 @@ class Selector(object):
         else:
             return getattr(self.columns, name_or_column)
 
+    def path_to_join(self, join_name):
+        path = []
+        selector = self
+        for component in join_name.split('.'):
+            selector = selector.joins[component]
+            path.append(selector)
+        return path
+
     def join(self, *relation_names):
         for name in relation_names:
             if '.' not in name:
@@ -99,6 +107,7 @@ class Query(TableSelector):
         TableSelector.__init__(self, table)
         self.wheres = []
         self.havings = []
+        self.filter_joins = []
         self._order_by = []
         self.desc = False
         self._limit = None
@@ -111,6 +120,29 @@ class Query(TableSelector):
             column = self.get_column(name)
             self._add_filter(column==value)
         return self
+
+    def filter_join(self, join_name, *filters, **attribute_filters):
+        join_path = self.path_to_join(join_name)
+        for join in join_path:
+            if type(join.relation) not in (relations.ManyToOne, 
+                    relations.OneToOne):
+                msg = 'can only filter many-to-one or one-to-one relations'
+                raise TypeError(msg)
+        self.extend_filter_joins(join_path)
+        join = join_path[-1]
+        for filter in filters:
+            for arg in filter.args:
+                filter.alias(join.table)
+                self._add_filter(filter)
+        for name, value in attribute_filters.items():
+            column = join.get_column(name)
+            self._add_filter(column==value)
+
+    def extend_filter_joins(self, join_path):
+        parent = self
+        for join in join_path:
+            self.filter_joins.append((parent, join))
+            parent = join
 
     def _add_filter(self, filter):
         if isinstance(filter, clause.Where):
@@ -144,7 +176,7 @@ class Query(TableSelector):
         if not self._need_subquery():
             self.columns.add_to_select(select)
             select.add_from(self.table)
-            self.add_filters(select)
+            self.add_filters_to_select(select)
             select.limit = self._limit
             select.offset = self._offset
         else:
@@ -155,9 +187,16 @@ class Query(TableSelector):
         self.add_joins(select)
         return select
 
-    def add_filters(self, select):
+    def add_filters_to_select(self, select):
         select.wheres.extend(self.wheres)
         select.havings.extend(self.havings)
+
+    def add_filter_joins_to_select(self, select):
+        already_joined = set()
+        for parent, join in self.filter_joins:
+            if join not in already_joined:
+                join.relation.add_joins(select, parent.table, join.table)
+            already_joined.add(join)
 
     def _need_subquery(self):
         """If we are selecting a one-to-many or many-to-many relation for this
@@ -183,7 +222,8 @@ class Query(TableSelector):
         subquery = sql.Select()
         self.columns.add_to_select(subquery)
         subquery.add_from(self.table)
-        self.add_filters(subquery)
+        self.add_filter_joins_to_select(subquery)
+        self.add_filters_to_select(subquery)
         subquery.order_by = self._order_by
         subquery.limit = self._limit
         subquery.offset = self._offset
@@ -213,7 +253,8 @@ class Query(TableSelector):
 
     def count(self, cursor):
         select = self.table.select_count()
-        self.add_filters(select)
+        self.add_filter_joins_to_select(select)
+        self.add_filters_to_select(select)
         return select.execute(cursor)[0][0]
 
     def __str__(self):

@@ -234,11 +234,12 @@ class StatementCompilation(object):
         self.args.extend(args)
 
     def add_clause(self, clause):
-        self.add_text(clause.text, *clause.args)
+        text, args = clause.compile()
+        self.add_text(text, *args)
 
     def add_clauses(self, clauses, with_newlines=True):
         for clause in clauses:
-            self.add_text(clause.text, *clause.args)
+            self.add_clause(clause)
             if with_newlines:
                 self.add_text("\n")
 
@@ -256,9 +257,9 @@ class StatementCompilation(object):
             combined = filters[0]
         else:
             combined = filter_class.and_together(filters)
-        self.parts.append('%s %s\n' % (filter_class.clause_string, 
-            combined.text))
-        self.args.extend(combined.args)
+        text, args = combined.compile()
+        self.parts.append('%s %s\n' % (filter_class.clause_string, text))
+        self.args.extend(args)
 
     def add_where_list(self, wheres):
         self.add_filter_list(clause.Where, wheres)
