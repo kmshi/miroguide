@@ -94,6 +94,8 @@ class QueryTest(TestCase):
         foos = Foo.query().join('bars').execute(self.cursor)
         for foo in foos:
             self.check_bars(foo)
+            for bar in foo.bars:
+                self.assertEquals(bar.parent, foo)
         self.checkFoos(foos, self.foo_values)
 
     def check_bar_parent(self, bar):
@@ -143,6 +145,7 @@ class QueryTest(TestCase):
             if foo.id in self.foo_extra_values:
                 self.assertEquals(foo.extra.extra_info,
                         self.foo_extra_values[foo.id])
+                self.assertEquals(foo.extra.foo, foo)
             else:
                 self.assertEquals(foo.extra, None)
         foo_extras = FooExtra.query().join("foo").execute(self.cursor)

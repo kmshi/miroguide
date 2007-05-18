@@ -29,6 +29,11 @@ class Relation(object):
         self.name = name
         self.table = table
         self.related_table = related_table
+        self.reflection = None
+
+    def set_reflection(self, other_relation):
+        self.reflection = other_relation
+        other_relation.reflection = self
 
     def add_joins(self, select, table, related_table):
         """Add joins to a Select object so that this relation's table is
@@ -111,18 +116,10 @@ class OneToOne(SimpleJoiner):
 
     def do_join(self, record, related_record):
         setattr(record, self.name, related_record)
+        if self.reflection is not None:
+            setattr(related_record, self.reflection.name, record)
 
-class NToManyMixin(object):
-    """Mixin for one-to-many and many-to-many relations."""
-
-    def init_record(self, record):
-        setattr(record, self.name, RelationList(self, record))
-
-    def do_join(self, record, related_record):
-        result_list = getattr(record, self.name)
-        result_list.records.append(related_record)
-
-class OneToMany(NToManyMixin, SimpleJoiner):
+class OneToMany(SimpleJoiner):
     def __init__(self, name, column):
         """Create a one-to-many relation
 
@@ -139,6 +136,16 @@ class OneToMany(NToManyMixin, SimpleJoiner):
         super(OneToMany, self).__init__(name, column.ref.table, column.table)
         self.column = column
 
+    def init_record(self, record):
+        setattr(record, self.name, RelationList(self, record))
+
+    def do_join(self, record, related_record):
+        result_list = getattr(record, self.name)
+        result_list.records.append(related_record)
+        # we might as well set the other side of the relation if we can
+        if self.reflection is not None:
+            setattr(related_record, self.reflection.name, record)
+
     def handle_list_add(self, cursor, parent_record, record):
         join_value = getattr(parent_record, self.column.ref.name)
         setattr(record, self.column.name, join_value)
@@ -153,7 +160,7 @@ class OneToMany(NToManyMixin, SimpleJoiner):
         delete.wheres.append(self.column==join_value)
         delete.execute(cursor)
 
-class ManyToMany(NToManyMixin, Relation):
+class ManyToMany(Relation):
     def __init__(self, name, foreign_key, relation_fk):
         """Create a many-to-many relation
 
@@ -213,6 +220,13 @@ class ManyToMany(NToManyMixin, Relation):
         subquery.add_where(self.relation_fk ==
                 related_table.get_column(self.relation_fk.ref.name))
         select.add_join(related_table, subquery.as_exists(), 'LEFT')
+
+    def init_record(self, record):
+        setattr(record, self.name, RelationList(self, record))
+
+    def do_join(self, record, related_record):
+        result_list = getattr(record, self.name)
+        result_list.records.append(related_record)
 
     def handle_list_add(self, cursor, parent_record, record):
         insert = Insert(self.join_table)

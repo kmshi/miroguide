@@ -141,7 +141,9 @@ class Table(object):
 
         self.relations[name] = ManyToOne(name, join_column)
         if backref is not None:
-            other_table.relations[backref] = OneToMany(backref, join_column)
+            reflection = OneToMany(backref, join_column)
+            other_table.relations[backref] = reflection
+            self.relations[name].set_reflection(reflection)
 
     def one_to_many(self, name, other_table, backref=None, join_column=None):
         """Add a one-to-many relation from this table to another table.
@@ -150,7 +152,14 @@ class Table(object):
         will be a column in the other table that references a column in this
         table.
         """
-        other_table.many_to_one(backref, self, backref=name)
+        if join_column is None:
+            join_column = other_table.find_foreign_key(self)
+
+        self.relations[name] = OneToMany(name, join_column)
+        if backref is not None:
+            reflection = ManyToOne(backref, join_column)
+            other_table.relations[backref] = reflection
+            self.relations[name].set_reflection(reflection)
 
     def many_to_many(self, name, other_table, join_table, backref=None):
         """Add a many-to-many relation from this table to another table.
@@ -173,8 +182,9 @@ class Table(object):
         self.relations[name] = ManyToMany(name, join_column,
                 other_join_column)
         if backref is not None:
-            other_table.relations[backref] = ManyToMany(backref,
-                    other_join_column, join_column)
+            reflection = ManyToMany(backref, other_join_column, join_column)
+            other_table.relations[backref] = reflection
+            self.relations[name].set_reflection(reflection)
 
     def one_to_one(self, name, other_table, backref=None, join_column=None):
         """Add a one-to-one relation from this table to another table.
@@ -207,8 +217,9 @@ class Table(object):
                     search_reverse=True)
         self.relations[name] = OneToOne(name, join_column, other_table)
         if backref is not None:
-            other_table.relations[backref] = OneToOne(backref, join_column,
-                    self)
+            reflection = OneToOne(backref, join_column, self)
+            other_table.relations[backref] = reflection
+            self.relations[name].set_reflection(reflection)
 
 class AliasedTable(Table):
     """Table that's aliased to a different name (SELECT * FROM foo as bar)."""
