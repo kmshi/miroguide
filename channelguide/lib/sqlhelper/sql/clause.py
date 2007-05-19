@@ -130,3 +130,4 @@ def join_clauses(clause_list, join_string, conversion=None):
 
 NOW = Literal("NOW()")
 COUNT = Literal("COUNT(*)")
+RAND = Literal("RAND()")
