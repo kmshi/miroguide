@@ -61,6 +61,7 @@ class TestCase(unittest.TestCase):
 
     def assertSameSet(self, iterable1, iterable2):
         self.assertEquals(set(iterable1), set(iterable2))
+        self.assertEquals(len(iterable1), len(iterable2))
 
     def resume_logging(self):
         logging.getLogger().removeFilter(self.log_filter)
@@ -241,6 +242,7 @@ category_map_table.many_to_one('category', category_table)
 
 class Foo(orm.Record): 
     table = foo_table
+    def __str__(self): return self.name
     @classmethod
     def query_with_category_count(cls):
         return cls.query().load('category_count')
@@ -254,8 +256,10 @@ class FooExtra(orm.Record):
     table = foo_extra_table
 class Bar(orm.Record): 
     table = bar_table
+    def __str__(self): return self.name
 class Category(orm.Record): 
     table = category_table
+    def __str__(self): return self.name
 class CategoryMap(orm.Record): 
     table = category_map_table
 class Types(orm.Record):

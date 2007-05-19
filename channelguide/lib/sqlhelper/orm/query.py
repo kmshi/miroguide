@@ -234,6 +234,7 @@ class ResultHandler(object):
         self.records = []
         self.children = [ResultHandler(join) for join in selector.joins]
         self.primary_key_indicies = []
+        self.joins_done = set()
         for i, column in izip(count(), selector.columns):
             if column.primary_key:
                 self.primary_key_indicies.append(i)
@@ -264,8 +265,9 @@ class ResultHandler(object):
             self.record_map[pk] = record
         for child_handler in self.children:
             relation = child_handler.handle_data(row_iter)
-            if relation is not None:
+            if relation is not None and (record, relation) not in self.joins_done:
                 child_handler.selector.relation.do_join(record, relation)
+                self.joins_done.add((record, relation))
         return record
 
     def add_records(self, records):
