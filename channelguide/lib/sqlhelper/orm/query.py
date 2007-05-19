@@ -146,7 +146,7 @@ class Query(TableSelector, JoinMixin):
         try:
             order_by = self.get_column(order_by).fullname()
         except AttributeError:
-            order_by = clause.Literal(order_by)
+            pass
         self._order_by.append(clause.OrderBy(order_by, desc))
         return self
 
