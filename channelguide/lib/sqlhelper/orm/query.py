@@ -25,46 +25,33 @@ class Selector(object):
     def __init__(self, table):
         self.table = table
         self.c = self.columns = columns.ColumnStore()
-        self.joins = {}
+        self.joins = JoinStore()
 
     def get_column(self, name_or_column):
-        if isinstance(name_or_column, columns.ColumnBase):
+        if isinstance(name_or_column, columns.Column):
             return name_or_column
         else:
-            return getattr(self.columns, name_or_column)
+            return self.columns.get(name_or_column)
 
     def path_to_join(self, join_name):
         path = []
         selector = self
         for component in join_name.split('.'):
-            selector = selector.joins[component]
+            selector = selector.joins.get(component)
             path.append(selector)
         return path
 
-    def join(self, *relation_names):
-        for name in relation_names:
-            if '.' not in name:
-                alias = self.make_join_alias(name)
-                join = Join(self.table.relations[name], alias)
-                self.joins[name] = join
-            else:
-                name, rest = name.split('.', 1)
-                self.joins[name].join(rest)
-        return self
-
-    def make_join_alias(self, name):
-        return 'r_%s' % name
+    def find_join(self, name):
+        retval = self
+        for component in name.split('.'):
+            retval = retval.joins.get(component)
+        return retval
 
     def join_iterator(self):
-        for join in self.joins.values():
+        for join in self.joins:
             yield self, join
             for parent, subjoin in join.join_iterator():
                 yield parent, subjoin
-
-    def add_joins(self, select):
-        for parent, join in self.join_iterator():
-            join.columns.add_to_select(select)
-            join.relation.add_joins(select, parent.table, join.table)
 
     def make_record(self, rowid, data):
         """Create a record from the data that was consumed."""
@@ -75,43 +62,9 @@ class TableSelector(Selector):
 
     def __init__(self, table):
         Selector.__init__(self, table)
-        self.columns.add_columns(table.regular_columns)
-
-    def add_column(self, column):
-        self.columns.add_column(column)
-        return self
-
-    def add_columns(self, *columns):
-        self.columns.add_columns(columns)
-        return self
-
-    def load(self, *column_names):
-        for name in column_names:
-            self.add_column(getattr(self.table.c, name))
-        return self
-
-    def make_record(self, rowid, data):
-        record_class = self.table.record_class
-        record = record_class.__new__(record_class)
-        record.rowid = rowid
-        for column, obj in izip(self.columns, data):
-            setattr(record, column.name, column.convert_from_db(obj))
-        for join in self.joins.values():
-            join.relation.init_record(record)
-        record.on_restore()
-        return record
-
-class Query(TableSelector):
-    """Handles selecting Records from a table"""
-    def __init__(self, table):
-        TableSelector.__init__(self, table)
+        self.columns.extend(table.regular_columns)
         self.wheres = []
         self.havings = []
-        self.filter_joins = []
-        self._order_by = []
-        self.desc = False
-        self._limit = None
-        self._offset = None
 
     def filter(self, *filters, **attribute_filters):
         for filter in filters:
@@ -121,29 +74,6 @@ class Query(TableSelector):
             self._add_filter(column==value)
         return self
 
-    def filter_join(self, join_name, *filters, **attribute_filters):
-        join_path = self.path_to_join(join_name)
-        for join in join_path:
-            if type(join.relation) not in (relations.ManyToOne, 
-                    relations.OneToOne):
-                msg = 'can only filter many-to-one or one-to-one relations'
-                raise TypeError(msg)
-        self.extend_filter_joins(join_path)
-        join = join_path[-1]
-        for filter in filters:
-            for arg in filter.args:
-                filter.alias(join.table)
-                self._add_filter(filter)
-        for name, value in attribute_filters.items():
-            column = join.get_column(name)
-            self._add_filter(column==value)
-
-    def extend_filter_joins(self, join_path):
-        parent = self
-        for join in join_path:
-            self.filter_joins.append((parent, join))
-            parent = join
-
     def _add_filter(self, filter):
         if isinstance(filter, clause.Where):
             self.wheres.append(filter)
@@ -152,6 +82,63 @@ class Query(TableSelector):
         else:
             raise TypeError("Wrong type for filter: %s" % type(filter))
 
+    def add_filters_to_select(self, select):
+        select.wheres.extend(self.wheres)
+        select.havings.extend(self.havings)
+
+    def add_column(self, column):
+        self.columns.add(column)
+        return self
+
+    def add_columns(self, *columns):
+        self.columns.extend(columns)
+        return self
+
+    def load(self, *column_names):
+        for name in column_names:
+            self.add_column(self.table.columns.get(name))
+        return self
+
+    def make_record(self, rowid, data):
+        record_class = self.table.record_class
+        record = record_class.__new__(record_class)
+        record.rowid = rowid
+        for column, obj in izip(self.columns, data):
+            setattr(record, column.name, column.convert_from_db(obj))
+        for join in self.joins:
+            join.relation.init_record(record)
+        record.on_restore()
+        return record
+
+class JoinMixin(object):
+    def join(self, *relation_names):
+        for name in relation_names:
+            if '.' not in name:
+                selector = self
+                relation_name = name
+            else:
+                join_name, relation_name = name.rsplit('.', 1)
+                selector = self.find_join(join_name)
+            alias = 'r_%s' % name.replace('.', '_')
+            join = Join(selector.table.relations[relation_name], alias)
+            selector.joins.add(join)
+        return self
+
+    def add_joins_to_select(self, select):
+        for parent, join in self.join_iterator():
+            join.columns.add_to_select(select)
+            join.relation.add_joins(select, parent.table, join.table)
+            join.add_filters_to_select(select)
+
+class Query(TableSelector, JoinMixin):
+    """Handles selecting Records from a table"""
+    def __init__(self, table):
+        TableSelector.__init__(self, table)
+        self._order_by = []
+        self.desc = False
+        self._limit = None
+        self._offset = None
+
     def order_by(self, order_by, desc=False):
         if order_by is None:
             self._order_by = []
@@ -159,7 +146,7 @@ class Query(TableSelector):
         try:
             order_by = self.get_column(order_by).fullname()
         except AttributeError:
-            pass
+            order_by = clause.Literal(order_by)
         self._order_by.append(clause.OrderBy(order_by, desc))
         return self
 
@@ -173,61 +160,14 @@ class Query(TableSelector):
 
     def make_select(self):
         select = sql.Select()
-        if not self._need_subquery():
-            self.columns.add_to_select(select)
-            select.add_from(self.table)
-            self.add_filters_to_select(select)
-            select.limit = self._limit
-            select.offset = self._offset
-        else:
-            subquery = self._make_subquery()
-            select.froms.append(subquery.as_subquery(self.table.name))
-            select.add_column('%s.*' % self.table.name)
+        self.columns.add_to_select(select)
+        select.add_from(self.table.name)
+        self.add_filters_to_select(select)
+        select.limit = self._limit
+        select.offset = self._offset
         select.order_by = self._order_by
-        self.add_joins(select)
+        self.add_joins_to_select(select)
         return select
-
-    def add_filters_to_select(self, select):
-        select.wheres.extend(self.wheres)
-        select.havings.extend(self.havings)
-
-    def add_filter_joins_to_select(self, select):
-        already_joined = set()
-        for parent, join in self.filter_joins:
-            if join not in already_joined:
-                join.relation.add_joins(select, parent.table, join.table)
-            already_joined.add(join)
-
-    def _need_subquery(self):
-        """If we are selecting a one-to-many or many-to-many relation for this
-        select, then we will get back more rows than records that are selected
-        and using LIMIT or OFFSET in a naive won't work.
-
-        The trick is to use a subquery to figure out which records to select
-        and label that subquery with the same name as our table.  For example:
-
-        SELECT foo.id, foo.name
-        FROM (SELECT foo.id, foo.name FROM foo LIMIT 5) AS foo
-        LEFT JOIN bar ON bar.foo_id = foo.id
-        """
-        if not self._limit and not self._offset:
-            return False
-        for parent, join in self.join_iterator():
-            klass = type(join.relation)
-            if klass in (relations.OneToMany, relations.ManyToMany):
-                return True
-        return False
-
-    def _make_subquery(self):
-        subquery = sql.Select()
-        self.columns.add_to_select(subquery)
-        subquery.add_from(self.table)
-        self.add_filter_joins_to_select(subquery)
-        self.add_filters_to_select(subquery)
-        subquery.order_by = self._order_by
-        subquery.limit = self._limit
-        subquery.offset = self._offset
-        return subquery
 
     def execute(self, cursor, select=None):
         if select is None:
@@ -252,10 +192,10 @@ class Query(TableSelector):
             raise TooManyResultsError("Too many records returned")
 
     def count(self, cursor):
-        select = self.table.select_count()
-        self.add_filter_joins_to_select(select)
-        self.add_filters_to_select(select)
-        return select.execute(cursor)[0][0]
+        select = self.make_select()
+        select.order_by = None
+        select.columns = [clause.COUNT]
+        return select.execute_scalar(cursor)
 
     def __str__(self):
         return str(self.make_select())
@@ -266,8 +206,24 @@ class Join(TableSelector):
         aliased = relation.related_table.alias(alias_name)
         TableSelector.__init__(self, aliased)
 
-    def make_join_alias(self, name):
-        return 'r_%s_%s' % (self.relation.name, name)
+class JoinStore(object):
+    """Stores joins.  Joins can be accessed as a list or using attriute
+    names.
+    """
+    def __init__(self):
+        self.joins = []
+    
+    def add(self, join):
+        self.joins.append(join)
+        setattr(self, join.relation.name, join)
+
+    def get(self, name):
+        return getattr(self, name)
+
+    def __iter__(self):
+        return iter(self.joins)
+    def __len__(self):
+        return len(self.joins)
 
 class ResultHandler(object):
     """Handles results as they come back from the database."""
@@ -276,8 +232,7 @@ class ResultHandler(object):
         self.selector = selector
         self.record_map = {}
         self.records = []
-        self.children = [ResultHandler(join) for join in
-                selector.joins.values()]
+        self.children = [ResultHandler(join) for join in selector.joins]
         self.primary_key_indicies = []
         for i, column in izip(count(), selector.columns):
             if column.primary_key:
@@ -371,19 +326,19 @@ class ResultSet(object):
     def __repr__(self):
         return '%s: %s' % (self.__class__.__name__, repr(self.records))
 
-class ResultJoiner(Selector):
+class ResultJoiner(Selector, JoinMixin):
     """Selector that joins a ResultSet to its relations."""
 
     def __init__(self, result_set):
         Selector.__init__(self, result_set.table)
         self.result_set = result_set
-        self.columns.add_columns(self.table.primary_keys)
+        self.columns.extend(self.table.primary_keys)
 
     def make_select(self):
         select = sql.Select()
         select.add_from(self.table)
         self.columns.add_to_select(select)
-        self.add_joins(select)
+        self.add_joins_to_select(select)
         if len(self.result_set.table.primary_keys) == 1:
             pk = self.result_set.table.primary_keys[0]
             where = pk.in_([r.rowid[0] for r in self.result_set])
@@ -402,7 +357,7 @@ class ResultJoiner(Selector):
         result_handler = ResultHandler(self)
         result_handler.add_records(self.result_set)
         for record in result_handler.records:
-            for join in self.joins.values():
+            for join in self.joins:
                 join.relation.init_record(record)
         for row in self.make_select().execute(cursor):
             row_iter = iter(row)

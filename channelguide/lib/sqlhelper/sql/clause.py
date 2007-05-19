@@ -47,6 +47,15 @@ class Filter(Clause):
     """Base class for WHERE and HAVING clauses."""
 
     @classmethod
+    def _and_or_together(cls, operator, terms):
+        if len(terms) == 1:
+            return terms[0]
+        else:
+            text, args = join_clauses(terms, ' %s ' % operator,
+                    conversion='(%s)')
+            return cls(text, args)
+
+    @classmethod
     def and_together(cls, terms):
         return cls._and_or_together('AND', terms)
 
@@ -64,35 +73,9 @@ class Where(Filter):
     """SQL WHERE clause."""
     clause_string = 'WHERE'
 
-    @classmethod
-    def _and_or_together(cls, operator, terms):
-        return WhereList(operator, terms)
-
 class Having(Filter):
     """SQL HAVING clause."""
     clause_string = 'HAVING'
-
-    @classmethod
-    def _and_or_together(cls, operator, terms):
-        return HavingList(operator, terms)
-
-class FilterListMixin(Where):
-    def __init__(self, operator, terms):
-        self.operator = operator
-        self.terms = terms
-
-    def compile(self):
-        if len(self.terms) == 1:
-            return self.terms[0].compile()
-        else:
-            return join_clauses(self.terms, ' %s ' % self.operator,
-                    conversion='(%s)')
-
-class WhereList(FilterListMixin, Where):
-    pass
-
-class HavingList(FilterListMixin, Having):
-    pass
 
 class OrderBy(Clause):
     """ORDER BY clause."""
@@ -146,3 +129,4 @@ def join_clauses(clause_list, join_string, conversion=None):
     return joined_text, joined_args
 
 NOW = Literal("NOW()")
+COUNT = Literal("COUNT(*)")

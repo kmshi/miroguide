@@ -62,12 +62,12 @@ class SimpleJoiner(Relation):
 
     def add_joins(self, select, table, related_table):
         if self.column.table is self.table:
-            fk = table.get_column(self.column.name)
-            ref = related_table.get_column(self.column.ref.name)
-            select.add_join(related_table, fk==ref)
+            fk = table.columns.get(self.column.name)
+            ref = related_table.columns.get(self.column.ref.name)
+            select.add_join(related_table, fk==ref, 'LEFT')
         else:
-            fk = related_table.get_column(self.column.name)
-            ref = table.get_column(self.column.ref.name)
+            fk = related_table.columns.get(self.column.name)
+            ref = table.columns.get(self.column.ref.name)
             select.add_join(related_table, fk==ref, 'LEFT')
 
 class ManyToOne(SimpleJoiner):
@@ -204,10 +204,10 @@ class ManyToMany(Relation):
     def _add_joins_simple(self, select, table, related_table):
         join_table_alias = 'j_%s' % self.name
         join_table = self.join_table.alias(join_table_alias)
-        where1 = (join_table.get_column(self.foreign_key.name) ==
-                table.get_column(self.foreign_key.ref.name))
-        where2 = (join_table.get_column(self.relation_fk.name) ==
-                related_table.get_column(self.relation_fk.ref.name))
+        where1 = (join_table.columns.get(self.foreign_key.name) ==
+                table.columns.get(self.foreign_key.ref.name))
+        where2 = (join_table.columns.get(self.relation_fk.name) ==
+                related_table.columns.get(self.relation_fk.ref.name))
         select.add_join((join_table, related_table), where1 & where2, 'LEFT')
 
     def _add_joins_with_exists(self, select, table, related_table):
@@ -216,9 +216,9 @@ class ManyToMany(Relation):
         # no need to alias join_table, since it's only used in the subquery
         subquery.add_from(self.join_table.name)
         subquery.add_where(self.foreign_key ==
-                table.get_column(self.foreign_key.ref.name))
+                table.columns.get(self.foreign_key.ref.name))
         subquery.add_where(self.relation_fk ==
-                related_table.get_column(self.relation_fk.ref.name))
+                related_table.columns.get(self.relation_fk.ref.name))
         select.add_join(related_table, subquery.as_exists(), 'LEFT')
 
     def init_record(self, record):

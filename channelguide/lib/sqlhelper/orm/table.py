@@ -33,7 +33,7 @@ class Table(object):
         self.record_class = None
 
     def add_column(self, column):
-        self.columns.add_column(column)
+        self.columns.add(column)
         column.table = self
         if column.primary_key:
             self.primary_keys.append(column)
@@ -68,13 +68,13 @@ class Table(object):
         s = Select()
         for column in self.regular_columns:
             column.add_to_select(s)
-        s.add_from(self)
+        s.add_from(self.name)
         return s
 
     def select_count(self):
         s = Select()
         s.add_column("COUNT(*)")
-        s.add_from(self)
+        s.add_from(self.name)
         return s
 
     def insert(self):

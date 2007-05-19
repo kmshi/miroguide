@@ -1,2 +1,2 @@
 from exceptions import SQLError, NotFoundError, TooManyResultsError
-from sql.clause import NOW
+from sql.clause import NOW, COUNT
