@@ -80,7 +80,7 @@ class TableSelector(Selector):
         elif isinstance(filter, clause.Having):
             self.havings.append(filter)
         else:
-            raise TypeError("Wrong type for filter: %s" % type(filter))
+            self.wheres.append(clause.Where(filter))
 
     def add_filters_to_select(self, select):
         select.wheres.extend(self.wheres)

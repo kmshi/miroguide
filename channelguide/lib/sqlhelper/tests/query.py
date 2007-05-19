@@ -235,6 +235,13 @@ class QueryTest(TestCase):
         query2.filter(query2.joins.parent.c.id == 1)
         self.assertEquals(str(query), str(query2))
 
+    def test_join_with_subquery(self):
+        query = Bar.query().join('parent')
+        query.joins.parent.load('category_count')
+        for bar in query.execute(self.cursor):
+            categories = self.foo_to_categories.get(bar.parent.id, [])
+            self.assertEquals(bar.parent.category_count, len(categories))
+
     def test_on_restore(self):
         def fake_on_restore(self):
             self.on_restore_called = True

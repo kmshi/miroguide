@@ -199,7 +199,9 @@ foo_table = orm.Table('foo',
         columns.Subquery('category_count', """\
 SELECT COUNT(*) 
 FROM category_map AS map 
-WHERE map.foo_id=foo.id""", optional=True))
+WHERE map.foo_id=#table#.id"""),
+        columns.Subquery('bar_count', """\
+SELECT COUNT(*) FROM bar WHERE bar.foo_id=#table#.id"""))
 
 foo_extra_table = orm.Table('foo_extra', 
         columns.Int('id', primary_key=True, fk=foo_table.c.id),
@@ -239,18 +241,15 @@ category_map_table.many_to_one('category', category_table)
 
 class Foo(orm.Record): 
     table = foo_table
-    bar_count_column = columns.Subquery('bar_count', """\
-SELECT COUNT(*) FROM bar WHERE bar.foo_id=foo.id""")
     @classmethod
     def query_with_category_count(cls):
         return cls.query().load('category_count')
     @classmethod
     def query_with_bar_count(cls):
-        return cls.query().add_column(cls.bar_count_column)
+        return cls.query().load('bar_count')
     @classmethod
     def query_with_counts(cls):
-        q = cls.query().load('category_count')
-        return q.add_column(cls.bar_count_column)
+        return cls.query().load('category_count', 'bar_count')
 class FooExtra(orm.Record): 
     table = foo_extra_table
 class Bar(orm.Record): 

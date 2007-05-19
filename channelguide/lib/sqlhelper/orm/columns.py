@@ -157,18 +157,30 @@ class Boolean(Column):
         return bool(data)
 
 class Subquery(Column):
-    """Column that represents a SQL scalar subselect."""
-    def __init__(self, name, select, *args, **kwargs):
+    """Column that represents a SQL scalar subselect.
+
+    Its argument should be a the SELECT string, but with the table replaced
+    with "#table#".  e.g.
+
+    Subquery('bar_count', 
+             'SELECT COUNT(*) from bar where bar.foo_id=#table#.id')
+
+    Replacing the table name with '#table#' allows handling table aliases
+    correctly.
+    """
+
+    def __init__(self, name, sql, *args, **kwargs):
+        if 'optional' not in kwargs:
+            kwargs['optional'] = True
         Column.__init__(self, name, *args, **kwargs)
-        if isinstance(select, str):
-            self.select_text = select
-            self.select_args = []
-        else:
-            self.select_text, self.select_args = select.compile()
+        self.sql = sql
+
+    def column_expression(self):
+        real_sql = self.sql.replace('#table#', self.table.name)
+        return '(%s) AS %s' % (real_sql, self.fullname())
 
     def add_to_select(self, select):
-        subquery = '(%s) AS %s' % (self.select_text, self.fullname())
-        select.add_column(subquery, *self.select_args)
+        select.add_column(self.column_expression())
 
     def make_filter(self, string, args):
         return clause.Having(string, args)
@@ -180,4 +192,4 @@ class Subquery(Column):
             return self.name
 
     def __str__(self):
-        return str(self.subquery)
+        return self.column_expression()
