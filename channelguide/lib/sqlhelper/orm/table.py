@@ -16,7 +16,7 @@ from copy import copy
 
 from sqlhelper.sql import clause, Select, Insert, Delete, Update
 from relations import OneToMany, ManyToOne, ManyToMany, OneToOne
-from columns import ColumnStore, Subquery
+from columns import ColumnStore, AbstractColumn
 
 class Table(object):
     def __init__(self, name, *columns):
@@ -59,7 +59,7 @@ class Table(object):
         return getattr(self.columns, name)
 
     def concrete_columns(self):
-        return [c for c in self.columns if not isinstance(c, Subquery)]
+        return [c for c in self.columns if not isinstance(c, AbstractColumn)]
 
     def alias(self, name):
         return AliasedTable(self, name)

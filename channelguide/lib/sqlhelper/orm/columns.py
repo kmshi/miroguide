@@ -156,7 +156,12 @@ class Boolean(Column):
         """Convert data coming from MySQL."""
         return bool(data)
 
-class Subquery(Column):
+class AbstractColumn(Column):
+    """Column that doesn't correspond to a column in the database.  This is
+    used for things like subqueries, MySQL MATCH columns, etc.
+    """
+
+class Subquery(AbstractColumn):
     """Column that represents a SQL scalar subselect.
 
     Its argument should be a the SELECT string, but with the table replaced
