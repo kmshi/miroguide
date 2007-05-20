@@ -16,7 +16,7 @@ from copy import copy
 
 from sqlhelper.sql import clause, Select, Insert, Delete, Update
 from relations import OneToMany, ManyToOne, ManyToMany, OneToOne
-from columns import ColumnStore, AbstractColumn
+from columns import ColumnStore, AbstractColumn, Subquery
 
 class Table(object):
     def __init__(self, name, *columns):
