@@ -250,13 +250,19 @@ class ResultHandler(object):
 
     def make_results(self):
         result_set = ResultSet(self.selector.table, self.records)
-        self.fill_in_results(result_set)
+        self.add_joined_results(result_set)
         return result_set
 
-    def fill_in_results(self, result_set):
-        for child_handler in self.children:
-            name = child_handler.selector.relation.name
-            result_set.joins[name] = child_handler.make_results()
+    def add_joined_results(self, result_set, path=None):
+        if path is None:
+            path = []
+        for child in self.children:
+            path.append(child.selector.relation.name)
+            name = '.'.join(path)
+            child_results = ResultSet(child.selector.table, child.records)
+            result_set.joins[name] = child_results
+            child.add_joined_results(result_set, path)
+            path.pop()
 
 class ResultSet(object):
     """The results of a Query."""
@@ -337,7 +343,7 @@ class ResultJoiner(Selector, Joiner):
         for row in self.make_select().execute(cursor):
             row_iter = iter(row)
             result_handler.handle_data(row_iter)
-        result_handler.fill_in_results(self.result_set)
+        result_handler.add_joined_results(self.result_set)
 
     def __str__(self):
         return str(self.make_select())
