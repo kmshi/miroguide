@@ -223,7 +223,7 @@ class QueryTest(TestCase):
 
     def test_join_with_filter(self):
         query = Bar.query().join('parent')
-        query.joins.parent.filter(id=1)
+        query.joins['parent'].filter(id=1)
         correct_ids = []
         for id, foo_id, name in self.bar_values:
             if foo_id == 1:
@@ -232,12 +232,12 @@ class QueryTest(TestCase):
         returned_ids = [bar.id for bar in query.execute(self.cursor)]
         self.assertSameSet(correct_ids, returned_ids)
         query2 = Bar.query().join('parent')
-        query2.filter(query2.joins.parent.c.id == 1)
+        query2.filter(query2.joins['parent'].c.id == 1)
         self.assertEquals(str(query), str(query2))
 
     def test_join_with_subquery(self):
         query = Bar.query().join('parent')
-        query.joins.parent.load('category_count')
+        query.joins['parent'].load('category_count')
         for bar in query.execute(self.cursor):
             categories = self.foo_to_categories.get(bar.parent.id, [])
             self.assertEquals(bar.parent.category_count, len(categories))

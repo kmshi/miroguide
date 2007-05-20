@@ -23,9 +23,10 @@ def null_primary_key(primary_key_values):
 class Selector(object):
     """Base class for Query, Join and ResultJoiner."""
     def __init__(self, table):
+        super(Selector, self).__init__()
         self.table = table
         self.c = self.columns = columns.ColumnStore()
-        self.joins = JoinStore()
+        self.join_list = []
 
     def get_column(self, name_or_column):
         if isinstance(name_or_column, columns.Column):
@@ -33,22 +34,8 @@ class Selector(object):
         else:
             return self.columns.get(name_or_column)
 
-    def path_to_join(self, join_name):
-        path = []
-        selector = self
-        for component in join_name.split('.'):
-            selector = selector.joins.get(component)
-            path.append(selector)
-        return path
-
-    def find_join(self, name):
-        retval = self
-        for component in name.split('.'):
-            retval = retval.joins.get(component)
-        return retval
-
     def join_iterator(self):
-        for join in self.joins:
+        for join in self.join_list:
             yield self, join
             for parent, subjoin in join.join_iterator():
                 yield parent, subjoin
@@ -61,7 +48,7 @@ class TableSelector(Selector):
     """Selector that selects an entire table."""
 
     def __init__(self, table):
-        Selector.__init__(self, table)
+        super(TableSelector, self).__init__(table)
         self.columns.extend(table.regular_columns)
         self.wheres = []
         self.havings = []
@@ -105,12 +92,16 @@ class TableSelector(Selector):
         record.rowid = rowid
         for column, obj in izip(self.columns, data):
             setattr(record, column.name, column.convert_from_db(obj))
-        for join in self.joins:
+        for join in self.join_list:
             join.relation.init_record(record)
         record.on_restore()
         return record
 
-class JoinMixin(object):
+class Joiner(object):
+    def __init__(self):
+        super(Joiner, self).__init__()
+        self.joins = {}
+
     def join(self, *relation_names):
         for name in relation_names:
             if '.' not in name:
@@ -118,10 +109,11 @@ class JoinMixin(object):
                 relation_name = name
             else:
                 join_name, relation_name = name.rsplit('.', 1)
-                selector = self.find_join(join_name)
+                selector = self.joins[join_name]
             alias = 'r_%s' % name.replace('.', '_')
             join = Join(selector.table.relations[relation_name], alias)
-            selector.joins.add(join)
+            selector.join_list.append(join)
+            self.joins[name] = join
         return self
 
     def add_joins_to_select(self, select):
@@ -130,10 +122,10 @@ class JoinMixin(object):
             join.relation.add_joins(select, parent.table, join.table)
             join.add_filters_to_select(select)
 
-class Query(TableSelector, JoinMixin):
+class Query(TableSelector, Joiner):
     """Handles selecting Records from a table"""
     def __init__(self, table):
-        TableSelector.__init__(self, table)
+        super(Query, self).__init__(table)
         self._order_by = []
         self.desc = False
         self._limit = None
@@ -204,26 +196,7 @@ class Join(TableSelector):
     def __init__(self, relation, alias_name):
         self.relation = relation
         aliased = relation.related_table.alias(alias_name)
-        TableSelector.__init__(self, aliased)
-
-class JoinStore(object):
-    """Stores joins.  Joins can be accessed as a list or using attriute
-    names.
-    """
-    def __init__(self):
-        self.joins = []
-    
-    def add(self, join):
-        self.joins.append(join)
-        setattr(self, join.relation.name, join)
-
-    def get(self, name):
-        return getattr(self, name)
-
-    def __iter__(self):
-        return iter(self.joins)
-    def __len__(self):
-        return len(self.joins)
+        super(Join, self).__init__(aliased)
 
 class ResultHandler(object):
     """Handles results as they come back from the database."""
@@ -232,7 +205,7 @@ class ResultHandler(object):
         self.selector = selector
         self.record_map = {}
         self.records = []
-        self.children = [ResultHandler(join) for join in selector.joins]
+        self.children = [ResultHandler(join) for join in selector.join_list]
         self.primary_key_indicies = []
         self.joins_done = set()
         for i, column in izip(count(), selector.columns):
@@ -328,11 +301,11 @@ class ResultSet(object):
     def __repr__(self):
         return '%s: %s' % (self.__class__.__name__, repr(self.records))
 
-class ResultJoiner(Selector, JoinMixin):
+class ResultJoiner(Selector, Joiner):
     """Selector that joins a ResultSet to its relations."""
 
     def __init__(self, result_set):
-        Selector.__init__(self, result_set.table)
+        super(ResultJoiner, self).__init__(result_set.table)
         self.result_set = result_set
         self.columns.extend(self.table.primary_keys)
 
@@ -359,7 +332,7 @@ class ResultJoiner(Selector, JoinMixin):
         result_handler = ResultHandler(self)
         result_handler.add_records(self.result_set)
         for record in result_handler.records:
-            for join in self.joins:
+            for join in self.join_list:
                 join.relation.init_record(record)
         for row in self.make_select().execute(cursor):
             row_iter = iter(row)
