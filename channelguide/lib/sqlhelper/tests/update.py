@@ -55,6 +55,17 @@ class UpdateTest(TestCase):
         results = Types.query().execute(self.connection)
         self.assertEquals(len(results), 0)
 
+    def test_delete_then_save(self):
+        foo = Foo()
+        foo.id = 100
+        foo.name = 'bingo'
+        foo.save(self.connection)
+        foo.delete(self.connection)
+        self.assert_(not foo.exists_in_db())
+        foo.save(self.connection)
+        f2 = Foo.get(self.connection, 100)
+        self.assertEquals(f2.name, 'bingo')
+
 class AutoAssignmentTest(TestCase):
     def test_default(self):
         type = Types()

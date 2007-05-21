@@ -140,6 +140,7 @@ class Record(object):
         delete = sql.Delete(self.table)
         delete.wheres.append(self.rowid_where())
         delete.execute(connection)
+        del self.rowid
 
     def delete_if_exists(self, connection):
         if self.exists_in_db():
