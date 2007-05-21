@@ -99,9 +99,15 @@ class Column(object):
         return self.make_filter(string, args)
 
     def __eq__(self, other):
-        return self._sql_operator(other, '=')
+        if other is not None:
+            return self._sql_operator(other, '=')
+        else:
+            return self._sql_operator(other, 'IS')
     def __ne__(self, other):
-        return self._sql_operator(other, '!=')
+        if other is not None:
+            return self._sql_operator(other, '!=')
+        else:
+            return self._sql_operator(other, 'IS NOT')
     def __gt__(self, other):
         return self._sql_operator(other, '>')
     def __lt__(self, other):

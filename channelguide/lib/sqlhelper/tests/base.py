@@ -148,7 +148,9 @@ PRIMARY KEY (category_id, foo_id, other_column)
                 "VALUES (2, 'false', '2005-08-02 15:00:25', 0, NULL)")
         self.connection.execute("INSERT INTO "
                 "types(id, string, date, boolean, null_ok) "
-                "VALUES (1, 'true', '2005-08-02 15:00:25', 1, NULL)")
+                "VALUES (1, 'true', '2005-08-02 15:00:25', 1, 'abc')")
+        self.null_type_ids = [2]
+        self.nonnull_type_ids = [1]
 
     def populate_bar(self):
         self.bar_values = [ (1, 1, 'cat'), (2, 1, 'dog'), (3, 2, 'tiger'),

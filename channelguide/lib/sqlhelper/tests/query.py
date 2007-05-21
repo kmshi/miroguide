@@ -21,7 +21,10 @@ class QueryTest(TestCase):
             self.assertEquals(type(obj.string), str)
             self.assertEquals(type(obj.date), datetime.datetime)
             self.assertEquals(type(obj.boolean), bool)
-            self.assertEquals(obj.null_ok, None)
+            if obj.id in self.null_type_ids:
+                self.assertEquals(obj.null_ok, None)
+            else:
+                self.assertEquals(type(obj.null_ok), str)
 
     def test_boolean_convert(self):
         def get_by_name(name):
@@ -255,6 +258,15 @@ class QueryTest(TestCase):
         categories[0].foos.join('bars').execute(self.connection)
         for foo in categories[0].foos:
             self.check_bars(foo)
+
+    def test_select_null(self):
+        query = Types.query(null_ok=None)
+        result_ids = [t.id for t in query.execute(self.connection)]
+        self.assertEquals(result_ids, self.null_type_ids)
+
+        query = Types.query(Types.c.null_ok != None)
+        result_ids = [t.id for t in query.execute(self.connection)]
+        self.assertEquals(result_ids, self.nonnull_type_ids)
 
     def test_on_restore(self):
         def fake_on_restore(self):
