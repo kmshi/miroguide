@@ -11,6 +11,7 @@ single-columned.  Hopefully this isn't too restrictive.
 """
 
 from sqlhelper.sql import Delete, Insert, Select
+from sqlhelper.orm import query
 
 class Relation(object):
     """Base class for all relations."""
@@ -250,7 +251,7 @@ class ManyToMany(Relation):
         delete.wheres.append(self.foreign_key==parent_join_value)
         delete.execute(connection)
 
-class RelationList(object):
+class RelationList(query.ResultSet):
     """List of records returned by a one-to-many/many-to-many relation.
     
     RelationLists handle updating the database when objects get added/removed
@@ -260,7 +261,7 @@ class RelationList(object):
     def __init__(self, relation, parent_record):
         self.relation = relation
         self.parent_record = parent_record
-        self.records = []
+        query.ResultSet.__init__(self, relation.related_table, [])
 
     def add_record(self, connection, record):
         self.relation.handle_list_add(connection, self.parent_record, record)

@@ -249,6 +249,13 @@ class QueryTest(TestCase):
             for i in range(len(foo.bars) - 1):
                 self.assert_(foo.bars[i].name >= foo.bars[i+1].name)
 
+    def test_join_to_result_list(self):
+        query = Category.query().join('foos')
+        categories = query.execute(self.connection)
+        categories[0].foos.join('bars').execute(self.connection)
+        for foo in categories[0].foos:
+            self.check_bars(foo)
+
     def test_on_restore(self):
         def fake_on_restore(self):
             self.on_restore_called = True
