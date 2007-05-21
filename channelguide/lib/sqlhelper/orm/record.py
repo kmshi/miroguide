@@ -91,6 +91,10 @@ class Record(object):
     def set_column_defaults(self):
         for column in self.table.concrete_columns():
             if not hasattr(self, column.name):
+                if column.default is None and column.auto_increment:
+                    # Let the database handle this column, we'll set the
+                    # attribute after the insert.
+                    continue
                 if hasattr(column.default, '__call__'):
                     setattr(self, column.name, column.default())
                 else:
@@ -123,6 +127,8 @@ class Record(object):
 
     def add_values_to_saver(self, saver):
         for column in self.table.concrete_columns():
+            if column.auto_increment and not hasattr(self, column.name):
+                continue
             data = column.convert_for_db(getattr(self, column.name))
             saver.add_value(column.fullname(), data)
             # if the conversion changed the data, reflect that in our

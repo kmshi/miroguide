@@ -19,9 +19,12 @@ class PooledConnection(connection.Connection):
     def close(self):
         self.pool.release(self)
 
-    def destroy(self):
+    def close_raw_connection(self):
         self.cursor.close()
         self.raw_connection.close()
+
+    def destroy(self):
+        self.close_raw_connection()
         self.pool.remove(self)
 
 class ConnectionPool(object):
