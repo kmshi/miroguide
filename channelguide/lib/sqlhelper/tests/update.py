@@ -178,6 +178,12 @@ class OneToManyListTest(_RelationListTest):
         child.name = 'test'
         return child
 
+    def test_set_reflection(self):
+        foo = Foo.get(self.connection, 3, join='bars')
+        bar = self.make_new_child()
+        foo.bars.add_record(self.connection, bar)
+        self.assert_(bar.parent is foo)
+
 class ManyToManyListTest(_RelationListTest):
     def select_list(self):
         return Foo.get(self.connection, 2, join='categories').categories

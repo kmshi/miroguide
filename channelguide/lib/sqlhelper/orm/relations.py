@@ -151,6 +151,8 @@ class OneToMany(SimpleJoiner):
         join_value = getattr(parent_record, self.column.ref.name)
         setattr(record, self.column.name, join_value)
         record.save(connection)
+        if self.reflection is not None:
+            setattr(record, self.reflection.name, parent_record)
 
     def handle_list_remove(self, connection, parent_record, record):
         record.delete(connection)
