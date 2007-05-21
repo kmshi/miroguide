@@ -242,6 +242,13 @@ class QueryTest(TestCase):
             categories = self.foo_to_categories.get(bar.parent.id, [])
             self.assertEquals(bar.parent.category_count, len(categories))
 
+    def test_join_ordering(self):
+        query = Foo.query().join("bars")
+        query.order_by(query.joins['bars'].c.name, desc=True)
+        for foo in query.execute(self.connection):
+            for i in range(len(foo.bars) - 1):
+                self.assert_(foo.bars[i].name >= foo.bars[i+1].name)
+
     def test_on_restore(self):
         def fake_on_restore(self):
             self.on_restore_called = True
