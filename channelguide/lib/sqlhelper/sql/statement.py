@@ -28,14 +28,14 @@ class Statement(object):
         """
         raise NotImplementedError()
 
-    def execute(self, cursor):
+    def execute(self, connection):
         if self.__class__.__signal__ is not None:
             self.__class__.__signal__.emit(self)
         text, args = self.compile()
         debug_string = self.make_debug_string(text, args)
         logging.sql(debug_string)
         try:
-            cursor.execute(text, args)
+            return connection.execute(text, args)
         except Exception, e:
             msg = "Error running %s: %s" % (debug_string, e)
             raise SQLError(msg)
@@ -97,12 +97,12 @@ class Select(Statement):
     def add_order_by(self, order_by, desc=False):
         self.order_by.append(clause.OrderBy(order_by, desc))
 
-    def count(self, cursor):
+    def count(self, connection):
         s = Select()
         s.add_columns('COUNT(*)')
         s.froms = self.froms
         s.wheres = self.wheres
-        return self.execute_scalar(cursor)
+        return self.execute_scalar(connection)
 
     def compile(self):
         comp = StatementCompilation()
@@ -137,17 +137,13 @@ class Select(Statement):
         text, args = self.compile()
         return clause.Where("EXISTS (%s)" % text, args)
 
-    def execute(self, cursor):
-        Statement.execute(self, cursor)
-        return cursor.fetchall()
-
-    def execute_scalar(self, cursor):
+    def execute_scalar(self, connection):
         """Execute a scalar SELECT.  This only works for selects that return a
         single column and a single row.
         """
         if len(self.columns) != 1:
             raise ValueError("execute_scalar must be called with 1 column.")
-        results = self.execute(cursor)
+        results = self.execute(connection)
         if len(results) == 1:
             return results[0][0]
         elif len(results) == 0:

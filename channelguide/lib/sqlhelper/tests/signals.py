@@ -54,13 +54,13 @@ class SignalTest(TestCase):
         insert = sql.Insert('foo')
         insert.add_value('id', 1000)
         insert.add_value('name', '123')
-        insert.execute(self.cursor)
+        insert.execute(self.connection)
         update = sql.Update('foo')
         update.add_where('id=%s', 1000)
         update.add_value('name', '456')
-        update.execute(self.cursor)
+        update.execute(self.connection)
         delete = sql.Delete('foo')
-        delete.execute(self.cursor)
+        delete.execute(self.connection)
 
         self.assertEquals(len(self.callbacks), 3)
         self.assertEquals(self.callbacks[0][0][0], insert)
@@ -72,15 +72,15 @@ class SignalTest(TestCase):
         signals.record_update.connect(self.callback)
         signals.record_delete.connect(self.callback)
 
-        foo = Foo.get(self.cursor, 2)
-        foo.delete(self.cursor)
+        foo = Foo.get(self.connection, 2)
+        foo.delete(self.connection)
 
         foo2 = Foo()
         foo2.name = 'ben'
-        foo2.save(self.cursor)
+        foo2.save(self.connection)
 
-        foo3 = Foo.get(self.cursor, 3)
-        foo3.save(self.cursor)
+        foo3 = Foo.get(self.connection, 3)
+        foo3.save(self.connection)
 
         self.assertEquals(len(self.callbacks), 3)
         self.assertEquals(self.callbacks[0][0][0], foo)

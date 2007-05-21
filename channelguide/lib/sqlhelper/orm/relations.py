@@ -146,19 +146,19 @@ class OneToMany(SimpleJoiner):
         if self.reflection is not None:
             setattr(related_record, self.reflection.name, record)
 
-    def handle_list_add(self, cursor, parent_record, record):
+    def handle_list_add(self, connection, parent_record, record):
         join_value = getattr(parent_record, self.column.ref.name)
         setattr(record, self.column.name, join_value)
-        record.save(cursor)
+        record.save(connection)
 
-    def handle_list_remove(self, cursor, parent_record, record):
-        record.delete(cursor)
+    def handle_list_remove(self, connection, parent_record, record):
+        record.delete(connection)
 
-    def handle_list_clear(self, cursor, parent_record):
+    def handle_list_clear(self, connection, parent_record):
         join_value = getattr(parent_record, self.column.ref.name)
         delete = Delete(self.column.table)
         delete.wheres.append(self.column==join_value)
-        delete.execute(cursor)
+        delete.execute(connection)
 
 class ManyToMany(Relation):
     def __init__(self, name, foreign_key, relation_fk):
@@ -228,27 +228,27 @@ class ManyToMany(Relation):
         result_list = getattr(record, self.name)
         result_list.records.append(related_record)
 
-    def handle_list_add(self, cursor, parent_record, record):
+    def handle_list_add(self, connection, parent_record, record):
         insert = Insert(self.join_table)
         parent_join_value = getattr(parent_record, self.foreign_key.ref.name)
         record_join_value = getattr(record, self.relation_fk.ref.name)
         insert.add_value(self.foreign_key.fullname(), parent_join_value)
         insert.add_value(self.relation_fk.fullname(), record_join_value)
-        insert.execute(cursor)
+        insert.execute(connection)
 
-    def handle_list_remove(self, cursor, parent_record, record):
+    def handle_list_remove(self, connection, parent_record, record):
         delete = Delete(self.join_table)
         parent_join_value = getattr(parent_record, self.foreign_key.ref.name)
         record_join_value = getattr(record, self.relation_fk.ref.name)
         delete.wheres.append(self.foreign_key==parent_join_value)
         delete.wheres.append(self.relation_fk==record_join_value)
-        delete.execute(cursor)
+        delete.execute(connection)
 
-    def handle_list_clear(self, cursor, parent_record):
+    def handle_list_clear(self, connection, parent_record):
         delete = Delete(self.join_table)
         parent_join_value = getattr(parent_record, self.foreign_key.ref.name)
         delete.wheres.append(self.foreign_key==parent_join_value)
-        delete.execute(cursor)
+        delete.execute(connection)
 
 class RelationList(object):
     """List of records returned by a one-to-many/many-to-many relation.
@@ -262,21 +262,21 @@ class RelationList(object):
         self.parent_record = parent_record
         self.records = []
 
-    def add_record(self, cursor, record):
-        self.relation.handle_list_add(cursor, self.parent_record, record)
+    def add_record(self, connection, record):
+        self.relation.handle_list_add(connection, self.parent_record, record)
         self.records.append(record)
 
-    def add_records(self, cursor, records):
+    def add_records(self, connection, records):
         for record in records:
-            self.add_record(cursor, record)
+            self.add_record(connection, record)
 
-    def remove_record(self, cursor, record):
+    def remove_record(self, connection, record):
         self.records.remove(record)
-        self.relation.handle_list_remove(cursor, self.parent_record, record)
+        self.relation.handle_list_remove(connection, self.parent_record, record)
 
-    def clear(self, cursor):
+    def clear(self, connection):
         self.records = []
-        self.relation.handle_list_clear(cursor, self.parent_record)
+        self.relation.handle_list_clear(connection, self.parent_record)
 
     # Emulate a list
     def __iter__(self):

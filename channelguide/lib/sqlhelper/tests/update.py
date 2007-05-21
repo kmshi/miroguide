@@ -7,63 +7,63 @@ class UpdateTest(TestCase):
         f = Foo()
         f.id = 100
         f.name = 'cool'
-        f.save(self.cursor)
-        f2 = Foo.get(self.cursor, 100)
+        f.save(self.connection)
+        f2 = Foo.get(self.connection, 100)
         self.assertEquals(f2.name, 'cool')
 
     def test_update(self):
-        f = Foo.get(self.cursor, 3)
+        f = Foo.get(self.connection, 3)
         f.name = 'newname'
-        f.save(self.cursor)
-        f2 = Foo.get(self.cursor, 3)
+        f.save(self.connection)
+        f2 = Foo.get(self.connection, 3)
         self.assertEquals(f2.name, 'newname')
 
     def test_double_save(self):
         f = Foo()
         f.id = 100
         f.name = 'cool'
-        f.save(self.cursor)
+        f.save(self.connection)
         f.name = 'cheesewhiz'
-        f.save(self.cursor)
-        f2 = Foo.get(self.cursor, 100)
+        f.save(self.connection)
+        f2 = Foo.get(self.connection, 100)
         self.assertEquals(f2.name, 'cheesewhiz')
 
     def test_auto_increment(self):
         f = Foo()
         f.name = 'cool'
-        f.save(self.cursor)
+        f.save(self.connection)
         self.assert_(hasattr(f, 'id'))
-        f2 = Foo.get(self.cursor, f.id)
+        f2 = Foo.get(self.connection, f.id)
         self.assertEquals(f2.name, f.name)
 
     def test_change_primary_key(self):
         f = Foo()
         f.id = 1000
         f.name = 'newname'
-        f.save(self.cursor)
+        f.save(self.connection)
         self.assertEquals(f.rowid, (1000,))
         f.id = 2000
-        f.save(self.cursor)
+        f.save(self.connection)
         self.assertEquals(f.rowid, (2000,))
-        f2 = Foo.get(self.cursor, 2000)
+        f2 = Foo.get(self.connection, 2000)
         self.assertEquals(f2.name, f.name)
-        self.assertRaises(NotFoundError, Foo.get, self.cursor, 1000)
+        self.assertRaises(NotFoundError, Foo.get, self.connection, 1000)
 
     def test_delete(self):
-        for type in Types.query().execute(self.cursor):
-            type.delete(self.cursor)
-        results = Types.query().execute(self.cursor)
+        for type in Types.query().execute(self.connection):
+            type.delete(self.connection)
+        results = Types.query().execute(self.connection)
         self.assertEquals(len(results), 0)
 
 class AutoAssignmentTest(TestCase):
     def test_default(self):
         type = Types()
         type.boolean = True
-        type.save(self.cursor)
+        type.save(self.connection)
         self.assertEquals(type.string, "booya")
         self.assert_(datetime.now() - type.date < timedelta(seconds=1))
         self.assertEquals(type.null_ok, None)
-        type2 = Types.get(self.cursor, type.id)
+        type2 = Types.get(self.connection, type.id)
         self.assertEquals(type.string, type2.string)
         # we should compare dates, but MySQL drops the microseconds, so
         # there's no point
@@ -72,35 +72,35 @@ class AutoAssignmentTest(TestCase):
     def test_onupdate(self):
         type = Types()
         type.boolean = True
-        type.save(self.cursor)
+        type.save(self.connection)
         first_date = type.date
-        type.save(self.cursor)
+        type.save(self.connection)
         self.assert_(type.date > first_date)
 
     def test_set_foreign_keys(self):
         foo = Foo()
         foo.name = '123123'
-        foo.save(self.cursor)
+        foo.save(self.connection)
         bar = Bar()
         bar.name = 'something'
         bar.parent = foo
-        bar.save(self.cursor)
+        bar.save(self.connection)
         self.assertEquals(bar.foo_id, foo.id)
         foo_extra = FooExtra()
         foo_extra.extra_info = 'abcdef'
         foo_extra.foo = foo
-        foo_extra.save(self.cursor)
+        foo_extra.save(self.connection)
         self.assertEquals(foo_extra.id, foo.id)
 
     def test_dont_overwrite_foreign_keys(self):
         foo = Foo()
         foo.name = '123123'
-        foo.save(self.cursor)
+        foo.save(self.connection)
         bar = Bar()
         bar.name = 'something'
         bar.foo_id = 3
         bar.foo = foo
-        bar.save(self.cursor)
+        bar.save(self.connection)
         self.assertEquals(bar.foo_id, 3)
 
 
@@ -109,10 +109,10 @@ class ConvertForDBTest(TestCase):
         self.pause_logging()
         f = Foo()
         f.name = 'a' * 40 # 40 chars isn't a problem
-        f.save(self.cursor)
+        f.save(self.connection)
         self.check_logging(warnings=0)
         f.name = 'a' * 50 # 50 is
-        f.save(self.cursor)
+        f.save(self.connection)
         self.check_logging(warnings=1)
         self.assertEquals(f.name, 'a' * 40)
 
@@ -120,7 +120,7 @@ class ConvertForDBTest(TestCase):
         type = Types()
         type.boolean = True
         type.null_ok = None
-        type.save(self.cursor)
+        type.save(self.connection)
 
 class _RelationListTest(TestCase):
     # NOTE by prefixing the class name with _, it doesn't get exported.  This
@@ -138,29 +138,29 @@ class _RelationListTest(TestCase):
         self.assertSameSet(ids, ids2)
 
     def test_add(self):
-        self.children.add_record(self.cursor, self.make_new_child())
+        self.children.add_record(self.connection, self.make_new_child())
         self.assertEquals(len(self.children), self.initial_length+1)
         self.check_children_against_db()
 
     def test_remove(self):
-        self.children.remove_record(self.cursor, self.children[0])
+        self.children.remove_record(self.connection, self.children[0])
         self.assertEquals(len(self.children), self.initial_length-1)
         self.check_children_against_db()
 
     def test_clear(self):
-        self.children.clear(self.cursor)
+        self.children.clear(self.connection)
         self.assertEquals(len(self.children), 0)
         self.check_children_against_db()
 
     def test_add_many(self):
         new_children = [self.make_new_child() for i in range(5)]
-        self.children.add_records(self.cursor, new_children)
+        self.children.add_records(self.connection, new_children)
         self.assertEquals(len(self.children), self.initial_length+5)
         self.check_children_against_db()
 
 class OneToManyListTest(_RelationListTest):
     def select_list(self):
-        return Foo.get(self.cursor, 3, join='bars').bars
+        return Foo.get(self.connection, 3, join='bars').bars
 
     def make_new_child(self):
         child = Bar()
@@ -169,11 +169,11 @@ class OneToManyListTest(_RelationListTest):
 
 class ManyToManyListTest(_RelationListTest):
     def select_list(self):
-        return Foo.get(self.cursor, 2, join='categories').categories
+        return Foo.get(self.connection, 2, join='categories').categories
 
     def make_new_child(self):
         child = Category()
         child.name = 'test'
-        child.save(self.cursor)
+        child.save(self.connection)
         return child
 

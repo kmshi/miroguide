@@ -63,12 +63,12 @@ class Record(object):
     def exists_in_db(self):
         return hasattr(self, 'rowid')
 
-    def save(self, cursor):
+    def save(self, connection):
         self.set_foreign_keys_from_relations()
         if self.exists_in_db():
-            self.update(cursor)
+            self.update(connection)
         else:
-            self.insert(cursor)
+            self.insert(connection)
 
     def set_foreign_keys_from_relations(self):
         for relation in self.table.relations.values():
@@ -101,24 +101,24 @@ class Record(object):
             if column.onupdate is not None:
                 setattr(self, column.name, column.onupdate())
 
-    def insert(self, cursor):
+    def insert(self, connection):
         signals.record_insert.emit(self)
         insert = sql.Insert(self.table)
         self.set_column_defaults()
         self.add_values_to_saver(insert)
-        insert.execute(cursor)
+        insert.execute(connection)
         if self.table.auto_increment_column is not None:
             attr_name = self.table.auto_increment_column.name
-            setattr(self, attr_name, cursor.lastrowid)
+            setattr(self, attr_name, connection.lastrowid)
         self.rowid = self.primary_key_values()
 
-    def update(self, cursor):
+    def update(self, connection):
         signals.record_update.emit(self)
         update = sql.Update(self.table)
         update.wheres.append(self.rowid_where())
         self.run_column_onupdates()
         self.add_values_to_saver(update)
-        update.execute(cursor)
+        update.execute(connection)
         self.rowid = self.primary_key_values()
 
     def add_values_to_saver(self, saver):
@@ -129,15 +129,15 @@ class Record(object):
             # attributes.
             setattr(self, column.name, data)
 
-    def delete(self, cursor):
+    def delete(self, connection):
         signals.record_delete.emit(self)
         delete = sql.Delete(self.table)
         delete.wheres.append(self.rowid_where())
-        delete.execute(cursor)
+        delete.execute(connection)
 
-    def delete_if_exists(self, cursor):
+    def delete_if_exists(self, connection):
         if self.exists_in_db():
-            self.delete(cursor)
+            self.delete(connection)
 
     @classmethod
     def query(cls, *filter_args, **filter_kwargs):
@@ -146,14 +146,14 @@ class Record(object):
         return retval
 
     @classmethod
-    def get(cls, cursor, id, load=None, join=None):
+    def get(cls, connection, id, load=None, join=None):
         retval = query.Query(cls.table)
         if load is not None:
             retval.load(*util.ensure_list(load))
         if join is not None:
             retval.join(*util.ensure_list(join))
         try:
-            return retval.get(cursor, id)
+            return retval.get(connection, id)
         except NotFoundError:
             raise NotFoundError("Record with id %s not found" % id)
         except TooManyResultsError:

@@ -18,7 +18,6 @@ class DBPoolTest(unittest.TestCase):
     def connect(self):
         connection = self.pool.connect()
         self.opened_connections.append(connection)
-        self.assert_(testsetup.dbinfo.is_connection_open(connection))
         return connection
     
     def check_counts(self, used_count, free_count):
@@ -34,31 +33,42 @@ class DBPoolTest(unittest.TestCase):
     def test_release_connection(self):
         for x in range(self.max_connections):
             connection = self.connect()
-        self.pool.release(connection)
+        connection.close()
         self.check_counts(self.max_connections-1, 1)
-        self.connect()
+        connection2 = self.connect()
+        self.assert_(connection.raw_connection is connection2.raw_connection)
         self.check_counts(self.max_connections, 0)
 
     def test_close_connection(self):
         for x in range(self.max_connections):
             connection = self.connect()
-        self.pool.close(connection)
+        connection.destroy()
         self.check_counts(self.max_connections-1, 0)
-        self.connect()
+        connection2 = self.connect()
+        self.assert_(connection.raw_connection is not
+                connection2.raw_connection)
         self.check_counts(self.max_connections, 0)
 
     def test_double_release(self):
         connection = self.connect()
-        self.pool.release(connection)
-        self.assertRaises(ValueError, self.pool.release, connection)
-        self.assertRaises(ValueError, self.pool.close, connection)
+        connection.close()
+        self.assertRaises(ValueError, connection.close)
+        self.assertRaises(ValueError, connection.destroy)
         self.check_counts(0, 1)
 
     def test_connection_closed_by_db(self):
         connection = self.connect()
-        self.pool.release(connection)
-        # simulate the DB closing the connection while it's in the free pool
         connection.close()
+        # simulate the DB closing the connection while it's in the free pool
+        connection.raw_connection.close()
         connection2 = self.pool.connect()
         self.assert_(connection is not connection2)
-        self.assert_(testsetup.dbinfo.is_connection_open(connection2))
+        raw_connection = connection2.raw_connection
+        self.assert_(testsetup.dbinfo.is_connection_open(raw_connection))
+
+    def test_late_close(self):
+        connection = self.connect()
+        connection.close()
+        connection2 = self.connect()
+        self.assert_(connection.raw_connection is connection2.raw_connection)
+        self.assertRaises(ValueError, connection.close)

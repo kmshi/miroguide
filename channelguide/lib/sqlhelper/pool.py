@@ -3,8 +3,26 @@
 import Queue
 from threading import Condition, Lock
 
+from sqlhelper import connection
+
 class ConnectionTimeout(Exception):
     """Timeout while waiting for a connection to be released to the pool."""
+
+class PooledConnection(connection.Connection):
+    def __init__(self, raw_connection, pool):
+        super(PooledConnection, self).__init__(raw_connection)
+        self.pool = pool
+
+    def clone(self):
+        return PooledConnection(self.raw_connection, self.pool)
+
+    def close(self):
+        self.pool.release(self)
+
+    def destroy(self):
+        self.cursor.close()
+        self.raw_connection.close()
+        self.pool.remove(self)
 
 class ConnectionPool(object):
     def __init__(self, dbinfo, max_connections, timeout=5):
@@ -42,10 +60,10 @@ class ConnectionPool(object):
                 connection = self._get_connection()
                 if connection is None:
                     raise ConnectionTimeout()
-            if not self.dbinfo.is_connection_open(connection):
+            if not self.dbinfo.is_connection_open(connection.raw_connection):
                 # Connection was closed while it was in the free pool, open a
                 # new one.
-                connection = self.dbinfo.connect()
+                connection = self.make_new_connection()
             self.used.add(connection)
             return connection
         finally:
@@ -53,11 +71,14 @@ class ConnectionPool(object):
 
     def _get_connection(self):
         if self.free:
-            return self.free.pop()
+            return self.free.pop().clone()
         elif len(self.used) + len(self.free) < self.max_connections:
-            return self.dbinfo.connect()
+            return self.make_new_connection()
         else:
             return None
+
+    def make_new_connection(self):
+        return PooledConnection(self.dbinfo.connect(), self)
 
     def _remove_from_used(self, connection):
         try:
@@ -74,7 +95,7 @@ class ConnectionPool(object):
         finally:
             self.condition.release()
 
-    def close(self, connection):
+    def remove(self, connection):
         self.condition.acquire()
         try:
             self._remove_from_used(connection)

@@ -2,8 +2,7 @@ import logging
 from datetime import datetime
 import unittest
 
-from sqlhelper import orm
-from sqlhelper import testsetup
+from sqlhelper import connection, orm, testsetup
 from sqlhelper.orm import columns
 
 class LogRaiser(logging.Handler):
@@ -33,8 +32,7 @@ class LogCatcher(logging.Filter):
 class TestCase(unittest.TestCase):
     def setUp(self):
         unittest.TestCase.setUp(self)
-        self.connection = testsetup.dbinfo.connect()
-        self.cursor = self.connection.cursor()
+        self.connection = connection.Connection(testsetup.dbinfo.connect())
         #self.drop_all_tables()
         self.log_handler = LogRaiser()
         self.log_filter = LogCatcher()
@@ -46,7 +44,6 @@ class TestCase(unittest.TestCase):
         self.drop_test_tables()
         logging.getLogger().removeFilter(self.log_filter)
         logging.getLogger().removeHandler(self.log_handler)
-        self.cursor.close()
         self.connection.close()
         unittest.TestCase.tearDown(self)
 
@@ -68,18 +65,18 @@ class TestCase(unittest.TestCase):
         self.log_filter.reset()
 
     def create_test_tables(self):
-        self.cursor.execute("""CREATE TABLE foo (
+        self.connection.execute("""CREATE TABLE foo (
 id INT(11) NOT NULL AUTO_INCREMENT,
 name VARCHAR(40) NOT NULL,
 PRIMARY KEY (id))
 ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
-        self.cursor.execute("""CREATE TABLE foo_extra (
+        self.connection.execute("""CREATE TABLE foo_extra (
 id INT(11) NOT NULL,
 extra_info VARCHAR(40) NOT NULL,
 PRIMARY KEY (id),
 FOREIGN KEY (id) REFERENCES foo (id) ON DELETE CASCADE)
 ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
-        self.cursor.execute("""CREATE TABLE types (
+        self.connection.execute("""CREATE TABLE types (
 id INT(11) NOT NULL AUTO_INCREMENT,
 string VARCHAR(40) NOT NULL,
 date DATETIME NOT NULL,
@@ -87,26 +84,26 @@ boolean TINYINT(1) NOT NULL,
 null_ok VARCHAR(20) NULL,
 PRIMARY KEY (id))
 ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
-        self.cursor.execute("""CREATE TABLE bar (
+        self.connection.execute("""CREATE TABLE bar (
 id INT(11) NOT NULL AUTO_INCREMENT,
 foo_id INT(11), 
 name VARCHAR(40) NOT NULL,
 PRIMARY KEY (id),
 FOREIGN KEY (foo_id) REFERENCES foo (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
-        self.cursor.execute("""CREATE TABLE category (
+        self.connection.execute("""CREATE TABLE category (
 id INT(11) NOT NULL AUTO_INCREMENT,
 name VARCHAR(40) NOT NULL,
 PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
-        self.cursor.execute("""CREATE TABLE category_map (
+        self.connection.execute("""CREATE TABLE category_map (
 category_id INT(11),
 foo_id INT(11),
 FOREIGN KEY (category_id) REFERENCES category (id) ON DELETE CASCADE,
 FOREIGN KEY (foo_id) REFERENCES foo (id) ON DELETE CASCADE,
 PRIMARY KEY (category_id, foo_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
-        self.cursor.execute("""CREATE TABLE category_map_with_dups (
+        self.connection.execute("""CREATE TABLE category_map_with_dups (
 category_id INT(11),
 foo_id INT(11),
 other_column INT(11),
@@ -116,13 +113,13 @@ PRIMARY KEY (category_id, foo_id, other_column)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
 
     def drop_test_tables(self):
-        self.cursor.execute("DROP TABLE category_map_with_dups")
-        self.cursor.execute("DROP TABLE category_map")
-        self.cursor.execute("DROP TABLE category")
-        self.cursor.execute("DROP TABLE bar")
-        self.cursor.execute("DROP TABLE foo_extra")
-        self.cursor.execute("DROP TABLE foo")
-        self.cursor.execute("DROP TABLE types")
+        self.connection.execute("DROP TABLE category_map_with_dups")
+        self.connection.execute("DROP TABLE category_map")
+        self.connection.execute("DROP TABLE category")
+        self.connection.execute("DROP TABLE bar")
+        self.connection.execute("DROP TABLE foo_extra")
+        self.connection.execute("DROP TABLE foo")
+        self.connection.execute("DROP TABLE types")
 
     def populate_test_tables(self):
         self.populate_foo()
@@ -136,20 +133,20 @@ PRIMARY KEY (category_id, foo_id, other_column)
                 (5, 'cow')
         ]
         for id, name in self.foo_values:
-            self.cursor.execute("INSERT INTO foo(id, name) VALUES (%s, %s)",
+            self.connection.execute("INSERT INTO foo(id, name) VALUES (%s, %s)",
                     (id, name))
 
     def populate_foo_extra(self):
         self.foo_extra_values = { 3: 'bacon', 2: 'oj' }
         for id, extra in self.foo_extra_values.items():
             sql = "INSERT INTO foo_extra(id, extra_info) VALUES(%s, %s)"
-            self.cursor.execute(sql, (id, extra))
+            self.connection.execute(sql, (id, extra))
 
     def populate_types(self):
-        self.cursor.execute("INSERT INTO "
+        self.connection.execute("INSERT INTO "
                 "types(id, string, date, boolean, null_ok) "
                 "VALUES (2, 'false', '2005-08-02 15:00:25', 0, NULL)")
-        self.cursor.execute("INSERT INTO "
+        self.connection.execute("INSERT INTO "
                 "types(id, string, date, boolean, null_ok) "
                 "VALUES (1, 'true', '2005-08-02 15:00:25', 1, NULL)")
 
@@ -159,7 +156,7 @@ PRIMARY KEY (category_id, foo_id, other_column)
         ]
         self.foo_to_bars = {}
         for id, foo_id, name in self.bar_values:
-            self.cursor.execute("INSERT INTO bar(id, foo_id, name) "
+            self.connection.execute("INSERT INTO bar(id, foo_id, name) "
                     "VALUES (%s, %s, %s)", (id, foo_id, name))
             bars = self.foo_to_bars.setdefault(foo_id, [])
             bars.append((id, foo_id, name))
@@ -167,7 +164,7 @@ PRIMARY KEY (category_id, foo_id, other_column)
     def populate_categories(self):
         self.category_values = [ (1, 'funny'), (2, 'tech'), (3, 'politics') ]
         for id, name in self.category_values:
-            self.cursor.execute("INSERT INTO category(id, name) "
+            self.connection.execute("INSERT INTO category(id, name) "
                     "VALUES (%s, %s)", (id, name))
         self.foo_to_categories = {
                 1: [1,2],
@@ -177,15 +174,15 @@ PRIMARY KEY (category_id, foo_id, other_column)
         self.category_to_foos = {}
         for foo_id, category_ids in self.foo_to_categories.items():
             for cat_id in category_ids:
-                self.cursor.execute("INSERT INTO category_map "
+                self.connection.execute("INSERT INTO category_map "
                 "(foo_id, category_id) VALUES (%s, %s)", (foo_id, cat_id))
-                self.cursor.execute("INSERT INTO category_map_with_dups "
+                self.connection.execute("INSERT INTO category_map_with_dups "
                         "(foo_id, category_id, other_column) "
                         "VALUES (%s, %s, 1)", (foo_id, cat_id))
-                self.cursor.execute("INSERT INTO category_map_with_dups "
+                self.connection.execute("INSERT INTO category_map_with_dups "
                         "(foo_id, category_id, other_column) "
                         "VALUES (%s, %s, 2)", (foo_id, cat_id))
-                self.cursor.execute("INSERT INTO category_map_with_dups "
+                self.connection.execute("INSERT INTO category_map_with_dups "
                         "(foo_id, category_id, other_column) "
                         "VALUES (%s, %s, 3)", (foo_id, cat_id))
                 try:

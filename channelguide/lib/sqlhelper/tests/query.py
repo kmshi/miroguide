@@ -13,10 +13,10 @@ class QueryTest(TestCase):
         self.assertSameSet(bar_values, self.foo_to_bars.get(foo.id, []))
 
     def test_select(self):
-        self.checkFoos(Foo.query().execute(self.cursor), self.foo_values)
+        self.checkFoos(Foo.query().execute(self.connection), self.foo_values)
 
     def test_types(self):
-        for obj in Types.query().execute(self.cursor):
+        for obj in Types.query().execute(self.connection):
             self.assertEquals(type(obj.id), long)
             self.assertEquals(type(obj.string), str)
             self.assertEquals(type(obj.date), datetime.datetime)
@@ -26,36 +26,36 @@ class QueryTest(TestCase):
     def test_boolean_convert(self):
         def get_by_name(name):
             s = Types.query().filter(Types.c.string==name)
-            return s.execute(self.cursor)[0]
+            return s.execute(self.connection)[0]
         false_type = get_by_name('false')
         true_type = get_by_name('true')
         self.assertEquals(false_type.boolean, False)
         self.assertEquals(true_type.boolean, True)
 
     def test_where(self):
-        results = Foo.query().filter(id=3).execute(self.cursor)
+        results = Foo.query().filter(id=3).execute(self.connection)
         matching_values = [(id, name) for id, name in self.foo_values
                 if id == 3]
         self.checkFoos(results, matching_values)
-        results = Foo.query().filter(name='bacon').execute(self.cursor)
+        results = Foo.query().filter(name='bacon').execute(self.connection)
         matching_values = [(id, name) for id, name in self.foo_values
                 if name == 'bacon']
         self.checkFoos(results, matching_values)
 
     def test_order_by(self):
         query = Foo.query().order_by(Foo.c.name)
-        results = query.execute(self.cursor)
+        results = query.execute(self.connection)
         for i in range(len(results) - 1):
             self.assert_(results[i].name <= results[i+1].name)
         query = Foo.query().order_by('name', desc=True)
-        results = query.execute(self.cursor)
+        results = query.execute(self.connection)
         for i in range(len(results) - 1):
             self.assert_(results[i].name >= results[i+1].name)
 
     def test_multiple_order_by(self):
         query = Foo.query_with_bar_count().order_by('bar_count', desc=True)
         query.order_by('name', desc=False)
-        results = query.execute(self.cursor)
+        results = query.execute(self.connection)
         for i in range(len(results) - 1):
             self.assert_(results[i].bar_count >= results[i+1].bar_count)
             if results[i].bar_count == results[i+1].bar_count:
@@ -65,33 +65,33 @@ class QueryTest(TestCase):
         query = Foo.query().order_by('id', desc=False)
         query.order_by(None)
         query.order_by('name')
-        results = query.execute(self.cursor)
+        results = query.execute(self.connection)
         for i in range(len(results) - 1):
             self.assert_(results[i].name <= results[i+1].name)
 
     def test_limit(self):
-        results = Foo.query().limit(2).execute(self.cursor)
+        results = Foo.query().limit(2).execute(self.connection)
         self.assertEquals(len(results), 2)
 
     def test_offset(self):
-        all_results = Foo.query().order_by(Foo.c.name).execute(self.cursor)
-        some_results = Foo.query().order_by(Foo.c.name).offset(2).execute(self.cursor)
+        all_results = Foo.query().order_by(Foo.c.name).execute(self.connection)
+        some_results = Foo.query().order_by(Foo.c.name).offset(2).execute(self.connection)
         for foo1, foo2 in zip(all_results[2:], some_results):
             self.assertEquals(foo1.id, foo2.id)
 
     def test_get(self):
-        foo = Foo.get(self.cursor, 3)
+        foo = Foo.get(self.connection, 3)
         self.assertEquals(foo.id, 3)
-        self.assertRaises(NotFoundError, Foo.get, self.cursor, 999999)
+        self.assertRaises(NotFoundError, Foo.get, self.connection, 999999)
         query = Foo.query().filter(Foo.c.id > 2)
-        self.assertRaises(TooManyResultsError, query.get, self.cursor)
+        self.assertRaises(TooManyResultsError, query.get, self.connection)
 
     def test_count(self):
         s = Foo.query().filter((Foo.c.id == 4) | (Foo.c.id <= 2))
-        self.assertEquals(s.count(self.cursor), 3)
+        self.assertEquals(s.count(self.connection), 3)
 
     def test_one_to_many(self):
-        foos = Foo.query().join('bars').execute(self.cursor)
+        foos = Foo.query().join('bars').execute(self.connection)
         for foo in foos:
             self.check_bars(foo)
             for bar in foo.bars:
@@ -106,7 +106,7 @@ class QueryTest(TestCase):
         raise AssertionError("bar not found")
 
     def test_many_to_one(self):
-        for bar in Bar.query().join("parent").execute(self.cursor):
+        for bar in Bar.query().join("parent").execute(self.connection):
             self.check_bar_parent(bar)
 
     def check_categories(self, foo):
@@ -114,12 +114,12 @@ class QueryTest(TestCase):
                     self.foo_to_categories.get(foo.id, []))
 
     def test_many_to_many(self):
-        foos = Foo.query().join('categories').execute(self.cursor)
+        foos = Foo.query().join('categories').execute(self.connection)
         for foo in foos:
             self.check_categories(foo)
         self.checkFoos(foos, self.foo_values)
 
-        categories = Category.query().join("foos").execute(self.cursor)
+        categories = Category.query().join("foos").execute(self.connection)
         for cat in categories:
             self.assertSameSet([c.id for c in cat.foos],
                     self.category_to_foos.get(cat.id, []))
@@ -130,16 +130,16 @@ class QueryTest(TestCase):
         self.assert_(foo_relations['categories_with_dups'].use_exists_subquery)
         query = Foo.query().join('categories_with_dups')
         rows_seen = set()
-        for row in query.make_select().execute(self.cursor):
+        for row in query.make_select().execute(self.connection):
             if row in rows_seen:
                 raise AssertionError("Duplicate row selected")
             rows_seen.add(row)
-        for foo in query.execute(self.cursor):
+        for foo in query.execute(self.connection):
             self.assertSameSet( [c.id for c in foo.categories_with_dups],
                     self.foo_to_categories.get(foo.id, []))
 
     def test_one_to_one(self):
-        foos = Foo.query().join("extra").execute(self.cursor)
+        foos = Foo.query().join("extra").execute(self.connection)
         self.checkFoos(foos, self.foo_values)
         for foo in foos:
             if foo.id in self.foo_extra_values:
@@ -148,13 +148,13 @@ class QueryTest(TestCase):
                 self.assertEquals(foo.extra.foo, foo)
             else:
                 self.assertEquals(foo.extra, None)
-        foo_extras = FooExtra.query().join("foo").execute(self.cursor)
+        foo_extras = FooExtra.query().join("foo").execute(self.connection)
         self.assertEquals(len(foo_extras), len(self.foo_extra_values))
         for extra in foo_extras:
             self.assertEquals(extra.foo.id, extra.id)
 
     def test_subquery(self):
-        foos = Foo.query_with_counts().execute(self.cursor)
+        foos = Foo.query_with_counts().execute(self.connection)
         for foo in foos:
             categories = self.foo_to_categories.get(foo.id, [])
             self.assertEquals(foo.category_count, len(categories))
@@ -164,56 +164,56 @@ class QueryTest(TestCase):
     def test_subquery_filter(self):
         query = Foo.query_with_counts()
         query.filter(query.c.category_count > 2)
-        foos = query.execute(self.cursor)
+        foos = query.execute(self.connection)
         for foo in foos:
             self.assert_(foo.category_count > 2)
 
     def test_subquery_orderby(self):
         query = Foo.query_with_counts().order_by('bar_count')
-        results = query.execute(self.cursor)
+        results = query.execute(self.connection)
         for i in range(len(results) - 1):
             self.assert_(results[i].bar_count <= results[i+1].bar_count)
 
     def test_multiple_join(self):
-        foos = Foo.query().join('categories', 'bars').execute(self.cursor)
+        foos = Foo.query().join('categories', 'bars').execute(self.connection)
         for foo in foos:
             self.check_categories(foo)
             self.check_bars(foo)
 
     def test_deep_join(self):
         query = Bar.query().join('parent', 'parent.categories')
-        for bar in query.execute(self.cursor):
+        for bar in query.execute(self.connection):
             self.check_bar_parent(bar)
             self.check_categories(bar.parent)
 
     def test_join_to_get(self):
-        foo = Foo.get(self.cursor, 2, join='bars')
+        foo = Foo.get(self.connection, 2, join='bars')
         self.check_bars(foo)
 
     def test_join_to_results(self):
-        foos = Foo.query().execute(self.cursor)
-        foos.join('bars').execute(self.cursor)
+        foos = Foo.query().execute(self.connection)
+        foos.join('bars').execute(self.connection)
         for foo in foos:
             self.check_bars(foo)
         self.checkFoos(foos, self.foo_values)
 
     def test_join_to_record(self):
-        foo = Foo.get(self.cursor, 2)
-        foo.join("bars").execute(self.cursor)
+        foo = Foo.get(self.connection, 2)
+        foo.join("bars").execute(self.connection)
         self.check_bars(foo)
 
     def test_join_twice(self):
-        foo = Foo.get(self.cursor, 2)
-        foo.join("bars").execute(self.cursor)
+        foo = Foo.get(self.connection, 2)
+        foo.join("bars").execute(self.connection)
         join = foo.join("bars")
         self.assert_(join.no_joins())
-        join.execute(self.cursor)
+        join.execute(self.connection)
 
     def test_join_to_results_multiple_primary_keys(self):
         query = CategoryMap.query()
         query.filter(CategoryMap.c.foo_id.in_([1,2]))
-        results = query.execute(self.cursor)
-        results.join('category', 'foo').execute(self.cursor)
+        results = query.execute(self.connection)
+        results.join('category', 'foo').execute(self.connection)
         seen_ids = []
         for record in results:
             seen_ids.append((record.foo.id, record.category.id))
@@ -228,8 +228,8 @@ class QueryTest(TestCase):
         for id, foo_id, name in self.bar_values:
             if foo_id == 1:
                 correct_ids.append(id)
-        self.assertEquals(query.count(self.cursor), len(correct_ids))
-        returned_ids = [bar.id for bar in query.execute(self.cursor)]
+        self.assertEquals(query.count(self.connection), len(correct_ids))
+        returned_ids = [bar.id for bar in query.execute(self.connection)]
         self.assertSameSet(correct_ids, returned_ids)
         query2 = Bar.query().join('parent')
         query2.filter(query2.joins['parent'].c.id == 1)
@@ -238,7 +238,7 @@ class QueryTest(TestCase):
     def test_join_with_subquery(self):
         query = Bar.query().join('parent')
         query.joins['parent'].load('category_count')
-        for bar in query.execute(self.cursor):
+        for bar in query.execute(self.connection):
             categories = self.foo_to_categories.get(bar.parent.id, [])
             self.assertEquals(bar.parent.category_count, len(categories))
 
@@ -247,7 +247,7 @@ class QueryTest(TestCase):
             self.on_restore_called = True
         Foo.on_restore = fake_on_restore
         try:
-            foo = Foo.get(self.cursor, 1)
+            foo = Foo.get(self.connection, 1)
             self.assert_(hasattr(foo, 'on_restore_called'))
         finally:
             del Foo.on_restore

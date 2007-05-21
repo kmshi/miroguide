@@ -161,21 +161,21 @@ class Query(TableSelector, Joiner):
         self.add_joins_to_select(select)
         return select
 
-    def execute(self, cursor, select=None):
+    def execute(self, connection, select=None):
         if select is None:
             select = self.make_select()
         result_handler = ResultHandler(self)
-        for row in select.execute(cursor):
+        for row in select.execute(connection):
             row_iter = iter(row)
             result_handler.handle_data(row_iter)
         return result_handler.make_results()
 
-    def get(self, cursor, id=None):
+    def get(self, connection, id=None):
         if id is not None:
             id_values = util.ensure_list(id)
             for col, value in zip(self.table.primary_keys, id_values):
                 self.filter(col==value)
-        results = self.execute(cursor)
+        results = self.execute(connection)
         if len(results) == 1:
             return results[0]
         elif len(results) == 0:
@@ -183,11 +183,11 @@ class Query(TableSelector, Joiner):
         else:
             raise TooManyResultsError("Too many records returned")
 
-    def count(self, cursor):
+    def count(self, connection):
         select = self.make_select()
         select.order_by = None
         select.columns = [clause.COUNT]
-        return select.execute_scalar(cursor)
+        return select.execute_scalar(connection)
 
     def __str__(self):
         return str(self.make_select())
@@ -332,7 +332,7 @@ class ResultJoiner(Selector, Joiner):
     def no_joins(self):
         return len(self.joins) == 0
 
-    def execute(self, cursor):
+    def execute(self, connection):
         if self.no_joins():
             return
         result_handler = ResultHandler(self)
@@ -340,7 +340,7 @@ class ResultJoiner(Selector, Joiner):
         for record in result_handler.records:
             for join in self.join_list:
                 join.relation.init_record(record)
-        for row in self.make_select().execute(cursor):
+        for row in self.make_select().execute(connection):
             row_iter = iter(row)
             result_handler.handle_data(row_iter)
         result_handler.add_joined_results(self.result_set)
