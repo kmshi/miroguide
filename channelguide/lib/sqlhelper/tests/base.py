@@ -248,7 +248,9 @@ class Foo(orm.Record):
         return cls.query().load('bar_count')
     @classmethod
     def query_with_counts(cls):
-        return cls.query().load('category_count', 'bar_count')
+        # note this is purposely in a different order than they are defined in
+        # the table, to check if that screws things up.
+        return cls.query().load('bar_count', 'category_count')
 class FooExtra(orm.Record): 
     table = foo_extra_table
 class Bar(orm.Record): 
