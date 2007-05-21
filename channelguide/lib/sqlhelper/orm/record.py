@@ -76,9 +76,9 @@ class Record(object):
                 related_record = getattr(self, relation.name)
             except AttributeError:
                 continue
-            if (isinstance(relation, ManyToOne) or
+            if ((isinstance(relation, ManyToOne) or
                 (isinstance(relation, OneToOne) and 
-                relation.column.table is self.table) and
+                relation.column.table is self.table)) and
                 not hasattr(self, relation.column.name)):
                 try:
                     value = getattr(related_record, relation.column.ref.name)
