@@ -229,8 +229,9 @@ class ResultHandler(object):
         data = self.read_data(row_iter)
         pk = self.primary_key_from_data(data)
         if null_primary_key(pk):
-            return None # Left join resulted in a NULL result
-        if pk in self.record_map:
+            # Left join resulted in a NULL result
+            record = None 
+        elif pk in self.record_map:
             record = self.record_map[pk]
         else:
             record = self.selector.make_record(pk, data)
@@ -238,7 +239,8 @@ class ResultHandler(object):
             self.record_map[pk] = record
         for child_handler in self.children:
             relation = child_handler.handle_data(row_iter)
-            if relation is not None and (record, relation) not in self.joins_done:
+            if (record is not None and relation is not None and 
+                    (record, relation) not in self.joins_done):
                 child_handler.selector.relation.do_join(record, relation)
                 self.joins_done.add((record, relation))
         return record

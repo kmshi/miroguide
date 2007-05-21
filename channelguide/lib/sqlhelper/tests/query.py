@@ -189,6 +189,15 @@ class QueryTest(TestCase):
             self.check_bar_parent(bar)
             self.check_categories(bar.parent)
 
+    def test_deep_join_with_null(self):
+        query = Foo.query()
+        query.join('category_maps', 'category_maps.category', 'bars')
+        # some foos don't have a corresponding category_map.  However,
+        # category_map.category still needs to retrieve its data from the row,
+        # otherwise the bars relation won't get filled right
+        for foo in query.execute(self.connection):
+            self.check_bars(foo)
+
     def test_join_to_get(self):
         foo = Foo.get(self.connection, 2, join='bars')
         self.check_bars(foo)

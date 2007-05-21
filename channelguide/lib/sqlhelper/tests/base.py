@@ -236,8 +236,9 @@ foo_table.many_to_many('categories', category_table, category_map_table,
         backref='foos')
 foo_table.many_to_many('categories_with_dups', category_table,
         category_map_with_dups_table, backref='foos')
-category_map_table.many_to_one('foo', foo_table)
-category_map_table.many_to_one('category', category_table)
+category_map_table.many_to_one('foo', foo_table, backref='category_maps')
+category_map_table.many_to_one('category', category_table,
+        backref='category_maps')
 
 class Foo(orm.Record): 
     table = foo_table
