@@ -33,7 +33,7 @@ class LogCatcher(logging.Filter):
 class TestCase(unittest.TestCase):
     def setUp(self):
         unittest.TestCase.setUp(self)
-        self.connection = testsetup.connect()
+        self.connection = testsetup.dbinfo.connect()
         self.cursor = self.connection.cursor()
         #self.drop_all_tables()
         self.log_handler = LogRaiser()

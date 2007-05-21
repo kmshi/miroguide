@@ -7,8 +7,8 @@ import sys
 import logging
 
 def main(args):
-    import testsetup
     fix_path()
+    import testsetup
     parse_args(args)
     tests = load_tests()
     runner = TextTestRunner()
@@ -16,14 +16,14 @@ def main(args):
         runner.verbosity = 2
     try:
         # clear out old test databases if they're around
-        testsetup.drop_database()
+        testsetup.dbinfo.drop_database()
     except:
         pass
-    testsetup.create_database()
+    testsetup.dbinfo.create_database()
     try:
         runner.run(tests)
     finally:
-        testsetup.drop_database()
+        testsetup.dbinfo.drop_database()
 
 def fix_path():
     try:

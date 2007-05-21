@@ -4,7 +4,7 @@ from sqlhelper import pool, testsetup
 class DBPoolTest(unittest.TestCase):
     def setUp(self):
         self.max_connections = 3
-        self.pool = pool.ConnectionPool(testsetup.connect,
+        self.pool = pool.ConnectionPool(testsetup.dbinfo,
                 self.max_connections, timeout=0)
         self.opened_connections = []
 
@@ -18,7 +18,7 @@ class DBPoolTest(unittest.TestCase):
     def connect(self):
         connection = self.pool.connect()
         self.opened_connections.append(connection)
-        self.assertEquals(connection.open, True)
+        self.assert_(testsetup.dbinfo.is_connection_open(connection))
         return connection
     
     def check_counts(self, used_count, free_count):
@@ -47,6 +47,13 @@ class DBPoolTest(unittest.TestCase):
         self.connect()
         self.check_counts(self.max_connections, 0)
 
+    def test_double_release(self):
+        connection = self.connect()
+        self.pool.release(connection)
+        self.assertRaises(ValueError, self.pool.release, connection)
+        self.assertRaises(ValueError, self.pool.close, connection)
+        self.check_counts(0, 1)
+
     def test_connection_closed_by_db(self):
         connection = self.connect()
         self.pool.release(connection)
@@ -54,4 +61,4 @@ class DBPoolTest(unittest.TestCase):
         connection.close()
         connection2 = self.pool.connect()
         self.assert_(connection is not connection2)
-        self.assert_(connection2.open)
+        self.assert_(testsetup.dbinfo.is_connection_open(connection2))

@@ -1,56 +1,83 @@
 """Connection pooling."""
 
 import Queue
-from threading import Semaphore
+from threading import Condition, Lock
 
 class ConnectionTimeout(Exception):
     """Timeout while waiting for a connection to be released to the pool."""
 
 class ConnectionPool(object):
-    def __init__(self, connector, max_connections, timeout=5):
-        """Created a ConnectionPool.  connector is a function that will return
-        a new connection.
-        """
-
-        self.connector = connector
+    def __init__(self, dbinfo, max_connections, timeout=5):
+        self.dbinfo = dbinfo
         self.timeout = timeout
-        self.free = Queue.Queue()
-        self.semaphore = Semaphore(max_connections)
-        self.free_count = 0
-        self.used_count = 0
+        self.max_connections = max_connections
+        self.free = []
+        self.used = set()
+        self.lock = Lock()
+        self.condition = Condition(self.lock)
+
+    def get_free_count(self):
+        self.lock.acquire()
+        try:
+            return len(self.free)
+        finally:
+            self.lock.release()
+
+    def get_used_count(self):
+        self.lock.acquire()
+        try:
+            return len(self.used)
+        finally:
+            self.lock.release()
+
+    free_count = property(get_free_count)
+    used_count = property(get_used_count)
 
     def connect(self):
+        self.condition.acquire()
         try:
-            return self.get_free_connection(0)
-        except Queue.Empty:
-            pass
-        if self.semaphore.acquire(blocking=False):
-            self.used_count += 1
-            return self.connector()
-        else:
-            try:
-                return self.get_free_connection(self.timeout)
-            except Queue.Empty:
-                raise ConnectionTimeout()
+            connection = self._get_connection()
+            if connection is None:
+                self.condition.wait(self.timeout)
+                connection = self._get_connection()
+                if connection is None:
+                    raise ConnectionTimeout()
+            if not self.dbinfo.is_connection_open(connection):
+                # Connection was closed while it was in the free pool, open a
+                # new one.
+                connection = self.dbinfo.connect()
+            self.used.add(connection)
+            return connection
+        finally:
+            self.condition.release()
 
-    def get_free_connection(self, timeout):
-        connection = self.free.get(timeout)
-        self.free_count -= 1
-        self.used_count += 1
-        # maybe the DB closed the connection while it was sitting in the fre
-        # pool, if so, open a new one.  We don't need to mess with the
-        # semaphore count for this, since we're replacing a connection that
-        # was supposed to be free, with a new connection.
-        if not connection.open:
-            return self.connector()
-        return connection
+    def _get_connection(self):
+        if self.free:
+            return self.free.pop()
+        elif len(self.used) + len(self.free) < self.max_connections:
+            return self.dbinfo.connect()
+        else:
+            return None
+
+    def _remove_from_used(self, connection):
+        try:
+            self.used.remove(connection)
+        except KeyError:
+            raise ValueError("Connection not in pool")
 
     def release(self, connection):
-        self.free.put(connection)
-        self.used_count -= 1
-        self.free_count += 1
+        self.condition.acquire()
+        try:
+            self._remove_from_used(connection)
+            self.free.append(connection)
+            self.condition.notify()
+        finally:
+            self.condition.release()
 
     def close(self, connection):
-        self.semaphore.release()
-        connection.close()
-        self.used_count -= 1
+        self.condition.acquire()
+        try:
+            self._remove_from_used(connection)
+            self.condition.notify()
+        finally:
+            self.condition.release()
