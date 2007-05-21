@@ -99,7 +99,7 @@ class Join(Clause):
 
 class MultiJoin(Join):
     def __init__(self, tables, on, type='INNER'):
-        table = '(%s)' % (' JOIN '.join(str(t) for t in tables))
+        table = '(%s)' % (' CROSS JOIN '.join(str(t) for t in tables))
         Join.__init__(self, table, on, type)
 
 class JoinedTable(Table):
