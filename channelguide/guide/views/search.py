@@ -3,6 +3,7 @@ import urllib
 import re
 
 from django.utils.translation import gettext as _
+from django.http import Http404
 
 from channelguide import util, cache
 from channelguide.guide.search import search_channels, search_items
