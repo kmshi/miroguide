@@ -67,6 +67,7 @@ class Select(Statement):
         self.havings = []
         self.joins = []
         self.order_by = []
+        self.group_by = []
         self.limit = None
         self.offset = None
         for column in columns:
@@ -97,6 +98,9 @@ class Select(Statement):
     def add_order_by(self, order_by, desc=False):
         self.order_by.append(clause.OrderBy(order_by, desc))
 
+    def add_group_by(self, column, *args):
+        self.group_by.append(self.ensure_clause(clause.Column, column, args))
+
     def count(self, connection):
         s = Select()
         s.add_columns('COUNT(*)')
@@ -113,6 +117,10 @@ class Select(Statement):
         comp.add_text("\n")
         comp.add_clauses(self.joins)
         comp.add_where_list(self.wheres)
+        if self.group_by:
+            comp.add_text("GROUP BY ")
+            comp.join_clauses(self.group_by, ', ')
+            comp.add_text('\n')
         comp.add_having_list(self.havings)
         if self.order_by:
             comp.add_text("ORDER BY ")
@@ -127,7 +135,7 @@ class Select(Statement):
                 limit = 9999999
             else:
                 limit = self.limit
-            comp.add_text('LIMIT %s,%s\n', offset, limit)
+            comp.add_text('LIMIT %d,%d\n' % (offset, limit))
         return comp.finalize()
 
     def as_subquery(self, name):

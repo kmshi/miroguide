@@ -93,9 +93,15 @@ class Join(Clause):
         self.type = type
 
     def compile(self):
+        args = []
+        if isinstance(self.table, Clause):
+            table_text, table_args = self.table.compile()
+        else:
+            table_text = str(self.table)
+            table_args = []
         on_text, on_args = self.on.compile()
-        text = "%s JOIN %s ON %s" % (self.type, self.table, on_text)
-        return text, on_args
+        text = "%s JOIN %s ON %s" % (self.type, table_text, on_text)
+        return text, table_args + on_args
 
 class MultiJoin(Join):
     def __init__(self, tables, on, type='INNER'):
