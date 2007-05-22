@@ -7,7 +7,7 @@ from sqlhelper.sql import clause
 class SearchScore(clause.Clause):
     def __init__(self, table, terms):
         query = ' '.join(terms)
-        self.text = ('(MATCH(#table#.important_text) AGAINST (%s)) * 5 + '
+        self.text = ('(MATCH(#table#.important_text) AGAINST (%s)) * 50 + '
                 '(MATCH(#table#.important_text, #table#.text) AGAINST (%s))')
         self.text = self.text.replace('#table#', str(table))
         self.args = [query, query]
