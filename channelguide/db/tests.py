@@ -49,6 +49,13 @@ class DBUpdateTest(TestCase):
         self.assertEquals(rows[0], ("123abcdef", 'roy',
             hash_string("BOOyA-5000"), 2))
 
+    def test_version_commit(self):
+        self.reset_version()
+        update.run_updates(self.connection, self.update_dir_path('robot'))
+        new_connection = db.connect()
+        self.assertEquals(version.get_version(new_connection), 3)
+        new_connection.close()
+
     def test_run_updates_twice(self):
         self.reset_version()
         update.run_updates(self.connection, 'test_update_dirs/robot/')

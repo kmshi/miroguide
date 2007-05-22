@@ -17,3 +17,4 @@ def get_version(connection):
 
 def set_version(connection, version):
     connection.execute("UPDATE cg_db_version set version=%s", version)
+    connection.commit()
