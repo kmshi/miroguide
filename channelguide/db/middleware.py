@@ -31,7 +31,12 @@ class DBMiddleware(object):
         ConnectionCloser(request.connection)
 
     def process_response(self, request, response):
-        request.connection.commit()
+        try:
+            connection = request.connection
+        except AttributeError:
+            pass
+        else:
+            connection.commit()
         return response
 
     def process_exception(self, request, exception):
