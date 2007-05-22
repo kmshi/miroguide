@@ -170,7 +170,7 @@ def show_form_errors(form):
 
 @register.inclusion_tag('guide/form-field.html')
 def show_form_field(field):
-    return {'field': field }
+    return {'field': field, 'BASE_URL': settings.BASE_URL }
 
 @register.inclusion_tag('guide/pager.html')
 def show_pager(pager):
