@@ -101,6 +101,7 @@ class Joiner(object):
     def __init__(self):
         super(Joiner, self).__init__()
         self.joins = {}
+        self.raw_joins = []
 
     def join(self, *relation_names):
         for name in relation_names:
@@ -117,10 +118,20 @@ class Joiner(object):
         return self
 
     def add_joins_to_select(self, select):
+        for table, on, type in self.raw_joins:
+            select.add_join(table, on, type)
         for parent, join in self.join_iterator():
             join.columns.add_to_select(select)
             join.relation.add_joins(select, parent.table, join.table)
             join.add_filters_to_select(select)
+
+    def add_raw_join(self, table, on, type='INNER'):
+        """Adds a join clause to the SELECT statement used in this query.
+        Unlike join(), this doesn't add a relation to the Records outputted
+        from execute(), it only adds a JOIN at the SQL level.  The reason to
+        use this is to use the joined tables for filters and order_bys.
+        """
+        self.raw_joins.append((table, on, type))
 
 class Query(TableSelector, Joiner):
     """Handles selecting Records from a table"""

@@ -277,6 +277,16 @@ class QueryTest(TestCase):
         result_ids = [t.id for t in query.execute(self.connection)]
         self.assertEquals(result_ids, self.nonnull_type_ids)
 
+    def test_raw_join(self):
+        query = Bar.query()
+        query.add_raw_join('foo', 'foo_id=foo.id')
+        query.filter("foo.name='booya'")
+        bars = query.execute(self.connection)
+        correct_ids = [id for (id, foo_id, name) in self.foo_to_bars[1]]
+        self.assertEquals(correct_ids, [b.id for b in bars])
+        for b in bars:
+            self.assert_(not hasattr(b, 'parent'))
+
     def test_on_restore(self):
         def fake_on_restore(self):
             self.on_restore_called = True

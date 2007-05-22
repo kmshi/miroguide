@@ -5,9 +5,8 @@ import re
 from django.utils.translation import gettext as _
 
 from channelguide import util, cache
-from channelguide.guide.search import (search_channels, count_channel_matches,
-        search_items, count_item_matches)
-from channelguide.guide.templateutil import ManualPager
+from channelguide.guide.search import search_channels, search_items
+from channelguide.guide.templateutil import Pager
 from channelguide.guide.models import (Channel, Category, Tag, Item, Language,
         ChannelSearchData, ItemSearchData)
 
@@ -46,22 +45,24 @@ def search(request):
     context = {}
 
     try:
-        query = request.GET['query']
+        search_query = request.GET['query']
     except:
         raise Http404
-    query = query.strip()
-    terms = get_search_terms(query)
+    search_query = search_query.strip()
+    terms = get_search_terms(search_query)
     if terms_too_short(terms):
         return util.render_to_response(request, 'channel-search.html', {
             'results_count': 0,
-            'search_query': query,
+            'search_query': search_query,
             })
 
-    results = search_channels(request.connection, terms, limit=FRONT_PAGE_LIMIT)
-    results_count = count_channel_matches(request.connection, terms)
-    item_results = search_items(request.connection, terms,
-            limit=FRONT_PAGE_LIMIT_ITEMS)
-    item_results_count = count_item_matches(request.connection, terms)
+    query = search_channels(terms)
+    results_count = query.count(request.connection)
+    results = query.limit(FRONT_PAGE_LIMIT).execute(request.connection)
+
+    query = search_items(terms)
+    item_results_count = query.count(request.connection)
+    item_results = query.limit(FRONT_PAGE_LIMIT_ITEMS).execute(request.connection)
 
     return util.render_to_response(request, 'channel-search.html', {
         'results': results,
@@ -73,25 +74,23 @@ def search(request):
         'tags': search_results(request.connection, Tag, terms),
         'languages': search_results(request.connection, Language, terms),
         'categories': search_results(request.connection, Category, terms),
-        'search_query': query,
-        'more_results_link': more_results_link(query, results_count),
-        'more_results_link_items': more_results_link_items(query, 
+        'search_query': search_query,
+        'more_results_link': more_results_link(search_query, results_count),
+        'more_results_link_items': more_results_link_items(search_query, 
             item_results_count),
         })
 
-def do_search_more(request, title, search_func, search_count_func):
+def do_search_more(request, title, search_func):
     try:
-        query = request.GET['query']
+        search_query = request.GET['query']
     except:
         raise Http404
-    terms = get_search_terms(query)
+    terms = get_search_terms(search_query)
     if terms_too_short(terms):
         return util.render_to_response(request, 'search-more.html', {})
-    search_query = query.strip()
-    total_results = search_count_func(request.connection, terms)
-    def callback(offset, limit):
-        return search_func(request.connection, terms, offset, limit)
-    pager = ManualPager(20, total_results, callback, request)
+    search_query = search_query.strip()
+    query = search_func(terms)
+    pager = Pager(20, query, request)
     return util.render_to_response(request, 'search-more.html', {
         'title': title % search_query,
         'search_query': search_query,
@@ -102,10 +101,9 @@ def do_search_more(request, title, search_func, search_count_func):
 @cache.aggresively_cache
 def search_more(request):
     title = _('Channels Matching %s')
-    return do_search_more(request, title, search_channels,
-            count_channel_matches)
+    return do_search_more(request, title, search_channels)
 
 @cache.aggresively_cache
 def search_more_items(request):
     title = _('Channels With Videos Matching %s')
-    return do_search_more(request, title, search_items, count_item_matches)
+    return do_search_more(request, title, search_items)
