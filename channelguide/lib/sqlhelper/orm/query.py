@@ -157,7 +157,12 @@ class Query(TableSelector, Joiner):
         self.add_filters_to_select(select)
         select.limit = self._limit
         select.offset = self._offset
-        select.order_by = self._order_by
+        if self._order_by:
+            select.order_by = self._order_by
+        else:
+            # by default order by the primary key(s)
+            for column in self.table.primary_keys:
+                select.order_by.append(clause.OrderBy(column.fullname()))
         self.add_joins_to_select(select)
         return select
 
