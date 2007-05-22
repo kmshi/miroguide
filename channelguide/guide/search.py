@@ -38,7 +38,9 @@ def search_channels(terms):
     terms = util.ensure_list(terms)
     query = Channel.query().join('search_data')
     query.filter(state=Channel.APPROVED)
-    query.filter(SearchWhere(query.joins['search_data'].table.name, terms))
+    search_data_table = query.joins['search_data'].table.name
+    query.filter(SearchWhere(search_data_table, terms))
+    query.order_by(SearchScore(search_data_table, terms), desc=True)
     return query
 
 def search_items(terms):

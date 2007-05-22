@@ -80,10 +80,14 @@ class Having(Filter):
 class OrderBy(Clause):
     """ORDER BY clause."""
     def __init__(self, column, desc=False):
-        self.text = str(column)
+        if isinstance(column, Clause):
+            self.text = '(%s)' % column.text
+            self.args = column.args
+        else:
+            self.text = str(column)
+            self.args = []
         if desc:
             self.text += ' DESC'
-        self.args = []
 
 class Join(Clause):
     """SQL JOIN clause."""

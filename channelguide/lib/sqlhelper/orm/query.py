@@ -146,10 +146,11 @@ class Query(TableSelector, Joiner):
         if order_by is None:
             self._order_by = []
             return self
-        try:
-            order_by = self.get_column(order_by).fullname()
-        except AttributeError:
-            pass
+        if isinstance(order_by, str):
+            try:
+                order_by = self.get_column(order_by).fullname()
+            except AttributeError:
+                pass
         self._order_by.append(clause.OrderBy(order_by, desc))
         return self
 

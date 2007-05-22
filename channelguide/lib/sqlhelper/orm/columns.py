@@ -166,6 +166,19 @@ class AbstractColumn(Column):
     """Column that doesn't correspond to a column in the database.  This is
     used for things like subqueries, MySQL MATCH columns, etc.
     """
+    def __init__(self, name, *args, **kwargs):
+        if 'optional' not in kwargs:
+            kwargs['optional'] = True
+        super(AbstractColumn, self).__init__(name, *args, **kwargs)
+
+    def fullname(self):
+        if self.table is not None:
+            return "%s_%s" % (self.table.name, self.name)
+        else:
+            return self.name
+
+    def add_to_select(self, select):
+        select.add_column(self.column_expression())
 
 class Subquery(AbstractColumn):
     """Column that represents a SQL scalar subselect.
@@ -181,26 +194,24 @@ class Subquery(AbstractColumn):
     """
 
     def __init__(self, name, sql, *args, **kwargs):
-        if 'optional' not in kwargs:
-            kwargs['optional'] = True
-        Column.__init__(self, name, *args, **kwargs)
+        super(Subquery, self).__init__(name, *args, **kwargs)
         self.sql = sql
 
     def column_expression(self):
         real_sql = self.sql.replace('#table#', self.table.name)
         return '(%s) AS %s' % (real_sql, self.fullname())
 
-    def add_to_select(self, select):
-        select.add_column(self.column_expression())
-
     def make_filter(self, string, args):
         return clause.Having(string, args)
 
-    def fullname(self):
-        if self.table is not None:
-            return "%s_%s" % (self.table.name, self.name)
-        else:
-            return self.name
-
     def __str__(self):
         return self.column_expression()
+
+class Expression(AbstractColumn):
+    def __init__(self, name, clause, *args, **kwargs):
+        super(Expression, self).__init__(name, *args, **kwargs)
+        self.clause = clause
+
+    def column_expression(self):
+        text = '(%s) AS %s' % (self.clause.text, self.fullname())
+        return clause.Column(text, self.clause.args)
