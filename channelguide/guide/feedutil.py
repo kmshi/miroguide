@@ -4,7 +4,7 @@ ripped out from democracy.
 
 from datetime import datetime
 
-from sqlalchemy import String
+from sqlhelper.orm import columns
 
 def get_first_video_enclosure(entry):
     """Find the first video enclosure in a feedparser entry.  Returns the
@@ -75,19 +75,22 @@ def get_string_columns(obj):
     try:
         return string_column_cache[obj.__class__]
     except KeyError:
-        cols = [c for c in obj.c if isinstance(c.type, String)]
+        cols = [c for c in obj.c if isinstance(c, columns.String)]
         string_column_cache[obj.__class__] = cols
         return cols
 
 def fix_utf8_strings(obj):
     # cache string columns for fast access
+    changed = False
     for c in get_string_columns(obj):
-        org = getattr(obj, c.name)
+        org = obj.__dict__.get(c.name)
         if org is None:
             continue
         fixed = to_utf8(org)
         if org != fixed:
+            changed = True
             setattr(obj, c.name, fixed)
+    return changed
 
 def struct_time_to_datetime(time):
     return datetime(*time[:6])

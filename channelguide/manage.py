@@ -26,7 +26,6 @@ from glob import glob
 
 from django.conf.urls.defaults import patterns
 from django.core import management 
-from sqlalchemy import create_session, eagerload, select
 action_mapping = management.DEFAULT_ACTION_MAPPING.copy()
 original_action_mapping_keys = action_mapping.keys()
 print_stuff = False
@@ -39,83 +38,66 @@ def syncdb(verbosity=None, interactive=None):
     db.syncdb()
 syncdb.args = ''
 
-def convert_old_data(args):
-    "Convert databse data from videobomb and the old channelguide."
-    from channelguide.util.convert_old_data import convert_old_data
-    if len(args) != 4:
-        sys.stderr.write("usage manage.py convert_old_data "
-                '<channelguide db dump> <videobomb db dump>\n')
-        sys.exit(1)
-    convert_old_data(args[2], args[3])
-convert_old_data.args = '<videobomb db name> <channelguide db name>'
-
-def make_session():
-    from channelguide import db
-    connection = db.connect()
-    return create_session(bind_to=connection)
-
 FLUSH_EVERY_X_CHANNELS = 50
-def all_channel_iterator(task_description):
+def all_channel_iterator(connection, task_description, *joins):
     """Helper method to iterate over all channels.  It will yield each channel
     in order.
     """
 
     from channelguide.guide.models import Channel
 
-    db_session = make_session()
-    query = db_session.query(Channel).options(eagerload('items'))
-    count = itertools.count()
+    query = Channel.query()
+    if joins:
+        query.join(*joins)
     if print_stuff:
         print "fetching channels..."
-    select = query.select()
-    results = select.list()
+    channels = query.execute(connection)
     if print_stuff:
-        pprinter = util.ProgressPrinter(task_description, select.count())
+        pprinter = util.ProgressPrinter(task_description, len(channels))
         pprinter.print_status()
-    for channel in results:
+    for channel in channels:
         yield channel
-        if count.next() % FLUSH_EVERY_X_CHANNELS == 0:
-            db_session.flush()
+        connection.commit()
         if print_stuff:
             pprinter.iteration_done()
-    db_session.flush()
     if print_stuff:
         pprinter.loop_done()
 
-def get_channel_ids():
+def get_channels():
     from channelguide import db
-    from channelguide.guide import tables
+    from channelguide.guide.models import Channel
     connection = db.connect()
-    results = connection.execute(select([tables.channel.c.id]))
-    rv = [row[0] for row in results]
-    connection.close()
-    return rv
+    try:
+        return Channel.query().execute(connection)
+    finally:
+        connection.close()
 
-def spawn_children(task_description, action_name, thread_count, extra_args=''):
-    """Works with update_items and download_thumbnails to manage child processes
-    that update the individual channels.
+def spawn_threads_for_channels(task_description, callback, thread_count):
+    """Works with update_items and download_thumbnails to manage worker
+    threads that update the individual channels.
     """
 
-    channel_ids = get_channel_ids()
-    id_queue = Queue.Queue()
-    for id in channel_ids:
-        id_queue.put(id)
+    from channelguide import db
+    queue = Queue.Queue()
+    for channel in get_channels():
+        queue.put(channel)
     if print_stuff:
-        pprinter = util.ProgressPrinter(task_description, len(channel_ids))
+        pprinter = util.ProgressPrinter(task_description, queue.qsize())
         pprinter.print_status()
-    class ChildSpawner(threading.Thread):
+    class Worker(threading.Thread):
         def run(self):
+            connection = db.connect()
             while True:
                 try:
-                    id = id_queue.get(block=False)
+                    channel = queue.get(block=False)
                 except Queue.Empty:
                     break
-                cmd = "python %s %s %d %s" % (__file__, action_name, id,
-                        extra_args)
-                os.system(cmd)
+                callback(connection, channel)
+                connection.commit()
                 if print_stuff:
                     pprinter.iteration_done()
-    threads = [ChildSpawner() for x in range(thread_count)]
+            connection.close()
+    threads = [Worker() for x in range(thread_count)]
     for t in threads:
         t.start()
     for t in threads:
@@ -123,59 +105,40 @@ def spawn_children(task_description, action_name, thread_count, extra_args=''):
     if print_stuff:
         pprinter.loop_done()
 
-def fetch_single_channel(db_session, args, arg_help):
-    from channelguide.guide.models import Channel
-    try:
-        id = int(args[2])
-    except (ValueError, IndexError):
-        sys.stderr.write("syntax manage.py %s\n" % arg_help)
-        sys.exit(1)
-    else:
-        return db_session.get(Channel, id)
-
 def update_items(args=None):
     """Update the items for each channel."""
-    spawn_children('updating items', "update_item", 4)
+    from channelguide import db
+    db.pool.max_connections = 20
+    set_short_socket_timeout()
+
+    def callback(connection, channel):
+        channel.join('items').execute(connection)
+        try:
+            channel.update_items(connection)
+        except:
+            logging.warn("\nError updating items for %s\n\n%s\n" % 
+                    (channel, traceback.format_exc()))
+    spawn_threads_for_channels('updating items', callback, 4)
 update_items.args = ''
 
 def download_thumbnails(args=None):
     "update channel thumbnails."""
+
+    from channelguide import db
     if args is None:
         args = []
-    extra_args = ' '.join(args[2:])
-    spawn_children('updating thumbnails', "download_thumbnail", 4, extra_args)
-download_thumbnails.args = '[--redownload]'
-
-def update_item(args):
-    """Update a single channel's item"""
-    set_short_socket_timeout()
-    db_session = make_session()
-    channel = fetch_single_channel(db_session, args, update_item.args)
-    if channel is not None:
-        try:
-            channel.update_items()
-        except:
-            logging.warn("\nError updating items for %s\n\n%s\n" % 
-                    (channel, traceback.format_exc()))
-        else:
-            db_session.flush()
-update_item.args = '<id>'
-
-def download_thumbnail(args):
-    "update channel thumbnails."""
-    from channelguide import db
-
+    db.pool.max_connections = 20
     set_short_socket_timeout()
     redownload = (len(args) > 3 and args[3] in ('-r', '--redownload'))
-    db_session = make_session()
-    channel = fetch_single_channel(db_session, args, download_thumbnail.args)
-    if channel is not None:
+    def callback(connection, channel):
+        channel.join("items").execute(connection)
         try:
-            channel.download_item_thumbnails(redownload)
+            channel.download_item_thumbnails(connection, redownload)
         except:
             logging.warn("\nerror updating thumbnails for %s\n\n%s\n" % 
                     (channel, traceback.format_exc()))
-download_thumbnail.args = '<id> [--redownload]'
+    spawn_threads_for_channels('updating thumbnails', callback, 4)
+download_thumbnails.args = '[--redownload]'
 
 def update_search_data(args=None):
     "Update the search data for each channel."
@@ -187,8 +150,10 @@ WHERE NOT EXISTS (SELECT * FROM cg_channel_item WHERE id=item_id)""")
     connection.execute("""DELETE FROM cg_channel_search_data
 WHERE NOT EXISTS (SELECT * FROM cg_channel WHERE id=channel_id)""")
 
-    for channel in all_channel_iterator('updating search data'):
-        channel.update_search_data()
+    iter = all_channel_iterator(connection, 'updating search data', 'items',
+            'items.search_data')
+    for channel in iter:
+        channel.update_search_data(connection)
 update_search_data.args = ''
 
 def update_thumbnails(args):
@@ -202,9 +167,12 @@ def update_thumbnails(args):
             sizes.append(arg)
     if sizes == []:
         sizes = None
-    for channel in all_channel_iterator('updating thumbnails'):
+    from channelguide import db
+    connection = db.connect()
+    for channel in all_channel_iterator(connection, 'updating thumbnails',
+            'items'):
         try:
-            channel.update_thumbnails(overwrite, sizes)
+            channel.update_thumbnails(connection, overwrite, sizes)
         except:
             logging.warn("\nError updating thumbnails for %s\n\n%s\n" % 
                     (channel, traceback.format_exc()))
@@ -212,8 +180,10 @@ update_thumbnails.args = '[size] [--overwrite]'
 
 def fix_utf8_strings(args):
     "Update the search data for each channel."
-    for channel in all_channel_iterator('fixing utf8 data'):
-        channel.fix_utf8_strings()
+    from channelguide import db
+    connection = db.connect()
+    for channel in all_channel_iterator(connection, 'fixing utf8 data', 'items'):
+        channel.fix_utf8_strings(connection)
 fix_utf8_strings.args = ''
 
 def drop_channel_data(args):
@@ -235,10 +205,10 @@ drop_users.args = ''
 
 def update_blog_posts(args=None):
     "Update posts from PCF's blog."
+    from channelguide import db
     from channelguide.guide import blogtrack
-    db_session = make_session()
-    blogtrack.update_posts(db_session)
-    db_session.flush()
+    connection = db.connect()
+    blogtrack.update_posts(connection)
 update_blog_posts.args = ''
 
 def make_icons(args):
@@ -253,11 +223,19 @@ def remove_blank_space(args):
     """Remove blank space from the start/end of channel names and
     descriptions.
     """
-    for channel in all_channel_iterator("removing blank space"):
+    from channelguide import db
+    connection = db.connect()
+    for channel in all_channel_iterator(connection, "removing blank space"):
+        change = False
         if channel.name.strip() != channel.name:
+            change=True
             channel.name = channel.name.strip()
         if channel.description.strip() != channel.description:
+            change=True
             channel.description = channel.description.strip()
+        if change:
+            channel.save(connection)
+            connection.commit()
 remove_blank_space.args = ''
 
 def clear_cache(args):
@@ -303,13 +281,10 @@ for key in ['startproject', 'adminindex', 'createcachetable', 'install',
         pass
 
 action_mapping['syncdb'] = syncdb
-action_mapping['convert_old_data'] = convert_old_data
 action_mapping['download_thumbnails'] = download_thumbnails
-action_mapping['download_thumbnail'] = download_thumbnail
 action_mapping['update_search_data'] = update_search_data
 action_mapping['fix_utf8_strings'] = fix_utf8_strings
 action_mapping['update_thumbnails'] = update_thumbnails
-action_mapping['update_item'] = update_item
 action_mapping['update_items'] = update_items
 action_mapping['drop_channel_data'] = drop_channel_data
 action_mapping['drop_users'] = drop_users

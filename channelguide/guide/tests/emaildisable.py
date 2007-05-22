@@ -16,31 +16,32 @@ class EmailDisableTest(TestCase):
     def test_disable_moderater_post_emails(self):
         self.jane.moderator_board_emails = False
         self.bob.moderator_board_emails = True
-        self.db_session.flush()
+        self.jane.save(self.connection)
+        self.bob.save(self.connection)
         note = ModeratorPost(self.bob, 'hi', 'body')
-        note.send_email(self.bob)
+        note.send_email(self.connection, self.bob)
         self.check_email_list(self.bob)
 
     def test_webpages(self):
         self.login("bob")
         self.post_data('/accounts/moderator-board-emails/%d' % self.bob.id,
                 {'set-to': 'enable'})
-        self.refresh_user(self.bob)
+        self.update_bob()
         self.assertEquals(self.bob.moderator_board_emails, True)
         self.post_data('/accounts/moderator-board-emails/%d' % self.bob.id,
                 {'set-to': 'disable'})
-        self.refresh_user(self.bob)
+        self.update_bob()
         self.assertEquals(self.bob.moderator_board_emails, False)
 
         self.post_data('/accounts/status-emails/%d' % self.bob.id,
                 {'set-to': 'enable'})
-        self.refresh_user(self.bob)
+        self.update_bob()
         self.assertEquals(self.bob.status_emails, True)
         self.post_data('/accounts/status-emails/%d' % self.bob.id,
                 {'set-to': 'disable'})
-        self.refresh_user(self.bob)
+        self.update_bob()
         self.assertEquals(self.bob.status_emails, False)
 
-    def refresh_user(self, user):
-        self.refresh_connection()
-        self.db_session.refresh(user)
+    def update_bob(self):
+        self.connection.commit()
+        self.bob = self.refresh_record(self.bob)

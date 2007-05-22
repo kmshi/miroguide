@@ -2,11 +2,11 @@ from django import newforms as forms
 from django.newforms.forms import NON_FIELD_ERRORS, BoundField
 
 class Form(forms.Form):
-    def __init__(self, db_session, *args, **kwargs):
+    def __init__(self, connection, *args, **kwargs):
         forms.Form.__init__(self, *args, **kwargs)
-        self.db_session = db_session
+        self.connection = connection
         for field in self.fields.values():
-            field.db_session = db_session
+            field.connection = connection
 
     def error_list(self):
         for key, error_list in self.errors.items():

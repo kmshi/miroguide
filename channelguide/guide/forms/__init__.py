@@ -14,7 +14,7 @@ class RSSFeedField(WideCharField):
     def clean(self, value):
         url = super(RSSFeedField, self).clean(value)
         url = url.strip()
-        if self.db_session.query(Channel).get_by(url=url) is not None:
+        if Channel.query(url=url).count(self.connection) > 0:
             msg = _("%s is already a channel in the guide") % url
             raise forms.ValidationError(msg)
 

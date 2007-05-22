@@ -8,39 +8,51 @@ from django.utils.cache import patch_vary_headers
 from models import Session
 from util import get_session_from_key, make_new_session_key
 from channelguide import util
-from channelguide.db import dbutil
 
 class CGSessionWrapper(SessionWrapper):
     def __init__(self, request):
         cookie_name = settings.SESSION_COOKIE_NAME
         self.session_key = request.COOKIES.get(cookie_name, None)
-        self.db_session = request.db_session
+        self.connection = request.connection
         self.modified = False
+        self.session_loaded = False
+
+    def load_session(self):
+        if self.session_loaded:
+            return
+        session = get_session_from_key(self.connection, self.session_key)
+        try:
+            self._session_data = session.get_data()
+        except:
+            logging.warn("Error getting session data\n" +
+                    traceback.format_exc())
+            session.set_data({})
+            self._session_data = {}
+        self._record = session
+        self.session_loaded = True
 
     def _get_session(self):
-        # Lazily loads session from storage.
-        try:
-            return self._session_cache
-        except AttributeError:
-            session = get_session_from_key(self.db_session, self.session_key)
-            try:
-                self._session_cache = session.get_data()
-            except:
-                logging.warn("Error getting session data\n" +
-                        traceback.format_exc())
-                session.set_data({})
-                self._session_cache = {}
-            return self._session_cache
+        self.load_session()
+        return self._session_data
     _session = property(_get_session)
 
+    def make_new_session_key(self):
+        self.session_key = make_new_session_key(self.connection)
+        self._record.session_key = self.session_key
+
     def change_session_key(self):
-        self._get_session() # causes _session_cache to be loaded
-        if self.session_key is not None:
-            old_session = self.db_session.get(Session, self.session_key)
-            if old_session is not None:
-                self.db_session.delete(old_session)
-        self.session_key = make_new_session_key(self.db_session)
+        self.load_session()
+        self._record.delete_if_exists(self.connection)
+        self.make_new_session_key()
         self.modified = True
+
+    def save(self):
+        session = self._record
+        self._record.set_data(self._session_data)
+        self._record.update_expire_date()
+        if self._record.session_key is None:
+            self.make_new_session_key()
+        self._record.save(self.connection)
 
 class SessionMiddleware(object):
     """Adds a session object to each request."""
@@ -53,14 +65,7 @@ class SessionMiddleware(object):
         # those changes and set a session cookie.
         patch_vary_headers(response, ('Cookie',))
         if hasattr(request, 'session') and request.session.modified:
-            db_session = request.db_session
-            session = get_session_from_key(db_session,
-                    request.session.session_key)
-            session.set_data(request.session._session)
-            session.update_expire_date()
-            if session.session_key is None:
-                session.session_key = make_new_session_key(db_session)
-                db_session.save(session)
+            request.session.save()
             util.set_cookie(response, settings.SESSION_COOKIE_NAME,
-                    session.session_key, settings.SESSION_COOKIE_AGE)
+                    request.session.session_key, settings.SESSION_COOKIE_AGE)
         return response

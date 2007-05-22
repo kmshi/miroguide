@@ -13,11 +13,12 @@ def fetch_new():
         posts.append(post)
     return posts
 
-def update_posts(db_session):
+def update_posts(connection):
     new_posts = fetch_new()
-    old_posts = db_session.query(PCFBlogPost).select()
+    old_posts = PCFBlogPost.query().execute(connection)
     for post in old_posts:
-        db_session.delete(post)
+        post.delete(connection)
     for post in new_posts:
-        db_session.save(post)
+        post.save(connection)
+    connection.commit()
     return new_posts

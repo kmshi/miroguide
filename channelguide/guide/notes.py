@@ -22,7 +22,7 @@ def get_note_info(channel, user):
     else:
         info['show_moderator_notes'] = False
         info['moderator_notes'] = []
-    if user.is_moderator() or channel.owner is user:
+    if user.is_moderator() or channel.owner_id == user.id:
         info['show_owner_notes'] = True
         info['owner_notes'] = [n for n in channel.notes \
                 if n.type == ChannelNote.MODERATOR_TO_OWNER]

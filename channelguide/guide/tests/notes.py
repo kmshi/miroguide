@@ -9,14 +9,16 @@ class NotesTest(TestCase):
         TestCase.setUp(self)
         self.channel_owner = self.make_user('foobar')
         self.channel_owner.email = 'someone@somewhere.net'
+        self.channel_owner.save(self.connection)
         self.channel = self.make_channel(self.channel_owner)
+        self.channel.join("notes").execute(self.connection)
         self.non_owner = self.make_user('tony')
         self.moderator = self.make_user('greg', role=User.MODERATOR)
         self.moderator_note = self.make_note('foo', ChannelNote.MODERATOR_ONLY)
         self.owner_note = self.make_note('bar', ChannelNote.MODERATOR_TO_OWNER)
-        self.channel.notes.append(self.moderator_note)
-        self.channel.notes.append(self.owner_note)
-        self.db_session.flush()
+        self.channel.notes.add_record(self.connection, self.moderator_note)
+        self.channel.notes.add_record(self.connection, self.owner_note)
+        self.connection.commit()
 
     def make_note(self, title, type):
         return ChannelNote(self.channel_owner, title, 'Booya', type)
@@ -30,11 +32,7 @@ class NotesTest(TestCase):
             self.assertSameNote(note1, note2)
 
     def test_add_note(self):
-        self.db_session.save(self.channel)
-        self.db_session.flush()
-        self.db_session.clear()
-        self.refresh_connection()
-        notes = self.db_session.query(ChannelNote).select().list()
+        notes = ChannelNote.query().execute(self.connection)
         self.assertEquals(len(notes), 2)
         self.assertSameNote(notes[0], self.moderator_note)
         self.assertSameNote(notes[1], self.owner_note)
@@ -81,12 +79,12 @@ class NotesPageTest(TestCase):
         TestCase.setUp(self)
         self.user = self.make_user('fred')
         self.moderator = self.make_user('greg', role=User.MODERATOR)
-        self.supermod = self.make_user('henrietta', 
-                role=User.SUPERMODERATOR)
+        self.supermod = self.make_user('henrietta', role=User.SUPERMODERATOR)
         self.random_user = self.make_user("jane")
         self.user.email = 'someone@somewhere.net'
+        self.user.save(self.connection)
         self.channel = self.make_channel(self.user)
-        self.db_session.flush()
+        self.channel.join('notes').execute(self.connection)
 
     def make_note_post_data(self, send_email=False):
         post_data = {
@@ -103,8 +101,7 @@ class NotesPageTest(TestCase):
         self.login(self.user)
         post_data = self.make_note_post_data()
         page = self.post_data("/notes/new", post_data)
-        self.refresh_connection()
-        self.db_session.refresh(self.channel)
+        self.channel = self.refresh_record(self.channel, 'notes')
         self.assertEquals(len(self.channel.notes), 1)
         self.assertEquals(self.channel.notes[-1].title, post_data['title'])
         self.assertEquals(self.channel.notes[-1].body, post_data['body'])
@@ -113,8 +110,7 @@ class NotesPageTest(TestCase):
         self.assertEquals(len(self.emails), 0)
         self.login(self.moderator)
         page = self.post_data("/notes/new", self.make_note_post_data(True))
-        self.refresh_connection()
-        self.db_session.refresh(self.channel)
+        self.channel = self.refresh_record(self.channel, 'notes')
         self.assertEquals(len(self.channel.notes), 2)
         self.assertEquals(len(self.emails), 1)
 
@@ -129,15 +125,15 @@ class NotesPageTest(TestCase):
         start_count = self.get_note_count()
         note = ChannelNote(self.user, 'test', 'test',
                 ChannelNote.MODERATOR_TO_OWNER)
-        self.channel.notes.append(note)
-        self.db_session.flush()
+        self.channel.notes.add_record(self.connection, note)
         self.check_note_count(start_count + 1)
         return note
 
     def get_note_count(self):
-        self.refresh_connection()
-        self.db_session.refresh(self.channel)
-        return len(self.channel.notes)
+        self.connection.commit()
+        updated_channel = self.refresh_record(self.channel)
+        updated_channel.join("notes").execute(self.connection)
+        return len(updated_channel.notes)
 
     def check_note_count(self, correct_count):
         self.assertEquals(self.get_note_count(), correct_count)
@@ -150,6 +146,7 @@ class NotesPageTest(TestCase):
 
     def check_can_delete(self, user, can_delete):
         start_note_count = self.get_note_count()
+        self.channel = self.refresh_record(self.channel, 'notes')
         if user is not None:
             self.login(user)
         page = self.post_data("/notes/%d" % self.channel.notes[0].id, 
@@ -216,7 +213,6 @@ class ModeratorPostTest(TestCase):
         self.user = self.make_user('user')
         self.mod = self.make_user('mod', role=User.MODERATOR)
         self.supermod = self.make_user('supermod', role=User.SUPERMODERATOR)
-        self.db_session.flush()
         self.new_post_data = {
             'title': 'test title',
             'body': 'test body',
@@ -225,11 +221,11 @@ class ModeratorPostTest(TestCase):
         self.new_post_data_email['send-email'] = 1
 
     def add_post(self):
-        self.db_session.save(ModeratorPost(self.mod, 'test', 'test'))
+        ModeratorPost(self.mod, 'test', 'test').save(self.connection)
         
     def get_post_count(self):
         self.refresh_connection()
-        return self.db_session.query(ModeratorPost).count()
+        return ModeratorPost.query().count(self.connection)
 
     def test_view_auth(self):
         self.assertLoginRedirect("/notes/moderator-board")
@@ -255,7 +251,7 @@ class ModeratorPostTest(TestCase):
 
     def check_delete_auth(self, user, can_delete):
         start_count = self.get_post_count()
-        post = self.db_session.query(ModeratorPost).selectfirst()
+        post = ModeratorPost.query().limit(1).get(self.connection)
         page = self.post_data('/notes/post-%d' % post.id, 
                 {'action' : 'delete'}, login_as=user)
         if can_delete:
@@ -267,15 +263,14 @@ class ModeratorPostTest(TestCase):
     def test_delete(self):
         for i in range(5):
             self.add_post()
-        self.db_session.flush()
         self.check_delete_auth(None, False)
         self.check_delete_auth(self.user, False)
         self.check_delete_auth(self.mod, False)
         self.check_delete_auth(self.supermod, True)
 
     def moderater_count(self):
-        query = self.db_session.query(User)
-        return len(query.select(User.c.role.in_(*User.ALL_MODERATOR_ROLES)))
+        query = User.query().filter(User.c.role.in_(User.ALL_MODERATOR_ROLES))
+        return query.count(self.connection)
 
     def check_email_auth(self, user, can_email):
         start_count = len(self.emails)
@@ -308,8 +303,7 @@ class ModeratorPostTest(TestCase):
                 if recipient in sent_emails:
                     raise AssertionError("Duplicate to")
                 sent_emails.add(recipient)
-        query = self.db_session.query(User)
-        mods = query.select(User.c.role.in_(*User.ALL_MODERATOR_ROLES))
-        mod_emails = [mod.email for mod in mods]
+        query = User.query().filter(User.c.role.in_(User.ALL_MODERATOR_ROLES))
+        mod_emails = [mod.email for mod in query.execute(self.connection)]
         self.assertSameSet(sent_emails, mod_emails)
 

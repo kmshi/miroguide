@@ -17,8 +17,8 @@ init.init_external_libraries()
 class TestLogHandler(logging.Handler):
     def emit(self, record):
         if record.levelno >= logging.WARN:
-            raise ValueError("got %s log record during tests" %
-                    record.levelname)
+            raise ValueError("got %s log record during tests (%s)" %
+                    (record.levelname, record.getMessage()))
 
 def main(args):
     parse_args(args)
@@ -58,15 +58,16 @@ class OptionAwareTestLoader(TestSuite):
             test_id_parts = testCase.id().split(".")
             method = test_id_parts[-1]
             klass = test_id_parts[-2]
-            module_name = testCase.__class__.__module__.split('.')[-1]
+            module_names = testCase.__class__.__module__.split('.')
             for arg in parsed_args:
-                if arg not in (method, klass, module_name):
+                if arg not in module_names + [method, klass]:
                     return
         TestSuite.addTest(self, testCase)
 
 test_packages = [
         'channelguide.guide.tests',
-        'channelguide.newdb.tests',
+        'channelguide.sessions.tests',
+        'channelguide.db.tests',
 ]
 
 def load_tests():

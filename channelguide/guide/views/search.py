@@ -5,8 +5,11 @@ import re
 from django.utils.translation import gettext as _
 
 from channelguide import util, cache
+from channelguide.guide.search import (search_channels, count_channel_matches,
+        search_items, count_item_matches)
 from channelguide.guide.templateutil import ManualPager
-from channelguide.guide.models import Channel, Category, Tag, Item, Language
+from channelguide.guide.models import (Channel, Category, Tag, Item, Language,
+        ChannelSearchData, ItemSearchData)
 
 FRONT_PAGE_LIMIT = 10
 FRONT_PAGE_LIMIT_ITEMS = 20
@@ -29,27 +32,24 @@ def more_results_link_items(query, total_results):
             FRONT_PAGE_LIMIT_ITEMS)
     return util.make_link(href, escape(label))
 
-def search_results(session, class_, terms, search_attribute='name'):
-    select = session.query(class_).select()
-    if class_ is not Language:
-        select = select.filter(class_.c.channel_count > 0)
-    else:
-        select = select.filter((class_.c.channel_count_primary > 0) |
-                (class_.c.channel_count_secondary > 0))
+def search_results(connection, class_, terms, search_attribute='name'):
+    query = class_.query().load('channel_count')
+    query.filter(class_.c.channel_count > 0)
 
-    search_column = class_.c[search_attribute]
+    search_column = class_.c.get(search_attribute)
     for term in terms:
-        select = select.filter(search_column.like('%s%%' % term))
-    return select.list()
+        query.filter(search_column.like('%s%%' % term))
+    return query.execute(connection)
 
 @cache.aggresively_cache
 def search(request):
+    context = {}
+
     try:
         query = request.GET['query']
     except:
         raise Http404
     query = query.strip()
-
     terms = get_search_terms(query)
     if terms_too_short(terms):
         return util.render_to_response(request, 'channel-search.html', {
@@ -57,11 +57,11 @@ def search(request):
             'search_query': query,
             })
 
-    results = Channel.search(request.db_session, terms, limit=FRONT_PAGE_LIMIT)
-    results_count = Channel.search_count(request.connection, terms)
-    item_results = Channel.search_items(request.db_session, terms,
+    results = search_channels(request.connection, terms, limit=FRONT_PAGE_LIMIT)
+    results_count = count_channel_matches(request.connection, terms)
+    item_results = search_items(request.connection, terms,
             limit=FRONT_PAGE_LIMIT_ITEMS)
-    item_results_count = Channel.search_items_count(request.connection, terms)
+    item_results_count = count_item_matches(request.connection, terms)
 
     return util.render_to_response(request, 'channel-search.html', {
         'results': results,
@@ -70,9 +70,9 @@ def search(request):
         'item_results_count': item_results_count,
         'extra_results': results_count > FRONT_PAGE_LIMIT,
         'extra_item_results': item_results_count > FRONT_PAGE_LIMIT_ITEMS,
-        'tags': search_results(request.db_session, Tag, terms),
-        'languages': search_results(request.db_session, Language, terms),
-        'categories': search_results(request.db_session, Category, terms),
+        'tags': search_results(request.connection, Tag, terms),
+        'languages': search_results(request.connection, Language, terms),
+        'categories': search_results(request.connection, Category, terms),
         'search_query': query,
         'more_results_link': more_results_link(query, results_count),
         'more_results_link_items': more_results_link_items(query, 
@@ -84,14 +84,13 @@ def do_search_more(request, title, search_func, search_count_func):
         query = request.GET['query']
     except:
         raise Http404
-
     terms = get_search_terms(query)
     if terms_too_short(terms):
         return util.render_to_response(request, 'search-more.html', {})
     search_query = query.strip()
     total_results = search_count_func(request.connection, terms)
     def callback(offset, limit):
-        return search_func(request.db_session, terms, offset, limit)
+        return search_func(request.connection, terms, offset, limit)
     pager = ManualPager(20, total_results, callback, request)
     return util.render_to_response(request, 'search-more.html', {
         'title': title % search_query,
@@ -103,10 +102,10 @@ def do_search_more(request, title, search_func, search_count_func):
 @cache.aggresively_cache
 def search_more(request):
     title = _('Channels Matching %s')
-    return do_search_more(request, title, Channel.search, Channel.search_count)
+    return do_search_more(request, title, search_channels,
+            count_channel_matches)
 
 @cache.aggresively_cache
 def search_more_items(request):
     title = _('Channels With Videos Matching %s')
-    return do_search_more(request, title, Channel.search_items,
-            Channel.search_items_count)
+    return do_search_more(request, title, search_items, count_item_matches)

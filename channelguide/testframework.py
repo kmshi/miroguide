@@ -5,24 +5,14 @@ import unittest
 import traceback
 
 from django.conf import settings
+from django.core import signals
+from django.dispatch import dispatcher
 from django.http import HttpRequest, HttpResponse
 from django.test.client import Client
-from sqlalchemy import BoundMetaData, Table, create_session
 
 from channelguide import db, cache
 from channelguide.db import version
 from channelguide import util
-
-def table_iterator():
-    table_names = set([row[0] for row in db.engine.execute("SHOW TABLES")])
-    meta = BoundMetaData(db.engine)
-    for name in table_names:
-        Table(name, meta, autoload=True)
-    return meta.table_iterator()
-
-def drop_tables():
-    for table in table_iterator():
-        table.drop()
 
 class TestLogFilter(logging.Filter):
     def __init__(self):
@@ -47,12 +37,12 @@ class TestCase(unittest.TestCase):
 
     def setUp(self):
         from channelguide.guide.models import Language
+        db.pool.timeout = 0.01
         self.connection = db.connect()
-        self.db_session = create_session(bind_to=self.connection)
         self.log_filter = TestLogFilter()
         self.language = Language("booyarish")
-        self.db_session.save(self.language)
-        self.db_session.flush()
+        self.save_to_db(self.language)
+        version.initialize_version_table(self.connection)
         self.starting_db_version = version.get_version(self.connection)
         util.emailer = self.catch_email
         self.emails = []
@@ -79,6 +69,7 @@ class TestCase(unittest.TestCase):
         self.delete_all_tables()
         self.connection.execute("INSERT INTO cg_db_version values(%s)",
                 self.starting_db_version)
+        self.connection.commit()
         self.connection.close()
         if os.path.exists(settings.MEDIA_ROOT):
             shutil.rmtree(settings.MEDIA_ROOT)
@@ -86,9 +77,18 @@ class TestCase(unittest.TestCase):
             shutil.rmtree(settings.IMAGE_DOWNLOAD_CACHE_DIR)
         for name, oldvalue in self.changed_settings:
             setattr(settings, name, oldvalue)
+        dispatcher.send(signals.request_finished)
+        # The above line should close any open request connections
+        for connection in db.pool.free:
+            connection.close_raw_connection()
+        db.pool.free = []
+        for connection in list(db.pool.used):
+            connection.destroy()
+        db.pool.used = set()
 
     def assertSameSet(self, iterable1, iterable2):
         self.assertEquals(set(iterable1), set(iterable2))
+        self.assertEquals(len(iterable1), len(iterable2))
 
     def assertRedirect(self, response, redirect_url):
         self.assertEquals(response.status_code, 302)
@@ -123,11 +123,6 @@ class TestCase(unittest.TestCase):
         else:
             self.assertLoginRedirect(url)
 
-    def reopen_connection(self):
-        self.connection.close()
-        self.connection = db.connect()
-        self.db_session = create_session(bind_to=self.connection)
-
     def pause_logging(self):
         logging.getLogger('').addFilter(self.log_filter)
 
@@ -141,24 +136,42 @@ class TestCase(unittest.TestCase):
         logging.getLogger('').removeFilter(self.log_filter)
         self.log_filter.reset()
 
-    def delete_all_tables(self, use_drop=False):
-        for table in table_iterator():
-            table.delete().execute()
+    def all_tables(self):
+        rows = self.connection.execute("SHOW TABLES;")
+        return [row[0] for row in rows]
+
+    def delete_all_tables(self):
+        all_tables = set(self.all_tables())
+        # this is a little tricky because of foreign key constraints.  The
+        # stragegy is just brute force
+        while all_tables:
+            start_len = len(all_tables)
+            for table in list(all_tables):
+                try:
+                    self.connection.execute("DELETE FROM %s" % table)
+                except:
+                    pass
+                else:
+                    all_tables.remove(table)
+            if len(all_tables) == start_len:
+                raise AssertionError("Can't delete any tables")
+
 
     def save_to_db(self, *objects):
-        for obj in objects:
-            self.db_session.save(obj)
-        self.db_session.flush(objects)
+        for object in objects:
+            object.save(self.connection)
+        self.connection.commit()
 
-    def query(self, class_):
-        return self.db_session.query(class_)
+    def refresh_record(self, record, *joins):
+        self.refresh_connection()
+        pk = self.rowid = record.primary_key_values()
+        retval = record.__class__.get(self.connection, pk)
+        if joins:
+            retval.join(*joins).execute(self.connection)
+        return retval
 
     def refresh_connection(self):
-        self.connection.execute("COMMIT")
-
-    def refresh_db_object(self, obj):
-        self.refresh_connection()
-        self.db_session.refresh(obj)
+        self.connection.commit()
 
     def make_user(self, username, password='password', role='U'):
         from channelguide.guide.models import User
@@ -168,9 +181,10 @@ class TestCase(unittest.TestCase):
         self.save_to_db(user)
         return user
 
-    def make_channel(self, owner):
+    def make_channel(self, owner, state='N'):
         from channelguide.guide.models import Channel
         channel = Channel()
+        channel.state = state
         channel.language = self.language
         channel.owner = owner
         channel.name = "My Channel"
@@ -239,8 +253,9 @@ class TestCase(unittest.TestCase):
             objects.append(getattr(mod, class_name)())
         return objects
     
-    def process_request(self, cookies_from=None):
-        request = HttpRequest()
+    def process_request(self, cookies_from=None, request=None):
+        if request is None:
+            request = HttpRequest()
         if cookies_from:
             for key, cookie in cookies_from.items():
                 try:
@@ -255,6 +270,7 @@ class TestCase(unittest.TestCase):
     def process_response(self, request):
         response = HttpResponse()
         self.process_response_middleware(request, response)
+        dispatcher.send(signals.request_finished)
         return response
 
     def process_response_middleware(self, request, response):

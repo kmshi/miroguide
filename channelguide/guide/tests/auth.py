@@ -5,7 +5,7 @@ from django.conf import settings
 from channelguide import db, util
 from channelguide.guide import tables
 from channelguide.guide.auth import login, logout, SESSION_KEY
-from channelguide.guide.models import Channel, UserAuthToken
+from channelguide.guide.models import Channel, UserAuthToken, User
 from channelguide.testframework import TestCase
 
 class AuthTest(TestCase):
@@ -28,68 +28,69 @@ class AuthTest(TestCase):
         response = self.process_response(request)
         request = self.process_request(cookies_from=response.cookies)
         self.assert_(not request.user.is_authenticated())
+        self.process_response(request)
 
     def test_corrupt_cookie(self):
         request = self.process_request(cookies_from={SESSION_KEY:'corrupt'})
         self.assert_(not request.user.is_authenticated())
+        self.process_response(request)
 
     def test_bad_password_cookie(self):
         cookies = { SESSION_KEY: ('joe', 'badpass')}
         request = self.process_request(cookies_from=cookies)
         self.assert_(not request.user.is_authenticated())
+        self.process_response(request)
 
     def test_moderator_action_count(self):
         channel = self.make_channel(self.user)
         channel2 = self.make_channel(self.user)
         def check_count(correct_count):
-            self.refresh_db_object(self.user)
-            current_count = self.user.moderator_action_count
+            user = User.get(self.connection, self.user.id,
+                    load='moderator_action_count')
+            current_count = user.moderator_action_count
             self.assertEquals(current_count, correct_count)
-        self.user.add_moderator_action(channel, Channel.APPROVED)
+        self.user.add_moderator_action(self.connection, channel, Channel.APPROVED)
         check_count(1)
-        self.user.add_moderator_action(channel, Channel.APPROVED)
+        self.user.add_moderator_action(self.connection, channel, Channel.APPROVED)
         check_count(1)
-        self.user.add_moderator_action(channel2, Channel.APPROVED)
+        self.user.add_moderator_action(self.connection, channel2, Channel.APPROVED)
         check_count(2)
 
 class AuthTokenTest(TestCase):
     def setUp(self):
         TestCase.setUp(self)
         self.user = self.make_user("janet")
+        self.user.join("auth_token").execute(self.connection)
 
     def find_auth_token(self):
-        self.db_session.flush()
         token = self.user.auth_token.token
-        return UserAuthToken.find_token(self.db_session, token)
+        return UserAuthToken.find_token(self.connection, token)
 
     def test_check(self):
-        self.user.make_new_auth_token()
+        self.user.make_new_auth_token(self.connection)
         self.assert_(self.find_auth_token())
 
     def test_expires(self):
-        self.user.make_new_auth_token()
+        self.user.make_new_auth_token(self.connection)
         self.user.auth_token.expires -= settings.AUTH_TOKEN_EXPIRATION_TIME
-        self.db_session.flush()
+        self.user.auth_token.save(self.connection)
         self.assert_(not self.find_auth_token())
 
     def check_auth_token_count(self, count_check):
-        select = tables.user_auth_token.count()
-        count = self.connection.execute(select).scalar()
+        select = tables.user_auth_token.select_count()
+        count = select.execute_scalar(self.connection)
         self.assertEquals(count, count_check)
 
     def test_delete(self):
-        self.user.make_new_auth_token()
-        self.db_session.flush()
+        self.user.make_new_auth_token(self.connection)
         self.check_auth_token_count(1)
-        self.user.delete_auth_token()
-        self.db_session.flush()
+        self.user.auth_token.delete(self.connection)
         self.check_auth_token_count(0)
 
     def test_update(self):
-        self.user.make_new_auth_token()
+        self.user.make_new_auth_token(self.connection)
         first_token = self.user.auth_token.token
-        self.user.make_new_auth_token()
-        self.db_session.flush()
+        self.user.make_new_auth_token(self.connection)
         self.check_auth_token_count(1)
         self.assertNotEqual(first_token, self.user.auth_token.token)
 
@@ -98,11 +99,11 @@ class AuthTokenWebTest(TestCase):
         TestCase.setUp(self)
         self.user = self.make_user('chris')
         self.user.email = 'chris@pculture.org'
-        self.db_session.flush()
 
     def request_auth_token(self):
         self.post_data('/accounts/forgot-password', {'email': self.user.email})
-        self.refresh_db_object(self.user)
+        self.user = self.refresh_record(self.user)
+        self.user.join('auth_token').execute(self.connection)
         self.assert_(self.user.auth_token is not None)
 
     def submit_new_password(self, password, password2=None):
@@ -115,7 +116,8 @@ class AuthTokenWebTest(TestCase):
         self.request_auth_token()
         self.assertEquals(len(self.emails), 1)
         self.assertEquals(self.emails[0]['recipient_list'], [self.user.email])
-        self.refresh_db_object(self.user)
+        self.user = self.refresh_record(self.user)
+        self.user.join('auth_token').execute(self.connection)
         url = util.make_absolute_url('accounts/change-password?token=' +
                 self.user.auth_token.token)
         self.assert_(url in self.emails[0]['body'])
@@ -147,7 +149,7 @@ class AuthTokenWebTest(TestCase):
 
     def test_change_password_permisions(self):
         self.submit_new_password('changetest', 'changetest')
-        self.refresh_db_object(self.user)
+        self.user = self.refresh_record(self.user)
         self.assert_(not self.user.check_password("changetest"))
 
     def test_change_password(self):
@@ -155,8 +157,9 @@ class AuthTokenWebTest(TestCase):
         response = self.get_page('/accounts/change-password',
                 data={'token': self.user.auth_token.token})
         self.submit_new_password('changetest', 'notthesame')
-        self.refresh_db_object(self.user)
+        self.user = self.refresh_record(self.user)
         self.assert_(not self.user.check_password("changetest"))
         self.submit_new_password('changetest', 'changetest')
-        self.refresh_db_object(self.user)
+        self.connection.commit()
+        self.user = self.refresh_record(self.user)
         self.assert_(self.user.check_password("changetest"))

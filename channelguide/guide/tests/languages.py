@@ -4,8 +4,7 @@ from channelguide.testframework import TestCase
 class LanguageTest(TestCase):
     def setUp(self):
         TestCase.setUp(self)
-        self.db_session.delete(self.language)
-        self.db_session.flush()
+        self.language.delete(self.connection)
         self.make_user('joe')
         self.make_user('bobby', role=User.ADMIN)
 
@@ -20,7 +19,7 @@ class LanguageTest(TestCase):
 
     def test_moderate(self):
         self.login('bobby')
-        self.assertEquals(self.get_languages_from_moderate_page(), [])
+        self.assertSameSet(self.get_languages_from_moderate_page(), [])
         self.post_data("/languages/add", {'name': 'russian'})
         self.post_data("/languages/add", {'name': 'english'})
         languages = self.get_languages_from_moderate_page()

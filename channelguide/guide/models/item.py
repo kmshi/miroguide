@@ -3,41 +3,41 @@ import os
 import urllib2
 
 from django.conf import settings
-from sqlalchemy import select
 
 from channelguide import util
-from channelguide.db import DBObject, dbutil
-from channelguide.guide import feedutil, exceptions
+from channelguide.guide import feedutil, exceptions, tables
 from channelguide.guide.thumbnail import Thumbnailable
+from sqlhelper.orm import Record
 import search
 
-class Item(DBObject, Thumbnailable):
+class Item(Record, Thumbnailable):
+    table = tables.item
+
     THUMBNAIL_DIR = 'item-thumbnails'
     THUMBNAIL_SIZES = [
             (108, 81),
     ]
 
+    def get_guid(self):
+        try:
+            return self.guid
+        except AttributeError:
+            return None
+
     def thumb(self):
         url = self.thumb_url(108, 81)
         return '<img width="108" height="81" src="%s" alt="%s">' % (url, self.name)
 
-    def update_search_data(self):
+    def update_search_data(self, connection):
+        self.join('search_data')
         if self.search_data is None:
             self.search_data = search.ItemSearchData()
-            self.session().save(self.search_data)
+            self.search_data.item_id = self.id
         self.search_data.text = ' '.join([self.description, self.url])
         self.search_data.important_text = self.name
+        self.search_data.save(connection)
 
-    @staticmethod
-    def search_for_channel_ids(db_session, terms):
-        query = db_session.query(Item)
-        where = (search.where_clause(search.ItemSearchData, terms) &
-                    query.join_to('search_data'))
-        sql_query = select([Item.c.channel_id], where)
-        results = db_session.connection(Item.mapper()).execute(sql_query)
-        return set([row[0] for row in results])
-
-    def download_thumbnail(self, redownload=False):
+    def download_thumbnail(self, connection, redownload=False):
         if self.thumbnail_url is None:
             return
         if not self.thumbnail_exists() or redownload:
@@ -53,7 +53,7 @@ class Item(DBObject, Thumbnailable):
                     return
                 else:
                     util.write_file(cache_path, image_data)
-            self.save_thumbnail(image_data)
+            self.save_thumbnail(connection, image_data)
 
     @staticmethod
     def from_feedparser_entry(entry):

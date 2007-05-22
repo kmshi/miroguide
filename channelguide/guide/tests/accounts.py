@@ -1,3 +1,8 @@
+import re 
+
+from django.conf import settings
+
+from channelguide import util
 from channelguide.guide.models import User
 from channelguide.testframework import TestCase
 
@@ -37,7 +42,22 @@ class AccountTest(TestCase):
         self.assertEquals(response.context[0]['user'].username, 'mike')
 
     def test_forgot_password(self):
-        pass
+        user = self.make_user('rachel')
+        data = {'email': user.email}
+        response = self.post_data("/accounts/forgot-password", data)
+        regex = re.compile(r'/accounts/change-password\?token=(\w+)')
+        token = regex.search(self.emails[0]['body']).group(1)
+        data = {'token': token}
+        page =  self.get_page('/accounts/change-password', data=data)
+
+        data = {'password': 'newpass', 'password2': 'badmatch'}
+        page = self.post_data('/accounts/change-password/%d' % user.id, 
+                data=data)
+        data = {'password': 'newpass', 'password2': 'newpass'}
+        self.post_data('/accounts/change-password/%d' % user.id, data=data)
+        user_check = User.get(self.connection, user.id)
+        self.assertEquals(user_check.hashed_password, 
+                util.hash_string('newpass'))
 
 class ModerateUserTest(TestCase):
     def setUp(self):
@@ -48,7 +68,7 @@ class ModerateUserTest(TestCase):
         self.adrian = self.make_user("adrian")
         self.judy = self.make_user("judy")
         self.judy.email = 'judy@bob.com'
-        self.db_session.flush()
+        self.save_to_db(self.judy)
 
     def test_auth(self):
         self.login(self.adrian)
@@ -76,9 +96,9 @@ class ModerateUserTest(TestCase):
         self.check_search('blahblah') # no users should be returned
 
     def check_promote_demote(self, user, action, new_role):
+        self.connection.commit()
         self.post_data("/accounts/%d" % user.id, {'action': action})
-        self.refresh_connection()
-        self.db_session.refresh(user)
+        user = self.refresh_record(user)
         self.assertEquals(user.role, new_role)
 
     def test_promote_user(self):
@@ -91,7 +111,7 @@ class ModerateUserTest(TestCase):
     def test_demote_user(self):
         self.login(self.jane)
         self.cathy.role = User.ADMIN
-        self.db_session.flush()
+        self.cathy.save(self.connection)
         self.check_promote_demote(self.cathy, 'demote', User.SUPERMODERATOR)
         self.check_promote_demote(self.cathy, 'demote', User.MODERATOR)
         self.check_promote_demote(self.cathy, 'demote', User.USER)

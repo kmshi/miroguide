@@ -12,7 +12,6 @@ import time
 import datetime
 import itertools
 
-from sqlalchemy import *
 from channelguide import init
 init.init_external_libraries()
 from channelguide import db
@@ -20,7 +19,11 @@ from channelguide.guide.models import *
 from channelguide.guide.tables import *
 
 connection = db.connect()
-sess = create_session(connection)
-channels = sess.query(Channel).select(order_by=desc(Channel.c.modified))[:10]
-tags = sess.query(Tag).select()[:10]
-cats = sess.query(Category).select()[:10]
+channel_q = Channel.query().order_by('modified', desc=True).limit(10)
+channels = channel_q.execute(connection)
+tags = Tag.query().limit(10).execute(connection)
+cats = Category.query().limit(10).execute(connection)
+
+from channelguide.guide import search
+print search.count_item_matches(connection, 'sports')
+print len(search.search_items(connection, 'sports'))

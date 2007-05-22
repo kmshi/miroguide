@@ -1,7 +1,9 @@
-from channelguide.db import DBObject
-from channelguide.guide import feedutil
+from sqlhelper.orm import Record
+from channelguide.guide import feedutil, tables
 
-class PCFBlogPost(DBObject):
+class PCFBlogPost(Record):
+    table = tables.pcf_blog_post
+
     @staticmethod
     def from_feedparser_entry(entry):
         post = PCFBlogPost()

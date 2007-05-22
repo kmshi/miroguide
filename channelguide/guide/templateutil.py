@@ -1,7 +1,5 @@
 """Helper classes for the templates"""
 
-from sqlalchemy import desc
-
 from urllib import urlencode
 from channelguide import util
 from channelguide.guide.models import Channel
@@ -41,20 +39,20 @@ class ManualPager(object):
 class Pager(ManualPager):
     """Handles splitting a large group of results into separate pages.
     
-    Gets the results from an SQLAlchemy SelectResults object.
+    Gets the results from an Query object.
     """
 
-    def __init__(self, items_per_page, select, request):
+    def __init__(self, items_per_page, query, request):
         """Construct a Pager.  Arguments:
 
         items_per_page -- number of items per page
-        select -- SelectResults object to select from
+        query -- Query object to select from
         request -- current request
         """
 
         def callback(offset, limit):
-            return select.offset(offset).limit(limit).list()
-        total_items = select.order_by(None).count()
+            return query.offset(offset).limit(limit).execute(request.connection)
+        total_items = query.count(request.connection)
         super(Pager, self).__init__(items_per_page, total_items, callback,
                 request)
 
@@ -169,36 +167,16 @@ class OrderBySelect(ViewSelect):
             ('alphabetical', _('A-Z')),
     ]
 
-    def __init__(self, request, base_url):
-        self.base_url = base_url
+    def __init__(self, request):
+        self.base_url = request.path
         super(OrderBySelect, self).__init__(request)
 
-def get_order_by_from_request(request, column_source):
+def order_channels_using_request(query, request):
     order_by = request.GET.get('view')
     if order_by == 'alphabetical':
-        return column_source.name
+        query.order_by('name')
     elif order_by == 'date':
-        return desc(column_source.modified)
+        query.order_by('modified', desc=True)
     else:
-        return desc(column_source.subscription_count)
-
-def make_two_column_list(request, id, class_, header_string, join_path=None, 
-        join_clause=None):
-    """Handles making pages for tags/categories/languages."""
-
-    group = util.get_object_or_404(request.db_session.query(class_), id)
-    query = request.db_session.query(Channel)
-    select = query.select_by(state=Channel.APPROVED)
-    if join_path:
-        select = select.filter(query.join_via(join_path))
-    if join_clause:
-        select = select.filter(join_clause)
-    select = select.filter(class_.c.id==id)
-    select = select.order_by(get_order_by_from_request(request, Channel.c))
-    pager =  Pager(8, select, request)
-    return util.render_to_response(request, 'two-column-list.html', {
-        'header': header_string % group, 
-        'pager': pager,
-        'order_select': OrderBySelect(request, group.get_absolute_url()),
-    })
-
+        query.load('subscription_count')
+        query.order_by('subscription_count', desc=True)

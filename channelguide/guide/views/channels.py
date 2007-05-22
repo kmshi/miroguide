@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.utils.translation import gettext as _
-from sqlalchemy import desc, eagerload, null
 
 from channelguide import util, cache
 from channelguide.guide import forms
@@ -12,42 +11,46 @@ from channelguide.guide.templateutil import Pager, ViewSelect
 
 SESSION_KEY = 'submitted-feed'
 
+def count_for_state(connection, state):
+    return Channel.query(state=state).count(connection)
+
 @moderator_required
 def moderate(request):
     context = {}
 
-    q = request.db_session.query(Channel)
-    select = q.select().filter(Channel.c.moderator_shared_at != null())
-    select = select.order_by(desc(Channel.c.moderator_shared_at))
-    context['shared_channels'] = select[:5]
+    query = Channel.query(Channel.c.moderator_shared_at != None)
+    query.order_by('moderator_shared_at', desc=True).limit(5)
+    context['shared_channels'] = query.execute(request.connection)
 
-    context['new_count'] = q.select_by(state=Channel.NEW).count()
-    context['dont_know_count'] = q.select_by(state=Channel.DONT_KNOW).count()
-    context['waiting_count'] = q.select_by(state=Channel.WAITING).count()
-    context['rejected_count'] = q.select_by(state=Channel.REJECTED).count()
+    context['new_count'] = count_for_state(request.connection, Channel.NEW)
+    context['dont_know_count'] = count_for_state(request.connection,
+            Channel.DONT_KNOW)
+    context['waiting_count'] = count_for_state(request.connection,
+            Channel.WAITING)
+    context['rejected_count'] = count_for_state(request.connection,
+            Channel.REJECTED)
 
-    q = request.db_session.query(ModeratorPost)
-    select = q.select(order_by=desc(ModeratorPost.c.created_at))
-    context['latest_posts'] = select[:5]
+    query = ModeratorPost.query().order_by('created_at', desc=True)
+    context['latest_posts'] = query.limit(5).execute(request.connection)
 
     return util.render_to_response(request, 'moderate.html', context)
 
 @moderator_required
 def unapproved_channels(request, state):
-    q = request.db_session.query(Channel, order_by=Channel.c.creation_time)
+    query = Channel.query().order_by('creation_time')
     if state == 'waiting':
-        select = q.select_by(state=Channel.WAITING)
+        query.filter(state=Channel.WAITING)
         header = _("Channels Waiting For Replies")
     elif state == 'dont-know':
-        select = q.select_by(state=Channel.DONT_KNOW)
+        query.filter(state=Channel.DONT_KNOW)
         header = _("Channels Flagged Don't Know By a Moderator")
     elif state == 'rejected':
-        select = q.select_by(state=Channel.REJECTED)
+        query.filter(state=Channel.REJECTED)
         header = _("Rejected Channels")
     else:
-        select = q.select_by(state=Channel.NEW)
+        query.filter(state=Channel.NEW)
         header = _("Unreviewed Channels")
-    pager =  Pager(10, select, request)
+    pager =  Pager(10, query, request)
 
     return util.render_to_response(request, 'unapproved-list.html', {
         'pager': pager,
@@ -63,9 +66,9 @@ def destroy_submit_url_session(request):
 def submit_feed(request):
     destroy_submit_url_session(request)
     if request.method != 'POST':
-        form = forms.FeedURLForm(request.db_session)
+        form = forms.FeedURLForm(request.connection)
     else:
-        form = forms.FeedURLForm(request.db_session, request.POST.copy())
+        form = forms.FeedURLForm(request.connection, request.POST.copy())
         if form.is_valid():
             request.session[SESSION_KEY] = form.get_feed_data()
             return util.redirect("channels/submit/step2")
@@ -78,12 +81,12 @@ def submit_channel(request):
         return util.redirect('channels/submit/step1')
     session_dict = request.session[SESSION_KEY]
     if request.method != 'POST':
-        form = forms.SubmitChannelForm(request.db_session)
+        form = forms.SubmitChannelForm(request.connection)
         form.set_defaults(session_dict)
         session_dict['detected_thumbnail'] = form.set_image_from_feed
         request.session.modified = True
     else:
-        form = forms.SubmitChannelForm(request.db_session, 
+        form = forms.SubmitChannelForm(request.connection, 
                 util.copy_post_and_files(request))
         if form.user_uploaded_file():
             session_dict['detected_thumbnail'] = False
@@ -106,8 +109,7 @@ def channel(request, id):
     if request.method == 'GET':
         return show(request, id)
     else:
-        query = request.db_session.query(Channel)
-        channel = util.get_object_or_404(query, id)
+        channel = util.get_object_or_404(request.connection, Channel, id)
         action = request.POST.get('action')
         if action == 'toggle-moderator-share':
             request.user.check_is_moderator()
@@ -134,25 +136,28 @@ def channel(request, id):
                 newstate = None
             if newstate is not None:
                 channel.change_state(newstate)
-                request.user.add_moderator_action(channel, newstate)
+                request.user.add_moderator_action(request.connection, channel, newstate)
+        channel.save(request.connection)
     return util.redirect_to_referrer(request)
 
 def show(request, id):
-    query = request.db_session.query(Channel)
-    query = query.options(eagerload('categories'), eagerload('tag_maps.tag'))
-    channel = util.get_object_or_404(query, id)
-    items = request.db_session.query(Item).select_by(channel_id=id)
+    query = Channel.query()
+    channel = util.get_object_or_404(request.connection, query, id)
+    channel.join('categories', 'tag_maps', 'tag_maps.tag',
+            'notes').execute(request.connection)
+    query = Item.query(channel_id=id)
+    items = query.order_by('date', desc=True).limit(6).execute(request.connection)
     return util.render_to_response(request, 'show-channel.html', {
         'channel': channel,
         'notes': get_note_info(channel, request.user),
-        'items': items.order_by(desc(Item.c.date))[:6].list(),
+        'items': items,
     })
 
 def after_submit(request):
     return util.render_to_response(request, 'after-submit.html')
 
 def subscribe(request, id):
-    channel = util.get_object_or_404(request.db_session.query(Channel), id)
+    channel = util.get_object_or_404(request.connection, Channel, id)
     channel.add_subscription(request.connection,
             request.META.get('REMOTE_ADDR', '0.0.0.0'))
     subscribe_url = settings.SUBSCRIBE_URL % { 'url': channel.url }
@@ -163,7 +168,7 @@ def subscribe_hit(request, id):
     error if we redirect it to a URL outside the channelguide, so we don't do
     that
     """
-    channel = util.get_object_or_404(request.db_session.query(Channel), id)
+    channel = util.get_object_or_404(request.connection, Channel, id)
     channel.add_subscription(request.connection,
             request.META.get('REMOTE_ADDR', '0.0.0.0'))
     return HttpResponse("Hit successfull")
@@ -187,31 +192,28 @@ class PopularWindowSelect(ViewSelect):
 
 @cache.aggresively_cache
 def popular(request):
-    window = request.GET.get('view', 'today')
-    query = request.db_session.query(Channel)
-    if window == 'today':
+    timespan = request.GET.get('view', 'today')
+    if timespan == 'today':
         count_name = 'subscription_count_today'
-    elif window == 'month':
+    elif timespan == 'month':
         count_name = 'subscription_count_month'
     else:
         count_name = 'subscription_count'
-    select = query.select_by(state=Channel.APPROVED)
-    order_by = [desc(Channel.c[count_name])]
+    query = Channel.query_approved().load(count_name)
+    query.order_by(count_name, desc=True)
     if count_name != 'subscription_count':
-        order_by.append(desc(Channel.c.subscription_count))
-    select = select.order_by(order_by)
-    pager =  Pager(10, select, request)
+        query.load('subscription_count')
+        query.order_by('subscription_count', desc=True)
+    pager =  Pager(10, query, request)
     for channel in pager.items:
         channel.popular_count = getattr(channel, count_name)
     return util.render_to_response(request, 'popular.html', {
-        'window': window,
         'pager': pager,
         'popular_window_select': PopularWindowSelect(request)
     })
 
 def make_simple_list(request, query, header, order_by):
-    select = query.order_by(order_by)
-    pager =  Pager(8, select, request)
+    pager =  Pager(8, query.order_by(order_by), request)
     return util.render_to_response(request, 'two-column-list.html', {
         'header': header,
         'pager': pager,
@@ -219,14 +221,13 @@ def make_simple_list(request, query, header, order_by):
 
 @cache.aggresively_cache
 def by_name(request):
-    query = request.db_session.query(Channel).select_by(state=Channel.APPROVED)
+    query = Channel.query_approved()
     return make_simple_list(request, query, _("Channels By Name"),
             Channel.c.name)
 
 @cache.aggresively_cache
 def features(request):
-    query = request.db_session.query(Channel)
-    query = query.select_by(state=Channel.APPROVED, featured=1)
+    query = Channel.query_approved(featured=1)
     return make_simple_list(request, query, _("Featured Channels"),
             Channel.c.featured_at)
 
@@ -253,10 +254,8 @@ def group_channels_by_date(channels):
 
 @cache.aggresively_cache
 def recent(request):
-    query = request.db_session.query(Channel)
-    select = query.select_by(state=Channel.APPROVED)
-    select = select.order_by(desc(Channel.c.approved_at))
-    pager =  Pager(8, select, request)
+    query = Channel.query_approved().order_by('approved_at', desc=True)
+    pager =  Pager(8, query, request)
     return util.render_to_response(request, 'recent.html', {
         'header': "RECENT CHANNELS",
         'pager': pager,
@@ -265,12 +264,9 @@ def recent(request):
 
 
 def for_user(request, user_id):
-    user_query = request.db_session.query(User)
-    channel_query = request.db_session.query(Channel)
-    user = util.get_object_or_404(user_query, user_id)
-    select = channel_query.select_by(owner=user)
-    pager =  Pager(10, select, request)
-
+    user = util.get_object_or_404(request.connection, User, user_id)
+    query = Channel.query(owner_id=user.id)
+    pager =  Pager(10, query, request)
     return util.render_to_response(request, 'for-user.html', {
         'for_user': user,
         'channels': pager.items,
@@ -278,13 +274,14 @@ def for_user(request, user_id):
         })
 
 def edit_channel(request, id):
-    query = request.db_session.query(Channel)
-    channel = util.get_object_or_404(query, id)
+    query = Channel.query()
+    query.join('language', 'secondary_languages', 'categories')
+    channel = util.get_object_or_404(request.connection, query, id)
     request.user.check_can_edit(channel)
     if request.method != 'POST':
-        form = forms.EditChannelForm(request.db_session, channel)
+        form = forms.EditChannelForm(request.connection, channel)
     else:
-        form = forms.EditChannelForm(request.db_session, channel,
+        form = forms.EditChannelForm(request.connection, channel,
                 util.copy_post_and_files(request))
         if form.is_valid():
             form.update_channel(channel)

@@ -10,7 +10,6 @@ import sys
 import time
 
 from django.conf import settings
-from sqlalchemy import create_session
 
 from channelguide import db, tasks, sessions
 from channelguide.tasks.decorators import run_every_hour, run_every_day
@@ -76,9 +75,9 @@ if __name__ == '__main__':
         logging.warn("Could not obtain lock for %s.  Not starting." %
                 lock_path)
     else:
-        db_session = create_session(bind_to=db.engine)
+        connection = db.connect()
         logging.info("--------- START ----------")
-        tasks.run_tasks(db_session)
+        tasks.run_tasks(connection)
         logging.info("---------  END  ----------")
         lock_file.close()
         try:

@@ -1,14 +1,19 @@
+def version_table_exists(connection):
+    rows = connection.execute("SHOW TABLES")
+    tables = [row[0] for row in rows]
+    return 'cg_db_version' in tables
+
 def initialize_version_table(connection):
-    if not connection.engine.has_table('cg_db_version'):
+    if not version_table_exists(connection):
         connection.execute("""\
 CREATE TABLE cg_db_version(version INTEGER NOT NULL) 
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 """)
-        connection.execute("insert into cg_db_version values(-1)")
+        connection.execute("INSERT INTO cg_db_version VALUES(-1)")
 
 def get_version(connection):
-    results = connection.execute("SELECT version from cg_db_version")
-    return results.fetchone()['version']
+    rows = connection.execute("SELECT version from cg_db_version")
+    return rows[0][0]
 
 def set_version(connection, version):
     connection.execute("UPDATE cg_db_version set version=%s", version)

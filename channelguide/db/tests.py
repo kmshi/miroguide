@@ -1,64 +1,61 @@
 import os
 
-from sqlalchemy import BoundMetaData, Table, mapper
-
-from channelguide.testframework import TestCase, drop_tables
-from channelguide.db import connect, engine, syncdb
+from channelguide import db
+from channelguide.testframework import TestCase
 from channelguide.util import hash_string
 import version
 import middleware
 import update
 
 class DBUpdateTest(TestCase):
-    def setUp(self):
-        TestCase.setUp(self)
-        # we don't want anything in the database when we do these tests
-        drop_tables()
-
     def tearDown(self):
-        # restore the real database schema
+        self.connection.rollback()
         for table in ('robot', 'sitcom'):
-            if self.connection.engine.has_table(table):
+            try:
                 self.connection.execute("DROP TABLE %s" % table)
-        self.connection.execute("DROP TABLE cg_db_version")
-        syncdb()
+            except:
+                pass
+            else:
+                self.connection.commit()
         TestCase.tearDown(self)
 
-    def test_versioning(self):
+    def reset_version(self):
+        self.connection.execute("DROP TABLE cg_db_version")
         version.initialize_version_table(self.connection)
+
+    def test_versioning(self):
+        self.reset_version()
         self.assertEquals(version.get_version(self.connection), -1)
         version.set_version(self.connection, 100)
         self.assertEquals(version.get_version(self.connection), 100)
 
     def check_columns(self, table_name, *correct_columns):
-        meta = BoundMetaData(self.connection.engine)
-        table = Table(table_name, meta, autoload=True)
-        self.assertSameSet([col.name for col in table.c], correct_columns)
+        results = self.connection.execute("DESCRIBE %s" % table_name)
+        columns = [row[0] for row in results]
+        self.assertSameSet(columns, correct_columns)
 
     def update_dir_path(self, dir):
         db_package_dir = os.path.dirname(__file__)
         return os.path.join(db_package_dir, "test_update_dirs", dir)
 
     def test_updates(self):
-        version.initialize_version_table(self.connection)
+        self.reset_version()
         update.run_updates(self.connection, self.update_dir_path('robot'))
         self.assertEquals(version.get_version(self.connection), 3)
         self.check_columns('robot', 'serial', 'name', 'model_name',
                 'laser_beams')
-        meta = BoundMetaData(self.connection.engine)
-        robot = Table('robot', meta, autoload=True)
-        robots = robot.select().execute().fetchall()
-        self.assertEquals(len(robots), 1)
-        self.assertEquals(robots[0], ("123abcdef", 'roy',
+        rows = self.connection.execute("SELECT * from robot")
+        self.assertEquals(len(rows), 1)
+        self.assertEquals(rows[0], ("123abcdef", 'roy',
             hash_string("BOOyA-5000"), 2))
 
     def test_run_updates_twice(self):
-        version.initialize_version_table(self.connection)
+        self.reset_version()
         update.run_updates(self.connection, 'test_update_dirs/robot/')
         update.run_updates(self.connection, 'test_update_dirs/robot/')
 
     def test_migration_from_middle(self):
-        version.initialize_version_table(self.connection)
+        self.reset_version()
         self.connection.execute("""\
 CREATE TABLE sitcom (
   title VARCHAR(100) NOT NULL PRIMARY KEY,
@@ -74,7 +71,7 @@ CREATE TABLE sitcom (
                 'viewer_count')
 
     def test_bad_update_script(self):
-        version.initialize_version_table(self.connection)
+        self.reset_version()
         self.assertRaises(Exception, update.run_updates, self.connection,
                 self.update_dir_path('bad_foreign_key'))
 
@@ -83,16 +80,14 @@ class InnoDBTest(TestCase):
 
     def test_all_tables_are_innodb(self):
         myisam_tables = ['cg_channel_search_data', 'cg_item_search_data']
-        connection = connect()
-        metadata = BoundMetaData(connection.engine)
-        table_names = [row[0] for row in connection.execute("SHOW TABLES")]
+        results = self.connection.execute("SHOW TABLES")
+        table_names = [row[0] for row in results]
         for table_name in table_names:
             if table_name in myisam_tables:
                 continue
-            table = Table(table_name, metadata, autoload=True)
-            engine_type = table.kwargs['mysql_engine'].split(' ')[0]
-            self.assertEquals(engine_type, "InnoDB")
-        connection.close()
+            rows = self.connection.execute("SHOW CREATE TABLE %s" % table_name)
+            create_text = rows[0][1]
+            self.assert_('ENGINE=InnoDB' in create_text)
 
 class MiddlewareTest(TestCase):
     def setUp(self):
@@ -101,33 +96,19 @@ class MiddlewareTest(TestCase):
 
     def test_objects_are_added(self):
         request = self.process_request()
-        self.assert_(hasattr(request, 'db_session'))
         self.assert_(hasattr(request, 'connection'))
-
-    def test_session_is_flushed(self):
-        request = self.process_request()
-        metadata = BoundMetaData(engine)
-        version_table = Table('cg_db_version', metadata, autoload=True)
-        version_table.delete().execute()
-        class DBVersion(object):
-            def __init__(self, version):
-                self.version = version
-        mapper(DBVersion, version_table, primary_key=[version_table.c.version])
-        version_obj = DBVersion(123)
-        request.db_session.save(version_obj)
-        self.process_response(request)
-        self.assertEquals(version.get_version(engine), 123)
+        self.assert_(hasattr(request, 'connection'))
 
     def test_transaction(self):
         request = self.process_request()
-        connection = request.transaction.connection(None)
-        metadata = BoundMetaData(engine)
-        version_table = Table('cg_db_version', metadata, autoload=True)
-        connection.execute(version_table.insert(), version=123)
+        request.connection.execute(
+                'INSERT INTO cg_db_version(version) VALUES(-123123)')
         exception = ValueError("OOPS")
         self.process_exception(request, exception)
         self.process_response(request)
-        self.assertEquals(request.transaction, None)
-        connection2 = connect()
-        self.assertEquals(list(connection2.execute(version_table.select())), 
-                [(self.starting_db_version,)])
+        connection2 = db.connect()
+        try:
+            rows = connection2.execute("SELECT version FROM cg_db_version")
+            self.assertEquals(list(rows), [(self.starting_db_version,)])
+        finally:
+            connection2.close()

@@ -39,7 +39,6 @@ def check_import(module_name, package_name):
 def main(args):
     global saw_error
     check_writeable_dir(media_dir)
-    check_import('sqlalchemy', "SQLAlchemy")
     check_import('MySQLdb', "MySQLdb")
     try:
         subprocess.Popen(["identify"], stdout=subprocess.PIPE).communicate()

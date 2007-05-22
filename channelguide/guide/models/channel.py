@@ -7,19 +7,21 @@ import traceback
 
 from django.conf import settings
 from django.utils.translation import ngettext
-from sqlalchemy import select, desc, func, eagerload
 
-from channelguide.db import DBObject, dbutil
 from channelguide import util
 from channelguide.guide import feedutil, tables, exceptions
 from channelguide.guide.thumbnail import Thumbnailable
+from sqlhelper import sql
+from sqlhelper.orm import Record
 
 from item import Item
 from label import Tag, TagMap
 import search
 
-class Channel(DBObject, Thumbnailable):
+class Channel(Record, Thumbnailable):
     """An RSS feed containing videos for use in Democracy."""
+    table = tables.channel
+
     NEW = 'N'
     WAITING = 'W'
     DONT_KNOW = 'D'
@@ -49,6 +51,24 @@ class Channel(DBObject, Thumbnailable):
     def __str__(self):
         return "%s (%s)" % (self.name, self.url)
 
+    @classmethod
+    def query_approved(cls, *args, **kwargs):
+        kwargs['state'] = cls.APPROVED
+        return cls.query(*args, **kwargs)
+
+    @classmethod
+    def query_with_items(cls, *args, **kwargs):
+        query = Channel.query(*args, **kwargs).join('items')
+        query.order_by(query.joins['items'].c.date, desc=True)
+        return query
+
+    def delete(self, connection):
+        subscription_delete = tables.channel_subscription.delete()
+        subscription_delete.add_where(
+                tables.channel_subscription.c.channel_id==self.id)
+        subscription_delete.execute(connection)
+        super(Channel, self).delete(connection)
+
     def get_absolute_url(self):
         return util.make_url('channels/%d' % self.id)
 
@@ -69,37 +89,43 @@ class Channel(DBObject, Thumbnailable):
     def is_approved(self):
         return self.state == self.APPROVED
 
-    def add_tag(self, user, tag_name):
+    def add_tag(self, connection, user, tag_name):
         """Add a tag to this channel."""
-        db_session = self.session()
-        tag = db_session.query(Tag).get_by(name=tag_name)
-        if tag is None:
+        try:
+            tag = Tag.query(name=tag_name).get(connection)
+        except LookupError:
             tag = Tag(tag_name)
-            db_session.save(tag)
-            db_session.flush([tag])
-        if not db_session.get(TagMap, (self.id, user.id, tag.id)):
-            self.tag_maps.append(TagMap(self, user, tag))
+            tag.save(connection)
+        query = TagMap.query()
+        query.filter(channel_id=self.id, user_id=user.id, tag_id=tag.id)
+        if query.count(connection) == 0:
+            tm = TagMap(self, user, tag)
+            tm.save(connection)
 
-    def delete_tag(self, user, tag_name):
-        db_session = self.session()
-        tag = db_session.query(Tag).get_by(name=tag_name)
-        if tag is not None:
-            tag_map = db_session.get(TagMap, (self.id, user.id, tag.id))
-            if tag_map is not None:
-                db_session.delete(tag_map)
+    def delete_tag(self, connection, user, tag_name):
+        try:
+            tag = Tag.query(name=tag_name).get(connection)
+        except LookupError:
+            return
+        try:
+            tag_map = TagMap.get(connection, (self.id, user.id, tag.id))
+        except LookupError:
+            return
+        tag_map.delete(connection)
 
-    def get_tags_for_user(self, user):
-        db_session = self.session()
-        q = db_session.query(TagMap).options(eagerload('tag'))
-        return [m.tag for m in q.select_by(user=user, channel=self)]
-
-    def get_tags_for_owner(self):
-        return self.get_tags_for_user(self.owner)
-
-    def add_tags(self, user, tags):
+    def add_tags(self, connection, user, tags):
         """Tag this channel with a list of tags."""
         for tag in tags:
-            self.add_tag(user, tag)
+            self.add_tag(connection, user, tag)
+
+    def get_tags_for_user(self, connection, user):
+        query = TagMap.query().join('tag')
+        query.filter(user_id=user.id, channel_id=self.id)
+        return [map.tag for map in query.execute(connection)]
+
+    def get_tags_for_owner(self, connection):
+        self.join('owner').execute(connection)
+        return self.get_tags_for_user(connection, self.owner)
 
     def get_subscription_str(self):
         return ngettext('%(count)d subscriber', 
@@ -113,26 +139,32 @@ class Channel(DBObject, Thumbnailable):
                 'count': count
         }
 
+    def _should_throttle_ip_address(self, connection, ip_address, timestamp):
+        """Check to see if we got a subscription from the same ip address too
+        recently.
+        """
+
+        subscription_table = tables.channel_subscription
+        select = subscription_table.select_count()
+        select.add_where(subscription_table.c.ip_address==ip_address)
+        week_ago = timestamp - timedelta(weeks=1)
+        select.add_where(subscription_table.c.timestamp > week_ago)
+        return select.execute_scalar(connection) > 0
+
     def add_subscription(self, connection, ip_address, timestamp=None):
         if self.id is None:
             msg = "Channel must be saved before add_subscription() is called"
             raise ValueError(msg)
         if timestamp is None:
             timestamp = datetime.now()
-
-        table = tables.channel_subscription
-        select = table.count(table.c.ip_address==ip_address)
-        week_ago = timestamp - timedelta(weeks=1)
-        select.append_whereclause(table.c.timestamp > week_ago)
-        if connection.execute(select).scalar() > 0:
+        if self._should_throttle_ip_address(connection, ip_address, timestamp):
             return
+        insert = tables.channel_subscription.insert()
+        insert.add_values(channel_id=self.id, ip_address=ip_address,
+                timestamp=timestamp)
+        insert.execute(connection)
 
-        values = {'channel_id': self.id, 'ip_address': ip_address}
-        values['timestamp'] = timestamp
-        connection.execute(table.insert(), values)
-
-
-    def update_thumbnails(self, overwrite=False, sizes=None):
+    def update_thumbnails(self, connection, overwrite=False, sizes=None):
         """Recreate the thumbnails using the original data."""
 
         if self.thumbnail_extension is None:
@@ -142,25 +174,29 @@ class Channel(DBObject, Thumbnailable):
             if matches:
                 data = util.read_file(matches[0])
                 self.thumbnail_extension = util.get_image_extension(data)
+                self.save(connection)
 
         Thumbnailable.refresh_thumbnails(self, overwrite, sizes)
         for item in self.items:
             item.refresh_thumbnails(overwrite, sizes)
 
-    def download_item_thumbnails(self, redownload=False):
+    def download_item_thumbnails(self, connection, redownload=False):
         """Download item thumbnails."""
 
         for item in self.items:
-            item.download_thumbnail(redownload)
+            item.download_thumbnail(connection, redownload)
 
-    def update_search_data(self):
+    def update_search_data(self, connection):
+        self.join("search_data", "items", 'tags', 'categories',
+                'secondary_languages', 'language').execute(connection)
         if self.search_data is None:
             self.search_data = search.ChannelSearchData()
-            self.session().save(self.search_data)
+            self.search_data.channel_id = self.id
         self.search_data.text = self.get_search_data()
         self.search_data.important_text = self.name
+        self.search_data.save(connection)
         for item in self.items:
-            item.update_search_data()
+            item.update_search_data(connection)
 
     def get_search_data(self):
         simple_attrs = ('short_description', 'description', 'url',
@@ -175,58 +211,12 @@ class Channel(DBObject, Thumbnailable):
     def get_missing_image_url(self, width, height):
         return ''
 
-    @staticmethod
-    def do_search(db_session, terms, offset, limit, where):
-        query = db_session.query(Channel)
-        where &= query.join_to('search_data')
-        where &= (Channel.c.state == Channel.APPROVED)
-        score = search.score_column(search.ChannelSearchData, terms)
-        sql_query = select(list(Channel.c) + [score.label('score')], where)
-        sql_query.order_by(desc('score'))
-        sql_query.offset = offset
-        sql_query.limit = limit
-        results = db_session.connection(Channel.mapper()).execute(sql_query)
-        return query.instances(results)
-
-    @staticmethod
-    def search(db_session, terms, offset=0, limit=None):
-        if not isinstance(terms, list):
-            terms = [terms]
-        where = search.where_clause(search.ChannelSearchData, terms)
-        return Channel.do_search(db_session, terms, offset, limit, where)
-
-    @staticmethod
-    def search_count(connection, terms):
-        if not isinstance(terms, list):
-            terms = [terms]
-        where = search.where_clause(search.ChannelSearchData, terms)
-        where &= (tables.channel_search_data.c.channel_id ==
-                tables.channel.c.id)
-        where &= (tables.channel.c.state == Channel.APPROVED)
-        sql_query = tables.channel.join(tables.channel_search_data).count(where)
-        return connection.execute(sql_query).scalar()
-
-    @staticmethod
-    def search_items(db_session, terms, offset=0, limit=None):
-        if not isinstance(terms, list):
-            terms = [terms]
-        channel_ids = Item.search_for_channel_ids(db_session, terms)
-        where = Channel.c.id.in_(*channel_ids)
-        return Channel.do_search(db_session, terms, offset, limit, where)
-
-    @staticmethod
-    def search_items_count(connection, terms):
-        if not isinstance(terms, list):
-            terms = [terms]
-        where = search.where_clause(search.ItemSearchData, terms)
-        sql_query = select([dbutil.count_distinct(tables.item.c.channel_id)],
-                where, from_obj=[tables.item.join(tables.item_search_data)])
-        return connection.execute(sql_query).scalar()
-
-    def fix_utf8_strings(self):
-        feedutil.fix_utf8_strings(self)
+    def fix_utf8_strings(self, connection):
+        if feedutil.fix_utf8_strings(self):
+            self.save(connection)
         for item in self.items:
-            feedutil.fix_utf8_strings(item)
+            if feedutil.fix_utf8_strings(item):
+                item.save(connection)
 
     def download_feed(self):
         if self.feed_modified:
@@ -247,7 +237,7 @@ class Channel(DBObject, Thumbnailable):
             self.feed_etag = parsed.etag
         return parsed
 
-    def update_items(self, feedparser_input=None):
+    def update_items(self, connection, feedparser_input=None):
         try:
             if feedparser_input is None:
                 parsed = self.download_feed()
@@ -270,9 +260,9 @@ class Channel(DBObject, Thumbnailable):
                 except exceptions.FeedparserEntryError, e:
                     logging.warn("Error converting feedparser entry: %s (%s)" 
                             % (e, self))
-            self._replace_items(items)
+            self._replace_items(connection, items)
 
-    def _replace_items(self, new_items):
+    def _replace_items(self, connection, new_items):
         """Replace the items currently in the channel with a new list of
         items."""
 
@@ -284,22 +274,20 @@ class Channel(DBObject, Thumbnailable):
         for i in self.items:
             if i.url is not None:
                 items_by_url[i.url] = i
-            if i.id is not None:
-                items_by_guid[i.id] = i
+            if i.get_guid() is not None:
+                items_by_guid[i.get_guid()] = i
         for i in new_items:
-            if i.id in items_by_guid:
-                to_delete.discard(items_by_guid[i.id])
+            if i.get_guid() in items_by_guid:
+                to_delete.discard(items_by_guid[i.get_guid()])
                 to_add.discard(i)
             elif i.url in items_by_url:
                 to_delete.discard(items_by_url[i.url])
                 to_add.discard(i)
-        db_session = self.session()
         for i in to_delete:
-            db_session.delete(i)
+            self.items.remove_record(connection, i)
         for i in new_items:
             if i in to_add:
-                self.items.append(i)
-                db_session.save(i)
+                self.items.add_record(connection, i)
 
     def _thumb_html(self, width, height):
         thumb_url = self.thumb_url(width, height)

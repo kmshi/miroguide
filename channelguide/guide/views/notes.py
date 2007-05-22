@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.http import Http404
-from sqlalchemy import desc
 
 from channelguide import util
 from channelguide.guide.auth import moderator_required, login_required
@@ -13,32 +12,28 @@ def add_note(request):
         channel_id = int(request.POST['channel-id'])
     except ValueError:
         raise Http404
-    query = request.db_session.query(Channel)
-    channel = util.get_object_or_404(query, channel_id)
+    query = Channel.query().join('notes', 'owner')
+    channel = util.get_object_or_404(request.connection, query, channel_id)
     request.user.check_can_edit(channel)
     note = ChannelNote.create_note_from_request(request)
-    channel.notes.append(note)
+    channel.notes.add_record(request.connection, note)
     if request.POST.get('send-email') and request.user.is_moderator():
         note.send_email(request.user)
     return util.redirect('channels/%d#notes' % channel.id)
 
 @moderator_required
 def note(request, id):
-    query = request.db_session.query(ChannelNote)
-    note = util.get_object_or_404(query, id)
-    channel = note.channel
+    note = util.get_object_or_404(request.connection, ChannelNote, id)
     if request.method == 'POST':
         if request.POST['action'] == 'delete':
-            request.db_session.delete(note)
+            note.delete(request.connection)
             return util.redirect_to_referrer(request)
-    return util.redirect('channels/%d#notes' % channel.id)
+    return util.redirect('channels/%d#notes' % note.channel_id)
 
 @moderator_required
 def moderator_board(request):
-    query = request.db_session.query(ModeratorPost)
-    posts = query.select(order_by=desc(ModeratorPost.c.created_at))
-    pager =  Pager(5, posts, request)
-
+    query = ModeratorPost.query().order_by('created_at', desc=True)
+    pager =  Pager(5, query, request)
     return util.render_to_response(request, 'moderator-board.html', {
         'posts': pager.items,
         'pager': pager,
@@ -48,16 +43,16 @@ def moderator_board(request):
 def add_moderator_post(request):
     post = ModeratorPost.create_note_from_request(request)
     if request.POST.get('send-email') and request.user.is_supermoderator():
-        post.send_email(request.user)
+        post.send_email(request.connection, request.user)
+    post.save(request.connection)
     return util.redirect('notes/moderator-board')
 
 @moderator_required
 def post(request, id):
-    query = request.db_session.query(ModeratorPost)
-    post = util.get_object_or_404(query, id)
+    post = util.get_object_or_404(request.connection, ModeratorPost, id)
     if request.method == 'POST':
         if request.POST['action'] == 'delete':
             request.user.check_is_supermoderator()
-            request.db_session.delete(post)
+            post.delete(request.connection)
             return util.redirect_to_referrer(request)
     return util.redirect('notes/moderator-board')

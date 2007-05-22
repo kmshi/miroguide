@@ -4,7 +4,7 @@ from django.conf import settings
 from django.utils.translation import gettext as _
 
 from channelguide import util
-from channelguide.db import DBObject
+from sqlhelper.orm import Record
 from channelguide.guide import tables
 from channelguide.guide.exceptions import AuthError
 
@@ -30,7 +30,7 @@ class UserBase(object):
             raise AuthError("Permission denied for %s" % channel)
 
     def check_same_user(self, other):
-        if self is not other:
+        if self.id != other.id:
             raise AuthError("Access denied for account: %s" % other)
 
     def is_authenticated(self):
@@ -43,15 +43,19 @@ class UserBase(object):
         raise NotImplementedError()
 
     def can_edit_channel(self, channel):
-        return self.is_moderator() or (self is channel.owner)
+        return self.is_moderator() or (self.id == channel.owner_id)
 
 class AnonymousUser(UserBase):
+    def __init__(self):
+        self.id = -1
     def is_authenticated(self): return False
     def is_moderator(self): return False
     def is_supermoderator(self): return False
     def is_admin(self): return False
 
-class User(UserBase, DBObject):
+class User(UserBase, Record):
+    table = tables.user
+
     USER = 'U'
     MODERATOR = 'M'
     SUPERMODERATOR = 'S'
@@ -65,7 +69,7 @@ class User(UserBase, DBObject):
     ALL_MODERATOR_ROLES = (ADMIN, MODERATOR, SUPERMODERATOR)
     ALL_SUPERMODERATOR_ROLES = (ADMIN, SUPERMODERATOR)
 
-    def __init__(self, username=None, password=None):
+    def __init__(self, username, password):
         self.username = username
         if password is not None:
             self.set_password(password)
@@ -120,25 +124,27 @@ class User(UserBase, DBObject):
         hashed = util.hash_string(password + self.PASSWORD_SALT)
         return self.hashed_password == hashed
 
-    def add_moderator_action(self, channel, action):
-        self.connection().execute(tables.moderator_action.insert(), 
-                user_id=self.id, channel_id=channel.id, action=action)
+    def add_moderator_action(self, connection, channel, action):
+        insert = tables.moderator_action.insert()
+        insert.add_values(user_id=self.id, channel_id=channel.id,
+                action=action, timestamp=datetime.now())
+        insert.execute(connection)
 
-    def make_new_auth_token(self):
+    def make_new_auth_token(self, connection):
         if self.auth_token is None:
             self.auth_token = UserAuthToken()
+            self.auth_token.user = self
         else:
-            self.auth_token.update()
+            self.auth_token.update_token()
+        self.auth_token.save(connection)
 
-    def delete_auth_token(self):
-        if self.auth_token is not None:
-            self.session().delete(self.auth_token)
+class UserAuthToken(Record):
+    table = tables.user_auth_token
 
-class UserAuthToken(object):
     def __init__(self):
-        self.update()
+        self.update_token()
 
-    def update(self):
+    def update_token(self):
         self.expires = datetime.now() + settings.AUTH_TOKEN_EXPIRATION_TIME
         self.token = util.random_string(40)
 
@@ -146,14 +152,15 @@ class UserAuthToken(object):
         return self.expires > datetime.now()
 
     @staticmethod
-    def find_token(db_session, string):
-        token = db_session.query(UserAuthToken).get_by(token=string)
-        if token is None:
+    def find_token(connection, string):
+        try:
+            token = UserAuthToken.query(token=string).get(connection)
+        except LookupError:
             return None
-        elif token.is_valid():
+        if token.is_valid():
             return token
         else:
-            db_session.delete(token)
+            token.delete(connection)
             return None
 
     def send_email(self):

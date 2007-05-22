@@ -1,157 +1,194 @@
-from sqlalchemy import (Column, String, DateTime, Table, Boolean, Integer,
-        PassiveDefault, func, ForeignKey)
-from channelguide import util
+from sqlhelper.sql import Select, Literal
+from sqlhelper.orm import Table, columns
+from datetime import datetime
 
-from channelguide import db
+# create the tables
+category = Table('cg_category', 
+        columns.Int('id', primary_key=True, auto_increment=True),
+        columns.String('name', 200))
+tag = Table('cg_tag', 
+        columns.Int('id', primary_key=True, auto_increment=True),
+        columns.String('name', 200))
+user = Table('user', 
+        columns.Int('id', primary_key=True, auto_increment=True),
+        columns.String('username', 40),
+        columns.String('role', 1, default='U'),
+        columns.Boolean('blocked', default=False),
+        columns.Boolean('approved', default=False),
+        columns.Boolean('show_explicit', default=False),
+        columns.DateTime('created_at', default=datetime.now),
+        columns.DateTime('updated_at', default=datetime.now,
+            onupdate=datetime.now),
+        columns.String('fname', 45),
+        columns.String('lname', 45),
+        columns.String('email', 100),
+        columns.String('city', 45),
+        columns.String('state', 20),
+        columns.String('country', 25),
+        columns.String('zip', 15),
+        columns.String('im_username', 35),
+        columns.String('im_type', 25),
+        columns.String('hashed_password', 40),
+        columns.Boolean('moderator_board_emails', default=True),
+        columns.Boolean('status_emails', default=True),
+        columns.Boolean('email_updates', default=False))
+language = Table('cg_channel_language', 
+        columns.Int('id', primary_key=True, auto_increment=True),
+        columns.String('name', 40))
+pcf_blog_post = Table('cg_pcf_blog_post', 
+        columns.Int('id', primary_key=True, auto_increment=True),
+        columns.String('title', 255),
+        columns.String('body'),
+        columns.String('url', 200),
+        columns.Int('position'))
+moderator_post = Table('cg_moderator_post', 
+        columns.Int('id', primary_key=True, auto_increment=True),
+        columns.Int("user_id", fk=user.c.id),
+        columns.String('title', 255),
+        columns.String('body'),
+        columns.DateTime('created_at', default=datetime.now))
+channel = Table('cg_channel', 
+        columns.Int('id', primary_key=True, auto_increment=True),
+        columns.Int('owner_id', fk=user.c.id),
+        columns.String('name', 255),
+        columns.String('url', 255),
+        columns.String('website_url', 255),
+        columns.String('short_description', 255),
+        columns.String("thumbnail_extension", 8),
+        columns.String('description'),
+        columns.Boolean('hi_def', default='0'),
+        columns.Int('primary_language_id', fk=language.c.id),
+        columns.String('publisher', 255),
+        columns.String('state', 1, default='N'),
+        columns.DateTime('modified'),
+        columns.DateTime('creation_time', default=datetime.now),
+        columns.DateTime('feed_modified'),
+        columns.String('feed_etag', 255),
+        columns.Boolean('featured', default='0'),
+        columns.DateTime('featured_at'),
+        columns.Boolean('was_featured', default='0'),
+        columns.DateTime('moderator_shared_at'),
+        columns.DateTime('approved_at'),
+        columns.String('cc_licence', 1, default='Z'))
+moderator_action = Table('cg_moderator_action', 
+        columns.Int("id", primary_key=True, auto_increment=True),
+        columns.Int("user_id", fk=user.c.id),
+        columns.Int("channel_id", fk=channel.c.id),
+        columns.String("action", 1),
+        columns.DateTime("timestamp", default=datetime.now))
+channel_note = Table('cg_channel_note', 
+        columns.Int('id', primary_key=True, auto_increment=True),
+        columns.Int('channel_id', fk=channel.c.id),
+        columns.Int("user_id", fk=user.c.id),
+        columns.String('type', 1),
+        columns.String('title', 255),
+        columns.String('body'),
+        columns.DateTime('created_at', default=datetime.now))
+channel_subscription = Table('cg_channel_subscription', 
+        columns.Int('channel_id', fk=channel.c.id),
+        columns.String('ip_address', 16),
+        columns.DateTime('timestamp', default=datetime.now))
+item = Table('cg_channel_item', 
+        columns.Int('id', primary_key=True, auto_increment=True),
+        columns.Int('channel_id', fk=channel.c.id),
+        columns.String("url", 255),
+        columns.String("name", 255),
+        columns.String("description"),
+        columns.String("mime_type", 50),
+        columns.String("thumbnail_url", 255),
+        columns.String("thumbnail_extension", 8),
+        columns.Int("size"),
+        columns.String("guid", 255),
+        columns.DateTime('date'))
+channel_search_data = Table('cg_channel_search_data', 
+        columns.Int('channel_id', fk=channel.c.id, primary_key=True),
+        columns.String('important_text', 255),
+        columns.String('text'))
+item_search_data = Table('cg_item_search_data', 
+        columns.Int('item_id', fk=item.c.id, primary_key=True),
+        columns.String('important_text', 255),
+        columns.String('text'))
+secondary_language_map = Table('cg_secondary_language_map', 
+        columns.Int('channel_id', fk=channel.c.id, primary_key=True),
+        columns.Int('language_id', fk=language.c.id, primary_key=True))
+category_map = Table('cg_category_map', 
+        columns.Int('channel_id', fk=channel.c.id, primary_key=True),
+        columns.Int('category_id', fk=category.c.id, primary_key=True))
+tag_map = Table('cg_tag_map', 
+        columns.Int('channel_id', fk=channel.c.id, primary_key=True),
+        columns.Int('user_id', fk=user.c.id, primary_key=True),
+        columns.Int('tag_id', fk=tag.c.id, primary_key=True))
+user_auth_token = Table('cg_user_auth_token', 
+        columns.Int('user_id', fk=user.c.id, primary_key=True),
+        columns.String('token', 255),
+        columns.DateTime('expires'))
+# set up count subquery columns.  These are a little more complex than the
+# other columns, so they are separated out
+category.add_subquery_column('channel_count', """\
+SELECT COUNT(*)
+FROM cg_channel
+JOIN cg_category_map ON cg_channel.id=cg_category_map.channel_id
+WHERE cg_channel.state='A' AND 
+      cg_category_map.category_id=#table#.id""")
 
-category = Table('cg_category', db.metadata,
-        Column('id', Integer, nullable=False, primary_key=True),
-        Column('name', String(200), nullable=False))
+tag.add_subquery_column('user_count', """\
+SELECT COUNT(DISTINCT(cg_tag_map.user_id))
+FROM cg_tag_map
+WHERE cg_tag_map.tag_id=#table#.id""")
 
-tag = Table('cg_tag', db.metadata,
-        Column('id', Integer, nullable=False, primary_key=True),
-        Column('name', String(200), nullable=False))
+tag.add_subquery_column('channel_count', """\
+SELECT COUNT(DISTINCT(cg_channel.id)) FROM cg_channel 
+JOIN cg_tag_map ON cg_tag_map.channel_id=cg_channel.id
+WHERE cg_channel.state='A' AND cg_tag_map.tag_id=#table#.id""")
 
-user = Table('user', db.metadata,
-        Column('id', Integer, nullable=False, primary_key=True),
-        Column('username', String(40), nullable=False, index=True,
-            unique=True),
-        Column('role', String(1), PassiveDefault('U'), nullable=False),
-        Column('blocked', Boolean, PassiveDefault('0'), nullable=False),
-        Column('approved', Boolean, PassiveDefault('0'), nullable=False),
-        Column('show_explicit', Boolean, PassiveDefault('0'), nullable=False),
-        Column('created_at', DateTime, nullable=False, default=func.now()),
-        Column('updated_at', DateTime, nullable=False, default=func.now(),
-            onupdate=func.now()),
-        Column('fname', String(45), nullable=True),
-        Column('lname', String(45), nullable=True),
-        Column('email', String(100), nullable=True),
-        Column('city', String(45), nullable=True),
-        Column('state', String(20), nullable=True),
-        Column('country', String(25), nullable=True),
-        Column('zip', String(15), nullable=True),
-        Column('im_username', String(35), nullable=True),
-        Column('im_type', String(25), nullable=True),
-        Column('hashed_password', String(40), nullable=False),
-        Column('moderator_board_emails', Boolean(), PassiveDefault(1),
-            nullable=False),
-        Column('status_emails', Boolean(), PassiveDefault(1), nullable=False),
-        Column('email_updates', Boolean, PassiveDefault('0'), nullable=False))
+language.add_subquery_column('channel_count', """\
+SELECT COUNT(DISTINCT(cg_channel.id))
+FROM cg_channel
+LEFT JOIN cg_secondary_language_map ON
+          cg_channel.id=cg_secondary_language_map.channel_id
+WHERE cg_channel.STATE='A' AND
+      (cg_channel.primary_language_id=cg_channel_language.id OR
+       cg_secondary_language_map.language_id=cg_channel_language.id)""")
 
-moderator_action = Table('cg_moderator_action', db.metadata,
-        Column("id", Integer, primary_key=True, nullable=False),
-        Column("user_id", Integer, ForeignKey('user.id'), nullable=False),
-        Column("channel_id", Integer, ForeignKey('cg_channel.id'), nullable=False),
-        Column("action", String(1), nullable=False),
-        Column("timestamp", DateTime, nullable=False, default=func.now()))
+user.add_subquery_column('moderator_action_count', """\
+SELECT COUNT(DISTINCT(cg_moderator_action.channel_id))
+FROM cg_moderator_action
+WHERE cg_moderator_action.user_id=#table#.id""")
 
-language = Table('cg_channel_language', db.metadata,
-        Column('id', Integer, nullable=False, primary_key=True),
-        Column('name', String(40), nullable=False))
+channel.add_subquery_column('item_count', """\
+SELECT COUNT(*)
+FROM cg_channel_item
+WHERE cg_channel_item.channel_id=#table#.id""")
 
-pcf_blog_post = Table('cg_pcf_blog_post', db.metadata,
-        Column('id', Integer, nullable=False, primary_key=True),
-        Column('title', String(255), nullable=False),
-        Column('body', String(), nullable=False),
-        Column('url', String(200), nullable=False),
-        Column('position', Integer, nullable=False))
+def make_subscription_count(name, timeline=None):
+    sql = """\
+SELECT COUNT(*)
+FROM cg_channel_subscription
+WHERE cg_channel_subscription.channel_id=#table#.id"""
+    if timeline is not None:
+        interval = "DATE_SUB(NOW(), INTERVAL 1 %s)" % timeline
+        sql += " AND cg_channel_subscription.timestamp > %s" % interval
+    channel.add_subquery_column(name, sql)
 
-moderator_post = Table('cg_moderator_post', db.metadata,
-        Column('id', Integer, nullable=False, primary_key=True),
-        Column("user_id", Integer, ForeignKey('user.id'), nullable=False),
-        Column('title', String(255), nullable=False),
-        Column('body', String(), nullable=False),
-        Column('created_at', DateTime(), default=func.now(), nullable=False))
+make_subscription_count('subscription_count')
+make_subscription_count('subscription_count_today', 'DAY')
+make_subscription_count('subscription_count_month', 'MONTH')
 
-channel = Table('cg_channel', db.metadata,
-        Column('id', Integer, nullable=False, primary_key=True),
-        Column('owner_id', Integer, ForeignKey('user.id'), nullable=False),
-        Column('name', String(255), nullable=False),
-        Column('url', String(255), nullable=False),
-        Column('website_url', String(255), nullable=False),
-        Column('short_description', String(255), nullable=False),
-        Column("thumbnail_extension", String(8), nullable=True),
-        Column('description', String, nullable=False),
-        Column('hi_def', Boolean, PassiveDefault('0'), nullable=False),
-        Column('primary_language_id', Integer, 
-            ForeignKey('cg_channel_language.id'), nullable=False),
-        Column('publisher', String(255), nullable=False),
-        Column('state', String(1), PassiveDefault('N'), nullable=False),
-        Column('modified', DateTime, PassiveDefault(None), nullable=True),
-        Column('creation_time', DateTime, default=func.now()),
-        Column('feed_modified', DateTime, PassiveDefault(None), nullable=True),
-        Column('feed_etag', String(255), PassiveDefault(None), nullable=True),
-        Column('featured', Boolean, PassiveDefault('0'), nullable=False),
-        Column('featured_at', DateTime, PassiveDefault(None), nullable=True),
-        Column('was_featured', Boolean, PassiveDefault('0'), nullable=False),
-        Column('moderator_shared_at', DateTime, nullable=True),
-        Column('approved_at', DateTime, nullable=True),
-        Column('cc_licence', String(1), PassiveDefault('Z'), nullable=False))
-
-channel_note = Table('cg_channel_note', db.metadata,
-        Column('id', Integer, nullable=False, primary_key=True),
-        Column('channel_id', Integer, ForeignKey('cg_channel.id'),
-            nullable=False),
-        Column("user_id", Integer, ForeignKey('user.id'), nullable=False),
-        Column('type', String(1), nullable=False),
-        Column('title', String(255), nullable=False),
-        Column('body', String(), nullable=False),
-        Column('created_at', DateTime(), default=func.now(), nullable=False))
-
-channel_subscription = Table('cg_channel_subscription', db.metadata,
-        Column('channel_id', Integer, ForeignKey('cg_channel.id'),
-            nullable=False),
-        Column('ip_address', String(16), nullable=False),
-        Column('timestamp', DateTime, nullable=False, default=func.now()))
-
-item = Table('cg_channel_item', db.metadata,
-        Column('id', Integer, nullable=False, primary_key=True),
-        Column('channel_id', Integer, ForeignKey('cg_channel.id'),
-            nullable=False),
-        Column("url", String(255), nullable=False),
-        Column("name", String(255), nullable=False),
-        Column("description", String(), nullable=False),
-        Column("mime_type", String(50)),
-        Column("thumbnail_url", String(255), nullable=True),
-        Column("thumbnail_extension", String(8), nullable=True),
-        Column("size", Integer),
-        Column("guid", String(255), nullable=True),
-        Column('date', DateTime()))
-
-channel_search_data = Table('cg_channel_search_data', db.metadata,
-        Column('channel_id', Integer, ForeignKey('cg_channel.id'),
-            nullable=False, primary_key=True),
-        Column('important_text', String(255), nullable=False),
-        Column('text', String(), nullable=False))
-
-item_search_data = Table('cg_item_search_data', db.metadata,
-        Column('item_id', Integer, ForeignKey('cg_channel_item.id'), 
-            nullable=False, primary_key=True),
-        Column('important_text', String(255), nullable=False),
-        Column('text', String(), nullable=False))
-
-secondary_language_map = Table('cg_secondary_language_map', db.metadata,
-        Column('channel_id', Integer, ForeignKey('cg_channel.id'),
-            nullable=False, primary_key=True),
-        Column('language_id', Integer, ForeignKey('cg_channel_language.id'),
-            nullable=False, primary_key=True))
-
-category_map = Table('cg_category_map', db.metadata,
-        Column('channel_id', Integer, ForeignKey('cg_channel.id'), 
-            nullable=False, primary_key=True),
-        Column('category_id', Integer, ForeignKey('cg_category.id'), 
-            nullable=False, primary_key=True))
-
-tag_map = Table('cg_tag_map', db.metadata,
-        Column('channel_id', Integer, ForeignKey('cg_channel.id'),
-            nullable=False, primary_key=True),
-        Column('user_id', Integer, ForeignKey('user.id'),
-            nullable=False, primary_key=True),
-        Column('tag_id', Integer, ForeignKey('cg_tag.id'),
-            nullable=False, primary_key=True))
-
-user_auth_token = Table('cg_user_auth_token', db.metadata,
-        Column('user_id', Integer, ForeignKey('user.id'), primary_key=True,
-            nullable=False),
-        Column('token', String(255), nullable=False),
-        Column('expires', DateTime(), nullable=False))
+# set up relations
+channel.many_to_many('categories', category, category_map, backref='channels')
+channel.many_to_many('secondary_languages', language, secondary_language_map)
+channel.many_to_many('tags', tag, tag_map, backref='channels')
+channel.many_to_one('language', language)
+channel.one_to_many('items', item, backref='channel')
+channel.one_to_many('notes', channel_note, backref='channel')
+channel.one_to_one('search_data', channel_search_data, backref='channel')
+item.one_to_one('search_data', item_search_data, backref='item')
+category_map.many_to_one('category', category, backref='category_maps')
+category_map.many_to_one('channel', channel, backref='category_maps')
+tag_map.many_to_one('channel', channel, backref='tag_maps')
+tag_map.many_to_one('tag', tag)
+tag_map.many_to_one('user', user, backref='tag_maps')
+user.one_to_many('channels', channel, backref='owner')
+user.one_to_many('moderator_posts', moderator_post, backref='user')
+user.one_to_many('notes', channel_note, backref='user')
+user.one_to_one('auth_token', user_auth_token, backref='user')

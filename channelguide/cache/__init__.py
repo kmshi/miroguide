@@ -10,5 +10,5 @@ Here's our cache strategy:
 invalidates the entire cache.
 """
 from client import clear_cache
-from mapper_extension import dont_clear_cache_for, CacheClearMapperExtension
+from dbwatcher import dont_clear_cache_for
 from decorators import aggresively_cache, cache_page_externally_for

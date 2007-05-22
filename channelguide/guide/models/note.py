@@ -1,14 +1,17 @@
 from channelguide import util
-from channelguide.db import DBObject
+from channelguide.guide import tables
+from sqlhelper.orm import Record
 from user import User
 
-class NoteBase(DBObject):
+class NoteBase(Record):
     def __init__(self, user, title, body):
         self.user = user
         self.title = title
         self.body = body
 
 class ModeratorPost(NoteBase):
+    table = tables.moderator_post
+
     @staticmethod
     def create_note_from_request(request):
         """Create a moderator post using a request from a create post form. """
@@ -21,14 +24,17 @@ class ModeratorPost(NoteBase):
     def get_absolute_url(self):
         return util.make_url("notes/post-%d" % self.id)
 
-    def send_email(self, sender):
-        query = self.session().query(User)
-        moderators = query.select(User.c.role.in_(*User.ALL_MODERATOR_ROLES))
-        emails = [mod.email for mod in moderators 
-                if mod.moderator_board_emails and mod.email is not None]
+    def send_email(self, connection, sender):
+        query = User.query()
+        query.filter(User.c.role.in_(User.ALL_MODERATOR_ROLES))
+        query.filter(moderator_board_emails=True)
+        query.filter(User.c.email != None)
+        emails = [mod.email for mod in query.execute(connection)]
         util.send_mail(self.title, self.body, emails, email_from=sender.email)
 
 class ChannelNote(NoteBase):
+    table = tables.channel_note
+
     # codes for the type column
     MODERATOR_ONLY = 'M'
     MODERATOR_TO_OWNER = 'O'

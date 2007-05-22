@@ -29,8 +29,8 @@ def login_view(request):
         register_data = request.POST
     else:
         message = get_login_message(next)
-    login_form = user_forms.LoginForm(request.db_session, login_data)
-    register_form = user_forms.RegisterForm(request.db_session, register_data)
+    login_form = user_forms.LoginForm(request.connection, login_data)
+    register_form = user_forms.RegisterForm(request.connection, register_data)
     if login_form.is_valid():
         login(request, login_form.get_user())
         return util.redirect(next)
@@ -49,16 +49,17 @@ def logout_view(request):
     return HttpResponseRedirect('/')
 
 def user(request, id):
-    query = request.db_session.query(User)
-    user = util.get_object_or_404(query, id)
+    user = util.get_object_or_404(request.connection, User, id)
     if request.method == 'POST':
         action = request.POST.get('action')
         if action == 'promote':
             request.user.check_is_admin()
             user.promote()
+            user.save(request.connection)
         elif action == 'demote':
             request.user.check_is_admin()
             user.demote()
+            user.save(request.connection)
         elif action == 'edit':
             return edit_user_form(request, user)
         return util.redirect_to_referrer(request)
@@ -66,17 +67,17 @@ def user(request, id):
         return edit_user_form(request, user)
 
 def edit_user_form(request, user):
-    if request.user is not user:
+    if request.user.id != user.id:
         request.user.check_is_admin()
     if request.method == 'POST':
-        form = user_forms.EditUserForm(request.db_session, user, request.POST)
+        form = user_forms.EditUserForm(request.connection, user, request.POST)
         if form.is_valid():
             form.update_user()
             if user is request.user:
                 login(request, user) # needed to handle password changes
             return util.redirect(user.get_absolute_url())
     else:
-        form = user_forms.EditUserForm(request.db_session, user)
+        form = user_forms.EditUserForm(request.connection, user)
     return util.render_to_response(request, 'edit-user.html', {
         'form': form})
 
@@ -87,11 +88,10 @@ def search(request):
         results = []
         pager = None
     else:
-        q = request.db_session.query(User)
         criteria = '%%%s%%' % query
-        select = q.select(User.c.username.like(criteria) |
+        user_query = User.query(User.c.username.like(criteria) |
                 User.c.email.like(criteria))
-        pager =  Pager(10, select, request)
+        pager =  Pager(10, user_query, request)
         results = pager.items
 
     return util.render_to_response(request, 'user-search.html', {
@@ -102,9 +102,9 @@ def search(request):
 
 @moderator_required
 def moderators(request):
-    q = request.db_session.query(User, order_by=User.c.username)
-    select = q.select().filter(User.c.role.in_(*User.ALL_MODERATOR_ROLES))
-    pager =  Pager(15, select, request)
+    query = User.query(User.c.role.in_(User.ALL_MODERATOR_ROLES))
+    query.order_by('username')
+    pager =  Pager(15, query, request)
     return util.render_to_response(request, 'moderators.html', {
         'moderators': pager.items,
         'pager': pager,
@@ -112,24 +112,24 @@ def moderators(request):
 
 @moderator_required
 def moderator_board_emails(request, id):
-    query = request.db_session.query(User)
-    user = util.get_object_or_404(query, id)
+    user = util.get_object_or_404(request.connection, User, id)
     user.moderator_board_emails = (request.POST.get('set-to') == 'enable')
+    user.save(request.connection)
     return util.redirect('moderate')
 
 def status_emails(request, id):
-    query = request.db_session.query(User)
-    user = util.get_object_or_404(query, id)
+    user = util.get_object_or_404(request.connection, User, id)
     user.status_emails = (request.POST.get('set-to') == 'enable')
+    user.save(request.connection)
     return util.redirect('moderate')
 
 def forgot_password(request):
     form = util.create_post_form(user_forms.AuthTokenRequestForm, request)
     if form.is_valid():
         email=form.clean_data['email']
-        query = request.db_session.query(User)
-        user = query.get_by(email=email)
-        user.make_new_auth_token()
+        query = User.query(email=email).join("auth_token")
+        user = query.get(request.connection)
+        user.make_new_auth_token(request.connection)
         user.auth_token.send_email()
         return util.redirect("accounts/auth-token-sent", {'email': email})
     else:
@@ -144,11 +144,12 @@ def auth_token_sent(request):
 
 def change_password(request):
     token = request.GET.get("token")
-    db_token = UserAuthToken.find_token(request.db_session, token)
+    db_token = UserAuthToken.find_token(request.connection, token)
     if db_token is not None:
+        db_token.join("user").execute(request.connection)
         login(request, db_token.user)
-        request.user.delete_auth_token()
-        form = user_forms.ChangePasswordForm(request.db_session)
+        db_token.delete(request.connection)
+        form = user_forms.ChangePasswordForm(request.connection)
         return util.render_to_response(request, 'change-password.html', { 
             'form': form,
         })
@@ -156,12 +157,12 @@ def change_password(request):
         return util.render_to_response(request, 'bad-auth-token.html')
 
 def change_password_submit(request, id):
-    query = request.db_session.query(User)
-    user = util.get_object_or_404(query, id)
+    user = util.get_object_or_404(request.connection, User, id)
     request.user.check_same_user(user)
-    form = user_forms.ChangePasswordForm(request.db_session, request.POST)
+    form = user_forms.ChangePasswordForm(request.connection, request.POST)
     if form.is_valid():
         user.set_password(form.clean_data['password'])
+        user.save(request.connection)
         login(request, user) # needed to handle password changes
         return util.redirect('accounts/password-changed')
     return util.render_to_response(request, 'change-password.html', { 

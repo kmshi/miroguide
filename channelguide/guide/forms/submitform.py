@@ -1,6 +1,5 @@
 """submitform.py.  Channel submission form.  This is fairly complicated, so
-it's split off into its own module.
-"""
+it's split off into its own module.  """
 
 from urlparse import urljoin, urlparse
 import os
@@ -20,8 +19,8 @@ from form import Form
 
 class DBChoiceField(WideChoiceField):
     def update_choices(self):
-        q = self.db_session.query(self.db_class)
-        db_objects = q.select(order_by=self.db_class.c.name)
+        query = self.db_class.query().order_by('name')
+        db_objects = query.execute(self.connection)
         choices = [('', '<none>')]
         choices.extend((obj.id, obj.name) for obj in db_objects)
         self.choices = choices
@@ -207,38 +206,44 @@ class SubmitChannelForm(Form):
                 self.fields['thumbnail_file'].widget.get_url(),
         }
 
-    def find_mapped_objects(self, class_, keys, ignore_ids=None):
-        if ignore_ids is None:
-            ignore_ids = []
-        already_added = set(ignore_ids)
-        rv = []
-        for name in keys:
-            id = self.clean_data[name]
-            if id is None:
-                continue
-            id = int(id)
-            if id not in already_added:
-                rv.append(self.db_session.get(class_, id))
-                already_added.add(id)
-        return rv
-
-    def add_mapped_objects(self, class_, collection, keys, ignore_ids=None):
-        new = self.find_mapped_objects(class_, keys, ignore_ids)
-        old = set(collection) - set(new)
-        for obj in old:
-            collection.remove(obj)
-        for obj in new:
-            collection.append(obj)
+    def get_ids(self, *keys):
+        ids = set()
+        for key in keys:
+            value = self.clean_data[key]
+            if value is not None:
+                ids.add(int(value))
+        return ids
 
     def add_categories(self, channel):
-        self.add_mapped_objects(Category, channel.categories,
-                ('category1', 'category2', 'category3'))
+        channel.join('categories').execute(self.connection)
+        channel.categories.clear(self.connection)
+        ids = self.get_ids('category1', 'category2', 'category3')
+        if not ids:
+            return
+        query = Category.query().filter(Category.c.id.in_(ids))
+        categories = query.execute(self.connection)
+        channel.categories.add_records(self.connection, categories)
 
     def add_languages(self, channel):
-        channel.primary_language_id = int(self.clean_data['language'])
-        self.add_mapped_objects(Language,
-                channel.secondary_languages, ('language2', 'language3'),
-                ignore_ids=[channel.primary_language_id])
+        channel.join("secondary_languages").execute(self.connection)
+        channel.secondary_languages.clear(self.connection)
+        ids = self.get_ids('language2', 'language3')
+        ids = [id for id in ids if id != channel.primary_language_id]
+        if not ids:
+            return
+        query = Language.query().filter(Language.c.id.in_(ids))
+        languages = query.execute(self.connection)
+        channel.secondary_languages.add_records(self.connection, languages)
+
+    def add_tags(self, channel):
+        tags = self.clean_data['tags']
+        if not tags:
+            return
+        channel.join('tags', 'owner').execute(self.connection)
+        for tag in channel.tags:
+            if tag.name not in tags:
+                channel.delete_tag(self.connection, channel.owner, tag)
+        channel.add_tags(self.connection, channel.owner, tags)
 
     def save_channel(self, creator, feed_url):
         channel = Channel()
@@ -252,18 +257,15 @@ class SubmitChannelForm(Form):
                 'description', 'publisher', 'hi_def')
         for attr in simple_cols:
             setattr(channel, attr, self.clean_data[attr])
-        if self.clean_data['tags']:
-            for tag in channel.get_tags_for_user(channel.owner):
-                if tag.name not in self.clean_data['tags']:
-                    channel.delete_tag(channel.owner, tag)
-            channel.add_tags(channel.owner, self.clean_data['tags'])
+        channel.primary_language_id = int(self.clean_data['language'])
+        channel.save(self.connection)
+        self.add_tags(channel)
         self.add_categories(channel)
         self.add_languages(channel)
-        self.db_session.save(channel)
-        self.db_session.flush()
         if self.clean_data['thumbnail_file']:
-            channel.save_thumbnail(self.clean_data['thumbnail_file'])
-        channel.update_search_data()
+            channel.save_thumbnail(self.connection,
+                    self.clean_data['thumbnail_file'])
+        channel.update_search_data(self.connection)
 
     def save_submitted_thumbnail(self):
         thumb_widget = self.fields['thumbnail_file'].widget
@@ -273,10 +275,10 @@ class SubmitChannelForm(Form):
         return self.data.get('thumbnail_file') is not None
 
 class EditChannelForm(SubmitChannelForm):
-    def __init__(self, db_session, channel, data=None):
+    def __init__(self, connection, channel, data=None):
         self.base_fields = SubmitChannelForm.base_fields
         # django hack
-        super(EditChannelForm, self).__init__(db_session, data)
+        super(EditChannelForm, self).__init__(connection, data)
         self.channel = channel
         self.fields['thumbnail_file'].required = False
         self.set_image_from_channel = False
@@ -291,11 +293,15 @@ class EditChannelForm(SubmitChannelForm):
         return data
 
     def set_defaults_from_channel(self):
+        join = self.channel.join('language', 'secondary_languages',
+                'categories')
+        join.execute(self.connection)
         for key in ('name', 'hi_def', 'website_url', 'short_description',
                 'description', 'publisher'):
             self.fields[key].initial = getattr(self.channel, key)
         self.fields['language'].initial = self.channel.language.id
-        tag_names = [tag.name for tag in self.channel.get_tags_for_owner()]
+        tags = self.channel.get_tags_for_owner(self.connection)
+        tag_names = [tag.name for tag in tags]
         self.fields['tags'].initial = ', '.join(tag_names)
         def set_from_list(key, list, index):
             try:

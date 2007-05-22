@@ -22,10 +22,11 @@ class UserMiddleware(object):
                 del req.session[SESSION_KEY]
                 req.user = AnonymousUser()
                 return
-            users = req.db_session.query(User).select_by(username=username)[:1]
-            if users and users[0].hashed_password == password:
-                req.user = users[0]
-            else:
+            query = User.query(username=username, hashed_password=password)
+            query.join("channels")
+            try:
+                req.user = query.get(req.connection)
+            except LookupError:
                 req.user = AnonymousUser()
         else:
             req.user = AnonymousUser()

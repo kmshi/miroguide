@@ -1,9 +1,12 @@
+from datetime import datetime
+
 from django.conf import settings
 from django.http import HttpRequest, HttpResponse
 
 from channelguide import util
 from channelguide import cache as cg_cache 
 # importing it as cache breaks the unit test suite for some reason.
+from channelguide.sessions.models import Session
 import time
 from channelguide.testframework import TestCase
 
@@ -65,28 +68,18 @@ class CacheTest(TestCase):
 
     def test_default_cache_control(self):
         path = self.rand_path()
-        request = self.make_request(path)
-        self.middleware.process_request(request)
+        request = self.process_request(request=self.make_request(path))
         response = self.process_response(request)
         self.assertEquals(response.headers['Cache-Control'], 'max-age=0')
 
     def test_manual_cache_control(self):
         path = self.rand_path()
-        request = self.make_request(path)
+        request = self.process_request(request=self.make_request(path))
         self.middleware.process_request(request)
         response = self.make_response()
         response.headers['Cache-Control'] = 'max-age=123'
         self.process_response_middleware(request, response)
         self.assertEquals(response.headers['Cache-Control'], 'max-age=123')
-
-    def test_middleware_when_cached(self):
-        path = self.rand_path()
-        request = self.make_request(path)
-        self.middleware.process_request(request)
-        self.middleware.process_response(request, self.make_response())
-        request = self.make_request(path)
-        cached_request = self.middleware.process_request(request)
-        self.process_response(request)
 
     def test_expire_on_object_change(self):
         path = self.rand_path()
@@ -96,8 +89,18 @@ class CacheTest(TestCase):
         time.sleep(1) # see above for why
         self.make_request_cached(path)
         channel.name = "NEW ONE"
-        self.db_session.flush()
+        channel.save(self.connection)
         self.assert_(not self.is_request_cached(path))
+
+    def test_session_change_doesnt_expire_cache(self):
+        path = self.rand_path()
+        self.make_request_cached(path)
+        session = Session()
+        session.session_key = '123123123'
+        session.expires = datetime.now()
+        session.set_data({'foo': 'bar'})
+        self.save_to_db(session)
+        self.assert_(self.is_request_cached(path))
 
     def test_with_logins(self):
         user = self.make_user("userkelly")

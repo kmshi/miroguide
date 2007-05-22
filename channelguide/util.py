@@ -19,7 +19,6 @@ from django.template.context import RequestContext
 from django.core.mail import send_mail as django_send_mail
 from django.conf import settings
 from django.http import HttpResponseRedirect, Http404
-from sqlalchemy.orm.attributes import InstrumentedList
 
 emailer = None
 
@@ -131,12 +130,16 @@ def set_cookie(response, key, value, seconds):
 def hash_string(str):
     return md5.new(str).hexdigest()
 
-def get_object_or_404(query, id):
-    obj = query.get(id)
-    if obj is None:
-        raise Http404
+def get_object_or_404(connection, record_or_query, id):
+    from sqlhelper.orm import Record
+    if isinstance(record_or_query, Record):
+        query = record_or_query.query()
     else:
-        return obj
+        query = record_or_query
+    try:
+        return query.get(connection, id)
+    except LookupError:
+        raise Http404
 
 def send_mail(title, body, recipient_list, email_from=None):
     global emailer
@@ -266,28 +269,6 @@ def make_link(href, label, css_class=None, **extra_link_attributes):
     attrs = make_link_attributes(href, css_class, **extra_link_attributes)
     return '<a %s>%s</a>' % (attrs, label)
 
-def flatten(*args):
-    for obj in args: 
-        if type(obj) in (list, tuple, InstrumentedList):
-            for i in flatten(*obj):
-                yield i
-        else: 
-            yield obj
-
-def ensure_list(obj):
-    if hasattr(obj, '__iter__'):
-        return obj
-    else:
-        return [obj]
-
-def ensure_tuple(obj):
-    if isinstance(obj, tuple):
-        return obj
-    elif hasattr(obj, '__iter__'):
-        return tuple(obj)
-    else:
-        return (obj,)
-
 def ensure_dir_exists(dir):
     if not os.path.exists(dir):
         os.makedirs(dir)
@@ -300,6 +281,27 @@ def chop_prefix(value, prefix):
 
 def create_post_form(form, request):
     if request.method == 'POST':
-        return form(request.db_session, request.POST)
+        return form(request.connection, request.POST)
     else:
-        return form(request.db_session)
+        return form(request.connection)
+
+def select_random(connection, query, count=1):
+    row_count = query.count(connection)
+    # The following is a completely blind opmitization without any numbers
+    # behind it, but my intuition tells me that method 1 is faster when the
+    # number of rows in the table is large compared to the count argument.
+    # Method two is faster when the number of rows we're looking for is close
+    # to the size of the table, and also works if count is greater than the
+    # table size.
+    if row_count == 0:
+        return []
+    elif float(count) / row_count < 0.5:
+        return random.sample(query.execute(connection), count)
+    else:
+        return query.order_by('RAND()').limit(count).execute(connection)
+
+def ensure_list(object):
+    if hasattr(object, '__iter__'):
+        return object
+    else:
+        return [object]

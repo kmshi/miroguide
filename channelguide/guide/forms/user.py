@@ -7,7 +7,7 @@ from fields import WideCharField, WideEmailField
 class NewUserField(WideCharField):
     def clean(self, value):
         rv = super(NewUserField, self).clean(value)
-        if self.db_session.query(User).get_by(username=value):
+        if User.query(username=value).count(self.connection) > 0:
             raise forms.ValidationError(_("username already taken"))
         return rv
 
@@ -17,25 +17,24 @@ class NewEmailField(WideEmailField):
         if value == self.initial:
             # don't check if the user isn't changing the value
             return value
-        if self.db_session.query(User).get_by(email=value):
+        if User.query(email=value).count(self.connection) > 0:
             raise forms.ValidationError(_("email already taken"))
         return value
 
 class ExistingEmailField(WideEmailField):
     def clean(self, value):
         value = super(ExistingEmailField, self).clean(value)
-        if self.db_session.query(User).get_by(email=value) is None:
+        if User.query(email=value).count(self.connection) == 0:
             raise forms.ValidationError(_("email not found"))
         return value
 
 class UsernameField(WideCharField):
     def clean(self, value):
         value = WideCharField.clean(self, value)
-        user = self.db_session.query(User).get_by(username=value)
-        if user is None:
+        try:
+            return User.query(username=value).get(self.connection)
+        except LookupError:
             raise forms.ValidationError(_("That username is not valid."))
-        else:
-            return user
 
 class LoginForm(Form):
     username = UsernameField(max_length=40)
@@ -54,8 +53,8 @@ class LoginForm(Form):
 
 class PasswordComparingForm(Form):
     def clean(self):
-        if (self.data['password'] and
-                (self.data['password'] != self.data.get('password2'))):
+        if (self.data.get('password') and
+                (self.data.get('password') != self.data.get('password2'))):
             raise forms.ValidationError(_("Passwords don't match"))
         return super(PasswordComparingForm, self).clean()
 
@@ -69,7 +68,7 @@ class RegisterForm(PasswordComparingForm):
 
     def make_user(self):
         user = User(self.clean_data['username'], self.clean_data['password'])
-        self.db_session.save(user)
+        user.save(self.connection)
         return user
 
 class EditUserForm(PasswordComparingForm):
@@ -95,8 +94,8 @@ class EditUserForm(PasswordComparingForm):
     im_type = WideCharField(max_length=25, required=False,
             label=_("IM Type"))
 
-    def __init__(self, db_session, user, data=None):
-        super(EditUserForm, self).__init__(db_session, data)
+    def __init__(self, connection, user, data=None):
+        super(EditUserForm, self).__init__(connection, data)
         self.user = user
         self.set_defaults()
 
@@ -115,6 +114,7 @@ class EditUserForm(PasswordComparingForm):
                 setattr(self.user, name, self.clean_data[name])
         if self.clean_data.get('password'):
             self.user.set_password(self.clean_data['password'])
+        self.user.save(self.connection)
 
 class ChangePasswordForm(PasswordComparingForm):
     password = WideCharField(max_length=30, widget=forms.PasswordInput,

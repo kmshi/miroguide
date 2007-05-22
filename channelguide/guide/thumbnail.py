@@ -21,7 +21,7 @@ class Thumbnailable(object):
     """
 
     def get_filename(self):
-        if self.id is None:
+        if not self.exists_in_db():
             raise ValueError("Must be saved first")
         else:
             return "%d.%s" % (self.id, self.thumbnail_extension)
@@ -51,7 +51,7 @@ class Thumbnailable(object):
         dest = self.thumb_path("%dx%d" % (width, height))
         util.make_thumbnail(source, dest, width, height)
 
-    def save_thumbnail(self, image_data):
+    def save_thumbnail(self, connection, image_data):
         """Save the thumbnail for this image.  image_data should be a string
         containing the full-sized image.
         """
@@ -60,6 +60,7 @@ class Thumbnailable(object):
         self._save_original_thumbnail(image_data)
         for width, height in self.THUMBNAIL_SIZES:
             self._make_thumbnail(image_data, width, height)
+        self.save(connection)
 
     def refresh_thumbnails(self, overwrite=False, sizes=None):
         """Recreate the thumbnails using the original data."""

@@ -2,9 +2,10 @@ from datetime import datetime, timedelta
 import os
 
 from django.conf import settings
-from sqlalchemy import desc
 
-from channelguide.guide.models import Channel, Category, Tag, Item, User, Language
+from channelguide.guide import search
+from channelguide.guide.models import (Channel, Category, Tag, Item, User, 
+        Language, TagMap)
 from channelguide.testframework import TestCase
 from channelguide.util import read_file, random_string, hash_string
 
@@ -19,9 +20,11 @@ class ChannelTestBase(TestCase):
         TestCase.setUp(self)
         self.ralph = self.make_user('ralph')
         self.channel = self.make_channel()
+        join = self.channel.join('items', 'tags', 'categories', 'owner')
+        join.execute(self.connection)
 
-    def make_channel(self):
-        return TestCase.make_channel(self, self.ralph)
+    def make_channel(self, **kwargs):
+        return TestCase.make_channel(self, self.ralph, **kwargs)
 
 class ChannelTagTest(ChannelTestBase):
     """Test adding/removing/querying tags from channels."""
@@ -32,51 +35,47 @@ class ChannelTagTest(ChannelTestBase):
         self.nick = self.make_user('nick')
 
     def check_tags(self, *correct_tags):
-        self.db_session.flush()
-        self.db_session.refresh(self.channel)
-        current_tags = [tag.name for tag in self.channel.tags]
+        channel = Channel.get(self.connection, self.channel.id)
+        channel.join('tags').execute(self.connection)
+        current_tags = [tag.name for tag in channel.tags]
         self.assertSameSet(current_tags, correct_tags)
 
     def test_tags(self):
-        self.channel.add_tag(self.ben, 'funny')
+        self.channel.add_tag(self.connection, self.ben, 'funny')
         self.check_tags('funny')
-        self.channel.add_tag(self.ben, 'cool')
+        self.channel.add_tag(self.connection, self.ben, 'cool')
         self.check_tags('funny', 'cool')
-        self.channel.add_tags(self.nick, ['sexy', 'cool'])
+        self.channel.add_tags(self.connection, self.nick, ['sexy', 'cool'])
         self.check_tags('funny', 'cool', 'sexy')
-        self.channel.add_tag(self.nick, 'cool')
+        self.channel.add_tag(self.connection, self.nick, 'cool')
         self.check_tags('funny', 'cool', 'sexy')
 
     def test_duplicate_tags(self):
-        self.channel.add_tag(self.ben, 'funny')
-        self.channel.add_tag(self.nick, 'funny')
-        count_select = self.db_session.query(Tag).select_by(name='funny')
-        self.assertEquals(count_select.count(), 1)
+        self.channel.add_tag(self.connection, self.ben, 'funny')
+        self.channel.add_tag(self.connection, self.nick, 'funny')
+        count = Tag.query(name='funny').count(self.connection)
+        self.assertEquals(count, 1)
 
     def check_tag_counts(self, name, user_count, channel_count):
-        tag = self.query(Tag).get_by(name=name)
-        self.db_session.refresh(tag)
+        query = Tag.query(name=name).load('user_count', 'channel_count')
+        tag = query.get(self.connection)
         self.assertEquals(tag.user_count, user_count)
         self.assertEquals(tag.channel_count, channel_count)
 
     def test_info(self):
         self.channel.state = Channel.APPROVED
-        self.db_session.save(self.channel)
-        self.channel.add_tag(self.ben, 'funny')
-        self.channel.add_tag(self.nick, 'funny')
-        self.db_session.flush()
+        self.channel.add_tag(self.connection, self.ben, 'funny')
+        self.channel.add_tag(self.connection, self.nick, 'funny')
+        self.channel.save(self.connection)
         self.check_tag_counts('funny', 2, 1)
-        channel2 = self.make_channel()
-        channel2.state = Channel.APPROVED
-        channel2.add_tags(self.ben, ['tech', 'funny'])
-        self.channel.add_tag(self.ben, 'tech')
-        self.db_session.flush()
+        channel2 = self.make_channel(state=Channel.APPROVED)
+        channel2.add_tags(self.connection, self.ben, ['tech', 'funny'])
+        self.channel.add_tag(self.connection, self.ben, 'tech')
         self.check_tag_counts('funny', 2, 2)
         self.check_tag_counts('tech', 1, 2)
         non_active = self.make_channel()
-        non_active.add_tag(self.nick, 'funny')
-        non_active.add_tag(self.ben, 'funny')
-        self.db_session.flush()
+        non_active.add_tag(self.connection, self.nick, 'funny')
+        non_active.add_tag(self.connection, self.ben, 'funny')
         self.check_tag_counts('funny', 2, 2)
         self.check_tag_counts('funny', 2, 2)
 
@@ -97,7 +96,7 @@ class ChannelModelTest(ChannelTestBase):
 
     def test_thumbnail(self):
         image_data = read_file(test_data_path('thumbnail.jpg'))
-        self.channel.save_thumbnail(image_data)
+        self.channel.save_thumbnail(self.connection, image_data)
         self.check_thumb_exists('original')
         self.check_thumb_exists('60x40')
         self.check_thumb_exists('120x80')
@@ -115,17 +114,23 @@ class ChannelModelTest(ChannelTestBase):
         self.assertEquals(self.channel.approved_at, None)
 
     def test_thumbnail_before_save(self):
-        c = Channel(url="http://myblog.com/videos/rss",
-                website_url="http://myblog.com/", publisher="TestVision",
-                short_description="stuff", description="lots of stuff")
+        c = Channel()
+        c.url = "http://myblog.com/videos/rss"
+        c.website_url = "http://myblog.com/"
+        c.publisher = "TestVision"
+        c.short_description = "stuff"
+        c.description = "lots of stuff"
         self.assertRaises(ValueError, c.save_thumbnail,
-                read_file(test_data_path('thumbnail.jpg')))
+                self.connection, read_file(test_data_path('thumbnail.jpg')))
 
     def check_subscription_counts(self, total, month, today):
-        self.db_session.refresh(self.channel)
-        self.assertEquals(self.channel.subscription_count, total)
-        self.assertEquals(self.channel.subscription_count_month, month)
-        self.assertEquals(self.channel.subscription_count_today, today)
+        query = Channel.query(id=self.channel.id)
+        query.load('subscription_count', 'subscription_count_month',
+                'subscription_count_today')
+        channel = query.get(self.connection)
+        self.assertEquals(channel.subscription_count, total)
+        self.assertEquals(channel.subscription_count_month, month)
+        self.assertEquals(channel.subscription_count_today, today)
 
     def test_subscription_counts(self):
         now = datetime.now()
@@ -149,20 +154,43 @@ class ChannelModelTest(ChannelTestBase):
         self.channel.add_subscription(self.connection, '1.1.1.1', next_week)
         self.check_subscription_counts(2, 2, 2)
 
+    def check_tag_map_count(self, correct_count):
+        tag_count = TagMap.query().count(self.connection)
+        self.assertEquals(tag_count, correct_count)
+
     def test_delete(self):
         ben = self.make_user('ben')
         self.channel.add_subscription(self.connection, '1.1.1.1')
-        self.channel.add_tag(ben, 'cool')
-        self.db_session.flush()
-        self.db_session.delete(self.channel)
-        self.db_session.flush()
+        self.channel.add_tag(self.connection, ben, 'cool')
+        self.check_tag_map_count(1)
+        self.channel.delete(self.connection)
+        self.check_tag_map_count(0)
 
     def test_delete_user_with_tags(self):
         ben = self.make_user('ben')
-        self.channel.add_tag(ben, 'cool')
-        self.db_session.flush()
-        self.db_session.delete(ben)
-        self.db_session.flush()
+        self.channel.add_tag(self.connection, ben, 'cool')
+        self.check_tag_map_count(1)
+        ben.delete(self.connection)
+        self.check_tag_map_count(0)
+
+    def test_category_counts(self):
+        def test(cat, test_count):
+            query = Category.query(id=cat.id).load('channel_count')
+            cat = query.get(self.connection)
+            self.assertEquals(cat.channel_count, test_count)
+        foo = Category(name='foo')
+        bar = Category(name='bar')
+        self.save_to_db(foo, bar)
+        test(foo, 0)
+        test(bar, 0)
+        channel = self.make_channel(state=Channel.APPROVED)
+        non_active = self.make_channel()
+        channel.join('categories').execute(self.connection)
+        non_active.join('categories').execute(self.connection)
+        channel.categories.add_record(self.connection, foo)
+        non_active.categories.add_record(self.connection, bar)
+        test(foo, 1)
+        test(bar, 0)
 
 class ChannelItemTest(ChannelTestBase):
     def check_item_titles(self, *correct_titles):
@@ -171,7 +199,7 @@ class ChannelItemTest(ChannelTestBase):
             self.assertEquals(self.channel.items[i].name, correct_titles[i])
 
     def test_parse(self):
-        self.channel.update_items(
+        self.channel.update_items(self.connection,
                 feedparser_input=open(test_data_path('feed.xml')))
         self.check_item_titles('rb_06_dec_13', 'rb_06_dec_12', 'rb_06_dec_11',
                 'rb_06_dec_08', 'rb_06_dec_07')
@@ -187,22 +215,22 @@ class ChannelItemTest(ChannelTestBase):
 
     def test_duplicates_not_replaced(self):
         """Test that when we update a feed, we only replace thumbnails if 
-        the enclousre URL is different and the GUID is different.
+        the enclosure URL is different and the GUID is different.
         """
-        self.channel.update_items(
+        def get_item_ids():
+            query = Channel.query_with_items(id=self.channel.id)
+            channel = query.get(self.connection)
+            return [item.id for item in channel.items]
+        self.channel.update_items(self.connection,
                 feedparser_input=open(test_data_path('feed.xml')))
-        self.db_session.flush()
-        old_ids = [item.id for item in self.channel.items]
-        self.channel.update_items(
+        old_ids = get_item_ids()
+        self.channel.update_items(self.connection,
                 feedparser_input=open(test_data_path('feed-future.xml')))
-        # 2 new channels, 2 channels are gone, the rest are the same
-        # That the new feed has some entries where the GUID stays the same and
-        # some where the enclosure URL stays the same
-        # It also has 2 entries with the same enclosure URL to try to mess
-        # with the CG logic
-        self.db_session.flush()
-        self.db_session.expire(self.channel)
-        new_ids = [item.id for item in self.channel.items]
+        # 2 new entries, 2 entries are gone, the rest are the same.  The new
+        # feed has some entries where the GUID stays the same and some where
+        # the enclosure URL stays the same It also has 2 entries with the same
+        # enclosure URL to try to mess with the CG logic
+        new_ids = get_item_ids()
         self.assert_(new_ids[0] not in old_ids)
         self.assert_(new_ids[1] not in old_ids)
         self.assert_(old_ids[-1] not in new_ids)
@@ -210,26 +238,22 @@ class ChannelItemTest(ChannelTestBase):
         self.assertEquals(new_ids[2:], old_ids[0:-2])
 
     def test_future_corner_cases(self):
-        """Test some corder cases when we update a feed, duplicate URLS,
+        """Test some corner cases when we update a feed, duplicate URLS,
         duplicate GUIDs, items missing GUIDs and URLS.
         """
-        self.channel.update_items(
+        self.channel.update_items(self.connection,
                 feedparser_input=open(test_data_path('feed-future.xml')))
-        self.db_session.flush()
-        self.channel.update_items(
+        self.channel.update_items(self.connection,
                 feedparser_input=open(test_data_path('feed-future-corner-cases.xml')))
-        self.db_session.flush()
-        self.db_session.refresh(self.channel)
         # Maybe we should test the behaviour here, but the main thing is the
         # guide shouldn't crash
 
     def test_thumbnails(self):
         width, height = Item.THUMBNAIL_SIZES[0]
         dir = '%dx%d' % (width, height)
-        self.channel.update_items(
+        self.channel.update_items(self.connection,
                 feedparser_input=open(test_data_path('thumbnails.xml')))
-        self.db_session.flush()
-        self.channel.download_item_thumbnails()
+        self.channel.download_item_thumbnails(self.connection)
         self.assertEquals(self.channel.items[0].thumbnail_url,
                 "http://www.getdemocracy.com/images/"
                 "x11-front-page-screenshots/02.jpg")
@@ -245,33 +269,14 @@ class ChannelItemTest(ChannelTestBase):
                 settings.IMAGES_URL + "missing.png")
 
     def test_item_info(self):
-        self.db_session.refresh(self.channel)
-        self.assertEquals(self.channel.item_count, 0)
-        self.channel.update_items(
+        def check_count(correct):
+            channel = Channel.get(self.connection, self.channel.id,
+                    load='item_count')
+            self.assertEquals(channel.item_count, correct)
+        check_count(0)
+        self.channel.update_items(self.connection,
                 feedparser_input=open(test_data_path('feed.xml')))
-        self.db_session.flush()
-        self.db_session.refresh(self.channel)
-        self.assertEquals(self.channel.item_count, 5)
-
-    def test_category_counts(self):
-        def test(cat, test_count):
-            self.db_session.refresh(cat)
-            self.assertEquals(cat.channel_count, test_count)
-        foo = Category(name='foo')
-        bar = Category(name='bar')
-        self.save_to_db(foo, bar)
-        test(foo, 0)
-        test(bar, 0)
-        channel = self.make_channel()
-        channel.state = Channel.APPROVED
-        non_active = self.make_channel()
-        channel.categories.append(foo)
-        non_active.categories.append(bar)
-        self.save_to_db(channel, non_active, foo, bar)
-        self.db_session.refresh(foo)
-        self.db_session.refresh(bar)
-        test(foo, 1)
-        test(bar, 0)
+        check_count(5)
 
 class SubmitChannelTest(TestCase):
     """Test the channel submit web pages."""
@@ -316,11 +321,17 @@ class SubmitChannelTest(TestCase):
         return data
 
     def get_last_channel(self):
-        return self.db_session.query(Channel).select().list()[-1]
+        self.connection.commit()
+        query = Channel.query().order_by('id', desc=True).limit(1)
+        channel = query.get(self.connection)
+        join = channel.join('items', 'tags', 'categories', 'owner', 'language',
+                'secondary_languages')
+        join.execute(self.connection)
+        return channel
 
     def delete_last_channel(self):
-        self.db_session.delete(self.get_last_channel())
-        self.db_session.flush()
+        self.get_last_channel().delete(self.connection)
+        self.connection.commit()
 
     def check_last_channel_thumbnail(self, thumb_name):
         last = self.get_last_channel()
@@ -337,7 +348,7 @@ class SubmitChannelTest(TestCase):
 
     def check_submit_url_worked(self, response):
         self.assertEquals(response.status_code, 302)
-        test_url = settings.BASE_URL + 'channels/submit/step2'
+        test_url = settings.BASE_URL_FULL + 'channels/submit/step2'
         self.assertEquals(response['Location'], test_url)
 
     def check_submit_failed(self, response):
@@ -346,7 +357,7 @@ class SubmitChannelTest(TestCase):
 
     def check_submit_worked(self, response, thumb_name='thumbnail.jpg'):
         self.assertEquals(response.status_code, 302)
-        test_url = settings.BASE_URL + 'channels/submit/after'
+        test_url = settings.BASE_URL_FULL + 'channels/submit/after'
         self.assertEquals(response['Location'], test_url)
         self.check_last_channel_thumbnail(thumb_name)
 
@@ -422,9 +433,10 @@ class SubmitChannelTest(TestCase):
 
     def check_submitted_languages(self, language, *secondary_languages):
         channel = self.get_last_channel()
-        self.db_session.refresh(channel)
-        self.assertEquals(channel.language, language)
-        self.assertSameSet(channel.secondary_languages, secondary_languages)
+        self.assertEquals(channel.language.id, language.id)
+        channel_language_ids = [l.id for l in channel.secondary_languages]
+        correct_ids = [l.id for l in secondary_languages]
+        self.assertSameSet(channel_language_ids, correct_ids)
 
     def test_languages(self):
         self.login_and_submit_url()
@@ -439,7 +451,6 @@ class SubmitChannelTest(TestCase):
         self.login_and_submit_url()
         response = self.submit(language=language3.id, language2=language2.id,
                 language3=language3.id)
-        self.refresh_connection()
         self.check_submit_worked(response)
         self.check_submitted_languages(language3, language2)
 
@@ -516,7 +527,8 @@ class SubmitChannelTest(TestCase):
                 category3=self.cat1.id)
         self.check_submit_worked(response)
         last = self.get_last_channel()
-        self.assertSameSet(last.categories, [self.cat1, self.cat2])
+        category_ids = [c.id for c in last.categories]
+        self.assertSameSet(category_ids, [self.cat1.id, self.cat2.id])
 
     def test_tag_limit(self):
         self.login_and_submit_url()
@@ -539,8 +551,6 @@ class SubmitChannelTest(TestCase):
 
     def test_url_unique(self):
         channel = self.make_channel(self.joe)
-        self.db_session.save(channel)
-        self.db_session.flush()
         self.login()
         response = self.submit_url(channel.url)
         form = response.context[0]['form']
@@ -551,10 +561,7 @@ class ModerateChannelTest(ChannelTestBase):
 
     def setUp(self):
         ChannelTestBase.setUp(self)
-        self.joe = self.make_user('joe')
-        self.joe.role = User.MODERATOR
-        self.db_session.update(self.joe)
-        self.db_session.flush()
+        self.joe = self.make_user('joe', role=User.MODERATOR)
         self.schmoe = self.make_user('schmoe')
 
     def login(self, username):
@@ -587,9 +594,9 @@ class ModerateChannelTest(ChannelTestBase):
         self.login('joe')
         def check_state(state):
             self.do_moderate(self.channel, state)
-            self.refresh_connection()
-            self.db_session.refresh(self.channel)
-            self.assertEquals(self.channel.state, state)
+            self.connection.commit()
+            updated_channel = Channel.get(self.connection, self.channel.id)
+            self.assertEquals(updated_channel.state, state)
         check_state(Channel.APPROVED)
         check_state(Channel.REJECTED)
         check_state(Channel.WAITING)
@@ -598,55 +605,56 @@ class ModerateChannelTest(ChannelTestBase):
 class ChannelSearchTest(ChannelTestBase):
     def setUp(self):
         ChannelTestBase.setUp(self)
-        self.channel.update_items(
+        self.channel.update_items(self.connection,
                 feedparser_input=open(test_data_path('feed.xml')))
+        self.channel.items.join("search_data").execute(self.connection)
         self.channel.name = "Rocketboom"
         self.channel.description = ("Daily with Joanne Colan "
                 "(that's right... Joanne Colan")
-        self.channel.update_search_data()
+        self.channel.update_search_data(self.connection)
         self.channel.state = Channel.APPROVED
+        self.channel.save(self.connection)
         # make bogus channels so that the the fulltext indexes work
         for x in range(10):
-            c = self.make_channel()
-            c.state = Channel.APPROVED
-            c.update_search_data()
-        self.db_session.flush()
+            c = self.make_channel(state=Channel.APPROVED)
+            c.update_search_data(self.connection)
 
     def channel_search(self, query):
-        return Channel.search(self.db_session, [query])
+        return search.search_channels(self.connection, [query])
 
     def search_items(self, query):
-        return Channel.search_items(self.db_session, [query])
+        return search.search_items(self.connection, [query])
 
     def channel_search_count(self, query):
-        return Channel.search_count(self.connection, [query])
+        return search.count_channel_matches(self.connection, [query])
 
     def search_items_count(self, query):
-        return Channel.search_items_count(self.connection, [query])
+        return search.count_item_matches(self.connection, [query])
 
     def test_channel_search(self):
-        self.assertSameSet(self.channel_search("Rocketboom"), [self.channel])
+        results = [c.id for c in self.channel_search("Rocketboom")]
+        self.assertEquals(results, [self.channel.id])
         self.assertEquals(self.channel_search_count("Rocketboom"), 1)
         self.assertSameSet(self.channel_search("Sprocketboom"), [])
         self.assertEquals(self.channel_search_count("Sprocketboom"), 0)
 
     def test_item_search(self):
-        self.assertSameSet(self.search_items("rb_06_dec_13"), [self.channel])
-        self.assertEquals(self.search_items_count("rb_06_dec_1"), 1)
+        results = [c.id for c in self.search_items("rb_06_dec_13")]
+        self.assertEquals(results, [self.channel.id])
+        self.assertEquals(self.search_items_count("rb_06_dec_13"), 1)
         self.assertSameSet(self.search_items("ze frank"), [])
         self.assertEquals(self.search_items_count("ze frank"), 0)
 
     def test_ordering(self):
-        channel2 = self.make_channel()
+        channel2 = self.make_channel(state=Channel.APPROVED)
         channel2.name = "Colan"
-        channel2.state = Channel.APPROVED
-        channel2.update_search_data()
-        self.db_session.flush()
+        channel2.save(self.connection)
+        channel2.update_search_data(self.connection)
         # Having "Colan" in the title should trump "Colan" in the description
         results = self.channel_search("Colan")
+        self.assertEquals(len(results), 2)
         self.assertEquals(results[0].name, channel2.name)
         self.assertEquals(results[1].name, self.channel.name)
-        self.assertEquals(len(results), 2)
 
 class EditChannelTest(ChannelTestBase):
     def setUp(self):
@@ -659,10 +667,10 @@ class EditChannelTest(ChannelTestBase):
         self.make_category("comedy")
         self.make_language("piglatin")
         self.make_language("klingon")
-        self.channel.categories.append(self.categories['arts'])
-        self.channel.categories.append(self.categories['tech'])
-        self.channel.add_tag(self.ralph, "funny")
-        self.channel.add_tag(self.ralph, "awesome")
+        self.channel.categories.add_record(self.connection, self.categories['arts'])
+        self.channel.categories.add_record(self.connection, self.categories['tech'])
+        self.channel.add_tag(self.connection, self.ralph, "funny")
+        self.channel.add_tag(self.connection, self.ralph, "awesome")
         self.save_to_db(self.channel)
 
     def make_category(self, name):
@@ -699,12 +707,15 @@ class EditChannelTest(ChannelTestBase):
         }
         url = '/channels/edit/%d' % self.channel.id
         self.post_data(url, data)
-        self.refresh_db_object(self.channel)
-        self.assertEquals(self.channel.publisher, 'some guy')
-        self.assertEquals(self.channel.language.name, 'klingon')
-        self.check_names(self.channel.categories, 'arts', 'comedy')
-        self.check_names(self.channel.tags, 'funny', 'cool', 'booya')
-        self.check_names(self.channel.secondary_languages, 'piglatin')
+        self.connection.commit()
+        updated = self.refresh_record(self.channel)
+        updated.join('language', 'categories', 'tags',
+                'secondary_languages').execute(self.connection)
+        self.assertEquals(updated.publisher, 'some guy')
+        self.assertEquals(updated.language.name, 'klingon')
+        self.check_names(updated.categories, 'arts', 'comedy')
+        self.check_names(updated.tags, 'funny', 'cool', 'booya')
+        self.check_names(updated.secondary_languages, 'piglatin')
 
     def check_names(self, name_list, *correct_names):
         names = [i.name for i in name_list]
