@@ -14,7 +14,7 @@ class SearchScore(clause.Clause):
 
 class SearchWhere(clause.Where):
     def __init__(self, table, terms):
-        query = ' '.join(terms)
+        query = ' '.join('+%s*' % t for t in terms)
         self.text = ('MATCH(#table#.important_text, #table#.text) '
                 'AGAINST (%s IN BOOLEAN MODE)')
         self.text = self.text.replace('#table#', str(table))
