@@ -19,6 +19,19 @@ class SelectTest(TestCase):
             if id in (2,3)]
         self.assertSameSet(select.execute(self.connection), matched_values)
 
+    def test_group_by(self):
+        select = sql.Select()
+        select.add_columns('foo.id', 'MIN(bar.name) AS first_bar')
+        select.add_from('foo')
+        select.add_join('bar', 'bar.foo_id=foo.id')
+        select.add_group_by('foo.id')
+        correct = []
+        for id, bars in self.foo_to_bars.items():
+            first_bar = min(name for (id, foo_id, name) in bars)
+            correct.append((id, first_bar))
+        self.assertSameSet(select.execute(self.connection), correct)
+
+class UpdateTest(TestCase):
     def get_by_id(self, id):
         select = sql.Select()
         select.add_columns('foo.id', 'foo.name')

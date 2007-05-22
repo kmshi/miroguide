@@ -90,6 +90,7 @@ class Select(Statement):
         self.havings.append(self.ensure_clause(clause.Having, having, args))
 
     def add_join(self, table, on, type='INNER'):
+        on = self.ensure_clause(clause.Where, on, [])
         if not hasattr(table, '__iter__'):
             self.joins.append(clause.Join(table, on, type))
         else:
