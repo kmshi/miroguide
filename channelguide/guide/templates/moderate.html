@@ -62,10 +62,10 @@
 <div class="posts">
 {% twocolumns %}
     <h2 class="check-out">Latest Posts 
-    <a {% link "notes/moderator-board" %}>(go to board)</a>
+    <a {% link "notes/moderator-board" %}>(See all {{ post_count }} posts)</a>
     </h2>
     {% show_note_list latest_posts %}
-    <a {% link "notes/moderator-board" %}>See more posts</a>
+    <a {% link "notes/moderator-board" %}>(See all {{ post_count }} posts)</a>
 {% splitcolumns %}
     <h2 class="check-out">Shared by Moderators</h2>
     {% for channel in shared_channels %}

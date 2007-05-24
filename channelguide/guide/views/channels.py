@@ -32,6 +32,7 @@ def moderate(request):
 
     query = ModeratorPost.query().order_by('created_at', desc=True)
     context['latest_posts'] = query.limit(5).execute(request.connection)
+    context['post_count'] = ModeratorPost.query().count(request.connection)
 
     return util.render_to_response(request, 'moderate.html', context)
 
