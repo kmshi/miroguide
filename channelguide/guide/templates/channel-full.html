@@ -58,5 +58,11 @@
             <h3>{% trans "Website" %}</h3>
             {{ channel.website_link }}
         </div>
+        {% if show_email %}
+        <div class="owner-email">
+            <h3>{% trans "Owner Email" %}</h3>
+            {{ channel.owner.email }}
+        </div>
+        {% endif %}
     {% endtwocolumns %}
 </div>

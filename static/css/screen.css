@@ -996,6 +996,10 @@ li.blog-post .title {
     margin-top: 20px;
 }
 
+.channel-full .owner-email {
+    margin-top: 10px;
+}
+
 .channel-full .category-tag-separator {
     margin: 0px 2px;
     vertical-align: middle;

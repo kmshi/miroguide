@@ -142,9 +142,8 @@ def channel(request, id):
 
 def show(request, id):
     query = Channel.query()
+    query.join('categories', 'tag_maps', 'tag_maps.tag', 'notes', 'owner')
     channel = util.get_object_or_404(request.connection, query, id)
-    channel.join('categories', 'tag_maps', 'tag_maps.tag',
-            'notes').execute(request.connection)
     query = Item.query(channel_id=id)
     items = query.order_by('date', desc=True).limit(6).execute(request.connection)
     return util.render_to_response(request, 'show-channel.html', {
@@ -266,6 +265,7 @@ def recent(request):
 def for_user(request, user_id):
     user = util.get_object_or_404(request.connection, User, user_id)
     query = Channel.query(owner_id=user.id)
+    query.join('categories', 'tag_maps', 'tag_maps.tag', 'owner')
     pager =  Pager(10, query, request)
     return util.render_to_response(request, 'for-user.html', {
         'for_user': user,
