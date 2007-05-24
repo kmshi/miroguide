@@ -620,16 +620,16 @@ class ChannelSearchTest(ChannelTestBase):
             c.update_search_data(self.connection)
 
     def channel_search(self, query):
-        return search.search_channels(self.connection, [query])
+        return search.search_channels([query]).execute(self.connection)
 
     def search_items(self, query):
-        return search.search_items(self.connection, [query])
+        return search.search_items([query]).execute(self.connection)
 
     def channel_search_count(self, query):
-        return search.count_channel_matches(self.connection, [query])
+        return search.search_channels([query]).count(self.connection)
 
     def search_items_count(self, query):
-        return search.count_item_matches(self.connection, [query])
+        return search.search_items([query]).count(self.connection)
 
     def test_channel_search(self):
         results = [c.id for c in self.channel_search("Rocketboom")]
@@ -671,6 +671,7 @@ class EditChannelTest(ChannelTestBase):
         self.channel.categories.add_record(self.connection, self.categories['tech'])
         self.channel.add_tag(self.connection, self.ralph, "funny")
         self.channel.add_tag(self.connection, self.ralph, "awesome")
+        self.channel.url = test_data_url('feed.xml')
         self.save_to_db(self.channel)
 
     def make_category(self, name):
@@ -694,6 +695,7 @@ class EditChannelTest(ChannelTestBase):
     def test_change(self):
         self.login(self.ralph)
         data = {
+                'url': self.channel.url,
                 'category1': self.categories['arts'].id,
                 'category3': self.categories['comedy'].id,
                 'language': self.languages['klingon'].id,
@@ -705,8 +707,9 @@ class EditChannelTest(ChannelTestBase):
                 'description': 'These are the best.',
                 'website_url': 'http://www.google.com/',
         }
+
         url = '/channels/edit/%d' % self.channel.id
-        self.post_data(url, data)
+        page = self.post_data(url, data)
         self.connection.commit()
         updated = self.refresh_record(self.channel)
         updated.join('language', 'categories', 'tags',
@@ -716,6 +719,21 @@ class EditChannelTest(ChannelTestBase):
         self.check_names(updated.categories, 'arts', 'comedy')
         self.check_names(updated.tags, 'funny', 'cool', 'booya')
         self.check_names(updated.secondary_languages, 'piglatin')
+
+    def test_change_url(self):
+        self.login(self.ralph)
+        data = {}
+        for key in ['publisher', 'name', 'short_description',
+                'website_url', 'description']:
+            data[key] = getattr(self.channel, key)
+        data['category1'] = self.channel.categories[0].id
+        data['language'] = self.channel.language.id
+        data['url'] = test_data_url('feed2.xml')
+        url = '/channels/edit/%d' % self.channel.id
+        self.post_data(url, data)
+        self.connection.commit()
+        updated = self.refresh_record(self.channel)
+        self.assertEquals(updated.url, test_data_url('feed2.xml'))
 
     def check_names(self, name_list, *correct_names):
         names = [i.name for i in name_list]

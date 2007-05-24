@@ -2,20 +2,68 @@
 it's split off into its own module.  """
 
 from urlparse import urljoin, urlparse
+import logging
 import os
 import tempfile
 import urllib2
 
 from django.conf import settings
+from django.newforms.forms import BoundField
 from django.utils.translation import gettext as _
 import django.newforms as forms
-from django.newforms.forms import BoundField
+import feedparser
 
+from channelguide.guide.feedutil import to_utf8
+from channelguide.guide.models import Language, Category, Channel, User
 from channelguide import util
-import logging
-from channelguide.guide.models import Language, Category, Channel
 from fields import WideCharField, WideURLField, WideChoiceField
 from form import Form
+
+class RSSFeedField(WideCharField):
+    def clean(self, value):
+        url = super(RSSFeedField, self).clean(value)
+        url = url.strip()
+        if url.startswith('feed:'):
+            url = url.replace('feed:', 'http:', 1)
+        if url != self.initial:
+            if Channel.query(url=url).count(self.connection) > 0:
+                msg = _("%s is already a channel in the guide") % url
+                raise forms.ValidationError(msg)
+
+        missing_feed_msg = _("We can't find a video feed at that address, "
+                "please try again.")
+        try:
+            stream = urllib2.urlopen(url)
+            data = stream.read()
+        except:
+            raise forms.ValidationError(missing_feed_msg)
+        parsed = feedparser.parse(data)
+        parsed.url = url
+        if not parsed.feed or not parsed.entries:
+            raise forms.ValidationError(missing_feed_msg)
+        return parsed
+
+class FeedURLForm(Form):
+    url = RSSFeedField(label=_("Video Feed URL"))
+
+    def get_feed_data(self):
+        data = {}
+        parsed = self.cleaned_data['url']
+        data['url'] = parsed.url
+        def try_to_get(feed_key):
+            try:
+                return to_utf8(parsed['feed'][feed_key])
+            except KeyError:
+                return None
+        data['name'] = try_to_get('title')
+        data['website_url'] = try_to_get('link')
+        data['publisher'] = try_to_get('publisher')
+        data['short_description'] = try_to_get('description')
+        try:
+            data['thumbnail_url'] = to_utf8(parsed['feed'].image.href)
+        except AttributeError:
+            data['thumbnail_url'] = None
+        return data
 
 class DBChoiceField(WideChoiceField):
     def update_choices(self):
@@ -209,7 +257,7 @@ class SubmitChannelForm(Form):
     def get_ids(self, *keys):
         ids = set()
         for key in keys:
-            value = self.clean_data[key]
+            value = self.cleaned_data[key]
             if value is not None:
                 ids.add(int(value))
         return ids
@@ -236,7 +284,7 @@ class SubmitChannelForm(Form):
         channel.secondary_languages.add_records(self.connection, languages)
 
     def add_tags(self, channel):
-        tags = self.clean_data['tags']
+        tags = self.cleaned_data['tags']
         if not tags:
             return
         channel.join('tags', 'owner').execute(self.connection)
@@ -256,15 +304,15 @@ class SubmitChannelForm(Form):
         simple_cols = ('name', 'website_url', 'short_description',
                 'description', 'publisher', 'hi_def')
         for attr in simple_cols:
-            setattr(channel, attr, self.clean_data[attr])
-        channel.primary_language_id = int(self.clean_data['language'])
+            setattr(channel, attr, self.cleaned_data[attr])
+        channel.primary_language_id = int(self.cleaned_data['language'])
         channel.save(self.connection)
         self.add_tags(channel)
         self.add_categories(channel)
         self.add_languages(channel)
-        if self.clean_data['thumbnail_file']:
+        if self.cleaned_data['thumbnail_file']:
             channel.save_thumbnail(self.connection,
-                    self.clean_data['thumbnail_file'])
+                    self.cleaned_data['thumbnail_file'])
         channel.update_search_data(self.connection)
 
     def save_submitted_thumbnail(self):
@@ -274,16 +322,16 @@ class SubmitChannelForm(Form):
     def user_uploaded_file(self):
         return self.data.get('thumbnail_file') is not None
 
-class EditChannelForm(SubmitChannelForm):
+class EditChannelForm(FeedURLForm, SubmitChannelForm):
     def __init__(self, connection, channel, data=None):
-        self.base_fields = SubmitChannelForm.base_fields
-        # django hack
+        # django hack to get fields to work right with subclassing
+        #self.base_fields = SubmitChannelForm.base_fields 
+
         super(EditChannelForm, self).__init__(connection, data)
         self.channel = channel
         self.fields['thumbnail_file'].required = False
         self.set_image_from_channel = False
-        if data is None:
-            self.set_defaults_from_channel()
+        self.set_initial_values()
 
     def get_template_data(self):
         data = super(EditChannelForm, self).get_template_data()
@@ -292,12 +340,12 @@ class EditChannelForm(SubmitChannelForm):
             self.set_image_from_channel = True
         return data
 
-    def set_defaults_from_channel(self):
+    def set_initial_values(self):
         join = self.channel.join('language', 'secondary_languages',
                 'categories')
         join.execute(self.connection)
-        for key in ('name', 'hi_def', 'website_url', 'short_description',
-                'description', 'publisher'):
+        for key in ('url', 'name', 'hi_def', 'website_url',
+                'short_description', 'description', 'publisher'):
             self.fields[key].initial = getattr(self.channel, key)
         self.fields['language'].initial = self.channel.language.id
         tags = self.channel.get_tags_for_owner(self.connection)
@@ -313,3 +361,7 @@ class EditChannelForm(SubmitChannelForm):
         set_from_list('category1', self.channel.categories, 0)
         set_from_list('category2', self.channel.categories, 1)
         set_from_list('category3', self.channel.categories, 2)
+
+    def update_channel(self, channel):
+        channel.url = self.cleaned_data['url'].url
+        super(EditChannelForm, self).update_channel(channel)

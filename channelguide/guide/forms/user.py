@@ -41,15 +41,15 @@ class LoginForm(Form):
     password = WideCharField(max_length=40, widget=forms.PasswordInput)
 
     def clean_password(self):
-        user = self.clean_data.get('username')
-        password = self.clean_data.get('password')
+        user = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
         if user is not None and password is not None:
             if not user.check_password(password):
                 raise forms.ValidationError(_("That password is not valid."))
         return password
 
     def get_user(self):
-        return self.clean_data.get('username')
+        return self.cleaned_data.get('username')
 
 class PasswordComparingForm(Form):
     def clean(self):
@@ -67,7 +67,7 @@ class RegisterForm(PasswordComparingForm):
             label=_("Re-type the password"), required=False)
 
     def make_user(self):
-        user = User(self.clean_data['username'], self.clean_data['password'])
+        user = User(self.cleaned_data['username'], self.cleaned_data['password'])
         user.save(self.connection)
         return user
 
@@ -110,10 +110,10 @@ class EditUserForm(PasswordComparingForm):
 
     def update_user(self):
         for name, field in self.simple_fields():
-            if self.clean_data.get(name):
-                setattr(self.user, name, self.clean_data[name])
-        if self.clean_data.get('password'):
-            self.user.set_password(self.clean_data['password'])
+            if self.cleaned_data.get(name):
+                setattr(self.user, name, self.cleaned_data[name])
+        if self.cleaned_data.get('password'):
+            self.user.set_password(self.cleaned_data['password'])
         self.user.save(self.connection)
 
 class ChangePasswordForm(PasswordComparingForm):

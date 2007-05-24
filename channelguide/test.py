@@ -10,9 +10,9 @@ from optparse import OptionParser
 import logging
 
 from django.conf import settings
-import django.test.utils
 from channelguide import init
 init.init_external_libraries()
+import django.test.utils
 
 class TestLogHandler(logging.Handler):
     def emit(self, record):
@@ -45,6 +45,7 @@ def setup_test_environment():
     django.test.utils.create_test_db()
     django.test.utils.setup_test_environment()
     from channelguide import db
+    db.reload_db_info()
     db.syncdb()
 
 def teardown_test_environment():

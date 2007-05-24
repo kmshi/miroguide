@@ -126,7 +126,7 @@ def status_emails(request, id):
 def forgot_password(request):
     form = util.create_post_form(user_forms.AuthTokenRequestForm, request)
     if form.is_valid():
-        email=form.clean_data['email']
+        email=form.cleaned_data['email']
         query = User.query(email=email).join("auth_token")
         user = query.get(request.connection)
         user.make_new_auth_token(request.connection)
@@ -161,7 +161,7 @@ def change_password_submit(request, id):
     request.user.check_same_user(user)
     form = user_forms.ChangePasswordForm(request.connection, request.POST)
     if form.is_valid():
-        user.set_password(form.clean_data['password'])
+        user.set_password(form.cleaned_data['password'])
         user.save(request.connection)
         login(request, user) # needed to handle password changes
         return util.redirect('accounts/password-changed')

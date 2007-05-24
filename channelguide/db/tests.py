@@ -90,11 +90,13 @@ class InnoDBTest(TestCase):
         results = self.connection.execute("SHOW TABLES")
         table_names = [row[0] for row in results]
         for table_name in table_names:
-            if table_name in myisam_tables:
+            if (table_name in myisam_tables or
+                    table_name.startswith('django_')):
                 continue
             rows = self.connection.execute("SHOW CREATE TABLE %s" % table_name)
             create_text = rows[0][1]
-            self.assert_('ENGINE=InnoDB' in create_text)
+            if 'ENGINE=InnoDB' not in create_text:
+                raise AssertionError("%s is not an InnoDB table" % table_name)
 
 class MiddlewareTest(TestCase):
     def setUp(self):

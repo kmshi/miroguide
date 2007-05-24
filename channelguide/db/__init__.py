@@ -6,7 +6,8 @@ Database functions for channelguide.
 import os
 import re
 
-from sqlhelper import orm, pool
+from sqlhelper import orm
+from sqlhelper.pool import ConnectionPool
 from sqlhelper.dbinfo import MySQLDBInfo
 from channelguide import util
 import version
@@ -14,17 +15,21 @@ import update
 
 from django.conf import settings
 
-kwargs = { 
-        'host': settings.DATABASE_HOST,
-        'db': settings.DATABASE_NAME,
-        'user': settings.DATABASE_USER, 
-        'passwd': settings.DATABASE_PASSWORD
-}
-if settings.DATABASE_PORT:
-    kwargs['port'] = settings.DATABASE_PORT
-dbinfo = MySQLDBInfo(**kwargs)
+def reload_db_info():
+    global pool
+    kwargs = { 
+            'host': settings.DATABASE_HOST,
+            'db': settings.DATABASE_NAME,
+            'user': settings.DATABASE_USER, 
+            'passwd': settings.DATABASE_PASSWORD
+    }
+    if settings.DATABASE_PORT:
+        kwargs['port'] = settings.DATABASE_PORT
+    dbinfo = MySQLDBInfo(**kwargs)
 
-pool = pool.ConnectionPool(dbinfo, settings.MAX_DB_CONNECTIONS)
+    pool = ConnectionPool(dbinfo, settings.MAX_DB_CONNECTIONS)
+reload_db_info()
+
 def connect():
     return pool.connect()
 
