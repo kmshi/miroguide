@@ -23,6 +23,10 @@ function showLoadIndicator() {
     document.getElementById('load-indicator').style.display = 'block';
 }
 
+function hideLoadIndicator() {
+    document.getElementById('load-indicator').style.display = 'none';
+}
+
 function makeXMLHttpRequest() {
     if (window.XMLHttpRequest) { // Mozilla, Safari, ...
         return new XMLHttpRequest();
