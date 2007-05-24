@@ -31,6 +31,7 @@ def moderate(request):
             Channel.REJECTED)
 
     query = ModeratorPost.query().order_by('created_at', desc=True)
+    query.join('user')
     context['latest_posts'] = query.limit(5).execute(request.connection)
     context['post_count'] = ModeratorPost.query().count(request.connection)
 
@@ -143,7 +144,8 @@ def channel(request, id):
 
 def show(request, id):
     query = Channel.query()
-    query.join('categories', 'tag_maps', 'tag_maps.tag', 'notes', 'owner')
+    query.join('categories', 'tag_maps', 'tag_maps.tag', 'notes', 'owner',
+            'notes.user')
     channel = util.get_object_or_404(request.connection, query, id)
     query = Item.query(channel_id=id)
     items = query.order_by('date', desc=True).limit(6).execute(request.connection)

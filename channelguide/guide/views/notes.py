@@ -33,6 +33,7 @@ def note(request, id):
 @moderator_required
 def moderator_board(request):
     query = ModeratorPost.query().order_by('created_at', desc=True)
+    query.join('user')
     pager =  Pager(5, query, request)
     return util.render_to_response(request, 'moderator-board.html', {
         'posts': pager.items,

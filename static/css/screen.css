@@ -1246,6 +1246,11 @@ h2.note-title {
     margin: 8px 0px;
 }
 
+h3 .note-author {
+    margin-left: 8px;
+    font-weight: normal;
+}
+
 .note-list li {
     padding: 5px;
     padding-bottom: 10px;
