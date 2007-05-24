@@ -22,7 +22,8 @@ def get_new_channels(connection, count):
     return query.execute(connection)
 
 def get_new_posts(connection, count):
-    return PCFBlogPost.query().order_by('position').execute(connection)
+    query = PCFBlogPost.query().order_by('position')
+    return query.limit(count).execute(connection)
 
 def get_categories(connection):
     return Category.query().order_by('name').execute(connection)
