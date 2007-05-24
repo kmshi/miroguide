@@ -14,11 +14,11 @@ import subprocess
 import sys
 import threading
 
-from django import shortcuts
+from django.template import loader
 from django.template.context import RequestContext
 from django.core.mail import send_mail as django_send_mail
 from django.conf import settings
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 emailer = None
 
@@ -27,8 +27,8 @@ def render_to_response(request, template_name, context=None, **kwargs):
     RequestContext object instead of the standard Context object.  
     """
     template_name = 'guide/' + template_name
-    return shortcuts.render_to_response(template_name, context,
-            context_instance=RequestContext(request), **kwargs)
+    kwargs['context_instance'] = RequestContext(request)
+    return HttpResponse(loader.render_to_string(template_name, context, **kwargs))
 
 def import_last_component(name):
     mod = __import__(name)

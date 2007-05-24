@@ -15,20 +15,16 @@ import update
 
 from django.conf import settings
 
-def reload_db_info():
-    global pool
-    kwargs = { 
-            'host': settings.DATABASE_HOST,
-            'db': settings.DATABASE_NAME,
-            'user': settings.DATABASE_USER, 
-            'passwd': settings.DATABASE_PASSWORD
-    }
-    if settings.DATABASE_PORT:
-        kwargs['port'] = settings.DATABASE_PORT
-    dbinfo = MySQLDBInfo(**kwargs)
-
-    pool = ConnectionPool(dbinfo, settings.MAX_DB_CONNECTIONS)
-reload_db_info()
+kwargs = { 
+        'host': settings.DATABASE_HOST,
+        'db': settings.DATABASE_NAME,
+        'user': settings.DATABASE_USER, 
+        'passwd': settings.DATABASE_PASSWORD
+}
+if settings.DATABASE_PORT:
+    kwargs['port'] = settings.DATABASE_PORT
+dbinfo = MySQLDBInfo(**kwargs)
+pool = ConnectionPool(dbinfo, settings.MAX_DB_CONNECTIONS)
 
 def connect():
     return pool.connect()

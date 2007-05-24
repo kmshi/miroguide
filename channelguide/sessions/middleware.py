@@ -2,14 +2,13 @@ import logging
 import traceback
 
 from django.conf import settings
-from django.contrib.sessions.middleware import SessionWrapper
 from django.utils.cache import patch_vary_headers
 
 from models import Session
 from util import get_session_from_key, make_new_session_key
 from channelguide import util
 
-class CGSessionWrapper(SessionWrapper):
+class CGSessionWrapper(object):
     def __init__(self, request):
         cookie_name = settings.SESSION_COOKIE_NAME
         self.session_key = request.COOKIES.get(cookie_name, None)
@@ -53,6 +52,33 @@ class CGSessionWrapper(SessionWrapper):
         if self._record.session_key is None:
             self.make_new_session_key()
         self._record.save(self.connection)
+
+    def __contains__(self, key):
+        return key in self._session
+
+    def __getitem__(self, key):
+        return self._session[key]
+
+    def __setitem__(self, key, value):
+        self._session[key] = value
+        self.modified = True
+
+    def __delitem__(self, key):
+        del self._session[key]
+        self.modified = True
+
+    def keys(self):
+        return self._session.keys()
+
+    def items(self):
+        return self._session.items()
+
+    def get(self, key, default=None):
+        return self._session.get(key, default)
+
+    def pop(self, key, *args):
+        return self._session.pop(key, *args)
+
 
 class SessionMiddleware(object):
     """Adds a session object to each request."""

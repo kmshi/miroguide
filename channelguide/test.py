@@ -12,7 +12,6 @@ import logging
 from django.conf import settings
 from channelguide import init
 init.init_external_libraries()
-import django.test.utils
 
 class TestLogHandler(logging.Handler):
     def emit(self, record):
@@ -40,18 +39,18 @@ def parse_args(args):
     (options, parsed_args) = parser.parse_args()
 
 def setup_test_environment():
-    global old_db_name
-    old_db_name = settings.DATABASE_NAME
-    django.test.utils.create_test_db()
-    django.test.utils.setup_test_environment()
+    settings.DATABASE_NAME = 'test_' + settings.DATABASE_NAME
     from channelguide import db
-    db.reload_db_info()
+    import django.test.utils
+    db.dbinfo.create_database()
     db.syncdb()
+    django.test.utils.setup_test_environment()
 
 def teardown_test_environment():
-    global old_db_name
+    from channelguide import db
+    import django.test.utils
     django.test.utils.teardown_test_environment()
-    django.test.utils.destroy_test_db(old_db_name)
+    db.dbinfo.drop_database()
 
 class OptionAwareTestLoader(TestSuite):
     def addTest(self, testCase):
