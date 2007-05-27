@@ -113,6 +113,7 @@ PRIMARY KEY (category_id, foo_id, other_column)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
 
     def drop_test_tables(self):
+        self.connection.rollback()
         self.connection.execute("DROP TABLE category_map_with_dups")
         self.connection.execute("DROP TABLE category_map")
         self.connection.execute("DROP TABLE category")
@@ -120,6 +121,7 @@ PRIMARY KEY (category_id, foo_id, other_column)
         self.connection.execute("DROP TABLE foo_extra")
         self.connection.execute("DROP TABLE foo")
         self.connection.execute("DROP TABLE types")
+        self.connection.commit()
 
     def populate_test_tables(self):
         self.populate_foo()

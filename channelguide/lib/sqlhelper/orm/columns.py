@@ -1,5 +1,5 @@
 import logging
-from sqlhelper.sql import clause
+from sqlhelper import sql 
 
 class ColumnStore(object):
     """Stores a bunch of columns.  Columns can be accessed as attributes, or
@@ -30,7 +30,7 @@ class ColumnStore(object):
     def __len__(self):
         return len(self.columns)
 
-class Column(object):
+class Column(sql.SimpleExpression):
     def __init__(self, name, primary_key=False, auto_increment=False, fk=None,
             optional=False, default=None, onupdate=None): 
         """Construct a column.  
@@ -56,12 +56,20 @@ class Column(object):
         self.optional = optional
         self.default = default
         self.onupdate = onupdate
+        self.args = []
+
+    def get_text(self):
+        return self.fullname()
+    text = property(get_text)
+
+    def column_expression(self):
+        """Return the Expression used to define the column (normally this just
+        returns self, but in the case of a Subquery column it's not the same.
+        """
+        return self
 
     def add_to_select(self, select):
-        select.add_column(self.fullname())
-
-    def make_filter(self, string, args):
-        return clause.Where(string, args)
+        select.columns.append(self.column_expression())
 
     def convert_from_db(self, data):
         """Convert data coming from MySQL."""
@@ -72,10 +80,7 @@ class Column(object):
         return data
 
     def __str__(self):
-        return self.fullname()
-
-    def make_clause_string(self):
-        return self.fullname()
+        return self.column_expression()
 
     def fullname(self):
         if self.table is not None:
@@ -84,46 +89,7 @@ class Column(object):
             return self.name
 
     def count_distinct(self):
-        return clause.Column("COUNT(DISTINCT(%s))" % self.fullname())
-
-    def _sql_operator(self, other, operator):
-        if isinstance(other, Column):
-            string = '%s %s %s' % (self.fullname(), operator, other.fullname())
-            args = []
-        elif isinstance(other, clause.Clause):
-            string = '%s %s %s' % (self.fullname(), operator, other.text)
-            args = other.args
-        else:
-            string = '%s %s %%s' % (self.fullname(), operator)
-            args = [other]
-        return self.make_filter(string, args)
-
-    def __eq__(self, other):
-        if other is not None:
-            return self._sql_operator(other, '=')
-        else:
-            return self._sql_operator(other, 'IS')
-    def __ne__(self, other):
-        if other is not None:
-            return self._sql_operator(other, '!=')
-        else:
-            return self._sql_operator(other, 'IS NOT')
-    def __gt__(self, other):
-        return self._sql_operator(other, '>')
-    def __lt__(self, other):
-        return self._sql_operator(other, '<')
-    def __ge__(self, other):
-        return self._sql_operator(other, '>=')
-    def __le__(self, other):
-        return self._sql_operator(other, '<=')
-
-    def like(self, other):
-        return self._sql_operator(other, 'LIKE')
-
-    def in_(self, possible_values):
-        percent_s = ['%s' for values in possible_values]
-        string = "%s IN (%s)" % (self.fullname(), ', '.join(percent_s))
-        return self.make_filter(string, possible_values)
+        return sql.SimpleExpression("COUNT(DISTINCT(%s))" % self.fullname())
 
     def validate(self, value):
         if not self.do_validate(value):
@@ -164,7 +130,7 @@ class Boolean(Column):
 
 class AbstractColumn(Column):
     """Column that doesn't correspond to a column in the database.  This is
-    used for things like subqueries, MySQL MATCH columns, etc.
+    used for things like subqueries, expressions, etc.
     """
     def __init__(self, name, *args, **kwargs):
         if 'optional' not in kwargs:
@@ -176,9 +142,6 @@ class AbstractColumn(Column):
             return "%s_%s" % (self.table.name, self.name)
         else:
             return self.name
-
-    def add_to_select(self, select):
-        select.add_column(self.column_expression())
 
 class Subquery(AbstractColumn):
     """Column that represents a SQL scalar subselect.
@@ -199,19 +162,12 @@ class Subquery(AbstractColumn):
 
     def column_expression(self):
         real_sql = self.sql.replace('#table#', self.table.name)
-        return '(%s) AS %s' % (real_sql, self.fullname())
-
-    def make_filter(self, string, args):
-        return clause.Having(string, args)
-
-    def __str__(self):
-        return self.column_expression()
+        return sql.Expression('(%s) AS %s' % (real_sql, self.fullname()))
 
 class Expression(AbstractColumn):
-    def __init__(self, name, clause, *args, **kwargs):
+    def __init__(self, name, expression, *args, **kwargs):
         super(Expression, self).__init__(name, *args, **kwargs)
-        self.clause = clause
+        self.expression = expression
 
     def column_expression(self):
-        text = '(%s) AS %s' % (self.clause.text, self.fullname())
-        return clause.Column(text, self.clause.args)
+        return self.expression.label(self.fullname())

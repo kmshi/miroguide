@@ -11,7 +11,6 @@ from django.utils.translation import ngettext
 from channelguide import util
 from channelguide.guide import feedutil, tables, exceptions
 from channelguide.guide.thumbnail import Thumbnailable
-from sqlhelper import sql
 from sqlhelper.orm import Record
 
 from item import Item
@@ -64,7 +63,7 @@ class Channel(Record, Thumbnailable):
 
     def delete(self, connection):
         subscription_delete = tables.channel_subscription.delete()
-        subscription_delete.add_where(
+        subscription_delete.wheres.append(
                 tables.channel_subscription.c.channel_id==self.id)
         subscription_delete.execute(connection)
         super(Channel, self).delete(connection)
@@ -97,7 +96,7 @@ class Channel(Record, Thumbnailable):
             tag = Tag(tag_name)
             tag.save(connection)
         query = TagMap.query()
-        query.filter(channel_id=self.id, user_id=user.id, tag_id=tag.id)
+        query.where(channel_id=self.id, user_id=user.id, tag_id=tag.id)
         if query.count(connection) == 0:
             tm = TagMap(self, user, tag)
             tm.save(connection)
@@ -120,7 +119,7 @@ class Channel(Record, Thumbnailable):
 
     def get_tags_for_user(self, connection, user):
         query = TagMap.query().join('tag')
-        query.filter(user_id=user.id, channel_id=self.id)
+        query.where(user_id=user.id, channel_id=self.id)
         return [map.tag for map in query.execute(connection)]
 
     def get_tags_for_owner(self, connection):
@@ -146,9 +145,9 @@ class Channel(Record, Thumbnailable):
 
         subscription_table = tables.channel_subscription
         select = subscription_table.select_count()
-        select.add_where(subscription_table.c.ip_address==ip_address)
+        select.wheres.append(subscription_table.c.ip_address==ip_address)
         week_ago = timestamp - timedelta(weeks=1)
-        select.add_where(subscription_table.c.timestamp > week_ago)
+        select.wheres.append(subscription_table.c.timestamp > week_ago)
         return select.execute_scalar(connection) > 0
 
     def add_subscription(self, connection, ip_address, timestamp=None):

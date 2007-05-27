@@ -2,7 +2,6 @@ from datetime import datetime, timedelta
 import cPickle
 
 from django.conf import settings
-from sqlhelper.sql import Select
 from sqlhelper.orm import Table, columns, Record
 
 from channelguide import cache

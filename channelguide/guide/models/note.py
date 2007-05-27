@@ -26,9 +26,9 @@ class ModeratorPost(NoteBase):
 
     def send_email(self, connection, sender):
         query = User.query()
-        query.filter(User.c.role.in_(User.ALL_MODERATOR_ROLES))
-        query.filter(moderator_board_emails=True)
-        query.filter(User.c.email != None)
+        query.where(User.c.role.in_(User.ALL_MODERATOR_ROLES))
+        query.where(moderator_board_emails=True)
+        query.where(User.c.email.is_not(None))
         emails = [mod.email for mod in query.execute(connection)]
         util.send_mail(self.title, self.body, emails, email_from=sender.email)
 

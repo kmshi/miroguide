@@ -1,7 +1,7 @@
 """Handle relations between records.
 
 relations handle a few things: 
-   * Adding join clauses to sql select statements 
+   * Adding join expression to tables
    * Setting up attributes on the resulting record objects.
    * OneToMany and ManyToMany relations handle updating the list
      of related records.
@@ -10,7 +10,7 @@ This module assumes that foreign keys references primary keys and are
 single-columned.  Hopefully this isn't too restrictive.
 """
 
-from sqlhelper.sql import Delete, Insert, Select
+from sqlhelper.sql import Delete, Insert, Select, CrossJoin
 from sqlhelper.orm import query
 
 class Relation(object):
@@ -36,13 +36,13 @@ class Relation(object):
         self.reflection = other_relation
         other_relation.reflection = self
 
-    def add_joins(self, select, table, related_table):
-        """Add joins to a Select object so that this relation's table is
-        included in the result.
+    def add_join(self, from_expression, table, related_table):
+        """Join from_expression with this relation's table and return the
+        result.
 
         One tricky part is that tables get aliased when we build the SELECT
         statements to allow for more than 1 relation for a given table.  The
-        possibly aliased tables get passed into add_joins() so that we can
+        possibly aliased tables get passed into add_join() so that we can
         join with the correct columns.
         """
         raise NotImplementedError()
@@ -61,15 +61,15 @@ class Relation(object):
 class SimpleJoiner(Relation):
     """Handles joins using a single foreign key column."""
 
-    def add_joins(self, select, table, related_table):
+    def add_join(self, from_expression, table, related_table):
         if self.column.table is self.table:
             fk = table.columns.get(self.column.name)
             ref = related_table.columns.get(self.column.ref.name)
-            select.add_join(related_table, fk==ref, 'LEFT')
+            return from_expression.join(related_table, fk==ref, 'LEFT')
         else:
             fk = related_table.columns.get(self.column.name)
             ref = table.columns.get(self.column.ref.name)
-            select.add_join(related_table, fk==ref, 'LEFT')
+            return from_expression.join(related_table, fk==ref, 'LEFT')
 
 class ManyToOne(SimpleJoiner):
     def __init__(self, name, column):
@@ -198,31 +198,31 @@ class ManyToMany(Relation):
         primary_keys = set(self.join_table.primary_keys)
         return not primary_keys.issubset(foreign_keys)
 
-    def add_joins(self, select, table, related_table):
+    def add_join(self, from_expression, table, related_table):
         if not self.use_exists_subquery:
-            self._add_joins_simple(select, table, related_table)
+            return self._simple_join(from_expression, table, related_table)
         else:
-            self._add_joins_with_exists(select, table, related_table)
+            return self._exists_join(from_expression, table, related_table)
 
-    def _add_joins_simple(self, select, table, related_table):
+    def _simple_join(self, from_expression, table, related_table):
         join_table_alias = 'j_%s' % self.name
         join_table = self.join_table.alias(join_table_alias)
         where1 = (join_table.columns.get(self.foreign_key.name) ==
                 table.columns.get(self.foreign_key.ref.name))
         where2 = (join_table.columns.get(self.relation_fk.name) ==
                 related_table.columns.get(self.relation_fk.ref.name))
-        select.add_join((join_table, related_table), where1 & where2, 'LEFT')
+        tables = CrossJoin(join_table, related_table)
+        return from_expression.join(tables, where1 & where2, 'LEFT')
 
-    def _add_joins_with_exists(self, select, table, related_table):
-        subquery = Select()
-        subquery.add_column('*')
+    def _exists_join(self, from_expression, table, related_table):
+        subquery = self.join_table.select('*')
         # no need to alias join_table, since it's only used in the subquery
-        subquery.add_from(self.join_table.name)
-        subquery.add_where(self.foreign_key ==
+        subquery.wheres.append(self.foreign_key ==
                 table.columns.get(self.foreign_key.ref.name))
-        subquery.add_where(self.relation_fk ==
+        subquery.wheres.append(self.relation_fk ==
                 related_table.columns.get(self.relation_fk.ref.name))
-        select.add_join(related_table, subquery.as_exists(), 'LEFT')
+        return from_expression.join(related_table, subquery.exists(), 
+                'LEFT')
 
     def init_record(self, record):
         setattr(record, self.name, RelationList(self, record))

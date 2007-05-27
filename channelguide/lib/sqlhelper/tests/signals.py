@@ -56,7 +56,7 @@ class SignalTest(TestCase):
         insert.add_value('name', '123')
         insert.execute(self.connection)
         update = sql.Update('foo')
-        update.add_where('id=%s', 1000)
+        update.wheres.append('id=%s', 1000)
         update.add_value('name', '456')
         update.execute(self.connection)
         delete = sql.Delete('foo')

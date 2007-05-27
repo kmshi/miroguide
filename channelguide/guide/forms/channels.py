@@ -268,7 +268,7 @@ class SubmitChannelForm(Form):
         ids = self.get_ids('category1', 'category2', 'category3')
         if not ids:
             return
-        query = Category.query().filter(Category.c.id.in_(ids))
+        query = Category.query(Category.c.id.in_(ids))
         categories = query.execute(self.connection)
         channel.categories.add_records(self.connection, categories)
 
@@ -279,7 +279,7 @@ class SubmitChannelForm(Form):
         ids = [id for id in ids if id != channel.primary_language_id]
         if not ids:
             return
-        query = Language.query().filter(Language.c.id.in_(ids))
+        query = Language.query(Language.c.id.in_(ids))
         languages = query.execute(self.connection)
         channel.secondary_languages.add_records(self.connection, languages)
 

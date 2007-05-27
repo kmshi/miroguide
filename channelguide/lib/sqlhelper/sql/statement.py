@@ -1,21 +1,26 @@
 """SQL statements.  
 
-Most of the Statement subclasses are just a container for lists of Clause
-objects with a compile() method that builds the statement.  In general, they
-can be altered in several ways:
-  - Adding Clause objects to the lists directory:
-     select.wheres.append(WhereClause('foo.id=%s', 123456)
-  - By using a helper method, that builds the clause for you:
-     select.add_where('foo.id=%s', 123456)
-  - You can usually use the helper method to add the clause as well:
-     select.add_where(WhereClause('foo.id=%s', 123456))
+Statement objects are entire SQL statements (SELECT, INSERT, etc).  Statement
+classes are basically just a containers for a bunch of Expression objects
+along with a compile() method that builds the statement.  In general, you can
+substitute strings instead of Expression objects if you don't need argument
+quoting.
 
 """
 
 import logging
-import clause
+import expression
 from sqlhelper import signals
 from sqlhelper.exceptions import SQLError, NotFoundError, TooManyResultsError
+
+class ExpressionList(list):
+    def append(self, object, *args):
+        if not isinstance(object, expression.Expression):
+            object = expression.Expression(object, *args)
+        elif args:
+            msg = "Can't specify args when passing in an Expression."
+            raise ValueError(msg)
+        super(ExpressionList, self).append(object)
 
 class Statement(object):
     """Base class for SQL statements."""
@@ -40,93 +45,54 @@ class Statement(object):
             msg = "Error running %s: %s" % (debug_string, e)
             raise SQLError(msg)
 
-    def ensure_clause(self, clause_class, clause_arg, args):
-        if isinstance(clause_arg, clause.Clause):
-            if not args:
-                return clause_arg
-            else:
-                raise ValueError("Can't specify args when passing in a "
-                        "Clause object")
-        else:
-            return clause_class(str(clause_arg), args)
-
     def make_debug_string(self, text, args):
         return "%s\n\nARGS: %r" % (text, args)
 
     def __str__(self):
-        text, args = self.compile()
-        return self.make_debug_string(text, args)
+        return self.make_debug_string(*self.compile())
 
 class Select(Statement):
     """SQL SELECT statement."""
 
     def __init__(self, *columns):
-        self.columns = []
-        self.froms = []
-        self.wheres = []
-        self.havings = []
-        self.joins = []
-        self.order_by = []
-        self.group_by = []
+        self.columns = ExpressionList()
+        self.froms = ExpressionList()
+        self.order_by = ExpressionList()
+        self.group_by = ExpressionList()
+        self.wheres = ExpressionList()
+        self.havings = ExpressionList()
         self.limit = None
         self.offset = None
         for column in columns:
-            self.add_column(column)
-
-    def add_column(self, column, *args):
-        self.columns.append(self.ensure_clause(clause.Column, column, args))
-
-    def add_columns(self, *columns):
-        for column in columns:
-            self.add_column(column)
-
-    def add_from(self, table, *args):
-        self.froms.append(self.ensure_clause(clause.Table, table, args))
-
-    def add_where(self, where, *args):
-        self.wheres.append(self.ensure_clause(clause.Where, where, args))
-
-    def add_having(self, having, *args):
-        self.havings.append(self.ensure_clause(clause.Having, having, args))
-
-    def add_join(self, table, on, type='INNER'):
-        on = self.ensure_clause(clause.Where, on, [])
-        if not hasattr(table, '__iter__'):
-            self.joins.append(clause.Join(table, on, type))
-        else:
-            self.joins.append(clause.MultiJoin(table, on, type))
-
-    def add_order_by(self, order_by, desc=False):
-        self.order_by.append(clause.OrderBy(order_by, desc))
-
-    def add_group_by(self, column, *args):
-        self.group_by.append(self.ensure_clause(clause.Column, column, args))
+            self.columns.append(column)
 
     def count(self, connection):
         s = Select()
-        s.add_columns('COUNT(*)')
+        s.columns = [expression.COUNT]
         s.froms = self.froms
         s.wheres = self.wheres
+        s.havings = self.havings
+        s.group_by = self.group_by
         return self.execute_scalar(connection)
 
     def compile(self):
         comp = StatementCompilation()
         comp.add_text("SELECT ")
-        comp.join_clauses(self.columns, ', ')
+        comp.add_expression_list(self.columns)
         comp.add_text("\nFROM ")
-        comp.join_clauses(self.froms, ', ')
-        comp.add_text("\n")
-        comp.add_clauses(self.joins)
-        comp.add_where_list(self.wheres)
+        comp.add_expression_list(self.froms)
+        if self.wheres:
+            comp.add_text("\nWHERE ")
+            comp.add_expression(expression.and_together(self.wheres))
         if self.group_by:
-            comp.add_text("GROUP BY ")
-            comp.join_clauses(self.group_by, ', ')
-            comp.add_text('\n')
-        comp.add_having_list(self.havings)
+            comp.add_text("\nGROUP BY ")
+            comp.add_expression_list(self.group_by)
+        if self.havings:
+            comp.add_text("\nHAVING ")
+            comp.add_expression(expression.and_together(self.havings))
         if self.order_by:
-            comp.add_text("ORDER BY ")
-            comp.join_clauses(self.order_by, ', ')
-            comp.add_text('\n')
+            comp.add_text("\nORDER BY ")
+            comp.add_expression_list(self.order_by)
         if self.limit is not None or self.offset is not None:
             if self.offset is None:
                 offset = 0
@@ -136,15 +102,19 @@ class Select(Statement):
                 limit = 9999999
             else:
                 limit = self.limit
-            comp.add_text('LIMIT %d,%d\n' % (offset, limit))
+            comp.add_text('\nLIMIT %d,%d' % (offset, limit))
         return comp.finalize()
 
-    def as_subquery(self, name):
-        return clause.Subquery(self, name)
-
-    def as_exists(self):
+    def subquery(self, label=None):
         text, args = self.compile()
-        return clause.Where("EXISTS (%s)" % text, args)
+        subquery = expression.Expression(text, *args)
+        if label is not None:
+            return subquery.label(label)
+        return subquery
+
+    def exists(self):
+        text, args = self.compile()
+        return expression.Expression("EXISTS (%s)" % text, *args)
 
     def execute_scalar(self, connection):
         """Execute a scalar SELECT.  This only works for selects that return a
@@ -165,12 +135,12 @@ class Insert(Statement):
 
     def __init__(self, table):
         self.table_name = str(table)
-        self.columns = []
-        self.values = []
+        self.columns = ExpressionList()
+        self.values = ExpressionList()
 
     def add_value(self, column, value):
-        self.columns.append(clause.Column(column))
-        self.values.append(clause.Value(value))
+        self.columns.append(column)
+        self.values.append(expression.Quoted(value))
 
     def add_values(self, **values):
         for column, value in values.items():
@@ -179,9 +149,9 @@ class Insert(Statement):
     def compile(self):
         comp = StatementCompilation()
         comp.add_text('INSERT INTO %s(' % self.table_name)
-        comp.join_clauses(self.columns, ', ')
+        comp.add_expression_list(self.columns)
         comp.add_text(')\nVALUES(')
-        comp.join_clauses(self.values, ', ')
+        comp.add_expression_list(self.values)
         comp.add_text(')')
         return comp.finalize()
 
@@ -190,26 +160,24 @@ class Update(Statement):
 
     def __init__(self, table):
         self.table_name = str(table)
-        self.sets = []
-        self.wheres = []
+        self.assignments = ExpressionList()
+        self.wheres = ExpressionList()
     
     def add_value(self, column, value):
-        self.sets.append(self.ensure_clause(clause.Set, column, value))
+        self.assignments.append(expression.Assignment(column, value))
 
     def add_values(self, **values):
         for column, value in values.items():
             self.add_value(column, value)
 
-    def add_where(self, where, *args):
-        self.wheres.append(self.ensure_clause(clause.Where, where, args))
-
     def compile(self):
         comp = StatementCompilation()
         comp.add_text("UPDATE %s\n" % self.table_name)
         comp.add_text("SET ")
-        comp.join_clauses(self.sets, ', ')
-        comp.add_text("\n")
-        comp.add_where_list(self.wheres)
+        comp.add_expression_list(self.assignments)
+        if self.wheres:
+            comp.add_text("\nWHERE ")
+            comp.add_expression(expression.and_together(self.wheres))
         return comp.finalize()
 
 class Delete(Statement):
@@ -217,15 +185,14 @@ class Delete(Statement):
 
     def __init__(self, table):
         self.table_name = str(table)
-        self.wheres = []
+        self.wheres = ExpressionList()
 
-    def add_where(self, where, *args):
-        self.wheres.append(self.ensure_clause(clause.Where, where, args))
-    
     def compile(self):
         comp = StatementCompilation()
         comp.add_text('DELETE FROM %s\n' % self.table_name)
-        comp.add_where_list(self.wheres)
+        if self.wheres:
+            comp.add_text("\nWHERE ")
+            comp.add_expression(expression.and_together(self.wheres))
         return comp.finalize()
 
 class StatementCompilation(object):
@@ -234,40 +201,15 @@ class StatementCompilation(object):
         self.parts = []
         self.args = []
 
-    def add_text(self, text, *args):
+    def add_text(self, text):
         self.parts.append(text)
-        self.args.extend(args)
 
-    def add_clause(self, clause):
-        text, args = clause.compile()
-        self.add_text(text, *args)
+    def add_expression(self, expression):
+        self.parts.append(expression.text)
+        self.args.extend(expression.args)
 
-    def add_clauses(self, clauses, with_newlines=True):
-        for clause in clauses:
-            self.add_clause(clause)
-            if with_newlines:
-                self.add_text("\n")
-
-    def join_clauses(self, clause_list, join_string, conversion=None):
-        text, args = clause.join_clauses(clause_list, join_string, conversion)
-        self.add_text(text, *args)
+    def add_expression_list(self, expression_list):
+        self.add_expression(expression.join(expression_list, ', '))
 
     def finalize(self):
-        return (''.join(self.parts), self.args)
-
-    def add_filter_list(self, filter_class, filters):
-        if len(filters) == 0:
-            return
-        elif len(filters) == 1:
-            combined = filters[0]
-        else:
-            combined = filter_class.and_together(filters)
-        text, args = combined.compile()
-        self.parts.append('%s %s\n' % (filter_class.clause_string, text))
-        self.args.extend(args)
-
-    def add_where_list(self, wheres):
-        self.add_filter_list(clause.Where, wheres)
-
-    def add_having_list(self, havings):
-        self.add_filter_list(clause.Having, havings)
+        return (''.join(self.parts), tuple(self.args))

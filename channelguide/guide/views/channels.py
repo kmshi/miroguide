@@ -41,16 +41,16 @@ def moderate(request):
 def unapproved_channels(request, state):
     query = Channel.query().order_by('creation_time')
     if state == 'waiting':
-        query.filter(state=Channel.WAITING)
+        query.where(state=Channel.WAITING)
         header = _("Channels Waiting For Replies")
     elif state == 'dont-know':
-        query.filter(state=Channel.DONT_KNOW)
+        query.where(state=Channel.DONT_KNOW)
         header = _("Channels Flagged Don't Know By a Moderator")
     elif state == 'rejected':
-        query.filter(state=Channel.REJECTED)
+        query.where(state=Channel.REJECTED)
         header = _("Rejected Channels")
     else:
-        query.filter(state=Channel.NEW)
+        query.where(state=Channel.NEW)
         header = _("Unreviewed Channels")
     pager =  Pager(10, query, request)
 

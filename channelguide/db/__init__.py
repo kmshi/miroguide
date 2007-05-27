@@ -6,7 +6,6 @@ Database functions for channelguide.
 import os
 import re
 
-from sqlhelper import orm
 from sqlhelper.pool import ConnectionPool
 from sqlhelper.dbinfo import MySQLDBInfo
 from channelguide import util

@@ -13,16 +13,6 @@ class Label(Record):
     def __init__(self, name):
         self.name = name
 
-    @classmethod
-    def query_with_count(cls):
-        query = cls.query()
-        count_subquery = Select()
-        select.add_column("COUNT(*)")
-        select.add_from(tables.channel.name)
-        join_column = cls.table.find_foreign_key(tables.channel)
-        select.add_where(join_column==join_column.ref)
-        select.add_where(tables.channel.c.state=='A')
-
     def link(self):
         return util.make_link(self.get_absolute_url(), str(self))
 

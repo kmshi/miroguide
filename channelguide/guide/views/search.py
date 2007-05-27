@@ -34,11 +34,11 @@ def more_results_link_items(query, total_results):
 
 def search_results(connection, class_, terms, search_attribute='name'):
     query = class_.query().load('channel_count')
-    query.filter(class_.c.channel_count > 0)
+    query.having(class_.c.channel_count > 0)
 
     search_column = class_.c.get(search_attribute)
     for term in terms:
-        query.filter(search_column.like('%s%%' % term))
+        query.where(search_column.like('%s%%' % term))
     return query.execute(connection)
 
 @cache.aggresively_cache

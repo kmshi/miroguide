@@ -18,16 +18,16 @@ def index(request):
 
 def secondary_language_exists_where(language_id):
     select = sql.Select('*')
-    select.add_from('cg_secondary_language_map')
-    select.add_where('channel_id=cg_channel.id')
-    select.add_where('language_id=%s', language_id)
-    return select.as_exists()
+    select.froms.append('cg_secondary_language_map')
+    select.wheres.append('channel_id=cg_channel.id')
+    select.wheres.append('language_id=%s', language_id)
+    return select.exists()
 
 @cache.aggresively_cache
 def view(request, id):
     language = Language.get(request.connection, id)
     query = Channel.query_approved()
-    query.filter((Channel.c.primary_language_id==id) |
+    query.where((Channel.c.primary_language_id==id) |
             secondary_language_exists_where(id))
     pager = templateutil.Pager(8, query, request)
     return util.render_to_response(request, 'two-column-list.html', {

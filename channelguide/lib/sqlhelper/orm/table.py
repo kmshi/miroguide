@@ -14,12 +14,13 @@ etc).
 
 from copy import copy
 
-from sqlhelper.sql import clause, Select, Insert, Delete, Update
+from sqlhelper import sql
 from relations import OneToMany, ManyToOne, ManyToMany, OneToOne
 from columns import ColumnStore, AbstractColumn, Subquery
 
-class Table(object):
+class Table(sql.SimpleExpression):
     def __init__(self, name, *columns):
+        sql.SimpleExpression.__init__(self, name)
         self.name = name
         self.relations = {}
         self.regular_columns = []
@@ -64,42 +65,30 @@ class Table(object):
     def alias(self, name):
         return AliasedTable(self, name)
 
-    def select(self):
-        s = Select()
-        for column in self.regular_columns:
-            column.add_to_select(s)
-        s.add_from(self.name)
+    def select(self, *columns):
+        s = sql.Select(*columns)
+        s.froms.append(self)
         return s
 
     def select_count(self):
-        s = Select()
-        s.add_column("COUNT(*)")
-        s.add_from(self.name)
+        s = sql.Select(sql.COUNT)
+        s.froms.append(self)
         return s
 
     def insert(self):
-        return Insert(self)
+        return sql.Insert(self)
 
     def delete(self):
-        return Delete(self)
+        return sql.Delete(self)
 
     def update(self):
-        return Update(self)
+        return sql.Update(self)
 
-    def join(self, other, join_column=None):
-        """Create a JoinedTable clause that consists of this table joined to
-        another table.
-
-        Here's a typical usage:
-        select.add_from(table1.join(table2))
-
-        In most cases the column to join on can be found automatically, but if
-        this doesn't work join_column can be specified.
-        """
-        if join_column is None:
-            join_column = self.find_foreign_key(other, search_reverse=True)
-        join = clause.Join(other.name, join_column==join_column.ref)
-        return clause.JoinedTable(self.name, join)
+    def join(self, other, on=None, type='INNER'):
+        if on is None:
+            foreign_key = self.find_foreign_key(other, search_reverse=True)
+            on = (foreign_key==foreign_key.ref)
+        return super(Table, self).join(other, on, type)
 
     def primary_key_from_row(self, row):
         return tuple(row[i] for i in self.primary_key_indicies)
@@ -230,6 +219,4 @@ class AliasedTable(Table):
         self.record_class = real_table.record_class
         for column in real_table.columns:
             self.add_column(copy(column))
-
-    def __str__(self):
-        return '%s AS %s' % (self.real_table.name, self.name)
+        self.text = '%s AS %s' % (self.real_table.name, self.name)

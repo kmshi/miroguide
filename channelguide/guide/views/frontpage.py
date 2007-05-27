@@ -30,16 +30,16 @@ def get_categories(connection):
 
 def get_category_channels(connection, category, count):
     query = Channel.query_approved().join("categories")
-    query.joins['categories'].filter(id=category.id)
+    query.joins['categories'].where(id=category.id)
     query.order_by('RAND()').limit(count)
     return query.execute(connection)
 
 def get_adjecent_category(dir, name, connection):
     query = Category.query().load('channel_count')
     if dir == 'after':
-        query.filter(Category.c.name > name).order_by('name')
+        query.where(Category.c.name > name).order_by('name')
     else:
-        query.filter(Category.c.name < name).order_by('name', desc=True)
+        query.where(Category.c.name < name).order_by('name', desc=True)
     return query.limit(1).get(connection)
 
 # category peeks are windows into categories that show a few (6) channels.

@@ -269,7 +269,7 @@ class ModeratorPostTest(TestCase):
         self.check_delete_auth(self.supermod, True)
 
     def moderater_count(self):
-        query = User.query().filter(User.c.role.in_(User.ALL_MODERATOR_ROLES))
+        query = User.query(User.c.role.in_(User.ALL_MODERATOR_ROLES))
         return query.count(self.connection)
 
     def check_email_auth(self, user, can_email):
@@ -303,7 +303,7 @@ class ModeratorPostTest(TestCase):
                 if recipient in sent_emails:
                     raise AssertionError("Duplicate to")
                 sent_emails.add(recipient)
-        query = User.query().filter(User.c.role.in_(User.ALL_MODERATOR_ROLES))
+        query = User.query(User.c.role.in_(User.ALL_MODERATOR_ROLES))
         mod_emails = [mod.email for mod in query.execute(self.connection)]
         self.assertSameSet(sent_emails, mod_emails)
 

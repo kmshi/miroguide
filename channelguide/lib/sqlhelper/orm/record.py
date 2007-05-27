@@ -4,7 +4,7 @@ from sqlhelper import sql, signals, util
 from sqlhelper.exceptions import NotFoundError, TooManyResultsError
 from sqlhelper.orm import query
 from sqlhelper.orm.relations import ManyToOne, OneToOne
-from sqlhelper.sql import clause
+from sqlhelper.sql import expression
 
 class RecordMetaclass(type):
     """Metaclass for Record objects.  
@@ -107,7 +107,7 @@ class Record(object):
 
     def insert(self, connection):
         signals.record_insert.emit(self)
-        insert = sql.Insert(self.table)
+        insert = self.table.insert()
         self.set_column_defaults()
         self.add_values_to_saver(insert)
         insert.execute(connection)
@@ -118,7 +118,7 @@ class Record(object):
 
     def update(self, connection):
         signals.record_update.emit(self)
-        update = sql.Update(self.table)
+        update = self.table.update()
         update.wheres.append(self.rowid_where())
         self.run_column_onupdates()
         self.add_values_to_saver(update)
@@ -137,7 +137,7 @@ class Record(object):
 
     def delete(self, connection):
         signals.record_delete.emit(self)
-        delete = sql.Delete(self.table)
+        delete = self.table.delete()
         delete.wheres.append(self.rowid_where())
         delete.execute(connection)
         del self.rowid
@@ -147,9 +147,9 @@ class Record(object):
             self.delete(connection)
 
     @classmethod
-    def query(cls, *filter_args, **filter_kwargs):
+    def query(cls, *where_args, **where_kwargs):
         retval = query.Query(cls.table)
-        retval.filter(*filter_args, **filter_kwargs)
+        retval.where(*where_args, **where_kwargs)
         return retval
 
     @classmethod
@@ -173,7 +173,7 @@ class Record(object):
         wheres = []
         for column, value in izip(self.table.primary_keys, self.rowid):
             wheres.append(column==value)
-        return clause.Where.and_together(wheres)
+        return sql.and_together(wheres)
 
     def join(self, *relation_names):
         relation_names = [name for name in relation_names \

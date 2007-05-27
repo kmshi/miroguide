@@ -1,16 +1,20 @@
 """query.py
 
-Contains the Query and Join classes, a higher level, object based version of
+Contains the Query and Join classes.  Queries and Joins perform object-based
 SQL selects.  Query objects handle selecting rows from the database and
 converting them to Record objects.  Join objects do the same for joined
 tables.
+
+Query objects are dumb.  For example, if you call limit() on a query, it just
+sets the LIMIT part of the SELECT statement.  If the query gets joined to a
+one-to-many relationship, you may get less records back then the limit amount.
 """
 
 from itertools import izip, count
 
 from sqlhelper import sql, util
 from sqlhelper.exceptions import NotFoundError, TooManyResultsError
-from sqlhelper.sql import clause
+from sqlhelper.sql import expression
 import columns
 import relations
 
@@ -53,21 +57,36 @@ class TableSelector(Selector):
         self.wheres = []
         self.havings = []
 
-    def filter(self, *filters, **attribute_filters):
-        for filter in filters:
-            self._add_filter(filter)
-        for name, value in attribute_filters.items():
-            column = self.get_column(name)
-            self._add_filter(column==value)
+    def where(self, *expressions, **attribute_filters):
+        """Add a where expression, or multiple where expressions to the query.
+        If multiple where expressions are added to the query, they will all be
+        ANDed together.
+
+        There are 2 ways to pass in where expressions:
+          - make Expression objects and pass them in as positional arguments
+          - pass in keyword arguments in the form of <column-name>=<value>
+        """
+        self.wheres.extend(expressions)
+        self.wheres.extend(self._make_filters(attribute_filters))
         return self
 
-    def _add_filter(self, filter):
-        if isinstance(filter, clause.Where):
-            self.wheres.append(filter)
-        elif isinstance(filter, clause.Having):
-            self.havings.append(filter)
-        else:
-            self.wheres.append(clause.Where(filter))
+    def having(self, *expressions, **attribute_filters):
+        """Add HAVING expressions.  This works exactly like where(), except
+        the expressions will be added to the HAVING part of the query.
+        """
+        self.havings.extend(expressions)
+        self.havings.extend(self._make_filters(attribute_filters))
+        return self
+
+    def _make_filters(self, attribute_filters):
+        filters = []
+        for name, value in attribute_filters.items():
+            column = self.get_column(name)
+            if value is not None:
+                filters.append(column==value)
+            else:
+                filters.append(column.is_(None))
+        return filters
 
     def add_filters_to_select(self, select):
         select.wheres.extend(self.wheres)
@@ -117,16 +136,22 @@ class Joiner(object):
             self.joins[name] = join
         return self
 
-    def add_joins_to_select(self, select):
-        for table, on, type in self.raw_joins:
-            select.add_join(table, on, type)
+    def start_select(self):
+        select = sql.Select()
+        self.columns.add_to_select(select)
+        from_table = self.table
         for parent, join in self.join_iterator():
             join.columns.add_to_select(select)
-            join.relation.add_joins(select, parent.table, join.table)
             join.add_filters_to_select(select)
+            from_table = join.relation.add_join(from_table, parent.table, 
+                    join.table)
+        for table, on, type in self.raw_joins:
+            from_table = from_table.join(table, on, type)
+        select.froms.append(from_table)
+        return select
 
     def add_raw_join(self, table, on, type='INNER'):
-        """Adds a join clause to the SELECT statement used in this query.
+        """Adds a join expression to the SELECT statement used in this query.
         Unlike join(), this doesn't add a relation to the Records outputted
         from execute(), it only adds a JOIN at the SQL level.  The reason to
         use this is to use the joined tables for filters and order_bys.
@@ -143,15 +168,30 @@ class Query(TableSelector, Joiner):
         self._offset = None
 
     def order_by(self, order_by, desc=False):
+        """Change the row ordering for this query.  order_by can either be a
+        Expression object, or the name of a column.  If order_by() can be
+        called multiple times to order the rows by multiple columns.  For
+        example:
+
+        query.order_by('foo')
+        query.order_by('bar', desc=True)
+
+        results in:
+
+        ORDER BY foo, bar DESC
+
+        Pass in None to clear the list of order by columns.
+        """
+
         if order_by is None:
             self._order_by = []
             return self
         if isinstance(order_by, str):
             try:
-                order_by = self.get_column(order_by).fullname()
+                order_by = self.get_column(order_by)
             except AttributeError:
                 pass
-        self._order_by.append(clause.OrderBy(order_by, desc))
+        self._order_by.append(sql.OrderBy(order_by, desc))
         return self
 
     def limit(self, count):
@@ -163,9 +203,7 @@ class Query(TableSelector, Joiner):
         return self
 
     def make_select(self):
-        select = sql.Select()
-        self.columns.add_to_select(select)
-        select.add_from(self.table.name)
+        select = self.start_select()
         self.add_filters_to_select(select)
         select.limit = self._limit
         select.offset = self._offset
@@ -174,8 +212,7 @@ class Query(TableSelector, Joiner):
         else:
             # by default order by the primary key(s)
             for column in self.table.primary_keys:
-                select.order_by.append(clause.OrderBy(column.fullname()))
-        self.add_joins_to_select(select)
+                select.order_by.append(sql.OrderBy(column))
         return select
 
     def execute(self, connection, select=None):
@@ -191,7 +228,7 @@ class Query(TableSelector, Joiner):
         if id is not None:
             id_values = util.ensure_list(id)
             for col, value in zip(self.table.primary_keys, id_values):
-                self.filter(col==value)
+                self.where(col==value)
         results = self.execute(connection)
         if len(results) == 1:
             return results[0]
@@ -203,7 +240,7 @@ class Query(TableSelector, Joiner):
     def count(self, connection):
         select = self.make_select()
         select.order_by = None
-        select.columns = [clause.COUNT]
+        select.columns = [sql.COUNT]
         return select.execute_scalar(connection)
 
     def __str__(self):
@@ -335,17 +372,14 @@ class ResultJoiner(Selector, Joiner):
         self.columns.extend(self.table.primary_keys)
 
     def make_select(self):
-        select = sql.Select()
-        select.add_from(self.table)
-        self.columns.add_to_select(select)
-        self.add_joins_to_select(select)
+        select = self.start_select()
         if len(self.result_set.table.primary_keys) == 1:
             pk = self.result_set.table.primary_keys[0]
             where = pk.in_([r.rowid[0] for r in self.result_set])
             select.wheres.append(where)
         else:
             wheres = [r.rowid_where() for r in self.result_set]
-            select.wheres.append(clause.Where.or_together(wheres))
+            select.wheres.append(sql.or_together(wheres))
         return select
 
     def no_joins(self):

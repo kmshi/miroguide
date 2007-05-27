@@ -1,6 +1,6 @@
 import datetime 
 
-from sqlhelper import orm, NotFoundError, TooManyResultsError
+from sqlhelper import orm, NotFoundError, TooManyResultsError, sql
 from base import TestCase, Foo, Bar, Category, CategoryMap, Types, FooExtra
 
 class QueryTest(TestCase):
@@ -28,7 +28,7 @@ class QueryTest(TestCase):
 
     def test_boolean_convert(self):
         def get_by_name(name):
-            s = Types.query().filter(Types.c.string==name)
+            s = Types.query().where(Types.c.string==name)
             return s.execute(self.connection)[0]
         false_type = get_by_name('false')
         true_type = get_by_name('true')
@@ -36,11 +36,11 @@ class QueryTest(TestCase):
         self.assertEquals(true_type.boolean, True)
 
     def test_where(self):
-        results = Foo.query().filter(id=3).execute(self.connection)
+        results = Foo.query().where(id=3).execute(self.connection)
         matching_values = [(id, name) for id, name in self.foo_values
                 if id == 3]
         self.checkFoos(results, matching_values)
-        results = Foo.query().filter(name='bacon').execute(self.connection)
+        results = Foo.query().where(name='bacon').execute(self.connection)
         matching_values = [(id, name) for id, name in self.foo_values
                 if name == 'bacon']
         self.checkFoos(results, matching_values)
@@ -86,11 +86,11 @@ class QueryTest(TestCase):
         foo = Foo.get(self.connection, 3)
         self.assertEquals(foo.id, 3)
         self.assertRaises(NotFoundError, Foo.get, self.connection, 999999)
-        query = Foo.query().filter(Foo.c.id > 2)
+        query = Foo.query().where(Foo.c.id > 2)
         self.assertRaises(TooManyResultsError, query.get, self.connection)
 
     def test_count(self):
-        s = Foo.query().filter((Foo.c.id == 4) | (Foo.c.id <= 2))
+        s = Foo.query().where((Foo.c.id == 4) | (Foo.c.id <= 2))
         self.assertEquals(s.count(self.connection), 3)
 
     def test_one_to_many(self):
@@ -164,9 +164,9 @@ class QueryTest(TestCase):
             bars = self.foo_to_bars.get(foo.id, [])
             self.assertEquals(foo.bar_count, len(bars))
 
-    def test_subquery_filter(self):
+    def test_having(self):
         query = Foo.query_with_counts()
-        query.filter(query.c.category_count > 2)
+        query.having(query.c.category_count > 2)
         foos = query.execute(self.connection)
         for foo in foos:
             self.assert_(foo.category_count > 2)
@@ -223,7 +223,7 @@ class QueryTest(TestCase):
 
     def test_join_to_results_multiple_primary_keys(self):
         query = CategoryMap.query()
-        query.filter(CategoryMap.c.foo_id.in_([1,2]))
+        query.where(CategoryMap.c.foo_id.in_([1,2]))
         results = query.execute(self.connection)
         results.join('category', 'foo').execute(self.connection)
         seen_ids = []
@@ -233,9 +233,9 @@ class QueryTest(TestCase):
         correct_ids += [(2, value) for value in self.foo_to_categories[2]]
         self.assertSameSet(seen_ids, correct_ids)
 
-    def test_join_with_filter(self):
+    def test_join_with_where(self):
         query = Bar.query().join('parent')
-        query.joins['parent'].filter(id=1)
+        query.joins['parent'].where(id=1)
         correct_ids = []
         for id, foo_id, name in self.bar_values:
             if foo_id == 1:
@@ -244,7 +244,7 @@ class QueryTest(TestCase):
         returned_ids = [bar.id for bar in query.execute(self.connection)]
         self.assertSameSet(correct_ids, returned_ids)
         query2 = Bar.query().join('parent')
-        query2.filter(query2.joins['parent'].c.id == 1)
+        query2.where(query2.joins['parent'].c.id == 1)
         self.assertEquals(str(query), str(query2))
 
     def test_join_with_subquery(self):
@@ -273,14 +273,14 @@ class QueryTest(TestCase):
         result_ids = [t.id for t in query.execute(self.connection)]
         self.assertEquals(result_ids, self.null_type_ids)
 
-        query = Types.query(Types.c.null_ok != None)
+        query = Types.query(Types.c.null_ok.is_not(None))
         result_ids = [t.id for t in query.execute(self.connection)]
         self.assertEquals(result_ids, self.nonnull_type_ids)
 
     def test_raw_join(self):
         query = Bar.query()
         query.add_raw_join('foo', 'foo_id=foo.id')
-        query.filter("foo.name='booya'")
+        query.where(sql.Expression("foo.name=%s", 'booya'))
         bars = query.execute(self.connection)
         correct_ids = [id for (id, foo_id, name) in self.foo_to_bars[1]]
         self.assertEquals(correct_ids, [b.id for b in bars])

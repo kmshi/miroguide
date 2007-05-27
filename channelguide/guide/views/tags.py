@@ -15,7 +15,7 @@ def index(request):
 def tag(request, id):
     tag = Tag.get(request.connection, id)
     query = Channel.query_approved().join('tags')
-    query.joins['tags'].filter(id=id)
+    query.joins['tags'].where(id=id)
     templateutil.order_channels_using_request(query, request)
     pager =  templateutil.Pager(8, query, request)
     return util.render_to_response(request, 'two-column-list.html', {
