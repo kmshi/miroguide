@@ -20,6 +20,9 @@ SECRET_KEY = FILL ME IN
 
 BASE_URL = FILL ME IN
 BASE_URL_FULL = BASE_URL
+# Change this if the location for static stuff (images, javascript, css files)
+# is separate from the rest of the URLs.
+STATIC_BASE_URL = BASE_URL
 
 # String to prefix cache entries with.  Any string unique to this server will
 # do.

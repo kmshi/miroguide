@@ -7,6 +7,7 @@ def guide(request):
 
     return {
             'BASE_URL': settings.BASE_URL,
+            'STATIC_BASE_URL': settings.STATIC_BASE_URL,
             'GUIDE_EMAIL': settings.EMAIL_FROM,
             'request': request,
             'user': request.user,

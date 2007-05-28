@@ -62,8 +62,8 @@ INSTALLED_APPS = (
 
 # URLs
 
-MEDIA_URL = BASE_URL + "media/"
-IMAGES_URL = BASE_URL + "images/"
+MEDIA_URL = STATIC_BASE_URL + "media/"
+IMAGES_URL = STATIC_BASE_URL + "images/"
 
 # directories
 SITE_DIR = os.path.abspath(os.path.dirname(__file__))
