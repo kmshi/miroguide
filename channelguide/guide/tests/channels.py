@@ -681,6 +681,8 @@ class EditChannelTest(ChannelTestBase):
         self.channel.add_tag(self.connection, self.ralph, "funny")
         self.channel.add_tag(self.connection, self.ralph, "awesome")
         self.channel.url = test_data_url('feed.xml')
+        self.channel.update_items(self.connection,
+                feedparser_input=open(test_data_path('feed.xml')))
         self.save_to_db(self.channel)
 
     def make_category(self, name):

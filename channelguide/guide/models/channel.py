@@ -190,8 +190,9 @@ class Channel(Record, Thumbnailable):
             item.download_thumbnail(connection, redownload)
 
     def update_search_data(self, connection):
-        self.join("search_data", "items", 'tags', 'categories',
-                'secondary_languages', 'language').execute(connection)
+        self.join("search_data", "items", 'items.search_data', 'tags',
+                'categories', 'secondary_languages',
+                'language').execute(connection)
         if self.search_data is None:
             self.search_data = search.ChannelSearchData()
             self.search_data.channel_id = self.id
