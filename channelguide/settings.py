@@ -60,6 +60,8 @@ INSTALLED_APPS = (
     'channelguide.sessions',
 )
 
+USE_SECURE_COOKIES = BASE_URL_FULL.startswith('https://')
+
 # URLs
 
 MEDIA_URL = STATIC_BASE_URL + "media/"

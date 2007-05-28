@@ -124,8 +124,13 @@ def copy_post_and_files(request):
 
 def set_cookie(response, key, value, seconds):
     expires_at = datetime.now() + timedelta(seconds=seconds)
+    if settings.USE_SECURE_COOKIES:
+        secure=True
+    else:
+        secure=None
     response.set_cookie(key, value, max_age=seconds,
-            expires=expires_at.strftime("%a, %d-%b-%Y %H:%M:%S GMT"))
+            expires=expires_at.strftime("%a, %d-%b-%Y %H:%M:%S GMT"),
+            secure=secure)
 
 def hash_string(str):
     return md5.new(str).hexdigest()
