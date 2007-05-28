@@ -32,6 +32,7 @@
     {% if user.is_admin %}
     <li><h2><a {% link "categories/moderate" %}>{% trans "Edit Category list" %}</a></h2></li>
     <li><h2><a {% link "languages/moderate" %}>{% trans "Edit Languages list" %}</a></h2></li>
+    <li><h2><a {% link "channels/moderator-history" %}>{% trans "Moderator History" %}</a></h2></li>
     {% endif %}
     <li class="moderator-board-emails">
         <form action="accounts/moderator-board-emails/{{ user.id}}" method="POST">

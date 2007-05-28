@@ -17,4 +17,5 @@ urlpatterns = patterns('channelguide.guide.views.channels',
     (r'^submit/after$', 'after_submit'),
     (r'^user/(\d+)$', 'for_user'),
     (r'^edit/(\d+)$', 'edit_channel'),
+    (r'^moderator-history$', 'moderator_history'),
 )

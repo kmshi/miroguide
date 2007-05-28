@@ -171,3 +171,10 @@ class UserAuthToken(Record):
                 "'%(user)s' click here:\n%(url)s.") % \
                         {'url': url, 'user': self.user.username }
         util.send_mail(title, body, self.user.email)
+
+class ModeratorAction(Record):
+    table = tables.moderator_action
+
+    def get_action_name(self):
+        return tables.name_for_state_code(self.action)
+    action_name = property(get_action_name)

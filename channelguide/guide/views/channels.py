@@ -4,8 +4,10 @@ from django.utils.translation import gettext as _
 
 from channelguide import util, cache
 from channelguide.guide import forms
-from channelguide.guide.auth import moderator_required, login_required
-from channelguide.guide.models import Channel, Item, ModeratorPost, User
+from channelguide.guide.auth import (admin_required, moderator_required,
+        login_required)
+from channelguide.guide.models import (Channel, Item, ModeratorPost, User,
+        ModeratorAction)
 from channelguide.guide.notes import get_note_info
 from channelguide.guide.templateutil import Pager, ViewSelect
 
@@ -298,3 +300,12 @@ def edit_channel(request, id):
     else:
         context['thumbnail_description'] = _("Current image (uploaded)")
     return util.render_to_response(request, 'edit-channel.html', context)
+
+@admin_required
+def moderator_history(request):
+    query = ModeratorAction.query().join('user', 'channel')
+    pager =  Pager(30, query, request)
+    return util.render_to_response(request, 'moderator-history.html', {
+        'pager': pager,
+        'actions': pager.items,
+        })

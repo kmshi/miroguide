@@ -1,6 +1,22 @@
+from datetime import datetime
+
+from django.utils.translation import gettext as _
 from sqlhelper.sql import Select, Literal
 from sqlhelper.orm import Table, columns
-from datetime import datetime
+
+def name_for_state_code(state):
+    if state == 'N':
+        return _('New')
+    elif state == 'A':
+        return _('Approved')
+    elif state == 'W':
+        return _('Waiting')
+    elif state == 'D':
+        return _("Don't Know")
+    elif state == 'R':
+        return _('Rejected')
+    else:
+        return _('Unknown')
 
 # create the tables
 category = Table('cg_category', 
@@ -196,3 +212,5 @@ user.one_to_many('channels', channel, backref='owner',
 user.one_to_many('moderator_posts', moderator_post, backref='user')
 user.one_to_many('notes', channel_note, backref='user')
 user.one_to_one('auth_token', user_auth_token, backref='user')
+moderator_action.many_to_one('user', user, backref='moderator_actions')
+moderator_action.many_to_one('channel', channel, backref='moderator_actions')

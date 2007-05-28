@@ -7,7 +7,6 @@ import traceback
 
 from django.conf import settings
 from django.utils.translation import ngettext
-from django.utils.translation import gettext as _
 
 from channelguide import util
 from channelguide.guide import feedutil, tables, exceptions
@@ -52,18 +51,7 @@ class Channel(Record, Thumbnailable):
         return "%s (%s)" % (self.name, self.url)
 
     def get_state_name(self):
-        if self.state == 'N':
-            return _('New')
-        elif self.state == 'A':
-            return _('Approved')
-        elif self.state == 'W':
-            return _('Waiting')
-        elif self.state == 'D':
-            return _("Don't Know")
-        elif self.state == 'R':
-            return _('Rejected')
-        else:
-            return _('Unknown')
+        return tables.name_for_state_code(self.state)
     state_name = property(get_state_name)
 
     @classmethod

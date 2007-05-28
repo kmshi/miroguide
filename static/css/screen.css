@@ -544,6 +544,16 @@ li.blog-post .title {
     width: 300px;
 }
 
+.moderator-history-page table {
+    border: 1px solid white;
+    padding: 0px 4px;
+}
+
+.moderator-history-page td, .moderator-history-page th {
+    padding: 6px;
+    font-size: 110%;
+}
+
 .user-search-page .results-label {
     margin-top: 10px;
 }
@@ -996,7 +1006,7 @@ li.blog-post .title {
     margin-top: 20px;
 }
 
-.channel-full .owner-email {
+.channel-full .extra-info {
     margin-top: 10px;
 }
 

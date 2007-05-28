@@ -1,0 +1,25 @@
+{% load cg_helpers i18n %}
+{% extends 'base.html' %}
+{% block title %}{% trans "Democracy - Moderator History" %}{% endblock %}
+{% block content %}
+<div class="moderator-history-page">
+<h1 class="group-list-name">{% trans "Moderator History" %}</h1>
+<table cellpadding=0 cellspacing=0>
+<tr>
+  <th>{% trans "User" %}</th>
+  <th>{% trans "Channel" %}</th>
+  <th>{% trans "Action" %}</th>
+  <th>{% trans "Date" %}</th>
+</tr>
+{% for action in actions %}
+  <tr>
+    <td>{{ action.user }}</td>
+    <td><a {% link action.channel.get_absolute_url %}>{{ action.channel.name }}</a></td>
+    <td>{{ action.action_name }}</td>
+    <td>{{ action.timestamp }}</td>
+  </tr>
+{% endfor %}
+</table>
+{% show_pager pager %}
+</div>
+{% endblock %}
