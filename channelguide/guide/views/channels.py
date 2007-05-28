@@ -137,15 +137,15 @@ def channel(request, id):
             else:
                 newstate = None
             if newstate is not None:
-                channel.change_state(newstate)
-                request.user.add_moderator_action(request.connection, channel, newstate)
+                channel.change_state(request.user, newstate,
+                        request.connection)
         channel.save(request.connection)
     return util.redirect_to_referrer(request)
 
 def show(request, id):
     query = Channel.query()
     query.join('categories', 'tag_maps', 'tag_maps.tag', 'notes', 'owner',
-            'notes.user')
+            'last_moderated_by', 'notes.user')
     channel = util.get_object_or_404(request.connection, query, id)
     query = Item.query(channel_id=id)
     items = query.order_by('date', desc=True).limit(6).execute(request.connection)
@@ -268,7 +268,8 @@ def recent(request):
 def for_user(request, user_id):
     user = util.get_object_or_404(request.connection, User, user_id)
     query = Channel.query(owner_id=user.id)
-    query.join('categories', 'tag_maps', 'tag_maps.tag', 'owner')
+    query.join('categories', 'tag_maps', 'tag_maps.tag', 'owner',
+            'last_moderated_by')
     pager =  Pager(10, query, request)
     return util.render_to_response(request, 'for-user.html', {
         'for_user': user,

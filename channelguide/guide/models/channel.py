@@ -7,6 +7,7 @@ import traceback
 
 from django.conf import settings
 from django.utils.translation import ngettext
+from django.utils.translation import gettext as _
 
 from channelguide import util
 from channelguide.guide import feedutil, tables, exceptions
@@ -49,6 +50,21 @@ class Channel(Record, Thumbnailable):
 
     def __str__(self):
         return "%s (%s)" % (self.name, self.url)
+
+    def get_state_name(self):
+        if self.state == 'N':
+            return _('New')
+        elif self.state == 'A':
+            return _('Approved')
+        elif self.state == 'W':
+            return _('Waiting')
+        elif self.state == 'D':
+            return _("Don't Know")
+        elif self.state == 'R':
+            return _('Rejected')
+        else:
+            return _('Unknown')
+    state_name = property(get_state_name)
 
     @classmethod
     def query_approved(cls, *args, **kwargs):
@@ -312,12 +328,15 @@ class Channel(Record, Thumbnailable):
         url_label = util.chop_prefix(url_label, 'www.')
         return util.make_link(self.website_url, url_label)
 
-    def change_state(self, newstate):
+    def change_state(self, user, newstate, connection):
         self.state = newstate
         if newstate == self.APPROVED:
             self.approved_at = datetime.now()
         else:
             self.approved_at = None
+        self.last_moderated_by_id = user.id
+        self.save(connection)
+        user.add_moderator_action(connection, self, newstate)
 
     def feature(self, connection):
         self.featured = True

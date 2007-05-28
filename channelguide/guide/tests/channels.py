@@ -20,7 +20,8 @@ class ChannelTestBase(TestCase):
         TestCase.setUp(self)
         self.ralph = self.make_user('ralph')
         self.channel = self.make_channel()
-        join = self.channel.join('items', 'tags', 'categories', 'owner')
+        join = self.channel.join('items', 'tags', 'categories', 'owner',
+                'last_moderated_by')
         join.execute(self.connection)
 
     def make_channel(self, **kwargs):
@@ -106,12 +107,20 @@ class ChannelModelTest(ChannelTestBase):
 
     def test_approved_at(self):
         self.assertEquals(self.channel.approved_at, None)
-        self.channel.change_state(Channel.APPROVED)
+        self.channel.change_state(self.ralph, Channel.APPROVED,
+                self.connection)
         timediff = datetime.now() - self.channel.approved_at
         self.assert_(timediff < timedelta(seconds=1))
         self.assert_(timediff > timedelta(seconds=0))
-        self.channel.change_state(Channel.NEW)
+        self.channel.change_state(self.ralph, Channel.NEW, self.connection)
         self.assertEquals(self.channel.approved_at, None)
+
+    def test_last_moderated_by(self):
+        self.assertEquals(self.channel.last_moderated_by, None)
+        self.channel.change_state(self.ralph, Channel.APPROVED,
+                self.connection)
+        channel2 = self.refresh_record(self.channel, 'last_moderated_by')
+        self.assertEquals(channel2.last_moderated_by.id, self.ralph.id)
 
     def test_thumbnail_before_save(self):
         c = Channel()

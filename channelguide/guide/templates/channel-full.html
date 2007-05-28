@@ -58,10 +58,21 @@
             <h3>{% trans "Website" %}</h3>
             {{ channel.website_link }}
         </div>
-        {% if show_email %}
-        <div class="owner-email">
+        {% if show_extra_info %}
+        <div class="extra-info">
             <h3>{% trans "Owner Email" %}</h3>
             {{ channel.owner.email }}
+        </div>
+        <div class="extra-info">
+            <h3>{% trans "Moderation Status" %}</h3>
+            {% blocktrans with channel.state_name as state %}
+            Channel is {{ state }}
+            {% endblocktrans %}
+            {% if channel.last_moderated_by %}
+            {% blocktrans with channel.last_moderated_by as mod %}
+            (set by {{ mod }})
+            {% endblocktrans %}
+            {% endif %}
         </div>
         {% endif %}
     {% endtwocolumns %}

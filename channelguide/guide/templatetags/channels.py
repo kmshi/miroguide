@@ -7,8 +7,8 @@ def show_channel_full(context, channel):
     user = context['user']
     return {'channel': channel, 'user': user,
             'show_edit_button': user.can_edit_channel(channel),
+            'show_extra_info': user.can_edit_channel(channel),
             'link_to_channel': True,
-            'show_email': user.is_moderator(),
             'BASE_URL': settings.BASE_URL}
 
 @register.inclusion_tag('guide/channel-full.html', takes_context=True)
@@ -16,8 +16,8 @@ def show_channel_full_no_link(context, channel):
     user = context['user']
     return {'channel': channel, 'user': user,
             'show_edit_button': user.can_edit_channel(channel),
+            'show_extra_info': user.can_edit_channel(channel),
             'link_to_channel': False,
-            'show_email': user.is_moderator(),
             'BASE_URL': settings.BASE_URL}
 
 @register.inclusion_tag('guide/moderate-actions.html')

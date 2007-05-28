@@ -69,7 +69,8 @@ channel = Table('cg_channel',
         columns.Boolean('was_featured', default='0'),
         columns.DateTime('moderator_shared_at'),
         columns.DateTime('approved_at'),
-        columns.String('cc_licence', 1, default='Z'))
+        columns.String('cc_licence', 1, default='Z'),
+        columns.Int('last_moderated_by_id', fk=user.c.id))
 moderator_action = Table('cg_moderator_action', 
         columns.Int("id", primary_key=True, auto_increment=True),
         columns.Int("user_id", fk=user.c.id),
@@ -179,6 +180,8 @@ channel.many_to_many('categories', category, category_map, backref='channels')
 channel.many_to_many('secondary_languages', language, secondary_language_map)
 channel.many_to_many('tags', tag, tag_map, backref='channels')
 channel.many_to_one('language', language)
+channel.many_to_one('last_moderated_by', user,
+        join_column=channel.c.last_moderated_by_id)
 channel.one_to_many('items', item, backref='channel')
 channel.one_to_many('notes', channel_note, backref='channel')
 channel.one_to_one('search_data', channel_search_data, backref='channel')
@@ -188,7 +191,8 @@ category_map.many_to_one('channel', channel, backref='category_maps')
 tag_map.many_to_one('channel', channel, backref='tag_maps')
 tag_map.many_to_one('tag', tag)
 tag_map.many_to_one('user', user, backref='tag_maps')
-user.one_to_many('channels', channel, backref='owner')
+user.one_to_many('channels', channel, backref='owner',
+        join_column=channel.c.owner_id)
 user.one_to_many('moderator_posts', moderator_post, backref='user')
 user.one_to_many('notes', channel_note, backref='user')
 user.one_to_one('auth_token', user_auth_token, backref='user')

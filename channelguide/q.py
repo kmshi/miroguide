@@ -23,9 +23,3 @@ channel_q = Channel.query().order_by('modified', desc=True).limit(10)
 channels = channel_q.execute(connection)
 tags = Tag.query().limit(10).execute(connection)
 cats = Category.query().limit(10).execute(connection)
-
-from channelguide.guide import search
-query = search.search_items('rocket').limit(10)
-print query
-for c in query.execute(connection):
-    print c.name
