@@ -7,14 +7,14 @@
 <table cellpadding=0 cellspacing=0>
 <tr>
   <th>{% trans "User" %}</th>
-  <th>{% trans "Channel" %}</th>
+  <th class="channel-cell">{% trans "Channel" %}</th>
   <th>{% trans "Action" %}</th>
   <th>{% trans "Date" %}</th>
 </tr>
 {% for action in actions %}
   <tr>
     <td>{{ action.user }}</td>
-    <td><a {% link action.channel.get_absolute_url %}>{{ action.channel.name }}</a></td>
+    <td class="channel-cell"><a {% link action.channel.get_absolute_url %}>{{ action.channel.name }}</a></td>
     <td>{{ action.action_name }}</td>
     <td>{{ action.timestamp }}</td>
   </tr>

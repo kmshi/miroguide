@@ -304,6 +304,7 @@ def edit_channel(request, id):
 @admin_required
 def moderator_history(request):
     query = ModeratorAction.query().join('user', 'channel')
+    query.order_by('timestamp', desc=True)
     pager =  Pager(30, query, request)
     return util.render_to_response(request, 'moderator-history.html', {
         'pager': pager,
