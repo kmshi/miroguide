@@ -88,6 +88,9 @@ class ManyToOne(SimpleJoiner):
         super(ManyToOne, self).__init__(name, column.table, column.ref.table)
         self.column = column
 
+    def init_record(self, record):
+        setattr(record, self.name, None)
+
     def do_join(self, record, related_record):
         setattr(record, self.name, related_record)
 
