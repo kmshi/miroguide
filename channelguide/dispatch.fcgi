@@ -3,6 +3,8 @@
 def startup():
     import os
     import sys
+    import logging
+    import traceback
     channelguide_dir = os.path.dirname(__file__)
     sys.path.insert(0, os.path.abspath(os.path.join(channelguide_dir, '..')))
     for i in reversed(range(len(sys.path))):
@@ -16,8 +18,17 @@ def startup():
     from flup.server.fcgi import WSGIServer
     from django.core.handlers.wsgi import WSGIHandler
     from django.conf import settings
-    WSGIServer(WSGIHandler(), maxThreads=settings.MAX_THREADS).run()
-
+    class CGServer(WSGIServer):
+        def error(self, req):
+            try:
+                from channelguide.guide.views import errors
+                page = errors.render_error_500()
+            except:
+                logging.warn("Error generating 500 error page!\n%s",
+                        traceback.format_exc())
+                page = '500 Error'
+            req.stdout.write('Content-Type: text/html\r\n\r\n' + page)
+    CGServer(WSGIHandler(), maxThreads=settings.MAX_THREADS).run()
 
 if __name__ == '__main__':
     startup()

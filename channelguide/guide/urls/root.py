@@ -18,3 +18,5 @@ urlpatterns = patterns('channelguide.guide.views',
     (r'^notes/', cg_include('notes')),
     (r'^tags/', cg_include('tags')),
 )
+
+handler500 = 'channelguide.guide.views.errors.error_500'
