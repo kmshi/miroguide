@@ -8,7 +8,7 @@
             {% if user.is_moderator %}
             <a {% link "moderate" %}>{% trans "moderate" %}</a>
             {% endif %}
-            <a {% link user.get_absolute_url %}>{% trans "profile" %}</a>
+            <a {% link user.get_url %}>{% trans "profile" %}</a>
             <a {% link "accounts/logout" %}>{% trans "logout" %}</a>
         </div>
         <div class="left">

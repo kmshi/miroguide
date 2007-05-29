@@ -1,5 +1,5 @@
 {% extends 'guide/channel-feature.html' %}
 {% load cg_helpers %}
 {% block screenshot %}
-    <a {% link channel.get_absolute_url %} id="feature-screenshot-{{ position }}">{{ channel.fake_feature_thumb }}</a>
+    <a {% link channel.get_url %} id="feature-screenshot-{{ position }}">{{ channel.fake_feature_thumb }}</a>
 {% endblock %}

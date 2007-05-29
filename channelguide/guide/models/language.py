@@ -13,11 +13,11 @@ class Language(Record):
     def __init__(self, name=None):
         self.name = name
 
-    def get_absolute_url(self):
+    def get_url(self):
         return util.make_url('languages/%d' % self.id)
 
     def link(self):
-        return util.make_link(self.get_absolute_url(), str(self))
+        return util.make_link(self.get_url(), str(self))
 
     def __str__(self):
         return self.name

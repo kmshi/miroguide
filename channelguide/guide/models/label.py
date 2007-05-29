@@ -14,7 +14,7 @@ class Label(Record):
         self.name = name
 
     def link(self):
-        return util.make_link(self.get_absolute_url(), str(self))
+        return util.make_link(self.get_url(), str(self))
 
     def __str__(self):
         return self.name
@@ -28,7 +28,7 @@ class Category(Label):
     """
     table = tables.category
 
-    def get_absolute_url(self):
+    def get_url(self):
         return util.make_url('categories/%d' % self.id)
 
 class Tag(Label):
@@ -37,7 +37,7 @@ class Tag(Label):
     """
     table = tables.tag
 
-    def get_absolute_url(self):
+    def get_url(self):
         return util.make_url('tags/%d' % self.id)
 
 class CategoryMap(Record):

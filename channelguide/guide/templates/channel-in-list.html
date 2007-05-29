@@ -3,7 +3,7 @@
     <div class="half-size-list">
         {% twocolumns %}
             <div class="screenshot">
-                <a {% link channel.get_absolute_url %}>{{ channel.thumb_165_110 }}</a>
+                <a {% link channel.get_url %}>{{ channel.thumb_165_110 }}</a>
             </div>
         {% splitcolumns %}
             <h2 class="title">{{ channel.name_as_link }}</h2>
@@ -14,7 +14,7 @@
                     <div class="icon"></div>
                     {% trans "Add" %}
                 </a>
-                <a {% link channel.get_absolute_url "info-button" %}>
+                <a {% link channel.get_url "info-button" %}>
                     <div class="icon"></div>
                     {% trans "Details" %}
                 </a>

@@ -1,3 +1,5 @@
+from django.utils.translation import gettext as _
+
 from channelguide import util
 from channelguide.guide import tables
 from sqlhelper.orm import Record
@@ -21,7 +23,7 @@ class ModeratorPost(NoteBase):
         return ModeratorPost(request.user, request.POST['title'],
                 request.POST['body'])
 
-    def get_absolute_url(self):
+    def get_url(self):
         return util.make_url("notes/post-%d" % self.id)
 
     def send_email(self, connection, sender):
@@ -43,7 +45,7 @@ class ChannelNote(NoteBase):
         super(ChannelNote, self).__init__(user, title, body)
         self.type = type
 
-    def get_absolute_url(self):
+    def get_url(self):
         return util.make_url("notes/%d" % self.id)
 
     @staticmethod
@@ -60,5 +62,12 @@ class ChannelNote(NoteBase):
                 request.POST['body'], note_type)
 
     def send_email(self, sender):
-        util.send_mail(self.title, self.body, self.channel.owner.email,
+        header = _("""\
+A note was added to your channel at channelguide.participatoryculture.org.
+You can view your channel here: %s.
+The contents of the note are below...""") % self.channel.get_absolute_url()
+        separator = '-' * 70
+        full_body = '%s\n%s\n\n%s' % (header, separator, self.body)
+
+        util.send_mail(self.title, full_body, self.channel.owner.email,
                 email_from=sender.email)

@@ -8,7 +8,7 @@
                     <div class="icon"></div>
                     {% trans "Add Channel" %}
                 </a>
-                <a {% link channel.get_absolute_url "info-button" %}>
+                <a {% link channel.get_url "info-button" %}>
                     <div class="icon"></div>
                     {% trans "Details" %}
                 </a>
@@ -18,7 +18,7 @@
         </div>
         <div class="screenshot">
             {% block screenshot %}
-            <a {% link channel.get_absolute_url %}>{{ channel.thumb_252_169 }}</a>
+            <a {% link channel.get_url %}>{{ channel.thumb_252_169 }}</a>
             {% endblock %}
         </div>
         <div class="clear"></div>

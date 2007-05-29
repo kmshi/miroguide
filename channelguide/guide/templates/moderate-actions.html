@@ -1,11 +1,11 @@
 <li class="channel-action">
     {% if channel.is_approved %}
-    <form method="POST" action="{{ channel.get_absolute_url }}">
+    <form method="POST" action="{{ channel.get_url }}">
         <input type="hidden" name="action" value="change-state">
         <input type="submit" name="submit" value="Unapprove">
     </form>
     {% else %}
-    <form method="POST" action="{{ channel.get_absolute_url }} ">
+    <form method="POST" action="{{ channel.get_url }} ">
         <input type="hidden" name="action" value="change-state">
         <input type="submit" name="submit" value="Approve">
         <input type="submit" name="submit" value="Reject">
@@ -17,12 +17,12 @@
 {% if channel.is_approved %}
 <li class="channel-action">
     {% if channel.featured %}
-    <form method="POST" action="{{ channel.get_absolute_url }}">
+    <form method="POST" action="{{ channel.get_url }}">
         <input type="hidden" name="action" value="unfeature">
         <input type="submit" value="Unfeature">
     </form>
     {% else %}
-    <form method="POST" action="{{ channel.get_absolute_url }}">
+    <form method="POST" action="{{ channel.get_url }}">
         <input type="hidden" name="action" value="feature">
         <input type="submit" value="Feature">
     </form>
@@ -30,7 +30,7 @@
 </li>
 {% endif %}
 <li class="channel-action">
-    <form method="POST" action="{{ channel.get_absolute_url }}">
+    <form method="POST" action="{{ channel.get_url }}">
         <input type="hidden" name="action" value="toggle-moderator-share">
         {% if channel.moderator_shared_at %}
         <input type="submit" value="Unshare with moderators">

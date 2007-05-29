@@ -3,7 +3,7 @@
 {% for note in notes %}
     <li>
         <div class="delete-button">
-        <form action="{{ note.get_absolute_url }}" method="POST">
+        <form action="{{ note.get_url }}" method="POST">
             <input type="hidden" name="action" value="delete">
             <input type="submit" value="delete note">
         </form>

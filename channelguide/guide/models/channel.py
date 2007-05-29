@@ -66,8 +66,11 @@ class Channel(Record, Thumbnailable):
         query.order_by(query.joins['items'].c.date, desc=True)
         return query
 
-    def get_absolute_url(self):
+    def get_url(self):
         return util.make_url('channels/%d' % self.id)
+
+    def get_absolute_url(self):
+        return util.make_absolute_url('channels/%d' % self.id)
 
     def get_edit_url(self):
         return util.make_url('channels/edit/%d' % self.id)

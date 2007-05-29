@@ -74,8 +74,11 @@ class User(UserBase, Record):
         if password is not None:
             self.set_password(password)
 
-    def get_absolute_url(self):
+    def get_url(self):
         return util.make_url("accounts/%d" % self.id)
+
+    def get_absolute_url(self):
+        return util.make_absolute_url("accounts/%d" % self.id)
 
     def promote(self):
         if self.role == self.ADMIN:

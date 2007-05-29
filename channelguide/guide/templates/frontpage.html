@@ -60,7 +60,7 @@
 <div class="category-list">
 <h2>{% trans "All Categories" %}</h2>
 {% fourcolumnloop with category in categories rotated %}
-  <a {% link category.get_absolute_url %}>{{ category.name }}</a>
+  <a {% link category.get_url %}>{{ category.name }}</a>
 {% endfourcolumnloop %}
 </div>
 

@@ -3,7 +3,7 @@
     {% twocolumns %}
         <div class="screenshot">
             {% if link_to_channel %}
-                <a {% link channel.get_absolute_url %}>{{ channel.thumb_370_247 }}</a>
+                <a {% link channel.get_url %}>{{ channel.thumb_370_247 }}</a>
             {% else %}
                 {{ channel.thumb_370_247 }}
             {% endif %}
@@ -26,7 +26,7 @@
     {% splitcolumns %}
         <h1 class="title">
             {% if link_to_channel %}
-                <a {% link channel.get_absolute_url %}>{{ channel.name }}</a>
+                <a {% link channel.get_url %}>{{ channel.name }}</a>
             {% else %}
                 {{ channel.name }}
             {% endif %}
