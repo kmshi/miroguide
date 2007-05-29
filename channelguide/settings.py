@@ -43,6 +43,7 @@ MIDDLEWARE_CLASSES = (
     'channelguide.db.middleware.DBMiddleware',
     'channelguide.sessions.middleware.SessionMiddleware',
     'channelguide.guide.middleware.UserMiddleware',
+    'channelguide.guide.middleware.ChannelCountMiddleware',
 )
 
 ROOT_URLCONF = 'channelguide.guide.urls.root'

@@ -1,9 +1,11 @@
+import locale
 import logging
 import traceback
 
 from channelguide import util
 from exceptions import AuthError
-from models.user import User, AnonymousUser
+from models import Channel, User
+from models.user import AnonymousUser
 from auth import SESSION_KEY
 
 class UserMiddleware(object):
@@ -28,9 +30,18 @@ class UserMiddleware(object):
                 req.user = query.get(req.connection)
             except LookupError:
                 req.user = AnonymousUser()
+            else:
+                req.connection.commit()
         else:
             req.user = AnonymousUser()
 
     def process_exception(self, request, exception):
         if isinstance(exception, AuthError):
             return util.send_to_login_page(request)
+
+class ChannelCountMiddleware(object):
+    def process_request(self, request):
+        channel_count = Channel.query_approved().count(request.connection)
+        request.connection.commit()
+        request.total_channels = locale.format('%d', channel_count, True)
+

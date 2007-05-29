@@ -44,7 +44,7 @@
     {% endif %}
     <div id="page">
         <div id="search-bar">
-            <h2 class="tagline">Over 1,000 channels, all free.</h2>
+            <h2 class="tagline">{{ total_channels }} channels, all free.</h2>
             <form action="{{ BASE_URL }}search" onsubmit="showLoadIndicator();" method="get" id="search-form">
                 <div>
                     <label class="hidden" for="search-text">Search</label>

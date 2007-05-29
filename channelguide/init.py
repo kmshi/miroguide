@@ -2,6 +2,7 @@
 startup, before any real work starts.
 """
 
+import locale
 import logging
 import logging.handlers
 import random
@@ -28,3 +29,4 @@ def initialize():
     init_logging()
     init_external_libraries()
     random.seed()
+    locale.setlocale(locale.LC_ALL, '')

@@ -11,5 +11,5 @@ def guide(request):
             'GUIDE_EMAIL': settings.EMAIL_FROM,
             'request': request,
             'user': request.user,
+            'total_channels': request.total_channels,
         }
-
