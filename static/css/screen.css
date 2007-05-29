@@ -1375,3 +1375,12 @@ h3 .note-author {
 .pager .links .next {
     margin-left: 20px;
 }
+
+.error-500 p {
+    font-size: 120%;
+    margin-bottom: 10px;
+}
+
+.error-500 a {
+    text-decoration: underline;
+}

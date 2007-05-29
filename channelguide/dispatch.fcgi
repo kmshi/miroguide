@@ -27,6 +27,7 @@ def startup():
                 logging.warn("Error generating 500 error page!\n%s",
                         traceback.format_exc())
                 page = '500 Error'
+            req.stdout.write('HTTP/1.1 500 INTERNAL SERVER ERROR\r\n')
             req.stdout.write('Content-Type: text/html\r\n\r\n' + page)
     CGServer(WSGIHandler(), maxThreads=settings.MAX_THREADS).run()
 

@@ -21,14 +21,10 @@ def init_logging():
     handler.setFormatter(logging.Formatter('%(asctime)s [%(levelname)s] %(message)s'))
     logger.addHandler(handler)
 
-def log_error():
-    logging.error("Unhandled Exception: %s", traceback.format_exc())
-
 def init_external_libraries():
     sys.path.insert(0, settings.EXTERNAL_LIBRARY_DIR)
 
 def initialize():
     init_logging()
-    dispatcher.connect(log_error, signal=signals.got_request_exception)
     init_external_libraries()
     random.seed()

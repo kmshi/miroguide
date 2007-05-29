@@ -2,6 +2,13 @@
 {% load i18n %}
 {% block title %}Channel Guide{%endblock %}
 {% block content %}
-<h1>{% trans "Server Error" %}</h1>
+<div class="error-500">
+<h1>{% blocktrans %} Server Error (id: {{ id }} ){% endblocktrans %}</h1>
+<p> {% blocktrans %}Sorry!  Your request resulted in an error.  If this error
+persists, please send an email telling us what you were doing to:<br>
+channels &lt;at&gt; pculture.org<br>
+Make sure to include the error id at the top of this page.
+{% endblocktrans %}</p>
 <a href="{{ BASE_URL }}">{% trans "go to front page" %} &gt;&gt;</a>
+</div>
 {% endblock %}
