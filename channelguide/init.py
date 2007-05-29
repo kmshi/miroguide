@@ -13,6 +13,7 @@ import traceback
 from django.conf import settings
 from django.core import signals
 from django.dispatch import dispatcher
+import django.db
 
 def init_logging():
     logger = logging.getLogger()
@@ -30,3 +31,9 @@ def initialize():
     init_external_libraries()
     random.seed()
     locale.setlocale(locale.LC_ALL, '')
+
+    # hack for the fact that django tries to rollback its non-existant
+    # connection when requests finish.
+    dispatcher.disconnect(django.db._rollback_on_exception, 
+        signal=signals.got_request_exception)
+
