@@ -150,7 +150,10 @@ class ViewSelect(object):
     """
 
     def __init__(self, request):
-        self.current_choice = request.GET.get('view', self.view_choices[0][0])
+        self.current_choice = request.GET.get('view', self.default_choice())
+
+    def default_choice(self):
+        return self.view_choices[0][0]
 
     def view_links(self):
         for choice, label in self.view_choices:

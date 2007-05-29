@@ -186,6 +186,9 @@ class PopularWindowSelect(ViewSelect):
 
     base_url = util.make_url('channels/popular')
 
+    def default_choice(self):
+        return 'month'
+
     def current_choice_label(self):
         if self.current_choice == 'today':
             return _("Today")
@@ -196,7 +199,7 @@ class PopularWindowSelect(ViewSelect):
 
 @cache.aggresively_cache
 def popular(request):
-    timespan = request.GET.get('view', 'today')
+    timespan = request.GET.get('view', 'month')
     if timespan == 'today':
         count_name = 'subscription_count_today'
     elif timespan == 'month':
