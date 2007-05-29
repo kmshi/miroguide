@@ -210,6 +210,8 @@ class SubmitChannelForm(Form):
             help_text=_('The videos on this channel are primarily in an HD '
                         'format.'),
             required=False)
+    postal_code = WideCharField(max_length=15, label=_("Postal Code"),
+            required=False)
     thumbnail_file = forms.Field(widget=ChannelThumbnailWidget, 
             label=_('Upload Image'))
 
@@ -302,7 +304,7 @@ class SubmitChannelForm(Form):
 
     def update_channel(self, channel):
         simple_cols = ('name', 'website_url', 'short_description',
-                'description', 'publisher', 'hi_def')
+                'description', 'publisher', 'hi_def', 'postal_code')
         for attr in simple_cols:
             setattr(channel, attr, self.cleaned_data[attr])
         channel.primary_language_id = int(self.cleaned_data['language'])
@@ -345,7 +347,8 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
                 'categories')
         join.execute(self.connection)
         for key in ('url', 'name', 'hi_def', 'website_url',
-                'short_description', 'description', 'publisher'):
+                'short_description', 'description', 'publisher',
+                'postal_code'):
             self.fields[key].initial = getattr(self.channel, key)
         self.fields['language'].initial = self.channel.language.id
         tags = self.channel.get_tags_for_owner(self.connection)
