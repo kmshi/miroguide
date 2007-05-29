@@ -126,6 +126,14 @@ div.clear {
     padding: 0px 5px;
 }
 
+.error {
+    padding: 6px;
+    font-size: 110%;
+    width: 600px;
+    color: red;
+    background: white;
+}
+
 /* Accessability */
 
 #accessability {

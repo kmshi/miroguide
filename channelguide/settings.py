@@ -96,6 +96,7 @@ TEMPLATE_DIRS = ( TEMPLATE_DIR, ) # to make django happy
 SUBSCRIBE_URL = 'http://subscribe.getdemocracy.com/?url1=%(url)s'
 BASE_URL_PATH = urlparse(BASE_URL)[2]
 AUTH_TOKEN_EXPIRATION_TIME = timedelta(days=1)
+MAX_FEATURES = 15
 
 MAX_THREADS = 30
 MAX_DB_CONNECTIONS = 5

@@ -120,7 +120,13 @@ def channel(request, id):
             channel.toggle_moderator_share()
         elif action == 'feature':
             request.user.check_is_supermoderator()
-            channel.featured = True
+            count = Channel.query(featured=True).count(request.connection)
+            if count < settings.MAX_FEATURES:
+                channel.featured = True
+            else:
+                msg = _("Can't feature more than %s channels") % \
+                        settings.MAX_FEATURES
+                request.session['channel-edit-error'] = msg
         elif action == 'unfeature':
             request.user.check_is_supermoderator()
             channel.featured = False
@@ -148,14 +154,16 @@ def show(request, id):
     query = Channel.query()
     query.join('categories', 'tags', 'notes', 'owner', 'last_moderated_by',
             'notes.user')
-    channel = util.get_object_or_404(request.connection, query, id)
-    query = Item.query(channel_id=id)
-    items = query.order_by('date', desc=True).limit(6).execute(request.connection)
-    return util.render_to_response(request, 'show-channel.html', {
-        'channel': channel,
-        'notes': get_note_info(channel, request.user),
-        'items': items,
-    })
+    item_query = Item.query(channel_id=id).order_by('date', desc=True)
+    context = {
+        'channel': util.get_object_or_404(request.connection, query, id),
+        'items': item_query.limit(6).execute(request.connection),
+    }
+    context['notes'] = get_note_info(context['channel'], request.user),
+    if 'channel-edit-error' in request.session:
+        context['error'] = request.session['channel-edit-error']
+        del request.session['channel-edit-error']
+    return util.render_to_response(request, 'show-channel.html', context)
 
 def after_submit(request):
     return util.render_to_response(request, 'after-submit.html')

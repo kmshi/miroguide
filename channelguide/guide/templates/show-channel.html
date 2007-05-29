@@ -2,6 +2,9 @@
 {% load channels i18n notes %}
 {% block title %}{{ channel.name }} - Democracy{%endblock %}
 {% block content %}
+{% if error %}
+<div class="error">{{ error }}</div>
+{% endif %}
 {% show_channel_full_no_link channel %}
 {% if items %}
 <div class="channel-full-separator"></div>
