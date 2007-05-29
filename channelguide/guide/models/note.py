@@ -1,5 +1,3 @@
-from django.utils.translation import gettext as _
-
 from channelguide import util
 from channelguide.guide import tables
 from sqlhelper.orm import Record
@@ -62,10 +60,10 @@ class ChannelNote(NoteBase):
                 request.POST['body'], note_type)
 
     def send_email(self, sender):
-        header = _("""\
+        header = """\
 A note was added to your channel at channelguide.participatoryculture.org.
 You can view your channel here: %s.
-The contents of the note are below...""") % self.channel.get_absolute_url()
+The contents of the note are below...""" % self.channel.get_absolute_url()
         separator = '-' * 70
         full_body = '%s\n%s\n\n%s' % (header, separator, self.body)
 

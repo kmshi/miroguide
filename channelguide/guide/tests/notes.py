@@ -203,7 +203,6 @@ class NotesPageTest(TestCase):
     def test_channel_link(self):
         self.login(self.moderator)
         page = self.post_data("/notes/new", self.make_note_post_data(True))
-        print self.emails[0]['body']
         self.assert_(self.channel.get_absolute_url() in self.emails[0]['body'])
 
     def test_email_auth(self):

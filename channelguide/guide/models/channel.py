@@ -317,11 +317,20 @@ class Channel(Record, Thumbnailable):
         self.state = newstate
         if newstate == self.APPROVED:
             self.approved_at = datetime.now()
+            self.join('owner').execute(connection)
+            self.send_approved_email()
         else:
             self.approved_at = None
         self.last_moderated_by_id = user.id
         self.save(connection)
         ModeratorAction(user, self, newstate).save(connection)
+
+    def send_approved_email(self):
+        title = '%s was approved' % self.name
+        body = """\
+Your channel at channelguide.participatoryculture.org was approved.
+You can view your channel here: %s.""" % self.get_absolute_url()
+        util.send_mail(title, body, [self.owner.email])
 
     def feature(self, connection):
         self.featured = True

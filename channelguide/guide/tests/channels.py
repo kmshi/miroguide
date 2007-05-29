@@ -115,6 +115,13 @@ class ChannelModelTest(ChannelTestBase):
         self.channel.change_state(self.ralph, Channel.NEW, self.connection)
         self.assertEquals(self.channel.approved_at, None)
 
+    def test_approve_email(self):
+        self.channel.change_state(self.ralph, Channel.APPROVED,
+                self.connection)
+        self.assertEquals(len(self.emails), 1)
+        self.assertEquals(self.emails[0]['recipient_list'], 
+                [self.channel.owner.email])
+
     def test_last_moderated_by(self):
         self.assertEquals(self.channel.last_moderated_by, None)
         self.channel.change_state(self.ralph, Channel.APPROVED,
