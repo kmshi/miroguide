@@ -40,7 +40,6 @@ TEMPLATE_LOADERS = (
 
 MIDDLEWARE_CLASSES = (
     'channelguide.cache.middleware.CacheMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'channelguide.db.middleware.DBMiddleware',
     'channelguide.sessions.middleware.SessionMiddleware',
     'channelguide.guide.middleware.UserMiddleware',

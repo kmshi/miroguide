@@ -106,7 +106,6 @@ class MiddlewareTest(TestCase):
     def test_objects_are_added(self):
         request = self.process_request()
         self.assert_(hasattr(request, 'connection'))
-        self.assert_(hasattr(request, 'connection'))
 
     def test_transaction(self):
         request = self.process_request()
