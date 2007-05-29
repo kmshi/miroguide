@@ -54,7 +54,7 @@
 
     {% if item_results %}
     <div class="channel-item-matches">
-    <h2>{% blocktrans %}{{ item_results_count }} Channel Videos Match '{{ search_query }}'{% endblocktrans %}</h2>
+    <h2>{% blocktrans %}{{ item_results_count }} Channels Have Videos That Match '{{ search_query }}'{% endblocktrans %}</h2>
     <div class="divider"></div>
     {% twocolumnloop with channel in item_results %}
      {% show_channel_in_list channel %}
