@@ -124,12 +124,6 @@ class User(UserBase, Record):
         hashed = util.hash_string(password + self.PASSWORD_SALT)
         return self.hashed_password == hashed
 
-    def add_moderator_action(self, connection, channel, action):
-        insert = tables.moderator_action.insert()
-        insert.add_values(user_id=self.id, channel_id=channel.id,
-                action=action, timestamp=datetime.now())
-        insert.execute(connection)
-
     def make_new_auth_token(self, connection):
         if self.auth_token is None:
             self.auth_token = UserAuthToken()
@@ -174,6 +168,11 @@ class UserAuthToken(Record):
 
 class ModeratorAction(Record):
     table = tables.moderator_action
+
+    def __init__(self, user, channel, action):
+        self.user = user
+        self.channel = channel
+        self.action = action
 
     def get_action_name(self):
         return tables.name_for_state_code(self.action)

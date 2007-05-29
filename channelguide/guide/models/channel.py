@@ -13,6 +13,7 @@ from channelguide.guide import feedutil, tables, exceptions
 from channelguide.guide.thumbnail import Thumbnailable
 from sqlhelper.orm import Record
 
+from user import ModeratorAction
 from item import Item
 from label import Tag, TagMap
 import search
@@ -64,13 +65,6 @@ class Channel(Record, Thumbnailable):
         query = Channel.query(*args, **kwargs).join('items')
         query.order_by(query.joins['items'].c.date, desc=True)
         return query
-
-    def delete(self, connection):
-        subscription_delete = tables.channel_subscription.delete()
-        subscription_delete.wheres.append(
-                tables.channel_subscription.c.channel_id==self.id)
-        subscription_delete.execute(connection)
-        super(Channel, self).delete(connection)
 
     def get_absolute_url(self):
         return util.make_url('channels/%d' % self.id)
@@ -190,9 +184,8 @@ class Channel(Record, Thumbnailable):
             item.download_thumbnail(connection, redownload)
 
     def update_search_data(self, connection):
-        self.join("search_data", "items", 'items.search_data', 'tags',
-                'categories', 'secondary_languages',
-                'language').execute(connection)
+        self.join("search_data", "items", 'tags', 'categories',
+                'secondary_languages', 'language').execute(connection)
         if self.search_data is None:
             self.search_data = search.ChannelSearchData()
             self.search_data.channel_id = self.id
@@ -325,7 +318,7 @@ class Channel(Record, Thumbnailable):
             self.approved_at = None
         self.last_moderated_by_id = user.id
         self.save(connection)
-        user.add_moderator_action(connection, self, newstate)
+        ModeratorAction(user, self, newstate).save(connection)
 
     def feature(self, connection):
         self.featured = True

@@ -29,7 +29,7 @@ class Item(Record, Thumbnailable):
         return '<img width="108" height="81" src="%s" alt="%s">' % (url, self.name)
 
     def update_search_data(self, connection):
-        self.join('search_data')
+        self.join('search_data').execute(connection)
         if self.search_data is None:
             self.search_data = search.ItemSearchData()
             self.search_data.item_id = self.id

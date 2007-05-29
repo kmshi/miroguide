@@ -5,7 +5,8 @@ from django.conf import settings
 from channelguide import db, util
 from channelguide.guide import tables
 from channelguide.guide.auth import login, logout, SESSION_KEY
-from channelguide.guide.models import Channel, UserAuthToken, User
+from channelguide.guide.models import (Channel, UserAuthToken, User,
+        ModeratorAction)
 from channelguide.testframework import TestCase
 
 class AuthTest(TestCase):
@@ -49,11 +50,13 @@ class AuthTest(TestCase):
                     load='moderator_action_count')
             current_count = user.moderator_action_count
             self.assertEquals(current_count, correct_count)
-        self.user.add_moderator_action(self.connection, channel, Channel.APPROVED)
+        ModeratorAction(self.user, channel, 
+                Channel.APPROVED).save(self.connection)
         check_count(1)
-        self.user.add_moderator_action(self.connection, channel, Channel.APPROVED)
+        ModeratorAction(self.user, channel, Channel.NEW).save(self.connection)
         check_count(1)
-        self.user.add_moderator_action(self.connection, channel2, Channel.APPROVED)
+        ModeratorAction(self.user, channel2, 
+                Channel.APPROVED).save(self.connection)
         check_count(2)
 
 class AuthTokenTest(TestCase):
