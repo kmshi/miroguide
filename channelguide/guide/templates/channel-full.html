@@ -47,12 +47,14 @@
                 {{ cat.link }}{% if not forloop.last %}, {% endif %}
             {% endfor %}
         </div>
+        {% if channel.tags %}
         <div class="tags">
             <h3>{% trans "Tags" %}</h3>
             {% for tag in channel.tags %}
                 {{ tag.link }}{% if not forloop.last %}, {% endif %}
             {% endfor %}
         </div>
+        {% endif %}
         <div class="clear"></div>
         <div class="website">
             <h3>{% trans "Website" %}</h3>

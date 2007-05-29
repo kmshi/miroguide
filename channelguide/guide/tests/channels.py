@@ -710,6 +710,10 @@ class EditChannelTest(ChannelTestBase):
         self.check_page_access(self.ralph, url, True)
         self.check_page_access(other_user, url, False)
 
+    def post_to_edit_page(self, data):
+        url = '/channels/edit/%d' % self.channel.id
+        return self.post_data(url, data)
+
     def test_change(self):
         self.login(self.ralph)
         data = {
@@ -726,29 +730,42 @@ class EditChannelTest(ChannelTestBase):
                 'website_url': 'http://www.google.com/',
         }
 
-        url = '/channels/edit/%d' % self.channel.id
-        page = self.post_data(url, data)
+        self.post_to_edit_page(data)
         self.connection.commit()
-        updated = self.refresh_record(self.channel)
-        updated.join('language', 'categories', 'tags',
-                'secondary_languages').execute(self.connection)
+        updated = self.refresh_record(self.channel, 'language', 'categories',
+                'tags', 'secondary_languages')
         self.assertEquals(updated.publisher, 'some guy')
         self.assertEquals(updated.language.name, 'klingon')
         self.check_names(updated.categories, 'arts', 'comedy')
         self.check_names(updated.tags, 'funny', 'cool', 'booya')
         self.check_names(updated.secondary_languages, 'piglatin')
 
-    def test_change_url(self):
-        self.login(self.ralph)
+    def get_default_values(self):
         data = {}
         for key in ['publisher', 'name', 'short_description',
-                'website_url', 'description']:
+                'website_url', 'description', 'url']:
             data[key] = getattr(self.channel, key)
-        data['category1'] = self.channel.categories[0].id
+        for i in xrange(len(self.channel.categories)):
+            data['category%d' % (i + 1)] = self.channel.categories[i].id
+        data['tags'] = ', '.join(self.channel.tags)
         data['language'] = self.channel.language.id
+        return data
+
+    def test_empty_tags(self):
+        self.login(self.ralph)
+        data = self.get_default_values()
+        data['tags'] = ''
+        self.post_to_edit_page(data)
+        self.connection.commit()
+        updated = self.refresh_record(self.channel, 'tags')
+        self.assertEquals(len(updated.tags), 0)
+
+    def test_change_url(self):
+        self.login(self.ralph)
+        data = self.get_default_values()
         data['url'] = test_data_url('feed2.xml')
         url = '/channels/edit/%d' % self.channel.id
-        self.post_data(url, data)
+        self.post_to_edit_page(data)
         self.connection.commit()
         updated = self.refresh_record(self.channel)
         self.assertEquals(updated.url, test_data_url('feed2.xml'))

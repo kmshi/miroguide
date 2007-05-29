@@ -287,8 +287,6 @@ class SubmitChannelForm(Form):
 
     def add_tags(self, channel):
         tags = self.cleaned_data['tags']
-        if not tags:
-            return
         channel.join('tags', 'owner').execute(self.connection)
         for tag in channel.tags:
             if tag.name not in tags:
