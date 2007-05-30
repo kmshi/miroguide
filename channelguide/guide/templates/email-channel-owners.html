@@ -1,0 +1,12 @@
+{% load i18n cg_helpers %}
+{% extends 'base.html' %}
+{% block title %}Democracy - {% trans "Email Channel Owners" %}{%endblock %}
+{% block content %}
+<div class="email-channel-owners-page">
+<div class="big-form">
+<form method="POST" action="{{ BASE_URL }}channels/email-owners">
+    {% show_form form %}
+    <input type="submit" class="submit" value="Send Email">
+</form>
+</div>
+{%endblock%}
