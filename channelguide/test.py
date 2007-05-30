@@ -42,7 +42,11 @@ def setup_test_environment():
     settings.DATABASE_NAME = 'test_' + settings.DATABASE_NAME
     from channelguide import db
     import django.test.utils
-    db.dbinfo.create_database()
+    try:
+        db.dbinfo.create_database()
+    except:
+        db.dbinfo.drop_database()
+        db.dbinfo.create_database()
     db.syncdb()
     django.test.utils.setup_test_environment()
 

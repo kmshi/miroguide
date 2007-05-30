@@ -14,11 +14,14 @@ def add_note(request):
         raise Http404
     query = Channel.query().join('notes', 'owner')
     channel = util.get_object_or_404(request.connection, query, channel_id)
-    request.user.check_can_edit(channel)
     note = ChannelNote.create_note_from_request(request)
-    channel.notes.add_record(request.connection, note)
+    if note.type == ChannelNote.MODERATOR_ONLY:
+        request.user.check_is_moderator()
+    else:
+        request.user.check_can_edit(channel)
+    channel.add_note(request.connection, note)
     if request.POST.get('send-email') and request.user.is_moderator():
-        note.send_email(request.user)
+        note.send_email(request.connection)
     return util.redirect('channels/%d#notes' % channel.id)
 
 @moderator_required
@@ -45,7 +48,7 @@ def add_moderator_post(request):
     post = ModeratorPost.create_note_from_request(request)
     send_checked = (request.POST.get('send-email') and 
             request.user.is_supermoderator())
-    post.send_email(request.connection, request.user, send_checked)
+    post.send_email(request.connection, send_checked)
     post.save(request.connection)
     return util.redirect('notes/moderator-board')
 

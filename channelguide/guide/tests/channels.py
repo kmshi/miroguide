@@ -592,31 +592,61 @@ class ModerateChannelTest(ChannelTestBase):
         response = self.login('joe')
         self.assertEquals(response.status_code, 200)
 
-    def do_moderate(self, channel, newstate):
-        if newstate == Channel.APPROVED:
-            action = 'Approve'
-        elif newstate == Channel.REJECTED:
-            action = 'Reject'
-        elif newstate == Channel.WAITING:
-            action = "Sent message"
-        elif newstate == Channel.DONT_KNOW:
-            action = "Don't Know"
-        else:
-            raise ValueError("Bad state: %s" % newstate)
-        url = '/channels/%d' % channel.id
-        return self.post_data(url, {'action': 'change-state', 'submit': action})
-
     def test_moderate_action(self):
         self.login('joe')
-        def check_state(state):
-            self.do_moderate(self.channel, state)
+        def check_state(action, state):
+            self.channel.state = Channel.NEW
+            self.save_to_db(self.channel)
+            url = '/channels/%d' % self.channel.id
+            self.post_data(url, {'action': 'change-state', 'submit': action})
             self.connection.commit()
-            updated_channel = Channel.get(self.connection, self.channel.id)
-            self.assertEquals(updated_channel.state, state)
-        check_state(Channel.APPROVED)
-        check_state(Channel.REJECTED)
-        check_state(Channel.WAITING)
-        check_state(Channel.DONT_KNOW)
+            updated = self.refresh_record(self.channel)
+            self.assertEquals(updated.state, state)
+        check_state('Approve', Channel.APPROVED)
+        check_state("Don't Know", Channel.DONT_KNOW)
+
+    def test_reject(self):
+        self.login('joe')
+        def check_rejection_button(action):
+            self.channel.state = Channel.NEW
+            self.save_to_db(self.channel)
+            self.connection.commit()
+            starting_email_count = len(self.emails)
+            before = self.refresh_record(self.channel, 'notes')
+            url = '/channels/%d' % self.channel.id
+            self.post_data(url, {'action': 'standard-reject', 'submit': action})
+            after = self.refresh_record(self.channel, 'notes')
+            self.assertEquals(after.state, Channel.REJECTED)
+            self.assertEquals(len(after.notes), len(before.notes) + 1)
+            self.assertEquals(len(self.emails), starting_email_count + 1)
+        check_rejection_button('Broken')
+        check_rejection_button('Copyright')
+        check_rejection_button('Explicit')
+        check_rejection_button('No Video')
+
+    def test_custom_reject(self):
+        self.login('joe')
+        title = 'CUSTOM TITLE'
+        body = 'CUSTOM BODY'
+        url = '/channels/%d' % self.channel.id
+        self.post_data(url, {'action': 'reject', 'title': title, 'body':
+            body})
+        updated = self.refresh_record(self.channel, 'notes')
+        self.assertEquals(updated.state, Channel.REJECTED)
+        self.assertEquals(len(updated.notes), 1)
+        self.assertEquals(len(self.emails), 1)
+
+    def test_custom_reject_needs_title_and_body(self):
+        self.login('joe')
+        url = '/channels/%d' % self.channel.id
+        self.post_data(url, {'action': 'reject', 'title': 'stuff', 'body':
+            ''})
+        updated = self.refresh_record(self.channel, 'notes')
+        self.assertEquals(updated.state, Channel.NEW)
+        self.post_data(url, {'action': 'reject', 'title': '', 'body':
+            'stuff'})
+        updated = self.refresh_record(self.channel, 'notes')
+        self.assertEquals(updated.state, Channel.NEW)
 
 class ChannelSearchTest(ChannelTestBase):
     def setUp(self):

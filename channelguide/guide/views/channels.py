@@ -7,8 +7,8 @@ from channelguide.guide import forms
 from channelguide.guide.auth import (admin_required, moderator_required,
         login_required)
 from channelguide.guide.models import (Channel, Item, ModeratorPost, User,
-        ModeratorAction)
-from channelguide.guide.notes import get_note_info
+        ModeratorAction, ChannelNote)
+from channelguide.guide.notes import get_note_info, make_rejection_note
 from channelguide.guide.templateutil import Pager, ViewSelect
 
 SESSION_KEY = 'submitted-feed'
@@ -131,13 +131,10 @@ def channel(request, id):
             request.user.check_is_supermoderator()
             channel.featured = False
         elif action == 'change-state':
+            request.user.check_is_moderator()
             submit_value = request.POST['submit']
             if submit_value == 'Approve':
                 newstate = Channel.APPROVED
-            elif submit_value == 'Reject':
-                newstate = Channel.REJECTED
-            elif submit_value == "Sent message":
-                newstate = Channel.WAITING
             elif submit_value == "Don't Know":
                 newstate = Channel.DONT_KNOW
             elif submit_value == 'Unapprove':
@@ -147,6 +144,29 @@ def channel(request, id):
             if newstate is not None:
                 channel.change_state(request.user, newstate,
                         request.connection)
+        elif action == 'standard-reject':
+            request.user.check_is_moderator()
+            reason = request.POST['submit']
+            note = make_rejection_note(channel, request.user, reason)
+            note.save(request.connection)
+            note.send_email(request.connection)
+            channel.change_state(request.user, Channel.REJECTED,
+                    request.connection)
+        elif action == 'reject':
+            request.user.check_is_moderator()
+            title = request.POST.get('title')
+            body = request.POST.get('body')
+            if title and body:
+                note = ChannelNote(request.user, title, body,
+                        ChannelNote.MODERATOR_TO_OWNER)
+                note.channel = channel
+                note.save(request.connection)
+                note.send_email(request.connection)
+                channel.change_state(request.user, Channel.REJECTED,
+                        request.connection)
+            else:
+                msg = _("Rejection emails need a title and body")
+                request.session['channel-edit-error'] = msg
         channel.save(request.connection)
     return util.redirect_to_referrer(request)
 

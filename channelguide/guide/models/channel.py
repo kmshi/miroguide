@@ -89,6 +89,13 @@ class Channel(Record, Thumbnailable):
     def is_approved(self):
         return self.state == self.APPROVED
 
+    def add_note(self, connection, note):
+        self.join('notes').execute(connection)
+        self.notes.add_record(connection, note)
+        if note.user_id == self.owner_id and self.state == Channel.REJECTED:
+            self.state = Channel.WAITING
+            self.save(connection)
+
     def add_tag(self, connection, user, tag_name):
         """Add a tag to this channel."""
         try:
@@ -328,7 +335,7 @@ class Channel(Record, Thumbnailable):
     def send_approved_email(self):
         title = '%s was approved' % self.name
         body = """\
-Your channel at channelguide.participatoryculture.org was approved.
+Your video feed was approved as a channel in the Channel Guide.
 You can view your channel here: %s.""" % self.get_absolute_url()
         util.send_mail(title, body, [self.owner.email])
 

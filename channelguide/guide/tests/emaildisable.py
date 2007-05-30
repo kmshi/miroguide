@@ -25,8 +25,8 @@ class EmailDisableTest(TestCase):
         self.bob.save(self.connection)
         self.brian.save(self.connection)
         note = ModeratorPost(self.bob, 'hi', 'body')
-        note.send_email(self.connection, self.bob, True)
+        note.send_email(self.connection, True)
         self.check_email_list(self.bob, self.brian)
         self.emails = []
-        note.send_email(self.connection, self.bob, False)
+        note.send_email(self.connection, False)
         self.check_email_list(self.brian)

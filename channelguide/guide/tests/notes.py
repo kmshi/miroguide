@@ -86,19 +86,23 @@ class NotesPageTest(TestCase):
         self.channel = self.make_channel(self.user)
         self.channel.join('notes').execute(self.connection)
 
-    def make_note_post_data(self, send_email=False):
+    def make_note_post_data(self, send_email=False, 
+            type=ChannelNote.MODERATOR_ONLY):
         post_data = {
                 'channel-id': self.channel.id,
-                'type': 'moderator-only',
                 'title': 'test title',
                 'body': 'test body',
             }
+        if type == ChannelNote.MODERATOR_ONLY:
+            post_data['type'] = 'moderator-only'
+        else:
+            post_data['type'] = 'moderator-to-owner'
         if send_email:
             post_data['send-email'] = 1
         return post_data
 
     def test_add_note(self):
-        self.login(self.user)
+        self.login(self.moderator)
         post_data = self.make_note_post_data()
         page = self.post_data("/notes/new", post_data)
         self.channel = self.refresh_record(self.channel, 'notes')
@@ -108,11 +112,26 @@ class NotesPageTest(TestCase):
         self.assertEquals(self.channel.notes[-1].type,
                 ChannelNote.MODERATOR_ONLY)
         self.assertEquals(len(self.emails), 0)
-        self.login(self.moderator)
         page = self.post_data("/notes/new", self.make_note_post_data(True))
         self.channel = self.refresh_record(self.channel, 'notes')
         self.assertEquals(len(self.channel.notes), 2)
         self.assertEquals(len(self.emails), 1)
+
+    def test_note_changes_state(self):
+        self.channel.state = Channel.REJECTED
+        self.save_to_db(self.channel)
+        self.login(self.user)
+        self.post_data("/notes/new", self.make_note_post_data(
+                type=ChannelNote.MODERATOR_TO_OWNER))
+        updated = self.refresh_record(self.channel)
+        self.assertEquals(updated.state, Channel.WAITING)
+
+        updated.state = Channel.APPROVED
+        self.save_to_db(updated)
+        self.post_data("/notes/new", self.make_note_post_data(
+                type=ChannelNote.MODERATOR_TO_OWNER))
+        updated = self.refresh_record(updated)
+        self.assertEquals(updated.state, Channel.APPROVED)
 
     def test_email_checkbox(self):
         channel_path = "/channels/%d" % self.channel.id
@@ -167,23 +186,27 @@ class NotesPageTest(TestCase):
         self.check_can_delete(self.moderator, True)
         self.check_can_delete(self.supermod, True)
 
-    def check_can_add(self, user, can_add):
-        start_count = self.get_note_count()
+    def check_can_add(self, user, can_add_normal, can_add_moderator_only):
         if user is not None:
             self.login(user)
-        page = self.post_data("/notes/new", self.make_note_post_data())
-        if can_add:
-            self.check_note_count(start_count + 1)
-        else:
-            self.assertLoginRedirect(page)
-            self.check_note_count(start_count)
+        def do_check(post_data, can_add):
+            start_count = self.get_note_count()
+            page = self.post_data("/notes/new", post_data)
+            if can_add:
+                self.check_note_count(start_count + 1)
+            else:
+                self.assertLoginRedirect(page)
+                self.check_note_count(start_count)
+        do_check(self.make_note_post_data(), can_add_moderator_only)
+        do_check(self.make_note_post_data(type=ChannelNote.MODERATOR_TO_OWNER), 
+                can_add_normal)
 
     def test_add_auth(self):
-        self.check_can_add(None, False)
-        self.check_can_add(self.random_user, False)
-        self.check_can_add(self.user, True)
-        self.check_can_add(self.moderator, True)
-        self.check_can_add(self.supermod, True)
+        self.check_can_add(None, False, False)
+        self.check_can_add(self.random_user, False, False)
+        self.check_can_add(self.user, True, False)
+        self.check_can_add(self.moderator, True, True)
+        self.check_can_add(self.supermod, True, True)
 
     def check_can_email(self, user, can_email):
         start_count = len(self.emails)
