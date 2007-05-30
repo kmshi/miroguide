@@ -9,7 +9,9 @@
         </form>
         </div>
         <h3>{{ note.title }}
-            <span class="note-author">({{ note.user }})</span>
+            <span class="note-author">
+                ({{ note.user }} - {{ note.created_at|date:"n/j" }})
+            </span>
         </h3>
         {{ note.body|linebreaks}}
     </li>
