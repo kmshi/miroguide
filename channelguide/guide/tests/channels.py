@@ -790,6 +790,15 @@ class EditChannelTest(ChannelTestBase):
         updated = self.refresh_record(self.channel, 'tags')
         self.assertEquals(len(updated.tags), 0)
 
+    def test_unicode(self):
+        self.login(self.ralph)
+        data = self.get_default_values()
+        data['short_description'] = '\xd8\x8d\xd8\xa8\xd8\xa8\xd8\xa6\xd8\xb5'
+        data['description'] = '\xd8\x8d\xd8\xa8\xd8\xa8\xd8\xa6\xd8\xb5'
+        self.post_to_edit_page(data)
+        self.connection.commit()
+        updated = self.refresh_record(self.channel, 'tags')
+
     def test_change_url(self):
         self.login(self.ralph)
         data = self.get_default_values()

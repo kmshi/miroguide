@@ -301,10 +301,11 @@ class SubmitChannelForm(Form):
         return channel
 
     def update_channel(self, channel):
-        simple_cols = ('name', 'website_url', 'short_description',
-                'description', 'publisher', 'hi_def', 'postal_code')
-        for attr in simple_cols:
-            setattr(channel, attr, self.cleaned_data[attr])
+        string_cols = ('name', 'website_url', 'short_description',
+                'description', 'publisher', 'postal_code')
+        for attr in string_cols:
+            setattr(channel, attr, self.cleaned_data[attr].encode('utf-8'))
+        channel.hi_def = self.cleaned_data['hi_def']
         channel.primary_language_id = int(self.cleaned_data['language'])
         channel.save(self.connection)
         self.add_tags(channel)

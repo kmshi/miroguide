@@ -213,7 +213,8 @@ class Channel(Record, Thumbnailable):
         for attr in ('tags', 'categories', 'secondary_languages'):
             for obj in getattr(self, attr):
                 values.append(obj.name)
-        return ' '.join(values)
+        values = [v.decode('utf-8') for v in values]
+        return u' '.join(values).encode('utf-8')
 
     def get_missing_image_url(self, width, height):
         return ''
