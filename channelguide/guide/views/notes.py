@@ -43,8 +43,9 @@ def moderator_board(request):
 @moderator_required
 def add_moderator_post(request):
     post = ModeratorPost.create_note_from_request(request)
-    if request.POST.get('send-email') and request.user.is_supermoderator():
-        post.send_email(request.connection, request.user)
+    send_checked = (request.POST.get('send-email') and 
+            request.user.is_supermoderator())
+    post.send_email(request.connection, request.user, send_checked)
     post.save(request.connection)
     return util.redirect('notes/moderator-board')
 

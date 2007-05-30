@@ -24,10 +24,14 @@ class ModeratorPost(NoteBase):
     def get_url(self):
         return util.make_url("notes/post-%d" % self.id)
 
-    def send_email(self, connection, sender):
+    def send_email(self, connection, sender, send_checked):
         query = User.query()
         query.where(User.c.role.in_(User.ALL_MODERATOR_ROLES))
-        query.where(moderator_board_emails=True)
+        if send_checked:
+            values = [User.ALL_EMAIL, User.SOME_EMAIL]
+            query.where(User.c.moderator_board_email.in_(values))
+        else:
+            query.where(moderator_board_email=User.ALL_EMAIL)
         query.where(User.c.email.is_not(None))
         emails = [mod.email for mod in query.execute(connection)]
         util.send_mail(self.title, self.body, emails, email_from=sender.email)

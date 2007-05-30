@@ -69,15 +69,20 @@ def user(request, id):
 def edit_user_form(request, user):
     if request.user.id != user.id:
         request.user.check_is_admin()
+    if user.is_moderator():
+        FormClass = user_forms.EditModeratorForm
+    else:
+        FormClass = user_forms.EditUserForm
+
     if request.method == 'POST':
-        form = user_forms.EditUserForm(request.connection, user, request.POST)
+        form = FormClass(request.connection, user, request.POST)
         if form.is_valid():
             form.update_user()
             if user is request.user:
                 login(request, user) # needed to handle password changes
             return util.redirect(user.get_absolute_url())
     else:
-        form = user_forms.EditUserForm(request.connection, user)
+        form = FormClass(request.connection, user)
     return util.render_to_response(request, 'edit-user.html', {
         'form': form})
 
@@ -109,19 +114,6 @@ def moderators(request):
         'moderators': pager.items,
         'pager': pager,
     })
-
-@moderator_required
-def moderator_board_emails(request, id):
-    user = util.get_object_or_404(request.connection, User, id)
-    user.moderator_board_emails = (request.POST.get('set-to') == 'enable')
-    user.save(request.connection)
-    return util.redirect('moderate')
-
-def status_emails(request, id):
-    user = util.get_object_or_404(request.connection, User, id)
-    user.status_emails = (request.POST.get('set-to') == 'enable')
-    user.save(request.connection)
-    return util.redirect('moderate')
 
 def forgot_password(request):
     form = util.create_post_form(user_forms.AuthTokenRequestForm, request)

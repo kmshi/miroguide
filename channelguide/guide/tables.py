@@ -45,7 +45,7 @@ user = Table('user',
         columns.String('im_username', 35),
         columns.String('im_type', 25),
         columns.String('hashed_password', 40),
-        columns.Boolean('moderator_board_emails', default=True),
+        columns.String('moderator_board_email', 1, default='S'),
         columns.Boolean('status_emails', default=True),
         columns.Boolean('email_updates', default=False))
 language = Table('cg_channel_language', 

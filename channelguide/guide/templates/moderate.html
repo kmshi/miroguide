@@ -34,28 +34,6 @@
     <li><h2><a {% link "languages/moderate" %}>{% trans "Edit Languages list" %}</a></h2></li>
     <li><h2><a {% link "channels/moderator-history" %}>{% trans "Moderator History" %}</a></h2></li>
     {% endif %}
-    <li class="moderator-board-emails">
-        <form action="accounts/moderator-board-emails/{{ user.id}}" method="POST">
-        {% if user.moderator_board_emails %}
-            <h2>{% trans "Moderator board emails enabled" %}</h2>
-            <input type="submit" name="set-to" value="disable">
-        {% else %}
-            <h2>{% trans "Moderator board emails disabled" %}</h2>
-            <input type="submit" name="set-to" value="enable">
-        {% endif %}
-        </form>
-    </li>
-    <li>
-        <form action="accounts/status-emails/{{ user.id}}" method="POST">
-        {% if user.status_emails %}
-            <h2>{% trans "Weekly status emails enabled" %}</h2>
-            <input type="submit" name="set-to" value="disable">
-        {% else %}
-            <h2>{% trans "Weekly status disabled" %}</h2>
-            <input type="submit" name="set-to" value="enable">
-        {% endif %}
-        </form>
-    </li>
 </ul>
 {% endtwocolumns %}
 </div>

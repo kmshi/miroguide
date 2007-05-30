@@ -159,7 +159,7 @@ def show(request, id):
         'channel': util.get_object_or_404(request.connection, query, id),
         'items': item_query.limit(6).execute(request.connection),
     }
-    context['notes'] = get_note_info(context['channel'], request.user),
+    context['notes'] = get_note_info(context['channel'], request.user)
     if 'channel-edit-error' in request.session:
         context['error'] = request.session['channel-edit-error']
         del request.session['channel-edit-error']

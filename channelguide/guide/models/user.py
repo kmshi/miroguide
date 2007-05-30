@@ -64,6 +64,10 @@ class User(UserBase, Record):
     # I'd like to use salt, but it makes it impossible to convert the old VB
     # user table
 
+    ALL_EMAIL = 'A'
+    SOME_EMAIL = 'S'
+    NO_EMAIL = 'N'
+
     roles_in_order = [USER, MODERATOR, SUPERMODERATOR, ADMIN]
 
     ALL_MODERATOR_ROLES = (ADMIN, MODERATOR, SUPERMODERATOR)

@@ -1,8 +1,9 @@
 from django import newforms as forms
+from django.utils.translation import gettext as _
 
 from channelguide.guide.models import User
 from form import Form
-from fields import WideCharField, WideEmailField
+from fields import WideCharField, WideEmailField, WideChoiceField
 
 class NewUserField(WideCharField):
     def clean(self, value):
@@ -52,9 +53,13 @@ class LoginForm(Form):
         return self.cleaned_data.get('username')
 
 class PasswordComparingForm(Form):
+    password_key = 'password'
+    password_check_key = 'password2'
+
     def clean(self):
-        if (self.data.get('password') and
-                (self.data.get('password') != self.data.get('password2'))):
+        if (self.data.get(self.password_key) and
+                (self.data.get(self.password_key) !=
+                    self.data.get(self.password_check_key))):
             raise forms.ValidationError(_("Passwords don't match"))
         return super(PasswordComparingForm, self).clean()
 
@@ -73,9 +78,9 @@ class RegisterForm(PasswordComparingForm):
 
 class EditUserForm(PasswordComparingForm):
     email = NewEmailField(max_length=100, required=False)
-    password = WideCharField(max_length=30, widget=forms.PasswordInput,
+    change_password = WideCharField(max_length=30, widget=forms.PasswordInput,
             label=_('Change Password'), required=False)
-    password2 = WideCharField(max_length=30, widget=forms.PasswordInput,
+    change_password2 = WideCharField(max_length=30, widget=forms.PasswordInput,
             label=_("Confirm Password"), required=False)
     fname = WideCharField(max_length=45, required=False,
             label=_("First Name"))
@@ -94,6 +99,9 @@ class EditUserForm(PasswordComparingForm):
     im_type = WideCharField(max_length=25, required=False,
             label=_("IM Type"))
 
+    password_key = 'change_password'
+    password_check_key = 'change_password2'
+
     def __init__(self, connection, user, data=None):
         super(EditUserForm, self).__init__(connection, data)
         self.user = user
@@ -101,7 +109,7 @@ class EditUserForm(PasswordComparingForm):
 
     def simple_fields(self):
         for name, field in self.fields.items():
-            if name not in ('password', 'password2'):
+            if name not in ('change_password', 'change_password2'):
                 yield name, field
 
     def set_defaults(self):
@@ -110,11 +118,19 @@ class EditUserForm(PasswordComparingForm):
 
     def update_user(self):
         for name, field in self.simple_fields():
-            if self.cleaned_data.get(name):
+            if self.cleaned_data.get(name) is not None:
                 setattr(self.user, name, self.cleaned_data[name])
-        if self.cleaned_data.get('password'):
-            self.user.set_password(self.cleaned_data['password'])
+        if self.cleaned_data.get('change_password'):
+            self.user.set_password(self.cleaned_data['change_password'])
         self.user.save(self.connection)
+
+class EditModeratorForm(EditUserForm):
+    moderator_board_email = WideChoiceField(label=_('Moderator Board Emails'),
+            choices=(('S', _('Normal')),
+                ('N', _('No emails')),
+                ('A', _('Send all emails'))))
+    status_emails = forms.BooleanField(label=_('Channel Status Emails'), 
+            required=False)
 
 class ChangePasswordForm(PasswordComparingForm):
     password = WideCharField(max_length=30, widget=forms.PasswordInput,
