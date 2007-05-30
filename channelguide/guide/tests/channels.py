@@ -803,3 +803,29 @@ class EditChannelTest(ChannelTestBase):
     def check_names(self, name_list, *correct_names):
         names = [i.name for i in name_list]
         self.assertSameSet(names, correct_names)
+
+class EmailChannelOwnersTest(TestCase):
+    def test_permissions(self):
+        super_mod = self.make_user('jody', role=User.SUPERMODERATOR)
+        admin = self.make_user('rachel', role=User.ADMIN)
+        url = '/channels/email-owners'
+        self.check_page_access(super_mod, url, False)
+        self.check_page_access(admin, url, True)
+
+    def test_email(self):
+        bob = self.make_user('bob')
+        bonnie = self.make_user('bonnie')
+        suzie = self.make_user('suzie')
+        greg = self.make_user('greg')
+        greg.channel_owner_emails = False
+        self.save_to_db(greg)
+        self.make_channel(bob, state=Channel.APPROVED)
+        self.make_channel(bob, state=Channel.APPROVED)
+        self.make_channel(suzie, state=Channel.APPROVED)
+        self.make_channel(bonnie, state=Channel.WAITING)
+        self.make_channel(greg, state=Channel.APPROVED)
+        admin = self.make_user('rachel', role=User.ADMIN)
+        self.login(admin)
+        data = {'body': 'email body', 'title': 'email_title'}
+        self.post_data('/channels/email-owners', data)
+        self.assertSameSet(self.email_recipients(), [bob.email, suzie.email])

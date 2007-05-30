@@ -1,9 +1,8 @@
-import textwrap
 
 from django.conf import settings
 
 from channelguide import util
-from channelguide.guide import tables
+from channelguide.guide import tables, emailmessages
 from sqlhelper.orm import Record
 from user import User
 
@@ -70,18 +69,5 @@ class ChannelNote(NoteBase):
     def send_email(self, connection):
         self.join('channel').execute(connection)
         self.channel.join('owner').execute(connection)
-        wrapped_body = '\n'.join(textwrap.fill(p) for p in
-                self.body.split('\n'))
-
-        email_body = """\
-A moderator of the Channel Guide added the following note to your channel:
-
-%s
-
-%s
-
-You may review and respond to the note here: %s""" % \
-            (self.title, wrapped_body, self.channel.get_absolute_url())
-        email_title = '[Channel Guide] Note for %s' % self.channel.name
-        util.send_mail(email_title, email_body, self.channel.owner.email,
-                self.user.email)
+        message = emailmessages.ChannelNoteEmail(self)
+        message.send_email(self.channel.owner.email, self.user.email)

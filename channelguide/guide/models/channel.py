@@ -9,7 +9,7 @@ from django.conf import settings
 from django.utils.translation import ngettext
 
 from channelguide import util
-from channelguide.guide import feedutil, tables, exceptions
+from channelguide.guide import feedutil, tables, exceptions, emailmessages
 from channelguide.guide.thumbnail import Thumbnailable
 from sqlhelper.orm import Record
 
@@ -325,19 +325,12 @@ class Channel(Record, Thumbnailable):
         if newstate == self.APPROVED:
             self.approved_at = datetime.now()
             self.join('owner').execute(connection)
-            self.send_approved_email()
+            emailmessages.ApprovalEmail(self).send_email()
         else:
             self.approved_at = None
         self.last_moderated_by_id = user.id
         self.save(connection)
         ModeratorAction(user, self, newstate).save(connection)
-
-    def send_approved_email(self):
-        title = '%s was approved' % self.name
-        body = """\
-Your video feed was approved as a channel in the Channel Guide.
-You can view your channel here: %s.""" % self.get_absolute_url()
-        util.send_mail(title, body, [self.owner.email])
 
     def feature(self, connection):
         self.featured = True

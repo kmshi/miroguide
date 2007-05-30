@@ -5,7 +5,7 @@ from django.utils.translation import gettext as _
 
 from channelguide import util
 from sqlhelper.orm import Record
-from channelguide.guide import tables
+from channelguide.guide import tables, emailmessages
 from channelguide.guide.exceptions import AuthError
 
 class UserBase(object):
@@ -147,7 +147,7 @@ class UserAuthToken(Record):
 
     def update_token(self):
         self.expires = datetime.now() + settings.AUTH_TOKEN_EXPIRATION_TIME
-        self.token = util.random_string(40)
+        self.token = util.random_string(30)
 
     def is_valid(self):
         return self.expires > datetime.now()
@@ -167,11 +167,8 @@ class UserAuthToken(Record):
     def send_email(self):
         url = util.make_absolute_url('accounts/change-password', 
                 {'token': self.token})
-        title = _("Forgot Password - Democracy Channel Guide")
-        body = _("To set a new password for your Channel Guide account "
-                "'%(user)s' click here:\n%(url)s.") % \
-                        {'url': url, 'user': self.user.username }
-        util.send_mail(title, body, self.user.email)
+        message = emailmessages.ForgotPasswordEmail(url, self.user)
+        message.send_email(self.user.email, break_lines=False)
 
 class ModeratorAction(Record):
     table = tables.moderator_action

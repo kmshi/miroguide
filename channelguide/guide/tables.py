@@ -47,7 +47,8 @@ user = Table('user',
         columns.String('hashed_password', 40),
         columns.String('moderator_board_email', 1, default='S'),
         columns.Boolean('status_emails', default=True),
-        columns.Boolean('email_updates', default=False))
+        columns.Boolean('email_updates', default=False),
+        columns.Boolean('channel_owner_emails', default=True))
 language = Table('cg_channel_language', 
         columns.Int('id', primary_key=True, auto_increment=True),
         columns.String('name', 40))

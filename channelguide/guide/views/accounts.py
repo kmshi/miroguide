@@ -49,7 +49,8 @@ def logout_view(request):
     return HttpResponseRedirect('/')
 
 def user(request, id):
-    user = util.get_object_or_404(request.connection, User, id)
+    query = User.query().join('channels')
+    user = util.get_object_or_404(request.connection, query, id)
     if request.method == 'POST':
         action = request.POST.get('action')
         if action == 'promote':
@@ -71,6 +72,8 @@ def edit_user_form(request, user):
         request.user.check_is_admin()
     if user.is_moderator():
         FormClass = user_forms.EditModeratorForm
+    elif user.channels:
+        FormClass = user_forms.EditChannelOwnerForm
     else:
         FormClass = user_forms.EditUserForm
 

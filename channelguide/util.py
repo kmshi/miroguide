@@ -12,6 +12,7 @@ import re
 import string
 import subprocess
 import sys
+import textwrap
 import threading
 
 from django.template import loader
@@ -146,8 +147,10 @@ def get_object_or_404(connection, record_or_query, id):
     except LookupError:
         raise Http404
 
-def send_mail(title, body, recipient_list, email_from=None):
+def send_mail(title, body, recipient_list, email_from=None, break_lines=True):
     global emailer
+    if break_lines:
+        body = '\n'.join(textwrap.fill(p) for p in body.split('\n'))
     if type(recipient_list) is str:
         recipient_list = [recipient_list]
     if emailer is None:

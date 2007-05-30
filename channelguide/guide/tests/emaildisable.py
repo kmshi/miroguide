@@ -12,10 +12,7 @@ class EmailDisableTest(TestCase):
 
     def check_email_list(self, *recipients):
         correct_list = [user.email for user in recipients]
-        sent_to = []
-        for email in self.emails:
-            sent_to.extend(email['recipient_list'])
-        self.assertSameSet(sent_to, correct_list)
+        self.assertSameSet(self.email_recipients(), correct_list)
 
     def test_disable_moderater_post_emails(self):
         self.jane.moderator_board_email = User.NO_EMAIL

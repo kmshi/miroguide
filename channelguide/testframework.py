@@ -59,6 +59,12 @@ class TestCase(unittest.TestCase):
             'email_from': email_from, 'recipient_list': recipient_list})
         self.sanity_check_email(self.emails[-1])
 
+    def email_recipients(self):
+        recipients = []
+        for email in self.emails:
+            recipients.extend(email['recipient_list'])
+        return recipients
+
     def sanity_check_email(self, email):
         self.assertEquals(type(email['email_from']), str)
         self.assertEquals(type(email['recipient_list']), list)

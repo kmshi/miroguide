@@ -340,3 +340,15 @@ def moderator_history(request):
         'pager': pager,
         'actions': pager.items,
         })
+
+@admin_required
+def email_owners(request):
+    if request.method != 'POST':
+        form = forms.EmailChannelOwnersForm(request.connection)
+    else:
+        form = forms.EmailChannelOwnersForm(request.connection, request.POST)
+        if form.is_valid():
+            form.send_email(request.user)
+            return util.redirect('moderate')
+    return util.render_to_response(request, 'email-channel-owners.html', {
+        'form': form})

@@ -124,7 +124,11 @@ class EditUserForm(PasswordComparingForm):
             self.user.set_password(self.cleaned_data['change_password'])
         self.user.save(self.connection)
 
-class EditModeratorForm(EditUserForm):
+class EditChannelOwnerForm(EditUserForm):
+    channel_owner_emails = forms.BooleanField(label=_('Channel Owner Emails'),
+            required=False)
+
+class EditModeratorForm(EditChannelOwnerForm):
     moderator_board_email = WideChoiceField(label=_('Moderator Board Emails'),
             choices=(('S', _('Normal')),
                 ('N', _('No emails')),
