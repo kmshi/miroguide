@@ -10,7 +10,7 @@ from channelguide import util
 
 class EmailMessage(object):
     def __init__(self, title, body):
-        self.title = '[Channel Guide] ' + title
+        self.title = '[Democracy Guide] ' + title
         self.body = self.merge_body(body)
 
     def merge_body(self, body):
@@ -25,7 +25,7 @@ class EmailMessage(object):
 class ForgotPasswordEmail(EmailMessage):
     def __init__(self, change_password_url, user):
         EmailMessage.__init__(self, "Forgot Password", """\
-To set a new password for your Channel Guide account '%s' click here:
+To set a new password for your Democracy Guide account '%s' click here:
 
 %s.""" % (user.username, change_password_url))
 
@@ -50,8 +50,8 @@ You can change your subscription settings in your user profile: (%s)
 class ChannelNoteEmail(EmailMessage):
     def __init__(self, note):
         EmailMessage.__init__(self, 
-                '[Channel Guide] Note for %s' % note.channel.name, """\
-A moderator of the Channel Guide added the following note to your channel:
+                '[Democracy Guide] Note for %s' % note.channel.name, """\
+A moderator of the Democracy Guide added the following note to your channel:
 
 %s
 
@@ -64,7 +64,7 @@ class ApprovalEmail(EmailMessage):
     def __init__(self, channel):
         self.channel = channel
         EmailMessage.__init__(self, '%s was approved' % channel.name, """\
-Your video feed was approved as a channel in the Channel Guide.
+Your video feed was approved as a channel in the Democracy Guide.
 You can view your channel here: %s.""" % channel.get_absolute_url())
 
     def send_email(self, email_from=None):
@@ -98,7 +98,7 @@ class CopyrightViolationEmail(RejectionEmail):
     def __init__(self, channel):
         RejectionEmail.__init__(self, channel, 'COPYRIGHT ISSUES', """\
 It appears that your feed might have copyrighted material in it. Due to
-the nature of US copyright laws, we cannot feature it in the Channel Guide.
+the nature of US copyright laws, we cannot feature it in the Democracy Guide.
 
 If we are incorrect in supposing that the material was not cleared for
 copyright, please contact us at channels@pculture.org""")
@@ -114,7 +114,7 @@ class NoVideoEmail(RejectionEmail):
         RejectionEmail.__init__(self, channel, 'NO VIDEO', """\
 Your feed is missing video files (it is either empty or consists of
 audio only). We require there to be at least 30%% video in a feed for it
-to be publishable on the Channel Guide (we're primarily a video
+to be publishable on the Democracy Guide (we're primarily a video
 application, after all).
 
 Once you have adequate video in your feed, please post a message 
