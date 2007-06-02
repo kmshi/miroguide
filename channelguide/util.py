@@ -151,8 +151,6 @@ def send_mail(title, body, recipient_list, email_from=None, break_lines=True):
     global emailer
     if break_lines:
         body = '\n'.join(textwrap.fill(p) for p in body.split('\n'))
-    if type(recipient_list) is str:
-        recipient_list = [recipient_list]
     if emailer is None:
         if not settings.EMAIL_FROM:
             return
@@ -161,7 +159,7 @@ def send_mail(title, body, recipient_list, email_from=None, break_lines=True):
         email_func = emailer
     if email_from is None:
         email_from = settings.EMAIL_FROM
-    for email_to in recipient_list:
+    for email_to in ensure_list(recipient_list):
         email_func(title, body, email_from, [email_to])
 
 class URLGrabber(threading.Thread):
