@@ -605,6 +605,20 @@ class ModerateChannelTest(ChannelTestBase):
         check_state('Approve', Channel.APPROVED)
         check_state("Don't Know", Channel.DONT_KNOW)
 
+    def test_approve_requires_owner_email(self):
+        self.channel.owner.email = None
+        self.save_to_db(self.channel.owner)
+        self.login('joe')
+        url = '/channels/%d' % self.channel.id
+        page = self.post_data(url, {'action': 'change-state', 'submit':
+            'Approve'})
+        self.connection.commit()
+        updated = self.refresh_record(self.channel)
+        self.assertEquals(updated.state, Channel.NEW)
+        self.assertRedirect(page, 'channels/%d' % self.channel.id)
+        page = self.get_page('/channels/%d' % self.channel.id)
+        self.assert_('error' in page.context[0])
+
     def test_reject(self):
         self.login('joe')
         def check_rejection_button(action):

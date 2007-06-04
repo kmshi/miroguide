@@ -51,6 +51,9 @@ class Channel(Record, Thumbnailable):
     def __str__(self):
         return "%s (%s)" % (self.name, self.url)
 
+    def __repr__(self):
+        return "Channel(%r, %r)" % (self.name, self.url)
+
     def get_state_name(self):
         return tables.name_for_state_code(self.state)
     state_name = property(get_state_name)

@@ -23,3 +23,6 @@ channel_q = Channel.query().order_by('modified', desc=True).limit(10)
 channels = channel_q.execute(connection)
 tags = Tag.query().limit(10).execute(connection)
 cats = Category.query().limit(10).execute(connection)
+
+channels.join("owner").execute(connection)
+print channels

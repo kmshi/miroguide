@@ -176,6 +176,11 @@ class TestCase(unittest.TestCase):
             retval.join(*joins).execute(self.connection)
         return retval
 
+    def debug_request_context(self, context):
+        for dict in context.dicts:
+            for key, value in dict.items():
+                print '%s => %s' % (key, value)
+
     def refresh_connection(self):
         self.connection.commit()
 

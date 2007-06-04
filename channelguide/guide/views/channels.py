@@ -41,7 +41,7 @@ def moderate(request):
 
 @moderator_required
 def unapproved_channels(request, state):
-    query = Channel.query().order_by('creation_time')
+    query = Channel.query().join('owner').order_by('creation_time')
     if state == 'waiting':
         query.where(state=Channel.WAITING)
         header = _("Channels Waiting For Replies")
@@ -134,7 +134,13 @@ def channel(request, id):
             request.user.check_is_moderator()
             submit_value = request.POST['submit']
             if submit_value == 'Approve':
-                newstate = Channel.APPROVED
+                channel.join('owner').execute(request.connection)
+                if channel.owner.email is not None:
+                    newstate = Channel.APPROVED
+                else:
+                    msg = _("Can't approve channels without an owner email")
+                    request.session['channel-edit-error'] = msg
+                    return util.redirect(channel.get_url())
             elif submit_value == "Don't Know":
                 newstate = Channel.DONT_KNOW
             elif submit_value == 'Unapprove':

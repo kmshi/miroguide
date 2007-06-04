@@ -114,6 +114,9 @@ class User(UserBase, Record):
     def __str__(self):
         return self.username
 
+    def __repr__(self):
+        return 'User(%r)' % self.username
+
     def role_string(self):
         if self.role == self.USER:
             return "user"
