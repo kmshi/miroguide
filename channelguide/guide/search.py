@@ -43,7 +43,6 @@ GROUP BY channel_id"""
 def search_channels(terms):
     terms = util.ensure_list(terms)
     query = Channel.query().join('search_data')
-    query.where(state=Channel.APPROVED)
     search_data_table = query.joins['search_data'].table
     query.where(search_where(search_data_table, terms))
     query.order_by(search_score(search_data_table, terms), desc=True)
@@ -53,7 +52,6 @@ def search_items(terms):
     terms = util.ensure_list(terms)
     item_search_select = ChannelItemSearchSelect(terms)
     query = Channel.query()
-    query.where(state=Channel.APPROVED)
     query.add_raw_join(item_search_select.label('search_data'),
             'cg_channel.id=search_data.channel_id')
     query.order_by('search_data.score', desc=True)

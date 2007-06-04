@@ -680,16 +680,24 @@ class ChannelSearchTest(ChannelTestBase):
             c.update_search_data(self.connection)
 
     def channel_search(self, query):
-        return search.search_channels([query]).execute(self.connection)
+        page = self.get_page('/search', data={'query': query})
+        return page.context[0]['results']
 
     def search_items(self, query):
-        return search.search_items([query]).execute(self.connection)
+        page = self.get_page('/search', data={'query': query})
+        return page.context[0]['item_results']
 
     def channel_search_count(self, query):
-        return search.search_channels([query]).count(self.connection)
+        page = self.get_page('/search', data={'query': query})
+        return page.context[0]['results_count']
 
     def search_items_count(self, query):
-        return search.search_items([query]).count(self.connection)
+        page = self.get_page('/search', data={'query': query})
+        return page.context[0]['item_results_count']
+
+    def check_search_redirects_to_channel(self, query, channel):
+        page = self.get_page('/search', data={'query': query})
+        self.assertRedirect(page, 'channels/%d' % channel.id)
 
     def test_channel_search(self):
         results = [c.id for c in self.channel_search("Rocketboom")]
@@ -710,11 +718,28 @@ class ChannelSearchTest(ChannelTestBase):
         channel2.name = "Colan"
         channel2.save(self.connection)
         channel2.update_search_data(self.connection)
+        self.connection.commit()
         # Having "Colan" in the title should trump "Colan" in the description
         results = self.channel_search("Colan")
         self.assertEquals(len(results), 2)
         self.assertEquals(results[0].name, channel2.name)
         self.assertEquals(results[1].name, self.channel.name)
+
+    def make_unaprroved_channel(self):
+        unapproved = self.make_channel()
+        unapproved.name = "Unapproved"
+        unapproved.update_search_data(self.connection)
+        self.save_to_db(unapproved)
+        return unapproved
+
+    def test_unapproved_hidden(self):
+        self.make_unaprroved_channel()
+        self.assertEquals(self.channel_search_count('Unapproved'), 0)
+
+    def test_mods_see_unapproved(self):
+        unapproved = self.make_unaprroved_channel()
+        self.login(self.make_user('reggie', role=User.MODERATOR))
+        self.check_search_redirects_to_channel('Unapproved', unapproved)
 
 class EditChannelTest(ChannelTestBase):
     def setUp(self):

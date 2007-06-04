@@ -6,7 +6,7 @@ from django.utils.translation import gettext as _
 from django.http import Http404
 
 from channelguide import util, cache
-from channelguide.guide.search import search_channels, search_items
+from channelguide.guide import search as search_mod
 from channelguide.guide.templateutil import Pager
 from channelguide.guide.models import (Channel, Category, Tag, Item, Language,
         ChannelSearchData, ItemSearchData)
@@ -19,6 +19,18 @@ def get_search_terms(query):
 
 def terms_too_short(terms):
     return len([term for term in terms if len(term) >= 3]) == 0
+
+def search_channels(request, terms):
+    query = search_mod.search_channels(terms)
+    if not request.user.is_moderator():
+        query.where(state=Channel.APPROVED)
+    return query
+
+def search_items(request, terms):
+    query = search_mod.search_items(terms)
+    if not request.user.is_moderator():
+        query.where(state=Channel.APPROVED)
+    return query
 
 def more_results_link(query, total_results):
     href = 'search-more-channels?query=' + urllib.quote_plus(query)
@@ -57,13 +69,21 @@ def search(request):
             'search_query': search_query,
             })
 
-    query = search_channels(terms)
+    query = search_channels(request, terms)
     results_count = query.count(request.connection)
     results = query.limit(FRONT_PAGE_LIMIT).execute(request.connection)
 
-    query = search_items(terms)
+    query = search_items(request, terms)
     item_results_count = query.count(request.connection)
     item_results = query.limit(FRONT_PAGE_LIMIT_ITEMS).execute(request.connection)
+
+    tags = search_results(request.connection, Tag, terms)
+    languages = search_results(request.connection, Language, terms)
+    categories = search_results(request.connection, Category, terms)
+
+    if (results_count == 1 and (item_results_count == len(tags) ==
+        len(languages) == len(categories) == 0)):
+        return util.redirect(results[0].get_url())
 
     return util.render_to_response(request, 'channel-search.html', {
         'results': results,
@@ -72,9 +92,9 @@ def search(request):
         'item_results_count': item_results_count,
         'extra_results': results_count > FRONT_PAGE_LIMIT,
         'extra_item_results': item_results_count > FRONT_PAGE_LIMIT_ITEMS,
-        'tags': search_results(request.connection, Tag, terms),
-        'languages': search_results(request.connection, Language, terms),
-        'categories': search_results(request.connection, Category, terms),
+        'tags': tags,
+        'languages': languages,
+        'categories': categories,
         'search_query': search_query,
         'more_results_link': more_results_link(search_query, results_count),
         'more_results_link_items': more_results_link_items(search_query, 
@@ -90,7 +110,7 @@ def do_search_more(request, title, search_func):
     if terms_too_short(terms):
         return util.render_to_response(request, 'search-more.html', {})
     search_query = search_query.strip()
-    query = search_func(terms)
+    query = search_func(request, terms)
     pager = Pager(20, query, request)
     return util.render_to_response(request, 'search-more.html', {
         'title': title % search_query,
