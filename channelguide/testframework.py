@@ -181,9 +181,8 @@ class TestCase(unittest.TestCase):
 
     def make_user(self, username, password='password', role='U'):
         from channelguide.guide.models import User
-        user = User(username, password)
+        user = User(username, password, "%s@pculture.org" % username)
         user.role = role
-        user.email = "%s@pculture.org" % username
         self.save_to_db(user)
         return user
 

@@ -72,7 +72,8 @@ class RegisterForm(PasswordComparingForm):
             label=_("Re-type the password"), required=False)
 
     def make_user(self):
-        user = User(self.cleaned_data['username'], self.cleaned_data['password'])
+        user = User(self.cleaned_data['username'],
+                self.cleaned_data['password'], self.cleaned_data['email'])
         user.save(self.connection)
         return user
 

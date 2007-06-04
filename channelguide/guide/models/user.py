@@ -73,10 +73,10 @@ class User(UserBase, Record):
     ALL_MODERATOR_ROLES = (ADMIN, MODERATOR, SUPERMODERATOR)
     ALL_SUPERMODERATOR_ROLES = (ADMIN, SUPERMODERATOR)
 
-    def __init__(self, username, password):
+    def __init__(self, username, password, email):
         self.username = username
-        if password is not None:
-            self.set_password(password)
+        self.email = email
+        self.set_password(password)
 
     def get_url(self):
         return util.make_url("accounts/%d" % self.id)

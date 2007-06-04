@@ -40,6 +40,8 @@ class AccountTest(TestCase):
         self.assertRedirect(response, '')
         response = self.get_page('/front')
         self.assertEquals(response.context[0]['user'].username, 'mike')
+        self.assertEquals(response.context[0]['user'].email, 'mike@mike.com')
+        self.assert_(response.context[0]['user'].check_password('password'))
 
     def test_forgot_password(self):
         user = self.make_user('rachel')
