@@ -28,11 +28,15 @@ def get_new_posts(connection, count):
 def get_categories(connection):
     return Category.query().order_by('name').execute(connection)
 
-def get_category_channels(connection, category, count):
-    query = Channel.query_approved().join("categories")
+def get_category_channels(connection, category):
+    query = Channel.query_approved().join("categories").limit(3)
     query.joins['categories'].where(id=category.id)
-    query.order_by('RAND()').limit(count)
-    return query.execute(connection)
+    query.order_by('RAND()')
+    random_channels = query.execute(connection)
+    query.load('subscription_count_month')
+    query.order_by('subscription_count_month')
+    popular_channels = query.execute(connection)
+    return list(popular_channels) + list(random_channels)
 
 def get_adjecent_category(dir, name, connection):
     query = Category.query().load('channel_count')
@@ -66,7 +70,7 @@ def make_category_peek(request):
     name = urllib.quote_plus(category.name)
     return {
             'category': category,
-            'channels': get_category_channels(request.connection, category, 6),
+            'channels': get_category_channels(request.connection, category),
             'prev_url': '?category_peek=before:%s' % name,
             'next_url': '?category_peek=after:%s' % name,
             'prev_url_ajax': 'category-peek-fragment?category_peek=before:%s' % name,

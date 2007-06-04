@@ -12,7 +12,7 @@
         <div class="clear"></div>
     </div>
     <div class="half-size-list">
-    {% twocolumnloop with channel in category_peek.channels %}
+    {% twocolumnloop with channel in category_peek.channels rotated %}
         {% show_channel_in_category channel %}
     {% endtwocolumnloop %}
     </div>
