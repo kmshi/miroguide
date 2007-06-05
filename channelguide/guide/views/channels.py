@@ -135,12 +135,7 @@ def channel(request, id):
             submit_value = request.POST['submit']
             if submit_value == 'Approve':
                 channel.join('owner').execute(request.connection)
-                if channel.owner.email is not None:
-                    newstate = Channel.APPROVED
-                else:
-                    msg = _("Can't approve channels without an owner email")
-                    request.session['channel-edit-error'] = msg
-                    return util.redirect(channel.get_url())
+                newstate = Channel.APPROVED
             elif submit_value == "Don't Know":
                 newstate = Channel.DONT_KNOW
             elif submit_value == 'Unapprove':

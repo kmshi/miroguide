@@ -329,7 +329,13 @@ class Channel(Record, Thumbnailable):
         if newstate == self.APPROVED:
             self.approved_at = datetime.now()
             self.join('owner').execute(connection)
-            emailmessages.ApprovalEmail(self).send_email()
+            if self.owner.email is not None:
+                emailmessages.ApprovalEmail(self).send_email()
+            else:
+                logging.warn('not sending approval message for channel %d '
+                        '(%s) because the owner email is not set', self.id,
+                        self.name)
+
         else:
             self.approved_at = None
         self.last_moderated_by_id = user.id
