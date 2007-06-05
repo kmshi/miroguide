@@ -17,7 +17,7 @@ def get_featured_channels(connection):
     return query.order_by('RAND()').execute(connection)
 
 def get_new_channels(connection, count):
-    query = Channel.query_approved()
+    query = Channel.query_approved().load('item_count')
     query.order_by('approved_at', desc=True).limit(count)
     return query.execute(connection)
 
