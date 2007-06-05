@@ -20,7 +20,7 @@ def count_for_state(connection, state):
 def moderate(request):
     context = {}
 
-    query = Channel.query(Channel.c.moderator_shared_at != None)
+    query = Channel.query(Channel.c.moderator_shared_at.is_not(None))
     query.order_by('moderator_shared_at', desc=True).limit(5)
     context['shared_channels'] = query.execute(request.connection)
 
