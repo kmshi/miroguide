@@ -1,3 +1,4 @@
+import logging
 
 from django.conf import settings
 
@@ -69,5 +70,10 @@ class ChannelNote(NoteBase):
     def send_email(self, connection):
         self.join('channel').execute(connection)
         self.channel.join('owner').execute(connection)
-        message = emailmessages.ChannelNoteEmail(self)
-        message.send_email(self.channel.owner.email, self.user.email)
+        if self.channel.owner.email is not None:
+            message = emailmessages.ChannelNoteEmail(self)
+            message.send_email(self.channel.owner.email, self.user.email)
+        else:
+            logging.warn("not sending message for channel %d (%s) because "
+                    "the owner email is not set", self.channel.id,
+                    self.channel.name)
