@@ -1,4 +1,5 @@
 from sqlhelper import orm, NotFoundError
+from sqlhelper.orm import columns
 from base import TestCase, Foo, Bar, Category, CategoryMap, Types, FooExtra
 from datetime import datetime, timedelta
 
@@ -65,6 +66,38 @@ class UpdateTest(TestCase):
         foo.save(self.connection)
         f2 = Foo.get(self.connection, 100)
         self.assertEquals(f2.name, 'bingo')
+
+class CharecterEncodingTest(TestCase):
+    def setUp(self):
+        TestCase.setUp(self)
+        self.foo = Foo()
+        self.foo.id = 100
+        self.foo.name = u'\xfa'
+        self.unicode_name = u'\xfa'
+
+    def tearDown(self):
+        try:
+            del Foo.c.name.encoding
+        except AttributeError:
+            pass
+        columns.String.encoding = 'utf8'
+        TestCase.tearDown(self)
+
+    def check_encoding(self, charset):
+        self.foo.save(self.connection)
+        foo2 = Foo.get(self.connection, self.foo.id)
+        self.assertEquals(foo2.name, self.unicode_name.encode(charset))
+
+    def test_default(self):
+        self.check_encoding('utf8')
+
+    def test_class_change(self):
+        columns.String.encoding = 'latin1'
+        self.check_encoding('latin1')
+
+    def test_column_change(self):
+        Foo.c.name.encoding = 'latin1'
+        self.check_encoding('latin1')
 
 class AutoAssignmentTest(TestCase):
     def test_default(self):

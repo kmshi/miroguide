@@ -108,11 +108,26 @@ class Int(Column):
     pass
 
 class String(Column):
+    """String columns store str and unicode objects.  By default unicode
+    objects will be encoding with utf-8 encoding, but this can be changed 2
+    ways:
+
+    The system-wide encoding can be changed with the class attribute
+    'encoding', (String.encoding = 'latin1')
+
+    A specific column's encoding can be changed by setting an attribute on
+    that object, (foo.columns.string_column.encoding = 'latin1')
+
+    """
+    encoding = 'utf8'
+
     def __init__(self, name, length=None, *args, **kwargs):
         Column.__init__(self, name, *args, **kwargs)
         self.length = length
 
     def convert_for_db(self, data):
+        if isinstance(data, unicode):
+            data = data.encode(self.encoding)
         if (self.length is not None and data is not None and 
                 len(data) > self.length):
             logging.warn("Truncating data %r for column %s", data,
