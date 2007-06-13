@@ -747,7 +747,7 @@ li.blog-post .title {
 
 .channel img.hd-icon-small {
     position: absolute;
-    right: 1px;
+    right: 2px;
     bottom: 1px;
     width: 18px;
     height: 12px;
@@ -755,8 +755,8 @@ li.blog-post .title {
 
 .channel img.hd-icon-medium {
     position: absolute;
-    right: 2px;
-    bottom: 2px;
+    right: 3px;
+    bottom: 3px;
     width: 25px;
     height: 17px;
 }
@@ -905,6 +905,10 @@ li.blog-post .title {
 .channel-in-category .screenshot {
     width: 120px;
     height: 80px;
+}
+
+.channel-in-category img.hd-icon-medium {
+    bottom: 2px;
 }
 
 .channel-in-category .actions a {
