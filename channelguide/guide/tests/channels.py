@@ -324,7 +324,7 @@ class SubmitChannelTest(TestCase):
             'language': self.language.id,
             'category1': self.cat1.id,
             'category2': self.cat2.id,
-            'thumbnail': open(test_data_path('thumbnail.jpg')),
+            'thumbnail_file': open(test_data_path('thumbnail.jpg')),
             'thumbnail_file_submitted_path': '',
         }
         if isinstance(dont_send, list):
@@ -372,7 +372,16 @@ class SubmitChannelTest(TestCase):
         self.assertEquals(response.template[0].name, 'guide/submit-channel.html')
 
     def check_submit_worked(self, response, thumb_name='thumbnail.jpg'):
-        self.assertEquals(response.status_code, 302)
+        if response.status_code != 302:
+            try:
+                errors = response.context[0]['form'].errors.items()
+            except:
+                errors = "Unknown"
+            msg = """\
+Submit failed!
+Status code: %s
+Errors: %s""" % (response.status_code, errors)
+            raise AssertionError(msg)
         test_url = settings.BASE_URL_FULL + 'channels/submit/after'
         self.assertEquals(response['Location'], test_url)
         self.check_last_channel_thumbnail(thumb_name)
@@ -391,8 +400,9 @@ class SubmitChannelTest(TestCase):
         if old_response:
             form = old_response.context[0]['form']
             thumb_widget = form.fields['thumbnail_file'].widget
-            data['thumbnail_file_submitted_path'] = \
-                    thumb_widget.submitted_thumb_path
+            if thumb_widget.submitted_thumb_path is not None:
+                data['thumbnail_file_submitted_path'] = \
+                        thumb_widget.submitted_thumb_path
         return self.post_data('/channels/submit/step2', data)
 
     def test_required_fields(self):
@@ -474,7 +484,7 @@ class SubmitChannelTest(TestCase):
         self.login_and_submit_url()
         response = self.submit(dont_send='name')
         self.check_submit_failed(response)
-        response = self.submit(response, dont_send='thumbnail')
+        response = self.submit(response, dont_send='thumbnail_file')
         self.check_submit_worked(response)
 
     def test_replace_thumbnail(self):
@@ -482,7 +492,7 @@ class SubmitChannelTest(TestCase):
         response = self.submit(dont_send='name')
         self.check_submit_failed(response)
         response = self.submit(response,
-                thumbnail=open(test_data_path('thumbnail_square.png')))
+                thumbnail_file=open(test_data_path('thumbnail_square.png')))
         self.check_submit_worked(response, thumb_name='thumbnail_square.png')
 
     def test_replace_and_remember_thumbnail(self):
@@ -490,8 +500,8 @@ class SubmitChannelTest(TestCase):
         response = self.submit(dont_send='name')
         self.check_submit_failed(response)
         response = self.submit(response, dont_send='name',
-                thumbnail=open(test_data_path('thumbnail_square.png')))
-        response = self.submit(response, dont_send='thumbnail')
+                thumbnail_file=open(test_data_path('thumbnail_square.png')))
+        response = self.submit(response, dont_send='thumbnail_file')
         self.check_submit_worked(response, thumb_name='thumbnail_square.png')
 
     def test_submit_destroys_feed(self):

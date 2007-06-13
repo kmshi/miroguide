@@ -181,5 +181,5 @@ def order_channels_using_request(query, request):
     elif order_by == 'date':
         query.order_by('modified', desc=True)
     else:
-        query.load('subscription_count')
-        query.order_by('subscription_count', desc=True)
+        query.load('subscription_count_month')
+        query.order_by('subscription_count_month', desc=True)
