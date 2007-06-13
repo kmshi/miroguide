@@ -6,6 +6,7 @@ def startup():
     import logging
     import traceback
     channelguide_dir = os.path.dirname(__file__)
+    start_mtime = os.stat(__file__).st_mtime
     sys.path.insert(0, os.path.abspath(os.path.join(channelguide_dir, '..')))
     for i in reversed(range(len(sys.path))):
         if (os.path.isdir(sys.path[i]) and 
@@ -29,6 +30,9 @@ def startup():
                 page = '500 Error'
             req.stdout.write('HTTP/1.1 500 INTERNAL SERVER ERROR\r\n')
             req.stdout.write('Content-Type: text/html\r\n\r\n' + page)
+        def _mainloopPeriodic(self):
+            if os.stat(__file__).st_mtime > start_mtime:
+                self._exit()
     CGServer(WSGIHandler(), maxThreads=settings.MAX_THREADS).run()
 
 if __name__ == '__main__':
