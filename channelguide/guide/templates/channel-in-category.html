@@ -19,10 +19,15 @@
                 </div>
                 <div class="screenshot">
                     <a {% link channel.get_url %}>{{ channel.thumb_120_80 }}</a>
+                    {% if channel.hi_def %}
+                    <img class="hd-icon-medium" src="{{ BASE_URL }}images/hd-icon-medium.png" alt="HD">
+                    {% endif %}
                 </div>
                 <div class="clear"></div>
             </div>
         </div>
     </div>
-    <h3 class="title">{{ channel.name_as_link }}</h3>
+    <div class="bottom">
+        <h3 class="title">{{ channel.name_as_link }}</h3>
+    </div>
 </div>

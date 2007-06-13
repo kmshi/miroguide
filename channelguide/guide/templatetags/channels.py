@@ -34,15 +34,17 @@ def show_channel_feature_no_image(channel, position):
 
 @register.inclusion_tag('guide/channel-in-category.html')
 def show_channel_in_category(channel):
-    return {'channel': channel}
+    return {'channel': channel, 'BASE_URL': settings.BASE_URL }
 
 @register.inclusion_tag('guide/channel-in-list.html')
 def show_channel_in_list(channel):
-    return {'channel': channel}
+    return {'channel': channel, 'BASE_URL': settings.BASE_URL }
 
 @register.inclusion_tag('guide/channel-mini.html')
 def show_channel_mini(channel, count):
-    return {'channel': channel, 'count': count}
+    return {'channel': channel, 'count': count, 
+            'BASE_URL': settings.BASE_URL
+            }
 
 @register.inclusion_tag('guide/item.html')
 def show_item(item):

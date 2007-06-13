@@ -4,6 +4,9 @@
         {% twocolumns %}
             <div class="screenshot">
                 <a {% link channel.get_url %}>{{ channel.thumb_165_110 }}</a>
+                {% if channel.hi_def %}
+                <img class="hd-icon-medium" src="{{ BASE_URL }}images/hd-icon-medium.png" alt="HD">
+                {% endif %}
             </div>
         {% splitcolumns %}
             <h2 class="title">{{ channel.name_as_link }}</h2>

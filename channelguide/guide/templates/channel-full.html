@@ -7,7 +7,9 @@
             {% else %}
                 {{ channel.thumb_370_247 }}
             {% endif %}
-
+            {% if channel.hi_def %}
+            <img class="hd-icon-large" src="{{ BASE_URL }}images/hd-icon-large.png" alt="HD">
+            {% endif %}
         </div>
         {% if user.is_moderator or show_edit_button %}
         <ul>
