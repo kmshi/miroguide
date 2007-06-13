@@ -3,13 +3,12 @@ from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.utils.translation import gettext as _
 
 from channelguide import util, cache
-from channelguide.guide import forms
+from channelguide.guide import forms, templateutil
 from channelguide.guide.auth import (admin_required, moderator_required,
         login_required)
 from channelguide.guide.models import (Channel, Item, ModeratorPost, User,
         ModeratorAction, ChannelNote)
 from channelguide.guide.notes import get_note_info, make_rejection_note
-from channelguide.guide.templateutil import Pager, ViewSelect
 
 SESSION_KEY = 'submitted-feed'
 
@@ -54,7 +53,7 @@ def unapproved_channels(request, state):
     else:
         query.where(state=Channel.NEW)
         header = _("Unreviewed Channels")
-    pager =  Pager(10, query, request)
+    pager =  templateutil.Pager(10, query, request)
 
     return util.render_to_response(request, 'unapproved-list.html', {
         'pager': pager,
@@ -206,7 +205,7 @@ def subscribe_hit(request, id):
             request.META.get('REMOTE_ADDR', '0.0.0.0'))
     return HttpResponse("Hit successfull")
 
-class PopularWindowSelect(ViewSelect):
+class PopularWindowSelect(templateutil.ViewSelect):
     view_choices = [
             ('today', _('Today')),
             ('month', _('Month')),
@@ -240,7 +239,7 @@ def popular(request):
     if count_name != 'subscription_count':
         query.load('subscription_count')
         query.order_by('subscription_count', desc=True)
-    pager =  Pager(10, query, request)
+    pager =  templateutil.Pager(10, query, request)
     for channel in pager.items:
         channel.popular_count = getattr(channel, count_name)
     return util.render_to_response(request, 'popular.html', {
@@ -249,7 +248,7 @@ def popular(request):
     })
 
 def make_simple_list(request, query, header, order_by):
-    pager =  Pager(8, query.order_by(order_by), request)
+    pager =  templateutil.Pager(8, query.order_by(order_by), request)
     return util.render_to_response(request, 'two-column-list.html', {
         'header': header,
         'pager': pager,
@@ -260,6 +259,18 @@ def by_name(request):
     query = Channel.query_approved()
     return make_simple_list(request, query, _("Channels By Name"),
             Channel.c.name)
+
+
+@cache.aggresively_cache
+def hd(request):
+    query = Channel.query_approved(hi_def=1)
+    templateutil.order_channels_using_request(query, request)
+    pager =  templateutil.Pager(8, query, request)
+    return util.render_to_response(request, 'two-column-list.html', {
+        'header': _('HD Channels'),
+        'pager': pager,
+        'order_select': templateutil.OrderBySelect(request),
+    })
 
 @cache.aggresively_cache
 def features(request):
@@ -291,7 +302,7 @@ def group_channels_by_date(channels):
 @cache.aggresively_cache
 def recent(request):
     query = Channel.query_approved().order_by('approved_at', desc=True)
-    pager =  Pager(8, query, request)
+    pager =  templateutil.Pager(8, query, request)
     return util.render_to_response(request, 'recent.html', {
         'header': "RECENT CHANNELS",
         'pager': pager,
@@ -303,7 +314,7 @@ def for_user(request, user_id):
     user = util.get_object_or_404(request.connection, User, user_id)
     query = Channel.query(owner_id=user.id)
     query.join('categories', 'tags', 'owner', 'last_moderated_by')
-    pager =  Pager(10, query, request)
+    pager =  templateutil.Pager(10, query, request)
     return util.render_to_response(request, 'for-user.html', {
         'for_user': user,
         'channels': pager.items,
@@ -336,7 +347,7 @@ def edit_channel(request, id):
 def moderator_history(request):
     query = ModeratorAction.query().join('user', 'channel')
     query.order_by('timestamp', desc=True)
-    pager =  Pager(30, query, request)
+    pager =  templateutil.Pager(30, query, request)
     return util.render_to_response(request, 'moderator-history.html', {
         'pager': pager,
         'actions': pager.items,
