@@ -6,37 +6,11 @@ from channelguide import util, cache
 from channelguide.guide import forms, templateutil
 from channelguide.guide.auth import (admin_required, moderator_required,
         login_required)
-from channelguide.guide.models import (Channel, Item, ModeratorPost, User,
-        ModeratorAction, ChannelNote)
+from channelguide.guide.models import (Channel, Item, User, ModeratorAction,
+        ChannelNote)
 from channelguide.guide.notes import get_note_info, make_rejection_note
 
 SESSION_KEY = 'submitted-feed'
-
-def count_for_state(connection, state):
-    return Channel.query(state=state).count(connection)
-
-@moderator_required
-def moderate(request):
-    context = {}
-
-    query = Channel.query(Channel.c.moderator_shared_at.is_not(None))
-    query.order_by('moderator_shared_at', desc=True).limit(5)
-    context['shared_channels'] = query.execute(request.connection)
-
-    context['new_count'] = count_for_state(request.connection, Channel.NEW)
-    context['dont_know_count'] = count_for_state(request.connection,
-            Channel.DONT_KNOW)
-    context['waiting_count'] = count_for_state(request.connection,
-            Channel.WAITING)
-    context['rejected_count'] = count_for_state(request.connection,
-            Channel.REJECTED)
-
-    query = ModeratorPost.query().order_by('created_at', desc=True)
-    query.join('user')
-    context['latest_posts'] = query.limit(5).execute(request.connection)
-    context['post_count'] = ModeratorPost.query().count(request.connection)
-
-    return util.render_to_response(request, 'moderate.html', context)
 
 @moderator_required
 def unapproved_channels(request, state):
