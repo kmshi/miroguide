@@ -814,8 +814,14 @@ li.blog-post .title {
     height: 240px;
     padding: 0px;
     border: 0px;
+    margin-left: 5px;
     overflow: hidden;
     position: relative;
+}
+
+#feature-section {
+    margin: 0px -13px;
+    /* negative margin gives space for the featured arrows */
 }
 
 #featured-list {
@@ -826,6 +832,37 @@ li.blog-post .title {
     left: 0px;
     width: 6000px;
 }
+
+#featured-list li.column {
+    width: 365px;
+}
+
+#featured-list-previous {
+        float: left;
+        margin-top: 60px;
+        display: block;
+        background: url(images/feature-rotate-left.png) top left;
+        width: 13px;
+        height: 50px;
+}
+
+#featured-list-previous:hover {
+        background-image: url(images/feature-rotate-left-hover.png);
+}
+
+#featured-list-next {
+        float: right;
+        margin-top: 60px;
+        display: block;
+        background: url(images/feature-rotate-right.png) top left;
+        width: 13px;
+        height: 50px;
+}
+
+#featured-list-next:hover {
+        background-image: url(images/feature-rotate-right-hover.png);
+}
+
 
 .channel-feature .channel-inner {
     background-image: url(images/featured-bg.png);

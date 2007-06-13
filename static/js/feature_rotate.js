@@ -3,15 +3,26 @@
  * Does the feature rotate animation.
  */
 
-var FEATURED_CHANNEL_WIDTH = 390;
-var FEATURED_2_CHANNELS_WIDTH = 760;
+var FEATURED_CHANNEL_WIDTH = 385;
 var FEATURE_ROTATE_TIMEOUT = 15; // rotate timeout in seconds
 var featureList = null;
+var featureTimeout = null;
+var manualMode = false;
+var inRotate = false;
 
 function scheduleFeatureRotate() {
+   if(manualMode) return;
    loadHiddenScreenshots();
    if(!featureList) featureList = findFeatures();
-   setTimeout(rotateFeatures, FEATURE_ROTATE_TIMEOUT * 1000);
+   featureTimeout = setTimeout(rotateFeatures, FEATURE_ROTATE_TIMEOUT * 1000);
+}
+
+function cancelFeatureRotate() {
+   if(featureTimeout) {
+       clearTimeout(featureTimeout);
+       featureTimeout = null;
+   }
+   manualMode = true;
 }
 
 function loadHiddenScreenshots() {
@@ -32,13 +43,31 @@ function loadHiddenScreenshots() {
   }
 }
 
+function rotateFeaturesLeft() {
+    doRotate(Math.max(0, FSCurrentFeature - 2));
+    cancelFeatureRotate();
+}
+
+function rotateFeaturesRight() {
+    doRotate(Math.min(featureList.length-2, FSCurrentFeature + 2));
+    cancelFeatureRotate();
+}
+
 function rotateFeatures() {
+   featureTimeout = null;
+   doRotate(pickNextFeature());
+}
+
+function doRotate(nextFeature) {
+   if(inRotate) return;
+   inRotate = true;
    FSStartX = FSCurrentFeature * FEATURED_CHANNEL_WIDTH;
-   FSCurrentFeature = pickNextFeature();
+   FSCurrentFeature = nextFeature;
    FSEndX = FSCurrentFeature * FEATURED_CHANNEL_WIDTH;
    FSTime = 0.0;
    animateFeatureScroll();
 }
+
 
 function pickNextFeature() {
    var nextFeature = FSCurrentFeature + 2*FSScrollDirection;
@@ -84,6 +113,7 @@ function animateFeatureScroll() {
        setTimeout(animateFeatureScroll, FSTimeout);
    } else {
        moveFeatureList(FSEndX);
+       inRotate = false;
        scheduleFeatureRotate();
    }
 }
