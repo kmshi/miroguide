@@ -814,14 +814,13 @@ li.blog-post .title {
     height: 240px;
     padding: 0px;
     border: 0px;
-    margin-left: 4px;
+    margin-left: 5px;
     overflow: hidden;
     position: relative;
 }
 
 #feature-section {
-    margin: 0px -12px;
-    /* negative margin gives space for the featured arrows */
+    position: relative;
 }
 
 #featured-list {
@@ -838,12 +837,13 @@ li.blog-post .title {
 }
 
 #featured-list-previous {
-        float: left;
-        margin-top: 60px;
         display: block;
-        background: url(images/feature-rotate-left.png) top left;
+        position: absolute;
+        top: 60px;
+        left: -12px;
         width: 13px;
         height: 50px;
+        background: url(images/feature-rotate-left.png) top left;
 }
 
 #featured-list-previous:hover {
@@ -851,12 +851,13 @@ li.blog-post .title {
 }
 
 #featured-list-next {
-        float: right;
-        margin-top: 60px;
+        position: absolute;
         display: block;
-        background: url(images/feature-rotate-right.png) top left;
+        top: 60px;
+        left: 760px;
         width: 13px;
         height: 50px;
+        background: url(images/feature-rotate-right.png) top left;
 }
 
 #featured-list-next:hover {
