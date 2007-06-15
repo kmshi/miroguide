@@ -592,10 +592,10 @@ class ModerateChannelTest(ChannelTestBase):
 
     def login(self, username):
         ChannelTestBase.login(self, username)
-        return self.get_page('/channels/moderate')
+        return self.get_page('/moderate')
 
     def test_moderator_required(self):
-        response = self.get_page('/channels/moderate')
+        response = self.get_page('/moderate')
         self.assertEquals(response.status_code, 302)
         response = self.login('schmoe')
         self.assertEquals(response.status_code, 302)
