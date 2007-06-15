@@ -83,7 +83,7 @@ def search(request):
 
     if (results_count == 1 and (item_results_count == len(tags) ==
         len(languages) == len(categories) == 0)):
-        return util.redirect(results[0].get_url())
+        return util.redirect(results[0].get_absolute_url())
 
     return util.render_to_response(request, 'channel-search.html', {
         'results': results,
