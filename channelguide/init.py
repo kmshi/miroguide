@@ -7,6 +7,7 @@ import logging
 import logging.handlers
 import random
 import os
+import socket
 import sys
 import traceback
 
@@ -31,6 +32,7 @@ def initialize():
     init_external_libraries()
     random.seed()
     locale.setlocale(locale.LC_ALL, '')
+    socket.setdefaulttimeout(settings.SOCKET_TIMEOUT)
 
     # hack for the fact that django tries to rollback its non-existant
     # connection when requests finish.
