@@ -25,10 +25,12 @@ class RSSFeedField(WideCharField):
         url = url.strip()
         if url.startswith('feed:'):
             url = url.replace('feed:', 'http:', 1)
-        if url != self.initial:
-            if Channel.query(url=url).count(self.connection) > 0:
-                msg = _("%s is already a channel in the guide") % url
-                raise forms.ValidationError(msg)
+        if self.initial is not None and url == self.initial:
+            return None
+
+        if Channel.query(url=url).count(self.connection) > 0:
+            msg = _("%s is already a channel in the guide") % url
+            raise forms.ValidationError(msg)
 
         missing_feed_msg = _("We can't find a video feed at that address, "
                 "please try again.")
@@ -365,5 +367,6 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
         set_from_list('category3', self.channel.categories, 2)
 
     def update_channel(self, channel):
-        channel.url = self.cleaned_data['url'].url
+        if self.cleaned_data['url'] is not None:
+            channel.url = self.cleaned_data['url'].url
         super(EditChannelForm, self).update_channel(channel)

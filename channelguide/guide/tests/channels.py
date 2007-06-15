@@ -863,6 +863,24 @@ class EditChannelTest(ChannelTestBase):
         names = [i.name for i in name_list]
         self.assertSameSet(names, correct_names)
 
+    def test_edit_with_bad_url(self):
+        # Give the channel a non-working URL and make sure we can still edit
+        # the rest of the data.
+        self.channel.url = 'http://pculture.org/badlink.php'
+        self.save_to_db(self.channel)
+        self.login(self.ralph)
+        data = self.get_default_values()
+        data['name'] = 'new name'
+        self.post_to_edit_page(data)
+        self.connection.commit()
+        updated = self.refresh_record(self.channel)
+        self.assertEquals(updated.name, 'new name')
+        # but setting a new URL that doesn't work should fail
+        data['url'] = 'http://pculture.org/badlink2.php'
+        response = self.post_to_edit_page(data)
+        self.assertEquals(response.status_code, 200)
+        self.assert_(response.context[0]['form'].errors)
+
 class EmailChannelOwnersTest(TestCase):
     def test_permissions(self):
         super_mod = self.make_user('jody', role=User.SUPERMODERATOR)
