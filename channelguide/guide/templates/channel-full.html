@@ -28,12 +28,12 @@
     {% splitcolumns %}
         <h1 class="title">
             {% if link_to_channel %}
-                <a {% link channel.get_url %}>{{ channel.name }}</a>
+                {{ channel.name_as_link }}
             {% else %}
                 {{ channel.name }}
             {% endif %}
         </h1>
-        <div class="description">{{ channel.description }}</div>
+        <div class="description">{{ channel.description|escape }}</div>
         <div class="actions">
             <div class="big horizontal">
                 <a {{ channel.subscription_link }}>

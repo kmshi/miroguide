@@ -1,13 +1,15 @@
 from datetime import datetime, timedelta
+import cgi
 import os
 
 from django.conf import settings
+from django.template import loader
 
+from channelguide import util
 from channelguide.guide import search
 from channelguide.guide.models import (Channel, Category, Tag, Item, User, 
         Language, TagMap)
 from channelguide.testframework import TestCase
-from channelguide.util import read_file, random_string, hash_string
 
 def test_data_path(filename):
     return os.path.join(os.path.dirname(__file__), 'data', filename)
@@ -96,14 +98,14 @@ class ChannelModelTest(ChannelTestBase):
         self.assertEquals(i.size, (width, height))
 
     def test_thumbnail(self):
-        image_data = read_file(test_data_path('thumbnail.jpg'))
+        image_data = util.read_file(test_data_path('thumbnail.jpg'))
         self.channel.save_thumbnail(self.connection, image_data)
         self.check_thumb_exists('original')
         self.check_thumb_exists('60x40')
         self.check_thumb_exists('120x80')
         self.check_thumb_exists('252x169')
         self.assertEquals(image_data,
-                read_file(self.get_thumb_path('original')))
+                util.read_file(self.get_thumb_path('original')))
 
     def test_approved_at(self):
         self.assertEquals(self.channel.approved_at, None)
@@ -137,7 +139,8 @@ class ChannelModelTest(ChannelTestBase):
         c.short_description = "stuff"
         c.description = "lots of stuff"
         self.assertRaises(ValueError, c.save_thumbnail,
-                self.connection, read_file(test_data_path('thumbnail.jpg')))
+                self.connection, 
+                util.read_file(test_data_path('thumbnail.jpg')))
 
     def check_subscription_counts(self, total, month, today):
         query = Channel.query(id=self.channel.id)
@@ -276,7 +279,7 @@ class ChannelItemTest(ChannelTestBase):
         thumb_path = os.path.join(settings.MEDIA_ROOT, Item.THUMBNAIL_DIR,
                 dir, '%d.jpeg' % self.channel.items[0].id)
         cache_path = os.path.join(settings.IMAGE_DOWNLOAD_CACHE_DIR,
-                hash_string(self.channel.items[0].thumbnail_url))
+                util.hash_string(self.channel.items[0].thumbnail_url))
         self.assert_(os.path.exists(thumb_path))
         self.assert_(os.path.exists(cache_path))
         self.assert_(self.channel.items[0].thumbnail_exists())
@@ -317,7 +320,7 @@ class SubmitChannelTest(TestCase):
     def make_submit_data(self, dont_send=None, **extra_data):
         data = {
             'name': 'foo',
-            'website_url': 'http://foo.com/' + random_string(16),
+            'website_url': 'http://foo.com/' + util.random_string(16),
             'short_description': 'booya',
             'description': 'Awesome channel',
             'publisher': 'Foo incorporated',
@@ -354,8 +357,8 @@ class SubmitChannelTest(TestCase):
         path = os.path.join(settings.MEDIA_ROOT, Channel.THUMBNAIL_DIR,
                 'original', '%d.%s' % (last.id, last.thumbnail_extension))
         self.assert_(os.path.exists(path))
-        right_data = read_file(test_data_path(thumb_name))
-        actual_data = read_file(path)
+        right_data = util.read_file(test_data_path(thumb_name))
+        actual_data = util.read_file(path)
         self.assert_(right_data == actual_data)
 
     def check_submit_url_failed(self, response):
@@ -885,3 +888,24 @@ class EmailChannelOwnersTest(TestCase):
         data = {'body': 'email body', 'title': 'email_title'}
         self.post_data('/channels/email-owners', data)
         self.assertSameSet(self.email_recipients(), [bob.email, suzie.email])
+
+class ChannelHTMLTest(ChannelTestBase):
+    def test_escaping(self):
+        self.channel.description = self.channel.title = '<COOL &STUFF >HERE'
+        self.save_to_db(self.channel)
+        templates = [
+            'channel-feature.html',
+            'channel-feature-no-image.html',
+            'channel-full.html',
+            'channel-in-category.html',
+            'channel-in-list.html',
+            'channel-mini.html',
+        ]
+        context = {'channel': self.channel, 'BASE_URL': settings.BASE_URL}
+        for template in templates:
+            html = loader.render_to_string(template, context)
+            for bad_string in ('<COOL', '&STUFF', '>HERE'):
+                if bad_string in html:
+                    msg = "%s was found unquoted in %s" % (bad_string,
+                            template)
+                    raise AssertionError(msg)
