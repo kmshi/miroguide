@@ -43,15 +43,13 @@ class ButtonNode(template.Node):
         output = []
         output.append('<a %s>')
         for other_class in div_classes[1:]:
-            output.append('<div class="%s">' % other_class)
-        output.append('\n<span>')
+            output.append('<span class="%s">' % other_class)
         return ''.join(output)
 
     def make_end_html(self, div_classes):
         output = []
-        output.append('</span>\n')
         for i in xrange(len(div_classes) - 1):
-            output.append('</div>')
+            output.append('</span>')
         output.append('</a>')
         return ''.join(output)
 
