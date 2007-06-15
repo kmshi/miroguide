@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from glob import glob
 from urllib import quote
+import cgi
 import feedparser
 import logging
 import traceback
@@ -302,7 +303,7 @@ class Channel(Record, Thumbnailable):
 
     def _thumb_html(self, width, height):
         thumb_url = self.thumb_url(width, height)
-        return '<img src="%s" alt="%s">' % (thumb_url, self.name)
+        return '<img src="%s" alt="%s">' % (thumb_url, cgi.escape(self.name))
 
     def thumb_60_40(self): return self._thumb_html(60, 40)
     def thumb_120_80(self): return self._thumb_html(120, 80)
@@ -312,7 +313,7 @@ class Channel(Record, Thumbnailable):
 
     def fake_feature_thumb(self): 
         thumb_url = self.thumb_url(252, 169)
-        return 'src: "%s" alt:"%s"' % (thumb_url, self.name)
+        return 'src: "%s" alt:"%s"' % (thumb_url, cgi.escape(self.name))
 
     def name_as_link(self):
         return util.make_link(self.get_absolute_url(), self.name)

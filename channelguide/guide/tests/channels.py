@@ -890,9 +890,9 @@ class EmailChannelOwnersTest(TestCase):
         self.assertSameSet(self.email_recipients(), [bob.email, suzie.email])
 
 class ChannelHTMLTest(ChannelTestBase):
-    def test_escaping(self):
-        self.channel.description = self.channel.title = '<COOL &STUFF >HERE'
-        self.save_to_db(self.channel)
+    BAD_STRING = '<COOL &STUFF >HERE'
+
+    def check_escaping(self):
         templates = [
             'channel-feature.html',
             'channel-feature-no-image.html',
@@ -906,6 +906,30 @@ class ChannelHTMLTest(ChannelTestBase):
             html = loader.render_to_string(template, context)
             for bad_string in ('<COOL', '&STUFF', '>HERE'):
                 if bad_string in html:
-                    msg = "%s was found unquoted in %s" % (bad_string,
-                            template)
+                    location = html.find(bad_string)
+                    nearby_start = html.rfind('\n', 0, location-50)
+                    nearby_end = html.find('\n', location+50)
+                    nearby = html[nearby_start:nearby_end]
+                    msg = "%s was found unquoted in %s\n: %s" % \
+                        (bad_string, template, nearby)
                     raise AssertionError(msg)
+
+    def test_escape_description(self):
+        self.channel.description = self.BAD_STRING
+        self.save_to_db(self.channel)
+        self.check_escaping()
+
+    def test_escape_name(self):
+        self.channel.name = self.BAD_STRING
+        self.save_to_db(self.channel)
+        self.check_escaping()
+
+    def test_escape_tags(self):
+        self.channel.add_tag(self.connection, self.ralph, self.BAD_STRING)
+        self.check_escaping()
+
+    def test_escape_categories(self):
+        category = Category(self.BAD_STRING)
+        self.save_to_db(category)
+        self.channel.categories.add_record(self.connection, category)
+        self.check_escaping()

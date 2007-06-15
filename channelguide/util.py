@@ -5,6 +5,7 @@ from itertools import cycle, count
 from urllib import quote, urlopen
 from urlparse import urlparse
 import Queue
+import cgi
 import md5
 import os
 import random
@@ -273,7 +274,7 @@ def random_string(length):
 
 def make_link(href, label, css_class=None, **extra_link_attributes):
     attrs = make_link_attributes(href, css_class, **extra_link_attributes)
-    return '<a %s>%s</a>' % (attrs, label)
+    return '<a %s>%s</a>' % (attrs, cgi.escape(label))
 
 def ensure_dir_exists(dir):
     if not os.path.exists(dir):

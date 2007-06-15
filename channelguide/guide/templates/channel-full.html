@@ -30,7 +30,7 @@
             {% if link_to_channel %}
                 {{ channel.name_as_link }}
             {% else %}
-                {{ channel.name }}
+                {{ channel.name|escape }}
             {% endif %}
         </h1>
         <div class="description">{{ channel.description|escape }}</div>
