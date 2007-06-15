@@ -31,12 +31,16 @@ def get_categories(connection):
 def get_category_channels(connection, category):
     query = Channel.query_approved().join("categories").limit(3)
     query.joins['categories'].where(id=category.id)
-    query.order_by('RAND()')
-    random_channels = query.execute(connection)
     query.load('subscription_count_month')
     query.order_by('subscription_count_month')
-    popular_channels = query.execute(connection)
-    return list(popular_channels) + list(random_channels)
+    popular_channels = list(query.execute(connection))
+
+    query = Channel.query_approved().join("categories").limit(3)
+    query.joins['categories'].where(id=category.id)
+    query.where(Channel.c.id.not_in(c.id for c in popular_channels))
+    query.order_by('RAND()')
+    random_channels = list(query.execute(connection))
+    return popular_channels + random_channels
 
 def get_adjecent_category(dir, name, connection):
     query = Category.query().load('channel_count')
