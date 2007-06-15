@@ -81,11 +81,14 @@ class Expression(object):
         return self.combine(other, 'LIKE')
 
     def in_(self, possible_values):
-        percent_s = ['%s' for i in xrange(len(possible_values))]
-        text = "%s IN (%s)" % (self.text, ', '.join(percent_s))
-        args = list(self.args) + list(possible_values)
-        return Expression(text, *args)
+        quoted_values = [Quoted(value) for value in possible_values]
+        return CompoundExpression("%s IN (%s)", self, 
+                combine_group(quoted_values, ', '))
 
+    def not_in(self, possible_values):
+        quoted_values = [Quoted(value) for value in possible_values]
+        return CompoundExpression("%s NOT IN (%s)", self, 
+                combine_group(quoted_values, ', '))
 
 def join(expressions, join_string):
     text = join_string.join(e.text for e in expressions)
