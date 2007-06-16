@@ -95,8 +95,11 @@ class TagField(WideCharField):
     def clean(self, value):
         if value is None or value.strip() == '':
             return []
-        value = value.strip()
-        tags = [t.strip() for t in value.split(',') if t.strip() != '']
+        tags = []
+        for name in value.strip().split(','):
+            name = to_utf8(name.strip())
+            if name != '':
+                tags.append(name)
         if len(tags) > self.tag_limit:
             msg = _('you can only enter up to %d tags.') % self.tag_limit
             raise forms.ValidationError(msg)

@@ -184,6 +184,24 @@ def fix_utf8_strings(args):
     connection = db.connect()
     for channel in all_channel_iterator(connection, 'fixing utf8 data', 'items'):
         channel.fix_utf8_strings(connection)
+
+    from channelguide.guide import feedutil
+    from channelguide.guide.models import Tag
+    if print_stuff:
+        print "fetching tags..."
+    query = Tag.query()
+    tags = query.execute(connection)
+    if print_stuff:
+        pprinter = util.ProgressPrinter('fixing tag utf8 data', len(tags))
+        pprinter.print_status()
+    for tag in tags:
+        if feedutil.fix_utf8_strings(tag):
+            tag.save(connection)
+            connection.commit()
+        if print_stuff:
+            pprinter.iteration_done()
+    if print_stuff:
+        pprinter.loop_done()
 fix_utf8_strings.args = ''
 
 def drop_channel_data(args):

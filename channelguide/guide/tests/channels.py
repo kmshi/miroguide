@@ -544,6 +544,13 @@ Errors: %s""" % (response.status_code, errors)
         current_tags = [tag.name for tag in last.tags]
         self.assertSameSet(current_tags, ['foo', 'bar', 'booya'])
 
+    def test_tag_bad_unicode(self):
+        self.login_and_submit_url()
+        response = self.submit(tags='\xff')
+        last = self.get_last_channel()
+        for tag in last.tags:
+            tag.name.decode('utf8')
+
     def test_no_tags(self):
         self.login_and_submit_url()
         response = self.submit()
