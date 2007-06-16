@@ -62,7 +62,7 @@
 <div class="clear"></div>
 
 <div class="category-list">
-<h2>{% trans "All Categories" %}</h2>
+<h2>{% trans "Categories" %}</h2>
 {% fourcolumnloop with category in categories rotated %}
   <a {% link category.get_url %}>{{ category.name }}</a>
 {% endfourcolumnloop %}
