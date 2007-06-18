@@ -50,7 +50,7 @@ You can change your subscription settings in your user profile: (%s)
 class ChannelNoteEmail(EmailMessage):
     def __init__(self, note):
         EmailMessage.__init__(self, 
-                '[Democracy Guide] Note for %s' % note.channel.name, """\
+                'Note for %s' % note.channel.name, """\
 A moderator of the Democracy Guide added the following note to your channel:
 
 %s
@@ -124,4 +124,10 @@ approved.""" % channel.get_absolute_url())
 class ModeratorBoardEmail(EmailMessage):
     def __init__(self, post):
         self.title = '[Channel Guide Moderators] ' + post.title
-        self.body = self.merge_body(post.body)
+        board_url = settings.BASE_URL_FULL + 'notes/moderator-board'
+        self.body = """\
+%s
+
+
+To send messages to other moderators, go to the moderator message board:
+%s """ % (post.body, board_url)
