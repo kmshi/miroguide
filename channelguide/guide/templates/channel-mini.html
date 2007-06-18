@@ -6,18 +6,22 @@
                 <div class="info">
                     <h4 class="title">{{ channel.name_as_link }}</h4>
                 </div>
+                {% ifequal count "subscribers" %}
                 <div class="count">
-                    {% ifequal count "subscribers" %}
                     {% blocktrans with channel.subscription_count_today as count %}
                     {{ count }} subscribes
                     {% endblocktrans %}
-                    {% endifequal %}
-                    {% ifequal count "episodes" %}
+                </div>
+                {% endifequal %}
+                {% ifequal count "episodes" %}
+                {% if channel.item_count %}
+                <div class="count">
                     {% blocktrans with channel.item_count as count %}
                     {{ count }} shows
                     {% endblocktrans %}
-                    {% endifequal %}
                 </div>
+                {% endif %}
+                {% endifequal %}
                 <div class="screenshot">
                     <a {% link channel.get_url %}>{{ channel.thumb_60_40 }}</a>
                     {% if channel.hi_def %}
