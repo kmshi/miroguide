@@ -120,3 +120,8 @@ application, after all).
 Once you have adequate video in your feed, please post a message 
 for us on the channel page (%s), and we'll work on getting it
 approved.""" % channel.get_absolute_url())
+
+class ModeratorBoardEmail(EmailMessage):
+    def __init__(self, post):
+        self.title = '[Channel Guide Moderators] ' + post.title
+        self.body = self.merge_body(post.body)

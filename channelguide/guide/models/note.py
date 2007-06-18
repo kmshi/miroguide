@@ -37,8 +37,9 @@ class ModeratorPost(NoteBase):
         else:
             query.where(moderator_board_email=User.ALL_EMAIL)
         query.where(User.c.email.is_not(None))
-        emails = [mod.email for mod in query.execute(connection)]
-        util.send_mail(self.title, self.body, emails, email_from=self.user.email)
+        for mod in query.execute(connection):
+            message = emailmessages.ModeratorBoardEmail(self)
+            message.send_email(mod.email, self.user.email)
 
 class ChannelNote(NoteBase):
     table = tables.channel_note
