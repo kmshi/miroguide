@@ -13,10 +13,11 @@ from channelguide.guide.notes import get_note_info, make_rejection_note
 SESSION_KEY = 'submitted-feed'
 
 @moderator_required
-def unapproved_channels(request, state):
+def moderator_channel_list(request, state):
     query = Channel.query().join('owner').order_by('creation_time')
     if state == 'waiting':
-        query.where(state=Channel.WAITING)
+        query.where(Channel.c.waiting_for_reply_date.is_not(None))
+        query.order_by('waiting_for_reply_date')
         header = _("Channels Waiting For Replies")
     elif state == 'dont-know':
         query.where(state=Channel.DONT_KNOW)
@@ -29,7 +30,7 @@ def unapproved_channels(request, state):
         header = _("Unreviewed Channels")
     pager =  templateutil.Pager(10, query, request)
 
-    return util.render_to_response(request, 'unapproved-list.html', {
+    return util.render_to_response(request, 'moderator-channel-list.html', {
         'pager': pager,
         'channels': pager.items,
         'header': header,
@@ -118,6 +119,10 @@ def channel(request, id):
             if newstate is not None:
                 channel.change_state(request.user, newstate,
                         request.connection)
+        elif action == 'mark-replied':
+            request.user.check_is_moderator()
+            channel.waiting_for_reply_date = None
+            channel.save(request.connection)
         elif action == 'standard-reject':
             request.user.check_is_moderator()
             reason = request.POST['submit']

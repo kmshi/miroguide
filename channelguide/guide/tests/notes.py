@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from django.test.client import Client
 
 from channelguide.guide.models import User, Channel, ChannelNote, ModeratorPost
@@ -74,7 +76,7 @@ class NotesTest(TestCase):
         page = self.get_page(channel_path, self.moderator)
         self.check_moderator_notes(page.context[0]['notes'])
 
-class NotesPageTest(TestCase):
+class NotesPageTestBase(TestCase):
     def setUp(self):
         TestCase.setUp(self)
         self.user = self.make_user('fred')
@@ -101,6 +103,8 @@ class NotesPageTest(TestCase):
             post_data['send-email'] = 1
         return post_data
 
+
+class NotesPageTest(NotesPageTestBase):
     def test_add_note(self):
         self.login(self.moderator)
         post_data = self.make_note_post_data()
@@ -116,22 +120,6 @@ class NotesPageTest(TestCase):
         self.channel = self.refresh_record(self.channel, 'notes')
         self.assertEquals(len(self.channel.notes), 2)
         self.assertEquals(len(self.emails), 1)
-
-    def test_note_changes_state(self):
-        self.channel.state = Channel.REJECTED
-        self.save_to_db(self.channel)
-        self.login(self.user)
-        self.post_data("/notes/new", self.make_note_post_data(
-                type=ChannelNote.MODERATOR_TO_OWNER))
-        updated = self.refresh_record(self.channel)
-        self.assertEquals(updated.state, Channel.WAITING)
-
-        updated.state = Channel.APPROVED
-        self.save_to_db(updated)
-        self.post_data("/notes/new", self.make_note_post_data(
-                type=ChannelNote.MODERATOR_TO_OWNER))
-        updated = self.refresh_record(updated)
-        self.assertEquals(updated.state, Channel.APPROVED)
 
     def test_email_checkbox(self):
         channel_path = "/channels/%d" % self.channel.id
@@ -335,3 +323,53 @@ class ModeratorPostTest(TestCase):
         mod_emails = [mod.email for mod in query.execute(self.connection)]
         self.assertSameSet(sent_emails, mod_emails)
 
+class WaitingForReplyTest(NotesPageTestBase):
+    def make_user_post(self):
+        self.login(self.user)
+        self.post_data("/notes/new", self.make_note_post_data(
+                type=ChannelNote.MODERATOR_TO_OWNER))
+
+    def test_waiting_for_reply(self):
+        self.assertEquals(self.channel.waiting_for_reply_date, None)
+        self.make_user_post()
+        updated = self.refresh_record(self.channel)
+        self.assertNotEqual(updated.waiting_for_reply_date, None)
+        timediff = datetime.now() - updated.waiting_for_reply_date
+        self.assert_(timediff < timedelta(seconds=1))
+
+    def test_waiting_for_reply_moderator_post(self):
+        self.make_user_post()
+        self.login(self.moderator)
+        self.post_data("/notes/new", self.make_note_post_data(
+                type=ChannelNote.MODERATOR_TO_OWNER))
+        updated = self.refresh_record(self.channel)
+        self.assertEquals(updated.waiting_for_reply_date, None)
+
+    def test_waiting_for_reply_moderator_unflag(self):
+        self.make_user_post()
+        data = {'action': 'mark-replied'}
+        response = self.post_data('/channels/%d' % self.channel.id, data)
+        self.assertLoginRedirect(response)
+        updated = self.refresh_record(self.channel)
+        self.assertNotEqual(updated.waiting_for_reply_date, None)
+        self.login(self.moderator)
+        response = self.post_data('/channels/%d' % self.channel.id, data)
+        updated = self.refresh_record(self.channel)
+        self.assertEqual(updated.waiting_for_reply_date, None)
+
+    def test_waiting_for_reply_order(self):
+        channel1 = self.make_channel(self.user)
+        channel2 = self.make_channel(self.user)
+        channel3 = self.make_channel(self.user)
+        channel1.waiting_for_reply_date = datetime.now()
+        channel2.waiting_for_reply_date = datetime.now() - timedelta(days=1)
+        channel3.waiting_for_reply_date = datetime.now() - timedelta(days=2)
+        self.save_to_db(channel1)
+        self.save_to_db(channel2)
+        self.save_to_db(channel3)
+
+        self.login(self.moderator)
+        page = self.get_page('/channels/moderator-list/waiting')
+        page_channel_ids = [c.id for c in page.context[0]['channels']]
+        self.assertEquals(page_channel_ids, 
+                [channel3.id, channel2.id, channel1.id])

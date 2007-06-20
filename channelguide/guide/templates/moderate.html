@@ -5,22 +5,22 @@
 
 <div class="links">
 {% twocolumns %}
-<h2><a {% link "channels/unapproved/new" %}>
+<h2><a {% link "channels/moderator-list/new" %}>
         {% blocktrans with new_count as count %}
         {{ count }} Unreviewed channels
         {% endblocktrans %}</a>
 </h2>
-<h2><a {% link "channels/unapproved/dont-know" %}>
+<h2><a {% link "channels/moderator-list/dont-know" %}>
         {% blocktrans with dont_know_count as count %}
         {{ count }} Don't know channels
         {% endblocktrans %}</a>
 </h2>
-<h2><a {% link "channels/unapproved/waiting" %}>
+<h2><a {% link "channels/moderator-list/waiting" %}>
         {% blocktrans with waiting_count as count %}
         {{ count }} Channels waiting for Reply
         {% endblocktrans %}</a>
 </h2>
-<h2><a {% link "channels/unapproved/rejected" %}>
+<h2><a {% link "channels/moderator-list/rejected" %}>
         {% blocktrans with rejected_count as count %}
         {{ count }} Rejected channels
         {% endblocktrans %}</a>

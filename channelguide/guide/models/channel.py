@@ -24,7 +24,6 @@ class Channel(Record, Thumbnailable):
     table = tables.channel
 
     NEW = 'N'
-    WAITING = 'W'
     DONT_KNOW = 'D'
     REJECTED = 'R'
     APPROVED = 'A'
@@ -96,8 +95,11 @@ class Channel(Record, Thumbnailable):
     def add_note(self, connection, note):
         self.join('notes').execute(connection)
         self.notes.add_record(connection, note)
-        if note.user_id == self.owner_id and self.state == Channel.REJECTED:
-            self.state = Channel.WAITING
+        if note.user_id == self.owner_id:
+            self.waiting_for_reply_date = datetime.now()
+            self.save(connection)
+        elif self.waiting_for_reply_date is not None:
+            self.waiting_for_reply_date = None
             self.save(connection)
 
     def add_tag(self, connection, user, tag_name):

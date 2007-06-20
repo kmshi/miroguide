@@ -906,7 +906,7 @@ class EmailChannelOwnersTest(TestCase):
         self.make_channel(bob, state=Channel.APPROVED)
         self.make_channel(bob, state=Channel.APPROVED)
         self.make_channel(suzie, state=Channel.APPROVED)
-        self.make_channel(bonnie, state=Channel.WAITING)
+        self.make_channel(bonnie, state=Channel.REJECTED)
         self.make_channel(greg, state=Channel.APPROVED)
         admin = self.make_user('rachel', role=User.ADMIN)
         self.login(admin)

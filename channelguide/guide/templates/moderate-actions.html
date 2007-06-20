@@ -1,4 +1,12 @@
 {% load i18n %}
+{% if channel.waiting_for_reply_date %}
+<li class="channel-action">
+    <form method="POST" action="{{ channel.get_url }}">
+        <input type="hidden" name="action" value="mark-replied">
+        <input type="submit" name="submit" value="Mark Replied">
+    </form>
+</li>
+{% endif %}
 {% if channel.is_approved %}
 <li class="channel-action">
     <form method="POST" action="{{ channel.get_url }}">
