@@ -7,7 +7,7 @@
 <div class="big-form">
 <form method="POST" action="{{ BASE_URL }}channels/email-owners">
     {% show_form form %}
-    <input type="submit" class="submit" value="Send Email">
+    <input onclick="return confirm('Are you positive you want to email ALL channel owners?');" type="submit" class="submit" value="Send Email">
 </form>
 </div>
 {%endblock%}
