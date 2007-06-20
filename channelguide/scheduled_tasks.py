@@ -19,6 +19,11 @@ def delete_old_sessions():
     logging.info('Deleting old sessions')
     sessions.delete_old_sessions()
 
+@run_every_day
+def remove_empty_tags():
+    logging.info('Deleting empty tags')
+    manage.remove_empty_tags()
+
 @run_every_hour
 def delete_old_thumbnails():
     logging.info('Deleting old thumbnails')

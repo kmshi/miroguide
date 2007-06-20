@@ -284,8 +284,21 @@ def optimize_templates(args):
     optimize_template_dir(source_dir, dest_dir)
     optimize_template_dir(os.path.join(source_dir, 'guide'),
             os.path.join(dest_dir, 'guide'))
-
 optimize_templates.args = ''
+
+def remove_empty_tags(args=None):
+    """Remove tags with 0 channels in them.  """
+    from channelguide import db
+    from channelguide.guide.models import Tag
+    connection = db.connect()
+    query = Tag.query().load('channel_count')
+    query.having(channel_count=0)
+    for tag in query.execute(connection):
+        logging.info("Deleting empty tag: %s", tag.name)
+        tag.delete(connection)
+    connection.commit()
+
+remove_empty_tags.args = ''
 
 # Remove django default actions that we don't use.  Many of these probably
 # would screw things up fairly bad.
@@ -311,6 +324,7 @@ action_mapping['make_icons'] = make_icons
 action_mapping['remove_blank_space'] = remove_blank_space
 action_mapping['clear_cache'] = clear_cache
 action_mapping['optimize_templates'] = optimize_templates
+action_mapping['remove_empty_tags'] = remove_empty_tags
 del action_mapping['test']
 
 def add_static_urls():
