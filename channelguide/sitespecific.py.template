@@ -24,6 +24,9 @@ BASE_URL_FULL = BASE_URL
 # is separate from the rest of the URLs.
 STATIC_BASE_URL = BASE_URL
 
+# Use to enable google analytics
+GOOGLE_ANALYTICS_UA = None
+
 # String to prefix cache entries with.  Any string unique to this server will
 # do.
 CACHE_PREFIX = FILL ME IN

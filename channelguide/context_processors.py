@@ -12,6 +12,7 @@ def guide(request):
             'BASE_URL': settings.BASE_URL,
             'STATIC_BASE_URL': settings.STATIC_BASE_URL,
             'GUIDE_EMAIL': settings.EMAIL_FROM,
+            'google_analytics_ua': settings.GOOGLE_ANALYTICS_UA,
             'style_nonce': style_nonce,
             'request': request,
             'user': request.user,
