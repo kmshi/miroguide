@@ -66,6 +66,7 @@ def search(request):
         return util.render_to_response(request, 'channel-search.html', {
             'results_count': 0,
             'search_query': search_query,
+            'terms_too_short': True,
             })
 
     query = search_channels(request, terms)

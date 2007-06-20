@@ -33,7 +33,13 @@
     </div>
 
     <div class="channel-matches">
-        <h1>{% blocktrans %}{{ results_count }} Channels Match '{{ search_query }}'{% endblocktrans %}</h1>
+        <h1>
+        {% if not terms_too_short %}
+        {% blocktrans %}{{ results_count }} Channels Match '{{ search_query }}'{% endblocktrans %}
+        {% else %}
+        {% trans "Search terms too short" %}
+        {% endif %}
+        </h1>
         {% if results %}
         <ul>
         {% for channel in results %}
@@ -48,6 +54,10 @@
         <div class="more-channel-matches">
             {{ more_results_link }}
         </div>
+        {% endif %}
+        {% if terms_too_short %}
+        <p>{% blocktrans %}Words less than 3 characters long aren't used in
+        the search.  Please try again with longer words{% endblocktrans %}</p>
         {% endif %}
     </div>
     <div class="clear"></div>
