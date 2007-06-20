@@ -19,6 +19,15 @@ from channelguide import util
 from fields import WideCharField, WideURLField, WideChoiceField
 from form import Form
 
+HD_HELP_TEXT = '<strong>%s</strong>  %s' % \
+        (_('What is HD?'), 
+        _("""Material that is roughly 640x480 non-interlaced, and higher, can
+        be marked as HD. This basically translates to DVD quality (without a
+        lot of ugly compression artifacts) or better. Roughly 80% of the
+        material on the channel must meet this criteria for it to be considered
+        HD.  Note: you are welcome to have an HD and non-HD version of the same
+        channel """))
+
 class RSSFeedField(WideCharField):
     def clean(self, value):
         url = super(RSSFeedField, self).clean(value)
@@ -212,9 +221,7 @@ class SubmitChannelForm(Form):
             help_text=_('Keywords that describe this channel.  Separate each '
                 'tag with a comma.'))
     hi_def = forms.BooleanField(label=_('High Definition'), 
-            help_text=_('The videos on this channel are primarily in an HD '
-                        'format.'),
-            required=False)
+            help_text=HD_HELP_TEXT, required=False)
     postal_code = WideCharField(max_length=15, label=_("Postal Code"),
             required=False)
     thumbnail_file = forms.Field(widget=ChannelThumbnailWidget, 
