@@ -40,10 +40,16 @@ GROUP BY channel_id"""
         search_score(tables.item_search_data, terms),
         search_where(tables.item_search_data, terms))
 
+def contains_hd(terms):
+    return 'hd' in [term.lower() for term in terms]
+
 def search_channels(terms):
     terms = util.ensure_list(terms)
     query = Channel.query().join('search_data')
     search_data_table = query.joins['search_data'].table
+    if contains_hd(terms):
+        query.where(hi_def=1)
+        terms = [t for t in terms if t.lower() != 'hd']
     query.where(search_where(search_data_table, terms))
     query.order_by(search_score(search_data_table, terms), desc=True)
     return query
