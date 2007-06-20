@@ -2,12 +2,14 @@
 <ul class="note-list">
 {% for note in notes %}
     <li>
+        {% if user.is_moderator %}
         <div class="delete-button">
         <form action="{{ note.get_url }}" method="POST">
             <input type="hidden" name="action" value="delete">
             <input type="submit" value="delete note">
         </form>
         </div>
+        {% endif %}
         <h3>{{ note.title }}
             <span class="note-author">
                 ({{ note.user }} - {{ note.created_at|date:"n/j" }})
