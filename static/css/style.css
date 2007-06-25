@@ -1475,3 +1475,73 @@ h3 .note-author {
 .error-500 a {
     text-decoration: underline;
 }
+
+
+/* Moderator guide styles */
+
+#moderatorguide {
+	width: 500px;
+	font-size: 110%;
+}
+
+#moderatorguide p {
+	position: relative;
+	left: 10px;
+	padding-bottom: 10px;
+}
+
+#moderatorguide a {
+	text-decoration: underline;
+}
+
+#moderatorguide img {
+	position: relative;
+	left: 15px;
+	border: 3px solid #FFFFFF;
+	margin: 10px;
+	margin-bottom: 20px;
+}
+
+#moderatorguide h1 {
+	font-size: 220%;
+}
+
+#moderatorguide h2 {
+	margin-bottom: 10px;
+	font-size: 160%;
+}
+
+#moderatorguide h2 a {
+	text-decoration: none;
+}
+
+#moderatorguide ol {
+	position: relative;
+	left: 20px;
+	list-style-type: decimal; 	padding:6px 6px 6px 6px
+}
+	 #moderatorguide ol ol { 
+	list-style-type: lower-alpha; 	padding:6px 6px 6px 24px
+}
+
+#moderatorguide .last {
+	margin-bottom: 35px;
+}
+
+#moderatorguide .toc {
+	margin: 20px;
+	margin-top: 15px;
+	margin-bottom: 35px;
+}
+
+#moderatorguide .toc a {
+	text-decoration: none;
+}
+
+#moderatorguide .subtext {
+	font-size: 90%;
+	position: relative;
+	top: -10px;
+	left: 0px;
+	margin-bottom: 0px;
+}

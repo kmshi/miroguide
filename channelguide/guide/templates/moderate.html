@@ -27,6 +27,7 @@
 </h2>
 {% splitcolumns %}
 <ul>
+    <li><h2><a href="{{ BASE_URL}}how-to-moderate">{% trans "How to Moderate" %}</a></h2></li>
     <li><h2><a {% link "accounts/search" %}>{% trans "Search For Users" %}</a></h2></li>
     <li><h2><a {% link "accounts/moderators" %}>{% trans "Moderator list" %}</a></h2></li>
     {% if user.is_admin %}
