@@ -305,11 +305,6 @@ class ModeratorPostTest(TestCase):
         self.check_email_auth(self.mod, False)
         self.check_email_auth(self.supermod, True)
 
-    def test_email_from(self):
-        self.post_data('/notes/new-moderator-post',
-                self.new_post_data_email, login_as=self.supermod)
-        self.assertEquals(self.emails[0]['email_from'], self.supermod.email)
-
     def test_to_lines(self):
         self.post_data('/notes/new-moderator-post',
                 self.new_post_data_email, login_as=self.supermod)
