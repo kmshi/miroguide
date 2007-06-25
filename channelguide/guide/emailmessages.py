@@ -61,11 +61,21 @@ You may review and respond to the note here: %s""" % \
             (note.title, note.body, note.channel.get_absolute_url()))
 
 class ApprovalEmail(EmailMessage):
-    def __init__(self, channel):
+    def __init__(self, channel, owner):
         self.channel = channel
-        EmailMessage.__init__(self, '%s was approved' % channel.name, """\
-Your video feed was approved as a channel in the Democracy Guide.
-You can view your channel here: %s.""" % channel.get_absolute_url())
+        EmailMessage.__init__(self, '%s was approved!' % channel.name, """\
+%s,
+
+Your video feed was approved as a channel in the Democracy Guide!
+
+You can view your channel here: %s.
+
+If you'd like more viewers to experience your show in Democracy, add a 1-click
+subscribe button to your web site or myspace page. Then it becomes so easy for
+people to get *every* episode of your show: http://subscribe.getdemocracy.com/
+
+Thanks for adding your show to the Democracy Channel guide.""" % \
+        (owner, channel.get_absolute_url()))
 
     def send_email(self, email_from=None):
         EmailMessage.send_email(self, self.channel.owner.email, email_from)

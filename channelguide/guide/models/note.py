@@ -73,7 +73,7 @@ class ChannelNote(NoteBase):
         self.channel.join('owner').execute(connection)
         if self.channel.owner.email is not None:
             message = emailmessages.ChannelNoteEmail(self)
-            message.send_email(self.channel.owner.email, self.user.email)
+            message.send_email(self.channel.owner.email)
         else:
             logging.warn("not sending message for channel %d (%s) because "
                     "the owner email is not set", self.channel.id,

@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 
+from django.conf import settings
 from django.test.client import Client
 
 from channelguide.guide.models import User, Channel, ChannelNote, ModeratorPost
@@ -209,7 +210,7 @@ class NotesPageTest(NotesPageTestBase):
     def test_email_from(self):
         self.login(self.moderator)
         page = self.post_data("/notes/new", self.make_note_post_data(True))
-        self.assertEquals(self.emails[0]['email_from'], self.moderator.email)
+        self.assertEquals(self.emails[0]['email_from'], settings.EMAIL_FROM)
 
     def test_channel_link(self):
         self.login(self.moderator)
