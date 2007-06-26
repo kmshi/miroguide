@@ -38,7 +38,15 @@ def syncdb(verbosity=None, interactive=None):
     db.syncdb()
 syncdb.args = ''
 
-FLUSH_EVERY_X_CHANNELS = 50
+def get_channel_ids():
+    from channelguide import db
+    from channelguide.guide.models import Channel
+    connection = db.connect()
+    try:
+        return [c.id for c in Channel.query().execute(connection)]
+    finally:
+        connection.close()
+
 def all_channel_iterator(connection, task_description, *joins):
     """Helper method to iterate over all channels.  It will yield each channel
     in order.
@@ -46,16 +54,14 @@ def all_channel_iterator(connection, task_description, *joins):
 
     from channelguide.guide.models import Channel
 
-    query = Channel.query()
-    if joins:
-        query.join(*joins)
     if print_stuff:
         print "fetching channels..."
-    channels = query.execute(connection)
+    channel_ids = get_channel_ids()
     if print_stuff:
-        pprinter = util.ProgressPrinter(task_description, len(channels))
+        pprinter = util.ProgressPrinter(task_description, len(channel_ids))
         pprinter.print_status()
-    for channel in channels:
+    for id in channel_ids:
+        channel = Channel.get(connection, id, join=joins)
         yield channel
         connection.commit()
         if print_stuff:
@@ -63,24 +69,16 @@ def all_channel_iterator(connection, task_description, *joins):
     if print_stuff:
         pprinter.loop_done()
 
-def get_channels():
-    from channelguide import db
-    from channelguide.guide.models import Channel
-    connection = db.connect()
-    try:
-        return Channel.query().execute(connection)
-    finally:
-        connection.close()
-
 def spawn_threads_for_channels(task_description, callback, thread_count):
     """Works with update_items and download_thumbnails to manage worker
     threads that update the individual channels.
     """
 
     from channelguide import db
+    from channelguide.guide.models import Channel
     queue = Queue.Queue()
-    for channel in get_channels():
-        queue.put(channel)
+    for id in get_channel_ids():
+        queue.put(id)
     if print_stuff:
         pprinter = util.ProgressPrinter(task_description, queue.qsize())
         pprinter.print_status()
@@ -89,9 +87,10 @@ def spawn_threads_for_channels(task_description, callback, thread_count):
             connection = db.connect()
             while True:
                 try:
-                    channel = queue.get(block=False)
+                    id = queue.get(block=False)
                 except Queue.Empty:
                     break
+                channel = Channel.get(connection, id)
                 callback(connection, channel)
                 connection.commit()
                 if print_stuff:

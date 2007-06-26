@@ -97,14 +97,7 @@ def write_file(path, data, mode='b'):
         f.close()
 
 def get_image_extension(image_data):
-    pipe = subprocess.Popen(["identify", "-"], stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE)
-    pipe.stdin.write(image_data)
-    pipe.stdin.close()
-    identify_output = pipe.stdout.read()
-    returncode = pipe.wait()
-    if returncode != 0:
-        raise OSError("identify failed with return code %s" % returncode)
+    identify_output = call_command('identify', '-', data=image_data)
     return identify_output.split(" ")[1].lower()
 
 def make_thumbnail(source_path, dest_path, width, height):
@@ -229,13 +222,26 @@ def grab_urls(urls, num_threads=5):
     pprinter.loop_done()
     return results
 
-def call_command(*args):
-    pipe = subprocess.Popen(args, stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE)
-    stdout, stderr = pipe.communicate()
-    if pipe.returncode != 0:
+subprocess_lock = threading.Lock()
+def call_command(*args, **kwargs):
+    data = kwargs.pop('data', None)
+    if kwargs:
+        raise TypeError('extra keyword args: %s' % kwargs.keys())
+    subprocess_lock.acquire()
+    try:
+        pipe = subprocess.Popen(args, stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if data is not None:
+            pipe.stdin.write(data)
+        pipe.stdin.close()
+        stdout = pipe.stdout.read()
+        stderr = pipe.stderr.read()
+        returncode = pipe.wait()
+    finally:
+        subprocess_lock.release()
+    if returncode != 0:
         raise OSError("Error running %r: %s\n(return code %s)" % 
-                (args, stderr, pipe.returncode))
+                (args, stderr, returncode))
     else:
         return stdout
 
