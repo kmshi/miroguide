@@ -15,14 +15,14 @@
             {% if user.channels %}
             <a {% link user.channel_url %}>{% trans "My Submitted Channels" %}</a>
             {% endif %}
-            <a {% link "/channels/submit" %}>{% trans "Submit A Channel" %}</a>
+            <a {% link "channels/submit" %}>{% trans "Submit A Channel" %}</a>
         </div>
         {% else %}
         <div class="right">
             <a {% link "accounts/login" %}>{% trans "Login / Register" %}</a>
         </div>
         <div class="left">
-            <a {% link "http://tinyurl.com/296wkf" %}>{% trans "Submit A Channel" %}</a>
+            <a {% link "channels/submit" %}>{% trans "Submit A Channel" %}</a>
         </div>
         {% endif %}
     </div>
