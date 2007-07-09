@@ -10,7 +10,7 @@ from channelguide import util
 
 class EmailMessage(object):
     def __init__(self, title, body):
-        self.title = '[Democracy Guide] ' + title
+        self.title = '[Miro Guide] ' + title
         self.body = self.merge_body(body)
 
     def merge_body(self, body):
@@ -25,7 +25,7 @@ class EmailMessage(object):
 class ForgotPasswordEmail(EmailMessage):
     def __init__(self, change_password_url, user):
         EmailMessage.__init__(self, "Forgot Password", """\
-To set a new password for your Democracy Guide account '%s' click here:
+To set a new password for your Miro Guide account '%s' click here:
 
 %s.""" % (user.username, change_password_url))
 
@@ -51,7 +51,7 @@ class ChannelNoteEmail(EmailMessage):
     def __init__(self, note):
         EmailMessage.__init__(self, 
                 'Note for %s' % note.channel.name, """\
-A moderator of the Democracy Guide added the following note to your channel:
+A moderator of the Miro Guide added the following note to your channel:
 
 %s
 
@@ -66,15 +66,15 @@ class ApprovalEmail(EmailMessage):
         EmailMessage.__init__(self, '%s was approved!' % channel.name, """\
 %s,
 
-Your video feed was approved as a channel in the Democracy Guide!
+Your video feed was approved as a channel in the Miro Guide!
 
 You can view your channel here: %s.
 
-If you'd like more viewers to experience your show in Democracy, add a 1-click
+If you'd like more viewers to experience your show in Miro, add a 1-click
 subscribe button to your web site or myspace page. Then it becomes so easy for
 people to get *every* episode of your show: http://subscribe.getdemocracy.com/
 
-Thanks for adding your show to the Democracy Channel guide.""" % \
+Thanks for adding your show to the Miro Guide.""" % \
         (owner, channel.get_absolute_url()))
 
     def send_email(self, email_from=None):
@@ -96,11 +96,11 @@ class BrokenChannelEmail(RejectionEmail):
         feedvalidator_link = 'http://feedvalidator.org/check.cgi?url='
         feedvalidator_link += urllib.quote_plus(channel.url)
         RejectionEmail.__init__(self, channel, 'BROKEN', """\
-Your feed doesn't seem to work in Democracy. Check it out in feedvalidator.org
+Your feed doesn't seem to work in Miro. Check it out in feedvalidator.org
 (%s). If you're having problems finding the problem, please search the
 democracy forums (%s) and post a question if you don't find an answer.
 
-Once you have your feed working in Democracy, please post a message for us on
+Once you have your feed working in Miro, please post a message for us on
 the channel page (%s).""" % (feedvalidator_link, settings.FORUMS_URL,
     channel.get_absolute_url()))
 
@@ -108,7 +108,7 @@ class CopyrightViolationEmail(RejectionEmail):
     def __init__(self, channel):
         RejectionEmail.__init__(self, channel, 'COPYRIGHT ISSUES', """\
 It appears that your feed might have copyrighted material in it. Due to
-the nature of US copyright laws, we cannot feature it in the Democracy Guide.
+the nature of US copyright laws, we cannot feature it in the Miro Guide.
 
 If we are incorrect in supposing that the material was not cleared for
 copyright, please contact us at channels@pculture.org""")
@@ -124,7 +124,7 @@ class NoVideoEmail(RejectionEmail):
         RejectionEmail.__init__(self, channel, 'NO VIDEO', """\
 Your feed is missing video files (it is either empty or consists of
 audio only). We require there to be at least 30%% video in a feed for it
-to be publishable on the Democracy Guide (we're primarily a video
+to be publishable on the Miro Guide (we're primarily a video
 application, after all).
 
 Once you have adequate video in your feed, please post a message 
@@ -133,7 +133,7 @@ approved.""" % channel.get_absolute_url())
 
 class ModeratorBoardEmail(EmailMessage):
     def __init__(self, post):
-        self.title = '[Channel Guide Moderators] ' + post.title
+        self.title = '[Miro Guide Moderators] ' + post.title
         board_url = settings.BASE_URL_FULL + 'notes/moderator-board'
         self.body = """\
 %s

@@ -20,7 +20,7 @@ from label import Tag, TagMap
 import search
 
 class Channel(Record, Thumbnailable):
-    """An RSS feed containing videos for use in Democracy."""
+    """An RSS feed containing videos for use in Miro."""
     table = tables.channel
 
     NEW = 'N'

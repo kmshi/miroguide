@@ -1,10 +1,10 @@
 {% load i18n %}
 {% extends 'base.html' %}
-{% block title %}Democracy - {% trans "How to Moderate" %}{%endblock %}
+{% block title %}Miro - {% trans "How to Moderate" %}{%endblock %}
 {% block content %}
 <div id="moderatorguide">
 <h1>Moderator's Handbook</h1>
-<p class="subtext">(<a href="https://channelguide.participatoryculture.org/how-to-moderate">open in browser</a>)</p>
+<p class="subtext">(<a href="/how-to-moderate">open in browser</a>)</p>
 <ul class="toc">
 <li><a href="#appreject">How to Approve/Reject Channels</a></li>
 <li><a href="#comown">Communicating with Channel Owners</a></li>
@@ -18,12 +18,12 @@
 <h2><a name="appreject">How to Approve/Reject Channels</a></h2>
 
 <ol>
-<li>Log in and go to the <a href="https://channelguide.participatoryculture.org/moderate">moderate</a> link.
+<li>Log in and go to the <a href="{{ BASE_URL }moderate">moderate</a> link.
 <br />
 <img src="{{ BASE_URL }}images/how-to-moderate/appreject-01.jpg" alt="">
 </li>
 
-<li>Go to the <a href="https://channelguide.participatoryculture.org/channels/unapproved/new">Unreviewed Channels</a> (it is possible to do this in Firefox or Democracy).
+<li>Go to the <a href="{{ BASE_URL }/channels/unapproved/new">Unreviewed Channels</a> (it is possible to do this in Firefox or Miro).
 <br />
 <img src="{{ BASE_URL }}images/how-to-moderate/appreject-02.jpg" alt="">
 </li>
@@ -121,7 +121,7 @@ the channel will fall out of the "Waiting for Reply" section.</p>
 
 <p>There is a very basic bulletin board built into the channel guide.
 The latest posts show up on the main moderation page, in order to see
-the history and/or post your own message, click the (<a href="https://channelguide.participatoryculture.org/notes/moderator-board">see all posts</a>) link.</p>
+the history and/or post your own message, click the (<a href="{{ BASE_URL }/notes/moderator-board">see all posts</a>) link.</p>
 <img src="{{ BASE_URL }}images/how-to-moderate/commod-01.jpg" alt="">
 
 <p>To get notification of every message board post (moderator and super moderator alike), go to your profile and switch "Moderator Board Emails" to 'send all emails'.</p>
@@ -134,7 +134,7 @@ the history and/or post your own message, click the (<a href="https://channelgui
 <p>You can access the channel with a traditional client, or through this <a href="http://www.getmiro.com/teammiro/">web interface</a>. Remember, just type anyone's full nickname into a conversation to get their attention.
 </p>
 
-<p><strong>Weekly Chat (Tuesdays @ 5:30pm EST):</strong> it isn't focused purely on the Channel Guide, but it's a great way to meet fellow mods. Just show up in IRC and there will probably be people there.
+<p><strong>Weekly Chat (Tuesdays @ 5:30pm EST):</strong> it isn't focused purely on the Miro Guide, but it's a great way to meet fellow mods. Just show up in IRC and there will probably be people there.
 </p>
 
 <p><strong>Volunteer Forums:</strong> specifically for <a href="http://forum.getdemocracy.com/viewforum.php?id=20">volunteer projects</a>, plus a volunteer <a href="http://forum.getdemocracy.com/viewforum.php?id=19">open discussions</a> section.</p>
@@ -165,7 +165,7 @@ moderators.</p>
 
 <p class="last">Super Mod status is pretty powerful &mdash; we promote people who have: been around the community for a while, proven themselves to be a reliable moderator, and are a good judge of channels (ie. share your favorites!).</p>
 
-<h2><a name="bugs">Reporting Channel Guide Bugs and Suggesting Features</a></h2>
+<h2><a name="bugs">Reporting Miro Guide Bugs and Suggesting Features</a></h2>
 
 <p>If you find something that seems buggy or wrong, you can add a <a href="https://develop.participatoryculture.org/trac/channelguide/newticket">ticket</a> to the channel guide <a href="https://develop.participatoryculture.org/trac/channelguide/report/1">bug tracker</a>.</p>
 <p>If you have a great idea, please submit it as a feature request;
