@@ -27,7 +27,7 @@ class AccountTest(TestCase):
     def test_login(self):
         response = self.post_data("/accounts/login", self.login_data())
         self.assertRedirect(response, '')
-        response = self.get_page('/front')
+        response = self.get_page('/')
         self.assertEquals(response.context[0]['user'].username,
                 self.user.username)
 
@@ -38,7 +38,7 @@ class AccountTest(TestCase):
     def test_register(self):
         response = self.post_data("/accounts/login", self.register_data())
         self.assertRedirect(response, '')
-        response = self.get_page('/front')
+        response = self.get_page('/')
         self.assertEquals(response.context[0]['user'].username, 'mike')
         self.assertEquals(response.context[0]['user'].email, 'mike@mike.com')
         self.assert_(response.context[0]['user'].check_password('password'))

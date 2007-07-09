@@ -105,13 +105,13 @@ class CacheTest(TestCase):
     def test_with_logins(self):
         user = self.make_user("userkelly")
         user2 = self.make_user("userbobby")
-        anon_page = self.get_page('/front')
+        anon_page = self.get_page('/')
         self.login(user)
-        kelly_page = self.get_page('/front')
+        kelly_page = self.get_page('/')
         self.login(user2)
-        bobby_page = self.get_page('/front')
+        bobby_page = self.get_page('/')
         self.logout()
-        anon2_page = self.get_page('/front')
+        anon2_page = self.get_page('/')
 
         self.assert_('userbobby' not in anon_page.content)
         self.assert_('userbobby' not in kelly_page.content)
