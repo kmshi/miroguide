@@ -1072,8 +1072,9 @@ margin-bottom:0px;
 padding:15px;
 }
 
-.edit-channel-page h2 {
+.edit-channel-page h1 {
 font-size: 150%;
+margin-bottom: 10px;
 }
 
 .edit-channel-page .big-form {
