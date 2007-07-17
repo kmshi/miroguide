@@ -1944,6 +1944,14 @@ margin-left:0px !important;
 float:left;
 margin-bottom:40px;
 }
+
+.channel-matches .channel-in-list {
+float:none;
+margin-bottom:40px;
+}
+
+
+
 .last-row .channel-in-list {
 margin-bottom:10px;
 }
