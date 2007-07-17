@@ -1,21 +1,18 @@
 {% load i18n channels cg_helpers %}
 <div class="category-peek-top">
-<div class="category-peek-bottom">
-<div class="category-peek">
-    <div class="heading">
-        {% whitebutton category_peek.category.get_url %}
-            {% blocktrans with category_peek.category.name as category %}View All {{ category }}{% endblocktrans %}
-        {% endwhitebutton %}
-        <a {% ajaxlink category_peek.prev_url_ajax "category-peek" category_peek.prev_url "previous image-link nav-button" %}> <span class="hidden">prev</span></a>
-        <a {% ajaxlink category_peek.next_url_ajax "category-peek" category_peek.next_url "next image-link nav-button" %}> <span class="hidden">next</span></a>
-        <h3>{{ category_peek.category.name }} <span>({{ category_peek.category.channel_count }})</span></h3>
-        <div class="clear"></div>
+    <div class="category-peek-bottom">
+        <div class="category-peek">
+            <div class="heading">
+                <h2>{% trans "Category" %}: <a href="{{ category_peek.category.get_url }}">
+                        {{ category_peek.category.name }}</a></h2>
+                <ol>
+                    {% for channel in category_peek.channels %}
+                        <li>
+                        {% show_channel_in_category channel %}
+                        </li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
     </div>
-    <div class="half-size-list">
-    {% twocolumnloop with channel in category_peek.channels rotated %}
-        {% show_channel_in_category channel %}
-    {% endtwocolumnloop %}
-    </div>
-</div>
-</div>
 </div>

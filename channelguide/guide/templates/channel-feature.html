@@ -1,31 +1,26 @@
 {% load i18n cg_helpers %}
-<div class="channel channel-feature">
-    <div class="channel-inner">
-        <div class="info">
-            <div class="actions">
-            <div class="big">
-                <a {{ channel.subscription_link }}>
-                    <span class="icon"></span>
-                    {% trans "Add Channel" %}
-                </a>
-                <a {% link channel.get_url "info-button" %}>
-                    <span class="icon"></span>
-                    {% trans "Details" %}
-                </a>
-            </div>
-            </div>
-            <p> {{ channel.get_episodes_str }} </p>
-        </div>
-        <div class="screenshot">
-            {% block screenshot %}
-            <a {% link channel.get_url %}>{{ channel.thumb_252_169 }}</a>
-            {% endblock %}
+<div class="channel channel-preview">
+    <div class="preview">
+        <div class="screenshot"> 
+        {% block screenshot %}
+                <a {% link channel.get_url %}>{{ channel.thumb_252_169 }}</a>
             {% if channel.hi_def %}
-            <img class="hd-icon-large" src="{{ BASE_URL }}images/hd-icon-large.png" alt="HD">
+                <img class="hd-icon-large" src="{{ BASE_URL }}images/hd-icon-large.png" alt="HD">
             {% endif %}
+        {% endblock %}
         </div>
-        <div class="clear"></div>
+        <div class="controls">
+            <a {{ channel.subscription_link }}>
+                {% trans "Add Channel" %}
+            </a>
+            <a {% link channel.get_url "details" %}>
+                {% trans "Details" %}
+            </a>
+        </div>
     </div>
-    <h2 class="title"><span class="featured-label">Featured</span> {{ channel.name_as_link }}</h2>
-    <p class="description">{{ channel.description|escape }}</p>
+    <hr />
+    <div class="description">
+        <h2 class="title"><strong>Featured: </strong> {{ channel.name_as_link }}</h2>
+        <p> {{ channel.description|escape }} </p>
+    </div>
 </div>

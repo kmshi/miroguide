@@ -8,88 +8,72 @@
 {% block onload-extra %}scheduleFeatureRotate();{% endblock %}
 
 {% block content %}
-<div class="front-page">
-<div id="feature-section">
-<a href="#" onclick="rotateFeaturesLeft(); return false;" id="featured-list-previous"><span class="hidden">previous features</span></a>
-<a href="#" onclick="rotateFeaturesRight(); return false;" id="featured-list-next"><span class="hidden">next features</span></a>
-<div id="featured-list-container">
-    <ul class="two-column-list" id="featured-list">
-{% for channel in featured_channels %}
-        <li class="column{% if forloop.first %} first-column{% endif %}">
-        {% show_channel_feature channel %}
-{% endfor %}
-        </li>
-{% for channel in featured_channels_hidden %}
-        <li class="column">
-{% show_channel_feature_no_image channel forloop.counter %}
-        </li>
-{% endfor %}
-    </ul>
-</div>
-</div>
-<div class="clear"></div>
-{% twocolumns %}
-    <h2>{% trans "Random Category" %}</h2>
-    <div id="category-peek">
-        {% if category_peek %}
-        {% include "guide/category-peek.html" %}
-        {% endif %}
+<div id="scroller" class="clear">
+    <div class="left">
+        <a class="arrow" href="#" onclick="rotateFeaturesLeft(); return false;">&laquo;</a>
+        {% show_channel_feature featured_channels 0 %}
     </div>
-{% splitcolumns %}
-    <div class="front-page-quick-list">
-        {% twocolumns %}
+    <div class="right">
+        {% show_channel_feature featured_channels 1 %}
+        <a class="arrow" href="#" onclick="rotateFeaturesRight(); return false;">&raquo;</a>
+    </div>
+</div>
+<div id="second" class="clear">
+    {% if category_peek %}
+        <div id="random-category">
+            {% include "guide/category-peek.html" %}
+        </div>
+    {% endif %}
+    <div id="today" class="clear">
+        <ol class="left">
             <h2><a {% link "channels/popular" %}>{% trans "Popular Today" %}</a></h2>
             {% for channel in popular_channels %}
-                <div class="position">{{ forloop.counter }}.</div>
+                <li>
                 {% show_channel_mini channel "subscribers" %}
-                <div class="clear"></div>
+                </li>
             {% endfor %}
-            {% whitebutton "channels/popular" %}
-                {% trans "View All Popular" %}
-            {% endwhitebutton %}
-       {% splitcolumns %}
+            <li class="view">
+                <a href="channels/popular"> {% trans "View All Popular" %} &raquo;</a>
+            </li>
+        </ol>
+        <ol class="right">
             <h2><a {% link "channels/recent" %}>{% trans "Just Added" %}</a></h2>
             {% for channel in new_channels %}
+                <li>
                 {% show_channel_mini channel "episodes" %}
-                <div class="clear"></div>
+                </li>
             {% endfor %}
-            {% whitebutton "channels/recent" %}
-                {% trans "View All New" %}
-            {% endwhitebutton %}
-       {% endtwocolumns %}
+            <li class="view">
+                <a href="channels/recent">{% trans "View All New" %} &raquo;</a>
+            </li>
     </div>
-{% endtwocolumns %}
-<div class="clear"></div>
-
-<div class="category-list">
-<h2>{% trans "Categories" %}</h2>
-{% fourcolumnloop with category in categories rotated %}
-  <a {% link category.get_url %}>{{ category.name }}</a>
-{% endfourcolumnloop %}
 </div>
 
-<div class="links">
-    {% twocolumns %}
-    <div class="blog-posts">
+<div id="categories" class="clear">
+    <h2>{% trans "Categories" %}</h2>
+    {% for category in categories %}
+      <a {% link category.get_url %}>{{ category.name }}</a>
+    {% endfor %}
+</div>
+
+<div id="recent" class="clear">
+    <div class="left">
         <h2>{% trans "Recent News" %}</h2>
         <ul>
         {% for post in blog_posts %}
-            <li class="blog-post">
-                <h3 class="title">{{ post.title }} </h3>
-                {{ post.body|truncatewords:15 }}
-                <a href="{{ post.url }}">{% trans "read more" %}</a>
-            </li>
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.body|truncatewords:15 }} <a href="{{ post.url }}">{% trans "read more" %}</a></p>
+            <hr/>
         {% endfor %}
-        </ul>
-        <h3><a href="http://www.getmiro.com/news/">{% trans "Miro Blog &gt;&gt;" %}</a></h3>
+        <a href="http://www.getmiro.com/news/"><strong>{% trans "Miro Blog" %}&raquo;</strong></a>
     </div>
-    {% splitcolumns %}
-    <div class="help-links">
+    <div class="right">
         <h2>{% trans "Submit a Channel" %}</h2>
         <p>{% trans "The guide is open to everyone.  Do you have an RSS feed?  Do you know of a great feed that isn't listed in the guide?" %}
-        <BR>
+        <br/>
         <a {% link "/channels/submit" %}>{% trans "Submit a channel to the Guide!" %}</a>
         </p>
+        <hr/>
         <!--
         <p>{% trans "Want to make your own channel?" %}
         <a href="http://www.promotevideofeed.com/" >{% trans "Here's How." %}</a>
@@ -98,17 +82,16 @@
         <p>{% trans "Looking for ways to publicize your channel?" %}
         <a href="http://www.makevideofeed.com/" >{% trans "Here are 10 tips." %}</a>
         </p>
+        <hr/>
         <h2>{% trans "Get Help" %}</h2>
         <p>{% trans "Do you have any questions about the Guide or Miro?" %}
-        <BR>
+        <br/>
         {% trans "Are you running into problems?" %}
         <a href="http://getdemocracy.com/help" >{% trans "Check out our help page." %}</a>
 
     </div>
-    {% endtwocolumns %}
 </div>
-<div class="clear"></div>
-<div class="about">
+<p id="footer">
 {% blocktrans %}
 The Miro Guide is part of the Miro Internet TV
 Platform.<BR>
@@ -116,7 +99,5 @@ Miro is made by the Participatory Culture Foundation, a non-profit
 organization.<BR>
 Visit <a href="http://www.getmiro.com/">getmiro.com</a> for more information
 {% endblocktrans %}
-</div>
-
-</div>
+</p>
 {% endblock %}
