@@ -1854,7 +1854,6 @@ div#page div#content {
 padding:20px 17px 0px;
 }
 .note-list li {
-background:#222222 none repeat scroll 0%;
 border:1px solid #AAAAAA;
 margin-bottom:8px;
 padding:5px 5px 10px;
@@ -2286,6 +2285,7 @@ padding-left:40px;
 float:right;
 margin-left:25px;
 width:240px;
+padding-top:10px;
 }
 .search-page .group-matches ul {
 font-size:120%;
@@ -2574,4 +2574,12 @@ width:20px;
 .subnav li.next a {
 background-image:url(images/navigation/next.png);
 width:20px;
+}
+
+.moderate-page {
+padding: 15px;
+}
+
+.moderate-page h2 {
+font-size: 15px;
 }
