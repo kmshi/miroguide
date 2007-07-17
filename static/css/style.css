@@ -2305,10 +2305,10 @@ margin-bottom:20px;
 margin-top:0px;
 }
 .search-page .channel-matches .channel-in-list .actions .add .icon {
-background-image:url(images/icons/add-big-pink.png);
+background:transparent url(/images/plus.png) no-repeat scroll center top;
 }
 .search-page .channel-matches .channel-in-list .actions .info-button .icon {
-background-image:url(images/icons/info-big-pink.png);
+background:transparent url(/images/i.png) no-repeat scroll center top;
 }
 .more-channel-matches {
 font-size:150%;
