@@ -204,7 +204,7 @@ float:right;
 padding:23px 0pt 0pt 23px;
 }
 div#scroller a.arrow {
-background:transparent url(/images/blue_left.gif) no-repeat scroll center;
+/*background:transparent url(/images/blue_left.gif) no-repeat scroll center;*/
 display:block;
 float:left;
 font-size:0pt;
@@ -215,7 +215,7 @@ text-indent:-9999px;
 width:12px;
 }
 div#scroller div.right a.arrow {
-background:transparent url(/images/blue_right.gif) no-repeat scroll center;
+/*background:transparent url(/images/blue_right.gif) no-repeat scroll center;*/
 float:right;
 }
 div#scroller div.right a.arrow {
