@@ -14,7 +14,8 @@ def render_error_500():
     context = Context({
         'BASE_URL': settings.BASE_URL,
         'STATIC_BASE_URL': settings.STATIC_BASE_URL,
-        'id': id
+        'id': id,
+        'user': None,
     })
     template = loader.get_template('500.html')
     logging.error("Exception %s: %s", id, traceback.format_exc())
