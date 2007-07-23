@@ -200,6 +200,32 @@ class TwoColumnNode(template.Node):
         output.append('</li></ul><div class="clear"></div>')
         return ''.join(output)
 
+@register.tag(name='threecolumns')
+def do_threecolumns(parser, token):
+    first_column = parser.parse(('splitcolumns',))
+    parser.delete_first_token()
+    second_column = parser.parse(('splitcolumns',))
+    parser.delete_first_token()
+    third_column = parser.parse(('endthreecolumns',))
+    parser.delete_first_token()
+    return ThreeColumnNode(first_column, second_column, third_column)
+
+class ThreeColumnNode(template.Node):
+    def __init__(self, first_column, second_column, third_column):
+        self.columns = (first_column, second_column, third_column)
+
+    def render(self, context):
+        output = []
+        output.append('<ul class="three-column-list">')
+        output.append('<li class="column first-column">')
+        output.append(self.columns[0].render(context))
+        output.append('</li><li class="column second-column">')
+        output.append(self.columns[1].render(context))
+        output.append('</li><li class="column third-column">')
+        output.append(self.columns[2].render(context))
+        output.append('</li></ul><div class="clear"></div>')
+        return ''.join(output)
+
 def parse_column_loop(parser, token, deliminator):
     tokens = token.split_contents()
     syntax_msg = "syntax is twocolumnloop with <varname> in <list> [rotated]"

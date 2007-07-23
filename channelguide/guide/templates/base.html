@@ -21,23 +21,18 @@
       <a href="#content">Skip to content</a>
     </div>
     <div id="navigation">
-        <div class="links">
-            <ul class="quick-links">
-                <li class="previous"><a href="#" onclick="history.back(); return false;" ><span class="hidden">Previous</span></a></li>
-                <li class="next"><a href="#" onclick="history.forward(); return false;" ><span class="hidden">Next</span></a></li>
-            </ul>
-            <ul class="main-navigation">
-                <li><a {% navlink "" %}>{% trans "Home" %}</a></li>
-                <li><a {% navlink "channels/popular" %}>{% trans "Popular" %}</a></li>
-                <li><a {% navlink "channels/features" %}>{% trans "Featured" %}</a></li>
-                <li><a {% navlink "channels/recent" %}>{% trans "New" %}</a></li>
-                <li><a {% navlink "channels/hd" %}>{% trans "HD" %}</a></li>
-                <li><a {% navlink "categories/" %}>{% trans "Categories" %}</a></li>
-                <li><a {% navlink "tags/" %}>{% trans "Tags" %}</a></li>
-                <li><a {% navlink "languages/" %}>{% trans "Languages" %}</a></li>
-                <li><a {% navlink "channels/by-name" %}>{% trans "A - Z" %}</a></li>
-            </ul>
-        </div>
+        <ul>
+            <li><img class="logo" src="{{ BASE_URL }}images/small-logo.png" alt=""></li>
+            <li><a {% navlink "" %}>{% trans "Home" %}</a></li>
+            <li><a {% navlink "channels/popular" %}>{% trans "Popular" %}</a></li>
+            <li><a {% navlink "channels/features" %}>{% trans "Featured" %}</a></li>
+            <li><a {% navlink "channels/recent" %}>{% trans "New" %}</a></li>
+            <li><a {% navlink "channels/hd" %}>{% trans "HD" %}</a></li>
+            <li><a {% navlink "categories/" %}>{% trans "Categories" %}</a></li>
+            <li><a {% navlink "tags/" %}>{% trans "Tags" %}</a></li>
+            <li><a {% navlink "languages/" %}>{% trans "Languages" %}</a></li>
+            <li><a {% navlink "channels/by-name" %}>{% trans "A - Z" %}</a></li>
+        </ul>
         <img id="load-indicator" alt="loading" src="{{ BASE_URL }}images/load-indicator.gif">
     </div>
     {% if user %}

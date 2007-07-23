@@ -36,10 +36,8 @@ def compose(source, dest):
             source, dest, dest)
 
 def make_icons():
-    make_icons_big_on_featured()
-    make_icons_big_on_blue()
-    make_icons_big_on_pink()
-    make_icons_small_on_silver()
+    make_icons_big_on_white()
+    make_icons_small_on_white()
 
 def make_icons_on_color(icons, name_extra, color):
     for name, size in icons:
@@ -55,32 +53,9 @@ def make_icons_on_color(icons, name_extra, color):
                 dest)
         compose(source, dest)
 
-def make_icons_small_on_silver():
-    make_icons_on_color(small_icons.items(), 'silver', '#dbdbdb')
+def make_icons_small_on_white():
+    make_icons_on_color(small_icons.items(), 'white', '#fff')
 
-def make_icons_big_on_blue():
-    make_icons_on_color(big_icons.items(), 'blue', '#333355')
+def make_icons_big_on_white():
+    make_icons_on_color(big_icons.items(), 'white', '#fff')
 
-def make_icons_big_on_pink():
-    make_icons_on_color(big_icons.items(), 'pink', '#8d4158')
-
-def make_icons_big_on_featured():
-    for name, size in big_icons.items():
-        if 'add' in name:
-            offset = 23
-        else:
-            offset = 81
-        source = source_path(name)
-        dest = dest_path(name, 'feature')
-        print os.path.basename(dest)
-        bg = os.path.join(image_dir, 'featured-bg.png')
-        # get the source gradient
-        cmd('convert', bg,
-                '-crop', '1x%d+0+%d' % (size, offset),
-                '+repage',
-                dest)
-        # widen it and make it big enough for the normal + hover image
-        cmd('convert',
-                '-size', '%dx%d' % (size, size*2),
-                'tile:%s' % dest, dest)
-        compose(source, dest)

@@ -1,33 +1,24 @@
 {% load i18n cg_helpers %}
 <div class="channel channel-in-category">
-    <div class="channel-top">
-        <div class="channel-bottom">
-            <div class="channel-inner">
-                <div class="info">
-                    <div class="actions">
-                    <div class="small">
-                        <a {{ channel.subscription_link }}>
-                            <span class="icon"></span>
-                            {% trans "Add" %}
-                        </a>
-                        <a {% link channel.get_url "info-button" %}>
-                            <span class="icon"></span>
-                            {% trans "Details" %}
-                        </a>
-                    </div>
-                    </div>
-                </div>
-                <div class="screenshot">
-                    <a {% link channel.get_url %}>{{ channel.thumb_120_80 }}</a>
-                    {% if channel.hi_def %}
-                    <img class="hd-icon-medium" src="{{ BASE_URL }}images/hd-icon-medium.png" alt="HD">
-                    {% endif %}
-                </div>
-                <div class="clear"></div>
+    <div class="info">
+        <div class="title"><h2>{{ channel.name_as_link }}</h2></div>
+        <div class="actions">
+            <div class="small">
+                <a {{ channel.subscription_link }}>
+                    <span class="icon"></span>
+                    {% trans "Add" %}
+                </a>
+                <a {% link channel.get_url "info-button" %}>
+                    <span class="icon"></span>
+                    {% trans "Details" %}
+                </a>
             </div>
         </div>
     </div>
-    <div class="bottom">
-        <h3 class="title">{{ channel.name_as_link }}</h3>
+    <div class="screenshot">
+        <a {% link channel.get_url %}>{{ channel.thumb_120_80 }}</a>
+        {% if channel.hi_def %}
+            <img class="hd-icon-medium" src="{{ BASE_URL }}images/hd-icon-medium.png" alt="HD">
+        {% endif %}
     </div>
 </div>

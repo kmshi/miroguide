@@ -1,35 +1,28 @@
 {% load i18n cg_helpers %}
 <div class="channel channel-mini">
-    <div class="channel-top">
-        <div class="channel-bottom">
-            <div class="channel-inner">
-                <div class="info">
-                    <h4 class="title">{{ channel.name_as_link }}</h4>
-                </div>
-                {% ifequal count "subscribers" %}
-                <div class="count">
-                    {% blocktrans with channel.subscription_count_today as count %}
-                    {{ count }} subscribes
-                    {% endblocktrans %}
-                </div>
-                {% endifequal %}
-                {% ifequal count "episodes" %}
-                {% if channel.item_count %}
-                <div class="count">
-                    {% blocktrans with channel.item_count as count %}
-                    {{ count }} shows
-                    {% endblocktrans %}
-                </div>
-                {% endif %}
-                {% endifequal %}
-                <div class="screenshot">
-                    <a {% link channel.get_url %}>{{ channel.thumb_60_40 }}</a>
-                    {% if channel.hi_def %}
-                    <img class="hd-icon-small" src="{{ BASE_URL }}images/hd-icon-small.png" alt="HD">
-                    {% endif %}
-                </div>
-                <div class="clear"></div>
-            </div>
+    <div class="info">
+        <h3 class="title">{{ channel.name_as_link }}</h3>
+        {% ifequal count "subscribers" %}
+        <div class="count">
+            {% blocktrans with channel.subscription_count_today as count %}
+            {{ count }} new subscriptions
+            {% endblocktrans %}
         </div>
+        {% endifequal %}
+        {% ifequal count "episodes" %}
+        {% if channel.item_count %}
+        <div class="count">
+            {% blocktrans with channel.item_count as count %}
+            {{ count }} shows
+            {% endblocktrans %}
+        </div>
+        {% endif %}
+        {% endifequal %}
+    </div>
+    <div class="screenshot">
+        <a {% link channel.get_url %}>{{ channel.thumb_60_40 }}</a>
+        {% if channel.hi_def %}
+            <img class="hd-icon-small" src="{{ BASE_URL }}images/hd-icon-small.png" alt="HD">
+        {% endif %}
     </div>
 </div>

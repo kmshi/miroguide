@@ -3,13 +3,10 @@
     margin: 0px;
     padding: 0px;
 }
-html {
-    font-size: 15px;
-}
 body {
-    background-color: #002;
+    background: #FFFFFF url(images/background.gif) repeat-x scroll center top;
     color: #fff;
-    font: normal 75% Arial, sans-serif;
+    font: normal 13px Arial, sans-serif;
     /*letter-spacing: -0.01em;*/
     text-align: center;
     line-height: 1.3; 
@@ -26,7 +23,6 @@ h2 {
     font: bold 130% Arial, sans-serif;
 }
 h3 {
-    color: #fff;
     font: bold 100% Arial, sans-serif;
 }
 
@@ -41,7 +37,7 @@ input,select,option,textarea {
 }
 
 a {
-    color: #FFF;
+    color: black;
     text-decoration: none;
 }
 
@@ -146,20 +142,11 @@ div.clear {
 }
 
 #content {
-    background: #333355;
-    padding: 20px 17px 0px 17px;
-    background: url(images/page-content-middle.png) top left repeat-y;
-}
-
-#content-top {
-    background: url(images/page-content-top.png) top left no-repeat;
-    padding-top: 20px;
-}
-
-#content-bottom {
-    background: #333355;
-    padding-bottom: 20px;
-    background: url(images/page-content-bottom.png) bottom left no-repeat;
+    background: white;
+    color: black;
+    padding: 20px 16px;
+    border: 1px solid #D2E3F5;
+    border-top: none;
 }
 
 /* forms */
@@ -244,63 +231,49 @@ div.clear {
 
 #navigation {
     background: #b2b2b1 url(images/navigation-bg.png) repeat-x left top;
-    height: 38px;
+    height: 34px;
     background-color: white;
+    font-size: 90%;
 }
 
 #navigation ul {
     height: 100%;
 }
 
-#navigation li {
-    float: left;
-    height: 19px;
-}
-
-#navigation .links {
+#navigation ul {
     margin: auto;
     width: 794px;
 }
 
-#navigation .quick-links {
-    padding: 10px 8px 0px 8px;
-    float: left;
-    width: 40px;
-}
-
-#navigation .quick-links a {
-    display: block;
-    height: 100%;
-}
-
-#navigation .previous a {
-    background-image: url(images/navigation/previous.png);
-    width: 20px;
-}
-
-#navigation .next a {
-    background-image: url(images/navigation/next.png);
-    width: 20px;
-}
-
-#navigation .main-navigation li {
-    height: 32px;
+#navigation li {
     text-align: center;
+    float: left;
+    height: 19px;
 }
 
-#navigation .main-navigation a {
+#navigation li img.logo {
+    margin-right: 19px;
+}
+
+#navigation a {
     color: #fff;
-    line-height: 38px;
+    line-height: 33px;
     font-size: 110%;
     font-weight: bold;
     vertical-align: middle;
     display: block;
-    padding: 0px 14px;
+    padding: 0px 12px;
+    color: #A6D0FA;
 }
 
-#navigation .main-navigation a.current-page, #navigation .main-navigation a:hover {
+#navigation a.current-page {
     background: url(images/navigation-bg-hover.png) repeat-x left top;
+    color: white;
+}
+
+#navigation a:hover {
     text-decoration: none;
+    color: white;
 }
 
 #navigation #load-indicator {
@@ -312,10 +285,8 @@ div.clear {
 
 #account-bar {
     background: url(images/account-bar.png) repeat-x left top;
-    height: 12px;
-    padding: 8px;
-    font-size: 90%;
-    font-weight: bold;
+    height: 16px;
+    padding: 7px;
     color: #fff;
 }
 
@@ -323,12 +294,43 @@ div.clear {
     margin: auto;
     width: 784px;
     text-align: left;
+    font-size: 80%;
+    height: 100%;
+    vertical-align: middle;
 }
 
+#account-bar .nav-links {
+    padding-right: 8px;
+    float: left;
+    width: 40px;
+}
+
+#account-bar .nav-links li {
+    height: 19px;
+    float: left;
+}
+
+#account-bar .nav-links a {
+    display: block;
+    height: 100%;
+    width: 17px;
+    margin-right: 1px;
+}
+
+#account-bar .previous a {
+    background-image: url(images/navigation/previous.png);
+}
+
+#account-bar .next a {
+    background-image: url(images/navigation/next.png);
+}
+
+#account-bar .links {
+    padding-top: 2px;
+}
 
 #account-bar  a {
-    text-decoration: underline;
-    color: #fff;
+    color: #75B1ED
 }
 
 #account-bar .left a {
@@ -347,32 +349,32 @@ div.clear {
 
 #search-bar {
     background: url(images/search-bar.png) no-repeat left top;
-    height: 18px;
-    padding: 14px 15px;
-    margin-top: 10px;
+    height: 17px;
+    padding: 14px 10px;
+    margin-top: 30px;
 }
 
 #search-bar .tagline {
     float: right;
     font-weight: normal;
     font-size: 120%;
-    color: #191a26;
+    color: white;
 }
 
 #search-form input {
-    font-size: 130%;
+    font-size: 120%;
 }
 
 #search-text {
     border: 0px;
     color: #333;
-    width: 170px;
-    padding: 2px 0px 2px 8px;
-    margin-right: 10px;
+    padding: 2px 0px 2px 6px;
+    margin-right: 2px;
+    width: 200px;
 }
 
 #search-submit {
-    padding: 0px 4px;
+    padding: 0px 0px;
 }
 
 .front-page h2 {
@@ -402,12 +404,13 @@ div.clear {
 
 .front-page .links a {
     text-decoration: underline;
+    color: #3366CC;
 }
 
 .front-page .category-list {
     border: 1px solid #EDCBD4;
     margin: -1px;
-    background: #8A4557;
+    background: url(images/category-list-bg.gif);
     margin-top: 24px;
     padding: 12px 16px;
 }
@@ -419,12 +422,11 @@ div.clear {
 
 .front-page .category-list h2 {
     padding-bottom: 10px;
+    color: white;
 }
 
 .front-page .category-list a {
-    font-size: 120%;
-    font-weight: bold;
-    text-decoration: underline;
+    color: white;
 }
 
 li.blog-post {
@@ -449,6 +451,7 @@ li.blog-post .title {
 .front-page .about {
     text-align: center;
     margin-top: 85px;
+    color: #888;
 }
 
 .front-page .about a {
@@ -496,11 +499,11 @@ li.blog-post .title {
 }
 
 .search-page .channel-matches .channel-in-list .actions .add .icon {
-    background-image: url(images/icons/add-big-pink.png);
+    background-image: url(images/icons/add-big-white.png);
 }
 
 .search-page .channel-matches .channel-in-list .actions .info-button .icon {
-    background-image: url(images/icons/info-big-pink.png);
+    background-image: url(images/icons/info-big-white.png);
 }
 
 
@@ -814,10 +817,11 @@ li.blog-post .title {
 /* CSS For the featured channels */
 
 #featured-list-container {
-    height: 240px;
+    height: 260px;
     padding: 0px;
     border: 0px;
     margin-left: 5px;
+    margin-bottom: 50px;
     overflow: hidden;
     position: relative;
 }
@@ -842,10 +846,10 @@ li.blog-post .title {
 #featured-list-previous {
         display: block;
         position: absolute;
-        top: 60px;
+        top: 64px;
         left: -12px;
         width: 13px;
-        height: 50px;
+        height: 42px;
         background: url(images/feature-rotate-left.png) top left;
 }
 
@@ -856,10 +860,10 @@ li.blog-post .title {
 #featured-list-next {
         position: absolute;
         display: block;
-        top: 60px;
+        top: 64px;
         left: 760px;
         width: 13px;
-        height: 50px;
+        height: 42px;
         background: url(images/feature-rotate-right.png) top left;
 }
 
@@ -869,15 +873,14 @@ li.blog-post .title {
 
 
 .channel-feature .channel-inner {
-    background-image: url(images/featured-bg.png);
+    background: url(images/featured-bg.png) no-repeat left top;
     min-height: 154px;
-    padding-left: 1px;
-    padding-top: 1px;
+    padding: 23px 0px 0px 23px;
 }
 
 .channel-feature .info {
     color: #666;
-    width: 100px;
+    width: 77px;
     padding-left: 10px;
     padding: 10px 10px 0px 1px;
 }
@@ -897,12 +900,12 @@ li.blog-post .title {
 
 .channel-feature .actions .add .icon {
     margin: auto;
-    background-image: url(images/icons/add-big-feature.png);
+    background-image: url(images/icons/add-big-white.png);
 }
 
 .channel-feature .actions .info-button .icon {
     margin: auto;
-    background-image: url(images/icons/info-big-feature.png);
+    background-image: url(images/icons/info-big-white.png);
 }
 
 .channel-feature .actions .info-button {
@@ -910,15 +913,14 @@ li.blog-post .title {
 }
 
 .channel-feature .title {
-    font-size: 130%;
+    font-size: 100%;
     margin-top: 2px;
     margin-bottom: 1px;
     overflow: hidden;
 }
 
 .featured-label {
-    font-size: 77%;
-    color: #f00;
+    color: #D21320;
     text-transform: uppercase;
 }
 
@@ -928,19 +930,10 @@ li.blog-post .title {
 
 /* CSS For the normal channels */
 
-.channel-in-category .channel-top {
-    background-image: url(images/channel-in-category-top.png);
-    padding-top: 2px;
-}
-
-.channel-in-category .channel-bottom {
-    background-image: url(images/channel-in-category-bottom.png);
-}
-
 .channel-in-category .info {
-    color: #666;
-    padding: 10px 5px 0px 5px;
-    width: 40px;
+    padding: 5px 5px 0px 5px;
+    width: 100px;
+    text-align: left;
 }
 
 .channel-in-category .screenshot {
@@ -952,29 +945,40 @@ li.blog-post .title {
     bottom: 2px;
 }
 
+.channel-in-category .title {
+        margin-bottom: 10px;
+}
+
+.channel-in-category .title a {
+    color: black;
+}
+
 .channel-in-category .actions a {
     font-size: 90%;
 }
 
+.channel-in-category .actions a {
+    background: no-repeat left top;
+    line-height: 17px;
+    color: #2E6195;
+    font-weight: bold;
+}
+
+.channel-in-category .actions .icon {
+    float: left;
+    margin-right: 5px;
+}
+
 .channel-in-category .actions .add .icon {
-    margin: auto;
-    background-image: url(images/icons/add-small-silver.png);
+    background-image: url(images/icons/add-small-white.png);
 }
 
 .channel-in-category .actions .info-button .icon {
-    margin: auto;
-    background-image: url(images/icons/info-small-silver.png);
+    background-image: url(images/icons/info-small-white.png);
 }
 
 .channel-in-category .actions .info-button {
     margin-top: 5px;
-}
-
-.channel-in-category .title a {
-    padding-top: 10px;
-    background: url(images/channel-in-category-title-stripes.png) left top repeat-x;
-    font-size: 90%;
-    color: black;
 }
 
 /* Mini channels */
@@ -983,30 +987,14 @@ li.blog-post .title {
     position: relative;
 }
 
-.channel-mini .channel-top {
-    background-image: url(images/channel-mini-border.png);
-    padding-top: 1px;
-    margin-bottom: 8px;
-}
-
-.channel-mini .channel-bottom {
-    background-image: url(images/channel-mini-border.png);
-    padding-bottom: 1px;
-}
-
 .channel-mini .info {
     margin-right: 5px;
-    width: 100px;
+    width: 160px;
     text-align: left;
 }
 
 .channel-mini .count {
-    position: absolute;
-    left: 65px;
-    right: 0px;
-    bottom: 12px;
     color: #666;
-    font-size: 81%;
     font-weight: normal;
 }
 
@@ -1016,11 +1004,12 @@ li.blog-post .title {
 }
 
 .channel-mini .title {
-    font-size: 90%;
-    color: white;
-    margin-bottom: 5px;
     margin-top: 2px;
     text-align: left;
+}
+
+.channel-mini .title a {
+    color: #377FC8;
 }
 
 /* Full page channels */
@@ -1066,7 +1055,7 @@ li.blog-post .title {
 }
 
 .channel-full .actions .add .icon {
-    background-image: url(images/icons/add-big-blue.png);
+    background-image: url(images/icons/add-big-white.png);
 }
 
 .channel-full .actions a {
@@ -1216,11 +1205,11 @@ li.blog-post .title {
 }
 
 .channel-in-list .actions .add .icon {
-    background-image: url(images/icons/add-big-blue.png);
+    background-image: url(images/icons/add-big-white.png);
 }
 
 .channel-in-list .actions .info-button .icon {
-    background-image: url(images/icons/info-big-blue.png);
+    background-image: url(images/icons/info-big-white.png);
 }
 
 .channel-in-list .actions a {
@@ -1321,25 +1310,20 @@ div.category-peek {
     margin-bottom: 0px;
 }
 
-/* quick-lists (the list of popular/new shows on the right hand side) */
+/* front page lists */
 
-.front-page-quick-list a.white-button-left {
-    float: right;
+.front-page-list li {
+    padding: 10px 0px;
+    border-bottom: 1px solid #DDDDDD;
 }
 
-.front-page-quick-list li.first-column {
-    width: 190px;
+.view-all-link {
+    text-align: right;
+    padding: 10px 0px;
+    border-bottom: 1px solid #DDDDDD;
 }
 
-.front-page-quick-list li.second-column {
-    margin-left: 10px;
-    width: 170px;
-}
-
-
-.front-page-quick-list .position {
-    float: left;
-    width: 20px;
+.view-all-link a {
     font-weight: bold;
 }
 
