@@ -1,72 +1,65 @@
 {% load i18n cg_helpers %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>{% block title%}{% trans "Miro" %}{% endblock %}</title>
-	<meta name="author" content="author" lang="en">
-        <meta name="copyright" content="Copyright 2006">
-        <meta name="description" content="">
-        <meta name="keywords" content="">
-        <meta name="robots" content="index,follow">
-        <meta name="revisit-after" content="14 days">
-        <meta http-equiv="imagetoolbar" content="no">
-        <meta name="language" content="en">
-        <script src="{{ STATIC_BASE_URL }}js/miroguide.js" type="text/javascript"></script>
-	<link rel="stylesheet" href="{{ STATIC_BASE_URL }}css/reset.css" type="text/css" media="screen" charset="utf-8" />
-        <!--<link rel="stylesheet" href="{{ STATIC_BASE_URL }}css/style.old.css" type="text/css" media="screen" charset="utf-8" />-->
-	<link rel="stylesheet" href="{{ STATIC_BASE_URL }}css/style.css" type="text/css" media="screen" charset="utf-8" />
-	<!--[if lte IE 6]>
-	<link rel="stylesheet" href="{{ STTIC_BASE_URL }}}css/legacy.css" type="text/css" media="screen" charset="utf-8" />
-	<![endif]-->
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>{% block title %}{% trans "Miro" %}{% endblock %}</title>
+    <meta name="author" content="author" lang="en">
+    <meta name="copyright" content="Copyright 2006">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="robots" content="index,follow">
+    <meta name="revisit-after" content="14 days">
+    <meta http-equiv="imagetoolbar" content="no">
+    <meta name="language" content="en">
+    <link rel="StyleSheet" type="text/css" href="{{ STATIC_BASE_URL }}css/style.css?nonce={{ style_nonce }}">
+    <script src="{{ STATIC_BASE_URL }}js/miroguide.js" type="text/javascript"></script>
 {% block head-extra %}{% endblock %}
 </head>
-
 <body onload="{% block onload-extra %}{% endblock%}" onpagehide="hideLoadIndicator();" >
     <div id="accessability">
       <a href="#content">Skip to content</a>
     </div>
-    
-	<div id="red">
-		
-		<div class="top"><div class="inner">
-			
-			<a id="small-logo" href="#">Miro</a>
-			
-                        <ul id="navigation">
-
-                            <li {% navbar ""%}><a href="/">{% trans "Home" %}</a></li>
-                            <li {% navbar "channels/popular"%}><a href="/channels/popular">{% trans "Popular" %}</a></li>
-                            <li {% navbar "channels/features"%}><a href="/channels/features">{% trans "Featured" %}</a></li>
-				<li {% navbar "channels/recent"%}><a href="/channels/recent">{% trans "New" %}</a></li>
-				<li {% navbar "channels/hd" %}><a href="/channels/hd">{% trans "HD" %}</a></li>
-				<li {% navbar "categories" %}><a href="/categories/">{% trans "Categories" %}</a></li>
-				<li {% navbar "tags" %}><a href="/tags/">{% trans "Tags" %}</a></li>
-				<li {% navbar "languages" %}><a href="/languages/">{% trans "Languages" %}</a></li>
-				<li {% navbar "channels/by-name" %}><a href="/channels/by-name">{% trans "A - Z" %}</a></li>
-
-                                <img id="load-indicator" alt="loading" src="{{ BASE_URL }}images/load-indicator.gif">
-			</ul>
-			
-		</div>
-</div>
-		
-{% show_account_bar user %}		
-	</div>
-	
-	<div id="wrapper">
-		
-		<div id="round-header" class="clear">
-                    <form action="{{ BASE_URL}}search" onsubmit="showLoadIndicator();" method="get"><p><input type="text" name="query" value="{{ search_query }}"/><input type="submit" value="Search Channels"/></p></form>
-			<span>{{ total_channels }} Channels, all free</span>
-		</div>
-		
-		<div id="content">
-{% block content %}{% endblock %}			
-		</div>
-	</div>
+    <div id="navigation">
+        <div class="links">
+            <ul class="quick-links">
+                <li class="previous"><a href="#" onclick="history.back(); return false;" ><span class="hidden">Previous</span></a></li>
+                <li class="next"><a href="#" onclick="history.forward(); return false;" ><span class="hidden">Next</span></a></li>
+            </ul>
+            <ul class="main-navigation">
+                <li><a {% navlink "" %}>{% trans "Home" %}</a></li>
+                <li><a {% navlink "channels/popular" %}>{% trans "Popular" %}</a></li>
+                <li><a {% navlink "channels/features" %}>{% trans "Featured" %}</a></li>
+                <li><a {% navlink "channels/recent" %}>{% trans "New" %}</a></li>
+                <li><a {% navlink "channels/hd" %}>{% trans "HD" %}</a></li>
+                <li><a {% navlink "categories/" %}>{% trans "Categories" %}</a></li>
+                <li><a {% navlink "tags/" %}>{% trans "Tags" %}</a></li>
+                <li><a {% navlink "languages/" %}>{% trans "Languages" %}</a></li>
+                <li><a {% navlink "channels/by-name" %}>{% trans "A - Z" %}</a></li>
+            </ul>
+        </div>
+        <img id="load-indicator" alt="loading" src="{{ BASE_URL }}images/load-indicator.gif">
+    </div>
+    {% if user %}
+    {% show_account_bar user %}
+    {% endif %}
+    <div id="page">
+        <div id="search-bar">
+            <h2 class="tagline">{{ total_channels }} channels, all free.</h2>
+            <form action="{{ BASE_URL }}search" onsubmit="showLoadIndicator();" method="get" id="search-form">
+                <div>
+                    <label class="hidden" for="search-text">Search</label>
+                    <input type="text" name="query" value="{{ search_query }}" id="search-text" >
+                    <input type="submit" id="search-submit" value="Search Channels" >
+                </div>
+            </form>
+        </div>
+        <div id="content-bottom">
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+        </div>
+    </div>
 {% if google_analytics_ua %}
 <script src="https://ssl.google-analytics.com/urchin.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -74,6 +67,5 @@ _uacct = "{{ google_analytics_ua }}";
 urchinTracker();
 </script>
 {% endif %}
-
 </body>
 </html>

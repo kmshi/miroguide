@@ -124,16 +124,15 @@ class AjaxLinkNode(template.Node):
         return util.make_link_attributes(fallback_url, self.css_class,
                 onclick=onclick)
 
-@register.tag('navbar')
-def do_navbar(parser, token):
+@register.tag('navlink')
+def do_navlink(parser, token):
     tokens = token.split_contents()
-    print "HTTP/1.1 200 OK\n"
     if len(tokens) != 2 or not quoted_attribute(tokens[1]):
-        msg = 'syntax is navbar "<relative_link_path>"'
+        msg = 'syntax is navlink "<relative_link_path>"'
         raise template.TemplateSyntaxError(msg)
-    return NavBarNode(unquote_attribute(tokens[1]))
+    return NavLinkNode(unquote_attribute(tokens[1]))
 
-class NavBarNode(template.Node):
+class NavLinkNode(template.Node):
     def __init__(self, relative_path):
         self.path = settings.BASE_URL_PATH + relative_path
         self.relative_path = relative_path
@@ -144,9 +143,10 @@ class NavBarNode(template.Node):
         except KeyError:
             request_path = None
         if self.path == request_path:
-            return 'class="active"'
+            css_class = 'current-page'
         else:
-            return ''
+            css_class = None
+        return util.make_link_attributes(self.relative_path, css_class)
 
 @register.inclusion_tag('guide/formbutton.html')
 def formbutton(url, action, label=None):

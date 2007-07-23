@@ -29,13 +29,13 @@ def get_categories(connection):
     return Category.query().order_by('name').execute(connection)
 
 def get_category_channels(connection, category):
-    query = Channel.query_approved().join("categories").limit(2)
+    query = Channel.query_approved().join("categories").limit(3)
     query.joins['categories'].where(id=category.id)
     query.load('subscription_count_month')
     query.order_by('subscription_count_month')
     popular_channels = list(query.execute(connection))
 
-    query = Channel.query_approved().join("categories").limit(1)
+    query = Channel.query_approved().join("categories").limit(3)
     query.joins['categories'].where(id=category.id)
     query.where(Channel.c.id.not_in(c.id for c in popular_channels))
     query.order_by('RAND()')
@@ -88,8 +88,8 @@ def index(request):
     featured_channels = get_featured_channels(request.connection)
 
     return util.render_to_response(request, 'frontpage.html', {
-        'popular_channels': get_popular_channels(request.connection, 5),
-        'new_channels': get_new_channels(request.connection, 5),
+        'popular_channels': get_popular_channels(request.connection, 7),
+        'new_channels': get_new_channels(request.connection, 7),
         'featured_channels': featured_channels[:2],
         'featured_channels_hidden': featured_channels[2:],
         'blog_posts': get_new_posts(request.connection, 3),
