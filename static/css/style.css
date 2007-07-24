@@ -410,7 +410,7 @@ div.clear {
 .front-page .category-list {
     border: 1px solid #EDCBD4;
     background: url(images/category-list-bg.gif);
-    margin: 40px -17px -1px -17px;
+    margin: 40px -17px 30px -17px;
     padding: 12px 16px;
 }
 
@@ -789,17 +789,10 @@ li.blog-post .title {
     width: 24px;
 }
 
-.channel .actions .big a:hover .icon {
-    background-position: 0px -24px;
-}
-
 .channel .actions .small .icon {
-    height: 16px;
-    width: 16px;
-}
-
-.channel .actions .small a:hover .icon {
-    background-position: 0px -16px;
+    margin-top: 1px;
+    height: 12px;
+    width: 12px;
 }
 
 .channel .actions .horizontal .icon {
@@ -845,7 +838,7 @@ li.blog-post .title {
 #featured-list-previous {
         display: block;
         position: absolute;
-        top: 64px;
+        top: 75px;
         left: -12px;
         width: 13px;
         height: 42px;
@@ -859,7 +852,7 @@ li.blog-post .title {
 #featured-list-next {
         position: absolute;
         display: block;
-        top: 64px;
+        top: 75px;
         left: 760px;
         width: 13px;
         height: 42px;
@@ -945,7 +938,7 @@ li.blog-post .title {
 }
 
 .channel-in-category .title {
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     overflow: visible;
     height: auto;
     font-size: 120%;
