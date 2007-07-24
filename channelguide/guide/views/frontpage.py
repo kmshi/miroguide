@@ -35,7 +35,7 @@ def get_category_channels(connection, category):
     query.order_by('subscription_count_month')
     popular_channels = list(query.execute(connection))
 
-    query = Channel.query_approved().join("categories").limit(1)
+    query = Channel.query_approved().join("categories").limit(2)
     query.joins['categories'].where(id=category.id)
     query.where(Channel.c.id.not_in(c.id for c in popular_channels))
     query.order_by('RAND()')

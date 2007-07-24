@@ -744,6 +744,7 @@ li.blog-post .title {
 .channel .screenshot {
     background: #000;
     position: relative;
+    border: 1px solid #ccc;
 }
 
 .channel img.hd-icon-small {
@@ -1108,14 +1109,14 @@ li.blog-post .title {
 
 .recent-videos-header {
     border-bottom: 1px solid #669;
-    font-size: 170%;
+    font-size: 150%;
     padding-bottom: 15px;
 }
 
 .item {
     height: 90px;
     border-bottom: 1px solid #669;
-    color: #FFFFFF;
+    color: black;
     overflow: hidden;
 }
 

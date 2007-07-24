@@ -33,15 +33,16 @@
     <ul class="front-page-list">
         {% for channel in category_peek.channels %}
             <li>{% show_channel_in_category channel %}</li>
-            <div class="clear"></div>
         {% endfor %}
     </ul>
+    <div class="view-all-link">
+    <a href="{{ category_peek.category.get_url }}">{% blocktrans with category_peek.category as category_name %}View All {{ category_name }}{% endblocktrans %} »</a>
+    </div>
 {% splitcolumns %}
     <h2><a {% link "channels/popular" %}>{% trans "Popular Today" %}</a></h2>
     <ul class="front-page-list">
         {% for channel in popular_channels %}
             <li>{% show_channel_mini channel "subscribers" %}</li>
-            <div class="clear"></div>
         {% endfor %}
     </ul>
     <div class="view-all-link">
@@ -52,7 +53,6 @@
     <ul class="front-page-list">
         {% for channel in new_channels %}
             <li>{% show_channel_mini channel "episodes" %}</li>
-            <div class="clear"></div>
         {% endfor %}
     </ul>
     <div class="view-all-link">
