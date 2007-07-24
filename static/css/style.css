@@ -1114,7 +1114,6 @@ li.blog-post .title {
 }
 
 .item {
-    height: 90px;
     border-bottom: 1px solid #669;
     color: black;
     overflow: hidden;
@@ -1145,6 +1144,13 @@ li.blog-post .title {
     float: right;
 }
 
+.item .main-info {
+    width: 486px;
+    margin-left: 120px;
+    border-right: 1px solid #669;
+    min-height: 94px;
+}
+
 .item .title {
     height: 1.3em;
     margin-top: 5px;
@@ -1152,9 +1158,7 @@ li.blog-post .title {
 }
 
 .item .description {
-    overflow: hidden;
     padding-right: 10px;
-    height: 5.2em;
 }
 
 .item .description img {
