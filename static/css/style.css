@@ -197,8 +197,8 @@ div.clear {
 
 .big-form .wide-field, .big-form input.submit {
     font-size: 120%;
+    border: 1px solid #CCCCCC;
     width: 207px;
-    border: 0px;
     margin: 0px;
     padding: 2px 5px;
 }
@@ -220,6 +220,7 @@ div.clear {
     font-size: 120%;
     margin-left: 445px;
     background: #b9b9b9;
+    border-color: black;
 }
 
 .form-instructions {
@@ -248,7 +249,12 @@ div.clear {
 #navigation li {
     text-align: center;
     float: left;
-    height: 19px;
+    height: 33px;
+}
+
+#navigation li a.logo {
+    padding: 0px;
+    line-height: 0px;
 }
 
 #navigation li img.logo {
@@ -641,7 +647,7 @@ li.blog-post .title {
 }
 
 .login-page .register-form h2 {
-    margin-bottom: 0px;
+    margin-bottom: 8px;
 }
 
 .edit-channel-page .big-form {
