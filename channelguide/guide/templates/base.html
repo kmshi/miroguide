@@ -47,21 +47,23 @@
     {% if user %}
     {% show_account_bar user %}
     {% endif %}
-    <div id="page">
-        <div id="search-bar">
-            <h2 class="tagline">{{ total_channels }} channels, all free.</h2>
-            <form action="{{ BASE_URL }}search" onsubmit="showLoadIndicator();" method="get" id="search-form">
-                <div>
-                    <label class="hidden" for="search-text">Search</label>
-                    <input type="text" name="query" value="{{ search_query }}" id="search-text" >
-                    <input type="submit" id="search-submit" value="Search Channels" >
-                </div>
-            </form>
-        </div>
-        <div id="content-bottom">
-        <div id="content">
-            {% block content %}{% endblock %}
-        </div>
+    <div id="background">
+        <div id="page">
+            <div id="search-bar">
+                <h2 class="tagline">{{ total_channels }} channels, all free.</h2>
+                <form action="{{ BASE_URL }}search" onsubmit="showLoadIndicator();" method="get" id="search-form">
+                    <div>
+                        <label class="hidden" for="search-text">Search</label>
+                        <input type="text" name="query" value="{{ search_query }}" id="search-text" >
+                        <input type="submit" id="search-submit" value="Search Channels" >
+                    </div>
+                </form>
+            </div>
+            <div id="content-bottom">
+            <div id="content">
+                {% block content %}{% endblock %}
+            </div>
+            </div>
         </div>
     </div>
 {% if google_analytics_ua %}
