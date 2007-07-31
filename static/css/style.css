@@ -1002,8 +1002,7 @@ li.blog-post .title {
 
 .channel-in-category .title {
     margin-bottom: 0px;
-    overflow: visible;
-    height: auto;
+    height: 2.6em;
     font-size: 120%;
 }
 
