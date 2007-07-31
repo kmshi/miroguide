@@ -15,15 +15,21 @@ body {
 p {
 
 }
+
+h1, h2, h3 {
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+}
+
 h1 {
-    font: 180% Arial, sans-serif;
+    font-size: 180%;
     margin-bottom: 8px;
 }
 h2 {
-    font: bold 130% Arial, sans-serif;
+    font-size: 130%;
 }
 h3 {
-    font: bold 100% Arial, sans-serif;
+    font-size: 100%;
 }
 
 ul {
@@ -122,7 +128,7 @@ div.clear {
 }
 
 .home-button-left {
-    margin-left: 20px;
+    margin-left: 15px;
     padding-left: 6px;
     display: block;
     background: url(images/navigation/home-button-left.png) top left no-repeat;
