@@ -1,8 +1,7 @@
 {% load i18n cg_helpers %}
 <div class="channel channel-feature">
     <div class="channel-inner">
-        <div class="info">
-            <div class="actions">
+        <div class="actions">
             <div class="big">
                 <a {{ channel.subscription_link }}>
                     <span class="icon"></span>
@@ -13,8 +12,6 @@
                     {% trans "Details" %}
                 </a>
             </div>
-            </div>
-            <p> {{ channel.get_episodes_str }} </p>
         </div>
         <div class="screenshot">
             {% block screenshot %}
@@ -26,6 +23,8 @@
         </div>
         <div class="clear"></div>
     </div>
+    <div class="info">
     <h2 class="title"><span class="featured-label">Featured:</span> {{ channel.name_as_link }}</h2>
     <p class="description">{{ channel.description|escape }}</p>
+        </div>
 </div>

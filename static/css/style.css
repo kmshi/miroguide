@@ -933,7 +933,9 @@ li.blog-post .title {
     padding: 23px 0px 0px 23px;
 }
 
-.channel-feature .info {
+.channel-feature .actions {
+    float: right;
+    text-align: center;
     color: #666;
     width: 77px;
     padding-left: 10px;
@@ -965,6 +967,12 @@ li.blog-post .title {
 
 .channel-feature .actions .info-button {
     margin-top: 20px;
+}
+
+.channel-feature .info {
+    text-align: left;
+    color: black;
+    margin: 0px 20px 0px 21px;
 }
 
 .channel-feature .title {
@@ -1379,7 +1387,6 @@ div.category-peek {
 .view-all-link {
     text-align: right;
     padding: 10px 0px;
-    border-bottom: 1px solid #bbb;
 }
 
 .view-all-link a {
