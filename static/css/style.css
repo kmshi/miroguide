@@ -4,7 +4,7 @@
     padding: 0px;
 }
 body {
-    background: #FFFFFF url(images/background.gif) repeat-x scroll center top;
+    background: #fff url(images/background.gif) repeat-x scroll center top;
     color: #fff;
     font: normal 13px Arial, sans-serif;
     /*letter-spacing: -0.01em;*/
@@ -121,6 +121,34 @@ div.clear {
     padding: 0px 5px;
 }
 
+.home-button-left {
+    margin-left: 20px;
+    padding-left: 6px;
+    display: block;
+    background: url(images/navigation/home-button-left.png) top left no-repeat;
+}
+
+.home-button-left:hover {
+    text-decoration: none;
+}
+
+.home-button-right {
+    padding-right: 6px;
+    display: block;
+    background: url(images/navigation/home-button-right.png) top right no-repeat;
+}
+
+.home-button-content {
+    display: block;
+    height: 16px;
+    background: url(images/navigation/home-button-middle.png) top left repeat-x;
+    text-align: center;
+    line-height: 16px;
+    vertical-align: middle;
+    padding: 0px 5px;
+}
+
+
 .error {
     padding: 6px;
     font-size: 110%;
@@ -230,7 +258,55 @@ div.clear {
 
 /* Individual elements */
 
+#nav-bar {
+    background: url(images/nav-bar.png) repeat-x left top;
+    padding: 5px;
+    color: #fff;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 16px;
+    z-index: 1;
+}
+
+#nav-bar-inner {
+    margin: auto;
+    width: 784px;
+    text-align: left;
+    font-size: 80%;
+    height: 100%;
+    vertical-align: middle;
+}
+
+#nav-bar .arrows {
+    padding-right: 8px;
+    float: left;
+}
+
+#nav-bar .arrows li {
+    height: 16px;
+    float: left;
+}
+
+#nav-bar .arrows a {
+    display: block;
+    height: 100%;
+    margin-right: 1px;
+}
+
+#nav-bar .previous a {
+    width: 16px;
+    background-image: url(images/navigation/previous.png);
+}
+
+#nav-bar .next a {
+    width: 16px;
+    background-image: url(images/navigation/next.png);
+}
+
 #navigation {
+    margin-top: 26px;
     background: #b2b2b1 url(images/navigation-bg.png) repeat-x left top;
     height: 34px;
     background-color: white;
@@ -305,32 +381,6 @@ div.clear {
     vertical-align: middle;
 }
 
-#account-bar .nav-links {
-    padding-right: 8px;
-    float: left;
-    width: 40px;
-}
-
-#account-bar .nav-links li {
-    height: 19px;
-    float: left;
-}
-
-#account-bar .nav-links a {
-    display: block;
-    height: 100%;
-    width: 17px;
-    margin-right: 1px;
-}
-
-#account-bar .previous a {
-    background-image: url(images/navigation/previous.png);
-}
-
-#account-bar .next a {
-    background-image: url(images/navigation/next.png);
-}
-
 #account-bar .links {
     padding-top: 2px;
 }
@@ -386,6 +436,12 @@ div.clear {
 .front-page h2 {
     font-size: 140%;
     margin-bottom: 6px;
+}
+
+.front-page .column-section {
+    background-color: #d9e9fa;
+    margin: 0px -16px;
+    padding: 0px 16px;
 }
 
 .front-page .links {
@@ -1318,13 +1374,13 @@ div.category-peek {
 
 .front-page-list li {
     padding: 10px 0px;
-    border-bottom: 1px solid #DDDDDD;
+    border-bottom: 1px solid #bbb;
 }
 
 .view-all-link {
     text-align: right;
     padding: 10px 0px;
-    border-bottom: 1px solid #DDDDDD;
+    border-bottom: 1px solid #bbb;
 }
 
 .view-all-link a {

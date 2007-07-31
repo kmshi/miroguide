@@ -2,10 +2,6 @@
 {% load cg_helpers i18n %}
 <div id="account-bar">
     <div id="account-bar-inner">
-        <ul class="nav-links">
-            <li class="previous"><a href="#" onclick="history.back(); return false;" ><span class="hidden">Previous</span></a></li>
-            <li class="next"><a href="#" onclick="history.forward(); return false;" ><span class="hidden">Next</span></a></li>
-        </ul>
         <div class="links">
             {% if user.is_authenticated %}
             <div class="right">

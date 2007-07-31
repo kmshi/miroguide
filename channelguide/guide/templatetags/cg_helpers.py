@@ -21,15 +21,22 @@ def make_text_or_variable_node(parser, expression):
     else:
         return template.VariableNode(parser.compile_filter(expression))
 
-@register.tag('whitebutton')
-def do_white_button(parser, token):
+def do_generic_button(parser, token, endtag, *css_classes):
     tokens = token.split_contents()
-    css_classes = ( "white-button-left", "white-button-right",
-            "white-button-content", )
-    nodelist = parser.parse(('endwhitebutton',))
+    nodelist = parser.parse((endtag, ))
     parser.delete_first_token()
     url_node = make_text_or_variable_node(parser, tokens[1])
     return ButtonNode(css_classes, url_node, nodelist)
+
+@register.tag('whitebutton')
+def do_white_button(parser, token):
+    return do_generic_button(parser, token, 'endwhitebutton',
+        "white-button-left", "white-button-right", "white-button-content")
+
+@register.tag('homebutton')
+def do_home_button(parser, token):
+    return do_generic_button(parser, token, 'endhomebutton',
+        "home-button-left", "home-button-right", "home-button-content")
 
 class ButtonNode(template.Node):
     def __init__(self, div_classes, url_node, nodelist):
