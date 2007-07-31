@@ -21,15 +21,13 @@
       <a href="#content">Skip to content</a>
     </div>
     <div id="nav-bar">
-        <div id="nav-bar-inner">
-            <ul class="arrows">
-                <li class="previous"><a href="#" onclick="history.back(); return false;" ><span class="hidden">Previous</span></a></li>
-                <li class="next"><a href="#" onclick="history.forward(); return false;" ><span class="hidden">Next</span></a></li>
-                <li class="home">
-                {% homebutton "/" %}{% trans "Home" %}{% endhomebutton %}
-                </li>
-            </ul>
-        </div>
+        <ul>
+            <li class="previous"><a href="#" onclick="history.back(); return false;" ><span class="hidden">Previous</span></a></li>
+            <li class="next"><a href="#" onclick="history.forward(); return false;" ><span class="hidden">Next</span></a></li>
+            <li class="home">
+            {% homebutton "/" %}{% trans "Home" %}{% endhomebutton %}
+            </li>
+        </ul>
     </div>
     <div id="navigation">
         <ul>
