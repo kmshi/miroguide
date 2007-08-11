@@ -133,8 +133,9 @@ class ChannelThumbnailWidget(forms.Widget):
             hidden_render = forms.HiddenInput().render(hidden_name, '')
         return file_render + hidden_render
 
-    def value_from_datadict(self, data, files, name):
+    def value_from_datadict(self, data, name):
         hidden_name = self.get_hidden_name(name)
+        print data, files, name, hidden_name
         if data.get(name):
             return data.get(name)['content']
         elif data.get(hidden_name):
