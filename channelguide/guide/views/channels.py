@@ -306,9 +306,9 @@ def edit_channel(request, id):
     channel = util.get_object_or_404(request.connection, query, id)
     request.user.check_can_edit(channel)
     if request.method != 'POST':
-        form = forms.EditChannelForm(request.connection, channel)
+        form = forms.EditChannelForm(request, channel)
     else:
-        form = forms.EditChannelForm(request.connection, channel,
+        form = forms.EditChannelForm(request, channel,
                 util.copy_post_and_files(request))
         if form.is_valid():
             form.update_channel(channel)

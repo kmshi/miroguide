@@ -15,6 +15,7 @@ import feedparser
 
 from channelguide.guide.feedutil import to_utf8
 from channelguide.guide.models import Language, Category, Channel, User
+from channelguide.guide.forms.user import UsernameField
 from channelguide import util
 from fields import WideCharField, WideURLField, WideChoiceField
 from form import Form
@@ -132,7 +133,7 @@ class ChannelThumbnailWidget(forms.Widget):
             hidden_render = forms.HiddenInput().render(hidden_name, '')
         return file_render + hidden_render
 
-    def value_from_datadict(self, data, name):
+    def value_from_datadict(self, data, files, name):
         hidden_name = self.get_hidden_name(name)
         if data.get(name):
             return data.get(name)['content']
@@ -336,13 +337,18 @@ class SubmitChannelForm(Form):
         return self.data.get('thumbnail_file') is not None
 
 class EditChannelForm(FeedURLForm, SubmitChannelForm):
-    def __init__(self, connection, channel, data=None):
+
+    owner = UsernameField()
+
+    def __init__(self, request, channel, data=None):
         # django hack to get fields to work right with subclassing
         #self.base_fields = SubmitChannelForm.base_fields 
 
-        super(EditChannelForm, self).__init__(connection, data)
+        super(EditChannelForm, self).__init__(request.connection, data)
         self.channel = channel
         self.fields['thumbnail_file'].required = False
+        if not request.user.is_supermoderator():
+            del self.fields['owner']
         self.set_image_from_channel = False
         self.set_initial_values()
 
@@ -362,6 +368,9 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
                 'postal_code'):
             self.fields[key].initial = getattr(self.channel, key)
         self.fields['language'].initial = self.channel.language.id
+        if 'owner' in self.fields:
+            owner = User.query(id=self.channel.owner_id).get(self.connection)
+            self.fields['owner'].initial = owner.username
         tags = self.channel.get_tags_for_owner(self.connection)
         tag_names = [tag.name for tag in tags]
         self.fields['tags'].initial = ', '.join(tag_names)
@@ -379,4 +388,7 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
     def update_channel(self, channel):
         if self.cleaned_data['url'] is not None:
             channel.url = self.cleaned_data['url'].url
+        if self.cleaned_data.get('owner') is not None:
+            user = User.query(username=self.cleaned_data['owner']).get(self.connection)
+            channel.owner_id = user.id
         super(EditChannelForm, self).update_channel(channel)
