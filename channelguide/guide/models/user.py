@@ -117,6 +117,11 @@ class User(UserBase, Record):
     def __repr__(self):
         return 'User(%r)' % self.username
 
+    def __eq__(self, other):
+        if isinstance(other, User):
+            return self.username == other.username
+        else:
+            return NotImplemented
     def role_string(self):
         if self.role == self.USER:
             return "user"
@@ -141,6 +146,47 @@ class User(UserBase, Record):
         else:
             self.auth_token.update_token()
         self.auth_token.save(connection)
+
+    def has_full_name(self):
+        return self.fname or self.lname
+
+    def get_full_name(self):
+        if not self.has_full_name():
+            return ''
+        names = []
+        if self.fname is not None:
+            names.append(self.fname)
+        if self.lname is not None:
+            names.append(self.lname)
+        return ' '.join(names)
+
+    def has_location(self):
+        return self.city or self.state or self.country or self.zip
+
+    def get_location(self):
+        if not self.has_location():
+            return ''
+        locs = []
+        if self.city is not None:
+            locs.append(self.city)
+        if self.state is not None:
+            locs.append(self.state)
+        if self.country is not None:
+            locs.append(self.country)
+        if self.zip is not None:
+            locs.append(self.zip)
+        return ', '.join(locs)
+
+    def has_im(self):
+        return self.im_username or True
+
+    def get_im(self):
+        if not self.has_im():
+            return ''
+        if self.im_type is not None:
+            return "%s (%s)" % (self.im_username, self.im_type)
+        else:
+            return self.im_username
 
 class UserAuthToken(Record):
     table = tables.user_auth_token

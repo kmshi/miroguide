@@ -1,13 +1,19 @@
 {% extends 'base.html' %}
 {% load channels cg_helpers i18n %}
 {% block content %}
-<div class="channels-for-user">
+<div class="user-info">
 {% ifequal user for_user %}
-  <h1>{% trans "My submitted channels" %}</h1>
+    <h1>{% trans "My User Info" %}</h1>
 {% else %}
-  <h1>{% blocktrans %}Submitted channels for {{ for_user }}{% endblocktrans %}</h1>
+    <h1>{% trans "User Info for" %} {{ for_user }}</h1>
 {% endifequal %}
+{% if for_user.has_full_name %}<div class="user-info-name"><h2>Name:</h2> {{ for_user.get_full_name }}</div>{% endif %}
+{% if for_user.has_location %}<div class="user-info-location"><h2>Location:</h2> {{ for_user.get_location }}</div>{% endif %}
+{% if for_user.has_im %}<div class="user-info-im"><h2>IM:</h2> {{ for_user.get_im }}</div>{% endif %}
+</div>
+<div class="channels-for-user">
 {% if channels %}
+  <h2>{% trans "Submitted channels: " %}</h2>
 <ul class="channel-list">
   {% for channel in channels %}
     <li>
@@ -19,8 +25,6 @@
   {% endfor %}
 </ul>
 {% show_pager pager %}
-{% else %}
-<h2>{% trans "No channels were found" %}</h2>
 {% endif %}
 </div>
 {% endblock %}
