@@ -10,6 +10,8 @@ from channelguide.guide.models import (Channel, Item, User, ModeratorAction,
         ChannelNote)
 from channelguide.guide.notes import get_note_info, make_rejection_note
 
+import urllib
+
 SESSION_KEY = 'submitted-feed'
 
 @moderator_required
@@ -73,7 +75,7 @@ def submit_channel(request):
             feed_url = request.session[SESSION_KEY]['url']
             form.save_channel(request.user, feed_url)
             destroy_submit_url_session(request)
-            return util.redirect("channels/submit/after")
+            return util.redirect("channels/submit/after?%s" % feed_url)
         else:
             form.save_submitted_thumbnail()
     context = form.get_template_data()
@@ -165,7 +167,24 @@ def show(request, id):
     return util.render_to_response(request, 'show-channel.html', context)
 
 def after_submit(request):
-    return util.render_to_response(request, 'after-submit.html')
+    url = request.META.get('QUERY_STRING')
+    subscribe = "http://subscribe.getMiro.com/?url1=%s" % urllib.quote_plus(url)
+    def link(inside):
+        return '<a href="%s" title="Miro: Internet TV">%s</a>' % (subscribe, inside)
+    textLink = link(subscribe)
+    buttons = [
+        'http://subscribe.getmiro.com/img/buttons/one-click-subscribe-88X34.png',
+        'http://subscribe.getmiro.com/img/buttons/one-click-subscribe-109X34.png']
+    html = [textLink]
+    for button in buttons:
+        img = '<img src="%s" alt="Miro Video Player" border="0" />' % button
+        buttonLink =link(img)
+        wholeButton = '<div class="button"><div class="image">%s</div><div class="code"><textarea cols="40" rows="4" style="background-color:#EEEEEE;">%s</textarea></div></div>' % (img, buttonLink)
+        html.append(wholeButton)
+    context = {
+            'html' : ''.join(html),
+            }
+    return util.render_to_response(request, 'after-submit.html', context)
 
 def subscribe(request, id):
     channel = util.get_object_or_404(request.connection, Channel, id)
