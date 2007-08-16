@@ -14,7 +14,7 @@ from channelguide.guide import feedutil, tables, exceptions, emailmessages
 from channelguide.guide.thumbnail import Thumbnailable
 from sqlhelper.orm import Record
 
-from user import ModeratorAction
+from user import ModeratorAction, User
 from item import Item
 from label import Tag, TagMap
 import search
@@ -349,8 +349,25 @@ class Channel(Record, Thumbnailable):
         self.featured = True
         self.featured_at = datetime.now()
 
-    def toggle_moderator_share(self):
+    def toggle_moderator_share(self, user):
+        print user, 'toggled moderator share'
+        print 'old', self.moderator_shared_at, self.moderator_shared_by_id
         if self.moderator_shared_at is None:
             self.moderator_shared_at = datetime.now()
+            self.moderator_shared_by_id = user.id
         else:
             self.moderator_shared_at = None
+            self.moderator_shared_by_id = 0
+
+    def update_moderator_shared_by(self, connection):
+        if self.moderator_shared_at is not None:
+            if self.moderator_shared_by_id != 0:
+                user = User.query(id=self.moderator_shared_by_id).get(connection)
+                self.moderator_shared_by = user
+
+    def get_moderator_shared_by(self):
+        if self.moderator_shared_at is None:
+            return None
+        if self.moderator_shared_by_id == 0:
+            return None
+        return self.moderator_shared_by

@@ -50,6 +50,9 @@
 {% splitcolumns %}
     <h2 class="check-out">Shared by Moderators</h2>
     {% for channel in shared_channels %}
+    {% if channel.get_moderator_shared_by %}
+    <div class="shared-by">Shared by {{ channel.get_moderator_shared_by }}:</div>
+    {% endif %}
     {% show_channel_in_list channel %}
     {% endfor %}
 {% endtwocolumns %}

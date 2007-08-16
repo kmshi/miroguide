@@ -91,7 +91,7 @@ def channel(request, id):
         action = request.POST.get('action')
         if action == 'toggle-moderator-share':
             request.user.check_is_moderator()
-            channel.toggle_moderator_share()
+            channel.toggle_moderator_share(request.user)
         elif action == 'feature':
             request.user.check_is_supermoderator()
             count = Channel.query(featured=True).count(request.connection)

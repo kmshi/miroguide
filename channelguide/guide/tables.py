@@ -86,7 +86,9 @@ channel = Table('cg_channel',
         columns.DateTime('featured_at'),
         columns.Boolean('was_featured', default='0'),
         columns.DateTime('moderator_shared_at'),
+        columns.Int('moderator_shared_by_id', fk=user.c.id, default=0),
         columns.DateTime('approved_at'),
+        columns.String('cc_licence', 1, default='Z'),
         columns.String('cc_licence', 1, default='Z'),
         columns.Int('last_moderated_by_id', fk=user.c.id),
         columns.String('postal_code', 15))
@@ -167,7 +169,6 @@ FROM cg_channel
 LEFT JOIN cg_secondary_language_map ON
           cg_channel.id=cg_secondary_language_map.channel_id
 WHERE cg_channel.STATE='A' AND
-      (cg_channel.primary_language_id=cg_channel_language.id OR
        cg_secondary_language_map.language_id=cg_channel_language.id)""")
 
 user.add_subquery_column('moderator_action_count', """\

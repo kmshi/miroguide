@@ -12,6 +12,8 @@ def index(request):
     query = Channel.query(Channel.c.moderator_shared_at.is_not(None))
     query.order_by('moderator_shared_at', desc=True).limit(5)
     context['shared_channels'] = query.execute(request.connection)
+    for channel in context['shared_channels']:
+        channel.update_moderator_shared_by(request.connection)
 
     context['new_count'] = count_for_state(request.connection, Channel.NEW)
     context['dont_know_count'] = count_for_state(request.connection,
