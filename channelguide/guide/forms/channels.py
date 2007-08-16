@@ -135,7 +135,6 @@ class ChannelThumbnailWidget(forms.Widget):
 
     def value_from_datadict(self, data, files, name):
         hidden_name = self.get_hidden_name(name)
-        print data, files, name, hidden_name
         if data.get(name):
             return data.get(name)['content']
         elif data.get(hidden_name):
@@ -247,6 +246,7 @@ class SubmitChannelForm(Form):
                 'thumbnail_file')
 
     def set_defaults(self, saved_data):
+        print 'set_defaults', saved_data
         for key in ('name', 'website_url', 'publisher', 'short_description'):
             if saved_data[key] is not None:
                 self.fields[key].initial = saved_data[key]
@@ -389,7 +389,7 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
     def update_channel(self, channel):
         if self.cleaned_data['url'] is not None:
             channel.url = self.cleaned_data['url'].url
-        if self.cleaned_data.get('owner') is not None:
+        if 'owner' in self.fields and self.cleaned_data.get('owner') is not None:
             user = User.query(username=self.cleaned_data['owner']).get(self.connection)
             channel.owner_id = user.id
         super(EditChannelForm, self).update_channel(channel)
