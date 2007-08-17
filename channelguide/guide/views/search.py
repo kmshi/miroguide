@@ -78,7 +78,7 @@ def search(request):
     item_results = query.limit(FRONT_PAGE_LIMIT_ITEMS).execute(request.connection)
 
     tags = search_results(request.connection, Tag, terms)
-    languages = []#search_results(request.connection, Language, terms)
+    languages = search_results(request.connection, Language, terms)
     categories = search_results(request.connection, Category, terms)
 
     if (results_count == 1 and (item_results_count == len(tags) ==
