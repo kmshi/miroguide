@@ -89,7 +89,6 @@ channel = Table('cg_channel',
         columns.Int('moderator_shared_by_id', fk=user.c.id, default=0),
         columns.DateTime('approved_at'),
         columns.String('cc_licence', 1, default='Z'),
-        columns.String('cc_licence', 1, default='Z'),
         columns.Int('last_moderated_by_id', fk=user.c.id),
         columns.String('postal_code', 15))
 moderator_action = Table('cg_moderator_action', 
