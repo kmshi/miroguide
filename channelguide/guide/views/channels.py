@@ -75,7 +75,7 @@ def submit_channel(request):
             feed_url = request.session[SESSION_KEY]['url']
             form.save_channel(request.user, feed_url)
             destroy_submit_url_session(request)
-            return util.redirect("channels/submit/after?%s" % feed_url)
+            return util.redirect("after?%s" % feed_url)
         else:
             form.save_submitted_thumbnail()
     context = form.get_template_data()
