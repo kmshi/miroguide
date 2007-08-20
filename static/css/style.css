@@ -436,6 +436,14 @@ div.clear {
     padding: 0px 0px;
 }
 
+.one-click-button h3 {
+    padding: 10px;
+}
+
+.one-click-button #one-click-image {
+    padding: 15px;
+}
+
 .front-page h2 {
     font-size: 140%;
     margin-bottom: 6px;

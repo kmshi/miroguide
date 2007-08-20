@@ -171,15 +171,15 @@ def after_submit(request):
     subscribe = "http://subscribe.getMiro.com/?url1=%s" % urllib.quote_plus(url)
     def link(inside):
         return '<a href="%s" title="Miro: Internet TV">%s</a>' % (subscribe, inside)
-    textLink = link(subscribe)
+    textLink = '<h3>%s</h3>' % link("1-Click Link")
     buttons = [
         'http://subscribe.getmiro.com/img/buttons/one-click-subscribe-88X34.png',
         'http://subscribe.getmiro.com/img/buttons/one-click-subscribe-109X34.png']
     html = [textLink]
     for button in buttons:
-        img = '<img src="%s" alt="Miro Video Player" border="0" />' % button
+        img = '<img src="%s" alt="Miro Video Player" border="0" id="one-click-image" />' % button
         buttonLink =link(img)
-        wholeButton = '<div class="button"><div class="image">%s</div><div class="code"><textarea cols="40" rows="4" style="background-color:#EEEEEE;">%s</textarea></div></div>' % (img, buttonLink)
+        wholeButton = '%s<textarea id="one-click-link" cols="50" rows="2" style="background-color:#EEEEEE;">%s</textarea>' % (img, buttonLink)
         html.append(wholeButton)
     context = {
             'html' : ''.join(html),
