@@ -97,7 +97,7 @@ def channel(request, id):
         elif action == 'feature':
             request.user.check_is_supermoderator()
             count = Channel.query(featured=True).count(request.connection)
-            if count < settings.MAX_FEATURES:
+            if count <= settings.MAX_FEATURES:
                 channel.featured = True
             else:
                 msg = _("Can't feature more than %s channels") % \
