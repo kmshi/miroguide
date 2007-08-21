@@ -168,19 +168,23 @@ def show(request, id):
 
 def after_submit(request):
     url = request.META.get('QUERY_STRING')
-    subscribe = "http://subscribe.getMiro.com/?url1=%s" % urllib.quote_plus(url)
+    subscribe = settings.SUBSCRIBE_URL % {'url': urllib.quote_plus(url)}
     def link(inside):
-        return '<a href="%s" title="Miro: Internet TV">%s</a>' % (subscribe, inside)
-    textLink = '<h3>%s</h3>' % link("1-Click Link")
+        return "<a href='%s' title='Miro: Internet TV'>%s</a>" % (subscribe, inside)
+    textLink = '%s' % link("Your 1-Click Subscribe URL")
     buttons = [
         'http://subscribe.getmiro.com/img/buttons/one-click-subscribe-88X34.png',
         'http://subscribe.getmiro.com/img/buttons/one-click-subscribe-109X34.png']
-    html = [textLink]
+    html = ['<ul><form name="buttoncode">']
     for button in buttons:
-        img = '<img src="%s" alt="Miro Video Player" border="0" id="one-click-image" />' % button
-        buttonLink =link(img)
-        wholeButton = '%s<textarea id="one-click-link" cols="50" rows="2" style="background-color:#EEEEEE;">%s</textarea>' % (img, buttonLink)
+        img = "<img src='%s' alt='Miro Video Player' border='0' id='one-click-image' />" % button
+        buttonLink = link(img)
+        inputName = "btn%i" % len(html)
+        wholeButton = '<li>%s<li><span>html:</span><input size="40" id="one-click-link" name="%s" value="%s" onClick="document.buttoncode.%s.select();">' % (img, inputName, buttonLink, inputName)
         html.append(wholeButton)
+    html.append('</form>')
+    html.append('<li><h3>' + textLink + '</h3>')
+    html.append('</ul>')
     context = {
             'html' : ''.join(html),
             }

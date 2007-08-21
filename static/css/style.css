@@ -436,12 +436,27 @@ div.clear {
     padding: 0px 0px;
 }
 
-.one-click-button h3 {
-    padding: 10px;
+.one-click-button #one-click-link {
+    font-size: 65%;
+    margin-top: -10px;
+    background-color: #EEEEEE;
 }
 
-.one-click-button #one-click-image {
-    padding: 15px;
+.one-click-button h3 {
+    text-align: right;
+}
+
+.one-click-button span {
+    font-size: 80%;
+    font-weight: bold;
+    padding-left: 20px;
+    position: relative;
+    top:-5px;
+}
+
+.one-click-button input {
+    position: relative;
+    top: -5px;
 }
 
 .front-page h2 {
