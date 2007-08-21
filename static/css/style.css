@@ -436,6 +436,10 @@ div.clear {
     padding: 0px 0px;
 }
 
+.one-click-button ul {
+    padding-left: 1cm;
+}
+
 .one-click-button #one-click-link {
     font-size: 65%;
     margin-top: -10px;
