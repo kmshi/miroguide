@@ -13,7 +13,7 @@
     <ul class="channel-list">
     {% for channel in pager.items %}
         <li>
-            <div class="position">{{ forloop.counter }}.</div>
+            <div class="position">{{ forloop.counter|add:pager.start_item|add:"-1" }}.</div>
             {% show_channel_in_list channel %}
             <div class="clear"></div>
         </li>
