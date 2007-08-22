@@ -436,6 +436,12 @@ div.clear {
     padding: 0px 0px;
 }
 
+#one-click-example span {
+    font-size: 70%;
+    position:relative;
+    left:338px;
+}
+
 .one-click-button ul {
     padding-left: 1cm;
 }
