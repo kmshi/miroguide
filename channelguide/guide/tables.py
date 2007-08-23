@@ -105,6 +105,10 @@ channel_note = Table('cg_channel_note',
         columns.String('title', 255),
         columns.String('body'),
         columns.DateTime('created_at', default=datetime.now))
+channel_subscription = Table('cg_channel_subscription', 
+        columns.Int('channel_id', fk=channel.c.id),
+        columns.String('ip_address', 16),
+        columns.DateTime('timestamp', default=datetime.now))
 channel_recommendations = Table('cg_channel_recommendations',
         columns.Int('channel1_id', fk=channel.c.id),
         columns.Int('channel2_id', fk=channel.c.id),
