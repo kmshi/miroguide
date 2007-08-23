@@ -5,6 +5,7 @@ import cgi
 import feedparser
 import logging
 import traceback
+import math
 
 from django.conf import settings
 from django.utils.translation import ngettext
@@ -13,6 +14,7 @@ from channelguide import util
 from channelguide.guide import feedutil, tables, exceptions, emailmessages
 from channelguide.guide.thumbnail import Thumbnailable
 from sqlhelper.orm import Record
+from sqlhelper.sql import expression
 
 from user import ModeratorAction, User
 from item import Item
@@ -170,12 +172,66 @@ class Channel(Record, Thumbnailable):
             raise ValueError(msg)
         if timestamp is None:
             timestamp = datetime.now()
-        if self._should_throttle_ip_address(connection, ip_address, timestamp):
-            return
+#        if self._should_throttle_ip_address(connection, ip_address, timestamp):
+#            return
         insert = tables.channel_subscription.insert()
         insert.add_values(channel_id=self.id, ip_address=ip_address,
                 timestamp=timestamp)
         insert.execute(connection)
+        self.recalculate_recommendations(connection)
+
+    def recalculate_recommendations(self, connection):
+        self.delete_old_recommendations(connection)
+        for channel in self.find_all_similar(connection):
+             self.insert_recommendation(connection, channel)
+
+    def insert_recommendation(self, connection, other):
+        recommendation = self.get_similarity(connection, other)
+        if recommendation == 0:
+            return
+        c1, c2 = self.id, other
+        if c1 > c2:
+            c1, c2 = c2, c1
+        insert = tables.channel_recommendations.insert()
+        insert.add_values(channel1_id=c1, channel2_id=c2,
+                cosine=recommendation)
+        insert.execute(connection)
+
+    def delete_old_recommendations(self, connection):
+        delete = tables.channel_recommendations.delete()
+        delete.wheres.append(expression.or_together([
+            tables.channel_recommendations.c.channel1_id==self.id,
+            tables.channel_recommendations.c.channel2_id==self.id]))
+        delete.execute(connection)
+
+    def find_all_similar(self, connection):
+        sql = """SELECT DISTINCT channel_id FROM cg_channel_subscription WHERE
+    (channel_id<>%s AND ip_address IN (
+    SELECT ip_address FROM cg_channel_subscription WHERE ip_address!="0.0.0.0" AND
+        channel_id=%s))"""
+        results = connection.execute(sql, (self.id, self.id))
+        return [e[0] for e in results]
+
+    def get_similarity(self, connection, other):
+        sql = 'SELECT channel_id, ip_address from cg_channel_subscription WHERE channel_id=%s OR channel_id=%s ORDER BY ip_address'
+        entries = connection.execute(sql, (self.id, other))
+        if not entries:
+            return 0.0
+        vectors = {}
+        for (channel, ip) in entries:
+            vectors.setdefault(ip, [False, False])
+            i = int(channel)
+            if i == self.id:
+                vectors[ip][0] = True
+            elif i == other:
+                vectors[ip][1] = True
+            else:
+                raise RuntimeError("%r != to %r or %r" % (i, self.id, other))
+        keys = vectors.keys()
+        keys.sort()
+        v1 = [vectors[k][0] for k in keys]
+        v2 = [vectors[k][1] for k in keys]
+        return cosine(v1, v2)
 
     def update_thumbnails(self, connection, overwrite=False, sizes=None):
         """Recreate the thumbnails using the original data."""
@@ -371,3 +427,18 @@ class Channel(Record, Thumbnailable):
         if self.moderator_shared_by_id == 0:
             return None
         return self.moderator_shared_by
+
+def dotProduct(vector1, vector2):
+    return sum([v1*v2 for v1, v2 in zip(vector1, vector2)])
+
+def length(vector):
+    return math.sqrt(sum([v**2 for v in vector]))
+
+def cosine(v1, v2):
+    l1 = length(v1)
+    l2 = length(v2)
+    if l1 == 0 or l2 == 0:
+        return 0.0
+    return dotProduct(v1, v2)/(l1 * l2)
+
+
