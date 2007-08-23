@@ -1,4 +1,3 @@
-import re
 from Cookie import SimpleCookie
 
 from django.conf import settings
@@ -68,16 +67,19 @@ class AggressiveCacheMiddleware(CacheMiddlewareBase):
     bar.
     """
 
-    account_bar_re = re.compile(
-            r'<!-- START ACCOUNT BAR -->.*<!-- END ACCOUNT BAR -->',
-            re.DOTALL)
+    account_bar_start = '<!-- START ACCOUNT BAR -->'
+    account_bar_end = '<!-- END ACCOUNT BAR -->'
 
     def get_cache_key_tuple(self, request): 
         return (request.path, request.META['QUERY_STRING'])
 
     def response_from_cache_object(self, request, cached_response):
+        print repr(cached_response)
         t = loader.get_template("guide/account-bar.html")
         new_account_bar = t.render(Context({'user': request.user}))
-        cached_response.content = self.account_bar_re.sub(new_account_bar,
-                cached_response.content)
+        start = cached_response.content.find(account_bar_start)
+        head = cached_response.content[:start]
+        end = head.find(account_bar_end) + len(account_bar_end)
+        tail = head[end:]
+        cached_response.content = head + new_account_bar + tail
         return cached_response
