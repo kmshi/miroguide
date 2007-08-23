@@ -4,6 +4,7 @@ import math
 init.init_external_libraries()
 
 from channelguide import db
+from channelguide.guide.tables import channel
 from sqlhelper.orm.query import Query
 from sqlhelper.sql.statement import Select
 database = db.connect()
