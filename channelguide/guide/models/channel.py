@@ -178,12 +178,16 @@ class Channel(Record, Thumbnailable):
         insert.add_values(channel_id=self.id, ip_address=ip_address,
                 timestamp=timestamp)
         insert.execute(connection)
-        self.recalculate_recommendations(connection)
+        self.recalculate_recommendations(connection, ip_address)
 
-    def recalculate_recommendations(self, connection):
-        self.delete_old_recommendations(connection)
-        for channel in self.find_all_similar(connection):
-             self.insert_recommendation(connection, channel)
+    def recalculate_recommendations(self, connection, ip_address):
+        if ip_address == '0.0.0.0':
+            return # don't bother with no IP
+        updates = self.find_relevant_similar(connection, ip_address)
+        print 'updates', updates
+        self.delete_old_recommendations(connection, updates)
+        for channel in updates:
+            self.insert_recommendation(connection, channel)
 
     def insert_recommendation(self, connection, other):
         recommendation = self.get_similarity(connection, other)
@@ -197,19 +201,23 @@ class Channel(Record, Thumbnailable):
                 cosine=recommendation)
         insert.execute(connection)
 
-    def delete_old_recommendations(self, connection):
-        delete = tables.channel_recommendations.delete()
-        delete.wheres.append(expression.or_together([
-            tables.channel_recommendations.c.channel1_id==self.id,
-            tables.channel_recommendations.c.channel2_id==self.id]))
-        delete.execute(connection)
+    def delete_old_recommendations(self, connection, channels):
+        for c in channels:
+            c1 = self.id
+            c2 = c
+            if c1 > c2:
+                c1, c2 = c2, c1
+            delete = tables.channel_recommendations.delete()
+            delete.wheres.append(
+                    tables.channel_recommendations.c.channel1_id==c1)
+            delete.wheres.append(
+                tables.channel_recommendations.c.channel2_id==c2)
+            delete.execute(connection)
 
-    def find_all_similar(self, connection):
+    def find_relevant_similar(self, connection, ip_address):
         sql = """SELECT DISTINCT channel_id FROM cg_channel_subscription WHERE
-    (channel_id<>%s AND ip_address IN (
-    SELECT ip_address FROM cg_channel_subscription WHERE ip_address!="0.0.0.0" AND
-        channel_id=%s))"""
-        results = connection.execute(sql, (self.id, self.id))
+    (channel_id<>%s AND ip_address=%s)"""
+        results = connection.execute(sql, (self.id, ip_address))
         return [e[0] for e in results]
 
     def get_similarity(self, connection, other):
