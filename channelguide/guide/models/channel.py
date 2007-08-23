@@ -184,7 +184,6 @@ class Channel(Record, Thumbnailable):
         if ip_address == '0.0.0.0':
             return # don't bother with no IP
         updates = self.find_relevant_similar(connection, ip_address)
-        print 'updates', updates
         self.delete_old_recommendations(connection, updates)
         for channel in updates:
             self.insert_recommendation(connection, channel)
@@ -414,8 +413,6 @@ class Channel(Record, Thumbnailable):
         self.featured_at = datetime.now()
 
     def toggle_moderator_share(self, user):
-        print user, 'toggled moderator share'
-        print 'old', self.moderator_shared_at, self.moderator_shared_by_id
         if self.moderator_shared_at is None:
             self.moderator_shared_at = datetime.now()
             self.moderator_shared_by_id = user.id
