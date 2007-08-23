@@ -165,8 +165,10 @@ WHERE cg_channel.state='A' AND cg_tag_map.tag_id=#table#.id""")
 language.add_subquery_column('channel_count', """
 SELECT COUNT(DISTINCT(cg_channel.id))
 FROM cg_channel
+LEFT JOIN cg_secondary_language_map ON cg_secondary_language_map.channel_id=cg_channel.id
 WHERE cg_channel.STATE='A' AND
-       cg_channel.primary_language_id=#table#.id""")
+       (cg_channel.primary_language_id=#table#.id OR
+       cg_secondary_language_map.language_id=#table#.id)""")
 
 user.add_subquery_column('moderator_action_count', """\
 SELECT COUNT(DISTINCT(cg_moderator_action.channel_id))
