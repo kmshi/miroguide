@@ -157,18 +157,16 @@ SELECT COUNT(DISTINCT(cg_tag_map.user_id))
 FROM cg_tag_map
 WHERE cg_tag_map.tag_id=#table#.id""")
 
-tag.add_subquery_column('channel_count', """\
+tag.add_subquery_column('channel_count', """
 SELECT COUNT(DISTINCT(cg_channel.id)) FROM cg_channel 
 JOIN cg_tag_map ON cg_tag_map.channel_id=cg_channel.id
 WHERE cg_channel.state='A' AND cg_tag_map.tag_id=#table#.id""")
 
-language.add_subquery_column('channel_count', """\
+language.add_subquery_column('channel_count', """
 SELECT COUNT(DISTINCT(cg_channel.id))
 FROM cg_channel
-LEFT JOIN cg_secondary_language_map ON
-          cg_channel.id=cg_secondary_language_map.channel_id
 WHERE cg_channel.STATE='A' AND
-       cg_secondary_language_map.language_id=#table#.id""")
+       cg_channel.primary_language_id=#table#.id""")
 
 user.add_subquery_column('moderator_action_count', """\
 SELECT COUNT(DISTINCT(cg_moderator_action.channel_id))
