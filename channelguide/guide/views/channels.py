@@ -9,7 +9,7 @@ from channelguide.guide.auth import (admin_required, moderator_required,
 from channelguide.guide.models import (Channel, Item, User, ModeratorAction,
         ChannelNote)
 from channelguide.guide.notes import get_note_info, make_rejection_note
-
+from sqlhelper.sql.statement import Select
 import urllib
 
 SESSION_KEY = 'submitted-feed'
@@ -159,6 +159,7 @@ def show(request, id):
     context = {
         'channel': util.get_object_or_404(request.connection, query, id),
         'items': item_query.limit(6).execute(request.connection),
+        'recommendations': get_recommendations(request, id),
     }
     context['notes'] = get_note_info(context['channel'], request.user)
     if 'channel-edit-error' in request.session:
@@ -206,6 +207,17 @@ def subscribe_hit(request, id):
     channel.add_subscription(request.connection,
             request.META.get('REMOTE_ADDR', '0.0.0.0'))
     return HttpResponse("Hit successfull")
+
+def get_recommendations(request, id):
+    recSelect = Select('*')
+    recSelect.froms.append('cg_channel_recommendations')
+    recSelect.wheres.append('channel1_id=%s OR channel2_id=%s' % (id, id))
+    recSelect.order_by.append('cosine DESC')
+    recSelect.limit = 5
+    elements = recSelect.execute(request.connection)
+    recommendations = [e[0] == int(id) and e[1] or e[0] for e in elements]
+    return [Channel.query().get(request.connection, rec)
+        for rec in recommendations]
 
 class PopularWindowSelect(templateutil.ViewSelect):
     view_choices = [

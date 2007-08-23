@@ -12,12 +12,15 @@ def show_channel_full(context, channel):
             'BASE_URL': settings.BASE_URL}
 
 @register.inclusion_tag('guide/channel-full.html', takes_context=True)
-def show_channel_full_no_link(context, channel):
+def show_channel_full_no_link(context, channel, recommendations=None):
     user = context['user']
+    if recommendations is None:
+        recommendations = []
     return {'channel': channel, 'user': user,
             'show_edit_button': user.can_edit_channel(channel),
             'show_extra_info': user.can_edit_channel(channel),
             'link_to_channel': False,
+            'recommendations': recommendations,
             'BASE_URL': settings.BASE_URL}
 
 @register.inclusion_tag('guide/moderate-actions.html')
