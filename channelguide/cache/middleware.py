@@ -77,9 +77,9 @@ class AggressiveCacheMiddleware(CacheMiddlewareBase):
         print repr(cached_response)
         t = loader.get_template("guide/account-bar.html")
         new_account_bar = t.render(Context({'user': request.user}))
-        start = cached_response.content.find(account_bar_start)
+        start = cached_response.content.find(self.account_bar_start)
         head = cached_response.content[:start]
-        end = head.find(account_bar_end) + len(account_bar_end)
+        end = head.find(self.account_bar_end) + len(self.account_bar_end)
         tail = head[end:]
         cached_response.content = head + new_account_bar + tail
         return cached_response
