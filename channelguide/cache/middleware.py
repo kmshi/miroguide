@@ -74,7 +74,6 @@ class AggressiveCacheMiddleware(CacheMiddlewareBase):
         return (request.path, request.META['QUERY_STRING'])
 
     def response_from_cache_object(self, request, cached_response):
-        print repr(cached_response)
         t = loader.get_template("guide/account-bar.html")
         new_account_bar = t.render(Context({'user': request.user}))
         start = cached_response.content.find(self.account_bar_start)
