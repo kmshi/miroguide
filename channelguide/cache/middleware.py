@@ -81,5 +81,5 @@ class AggressiveCacheMiddleware(CacheMiddlewareBase):
         head = content[:start]
         end = content.find(self.account_bar_end, start) + len(self.account_bar_end)
         tail = content[end:]
-        cached_response.content = head + new_account_bar + tail
+        cached_response.content = "%s%s%s" % (head, new_account_bar, tail)
         return cached_response
