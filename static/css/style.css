@@ -1642,7 +1642,7 @@ h3 .note-author {
 }
 
 .channel-in-recommendation .info {
-    padding: 5px 5px 0px 5px;
+    padding: 0px 5px 10px 5px;
     width: 100px;
     text-align: left;
 }
@@ -1696,14 +1696,18 @@ h3 .note-author {
 
 .recommendations {
     background-color: #D9E9FA;
-    height: 100px;
+    height: 120px;
 }
 
-.recommendations ul {
-    height: 100px;
+.recommendations .heading {
+    margin-top: 3px;
+    margin-left: 10px;
+    font-size: 120%;
 }
 
 .recommendations li {
-    display: inline;
+    float: left;
+    margin-top: 8px;
+    margin-left: 10px;
     width: 240px;
 }

@@ -8,6 +8,7 @@
 {% show_channel_full_no_link channel %}
 {% if recommendations %}
 <div class="recommendations">
+<div class="heading">{% trans "People who subscribe to this channel also subscribe to:" %}</div>
 <ul>
 {% for channel in recommendations %}
   <li>
