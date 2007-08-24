@@ -58,14 +58,6 @@
         </div>
         {% endif %}
         <div class="clear"></div>
-        {% if recommendations %}
-        <div class="recommendations">
-            <h3>{% trans "Recommendations" %}</h3>
-            {% for channel in recommendations %}
-            {{ channel.name_as_link }}{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-        </div>
-        {% endif %}
         <div class="website">
             <h3>{% trans "Website" %}</h3>
             {{ channel.website_link }}

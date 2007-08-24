@@ -5,7 +5,18 @@
 {% if error %}
 <div class="error">{{ error }}</div>
 {% endif %}
-{% show_channel_full_no_link channel recommendations %}
+{% show_channel_full_no_link channel %}
+{% if recommendations %}
+<div class="recommendations">
+<ul>
+{% for channel in recommendations %}
+  <li>
+  {% show_channel_in_recommendation channel %}
+  </li>
+{% endfor %}
+</ul>
+</div>
+{% endif %}
 {% if items %}
 <div class="channel-full-separator"></div>
 <h2 class="recent-videos-header">

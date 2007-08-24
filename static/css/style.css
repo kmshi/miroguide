@@ -1640,3 +1640,70 @@ h3 .note-author {
 	left: 0px;
 	margin-bottom: 0px;
 }
+
+.channel-in-recommendation .info {
+    padding: 5px 5px 0px 5px;
+    width: 100px;
+    text-align: left;
+}
+
+.channel-in-recommendation .screenshot {
+    width: 120px;
+    height: 80px;
+}
+
+.channel-in-recommendation img.hd-icon-medium {
+    bottom: 2px;
+}
+
+.channel-in-recommendation .title {
+    margin-bottom: 0px;
+    height: 2.6em;
+    font-size: 120%;
+}
+
+.channel-in-recommendation .title a {
+    color: black;
+}
+
+.channel-in-recommendation .actions a {
+    font-size: 90%;
+}
+
+.channel-in-recommendation .actions a {
+    background: no-repeat left top;
+    line-height: 17px;
+    color: #2E6195;
+    font-weight: bold;
+}
+
+.channel-in-recommendation .actions .icon {
+    float: left;
+    margin-right: 5px;
+}
+
+.channel-in-recommendation .actions .add .icon {
+    background-image: url(images/icons/add-small-white.png);
+}
+
+.channel-in-recommendation .actions .info-button .icon {
+    background-image: url(images/icons/info-small-white.png);
+}
+
+.channel-in-recommendation .actions .info-button {
+    margin-top: 5px;
+}
+
+.recommendations {
+    background-color: #D9E9FA;
+    height: 100px;
+}
+
+.recommendations ul {
+    height: 100px;
+}
+
+.recommendations li {
+    display: inline;
+    width: 240px;
+}
