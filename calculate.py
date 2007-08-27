@@ -38,7 +38,7 @@ def main():
                     hit.add(k)
                     gs = getSimilarity(c1, c2)
                     if gs:
-                        database.execute("INSERT INTO cg_channel_recommendations VALUES (%s, %s, %s)", (c1, c2, gs))
+                        database.execute("INSERT LOW_PRIORITY INTO cg_channel_recommendations VALUES (%s, %s, %s)", (c1, c2, gs))
             database.commit()
 if __name__ == "__main__":
     main()
