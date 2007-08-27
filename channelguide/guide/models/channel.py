@@ -215,13 +215,13 @@ class Channel(Record, Thumbnailable):
 
     def find_relevant_similar(self, connection, ip_address):
         sql = """SELECT DISTINCT channel_id FROM cg_channel_subscription WHERE
-    (channel_id<>%s AND ip_address=%s)"""
-        results = connection.execute(sql, (self.id, ip_address))
+    (channel_id<>%s AND ip_address=%s AND (NOW()-timestamp) < %s)"""
+        results = connection.execute(sql, (self.id, ip_address, 16070400))
         return [e[0] for e in results]
 
     def get_similarity(self, connection, other):
-        sql = 'SELECT channel_id, ip_address from cg_channel_subscription WHERE channel_id=%s OR channel_id=%s ORDER BY ip_address'
-        entries = connection.execute(sql, (self.id, other))
+        sql = 'SELECT channel_id, ip_address from cg_channel_subscription WHERE (channel_id=%s OR channel_id=%s) AND (NOW()-timestamp) < %s AND ip_address<>%s ORDER BY ip_address'
+        entries = connection.execute(sql, (self.id, other, 16070400, "0.0.0.0"))
         if not entries:
             return 0.0
         vectors = {}
