@@ -365,8 +365,9 @@ div.clear {
 #navigation #load-indicator {
     position: fixed;
     display: none;
-    top: 33px;
+    top: 4x;
     right: 10px;
+    z-index: 1;
 }
 
 #account-bar {
