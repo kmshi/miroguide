@@ -1,4 +1,5 @@
 from channelguide import util
+from channelguide.guide import templateutil
 from channelguide.guide.auth import moderator_required
 from channelguide.guide.models import Channel, ModeratorPost
 
@@ -29,6 +30,18 @@ def index(request):
     context['post_count'] = ModeratorPost.query().count(request.connection)
 
     return util.render_to_response(request, 'moderate.html', context)
+
+@moderator_required
+def shared(request):
+    query = Channel.query(Channel.c.moderator_shared_at.is_not(None))
+    query.order_by('moderator_shared_at', desc=True)
+    pager = templateutil.Pager(10, query, request)
+    for channel in pager.items:
+        channel.update_moderator_shared_by(request.connection)
+
+    return util.render_to_response(request, "shared.html", {
+        'pager': pager
+        })
 
 @moderator_required
 def how_to_moderate(request):

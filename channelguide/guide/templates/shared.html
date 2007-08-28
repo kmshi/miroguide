@@ -1,0 +1,24 @@
+{% load i18n channels  cg_helpers %}
+{% extends 'base.html' %}
+{% block title %}Miro - {% trans "Shared" %}{%endblock %}
+{% block content %}
+<div class="channel-list-page">
+<div class="shared-channel-list">
+    <h1>{% trans "Shared by Moderators" %}</h1>
+    <div class="clear"></div>
+    <ul class="channel-list">
+    {% for channel in pager.items %}
+        <li>
+            <div class="position">{{ forloop.counter|add:pager.start_item|add:"-1" }}.</div>
+            {% show_channel_in_list channel %}
+            {% if channel.get_moderator_shared_by %}
+            <div class="sharer">Shared by {{ channel.get_moderator_shared_by }}</div>
+            {% endif %}
+            <div class="clear"></div>
+        </li>
+    {% endfor %}
+    </ul>
+    {% show_pager pager %}
+</div>
+</div>
+{% endblock %}
