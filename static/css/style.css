@@ -365,7 +365,7 @@ div.clear {
 #navigation #load-indicator {
     position: fixed;
     display: none;
-    top: 10px;
+    top: 33px;
     right: 10px;
 }
 
