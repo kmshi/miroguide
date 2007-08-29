@@ -29,6 +29,8 @@ class Channel(Record, Thumbnailable):
     DONT_KNOW = 'D'
     REJECTED = 'R'
     APPROVED = 'A'
+    BROKEN = 'B'
+    SUSPENDED ='S'
 
     cc_licence_codes = {
      'Z': 'Not CC Licensed',
@@ -162,8 +164,8 @@ class Channel(Record, Thumbnailable):
         subscription_table = tables.channel_subscription
         select = subscription_table.select_count()
         select.wheres.append(subscription_table.c.ip_address==ip_address)
-        week_ago = timestamp - timedelta(weeks=1)
-        select.wheres.append(subscription_table.c.timestamp > week_ago)
+        second_ago = timestamp - 1
+        select.wheres.append(subscription_table.c.timestamp > second_ago)
         return select.execute_scalar(connection) > 0
 
     def add_subscription(self, connection, ip_address, timestamp=None, ignore_for_recommendations=False):
