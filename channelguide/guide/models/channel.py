@@ -166,7 +166,7 @@ class Channel(Record, Thumbnailable):
         select.wheres.append(subscription_table.c.timestamp > week_ago)
         return select.execute_scalar(connection) > 0
 
-    def add_subscription(self, connection, ip_address, timestamp=None):
+    def add_subscription(self, connection, ip_address, timestamp=None, ignore_for_recommendations=False):
         if self.id is None:
             msg = "Channel must be saved before add_subscription() is called"
             raise ValueError(msg)
@@ -176,9 +176,9 @@ class Channel(Record, Thumbnailable):
 #            return
         insert = tables.channel_subscription.insert()
         insert.add_values(channel_id=self.id, ip_address=ip_address,
-                timestamp=timestamp)
+                timestamp=timestamp, ignore_for_recommendations=ignore_for_recommendations)
         insert.execute(connection)
-        self.recalculate_recommendations(connection, ip_address)
+#        self.recalculate_recommendations(connection, ip_address)
 
     def recalculate_recommendations(self, connection, ip_address):
         if ip_address == '0.0.0.0':
