@@ -72,7 +72,7 @@ You can view your channel here: %s.
 
 If you'd like more viewers to experience your show in Miro, add a 1-click
 subscribe button to your web site or myspace page. Then it becomes so easy for
-people to get *every* episode of your show: http://subscribe.getdemocracy.com/
+people to get *every* episode of your show: http://subscribe.getmiro.com/
 
 Thanks for adding your show to the Miro Guide.""" % \
         (owner, channel.get_absolute_url()))
@@ -98,7 +98,7 @@ class BrokenChannelEmail(RejectionEmail):
         RejectionEmail.__init__(self, channel, 'BROKEN', """\
 Your feed doesn't seem to work in Miro. Check it out in feedvalidator.org
 (%s). If you're having problems finding the problem, please search the
-democracy forums (%s) and post a question if you don't find an answer.
+Miro forums (%s) and post a question if you don't find an answer.
 
 Once you have your feed working in Miro, please post a message for us on
 the channel page (%s).""" % (feedvalidator_link, settings.FORUMS_URL,
