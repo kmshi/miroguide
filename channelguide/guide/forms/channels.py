@@ -41,7 +41,9 @@ class RSSFeedField(WideCharField):
         if Channel.query(url=url).count(self.connection) > 0:
             msg = _("%s is already a channel in the guide") % url
             raise forms.ValidationError(msg)
+        return self.check_missing(url)
 
+    def check_missing(self, url):
         missing_feed_msg = _("We can't find a video feed at that address, "
                 "please try again.")
         try:

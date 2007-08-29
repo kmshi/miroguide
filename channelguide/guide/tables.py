@@ -15,6 +15,8 @@ def name_for_state_code(state):
         return _("Don't Know")
     elif state == 'R':
         return _('Rejected')
+    elif state == 'S':
+        return _('Suspended')
     else:
         return _('Unknown')
 
