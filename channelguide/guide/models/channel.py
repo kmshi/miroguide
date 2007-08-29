@@ -172,11 +172,12 @@ class Channel(Record, Thumbnailable):
             raise ValueError(msg)
         if timestamp is None:
             timestamp = datetime.now()
-#        if self._should_throttle_ip_address(connection, ip_address, timestamp):
-#            return
+        if self._should_throttle_ip_address(connection, ip_address, timestamp):
+            return
         insert = tables.channel_subscription.insert()
         insert.add_values(channel_id=self.id, ip_address=ip_address,
-                timestamp=timestamp, ignore_for_recommendations=ignore_for_recommendations)
+                timestamp=timestamp,
+                ignore_for_recommendations=ignore_for_recommendations)
         insert.execute(connection)
 #        self.recalculate_recommendations(connection, ip_address)
 
