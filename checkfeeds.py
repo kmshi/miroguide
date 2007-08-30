@@ -37,8 +37,6 @@ def dailyScan():
     def error(channel):
         lastMA = ModeratorAction.query(ModeratorAction.c.channel_id==channel.id,
                 ModeratorAction.c.user_id==user.id).order_by('timestamp', desc=True).limit(1).get(database)
-        if channel.id != 46:
-            return
         print lastMA.channel_id, lastMA.timestamp
         if datetime.now() - timedelta(5) < lastMA.timestamp < datetime.now() - timedelta(days=4):
             channel.join('owner').execute(database)
