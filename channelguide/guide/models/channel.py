@@ -164,7 +164,7 @@ class Channel(Record, Thumbnailable):
         subscription_table = tables.channel_subscription
         select = subscription_table.select_count()
         select.wheres.append(subscription_table.c.ip_address==ip_address)
-        second_ago = timestamp - 1
+        second_ago = timestamp - timedelta(seconds=1)
         select.wheres.append(subscription_table.c.timestamp > second_ago)
         return select.execute_scalar(connection) > 0
 

@@ -20,6 +20,11 @@
         {{ count }} Channels waiting for Reply
         {% endblocktrans %}</a>
 </h2>
+<h2><a {% link "channels/moderator-list/suspended" %}>
+        {% blocktrans with suspended_count as count %}
+        {{ count }} Susppended Channels
+        {% endblocktrans %}</a>
+</h2>
 <h2><a {% link "channels/moderator-list/rejected" %}>
         {% blocktrans with rejected_count as count %}
         {{ count }} Rejected channels

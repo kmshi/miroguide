@@ -27,6 +27,9 @@ def moderator_channel_list(request, state):
     elif state == 'rejected':
         query.where(state=Channel.REJECTED)
         header = _("Rejected Channels")
+    elif state == 'suspended':
+        query.where(state=Channel.SUSPENDED)
+        header = _("Suspended Channels")
     else:
         query.where(state=Channel.NEW)
         header = _("Unreviewed Channels")

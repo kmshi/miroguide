@@ -21,6 +21,8 @@ def index(request):
             Channel.DONT_KNOW)
     waiting_q = Channel.query(Channel.c.waiting_for_reply_date.is_not(None))
     context['waiting_count'] = waiting_q.count(request.connection)
+    context['suspended_count'] = count_for_state(request.connection,
+            Channel.SUSPENDED)
     context['rejected_count'] = count_for_state(request.connection,
             Channel.REJECTED)
 
