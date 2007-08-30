@@ -3,6 +3,7 @@ The main point of this module is to store the text in 1 place.
 """
 
 import urllib
+from datetime import datetime, timedelta
 
 from django.conf import settings
 
@@ -141,3 +142,34 @@ class ModeratorBoardEmail(EmailMessage):
 
 To send messages to other moderators, go to the moderator message board:
 %s """ % (post.body, board_url)
+
+class TroubleshootChannelEmail(EmailMessage):
+    def __init__(self, channel, title, body):
+        self.title = '[Miro Guide] %s has been %s' % (channel.name, title)
+        feedvalidator_link = 'http://feedvalidator.org/check.cgi?url='
+        feedvalidator_link += urllib.quote_plus(channel.url)
+        self.body = """%s
+
+
+*Troubleshooting Your Feed*
+
+Check up on your channel here: %s
+
+Does it work in a browser: %s
+
+Does it validate: %s
+
+Miro Forums: http://www.getmiro.com/forum/categories.php
+
+Note: You can communicate with Miro Guide moderators by using the message system at the bottom of your channel's page in the Miro Guide.""" % (body, channel.get_absolute_url(), channel.url, feedvalidator_link)
+
+class SuspendedChannelEmail(TroubleshootChannelEmail):
+    def __init__(self, channel):
+        tenDays = (datetime.now() + timedelta(days=10)).date()
+        TroubleshootChannelEmail.__init__(self, channel, 'suspended', """
+For some reason, your feed isn't working in Miro. We have temporarily taken it off the Miro Guide and will continue to test it until %s.  If your feed doesn't work by then, you will receive another message.""" % tenDays)
+
+class RejectedChannelEmail(TroubleshootChannelEmail):
+    def __init__(self, channel):
+        TroubleshootChannelEmail.__init__(self, channel, 'rejected', """
+Your previously working feed has been broken for the past two weeks, therefore we have removed it from being listed in the Miro Guide. If you would like to get your channel re-listed, please get your feed working in Miro and then use the form at the bottom of your channel to get in touch with our moderators (link below).""")
