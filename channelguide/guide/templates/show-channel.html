@@ -6,6 +6,9 @@
 <div class="error">{{ error }}</div>
 {% endif %}
 {% show_channel_full_no_link channel %}
+{% if ratings_bar %}
+    {{ ratings_bar }}
+{% endif %}
 {% if recommendations %}
 <div class="recommendations">
 <div class="heading">{% trans "People who subscribe to this channel also subscribe to:" %}</div>

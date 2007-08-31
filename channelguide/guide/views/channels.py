@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.http import Http404, HttpResponseRedirect, HttpResponse
+from django.template import loader, context
 from django.utils.translation import gettext as _
 
 from channelguide import util, cache
@@ -7,7 +8,7 @@ from channelguide.guide import forms, templateutil
 from channelguide.guide.auth import (admin_required, moderator_required,
         login_required)
 from channelguide.guide.models import (Channel, Item, User, ModeratorAction,
-        ChannelNote)
+        ChannelNote, Rating)
 from channelguide.guide.notes import get_note_info, make_rejection_note
 from sqlhelper.sql.statement import Select
 import re, urllib
@@ -164,10 +165,12 @@ def show(request, id):
         'items': item_query.limit(6).execute(request.connection),
         'recommendations': get_recommendations(request, id),
     }
-    context['notes'] = get_note_info(context['channel'], request.user)
+    context['notes'] = get_note_info(context['channel'], request.user),
     if 'channel-edit-error' in request.session:
         context['error'] = request.session['channel-edit-error']
         del request.session['channel-edit-error']
+    if request.user.is_authenticated():
+        context['ratings_bar'] = get_ratings_bar(request, id)
     return util.render_to_response(request, 'show-channel.html', context)
 
 def after_submit(request):
@@ -229,6 +232,40 @@ def get_recommendations(request, id):
     recommendations = [e[0] == int(id) and e[1] or e[0] for e in elements]
     return [Channel.query().get(request.connection, rec)
         for rec in recommendations]
+
+def get_ratings_bar(request, id):
+    try:
+        rating = Rating.query(Rating.c.user_id==request.user.id,
+            Rating.c.channel_id==id).get(request.connection)
+    except Exception:
+        rating = Rating()
+        rating.channel_id = id
+        rating.rating = 0
+    c = {
+            'rating': rating,
+        }
+    return loader.render_to_string('guide/rating.html', c)
+
+def rating(request, id, rating):
+    if rating not in ['1', '2', '3', '4', '5']:
+        return Http404
+    if not request.user.is_authenticated():
+        return Http404
+    print id, rating
+    try:
+        dbRating = Rating.query(Rating.c.user_id==request.user.id,
+            Rating.c.channel_id==id).get(request.connection)
+    except Exception:
+        dbRating = Rating()
+        dbRating.user_id = request.user.id
+        dbRating.channel_id = id
+    dbRating.rating = rating
+    print dbRating, dbRating.exists_in_db()
+    dbRating.save(request.connection)
+    bar = get_ratings_bar(request, id)
+    print bar
+    items = re.search('<li.*</li>', bar, re.S).group()
+    return HttpResponse(items)
 
 class PopularWindowSelect(templateutil.ViewSelect):
     view_choices = [

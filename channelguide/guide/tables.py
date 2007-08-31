@@ -116,6 +116,10 @@ channel_recommendations = Table('cg_channel_recommendations',
         columns.Int('channel1_id', fk=channel.c.id),
         columns.Int('channel2_id', fk=channel.c.id),
         columns.Int('cosine')) # it's a float, but this should be okay
+channel_rating = Table('cg_channel_rating',
+        columns.Int('channel_id', fk=channel.c.id, primary_key=True),
+        columns.Int('user_id', fk=user.c.id, primary_key=True),
+        columns.Int('rating'))
 item = Table('cg_channel_item',
         columns.Int('id', primary_key=True, auto_increment=True),
         columns.Int('channel_id', fk=channel.c.id),
@@ -224,3 +228,5 @@ user.one_to_many('notes', channel_note, backref='user')
 user.one_to_one('auth_token', user_auth_token, backref='user')
 moderator_action.many_to_one('user', user, backref='moderator_actions')
 moderator_action.many_to_one('channel', channel, backref='moderator_actions')
+channel_rating.many_to_one('user', user, backref='channel_rating')
+channel_rating.many_to_one('channel', channel, backref='channel_rating')

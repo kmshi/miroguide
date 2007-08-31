@@ -6,3 +6,4 @@ from item import Item
 from note import ChannelNote, ModeratorPost
 from search import ChannelSearchData, ItemSearchData
 from channel import Channel
+from rating import Rating

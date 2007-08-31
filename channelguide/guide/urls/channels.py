@@ -3,6 +3,7 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns('channelguide.guide.views.channels',
     (r'^submitted_thumbnails/(\d+)$', 'submitted_thumbnail'),
     (r'^(\d+)$', 'channel'),
+    (r'^rating/(\d+)/(\d+)$', 'rating'),
     (r'^popular$', 'popular'),
     (r'^by-name$', 'by_name'),
     (r'^features$', 'features'),
