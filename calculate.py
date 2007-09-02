@@ -13,14 +13,14 @@ database = db.connect()
 def getAllSimilar(channel):
     sql = """SELECT DISTINCT channel_id FROM cg_channel_subscription WHERE
 (channel_id<>%s AND ip_address IN (
-SELECT ip_address FROM cg_channel_subscription WHERE ip_address!=%s AND
-    channel_id=%s AND (NOW()-timestamp) < %s AND ignore_for_recommendations<>%s))"""
-    results = database.execute(sql, (channel, "0.0.0.0", channel, 16070400, False))
+SELECT ip_address FROM cg_channel_subscription JOIN cg_channel ON cg_channel_subscription.channel_id=cg_channel.id WHERE ip_address!=%s AND
+    channel_id=%s AND (NOW()-timestamp) < %s AND ignore_for_recommendations<>%s AND state=%s))"""
+    results = database.execute(sql, (channel, "0.0.0.0", channel, 16070400, False, 'A'))
     return [e[0] for e in results]
 
 def getRecent(seconds):
-    sql = """SELECT DISTINCT channel_id FROM cg_channel_subscription WHERE (NOW()-timestamp) < %s AND ip_address!=%s AND ignore_for_recommendations<>%s"""
-    results = database.execute(sql, (seconds, "0.0.0.0"), False)
+    sql = """SELECT DISTINCT channel_id FROM cg_channel_subscription JOIN cg_channel ON cg_channel_subscription.channel_id = cg_channel.id WHERE (NOW()-timestamp) < %s AND ip_address!=%s AND ignore_for_recommendations<>%s AND state=%s"""
+    results = database.execute(sql, (seconds, "0.0.0.0", False, 'A'))
     return [e[0] for e in results]
 
 def getSimilarity(channel1, channel2):
