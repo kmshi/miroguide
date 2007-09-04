@@ -32,13 +32,13 @@ def search_items(request, terms):
     return query
 
 def more_results_link(query, total_results):
-    href = 'search-more-channels?query=' + urllib.quote_plus(query)
+    href = 'search-more-channels?query=' + urllib.quote_plus(query.encode('utf-8'))
     label = _('%d More Matching Channels >>') % (total_results -
             FRONT_PAGE_LIMIT)
     return util.make_link(href, label)
 
 def more_results_link_items(query, total_results):
-    href = 'search-more-items?query=' + urllib.quote_plus(query)
+    href = 'search-more-items?query=' + urllib.quote_plus(query.encode('utf-8'))
     label = _('%d More Matching Channel Videos >>') % (total_results -
             FRONT_PAGE_LIMIT_ITEMS)
     return util.make_link(href, label)
@@ -55,11 +55,11 @@ def search_results(connection, class_, terms, search_attribute='name'):
 @cache.aggresively_cache
 def search(request):
     context = {}
-
     try:
         search_query = request.GET['query']
     except:
         raise Http404
+    print type(search_query)
     search_query = search_query.strip()
     terms = get_search_terms(search_query)
     if terms_too_short(terms):
