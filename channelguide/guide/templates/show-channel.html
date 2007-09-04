@@ -17,11 +17,13 @@
             {% endif %}
         </div>
         <ul class="actions">
-            <li id="rate">{{ ratings_bar }}<div id="average">Avg. of {{ ratings_count }} ratings: <strong>{{ ratings_average|floatformat }}</strong> stars</div></li>
-            <li id="subscribe" class="big horizontal"><a {{ channel.subscription_link }}>
+            <div class="big horizontal">
+            <li id="rate">{{ ratings_bar }}<div id="average">Avg. of {{ ratings_count }} rating{{ ratings_count|pluralize }}: <strong>{{ ratings_average|floatformat }}</strong> star{{ ratings_average|pluralize }}</div></li>
+            <li id="subscribe"><a {{ channel.subscription_link }}>
                 <span class="icon"></span>
                     {% trans "Add Channel" %}
                 </a></li>
+            </div>
         </ul>
         <div id="categories">
             <h3>{% trans "Categories" %}</h3>
@@ -77,14 +79,17 @@
         <div id="comments"></div>
         {% if recommendations %}
         <div id="recommendations">
-            <h3>{% trans "People who subscribe to this channel also subscribe to:" %}</h3>
-        <ul>
-        {% for channel in recommendations %}
-          <li>
-          {% show_channel_in_recommendation channel %}
-          </li>
-        {% endfor %}
-        </ul>
+            <h2>{% trans "People who like this channel also like:" %}</h2>
+        <table>
+            <tr>
+                <td>{% show_channel_in_recommendation recommendations.0 %}</td>
+                <td>{%if recommendations.1 %}{% show_channel_in_recommendation recommendations.1 %}{% endif %}</td>
+            </tr>
+            <tr>
+                <td>{% if recommendations.2 %}{% show_channel_in_recommendation recommendations.2 %}{% endif %}</td>
+                <td>{% if recommendations.3 %}{% show_channel_in_recommendation recommendations.3 %}{% endif %}</td>
+            </tr>
+        </table>
         </div>
         {% endif %}
 

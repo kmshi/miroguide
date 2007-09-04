@@ -1184,7 +1184,7 @@ li.blog-post .title {
     background-image: url(images/icons/add-big-white.png);
 }
 
-.channel-full .actions a.add {
+.channel-full .actions #subscribe a.add {
     text-decoration: none;
     font-weight: bold;
     font-size: 130%;
@@ -1299,6 +1299,27 @@ li.blog-post .title {
     height: 1.3em;
     margin-top: 5px;
     overflow: hidden;
+}
+
+.channel-full h2 {
+    padding: 5px 0 0 0;
+    text-align: center;
+    color: #666666;
+}
+.channel-full #recommendations table {
+    width: 370px;
+}
+
+.channel-full #recommendations td {
+    padding: 0 10px 0 10px;
+    width: 150px;
+    text-align: center;
+}
+
+.channel-full #recommendations {
+    background-color: #D9E9FA;
+    position:relative;
+    top:308px;
 }
 
 /* Channels in the tag/category/language lists */
@@ -1696,64 +1717,41 @@ h3 .note-author {
 }
 
 .channel-in-recommendation .title {
-    margin-bottom: 0px;
-    height: 2.6em;
+    margin-bottom: 2px;
     font-size: 110%;
+    padding: 0;
 }
 
 .channel-in-recommendation .title a {
     color: black;
 }
 
-.channel-in-recommendation .actions a {
-    font-size: 90%;
+.channel-in-recommendation .screenshot {
+    margin-left: 20px;
 }
 
 .channel-in-recommendation .actions a {
+    font-size: 90%;
+    margin-left: 10px;
     background: no-repeat left top;
     line-height: 17px;
     color: #2E6195;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .channel-in-recommendation .actions .icon {
     float: left;
     margin-right: 5px;
 }
-
 .channel-in-recommendation .actions .add .icon {
+    margin-top: 5px;
+    margin-left: 11px;
     background-image: url(images/icons/add-small-white.png);
 }
 
+
 .channel-in-recommendation .actions .info-button .icon {
-    background-image: url(images/icons/info-small-white.png);
-}
-
-.channel-in-recommendation .actions .info-button {
     margin-top: 5px;
-}
-
-.recommendations {
-    background-color: #D9E9FA;
-    height: 120px;
-    width: 794px;
-    position: relative;
-    right: 16px;
-    border-style: solid;
-    border-width: 10px 0px 10px 0px;
-    border-color: #D9E9FA;
-}
-
-.recommendations .heading {
-    margin-top: 3px;
-    margin-left: 15px;
-    color: #666666;
-    font-size: 120%;
-}
-
-.recommendations li {
-    float: left;
-    margin-top: 8px;
-    margin-left: 15px;
-    width: 240px;
+    background-image: url(images/icons/info-small-white.png);
 }

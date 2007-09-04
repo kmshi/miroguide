@@ -9,6 +9,6 @@
         {{ item.thumb }}
     </div>
     <div class="description">
-        {{ item.description }}
+        {{ item.description|truncatewords_html:30 }}
     </div>
 </div>
