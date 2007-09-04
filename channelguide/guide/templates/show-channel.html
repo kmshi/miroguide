@@ -74,7 +74,7 @@
         {% endif %}
     {% splitcolumns %}
         <div id="description">
-            {{ channel.description|escape }}
+            {{ channel.description|escape|truncatewords_html:73 }}
         </div>
         <div id="comments"></div>
         {% if recommendations %}
