@@ -191,6 +191,16 @@ SELECT COUNT(*)
 FROM cg_channel_item
 WHERE cg_channel_item.channel_id=#table#.id""")
 
+channel.add_subquery_column('count_rating', """\
+SELECT COUNT(rating)
+FROM cg_channel_rating
+WHERE cg_channel_rating.channel_id=#table#.id""")
+
+channel.add_subquery_column('average_rating', """\
+SELECT AVG(rating)
+FROM cg_channel_rating
+WHERE cg_channel_rating.channel_id=#table#.id""")
+
 def make_subscription_count(name, timeline=None):
     sql = """\
 SELECT COUNT(*)

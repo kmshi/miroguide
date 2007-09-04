@@ -880,8 +880,12 @@ li.blog-post .title {
     height: 25px;
 }
 
+.channel .actions ul {
+    float: left;
+}
+
 .channel .actions a {
-    display: block;
+    display: inline-block;
     color: #3c3c3c;
     margin: auto;
 }
@@ -906,12 +910,12 @@ li.blog-post .title {
 }
 
 .channel .actions .horizontal .icon {
-    float: left;
+    float:left;
     margin-right: 5px;
 }
 
 .channel .actions .horizontal a {
-    float: left;
+    float:left;
     vertical-align: middle;
     line-height: 24px;
 }
@@ -1148,13 +1152,80 @@ li.blog-post .title {
 .channel-full h1 {
     font-size: 240%;
     margin-bottom: 10px;
+    text-align: left;
 }
 
 .channel-full li {
     margin-bottom: 5px;
 }
 
-.channel-full .description {
+.channel-full ul.actions {
+    float: left;
+}
+
+.channel-full .actions #rate #average {
+    position: relative;
+    top:40px;
+    right:125px;
+    font-size: 80%;
+    color: #666666;
+}
+
+.channel-full .actions #rate #average strong {
+    color: #000000;
+}
+
+.channel-full .actions li#subscribe {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.channel-full .actions .add .icon {
+    background-image: url(images/icons/add-big-white.png);
+}
+
+.channel-full .actions a.add {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 130%;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.channel-full #categories {
+    float: left;
+    margin-top: 20px;
+    min-width: 100px;
+    max-width: 250px;
+    margin-right: 20px;
+}
+
+.channel-full #tags {
+    float: left;
+    margin-top: 20px;
+    min-width: 100px;
+    max-width: 250px;
+}
+
+.channel-full #website {
+    float: left;
+    margin-top: 20px;
+}
+
+.channel-full .extra-info {
+    margin-top: 10px;
+}
+
+.channel-full .separator {
+    clear:left;
+    width: 370px;
+}
+
+.channel-full .sub-header {
+    color: #666666;
+}
+
+.channel-full #description {
     font-size: 130%;
 }
 
@@ -1164,37 +1235,6 @@ li.blog-post .title {
 
 .channel-full .title a {
     text-decoration: none;
-}
-
-.channel-full .actions .add .icon {
-    background-image: url(images/icons/add-big-white.png);
-}
-
-.channel-full .actions a {
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 130%;
-    margin: 15px 0px;
-}
-
-.channel-full .categories {
-    float: left;
-    min-width: 100px;
-    max-width: 250px;
-    margin-right: 20px;
-}
-
-.channel-full .website {
-    margin-top: 20px;
-}
-
-.channel-full .extra-info {
-    margin-top: 10px;
-}
-
-.channel-full .category-tag-separator {
-    margin: 0px 2px;
-    vertical-align: middle;
 }
 
 .channel-full .channel-action {
@@ -1223,13 +1263,11 @@ li.blog-post .title {
 }
 
 .recent-videos-header {
-    border-bottom: 1px solid #669;
     font-size: 150%;
     padding-bottom: 15px;
 }
 
 .item {
-    border-bottom: 1px solid #669;
     color: black;
     overflow: hidden;
 }
@@ -1242,44 +1280,26 @@ li.blog-post .title {
     height: 90px;
 }
 
-.item .info {
-    float: right;
-    border-left: 1px solid #669;
-    height: 100%;
-    width: 153px;
-}
-
-.item .time-and-date {
-    margin-left: 7px;
-    padding: 5px 20px 5px 0px;
-    font-size: 81%;
-}
-
 .item .date {
-    float: right;
+    font-size: 81%;
+    color: #666666;
+    margin-bottom: 7px;
 }
 
-.item .main-info {
-    width: 486px;
-    margin-left: 120px;
-    border-right: 1px solid #669;
+.item .description {
+    margin-left: 130px;
     min-height: 94px;
+    padding-right: 10px;
+    position: relative;
+    bottom: 4px;
+    word-wrap: break-word;
 }
 
-.item .title {
+.item h2 {
     height: 1.3em;
     margin-top: 5px;
     overflow: hidden;
 }
-
-.item .description {
-    padding-right: 10px;
-}
-
-.item .description img {
-    display: none;
-}
-
 
 /* Channels in the tag/category/language lists */
 

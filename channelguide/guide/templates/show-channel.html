@@ -1,37 +1,108 @@
 {% extends 'base.html' %}
-{% load channels i18n notes %}
+{% load cg_helpers channels i18n notes %}
 {% block title %}{{ channel.name }} - Miro{%endblock %}
 {% block content %}
 {% if error %}
 <div class="error">{{ error }}</div>
 {% endif %}
-{% show_channel_full_no_link channel %}
-{% if ratings_bar %}
-    {{ ratings_bar }}
-{% endif %}
-{% if recommendations %}
-<div class="recommendations">
-<div class="heading">{% trans "People who subscribe to this channel also subscribe to:" %}</div>
-<ul>
-{% for channel in recommendations %}
-  <li>
-  {% show_channel_in_recommendation channel %}
-  </li>
-{% endfor %}
-</ul>
+<div class="channel channel-full">
+<h1 class="title">
+    {{ channel.name|escape }}
+</h1>
+    {% twocolumns %}
+            <div class="screenshot">
+            {{ channel.thumb_370_247 }}
+            {% if channel.hi_def %}
+            <img class="hd-icon-large" src="{{ STATIC_BASE_URL }}images/hd-icon-large.png" alt="HD">
+            {% endif %}
+        </div>
+        <ul class="actions">
+            <li id="rate">{{ ratings_bar }}<div id="average">Avg. of {{ ratings_count }} ratings: <strong>{{ ratings_average|floatformat }}</strong> stars</div></li>
+            <li id="subscribe" class="big horizontal"><a {{ channel.subscription_link }}>
+                <span class="icon"></span>
+                    {% trans "Add Channel" %}
+                </a></li>
+        </ul>
+        <div id="categories">
+            <h3>{% trans "Categories" %}</h3>
+            {% for cat in channel.categories %}
+                {{ cat.link }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </div>
+        {% if channel.tags %}
+        <div id="tags">
+            <h3>{% trans "Tags" %}</h3>
+            {% for tag in channel.tags %}
+                {{ tag.link }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div id="website">
+            <h3>{% trans "Website" %}</h3>
+            {{ channel.website_link }}
+        </div>
+        {% if show_extra_info %}
+        <ul id="extra-info">
+            <li><h3>{% trans "Owner Email" %}</h3>
+            {{ channel.owner.email }}</li>
+            <li><h3>{% trans "Moderation Status" %}</h3>
+            {% blocktrans with channel.state_name as state %}
+            Channel is {{ state }}
+            {% endblocktrans %}
+            {% if channel.last_moderated_by %}
+            {% blocktrans with channel.last_moderated_by as mod %}
+            (set by {{ mod }})
+            {% endblocktrans %}
+            {% endif %}
+        </li></ul>
+        {% endif %}
+        {% if items %}
+        <div class="separator"></div>
+        <h2 class="recent-videos-header">
+        {% blocktrans %}
+        Recent Videos on this Channel <div class="sub-header">(to see all videos on
+        this channel, add it)</div>
+        {% endblocktrans %}
+        </h2>
+        <ul id="items">
+        {% for item in items %}
+          <li>{% show_item item %}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% splitcolumns %}
+        <div id="description">
+            {{ channel.description|escape }}
+        </div>
+        <div id="comments"></div>
+        {% if recommendations %}
+        <div id="recommendations">
+            <h3>{% trans "People who subscribe to this channel also subscribe to:" %}</h3>
+        <ul>
+        {% for channel in recommendations %}
+          <li>
+          {% show_channel_in_recommendation channel %}
+          </li>
+        {% endfor %}
+        </ul>
+        </div>
+        {% endif %}
+
+        {% if user.is_moderator or show_edit_button %}
+        <ul>
+        {% if user.is_moderator %}
+            {% show_moderate_actions channel %}
+        {% endif %}
+        {% if show_edit_button %}
+        <li class="channel-action">
+        <form action="#" method="GET" onsubmit="return handleFormLink('{{ channel.get_edit_url }}');">
+                <input type="submit" value="{% trans "Edit" %}">
+            </form>
+        </li>
+        {% endif %}
+        </ul>
+        {% endif %}
+    {% endtwocolumns %}
 </div>
-{% endif %}
-{% if items %}
-<div class="channel-full-separator"></div>
-<h2 class="recent-videos-header">
-{% blocktrans %}
-Recent Videos on this Channel <span class="sub-header">(to see all videos on
-this channel, add it)</span>
-{% endblocktrans %}
-</h2>
-{% for item in items %}
-  {% show_item item %}
-{% endfor %}
-{% endif %}
 {% show_channel_notes notes channel %}
 {% endblock %}

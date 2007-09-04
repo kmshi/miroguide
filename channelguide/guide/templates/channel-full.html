@@ -2,11 +2,7 @@
 <div class="channel channel-full">
     {% twocolumns %}
         <div class="screenshot">
-            {% if link_to_channel %}
-                <a {% link channel.get_url %}>{{ channel.thumb_370_247 }}</a>
-            {% else %}
-                {{ channel.thumb_370_247 }}
-            {% endif %}
+            {{ channel.thumb_370_247 }}
             {% if channel.hi_def %}
             <img class="hd-icon-large" src="{{ BASE_URL }}images/hd-icon-large.png" alt="HD">
             {% endif %}
@@ -27,11 +23,7 @@
         {% endif %}
     {% splitcolumns %}
         <h1 class="title">
-            {% if link_to_channel %}
-                {{ channel.name_as_link }}
-            {% else %}
-                {{ channel.name|escape }}
-            {% endif %}
+            {{ channel.name|escape }}
         </h1>
         <div class="description">{{ channel.description|escape }}</div>
         <div class="actions">

@@ -162,15 +162,17 @@ def show(request, id):
     item_query = Item.query(channel_id=id).order_by('date', desc=True)
     context = {
         'channel': util.get_object_or_404(request.connection, query, id),
-        'items': item_query.limit(6).execute(request.connection),
+        'items': item_query.limit(2).execute(request.connection),
         'recommendations': get_recommendations(request, id),
     }
-    context['notes'] = get_note_info(context['channel'], request.user),
+    c = context['channel']
+    context['ratings_bar'] = get_ratings_bar(request, c)
+    context['ratings_count'] = Rating.count_rating(c, request.connection)
+    context['ratings_average'] = Rating.average_rating(c, request.connection)
+    context['notes'] = get_note_info(c, request.user),
     if 'channel-edit-error' in request.session:
         context['error'] = request.session['channel-edit-error']
         del request.session['channel-edit-error']
-    if request.user.is_authenticated():
-        context['ratings_bar'] = get_ratings_bar(request, id)
     return util.render_to_response(request, 'show-channel.html', context)
 
 def after_submit(request):
@@ -233,16 +235,17 @@ def get_recommendations(request, id):
     return [Channel.query().get(request.connection, rec)
         for rec in recommendations]
 
-def get_ratings_bar(request, id):
+def get_ratings_bar(request, channel):
     try:
         rating = Rating.query(Rating.c.user_id==request.user.id,
-            Rating.c.channel_id==id).get(request.connection)
+            Rating.c.channel_id==channel.id).get(request.connection)
     except Exception:
         rating = Rating()
-        rating.channel_id = id
-        rating.rating = 0
+        rating.channel_id = channel.id
+        rating.rating = Rating.average_rating(channel, request.connection)
     c = {
             'rating': rating,
+            'changable': request.user.is_authenticated(),
         }
     return loader.render_to_string('guide/rating.html', c)
 
@@ -254,16 +257,14 @@ def rating(request, id, rating):
     print id, rating
     try:
         dbRating = Rating.query(Rating.c.user_id==request.user.id,
-            Rating.c.channel_id==id).get(request.connection)
+            Rating.c.channel_id==id).join('channel').get(request.connection)
     except Exception:
         dbRating = Rating()
         dbRating.user_id = request.user.id
-        dbRating.channel_id = id
+        dbRating.channel = Channel.query(Channel.c.id==id).get(request.connection)
     dbRating.rating = rating
-    print dbRating, dbRating.exists_in_db()
     dbRating.save(request.connection)
-    bar = get_ratings_bar(request, id)
-    print bar
+    bar = get_ratings_bar(request, dbRating.channel)
     items = re.search('<li.*</li>', bar, re.S).group()
     return HttpResponse(items)
 
