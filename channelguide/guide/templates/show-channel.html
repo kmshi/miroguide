@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 {% load cg_helpers channels i18n notes %}
+{% block head-extra %}<script src="{{ STATIC_BASE_URL }}js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#comments #review").hide();
+    $("#comments #review-link").show();
+    });
+</script>{% endblock %}
 {% block title %}{{ channel.name }} - Miro{%endblock %}
 {% block content %}
 {% if error %}
@@ -74,9 +81,26 @@
         {% endif %}
     {% splitcolumns %}
         <div id="description">
-            {{ channel.description|escape|truncatewords_html:73 }}
+            <div id="summary">{{ channel.description|escape|truncatewords_html:73 }}</div>
+            <div id="full">{{ channel.description|escape }} G4's "Street Fury" takes on the adrenaline-drenched world of import car racing and car modification. Host Carlton "Big C" Lewis gives you the REAL deal on the rides, the shows, the clubs, the shops and, of course, the girls that make the import car lifestyle so irresistible. Also be sure to look for other awesome G4 video podcasts like "Attack of the Show," "Cinematech," "Cheat!," "The Daily Nut," "Filter" and "X-Play." Big C checks out a completely underground mall in the ATL.</div>
+            <div id="reveal"><a href="#" onclick='$("#description #summary").hide();$("#description #reveal").hide();$("#description #full").show();'>reveal all</a><span class="icon" /></div>
         </div>
-        <div id="comments"></div>
+        {% if 0 %}
+        <div id="comments">
+            <h2>{% trans "User Reviews" %}</h2>
+            <div id="review-link">(<a onclick="$('#comments #review').toggle();" href="#">{% trans "review this channel" %}</a>)</div>
+            <div id="review">
+                <form action="{{ channel.review_url }}" method="POST">
+                    <textarea name="review">{{ user_review }}</textarea>
+                    {% if user_review %}
+                    <input type="submit" value="Edit">
+                    {% else %}
+                    <input type="submit" value="Submit">
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+        {% endif %}
         {% if recommendations %}
         <div id="recommendations">
             <h2>{% trans "People who like this channel also like:" %}</h2>

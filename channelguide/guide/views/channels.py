@@ -229,7 +229,7 @@ def get_recommendations(request, id):
     recSelect.wheres.append('channel1_id=%s OR channel2_id=%s' % (id, id))
     recSelect.wheres.append('cosine>=0.025')
     recSelect.order_by.append('cosine DESC')
-    recSelect.limit = 3
+    recSelect.limit = 4 
     elements = recSelect.execute(request.connection)
     recommendations = [e[0] == int(id) and e[1] or e[0] for e in elements]
     return [Channel.query().get(request.connection, rec)
