@@ -81,9 +81,13 @@ $(document).ready(function(){
         {% endif %}
     {% splitcolumns %}
         <div id="description">
+        {% ifnotequal channel.description|escape|truncatewords_html:73 channel.description|escape %}
             <div id="summary">{{ channel.description|escape|truncatewords_html:73 }}</div>
-            <div id="full">{{ channel.description|escape }} G4's "Street Fury" takes on the adrenaline-drenched world of import car racing and car modification. Host Carlton "Big C" Lewis gives you the REAL deal on the rides, the shows, the clubs, the shops and, of course, the girls that make the import car lifestyle so irresistible. Also be sure to look for other awesome G4 video podcasts like "Attack of the Show," "Cinematech," "Cheat!," "The Daily Nut," "Filter" and "X-Play." Big C checks out a completely underground mall in the ATL.</div>
+            <div id="full">{{ channel.description|escape }}</div>
             <div id="reveal"><a href="#" onclick='$("#description #summary").hide();$("#description #reveal").hide();$("#description #full").show();'>reveal all</a><span class="icon" /></div>
+        {% else %}
+            {{ channel.description|escape }}
+        {% endifnotequal %}
         </div>
         {% if 0 %}
         <div id="comments">

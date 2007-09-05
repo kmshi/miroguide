@@ -1242,6 +1242,7 @@ li.blog-post .title {
 
 .channel-full #description {
     font-size: 130%;
+    min-height: 247px;
 }
 
 .channel-full #description #full {
