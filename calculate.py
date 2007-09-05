@@ -35,7 +35,6 @@ def calculateAll():
 
 def calculateTwoDays():
     channels = map(int, getRecent(60*60*24*2))
-    print channels
     container = ','.join([str(x) for x in channels])
     database.execute("DELETE FROM cg_channel_recommendations WHERE channel1_id IN (%s) OR channel2_id IN (%s)" % (container, container))
     calculateRecommendations(channels)
@@ -46,14 +45,16 @@ def calculateRecommendations(channels):
         gas = getAllSimilar(c1)
         if gas:
             for c2 in gas:
-                if c1 > c2:
-                    c1, c2 = c2, c1
-                k = (c1, c2)
+                id1 = c1
+                id2 = c2
+                if id1 > id2:
+                    id1, id2 = id2, id1
+                k = (id1, id2)
                 if k not in hit:
                     hit.add(k)
                     gs = getSimilarity(c1, c2)
                     if gs:
-                        database.execute("INSERT LOW_PRIORITY INTO cg_channel_recommendations VALUES (%s, %s, %s)", (c1, c2, gs))
+                        database.execute("INSERT LOW_PRIORITY INTO cg_channel_recommendations VALUES (%s, %s, %s)", (id1, id2, gs))
             database.commit()
 
 if __name__ == "__main__":
