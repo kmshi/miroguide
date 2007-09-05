@@ -1227,7 +1227,8 @@ li.blog-post .title {
     margin-top: 20px;
 }
 
-.channel-full .extra-info {
+.channel-full #extra-info {
+    float: left;
     margin-top: 10px;
 }
 

@@ -81,7 +81,7 @@ $(document).ready(function(){
         {% endif %}
     {% splitcolumns %}
         <div id="description">
-        {% ifnotequal channel.description|escape|truncatewords_html:73 channel.description|escape %}
+        {% ifnotequal channel.description|truncatewords_html:73 channel.description %}
             <div id="summary">{{ channel.description|escape|truncatewords_html:73 }}</div>
             <div id="full">{{ channel.description|escape }}</div>
             <div id="reveal"><a href="#" onclick='$("#description #summary").hide();$("#description #reveal").hide();$("#description #full").show();'>reveal all</a><span class="icon" /></div>

@@ -160,16 +160,21 @@ def show(request, id):
     query.join('categories', 'tags', 'notes', 'owner', 'last_moderated_by',
             'notes.user')
     item_query = Item.query(channel_id=id).order_by('date', desc=True)
+    c = util.get_object_or_404(request.connection, query, id)
     context = {
-        'channel': util.get_object_or_404(request.connection, query, id),
+        'channel': c,
         'items': item_query.limit(2).execute(request.connection),
         'recommendations': get_recommendations(request, id),
+        'show_edit_button': request.user.can_edit_channel(c),
+        'show_extra_info': request.user.can_edit_channel(c),
+        'link_to_channel': True,
+        'BASE_URL': settings.BASE_URL,
+        'ratings_bar': get_ratings_bar(request, c),
+        'ratings_count': Rating.count_rating(c, request.connection),
+        'ratings_average': Rating.average_rating(c, request.connection),
+        'notes': get_note_info(c, request.user),
     }
-    c = context['channel']
-    context['ratings_bar'] = get_ratings_bar(request, c)
-    context['ratings_count'] = Rating.count_rating(c, request.connection)
-    context['ratings_average'] = Rating.average_rating(c, request.connection)
-    context['notes'] = get_note_info(c, request.user),
+    print context
     if 'channel-edit-error' in request.session:
         context['error'] = request.session['channel-edit-error']
         del request.session['channel-edit-error']
