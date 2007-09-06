@@ -13,6 +13,15 @@ def get_login_message(next_url):
         return _("""To submit a channel to the guide, you must \
 first login to your account.  If you don't have an account, make one below. \
 It's free and only takes 30 seconds to create.""")
+    elif next_url.startswith("channels/rating"):
+        return _("""<h2>Get an Account and Make Your Opinion Known!</h2>
+You'll need an account to rate channels.  It only takes a second to get started...""")
+
+def get_login_additional(next_url):
+    if next_url.startswith("channels/rating"):
+        return _("""<h2>Why Should I Rate Channels?</h2>
+In the very near future, we will be giving personalized recommendations, based on what you do and don't like. If you've ever used Netflix, you already know what we're talking about here.The more you rate, the more accurately we can recommend channels to you. It's that simple!
+<img src="/images/star-ratings.jpg">""")
 
 def login_view(request):
     next = request.GET.get('next')
@@ -29,6 +38,7 @@ def login_view(request):
         register_data = request.POST
     else:
         message = get_login_message(next)
+    additional = get_login_additional(next)
     login_form = user_forms.LoginForm(request.connection, login_data)
     register_form = user_forms.RegisterForm(request.connection, register_data)
     if login_form.is_valid():
@@ -42,6 +52,7 @@ def login_view(request):
         'login_form': login_form,
         'register_form': register_form,
         'message': message,
+        'additional': additional,
     })
 
 def logout_view(request):

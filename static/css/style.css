@@ -721,7 +721,7 @@ li.blog-post .title {
 }
 
 .login-page {
-    padding: 0px 50px;
+    padding: 0px 25px;
 }
 
 .login-page .message {
@@ -736,6 +736,7 @@ li.blog-post .title {
 }
 
 .login-page .forgot-password {
+    margin-top: 20px;
     float: right;
 }
 
@@ -744,9 +745,45 @@ li.blog-post .title {
     text-decoration: underline;
 }
 
-.divider {
-    margin: 40px 0px;
-    border-top: 1px solid #fff;
+.login-page .form-inputs .label {
+    display: inline;
+}
+
+.login-page .form-inputs li {
+    text-align: right;
+    margin: 10px 50px 10px 0;
+}
+
+.login-page .login-form {
+    padding-top: 10px;
+    text-align: center;
+    width: 300px;
+    height: 200px;
+    background: #F9F9F9;
+    float: right;
+}
+
+.login-page .login-form div.instructions {
+    padding: 10px;
+}
+
+.login-page .register-form {
+    padding-top: 10px;
+    text-align: center;
+    width: 350px;
+    height: 200px;
+    background: #F9F9F9;
+    float: left;
+}
+
+.login-page .divider {
+    display: inline;
+    text-align: center;
+    width: 60px;
+    font-size: 150%;
+    position: relative;
+    top: 100px;
+    float: left;
 }
 
 .login-page .register-form h2 {
@@ -1234,7 +1271,18 @@ li.blog-post .title {
 
 .channel-full .separator {
     clear:left;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height: 3px;
     width: 370px;
+}
+
+.channel-full .first-column .separator {
+    background-image: url(images/channel-left-separator.jpg) left no-repeat;
+}
+
+.channel-full .seconed-column .separator {
+    background-image: url(images/channel-right-separator.jpg) right no-repeat;
 }
 
 .channel-full .sub-header {

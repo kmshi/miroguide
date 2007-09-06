@@ -5,14 +5,14 @@ from channelguide.guide.models import User
 from form import Form
 from fields import WideCharField, WideEmailField, WideChoiceField
 
-class NewUserField(WideCharField):
+class NewUserField(forms.CharField):
     def clean(self, value):
         rv = super(NewUserField, self).clean(value)
         if User.query(username=value).count(self.connection) > 0:
             raise forms.ValidationError(_("username already taken"))
         return rv
 
-class NewEmailField(WideEmailField):
+class NewEmailField(forms.EmailField):
     def clean(self, value):
         value = super(NewEmailField, self).clean(value)
         if value == self.initial:
@@ -22,14 +22,14 @@ class NewEmailField(WideEmailField):
             raise forms.ValidationError(_("email already taken"))
         return value
 
-class ExistingEmailField(WideEmailField):
+class ExistingEmailField(forms.EmailField):
     def clean(self, value):
         value = super(ExistingEmailField, self).clean(value)
         if User.query(email=value).count(self.connection) == 0:
             raise forms.ValidationError(_("email not found"))
         return value
 
-class UsernameField(WideCharField):
+class UsernameField(forms.CharField):
     def clean(self, value):
         value = WideCharField.clean(self, value)
         try:
@@ -38,8 +38,8 @@ class UsernameField(WideCharField):
             raise forms.ValidationError(_("That username is not valid."))
 
 class LoginForm(Form):
-    username = UsernameField(max_length=40)
-    password = WideCharField(max_length=40, widget=forms.PasswordInput)
+    username = UsernameField(max_length=20)
+    password = forms.CharField(max_length=20, widget=forms.PasswordInput)
 
     def clean_password(self):
         user = self.cleaned_data.get('username')
@@ -64,12 +64,12 @@ class PasswordComparingForm(Form):
         return super(PasswordComparingForm, self).clean()
 
 class RegisterForm(PasswordComparingForm):
-    username = NewUserField(max_length=40, label=_("Username"))
-    email = NewEmailField(max_length=100, label=_("Email address"))
-    password = WideCharField(max_length=40, widget=forms.PasswordInput,
-            label=_("Pick a password"))
-    password2 = WideCharField(max_length=40, widget=forms.PasswordInput,
-            label=_("Re-type the password"), required=False)
+    username = NewUserField(max_length=20, label=_("Username"))
+    email = NewEmailField(max_length=50, label=_("Email Address"))
+    password = forms.CharField(max_length=20, widget=forms.PasswordInput,
+            label=_("Pick a Password"))
+    password2 = forms.CharField(max_length=20, widget=forms.PasswordInput,
+            label=_("Confirm Password"), required=False)
 
     def make_user(self):
         user = User(self.cleaned_data['username'],

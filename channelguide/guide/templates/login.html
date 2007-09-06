@@ -5,30 +5,31 @@
 <div class="login-page">
 
 {% if message %}<p class="message">{{ message }}</p>{% endif %}
-
-<div class="login-form big-form">
-    <div class="forgot-password">
-            <a href="{{ BASE_URL }}accounts/forgot-password">Forgot Password</a>
-    </div>
-    <h2>{% trans "Login" %}</h2>
-    <form method="POST" action="{{ BASE_URL }}accounts/login{% if next %}?next={{ next }}{% endif %}">
-        <input type="hidden" name="which-form" value="login">
-        {% show_form login_form %}
-        <input type="submit" class="submit" value="{% trans "Login" %} &gt;&gt;">
-    </form>
-</div>
-<div class="divider"></div>
-<div class="register-form big-form">
+<div class="register-form">
 <h2>{% trans "Register" %}</h2>
-<p class="form-instructions">{% blocktrans %}Registering is free and just takes
+{% comment %}<p class="form-instructions">{% blocktrans %}Registering is free and just takes
 a few seconds.{% endblocktrans %}<BR>
 {% blocktrans %}Do you have a videobomb account?  If so, you are already
-registered, login above.{% endblocktrans %}</p>
+registered, login above.{% endblocktrans %}</p>{% endcomment %}
     <form method="POST" action="{{ BASE_URL }}accounts/login{% if next %}?next={{ next }}{% endif %}">
         <input type="hidden" name="which-form" value="register">
         {% show_form register_form %}
         <input type="submit" class="submit" value="{% trans "Register" %} &gt;&gt;">
     </form>
+</div>
+<div class="divider">or</div>
+
+<div class="login-form">
+    <h2>{% trans "Login" %}</h2>
+    <div class="instructions">{% trans "Got an account? Just log in!" %}</div>
+    <form method="POST" action="{{ BASE_URL }}accounts/login{% if next %}?next={{ next }}{% endif %}">
+        <input type="hidden" name="which-form" value="login">
+        {% show_form login_form %}
+        <input type="submit" class="submit" value="{% trans "Login" %} &gt;&gt;">
+    </form>
+    <div class="forgot-password">
+            <a href="{{ BASE_URL }}accounts/forgot-password">Forgot Password</a>
+    </div>
 </div>
 
 </div>

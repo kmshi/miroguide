@@ -6,11 +6,18 @@
 </style>
 <ul id="star-rating">
     <li id="current-rating" style="width:{{ rating.percentage }};">Currently {{ rating.rating }}/5 Stars.</li>
-    {% if changable %}
+    {% if editable %}
     <li><a {{ rating.a1 }}>1</a></li>
     <li><a {{ rating.a2 }}>2</a></li>
     <li><a {{ rating.a3 }}>3</a></li>
     <li><a {{ rating.a4 }}>4</a></li>
     <li><a {{ rating.a5 }}>5</a></li>
+    {% else %}
+    <li><a class="star1" href="/channels/rating/{{ rating.channel_id }}/1">1</a></li>
+    <li><a class="star2" href="/channels/rating/{{ rating.channel_id }}/2">2</a></li>
+    <li><a class="star3" href="/channels/rating/{{ rating.channel_id }}/3">3</a></li>
+    <li><a class="star4" href="/channels/rating/{{ rating.channel_id }}/4">4</a></li>
+    <li><a class="star5" href="/channels/rating/{{ rating.channel_id }}/5">5</a></li>
     {% endif %}
+
 </ul>

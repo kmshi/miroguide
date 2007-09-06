@@ -7,6 +7,7 @@ from channelguide import util, cache
 from channelguide.guide import forms, templateutil
 from channelguide.guide.auth import (admin_required, moderator_required,
         login_required)
+from channelguide.guide.exceptions import AuthError
 from channelguide.guide.models import (Channel, Item, User, ModeratorAction,
         ChannelNote, Rating)
 from channelguide.guide.notes import get_note_info, make_rejection_note
@@ -256,9 +257,9 @@ def get_ratings_bar(request, channel):
 
 def rating(request, id, rating):
     if rating not in ['1', '2', '3', '4', '5']:
-        return Http404
+        raise Http404
     if not request.user.is_authenticated():
-        return Http404
+        raise AuthError("need to log in to rate")
     print id, rating
     try:
         dbRating = Rating.query(Rating.c.user_id==request.user.id,
@@ -269,9 +270,13 @@ def rating(request, id, rating):
         dbRating.channel = Channel.query(Channel.c.id==id).get(request.connection)
     dbRating.rating = rating
     dbRating.save(request.connection)
-    bar = get_ratings_bar(request, dbRating.channel)
-    items = re.search('<li.*</li>', bar, re.S).group()
-    return HttpResponse(items)
+    referer = request.META.get('HTTP_REFERER', '')
+    if referer.endswith('/channels/%s' % id):
+        bar = get_ratings_bar(request, dbRating.channel)
+        items = re.search('<li.*</li>', bar, re.S).group()
+        return HttpResponse(items)
+    else:
+        return HttpResponseRedirect(dbRating.channel.get_absolute_url())
 
 class PopularWindowSelect(templateutil.ViewSelect):
     view_choices = [
