@@ -736,6 +736,7 @@ li.blog-post .title {
 }
 
 .login-page h1{
+    clear: left;
     position: relative;
     right: 15px;
 }
