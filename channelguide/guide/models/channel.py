@@ -177,7 +177,6 @@ class Channel(Record, Thumbnailable):
         if self._should_throttle_ip_address(connection, ip_address, timestamp):
             return
         insert = tables.channel_subscription.insert()
-        insert.delayed = True
         insert.add_values(channel_id=self.id, ip_address=ip_address,
                 timestamp=timestamp,
                 ignore_for_recommendations=ignore_for_recommendations)

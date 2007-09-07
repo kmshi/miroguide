@@ -135,7 +135,6 @@ class Insert(Statement):
 
     def __init__(self, table):
         self.table_name = str(table)
-        self.delayed = False
         self.columns = ExpressionList()
         self.values = ExpressionList()
 
@@ -149,10 +148,7 @@ class Insert(Statement):
 
     def compile(self):
         comp = StatementCompilation()
-        comp.add_text('INSERT ')
-        if self.delayed:
-            comp.add_text('DELAYED ')
-        comp.add_text('INTO %s(' % self.table_name)
+        comp.add_text('INSERT INTO %s(' % self.table_name)
         comp.add_expression_list(self.columns)
         comp.add_text(')\nVALUES(')
         comp.add_expression_list(self.values)
