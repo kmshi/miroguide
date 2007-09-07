@@ -745,7 +745,7 @@ li.blog-post .title {
     margin-bottom: 20px;
 }
 
-.login-page .rating,.additional div {
+.login-page .rating div, .login-page .additional div {
     font-size: 120%;
     padding-left: 30px;
 }
