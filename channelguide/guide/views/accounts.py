@@ -20,7 +20,7 @@ It's free and only takes 30 seconds to create.</p>""")
 def get_login_additional(next_url):
     if next_url.startswith("channels/rating"):
         return _("""<h1>Why Should I Rate Channels?</h1>
-<div>In the very near future, we will be giving personalized recommendations, based on what you do and don't like. If you've ever used Netflix, you already know what we're talking about here.The more you rate, the more accurately we can recommend channels to you. It's that simple!</div>
+<div>In the very near future, we will be giving personalized recommendations, based on what you do and don't like. If you've ever used Netflix&reg;, you already know what we're talking about here.The more you rate, the more accurately we can recommend channels to you. It's that simple!</div>
 <img src="/images/star-ratings.jpg">""")
 
 def login_view(request):
