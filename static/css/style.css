@@ -756,14 +756,15 @@ li.blog-post .title {
 }
 
 .login-page .forgot-password {
-    margin-top: 20px;
+    margin-top: 5px;
     float: right;
+    margin-right: 20px;
+    margin-bottom: 5px;
 }
 
 .login-page .forgot-password a {
     font-size: 85%;
     text-decoration: underline;
-    padding-right: 20px;
     color: #888888;
 }
 
