@@ -5,16 +5,6 @@
 <div class="login-page">
 
     {% if message %}{{ message }}{% endif %}
-    <div class="register-form">
-        <h2>{% trans "Register" %}</h2>
-        <form method="POST" action="{{ BASE_URL }}accounts/login{% if next %}?next={{ next }}{% endif %}">
-            <input type="hidden" name="which-form" value="register">
-            {% show_form register_form %}
-            <input type="submit" class="submit" value="{% trans "Register" %} &gt;&gt;">
-        </form>
-    </div>
-    <div class="divider">or</div>
-
     <div class="login-form">
         <h2>{% trans "Login" %}</h2>
         <div class="instructions">{% trans "Got an account? Just log in!" %}</div>
@@ -26,6 +16,17 @@
         <div class="forgot-password">
                 <a href="{{ BASE_URL }}accounts/forgot-password">Forgot Password</a>
         </div>
+    </div>
+
+    <div class="divider">or</div>
+
+    <div class="register-form">
+        <h2>{% trans "Register" %}</h2>
+        <form method="POST" action="{{ BASE_URL }}accounts/login{% if next %}?next={{ next }}{% endif %}">
+            <input type="hidden" name="which-form" value="register">
+            {% show_form register_form %}
+            <input type="submit" class="submit" value="{% trans "Register" %} &gt;&gt;">
+        </form>
     </div>
 
     {% if additional %}

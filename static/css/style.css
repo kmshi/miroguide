@@ -781,7 +781,7 @@ li.blog-post .title {
     width: 300px;
     height: 200px;
     background: #F9F9F9;
-    float: right;
+    float: left;
 }
 
 .login-page .login-form div.instructions {
@@ -799,7 +799,7 @@ li.blog-post .title {
     width: 350px;
     height: 200px;
     background: #F9F9F9;
-    float: left;
+    float: right;
 }
 
 .login-page .divider {
