@@ -13,12 +13,12 @@ def get_login_message(next_url):
         return _("""<p class="message">To submit a channel to the guide, you must \
 first login to your account.  If you don't have an account, make one below. \
 It's free and only takes 30 seconds to create.</p>""")
-    elif next_url.startswith("channels/rating"):
+    else:
         return _("""<div class="rating"><h1>Get an Account and Make Your Opinion Known!</h1>
 <div>You'll need an account to rate channels.  It only takes a second to get started...</div></div>""")
 
 def get_login_additional(next_url):
-    if next_url.startswith("channels/rating"):
+    if not next_url.startswith("channels/submit"):
         return _("""<h1>Why Should I Rate Channels?</h1>
 <div>In the very near future, we will be giving personalized recommendations, based on what you do and don't like. If you've ever used Netflix&reg;, you already know what we're talking about here.The more you rate, the more accurately we can recommend channels to you. It's that simple!</div>
 <img src="/images/star-ratings.jpg">""")
