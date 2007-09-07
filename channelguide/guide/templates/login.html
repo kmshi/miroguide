@@ -4,7 +4,7 @@
 {% block content %}
 <div class="login-page">
 
-{% if message %}<p class="message">{{ message }}</p>{% endif %}
+{% if message %}{{ message }}{% endif %}
 <div class="register-form">
 <h2>{% trans "Register" %}</h2>
 {% comment %}<p class="form-instructions">{% blocktrans %}Registering is free and just takes
@@ -32,6 +32,11 @@ registered, login above.{% endblocktrans %}</p>{% endcomment %}
     </div>
 </div>
 
+{% if additional %}
+    <div class="additional">{{ additional }}</div>
+{% else %}
+    <div class="clear"/> 
+{% endif %}
 </div>
 
 {% endblock %}

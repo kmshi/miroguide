@@ -735,6 +735,20 @@ li.blog-post .title {
     border: 1px solid #b4b210;
 }
 
+.login-page h1{
+    position: relative;
+    right: 15px;
+}
+
+.login-page div.rating {
+    margin-bottom: 20px;
+}
+
+.login-page .rating,.additional div {
+    font-size: 120%;
+    padding-left: 30px;
+}
+
 .login-page .forgot-password {
     margin-top: 20px;
     float: right;
@@ -765,6 +779,14 @@ li.blog-post .title {
 
 .login-page .login-form div.instructions {
     padding: 10px;
+}
+
+.login-page div.register-form {
+    margin-bottom: 20px;
+}
+
+.login-page div.login-form {
+    margin-bottom: 20px;
 }
 
 .login-page .register-form {
