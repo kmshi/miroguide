@@ -724,7 +724,7 @@ li.blog-post .title {
     padding: 0px 25px;
 }
 
-.login-page .message {
+.login-page .message, .login-page .form-errors {
     padding-bottom: 10px;
     font-size: 120%;
     font-weight: bold;
@@ -739,6 +739,11 @@ li.blog-post .title {
     clear: left;
     position: relative;
     right: 15px;
+}
+
+.login-page .register-form h2, .login-page .login-form h2 {
+    text-align: center;
+    margin-bottom: 8px;
 }
 
 .login-page div.rating {
@@ -764,14 +769,23 @@ li.blog-post .title {
 
 .login-page .form-inputs .label {
     display: inline;
+    padding-bottom: 5px;
+}
+
+.login-page .form-errors {
+    text-align: left;
+}
+
+.login-page .form-errors h2 {
+    text-align: center;
 }
 
 .login-page .form-inputs li {
     text-align: right;
-    margin: 10px 50px 10px 0;
+    margin: 10px 50px 15px 0;
 }
 
-.login-page .submit {
+.login-page .form-inputs .submit {
     margin-right: 50px;
     margin-left: auto;
 }
@@ -780,7 +794,7 @@ li.blog-post .title {
     padding-top: 10px;
     text-align: right;
     width: 300px;
-    height: 200px;
+    min-height: 200px;
     background: #F9F9F9;
     float: right;
 }
@@ -798,7 +812,7 @@ li.blog-post .title {
     padding-top: 10px;
     text-align: right;
     width: 350px;
-    height: 200px;
+    min-height: 200px;
     background: #F9F9F9;
     float: left;
 }
@@ -811,11 +825,6 @@ li.blog-post .title {
     position: relative;
     top: 100px;
     float: right;
-}
-
-.login-page .register-form h2, .login-page .login-form h2 {
-    text-align: center;
-    margin-bottom: 8px;
 }
 
 .edit-channel-page .big-form {
