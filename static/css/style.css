@@ -758,6 +758,7 @@ li.blog-post .title {
 .login-page .forgot-password a {
     font-size: 110%;
     text-decoration: underline;
+    padding-right: 20px;
 }
 
 .login-page .form-inputs .label {
@@ -769,9 +770,14 @@ li.blog-post .title {
     margin: 10px 50px 10px 0;
 }
 
+.login-page .submit {
+    margin-right: 50px;
+    margin-left: auto;
+}
+
 .login-page .login-form {
     padding-top: 10px;
-    text-align: center;
+    text-align: right;
     width: 300px;
     height: 200px;
     background: #F9F9F9;
@@ -779,20 +785,17 @@ li.blog-post .title {
 }
 
 .login-page .login-form div.instructions {
+    text-align: center;
     padding: 10px;
 }
 
-.login-page div.register-form {
-    margin-bottom: 20px;
-}
-
-.login-page div.login-form {
+.login-page div.register-form, .login-page div.login-form {
     margin-bottom: 20px;
 }
 
 .login-page .register-form {
     padding-top: 10px;
-    text-align: center;
+    text-align: right;
     width: 350px;
     height: 200px;
     background: #F9F9F9;
@@ -809,7 +812,8 @@ li.blog-post .title {
     float: left;
 }
 
-.login-page .register-form h2 {
+.login-page .register-form h2, .login-page .login-form h2 {
+    text-align: center;
     margin-bottom: 8px;
 }
 

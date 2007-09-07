@@ -31,7 +31,7 @@ class ExistingEmailField(forms.EmailField):
 
 class UsernameField(forms.CharField):
     def clean(self, value):
-        value = WideCharField.clean(self, value)
+        value = super(forms.CharField, self).clean(value)
         try:
             return User.query(username=value).get(self.connection)
         except LookupError:
