@@ -756,9 +756,10 @@ li.blog-post .title {
 }
 
 .login-page .forgot-password a {
-    font-size: 110%;
+    font-size: 85%;
     text-decoration: underline;
     padding-right: 20px;
+    color: #888888;
 }
 
 .login-page .form-inputs .label {
@@ -781,7 +782,7 @@ li.blog-post .title {
     width: 300px;
     height: 200px;
     background: #F9F9F9;
-    float: left;
+    float: right;
 }
 
 .login-page .login-form div.instructions {
@@ -799,7 +800,7 @@ li.blog-post .title {
     width: 350px;
     height: 200px;
     background: #F9F9F9;
-    float: right;
+    float: left;
 }
 
 .login-page .divider {
@@ -809,7 +810,7 @@ li.blog-post .title {
     font-size: 150%;
     position: relative;
     top: 100px;
-    float: left;
+    float: right;
 }
 
 .login-page .register-form h2, .login-page .login-form h2 {
