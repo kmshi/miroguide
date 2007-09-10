@@ -66,14 +66,16 @@ class PasswordComparingForm(Form):
 class RegisterForm(PasswordComparingForm):
     username = NewUserField(max_length=20, label=_("Username"))
     email = NewEmailField(max_length=50, label=_("Email Address"))
-    password = forms.CharField(max_length=20, widget=forms.PasswordInput,
+    newpassword = forms.CharField(max_length=20, widget=forms.PasswordInput,
             label=_("Pick a Password"))
-    password2 = forms.CharField(max_length=20, widget=forms.PasswordInput,
+    newpassword2 = forms.CharField(max_length=20, widget=forms.PasswordInput,
             label=_("Confirm Password"), required=False)
+    password_key = 'newpassword'
+    password_check_key = 'newpassword2'
 
     def make_user(self):
         user = User(self.cleaned_data['username'],
-                self.cleaned_data['password'], self.cleaned_data['email'])
+                self.cleaned_data['newpassword'], self.cleaned_data['email'])
         user.save(self.connection)
         return user
 

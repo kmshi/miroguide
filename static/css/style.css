@@ -747,7 +747,12 @@ li.blog-post .title {
 }
 
 .login-page div.message {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+}
+
+.login-page div.message h1, .login-page .additional h1 {
+    font-weight: normal;
+    margin-bottom: 2px;
 }
 
 .login-page div.message, .login-page .additional div {
@@ -755,16 +760,20 @@ li.blog-post .title {
 }
 
 .login-page .additional h1 {
-    margin-top: 40px;
+    margin-top: 48px;
+}
+
+.login-page .additional div {
+    margin-top: 20px;
 }
 
 .login-page img#registration1 {
-    margin: 20px;
+    margin: 0 20px 20px 20px;
     float: right;
 }
 
 .login-page img#registration2 {
-    margin: 20px;
+    margin: 0 20px 20px 20px;
     float: left;
 }
 

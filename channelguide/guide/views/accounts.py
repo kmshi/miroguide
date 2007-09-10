@@ -10,8 +10,8 @@ from channelguide.guide.templateutil import Pager
 
 def get_login_message(next_url):
     if next_url.startswith("channels/submit"):
-        return _("""<h1>List You Channel in the Miro Guide!</h1>
-All you need is an account . . .
+        return _("""<h1>List Your Channel in the Miro Guide!</h1>
+All you need is an account...
 """)
     else:
         return _("""<h1>Get an Account and Make Your Opinion Known!</h1>
