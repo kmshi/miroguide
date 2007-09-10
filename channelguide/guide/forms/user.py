@@ -64,7 +64,7 @@ class PasswordComparingForm(Form):
         return super(PasswordComparingForm, self).clean()
 
 class RegisterForm(PasswordComparingForm):
-    username = NewUserField(max_length=20, label=_("Username"))
+    newusername = NewUserField(max_length=20, label=_("Username"))
     email = NewEmailField(max_length=50, label=_("Email Address"))
     newpassword = forms.CharField(max_length=20, widget=forms.PasswordInput,
             label=_("Pick a Password"))
@@ -74,7 +74,7 @@ class RegisterForm(PasswordComparingForm):
     password_check_key = 'newpassword2'
 
     def make_user(self):
-        user = User(self.cleaned_data['username'],
+        user = User(self.cleaned_data['newusername'],
                 self.cleaned_data['newpassword'], self.cleaned_data['email'])
         user.save(self.connection)
         return user
