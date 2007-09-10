@@ -223,8 +223,8 @@ class Channel(Record, Thumbnailable):
         return [e[0] for e in results]
 
     def get_similarity(self, connection, other):
-        sql = 'SELECT channel_id, ip_address from cg_channel_subscription WHERE (channel_id=%s OR channel_id=%s) AND (NOW()-timestamp) < %s AND ip_address<>%s ORDER BY ip_address'
-        entries = connection.execute(sql, (self.id, other, 16070400, "0.0.0.0"))
+        sql = 'SELECT channel_id, ip_address from cg_channel_subscription WHERE (channel_id=%s OR channel_id=%s) AND (NOW()-timestamp) < %s AND ip_address<>%s AND ignore_for_recommendations<>%s ORDER BY ip_address'
+        entries = connection.execute(sql, (self.id, other, 16070400, "0.0.0.0", True))
         if not entries:
             return 0.0
         vectors = {}

@@ -102,7 +102,7 @@ class TestCase(unittest.TestCase):
         """
         self.assertEquals(response.status_code, 302,
                 "Not redirected:\nHeader: %i\nContent: %s" % (
-                    response.status_code, response.content)
+                    response.status_code, response.content))
         location_path = response.headers['Location'].split('?')[0]
         self.assertEqual(location_path, util.make_absolute_url(redirect_url))
 

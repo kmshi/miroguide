@@ -5,3 +5,4 @@ from emaildisable import *
 from notes import *
 from channels import *
 from languages import *
+from recommendations import *
