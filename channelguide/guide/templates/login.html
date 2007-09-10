@@ -4,7 +4,7 @@
 {% block content %}
 <div class="login-page">
 
-    {% if message %}{{ message }}{% endif %}
+    {% if message %}<div class="message">{{ message }}</div>{% endif %}
     <div class="login-form">
         <h2>{% trans "Login" %}</h2>
         <div class="instructions">{% trans "Got an account? Just log in!" %}</div>

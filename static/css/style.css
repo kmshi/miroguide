@@ -724,7 +724,7 @@ li.blog-post .title {
     padding: 0px 25px;
 }
 
-.login-page .message, .login-page .form-errors {
+.login-page .form-errors {
     padding-bottom: 10px;
     font-size: 120%;
     font-weight: bold;
@@ -746,13 +746,26 @@ li.blog-post .title {
     margin-bottom: 8px;
 }
 
-.login-page div.rating {
+.login-page div.message {
     margin-bottom: 20px;
 }
 
-.login-page .rating div, .login-page .additional div {
+.login-page div.message, .login-page .additional div {
     font-size: 120%;
-    padding-left: 30px;
+}
+
+.login-page .additional h1 {
+    margin-top: 20px;
+}
+
+.login-page img#registration1 {
+    margin: 10px;
+    float: right;
+}
+
+.login-page img#registration2 {
+    margin: 10px;
+    float: left;
 }
 
 .login-page .forgot-password {
@@ -827,6 +840,7 @@ li.blog-post .title {
     top: 100px;
     float: right;
 }
+
 
 .edit-channel-page .big-form {
     margin-top: 30px;
@@ -1317,7 +1331,6 @@ li.blog-post .title {
 }
 
 .channel-full .first-column .separator {
-    clear: left;
     background: url(images/channel-left-separator.jpg) left no-repeat;
 }
 
