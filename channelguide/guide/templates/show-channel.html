@@ -76,6 +76,9 @@ $(document).ready(function(){
         <ul id="items">
         {% for item in items %}
           <li>{% show_item item %}</li>
+          {% if not forloop.last %}
+            <div class="separator"></div>
+          {% endif %}
         {% endfor %}
         </ul>
         {% endif %}
@@ -107,6 +110,7 @@ $(document).ready(function(){
         {% endif %}
         {% if recommendations %}
         <div id="recommendations">
+            <div class="top"></div>
             <h2>{% trans "People who like this channel also like:" %}</h2>
         <table>
             <tr>
@@ -118,6 +122,7 @@ $(document).ready(function(){
                 <td>{% if recommendations.3 %}{% show_channel_in_recommendation recommendations.3 %}{% endif %}</td>
             </tr>
         </table>
+        <div class="bottom"></div>
         </div>
         {% endif %}
 

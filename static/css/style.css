@@ -1033,7 +1033,7 @@ li.blog-post .title {
     position: absolute;
     top: 0px;
     left: 0px;
-    width: 6000px;
+    width: 20000px;
 }
 
 #featured-list li.column {
@@ -1298,6 +1298,7 @@ li.blog-post .title {
 }
 
 .channel-full #website {
+    clear: left;
     float: left;
     margin-top: 20px;
 }
@@ -1308,19 +1309,21 @@ li.blog-post .title {
 }
 
 .channel-full .separator {
-    clear:left;
-    padding-top: 5px;
+    margin: 0 -16px 0 0;
+    padding-top: 10px;
     padding-bottom: 5px;
     height: 3px;
-    width: 370px;
+    width: 800px;
 }
 
 .channel-full .first-column .separator {
-    background-image: url(images/channel-left-separator.jpg) left no-repeat;
+    clear: left;
+    background: url(images/channel-left-separator.jpg) left no-repeat;
 }
 
-.channel-full .seconed-column .separator {
-    background-image: url(images/channel-right-separator.jpg) right no-repeat;
+.channel-full .second-column .separator {
+    clear: right;
+    background: url(images/channel-right-separator.jpg) right no-repeat;
 }
 
 .channel-full .sub-header {
@@ -1406,6 +1409,12 @@ li.blog-post .title {
     padding-bottom: 15px;
 }
 
+#items .separator {
+    background-image: url(images/channel-item-separator.jpg);
+    height: 1px;
+    width: 338px;
+}
+
 .item {
     color: black;
     overflow: hidden;
@@ -1444,6 +1453,19 @@ li.blog-post .title {
     padding: 5px 0 0 0;
     color: #000000;
 }
+
+.channel-full #recommendations .top {
+    height: 11px;
+    width: 381px;
+    background: url(images/recommendations-top.jpg) no-repeat top right;
+}
+
+.channel-full #recommendations .bottom  {
+    height: 11px;
+    width: 381px;
+    background: url(images/recommendations-bottom.gif) no-repeat bottom right;
+}
+
 .channel-full #recommendations table {
     width: 370px;
 }
