@@ -28,11 +28,9 @@ class Rating(Record):
     def a(self, rating):
         try:
             rating_url = self.get_rating_url(rating)
-            u = util.make_link_attributes(rating_url, "star%i" % rating,
+            return util.make_link_attributes(rating_url, "star%i" % rating,
                 title = "%i stars out of 5" % rating,
                 onclick="return ajaxLink('%s', 'star-rating')" % rating_url)
-            print u
-            return u
         except:
             import traceback
             traceback.print_exc()

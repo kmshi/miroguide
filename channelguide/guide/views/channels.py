@@ -175,7 +175,6 @@ def show(request, id):
         'ratings_average': Rating.average_rating(c, request.connection),
         'notes': get_note_info(c, request.user),
     }
-    print context
     if 'channel-edit-error' in request.session:
         context['error'] = request.session['channel-edit-error']
         del request.session['channel-edit-error']
@@ -260,7 +259,6 @@ def rating(request, id, rating):
         raise Http404
     if not request.user.is_authenticated():
         raise AuthError("need to log in to rate")
-    print id, rating
     try:
         dbRating = Rating.query(Rating.c.user_id==request.user.id,
             Rating.c.channel_id==id).join('channel').get(request.connection)

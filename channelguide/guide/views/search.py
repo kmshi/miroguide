@@ -59,7 +59,6 @@ def search(request):
         search_query = request.GET['query']
     except:
         raise Http404
-    print type(search_query)
     search_query = search_query.strip()
     terms = get_search_terms(search_query)
     if terms_too_short(terms):

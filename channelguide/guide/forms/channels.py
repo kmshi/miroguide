@@ -248,7 +248,6 @@ class SubmitChannelForm(Form):
                 'thumbnail_file')
 
     def set_defaults(self, saved_data):
-        print 'set_defaults', saved_data
         for key in ('name', 'website_url', 'publisher', 'short_description'):
             if saved_data[key] is not None:
                 self.fields[key].initial = saved_data[key]

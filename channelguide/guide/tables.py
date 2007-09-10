@@ -120,6 +120,12 @@ channel_rating = Table('cg_channel_rating',
         columns.Int('channel_id', fk=channel.c.id, primary_key=True),
         columns.Int('user_id', fk=user.c.id, primary_key=True),
         columns.Int('rating'))
+channel_review = Table('cg_channel_review',
+        columns.Int('user_id', fk=user.c.id, primary_key=True),
+        columns.Int('channel_id', fk=channel.c.id, primary_key=True),
+        columns.String('review'),
+        columns.DateTime('timestamp', default=datetime.now),
+        columns.Int('is_public', default=True))
 item = Table('cg_channel_item',
         columns.Int('id', primary_key=True, auto_increment=True),
         columns.Int('channel_id', fk=channel.c.id),
