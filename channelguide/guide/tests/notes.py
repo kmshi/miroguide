@@ -67,15 +67,21 @@ class NotesTest(TestCase):
                 get_note_info(self.channel, self.moderator))
 
     def test_channel_page(self):
+        """
+        On the channel page, if  the user is not the owner or no user is
+        logged in, no notes should be displayed.  If the user is the owner,
+        display the notes for the owner.  If the user is a moderator, display
+        all the notes.
+        """
         channel_path = "/channels/%d" % self.channel.id
         page = self.get_page(channel_path)
-        self.check_non_owner_notes(page.context[0]['notes'])
+        self.check_non_owner_notes(page.context[-1]['notes'])
         page = self.get_page(channel_path, self.non_owner)
-        self.check_non_owner_notes(page.context[0]['notes'])
+        self.check_non_owner_notes(page.context[-1]['notes'])
         page = self.get_page(channel_path, self.channel_owner)
-        self.check_owner_notes(page.context[0]['notes'])
+        self.check_owner_notes(page.context[-1]['notes'])
         page = self.get_page(channel_path, self.moderator)
-        self.check_moderator_notes(page.context[0]['notes'])
+        self.check_moderator_notes(page.context[-1]['notes'])
 
 class NotesPageTestBase(TestCase):
     def setUp(self):

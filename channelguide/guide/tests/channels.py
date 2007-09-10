@@ -374,7 +374,12 @@ class SubmitChannelTest(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertEquals(response.template[0].name, 'guide/submit-channel.html')
 
-    def check_submit_worked(self, response, thumb_name='thumbnail.jpg'):
+    def check_submit_worked(self, response, url=None,
+            thumb_name='thumbnail.jpg'):
+        """
+        Check that submitting the channel did not cause an error, and that
+        it correctly redirected the user to the after submit page.
+        """
         if response.status_code != 302:
             try:
                 errors = response.context[0]['form'].errors.items()
@@ -385,7 +390,9 @@ Submit failed!
 Status code: %s
 Errors: %s""" % (response.status_code, errors)
             raise AssertionError(msg)
-        test_url = settings.BASE_URL_FULL + 'channels/submit/after'
+        if url is None:
+            url = test_data_url('feed.xml')
+        test_url = settings.BASE_URL_FULL + 'channels/submit/after?%s' % url
         self.assertEquals(response['Location'], test_url)
         self.check_last_channel_thumbnail(thumb_name)
 

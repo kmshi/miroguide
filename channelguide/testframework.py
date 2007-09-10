@@ -97,7 +97,12 @@ class TestCase(unittest.TestCase):
         self.assertEquals(len(iterable1), len(iterable2))
 
     def assertRedirect(self, response, redirect_url):
-        self.assertEquals(response.status_code, 302)
+        """
+        Asserts that the given response is a redirect to the given URL.
+        """
+        self.assertEquals(response.status_code, 302,
+                "Not redirected:\nHeader: %i\nContent: %s" % (
+                    response.status_code, response.content)
         location_path = response.headers['Location'].split('?')[0]
         self.assertEqual(location_path, util.make_absolute_url(redirect_url))
 

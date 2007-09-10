@@ -9,8 +9,15 @@ from channelguide import cache as cg_cache
 from channelguide.sessions.models import Session
 import time
 from channelguide.testframework import TestCase
+try:
+    import memcache
+except ImportError:
+    memcache = None
+    memcache
 
 class CacheTest(TestCase):
+    if memcache is None:
+        skip = "don't have memcache installed"
     def setUp(self):
         TestCase.setUp(self)
         self.change_setting_for_test("DISABLE_CACHE", False)

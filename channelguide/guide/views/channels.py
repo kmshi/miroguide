@@ -62,6 +62,21 @@ def submit_feed(request):
 
 @login_required
 def submit_channel(request):
+    """
+    Called when the user is submitting a channel.  If the SESSION_KEY
+    cookie isn't set, then we redirect back to the first step.
+    XXX: check for clients that don't support cookies
+
+    If the submisstion used the GET method, we create a form that allows
+    the submitter to describe the feed in more detail (languages, categories,
+    tags, etc.).
+
+    If the submission used the POST method, we check to see if the submitted
+    form is valid; if it is we create the channel and redirect to the
+    post-submission page.  Otherwise, redisplay the form with the errors
+    highlighted.
+    """
+
     if not SESSION_KEY in request.session:
         return util.redirect('channels/submit/step1')
     session_dict = request.session[SESSION_KEY]
@@ -80,7 +95,7 @@ def submit_channel(request):
             feed_url = request.session[SESSION_KEY]['url']
             form.save_channel(request.user, feed_url)
             destroy_submit_url_session(request)
-            return util.redirect("after?%s" % feed_url)
+            return util.redirect(settings.BASE_URL_FULL + "channels/submit/after?%s" % feed_url)
         else:
             form.save_submitted_thumbnail()
     context = form.get_template_data()

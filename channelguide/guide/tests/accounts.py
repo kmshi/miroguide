@@ -16,8 +16,11 @@ class AccountTest(TestCase):
                 'which-form': 'login' }
 
     def register_data(self):
-        return {'username': 'mike', 'email': 'mike@mike.com',
-                'password': 'password', 'password2': 'password',
+        """
+        Return a dictionary of data used to register a new user.
+        """
+        return {'newusername': 'mike', 'email': 'mike@mike.com',
+                'newpassword': 'password', 'newpassword2': 'password',
                 'which-form': 'register' }
 
     def bad_login_data(self):
