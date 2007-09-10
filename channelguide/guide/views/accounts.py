@@ -20,8 +20,9 @@ All you need is an account...
 def get_login_additional(next_url):
     if next_url.startswith("channels/submit"):
         return _("""<h1>Your Video RSS Feed is a Miro Channel</h1>
+<div>
 <img id="registration2" src="/images/registration2.jpg" />
-<div>It is super easy to submit your channel to the Miro Guide. Just give us
+It is super easy to submit your channel to the Miro Guide. Just give us
 the feed address, answer a few easy questions, and you&apos;re all done.
 </div>
 <div class="clear"></div>""")
