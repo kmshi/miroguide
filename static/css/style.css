@@ -1949,16 +1949,13 @@ h3 .note-author {
     background-image: url(images/icons/info-small-white.png);
 }
 
-#donate {
-    border-top: 1px solid #FFFCA9; 
-    background: #FFFEE9;
-}
-
 div#donate {
-    margin: 0px -16px 20px;
+    border-top: 1px solid #FFFCA9; 
+    border-bottom: 1px solid #FFFCA9; 
+    background: #FFFEE9;
     padding: 15px 0 0;
     width: 792px;
-    height: 38px;
+    min-height: 38px;
     text-align: none;
 }
 
@@ -2005,9 +2002,21 @@ div#donate {
     float: left;
 }
 
-#donate div {
+div.shadow {
     width: 792px;
-    height: 5px;
     background: url(images/shadow.gif) bottom left repeat-x;
-    margin-top: 38px;
+    margin: 0px -16px 20px;
+}
+
+div.shadow div {
+    position: relative;
+    top: -5px;
+}
+
+#donate #showplayer {
+    display: none;
+    clear: left;
+    margin-left: auto;
+    margin-right: auto;
+    width: 320px;
 }
