@@ -1244,7 +1244,7 @@ li.blog-post .title {
 
 /* Full page channels */
 
-.channel-full {
+.channel-full .padded{
     padding: 10px 0px;
 }
 
@@ -1332,7 +1332,6 @@ li.blog-post .title {
 }
 
 .channel-full .separator {
-    margin: 0 -16px 0 0;
     padding-top: 10px;
     padding-bottom: 5px;
     height: 3px;
@@ -1340,6 +1339,8 @@ li.blog-post .title {
 }
 
 .channel-full .first-column .separator {
+    padding-left: -16px;
+    clear: left;
     background: url(images/channel-left-separator.jpg) left no-repeat;
 }
 
@@ -1946,4 +1947,61 @@ h3 .note-author {
 .channel-in-recommendation .actions .info-button .icon {
     margin-top: 5px;
     background-image: url(images/icons/info-small-white.png);
+}
+
+#donate {
+    border-top: 1px solid #FFFCA9; 
+    background: #FFFEE9;
+}
+
+div#donate {
+    margin: 0px -16px 20px;
+    padding: 15px 1px 0;
+    width: 790px;
+    height: 58px;
+    text-align: none;
+    background: url(images/shadow.gif) bottom left repeat-x;
+}
+
+#donate h1 {
+    position: relative;
+    left: 28px;
+    top: -7px;
+    color: #c71826;
+    font-size: 27px;
+    font-weight: normal;
+    font-family: Tahoma, Geneva, sans-serif;
+    float: left;
+    margin-bottom: 0px;
+}
+
+#donate img {
+    position: relative;
+    left: 12px;
+    top: -5px;
+    float: left;
+}
+
+#donate h2 {
+    position: relative;
+    left: 70px;
+    top: -7px;
+    color: #202020;
+    font-size: 14px;
+    font-weight: normal;
+    font-family: Tahoma, Geneva, sans-serif;
+    float: left;
+}
+
+#donate h2 a {
+    text-decoration:underline;
+    color: #202020;
+}
+
+#donate a img {
+    border: 0px;
+    position: relative;
+    left: 45px;
+    top: -4px;
+    float: left;
 }
