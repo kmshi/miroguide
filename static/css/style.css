@@ -1956,11 +1956,10 @@ h3 .note-author {
 
 div#donate {
     margin: 0px -16px 20px;
-    padding: 15px 1px 0;
-    width: 790px;
-    height: 58px;
+    padding: 15px 0 0;
+    width: 792px;
+    height: 38px;
     text-align: none;
-    background: url(images/shadow.gif) bottom left repeat-x;
 }
 
 #donate h1 {
@@ -2004,4 +2003,11 @@ div#donate {
     left: 45px;
     top: -4px;
     float: left;
+}
+
+#donate div {
+    width: 792px;
+    height: 5px;
+    background: url(images/shadow.gif) bottom left repeat-x;
+    margin-top: 38px;
 }
