@@ -84,13 +84,13 @@ $(document).ready(function(){
         {% endif %}
     {% splitcolumns %}
         <div id="description">
-        {% ifnotequal channel.description|truncatewords_html:73 channel.description %}
+        {% if channel.description|truncatewords:73|length_is:73 and channel.description|truncatewords:74|length_is:74 %}
             <div id="summary">{{ channel.description|escape|truncatewords_html:73 }}</div>
             <div id="full">{{ channel.description|escape }}</div>
             <div id="reveal"><a href="#" onclick='$("#description #summary").hide();$("#description #reveal").hide();$("#description #full").show();'>reveal all</a><span class="icon" /></div>
         {% else %}
             {{ channel.description|escape }}
-        {% endifnotequal %}
+        {% endif %}
         </div>
         {% if 0 %}
         <div id="comments">
