@@ -1244,8 +1244,8 @@ li.blog-post .title {
 
 /* Full page channels */
 
-.channel-full .padded{
-    padding: 10px 0px;
+.channel-full {
+    overflow: visible;
 }
 
 .channel-full .title {
@@ -1332,21 +1332,20 @@ li.blog-post .title {
 }
 
 .channel-full .separator {
-    padding-top: 10px;
-    padding-bottom: 5px;
+    padding: 10px 16px 0px;
+    margin: 0px -16px;
     height: 3px;
-    width: 800px;
+    width: 373px;
 }
 
 .channel-full .first-column .separator {
-    padding-left: -16px;
     clear: left;
-    background: url(images/channel-left-separator.jpg) left no-repeat;
+    background: url(images/channel-left-separator.jpg) left no-repeat center;
 }
 
 .channel-full .second-column .separator {
     clear: right;
-    background: url(images/channel-right-separator.jpg) right no-repeat;
+    background: url(images/channel-right-separator.jpg) right center no-repeat;
 }
 
 .channel-full .sub-header {
@@ -2016,7 +2015,16 @@ div.shadow div {
 #donate #showplayer {
     display: none;
     clear: left;
+    padding: 20px 0 10px;
     margin-left: auto;
     margin-right: auto;
     width: 320px;
+    text-align: center;
+}
+
+#donate #showplayer a {
+    text-decoration: underline;
+    font-weight: bold;
+    color: red;
+    font-size: 15px;
 }
