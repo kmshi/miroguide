@@ -190,6 +190,8 @@ def show(request, id):
         'ratings_average': Rating.average_rating(c, request.connection),
         'notes': get_note_info(c, request.user),
     }
+    if len(channel.description.split()) > 73:
+        conext['shade_description'] =  True
     if 'channel-edit-error' in request.session:
         context['error'] = request.session['channel-edit-error']
         del request.session['channel-edit-error']
