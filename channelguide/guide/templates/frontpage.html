@@ -32,7 +32,7 @@
     <div id="donate">
         <img alt="heart" src="{{ STATIC_BASE_URL }}images/donate-heart.gif" />
         <h1>Do you love Miro?</h1>
-        <a href="#" onclick='$("#drawer").show();'><img alt="Donate to Miro" src="{{ STATIC_BASE_URL }}images/donate-button.gif" /></a>
+        <a href="#" onclick='$("#drawer").show('slow');'><img alt="Donate to Miro" src="{{ STATIC_BASE_URL }}images/donate-button.gif" /></a>
         <h2>Help us make television open.<br/>Our goal: $50,000 in September. <a href="#" onclick='$("#drawer").show();'>Watch This...</a></h2>
     <div id="drawer">
         <div id="mission">
@@ -41,7 +41,7 @@
         </div>
         <div id="showplayer">
             <object>
-            <embed type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" width="320" height="240" bgcolor="#FFFFFF" name="mitvPlayer" src="http://makeinternettv.org/video/flvplayer.swf" flashvars="file=http://blip.tv/file/get/Miropcf-MiroIsDoingAFundraisingDrive403.flv&width=320&height=240&overstretch=none&showdigits=false&shuffle=false&image=http://static.blip.tv/Miropcf-MiroIsDoingAFundraisingDrive651.jpg&backcolor=0xFFFFFF"></embed>
+            <embed type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" width="320" height="240" bgcolor="#FFFFFF" name="mitvPlayer" src="http://makeinternettv.org/video/flvplayer.swf" flashvars="file=http://blip.tv/file/get/Miropcf-MiroIsDoingAFundraisingDrive403.flv&width=320&height=240&overstretch=none&showdigits=false&shuffle=false&image=http://static.blip.tv/Miropcf-MiroIsDoingAFundraisingDrive651.jpg&backcolor=0xFFFFFF&autostart=yes"></embed>
 
             </object>
         </div>
@@ -58,7 +58,7 @@
 
         </div>
         <div id="close">
-            <a href="#" onclick='$("#drawer").hide();'><span class="icon"></span>close</a>
+            <a href="#" onclick='$("#drawer").hide('slow');'><span class="icon"></span>close</a>
         </div>
     </div>
     </div>
