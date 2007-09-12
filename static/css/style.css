@@ -1277,21 +1277,22 @@ li.blog-post .title {
     float: left;
 }
 
+.channel-full .actions li#rate {
+    position: relative;
+    left: 40px;
+}
+
 .channel-full .actions #rate #average {
     position: relative;
-    top:40px;
-    right:125px;
+    bottom:20px;
+    left:5px;
+    clear: left;
     font-size: 80%;
     color: #666666;
 }
 
 .channel-full .actions #rate #average strong {
     color: #000000;
-}
-
-.channel-full .actions li#subscribe {
-    margin-left: 40px;
-    margin-right: 40px;
 }
 
 .channel-full .actions .add .icon {
@@ -1301,8 +1302,7 @@ li.blog-post .title {
 .channel-full .actions #subscribe a.add {
     font-weight: bold;
     font-size: 130%;
-    margin-top: 5px;
-    margin-bottom: 15px;
+    margin: 15px  15px 20px;
 }
 
 .channel-full #categories {
@@ -1501,6 +1501,7 @@ li.blog-post .title {
 .channel-full #recommendations {
     background-color: #D9E9FA;
     margin-top:20px;
+    clear: left;
 }
 
 .channel-full #recommendations h2 {

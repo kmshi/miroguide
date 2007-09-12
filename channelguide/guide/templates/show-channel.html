@@ -25,46 +25,15 @@ $(document).ready(function(){
         </div>
         <ul class="actions">
             <div class="big horizontal">
-            <li id="rate">{{ ratings_bar }}<div id="average">Avg. of {{ ratings_count }} rating{{ ratings_count|pluralize }}: <strong>{{ ratings_average|floatformat }}</strong> star{{ ratings_average|pluralize }}</div></li>
-            <li id="subscribe"><a {{ channel.subscription_link }}>
-                <span class="icon"></span>
-                    {% trans "Add Channel" %}
-                </a></li>
+                <li id="subscribe"><a {{ channel.subscription_link }}>
+                    <span class="icon"></span>
+                        {% trans "Add Channel" %}
+                    </a>
+                </li>
+                <li id="rate">{{ ratings_bar }}<div id="average">Avg. of {{ ratings_count }} rating{{ ratings_count|pluralize }}: <strong>{{ ratings_average|floatformat }}</strong> star{{ ratings_average|pluralize }}</div></li>
             </div>
         </ul>
-        <div id="categories">
-            <h3>{% trans "Categories" %}</h3>
-            {% for cat in channel.categories %}
-                {{ cat.link }}{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-        </div>
-        {% if channel.tags %}
-        <div id="tags">
-            <h3>{% trans "Tags" %}</h3>
-            {% for tag in channel.tags %}
-                {{ tag.link }}{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-        </div>
-        {% endif %}
-        <div id="website">
-            <h3>{% trans "Website" %}</h3>
-            {{ channel.website_link }}
-        </div>
-        {% if show_extra_info %}
-        <ul id="extra-info">
-            <li><h3>{% trans "Owner Email" %}</h3>
-            {{ channel.owner.email }}</li>
-            <li><h3>{% trans "Moderation Status" %}</h3>
-            {% blocktrans with channel.state_name as state %}
-            Channel is {{ state }}
-            {% endblocktrans %}
-            {% if channel.last_moderated_by %}
-            {% blocktrans with channel.last_moderated_by as mod %}
-            (set by {{ mod }})
-            {% endblocktrans %}
-            {% endif %}
-        </li></ul>
-        {% endif %}
+
         {% if items %}
         <div class="separator"></div>
         <h2 class="recent-videos-header">
@@ -107,6 +76,39 @@ $(document).ready(function(){
                 </form>
             </div>
         </div>
+        {% endif %}
+        <div id="categories">
+            <h3>{% trans "Categories" %}</h3>
+            {% for cat in channel.categories %}
+                {{ cat.link }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </div>
+        {% if channel.tags %}
+        <div id="tags">
+            <h3>{% trans "Tags" %}</h3>
+            {% for tag in channel.tags %}
+                {{ tag.link }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div id="website">
+            <h3>{% trans "Website" %}</h3>
+            {{ channel.website_link }}
+        </div>
+        {% if show_extra_info %}
+        <ul id="extra-info">
+            <li><h3>{% trans "Owner Email" %}</h3>
+            {{ channel.owner.email }}</li>
+            <li><h3>{% trans "Moderation Status" %}</h3>
+            {% blocktrans with channel.state_name as state %}
+            Channel is {{ state }}
+            {% endblocktrans %}
+            {% if channel.last_moderated_by %}
+            {% blocktrans with channel.last_moderated_by as mod %}
+            (set by {{ mod }})
+            {% endblocktrans %}
+            {% endif %}
+        </li></ul>
         {% endif %}
         {% if recommendations %}
         <div id="recommendations">
