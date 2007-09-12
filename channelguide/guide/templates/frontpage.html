@@ -30,14 +30,14 @@
 </div>
 <div class="shadow">
     <div id="donate">
-        <img alt="heart" src="{{ STATIC_BASE_URL }}images/donate-heart.gif">
+        <img alt="heart" src="{{ STATIC_BASE_URL }}images/donate-heart.gif" />
         <h1>Do you love Miro?</h1>
-        <a href="http://getmiro.com/about/donate"><img alt="Donate to Miro" src="{{ STATIC_BASE_URL }}images/donate-button.gif"></a>
+        <a href="#" onclick='$("#drawer").show();'><img alt="Donate to Miro" src="{{ STATIC_BASE_URL }}images/donate-button.gif" /></a>
         <h2>Help us make television open.<br/>Our goal: $50,000 in September. <a href="#" onclick='$("#drawer").show();'>Watch This...</a></h2>
     <div id="drawer">
         <div id="mission">
             <h3>We are a 501c3</h3>
-            <p>Miro is designed to eliminate gatekeepers. Viewers can connect to any video provider that they want. Creators aren't chained to a single host, publisher, or distribution format. It's the same principal that makes the web so disruptive, vibrant and useful!</p>
+            <p>Miro is designed to eliminate gatekeepers. Viewers can connect to any video provider that they want. Creators aren't chained to a single host, publisher, or distribution format. It's the same principle that makes the web so disruptive, vibrant and useful!</p>
         </div>
         <div id="showplayer">
             <object>
@@ -48,14 +48,17 @@
         <div id="give">
             <h3>Your Donations<br />Keep Us Going!</h3>
             <ul>
-                <li><a href="#">give $5</a></li>
-                <li><a href="#">give $25</a></li>
-                <li><a href="#">give $100</a></li>
-                <li><a href="#">give $1,000</a></li>
-                <li><form>give<textarea rows=1 cols=2></textarea><a href="#">go</a></form></li>
+                <li><a href="https://www.getmiro.com/about/donate/cc.php?amount=5">give $5</a></li>
+                <li><a href="https://www.getmiro.com/about/donate/cc.php?amount=25">give $25</a></li>
+                <li><a href="https://www.getmiro.com/about/donate/cc.php?amount=100">give $100</a></li>
+                <li><a href="https://www.getmiro.com/about/donate/cc.php?amount=1000">give $1,000</a></li>
+                <li><form name="donate" method="GET" action="https://www.getmiro.com/about/donate/cc.php">give<textarea rows=1 cols=2 name="amount"></textarea><a href="#" onclick="document.donate.submit();">go</a></form></li>
             </ul>
-            <p>Other Ways to Give:<br /><a href="#">Paypal</a> &mdash; <a href="#">Google Checkout</a></p>
+            <p>Other Ways to Give:<br /><a href="https://www.getmiro.com/about/donate/#other">Paypal</a> &mdash; <a href="https://www.getmiro.com/about/donate/#other">Google Checkout</a></p>
 
+        </div>
+        <div id="close">
+            <a href="#" onclick='$("#drawer").hide();'><span class="icon"></span>close</a>
         </div>
     </div>
     </div>

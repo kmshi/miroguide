@@ -1999,13 +1999,15 @@ div#donate {
 
 #donate h2 {
     position: relative;
-    left: 70px;
-    top: -7px;
+    left: 465px;
+    top: -42px;
     color: #202020;
     font-size: 14px;
     font-weight: normal;
     font-family: Tahoma, Geneva, sans-serif;
     text-align: left;
+    height: 38px;
+    width: 319px;
 }
 
 #donate h2 a {
@@ -2020,6 +2022,7 @@ div#donate {
     margin-bottom: 10px;
     font-size: 16px;
     font-weight: normal;
+    text-align: center;
 }
 
 #donate #give h3 {
@@ -2030,12 +2033,14 @@ div#donate {
     font-weight: normal;
     line-height: 1.2em;
     font-size: 18px;
+    text-align: center; 
 }
 
 #donate #give textarea {
     font-size: 80%;
     height: 20px;
     margin: 0 3px;
+    overflow: hidden;
 }
 
 #donate #mission p {
@@ -2128,4 +2133,25 @@ div.shadow div {
     font-weight: bold;
     color: red;
     font-size: 15px;
+}
+
+#donate #close {
+    text-align: right;
+    float: right;
+    position: relative;
+    top: -10px;
+    left: -4px;
+}
+
+#donate #close a {
+    color: #dadada;
+    text-decoration: none;
+}
+
+#donate #close .icon {
+    height: 15px;
+    width: 15px;
+    background: url('images/x.gif') no-repeat center;
+    float: right;
+    margin: 2px;
 }
