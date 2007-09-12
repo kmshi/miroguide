@@ -1361,13 +1361,32 @@ li.blog-post .title {
     display: none;
 }
 
-.channel-full #description #reveal {
+.channel-full #description #reveal, .channel-full #description #hide {
     text-align: right;
 }
 
-.channel-full #description #reveal a {
+.channel-full #description #reveal a, .channel-full #description #hide a {
     color: #AAAAAA;
     text-decoration: none;
+}
+
+.channel-full #description .icon {
+    display: block;
+    float: right;
+    height: 16px;
+    width: 20px;
+}
+
+.channel-full #description #reveal .icon {
+    background: url(images/down-arrow.jpg) bottom no-repeat;
+}
+
+.channel-full #description #hide .icon {
+    background: url(images/up-arrow.jpg) bottom no-repeat;
+}
+
+.channel-full #description #hide {
+    display: none;
 }
 
 .channel-full a {

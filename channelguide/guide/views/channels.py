@@ -190,8 +190,8 @@ def show(request, id):
         'ratings_average': Rating.average_rating(c, request.connection),
         'notes': get_note_info(c, request.user),
     }
-    if len(channel.description.split()) > 73:
-        conext['shade_description'] =  True
+    if len(c.description.split()) > 73:
+        context['shade_description'] =  True
     if 'channel-edit-error' in request.session:
         context['error'] = request.session['channel-edit-error']
         del request.session['channel-edit-error']
@@ -267,7 +267,7 @@ def get_ratings_bar(request, channel):
         rating.rating = Rating.average_rating(channel, request.connection)
     c = {
             'rating': rating,
-            'changable': request.user.is_authenticated(),
+            'editable': request.user.is_authenticated(),
         }
     return loader.render_to_string('guide/rating.html', c)
 
