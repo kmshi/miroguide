@@ -10,5 +10,6 @@ urlpatterns = patterns('channelguide.guide.views.accounts',
     (r'^change-password$', 'change_password'),
     (r'^change-password/(\d+)$', 'change_password_submit'),
     (r'^password-changed$', 'password_changed'),
+    (r'^confirm/(\d+)/([a-z0-9]+)', 'confirm'),
     (r'^(\d+)$', 'user'),
 )

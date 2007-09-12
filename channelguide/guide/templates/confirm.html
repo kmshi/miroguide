@@ -1,0 +1,19 @@
+{% load i18n cg_helpers %}
+{% extends 'base.html' %}
+{% block title %}Miro - {% trans "Email Sent" %}{%endblock %}
+{% block content %}
+<div class="confirm-page">
+    {% if approved %}
+        <h1>{% trans "Confirmed!" %}</h1>
+        <p>{% blocktrans %}Thanks for confirming your account!{% endblocktrans %}</p>
+    {% else %}
+        {% ifequal code "resend" %}
+        <h1>{% trans "Confirmation sent" %}</h1>
+        <p>
+        {% else %}
+        <h1>{% trans "Incorrect code" %}</h1>
+        <p>{% blocktrans %}I'm sorry, that is not the correct code.{% endblocktrans %}</p>
+        {% endifequal %}
+    {% endif %}
+</div>
+{% endblock %}

@@ -96,6 +96,20 @@ def user(request, id):
     else:
         return edit_user_form(request, user)
 
+def confirm(request, id, code):
+    """
+    A user is trying to confirm their account.
+    """
+    user = util.get_object_or_404(request.connection, User.query(), id)
+    if user.generate_confirmation_code() == code:
+        user.approved = True
+        user.save(request.connection)
+    elif code == "resend":
+        user.send_confirmation_email()
+    return util.render_to_response(request, 'confirm.html', {
+            'approved': user.approved,
+            'code': code})
+
 def edit_user_form(request, user):
     if request.user.id != user.id:
         request.user.check_is_admin()

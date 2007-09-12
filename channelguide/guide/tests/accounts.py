@@ -23,6 +23,18 @@ class AccountTest(TestCase):
                 'newpassword': 'password', 'newpassword2': 'password',
                 'which-form': 'register' }
 
+    def register(self):
+        """
+        Return the final response from registering a user.
+        """
+        response = self.post_data("/accounts/login", self.register_data())
+        self.assertRedirect(response, '')
+        response = self.get_page('/')
+        self.assertEquals(response.context[0]['user'].username, 'mike')
+        self.assertEquals(response.context[0]['user'].email, 'mike@mike.com')
+        self.assert_(response.context[0]['user'].check_password('password'))
+        return response
+
     def bad_login_data(self):
         return {'username': 'mary', 'password': 'badpassword',
                 'which-form': 'login' }
@@ -63,6 +75,82 @@ class AccountTest(TestCase):
         user_check = User.get(self.connection, user.id)
         self.assertEquals(user_check.hashed_password, 
                 util.hash_string('newpass'))
+
+    def test_user_starts_unapproved(self):
+        """
+        Users should start off unapproved.
+        """
+        response = self.register()
+        self.assertEquals(response.context[0]['request'].user.approved, False)
+
+    def test_registration_send_approval_email(self):
+        """
+        Registering a user should send an e-mail to that user letting them
+        approve their account.
+        """
+        response = self.register()
+        user = response.context[0]['request'].user
+        self.check_confirmation_email(user)
+
+    def check_confirmation_email(self, user):
+        email = self.emails[-1]
+        self.assertEquals(email['title'], 'Approve your Miro Guide account')
+        self.assertEquals(email['recipient_list'], ['mike@mike.com'])
+        m = re.match("""
+You have requested new user account on Miro Guide and you specified
+this address \((.*?)\) as your e-mail address.
+
+If you did not do this, simply ignore this e-mail.  To confirm your
+registration, please follow this link:
+
+(http://.*?)
+
+If you do not do this within 3 days, your account will be deleted.
+
+Thanks,
+The Miro Guide""", email['body'])
+        self.assert_(m)
+        self.assertEquals(m.groups()[0], 'mike@mike.com')
+        self.assertEquals(m.groups()[1],
+                '%saccounts/confirm/%s/%s' % (settings.BASE_URL_FULL,
+                    user.id, user.generate_confirmation_code()))
+
+
+    def test_confirmation_url_confirms_user(self):
+        """
+        When the user visits the confirmation url, it should set the approval
+        flag to true.
+        """
+        response = self.register()
+        user = response.context[0]['request'].user
+        url = user.generate_confirmation_url()[len(settings.BASE_URL)-1:]
+        response = self.get_page(url)
+        user = user.get(self.connection, user.id)
+        self.assert_(user.approved)
+
+    def test_no_confirmation_with_bad_code(self):
+        """
+        If the user gives an incorrect code, they should not be confirmed.
+        """
+        response = self.register()
+        user = response.context[0]['request'].user
+        url = user.generate_confirmation_url()[len(settings.BASE_URL)-1:-1]
+        response = self.get_page(url)
+        user = user.get(self.connection, user.id)
+        self.assert_(not user.approved)
+
+    def test_resend_confirmation_code(self):
+        """
+        /accounts/confirm/<id>/resend should resent the initial confirmation
+        email.
+        """
+        response = self.register()
+        user = response.context[0]['request'].user
+        parts = user.generate_confirmation_url()[len(settings.BASE_URL)-1:].split('/')
+        url = '/'.join(parts[:-1]) + '/resend'
+        self.emails = []
+        response = self.get_page(url)
+        self.check_confirmation_email(user)
 
 class ModerateUserTest(TestCase):
     def setUp(self):
