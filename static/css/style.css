@@ -2056,7 +2056,7 @@ div#donate {
     margin-top: 10px;
 }
 
-#donate #give p a {
+#donate #give p a, #donate #showplayer a{
     color: #6b6b6b;
     text-decoration: underline;
 }
@@ -2100,7 +2100,6 @@ div.shadow div {
 }
 
 #donate #drawer {
-    display: none;
     clear:both;
     height: 285px;
 }
@@ -2126,13 +2125,12 @@ div.shadow div {
     padding: 20px 0 10px;
     width: 320px;
     float: left;
+    text-align: center;
 }
 
 #donate #showplayer a {
-    text-decoration: underline;
-    font-weight: bold;
-    color: red;
-    font-size: 15px;
+    font-size: 10px;
+    margin-top: 3px;
 }
 
 #donate #close {
