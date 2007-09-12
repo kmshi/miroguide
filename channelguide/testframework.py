@@ -235,9 +235,12 @@ class TestCase(unittest.TestCase):
                 context = response.context[0]
             else:
                 context = response.context
-            trace = traceback.format_exception(
+            try:
+                type = globals()[context['exception_type']]
+            except KeyError:
+                type = Exception
+            trace = traceback.format_exception(type,
                     context['exception_value'],
-                    context['exception_type'],
                     self.get_traceback_from_response(response))
             trace = '\n'.join(trace)
             raise ValueError("Got 500 status code.  Traceback:\n\n%s" % trace)
