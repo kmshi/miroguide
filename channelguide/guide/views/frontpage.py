@@ -82,11 +82,14 @@ def make_category_peek(request):
     }
 
 
-@cache.cache_page_externally_for(300)
-@cache.aggresively_cache
+#@cache.cache_page_externally_for(300)
 def index(request):
     featured_channels = get_featured_channels(request.connection)
-
+    if 'Linux' in request.META['HTTP_USER_AGENT'] and 'HTTP_X_MIRO' in request.META:
+        showFlash = False
+    else:
+        showFlash = True
+    print showFlash
     return util.render_to_response(request, 'frontpage.html', {
         'popular_channels': get_popular_channels(request.connection, 7),
         'new_channels': get_new_channels(request.connection, 7),
@@ -95,6 +98,7 @@ def index(request):
         'blog_posts': get_new_posts(request.connection, 3),
         'categories': get_categories(request.connection),
         'category_peek': make_category_peek(request),
+        'show_flash': showFlash,
     })
 
 @cache.aggresively_cache
