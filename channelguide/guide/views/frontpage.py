@@ -82,7 +82,7 @@ def make_category_peek(request):
     }
 
 
-#@cache.cache_page_externally_for(300)
+@cache.cache_page_externally_for(300)
 def index(request):
     featured_channels = get_featured_channels(request.connection)
     if 'Linux' in request.META['HTTP_USER_AGENT'] and 'HTTP_X_MIRO' in request.META:
