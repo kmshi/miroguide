@@ -2035,19 +2035,12 @@ div#donate {
 #donate #give h3 {
     position: relative;
     color: #c71826;
-    margin-bottom: 5px;
-    font-size: 16px;
+    margin-bottom: 3px;
+    font-size: 14px;
     font-weight: normal;
-    line-height: 1.2em;
-    font-size: 18px;
+    line-height: 1.1em;
+    font-size: 16px;
     text-align: center; 
-}
-
-#donate #give textarea {
-    font-size: 80%;
-    height: 20px;
-    margin: 0 3px;
-    overflow: hidden;
 }
 
 #donate #mission p {
@@ -2072,7 +2065,7 @@ div#donate {
     color: #c71826;
     font-size: 18px;
     list-style-image: url('images/small-heart.gif');
-    line-height: 1.8em;
+    line-height: 1.6em;
     text-align: left;
     margin-left: 60px;
 }
