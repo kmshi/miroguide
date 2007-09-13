@@ -89,7 +89,6 @@ def index(request):
         showFlash = False
     else:
         showFlash = True
-    print showFlash
     return util.render_to_response(request, 'frontpage.html', {
         'popular_channels': get_popular_channels(request.connection, 7),
         'new_channels': get_new_channels(request.connection, 7),
