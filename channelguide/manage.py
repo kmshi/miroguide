@@ -299,15 +299,17 @@ def remove_empty_tags(args=None):
 
 remove_empty_tags.args = ''
 
-
 def calculate_recommendations(args=None):
+    """
+    Calculate the item-item channel recomendations.
+    """
     from channelguide import db, recommendations
     connection = db.connect()
     if args[-1] == 'full':
         recommendations.calculateAll(connection)
     else:
         recommendations.calculateTwoDays(connection)
-calculate_recommendations.args = '["full"]'
+calculate_recommendations.args = '[full]'
 
 # Remove django default actions that we don't use.  Many of these probably
 # would screw things up fairly bad.
