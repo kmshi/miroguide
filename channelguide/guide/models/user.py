@@ -1,4 +1,5 @@
 from datetime import datetime
+import sha
 
 from django.conf import settings
 from django.utils.translation import gettext as _
@@ -187,6 +188,34 @@ class User(UserBase, Record):
             return "%s (%s)" % (self.im_username, self.im_type)
         else:
             return self.im_username
+
+    def generate_confirmation_code(self):
+        s = '%s%s%s' % (self.id, self.username, self.created_at.timetuple())
+        return sha.new(s).hexdigest()[:16]
+
+    def generate_confirmation_url(self):
+        return settings.BASE_URL_FULL + 'accounts/confirm/%s/%s' % (self.id,
+                self.generate_confirmation_code())
+
+    def send_confirmation_email(self):
+        """
+        A new user should receive an e-mail with a code that allows them to
+        confirm that the account is active.
+        """
+        url = self.generate_confirmation_url()
+        body = """
+You have requested new user account on Miro Guide and you specified this address (%s) as your e-mail address.
+
+If you did not do this, simply ignore this e-mail.  To confirm your registration, please follow this link:
+
+%s
+
+If you do not do this within 3 days, your account will be deleted.
+
+Thanks,
+The Miro Guide""" % (self.email, url)
+        util.send_mail('Approve your Miro Guide account', body, [self.email])
+
 
 class UserAuthToken(Record):
     table = tables.user_auth_token

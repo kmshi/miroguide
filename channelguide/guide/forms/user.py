@@ -77,6 +77,7 @@ class RegisterForm(PasswordComparingForm):
         user = User(self.cleaned_data['newusername'],
                 self.cleaned_data['newpassword'], self.cleaned_data['email'])
         user.save(self.connection)
+        user.send_confirmation_email()
         return user
 
 class EditUserForm(PasswordComparingForm):

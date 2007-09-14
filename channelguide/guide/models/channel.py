@@ -216,10 +216,25 @@ class Channel(Record, Thumbnailable):
                 tables.channel_recommendations.c.channel2_id==c2)
             delete.execute(connection)
 
-    def find_relevant_similar(self, connection, ip_address):
-        sql = """SELECT DISTINCT channel_id FROM cg_channel_subscription WHERE
-    (channel_id<>%s AND ip_address=%s AND (NOW()-timestamp) < %s)"""
-        results = connection.execute(sql, (self.id, ip_address, 16070400))
+    def find_relevant_similar(self, connection, ip_address=None):
+        ignoresWhere = """(NOW()-timestamp)<%s
+AND ignore_for_recommendations<>%s AND ip_address<>%s"""
+        ignoresArgs = [16070400, True, '0.0.0.0']
+        sql = """
+SELECT DISTINCT channel_id FROM cg_channel_subscription
+JOIN cg_channel ON cg_channel.id=channel_id
+WHERE channel_id<>%%s AND %s AND cg_channel.state=%%s""" % ignoresWhere
+        args = [self.id] + ignoresArgs + ['A']
+        if ip_address is None:
+            sql += """ AND ip_address IN
+(SELECT ip_address FROM cg_channel_subscription
+WHERE channel_id=%%s AND %s)""" % ignoresWhere
+            args.append(self.id)
+            args.extend(ignoresArgs)
+        else:
+            sql += " AND ip_address=%s"
+            args.append(ip_address)
+        results = connection.execute(sql, args)
         return [e[0] for e in results]
 
     def get_similarity(self, connection, other):

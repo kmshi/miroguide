@@ -299,6 +299,16 @@ def remove_empty_tags(args=None):
 
 remove_empty_tags.args = ''
 
+
+def calculate_recommendations(args=None):
+    from channelguide import db, recommendations
+    connection = db.connect()
+    if args[-1] == 'full':
+        recommendations.calculateAll(connection)
+    else:
+        recommendations.calculateTwoDays(connection)
+calculate_recommendations.args = '["full"]'
+
 # Remove django default actions that we don't use.  Many of these probably
 # would screw things up fairly bad.
 
@@ -324,6 +334,7 @@ action_mapping['remove_blank_space'] = remove_blank_space
 action_mapping['clear_cache'] = clear_cache
 action_mapping['optimize_templates'] = optimize_templates
 action_mapping['remove_empty_tags'] = remove_empty_tags
+action_mapping['calculate_recommendations'] = calculate_recommendations
 del action_mapping['test']
 
 def add_static_urls():
