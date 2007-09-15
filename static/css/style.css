@@ -1277,18 +1277,16 @@ li.blog-post .title {
     float: left;
 }
 
-.channel-full .actions li#rate {
+/*.channel-full .actions li#rate {
     position: relative;
     left: 40px;
-}
+}*/
 
 .channel-full .actions #rate #average {
-    position: relative;
-    bottom:20px;
-    left:5px;
     clear: left;
     font-size: 80%;
     color: #666666;
+    text-align: center;
 }
 
 .channel-full .actions #rate #average strong {
@@ -1302,7 +1300,7 @@ li.blog-post .title {
 .channel-full .actions #subscribe a.add {
     font-weight: bold;
     font-size: 130%;
-    margin: 15px  15px 20px;
+    margin: 0 15px;
 }
 
 .channel-full #categories {

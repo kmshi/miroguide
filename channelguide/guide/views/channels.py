@@ -261,19 +261,20 @@ def get_ratings_bar(request, channel):
     try:
         rating = Rating.query(Rating.c.user_id==request.user.id,
             Rating.c.channel_id==channel.id).get(request.connection)
+        isAverage = False
     except Exception:
         rating = Rating()
         rating.channel_id = channel.id
         rating.rating = Rating.average_rating(channel, request.connection)
+        isAverage = True
     c = {
             'rating': rating,
+            'is_average': isAverage,
             'editable': request.user.is_authenticated(),
         }
     return loader.render_to_string('guide/rating.html', c)
 
-def rating(request, id, rating):
-    if rating not in ['1', '2', '3', '4', '5']:
-        raise Http404
+def rate(request, id):
     if not request.user.is_authenticated():
         raise AuthError("need to log in to rate")
     try:
@@ -283,15 +284,17 @@ def rating(request, id, rating):
         dbRating = Rating()
         dbRating.user_id = request.user.id
         dbRating.channel = Channel.query(Channel.c.id==id).get(request.connection)
-    dbRating.rating = rating
+    if request.REQUEST.get('rating', None) is None:
+        if dbRating.exists_in_db():
+            return HttpResponse('User Rating: %s' %  dbRating.rating)
+        else:
+            raise Http404
+    rating = request.REQUEST.get('rating', None)
+    if rating not in ['0', '1', '2', '3', '4', '5']:
+        raise Http404
+    dbRating.rating = int(rating)
     dbRating.save(request.connection)
-    referer = request.META.get('HTTP_REFERER', '')
-    if referer.endswith('/channels/%s' % id):
-        bar = get_ratings_bar(request, dbRating.channel)
-        items = re.search('<li.*</li>', bar, re.S).group()
-        return HttpResponse(items)
-    else:
-        return HttpResponseRedirect(dbRating.channel.get_absolute_url())
+    return HttpResponseRedirect(dbRating.channel.get_absolute_url())
 
 class PopularWindowSelect(templateutil.ViewSelect):
     view_choices = [
