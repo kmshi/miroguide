@@ -1326,6 +1326,7 @@ li.blog-post .title {
 
 .channel-full #extra-info {
     float: left;
+    clear: left;
     margin-top: 10px;
 }
 
@@ -1496,7 +1497,7 @@ li.blog-post .title {
 .channel-full #recommendations .top {
     height: 11px;
     width: 381px;
-    background: url(images/recommendations-top.jpg) no-repeat top right;
+    background: url(images/recommendations-top.jpg) no-repeat bottom right;
 }
 
 .channel-full #recommendations .bottom  {
@@ -1515,15 +1516,21 @@ li.blog-post .title {
     text-align: center;
 }
 
+.channel-full #recommendations-pad {
+    height: 20px;
+    clear: both;
+}
+
 .channel-full #recommendations {
     background-color: #D9E9FA;
-    margin-top:20px;
     clear: left;
 }
 
 .channel-full #recommendations h2 {
     text-align: center;
     color: #666666;
+    position: relative;
+    top: -10px;
 }
 
 /* Channels in the tag/category/language lists */

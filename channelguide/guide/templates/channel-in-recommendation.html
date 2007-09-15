@@ -1,6 +1,6 @@
 {% load i18n cg_helpers %}
 <div class="channel channel-in-recommendation">
-    <h2 class="title">{{ channel.name_as_link }}</h2>
+    <h3 class="title">{{ channel.name_as_link }}</h2>
     <div class="screenshot">
         <a {% link channel.get_url %}>{{ channel.thumb_120_80 }}</a>
         {% if channel.hi_def %}
