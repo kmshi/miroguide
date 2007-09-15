@@ -746,6 +746,11 @@ li.blog-post .title {
     margin-bottom: 8px;
 }
 
+.login-page .register-form .info {
+    margin: 5px;
+    text-align: left;
+}
+
 .login-page div.message {
     margin-bottom: 15px;
 }
