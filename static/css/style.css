@@ -1279,6 +1279,7 @@ li.blog-post .title {
 }
 
 .channel-full ul.actions {
+    margin-bottom: 14px;
     float: left;
 }
 
