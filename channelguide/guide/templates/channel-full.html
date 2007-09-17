@@ -2,10 +2,11 @@
 <div class="channel channel-full">
     {% twocolumns %}
         <div class="screenshot">
-            {{ channel.thumb_370_247 }}
+            <a href="{{ channel.get_url }}">{{ channel.thumb_370_247 }}
             {% if channel.hi_def %}
             <img class="hd-icon-large" src="{{ BASE_URL }}images/hd-icon-large.png" alt="HD">
             {% endif %}
+            </a>
         </div>
         {% if user.is_moderator or show_edit_button %}
         <ul>
@@ -23,7 +24,7 @@
         {% endif %}
     {% splitcolumns %}
         <h1 class="title">
-            {{ channel.name|escape }}
+            <a href="{{ channel.get_url }}">{{ channel.name|escape }}</a>
         </h1>
         <div class="description">{{ channel.description|escape }}</div>
         <div class="actions">
