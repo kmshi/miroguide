@@ -7,6 +7,13 @@ from channelguide.guide import tables
 from channelguide.guide.models import Channel, Category, PCFBlogPost
 
 def get_popular_channels(connection, count):
+    sql = "SELECT * FROM cg_channel_generated_top7'
+    try:
+        vals = connect.execute(sql)
+    except Exception:
+        vals = []
+    if vals:
+        return vals
     query = Channel.query_approved()
     query.load('subscription_count_today')
     query.order_by('subscription_count_today', desc=True).limit(count)
