@@ -773,7 +773,7 @@ li.blog-post .title {
 }
 
 .login-page img#registration1 {
-    margin: 0 20px 20px 20px;
+    margin: 0 20px 40px 20px;
     float: right;
 }
 
@@ -1984,7 +1984,7 @@ div#donate {
     background: #FFFEE9;
     padding: 15px 0 0;
     width: 792px;
-    min-height: 38px;
+    min-height: 45px;
     text-align: none;
 }
 
@@ -2113,7 +2113,7 @@ div#donate {
 div.shadow {
     width: 792px;
     background: url(images/shadow.gif) bottom left repeat-x;
-    margin: 0px -16px 20px;
+    margin: 0px -16px;
 }
 
 div.shadow div {
@@ -2206,6 +2206,7 @@ div.shadow div {
 
 #donate #thermometer ul#labels {
     color: black;
+    margin-top:-5px;
 }
 
 #donate #thermometer #labels li {
