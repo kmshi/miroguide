@@ -104,8 +104,11 @@ class ProfileMiddleware(object):
             stats = hotshot.stats.load(self.tmpfile.name)
 
             #stats.strip_dirs()
-
-            stats.sort_stats('cumulative', 'calls')
+            if request.has_key('cumulative'):
+                stats.sort_stats('cumulative', 'calls')
+            else:
+    
+                stats.sort_stats('time', 'calls')
 
             stats.print_stats('channelguide/')
 
