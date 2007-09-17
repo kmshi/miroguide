@@ -992,7 +992,7 @@ li.blog-post .title {
 .channel .actions a {
     display: inline-block;
     color: #3c3c3c;
-    margin: auto;
+    margin-right: 3px;
 }
 
 .channel .actions a:hover {
