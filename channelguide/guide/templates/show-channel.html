@@ -62,7 +62,7 @@ $(document).ready(function(){
             {{ channel.description|escape }}
         {% endif %}
         </div>
-        {% if 0 %}
+        {% comment %}
         <div id="comments">
             <h2>{% trans "User Reviews" %}</h2>
             <div id="review-link">(<a onclick="$('#comments #review').toggle();" href="#">{% trans "review this channel" %}</a>)</div>
@@ -77,7 +77,7 @@ $(document).ready(function(){
                 </form>
             </div>
         </div>
-        {% endif %}
+        {% endcomment %}
         <div id="categories">
             <h3>{% trans "Categories" %}</h3>
             {% for cat in channel.categories %}
@@ -111,6 +111,23 @@ $(document).ready(function(){
             {% endif %}
         </li></ul>
         {% endif %}
+
+        {% if user.is_moderator or show_edit_button %}
+        <div class="clear"></div>
+        <ul>
+        {% if user.is_moderator %}
+            {% show_moderate_actions channel %}
+        {% endif %}
+        {% if show_edit_button %}
+        <li class="channel-action">
+        <form action="#" method="GET" onsubmit="return handleFormLink('{{ channel.get_edit_url }}');">
+                <input type="submit" value="{% trans "Edit" %}">
+            </form>
+        </li>
+        {% endif %}
+        </ul>
+        {% endif %}
+
         {% if recommendations %}
         <div id="recommendations-pad"></div>
         <div id="recommendations">
@@ -128,21 +145,6 @@ $(document).ready(function(){
         </table>
         <div class="bottom"></div>
         </div>
-        {% endif %}
-
-        {% if user.is_moderator or show_edit_button %}
-        <ul>
-        {% if user.is_moderator %}
-            {% show_moderate_actions channel %}
-        {% endif %}
-        {% if show_edit_button %}
-        <li class="channel-action">
-        <form action="#" method="GET" onsubmit="return handleFormLink('{{ channel.get_edit_url }}');">
-                <input type="submit" value="{% trans "Edit" %}">
-            </form>
-        </li>
-        {% endif %}
-        </ul>
         {% endif %}
     {% endtwocolumns %}
 </div>

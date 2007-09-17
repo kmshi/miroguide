@@ -2020,6 +2020,7 @@ div#donate {
 
 #donate h2 {
     position: relative;
+    margin-bottom: 10px;
     left: 100px;
     top: -50px;
 }
@@ -2177,7 +2178,7 @@ div.shadow div {
 
 #donate #thermometer {
     position: relative;
-    top: -51px;
+    top: -47px;
     left: 460px;
     float: left;
 }
@@ -2185,11 +2186,11 @@ div.shadow div {
 #donate #thermometer .background {
     width: 319px;
     height: 10px;
-    background: #ff0000;
+    background: #ee9ca5;
 }
 
 #donate #thermometer .temperature {
-    background: #aa0000;
+    background: #d52c2f;
     width: 30%;
     height: 10px;
     position: static;
