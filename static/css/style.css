@@ -1988,22 +1988,22 @@ div#donate {
     min-height: 45px;
     text-align: none;
 }
-
-#donate h1 {
+#donate .header {
+    float: left;
     position: relative;
     left: 28px;
     top: -15px;
+    margin-top: 2px;
+}
+#donate h1 {
     color: #c71826;
     font-size: 27px;
     font-weight: normal;
     font-family: Tahoma, Geneva, sans-serif;
-    float: left;
     margin-bottom: 0px;
 }
 
-#donate h1 .subheader {
-    margin-top: 2px;
-}
+
 
 #donate img {
     position: relative;
@@ -2022,8 +2022,8 @@ div#donate {
 #donate h2 {
     position: relative;
     margin-bottom: 10px;
-    left: 100px;
-    top: -50px;
+    left: 65px;
+    top: -10px;
 }
 
 #donate h2, #donate h1 .subheader {
@@ -2101,7 +2101,7 @@ div#donate {
 #donate a img {
     border: 0px;
     position: relative;
-    left: -30px;
+    left: 45px;
     top: -4px;
     float: left;
 }
@@ -2179,8 +2179,8 @@ div.shadow div {
 
 #donate #thermometer {
     position: relative;
-    top: -47px;
-    left: 460px;
+    top: -5px;
+    left: 65px;
     float: left;
 }
 
