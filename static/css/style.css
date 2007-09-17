@@ -2080,14 +2080,18 @@ div#donate {
 
 #donate #give ul {
     color: #c71826;
-    font-size: 18px;
+    font-size: 17px;
     list-style-image: url('images/small-heart.gif');
-    line-height: 1.6em;
+    line-height: 1.2em;
     text-align: left;
     margin-left: 60px;
 }
 
-#donate li a {
+#donate #give li {
+    margin-top: 0.5em;
+}
+
+#donate #give li a {
     color: #c71826;
     text-decoration: underline;
 }
