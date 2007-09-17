@@ -747,8 +747,10 @@ li.blog-post .title {
 }
 
 .login-page .register-form .info {
-    margin: 5px;
-    text-align: left;
+    color: #888888;
+    font-size: 85%;
+    margin: 10px 5px 15px;
+    text-align: center;
 }
 
 .login-page div.message {
