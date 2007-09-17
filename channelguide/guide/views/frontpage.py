@@ -5,17 +5,22 @@ from django.conf import settings
 from channelguide import util, cache
 from channelguide.guide import tables
 from channelguide.guide.models import Channel, Category, PCFBlogPost
-
+from sqlhelper.orm.query import ResultHandler
 def get_popular_channels(connection, count):
+    query = Channel.query_approved()
+    query.load('subscription_count_today')
+    # this query is slow, so we try to get it out of another table
+    # XXX abstract this out into a framework for caching queries
     sql = "SELECT * FROM cg_channel_generated_top7"
     try:
-        vals = connect.execute(sql)
+        vals = connection.execute(sql)
     except Exception:
         vals = []
     if vals:
-        return vals
-    query = Channel.query_approved()
-    query.load('subscription_count_today')
+        handler = ResultHandler(query)
+        for row in vals:
+            handler.handle_data(iter(row))
+        return handler.make_results()
     query.order_by('subscription_count_today', desc=True).limit(count)
     return query.execute(connection)
 
