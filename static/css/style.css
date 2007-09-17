@@ -1359,6 +1359,7 @@ li.blog-post .title {
 .channel-full #description {
     font-size: 130%;
     min-height: 247px;
+    padding-left: 10px;
 }
 
 .channel-full #description #full {
@@ -1489,7 +1490,7 @@ li.blog-post .title {
 }
 
 .item h2 {
-    height: 1.3em;
+    height: 1.1em;
     margin-top: 5px;
     overflow: hidden;
 }
