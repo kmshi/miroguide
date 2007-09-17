@@ -1991,13 +1991,17 @@ div#donate {
 #donate h1 {
     position: relative;
     left: 28px;
-    top: -7px;
+    top: -15px;
     color: #c71826;
     font-size: 27px;
     font-weight: normal;
     font-family: Tahoma, Geneva, sans-serif;
     float: left;
     margin-bottom: 0px;
+}
+
+#donate h1 .subheader {
+    margin-top: 2px;
 }
 
 #donate img {
@@ -2016,14 +2020,17 @@ div#donate {
 
 #donate h2 {
     position: relative;
-    left: 465px;
-    top: -42px;
+    left: 100px;
+    top: -50px;
+}
+
+#donate h2, #donate h1 .subheader {
+    float: left;
     color: #202020;
     font-size: 14px;
     font-weight: normal;
     font-family: Tahoma, Geneva, sans-serif;
     text-align: left;
-    height: 38px;
     width: 319px;
 }
 
@@ -2071,7 +2078,7 @@ div#donate {
     text-decoration: underline;
 }
 
-#donate ul {
+#donate #give ul {
     color: #c71826;
     font-size: 18px;
     list-style-image: url('images/small-heart.gif');
@@ -2088,7 +2095,7 @@ div#donate {
 #donate a img {
     border: 0px;
     position: relative;
-    left: 45px;
+    left: -30px;
     top: -4px;
     float: left;
 }
@@ -2162,4 +2169,53 @@ div.shadow div {
     background: url('images/x.gif') no-repeat center;
     float: right;
     margin: 2px;
+}
+
+#donate #thermometer {
+    position: relative;
+    top: -51px;
+    left: 460px;
+    float: left;
+}
+
+#donate #thermometer .background {
+    width: 319px;
+    height: 10px;
+    background: #ff0000;
+}
+
+#donate #thermometer .temperature {
+    background: #aa0000;
+    width: 30%;
+    height: 10px;
+    position: static;
+    top: 0;
+    z-index: 1;
+}
+
+#donate #thermometer #labels {
+    width: 319px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+#donate #thermometer ul#labels {
+    color: black;
+}
+
+#donate #thermometer #labels li {
+    float: left;
+    text-align: right;
+}
+
+#donate #thermometer .tenk {
+    width: 64px;
+}
+
+#donate #thermometer .thirtyk {
+    width: 127px;
+}
+
+#donate #thermometer .fiftyk {
+    width: 128px;
 }

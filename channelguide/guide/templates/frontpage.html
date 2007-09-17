@@ -14,6 +14,55 @@
 
 {% block content %}
 <div class="front-page">
+<div class="shadow">
+    <div id="donate">
+        <img alt="heart" src="{{ STATIC_BASE_URL }}images/donate-heart.gif" />
+        <h1>Do you love Miro?<div class="subheader">Our goal: $50,000 in September!</div></h1>
+        <a href="http://getmiro.com/about/donate" onclick='$("#drawer").show("slow"); return false;'><img alt="Donate to Miro" src="{{ STATIC_BASE_URL }}images/donate-button.gif" /></a>
+        <h2>Help us make television open.  <a href="" onclick='$("#drawer").show("slow"); return false;'>See the video...</a></h2>
+        <div id="thermometer">
+            <div class="background">
+                <div class="temperature"</div>
+            </div>
+            <ul id="labels">
+                <li class="tenk">$10k</li>
+                <li class="thirtyk">$30k</li>
+                <li class="fiftyk">$50k</li>
+            </ul>
+        </div>
+        <div id="drawer">
+            <div id="mission">
+                <h3>All Donations are Tax-Deductable</h3>
+                <p>Miro is designed to eliminate gatekeepers. Viewers can connect to any video provider that they want. Creators aren't chained to a single host, publisher, or distribution format. It's the same principle that makes the web so disruptive, vibrant and useful!</p>
+            </div>
+            <div id="showplayer">
+                {% if show_flash %}<object>
+                <embed type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" width="320" height="240" bgcolor="#FFFFFF" name="mitvPlayer" src="http://makeinternettv.org/video/flvplayer.swf" flashvars="file=http://blip.tv/file/get/Miropcf-FundraisingUpdate155.flv&width=320&height=240&overstretch=none&showdigits=false&shuffle=false&image=http://static.blip.tv/Miropcf-FundraisingUpdate378.jpg&backcolor=0xFFFFFF"></embed>
+
+                </object>
+                {% else %}
+                <a href="https://www.getmiro.com/about/donate/pitch.php"><img src="http://static.blip.tv/Miropcf-FundraisingUpdate378.jpg" height=240 width=320></a>
+                {% endif %}
+                <a href="https://www.getmiro.com/about/donate/pitch.php">can't see this video?</a> &mdash; <a href="http://www.getmiro.com/about/donate/video/fundraiser-update.ogg">download video</a>
+
+           </div>
+            <div id="give">
+                <h3>Your Donations<br />Keep Us Going!</h3>
+                <ul>
+                    <li><a href="https://www.getmiro.com/about/donate/#give">Donate with Paypal</a></li>
+                    <li><a href="https://www.getmiro.com/about/donate/#give">Donate with Google Checkout</a></li>
+                    <li><a href="https://www.getmiro.com/about/donate/cc.php">Donate with a Credit Card</a></li>
+                </ul>
+            </div>
+            <div id="close">
+                <a href="" onclick='$("#drawer").hide("slow"); return false;'><span class="icon"></span>close</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+<div class="clear"></div>
 <div id="feature-section">
 <a href="#" onclick="rotateFeaturesLeft(); return false;" id="featured-list-previous"><span class="hidden">previous features</span></a>
 <a href="#" onclick="rotateFeaturesRight(); return false;" id="featured-list-next"><span class="hidden">next features</span></a>
@@ -31,43 +80,6 @@
 {% endfor %}
     </ul>
 </div>
-</div>
-<div class="shadow">
-    <div id="donate">
-        <img alt="heart" src="{{ STATIC_BASE_URL }}images/donate-heart.gif" />
-        <h1>Do you love Miro?</h1>
-        <a href="http://getmiro.com/about/donate" onclick='$("#drawer").show("slow"); return false;'><img alt="Donate to Miro" src="{{ STATIC_BASE_URL }}images/donate-button.gif" /></a>
-        <h2>Help us make television open.<br/>Our goal: $50,000 in September. <a href="" onclick='$("#drawer").show("slow"); return false;'>Watch This...</a></h2>
-    <div id="drawer">
-        <div id="mission">
-            <h3>All Donations are Tax-Deductable</h3>
-            <p>Miro is designed to eliminate gatekeepers. Viewers can connect to any video provider that they want. Creators aren't chained to a single host, publisher, or distribution format. It's the same principle that makes the web so disruptive, vibrant and useful!</p>
-        </div>
-        <div id="showplayer">
-            {% if show_flash %}<object>
-            <embed type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" width="320" height="240" bgcolor="#FFFFFF" name="mitvPlayer" src="http://makeinternettv.org/video/flvplayer.swf" flashvars="file=http://blip.tv/file/get/Miropcf-FundraisingUpdate155.flv&width=320&height=240&overstretch=none&showdigits=false&shuffle=false&image=http://static.blip.tv/Miropcf-FundraisingUpdate378.jpg&backcolor=0xFFFFFF&autostart=yes"></embed>
-
-            </object>
-            {% else %}
-            <a href="https://www.getmiro.com/about/donate/pitch.php"><img src="http://static.blip.tv/Miropcf-FundraisingUpdate378.jpg" height=240 width=320></a>
-            {% endif %}
-            <a href="https://www.getmiro.com/about/donate/pitch.php">can't see this video?</a> &mdash; <a href="http://www.getmiro.com/about/donate/video/fundraiser-update.ogg">download video</a>
-
-       </div>
-        <div id="give">
-            <h3>Your Donations<br />Keep Us Going!</h3>
-            <ul>
-                <li><a href="https://www.getmiro.com/about/donate/#give">Donate with Paypal</a></li>
-                <li><a href="https://www.getmiro.com/about/donate/#give">Donate with Google Checkout</a></li>
-                <li><a href="https://www.getmiro.com/about/donate/cc.php">Donate with a Credit Card</a></li>
-            </ul>
-        </div>
-        <div id="close">
-            <a href="" onclick='$("#drawer").hide("slow"); return false;'><span class="icon"></span>close</a>
-        </div>
-        <div class="clear"></div>
-    </div>
-    </div>
 </div>
 <div class="clear"></div>
 <div class="column-section">
