@@ -1459,7 +1459,7 @@ li.blog-post .title {
 }
 
 #items .separator {
-    background-image: url(images/channel-item-separator.jpg);
+    background-image: url(images/channel-item-separator.jpg) no-repeat left center;
     height: 1px;
     width: 338px;
 }
