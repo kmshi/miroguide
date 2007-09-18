@@ -1305,7 +1305,7 @@ li.blog-post .title {
     background-image: url(images/icons/add-big-white.png);
 }
 
-.channel-full .actions a.add {
+.channel-full .actions .big a.add {
     font-weight: bold;
     font-size: 130%;
     margin: 0 15px;
