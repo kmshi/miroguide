@@ -72,7 +72,7 @@ jQuery.fn.rating = function(){
             });
             request.onreadystatechange = function() {
                 if (request.readyState == 4 && request.status == 200) {
-                    if (request.responseText.indexOf('<div class="login-page">')) {
+                    if (request.responseText.indexOf('<div class="login-page">') != -1) {
                         document.location = url+'?rating=' + ratingValue;
                     }
                 }
