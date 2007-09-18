@@ -6,3 +6,4 @@ from notes import *
 from channels import *
 from languages import *
 from recommendations import *
+from rating import *

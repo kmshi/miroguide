@@ -73,6 +73,18 @@ class Channel(Record, Thumbnailable):
         query.order_by(query.joins['items'].c.date, desc=True)
         return query
 
+    def average_rating(self, connection):
+        q = self.query(self.c.id==self.id).load('average_rating')
+        result = q.get(connection).average_rating
+        if result is None:
+            return 0
+        else:
+            return result
+
+    def count_rating(self, connection):
+        q = self.query(self.c.id==self.id).load('count_rating')
+        return q.get(connection).count_rating
+
     def get_url(self):
         return util.make_url('channels/%d' % self.id)
 

@@ -15,8 +15,8 @@ $("document").ready(function(){
 </script>
 {% endif %}
 <form class="rating"
-    {% if is_average %}
-    title="Average Rating: {{ rating.rating }}"
+    {% if rating.average_rating %}
+    title="Average Rating: {{ rating.average_rating }}"
     {% else %}
     title="User Rating: {{ rating.rating }}"
     {% endif %}

@@ -186,8 +186,8 @@ def show(request, id):
         'link_to_channel': True,
         'BASE_URL': settings.BASE_URL,
         'ratings_bar': get_ratings_bar(request, c),
-        'ratings_count': Rating.count_rating(c, request.connection),
-        'ratings_average': Rating.average_rating(c, request.connection),
+        'ratings_count': c.count_rating(request.connection),
+        'ratings_average': c.average_rating(request.connection),
         'notes': get_note_info(c, request.user),
     }
     if len(c.description.split()) > 73:
@@ -261,16 +261,12 @@ def get_ratings_bar(request, channel):
     try:
         rating = Rating.query(Rating.c.user_id==request.user.id,
             Rating.c.channel_id==channel.id).get(request.connection)
-        isAverage = False
     except Exception:
         rating = Rating()
         rating.channel_id = channel.id
-        rating.rating = Rating.average_rating(channel, request.connection)
-        isAverage = True
+        rating.average_rating = channel.average_rating(request.connection)
     c = {
             'rating': rating,
-            'is_average': isAverage,
-            'editable': request.user.is_authenticated(),
         }
     return loader.render_to_string('guide/rating.html', c)
 
