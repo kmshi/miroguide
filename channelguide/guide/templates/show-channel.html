@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load cg_helpers channels i18n notes %}
 {% block head-extra %}<script src="{{ STATIC_BASE_URL }}js/jquery.js" type="text/javascript"></script>
+<script src="{{ STATIC_BASE_URL }}js/rating.js" type="text/javascript"></script>
+<link rel="StyleSheet" type="text/css" href="{{ STATIC_BASE_URL }}css/rating.css">
 <script type="text/javascript">
 $(document).ready(function(){
     $("#comments #review").hide();
@@ -23,16 +25,17 @@ $(document).ready(function(){
             <img class="hd-icon-large" src="{{ STATIC_BASE_URL }}images/hd-icon-large.png" alt="HD">
             {% endif %}
         </div>
-        <ul class="actions">
             <div class="big horizontal">
-                <li id="subscribe"><a {{ channel.subscription_link }}>
-                    <span class="icon"></span>
-                        {% trans "Add Channel" %}
-                    </a>
-                </li>
-                <li id="rate">{{ ratings_bar }}<div id="average">Avg. of {{ ratings_count }} rating{{ ratings_count|pluralize }}: <strong>{{ ratings_average|floatformat }}</strong> star{{ ratings_average|pluralize }}</div></li>
+                <ul class="actions">
+                    <li id="subscribe" class="big horizontal">
+                        <a {{ channel.subscription_link }}>
+                            <span class="icon"></span>
+                            {% trans "Add Channel" %}
+                        </a>
+                    </li>
+                    <li id="rate">{{ ratings_bar }}<div id="average">Avg. of {{ ratings_count }} rating{{ ratings_count|pluralize }}: <strong>{{ ratings_average|floatformat }}</strong> star{{ ratings_average|pluralize }}</div></li>
+                </ul>
             </div>
-        </ul>
 
         {% if items %}
         <div class="separator"></div>

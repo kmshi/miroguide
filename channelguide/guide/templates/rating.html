@@ -1,35 +1,53 @@
-{% if inline %}
-{% else %}
-<!-- XHTML and CSS courtesy of Komodo Media -->
-<style type="text/css">
-<!--
-@import url(/css/rating.css);
--->
-</style>
-<script type="text/javascript" src="/js/rating.js"></script>
 <script type="text/javascript">
-$("document").ready(function(){
-    jQuery('form.rating').rating('',
+$(document).ready(function(){
+    $('form.rating').rating('',
         {maxvalue:5});
 });
 </script>
-{% endif %}
-<form class="rating"
-    {% if rating.average_rating %}
-    title="Average Rating: {{ rating.average_rating }}"
-    {% else %}
-    title="User Rating: {{ rating.rating }}"
-    {% endif %}
-    action="/channels/rate/{{ rating.channel_id }}">
-    <label for="r1" class="avg">Rate Me!</label>
-    <select id="r1">
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-
-        <option value="4">4</option>
-        <option value="5">5</option>
-    </select>
-    <input type="button" value="Submit Rating">
-</form>
+{% comment %}<form class="rating" {% if rating.average_rating %}
+title="Average Rating: {{ rating.average_rating }}"{% else %}
+title="User Rating: {{ rating.rating }}"{% endif %}
+action="/channels/rate/{{ rating.channel_id }}">
+        <label for="r1" class="avg">Rate Me!</label>
+        <select id="r1">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <input type="button" value="Submit Rating">
+    </form>{% endcomment %}
+<div class="rating" title="Average Rating: 1.0000">
+<div class="cancel">
+<a href="#0" title="Not Interested">
+Not Interested
+</a>
+</div>
+<div class="star averagerating on">
+<a style="width: 100%;" href="#1" title="Give it a 1 Star Rating">
+1
+</a>
+</div>
+<div class="star averagerating">
+<a style="width: 100%;" href="#2" title="Give it a 2 Star Rating">
+2
+</a>
+</div>
+<div class="star averagerating">
+<a style="width: 100%; cursor: url(chrome://interclue/content/cluecore/skins/default/cursors/showClueFrame.cur), pointer;" href="#3" title="Give it a 3 Star Rating">
+3
+</a>
+</div>
+<div class="star averagerating">
+<a style="width: 100%;" href="#4" title="Give it a 4 Star Rating">
+4
+</a>
+</div>
+<div class="star averagerating">
+<a style="width: 100%;" href="#5" title="Give it a 5 Star Rating">
+5
+</a>
+</div>
+</div>
