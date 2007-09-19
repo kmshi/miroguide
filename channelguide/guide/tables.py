@@ -208,13 +208,21 @@ FROM cg_channel_rating
 WHERE cg_channel_rating.channel_id=#table#.id""")
 
 def make_subscription_count(name, timeline=None):
-    sql = """\
+    if timline is None: or timeline is 'MONTH':
+        if timeline is None:
+            column = 'subscription_count_total'
+        else:
+            column = 'subscription_count_month'
+        sql = """SELECT %s FROM cg_channel_generated_stats WHERE
+channel_id=#table#.id""" % column
+    else:
+        sql = """\
 SELECT COUNT(*)
 FROM cg_channel_subscription
 WHERE cg_channel_subscription.channel_id=#table#.id"""
-    if timeline is not None:
-        interval = "DATE_SUB(NOW(), INTERVAL 1 %s)" % timeline
-        sql += " AND cg_channel_subscription.timestamp > %s" % interval
+        if timeline is not None:
+            interval = "DATE_SUB(NOW(), INTERVAL 1 %s)" % timeline
+            sql += " AND cg_channel_subscription.timestamp > %s" % interval
     channel.add_subquery_column(name, sql)
 
 make_subscription_count('subscription_count')
