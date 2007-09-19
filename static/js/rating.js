@@ -42,7 +42,7 @@ jQuery.fn.rating = function(){
         var ratingValue = this.title.split(/:\s*/)[1],
             url = this.action,
             ratingIndex = parseInt(ratingValue);
-        var ratingPercent = parseFloat(this.title) - ratingIndex;
+        var ratingPercent = parseFloat(ratingValue) - ratingIndex;
 
         // hover events and focus events added
         var stars = div.find("div.star")
