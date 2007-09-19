@@ -83,7 +83,7 @@ jQuery.fn.rating = function(){
         // fill to the current mouse position.
         function fill( elem ){
             stars.find("a").css("width", "100%");
-            stars.lt( stars.index(elem) + 1 ).addClass("hover");
+            stars.slice(0, stars.index(elem) + 1 ).addClass("hover");
         }
     
         // drain all the stars.
@@ -95,7 +95,7 @@ jQuery.fn.rating = function(){
         // Reset the stars to the default index.
         function reset(){
             stars.removeClass("userrating").removeClass("averagerating");
-            stars.lt(ratingIndex).addClass("on");
+            stars.slice(0, ratingIndex).addClass("on");
 
             var percent = ratingPercent ? ratingPercent * 10 : 0;
             if (percent > 0)
