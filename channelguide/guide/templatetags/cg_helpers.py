@@ -198,14 +198,17 @@ class TwoColumnNode(template.Node):
         self.columns = (first_column, second_column)
 
     def render(self, context):
-        output = []
-        output.append('<ul class="two-column-list">')
-        output.append('<li class="column first-column">')
-        output.append(self.columns[0].render(context))
-        output.append('</li><li class="column second-column">')
-        output.append(self.columns[1].render(context))
-        output.append('</li></ul><div class="clear"></div>')
-        return ''.join(output)
+        return """
+<ul class="two-column-list">
+    <li class="column first-column">
+        %s
+    </li>
+    <li class="column second-column">
+        %s
+    </li>
+</ul>
+<div class="clear"></div>""" % (self.columns[0].render(context),
+        self.columns[1].render(context))
 
 @register.tag(name='threecolumns')
 def do_threecolumns(parser, token):
