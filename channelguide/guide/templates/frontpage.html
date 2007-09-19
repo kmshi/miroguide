@@ -6,6 +6,9 @@
 <script src="{{ STATIC_BASE_URL }}js/jquery.js" type="text/javascript"></script><script type="text/javascript">
  $(document).ready(function() {
     $("#drawer").hide();
+    if (jQuery.browser.mozilla != true) {
+        $("a.screenshot").replaceWith('<object><embed type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" width="320" height="240" bgcolor="#FFFFFF" name="mitvPlayer" src="http://makeinternettv.org/video/flvplayer.swf" flashvars="file=http://blip.tv/file/get/Miropcf-FundraisingUpdate155.flv&width=320&height=240&overstretch=none&showdigits=false&shuffle=false&image=http://static.blip.tv/Miropcf-FundraisingUpdate378.jpg&backcolor=0xFFFFFF"></embed></object>');
+    }
              });
 </script>
 {% endblock %}
@@ -39,13 +42,7 @@
                 <p>Miro is designed to eliminate gatekeepers. Viewers can connect to any video provider that they want. Creators aren't chained to a single host, publisher, or distribution format. It's the same principle that makes the web so disruptive, vibrant and useful!</p>
             </div>
             <div id="showplayer">
-                {% if show_flash %}<object>
-                <embed type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" width="320" height="240" bgcolor="#FFFFFF" name="mitvPlayer" src="http://makeinternettv.org/video/flvplayer.swf" flashvars="file=http://blip.tv/file/get/Miropcf-FundraisingUpdate155.flv&width=320&height=240&overstretch=none&showdigits=false&shuffle=false&image=http://static.blip.tv/Miropcf-FundraisingUpdate378.jpg&backcolor=0xFFFFFF"></embed>
-
-                </object>
-                {% else %}
-                <a href="https://www.getmiro.com/about/donate/pitch.php"><img src="http://static.blip.tv/Miropcf-FundraisingUpdate378.jpg" height=240 width=320></a>
-                {% endif %}
+                <a class="screenshot" href="https://www.getmiro.com/about/donate/pitch.php"><img src="http://static.blip.tv/Miropcf-FundraisingUpdate378.jpg" height=240 width=320></a>
                 <a href="https://www.getmiro.com/about/donate/pitch.php">can't see this video?</a> &mdash; <a href="http://www.getmiro.com/about/donate/video/fundraiser-update.ogg">download video</a>
 
            </div>
