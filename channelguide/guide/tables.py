@@ -208,7 +208,7 @@ FROM cg_channel_rating
 WHERE cg_channel_rating.channel_id=#table#.id""")
 
 def make_subscription_count(name, timeline=None):
-    if timline is None: or timeline is 'MONTH':
+    if timeline is None or timeline == 'MONTH':
         if timeline is None:
             column = 'subscription_count_total'
         else:
