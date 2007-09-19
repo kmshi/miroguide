@@ -44,7 +44,7 @@ class CachingConnectionWrapper(object):
     def can_cache(sql, args):
         return sql.upper().startswith('SELECT') and 'user' not in sql
 
-    def execute(self, sql, args):
+    def execute(self, sql, args=None):
         if self.can_cache(sql, args):
             cached = client.get(self.get_key(sql, args))
             if cached:
@@ -58,6 +58,7 @@ class CachingConnectionWrapper(object):
 def connect():
     c = pool.connect()
     return CachingConnectionWrapper(c)
+    return c
 
 def syncdb():
     connection = connect()
