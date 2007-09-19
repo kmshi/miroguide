@@ -13,7 +13,7 @@ def get_popular_channels(connection, count):
     # XXX abstract this out into a framework for caching queries
     sql = "SELECT * FROM cg_channel_generated_top7"
     try:
-        vals = connection.execute(sql)
+        vals = onnection.execute(sql)
     except Exception:
         vals = []
     if vals:
