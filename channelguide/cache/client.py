@@ -19,11 +19,11 @@ else:
 
 memcache_client_lock = Lock()
 
-def set(key, value):
+def set(key, value, time=0):
     key = settings.CACHE_PREFIX + key
     memcache_client_lock.acquire()
     try:
-        memcache_client.set(key, value)
+        memcache_client.set(key, value, time)
     finally:
         memcache_client_lock.release()
 
