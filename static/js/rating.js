@@ -39,10 +39,10 @@ jQuery.fn.rating = function(){
         } else {
             ratingType = "averagerating";
         }
-        var ratingValue = this.title.split(/:\s*/)[1].split("."),
+        var ratingValue = this.title.split(/:\s*/)[1],
             url = this.action,
-            ratingIndex = ratingValue[0],
-            ratingPercent = ratingValue[1];
+            ratingIndex = parseInt(ratingValue);
+        var ratingPercent = parseFloat(this.title) - ratingIndex;
 
         // hover events and focus events added
         var stars = div.find("div.star")
