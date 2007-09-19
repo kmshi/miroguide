@@ -4,7 +4,7 @@ $(document).ready(function(){
         {maxvalue:5});
 });
 </script>
-{% comment %}<form class="rating" {% if rating.average_rating %}
+<form class="rating" {% if rating.average_rating %}
 title="Average Rating: {{ rating.average_rating }}"{% else %}
 title="User Rating: {{ rating.rating }}"{% endif %}
 action="/channels/rate/{{ rating.channel_id }}">
@@ -18,36 +18,4 @@ action="/channels/rate/{{ rating.channel_id }}">
             <option value="5">5</option>
         </select>
         <input type="button" value="Submit Rating">
-    </form>{% endcomment %}
-<div class="rating" title="Average Rating: 1.0000">
-<div class="cancel">
-<a href="#0" title="Not Interested">
-Not Interested
-</a>
-</div>
-<div class="star averagerating on">
-<a style="width: 100%;" href="#1" title="Give it a 1 Star Rating">
-1
-</a>
-</div>
-<div class="star averagerating">
-<a style="width: 100%;" href="#2" title="Give it a 2 Star Rating">
-2
-</a>
-</div>
-<div class="star averagerating">
-<a style="width: 100%; cursor: url(chrome://interclue/content/cluecore/skins/default/cursors/showClueFrame.cur), pointer;" href="#3" title="Give it a 3 Star Rating">
-3
-</a>
-</div>
-<div class="star averagerating">
-<a style="width: 100%;" href="#4" title="Give it a 4 Star Rating">
-4
-</a>
-</div>
-<div class="star averagerating">
-<a style="width: 100%;" href="#5" title="Give it a 5 Star Rating">
-5
-</a>
-</div>
-</div>
+    </form>

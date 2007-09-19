@@ -19,40 +19,42 @@ $(document).ready(function(){
     {{ channel.name|escape }}
 </h1>
     {% twocolumns %}
-            <div class="screenshot">
+        <div class="screenshot">
             {{ channel.thumb_370_247 }}
             {% if channel.hi_def %}
-            <img class="hd-icon-large" src="{{ STATIC_BASE_URL }}images/hd-icon-large.png" alt="HD">
+                <img class="hd-icon-large" src="{{ STATIC_BASE_URL }}images/hd-icon-large.png" alt="HD">
             {% endif %}
         </div>
-            <div class="big horizontal">
-                <ul class="actions">
-                    <li id="subscribe" class="big horizontal">
-                        <a {{ channel.subscription_link }}>
-                            <span class="icon"></span>
-                            {% trans "Add Channel" %}
-                        </a>
-                    </li>
-                    <li id="rate">{{ ratings_bar }}<div id="average">Avg. of {{ ratings_count }} rating{{ ratings_count|pluralize }}: <strong>{{ ratings_average|floatformat }}</strong> star{{ ratings_average|pluralize }}</div></li>
-                </ul>
-            </div>
-
+        <div class="big horizontal">
+            <ul class="actions">
+                <li id="subscribe" class="big horizontal">
+                    <a {{ channel.subscription_link }}>
+                        <span class="icon"></span>
+                        {% trans "Add Channel" %}
+                    </a>
+                </li>
+                <li id="rate">
+                    {{ ratings_bar }}
+                    <div id="average">Avg. of {{ ratings_count }} rating{{ ratings_count|pluralize }}: <strong>{{ ratings_average|floatformat }}</strong> star{{ ratings_average|pluralize }}</div>
+                </li>
+            </ul>
+        </div>
         {% if items %}
-        <div class="separator"></div>
-        <h2 class="recent-videos-header">
-        {% blocktrans %}
-        Recent Videos on this Channel <div class="sub-header">(to see all videos on
-        this channel, add it)</div>
-        {% endblocktrans %}
-        </h2>
-        <ul id="items">
-        {% for item in items %}
-          <li>{% show_item item %}</li>
-          {% if not forloop.last %}
             <div class="separator"></div>
-          {% endif %}
-        {% endfor %}
-        </ul>
+            <h2 class="recent-videos-header">
+                {% blocktrans %}
+                Recent Videos on this Channel <div class="sub-header">(to see all videos on
+                this channel, add it)</div>
+                {% endblocktrans %}
+                </h2>
+            <ul id="items">
+                {% for item in items %}
+                    <li>{% show_item item %}</li>
+                    {% if not forloop.last %}
+                        <div class="separator"></div>
+                    {% endif %}
+                {% endfor %}
+            </ul>
         {% endif %}
     {% splitcolumns %}
         <div id="description">

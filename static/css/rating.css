@@ -2,6 +2,7 @@
     cursor: pointer;
     margin: 0;
     display: block;
+    vertical-align: top;
     width: 150px;
 }
 
@@ -10,7 +11,7 @@
     display: block;
     height: 0;
     width: 0;
-    clear: both;
+/*    clear: both;*/
     visibility: hidden;
 }
 .cancel,
@@ -40,12 +41,12 @@
 }
 
 div.rating div.on a {
+    display: block;
     background-position: 0 -24px;
-    border: 1px solid black;
 }
 
 div.rating div.hover a,
 div.rating div a:hover {
+    display: block;
     background-position: 0 -48px;
-    border: 1px solid black;
 }
