@@ -305,7 +305,7 @@ def calculate_recommendations(args=None):
     """
     from channelguide import db, recommendations
     connection = db.connect()
-    if args[-1] == 'full':
+    if args and args[-1] == 'full':
         recommendations.calculateAll(connection)
     else:
         recommendations.calculateTwoDays(connection)
