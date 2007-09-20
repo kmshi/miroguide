@@ -233,10 +233,10 @@ class Query(TableSelector, Joiner):
             result_handler.handle_data(row_iter)
         results = result_handler.make_results()
         e = time.time()
-        if e-s>1:
-            file('/tmp/expensive.sql', 'a').write("""%sexecuting %s
+        if e-s>0.25:
+            file('/tmp/expensive.sql', 'a').write("""%sexecuting %s (%s)
 took too long: %f
-""" % (self.cacheable and '*' or ' ', self, e-s))
+""" % (self.cacheable and '*' or ' ', self, key, e-s))
         if self.cacheable:
             self.cacheable.set(key, list(results), time=self.cacheable_time)
         return results
