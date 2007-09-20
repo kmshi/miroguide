@@ -2126,6 +2126,7 @@ div.shadow div {
 }
 
 #donate #drawer {
+    display: none;
     clear:both;
     height: 285px;
 }
