@@ -4,8 +4,11 @@
 {% block head-extra %}
     <script src="{{ STATIC_BASE_URL }}js/feature_rotate.js" type="text/javascript"></script>
 <script src="{{ STATIC_BASE_URL }}js/jquery.js" type="text/javascript"></script><script type="text/javascript">
- $(document).ready(function() {
+$('#drawer').ready(function() {
     $("#drawer").hide();
+});
+$(document).ready(function() {
+    $('.shadow').show();
     if (jQuery.browser.mozilla != true || navigator.userAgent.indexOf('Linux') == -1) {
         $("a.screenshot").replaceWith('<object><embed type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" width="320" height="240" bgcolor="#FFFFFF" name="mitvPlayer" src="http://makeinternettv.org/video/flvplayer.swf" flashvars="file=http://blip.tv/file/get/Miropcf-FundraisingUpdate155.flv&width=320&height=240&overstretch=none&showdigits=false&shuffle=false&image=http://static.blip.tv/Miropcf-FundraisingUpdate378.jpg&backcolor=0xFFFFFF"></embed></object>');
     }
