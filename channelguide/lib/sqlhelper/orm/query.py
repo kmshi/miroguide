@@ -242,12 +242,12 @@ class Query(TableSelector, Joiner):
             result_handler.handle_data(row_iter)
         results = result_handler.make_results()
         if USE_CACHE:
-            e = time.time()
-            if e-s>0.25:
-                file('/tmp/expensive.sql', 'a').write("""%sexecuting %s (%s)
-%r
-took too long: %f
-    """ % (self.cacheable and '*' or ' ', self, key, pickle.dumps(self, 2), e-s))
+            #            e = time.time()
+            #if e-s>0.25:
+            #    file('/tmp/expensive.sql', 'a').write("""%sexecuting %s (%s)
+#%r
+#took too long: %f
+#    """ % (self.cacheable and '*' or ' ', self, key, pickle.dumps(self, 2), e-s))
             if self.cacheable:
                 self.cacheable.set(key, list(results), time=self.cacheable_time)
         return results
