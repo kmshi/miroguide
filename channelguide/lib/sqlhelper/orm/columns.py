@@ -147,9 +147,9 @@ class DateTime(Column):
         replacing on unpickling.
         """
         d = self.__dict__.copy()
-        if 'default' in d and self.default is datetime.datetime.now:
+        if 'default' in d and self.default == datetime.datetime.now:
             d['default'] = -1
-        if 'onupdate' in d and self.onupdate is datetime.datetime.now:
+        if 'onupdate' in d and self.onupdate == datetime.datetime.now:
             d['onupdate'] = -1
         return d
 

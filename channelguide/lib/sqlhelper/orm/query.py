@@ -17,9 +17,9 @@ from sqlhelper.exceptions import NotFoundError, TooManyResultsError
 from sqlhelper.sql import expression
 import columns
 import relations
-import time
+import time, pickle
 
-USE_CACHE=False
+USE_CACHE=True
 
 def null_primary_key(primary_key_values):
     for value in primary_key_values:
@@ -172,6 +172,12 @@ class Query(TableSelector, Joiner):
         self.cacheable = False
         self.cachable_time = 0
 
+    def __getstate__(self):
+        d = self.__dict__.copy()
+        d['cacheable'] = None
+        d['cacheable_time'] = 0
+        return d
+
     def order_by(self, order_by, desc=False):
         """Change the row ordering for this query.  order_by can either be a
         Expression object, or the name of a column.  If order_by() can be
@@ -239,8 +245,9 @@ class Query(TableSelector, Joiner):
             e = time.time()
             if e-s>0.25:
                 file('/tmp/expensive.sql', 'a').write("""%sexecuting %s (%s)
-    took too long: %f
-    """ % (self.cacheable and '*' or ' ', self, key, e-s))
+%r
+took too long: %f
+    """ % (self.cacheable and '*' or ' ', self, key, pickle.dumps(self, 2), e-s))
             if self.cacheable:
                 self.cacheable.set(key, list(results), time=self.cacheable_time)
         return results
