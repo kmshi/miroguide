@@ -1,4 +1,5 @@
 import logging
+import datetime
 from sqlhelper import sql 
 
 class ColumnStore(object):
@@ -80,7 +81,11 @@ class Column(sql.SimpleExpression):
         return data
 
     def __str__(self):
-        return self.column_expression()
+        exp = self.column_expression()
+        if exp.args:
+            return "<%s: %s ARGS: %s>" % (self.__class__.__name__, exp.text, exp.args)
+        else:
+            return '<%s: %s>' % (self.__class__.__name__, exp.text)
 
     def fullname(self):
         if self.table is not None:
@@ -136,7 +141,24 @@ class String(Column):
         return data
 
 class DateTime(Column):
-    pass
+    def __getstate__(self):
+        """
+        datetime.now can't be pickled, so we replace it on pickling and
+        replacing on unpickling.
+        """
+        d = self.__dict__.copy()
+        if 'default' in d and self.default is datetime.datetime.now:
+            d['default'] = -1
+        if 'onupdate' in d and self.onupdate is datetime.datetime.now:
+            d['onupdate'] = -1
+
+
+    def __setstate__(self, state):
+        self.__dict__ = state
+        if self.default == -1:
+            self.default = datetime.datetime.now
+        if self.onupdate == -1:
+            self.onupdate = datetime.datetime.now
 
 class Boolean(Column):
     def convert_from_db(self, data):
