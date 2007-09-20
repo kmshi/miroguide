@@ -17,6 +17,7 @@ from sqlhelper.exceptions import NotFoundError, TooManyResultsError
 from sqlhelper.sql import expression
 import columns
 import relations
+import time
 
 def null_primary_key(primary_key_values):
     for value in primary_key_values:
@@ -166,6 +167,8 @@ class Query(TableSelector, Joiner):
         self.desc = False
         self._limit = None
         self._offset = None
+        self.cacheable = False
+        self.cachable_time = 0
 
     def order_by(self, order_by, desc=False):
         """Change the row ordering for this query.  order_by can either be a
@@ -218,11 +221,25 @@ class Query(TableSelector, Joiner):
     def execute(self, connection, select=None):
         if select is None:
             select = self.make_select()
+        key = 'SQL%i' % hash(select.compile())
+        if self.cacheable:
+            cached = self.cacheable.get(key)
+            if cached:
+                return cached
+        s = time.time()
         result_handler = ResultHandler(self)
         for row in select.execute(connection):
             row_iter = iter(row)
             result_handler.handle_data(row_iter)
-        return result_handler.make_results()
+        results = result_handler.make_results()
+        e = time.time()
+        if e-s>1:
+            file('/tmp/expensive.sql', 'a').write("""%sexecuting %s
+took too long: %f
+""" % (self.cacheable and '*' or ' ', self, e-s))
+        if self.cacheable:
+            self.cacheable.set(key, list(results), time=self.cacheable_time)
+        return results
 
     def get(self, connection, id=None):
         if id is not None:

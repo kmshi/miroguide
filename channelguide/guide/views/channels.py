@@ -326,6 +326,8 @@ def popular(request):
     if count_name != 'subscription_count':
         query.load('subscription_count')
         query.order_by('subscription_count', desc=True)
+    query.cacheable = cache.client
+    query.cacheable_time = 60
     pager =  templateutil.Pager(10, query, request)
     for channel in pager.items:
         channel.popular_count = getattr(channel, count_name)

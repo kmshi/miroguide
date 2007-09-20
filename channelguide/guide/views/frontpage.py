@@ -22,6 +22,8 @@ def get_popular_channels(connection, count):
             handler.handle_data(iter(row))
         return handler.make_results()
     query.order_by('subscription_count_today', desc=True).limit(count)
+    query.cacheable = cache.client
+    query.cacheable_time = 60
     return query.execute(connection)
 
 def get_featured_channels(connection):
