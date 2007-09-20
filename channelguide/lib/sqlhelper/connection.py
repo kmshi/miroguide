@@ -7,13 +7,27 @@ class Connection(object):
         can call execute(), commit() and rollback() on it.
       * execute() returns all the results immediately, no need for fetchall()
     """
-    def __init__(self, raw_connection):
+    def __init__(self, raw_connection, logging=False):
         self.raw_connection = raw_connection
         self.cursor = raw_connection.cursor()
+        if logging is not False:
+            self.logfile = file(logging, 'a')
+        else:
+            self.logfile = None
 
     def execute(self, sql, args=None):
+        s = time.time()
         self.cursor.execute(sql, args)
-        return self.cursor.fetchall()
+        t = time.time()
+        rows = self.cursor.fetchall()
+        v = time.time()
+        if self.logfile is not None:
+            self.logfile.write("""executing %r
+with args: %r
+execute took %f seconds
+fetchall took %f seconds
+""" % (sql, args, (t-s), (v-t)))
+        return rows
 
     def commit(self):
         self.raw_connection.commit()
@@ -24,6 +38,8 @@ class Connection(object):
     def close(self):
         self.cursor.close()
         self.raw_connection.close()
+        if self.logfile is not None:
+            self.logfile.close()
 
     def get_lastrowid(self):
         return self.cursor.lastrowid
