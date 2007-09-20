@@ -33,6 +33,8 @@ def get_featured_channels(connection):
 def get_new_channels(connection, count):
     query = Channel.query_approved().load('item_count')
     query.order_by('approved_at', desc=True).limit(count)
+    query.cacheable = cache.client
+    query.cacheable_time = 60
     return query.execute(connection)
 
 def get_new_posts(connection, count):
