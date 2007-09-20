@@ -28,7 +28,7 @@ def request(_method='GET', _path="/", **kwargs):
 
 while True:
     channels.popular(request(view='month'))
-    channels.popular(request(view="alltime'))
+    channels.popular(request(view='alltime'))
     frontpage.get_popular_channels(database, 7)
     for category in frontpage.get_categories(database):
         frontpage.get_category_channels(database, category)
