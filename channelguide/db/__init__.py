@@ -26,39 +26,8 @@ if settings.DATABASE_PORT:
 dbinfo = MySQLDBInfo(**kwargs)
 pool = ConnectionPool(dbinfo, settings.MAX_DB_CONNECTIONS)
 
-class CachingConnectionWrapper(object):
-    def __init__(self, connection):
-        self.connection = connection
-
-    def __getattr__(self, attr):
-        if attr in self.__dict__:
-            return self.__dict__[attr]
-        else:
-            return getattr(self.connection, attr)
-
-    @staticmethod
-    def get_key(sql, args):
-        return 'SQL%s' % hash((sql, args))
-
-    @staticmethod
-    def can_cache(sql, args):
-        return sql.upper().startswith('SELECT') and 'user' not in sql
-
-    def execute(self, sql, args=None):
-        if self.can_cache(sql, args):
-            cached = client.get(self.get_key(sql, args))
-            if cached:
-                return cached
-        ret = self.connection.execute(sql, args)
-        if self.can_cache(sql, args):
-            client.set(self.get_key(sql, args), ret, time=60)
-        return ret
-
-
 def connect():
-    c = pool.connect()
-    return CachingConnectionWrapper(c)
-    return c
+    return pool.connect()
 
 def syncdb():
     connection = connect()
