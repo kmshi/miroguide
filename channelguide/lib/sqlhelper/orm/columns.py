@@ -151,6 +151,7 @@ class DateTime(Column):
             d['default'] = -1
         if 'onupdate' in d and self.onupdate is datetime.datetime.now:
             d['onupdate'] = -1
+        return d
 
 
     def __setstate__(self, state):
