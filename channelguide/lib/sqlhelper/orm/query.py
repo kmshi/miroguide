@@ -19,6 +19,8 @@ import columns
 import relations
 import time
 
+USE_CACHE=False
+
 def null_primary_key(primary_key_values):
     for value in primary_key_values:
         if value is not None:
@@ -221,24 +223,26 @@ class Query(TableSelector, Joiner):
     def execute(self, connection, select=None):
         if select is None:
             select = self.make_select()
-        key = 'SQL%i' % hash(select.compile())
-        if self.cacheable:
-            cached = self.cacheable.get(key)
-            if cached:
-                return cached
-        s = time.time()
+        if USE_CACHE:
+            key = 'SQL%i' % hash(select.compile())
+            if self.cacheable:
+                cached = self.cacheable.get(key)
+                if cached:
+                    return cached
+            s = time.time()
         result_handler = ResultHandler(self)
         for row in select.execute(connection):
             row_iter = iter(row)
             result_handler.handle_data(row_iter)
         results = result_handler.make_results()
-        e = time.time()
-        if e-s>0.25:
-            file('/tmp/expensive.sql', 'a').write("""%sexecuting %s (%s)
-took too long: %f
-""" % (self.cacheable and '*' or ' ', self, key, e-s))
-        if self.cacheable:
-            self.cacheable.set(key, list(results), time=self.cacheable_time)
+        if USE_CACHE:
+            e = time.time()
+            if e-s>0.25:
+                file('/tmp/expensive.sql', 'a').write("""%sexecuting %s (%s)
+    took too long: %f
+    """ % (self.cacheable and '*' or ' ', self, key, e-s))
+            if self.cacheable:
+                self.cacheable.set(key, list(results), time=self.cacheable_time)
         return results
 
     def get(self, connection, id=None):
