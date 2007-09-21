@@ -27,6 +27,7 @@ def request(_method='GET', _path="/", **kwargs):
     return MockRequest()
 
 while True:
+    print 'updating'
     channels.popular(request(view='month'))
     channels.popular(request(view='alltime'))
     frontpage.get_popular_channels(database, 7)
