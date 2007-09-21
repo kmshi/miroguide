@@ -230,14 +230,15 @@ class Query(TableSelector, Joiner):
         if select is None:
             select = self.make_select()
         if USE_CACHE:
+            f = file('/tmp/cached.sql', 'a')
             key = 'SQL%i' % hash(select.compile())
             if self.cacheable:
                 cached = self.cacheable.get(key)
                 if cached:
-                    print self, 'cache hit'
+                    print >> f, self, 'cache hit'
                     return cached
                 else:
-                    print self, 'cache miss'
+                    print >> f, self, 'cache miss'
             s = time.time()
         result_handler = ResultHandler(self)
         for row in select.execute(connection):
@@ -252,8 +253,8 @@ class Query(TableSelector, Joiner):
 #took too long: %f
 #    """ % (self.cacheable and '*' or ' ', self, key, pickle.dumps(self, 2), e-s))
             if self.cacheable:
+                print >> f, self, 'cache set'
                 self.cacheable.set(key, list(results), time=self.cacheable_time)
-                file('/tmp/caching.sql', 'a').write('had to set %s\n' % self)
         return results
 
     def get(self, connection, id=None):
