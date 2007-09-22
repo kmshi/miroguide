@@ -59,8 +59,8 @@ $(document).ready(function(){
     {% splitcolumns %}
         <div id="description">
         {% if shade_description %}
-            <div id="summary">{{ channel.description|escape|truncatewords_html:73 }}</div>
-            <div id="full">{{ channel.description|escape }}</div>
+            <div id="summary">{{ channel.description|escape|striptags|truncatewords:73 }}</div>
+            <div id="full">{{ channel.description|escape|striptags }}</div>
             <div id="reveal"><a href="#" onclick='$("#description #summary").hide();$("#description #reveal").hide();$("#description #full").show();$("#description #hide").show();'><span class="icon"></span>reveal all</a></div>
             <div id="hide"><a href="#" onclick='$("#description #summary").show();$("#description #reveal").show();$("#description #full").hide();$("#description #hide").hide();'><span class="icon"></span>hide</a></div>
         {% else %}
