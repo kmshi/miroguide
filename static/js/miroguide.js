@@ -72,9 +72,16 @@ function ajaxLink(url, id) {
  * channelguide URL redirects te the subscribe_url.
  */
 function handleSubscriptionLink(channel_guide_url, subscribe_url) {
-   function callback(request) { window.location.href = subscribe_url; }
-   if(!doAjaxCall(channel_guide_url, callback)) return true;
-   return false;
+    request = makeXMLHttpRequest();
+    if (!request) return true;
+    request.onreadystatechange = function() {
+        if (request.readyState == 2) {
+            window.location.href = subscribe_url;
+        }
+    };
+    request.open('GET', channel_guide_url, true);
+    request.send(null);
+    return false;
 }
 
 function handleFormLink(url) {
