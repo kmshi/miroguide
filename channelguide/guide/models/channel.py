@@ -13,6 +13,7 @@ from django.utils.translation import ngettext
 from channelguide import util
 from channelguide.guide import feedutil, tables, exceptions, emailmessages
 from channelguide.guide.thumbnail import Thumbnailable
+from channelguide import cache
 from sqlhelper.orm import Record
 from sqlhelper.sql import expression
 
@@ -20,6 +21,8 @@ from user import ModeratorAction, User
 from item import Item
 from label import Tag, TagMap
 import search
+
+cache.dont_clear_cache_for('cg_channel_subscription')
 
 class Channel(Record, Thumbnailable):
     """An RSS feed containing videos for use in Miro."""
