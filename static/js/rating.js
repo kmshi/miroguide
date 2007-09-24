@@ -99,7 +99,7 @@ jQuery.fn.rating = function(){
 
             var percent = ratingPercent ? ratingPercent * 10 : 0;
             if (percent > 0)
-                stars.eq(ratingIndex).addClass("on").children("a").css("width", percent + "%");
+                stars.slice(ratingIndex, ratingIndex+1).addClass("on").children("a").css("width", percent + "%");
             stars.addClass(ratingType)
             if (ratingType == 'userrating' && ratingValue=='0') {
                 cancel.addClass('on');
