@@ -43,16 +43,18 @@ $(document).ready(function(){
             <div class="separator"></div>
             <h2 class="recent-videos-header">
                 {% blocktrans %}
-                Recent Videos on this Channel <div class="sub-header">(to see all videos on
-                this channel, add it)</div>
+                Recent Videos on this Channel <span class="sub-header">(to see all videos on
+                this channel, add it)</span>
                 {% endblocktrans %}
                 </h2>
             <ul id="items">
                 {% for item in items %}
-                    <li>{% show_item item %}</li>
+                    <li>
+                    {% show_item item %}
                     {% if not forloop.last %}
                         <div class="separator"></div>
                     {% endif %}
+                    </li>
                 {% endfor %}
             </ul>
         {% endif %}
