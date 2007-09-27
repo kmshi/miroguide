@@ -72,7 +72,7 @@ class AggressiveCacheMiddleware(CacheMiddlewareBase):
 
     account_bar_start = '<!-- START ACCOUNT BAR -->'
     account_bar_end = '<!-- END ACCOUNT BAR -->'
-    cache_time = 300
+    cache_time = 60
     def get_cache_key_tuple(self, request): 
         return (request.path, request.META['QUERY_STRING'])
 
