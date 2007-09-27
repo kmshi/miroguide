@@ -2,18 +2,22 @@ from datetime import date
 from channelguide.cache import client
 from channelguide.guide.tables import channel_subscription
 from sqlhelper.orm.query import ResultHandler
-def _cache_key(id, name):
+def _cache_key(id, name, cached = {}):
     """
     Get the cache key for a channel count.
     """
+    if (id, name) in cached:
+        return cached[(id, name)]
     if name == 'today':
         today = date.today()
-        return 'Count:%i:%i:%i:%i' % (id, today.year, today.month, today.day)
+        val = 'Count:%i:%i:%i:%i' % (id, today.year, today.month, today.day)
     elif name =='month':
         today = date.today()
-        return 'Count:%i:%i:%i' % (id, today.year, today.month)
+        val = 'Count:%i:%i:%i' % (id, today.year, today.month)
     else:
-        return 'Count:%i' % id
+        val = 'Count:%i' % id
+    cached[(id, name)] = val
+    return val
 
 def get_popular(name, connection, limit=None, query=None):
     if query is None:
