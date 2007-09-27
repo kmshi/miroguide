@@ -4,7 +4,7 @@ from django.template import loader, context
 from django.utils.translation import gettext as _
 
 from channelguide import util, cache
-from channelguide.guide import forms, templateutil
+from channelguide.guide import forms, templateutil, popular
 from channelguide.guide.auth import (admin_required, moderator_required,
         login_required)
 from channelguide.guide.exceptions import AuthError
@@ -313,7 +313,7 @@ class PopularWindowSelect(templateutil.ViewSelect):
             return _("All-Time")
 
 @cache.aggresively_cache
-def popular(request):
+def popular_view(request):
     timespan = request.GET.get('view', 'month')
     if timespan == 'today':
         count_name = 'subscription_count_today'
