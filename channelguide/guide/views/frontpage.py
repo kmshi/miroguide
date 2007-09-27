@@ -16,8 +16,8 @@ def get_featured_channels(connection):
 def get_new_channels(connection, count):
     query = Channel.query_approved().load('item_count')
     query.order_by('approved_at', desc=True).limit(count)
-    query.cacheable = cache.client
-    query.cacheable_time = 60
+#    query.cacheable = cache.client
+#    query.cacheable_time = 60
     return query.execute(connection)
 
 def get_new_posts(connection, count):
@@ -30,6 +30,8 @@ def get_categories(connection):
 def get_category_channels(connection, category):
     query = Channel.query_approved().join("categories")
     query.joins['categories'].where(id=category.id)
+    query.cacheable = cache.client
+    query.cacheable_time = 300
     popular_channels = popular.get_popular('month', connection, limit=2,
             query=query)
 
@@ -80,8 +82,8 @@ def make_category_peek(request):
     }
 
 
-@cache.aggresively_cache
-@cache.cache_page_externally_for(300)
+    #@cache.aggresively_cache
+#@cache.cache_page_externally_for(300)
 def index(request):
     featured_channels = get_featured_channels(request.connection)
     return util.render_to_response(request, 'frontpage.html', {

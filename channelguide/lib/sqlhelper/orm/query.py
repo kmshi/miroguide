@@ -17,7 +17,7 @@ from sqlhelper.exceptions import NotFoundError, TooManyResultsError
 from sqlhelper.sql import expression
 import columns
 import relations
-import time, pickle
+import time, sys
 
 USE_CACHE=True
 
@@ -230,15 +230,11 @@ class Query(TableSelector, Joiner):
         if select is None:
             select = self.make_select()
         if USE_CACHE:
-            f = file('/tmp/cached.sql', 'a')
             key = 'SQL%i' % hash(select.compile())
             if self.cacheable:
                 cached = self.cacheable.get(key)
                 if cached:
-                    print >> f, self, 'cache hit'
                     return cached
-                else:
-                    print >> f, self, 'cache miss'
             s = time.time()
         result_handler = ResultHandler(self)
         for row in select.execute(connection):
@@ -246,14 +242,7 @@ class Query(TableSelector, Joiner):
             result_handler.handle_data(row_iter)
         results = result_handler.make_results()
         if USE_CACHE:
-            #            e = time.time()
-            #if e-s>0.25:
-            #    file('/tmp/expensive.sql', 'a').write("""%sexecuting %s (%s)
-#%r
-#took too long: %f
-#    """ % (self.cacheable and '*' or ' ', self, key, pickle.dumps(self, 2), e-s))
             if self.cacheable:
-                print >> f, self, 'cache set'
                 self.cacheable.set(key, list(results), time=self.cacheable_time)
         return results
 
