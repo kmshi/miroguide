@@ -13,6 +13,6 @@ def handle_change(statement):
     if statement.table_name not in clear_cache_exceptions:
         clear_cache()
 
-signals.sql_insert.connect(handle_change)
-signals.sql_update.connect(handle_change)
-signals.sql_delete.connect(handle_change)
+#signals.sql_insert.connect(handle_change)
+#signals.sql_update.connect(handle_change)
+#signals.sql_delete.connect(handle_change)
