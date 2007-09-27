@@ -41,7 +41,8 @@ class CacheMiddlewareBase(object):
         if (request.method == 'GET' and response.status_code == 200 and 
                 not hasattr(request, '_cache_hit')):
             client.set(self.get_cache_key(request), 
-                    self.response_to_cache_object(request, response))
+                    self.response_to_cache_object(request, response),
+                    time=300)
         return response
 
 class CacheMiddleware(CacheMiddlewareBase):

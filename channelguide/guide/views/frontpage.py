@@ -32,8 +32,8 @@ def get_category_channels(connection, category):
     query.joins['categories'].where(id=category.id)
     query.cacheable = cache.client
     query.cacheable_time = 300
-    popular_channels = popular.get_popular('month', connection, limit=2,
-            query=query)
+    popular_channels = list(popular.get_popular('month', connection, limit=2,
+            query=query))
 
     query = Channel.query_approved().join("categories").limit(2)
     query.joins['categories'].where(id=category.id)
