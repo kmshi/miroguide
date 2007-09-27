@@ -26,7 +26,7 @@ class Item(Record, Thumbnailable):
 
     def thumb(self):
         url = self.thumb_url(108, 81)
-        return '<img width="108" height="81" src="%s" alt="%s">' % (url, self.name)
+        return '<img width="108" height="81" src="%s" alt="%s">' % (url, self.name.replace('"', "'"))
 
     def update_search_data(self, connection):
         self.join('search_data').execute(connection)
