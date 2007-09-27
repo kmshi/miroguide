@@ -32,15 +32,14 @@ def get_popular(name, connection, limit=None, query=None):
             ret[key] = count
     # now ret contains all the count values
     channels = list(channels)
-    if len(channels) > 1:
-        channels.sort(_return_sort_and_add(name, ret))
-    else:
+    for channel in channels:
         value = ret[_cache_key(channels[0].id, name)]
         if name is None:
             attr = 'subscription_count'
         else:
             attr = 'subscription_count_' + name
-        setattr(channels[0], attr, value)
+        setattr(channel, attr, value)
+    channels.sort(_return_sorter(name))
     if limit:
         if isinstance(limit, (list, tuple)): #slice
             return channels[limit[0]:limit[0]+limit[1]]
@@ -66,18 +65,14 @@ WHERE channel_id=id"""
         args = (missing_ids,)
     return connection.execute(sql, args)
 
-def _return_sort_and_add(name, keys):
+def _return_sorter(name):
     if name is None:
         attr = 'subscription_count'
     else:
         attr = 'subscription_count_' + name
-    def set(channel):
-        value = keys[_cache_key(channel.id, name)]
-        setattr(channel, attr, value)
-        return value
     def sorter(c1, c2):
-        count1 = set(c1)
-        count2 = set(c2)
+        count1 = getattr(c1, attr)
+        count2 = getattr(c2, attr)
         return cmp(count2, count1) # descending order
     return sorter
 
