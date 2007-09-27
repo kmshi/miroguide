@@ -24,6 +24,8 @@ def get_popular(name, connection, limit=None, query=None):
         # have to do this late, otherwise it's a circular dependency
         from channelguide.guide.models import Channel
         query = Channel.query_approved()
+        query.cacheable = client
+        query.cacheable_time = 300
     select = query.make_select()
     results = select.execute(connection)
     keys = [_cache_key(r[0], name) for r in results]
