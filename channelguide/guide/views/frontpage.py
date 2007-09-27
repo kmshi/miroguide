@@ -3,28 +3,11 @@ import urllib
 from django.conf import settings
 
 from channelguide import util, cache
-from channelguide.guide import tables
+from channelguide.guide import tables, popular
 from channelguide.guide.models import Channel, Category, PCFBlogPost
 from sqlhelper.orm.query import ResultHandler
 def get_popular_channels(connection, count):
-    query = Channel.query_approved()
-    query.load('subscription_count_today')
-    # this query is slow, so we try to get it out of another table
-    # XXX abstract this out into a framework for caching queries
-    sql = "SELECT * FROM cg_channel_generated_top7"
-    try:
-        vals = onnection.execute(sql)
-    except Exception:
-        vals = []
-    if vals:
-        handler = ResultHandler(query)
-        for row in vals:
-            handler.handle_data(iter(row))
-        return handler.make_results()
-    query.order_by('subscription_count_today', desc=True).limit(count)
-    query.cacheable = cache.client
-    query.cacheable_time = 60
-    return query.execute(connection)
+    return popular.get_popular('today', connection, count)
 
 def get_featured_channels(connection):
     query = Channel.query_approved(featured=1)
@@ -45,13 +28,10 @@ def get_categories(connection):
     return Category.query().order_by('name').execute(connection)
 
 def get_category_channels(connection, category):
-    query = Channel.query_approved().join("categories").limit(2)
+    query = Channel.query_approved().join("categories")
     query.joins['categories'].where(id=category.id)
-    query.load('subscription_count_month')
-    query.order_by('subscription_count_month')
-    query.cacheable = cache.client
-    query.cacheable_time = 60
-    popular_channels = list(query.execute(connection))
+    popular_channels = popular.get_popular('month', connection, limit=2,
+            query=query)
 
     query = Channel.query_approved().join("categories").limit(2)
     query.joins['categories'].where(id=category.id)

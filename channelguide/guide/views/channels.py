@@ -320,15 +320,13 @@ def popular(request):
     elif timespan == 'month':
         count_name = 'subscription_count_month'
     else:
+        timespan = None
         count_name = 'subscription_count'
-    query = Channel.query_approved().load(count_name)
-    query.order_by(count_name, desc=True)
-    if count_name != 'subscription_count':
-        query.load('subscription_count')
-        query.order_by('subscription_count', desc=True)
-    query.cacheable = cache.client
-    query.cacheable_time = 60
-    pager =  templateutil.Pager(10, query, request)
+    def callback(start, count):
+        return popular.get_popular(timespan, request.connection,
+                limit=(start, count))
+    total = len(Channel.query_approved().execute(request.connection))
+    pager = templateutil.ManualPager(10, total, callback, request)
     for channel in pager.items:
         channel.popular_count = getattr(channel, count_name)
     return util.render_to_response(request, 'popular.html', {
