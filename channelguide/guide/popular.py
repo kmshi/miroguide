@@ -1,7 +1,7 @@
 from datetime import date
 from channelguide.cache import client
 from channelguide.guide.tables import channel_subscription
-
+from sqlhelper.orm.query import ResultHandler
 def _cache_key(id, name):
     """
     Get the cache key for a channel count.
@@ -20,8 +20,9 @@ def get_popular(name, connection, limit=None, query=None):
         # have to do this late, otherwise it's a circular dependency
         from channelguide.guide.models import Channel
         query = Channel.query_approved()
-    channels = query.execute(connection)
-    keys = [_cache_key(c.id, name) for c in channels]
+    select = query.make_select()
+    results = select.execute(connection)
+    keys = [_cache_key(r[0], name) for r in results]
     ret = client.get_multi(keys)
     if len(keys) != len(ret): # some keys are missing
         missing_ids = [int(key.split(':')[1])
@@ -31,21 +32,23 @@ def get_popular(name, connection, limit=None, query=None):
             client.set(key, count)
             ret[key] = count
     # now ret contains all the count values
-    channels = list(channels)
-    for channel in channels:
-        value = ret[_cache_key(channel.id, name)]
-        if name is None:
-            attr = 'subscription_count'
-        else:
-            attr = 'subscription_count_' + name
-        setattr(channel, attr, value)
-    channels.sort(_return_sorter(name))
+    results = list(results)
+    results.sort(_return_sorter(name, ret))
     if limit:
         if isinstance(limit, (list, tuple)): #slice
-            return channels[limit[0]:limit[0]+limit[1]]
-        else: # top
-            return channels[:limit]
-    return channels
+            results = results[limit[0]:limit[0]+limit[1]]
+        else: # top n
+            results = results[:limit]
+    if name is None:
+        attr = 'subscription_count'
+    else:
+        attr = 'subscription_count_' + name
+    handler = ResultHandler(query)
+    for row in results:
+        channel = handler.handle_data(iter(row))
+        value = ret[_cache_key(channel.id, name)]
+        setattr(channel, attr, value)
+    return handler.make_results()
 
 def _get_missing_values(missing_ids, connection, name):
     sql = """SELECT id, (SELECT COUNT(*) FROM cg_channel_subscription
@@ -65,14 +68,10 @@ WHERE channel_id=id"""
         args = (missing_ids,)
     return connection.execute(sql, args)
 
-def _return_sorter(name):
-    if name is None:
-        attr = 'subscription_count'
-    else:
-        attr = 'subscription_count_' + name
+def _return_sorter(name, ret):
     def sorter(c1, c2):
-        count1 = getattr(c1, attr)
-        count2 = getattr(c2, attr)
+        count1 = ret[_cache_key(c1[0], name)]
+        count2 = ret[_cache_key(c2[0], name)]
         return cmp(count2, count1) # descending order
     return sorter
 
