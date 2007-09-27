@@ -992,6 +992,7 @@ li.blog-post .title {
 .channel .actions a {
     display: inline-block;
     color: #3c3c3c;
+    float: left;
     margin-right: 3px;
 }
 .channel .actions a:hover {
