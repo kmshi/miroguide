@@ -82,8 +82,8 @@ def make_category_peek(request):
     }
 
 
-    #@cache.aggresively_cache
-#@cache.cache_page_externally_for(300)
+@cache.aggresively_cache
+@cache.cache_page_externally_for(300)
 def index(request):
     featured_channels = get_featured_channels(request.connection)
     return util.render_to_response(request, 'frontpage.html', {
