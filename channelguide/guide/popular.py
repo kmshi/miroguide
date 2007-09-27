@@ -33,7 +33,7 @@ def get_popular(name, connection, limit=None, query=None):
     # now ret contains all the count values
     channels = list(channels)
     for channel in channels:
-        value = ret[_cache_key(channels[0].id, name)]
+        value = ret[_cache_key(channel.id, name)]
         if name is None:
             attr = 'subscription_count'
         else:
