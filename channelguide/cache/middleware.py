@@ -7,6 +7,7 @@ from django.template import Context, loader
 import client
 
 class CacheMiddlewareBase(object):
+    cache_time = None # how many seconds to cache for
     def get_cache_key_tuple(self, request): 
         """Return a tuple that will be used to create the cache key."""
         raise NotImplementedError
@@ -42,10 +43,11 @@ class CacheMiddlewareBase(object):
                 not hasattr(request, '_cache_hit')):
             client.set(self.get_cache_key(request), 
                     self.response_to_cache_object(request, response),
-                    time=300)
+                    time=self.cache_time)
         return response
 
 class CacheMiddleware(CacheMiddlewareBase):
+    cache_time = 30
     def get_cache_key_tuple(self, request):
         cookie = request.META.get('HTTP_COOKIE')
         if type(cookie) is SimpleCookie:
@@ -70,7 +72,7 @@ class AggressiveCacheMiddleware(CacheMiddlewareBase):
 
     account_bar_start = '<!-- START ACCOUNT BAR -->'
     account_bar_end = '<!-- END ACCOUNT BAR -->'
-
+    cache_time = 300
     def get_cache_key_tuple(self, request): 
         return (request.path, request.META['QUERY_STRING'])
 
