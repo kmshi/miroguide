@@ -54,10 +54,10 @@ class PopularTestCase(TestCase):
         """
         self.assertEquals(self._popular_ids(None), [(self.channel3.id, 3),
             (self.channel2.id, 2), (self.channel1.id, 1)])
-        self.assertEquals(self._popular_ids('month'), [(self.channel2.id, 2),
-            (self.channel3.id, 2), (self.channel1.id, 1)])
-        self.assertEquals(self._popular_ids('today'), [(self.channel1.id, 1),
-            (self.channel2.id, 1), (self.channel3.id, 1)])
+        self.assertEquals(self._popular_ids('month'), [(self.channel3.id, 2),
+            (self.channel2.id, 2), (self.channel1.id, 1)])
+        self.assertEquals(self._popular_ids('today'), [(self.channel3.id, 1),
+            (self.channel2.id, 1), (self.channel1.id, 1)])
 
     def test_limit(self):
         """
@@ -114,7 +114,6 @@ class PopularTestCase(TestCase):
         channels = popular.get_popular('today', self.connection)
         self.assertEquals(channels[0].id, self.channel1.id)
         self.assertEquals(channels[0].subscription_count_today, 500)
-        self.assertEquals(channels[1].id, self.channel2.id)
         self.assertEquals(channels[1].subscription_count_today, 1)
 
     def test_month_gets_from_cache(self):
@@ -128,7 +127,6 @@ class PopularTestCase(TestCase):
         channels = popular.get_popular('month', self.connection)
         self.assertEquals(channels[0].id, self.channel1.id)
         self.assertEquals(channels[0].subscription_count_month, 500)
-        self.assertEquals(channels[1].id, self.channel2.id)
         self.assertEquals(channels[1].subscription_count_month, 2)
 
     def test_total_gets_from_cache(self):

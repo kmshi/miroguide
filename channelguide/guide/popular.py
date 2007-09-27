@@ -36,8 +36,9 @@ def get_popular(name, connection, limit=None, query=None):
             client.set(key, count)
             ret[key] = count
     # now ret contains all the count values
-    results = list(results)
-    results.sort(_return_sorter(name, ret))
+    results = [(ret[_cache_key(r[0], name)], r) for r in results]
+    results.sort()
+    results.reverse()
     if limit:
         if isinstance(limit, (list, tuple)): #slice
             results = results[limit[0]:limit[0]+limit[1]]
@@ -48,9 +49,8 @@ def get_popular(name, connection, limit=None, query=None):
     else:
         attr = 'subscription_count_' + name
     handler = ResultHandler(query)
-    for row in results:
+    for value, row in results:
         channel = handler.handle_data(iter(row))
-        value = ret[_cache_key(channel.id, name)]
         setattr(channel, attr, value)
     return handler.make_results()
 
