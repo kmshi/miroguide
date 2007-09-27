@@ -2000,13 +2000,15 @@ div#donate {
 }
 #donate h1 {
     color: #c71826;
-    font-size: 27px;
-    font-weight: normal;
+    font-size: 36px;
+    font-weight: bold;
     font-family: Tahoma, Geneva, sans-serif;
     margin-bottom: 0px;
+    float: left;
+    position: relative;
+    left: 20px;
+    bottom: 12px;
 }
-
-
 
 #donate img {
     position: relative;
@@ -2015,103 +2017,11 @@ div#donate {
     float: left;
 }
 
-#donate #showplayer img {
-    position: static;
-    left: 0;
-    top: 0;
-    float: none;
-}
-
-#donate h2 {
-    position: relative;
-    margin-bottom: 10px;
-    left: 65px;
-    top: -10px;
-}
-
-#donate h2, #donate h1 .subheader {
-    float: left;
-    color: #202020;
-    font-size: 14px;
-    font-weight: normal;
-    font-family: Tahoma, Geneva, sans-serif;
-    text-align: left;
-    width: 319px;
-}
-
-#donate h2 a {
-    text-decoration:underline;
-    color: #202020;
-}
-
-#donate #mission h3 {
-    position: relative;
-    left: -13px;
-    color: #414141;
-    margin-bottom: 10px;
-    font-size: 15px;
-    font-weight: normal;
-    text-align: center;
-}
-
-#donate #give h3 {
-    position: relative;
-    color: #c71826;
-    margin-bottom: 3px;
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 1.1em;
-    font-size: 16px;
-    text-align: center; 
-}
-
-#donate #mission p {
-    color: #6b6b6b;
-    text-align: left;
-    font-size: 14px;
-}
-
-#donate #give p {
-    color: #c71826;
-    text-align: center;
-    font-size: 11px;
-    margin-top: 10px;
-}
-
-#donate #give p a, #donate #showplayer a{
-    color: #6b6b6b;
-    text-decoration: underline;
-}
-
-#donate #give ul {
-    color: #c71826;
-    font-size: 17px;
-    list-style-image: url('images/small-heart.gif');
-    line-height: 1.2em;
-    text-align: left;
-    margin-left: 60px;
-}
-
-#donate #give li {
-    margin-top: 0.5em;
-}
-
-#donate #give li a {
-    color: #c71826;
-    text-decoration: underline;
-}
-
-#donate a img {
-    border: 0px;
-    position: relative;
-    left: 45px;
-    top: -4px;
-    float: left;
-}
-
-#donate input {
-    width: 40px;
-    float: left;
+#donate img#rainbow {
+    position: absolute;
+    left: 300px;
+    top: -5px;
+    float: right;
 }
 
 div.shadow {
@@ -2125,108 +2035,3 @@ div.shadow div {
     top: -5px;
 }
 
-#donate #drawer {
-    display: none;
-    clear:both;
-    height: 285px;
-}
-
-#donate #mission {
-    position: relative;
-    margin: 30px 15px 0 32px;
-    width: 210px;
-    height: 250px;
-    float: left; 
-}
-
-#donate #give {
-    position: relative;
-    margin: 15px 10px 0 10px;
-    width: 190px;
-    height: 250px;
-    float: left;
-}
-
-#donate #showplayer {
-    position: relative;
-    padding: 20px 0 10px;
-    width: 320px;
-    float: left;
-    text-align: center;
-}
-
-#donate #showplayer a {
-    font-size: 10px;
-    margin-top: 3px;
-}
-
-#donate #close {
-    text-align: right;
-    float: right;
-    position: relative;
-    top: -20px;
-    left: -4px;
-}
-
-#donate #close a {
-    color: #dadada;
-    text-decoration: none;
-}
-
-#donate #close .icon {
-    height: 15px;
-    width: 15px;
-    background: url('images/x.gif') no-repeat center;
-    float: right;
-    margin: 2px;
-}
-
-#donate #thermometer {
-    position: relative;
-    top: -5px;
-    left: 65px;
-    float: left;
-}
-
-#donate #thermometer .background {
-    width: 319px;
-    height: 10px;
-    background: #ee9ca5;
-}
-
-#donate #thermometer .temperature {
-    background: #d52c2f;
-    width: 84%;
-    height: 10px;
-    position: static;
-    top: 0;
-    z-index: 1;
-}
-
-#donate #thermometer #labels {
-    width: 319px;
-    font-size: 10px;
-    font-weight: bold;
-}
-
-#donate #thermometer ul#labels {
-    color: black;
-    margin-top:-5px;
-}
-
-#donate #thermometer #labels li {
-    float: left;
-    text-align: right;
-}
-
-#donate #thermometer .tenk {
-    width: 64px;
-}
-
-#donate #thermometer .thirtyk {
-    width: 127px;
-}
-
-#donate #thermometer .fiftyk {
-    width: 128px;
-}
