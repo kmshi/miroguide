@@ -172,6 +172,7 @@ def channel(request, id):
     return util.redirect_to_referrer(request)
 
 def show(request, id):
+    request._cache_hit = True # prevent caching this request
     query = Channel.query()
     query.join('categories', 'tags', 'notes', 'owner', 'last_moderated_by',
             'notes.user')
