@@ -1181,13 +1181,18 @@ li.blog-post .title {
 }
 
 .channel-in-category .title {
+    margin-top: -6px;
     margin-bottom: 0px;
-    height: 2.6em;
+    height: 2.4em;
     font-size: 120%;
 }
 
 .channel-in-category .title a {
     color: black;
+}
+
+.channel-in-category div.actions {
+    margin-top: 6px;
 }
 
 .channel-in-category .actions a {
@@ -1215,7 +1220,7 @@ li.blog-post .title {
 }
 
 .channel-in-category .actions .info-button {
-    margin-top: 5px;
+    margin-top: 2px;
 }
 
 /* Mini channels */
