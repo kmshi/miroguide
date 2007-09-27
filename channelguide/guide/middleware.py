@@ -109,8 +109,10 @@ class ProfileMiddleware(object):
             else:
     
                 stats.sort_stats('time', 'calls')
-
-            stats.print_stats('channelguide/')
+            if request.has_key('all'):
+                stats.print_stats()
+            else:
+                stats.print_stats('channelguide/')
 
 
 
