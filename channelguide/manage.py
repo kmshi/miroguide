@@ -387,6 +387,7 @@ def refresh_popular_cache(args=None):
     _wait_for_update(frequency)
     _wrap_time(frequency, popular.get_popular, interval, db.connect(),
             use_cache=False)
+refresh_popular_cache.args = '[today]'
 
 action_mapping['syncdb'] = syncdb
 action_mapping['download_thumbnails'] = download_thumbnails
