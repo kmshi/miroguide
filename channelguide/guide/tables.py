@@ -199,13 +199,13 @@ WHERE cg_channel_item.channel_id=#table#.id""")
 
 channel.add_subquery_column('count_rating', """\
 SELECT COUNT(rating)
-FROM cg_channel_rating
-WHERE cg_channel_rating.channel_id=#table#.id""")
+FROM cg_channel_rating JOIN user ON user.id=cg_channel_rating.user_id
+WHERE cg_channel_rating.channel_id=#table#.id AND user.blocked=0""")
 
 channel.add_subquery_column('average_rating', """\
 SELECT AVG(rating)
-FROM cg_channel_rating
-WHERE cg_channel_rating.channel_id=#table#.id""")
+FROM cg_channel_rating JOIN user ON user.id=cg_channel_rating.user_id
+WHERE cg_channel_rating.channel_id=#table#.id AND user.blocked=0""")
 
 def make_subscription_count(name, timeline=None):
     #    if timeline is None or timeline == 'MONTH':

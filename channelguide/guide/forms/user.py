@@ -149,3 +149,6 @@ class ChangePasswordForm(PasswordComparingForm):
 
 class AuthTokenRequestForm(Form):
     email = ExistingEmailField()
+
+class ConfirmationEmailRequestForm(Form):
+    email = NewEmailField()

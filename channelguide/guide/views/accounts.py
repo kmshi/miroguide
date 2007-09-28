@@ -101,13 +101,27 @@ def confirm(request, id, code):
     A user is trying to confirm their account.
     """
     user = util.get_object_or_404(request.connection, User.query(), id)
+    userApproved = False
     if user.generate_confirmation_code() == code:
+        userApproved = True
         user.approved = True
+        user.blocked = False
         user.save(request.connection)
-    elif code == "resend":
-        user.send_confirmation_email()
+    else:
+        if request.method == 'POST':
+            form = user_forms.ConfirmationEmailRequestForm(request.connection,
+                data=request.POST)
+            if form.is_valid():
+                if form.cleaned_data['email']:
+                    user.email = form.cleaned_data['email']
+        else:
+            form = user_forms.ConfirmationEmailRequestForm(request.connection)
+        form.fields['email'].initial = user.email
+        if code == "resend":
+            user.send_confirmation_email()
     return util.render_to_response(request, 'confirm.html', {
-            'approved': user.approved,
+            'approved': userApproved,
+            'form' : form,
             'code': code})
 
 def edit_user_form(request, user):
