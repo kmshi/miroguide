@@ -1,4 +1,4 @@
-import time, datetime
+import time, datetime, heapq
 from channelguide.cache import client
 from channelguide.guide.tables import channel_subscription
 from sqlhelper.orm.query import ResultHandler
@@ -40,13 +40,17 @@ def get_popular(name, connection, limit=None, query=None):
             ret[key] = count
     # now ret contains all the count values
     results = [(ret[_cache_key(r[0], name)], r) for r in results]
-    results.sort()
-    results.reverse()
     if limit:
         if isinstance(limit, (list, tuple)): #slice
-            results = results[limit[0]:limit[0]+limit[1]]
+            start, end = limit[0], limit[0] + limit[1]
         else: # top n
-            results = results[:limit]
+            start, end = 0, limit
+        results = heapq.nlargest(end, results)
+        if start:
+            results = results[start:]
+    else:
+        results.sort()
+        results.reverse()
     if name is None:
         attr = 'subscription_count'
     else:
