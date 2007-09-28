@@ -118,10 +118,10 @@ def confirm(request, id, code):
             if form.is_valid():
                 if form.cleaned_data['email']:
                     user.email = form.cleaned_data['email']
-            form = None
+                form = None
         else:
             form = user_forms.ConfirmationEmailRequestForm(request.connection)
-        form.fields['email'].initial = user.email
+            form.fields['email'].initial = user.email
         if code == "resend":
             user.send_confirmation_email()
     return util.render_to_response(request, 'confirm.html', {
