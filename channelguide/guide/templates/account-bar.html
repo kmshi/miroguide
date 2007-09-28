@@ -34,7 +34,7 @@
 {% ifequal user.approved 0 %}
 <div id="approval-bar">
     <div id="approval-bar-inner">
-        You haven't confirmed your account yet!  <a href="/accounts/confirm/{{ user.id }}/resend">Didn't get the e-mail?</a>
+        Confirm your e-mail to make your ratings count!  <a href="/accounts/confirm/{{ user.id }}/resend">Didn't get the e-mail?</a>
     </div>
 </div>
 {% endifequal %}
