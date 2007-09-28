@@ -110,6 +110,7 @@ def confirm(request, id, code):
         user.approved = True
         user.blocked = False
         user.save(request.connection)
+        form = None
     else:
         if request.method == 'POST':
             form = user_forms.ConfirmationEmailRequestForm(request.connection,
