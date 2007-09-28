@@ -366,9 +366,10 @@ def refresh_popular_cache(args=None):
         # wait until 30 seconds before the next update
         now = int(time.time())
         next_update = secs*(1 + now/secs)
-        sleep = next_update-now -30
-        print 'waiting', sleep
-        time.sleep(sleep)
+        sleep = next_update-now - 5
+        if sleep > 0:
+            print 'waiting', sleep
+            time.sleep(sleep)
     def _wrap_time(secs, f, *args, **kwargs):
         old_time_time = time.time
         time.time = lambda: old_time_time() + secs
