@@ -139,6 +139,25 @@ class PopularTestCase(TestCase):
         self.assertEquals(channels[1].id, self.channel3.id)
         self.assertEquals(channels[1].subscription_count, 3)
 
+    def test_use_cache(self):
+        """
+        If the use_cache kwarg is False, don't get values out of the cache.
+        """
+        today = datetime.date.today()
+        client.set(popular._cache_key(self.channel1.id, 'today'), 500)
+        client.set(popular._cache_key(self.channel1.id, 'month'), 500)
+        client.set('Count:%i' % self.channel1.id, 500)
+        channels = popular.get_popular('today', self.connection,
+                use_cache=False)
+        self.assertEquals(channels[0].subscription_count_today, 1)
+        channels = popular.get_popular('month', self.connection,
+                use_cache=False)
+        self.assertEquals(channels[0].subscription_count_month, 2)
+        channels = popular.get_popular(None, self.connection,
+                use_cache=False)
+        self.assertEquals(channels[0].subscription_count, 3)
+
+
     def test_alternate_query(self):
         """
         An alternate query should be able to be used in place of

@@ -15,6 +15,7 @@ except ValueError:
 os.environ['DJANGO_SETTINGS_MODULE'] = 'channelguide.settings'
 
 import itertools
+import time
 import logging
 import re
 import shutil
@@ -350,6 +351,43 @@ for key in ['startproject', 'adminindex', 'createcachetable', 'install',
     except KeyError:
         pass
 
+def refresh_popular_cache(args=None):
+    """
+    Finds the channels that have had subscriptions in the past 5 minutes
+    and refreshes the number of subscriptions they've had in the past
+    24 hours.  Then it finds the channels that have had subscriptions in the
+    past hour and refreshes their monthly counts.
+    """
+    from channelguide.guide import tables, popular
+    from channelguide import db
+    if args is None:
+        args = ['today']
+    def _wait_for_update(secs):
+        # wait until 30 seconds before the next update
+        now = int(time.time())
+        next_update = secs*(1 + now/secs)
+        sleep = next_update-now -30
+        print 'waiting', sleep
+        time.sleep(sleep)
+    def _wrap_time(secs, f, *args, **kwargs):
+        old_time_time = time.time
+        time.time = lambda: old_time_time() + secs
+        start = old_time_time()
+        try:
+            f(*args, **kwargs)
+        finally:
+            time.time = old_time_time
+            print f, 'took', time.time()-start, 'seconds'
+    if args[-1] == 'today':
+        frequency = 300
+        interval = 'today'
+    else:
+        frequency = 3600
+        interval = 'month'
+    _wait_for_update(frequency)
+    _wrap_time(frequency, popular.get_popular, interval, db.connect(),
+            use_cache=False)
+
 action_mapping['syncdb'] = syncdb
 action_mapping['download_thumbnails'] = download_thumbnails
 action_mapping['update_search_data'] = update_search_data
@@ -366,6 +404,7 @@ action_mapping['optimize_templates'] = optimize_templates
 action_mapping['remove_empty_tags'] = remove_empty_tags
 action_mapping['block_old_unapproved_users'] = block_old_unapproved_users
 action_mapping['calculate_recommendations'] = calculate_recommendations
+action_mapping['refresh_popular_cache'] = refresh_popular_cache
 del action_mapping['test']
 
 def add_static_urls():

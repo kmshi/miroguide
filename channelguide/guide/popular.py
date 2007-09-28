@@ -20,17 +20,21 @@ def _cache_key(id, name, cached = {}):
     cached[(id, name)] = val
     return val
 
-def get_popular(name, connection, limit=None, query=None):
+def get_popular(name, connection, limit=None, query=None, use_cache=True):
     if query is None:
         # have to do this late, otherwise it's a circular dependency
         from channelguide.guide.models import Channel
         query = Channel.query_approved()
-        query.cacheable = client
-        query.cacheable_time = 300
+        if use_cache:
+            query.cacheable = client
+            query.cacheable_time = 300
     select = query.make_select()
     results = select.execute(connection)
     keys = [_cache_key(r[0], name) for r in results]
-    ret = client.get_multi(keys)
+    if use_cache:
+        ret = client.get_multi(keys)
+    else:
+        ret = {} # refresh the cache
     if len(keys) != len(ret): # some keys are missing
         missing_ids = [int(key.split(':')[1])
                 for key in keys if key not in ret]
