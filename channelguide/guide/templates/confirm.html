@@ -9,16 +9,18 @@
     {% else %}
         {% ifequal code "resend" %}
         <h1>{% trans "Confirmation sent" %}</h1>
-        <p>{% trans "If the address below isn't the correct one; change it and we'll send a code to that address." %}</p>
-        <form method="POST" action="/accounts/confirm/{{ user.id }}/resend">
-            {% show_form_errors form %}
-            <ul class="form-inputs">
-                {% for field in form.field_list %}
-                <li> {% show_form_field field %}</li>
-                {% endfor %}
-            </ul>
-            <input type="submit" class="submit" value="{% trans "Resend" %} &gt;&gt;">
-        </form>
+            {% if form %}
+            <p>{% trans "If the address below isn't the correct one; change it and we'll send a code to that address." %}</p>
+            <form method="POST" action="/accounts/confirm/{{ user.id }}/resend">
+                {% show_form_errors form %}
+                <ul class="form-inputs">
+                    {% for field in form.field_list %}
+                    <li> {% show_form_field field %}</li>
+                    {% endfor %}
+                </ul>
+                <input type="submit" class="submit" value="{% trans "Resend" %} &gt;&gt;">
+            </form>
+            {% endif %}
         {% else %}
         <h1>{% trans "Incorrect code" %}</h1>
         <p>{% blocktrans %}I'm sorry, that is not the correct code.{% endblocktrans %}</p>

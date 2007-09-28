@@ -118,6 +118,7 @@ def confirm(request, id, code):
             if form.is_valid():
                 if form.cleaned_data['email']:
                     user.email = form.cleaned_data['email']
+            form = None
         else:
             form = user_forms.ConfirmationEmailRequestForm(request.connection)
         form.fields['email'].initial = user.email
