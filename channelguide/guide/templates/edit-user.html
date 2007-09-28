@@ -5,7 +5,8 @@
 <div class="edit-user-page">
     <div class="big-form">
         <h2>{% trans "Update My Profile " %}</h2>
-        <form method="POST" action="{{ user.get_url }}">
+        <!-- User: {{ for_user.username }} -->
+        <form method="POST" action="{{ for_user.get_url }}">
             <input type="hidden" name="action" value="edit">
             {% show_form_errors form %}
             <ul class="form-inputs">

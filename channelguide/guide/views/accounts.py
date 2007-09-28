@@ -130,6 +130,7 @@ def edit_user_form(request, user):
     else:
         form = FormClass(request.connection, user)
     return util.render_to_response(request, 'edit-user.html', {
+        'for_user':user,
         'form': form})
 
 @moderator_required

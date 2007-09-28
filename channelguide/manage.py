@@ -299,6 +299,34 @@ def remove_empty_tags(args=None):
 
 remove_empty_tags.args = ''
 
+def block_old_unapproved_users(args=None):
+    """
+    Block users who have not approved their account after 3 days.
+    """
+    from channelguide import db
+    from channelguide.guide.models import User
+    from sqlhelper.sql.expression import Literal
+    connection = db.connect()
+    query = User.query()
+    query.where(User.c.approved==0)
+    query.where(User.c.blocked==0)
+    query.where(User.c.created_at < Literal("DATE_SUB(NOW(), INTERVAL 3 DAY)"))
+    for user in query.execute(connection):
+        user.blocked = True
+        append = 1
+        name = user.username
+        while True:
+            try:
+                user.save(connection)
+            except:
+                user.username = name + str(append)
+                print 'trying', user.username
+                append += 1
+            else:
+                break
+    connection.commit()
+block_old_unapproved_users.args = ''
+
 def calculate_recommendations(args=None):
     """
     Calculate the item-item channel recomendations.
@@ -336,6 +364,7 @@ action_mapping['remove_blank_space'] = remove_blank_space
 action_mapping['clear_cache'] = clear_cache
 action_mapping['optimize_templates'] = optimize_templates
 action_mapping['remove_empty_tags'] = remove_empty_tags
+action_mapping['block_old_unapproved_users'] = block_old_unapproved_users
 action_mapping['calculate_recommendations'] = calculate_recommendations
 del action_mapping['test']
 

@@ -123,6 +123,7 @@ class EditUserForm(PasswordComparingForm):
     def update_user(self):
         for name, field in self.simple_fields():
             if self.cleaned_data.get(name) is not None:
+                print 'setting', self.user, name, self.cleaned_data[name]
                 setattr(self.user, name, self.cleaned_data[name])
         if self.cleaned_data.get('change_password'):
             self.user.set_password(self.cleaned_data['change_password'])

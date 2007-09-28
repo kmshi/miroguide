@@ -62,6 +62,11 @@ def update_blog_posts():
     logging.info('updating blog posts')
     manage.update_blog_posts()
 
+@run_every_hour
+def block_old_unapproved_users():
+    logging.info('blocking old unapproved users')
+    manage.block_old_unapproved_users()
+
 def setup_logging():
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
