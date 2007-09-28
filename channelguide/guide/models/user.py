@@ -212,7 +212,7 @@ registration, please follow this link:
 
 %s
 
-If you do not do this within 3 days, your account will be deleted.
+Your ratings will show up, but won't count towards the average until you use this confirmation link.
 
 Thanks,
 The Miro Guide""" % (self.email, url)
