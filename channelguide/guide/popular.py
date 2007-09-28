@@ -1,4 +1,4 @@
-from datetime import date
+import time, datetime
 from channelguide.cache import client
 from channelguide.guide.tables import channel_subscription
 from sqlhelper.orm.query import ResultHandler
@@ -8,14 +8,15 @@ def _cache_key(id, name, cached = {}):
     """
     if (id, name) in cached:
         return cached[(id, name)]
-    if name == 'today':
-        today = date.today()
-        val = 'Count:%i:%i:%i:%i' % (id, today.year, today.month, today.day)
-    elif name =='month':
-        today = date.today()
-        val = 'Count:%i:%i:%i' % (id, today.year, today.month)
-    else:
+    if name is None:
         val = 'Count:%i' % id
+    else:
+        now = int(time.time())
+        if name == 'today':
+            now /= 300 # every 5 minutes
+        elif name == 'month':
+            now /= 3600 # every hour
+        val = 'Count:%i:%s:%i' % (id, name, now)
     cached[(id, name)] = val
     return val
 
@@ -60,9 +61,12 @@ def _get_missing_values(missing_ids, connection, name):
     sql = """SELECT id, (SELECT COUNT(*) FROM cg_channel_subscription
 WHERE channel_id=id"""
     if name is not None:
-        sql += ' AND YEAR(NOW())=YEAR(timestamp) AND MONTH(NOW())=MONTH(timestamp)'
         if name == 'today':
-            sql += ' AND DAY(NOW())=DAY(timestamp)'
+            timeline = 'DAY'
+        elif name == 'month':
+            timeline = 'MONTH'
+        interval = 'DATE_SUB(NOW(), INTERVAL 1 %s)' % timeline
+        sql += ' AND cg_channel_subscription.timestamp > %s' % interval
     if len(missing_ids) == 1:
         sql += ') FROM cg_channel WHERE id=%s'
         args = missing_ids
@@ -80,10 +84,10 @@ def _return_sorter(name, ret):
 
 def add_subscription(id, connection, timestamp):
     _increment_or_load(id, None, connection)
-    today = date.today()
-    if timestamp.year == today.year and timestamp.month == today.month:
+    now = datetime.datetime.now()
+    if (now - timestamp) < datetime.timedelta(days=31):
         _increment_or_load(id, 'month', connection)
-        if timestamp.day == today.day:
+        if (now - timestamp) < datetime.timedelta(days=1):
             _increment_or_load(id, 'today', connection)
 
 def _increment_or_load(id, name, connection):

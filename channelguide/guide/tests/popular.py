@@ -79,8 +79,8 @@ class PopularTestCase(TestCase):
         """
         popular.get_popular('today', self.connection)
         today = datetime.date.today()
-        self.assertEquals(client.get('Count:%i:%i:%i:%i' % (
-            self.channel3.id, today.year, today.month, today.day)), 1)
+        self.assertEquals(client.get(popular._cache_key(self.channel3.id,
+            'today')), 1)
 
     def test_month_sets_cache(self):
         """
@@ -90,8 +90,8 @@ class PopularTestCase(TestCase):
         """
         popular.get_popular('month', self.connection)
         today = datetime.date.today()
-        self.assertEquals(client.get('Count:%i:%i:%i' % (
-            self.channel3.id, today.year, today.month)), 2)
+        self.assertEquals(client.get(popular._cache_key(self.channel3.id,
+            'month')), 2)
 
     def test_all_sets_cache(self):
         """
@@ -109,8 +109,7 @@ class PopularTestCase(TestCase):
         'Count:<id>:<year>:<month>:<day> key for the value,
         """
         today = datetime.date.today()
-        client.set('Count:%i:%i:%i:%i' % (self.channel1.id,
-            today.year, today.month, today.day), 500)
+        client.set(popular._cache_key(self.channel1.id, 'today'), 500)
         channels = popular.get_popular('today', self.connection)
         self.assertEquals(channels[0].id, self.channel1.id)
         self.assertEquals(channels[0].subscription_count_today, 500)
@@ -122,8 +121,7 @@ class PopularTestCase(TestCase):
         'Count:<id>:<year>:<month> key for the value,
         """
         today = datetime.date.today()
-        client.set('Count:%i:%i:%i' % (self.channel1.id,
-            today.year, today.month), 500)
+        client.set(popular._cache_key(self.channel1.id, 'month'), 500)
         channels = popular.get_popular('month', self.connection)
         self.assertEquals(channels[0].id, self.channel1.id)
         self.assertEquals(channels[0].subscription_count_month, 500)
@@ -151,20 +149,6 @@ class PopularTestCase(TestCase):
         self.assertEquals(len(channels), 1)
         self.assertEquals(channels[0].id, self.channel4.id)
         self.assertEquals(channels[0].subscription_count, 3)
-
-    def test_cache_key(self):
-        """
-        _cache_key should return a key for a channel id and a name.
-        The key for a today count is: Count:<id>:<year>:<month>:<day>
-        The key for a month count is: Count:<id>:<year>:<month>
-        The key for a total count is: Count:<id>
-        """
-        today = datetime.date.today()
-        self.assertEquals(popular._cache_key(1, None), 'Count:1')
-        self.assertEquals(popular._cache_key(1, 'month'), 'Count:1:%i:%i' %
-                (today.year, today.month))
-        self.assertEquals(popular._cache_key(1, 'today'), 'Count:1:%i:%i:%i' %
-                (today.year, today.month, today.day))
 
     def test_add_subscription_today(self):
         """
