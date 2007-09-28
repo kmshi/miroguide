@@ -110,6 +110,8 @@ def confirm(request, id, code):
         user.approved = True
         user.blocked = False
         user.save(request.connection)
+        if request.user.id == user.id:
+            request.user = user # so it doesn't do the warning bar
         form = None
     else:
         if request.method == 'POST':
