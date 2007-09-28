@@ -30,4 +30,13 @@
         <div class="clear"></div>
     </div>
 </div>
+{% if user.is_authenticated %}
+{% if user.approved %}<!-- Approved -->{% else %}
+<div id="approval-bar">
+    <div id="approval-bar-inner">
+        You haven't confirmed your account yet!  <a href="/accounts/confirm/{{ user.id }}/resend">Didn't get the e-mail?</a>
+    </div>
+</div>
+    {% endif %}
+{% endif %}
 <!-- END ACCOUNT BAR -->

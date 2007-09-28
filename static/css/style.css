@@ -408,6 +408,27 @@ div.clear {
     margin-left: 10px;
 }
 
+#approval-bar {
+    background:#EEEDD8 none repeat scroll 0%;
+    height: 16px;
+    padding: 7px;
+    color: #fff;
+}
+
+#approval-bar-inner {
+    margin: auto;
+    width: 784px;
+    text-align: center;
+    font-size: 100%;
+    color: black;
+    height: 100%;
+    vertical-align: middle;
+}
+
+#approval-bar-inner a {
+    color:#377FC8;
+}
+
 #search-bar {
     background: url(images/search-bar.png) no-repeat left top;
     height: 17px;
