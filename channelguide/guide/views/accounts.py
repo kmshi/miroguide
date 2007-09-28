@@ -3,7 +3,7 @@ from django.utils.translation import gettext as _
 import django.newforms as forms
 
 from channelguide import util
-from channelguide.guide.auth import logout, login, moderator_required
+from channelguide.guide.auth import logout, login, moderator_required, login_required
 from channelguide.guide.forms import user as user_forms
 from channelguide.guide.models import User, UserAuthToken
 from channelguide.guide.templateutil import Pager
@@ -96,11 +96,14 @@ def user(request, id):
     else:
         return edit_user_form(request, user)
 
+@login_required
 def confirm(request, id, code):
     """
     A user is trying to confirm their account.
     """
     user = util.get_object_or_404(request.connection, User.query(), id)
+    if user.id != request.user.id and not request.user.is_admin():
+        raise Http404
     userApproved = False
     if user.generate_confirmation_code() == code:
         userApproved = True
