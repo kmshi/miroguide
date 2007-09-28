@@ -60,12 +60,9 @@ def _get_missing_values(missing_ids, connection, name):
     sql = """SELECT id, (SELECT COUNT(*) FROM cg_channel_subscription
 WHERE channel_id=id"""
     if name is not None:
+        sql += ' AND YEAR(NOW())=YEAR(timestamp) AND MONTH(NOW())=MONTH(timestamp)'
         if name == 'today':
-            timeline = 'DAY'
-        elif name == 'month':
-            timeline = 'MONTH'
-        interval = 'DATE_SUB(NOW(), INTERVAL 1 %s)' % timeline
-        sql += ' AND cg_channel_subscription.timestamp > %s' % interval
+            sql += ' AND DAY(NOW())=DAY(timestamp)'
     if len(missing_ids) == 1:
         sql += ') FROM cg_channel WHERE id=%s'
         args = missing_ids
