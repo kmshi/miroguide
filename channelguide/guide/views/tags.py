@@ -11,7 +11,7 @@ def index(request):
         'pager': pager,
     })
 
-@cache.aggresively_cache(Tag.table, Channel.table)
+@cache.aggresively_cache(Tag.table, Channel.table, 'cg_channel_subscription')
 def tag(request, id):
     tag = Tag.get(request.connection, id)
     query = Channel.query_approved().join('tags')

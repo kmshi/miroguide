@@ -14,7 +14,7 @@ def index(request):
         'groups': query.execute(request.connection),
     })
 
-@cache.aggresively_cache(Category.table, Channel.table)
+@cache.aggresively_cache(Category.table, Channel.table, 'cg_channel_subscription')
 def category(request, id):
     category = Category.get(request.connection, id)
     query = Channel.query_approved().join('categories')
