@@ -21,7 +21,7 @@ class Connection(object):
         t = time.time()
         rows = self.cursor.fetchall()
         v = time.time()
-        if self.logfile is not None:
+        if self.logfile is not None and not sql.startswith('SELECT'):
             self.logfile.write("""executing %r
 with args: %r
 execute took %f seconds

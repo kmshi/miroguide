@@ -2,6 +2,17 @@ import time, datetime, heapq
 from channelguide.cache import client
 from channelguide.guide.tables import channel_subscription
 from sqlhelper.orm.query import ResultHandler
+def timing(f):
+    def inner(*args, **kw):
+        t = time.time()
+        ret = f(*args, **kw)
+        u = time.time()
+        fi = file('/tmp/getpopular', 'a')
+        fi.write('%r %r %f\n' % (args, kw, u-t))
+        fi.close()
+        return ret
+    return inner
+
 def _cache_key(id, name, cached = {}):
     """
     Get the cache key for a channel count.
@@ -19,7 +30,7 @@ def _cache_key(id, name, cached = {}):
         val = 'Count:%i:%s:%i' % (id, name, now)
     cached[(id, name)] = val
     return val
-
+@timing
 def get_popular(name, connection, limit=None, query=None, use_cache=True):
     if query is None:
         # have to do this late, otherwise it's a circular dependency

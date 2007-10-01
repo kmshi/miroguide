@@ -11,13 +11,15 @@ class CacheTimingMiddleware(object):
         request.start_time = time.time()
 
     def process_response(self, request, response):
+        if not hasattr(request, 'start_time'):
+            return response
         total = time.time() - request.start_time
         f = file('/tmp/page_timing', 'a')
         if hasattr(request, '_cache_hit'):
             type = 'C'
         else:
             type = 'R'
-        line = '%s!%s!%i!%s!%s!%f\n' % (time.asctime(),type, response.status_code, request.path, request.META['QUERY_STRING'], total)
+        line = '%s!%s!%i!%s!%s!%f\n' % (time.asctime(),type, response.status_code, request.path, request.META.get('QUERY_STRING', ''), total)
         f.write(line)
         f.close()
         del request.start_time

@@ -10,8 +10,8 @@ class ConnectionTimeout(Exception):
 
 class PooledConnection(connection.Connection):
     def __init__(self, raw_connection, pool):
-        super(PooledConnection, self).__init__(raw_connection) #,
-#            logging='/var/www/miroguide/channelguide/log/sql.log')
+        super(PooledConnection, self).__init__(raw_connection ,
+            logging='/tmp/sql.log')
         self.pool = pool
 
     def clone(self):
