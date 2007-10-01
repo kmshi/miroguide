@@ -6,9 +6,8 @@ Here's our cache strategy:
 * We store a create a cache key based on the following pieces of data:
   path, query, COOKIE header.
 * We only cache GET requests
-* When any piece of data changes in the guide we call clear_cache which
-invalidates the entire cache.
+* Some views depend on tables, and are invalidated when the tables change
 """
 from client import clear_cache
-from dbwatcher import dont_clear_cache_for
-from decorators import aggresively_cache, cache_page_externally_for
+import dbwatcher
+from decorators import cache, aggresively_cache, cache_page_externally_for

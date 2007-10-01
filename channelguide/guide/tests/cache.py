@@ -21,7 +21,7 @@ class CacheTest(TestCase):
     def setUp(self):
         TestCase.setUp(self)
         self.change_setting_for_test("DISABLE_CACHE", False)
-        self.middleware = cg_cache.middleware.CacheMiddleware()
+        self.middleware = cg_cache.middleware.TableDependentCacheMiddleware('cg_channel')
         time.sleep(1) 
         # hack because we may have called memcached.flush_all recently.
         # Because memcached has a resolution of 1 second, we need this to make
@@ -87,6 +87,17 @@ class CacheTest(TestCase):
         response.headers['Cache-Control'] = 'max-age=123'
         self.process_response_middleware(request, response)
         self.assertEquals(response.headers['Cache-Control'], 'max-age=123')
+
+    def test_expire_on_object_change(self):
+        user = self.make_user("kelly")
+        channel = self.make_channel(user)
+        path = '/channels/popular'
+        self.save_to_db(channel)
+        time.sleep(1) # see above for why
+        self.make_request_cached(path)
+        channel.name = "NEW ONE"
+        channel.save(self.connection)
+        self.assert_(not self.is_request_cached(path))
 
     def test_session_change_doesnt_expire_cache(self):
         path = self.rand_path()

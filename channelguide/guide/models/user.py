@@ -212,7 +212,8 @@ registration, please follow this link:
 
 %s
 
-Your ratings will show up, but won't count towards the average until you use this confirmation link.
+Your ratings will show up, but won't count towards the average until
+you use this confirmation link.
 
 Thanks,
 The Miro Guide""" % (self.email, url)

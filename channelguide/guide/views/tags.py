@@ -2,7 +2,7 @@ from channelguide import util, cache
 from channelguide.guide import templateutil
 from channelguide.guide.models import Tag, Channel
 
-@cache.aggresively_cache
+@cache.aggresively_cache(Tag.table, Channel.table)
 def index(request):
     query = Tag.query().load('channel_count')
     query.order_by('channel_count', desc=True)
@@ -11,7 +11,7 @@ def index(request):
         'pager': pager,
     })
 
-@cache.aggresively_cache
+@cache.aggresively_cache(Tag.table, Channel.table)
 def tag(request, id):
     tag = Tag.get(request.connection, id)
     query = Channel.query_approved().join('tags')

@@ -82,7 +82,8 @@ def make_category_peek(request):
     }
 
 
-@cache.aggresively_cache
+@cache.aggresively_cache(Channel.table, Category.table, PCFBlogPost.table,
+    'cg_channel_subscription')
 @cache.cache_page_externally_for(300)
 def index(request):
     featured_channels = get_featured_channels(request.connection)
@@ -96,7 +97,7 @@ def index(request):
         'category_peek': make_category_peek(request),
     })
 
-@cache.aggresively_cache
+@cache.aggresively_cache(Category.table)
 def category_peek_fragment(request):
     return util.render_to_response(request, 'category-peek.html', {
         'category_peek': make_category_peek(request),

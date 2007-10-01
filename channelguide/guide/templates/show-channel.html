@@ -8,6 +8,23 @@ $(document).ready(function(){
     $("#comments #review").hide();
     $("#comments #review-link").show();
     });
+
+function lowerDescription(){
+$("#description #reveal").hide();
+$("#description #full").slideDown('slow');
+$("#description #summary").hide();
+$("#description #full").css('position', 'static');
+$("#description #hide").show();
+return false;
+};
+
+function raiseDescription(){
+$("#description #summary").show();
+$("#description #reveal").show();
+$("#description #full").hide();
+$("#description #hide").hide();
+return true;
+};
 </script>{% endblock %}
 {% block title %}{{ channel.name }} - Miro{%endblock %}
 {% block content %}
@@ -39,32 +56,13 @@ $(document).ready(function(){
                 </li>
             </ul>
         </div>
-        {% if items %}
-            <div class="separator"></div>
-            <h2 class="recent-videos-header">
-                {% blocktrans %}
-                Recent Videos on this Channel <span class="sub-header">(to see all videos on
-                this channel, add it)</span>
-                {% endblocktrans %}
-                </h2>
-            <ul id="items">
-                {% for item in items %}
-                    <li>
-                    {% show_item item %}
-                    {% if not forloop.last %}
-                        <div class="separator"></div>
-                    {% endif %}
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
     {% splitcolumns %}
-        <div id="description">
+         <div id="description">
         {% if shade_description %}
             <div id="summary">{{ channel.description|escape|striptags|truncatewords:73 }}</div>
             <div id="full">{{ channel.description|escape|striptags }}</div>
-            <div id="reveal"><a href="#" onclick='$("#description #summary").hide();$("#description #reveal").hide();$("#description #full").show();$("#description #hide").show();'><span class="icon"></span>reveal all</a></div>
-            <div id="hide"><a href="#" onclick='$("#description #summary").show();$("#description #reveal").show();$("#description #full").hide();$("#description #hide").hide();'><span class="icon"></span>hide</a></div>
+            <div id="reveal"><a href="#" onclick='lowerDescription()'><span class="icon"></span>reveal all</a></div>
+            <div id="hide"><a href="#" onclick='raiseDescription()'><span class="icon"></span>hide</a></div>
         {% else %}
             {{ channel.description|escape }}
         {% endif %}
@@ -121,7 +119,7 @@ $(document).ready(function(){
 
         {% if user.is_moderator or show_edit_button %}
         <div class="clear"></div>
-        <ul>
+        <ul class="channel-actions">
         {% if user.is_moderator %}
             {% show_moderate_actions channel %}
         {% endif %}
@@ -134,6 +132,28 @@ $(document).ready(function(){
         {% endif %}
         </ul>
         {% endif %}
+   {% endtwocolumns %}
+    {% twocolumns %}
+        {% if items %}
+            <div class="separator"></div>
+            <h2 class="recent-videos-header">
+                {% blocktrans %}
+                Recent Videos on this Channel <span class="sub-header">(to see all videos on
+                this channel, add it)</span>
+                {% endblocktrans %}
+                </h2>
+            <ul id="items">
+                {% for item in items %}
+                    <li>
+                    {% show_item item %}
+                    {% if not forloop.last %}
+                        <div class="separator"></div>
+                    {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% splitcolumns %}
 
         {% if recommendations %}
         <div id="recommendations-pad"></div>

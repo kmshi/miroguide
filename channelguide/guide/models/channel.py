@@ -22,8 +22,6 @@ from item import Item
 from label import Tag, TagMap
 import search
 
-cache.dont_clear_cache_for('cg_channel_subscription')
-
 class Channel(Record, Thumbnailable):
     """An RSS feed containing videos for use in Miro."""
     table = tables.channel
@@ -77,8 +75,8 @@ class Channel(Record, Thumbnailable):
         return query
 
     def average_rating(self, connection):
-        q = self.query(self.c.id==self.id).load('average_rating')
-        result = q.get(connection).average_rating
+        q = self.query().load('average_rating')
+        result = q.get(connection, self.id).average_rating
         if result is None:
             return 0
         else:
@@ -233,9 +231,9 @@ class Channel(Record, Thumbnailable):
             delete.execute(connection)
 
     def find_relevant_similar(self, connection, ip_address=None):
-        ignoresWhere = """(NOW()-timestamp)<%s
-AND ignore_for_recommendations<>%s AND ip_address<>%s"""
-        ignoresArgs = [16070400, True, '0.0.0.0']
+        ignoresWhere = """timestamp > DATE_SUB(NOW(), INTERVAL 6 MONTH)
+AND ignore_for_recommendations=%s AND ip_address<>%s"""
+        ignoresArgs = [False, '0.0.0.0']
         sql = """
 SELECT DISTINCT channel_id FROM cg_channel_subscription
 JOIN cg_channel ON cg_channel.id=channel_id
@@ -254,8 +252,8 @@ WHERE channel_id=%%s AND %s)""" % ignoresWhere
         return [e[0] for e in results]
 
     def get_similarity(self, connection, other):
-        sql = 'SELECT channel_id, ip_address from cg_channel_subscription WHERE (channel_id=%s OR channel_id=%s) AND (NOW()-timestamp) < %s AND ip_address<>%s AND ignore_for_recommendations<>%s ORDER BY ip_address'
-        entries = connection.execute(sql, (self.id, other, 16070400, "0.0.0.0", True))
+        sql = 'SELECT channel_id, ip_address from cg_channel_subscription WHERE (channel_id=%s OR channel_id=%s) AND timestamp > DATE_SUB(NOW(), INTERVAL 6 MONTH) AND ip_address<>%s AND ignore_for_recommendations=%s ORDER BY ip_address'
+        entries = connection.execute(sql, (self.id, other, "0.0.0.0", False))
         if not entries:
             return 0.0
         vectors = {}

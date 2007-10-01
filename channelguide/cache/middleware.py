@@ -1,5 +1,5 @@
 from Cookie import SimpleCookie
-
+import time
 from django.conf import settings
 from django.core.handlers.wsgi import WSGIRequest
 from django.template import Context, loader
@@ -7,7 +7,7 @@ from django.template import Context, loader
 import client
 
 class CacheMiddlewareBase(object):
-    cache_time = None # how many seconds to cache for
+    cache_time = 0 # how many seconds to cache for
     def get_cache_key_tuple(self, request): 
         """Return a tuple that will be used to create the cache key."""
         raise NotImplementedError
@@ -47,7 +47,7 @@ class CacheMiddlewareBase(object):
         return response
 
 class CacheMiddleware(CacheMiddlewareBase):
-    cache_time = 30
+
     def get_cache_key_tuple(self, request):
         cookie = request.META.get('HTTP_COOKIE')
         if type(cookie) is SimpleCookie:
@@ -58,7 +58,27 @@ class CacheMiddleware(CacheMiddlewareBase):
         else:
             return (request.path, request.META['QUERY_STRING'], cookie)
 
-class AggressiveCacheMiddleware(CacheMiddlewareBase):
+class TableDependentCacheMiddleware(CacheMiddleware):
+
+    def __init__(self, *tables):
+        self.table_keys = ['Table:' + (hasattr(t, 'name') and t.name or t)
+                for t in tables]
+
+    def get_cache_key(self, request):
+        cache_key = CacheMiddlewareBase.get_cache_key(self, request)
+        if not self.table_keys:
+            return cache_key
+        ret = client.get_multi(self.table_keys)
+        if len(ret) != len(self.table_keys):
+            for k in (key for key in self.table_keys if key not in ret):
+                v = time.time()
+                client.set(k, v)
+                ret[k] = v
+        appends = ['%s' % ret[k] for k in self.table_keys]
+        key = cache_key + ':' + ':'.join(appends)
+        return key
+
+class AggressiveCacheMiddleware(TableDependentCacheMiddleware):
     """Aggresively Caches a page.  This should only be used for pages that
      * Don't use any session data, or any cookie data
      * Are displayed the same for each user (except the account bar)
@@ -72,7 +92,6 @@ class AggressiveCacheMiddleware(CacheMiddlewareBase):
 
     account_bar_start = '<!-- START ACCOUNT BAR -->'
     account_bar_end = '<!-- END ACCOUNT BAR -->'
-    cache_time = 60
     def get_cache_key_tuple(self, request): 
         return (request.path, request.META['QUERY_STRING'])
 

@@ -5,7 +5,7 @@ from channelguide.guide import templateutil
 from channelguide.guide.auth import admin_required
 from channelguide.guide.models import Category, Channel
 
-@cache.aggresively_cache
+@cache.aggresively_cache(Category.table, Channel.table)
 def index(request):
     query = Category.query().load('channel_count')
     query.order_by('channel_count', desc=True)
@@ -14,7 +14,7 @@ def index(request):
         'groups': query.execute(request.connection),
     })
 
-@cache.aggresively_cache
+@cache.aggresively_cache(Category.table, Channel.table)
 def category(request, id):
     category = Category.get(request.connection, id)
     query = Channel.query_approved().join('categories')
@@ -28,6 +28,7 @@ def category(request, id):
     })
 
 @admin_required
+@cache.cache(Category.table)
 def moderate(request):
     categories = Category.query().order_by('name').execute(request.connection)
     return util.render_to_response(request, 'edit-categories.html', {
@@ -43,9 +44,7 @@ def add(request):
         new_category = Category(request.POST['name'])
         new_category.save(request.connection)
     return util.redirect('categories/moderate')
-
-@admin_required
-def delete(request):
+@admin_requireddef delete(request):
     if request.method == 'POST':
         category = Category.get(request.connection, request.POST['id'])
         category.delete(request.connection)

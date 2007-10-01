@@ -1386,12 +1386,14 @@ li.blog-post .title {
 }
 
 .channel-full #description {
+    position: relative;
     font-size: 130%;
     min-height: 247px;
     padding-left: 10px;
 }
 
 .channel-full #description #full {
+    z-index: 1;
     display: none;
 }
 
@@ -1445,7 +1447,9 @@ li.blog-post .title {
 }
 
 .channel-full .channel-action input {
+    float: left;
     font-size: 81%;
+    margin-right: 10px;
     padding: 0px 5px;
 }
 

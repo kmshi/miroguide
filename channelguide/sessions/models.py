@@ -6,10 +6,6 @@ from sqlhelper.orm import Table, columns, Record
 
 from channelguide import cache
 
-# session changes only affect that one user's session, and we already handle
-# sending different pages to logged in users.
-cache.dont_clear_cache_for('cg_session')
-
 session_table = Table('cg_session', 
         columns.String('session_key', 40, primary_key=True),
         columns.String('data'),

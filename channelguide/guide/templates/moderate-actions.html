@@ -61,9 +61,9 @@
     <form method="POST" action="{{ channel.get_url }}">
         <input type="hidden" name="action" value="toggle-moderator-share">
         {% if channel.moderator_shared_at %}
-        <input type="submit" value="Unshare with moderators">
+        <input type="submit" value="Unshare w/ mods">
         {% else %}
-        <input type="submit" value="Share with moderators">
+        <input type="submit" value="Share w/ mods">
         {% endif %}
     </form>
 </li>

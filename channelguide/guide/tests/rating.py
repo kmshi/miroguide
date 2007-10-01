@@ -14,6 +14,8 @@ class ChannelRatingsTest(TestCase):
         self.users = []
         for rating in range(6):
             user = self.make_user('user%i' % rating)
+            user.approved = 1
+            user.save(self.connection)
             self.users.append(user)
             r = Rating()
             r.user_id = user.id
@@ -30,6 +32,20 @@ class ChannelRatingsTest(TestCase):
         self.assertEquals(float(self.channel.average_rating(self.connection)),
                 2.5)
 
+    def test_get_average_ignores_unapproved(self):
+        """
+        Channel.average_rating should ignore ratings from users who are not
+        approved.
+        """
+        new_user = self.make_user('foo')
+        r = Rating()
+        r.rating = 5
+        r.channel_id = self.channel.id
+        r.user_id = new_user.id
+        r.save(self.connection)
+        self.assertEquals(float(self.channel.average_rating(self.connection)),
+                2.5)
+
     def test_get_count(self):
         """
         Channel.count_rating should return the number of ratings for the
@@ -37,6 +53,21 @@ class ChannelRatingsTest(TestCase):
         """
         self.assertEquals(self.channel.count_rating(self.connection),
                 6)
+
+    def test_get_count_ignores_unapproved(self):
+        """
+        Channel.count_rating should ignore ratings from users who are not
+        approved.
+        """
+        new_user = self.make_user('foo')
+        r = Rating()
+        r.rating = 5
+        r.channel_id = self.channel.id
+        r.user_id = new_user.id
+        r.save(self.connection)
+        self.assertEquals(float(self.channel.count_rating(self.connection)),
+                6)
+
 
     def test_unauthenticated_details_has_average(self):
         """
