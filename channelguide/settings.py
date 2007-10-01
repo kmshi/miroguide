@@ -39,6 +39,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'channelguide.cache.middleware.CacheTimingMiddleware',
     'channelguide.cache.middleware.CacheMiddleware',
     'channelguide.db.middleware.DBMiddleware',
     'channelguide.sessions.middleware.SessionMiddleware',

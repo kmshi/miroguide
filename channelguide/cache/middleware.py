@@ -6,6 +6,23 @@ from django.template import Context, loader
 
 import client
 
+class CacheTimingMiddleware(object):
+    def process_request(self, request):
+        request.start_time = time.time()
+
+    def process_response(self, request, response):
+        total = time.time() - request.start_time
+        f = file('/tmp/page_timing', 'a')
+        if hasattr(request, '_cache_hit'):
+            type = 'C'
+        else:
+            type = 'R'
+        line = '%s!%s!%i!%s!%s!%f\n' % (time.asctime(),type, response.status_code, request.path, request.META['QUERY_STRING'], total)
+        f.write(line)
+        f.close()
+        del request.start_time
+        return response
+
 class CacheMiddlewareBase(object):
     cache_time = 0 # how many seconds to cache for
     def get_cache_key_tuple(self, request): 
