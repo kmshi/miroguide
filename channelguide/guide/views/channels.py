@@ -230,6 +230,7 @@ def subscribe(request, id):
     subscribe_url = settings.SUBSCRIBE_URL % { 'url': channel.url }
     return HttpResponseRedirect(subscribe_url)
 
+@cache.cache('cg_channel_subscription')
 def subscribe_hit(request, id):
     """Used by our ajax call handleSubscriptionLink.  It will get a security
     error if we redirect it to a URL outside the channelguide, so we don't do
