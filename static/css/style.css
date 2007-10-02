@@ -1142,6 +1142,7 @@ li.blog-post .title {
 
 .channel-feature .actions a {
     font-weight: bold;
+    width: 56px;
 }
 
 .channel-feature .actions .add {
