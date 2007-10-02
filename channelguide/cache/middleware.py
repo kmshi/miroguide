@@ -70,7 +70,7 @@ class CacheMiddlewareBase(object):
 #        if client.get_multi(httpKeys.keys()) == httpKeys: # same file as before
 #            request._cache_hit = True
 #            return HttpResponseNotModified()
-#        cached_object = client.get(key)
+        cached_object = client.get(key)
         if cached_object is None or settings.DISABLE_CACHE:
             return None
         else:
