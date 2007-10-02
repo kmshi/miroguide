@@ -1388,40 +1388,40 @@ li.blog-post .title {
 .channel-full #description {
     position: relative;
     font-size: 130%;
-    min-height: 247px;
+    height: 14.4em;
+    overflow: hidden;
     padding-left: 10px;
 }
 
 .channel-full #description #full {
-    z-index: 1;
-    display: none;
 }
 
-.channel-full #description #reveal, .channel-full #description #hide {
+.channel-full #reveal, .channel-full #hide {
+    font-size: 130%;
     text-align: right;
 }
 
-.channel-full #description #reveal a, .channel-full #description #hide a {
+.channel-full #reveal a, .channel-full #hide a {
     color: #AAAAAA;
     text-decoration: none;
 }
 
-.channel-full #description .icon {
+.channel-full #reveal .icon, .channel-full #hide .icon {
     display: block;
     float: right;
     height: 16px;
     width: 20px;
 }
 
-.channel-full #description #reveal .icon {
+.channel-full #reveal .icon {
     background: url(images/down-arrow.jpg) bottom no-repeat;
 }
 
-.channel-full #description #hide .icon {
+.channel-full #hide .icon {
     background: url(images/up-arrow.jpg) bottom no-repeat;
 }
 
-.channel-full #description #hide {
+.channel-full #hide, .channel-full #reveal {
     display: none;
 }
 

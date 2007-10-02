@@ -5,25 +5,24 @@
 <link rel="StyleSheet" type="text/css" href="{{ STATIC_BASE_URL }}css/rating.css">
 <script type="text/javascript">
 $(document).ready(function(){
-    $("#comments #review").hide();
-    $("#comments #review-link").show();
+    if ($('#description').height() < $('#description #full').height()) {
+        $('#reveal').show();
+    }
     });
 
 function lowerDescription(){
-$("#description #reveal").hide();
-$("#description #full").slideDown('slow');
-$("#description #summary").hide();
-$("#description #full").css('position', 'static');
-$("#description #hide").show();
+$("#reveal").hide();
+$("#description").animate(
+    {'height':$('#description #full').height()}, 'slow');
+$("#hide").show();
 return false;
 };
 
 function raiseDescription(){
-$("#description #summary").show();
-$("#description #reveal").show();
-$("#description #full").hide();
-$("#description #hide").hide();
-return true;
+$("#hide").hide();
+$("#description").height('14.4em');
+$("#reveal").show();
+return false;
 };
 </script>{% endblock %}
 {% block title %}{{ channel.name }} - Miro{%endblock %}
@@ -58,15 +57,10 @@ return true;
         </div>
     {% splitcolumns %}
          <div id="description">
-        {% if shade_description %}
-            <div id="summary">{{ channel.description|escape|striptags|truncatewords:73 }}</div>
             <div id="full">{{ channel.description|escape|striptags }}</div>
-            <div id="reveal"><a href="#" onclick='lowerDescription()'><span class="icon"></span>reveal all</a></div>
-            <div id="hide"><a href="#" onclick='raiseDescription()'><span class="icon"></span>hide</a></div>
-        {% else %}
-            {{ channel.description|escape }}
-        {% endif %}
         </div>
+        <div id="reveal"><a href="#" onclick='lowerDescription()'><span class="icon"></span>reveal all</a></div>
+        <div id="hide"><a href="#" onclick='raiseDescription()'><span class="icon"></span>hide</a></div>
         {% comment %}
         <div id="comments">
             <h2>{% trans "User Reviews" %}</h2>
