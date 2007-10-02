@@ -317,7 +317,7 @@ class PopularWindowSelect(templateutil.ViewSelect):
 
 @cache.aggresively_cache(Channel.table, 'cg_channel_subscription')
 def popular_view(request):
-    timespan = request.GET.get('view', 'month')
+    timespan = request.GET.get('view', 'today')
     if timespan == 'today':
         count_name = 'subscription_count_today'
     elif timespan == 'month':
