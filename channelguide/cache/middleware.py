@@ -1,10 +1,19 @@
 from Cookie import SimpleCookie
-import time
+import time, md5
 from django.conf import settings
+from django.http import HttpResponseNotModified
 from django.core.handlers.wsgi import WSGIRequest
 from django.template import Context, loader
 
 import client
+
+def date_time_string(timestamp=None):
+    """return the current date and time formatted for a message header."""
+    if timestamp is None:
+        timestamp = time.time()
+    timetuple = time.gmtime(timestamp)
+    s = time.strftime("%a, %02d %3b %4Y %02H:%02M:%02S gmt", timetuple)
+    return s
 
 class CacheTimingMiddleware(object):
     def process_request(self, request):
@@ -50,7 +59,18 @@ class CacheMiddlewareBase(object):
     def process_request(self, request):
         if not self.can_cache_request(request):
             return None
-        cached_object = client.get(self.get_cache_key(request))
+        lastModified = request.META.get('HTTP_IF_MODIFIED_SINCE')
+        etag = request.META.get('HTTP_IF_NONE_MATCH')
+        key = self.get_cache_key(request)
+        httpKeys = {}
+        if lastModified:
+            httpKeys[key+':last_modified'] = lastModified
+        if etag:
+            httpKeys[key+':etag'] = etag
+        if client.get_multi(httpKeys.keys()) == httpKeys: # same file as before
+            request._cache_hit = True
+            return HttpResponseNotModified()
+        cached_object = client.get(key)
         if cached_object is None or settings.DISABLE_CACHE:
             return None
         else:
@@ -62,9 +82,16 @@ class CacheMiddlewareBase(object):
             response.headers['Cache-Control'] = 'max-age=0'
         if (request.method == 'GET' and response.status_code == 200 and 
                 not hasattr(request, '_cache_hit')):
-            client.set(self.get_cache_key(request), 
+            key = self.get_cache_key(request)
+            client.set(key,
                     self.response_to_cache_object(request, response),
                     time=self.cache_time)
+            etag = md5.new(response.content).hexdigest()
+            client.set(key+':etag', etag)
+            lastModified = date_time_string()
+            client.set(key+':last_modified', lastModified)
+            response.headers['ETag'] = etag
+            response.headers['Last-Modified'] = date_time_string()
         return response
 
 class CacheMiddleware(CacheMiddlewareBase):
