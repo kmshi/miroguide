@@ -35,9 +35,10 @@ def get_category_channels(connection, category):
     popular_channels = list(popular.get_popular('month', connection, limit=2,
             query=query))
 
-    query = Channel.query_approved().join("categories").limit(2)
+    query = Channel.query_approved().join("categories").limit(4-len(popular_channels))
     query.joins['categories'].where(id=category.id)
-    query.where(Channel.c.id.not_in(c.id for c in popular_channels))
+    if popular_channels:
+        query.where(Channel.c.id.not_in(c.id for c in popular_channels))
     query.order_by('RAND()')
     random_channels = list(query.execute(connection))
     return popular_channels + random_channels
