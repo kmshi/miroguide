@@ -9,14 +9,14 @@
 
 {% block content %}
 <div class="front-page">
-<div class="shadow">
+{% comment %}<div class="shadow">
     <div id="donate">
         <img alt="heart" src="{{ STATIC_BASE_URL }}images/donate-heart.gif" />
             <h1>YOU ROCK!</h1>
         <img id="rainbow" src="{{ STATIC_BASE_URL }}images/rainbowoverlay.png" alt="Donation Thermometer at $50k with rainbow out the end" />
     </div>
 </div>
-
+{% endcomment %}
 <div class="clear"></div>
 <div id="feature-section">
 <a href="#" onclick="rotateFeaturesLeft(); return false;" id="featured-list-previous"><span class="hidden">previous features</span></a>
