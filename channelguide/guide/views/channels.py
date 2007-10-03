@@ -106,7 +106,7 @@ def submit_channel(request):
         context['thumbnail_description'] = _("Current image (uploaded)")
     return util.render_to_response(request, 'submit-channel.html', context)
 
-@cache.cache(Channel.table, Item.table, 'cg_channel_subscription', Category.table, Tag.table, Rating.table)
+@cache.cache(Channel.table, Item.table, Category.table, Tag.table, Rating.table)
 def channel(request, id):
     if request.method == 'GET':
         return show(request, id)

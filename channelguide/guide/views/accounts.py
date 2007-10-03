@@ -10,7 +10,7 @@ from channelguide.guide.models import User, UserAuthToken
 from channelguide.guide.templateutil import Pager
 
 def get_login_message(next_url):
-    if next_url.startswith("channels/submit"):
+    if "channels/submit" in next_url:
         return _("""<h1>List Your Channel in the Miro Guide!</h1>
 All you need is an account...
 """)
@@ -18,8 +18,14 @@ All you need is an account...
         return _("""<h1>Get an Account and Make Your Opinion Known!</h1>
 <div>You'll need an account to rate channels.  It only takes a second to get started...</div>""")
 
+def get_register_message(next_url):
+    if "channels/submit" not in next_url:
+        return _("""<div class="info">Your ratings will show up, but won't count towards the average until you confirm your e-mail.</div>""")
+    else:
+        return ""
+
 def get_login_additional(next_url):
-    if next_url.startswith("channels/submit"):
+    if "channels/submit" in next_url:
         return _("""<h1>Your Video RSS Feed is a Miro Channel</h1>
 <div>
 <img id="registration2" src="/images/registration2.jpg" />
@@ -57,6 +63,7 @@ def login_view(request):
         register_data = request.POST
     else:
         message = get_login_message(next)
+    register_message = get_register_message(next)
     additional = get_login_additional(next)
     login_form = user_forms.LoginForm(request.connection, login_data)
     register_form = user_forms.RegisterForm(request.connection, register_data)
@@ -70,6 +77,7 @@ def login_view(request):
         'next' : request.GET.get('next'),
         'login_form': login_form,
         'register_form': register_form,
+        'register_message': register_message,
         'message': message,
         'additional': additional,
     })
