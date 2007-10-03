@@ -177,11 +177,11 @@ def show(request, id):
     query = Channel.query()
     query.join('categories', 'tags', 'notes', 'owner', 'last_moderated_by',
             'notes.user')
-    item_query = Item.query(channel_id=id).order_by('date', desc=True)
+    item_query = Item.query(channel_id=id).order_by('date', desc=True).limit(4)
     c = util.get_object_or_404(request.connection, query, id)
     context = {
         'channel': c,
-        'items': item_query.limit(2).execute(request.connection),
+        'items': item_query.execute(request.connection),
         'recommendations': get_recommendations(request, id),
         'show_edit_button': request.user.can_edit_channel(c),
         'show_extra_info': request.user.can_edit_channel(c),

@@ -1392,15 +1392,16 @@ li.blog-post .title {
     position: relative;
     font-size: 130%;
     height: 14.4em;
-    overflow: hidden;
+/*    overflow: hidden;*/
     padding-left: 10px;
 }
 
 .channel-full #description #full {
+    display: none;
 }
 
 .channel-full #reveal, .channel-full #hide {
-    font-size: 130%;
+/*   font-size: 130%;*/
     text-align: right;
 }
 
@@ -1505,6 +1506,7 @@ li.blog-post .title {
 .item .screenshot {
     float: left;
     padding: 4px;
+    margin-top: 5px;
     margin-right: 4px;
     width: 108px;
     height: 90px;
@@ -1514,10 +1516,13 @@ li.blog-post .title {
     font-size: 81%;
     color: #666666;
     margin-bottom: 7px;
+    float: right;
+    position: relative;
+    bottom: 13px;
 }
 
 .item .description {
-    margin-left: 130px;
+    margin: 5px 0 0 130px;
     min-height: 94px;
     padding-right: 10px;
     position: relative;
