@@ -1386,6 +1386,7 @@ li.blog-post .title {
 
 .channel-full .sub-header {
     color: #666666;
+    display: block;
 }
 
 .channel-full #description {
