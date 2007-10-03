@@ -58,7 +58,7 @@ img {
 /* Classes used in multiple places */
 
 .sub-header {
-    font-size: 75%;
+    font-size: 74%;
 }
 
 .hidden {
@@ -1533,6 +1533,7 @@ li.blog-post .title {
 .item h2 {
     height: 1.1em;
     margin-top: 5px;
+    width: 18em;
     overflow: hidden;
 }
 
