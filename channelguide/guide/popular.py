@@ -141,7 +141,13 @@ def _simple_get_popular(name, connection, limit, query, use_cache):
     query.load(load)
     query.order_by(load, desc=True)
     if limit:
-        query.limit(limit)
+        try:
+            len(limit)
+        except:
+            query.limit(limit)
+        else:
+            query.offset(limit[0])
+            query.limit(limit[1])
     if use_cache:
         query.cacheable = client
         query.cacheable_time = cachetime
