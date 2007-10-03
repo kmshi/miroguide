@@ -44,7 +44,8 @@ def add(request):
         new_category = Category(request.POST['name'])
         new_category.save(request.connection)
     return util.redirect('categories/moderate')
-@admin_requireddef delete(request):
+@admin_required
+def delete(request):
     if request.method == 'POST':
         category = Category.get(request.connection, request.POST['id'])
         category.delete(request.connection)
