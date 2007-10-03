@@ -30,8 +30,9 @@ def _cache_key(id, name, cached = {}):
         val = 'Count:%i:%s:%i' % (id, name, now)
     cached[(id, name)] = val
     return val
-@timing
+
 def get_popular(name, connection, limit=None, query=None, use_cache=True):
+    return _simple_get_popular(name, connection, limit, query, use_cache)
     if query is None:
         # have to do this late, otherwise it's a circular dependency
         from channelguide.guide.models import Channel
@@ -123,3 +124,25 @@ def _increment_or_load(id, name, connection):
         pass
     ((id, value),) = _get_missing_values([id], connection, name)
     client.set(key, value)
+
+def _simple_get_popular(name, connection, limit, query, use_cache):
+    if name is None:
+        load = 'subscription_count'
+        cachetime = 24*60*60
+    else:
+        if name == 'today':
+            cachetime = 5 * 60
+        else:
+            cachetime = 60*60
+        load = 'subscription_count_' + name
+    if query is None:
+        from channelguide.guide.models import Channel
+        query = Channel.query_approved()
+    query.load(load)
+    query.order_by(load, desc=True)
+    if limit:
+        query.limit(limit)
+    if use_cache:
+        query.cacheable = client
+        query.cacheable_time = cachetime
+    return query.execute(connection)
