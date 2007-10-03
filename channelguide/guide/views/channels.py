@@ -12,6 +12,7 @@ from channelguide.guide.models import (Channel, Item, User, ModeratorAction,
         ChannelNote, Rating, Tag, Category, Language)
 from channelguide.guide.notes import get_note_info, make_rejection_note
 from sqlhelper.sql.statement import Select
+from sqlhelper.sql.expression import Literal
 import re, urllib
 
 SESSION_KEY = 'submitted-feed'
@@ -374,10 +375,9 @@ def features(request):
 def highestrated(request):
     query = Channel.query_approved()
     query.load('average_rating', 'count_rating')
-    query.where('count_rating>2')
+    query.where(Literal("cg_channel.id IN (SELECT channel_id FROM cg_channel_rating AS c1 WHERE 1 < (SELECT COUNT(rating) FROM cg_channel_rating AS c2 WHERE c1.channel_id=c2.channel_id))"))
     query.order_by('average_rating', desc=True)
     query.order_by('count_rating', desc=True)
-    print query.execute(request.connection)
     return make_simple_list(request, query, _("Highest Rated Channels"), None)
 
 def group_channels_by_date(channels):
