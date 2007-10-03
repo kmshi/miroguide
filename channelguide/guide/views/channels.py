@@ -337,8 +337,10 @@ def popular_view(request):
         'popular_window_select': PopularWindowSelect(request)
     })
 
-def make_simple_list(request, query, header, order_by):
-    pager =  templateutil.Pager(8, query.order_by(order_by), request)
+def make_simple_list(request, query, header, order_by=None):
+    if order_by:
+        query = query.order_by(order_by)
+    pager =  templateutil.Pager(8, query, request)
     return util.render_to_response(request, 'two-column-list.html', {
         'header': header,
         'pager': pager,
@@ -367,6 +369,16 @@ def features(request):
     query = Channel.query_approved(featured=1)
     return make_simple_list(request, query, _("Featured Channels"),
             Channel.c.featured_at)
+
+@cache.aggresively_cache(Channel.table, Rating.table)
+def highestrated(request):
+    query = Channel.query_approved()
+    query.load('average_rating', 'count_rating')
+    query.where('count_rating>2')
+    query.order_by('average_rating', desc=True)
+    query.order_by('count_rating', desc=True)
+    print query.execute(request.connection)
+    return make_simple_list(request, query, _("Highest Rated Channels"), None)
 
 def group_channels_by_date(channels):
     if channels is None:
