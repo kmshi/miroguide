@@ -305,7 +305,7 @@ class PopularWindowSelect(templateutil.ViewSelect):
     base_url = util.make_url('channels/popular')
 
     def default_choice(self):
-        return 'month'
+        return 'today'
 
     def current_choice_label(self):
         if self.current_choice == 'today':
