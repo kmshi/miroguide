@@ -139,7 +139,7 @@ def _simple_get_popular(name, connection, limit, query, use_cache):
         from channelguide.guide.models import Channel
         query = Channel.query_approved()
     query.load(load)
-    query.order_by(load, desc=True)
+    query.order_by(query.get_column(load), desc=True)
     if limit:
         try:
             len(limit)
