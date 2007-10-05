@@ -279,8 +279,8 @@ def rate(request, id):
     if not request.user.is_authenticated():
         if 'HTTP_REFERER' in request.META:
             referer = request.META['HTTP_REFERER']
-            if referer.startswith(settings.BASE_URL):
-                referer = referer[len(settings.BASE_URL)-1:]
+            if referer.startswith(settings.BASE_URL_FULL):
+                referer = referer[len(settings.BASE_URL_FULL)-1:]
             request.META['QUERY_STRING'] += "%%26referer=%s" % referer
         raise AuthError("need to log in to rate")
     try:
@@ -302,6 +302,8 @@ def rate(request, id):
     dbRating.save(request.connection)
     if request.GET.get('referer'):
         redirect = request.GET['referer']
+    elif request.META.get('HTTP_REFERER'):
+        redirect = request.META['HTTP_REFERER']
     else:
         redirect = dbRating.channel.get_absolute_url()
     return HttpResponseRedirect(redirect)
