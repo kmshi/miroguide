@@ -324,7 +324,7 @@ class PopularWindowSelect(templateutil.ViewSelect):
         else:
             return _("All-Time")
 
-@cache.aggresively_cache(Channel.table, 'cg_channel_subscription', Rating.table)
+@cache.cache(Channel.table, 'cg_channel_subscription', Rating.table)
 def popular_view(request):
     timespan = request.GET.get('view', 'today')
     if timespan == 'today':
@@ -379,7 +379,7 @@ def features(request):
     return make_simple_list(request, query, _("Featured Channels"),
             Channel.c.featured_at)
 
-@cache.aggresively_cache(Channel.table, Rating.table)
+@cache.cache(Channel.table, Rating.table)
 def highestrated(request):
     query = Channel.query_approved()
     query.load('average_rating', 'count_rating')
