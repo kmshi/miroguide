@@ -1894,7 +1894,7 @@ h3 .note-author {
     float: left;
     font-size: 85%;
     color: #666666;
-    margin-left: 10px;
+    margin-left: 30px;
 }
 
 .popular-channel-list .ratings-bar {
@@ -1902,7 +1902,7 @@ h3 .note-author {
     font-size: 85%;
     width: 150px;
     position: absolute;
-    left: 310px;
+    left: 325px;
     text-align: center;
     color: #666666;
 }
