@@ -1815,6 +1815,15 @@ h3 .note-author {
     margin-left: 5px;
 }
 
+.channel-list-page .ratings-bar {
+    position: relative;
+    top: -34px;
+    left: 220px;
+    width: 180px;
+    text-align: left;
+}
+
+
 .channel-list {
     margin-top: 25px;
 }

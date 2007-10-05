@@ -176,6 +176,7 @@ def show(request, id):
     query = Channel.query()
     query.join('categories', 'tags', 'notes', 'owner', 'last_moderated_by',
             'notes.user')
+    query.load('average_rating', 'count_rating')
     item_query = Item.query(channel_id=id).order_by('date', desc=True).limit(4)
     c = util.get_object_or_404(request.connection, query, id)
     context = {
@@ -187,8 +188,6 @@ def show(request, id):
         'link_to_channel': True,
         'BASE_URL': settings.BASE_URL,
         'ratings_bar': get_ratings_bar(request, c),
-        'ratings_count': c.count_rating(request.connection),
-        'ratings_average': c.average_rating(request.connection),
         'notes': get_note_info(c, request.user),
     }
     if len(c.description.split()) > 73:
@@ -265,7 +264,7 @@ def get_ratings_bar(request, channel):
     except Exception:
         rating = Rating()
         rating.channel_id = channel.id
-        rating.average_rating = channel.average_rating(request.connection)
+        rating.average_rating = channel.average_rating
     c = {
             'rating': rating,
         }
@@ -323,12 +322,12 @@ def popular_view(request):
     else:
         timespan = None
         count_name = 'subscription_count'
-    def callback(start, count):
-        return popular.get_popular(timespan, request.connection,
-                limit=(start, count))
-    total = len(Channel.query_approved().execute(request.connection))
-    pager = templateutil.ManualPager(10, total, callback, request)
+    query = Channel.query_approved()
+    query.load(count_name, "average_rating", "count_rating")
+    query.order_by(query.get_column(count_name), desc=True)
+    pager = templateutil.Pager(10, query, request)
     for channel in pager.items:
+        channel.ratings_bar = get_ratings_bar(request, channel)
         channel.popular_count = getattr(channel, count_name)
     return util.render_to_response(request, 'popular.html', {
         'pager': pager,
@@ -375,6 +374,14 @@ def highestrated(request):
     query.where(Literal("cg_channel.id IN (SELECT channel_id FROM cg_channel_rating AS c1 WHERE 1 < (SELECT COUNT(rating) FROM cg_channel_rating AS c2 WHERE c1.channel_id=c2.channel_id))"))
     query.order_by('average_rating', desc=True)
     query.order_by('count_rating', desc=True)
+    pager = templateutil.Pager(10, query, request)
+    for channel in pager.items:
+        channel.ratings_bar = get_ratings_bar(request, channel)
+    return util.render_to_response(request, 'popular.html', {
+        'pager': pager,
+        'title' : 'Higest Rated Channels'
+    })
+
     return make_simple_list(request, query, _("Highest Rated Channels"), None)
 
 def group_channels_by_date(channels):

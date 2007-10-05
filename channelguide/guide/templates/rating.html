@@ -4,9 +4,9 @@ $(document).ready(function(){
         {maxvalue:5});
 });
 </script>
-<form class="rating" {% if rating.average_rating %}
-title="Average Rating: {{ rating.average_rating }}"{% else %}
-title="User Rating: {{ rating.rating }}"{% endif %}
+<form class="rating" {% if rating.rating %}
+title="User Rating: {{ rating.rating }}"{% else %}
+title="Average Rating: {{ rating.average_rating }}"{% endif %}
 action="/channels/rate/{{ rating.channel_id }}">
         <label for="r1" class="avg">Rate Me!</label>
         <select id="r1">
