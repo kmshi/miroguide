@@ -1892,6 +1892,7 @@ h3 .note-author {
 .popular-channel-list .channel-info {
     float: left;
     font-size: 85%;
+    color: #666666;
     margin-left: 10px;
 }
 
@@ -1902,6 +1903,7 @@ h3 .note-author {
     position: absolute;
     left: 330px;
     text-align: center;
+    color: #666666;
 }
 
 .popular-channel-list .description {
