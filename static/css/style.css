@@ -1442,6 +1442,10 @@ li.blog-post .title {
     margin-top: 10px;
 }
 
+.channel-full li.channel-action {
+    float: left;
+}
+
 .channel-full .rejection-actions {
     border: 1px solid white;
     padding: 2px 5px 10px 5px;
