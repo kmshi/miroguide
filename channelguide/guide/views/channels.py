@@ -390,7 +390,7 @@ def features(request):
             Channel.c.featured_at)
 
 @cache.cache(Channel.table, Rating.table)
-def highestrated(request):
+def toprated(request):
     query = Channel.query_approved()
     query.load('average_rating', 'count_rating', 'item_count',
             'subscription_count_today')
@@ -403,7 +403,7 @@ def highestrated(request):
         channel.ratings_bar = get_ratings_bar(request, channel)
         channel.timeline = 'Today'
     context = {'pager': pager,
-            'title': 'Higest Rated Channels'
+            'title': 'Top Rated Channels'
         }
     if not request.user.is_authenticated():
         context['account_bar_message'] = """

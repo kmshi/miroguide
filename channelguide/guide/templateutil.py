@@ -166,6 +166,7 @@ class ViewSelect(object):
 class OrderBySelect(ViewSelect):
     view_choices = [
             ('popular', _('Most Popular')),
+            ('toprated', _('Top Rated')),
             ('date', _('Most Recent')),
             ('alphabetical', _('A-Z')),
     ]
@@ -180,6 +181,10 @@ def order_channels_using_request(query, request):
         query.order_by('name')
     elif order_by == 'date':
         query.order_by('modified', desc=True)
+    elif order_by == 'toprated':
+        query.load('average_rating', 'count_rating')
+        query.order_by('average_rating', desc=True)
+        query.order_by('count_rating', desc=True)
     else:
         query.load('subscription_count_month')
         query.order_by('subscription_count_month', desc=True)
