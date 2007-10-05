@@ -324,7 +324,7 @@ class PopularWindowSelect(templateutil.ViewSelect):
         else:
             return _("All-Time")
 
-@cache.aggresively_cache(Channel.table, 'cg_channel_subscription')
+@cache.aggresively_cache(Channel.table, 'cg_channel_subscription', Rating.table)
 def popular_view(request):
     timespan = request.GET.get('view', 'today')
     if timespan == 'today':
