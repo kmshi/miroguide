@@ -23,11 +23,7 @@
     {% for channel in pager.items %}
         <li>
             <div class="position">{{ forloop.counter|add:pager.start_item|add:"-1" }}.</div>
-            {% show_channel_in_list channel %}
-            <div class="ratings-bar">
-                {{ channel.ratings_bar }}
-                Average of {{ channel.count_rating }} rating{{ channel.count_rating|pluralize }}: <strong>{{ channel.average_rating|floatformat }}</strong> stars
-            </div>
+            {% show_channel_in_popular_list channel %}
             <div class="clear"></div>
         </li>
     {% endfor %}

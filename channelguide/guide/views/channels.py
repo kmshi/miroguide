@@ -341,11 +341,19 @@ def popular_view(request):
     query.order_by(query.get_column(count_name), desc=True)
     pager = templateutil.Pager(10, query, request)
     for channel in pager.items:
+        if timespan == 'today':
+            channel.timeline = 'Today'
+        elif timespan == 'month':
+            channel.timeline = 'This Month'
+        else:
+            channel.timeline = 'All-Time'
         channel.ratings_bar = get_ratings_bar(request, channel)
         channel.popular_count = getattr(channel, count_name)
+    window_select = PopularWindowSelect(request)
     return util.render_to_response(request, 'popular.html', {
         'pager': pager,
-        'popular_window_select': PopularWindowSelect(request)
+        'timeline': window_select.current_choice_label(),
+        'popular_window_select': window_select
     })
 
 def make_simple_list(request, query, header, order_by=None):
@@ -384,13 +392,16 @@ def features(request):
 @cache.cache(Channel.table, Rating.table)
 def highestrated(request):
     query = Channel.query_approved()
-    query.load('average_rating', 'count_rating')
+    query.load('average_rating', 'count_rating', 'item_count',
+            'subscription_count_today')
     query.where(Literal("cg_channel.id IN (SELECT channel_id FROM cg_channel_rating AS c1 WHERE 1 < (SELECT COUNT(rating) FROM cg_channel_rating AS c2 WHERE c1.channel_id=c2.channel_id))"))
     query.order_by('average_rating', desc=True)
     query.order_by('count_rating', desc=True)
     pager = templateutil.Pager(10, query, request)
     for channel in pager.items:
+        channel.popular_count = channel.subscription_count_today
         channel.ratings_bar = get_ratings_bar(request, channel)
+        channel.timeline = 'Today'
     context = {'pager': pager,
             'title': 'Higest Rated Channels'
         }

@@ -40,6 +40,10 @@ def show_channel_in_category(channel):
 def show_channel_in_list(channel):
     return {'channel': channel, 'BASE_URL': settings.BASE_URL }
 
+@register.inclusion_tag('guide/channel-in-popular-list.html')
+def show_channel_in_popular_list(channel):
+    return {'channel': channel, 'BASE_URL': settings.BASE_URL }
+
 @register.inclusion_tag('guide/channel-in-recommendation.html')
 def show_channel_in_recommendation(channel):
     return {'channel': channel, 'BASE_URL': settings.BASE_URL }

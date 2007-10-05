@@ -1819,15 +1819,6 @@ h3 .note-author {
     margin-left: 5px;
 }
 
-.channel-list-page .ratings-bar {
-    position: relative;
-    top: -34px;
-    left: 220px;
-    width: 180px;
-    text-align: left;
-}
-
-
 .channel-list {
     margin-top: 25px;
 }
@@ -1872,7 +1863,56 @@ h3 .note-author {
     left: 220px;
 }
 
+.popular-channel-list .first-column {
+    background: url(images/channel-logo-bg.gif) bottom left no-repeat;
+}
+
+.popular-channel-list .first-column h2 {
+    margin-left: 10px;
+}
+
+.popular-channel-list .first-column div {
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.popular-channel-list .top-row {
+    width: 315px;
+    position: relative;
+    top: 25px;
+}
+
+.popular-channel-list .actions {
+    float: left;
+}
+.popular-channel-list .actions a.add {
+    margin-right: 10px;
+}
+
+.popular-channel-list .channel-info {
+    float: left;
+    font-size: 85%;
+    margin-left: 10px;
+}
+
+.popular-channel-list .ratings-bar {
+    float: left;
+    font-size: 85%;
+    width: 150px;
+    position: absolute;
+    left: 330px;
+    text-align: center;
+}
+
+.popular-channel-list .description {
+    position: relative;
+    width: 450px;
+    top: 25px;
+    margin-top: 15px;
+    float: left;
+}
 /* Pager */
+
 
 .pager {
     padding-top: 10px;

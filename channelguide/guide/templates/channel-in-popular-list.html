@@ -1,0 +1,38 @@
+{% load cg_helpers i18n %}
+<div class="channel channel-in-list">
+    <div class="half-size-list">
+        {% twocolumns %}
+            <h2 class="title">{{ channel.name_as_link }}</h2>
+            <div class="screenshot">
+                <a {% link channel.get_url %}>{{ channel.thumb_165_110 }}</a>
+                {% if channel.hi_def %}
+                <img class="hd-icon-medium" src="{{ BASE_URL }}images/hd-icon-medium.png" alt="HD">
+                {% endif %}
+            </div>
+        {% splitcolumns %}
+            <div class="top-row">
+                <div class="actions">
+                    <div class="big horizontal">
+                        <a {{ channel.subscription_link }}>
+                            <span class="icon"></span>
+                            {% trans "Add" %}
+                       </a>    
+                       <a {% link channel.get_url "info-button" %}>
+                           <span class="icon"></span>
+                           {% trans "Details" %}
+                        </a>
+                    </div>
+                </div>
+                 <div class="channel-info">
+                    Videos Available: {{ channel.item_count }}<br/>
+                    Subscribes {{ channel.timeline }}: {{ channel.popular_count }}
+                </div>
+                <div class="ratings-bar">
+                    {{ channel.ratings_bar }}
+                    Avg. of {{ channel.count_rating }} rating{{ channel.count_rating|pluralize }}: <strong>{{ channel.average_rating|floatformat }}</strong> stars
+                </div>
+            </div>  
+            <div class="description">{{ channel.description|escape }}</div>
+        {% endtwocolumns %}
+    </div>
+</div>
