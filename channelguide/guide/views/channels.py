@@ -17,6 +17,7 @@ import re, urllib
 
 SESSION_KEY = 'submitted-feed'
 
+@cache.cache(Channel.table)
 @moderator_required
 def moderator_channel_list(request, state):
     query = Channel.query().join('owner').order_by('creation_time')
@@ -106,6 +107,7 @@ def submit_channel(request):
         context['thumbnail_description'] = _("Current image (uploaded)")
     return util.render_to_response(request, 'submit-channel.html', context)
 
+@cache.cache(Channel.table, Item.table, Category.table, Tag.table, Rating.table)
 def channel(request, id):
     if request.method == 'GET':
         return show(request, id)
@@ -228,6 +230,7 @@ def subscribe(request, id):
     subscribe_url = settings.SUBSCRIBE_URL % { 'url': channel.url }
     return HttpResponseRedirect(subscribe_url)
 
+@cache.cache('cg_channel_subscription')
 def subscribe_hit(request, id):
     """Used by our ajax call handleSubscriptionLink.  It will get a security
     error if we redirect it to a URL outside the channelguide, so we don't do
@@ -321,7 +324,7 @@ class PopularWindowSelect(templateutil.ViewSelect):
         else:
             return _("All-Time")
 
-@cache.aggresively_cache
+@cache.aggresively_cache(Channel.table, 'cg_channel_subscription')
 def popular_view(request):
     timespan = request.GET.get('view', 'today')
     if timespan == 'today':
@@ -352,14 +355,14 @@ def make_simple_list(request, query, header, order_by=None):
         'pager': pager,
     })
 
-@cache.aggresively_cache
+@cache.aggresively_cache(Channel.table)
 def by_name(request):
     query = Channel.query_approved()
     return make_simple_list(request, query, _("Channels By Name"),
             Channel.c.name)
 
 
-@cache.aggresively_cache
+@cache.aggresively_cache(Channel.table)
 def hd(request):
     query = Channel.query_approved(hi_def=1)
     templateutil.order_channels_using_request(query, request)
@@ -370,13 +373,13 @@ def hd(request):
         'order_select': templateutil.OrderBySelect(request),
     })
 
-@cache.aggresively_cache
+@cache.aggresively_cache(Channel.table)
 def features(request):
     query = Channel.query_approved(featured=1)
     return make_simple_list(request, query, _("Featured Channels"),
             Channel.c.featured_at)
 
-@cache.aggresively_cache
+@cache.aggresively_cache(Channel.table, Rating.table)
 def highestrated(request):
     query = Channel.query_approved()
     query.load('average_rating', 'count_rating')
@@ -421,7 +424,7 @@ def group_channels_by_date(channels):
         retval.append({'date': current_date, 'channels': channels_in_date})
     return retval
 
-@cache.aggresively_cache
+@cache.aggresively_cache(Channel.table)
 def recent(request):
     query = Channel.query_approved().order_by('approved_at', desc=True)
     pager =  templateutil.Pager(8, query, request)
@@ -431,6 +434,7 @@ def recent(request):
         'channels_by_date': group_channels_by_date(pager.items),
     })
 
+@cache.cache(Channel.table, Tag.table, Category.table, User.table)
 def for_user(request, user_id):
     user = util.get_object_or_404(request.connection, User, user_id)
     query = Channel.query(owner_id=user.id)
@@ -442,6 +446,7 @@ def for_user(request, user_id):
         'pager': pager,
         })
 
+@cache.cache(Channel.table, Language.table, Category.table)
 def edit_channel(request, id):
     query = Channel.query()
     query.join('language', 'secondary_languages', 'categories')
@@ -465,6 +470,7 @@ def edit_channel(request, id):
     return util.render_to_response(request, 'edit-channel.html', context)
 
 @admin_required
+@cache.cache(ModeratorAction.table)
 def moderator_history(request):
     query = ModeratorAction.query().join('user', 'channel')
     query.order_by('timestamp', desc=True)

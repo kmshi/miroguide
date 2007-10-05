@@ -23,14 +23,14 @@ class CacheTimingMiddleware(object):
         if not hasattr(request, 'start_time'):
             return response
         total = time.time() - request.start_time
-#        f = file('/tmp/page_timing', 'a')
+        f = file('/tmp/page_timing', 'a')
         if hasattr(request, '_cache_hit'):
             type = 'C'
         else:
             type = 'R'
         line = '%s!%s!%i!%s!%s!%f\n' % (time.asctime(),type, response.status_code, request.path, request.META.get('QUERY_STRING', ''), total)
-#        f.write(line)
-#        f.close()
+        f.write(line)
+        f.close()
         del request.start_time
         footer = '\n<!-- %s -->' % line
         response.content = response.content + footer.encode('utf-8')
@@ -126,7 +126,7 @@ class TableDependentCacheMiddleware(CacheMiddleware):
         key = cache_key + ':' + ':'.join(appends)
         return key
 
-class AggressiveCacheMiddleware(CacheMiddlewareBase):
+class AggressiveCacheMiddleware(TableDependentCacheMiddleware):
     """Aggresively Caches a page.  This should only be used for pages that
      * Don't use any session data, or any cookie data
      * Are displayed the same for each user (except the account bar)
