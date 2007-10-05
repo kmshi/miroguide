@@ -1868,6 +1868,7 @@ h3 .note-author {
 }
 
 .popular-channel-list .first-column h2 {
+    width: 600px;
     margin-left: 10px;
 }
 
