@@ -86,6 +86,7 @@ channel = Table('cg_channel',
         columns.String('feed_etag', 255),
         columns.Boolean('featured', default='0'),
         columns.DateTime('featured_at'),
+        columns.Int('featured_by_id', fk=user.c.id),
         columns.Boolean('was_featured', default='0'),
         columns.DateTime('moderator_shared_at'),
         columns.Int('moderator_shared_by_id', fk=user.c.id),
@@ -236,6 +237,8 @@ channel.many_to_many('tags', tag, tag_map, backref='channels')
 channel.many_to_one('language', language)
 channel.many_to_one('last_moderated_by', user,
         join_column=channel.c.last_moderated_by_id)
+channel.many_to_one('featured_by', user,
+        join_column=channel.c.featured_by_id)
 channel.one_to_many('items', item, backref='channel')
 channel.one_to_many('notes', channel_note, backref='channel')
 channel.one_to_one('search_data', channel_search_data, backref='channel')

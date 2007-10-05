@@ -427,9 +427,16 @@ WHERE channel_id=%%s AND %s)""" % ignoresWhere
         self.save(connection)
         ModeratorAction(user, self, newstate).save(connection)
 
-    def feature(self, connection):
-        self.featured = True
-        self.featured_at = datetime.now()
+    def change_featured(self, user, connection):
+        if user is not None:
+            self.featured = True
+            self.featured_at = datetime.now()
+            self.featured_by_id = user.id
+        else:
+            self.featured = False
+            self.featured_at = None
+            self.featured_by_id = None
+        self.save(connection)
 
     def toggle_moderator_share(self, user):
         if self.moderator_shared_at is None:

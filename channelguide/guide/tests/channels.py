@@ -23,7 +23,7 @@ class ChannelTestBase(TestCase):
         self.ralph = self.make_user('ralph')
         self.channel = self.make_channel()
         join = self.channel.join('items', 'tags', 'categories', 'owner',
-                'last_moderated_by')
+                'last_moderated_by', 'featured_by')
         join.execute(self.connection)
 
     def make_channel(self, **kwargs):
@@ -210,6 +210,17 @@ class ChannelModelTest(ChannelTestBase):
         non_active.categories.add_record(self.connection, bar)
         test(foo, 1)
         test(bar, 0)
+
+    def test_featured_by(self):
+        self.assertEquals(self.channel.featured_by, None)
+        self.channel.change_featured(self.ralph, self.connection)
+        self.channel.save(self.connection)
+        channel2 = self.refresh_record(self.channel, 'featured_by')
+        self.assertEquals(channel2.featured_by.id, self.ralph.id)
+        channel2.change_featured(None, self.connection)
+        channel3 = self.refresh_record(self.channel, 'featured_by')
+        self.assertEquals(self.channel.featured_by, None)
+
 
 class ChannelItemTest(ChannelTestBase):
     def check_item_titles(self, *correct_titles):
