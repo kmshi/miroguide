@@ -6,6 +6,10 @@
     width: 150px;
 }
 
+.rating input {
+    display: inline;
+}
+
 .rating:after {
     content: '.';
     display: block;
