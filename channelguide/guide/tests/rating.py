@@ -26,11 +26,11 @@ class ChannelRatingsTest(TestCase):
 
     def test_get_average(self):
         """
-        Channel.average_rating should return the average rating for the
-        channel.
+        Channel.query().load('average_rating') should return the average rating
+        for the channel.
         """
-        self.assertEquals(float(self.channel.average_rating(self.connection)),
-                2.5)
+        c = self.channel.query().load('average_rating').get(self.connection)
+        self.assertEquals(float(c.average_rating), 2.5)
 
     def test_get_average_ignores_unapproved(self):
         """
@@ -43,16 +43,16 @@ class ChannelRatingsTest(TestCase):
         r.channel_id = self.channel.id
         r.user_id = new_user.id
         r.save(self.connection)
-        self.assertEquals(float(self.channel.average_rating(self.connection)),
-                2.5)
+        c = self.channel.query().load('average_rating').get(self.connection)
+        self.assertEquals(float(c.average_rating), 2.5)
 
     def test_get_count(self):
         """
-        Channel.count_rating should return the number of ratings for the
-        channel.
+        Channel.query().load('count_rating') should return the number of
+        ratings for the channel.
         """
-        self.assertEquals(self.channel.count_rating(self.connection),
-                6)
+        c = self.channel.query().load('count_rating').get(self.connection)
+        self.assertEquals(c.count_rating, 6)
 
     def test_get_count_ignores_unapproved(self):
         """
@@ -65,8 +65,8 @@ class ChannelRatingsTest(TestCase):
         r.channel_id = self.channel.id
         r.user_id = new_user.id
         r.save(self.connection)
-        self.assertEquals(float(self.channel.count_rating(self.connection)),
-                6)
+        c = self.channel.query().load('count_rating').get(self.connection)
+        self.assertEquals(c.count_rating, 6)
 
 
     def test_unauthenticated_details_has_average(self):

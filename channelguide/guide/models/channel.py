@@ -182,7 +182,6 @@ class Channel(Record, Thumbnailable):
                 timestamp=timestamp,
                 ignore_for_recommendations=ignore_for_recommendations)
         insert.execute(connection)
-        popular.add_subscription(self.id, connection, timestamp)
 #        self.recalculate_recommendations(connection, ip_address)
 
     def recalculate_recommendations(self, connection, ip_address):
@@ -467,5 +466,3 @@ def cosine(v1, v2):
     return dotProduct(v1, v2)/(l1 * l2)
 
 
-# circular dependency
-from channelguide.guide import popular

@@ -54,7 +54,6 @@ def login_view(request):
         next = request.POST.get('next')
     if next is None:
         next = ''
-    print next
     login_data = register_data = None
     message = '' # only show messages before the user submits a form
     if request.POST.get('which-form') == 'login':

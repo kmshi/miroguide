@@ -3,11 +3,17 @@ import urllib
 from django.conf import settings
 
 from channelguide import util, cache
-from channelguide.guide import tables, popular
+from channelguide.guide import tables
 from channelguide.guide.models import Channel, Category, PCFBlogPost
 from sqlhelper.orm.query import ResultHandler
 def get_popular_channels(connection, count):
-    return popular.get_popular('today', connection, count)
+    query = Channel.query_approved()
+    query.load('subscription_count_today')
+    query.order_by('subscription_count_today', desc=True)
+    query.limit(count)
+    query.cacheable = cache.client
+    query.cacheable_time = 300
+    return query.execute(connection)
 
 def get_featured_channels(connection):
     query = Channel.query_approved(featured=1)
@@ -30,10 +36,12 @@ def get_categories(connection):
 def get_category_channels(connection, category):
     query = Channel.query_approved().join("categories")
     query.joins['categories'].where(id=category.id)
+    query.load('subscription_count_month')
+    query.order_by('subscription_count_month', desc=True)
+    query.limit(2)
     query.cacheable = cache.client
     query.cacheable_time = 300
-    popular_channels = list(popular.get_popular('month', connection, limit=2,
-            query=query))
+    popular_channels = list(query.execute(connection))
 
     query = Channel.query_approved().join("categories").limit(4-len(popular_channels))
     query.joins['categories'].where(id=category.id)

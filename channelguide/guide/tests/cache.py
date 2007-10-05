@@ -15,21 +15,10 @@ except ImportError:
     memcache = None
     memcache
 
-class CacheTest(TestCase):
-    if memcache is None:
-        skip = "don't have memcache installed"
+class CacheTestBase(TestCase):
     def setUp(self):
         TestCase.setUp(self)
         self.change_setting_for_test("DISABLE_CACHE", False)
-        self.middleware = cg_cache.middleware.TableDependentCacheMiddleware('cg_channel')
-        time.sleep(1) 
-        # hack because we may have called memcached.flush_all recently.
-        # Because memcached has a resolution of 1 second, we need this to make
-        # sure flush_all goes through.
-
-    def tearDown(self):
-        cg_cache.clear_cache()
-        TestCase.tearDown(self)
 
     def make_request(self, path, query=None):
         request = HttpRequest()
@@ -60,18 +49,11 @@ class CacheTest(TestCase):
             self.middleware.process_response(request, self.make_response())
         self.assert_(self.is_request_cached(path, query))
 
-    def test_cache(self):
-        path = self.rand_path()
-        self.assert_(not self.is_request_cached(path))
-        self.assert_(self.is_request_cached(path))
-        self.assert_(not self.is_request_cached(path, 'foo=bar'))
-        self.assert_(self.is_request_cached(path, 'foo=bar'))
 
-    def test_expire(self):
-        path = self.rand_path()
-        self.make_request_cached(path)
-        cg_cache.clear_cache()
-        self.assert_(not self.is_request_cached(path))
+class CacheTest(CacheTestBase):
+    def setUp(self):
+        CacheTestBase.setUp(self)
+        self.middleware = cg_cache.middleware.CacheMiddleware()
 
     def test_default_cache_control(self):
         path = self.rand_path()
@@ -87,6 +69,33 @@ class CacheTest(TestCase):
         response.headers['Cache-Control'] = 'max-age=123'
         self.process_response_middleware(request, response)
         self.assertEquals(response.headers['Cache-Control'], 'max-age=123')
+
+
+class TableDependentCacheTest(CacheTestBase):
+    def setUp(self):
+        CacheTestBase.setUp(self)
+        self.middleware = cg_cache.middleware.TableDependentCacheMiddleware('cg_channel')
+        time.sleep(1) 
+        # hack because we may have called memcached.flush_all recently.
+        # Because memcached has a resolution of 1 second, we need this to make
+        # sure flush_all goes through.
+
+    def tearDown(self):
+        cg_cache.clear_cache()
+        TestCase.tearDown(self)
+
+    def test_cache(self):
+        path = self.rand_path()
+        self.assert_(not self.is_request_cached(path))
+        self.assert_(self.is_request_cached(path))
+        self.assert_(not self.is_request_cached(path, 'foo=bar'))
+        self.assert_(self.is_request_cached(path, 'foo=bar'))
+
+    def test_expire(self):
+        path = self.rand_path()
+        self.make_request_cached(path)
+        cg_cache.clear_cache()
+        self.assert_(not self.is_request_cached(path))
 
     def test_expire_on_object_change(self):
         user = self.make_user("kelly")

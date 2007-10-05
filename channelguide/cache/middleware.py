@@ -94,19 +94,19 @@ class CacheMiddlewareBase(object):
 #            response.headers['Last-Modified'] = date_time_string()
         return response
 
-class CacheMiddleware(CacheMiddlewareBase):
 
-    def get_cache_key_tuple(self, request):
-        cookie = request.META.get('HTTP_COOKIE')
-        if type(cookie) is SimpleCookie:
-            # Maybe this is the test browser, which sends the HTTP_COOKIE
-            # value as an python Cookie object
-            return (request.path, request.META['QUERY_STRING'],
-                    cookie.output())
-        else:
-            return (request.path, request.META['QUERY_STRING'], cookie)
+class CacheMiddleware(object):
 
-class TableDependentCacheMiddleware(CacheMiddleware):
+    def process_request(self, request):
+        pass
+
+    def process_response(self, request, response):
+        if 'Cache-Control' not in response.headers:
+            response.headers['Cache-Control'] = 'max-age=0'
+        return response
+
+
+class TableDependentCacheMiddleware(CacheMiddlewareBase):
 
     def __init__(self, *tables):
         self.table_keys = ['Table:' + (hasattr(t, 'name') and t.name or t)
@@ -125,6 +125,16 @@ class TableDependentCacheMiddleware(CacheMiddleware):
         appends = ['%s' % ret[k] for k in self.table_keys]
         key = cache_key + ':' + ':'.join(appends)
         return key
+
+    def get_cache_key_tuple(self, request):
+        cookie = request.META.get('HTTP_COOKIE')
+        if type(cookie) is SimpleCookie:
+            # Maybe this is the test browser, which sends the HTTP_COOKIE
+            # value as an python Cookie object
+            return (request.path, request.META['QUERY_STRING'],
+                    cookie.output())
+        else:
+            return (request.path, request.META['QUERY_STRING'], cookie)
 
 class AggressiveCacheMiddleware(TableDependentCacheMiddleware):
     """Aggresively Caches a page.  This should only be used for pages that

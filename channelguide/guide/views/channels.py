@@ -4,7 +4,7 @@ from django.template import loader, context
 from django.utils.translation import gettext as _
 
 from channelguide import util, cache
-from channelguide.guide import forms, templateutil, popular
+from channelguide.guide import forms, templateutil
 from channelguide.guide.auth import (admin_required, moderator_required,
         login_required)
 from channelguide.guide.exceptions import AuthError
@@ -400,8 +400,6 @@ def highestrated(request):
     </div>
 </div>"""
     return util.render_to_response(request, 'popular.html', context)
-
-    return make_simple_list(request, query, _("Highest Rated Channels"), None)
 
 def group_channels_by_date(channels):
     if channels is None:
