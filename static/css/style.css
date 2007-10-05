@@ -1883,6 +1883,7 @@ h3 .note-author {
 }
 
 .popular-channel-list .actions {
+    margin-left: 12px;
     float: left;
 }
 .popular-channel-list .actions a.add {
@@ -1901,7 +1902,7 @@ h3 .note-author {
     font-size: 85%;
     width: 150px;
     position: absolute;
-    left: 330px;
+    left: 310px;
     text-align: center;
     color: #666666;
 }
@@ -1910,6 +1911,7 @@ h3 .note-author {
     position: relative;
     width: 450px;
     top: 25px;
+    margin-left: 12px;
     margin-top: 15px;
     float: left;
 }
