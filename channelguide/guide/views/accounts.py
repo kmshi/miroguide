@@ -53,7 +53,7 @@ def login_view(request):
         next = request.POST.get('next')
     if next is None:
         next = ''
-
+    print next
     login_data = register_data = None
     message = '' # only show messages before the user submits a form
     if request.POST.get('which-form') == 'login':
@@ -73,7 +73,7 @@ def login_view(request):
         login(request, register_form.make_user())
         return util.redirect(next)
     return util.render_to_response(request, 'login.html', { 
-        'next' : request.GET.get('next'),
+        'next' : next,
         'login_form': login_form,
         'register_form': register_form,
         'register_message': register_message,

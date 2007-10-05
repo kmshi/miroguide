@@ -8,7 +8,7 @@
     <div class="login-form">
         <h2>{% trans "Login" %}</h2>
         <div class="instructions">{% trans "Got an account? Just log in!" %}</div>
-        <form method="POST" action="{{ BASE_URL }}accounts/login{% if next %}?next={{ next }}{% endif %}">
+        <form method="POST" action="{{ BASE_URL }}accounts/login{% if next %}?next={{ next|urlencode }}{% endif %}">
             <input type="hidden" name="which-form" value="login">
             {% show_form login_form %}
             <input type="submit" class="submit" value="{% trans "Login" %} &gt;&gt;">
@@ -22,7 +22,7 @@
 
     <div class="register-form">
         <h2>{% trans "Register" %}</h2>
-        <form method="POST" action="{{ BASE_URL }}accounts/login{% if next %}?next={{ next }}{% endif %}">
+        <form method="POST" action="{{ BASE_URL }}accounts/login{% if next %}?next={{ next|urlencode }}{% endif %}">
             <input type="hidden" name="which-form" value="register">
             {% show_form register_form %}
             <input type="submit" class="submit" value="{% trans "Register" %} &gt;&gt;">

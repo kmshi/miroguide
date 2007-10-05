@@ -272,6 +272,11 @@ def get_ratings_bar(request, channel):
 
 def rate(request, id):
     if not request.user.is_authenticated():
+        if 'HTTP_REFERER' in request.META:
+            referer = request.META['HTTP_REFERER']
+            if referer.startswith(settings.BASE_URL):
+                referer = referer[len(settings.BASE_URL)-1:]
+            request.META['QUERY_STRING'] += "%%26referer=%s" % referer
         raise AuthError("need to log in to rate")
     try:
         dbRating = Rating.query(Rating.c.user_id==request.user.id,
@@ -290,7 +295,11 @@ def rate(request, id):
         raise Http404
     dbRating.rating = int(rating)
     dbRating.save(request.connection)
-    return HttpResponseRedirect(dbRating.channel.get_absolute_url())
+    if request.GET.get('referer'):
+        redirect = request.GET['referer']
+    else:
+        redirect = dbRating.channel.get_absolute_url()
+    return HttpResponseRedirect(redirect)
 
 class PopularWindowSelect(templateutil.ViewSelect):
     view_choices = [
@@ -387,7 +396,6 @@ def highestrated(request):
         To start rating channels, <a href="/accounts/login">create an account</a> and <a href="/accounts/login">login</a>
     </div>
 </div>"""
-    print context
     return util.render_to_response(request, 'popular.html', context)
 
     return make_simple_list(request, query, _("Highest Rated Channels"), None)
