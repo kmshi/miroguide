@@ -5,6 +5,7 @@ def cg_include(module):
 
 urlpatterns = patterns('channelguide.guide.views',
     (r'^$', 'frontpage.index'),
+    (r'firsttime$', 'firsttime.index'),
     (r'^category-peek-fragment$', 'frontpage.category_peek_fragment'),
     (r'^moderate$', 'moderator.index'),
     (r'^how-to-moderate$', 'moderator.how_to_moderate'),
