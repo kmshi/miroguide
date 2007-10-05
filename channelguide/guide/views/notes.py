@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.http import Http404
 
-from channelguide import util, cache
+from channelguide import util
 from channelguide.guide.auth import moderator_required, login_required
 from channelguide.guide.models import Channel, ChannelNote, ModeratorPost
 from channelguide.guide.templateutil import Pager
@@ -34,7 +34,6 @@ def note(request, id):
     return util.redirect('channels/%d#notes' % note.channel_id)
 
 @moderator_required
-@cache.cache(ModeratorPost.table)
 def moderator_board(request):
     query = ModeratorPost.query().order_by('created_at', desc=True)
     query.join('user')

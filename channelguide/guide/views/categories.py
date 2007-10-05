@@ -5,7 +5,7 @@ from channelguide.guide import templateutil
 from channelguide.guide.auth import admin_required
 from channelguide.guide.models import Category, Channel
 
-@cache.aggresively_cache(Category.table, Channel.table)
+@cache.aggresively_cache
 def index(request):
     query = Category.query().load('channel_count')
     query.order_by('channel_count', desc=True)
@@ -14,7 +14,7 @@ def index(request):
         'groups': query.execute(request.connection),
     })
 
-@cache.aggresively_cache(Category.table, Channel.table, 'cg_channel_subscription')
+@cache.aggresively_cache
 def category(request, id):
     category = Category.get(request.connection, id)
     query = Channel.query_approved().join('categories')
@@ -28,7 +28,6 @@ def category(request, id):
     })
 
 @admin_required
-@cache.cache(Category.table)
 def moderate(request):
     categories = Category.query().order_by('name').execute(request.connection)
     return util.render_to_response(request, 'edit-categories.html', {

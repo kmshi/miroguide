@@ -8,7 +8,7 @@ from channelguide.guide import tables, templateutil
 from channelguide.guide.auth import admin_required
 from channelguide.guide.models import Language, Channel
 
-@cache.aggresively_cache(Language.table, Channel.table)
+@cache.aggresively_cache
 def index(request):
     query = Language.query().load('channel_count').order_by('name')
     query.cacheable = cache.client
@@ -25,8 +25,7 @@ def secondary_language_exists_where(language_id):
     select.wheres.append('language_id=%s', language_id)
     return select.exists()
 
-@cache.aggresively_cache(Language.table, Channel.table,
-        'cg_secondary_language_map')
+@cache.aggresively_cache
 def view(request, id):
     language = Language.get(request.connection, id)
     query = Channel.query_approved()
@@ -40,7 +39,6 @@ def view(request, id):
     })
 
 @admin_required
-@cache.cache(Language.table)
 def moderate(request):
     query = Language.query().order_by('name')
     return util.render_to_response(request, 'edit-categories.html', {
