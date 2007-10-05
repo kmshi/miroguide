@@ -377,10 +377,18 @@ def highestrated(request):
     pager = templateutil.Pager(10, query, request)
     for channel in pager.items:
         channel.ratings_bar = get_ratings_bar(request, channel)
-    return util.render_to_response(request, 'popular.html', {
-        'pager': pager,
-        'title' : 'Higest Rated Channels'
-    })
+    context = {'pager': pager,
+            'title': 'Higest Rated Channels'
+        }
+    if not request.user.is_authenticated():
+        context['account_bar_message'] = """
+<div id="approval-bar">
+    <div id="approval-bar-inner">
+        To start rating channels, <a href="/accounts/login">create an account</a> and <a href="/accounts/login">login</a>
+    </div>
+</div>"""
+    print context
+    return util.render_to_response(request, 'popular.html', context)
 
     return make_simple_list(request, query, _("Highest Rated Channels"), None)
 

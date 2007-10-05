@@ -48,6 +48,7 @@
     </div>
     {% if user %}
     {% show_account_bar user %}
+    {% block approval_bar %}{% endblock %}
     {% endif %}
     <div id="background">
         <div id="page">
