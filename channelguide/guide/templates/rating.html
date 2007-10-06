@@ -8,6 +8,7 @@ $(document).ready(function(){
 title="Average Rating: {{ rating.average_rating }}"{% else %}
 title="User Rating: {{ rating.rating }}"{% endif %}
 action="/channels/rate/{{ rating.channel_id }}">
+        <input type="hidden" name="referer" value="{{ referer }}">
         <label for="r1" class="avg">{% if rating.average_rating %}Rate Me!{% else %}Rated: {{ rating.rating }}{% endif %}</label>
         <select name="rating" id="r1">
             <option value="0">0</option>

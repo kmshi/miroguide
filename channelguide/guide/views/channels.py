@@ -272,6 +272,7 @@ def get_ratings_bar(request, channel):
         rating.average_rating = channel.average_rating
     c = {
             'rating': rating,
+            'referer': request.path
         }
     return loader.render_to_string('guide/rating.html', c)
 
@@ -302,8 +303,6 @@ def rate(request, id):
     dbRating.save(request.connection)
     if request.GET.get('referer'):
         redirect = request.GET['referer']
-    elif request.META.get('HTTP_REFERER'):
-        redirect = request.META['HTTP_REFERER']
     else:
         redirect = dbRating.channel.get_absolute_url()
     return HttpResponseRedirect(redirect)
