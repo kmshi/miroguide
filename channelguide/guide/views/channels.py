@@ -339,7 +339,7 @@ def popular_view(request):
         timespan = None
         count_name = 'subscription_count'
     query = Channel.query_approved()
-    query.load(count_name, "average_rating", "count_rating")
+    query.load(count_name, "average_rating", "count_rating", 'item_count')
     query.order_by(query.get_column(count_name), desc=True)
     pager = templateutil.Pager(10, query, request)
     for channel in pager.items:
@@ -352,11 +352,19 @@ def popular_view(request):
         channel.ratings_bar = get_ratings_bar(request, channel)
         channel.popular_count = getattr(channel, count_name)
     window_select = PopularWindowSelect(request)
-    return util.render_to_response(request, 'popular.html', {
-        'pager': pager,
-        'timeline': window_select.current_choice_label(),
-        'popular_window_select': window_select
-    })
+    context = {
+            'pager' : pager,
+            'timeline' : window_select.current_choice_label(),
+            'popular_window_select': window_select
+        }
+    if not request.user.is_authenticated():
+        context['account_bar_message'] = """
+<div id="approval-bar">
+    <div id="approval-bar-inner">
+        To start rating channels, <a href="/accounts/login">create an account</a> and <a href="/accounts/login">login</a>
+    </div>
+</div>"""
+    return util.render_to_response(request, 'popular.html', context)
 
 def make_simple_list(request, query, header, order_by=None):
     if order_by:
