@@ -68,7 +68,7 @@ def search(request):
             'search_query': search_query,
             'terms_too_short': True,
             })
-
+    terms = [t for t in terms if len(t) > 3]
     query = search_channels(request, terms)
     results_count = query.count(request.connection)
     results = query.limit(FRONT_PAGE_LIMIT).execute(request.connection)
