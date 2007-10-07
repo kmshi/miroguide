@@ -358,37 +358,31 @@ def refresh_popular_cache(args=None):
     24 hours.  Then it finds the channels that have had subscriptions in the
     past hour and refreshes their monthly counts.
     """
-    from channelguide.guide import tables, popular
-    from channelguide import db
-    if args is None:
-        args = ['today']
-    def _wait_for_update(secs):
-        # wait until 30 seconds before the next update
-        now = int(time.time())
-        next_update = secs*(1 + now/secs)
-        sleep = next_update-now - 5
-        if sleep > 0:
-            print 'waiting', sleep
-            time.sleep(sleep)
-    def _wrap_time(secs, f, *args, **kwargs):
-        old_time_time = time.time
-        time.time = lambda: old_time_time() + secs
-        start = old_time_time()
-        try:
-            f(*args, **kwargs)
-        finally:
-            time.time = old_time_time
-            print f, 'took', time.time()-start, 'seconds'
-    if args[-1] == 'today':
-        frequency = 300
-        interval = 'today'
-    else:
-        frequency = 3600
-        interval = 'month'
-    _wait_for_update(frequency)
-    _wrap_time(frequency, popular.get_popular, interval, db.connect(),
-            use_cache=False)
-refresh_popular_cache.args = '[today]'
+    from channelguide import db, cache
+    from channelguide.guide.models import Channel, Category
+    class CacheClient:
+        def get(self, key):
+            return None
+        def get_multi(self, keys):
+            return {}
+        def set(self, key, value, time=0):
+            cache.client.set(key, value, time)
+    connection = db.connect()
+    queries = [
+            (Channel.query_approved().load('subscription_count_today').order_by('subscription_count_today', desc=True).limit(7), 300),
+           ]
+    for cat in Category.query().execute(connection):
+        query = Channel.query_approved().load('subscription_count_month').join('categories').order_by('subscription_count_month', desc=True).limit(2)
+        query.joins['categories'].where(id=cat.id)
+        queries.append((query, 300))
+
+    cc = CacheClient()
+    for query, cacheable_time in queries:
+        print query, cacheable_time
+        query.cacheable = cc
+        query.cacheable_time = cacheable_time
+        query.execute(connection)
+refresh_popular_cache.args = ''
 
 action_mapping['syncdb'] = syncdb
 action_mapping['download_thumbnails'] = download_thumbnails
