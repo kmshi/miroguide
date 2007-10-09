@@ -7,8 +7,8 @@ echo "updating database"
 python channelguide/manage.py syncdb
 echo "optimizing templates"
 python channelguide/manage.py optimize_templates
-echo "clearing the cache"
-python channelguide/manage.py clear_cache
+#echo "clearing the cache"
+#python channelguide/manage.py clear_cache
 echo "starting apache"
 /etc/init.d/httpd start
 echo "all systems go"
