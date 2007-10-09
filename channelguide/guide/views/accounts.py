@@ -52,6 +52,8 @@ def login_view(request):
     if next is None:
         next = request.POST.get('next')
     if next is None:
+        next = request.META.get('HTTP_REFERER')
+    if next is None:
         next = ''
     login_data = register_data = None
     message = '' # only show messages before the user submits a form
