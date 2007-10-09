@@ -26,22 +26,21 @@ def get_register_message(next_url):
 
 def get_login_additional(next_url):
     if "channels/submit" in next_url:
-        return _("""<h1>Your Video RSS Feed is a Miro Channel</h1>
-<div>
+        return _("""<div>
+<h1>Your Video RSS Feed is a Miro Channel</h1>
 <img id="registration2" src="/images/registration2.jpg" />
 It is super easy to submit your channel to the Miro Guide. Just give us
 the feed address, answer a few easy questions, and you&apos;re all done.
 </div>
 <div class="clear"></div>""")
     else:
-        return _("""
-<img id="registration1" src="/images/registration1.jpg" />
+        return _("""<div>
 <h1>Why Should I Rate Channels?</h1>
-<div>
+<img id="registration1" src="/images/registration1.jpg" />
 In the very near future, we will be giving personalized recommendations, based on what you do and don't like. If you've ever used Netflix&reg;, you already know what we're talking about here. The more you rate, the more accurately we can recommend channels to you. It&apos;s that simple!
 </div>
-<h1>A Completely Open Guide</h1>
 <div>
+<h1>A Completely Open Guide</h1>
 <img id="registration2" src="/images/registration2.jpg" />
 Because we accept channels (RSS feeds, aka 'video podcasts') from
 anyone, the Miro Guide is constantly expanding. Channel creators can add

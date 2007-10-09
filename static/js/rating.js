@@ -28,7 +28,7 @@ jQuery.fn.rating = function(){
 
         jQuery(this).find("select option").each(function(){
             div.append( this.value == "0" ?
-                "<div class='cancel'><a href='#0' title='Not Interested'>Not Interested</a></div>" :
+                "<div class='cancel'><a href='#0' title='No Opinion/Not Interested'>No Opinion/Not Interested</a></div>" :
                 "<div class='star'><a href='#" + this.value + "' title='Give it a " + 
                     this.value + " Star Rating'>" + this.value + "</a></div>" );
         });

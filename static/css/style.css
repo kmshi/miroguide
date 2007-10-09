@@ -780,11 +780,13 @@ li.blog-post .title {
 
 .login-page div.message h1, .login-page .additional h1 {
     font-weight: normal;
+    margin-top: 5px;
     margin-bottom: 2px;
 }
 
 .login-page div.message, .login-page .additional div {
     font-size: 120%;
+    margin-top: 5px;
 }
 
 .login-page .additional h1 {
