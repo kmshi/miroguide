@@ -112,3 +112,6 @@ jQuery.fn.rating = function(){
 if ( jQuery.browser.msie == true )
     document.execCommand('BackgroundImageCache', false, true);
 
+$(document).ready(function () {
+    $("form.rating").rating('', {maxvalue:5});
+    });

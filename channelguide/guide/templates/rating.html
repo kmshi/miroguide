@@ -1,9 +1,3 @@
-<script type="text/javascript">
-$(document).ready(function(){
-    $('form.rating').rating('',
-        {maxvalue:5});
-});
-</script>
 <form class="rating" method="GET"{% if rating.average_rating %}
 title="Average Rating: {{ rating.average_rating }}"{% else %}
 title="User Rating: {{ rating.rating }}"{% endif %}
