@@ -46,6 +46,21 @@ class ChannelRatingsTest(TestCase):
         c = self.channel.query().load('average_rating').get(self.connection)
         self.assertEquals(float(c.average_rating), 2.5)
 
+    def test_get_average_ignores_null(self):
+        """
+        Channel.average_rating should ignore NULL ratings.
+        """
+        new_user = self.make_user('foo')
+        new_user.approved = 1
+        new_user.save(self.connection)
+        r = Rating()
+        r.rating = None
+        r.channel_id = self.channel.id
+        r.user_id = new_user.id
+        r.save(self.connection)
+        c = self.channel.query().load('average_rating').get(self.connection)
+        self.assertEquals(float(c.average_rating), 2.5)
+
     def test_get_count(self):
         """
         Channel.query().load('count_rating') should return the number of
@@ -67,6 +82,21 @@ class ChannelRatingsTest(TestCase):
         r.save(self.connection)
         c = self.channel.query().load('count_rating').get(self.connection)
         self.assertEquals(c.count_rating, 6)
+
+    def test_get_count_ignores_null(self):
+        """
+        Channel.count_rating should ignore NULL ratings.
+        """
+        new_user = self.make_user('foo')
+        new_user.approved = 1
+        new_user.save(self.connection)
+        r = Rating()
+        r.rating = None
+        r.channel_id = self.channel.id
+        r.user_id = new_user.id
+        r.save(self.connection)
+        c = self.channel.query().load('count_rating').get(self.connection)
+        self.assertEquals(float(c.count_rating), 6)
 
 
     def test_unauthenticated_details_has_average(self):

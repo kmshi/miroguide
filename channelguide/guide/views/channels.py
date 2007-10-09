@@ -300,6 +300,8 @@ def rate(request, id):
     if rating not in ['0', '1', '2', '3', '4', '5']:
         raise Http404
     dbRating.rating = int(rating)
+    if dbRating.rating == 0:
+        dbRating.rating = None
     dbRating.save(request.connection)
     if request.GET.get('referer'):
         redirect = request.GET['referer']
