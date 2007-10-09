@@ -270,6 +270,9 @@ def get_ratings_bar(request, channel):
         rating = Rating()
         rating.channel_id = channel.id
         rating.average_rating = channel.average_rating
+    else:
+        if rating.rating is None:
+            rating.rating = 0
     c = {
             'rating': rating,
             'referer': request.path
@@ -405,7 +408,10 @@ def toprated(request):
     query = Channel.query_approved()
     query.load('average_rating', 'count_rating', 'item_count',
             'subscription_count_today')
-    query.where(Literal("cg_channel.id IN (SELECT channel_id FROM cg_channel_rating AS c1 WHERE 1 < (SELECT COUNT(rating) FROM cg_channel_rating AS c2 WHERE c1.channel_id=c2.channel_id))"))
+    query.where(Literal("""cg_channel.id IN (SELECT channel_id
+FROM cg_channel_rating AS c1 WHERE 3 < (SELECT COUNT(rating)
+FROM cg_channel_rating AS c2 JOIN user ON user.id=c2.user_id
+WHERE c2.channel_id=cg_channel.id AND user.approved=1))"""))
     query.order_by('average_rating', desc=True)
     query.order_by('count_rating', desc=True)
     pager = templateutil.Pager(10, query, request)

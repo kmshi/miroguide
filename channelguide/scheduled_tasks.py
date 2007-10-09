@@ -62,10 +62,15 @@ def update_blog_posts():
     logging.info('updating blog posts')
     manage.update_blog_posts()
 
-@run_every_hour
+@run_every_day
 def block_old_unapproved_users():
     logging.info('blocking old unapproved users')
     manage.block_old_unapproved_users()
+
+@run_every_day
+def update_recommendations():
+    logging.info('updating recommendations')
+    manage.calculate_recommendations()
 
 def setup_logging():
     logger = logging.getLogger()
