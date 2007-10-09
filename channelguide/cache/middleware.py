@@ -48,8 +48,12 @@ class CacheMiddlewareBase(object):
     def response_from_cache_object(self, request, cached_object):
         return cached_object
 
-    def get_cache_key(self, request): 
-        prefix = self.__class__.__name__ + ":"
+    def get_cache_key(self, request):
+        namespace = client.get('namespace')
+        if namespace is None:
+            namespace = time.time()
+            client.set('namespace', namespace)
+        prefix = self.__class__.__name__ + str(namespace) + ':'
         return prefix + hex(hash(self.get_cache_key_tuple(request)))
 
     def can_cache_request(self, request):
@@ -95,36 +99,12 @@ class CacheMiddlewareBase(object):
         return response
 
 
-class CacheMiddleware(object):
-
-    def process_request(self, request):
-        pass
+class CacheMiddleware(CacheMiddlewareBase):
 
     def process_response(self, request, response):
         if 'Cache-Control' not in response.headers:
             response.headers['Cache-Control'] = 'max-age=0'
-        return response
-
-
-class TableDependentCacheMiddleware(CacheMiddlewareBase):
-
-    def __init__(self, *tables):
-        self.table_keys = ['Table:' + (hasattr(t, 'name') and t.name or t)
-                for t in tables]
-
-    def get_cache_key(self, request):
-        cache_key = CacheMiddlewareBase.get_cache_key(self, request)
-        if not self.table_keys:
-            return cache_key
-        ret = client.get_multi(self.table_keys)
-        if len(ret) != len(self.table_keys):
-            for k in (key for key in self.table_keys if key not in ret):
-                v = time.time()
-                client.set(k, v)
-                ret[k] = v
-        appends = ['%s' % ret[k] for k in self.table_keys]
-        key = cache_key + ':' + ':'.join(appends)
-        return key
+        return CacheMiddlewareBase.process_response(self, request, response)
 
     def get_cache_key_tuple(self, request):
         cookie = request.META.get('HTTP_COOKIE')
@@ -136,7 +116,7 @@ class TableDependentCacheMiddleware(CacheMiddlewareBase):
         else:
             return (request.path, request.META['QUERY_STRING'], cookie)
 
-class AggressiveCacheMiddleware(TableDependentCacheMiddleware):
+class AggressiveCacheMiddleware(CacheMiddleware):
     """Aggresively Caches a page.  This should only be used for pages that
      * Don't use any session data, or any cookie data
      * Are displayed the same for each user (except the account bar)

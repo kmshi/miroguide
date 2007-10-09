@@ -34,7 +34,6 @@ def note(request, id):
     return util.redirect('channels/%d#notes' % note.channel_id)
 
 @moderator_required
-@cache.cache(ModeratorPost.table)
 def moderator_board(request):
     query = ModeratorPost.query().order_by('created_at', desc=True)
     query.join('user')

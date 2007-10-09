@@ -21,6 +21,7 @@ class ChannelTestBase(TestCase):
     def setUp(self):
         TestCase.setUp(self)
         self.ralph = self.make_user('ralph')
+        Channel.table.record_class = Channel
         self.channel = self.make_channel()
         join = self.channel.join('items', 'tags', 'categories', 'owner',
                 'last_moderated_by', 'featured_by')

@@ -84,7 +84,6 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
 
-@cache.cache(User.table)
 def user(request, id):
     query = User.query().join('channels')
     user = util.get_object_or_404(request.connection, query, id)
@@ -164,7 +163,6 @@ def edit_user_form(request, user):
         'form': form})
 
 @moderator_required
-@cache.cache(User.table)
 def search(request):
     query = request.GET.get('query', '')
     if not query:
@@ -184,7 +182,6 @@ def search(request):
     })
 
 @moderator_required
-@cache.cache(User.table)
 def moderators(request):
     query = User.query(User.c.role.in_(User.ALL_MODERATOR_ROLES))
     query.order_by('username')

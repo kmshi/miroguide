@@ -1,7 +1,7 @@
-from middleware import TableDependentCacheMiddleware, AggressiveCacheMiddleware
+from middleware import AggressiveCacheMiddleware
 from django.utils.decorators import decorator_from_middleware
 
-cache = decorator_from_middleware(TableDependentCacheMiddleware)
+#cache = decorator_from_middleware(TableDependentCacheMiddleware)
 aggresively_cache = decorator_from_middleware(AggressiveCacheMiddleware)
 
 def cache_page_externally_for(seconds):

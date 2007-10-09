@@ -52,8 +52,7 @@ def search_results(connection, class_, terms, search_attribute='name'):
         query.where(search_column.like('%s%%' % term))
     return query.execute(connection)
 
-@cache.aggresively_cache(Channel.table, Category.table, Tag.table, Item.table,
-        Language.table)
+@cache.aggresively_cache
 def search(request):
     context = {}
     try:
@@ -119,14 +118,12 @@ def do_search_more(request, title, search_func):
         'pager': pager,
         })
 
-@cache.aggresively_cache(Channel.table, Category.table, Tag.table, Item.table,
-        Language.table)
+@cache.aggresively_cache
 def search_more(request):
     title = _('Channels Matching %s')
     return do_search_more(request, title, search_channels)
 
-@cache.aggresively_cache(Channel.table, Category.table, Tag.table, Item.table,
-        Language.table, ChannelSearchData.table, ItemSearchData.table)
+@cache.aggresively_cache
 def search_more_items(request):
     title = _('Channels With Videos Matching %s')
     return do_search_more(request, title, search_items)

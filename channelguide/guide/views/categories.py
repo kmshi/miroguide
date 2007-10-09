@@ -28,7 +28,6 @@ def category(request, id):
     })
 
 @admin_required
-@cache.cache(Category.table)
 def moderate(request):
     categories = Category.query().order_by('name').execute(request.connection)
     return util.render_to_response(request, 'edit-categories.html', {

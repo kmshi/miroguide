@@ -10,4 +10,5 @@ Here's our cache strategy:
 """
 from client import clear_cache
 import dbwatcher
-from decorators import cache, aggresively_cache, cache_page_externally_for
+from record import CachedRecord
+from decorators import aggresively_cache, cache_page_externally_for

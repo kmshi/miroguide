@@ -176,9 +176,7 @@ class TestCase(unittest.TestCase):
     def refresh_record(self, record, *joins):
         self.refresh_connection()
         pk = self.rowid = record.primary_key_values()
-        retval = record.__class__.get(self.connection, pk)
-        if joins:
-            retval.join(*joins).execute(self.connection)
+        retval = record.__class__.get(self.connection, pk, join=joins)
         return retval
 
     def debug_response_context(self, context):
