@@ -1,5 +1,5 @@
 #!/usr/bin/env python2.5
-import math, sys
+import math, sys, logging
 from channelguide.guide.tables import channel
 from channelguide.guide.models.channel import Channel
 from sqlhelper.orm.query import Query
@@ -33,6 +33,7 @@ def calculateRecent(database, length=None):
     channels = map(int, getRecent(database, length))
     container = ','.join([str(x) for x in channels])
     database.execute("DELETE FROM cg_channel_recommendations WHERE channel1_id IN (%s) OR channel2_id IN (%s)" % (container, container))
+    logging.info('calculating for %i channels' % len(channels))
     calculateRecommendations(database, channels)
 
 def calculateRecommendations(database, channels):
@@ -51,7 +52,7 @@ def calculateRecommendations(database, channels):
                     gs = getSimilarity(database, c1, c2)
                     if gs:
                         database.execute("INSERT LOW_PRIORITY INTO cg_channel_recommendations VALUES (%s, %s, %s)", (id1, id2, gs))
-            database.commit()
+    database.commit()
 
 if __name__ == "__main__":
     from channelguide import manage, init # set up environment
