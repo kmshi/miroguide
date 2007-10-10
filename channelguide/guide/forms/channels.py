@@ -394,3 +394,40 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
             user = User.query(username=self.cleaned_data['owner']).get(self.connection)
             channel.owner_id = user.id
         super(EditChannelForm, self).update_channel(channel)
+
+class FeaturedEmailForm(Form):
+
+    email = forms.EmailField(max_length=50, label=_("Email"))
+    title = forms.CharField(max_length=50, label=_("Title"))
+    body = forms.CharField(widget=forms.Textarea, label=_("Body"))
+
+    def __init__(self, request, channel, data=None):
+        Form.__init__(self, request.connection, data)
+        self.channel = channel.join('owner').execute(request.connection)
+        self.fields['email'].initial = channel.owner.email
+        self.fields['title'].initial = ('%s featued on Miro Guide'
+                % channel.name)
+        self.fields['body'].initial = """Hello,
+
+We want to let you know that %s has been featured on Miro in the
+Channel Guide. Every week we showcase different podcasts to expose our users
+to interesting and high quality video feeds. Feel free to take a look and you
+will see %s scrolling across on the featured channels here:
+https://miroguide.com/
+
+If you would like to be able to update the description of your channel(s) and
+if you do not already have control of your feeds in the Miro Guide, I am happy
+to help you get set up.
+
+-Regards,
+
+Miro Channel Guide Moderators
+
+PS. Did you know that you can give your viewers an easy way to get subscribed
+in Miro: http://subscribe.getmiro.com/""" % (channel.name, channel.name)
+
+    def send_email(self):
+        email = self.cleaned_data['email']
+        title = self.cleaned_data['title']
+        body = self.cleaned_data['body']
+        util.send_mail(title, body, [email])

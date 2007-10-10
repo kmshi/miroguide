@@ -197,6 +197,8 @@ def show(request, id):
     if 'channel-edit-error' in request.session:
         context['error'] = request.session['channel-edit-error']
         del request.session['channel-edit-error']
+    if request.user.is_supermoderator() and c.featured:
+        context['featured_email_form'] = forms.FeaturedEmailForm(request, c)
     return util.render_to_response(request, 'show-channel.html', context)
 
 def after_submit(request):

@@ -138,6 +138,20 @@ return false;
             </form>
         </li>
         {% endif %}
+        {% if featured_email_form %}
+        <li class="channel-action">
+            <h3>{% trans "Featured Channel Notification" %}</h3>
+            <form method="POST" action="{{ channel.get_url }}">
+                {% show_form featured_email_form %}
+                <input type="hidden" name="action" value="send-featured-email">
+                <ul class="form-inputs">
+                    <li>
+                        <input type="submit" value="Send">
+                    </li>
+                </ul>
+            </form>
+        </li>
+        {% endif %}
         </ul>
         {% endif %}
    {% endtwocolumns %}

@@ -1,2 +1,2 @@
-from channels import SubmitChannelForm, EditChannelForm, FeedURLForm
+from channels import SubmitChannelForm, EditChannelForm, FeedURLForm, FeaturedEmailForm
 from misc import EmailChannelOwnersForm

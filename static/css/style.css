@@ -1448,6 +1448,11 @@ li.blog-post .title {
     float: left;
 }
 
+.channel-full .form-inputs li {
+    float: left;
+    clear: left;
+}
+
 .channel-full .rejection-actions {
     border: 1px solid white;
     padding: 2px 5px 10px 5px;
