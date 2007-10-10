@@ -161,6 +161,13 @@ user_auth_token = Table('cg_user_auth_token',
         columns.Int('user_id', fk=user.c.id, primary_key=True),
         columns.String('token', 255),
         columns.DateTime('expires'))
+featured_email = Table('cg_channel_featured_email',
+        columns.Int('sender_id', fk=user.c.id),
+        columns.Int('channel_id', fk=channel.c.id, primary_key=True),
+        columns.String('email', 100),
+        columns.String('title', 100),
+        columns.String('body'),
+        columns.DateTime('timestamp', primary_key=True, default=datetime.now))
 # set up count subquery columns.  These are a little more complex than the
 # other columns, so they are separated out
 category.add_subquery_column('channel_count', """\
@@ -257,3 +264,4 @@ moderator_action.many_to_one('user', user, backref='moderator_actions')
 moderator_action.many_to_one('channel', channel, backref='moderator_actions')
 channel_rating.many_to_one('user', user, backref='channel_rating')
 channel_rating.many_to_one('channel', channel, backref='channel_rating')
+featured_email.many_to_one('sender', user, backref='featured_email')

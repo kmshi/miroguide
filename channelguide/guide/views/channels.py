@@ -4,12 +4,12 @@ from django.template import loader, context
 from django.utils.translation import gettext as _
 
 from channelguide import util, cache
-from channelguide.guide import forms, templateutil
+from channelguide.guide import forms, templateutil, tables
 from channelguide.guide.auth import (admin_required, moderator_required,
         login_required)
 from channelguide.guide.exceptions import AuthError
-from channelguide.guide.models import (Channel, Item, User, ModeratorAction,
-        ChannelNote, Rating, Tag, Category, Language)
+from channelguide.guide.models import (Channel, Item, User, FeaturedEmail,
+        ModeratorAction, ChannelNote, Rating, Tag, Category, Language)
 from channelguide.guide.notes import get_note_info, make_rejection_note
 from sqlhelper.sql.statement import Select
 from sqlhelper.sql.expression import Literal
@@ -169,10 +169,25 @@ def channel(request, id):
             else:
                 msg = _("Rejection emails need a title and body")
                 request.session['channel-edit-error'] = msg
+        elif action == 'send-featured-email':
+            request.user.check_is_supermoderator()
+            form = forms.FeaturedEmailForm(request, channel,
+                    request.POST.copy())
+            if form.is_valid():
+                form.send_email()
+                obj = FeaturedEmail()
+                obj.title = form.title
+                obj.body = form.body
+                obj.email = form.email
+                obj.channel_id = id
+                obj.sender_id = request.user.id
+                obj.save(request.connection)
+            else:
+                return show(request, channel.id, form)
         channel.save(request.connection)
     return util.redirect_to_referrer(request)
 
-def show(request, id):
+def show(request, id, featured_form=None):
     query = Channel.query()
     query.join('categories', 'tags', 'notes', 'owner', 'last_moderated_by',
             'notes.user')
@@ -198,7 +213,19 @@ def show(request, id):
         context['error'] = request.session['channel-edit-error']
         del request.session['channel-edit-error']
     if request.user.is_supermoderator() and c.featured:
-        context['featured_email_form'] = forms.FeaturedEmailForm(request, c)
+        query = FeaturedEmail.query().join('sender')
+        query.order_by(FeaturedEmail.c.timestamp, desc=True)
+        query.limit(1)
+        last_featured_email = query.execute(request.connection)
+        if last_featured_email:
+            last_featured_email = last_featured_email[0]
+        else:
+            last_featured_email = None
+        print last_featured_email
+        if featured_form is None:
+            featured_form = forms.FeaturedEmailForm(request, c)
+        context['featured_email_form'] = featured_form
+        context['last_featured_email'] = last_featured_email
     return util.render_to_response(request, 'show-channel.html', context)
 
 def after_submit(request):

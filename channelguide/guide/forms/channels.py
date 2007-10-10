@@ -427,7 +427,7 @@ PS. Did you know that you can give your viewers an easy way to get subscribed
 in Miro: http://subscribe.getmiro.com/""" % (channel.name, channel.name)
 
     def send_email(self):
-        email = self.cleaned_data['email']
-        title = self.cleaned_data['title']
-        body = self.cleaned_data['body']
-        util.send_mail(title, body, [email])
+        self.email = self.cleaned_data['email']
+        self.title = self.cleaned_data['title']
+        self.body = self.cleaned_data['body']
+        util.send_mail(self.title, self.body, [self.email])

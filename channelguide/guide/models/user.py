@@ -252,6 +252,9 @@ class UserAuthToken(Record):
         message = emailmessages.ForgotPasswordEmail(url, self.user)
         message.send_email(self.user.email, break_lines=False)
 
+class FeaturedEmail(Record):
+    table = tables.featured_email
+
 class ModeratorAction(Record):
     table = tables.moderator_action
 
