@@ -337,7 +337,7 @@ def calculate_recommendations(args=None):
     if args and args[-1] == 'full':
         recommendations.calculateAll(connection)
     else:
-        recommendations.calculateRecent(connection)
+        recommendations.calculateRecent(connection, 60)
 calculate_recommendations.args = '[full]'
 
 # Remove django default actions that we don't use.  Many of these probably

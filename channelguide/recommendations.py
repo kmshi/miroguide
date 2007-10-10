@@ -27,8 +27,10 @@ def calculateAll(database):
     channels = [e[0] for e in query.execute(database)]
     calculateRecommendations(database, channels)
 
-def calculateRecent(database):
-    channels = map(int, getRecent(database, 60*60*24))
+def calculateRecent(database, length=None):
+    if length is None:
+        length = 60*60*24 # 1 day
+    channels = map(int, getRecent(database, length))
     container = ','.join([str(x) for x in channels])
     database.execute("DELETE FROM cg_channel_recommendations WHERE channel1_id IN (%s) OR channel2_id IN (%s)" % (container, container))
     calculateRecommendations(database, channels)
