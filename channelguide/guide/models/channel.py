@@ -218,7 +218,7 @@ class Channel(Record, Thumbnailable):
             delete.execute(connection)
 
     def find_relevant_similar(self, connection, ip_address=None):
-        ignoresWhere = """timestamp > DATE_SUB(NOW(), INTERVAL 6 MONTH)
+        ignoresWhere = """timestamp > DATE_SUB(NOW(), INTERVAL 1 MONTH)
 AND ignore_for_recommendations=%s AND ip_address<>%s"""
         ignoresArgs = [False, '0.0.0.0']
         sql = """
@@ -239,7 +239,7 @@ WHERE channel_id=%%s AND %s)""" % ignoresWhere
         return [e[0] for e in results]
 
     def get_similarity(self, connection, other):
-        sql = 'SELECT channel_id, ip_address from cg_channel_subscription WHERE (channel_id=%s OR channel_id=%s) AND timestamp > DATE_SUB(NOW(), INTERVAL 6 MONTH) AND ip_address<>%s AND ignore_for_recommendations=%s ORDER BY ip_address'
+        sql = 'SELECT channel_id, ip_address from cg_channel_subscription WHERE channel_id IN (%s, %s) AND timestamp > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND ip_address<>%s AND ignore_for_recommendations=%s ORDER BY ip_address'
         entries = connection.execute(sql, (self.id, other, "0.0.0.0", False))
         if not entries:
             return 0.0
