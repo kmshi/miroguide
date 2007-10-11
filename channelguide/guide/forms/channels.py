@@ -407,24 +407,29 @@ class FeaturedEmailForm(Form):
         self.fields['email'].initial = channel.owner.email
         self.fields['title'].initial = ('%s featued on Miro Guide'
                 % channel.name)
+        if request.user.fname:
+            if request.user.lname:
+                name = "%s %s (%s)" % (request.user.fname, request.user.lname,
+                        request.user.username)
+            else:
+                name = "%s (%s)" % (request.user.fname, request.user.username)
+        else:
+            name = request.user.username
         self.fields['body'].initial = """Hello,
 
-We want to let you know that %s has been featured on Miro in the
-Channel Guide. Every week we showcase different podcasts to expose our users
-to interesting and high quality video feeds. Feel free to take a look and you
-will see %s scrolling across on the featured channels here:
+We want to let you know that %s has been featured on Miro in the Channel Guide. Every week we showcase different podcasts to expose our users to interesting and high quality video feeds. Feel free to take a look and you will see %s scrolling across on the featured channels here:
+
 https://miroguide.com/
 
-If you would like to be able to update the description of your channel(s) and
-if you do not already have control of your feeds in the Miro Guide, I am happy
-to help you get set up.
+If you would like to be able to update the description of your channel(s) and if you do not already have control of your feeds in the Miro Guide, I am happy to help you get set up.
 
 -Regards,
+%s
 
-Miro Channel Guide Moderators
-
-PS. Did you know that you can give your viewers an easy way to get subscribed
-in Miro: http://subscribe.getmiro.com/""" % (channel.name, channel.name)
+PS. Miro 1-click links rock! They give your viewers a simple way to go directly
+from your website to being subscribed to your feed in Miro:
+http://subscribe.getmiro.com/
+""" % (channel.name, channel.name, name)
 
     def send_email(self):
         self.email = self.cleaned_data['email']
