@@ -490,6 +490,10 @@ def for_user(request, user_id):
     user = util.get_object_or_404(request.connection, User, user_id)
     query = Channel.query(owner_id=user.id)
     query.join('categories', 'tags', 'owner', 'last_moderated_by')
+    if request.user.id == long(user_id):
+        query.load('subscription_count_today', 'subscription_count_today_rank')
+        query.load('subscription_count_month', 'subscription_count_month_rank')
+    print query.execute(request.connection)[0].__dict__
     pager =  templateutil.Pager(10, query, request)
     return util.render_to_response(request, 'for-user.html', {
         'for_user': user,

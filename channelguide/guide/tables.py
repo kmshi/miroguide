@@ -232,6 +232,8 @@ WHERE cg_channel_subscription.channel_id=#table#.id"""
             interval = "DATE_SUB(NOW(), INTERVAL 1 %s)" % timeline
             sql += " AND cg_channel_subscription.timestamp > %s" % interval
     channel.add_subquery_column(name, sql)
+    rank_sql = "SELECT 1+COUNT(*) FROM cg_channel c1 WHERE (%s) > (%s)" % (sql.replace('#table#', 'c1'), sql)
+    channel.add_subquery_column(name+"_rank", rank_sql)
 
 make_subscription_count('subscription_count')
 make_subscription_count('subscription_count_today', 'DAY')
