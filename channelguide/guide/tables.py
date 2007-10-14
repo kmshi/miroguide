@@ -216,23 +216,24 @@ FROM cg_channel_rating JOIN user ON user.id=cg_channel_rating.user_id
 WHERE cg_channel_rating.channel_id=#table#.id AND user.approved=1""")
 
 def make_subscription_count(name, timeline=None):
-    #    if timeline is None or timeline == 'MONTH':
-    #    if timeline is None:
-    #        column = 'subscription_count_total'
-    #    else:
-    #        column = 'subscription_count_month'
-    #    sql = """SELECT %s FROM cg_channel_generated_stats WHERE
-#channel_id=#table#.id""" % column
-    if 1:#else:
-        sql = """\
-SELECT COUNT(*)
-FROM cg_channel_subscription
-WHERE cg_channel_subscription.channel_id=#table#.id"""
-        if timeline is not None:
-            interval = "DATE_SUB(NOW(), INTERVAL 1 %s)" % timeline
-            sql += " AND cg_channel_subscription.timestamp > %s" % interval
+    if timeline is None:
+        column = 'subscription_count_total'
+    elif timeline == 'DAY':
+        column = 'subscription_count_today'
+    else:
+        column = 'subscription_count_month'
+    sql = """SELECT %s FROM cg_channel_generated_stats WHERE
+channel_id=#table#.id""" % column
+#    if 1:#else:
+#        sql = """\
+        #SELECT COUNT(*)
+#FROM cg_channel_subscription
+#WHERE cg_channel_subscription.channel_id=#table#.id"""
+#        if timeline is not None:
+#            interval = "DATE_SUB(NOW(), INTERVAL 1 %s)" % timeline
+#            sql += " AND cg_channel_subscription.timestamp > %s" % interval
     channel.add_subquery_column(name, sql)
-    rank_sql = "SELECT 1+COUNT(*) FROM cg_channel c1 WHERE (%s) > (%s)" % (sql.replace('#table#', 'c1'), sql)
+    rank_sql = "SELECT 1+COUNT(*) FROM cg_channel_generated_stats g1 JOIN cg_channel_generated_stats g2 ON g1.%s >g2.%s AND g2.channel_id=#table#.id" % (name, name)
     channel.add_subquery_column(name+"_rank", rank_sql)
 
 make_subscription_count('subscription_count')

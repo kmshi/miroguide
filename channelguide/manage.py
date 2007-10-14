@@ -384,6 +384,65 @@ def refresh_popular_cache(args=None):
         query.execute(connection)
 refresh_popular_cache.args = ''
 
+def refresh_stats_table(args=None):
+    """
+    Refreshes the statistics table so that we can calculate the ranks of
+    channels.
+    """
+    from channelguide import db
+    delete = "DELETE FROM cg_channel_generated_stats"
+    insert = """
+    INSERT into cg_channel_generated_stats
+    SELECT 
+    cg_channel.id, 
+      (
+        SELECT
+           COUNT(*)
+        FROM 
+           cg_channel_subscription
+        WHERE 
+           cg_channel_subscription.channel_id=cg_channel.id
+       )
+       AS cg_channel_subscription_count,
+        (
+        SELECT 
+           COUNT(*)
+        FROM 
+           cg_channel_subscription
+        WHERE 
+           cg_channel_subscription.channel_id=cg_channel.id 
+        AND 
+           cg_channel_subscription.timestamp > DATE_SUB(NOW(), INTERVAL 1 MONTH)
+      ) 
+      AS cg_channel_subscription_count_month,
+        (
+        SELECT 
+           COUNT(*)
+        FROM 
+           cg_channel_subscription
+        WHERE 
+           cg_channel_subscription.channel_id=cg_channel.id 
+        AND 
+           cg_channel_subscription.timestamp > DATE_SUB(NOW(), INTERVAL 1 DAY)
+      ) 
+      AS cg_channel_subscription_count_today
+    FROM 
+      cg_channel
+    WHERE 
+      cg_channel.state = 'A'
+    ORDER BY
+      cg_channel_subscription_count_today
+    DESC,
+      cg_channel_subscription_count_month 
+    DESC, 
+      cg_channel_subscription_count
+    DESC"""
+    conn = db.connect()
+    conn.execute(delete)
+    conn.execute(insert)
+    conn.commit()
+refresh_stats_table.args = ''
+
 action_mapping['syncdb'] = syncdb
 action_mapping['download_thumbnails'] = download_thumbnails
 action_mapping['update_search_data'] = update_search_data
@@ -401,6 +460,7 @@ action_mapping['remove_empty_tags'] = remove_empty_tags
 action_mapping['block_old_unapproved_users'] = block_old_unapproved_users
 action_mapping['calculate_recommendations'] = calculate_recommendations
 action_mapping['refresh_popular_cache'] = refresh_popular_cache
+action_mapping['refresh_stats_table'] = refresh_stats_table
 del action_mapping['test']
 
 def add_static_urls():
