@@ -28,6 +28,9 @@ class Item(Record, Thumbnailable):
         url = self.thumb_url(108, 81)
         return '<img width="108" height="81" src="%s" alt="%s">' % (url, self.name.replace('"', "'"))
 
+    def linked_name(self):
+        return '<a href="http://subscribe.getmiro.com/download.php?url1=%s">%s</a>' % (self.url, self.name)
+
     def update_search_data(self, connection):
         self.join('search_data').execute(connection)
         if self.search_data is None:
