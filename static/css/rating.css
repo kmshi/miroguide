@@ -4,6 +4,8 @@
     display: block;
     vertical-align: top;
     width: 150px;
+    height: 0px;
+    overflow: hidden;
 }
 
 .rating input {

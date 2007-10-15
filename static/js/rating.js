@@ -114,4 +114,5 @@ if ( jQuery.browser.msie == true )
 
 $(document).ready(function () {
     $("form.rating").rating('', {maxvalue:5});
+    $('.rating').height(25);
     });
