@@ -233,7 +233,14 @@ channel_id=#table#.id""" % column
 #            interval = "DATE_SUB(NOW(), INTERVAL 1 %s)" % timeline
 #            sql += " AND cg_channel_subscription.timestamp > %s" % interval
     channel.add_subquery_column(name, sql)
-    rank_sql = "SELECT 1+COUNT(*) FROM cg_channel_generated_stats WHERE %s > (%s)" % (name, sql)
+    rank_names = ['subscription_count']
+    if timeline != None:
+        rank_names.append('subscription_count_month')
+    if timeline != 'MONTH':
+        rank_names.append('subscription_count_today')
+    rank_where = ' AND '.join(["%s > (SELECT %s FROM cg_channel_generated_stats WHERE channel_id=#table#.id" % (name, name) for name in rank_names])
+    rank_sql = "SELECT 1+COUNT(*) FROM cg_channel_generated_stats WHERE %s" % rank_where
+    print rank_sql
     channel.add_subquery_column(name+"_rank", rank_sql)
 
 make_subscription_count('subscription_count')
