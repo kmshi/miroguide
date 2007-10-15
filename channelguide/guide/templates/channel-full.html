@@ -22,14 +22,14 @@
         {% endif %}
         </ul>
         {% endif %}
-        {% if channel.subscription_count_today %}
+        {% if channel.subscription_count_month %}
         <div class="stats">
             <h3>Channel Stats</h3>
             <ul>
-                <li>Subscriptions Today: {{ channel.subscription_count_today }}</li>
-                <li>Subscriptions Today Rank: {{ channel.subscription_count_today_rank }}</li>
-                <li>Subscriptions Month: {{ channel.subscription_count_month }}</li>
-                <li>Subscriptions Month Rank: {{ channel.subscription_count_month_rank }}</li>
+                <li>Subscriptions Past 24 Hours: {{ channel.subscription_count_today }}</li>
+                <li>Subscriptions Past 24 Hours Rank: {{ channel.subscription_count_today_rank }}</li>
+                <li>Subscriptions Past 31 Days: {{ channel.subscription_count_month }}</li>
+                <li>Subscriptions Past 31 Days Rank: {{ channel.subscription_count_month_rank }}</li>
             </ul>
         </div>
         {% endif %}
