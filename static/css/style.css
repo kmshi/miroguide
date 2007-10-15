@@ -1492,6 +1492,10 @@ li.blog-post .title {
     height: 120px;
 }
 
+.channel-full .stats {
+    clear: both;
+}
+
 /* Item list in the channel-full template */
 
 .channel-full-separator {
