@@ -411,7 +411,7 @@ div.clear {
 #notification-bar {
     background:#FDFDEC none repeat scroll 0%;
     border-bottom: 2px solid #DCE9F8;
-    height: 16px;
+    min-height: 16px;
     color: #fff;
     margin:0 -16px 10px;
     padding:7px 16px;
@@ -425,7 +425,7 @@ div.clear {
     font-size: 100%;
     color: black;
     height: 100%;
-    line-height: 1em;
+    line-height: 1.2em;
     vertical-align: middle;
 }
 
