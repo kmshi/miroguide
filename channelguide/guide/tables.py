@@ -238,8 +238,9 @@ channel_id=#table#.id""" % column
         rank_names.append('subscription_count_month')
     if timeline != 'MONTH':
         rank_names.append('subscription_count_today')
-    rank_where = ' AND '.join(["%s > (SELECT %s FROM cg_channel_generated_stats WHERE channel_id=#table#.id)" % (name, name) for name in rank_names])
-    rank_sql = "SELECT 1+COUNT(*) FROM cg_channel_generated_stats WHERE %s" % rank_where
+    rank_names.reverse()
+    rank_where = ' AND '.join(["%s > (SELECT %s FROM cg_channel_generated_stats WHERE channel_id=#table#.id)" % (n, n) for n in rank_names])
+    rank_sql = "SELECT CONCAT(1+COUNT(*),'/',(SELECT COUNT(*) FROM cg_channel_generated_stats)) FROM cg_channel_generated_stats WHERE %s" % rank_where
     channel.add_subquery_column(name+"_rank", rank_sql)
 
 make_subscription_count('subscription_count')
