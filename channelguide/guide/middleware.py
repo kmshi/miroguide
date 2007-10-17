@@ -62,7 +62,7 @@ class NotificationMiddleware(object):
                 lambda t, l: request.notifications.append((t, l)))
 
     def process_response(self, request, response):
-        if request.notifications:
+        if hasattr(request, 'notifications') and request.notifications:
             notification_bar = """<div id="notification-bar">
     <div id="notification-bar-inner">
         <ul>"""
