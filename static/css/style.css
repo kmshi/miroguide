@@ -409,7 +409,7 @@ div.clear {
 }
 
 #notification-bar {
-    background:#FDFDEC none repeat scroll 0%;
+    background:#FDFACF none repeat scroll 0%;
     border-bottom: 2px solid #DCE9F8;
     min-height: 16px;
     color: #fff;
@@ -438,7 +438,7 @@ div.clear {
 }
 
 #notification-bar-inner img {
-    padding: 0 0 3px 3px;
+    padding: 0 0 4px 3px;
     vertical-align: middle;
 }
 
