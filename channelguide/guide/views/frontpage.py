@@ -93,6 +93,7 @@ def make_category_peek(request):
 @cache.aggresively_cache
 @cache.cache_page_externally_for(300)
 def index(request):
+    request.add_notification('Rate', 'Now you can rate channels in Miro Guide &mdash; find out more in <a href="http://www.getmiro.com/blog/2007/10/rate-channels-in-miro-guide/">this post</a>')
     featured_channels = get_featured_channels(request.connection)
     return util.render_to_response(request, 'frontpage.html', {
         'popular_channels': get_popular_channels(request.connection, 7),

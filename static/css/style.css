@@ -408,7 +408,7 @@ div.clear {
     margin-left: 10px;
 }
 
-#approval-bar {
+#notification-bar {
     background:#FDFDEC none repeat scroll 0%;
     border-bottom: 2px solid #DCE9F8;
     height: 16px;
@@ -418,7 +418,7 @@ div.clear {
 
 }
 
-#approval-bar-inner {
+#notification-bar-inner {
     margin: auto;
 /*    width: 784px; */
     text-align: center;
@@ -429,8 +429,12 @@ div.clear {
     vertical-align: middle;
 }
 
-#approval-bar-inner a {
+#notification-bar-inner a {
     color:#377FC8;
+}
+
+#notification-bar-inner strong {
+    font-size: 130%;
 }
 
 #search-bar {

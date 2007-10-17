@@ -387,12 +387,7 @@ def popular_view(request):
             'popular_window_select': window_select
         }
     if not request.user.is_authenticated():
-        context['account_bar_message'] = """
-<div id="approval-bar">
-    <div id="approval-bar-inner">
-        To start rating channels, <a href="/accounts/login">create an account</a> and <a href="/accounts/login">login</a>
-    </div>
-</div>"""
+        request.add_notification('Log In', 'To start rating channels, <a href="/accounts/login">create an account</a> and <a href="/accounts/login">login</a>')
     return util.render_to_response(request, 'popular.html', context)
 
 def make_simple_list(request, query, header, order_by=None):
@@ -447,12 +442,7 @@ WHERE c2.channel_id=cg_channel.id AND user.approved=1))"""))
             'title': 'Top Rated Channels'
         }
     if not request.user.is_authenticated():
-        context['account_bar_message'] = """
-<div id="approval-bar">
-    <div id="approval-bar-inner">
-        To start rating channels, <a href="/accounts/login">create an account</a> and <a href="/accounts/login">login</a>
-    </div>
-</div>"""
+        request.add_notification('Log In', 'To start rating channels, <a href="/accounts/login">create an account</a> and <a href="/accounts/login">login</a>')
     return util.render_to_response(request, 'popular.html', context)
 
 def group_channels_by_date(channels):

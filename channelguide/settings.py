@@ -43,6 +43,7 @@ MIDDLEWARE_CLASSES = (
     'channelguide.cache.middleware.CacheMiddleware',
     'channelguide.db.middleware.DBMiddleware',
     'channelguide.sessions.middleware.SessionMiddleware',
+    'channelguide.guide.middleware.NotificationMiddleware',
     'channelguide.guide.middleware.UserMiddleware',
     'channelguide.guide.middleware.ChannelCountMiddleware',
     'channelguide.guide.middleware.ProfileMiddleware',

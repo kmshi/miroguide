@@ -31,6 +31,9 @@ class UserMiddleware(object):
             except LookupError:
                 req.user = AnonymousUser()
             else:
+                if req.user.approved == 0:
+                    req.add_notification('Confirm', """Confirm your e-mail to make your ratings count!  <a href="/accounts/confirm/%i/resend">Didn't get the e-mail?</a>""" % req.user.id)
+
                 req.connection.commit()
         else:
             req.user = AnonymousUser()
@@ -44,6 +47,37 @@ class ChannelCountMiddleware(object):
         channel_count = Channel.query_approved().count(request.connection)
         request.connection.commit()
         request.total_channels = locale.format('%d', channel_count, True)
+
+class NotificationMiddleware(object):
+    """
+    NotificationMiddleware adds a add_notification(title, line) method to
+    the request.  These notifications will be displayed at the top of the
+    page.
+    """
+
+    def process_request(self, request):
+        request.notifications = []
+        request.add_notification = (
+                lambda t, l: request.notifications.append((t, l)))
+
+    def process_response(self, request, response):
+        if request.notifications:
+            notification_bar = """<div id="notification-bar">
+    <div id="notification-bar-inner">
+        <ul>"""
+            for (title, line) in request.notifications:
+                notification_bar += """
+            <li><strong>%s:</strong> %s</li>""" % (title, line)
+            notification_bar += """
+        </ul>
+    </div>
+</div>"""
+        else:
+            notification_bar = ""
+        response.content = response.content.replace(
+                '<!-- NOTIFICATION BAR -->', notification_bar)
+        return response
+
 
 class ProfileMiddleware(object):
 

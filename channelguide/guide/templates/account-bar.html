@@ -30,13 +30,4 @@
         <div class="clear"></div>
     </div>
 </div>
-{% if user.is_authenticated %}
-{% ifequal user.approved 0 %}
-<div id="approval-bar">
-    <div id="approval-bar-inner">
-        Confirm your e-mail to make your ratings count!  <a href="/accounts/confirm/{{ user.id }}/resend">Didn't get the e-mail?</a>
-    </div>
-</div>
-{% endifequal %}
-{% endif %}
 <!-- END ACCOUNT BAR -->
