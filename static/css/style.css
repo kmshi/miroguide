@@ -183,7 +183,7 @@ div.clear {
 #content {
     background: white;
     color: black;
-    padding: 20px 16px;
+    padding: 0px 16px 20px;
     border: 1px solid #D2E3F5;
     border-top: none;
 }
@@ -410,18 +410,22 @@ div.clear {
 
 #approval-bar {
     background:#FDFDEC none repeat scroll 0%;
+    border-bottom: 2px solid #DCE9F8;
     height: 16px;
-    padding: 7px;
     color: #fff;
+    margin:0 -16px 10px;
+    padding:7px 16px;
+
 }
 
 #approval-bar-inner {
     margin: auto;
-    width: 784px;
+/*    width: 784px; */
     text-align: center;
     font-size: 100%;
     color: black;
     height: 100%;
+    line-height: 1em;
     vertical-align: middle;
 }
 
