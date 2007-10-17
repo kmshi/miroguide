@@ -69,6 +69,13 @@ class Channel(Record, Thumbnailable):
         return cls.query(*args, **kwargs)
 
     @classmethod
+    def query_new(cls, *args, **kwargs):
+        query = cls.query_approved(*args, **kwargs)
+        query.where(cls.c.approved_at<=expression.Expression("SELECT timestamp FROM cg_channel_last_approved"))
+        query.order_by(cls.c.approved_at, desc=True)
+        return query
+
+    @classmethod
     def query_with_items(cls, *args, **kwargs):
         query = Channel.query(*args, **kwargs).join('items')
         query.order_by(query.joins['items'].c.date, desc=True)

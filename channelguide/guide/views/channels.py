@@ -478,7 +478,7 @@ def group_channels_by_date(channels):
 
 @cache.aggresively_cache
 def recent(request):
-    query = Channel.query_approved().order_by('approved_at', desc=True)
+    query = Channel.query_new()
     pager =  templateutil.Pager(8, query, request)
     return util.render_to_response(request, 'recent.html', {
         'header': "RECENT CHANNELS",

@@ -443,6 +443,21 @@ def refresh_stats_table(args=None):
     conn.commit()
 refresh_stats_table.args = ''
 
+def update_new_channel_queue(args=None):
+    """
+    Update the cg_channel_last_approved table to include the next
+    most-recently approved channel.
+    """
+    from channelguide import db
+    conn = db.connect()
+    new_channel = conn.execute('SELECT approved_at FROM cg_channel WHERE approved_at>(SELECT timestamp FROM cg_channel_last_approved) ORDER BY approved_at ASC LIMIT 1')
+    print new_channel
+    if new_channel:
+        conn.execute('UPDATE cg_channel_last_approved SET timestamp=%s',
+                (new_channel[0]))
+        conn.commit()
+update_new_channel_queue.args = ''
+
 action_mapping['syncdb'] = syncdb
 action_mapping['download_thumbnails'] = download_thumbnails
 action_mapping['update_search_data'] = update_search_data
@@ -461,6 +476,7 @@ action_mapping['block_old_unapproved_users'] = block_old_unapproved_users
 action_mapping['calculate_recommendations'] = calculate_recommendations
 action_mapping['refresh_popular_cache'] = refresh_popular_cache
 action_mapping['refresh_stats_table'] = refresh_stats_table
+action_mapping['update_new_channel_queue'] = update_new_channel_queue
 del action_mapping['test']
 
 def add_static_urls():
