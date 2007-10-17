@@ -116,11 +116,13 @@ return false;
             {% blocktrans with channel.last_moderated_by as mod %}
             (set by {{ mod }})
             {% endblocktrans %}
-            {% if channel.featured_by %}
-            {% blocktrans with channel.featured_by as feat %}
-            Featured by {{ feat }}
-            {% endblocktrans %}
             {% endif %}
+            {% if channel.featured_by %}
+                <br/>
+                {% trans "Featured by" %} {{ channel.featured_by }}
+                {% if channel.featured_at %}
+                    at {{ channel.featured_at }}
+                {% endif %}
             {% endif %}
         </li></ul>
         {% endif %}
