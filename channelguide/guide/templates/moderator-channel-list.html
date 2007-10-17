@@ -3,6 +3,7 @@
 
 {% block content %}
 <div class="moderator-channel-list">
+{% show_pager pager %}
 <h1>{{ header }}</h1>
 <ul class="channel-list">
   {% for channel in channels %}
