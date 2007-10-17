@@ -414,19 +414,19 @@ div.clear {
     min-height: 16px;
     color: #fff;
     margin:0 -16px 10px;
-    padding:7px 16px;
+    padding:3px 16px;
 
 }
 
 #notification-bar-inner {
     margin: auto;
 /*    width: 784px; */
-    text-align: center;
+    text-align: left;
     font-size: 100%;
     color: black;
     height: 100%;
-    line-height: 1.2em;
-    vertical-align: middle;
+    line-height: 1.5em;
+    padding-left: 6px;
 }
 
 #notification-bar-inner a {
@@ -435,6 +435,11 @@ div.clear {
 
 #notification-bar-inner strong {
     font-size: 130%;
+}
+
+#notification-bar-inner img {
+    padding: 0 0 3px 3px;
+    vertical-align: middle;
 }
 
 #search-bar {

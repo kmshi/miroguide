@@ -387,7 +387,7 @@ def popular_view(request):
             'popular_window_select': window_select
         }
     if not request.user.is_authenticated():
-        request.add_notification('Log In', 'To start rating channels, <a href="/accounts/login">create an account</a> and <a href="/accounts/login">login</a>')
+        request.add_notification('Rate', 'Now you can rate channels in Miro Guide &mdash; it only takes 15 seconds to <a href="/accounts/login">get started</a>.<img src="/images/small-star.png" />')
     return util.render_to_response(request, 'popular.html', context)
 
 def make_simple_list(request, query, header, order_by=None):
@@ -442,7 +442,7 @@ WHERE c2.channel_id=cg_channel.id AND user.approved=1))"""))
             'title': 'Top Rated Channels'
         }
     if not request.user.is_authenticated():
-        request.add_notification('Log In', 'To start rating channels, <a href="/accounts/login">create an account</a> and <a href="/accounts/login">login</a>')
+        request.add_notification('Rate', 'Now you can rate channels in Miro Guide &mdash; it only takes 15 seconds to <a href="/accounts/login">get started</a>.<img src="/images/small-star.png" />')
     return util.render_to_response(request, 'popular.html', context)
 
 def group_channels_by_date(channels):

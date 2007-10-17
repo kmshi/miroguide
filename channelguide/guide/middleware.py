@@ -32,7 +32,8 @@ class UserMiddleware(object):
                 req.user = AnonymousUser()
             else:
                 if req.user.approved == 0:
-                    req.add_notification('Confirm', """Confirm your e-mail to make your ratings count!  <a href="/accounts/confirm/%i/resend">Didn't get the e-mail?</a>""" % req.user.id)
+                    req.add_notification('Welcome', 'You are now logged in!  Click into any channel to give it a star rating.')
+                    req.add_notification('Confirm', """Confirm your e-mail to make your ratings count towards the average.  <a href="/accounts/confirm/%i/resend">Didn't get the e-mail?</a>""" % req.user.id)
 
                 req.connection.commit()
         else:
