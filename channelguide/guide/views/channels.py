@@ -423,7 +423,7 @@ def features(request):
     return make_simple_list(request, query, _("Featured Channels"),
             Channel.c.featured_at)
 
-def toprated(request):
+def get_toprated_query():
     query = Channel.query_approved()
     query.load('average_rating', 'count_rating', 'item_count',
             'subscription_count_today')
@@ -433,6 +433,10 @@ FROM cg_channel_rating AS c2 JOIN user ON user.id=c2.user_id
 WHERE c2.channel_id=cg_channel.id AND user.approved=1))"""))
     query.order_by('average_rating', desc=True)
     query.order_by('count_rating', desc=True)
+    return query
+
+def toprated(request):
+    query = get_toprated_query
     pager = templateutil.Pager(10, query, request)
     for channel in pager.items:
         channel.popular_count = channel.subscription_count_today

@@ -2158,3 +2158,7 @@ div.shadow div {
     top: -5px;
 }
 
+.first-time-page a.selected {
+    background: blue;
+    color: white;
+}

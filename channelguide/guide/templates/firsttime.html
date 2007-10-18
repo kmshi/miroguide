@@ -8,6 +8,9 @@
 <script type="text/javascript">
 $(document).ready(function(){
     $('#list').accordion();
+    $('#channellist a').bind('click', function(){
+        $(this).toggleClass('selected');
+        return false;});
     $('#faqs dd').hide();
     $('#faqs dt').bind('click',
         function() {
@@ -24,7 +27,17 @@ $(document).ready(function(){
         <a href="#"><h1>Step 1: Welcome To Miro</h1></a>
         <div><embed src="http://blip.tv/file/get/Miropcf-UnwatchAnyVideo407.mp4"></div>
         <a href="#"><h1>Step 2: Tell Us What You Love</h1></a>
-        <div>Channel categories</div>
+        <div id="channellist">{% fourcolumnloop  with column in channel_columns %}
+                {% for channellist in column %}
+                    <h2>{{ channellist.0 }}</h2>
+                    <ul>
+                        {% for channel in channellist.1 %}
+                            <li><a channelid={{ channel.id }} href="{{ channel.url }}">{{ channel.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+            {% endfourcolumnloop %}
+        </div>
         <a href="#"><h1>Step 3: All Set!</h1></a>
         <div>Some text
             <div id="faqs">
