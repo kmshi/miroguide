@@ -1,0 +1,42 @@
+{% load i18n channels cg_helpers %}
+{% extends 'base.html' %}
+{% block title %}Welcome to Miro{% endblock %}
+{% block head-extra %}
+<script src="{{ STATIC_BASE_URL }}js/jquery.js" type="text/javascript"></script>
+<script src="{{ STATIC_BASE_URL }}js/jquery.dimensions.js" type="text/javascript"></script>
+<script src="{{ STATIC_BASE_URL }}js/jquery-ui.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#list').accordion();
+    $('#faqs dd').hide();
+    $('#faqs dt').bind('click',
+        function() {
+            $(this).next().toggle();
+            return false;
+        });
+    });
+</script>
+
+{% endblock %}
+{% block content %}
+<div class="first-time-page">
+    <div id="list">
+        <a href="#"><h1>Step 1: Welcome To Miro</h1></a>
+        <div>Video goes here</div>
+        <a href="#"><h1>Step 2: Tell Us What You Love</h1></a>
+        <div>Channel categories</div>
+        <a href="#"><h1>Step 3: All Set!</h1></a>
+        <div>Some text
+            <div id="faqs">
+                <dl>
+                {% for faq in faqs %}
+                    <dt><a href="#">{{ faq.0 }}</a></dt>
+                    <dd>{{ faq.1 }}</dd>
+                {% endfor %}
+                </dl>
+            </div>
+        </div>
+    </div>
+    <a href="/"><h1>No thanks, just take me to the Guide!</h1></a>
+</div>
+{% endblock %}
