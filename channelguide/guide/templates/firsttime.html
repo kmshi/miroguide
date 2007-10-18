@@ -25,7 +25,16 @@ $(document).ready(function(){
 <div class="first-time-page">
     <div id="list">
         <a href="#"><h1>Step 1: Welcome To Miro</h1></a>
-        <div><embed src="http://blip.tv/file/get/Miropcf-UnwatchAnyVideo407.mp4"></div>
+        <div>        <OBJECT classid='clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B' width="320"
+        height="255" codebase='http://www.apple.com/qtactivex/qtplugin.cab'>
+        <param name='src' value="http://blip.tv/file/get/Miropcf-UnwatchAnyVideo407.mp4">
+        <param name='autoplay' value="true">
+        <param name='controller' value="true">
+        <param name='loop' value="false">
+        <EMBED src="http://blip.tv/file/get/Miropcf-UnwatchAnyVideo407.mp4" width="320" height="255" autoplay="true" 
+        controller="true" loop="false" pluginspage='http://www.apple.com/quicktime/download/'>
+        </EMBED>
+        </OBJECT></div>
         <a href="#"><h1>Step 2: Tell Us What You Love</h1></a>
         <div id="channellist">{% fourcolumnloop  with column in channel_columns %}
                 {% for channellist in column %}
