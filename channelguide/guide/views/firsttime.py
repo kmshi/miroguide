@@ -1,4 +1,4 @@
-from channelguide import cache, util
+from channelguide import cache, util, settings
 from channelguide.guide.views import frontpage, channels
 from channelguide.guide.models import Channel, Category
 
@@ -30,4 +30,5 @@ def index(request):
         channel_columns.append(category_channels)
     return util.render_to_response(request, 'firsttime.html',
             { 'faqs': faqs,
-              'channel_columns': channel_columns})
+              'channel_columns': channel_columns,
+              })

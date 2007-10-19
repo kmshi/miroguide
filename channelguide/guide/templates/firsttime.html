@@ -8,9 +8,10 @@
 <script type="text/javascript">
 $(document).ready(function(){
     $('#list').accordion();
-    $('#channellist a').bind('click', function(){
+    $('#channellist #channels a').bind('click', function(){
         $(this).toggleClass('subscribe');
         return false;});
+    $('#channellist a#subscribemulti').bind('click', subscribeMulti);
     $('#faqs dd').hide();
     $('#faqs dt').bind('click',
         function() {
@@ -18,6 +19,20 @@ $(document).ready(function(){
             return false;
         });
     });
+
+function subscribeMulti() {
+    var subscribes = $('a.subscribe');
+    var ids = Array(subscribes.length);
+    var urls = Array(subscribes.length);
+    subscribes.each(function(i) {
+        ids[i] = $(this).attr('channelid');
+        urls[i] = "url"+(i+1)+"="+escape($(this).attr('url'));
+        });
+    ajaxurl = "/channels/subscribe-hit/" + ids[0] + '?' + ids.slice(1).join('&');
+    oneclickurl = "http://subscribe.getmiro.com/?" + urls.join('&');
+    handleSubscriptionLink(ajaxurl, oneclickurl);
+    return false;
+}
 </script>
 
 {% endblock %}
@@ -25,27 +40,31 @@ $(document).ready(function(){
 <div class="first-time-page">
     <div id="list">
         <a href="#"><h1>Step 1: Welcome To Miro</h1></a>
-        <div>        <OBJECT classid='clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B' width="320"
-        height="255" codebase='http://www.apple.com/qtactivex/qtplugin.cab'>
+        <div>
+            <!--<OBJECT classid='clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B' width="320"
+        height="255">
         <param name='src' value="http://blip.tv/file/get/Miropcf-UnwatchAnyVideo407.mp4">
         <param name='autoplay' value="true">
         <param name='controller' value="true">
         <param name='loop' value="false">
         <EMBED src="http://blip.tv/file/get/Miropcf-UnwatchAnyVideo407.mp4" width="320" height="255" autoplay="true" 
-        controller="true" loop="false" pluginspage='http://www.apple.com/quicktime/download/'>
+        controller="true" loop="false">
         </EMBED>
-        </OBJECT></div>
+        </OBJECT>--></div>
         <a href="#"><h1>Step 2: Tell Us What You Love</h1></a>
-        <div id="channellist">{% fourcolumnloop  with column in channel_columns %}
-                {% for channellist in column %}
-                    <h2>{{ channellist.0 }}</h2>
-                    <ul>
-                        {% for channel in channellist.1 %}
-                            <li><a channelid={{ channel.id }} href="{{ channel.url }}">{{ channel.name }}</a></li>
-                        {% endfor %}
-                    </ul>
-                {% endfor %}
-            {% endfourcolumnloop %}
+        <div id="channellist">
+            <div id="channels">{% fourcolumnloop  with column in channel_columns %}
+                    {% for channellist in column %}
+                        <h2>{{ channellist.0 }}</h2>
+                        <ul>
+                            {% for channel in channellist.1 %}
+                                <li><a channelid={{ channel.id }} url="{{ channel.url }}" href="{{ channel.get_subscription_url }}">{{ channel.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endfor %}
+                {% endfourcolumnloop %}
+            </div>
+            <a href="#" id="subscribemulti">Subscribe to these channels</a>
         </div>
         <a href="#"><h1>Step 3: All Set!</h1></a>
         <div>Some text

@@ -93,13 +93,13 @@ class Channel(Record, Thumbnailable):
     def subscription_link(self):
         cg_link = util.make_url('channels/subscribe-hit/%d' %
                 self.id)
-        subscribe_link = settings.SUBSCRIBE_URL % { 'url': quote(self.url) }
+        subscribe_link = self.get_subscription_url()
         return util.make_link_attributes(subscribe_link, "add",
                 onclick="return handleSubscriptionLink('%s', '%s');" %
                 (cg_link, subscribe_link))
 
     def get_subscription_url(self):
-        return util.make_url('channels/subscribe/%d' % self.id)
+        return settings.SUBSCRIBE_URL % { 'url': quote(self.url) }
 
     def is_approved(self):
         return self.state == self.APPROVED
