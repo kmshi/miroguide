@@ -31,4 +31,5 @@ def index(request):
     return util.render_to_response(request, 'firsttime.html',
             { 'faqs': faqs,
               'channel_columns': channel_columns,
+              'MOVIE_URL':'http://blip.tv/file/get/Miropcf-UnwatchAnyVideo407.mp4',
               })

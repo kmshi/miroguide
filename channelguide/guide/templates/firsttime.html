@@ -40,17 +40,9 @@ function subscribeMulti() {
 <div class="first-time-page">
     <div id="list">
         <a href="#"><h1>Step 1: Welcome To Miro</h1></a>
-        <div>
-            <!--<OBJECT classid='clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B' width="320"
-        height="255">
-        <param name='src' value="http://blip.tv/file/get/Miropcf-UnwatchAnyVideo407.mp4">
-        <param name='autoplay' value="true">
-        <param name='controller' value="true">
-        <param name='loop' value="false">
-        <EMBED src="http://blip.tv/file/get/Miropcf-UnwatchAnyVideo407.mp4" width="320" height="255" autoplay="true" 
-        controller="true" loop="false">
-        </EMBED>
-        </OBJECT>--></div>
+                <div>
+<embed type="application/x-vlc-plugin" name="video1" autoplay="yes" loop="no" controller="yes" target="{{ MOVIE_URL }}">
+  </div>
         <a href="#"><h1>Step 2: Tell Us What You Love</h1></a>
         <div id="channellist">
             <div id="channels">{% fourcolumnloop  with column in channel_columns %}
