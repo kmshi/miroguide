@@ -41,7 +41,10 @@ function subscribeMulti() {
     <div id="list">
         <a href="#"><h1>Step 1: Welcome To Miro</h1></a>
                 <div>
-<embed type="application/x-vlc-plugin" name="video1" autoplay="yes" loop="no" controller="yes" target="{{ MOVIE_URL }}">
+<embed type="application/x-vlc-plugin" name="video1" autoplay="yes" loop="no" target="{{ MOVIE_URL }}" width=600 height=412 />
+<input type="button" value="Play" onclick="document.video1.play();" />
+<input type="button" value="Pause" onclick="document.video1.pause();" />
+<input type="button" value="Stop" onclick="document.video1.stop();" />-
   </div>
         <a href="#"><h1>Step 2: Tell Us What You Love</h1></a>
         <div id="channellist">
