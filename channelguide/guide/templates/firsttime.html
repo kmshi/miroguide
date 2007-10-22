@@ -40,14 +40,14 @@ function subscribeMulti() {
 {% block content %}
 <div class="first-time-page">
     <dl id="list">
-        <dt><a href="#"><span>1</span><h1>Meet Miro</h1></a></dt>
+        <dt class="selected"><a href="#"><span>1</span><h1>Meet Miro</h1></a></dt>
                 <dd>
 <embed type="application/x-vlc-plugin" name="video1" autoplay="yes" loop="no" target="{{ MOVIE_URL }}" width=600 height=412 />
 <input type="button" value="Play" onclick="document.video1.play();" />
 <input type="button" value="Pause" onclick="document.video1.pause();" />
 <input type="button" value="Stop" onclick="document.video1.stop();" />-
   </dd>
-        <dt class="selected"><a href="#"><span>2</span><h1>Click on Your Favorite Topics</h1></a></dt>
+        <dt><a href="#"><span>2</span><h1>Click on Your Favorite Topics</h1></a></dt>
         <dd id="channellist">
             <div id="channels">{% fourcolumnloop  with column in channel_columns %}
                     {% for channellist in column %}
