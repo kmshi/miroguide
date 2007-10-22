@@ -2106,10 +2106,10 @@ h3 .note-author {
 }
 
 div#store {
-    height:65px;
+    height:70px;
     left:-14px;
     position:relative;
-    top:-12px;
+    top:-2px;
     z-index:1;
 }
 
