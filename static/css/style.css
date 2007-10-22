@@ -2166,7 +2166,71 @@ div.shadow div {
     top: -5px;
 }
 
+.first-time-page dt {
+    background: url(images/inactive-step.gif) top left no-repeat;
+    vertical-align: bottom;
+    height: 70px;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.first-time-page dt.selected {
+    background: url(images/active-step.gif) top left no-repeat;
+}
+
+.first-time-page dt h1, .first-time-page dt span {
+    position: absolute;
+    top: 30px;
+    text-align: center;
+    color: white;
+    font-size:220%;
+    margin-bottom:8px;
+    font-family:Arial,sans-serif;
+    font-weight:bold;
+
+}
+
+.first-time-page dt span {
+    width: 65px;
+    text-align: center;
+    display: block;
+    color: white;
+}
+
+.first-time-page dt h1 {
+    margin-left: 65px;
+    width: 695px;
+}
+
 .first-time-page a.subscribe {
     background: blue;
     color: white;
 }
+
+.first-time-page div#nothanks {
+    background: url(images/skip-step.gif) top left no-repeat;
+    height: 48px;
+    position: relative;
+}
+
+.first-time-page #nothanks span.icon {
+    background: url(images/skip-icon.jpg) top left no-repeat;
+    display: block;
+    height: 40px;
+    width: 50px;
+    margin:5px;
+    position:absolute;
+    top:-1px;
+}
+
+.first-time-page #nothanks h1 {
+    color:white;
+    float:left;
+    font-size:220%;
+    margin-left:65px;
+    position:absolute;
+    text-align:center;
+    top:6px;
+    width:695px;
+}
+
