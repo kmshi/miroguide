@@ -221,7 +221,6 @@ def show(request, id, featured_form=None):
             last_featured_email = last_featured_email[0]
         else:
             last_featured_email = None
-        print last_featured_email
         if featured_form is None:
             featured_form = forms.FeaturedEmailForm(request, c)
         context['featured_email_form'] = featured_form
@@ -489,7 +488,6 @@ def for_user(request, user_id):
     if request.user.id == long(user_id) or request.user.is_admin():
         query.load('subscription_count_today', 'subscription_count_today_rank')
         query.load('subscription_count_month', 'subscription_count_month_rank')
-    print query.execute(request.connection)[0].__dict__
     pager =  templateutil.Pager(10, query, request)
     return util.render_to_response(request, 'for-user.html', {
         'for_user': user,
