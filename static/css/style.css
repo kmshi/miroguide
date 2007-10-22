@@ -2105,6 +2105,14 @@ h3 .note-author {
     background-image: url(images/icons/info-small-white.png);
 }
 
+div#store {
+    height:65px;
+    left:-14px;
+    position:relative;
+    top:-12px;
+    z-index:1;
+}
+
 div#donate {
     border-top: 1px solid #FFFCA9; 
     border-bottom: 1px solid #FFFCA9; 
