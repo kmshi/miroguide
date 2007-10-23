@@ -2202,6 +2202,12 @@ div.shadow div {
     width: 695px;
 }
 
+.first-time-page div#video {
+    width: 600px;
+    height: 420px;
+    background: black;
+}
+
 .first-time-page a.subscribe {
     background: blue;
     color: white;
