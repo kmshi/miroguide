@@ -8,7 +8,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
     $('#list').accordion({
-        header: 'dt'});
+        header: 'dt.step'});
     $('#channellist #channels a').bind('click', function(){
         $(this).toggleClass('subscribe');
         return false;});
@@ -16,7 +16,7 @@ $(document).ready(function(){
     $('#faqs dd').hide();
     $('#faqs dt').bind('click',
         function() {
-            $(this).next().toggle();
+            $(this).toggleClass('open').next().toggle();
             return false;
         });
     });
@@ -40,14 +40,14 @@ function subscribeMulti() {
 {% block content %}
 <div class="first-time-page">
     <dl id="list">
-        <dt class="selected"><a href="#"><span>1</span><h1>Meet Miro</h1></a></dt>
+        <dt class="selected step"><a href="#"><span>1</span><h1>Meet Miro</h1></a></dt>
                 <dd>
 <embed type="application/x-vlc-plugin" name="video1" autoplay="yes" loop="no" target="{{ MOVIE_URL }}" width=600 height=412 />
 <input type="button" value="Play" onclick="document.video1.play();" />
 <input type="button" value="Pause" onclick="document.video1.pause();" />
 <input type="button" value="Stop" onclick="document.video1.stop();" />-
   </dd>
-        <dt><a href="#"><span>2</span><h1>Click on Your Favorite Topics</h1></a></dt>
+        <dt class="step"><a href="#"><span>2</span><h1>Click on Your Favorite Topics</h1></a></dt>
         <dd id="channellist">
             <div id="channels">{% fourcolumnloop  with column in channel_columns %}
                     {% for channellist in column %}
@@ -62,8 +62,17 @@ function subscribeMulti() {
             </div>
             <a href="#" id="subscribemulti">Subscribe to these channels</a>
         </dd>
-        <dt><a href="#"><span>3</span><h1>Get Ready to Watch!</h1></a></dt>
-        <dd>Some text
+        <dt class="step"><a href="#"><span>3</span><h1>Get Ready to Watch!</h1></a></dt>
+        <dd>
+            <div class="third-step">
+                <h2>Miro is doing its thing...</h2>
+                <img src="{{ STATIC_BASE_URL}}images/play-downloads.png" alt="Videos downloaded in Miro">
+                Miro is getting the first video from each channel.  You'll see green ovals in your sidebar when videos are ready to watch.
+            </div>
+            <div class="third-step">
+                <h2>In the mean time,</h2>
+                Find thousands of free channels in the <a href="{{ BASE_URL }}">Miro guide</a>, add as many as you want.
+            </div>
             <div id="faqs">
                 <dl>
                 {% for faq in faqs %}

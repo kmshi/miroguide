@@ -2166,7 +2166,7 @@ div.shadow div {
     top: -5px;
 }
 
-.first-time-page dt {
+.first-time-page dl#list > dt {
     background: url(images/inactive-step.gif) top left no-repeat;
     vertical-align: bottom;
     height: 70px;
@@ -2174,11 +2174,11 @@ div.shadow div {
     margin-bottom: 30px;
 }
 
-.first-time-page dt.selected {
+.first-time-page dl#list > dt.selected {
     background: url(images/active-step.gif) top left no-repeat;
 }
 
-.first-time-page dt h1, .first-time-page dt span {
+.first-time-page dl#list > dt h1, .first-time-page dl#list > dt span {
     position: absolute;
     top: 30px;
     text-align: center;
@@ -2190,14 +2190,14 @@ div.shadow div {
 
 }
 
-.first-time-page dt span {
+.first-time-page dl#list > dt span {
     width: 65px;
     text-align: center;
     display: block;
     color: white;
 }
 
-.first-time-page dt h1 {
+.first-time-page dl#list > dt h1 {
     margin-left: 65px;
     width: 695px;
 }
@@ -2205,6 +2205,45 @@ div.shadow div {
 .first-time-page a.subscribe {
     background: blue;
     color: white;
+}
+
+.first-time-page div.third-step {
+    width: 260px;
+    margin:20px 20px 20px 75px;
+    float: left;
+    text-align: center
+}
+
+.first-time-page .third-step img {
+    margin: 4px 48px;
+}
+
+.first-time-page .third-step a {
+    color: blue;
+}
+
+.first-time-page .third-step a:hover {
+    text-decoration: underline;
+}
+
+.first-time-page div#faqs {
+    clear: left;
+}
+
+.first-time-page div#faqs dt {
+    background: url(images/down-arrow.jpg) left center no-repeat;
+    padding-left: 20px;
+    font-size: 180%;
+    font-weight: bold;
+}
+
+.first-time-page div#faqs dt.open {
+    background: url(images/up-arrow.jpg) left center no-repeat;
+}
+
+.first-time-page div#faqs dd {
+    margin-left: 40px;
+    font-size: 130%;
 }
 
 .first-time-page div#nothanks {

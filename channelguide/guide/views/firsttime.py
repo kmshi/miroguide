@@ -6,12 +6,12 @@ from channelguide.guide.models import Channel, Category
 @cache.cache_page_externally_for(3600)
 def index(request):
     faqs = [
-            ('Question 1?', 'Answer 1'),
-            ('Question 2?', 'Answer 2'),
-            ('Question 3?', 'Answer 3'),
-            ('Question 4?', 'Answer 4'),
-            ('Question 5?', 'Answer 5'),
-            ('Question 6?', 'Answer 6'),
+            ("I don't get it &mdash; what does Miro do?", 'Answer 1'),
+            ('Will my hard drive fill up with videos?', 'Answer 2'),
+            ('What is a channel?', 'Answer 3'),
+            ('How do I delete channels?', 'Answer 4'),
+            ('When is Miro the best way to watch videos?', 'Answer 5'),
+            ('How can I find channels I want to watch?', 'Answer 6'),
             ]
     popular = frontpage.get_popular_channels(request.connection, 5)
     toprated = channels.get_toprated_query().limit(5).execute(request.connection)
