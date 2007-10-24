@@ -52,7 +52,7 @@ function createVideo(obj, url, width, height) {
             {% fourcolumnloop  with column in channel_columns %}
                 {% for channel in column %}
                     <div class="channel">
-                        <div style="width:120px; height:90px; background: black;"></div>
+                        <div style="width:120px; height:90px; background: black; margin-left: 12px;"></div>
                         <div class="subscribe"><a class="add" href="{{ channel.1 }}"><span class="icon"></span>Add {{ channel.0 }}</a></div>
                     </div>
                 {% endfor %}

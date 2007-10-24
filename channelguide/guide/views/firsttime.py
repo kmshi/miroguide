@@ -38,7 +38,7 @@ def index(request):
             query.limit(5)
             query.cacheable = cache.client
             query.cacheable_time = 3600
-            category_channels.append((name, _oneclick_url(query.execute(request.connection))))
+            category_channels.append((name.split()[0], _oneclick_url(query.execute(request.connection))))
         channel_columns.append(category_channels)
     return util.render_to_response(request, 'firsttime.html',
             { 'faqs': faqs,
