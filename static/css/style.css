@@ -2129,6 +2129,7 @@ div#donate {
     top: -15px;
     margin-top: 2px;
 }
+
 #donate h1 {
     color: #c71826;
     font-size: 36px;
@@ -2166,16 +2167,26 @@ div.shadow div {
     top: -5px;
 }
 
+div.first-time-page {
+    padding-top: 10px;
+}
+
 .first-time-page dl#list > dt {
     background: url(images/inactive-step.gif) top left no-repeat;
     vertical-align: bottom;
     height: 70px;
     position: relative;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
 .first-time-page dl#list > dt.selected {
     background: url(images/active-step.gif) top left no-repeat;
+    margin-bottom: 0px;
+}
+
+.first-time-page dl#list > dt.selected + dd {
+    background: url(images/active-step-bg.gif) top left no-repeat;
+    padding: 5px 10px 0 10px;
 }
 
 .first-time-page dl#list > dt h1, .first-time-page dl#list > dt span {
@@ -2203,9 +2214,40 @@ div.shadow div {
 }
 
 .first-time-page div#video {
-    width: 600px;
-    height: 420px;
+    width: 300px;
+    height: 225px;
     background: black;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.first-time-page div#download {
+    text-align: center;
+}
+
+.first-time-page #channellist li.column {
+    width: 185px;
+}
+
+.first-time-page .subscribe {
+    height: 24px;
+}
+
+.first-time-page .add .icon {
+    background-image: url(images/icons/add-big-white.png);
+    float: left;
+    display: block;
+    margin: 5px;
+    height: 24px;
+    width: 24px;
+}
+
+.first-time-page a.add {
+    font-weight: bold;
+    font-size: 130%;
+    line-height: 24px;
+    vertical-align: middle;
+    margin: 0px 30px 0 0;
 }
 
 .first-time-page a.subscribe {
@@ -2214,14 +2256,17 @@ div.shadow div {
 }
 
 .first-time-page div.third-step {
-    width: 260px;
-    margin:20px 20px 20px 75px;
+    width: 320px;
+    margin:20px 10px 20px 20px;
     float: left;
+    font-size: 120%;
     text-align: center
 }
 
 .first-time-page .third-step img {
-    margin: 4px 48px;
+    margin-left: 70px;
+    margin-right: 70px;
+    border: 1px solid black;
 }
 
 .first-time-page .third-step a {
@@ -2237,14 +2282,14 @@ div.shadow div {
 }
 
 .first-time-page div#faqs dt {
-    background: url(images/down-arrow.jpg) left center no-repeat;
+    background: url(images/arrow-r.gif) left center no-repeat;
     padding-left: 20px;
     font-size: 180%;
     font-weight: bold;
 }
 
 .first-time-page div#faqs dt.open {
-    background: url(images/up-arrow.jpg) left center no-repeat;
+    background: url(images/arrow-d.gif) left center no-repeat;
 }
 
 .first-time-page div#faqs dd {
@@ -2256,6 +2301,7 @@ div.shadow div {
     background: url(images/skip-step.gif) top left no-repeat;
     height: 48px;
     position: relative;
+    margin-top: 30px;
 }
 
 .first-time-page #nothanks span.icon {

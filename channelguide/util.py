@@ -1,7 +1,7 @@
 """Util package.  Used for often used convenience functions. """
 
 from datetime import datetime, timedelta
-from itertools import cycle, count
+from itertools import cycle, count, izip
 from urllib import quote, urlopen
 from urlparse import urlparse
 import Queue
@@ -318,3 +318,8 @@ def ensure_list(object):
         return object
     else:
         return [object]
+
+def get_subscription_url(*links):
+    parts = ['url%i=%s' % (index, quote(url)) for (index, url) in
+                izip(count(1), links)]
+    return settings.SUBSCRIBE_URL + '&'.join(parts)

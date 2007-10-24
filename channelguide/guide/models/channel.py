@@ -99,7 +99,7 @@ class Channel(Record, Thumbnailable):
                 (cg_link, subscribe_link))
 
     def get_subscription_url(self):
-        return settings.SUBSCRIBE_URL % { 'url': quote(self.url) }
+        return util.get_subscription_url(self.url)
 
     def is_approved(self):
         return self.state == self.APPROVED

@@ -229,7 +229,7 @@ def show(request, id, featured_form=None):
 
 def after_submit(request):
     url = request.META.get('QUERY_STRING')
-    subscribe = settings.SUBSCRIBE_URL % {'url': urllib.quote_plus(url)}
+    subscribe = util.get_subscription_url(url)
     def link(inside):
         return "<a href='%s' title='Miro: Internet TV'>%s</a>" % (subscribe, inside)
     textLink = '%s' % link("Your 1-Click Subscribe URL")
@@ -255,7 +255,7 @@ def subscribe(request, id):
     channel = util.get_object_or_404(request.connection, Channel, id)
     channel.add_subscription(request.connection,
             request.META.get('REMOTE_ADDR', '0.0.0.0'))
-    subscribe_url = settings.SUBSCRIBE_URL % { 'url': channel.url }
+    subscribe_url = util.get_subscription_url(channel.url)
     return HttpResponseRedirect(subscribe_url)
 
 def subscribe_hit(request, id):

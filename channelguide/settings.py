@@ -96,7 +96,8 @@ IMAGE_DOWNLOAD_CACHE_DIR = os.path.join(ROOT_DIR, 'image-download-cache')
 TEMPLATE_DIRS = ( TEMPLATE_DIR, ) # to make django happy
 
 # Channelguide specific settings...
-SUBSCRIBE_URL = 'http://subscribe.getmiro.com/?url1=%(url)s'
+SUBSCRIBE_URL = 'http://subscribe.getmiro.com/?'
+DOWNLOAD_URL = 'http://subscribe.getmiro.com/download?'
 FORUMS_URL = 'http://www.getmiro.com/forum/categories.php'
 BASE_URL_PATH = urlparse(BASE_URL)[2]
 AUTH_TOKEN_EXPIRATION_TIME = timedelta(days=1)
