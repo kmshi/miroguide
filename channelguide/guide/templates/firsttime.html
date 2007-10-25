@@ -14,7 +14,7 @@ $(document).ready(function(){
     $('#faqs dd').hide();
     $('#faqs dt').bind('click',
         function() {
-            $(this).toggleClass('open').next().toggle();
+            $(this).toggleClass('open').next().toggle('slow');
             return false;
         });
     });

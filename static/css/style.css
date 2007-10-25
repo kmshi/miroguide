@@ -2179,6 +2179,10 @@ div.first-time-page {
     margin: 0 -10px 15px;
 }
 
+.first-time-page dl#list > dt + dd {
+    display: none;
+}
+
 .first-time-page dl#list > dt.selected {
     background: url(images/active-step.gif) top left no-repeat;
     margin-bottom: 0px;
@@ -2186,6 +2190,7 @@ div.first-time-page {
 
 .first-time-page dl#list > dt.selected + dd {
     background: url(images/active-step-bg.gif) top left no-repeat;
+    display: block;
     margin: 0 -10px;
     padding: 5px 10px 0 10px;
 }
