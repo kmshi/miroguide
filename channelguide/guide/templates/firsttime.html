@@ -7,8 +7,9 @@
 <script src="{{ STATIC_BASE_URL }}js/jquery-ui.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+    $('#list').removeClass('initial');
     $('#list').accordion({
-        header: 'dt.step'}).change(function(event, newHeader, oldHeader, newContent, oldContent) { newContent.height('auto'); });
+header: 'dt.step'}).change(function(event, newHeader, oldHeader, newContent, oldContent) { newContent.height('auto'); });
     $('#list dd:first').height('auto');
     createVideo($('#video'), "{{ MOVIE_URL }}", 300, 225);
     $('#faqs dd').hide();
@@ -16,7 +17,7 @@ $(document).ready(function(){
         function() {
             $(this).toggleClass('open').next().toggle('slow');
             return false;
-        });
+            });
     });
 
 function createVideo(obj, url, width, height) {
@@ -44,7 +45,7 @@ function createVideo(obj, url, width, height) {
 {% endblock %} 
 {% block content %}
 <div class="first-time-page">
-    <dl id="list">
+    <dl id="list" class="initial">
         <dt class="selected step"><a href="#"><span>1</span><h1>Meet Miro</h1></a></dt>
                 <dd><div id="video"></div><div id="download"><a href="http://subscribe.getmiro.com/download?url1={{ MOVIE_URL|urlencode }}">Download this video</a></div></dd>
         <dt class="step"><a href="#"><span>2</span><h1>Click on Your Favorite Topics</h1></a></dt>
