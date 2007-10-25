@@ -2176,7 +2176,7 @@ div.first-time-page {
     vertical-align: bottom;
     height: 70px;
     position: relative;
-    margin-bottom: 15px;
+    margin: 0 -10px 15px;
 }
 
 .first-time-page dl#list > dt.selected {
@@ -2186,6 +2186,7 @@ div.first-time-page {
 
 .first-time-page dl#list > dt.selected + dd {
     background: url(images/active-step-bg.gif) top left no-repeat;
+    margin: 0 -10px;
     padding: 5px 10px 0 10px;
 }
 
