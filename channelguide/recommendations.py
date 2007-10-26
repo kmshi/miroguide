@@ -77,8 +77,6 @@ def calculateRecommendations(database, channels):
                     gs = getSimilarity(database, c1, c2)
                     if gs:
                         database.execute("INSERT LOW_PRIORITY INTO cg_channel_recommendations VALUES (%s, %s, %s)", (id1, id2, gs))
-                else:
-                    print 'skipping', k
     database.commit()
 
 if __name__ == "__main__":

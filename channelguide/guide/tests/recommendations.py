@@ -188,9 +188,9 @@ WHERE channel1_id=%s OR channel2_id=%s""", (c2.id, c2.id)), ())
         c0, c1, c2, c3, c4, c5, c6, c7, c8, c9 = self.channels[:10]
         calculate = manage.action_mapping['calculate_recommendations']
         calculate(['manage.py', 'calculate_recommendations', 'full'])
-        rows = tables.channel_recommendations.select('*').execute(self.connection)
+        rows = sorted(tables.channel_recommendations.select('*').execute(self.connection))
         cos45 = float('%6f' % math.cos(math.radians(45)))
-        check = ((c0.id, c1.id, 1),
+        check = sorted(((c0.id, c1.id, 1),
                 (c0.id, c2.id, 0.5),
                 (c0.id, c4.id, cos45),
                 (c0.id, c6.id, cos45),
@@ -203,7 +203,7 @@ WHERE channel1_id=%s OR channel2_id=%s""", (c2.id, c2.id)), ())
                 (c4.id, c6.id, 1),
                 (c4.id, c9.id, 1),
                 (c6.id, c9.id, 1),
-                )
+                ))
         self.assertEquals(rows, check)
 
     def test_partial_calculation(self):
@@ -215,9 +215,9 @@ WHERE channel1_id=%s OR channel2_id=%s""", (c2.id, c2.id)), ())
         c0, c1, c2, c3, c4, c5, c6, c7, c8, c9 = self.channels[:10]
         calculate = manage.action_mapping['calculate_recommendations']
         calculate(['manage.py', 'calculate_recommendations'])
-        rows = tables.channel_recommendations.select('*').execute(self.connection)
+        rows = sorted(tables.channel_recommendations.select('*').execute(self.connection))
         cos45 = float('%6f' % math.cos(math.radians(45)))
-        check = ((c0.id, c1.id, 1),
+        check = sorted(((c0.id, c1.id, 1),
                 (c0.id, c2.id, 0.5),
                 (c0.id, c4.id, cos45),
                 (c0.id, c6.id, cos45),
@@ -229,6 +229,6 @@ WHERE channel1_id=%s OR channel2_id=%s""", (c2.id, c2.id)), ())
                 (c2.id, c8.id, cos45),
                 (c4.id, c6.id, 1),
                 (c4.id, c9.id, 1),
-                )
+                ))
         self.assertEquals(rows, check)
 
