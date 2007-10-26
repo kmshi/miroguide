@@ -204,7 +204,7 @@ class User(UserBase, Record):
         """
         url = self.generate_confirmation_url()
         body = """
-You have requested new user account on Miro Guide and you specified
+You have requested a new user account on Miro Guide and you specified
 this address (%s) as your e-mail address.
 
 If you did not do this, simply ignore this e-mail.  To confirm your

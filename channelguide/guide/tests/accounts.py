@@ -97,7 +97,7 @@ class AccountTest(TestCase):
         self.assertEquals(email['title'], 'Approve your Miro Guide account')
         self.assertEquals(email['recipient_list'], ['mike@mike.com'])
         m = re.match("""
-You have requested new user account on Miro Guide and you specified
+You have requested a new user account on Miro Guide and you specified
 this address \((.*?)\) as your e-mail address.
 
 If you did not do this, simply ignore this e-mail.  To confirm your
