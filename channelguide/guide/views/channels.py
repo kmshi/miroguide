@@ -214,6 +214,7 @@ def show(request, id, featured_form=None):
         del request.session['channel-edit-error']
     if request.user.is_supermoderator() and c.featured:
         query = FeaturedEmail.query().join('sender')
+        query.where(channel_id=c.id)
         query.order_by(FeaturedEmail.c.timestamp, desc=True)
         query.limit(1)
         last_featured_email = query.execute(request.connection)
