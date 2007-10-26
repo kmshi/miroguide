@@ -5,7 +5,7 @@ import os
 from django.conf import settings
 from django.template import loader
 
-from channelguide import util
+from channelguide import util, manage
 from channelguide.guide import search
 from channelguide.guide.models import (Channel, Category, Tag, Item, User, 
         Language, TagMap)
@@ -144,13 +144,12 @@ class ChannelModelTest(ChannelTestBase):
                 util.read_file(test_data_path('thumbnail.jpg')))
 
     def check_subscription_counts(self, total, month, today):
-        query = Channel.query(id=self.channel.id)
-        query.load('subscription_count', 'subscription_count_month',
-                'subscription_count_today')
-        channel = query.get(self.connection)
-        self.assertEquals(channel.subscription_count, total)
-        self.assertEquals(channel.subscription_count_month, month)
-        self.assertEquals(channel.subscription_count_today, today)
+        subscription_count_today = self.connection.execute('SELECT COUNT(*) FROM cg_channel_subscription WHERE channel_id=%s and timestamp>DATE_SUB(NOW(), INTERVAL 1 DAY)', self.channel.id)[0][0]
+        subscription_count_month = self.connection.execute('SELECT COUNT(*) FROM cg_channel_subscription WHERE channel_id=%s and timestamp>DATE_SUB(NOW(), INTERVAL 1 MONTH)', self.channel.id)[0][0]
+        subscription_count = self.connection.execute('SELECT COUNT(*) FROM cg_channel_subscription WHERE channel_id=%s', self.channel.id)[0][0]
+        self.assertEquals(subscription_count, total)
+        self.assertEquals(subscription_count_month, month)
+        self.assertEquals(subscription_count_today, today)
 
     def test_subscription_counts(self):
         now = datetime.now()
