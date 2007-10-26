@@ -162,9 +162,9 @@ class Record(object):
         try:
             return retval.get(connection, id)
         except NotFoundError:
-            raise NotFoundError("Record with id %s not found" % id)
+            raise NotFoundError("Record with id %s not found" % (id,))
         except TooManyResultsError:
-            raise TooManyResultsError("Too many records with id %s" % id)
+            raise TooManyResultsError("Too many records with id %s" % (id,))
 
     def primary_key_values(self):
         return tuple(getattr(self, c.name) for c in self.table.primary_keys)

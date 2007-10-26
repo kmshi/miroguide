@@ -438,7 +438,7 @@ WHERE c2.channel_id=cg_channel.id AND user.approved=1))"""))
     return query
 
 def toprated(request):
-    query = get_toprated_query
+    query = get_toprated_query()
     pager = templateutil.Pager(10, query, request)
     for channel in pager.items:
         channel.popular_count = channel.subscription_count_today
