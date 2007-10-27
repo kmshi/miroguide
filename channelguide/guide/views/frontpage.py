@@ -93,8 +93,8 @@ def make_category_peek(request):
 @cache.aggresively_cache
 @cache.cache_page_externally_for(300)
 def index(request):
-#    if not request.user.is_authenticated():
-#        request.add_notification('Rate', 'Now you can rate channels in Miro Guide &mdash; it only takes 15 seconds to <a href="/accounts/login">get started</a>.<img src="/images/small-star.png" />')
+    if not request.user.is_authenticated():
+        request.add_notification('Rate', 'Now you can rate channels in Miro Guide &mdash; it only takes 15 seconds to <a href="/accounts/login">get started</a>.<img src="/images/small-star.png" />')
     featured_channels = get_featured_channels(request.connection)
     return util.render_to_response(request, 'frontpage.html', {
         'popular_channels': get_popular_channels(request.connection, 7),
