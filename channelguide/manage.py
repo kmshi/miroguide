@@ -39,16 +39,20 @@ def syncdb(verbosity=None, interactive=None):
     db.syncdb()
 syncdb.args = ''
 
-def get_channel_ids():
+def get_channel_ids(approved):
     from channelguide import db
     from channelguide.guide.models import Channel
     connection = db.connect()
+    if approved:
+        query = Channel.query()
+    else:
+        query = Channel.query_approved()
     try:
-        return [c.id for c in Channel.query().execute(connection)]
+        return [c.id for c in query.execute(connection)]
     finally:
         connection.close()
 
-def all_channel_iterator(connection, task_description, *joins):
+def all_channel_iterator(connection, task_description, *joins, **kwargs):
     """Helper method to iterate over all channels.  It will yield each channel
     in order.
     """
@@ -57,7 +61,11 @@ def all_channel_iterator(connection, task_description, *joins):
 
     if print_stuff:
         print "fetching channels..."
-    channel_ids = get_channel_ids()
+    if 'approved' in kwargs:
+        approved = kwargs.pop('approved')
+    else:
+        approved = False
+    channel_ids = get_channel_ids(approved)
     if print_stuff:
         pprinter = util.ProgressPrinter(task_description, len(channel_ids))
         pprinter.print_status()
@@ -151,7 +159,7 @@ WHERE NOT EXISTS (SELECT * FROM cg_channel_item WHERE id=item_id)""")
 WHERE NOT EXISTS (SELECT * FROM cg_channel WHERE id=channel_id)""")
 
     iter = all_channel_iterator(connection, 'updating search data', 'items',
-            'items.search_data')
+            'items.search_data', approved=True)
     for channel in iter:
         channel.update_search_data(connection)
 update_search_data.args = ''
