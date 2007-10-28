@@ -1,4 +1,3 @@
-from dbupdate import *
 from pool import *
 from query import *
 from signals import *
