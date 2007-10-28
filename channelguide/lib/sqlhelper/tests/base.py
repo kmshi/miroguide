@@ -32,8 +32,8 @@ class LogCatcher(logging.Filter):
 class TestCase(unittest.TestCase):
     def setUp(self):
         unittest.TestCase.setUp(self)
-        self.connection = connection.Connection(testsetup.dbinfo.connect())
-        #self.drop_all_tables()
+        self.all_connections = []
+        self.connection = self.connect()
         self.log_handler = LogRaiser()
         self.log_filter = LogCatcher()
         logging.getLogger().addHandler(self.log_handler)
@@ -44,8 +44,14 @@ class TestCase(unittest.TestCase):
         self.drop_test_tables()
         logging.getLogger().removeFilter(self.log_filter)
         logging.getLogger().removeHandler(self.log_handler)
-        self.connection.close()
+        for connection in self.all_connections:
+            connection.close()
         unittest.TestCase.tearDown(self)
+
+    def connect(self):
+        retval = connection.Connection(testsetup.dbinfo.connect())
+        self.all_connections.append(retval)
+        return retval
 
     def pause_logging(self):
         logging.getLogger().addFilter(self.log_filter)
