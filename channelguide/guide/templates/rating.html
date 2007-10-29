@@ -1,4 +1,4 @@
-<form class="rating" method="GET"{% if rating.average_rating %}
+<form class="rating" method="GET"{% if rating.average_rating|add:1 %}
 title="Average Rating: {{ rating.average_rating }}"{% else %}
 title="User Rating: {{ rating.rating }}"{% endif %}
 action="/channels/rate/{{ rating.channel_id }}">
