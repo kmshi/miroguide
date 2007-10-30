@@ -194,7 +194,7 @@ def show(request, id, featured_form=None):
     if request.user.is_supermoderator():
         query.join('featured_by')
     query.load('average_rating', 'count_rating')
-    item_query = Item.query(channel_id=id).order_by('date', desc=True).limit(4)
+    item_query = Item.query(channel_id=id).join('channel').order_by('date', desc=True).limit(4)
     c = util.get_object_or_404(request.connection, query, id)
     context = {
         'channel': c,
@@ -297,10 +297,13 @@ def get_ratings_bar(request, channel):
     except Exception:
         rating = Rating()
         rating.channel_id = channel.id
+        rating.has_user_rating = False
         rating.average_rating = channel.average_rating
     else:
+        rating.has_user_rating = True
         if rating.rating is None:
             rating.rating = 0
+
     c = {
             'rating': rating,
             'referer': request.path
