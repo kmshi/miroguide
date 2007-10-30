@@ -15,7 +15,7 @@ class Item(Record, Thumbnailable):
 
     THUMBNAIL_DIR = 'item-thumbnails'
     THUMBNAIL_SIZES = [
-            (108, 81),
+            (120, 80),
     ]
 
     def get_guid(self):
@@ -24,9 +24,12 @@ class Item(Record, Thumbnailable):
         except AttributeError:
             return None
 
+    def get_missing_image_url(self, width, height):
+        return self.channel.thumb_url(120, 80)
+
     def thumb(self):
-        url = self.thumb_url(108, 81)
-        return '<img width="108" height="81" src="%s" alt="%s">' % (url, self.name.replace('"', "'"))
+        url = self.thumb_url(120, 80)
+        return '<img width="120" height="80" src="%s" alt="%s">' % (url, self.name.replace('"', "'"))
 
     def linked_name(self):
         return '<a href="http://subscribe.getmiro.com/download.php?url1=%s">%s</a>' % (self.url, self.name)
