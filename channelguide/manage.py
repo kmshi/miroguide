@@ -39,7 +39,7 @@ def syncdb(verbosity=None, interactive=None):
     db.syncdb()
 syncdb.args = ''
 
-def get_channel_ids(approved):
+def get_channel_ids(approved=False):
     from channelguide import db
     from channelguide.guide.models import Channel
     connection = db.connect()
