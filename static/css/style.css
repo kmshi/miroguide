@@ -2320,11 +2320,8 @@ div.first-time-page {
 }
 
 .first-time-page div#nothanks {
-    background = 
     height: 48px;
-    position: relative;
     margin-top: 30px;
-    font-size: 120%;
     text-align: center;
 }
 
@@ -2333,4 +2330,15 @@ div.first-time-page {
     width: 349px;
     height: 68px;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
+
+.first-time-page div#nothanks .button a {
+    font-size: 200%;
+    color: white;
+    text-decoration: underline;
+    display: block;
+    padding-top: 10px;
+}
+
