@@ -20,20 +20,24 @@ def render_error_500(request):
         'id': id,
         'user': None,
     })
-    title = 'Error %s on %s' % (id, request.get_full_path())
-    print title
+    path = settings.BASE_URL_FULL[:-1] + request.get_full_path()
+    title = 'Error %s on %s' % (id, path)
     io = cStringIO.StringIO()
+    io.write('URL: %s\n\n' % path)
     traceback.print_exc(None, io)
     io.write('\nRequest Object:\n')
     pprint.pprint(request, stream=io)
     if request.user.is_authenticated():
-        io.write('\nUser Name: %s\n' % request.user.name)
+        io.write('\nUser Name: %s' % request.user.username)
         io.write('\nE-mail: %s' % request.user.email)
+        email_from = request.user.email
     else:
         io.write('\nAnonymous User')
+        email_from = None
     body = io.getvalue()
-    emails = ["%s <%s>" % admin for admin in settings.ADMINS]
-    util.send_email(title, body, emails, break_lines=False)
+    emails = [admin[1] for admin in settings.ADMINS]
+    util.send_mail(title, body, emails, email_from=email_from,
+            break_lines=False)
     template = loader.get_template('500.html')
     logging.error("Exception %s: %s", id, traceback.format_exc())
     return template.render(context)

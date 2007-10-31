@@ -23,7 +23,7 @@ def startup():
         def error(self, req):
             try:
                 from channelguide.guide.views import errors
-                page = errors.render_error_500()
+                page = errors.render_error_500(req)
             except:
                 logging.warn("Error generating 500 error page!\n%s",
                         traceback.format_exc())
