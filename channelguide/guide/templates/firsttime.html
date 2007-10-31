@@ -39,7 +39,7 @@ function createVideo(obj, url, width, height) {
         + '<input type="button" value="Pause" onclick="document.video1.pause();" />'
         + '<input type="button" value="Stop" onclick="document.video1.stop();" />'
         + '<input type="button" value="+ Vol" onclick="document.video1.set_volume(document.video1.get_volume()+10);" />'
-        + '<input type="button" value="- Vol" onclick="document.video1.set_volume(document.video1.set_volume(document.video1.get_volume()-10);" />';
+        + '<input type="button" value="- Vol" onclick="document.video1.set_volume(document.video1.get_volume()-10);" />';
         win = 1;
         height = height + 23;
     } else if (navigator.platform.indexOf('Mac') == 0) {
@@ -82,7 +82,7 @@ function createVideo(obj, url, width, height) {
                 <dd style="padding-top: 12px;">
                     <div id="video"><img src="{{ STATIC_BASE_URL}}images/meetmiro.jpg"></div><div id="download"><a href="http://subscribe.getmiro.com/download?url1={{ MOVIE_URL|urlencode }}">Download this video</a></div></dd>
         <dt class="selected step"><a href="#"><span>2</span><h1>Add Your Favorite Topics to Miro</h1></a></dt>
-        <dd id="channellist" style="padding-top: 12px;">
+        <dd id="channellist" style="padding-top: 8px;">
             <span class="info">Each channel pack gets you started with 5 great channels &mdash; add as many as you want.</span>
             {% fourcolumnloop  with column in channel_columns %}
                 {% for channel in column %}
