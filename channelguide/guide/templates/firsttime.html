@@ -30,16 +30,19 @@ function vlcPlayPause(obj, button) {
     }
 }
 
+function vlcRestart(obj) {
+    obj.stop();
+    obj.play();
+}
+
 function createVideo(obj, url, width, height) {
     win = 0;
-    if (navigator.platform == 'Win32') {
+    if (1 || navigator.platform == 'Win32') {
         /* use VLC */
         html = '<embed type="application/x-vlc-plugin" width=' + width + ' height=' + height + ' autoplay="yes" loop="no" name="video1" target="' + url + '" />'
-        + '<input type="button" value="Play" onclick="document.video1.play();" />'
-        + '<input type="button" value="Pause" onclick="document.video1.pause();" />'
-        + '<input type="button" value="Stop" onclick="document.video1.stop();" />'
-        + '<input type="button" value="+ Vol" onclick="document.video1.set_volume(document.video1.get_volume()+10);" />'
-        + '<input type="button" value="- Vol" onclick="document.video1.set_volume(document.video1.get_volume()-10);" />';
+        + '<input id="playpause" type="button" value="Pause" onclick="vlcPlayPause(document.video1, $(\'#playpause\'));" />'
+        + '<input type="button" value="Restart" onclick="vlcRestart(document.video1);" />'
+        + '<input type="button" value="Mute" onclick="document.video1.mute(); document.video1.get_volume();" />'
         win = 1;
         height = height + 23;
     } else if (navigator.platform.indexOf('Mac') == 0) {
@@ -68,7 +71,11 @@ function createVideo(obj, url, width, height) {
                     createVideo(obj, url, width, height);
                     }, 100);
             });*/
-            vlc.audio.volume = 100;
+            for (var i=10; i<=100; i+= 10) {
+                window.setTimeout(function(){
+                    document.video1.set_volume(i);
+                    }, i);
+            }
         }
     }
 }
