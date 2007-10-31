@@ -11,7 +11,7 @@ $(document).ready(function(){
     $('#list').accordion({
 header: 'dt.step'}).change(function(event, newHeader, oldHeader, newContent, oldContent) { newContent.height('auto'); });
     $('#list dd:first').height('auto');
-    createVideo($('#video'), "{{ MOVIE_URL }}", 300, 225);
+    createVideo($('#video'), "{{ MOVIE_URL }}", 300, 226);
     $('#faqs dd').hide();
     $('#faqs dt').bind('click',
         function() {
@@ -24,20 +24,23 @@ function createVideo(obj, url, width, height) {
     if (navigator.platform == 'Win32') {
         /* use VLC */
         embedType = 'application/x-vlc-plugin';
-        extra = '<input type="button" value="Play" onclick="document.video1.play();" /><input type="button" value="Pause" onclick="document.video1.pause();" /><input type="button" value="Stop" onclick="document.video1.stop();" />';
+        header = ''
+        footer = '<input type="button" value="Play" onclick="document.video1.play();" /><input type="button" value="Pause" onclick="document.video1.pause();" /><input type="button" value="Stop" onclick="document.video1.stop();" />';
     } else if (navigator.platform.indexOf('Mac') == 0) {
         embedType = 'video/quicktime';
-        extra = ''
+        header = '<object id="player" width="' + width + '" height="' + height + '" classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B"><param value="imagewindow" name="CONTROLS"/><param value="false" name="autogotourl"/><param value="radio" name="console"/><param value="true" name="autostart"/><param value="video/quicktime" name="type"/><param value="' + url +'" name="src"/>';
+        footer = '</object>';
     } else {
-        embedType = extra = '';
+        embedType = header = footer = '';
     }
     if (embedType) {
-        obj.html('<embed type="' + embedType +'" name="video1" autoplay="yes" loop="no" target="'
+        obj.html(header + '<embed type="' + embedType +'" name="video1" autoplay="yes" loop="no" target="'
         + url + '" width=' + width + ' height=' + height
-        + ' />' + extra);
+        + ' />' + footer);
         if (extra) {
             document.video1.play();
         }
+        $('div#download').hide();
     }
 }
 </script>
@@ -47,19 +50,19 @@ function createVideo(obj, url, width, height) {
 <div class="first-time-page">
     <dl id="list" class="initial">
         <dt class="selected step"><a href="#"><span>1</span><h1>Meet Miro</h1></a></dt>
-                <dd><div id="video"></div><div id="download"><a href="http://subscribe.getmiro.com/download?url1={{ MOVIE_URL|urlencode }}">Download this video</a></div></dd>
-        <dt class="step"><a href="#"><span>2</span><h1>Click on Your Favorite Topics</h1></a></dt>
+                <dd><div id="video"><img src="{{ STATIC_BASE_URL}}images/meetmiro.jpg"></div><div id="download"><a href="http://subscribe.getmiro.com/download?url1={{ MOVIE_URL|urlencode }}">Download this video</a></div></dd>
+        <dt class="step"><a href="#"><span>2</span><h1>Add Your Favorite Topics to Miro</h1></a></dt>
         <dd id="channellist">
             {% fourcolumnloop  with column in channel_columns %}
                 {% for channel in column %}
                     <div class="channel">
-                        <div style="width:120px; height:90px; background: black; margin-left: 12px;"></div>
+                        <span class="pack"></span>
                         <div class="subscribe"><a class="add" href="{{ channel.1 }}"><span class="icon"></span>Add {{ channel.0 }}</a></div>
                     </div>
                 {% endfor %}
             {% endfourcolumnloop %}
         </dd>
-        <dt class="step"><a href="#"><span>3</span><h1>Get Ready to Watch!</h1></a></dt>
+        <dt class="step"><a href="#"><span>3</span><h1>Learn How to Watch!</h1></a></dt>
         <dd>
             <div class="third-step">
                 <h2>Miro is doing its thing...</h2>
@@ -82,7 +85,8 @@ function createVideo(obj, url, width, height) {
         </dd>
     </dl>
     <div id="nothanks">
-        <a href="/"><span class="icon">icon</span><h1>No thanks, just take me to the Guide!</h1></a>
+        <h3>Skip Ahead, and find more channels:</h3>
+        <input type="button" onclick="window.location='/'" value="Take me to the Channel Guide &raquo;">
     </div>
 </div>
 {% endblock %}
