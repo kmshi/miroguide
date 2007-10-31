@@ -79,9 +79,11 @@ function createVideo(obj, url, width, height) {
 <div class="first-time-page">
     <dl id="list" class="initial">
         <dt class="selected step"><a href="#"><span>1</span><h1>Meet Miro</h1></a></dt>
-                <dd><div id="video"><img src="{{ STATIC_BASE_URL}}images/meetmiro.jpg"></div><div id="download"><a href="http://subscribe.getmiro.com/download?url1={{ MOVIE_URL|urlencode }}">Download this video</a></div></dd>
+                <dd style="padding-top: 12px;">
+                    <div id="video"><img src="{{ STATIC_BASE_URL}}images/meetmiro.jpg"></div><div id="download"><a href="http://subscribe.getmiro.com/download?url1={{ MOVIE_URL|urlencode }}">Download this video</a></div></dd>
         <dt class="selected step"><a href="#"><span>2</span><h1>Add Your Favorite Topics to Miro</h1></a></dt>
-        <dd id="channellist">
+        <dd id="channellist" style="padding-top: 12px;">
+            <span class="info">Each channel pack gets you started with 5 great channels &mdash; add as many as you want.</span>
             {% fourcolumnloop  with column in channel_columns %}
                 {% for channel in column %}
                     <div class="channel">

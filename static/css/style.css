@@ -2183,16 +2183,13 @@ div.first-time-page {
     display: none;
 }
 
-.first-time-page dl#list > dt a {
-    text-decoration: underline;
-}
-
 .first-time-page dl#list > dt.selected {
     background: url(images/active-step.gif) top left no-repeat;
 }
 
 .first-time-page dl#list > dt.selected a {
     text-decoration: none;
+    cursor: default;
 }
 
 .first-time-page dl#list > dt + dd {
@@ -2238,6 +2235,15 @@ div.first-time-page {
     text-align: center;
 }
 
+.first-time-page #channellist .info {
+    font-size: 14px;
+    margin-left: 15pt;
+}
+
+.first-time-page #channellist ul.four-column-list {
+    margin-top: 10px;
+}
+
 .first-time-page #channellist li.column {
     width: 185px;
 }
@@ -2250,8 +2256,7 @@ div.first-time-page {
     margin-left: 12px;
 }
 .first-time-page .subscribe {
-    margin-top: 5px;
-    margin-bottom: 10px;
+    margin: 5px 0 10px 14px;
 }
 
 .first-time-page .add .icon {
