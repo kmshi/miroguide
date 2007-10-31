@@ -59,7 +59,7 @@ def search(request):
         search_query = request.GET['query']
     except:
         raise Http404
-    search_query = search_query.strip().encode('utf-8')
+    search_query = search_query.strip()
     terms = get_search_terms(search_query)
     if terms_too_short(terms):
         return util.render_to_response(request, 'channel-search.html', {
