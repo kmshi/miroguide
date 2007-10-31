@@ -47,6 +47,7 @@ def index(request):
                     'http://www.discovery.com/radio/xml/sciencevideo.xml',
                     'http://www.discovery.com/radio/xml/discovery_video.xml'),
                 ('Entertainment',
+                    'http://feeds.boingboing.net/boingboing/tv',
                     'http://revision3.com/webdrifter/feed/quicktime-high-definition',
                     'http://feeds.theonion.com/OnionNewsNetwork',
                     'http://feeds.feedburner.com/AskANinja',
@@ -71,18 +72,14 @@ def index(request):
             ]
         ]
     faqs = [
-            ("I don't get it &mdash; what does Miro do?", """<p>Miro is a fresh concept for internet TV -- instead of visiting a ton of different websites to watch videos, the videos come to you from all over the internet, organized as channels.</p>
-<p>When you find a channel you like, add it to Miro. The second a new episode is available, it'll be downloaded.</p>"""),
-            ('Will my hard drive fill up with videos?', """<p>Once you watch a video, Miro will set it to expire. Once a video expires, Miro deletes it to free up space on your hard drive.</p>
-<p>Furthermore, there is a preference to disable downloads, if your drive space ever dips below a certain level.</p>"""),
-            ('What is a channel?', """<p>Miro takes advantage of an existing standard (RSS) to create channels -- it's very similar to podcasting.</p>
-<p>Because RSS is an open standard, there are lots of channels on the internet that aren't in the Miro Guide. You can easily add external channels via the 'add channel' menu option.</p>"""),
+            ("I don't get it &mdash; what does Miro do?", """<p>Miro is a fresh concept for internet TV -- instead of visiting a ton of different websites to watch videos, the videos come to you from all over the internet, organized as channels.  When you find a channel you like, add it to Miro. The second a new episode is available, it'll be downloaded.</p>"""),
+            ('Will my hard drive fill up with videos?', """<p>Once you watch a video, Miro will set it to expire. Once a video expires, Miro deletes it to free up space on your hard drive.  Furthermore, there is a preference to disable downloads, if your drive space ever dips below a certain level.</p>"""),
+            ('What is a channel?', """<p>Miro takes advantage of an existing standard (RSS) to create channels -- it's very similar to podcasting.  Because RSS is an open standard, there are lots of channels on the internet that aren't in the Miro Guide. You can easily add external channels via the 'add channel' menu option.</p>"""),
             ('How do I delete channels?', """You can remove a channel by right clicking (ctrl + click on Mac) any channel and choosing 'Remove Channel'."""),
             ('When is Miro the best way to watch videos?', """<p><strong>Regular Shows</strong>: When you find a channel you like, Miro saves you time -- no repeated trips to a website for updates, Miro will automatically download the latest videos as soon as they are available (schedules vary by individual publisher).</p>
 <p><strong>Fullscreen</strong>: Miro is perfect when you want to watch longer form or more serious video -- put Miro in fullscreen mode, lean back, and enjoy your internet TV.</p>
 <p><strong>Picture Quality</strong>: Your computer screen can display a sharper image than most TV sets. YouTube cannot take advantage of this fact (they only stream video), but Miro was designed to handle HD (High Definition) video. More and more creators are publishing their channels in HD. Miro is the best way to take advantage.</p>"""),
-            ('How can I find channels I want to watch?', """<p>We keep track of popular and top rated channels in the Miro Guide. You can also browse by category or language.</p>
-<p>In the near future, the Miro Guide will give personalized recommendations, based on the way you rate channels. Any ratings you leave now will count towards this feature.</p>"""),
+            ('How can I find channels I want to watch?', """<p>We keep track of popular and top rated channels in the Miro Guide. You can also browse by category or language.  In the near future, the Miro Guide will give personalized recommendations, based on the way you rate channels. Any ratings you leave now will count towards this feature.</p>"""),
             ]
     channel_columns = [[(column[0], util.get_subscription_url(*column[1:]))
         for column in row] for row in channel_packs]

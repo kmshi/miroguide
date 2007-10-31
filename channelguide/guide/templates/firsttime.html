@@ -20,27 +20,48 @@ header: 'dt.step'}).change(function(event, newHeader, oldHeader, newContent, old
             });
     });
 
+function vlcPlayPause(obj, button) {
+    if (obj.isplaying() == true) { 
+        obj.pause();
+        button.attr('value', 'Play');
+    } else {
+        obj.play();
+        button.attr('value', 'Pause');
+    }
+}
+
 function createVideo(obj, url, width, height) {
+    win = 0;
     if (navigator.platform == 'Win32') {
         /* use VLC */
-        embedType = 'application/x-vlc-plugin';
-        header = ''
-        footer = '<input type="button" value="Play" onclick="document.video1.play();" /><input type="button" value="Pause" onclick="document.video1.pause();" /><input type="button" value="Stop" onclick="document.video1.stop();" />';
+        html = '<embed type="application/x-vlc-plugin" width=' + width + ' height=' + height + ' autoplay="yes" loop="no" name="video1" target="' + url + '" />'
+        + '<input type="button" value="Play" onclick="document.video1.play();" />'
+        + '<input type="button" value="Pause" onclick="document.video1.pause();" />'
+        + '<input type="button" value="Stop" onclick="document.video1.stop();" />'
+        + '<input type="button" value="+ Vol" onclick="document.video1.set_volume(document.video1.get_volume()+10);" />'
+        + '<input type="button" value="- Vol" onclick="document.video1.set_volume(document.video1.set_volume(document.video1.get_volume()-10);" />';
+        win = 1;
+        height = height + 23;
     } else if (navigator.platform.indexOf('Mac') == 0) {
-        embedType = 'video/quicktime';
-        header = '<object id="player" width="' + width + '" height="' + height + '" classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B"><param value="imagewindow" name="CONTROLS"/><param value="false" name="autogotourl"/><param value="radio" name="console"/><param value="true" name="autostart"/><param value="video/quicktime" name="type"/><param value="' + url +'" name="src"/>';
-        footer = '</object>';
+        height = height + 19;
+        html = '<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" id="player" height="' + height +'" width="' + width + '">' +
+        '<param name="CONTROLS" value="imagewindow">'+
+        '<param name="autogotourl" value="false">'+
+        '<param name="console" value="radio">'+
+        '<param name="autostart" value="true">'+
+        '<param name="type" value="video/quicktime">'+
+        '<param name="src" value="' + url + '">'+
+        '<embed controls="imagewindow" autogotourl="false" console="radio" autostart="true" type="video/quicktime" src="' + url + '" name="player" height="' + height +'" width="' + width + '">'+
+        '</object>';
     } else {
-        embedType = header = footer = '';
+        html = '';
     }
-    if (embedType) {
-        obj.html(header + '<embed type="' + embedType +'" name="video1" autoplay="yes" loop="no" target="'
-        + url + '" width=' + width + ' height=' + height
-        + ' />' + footer);
-        if (extra) {
-            document.video1.play();
-        }
+    if (html) {
         $('div#download').hide();
+        obj.html(html).height(height);
+        if (win) {
+            vlc.audio.volume = 100;
+        }
     }
 }
 </script>
@@ -85,8 +106,7 @@ function createVideo(obj, url, width, height) {
         </dd>
     </dl>
     <div id="nothanks">
-        <h3>Skip Ahead, and find more channels:</h3>
-        <input type="button" onclick="window.location='/'" value="Take me to the Channel Guide &raquo;">
+        <div class="button"><a {% link "/" %} >Go to the Miro Guide</a></a>
     </div>
 </div>
 {% endblock %}

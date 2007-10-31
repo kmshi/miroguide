@@ -2320,6 +2320,7 @@ div.first-time-page {
 }
 
 .first-time-page div#nothanks {
+    background = 
     height: 48px;
     position: relative;
     margin-top: 30px;
@@ -2327,7 +2328,9 @@ div.first-time-page {
     text-align: center;
 }
 
-.first-time-page #nothanks h3 {
-    margin-bottom: 5px;
+.first-time-page div#nothanks .button {
+    background: url(images/green-button-guide.png) center no-repeat;
+    width: 349px;
+    height: 68px;
+    text-align: center;
 }
-
