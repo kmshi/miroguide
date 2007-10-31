@@ -80,7 +80,7 @@ function createVideo(obj, url, width, height) {
     <dl id="list" class="initial">
         <dt class="selected step"><a href="#"><span>1</span><h1>Meet Miro</h1></a></dt>
                 <dd><div id="video"><img src="{{ STATIC_BASE_URL}}images/meetmiro.jpg"></div><div id="download"><a href="http://subscribe.getmiro.com/download?url1={{ MOVIE_URL|urlencode }}">Download this video</a></div></dd>
-        <dt class="step"><a href="#"><span>2</span><h1>Add Your Favorite Topics to Miro</h1></a></dt>
+        <dt class="selected step"><a href="#"><span>2</span><h1>Add Your Favorite Topics to Miro</h1></a></dt>
         <dd id="channellist">
             {% fourcolumnloop  with column in channel_columns %}
                 {% for channel in column %}
@@ -91,7 +91,7 @@ function createVideo(obj, url, width, height) {
                 {% endfor %}
             {% endfourcolumnloop %}
         </dd>
-        <dt class="step"><a href="#"><span>3</span><h1>Learn How to Watch!</h1></a></dt>
+        <dt class="selected step"><a href="#"><span>3</span><h1>Learn How to Watch!</h1></a></dt>
         <dd>
             <div class="third-step">
                 <h2>Miro is doing its thing...</h2>
@@ -101,7 +101,7 @@ function createVideo(obj, url, width, height) {
             <div class="third-step">
                 <h2>In the mean time,</h2>
                 <img src="{{ STATIC_BASE_URL }}images/guide-preview.jpg" alt="Preview of the Miro Guide">
-                Find thousands of free channels in the <a href="{{ BASE_URL }}">Miro guide</a>, add as many as you want.
+                Find thousands of free channels in the Miro Guide, add as many as you want.
             </div>
             <div id="faqs">
                 <dl>
