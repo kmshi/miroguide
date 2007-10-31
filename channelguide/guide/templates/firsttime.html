@@ -7,17 +7,17 @@
 <script src="{{ STATIC_BASE_URL }}js/jquery-ui.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-    $('#list').removeClass('initial');
-    $('#list').accordion({
-header: 'dt.step'}).change(function(event, newHeader, oldHeader, newContent, oldContent) { newContent.height('auto'); });
-    $('#list dd:first').height('auto');
-    createVideo($('#video'), "{{ MOVIE_URL }}", 300, 226);
+    //$('#list').removeClass('initial');
+    //$('#list').accordion({
+//header: 'dt.step'}).change(function(event, newHeader, oldHeader, newContent, oldContent) { newContent.height('auto'); });
+//    $('#list dd').height('auto');
     $('#faqs dd').hide();
     $('#faqs dt').bind('click',
         function() {
             $(this).toggleClass('open').next().toggle('slow');
             return false;
             });
+    createVideo($('#video'), "{{ MOVIE_URL }}", 300, 226);
     });
 
 function vlcPlayPause(obj, button) {
@@ -58,8 +58,16 @@ function createVideo(obj, url, width, height) {
     }
     if (html) {
         $('div#download').hide();
+        oldhtml = obj.html()
         obj.html(html).height(height);
         if (win) {
+/*            $('#list dt.step').one('click', function(){
+                obj.html(oldhtml);
+                alert('replaced old html');
+                window.setTimeout(function() {
+                    createVideo(obj, url, width, height);
+                    }, 100);
+            });*/
             vlc.audio.volume = 100;
         }
     }
