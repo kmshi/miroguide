@@ -16,7 +16,7 @@ def index(request):
 
 @cache.aggresively_cache
 def category(request, id):
-    category = Category.get(request.connection, id)
+    category = util.get_object_or_404(request.connection, Category, id)
     query = Channel.query_approved().join('categories')
     query.joins['categories'].where(id=id)
     templateutil.order_channels_using_request(query, request)

@@ -13,7 +13,7 @@ def index(request):
 
 @cache.aggresively_cache
 def tag(request, id):
-    tag = Tag.get(request.connection, id)
+    tag = util.get_object_or_404(request.connection, Tag, id)
     query = Channel.query_approved().join('tags')
     query.joins['tags'].where(id=id)
     templateutil.order_channels_using_request(query, request)
