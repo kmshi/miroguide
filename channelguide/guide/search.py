@@ -45,6 +45,7 @@ def contains_hd(terms):
 
 def search_channels(terms):
     terms = util.ensure_list(terms)
+    terms = [t.encode('utf-8') for t in terms]
     query = Channel.query().join('search_data')
     search_data_table = query.joins['search_data'].table
     if contains_hd(terms):
