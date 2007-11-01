@@ -1227,7 +1227,8 @@ li.blog-post .title {
 }
 
 .channel-in-category .title a {
-    color: black;
+/*    color: black;*/
+    color:#377FC8;
 }
 
 .channel-in-category div.actions {
@@ -1285,7 +1286,7 @@ li.blog-post .title {
 }
 
 .channel-mini .title {
-    margin-top: 2px;
+    height: 1.2em;
     text-align: left;
 }
 
