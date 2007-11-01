@@ -22,39 +22,17 @@ class TestLogHandler(logging.Handler):
 def main(args):
     parse_args(args)
     logging.getLogger('').addHandler(TestLogHandler())
-    setup_test_environment()
-    try:
-        tests = load_tests()
-        runner = TextTestRunner()
-        if options.verbose:
-            runner.verbosity = 2
-        runner.run(tests)
-    finally:
-        teardown_test_environment()
+    tests = load_tests()
+    runner = TextTestRunner()
+    if options.verbose:
+        runner.verbosity = 2
+    runner.run(tests)
 
 def parse_args(args):
     global options, parsed_args
     parser = OptionParser(usage="usage: %prog [options] [app1] [app2] ...")
     parser.add_option("-v", "--verbose", dest="verbose", action="store_true")
     (options, parsed_args) = parser.parse_args()
-
-def setup_test_environment():
-    settings.DATABASE_NAME = 'test_' + settings.DATABASE_NAME
-    from channelguide import db
-    import django.test.utils
-    try:
-        db.dbinfo.create_database()
-    except:
-        db.dbinfo.drop_database()
-        db.dbinfo.create_database()
-    db.syncdb()
-    django.test.utils.setup_test_environment()
-
-def teardown_test_environment():
-    from channelguide import db
-    import django.test.utils
-    django.test.utils.teardown_test_environment()
-    db.dbinfo.drop_database()
 
 class OptionAwareTestLoader(TestSuite):
     def addTest(self, testCase):

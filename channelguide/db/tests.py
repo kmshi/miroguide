@@ -108,6 +108,7 @@ class MiddlewareTest(TestCase):
         self.assert_(hasattr(request, 'connection'))
 
     def test_transaction(self):
+        version = self.connection.execute('SELECT version FROM cg_db_version')
         request = self.process_request()
         request.connection.execute(
                 'INSERT INTO cg_db_version(version) VALUES(-123123)')
@@ -117,6 +118,6 @@ class MiddlewareTest(TestCase):
         connection2 = db.connect()
         try:
             rows = connection2.execute("SELECT version FROM cg_db_version")
-            self.assertEquals(list(rows), [(self.starting_db_version,)])
+            self.assertEquals(list(rows), list(version))
         finally:
             connection2.close()

@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 import cgi
 import os
+import time
 
 from django.conf import settings
 from django.template import loader
@@ -124,6 +125,31 @@ class ChannelModelTest(ChannelTestBase):
         self.assertEquals(len(self.emails), 1)
         self.assertEquals(self.emails[0]['recipient_list'], 
                 [self.channel.owner.email])
+
+    def test_approval_queue(self):
+        self.assertEquals(len(self.channel.query_new().execute(
+            self.connection)), 0)
+        time.sleep(1)
+        self.channel.change_state(self.ralph, Channel.APPROVED,
+                self.connection)
+        time.sleep(1) # make sure they have different timestamps
+        c2 = self.make_channel()
+        c2.change_state(self.ralph, Channel.APPROVED,
+                self.connection)
+        self.assertEquals(len(self.channel.query_new().execute(
+            self.connection)), 0)
+        manage.update_new_channel_queue()
+        self.refresh_connection()
+        new_channels = self.channel.query_new().execute(
+                self.connection)
+        self.assertEquals(len(new_channels), 1)
+        self.assertEquals(new_channels[0].id, self.channel.id)
+        manage.update_new_channel_queue()
+        self.refresh_connection()
+        new_channels = self.channel.query_new().execute(
+                self.connection)
+        self.assertEquals(len(new_channels), 2)
+        self.assertEquals(new_channels[0].id, c2.id)
 
     def test_last_moderated_by(self):
         self.assertEquals(self.channel.last_moderated_by, None)
@@ -296,7 +322,7 @@ class ChannelItemTest(ChannelTestBase):
         self.assert_(self.channel.items[0].thumbnail_exists())
         self.assert_(not self.channel.items[1].thumbnail_exists())
         self.assertEquals(self.channel.items[1].thumb_url(width, height),
-                settings.IMAGES_URL + "missing.png")
+                self.channel.thumb_url(width, height))
 
     def test_item_info(self):
         def check_count(correct):

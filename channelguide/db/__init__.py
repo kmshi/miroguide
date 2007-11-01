@@ -34,6 +34,7 @@ def syncdb():
     version.initialize_version_table(connection)
     update_dir = os.path.join(os.path.dirname(__file__), 'updates')
     update.run_updates(connection, update_dir)
+    connection.commit()
     connection.close()
 
 def execute_file(path):

@@ -185,7 +185,7 @@ class ModerateUserTest(TestCase):
         self.login(self.jane)
         self.check_search('cathy', self.cathy)
         self.check_search('bob', self.bob, self.judy)
-        self.check_search('pculture.org', self.jane, self.bob, self.cathy,
+        self.check_search('test.test', self.jane, self.bob, self.cathy,
                 self.adrian)
         self.check_search('blahblah') # no users should be returned
 

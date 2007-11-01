@@ -101,7 +101,6 @@ class AuthTokenWebTest(TestCase):
     def setUp(self):
         TestCase.setUp(self)
         self.user = self.make_user('chris')
-        self.user.email = 'chris@pculture.org'
 
     def request_auth_token(self):
         self.post_data('/accounts/forgot-password', {'email': self.user.email})

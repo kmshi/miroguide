@@ -37,13 +37,12 @@ class TestCase(unittest.TestCase):
 
     def setUp(self):
         from channelguide.guide.models import Language
+        setup_test_environment()
         db.pool.timeout = 0.01
         self.connection = db.connect()
         self.log_filter = TestLogFilter()
         self.language = Language("booyarish")
         self.save_to_db(self.language)
-        version.initialize_version_table(self.connection)
-        self.starting_db_version = version.get_version(self.connection)
         util.emailer = self.catch_email
         self.emails = []
         settings.DISABLE_CACHE = True
@@ -72,9 +71,6 @@ class TestCase(unittest.TestCase):
     def tearDown(self):
         self.resume_logging()
         util.emailer = None
-        self.delete_all_tables()
-        self.connection.execute("INSERT INTO cg_db_version values(%s)",
-                self.starting_db_version)
         self.connection.commit()
         self.connection.close()
         if os.path.exists(settings.MEDIA_ROOT):
@@ -91,6 +87,7 @@ class TestCase(unittest.TestCase):
         for connection in list(db.pool.used):
             connection.destroy()
         db.pool.used = set()
+        teardown_test_environment()
 
     def assertSameSet(self, iterable1, iterable2):
         self.assertEquals(set(iterable1), set(iterable2))
@@ -189,7 +186,7 @@ class TestCase(unittest.TestCase):
 
     def make_user(self, username, password='password', role='U'):
         from channelguide.guide.models import User
-        user = User(username, password, "%s@pculture.org" % username)
+        user = User(username, password, "%s@test.test" % username)
         user.role = role
         self.save_to_db(user)
         return user
@@ -301,3 +298,23 @@ class TestCase(unittest.TestCase):
                 if response:
                     return response
         return self.process_response(request)
+
+def setup_test_environment():
+    settings.OLD_DATABASE_NAME = settings.DATABASE_NAME
+    settings.DATABASE_NAME = 'test_' + settings.DATABASE_NAME
+    reload(db)
+    import django.test.utils
+    try:
+        db.dbinfo.create_database()
+    except:
+        db.dbinfo.drop_database()
+        db.dbinfo.create_database()
+    db.syncdb()
+    django.test.utils.setup_test_environment()
+
+def teardown_test_environment():
+    import django.test.utils
+    django.test.utils.teardown_test_environment()
+    db.dbinfo.drop_database()
+    settings.DATABASE_NAME = settings.OLD_DATABASE_NAME
+
