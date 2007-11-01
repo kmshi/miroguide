@@ -130,26 +130,20 @@ class Int(Column):
     pass
 
 class String(Column):
-    """String columns store str and unicode objects.  By default unicode
-    objects will be encoding with utf-8 encoding, but this can be changed 2
-    ways:
-
-    The system-wide encoding can be changed with the class attribute
-    'encoding', (String.encoding = 'latin1')
-
-    A specific column's encoding can be changed by setting an attribute on
-    that object, (foo.columns.string_column.encoding = 'latin1')
-
+    """String columns store string data.  String columns are compatible with
+    unicode, but they don't have any special support for it.  For example, if
+    set a String column to a unicode value sqlhelper will pass that along to
+    the underlying DB-API module.  Most (all?) DB-API should automatically
+    handle this.  When selecting objects, sqlhelper will return whatever the
+    database sends back.  If you want them to be unicode, take a look at the
+    DBInfo classes for database specific support.  For example, MySQL supports
+    a unicode argument that causes the database to return strings as unicode.
     """
-    encoding = 'utf8'
-
     def __init__(self, name, length=None, *args, **kwargs):
         Column.__init__(self, name, *args, **kwargs)
         self.length = length
 
     def convert_for_db(self, data):
-        if isinstance(data, unicode):
-            data = data.encode(self.encoding)
         if (self.length is not None and data is not None and 
                 len(data) > self.length):
             logging.warn("Truncating data %r for column %s", data,
@@ -215,9 +209,12 @@ class Subquery(AbstractColumn):
         super(Subquery, self).__init__(name, *args, **kwargs)
         self.sql = sql
 
-    def column_expression(self):
+    def expression(self):
         real_sql = self.sql.replace('#table#', self.table.name)
-        return sql.Expression('(%s) AS %s' % (real_sql, self.fullname()))
+        return sql.Expression(real_sql)
+
+    def column_expression(self):
+        return self.expression().label(self.fullname())
 
 class Expression(AbstractColumn):
     def __init__(self, name, expression, *args, **kwargs):

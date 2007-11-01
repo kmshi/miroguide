@@ -119,7 +119,7 @@ class Select(Statement):
                 limit = 9999999
             else:
                 limit = self.limit
-            comp.add_text('\nLIMIT %d,%d' % (offset, limit))
+            comp.add_text('\nLIMIT %d OFFSET %d' % (limit, offset))
         return comp.finalize()
 
     def subquery(self, label=None):

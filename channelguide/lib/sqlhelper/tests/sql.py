@@ -31,13 +31,12 @@ class SelectTest(TestCase):
         expression = sql.Expression('id * id').label('id_squared')
         select = sql.Select('id', expression)
         select.froms.append('foo')
-        select.order_by.append('id_squared - id * 5')
+        select.order_by.append('id_squared')
         last_row = None
         for row in select.execute(self.connection):
             self.assertEquals(row[1], row[0] * row[0])
             if last_row:
-                self.assert_((last_row[1] - last_row[0] * 5) <=
-                        (row[1] - row[0] * 5))
+                self.assert_(last_row[1] <= row[1])
             last_row = row
 
     def test_join(self):

@@ -21,12 +21,11 @@ class UpdateTest(TestCase):
 
     def test_double_save(self):
         f = Foo()
-        f.id = 100
         f.name = 'cool'
         f.save(self.connection)
         f.name = 'cheesewhiz'
         f.save(self.connection)
-        f2 = Foo.get(self.connection, 100)
+        f2 = Foo.get(self.connection, f.id)
         self.assertEquals(f2.name, 'cheesewhiz')
 
     def test_auto_increment(self):
@@ -39,14 +38,13 @@ class UpdateTest(TestCase):
 
     def test_change_primary_key(self):
         f = Foo()
-        f.id = 1000
         f.name = 'newname'
         f.save(self.connection)
-        self.assertEquals(f.rowid, (1000,))
-        f.id = 2000
+        self.assertNotEqual(f.rowid, 100)
+        f.id = 100
         f.save(self.connection)
-        self.assertEquals(f.rowid, (2000,))
-        f2 = Foo.get(self.connection, 2000)
+        self.assertEquals(f.rowid, (100,))
+        f2 = Foo.get(self.connection, 100)
         self.assertEquals(f2.name, f.name)
         self.assertRaises(NotFoundError, Foo.get, self.connection, 1000)
 
@@ -67,45 +65,13 @@ class UpdateTest(TestCase):
         f2 = Foo.get(self.connection, 100)
         self.assertEquals(f2.name, 'bingo')
 
-class CharecterEncodingTest(TestCase):
-    def setUp(self):
-        TestCase.setUp(self)
-        self.foo = Foo()
-        self.foo.id = 100
-        self.foo.name = u'\xfa'
-        self.unicode_name = u'\xfa'
-
-    def tearDown(self):
-        try:
-            del Foo.c.name.encoding
-        except AttributeError:
-            pass
-        columns.String.encoding = 'utf8'
-        TestCase.tearDown(self)
-
-    def check_encoding(self, charset):
-        self.foo.save(self.connection)
-        foo2 = Foo.get(self.connection, self.foo.id)
-        self.assertEquals(foo2.name, self.unicode_name.encode(charset))
-
-    def test_default(self):
-        self.check_encoding('utf8')
-
-    def test_class_change(self):
-        columns.String.encoding = 'latin1'
-        self.check_encoding('latin1')
-
-    def test_column_change(self):
-        Foo.c.name.encoding = 'latin1'
-        self.check_encoding('latin1')
-
 class AutoAssignmentTest(TestCase):
     def test_default(self):
         type = Types()
-        type.boolean = True
+        type.boolval = True
         type.save(self.connection)
         self.assertEquals(type.string, "booya")
-        self.assert_(datetime.now() - type.date < timedelta(seconds=1))
+        self.assert_(datetime.now() - type.dateval < timedelta(seconds=1))
         self.assertEquals(type.null_ok, None)
         type2 = Types.get(self.connection, type.id)
         self.assertEquals(type.string, type2.string)
@@ -115,11 +81,11 @@ class AutoAssignmentTest(TestCase):
 
     def test_onupdate(self):
         type = Types()
-        type.boolean = True
+        type.boolval = True
         type.save(self.connection)
-        first_date = type.date
+        first_date = type.dateval
         type.save(self.connection)
-        self.assert_(type.date > first_date)
+        self.assert_(type.dateval > first_date)
 
     def test_set_foreign_keys(self):
         foo = Foo()
@@ -162,7 +128,7 @@ class ConvertForDBTest(TestCase):
 
     def test_string_conversion_null(self):
         type = Types()
-        type.boolean = True
+        type.boolval = True
         type.null_ok = None
         type.save(self.connection)
 

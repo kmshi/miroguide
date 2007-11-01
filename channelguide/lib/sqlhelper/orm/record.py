@@ -130,7 +130,9 @@ class Record(object):
         insert.execute(connection)
         if self.table.auto_increment_column is not None:
             attr_name = self.table.auto_increment_column.name
-            setattr(self, attr_name, connection.lastrowid)
+            value = connection.get_autoincrement_value(self.table.name,
+                    attr_name)
+            setattr(self, attr_name, value)
         self.rowid = self.primary_key_values()
 
     def update(self, connection):
@@ -147,7 +149,7 @@ class Record(object):
             if column.auto_increment and not hasattr(self, column.name):
                 continue
             data = column.convert_for_db(getattr(self, column.name))
-            saver.add_value(column.fullname(), data)
+            saver.add_value(column.name, data)
             # if the conversion changed the data, reflect that in our
             # attributes.
             setattr(self, column.name, data)

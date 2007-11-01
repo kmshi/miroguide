@@ -180,6 +180,7 @@ class CompoundExpression(Expression):
         self.text = format_string % tuple(format_args)
 
 class Label(CompoundExpression):
+    combine_format = '%s'
     def __init__(self, expression, name):
         super(Label, self).__init__('(%s) AS %s', expression, name)
 

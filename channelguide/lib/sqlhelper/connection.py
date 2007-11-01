@@ -9,13 +9,10 @@
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
-import time
 class Connection(object):
     """Connection object.  This simplfies the python DB API's
     connection/cursor objects.  It has the following differences:
@@ -24,27 +21,21 @@ class Connection(object):
         can call execute(), commit() and rollback() on it.
       * execute() returns all the results immediately, no need for fetchall()
     """
-    def __init__(self, raw_connection, logging=False):
-        self.raw_connection = raw_connection
-        self.cursor = raw_connection.cursor()
-        if logging is not False:
-            self.logfile = file(logging, 'a')
+    def __init__(self, dbinfo, use_connection=None):
+        """Create a new connection """
+        self.dbinfo = dbinfo
+        if use_connection is None:
+            self.raw_connection = dbinfo.connect()
         else:
-            self.logfile = None
+            self.raw_connection = use_connection
+        self.cursor = self.raw_connection.cursor()
 
     def execute(self, sql, args=None):
-        s = time.time()
         self.cursor.execute(sql, args)
-        t = time.time()
-        rows = self.cursor.fetchall()
-        v = time.time()
-        if self.logfile is not None and not sql.startswith('SELECT'):
-            self.logfile.write("""executing %r
-with args: %r
-execute took %f seconds
-fetchall took %f seconds
-""" % (sql, args, (t-s), (v-t)))
-        return rows
+        if self.cursor.description is not None:
+            return self.cursor.fetchall()
+        else:
+            return None
 
     def commit(self):
         self.raw_connection.commit()
@@ -55,9 +46,9 @@ fetchall took %f seconds
     def close(self):
         self.cursor.close()
         self.raw_connection.close()
-        if self.logfile is not None:
-            self.logfile.close()
 
-    def get_lastrowid(self):
-        return self.cursor.lastrowid
-    lastrowid = property(get_lastrowid)
+    def get_autoincrement_value(self, table, column):
+        return self.dbinfo.get_autoincrement_value(self.cursor, table, column)
+
+    def is_open(self):
+        return self.dbinfo.is_connection_open(self.raw_connection)

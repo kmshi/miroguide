@@ -21,7 +21,7 @@ from unittest import TestLoader, TextTestRunner, TestSuite, TestCase
 from optparse import OptionParser
 import os
 import sys
-import logging
+import time
 
 def main(args):
     fix_path()
@@ -40,7 +40,14 @@ def main(args):
     try:
         runner.run(tests)
     finally:
-        testsetup.dbinfo.drop_database()
+        print "droping test database (this make take a little while...)"
+        for x in range(5):
+            try:
+                testsetup.dbinfo.drop_database()
+            except:
+                time.sleep(1)
+            else:
+                break
 
 def fix_path():
     try:

@@ -255,8 +255,8 @@ class ManyToMany(Relation):
         insert = Insert(self.join_table)
         parent_join_value = getattr(parent_record, self.foreign_key.ref.name)
         record_join_value = getattr(record, self.relation_fk.ref.name)
-        insert.add_value(self.foreign_key.fullname(), parent_join_value)
-        insert.add_value(self.relation_fk.fullname(), record_join_value)
+        insert.add_value(self.foreign_key.name, parent_join_value)
+        insert.add_value(self.relation_fk.name, record_join_value)
         insert.execute(connection)
 
     def handle_list_remove(self, connection, parent_record, record):

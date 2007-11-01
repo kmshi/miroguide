@@ -63,8 +63,7 @@ class DBPoolTest(unittest.TestCase):
         connection.raw_connection.close()
         connection2 = self.pool.connect()
         self.assert_(connection is not connection2)
-        raw_connection = connection2.raw_connection
-        self.assert_(testsetup.dbinfo.is_connection_open(raw_connection))
+        self.assert_(connection2.is_open())
 
     def test_late_close(self):
         connection = self.connect()

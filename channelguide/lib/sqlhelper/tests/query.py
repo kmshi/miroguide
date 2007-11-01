@@ -17,10 +17,10 @@ class QueryTest(TestCase):
 
     def test_types(self):
         for obj in Types.query().execute(self.connection):
-            self.assertEquals(type(obj.id), long)
+            self.assert_(type(obj.id) in (int, long))
             self.assertEquals(type(obj.string), str)
-            self.assertEquals(type(obj.date), datetime.datetime)
-            self.assertEquals(type(obj.boolean), bool)
+            self.assertEquals(type(obj.dateval), datetime.datetime)
+            self.assertEquals(type(obj.boolval), bool)
             if obj.id in self.null_type_ids:
                 self.assertEquals(obj.null_ok, None)
             else:
@@ -32,8 +32,8 @@ class QueryTest(TestCase):
             return s.execute(self.connection)[0]
         false_type = get_by_name('false')
         true_type = get_by_name('true')
-        self.assertEquals(false_type.boolean, False)
-        self.assertEquals(true_type.boolean, True)
+        self.assertEquals(false_type.boolval, False)
+        self.assertEquals(true_type.boolval, True)
 
     def test_where(self):
         results = Foo.query().where(id=3).execute(self.connection)
@@ -163,13 +163,6 @@ class QueryTest(TestCase):
             self.assertEquals(foo.category_count, len(categories))
             bars = self.foo_to_bars.get(foo.id, [])
             self.assertEquals(foo.bar_count, len(bars))
-
-    def test_having(self):
-        query = Foo.query_with_counts()
-        query.having(query.c.category_count > 2)
-        foos = query.execute(self.connection)
-        for foo in foos:
-            self.assert_(foo.category_count > 2)
 
     def test_subquery_orderby(self):
         query = Foo.query_with_counts().order_by('bar_count')

@@ -1,4 +1,6 @@
 import logging
+import os
+import re
 from datetime import datetime
 import unittest
 
@@ -37,7 +39,7 @@ class TestCase(unittest.TestCase):
         self.log_handler = LogRaiser()
         self.log_filter = LogCatcher()
         logging.getLogger().addHandler(self.log_handler)
-        self.create_test_tables()
+        self.create_tables()
         self.populate_test_tables()
 
     def tearDown(self):
@@ -49,7 +51,7 @@ class TestCase(unittest.TestCase):
         unittest.TestCase.tearDown(self)
 
     def connect(self):
-        retval = connection.Connection(testsetup.dbinfo.connect())
+        retval = connection.Connection(testsetup.dbinfo)
         self.all_connections.append(retval)
         return retval
 
@@ -70,53 +72,21 @@ class TestCase(unittest.TestCase):
         logging.getLogger().removeFilter(self.log_filter)
         self.log_filter.reset()
 
-    def create_test_tables(self):
-        self.connection.execute("""CREATE TABLE foo (
-id INT(11) NOT NULL AUTO_INCREMENT,
-name VARCHAR(40) NOT NULL,
-PRIMARY KEY (id))
-ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
-        self.connection.execute("""CREATE TABLE foo_extra (
-id INT(11) NOT NULL,
-extra_info VARCHAR(40) NOT NULL,
-PRIMARY KEY (id),
-FOREIGN KEY (id) REFERENCES foo (id) ON DELETE CASCADE)
-ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
-        self.connection.execute("""CREATE TABLE types (
-id INT(11) NOT NULL AUTO_INCREMENT,
-string VARCHAR(40) NOT NULL,
-date DATETIME NOT NULL,
-boolean TINYINT(1) NOT NULL,
-null_ok VARCHAR(20) NULL,
-PRIMARY KEY (id))
-ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
-        self.connection.execute("""CREATE TABLE bar (
-id INT(11) NOT NULL AUTO_INCREMENT,
-foo_id INT(11), 
-name VARCHAR(40) NOT NULL,
-PRIMARY KEY (id),
-FOREIGN KEY (foo_id) REFERENCES foo (id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
-        self.connection.execute("""CREATE TABLE category (
-id INT(11) NOT NULL AUTO_INCREMENT,
-name VARCHAR(40) NOT NULL,
-PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
-        self.connection.execute("""CREATE TABLE category_map (
-category_id INT(11),
-foo_id INT(11),
-FOREIGN KEY (category_id) REFERENCES category (id) ON DELETE CASCADE,
-FOREIGN KEY (foo_id) REFERENCES foo (id) ON DELETE CASCADE,
-PRIMARY KEY (category_id, foo_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
-        self.connection.execute("""CREATE TABLE category_map_with_dups (
-category_id INT(11),
-foo_id INT(11),
-other_column INT(11),
-FOREIGN KEY (category_id) REFERENCES category (id) ON DELETE CASCADE,
-FOREIGN KEY (foo_id) REFERENCES foo (id) ON DELETE CASCADE,
-PRIMARY KEY (category_id, foo_id, other_column)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
+    def create_tables(self):
+        if testsetup.dbinfo.engine == 'mysql':
+            setup_file = 'mysql_setup.sql'
+        elif testsetup.dbinfo.engine == 'postgresql':
+            setup_file = 'postgres_setup.sql'
+        else:
+            raise AssertionError("Unknown engine type: %s" %
+                    testsetup.dbinfo.engine)
+
+        tests_dir = os.path.join(os.path.dirname(__file__))
+        setup_file_path = os.path.join(tests_dir, setup_file)
+        setup_file_contents = open(setup_file_path).read()
+        for statement in setup_file_contents.split("\n\n"):
+            self.connection.execute(statement)
+        self.connection.commit()
 
     def drop_test_tables(self):
         self.connection.rollback()
@@ -137,12 +107,12 @@ PRIMARY KEY (category_id, foo_id, other_column)
         self.populate_categories()
 
     def populate_foo(self):
-        self.foo_values = [ (1, 'booya'), (2, 'car'), (3, 'toy'), (4, 'moo'),
-                (5, 'cow')
-        ]
-        for id, name in self.foo_values:
-            self.connection.execute("INSERT INTO foo(id, name) VALUES (%s, %s)",
-                    (id, name))
+        self.foo_values = []
+        for value in [ 'booya', 'car', 'toy', 'moo', 'cow']:
+            self.connection.execute("INSERT INTO foo(name) VALUES(%s)", 
+                    (value,))
+            id = self.connection.get_autoincrement_value('foo', 'id')
+            self.foo_values.append((id, value))
 
     def populate_foo_extra(self):
         self.foo_extra_values = { 3: 'bacon', 2: 'oj' }
@@ -152,30 +122,42 @@ PRIMARY KEY (category_id, foo_id, other_column)
 
     def populate_types(self):
         self.connection.execute("INSERT INTO "
-                "types(id, string, date, boolean, null_ok) "
-                "VALUES (2, 'false', '2005-08-02 15:00:25', 0, NULL)")
+                "types(string, dateval, boolval, null_ok) "
+                "VALUES ('false', '2005-08-02 15:00:25', '0', NULL)")
+        self.null_type_ids = [
+                self.connection.get_autoincrement_value('types', 'id')
+        ]
         self.connection.execute("INSERT INTO "
-                "types(id, string, date, boolean, null_ok) "
-                "VALUES (1, 'true', '2005-08-02 15:00:25', 1, 'abc')")
-        self.null_type_ids = [2]
-        self.nonnull_type_ids = [1]
+                "types(string, dateval, boolval, null_ok) "
+                "VALUES ('true', '2005-08-02 15:00:25', '1', 'abc')")
+        self.nonnull_type_ids = [
+                self.connection.get_autoincrement_value('types', 'id')
+        ]
 
     def populate_bar(self):
-        self.bar_values = [ (1, 1, 'cat'), (2, 1, 'dog'), (3, 2, 'tiger'),
-                (4, 3, 'squirel')
-        ]
         self.foo_to_bars = {}
-        for id, foo_id, name in self.bar_values:
-            self.connection.execute("INSERT INTO bar(id, foo_id, name) "
-                    "VALUES (%s, %s, %s)", (id, foo_id, name))
+        self.bar_values = []
+        populate_with = [ 
+                (1, 'cat'), 
+                (1, 'dog'), 
+                (2, 'tiger'),
+                (3, 'squirel')
+        ]
+        for foo_id, name in populate_with:
+            self.connection.execute("INSERT INTO bar(foo_id, name) "
+                    "VALUES (%s, %s)", (foo_id, name))
+            id = self.connection.get_autoincrement_value('bar', 'id')
+            self.bar_values.append((id, foo_id, name))
             bars = self.foo_to_bars.setdefault(foo_id, [])
             bars.append((id, foo_id, name))
 
     def populate_categories(self):
-        self.category_values = [ (1, 'funny'), (2, 'tech'), (3, 'politics') ]
-        for id, name in self.category_values:
-            self.connection.execute("INSERT INTO category(id, name) "
-                    "VALUES (%s, %s)", (id, name))
+        self.category_values = []
+        for name in ('funny', 'tech', 'politics'):
+            self.connection.execute("INSERT INTO category(name) VALUES(%s)",
+                    (name,))
+            id = self.connection.get_autoincrement_value('category', 'id')
+            self.category_values.append((id, name))
         self.foo_to_categories = {
                 1: [1,2],
                 2: [1,2,3],
@@ -234,8 +216,8 @@ category_map_with_dups_table = orm.Table('category_map_with_dups',
 types_table = orm.Table('types',
         columns.Int('id', primary_key=True, auto_increment=True), 
         columns.String('string', 200, default="booya"),
-        columns.DateTime('date', default=datetime.now, onupdate=datetime.now),
-        columns.Boolean('boolean'),
+        columns.DateTime('dateval', default=datetime.now, onupdate=datetime.now),
+        columns.Boolean('boolval'),
         columns.String('null_ok', 20))
 
 foo_table.one_to_many('bars', bar_table, backref='parent')
