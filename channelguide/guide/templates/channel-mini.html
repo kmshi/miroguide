@@ -8,6 +8,9 @@
             {{ count }} subscribes today
             {% endblocktrans %}
         </div>
+        <div class="averagerating">
+            <span style="width: {{ channel.star_width }}%;">Average Rating: {{ channel.average_rating}} star{{ channel.average_rating|pluralize }}</span>
+        </div>
         {% endifequal %}
         {% ifequal count "episodes" %}
         {% if channel.item_count %}

@@ -8,12 +8,15 @@ from channelguide.guide.models import Channel, Category, PCFBlogPost
 from sqlhelper.orm.query import ResultHandler
 def get_popular_channels(connection, count):
     query = Channel.query_approved()
-    query.load('subscription_count_today')
+    query.load('subscription_count_today', 'average_rating')
     query.order_by('subscription_count_today', desc=True)
     query.limit(count)
     query.cacheable = cache.client
     query.cacheable_time = 300
-    return query.execute(connection)
+    result = query.execute(connection)
+    for r in result:
+        r.star_width = r.average_rating * 20
+    return result
 
 def get_featured_channels(connection):
     query = Channel.query_approved(featured=1)

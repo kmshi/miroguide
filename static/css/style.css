@@ -1293,6 +1293,30 @@ li.blog-post .title {
     color: #377FC8;
 }
 
+.channel-mini .averagerating, .channel-mini .averagerating span {
+    background: url(images/small-star.png) left -1000px repeat-x;
+}
+
+.channel-mini .averagerating {
+    position: relative;
+    height: 12px;
+    width: 60px;
+    overflow: hidden;
+    background-position: left top;
+}
+
+.channel-mini .averagerating span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    text-indent: -1000em;
+    height: 12px;
+    line-height: 12px;
+    overflow: hidden;
+    background-position: left center;
+}
+
 /* Full page channels */
 
 .channel-full {
