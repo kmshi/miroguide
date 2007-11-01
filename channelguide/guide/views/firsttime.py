@@ -8,6 +8,13 @@ from channelguide.guide.models import Channel, Category
 def index(request):
     channel_packs = [
             [
+                ('Sports',
+                    'http://sports.espn.go.com/espnradio/podcast/feeds/itunes/podCast?id=2870570',
+                    'http://feeds.foxnews.com/podcasts/FightGame',
+                    'http://www.bleacherbloggers.com/rss',
+                    'http://www.sportal.com.au/podcast/sportalcomau_rss.xml',
+                    'http://www.onnetworks.com/videos/shows/1699/podcast/hd'
+                ),
                 ('Movies/TV',
                     'http://www.kqed.org/rss/private/spark.xml',
                     'http://feeds.feedburner.com/theburg',
@@ -15,13 +22,6 @@ def index(request):
                     'http://files.myopera.com/TimoP/files/timostrailers.rss',
                     'http://www.archiveclassicmovies.com/democracy.xml',
                     'http://www.sesameworkshop.org/podcasts/sesamestreet/rss.xml'),
-                ('Sports',
-                    'http://sports.espn.go.com/espnradio/podcast/feeds/itunes/podCast?id=2870570',
-                    'http://feeds.foxnews.com/podcasts/FightGame',
-                    'http://www.bleacherbloggers.com/rss',
-                    'http://www.sportal.com.au/podcast/sportalcomau_rss.xml',
-                    'http://www.onnetworks.com/videos/shows/1699/podcast/hd'
-                )
             ],
             [
                 ('Music',
