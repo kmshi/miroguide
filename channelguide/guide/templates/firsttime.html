@@ -37,7 +37,7 @@ function vlcRestart(obj) {
 
 function createVideo(obj, url, width, height) {
     win = 0;
-    if (1 || navigator.platform == 'Win32') {
+    if (navigator.platform == 'Win32') {
         /* use VLC */
         html = '<embed type="application/x-vlc-plugin" width=' + width + ' height=' + height + ' autoplay="yes" loop="no" name="video1" target="' + url + '" />'
         + '<input id="playpause" type="button" value="Pause" onclick="vlcPlayPause(document.video1, $(\'#playpause\'));" />'
