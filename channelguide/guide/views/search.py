@@ -49,7 +49,7 @@ def search_results(connection, class_, terms, search_attribute='name'):
 
     search_column = class_.c.get(search_attribute)
     for term in terms:
-        query.where(search_column.like('%s%%' % term))
+        query.where(search_column.like('%s%%' % term.encode('utf8')))
     return query.execute(connection)
 
 @cache.aggresively_cache
