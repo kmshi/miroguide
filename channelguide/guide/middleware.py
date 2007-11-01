@@ -1,13 +1,15 @@
 import locale
 import logging
 import traceback
+import cStringIO
 
 from channelguide import util, settings
 from exceptions import AuthError
 from models import Channel, User
 from models.user import AnonymousUser
 from auth import SESSION_KEY
-import hotshot, hotshot.stats, tempfile, StringIO, sys
+import hotshot, hotshot.stats, tempfile, sys
+
 class UserMiddleware(object):
     """Add a User object to each request.
 
@@ -128,7 +130,7 @@ class ProfileMiddleware(object):
 
 
 
-            out = StringIO.StringIO()
+            out = cStringIO.StringIO()
 
             old_stdout = sys.stdout
 
