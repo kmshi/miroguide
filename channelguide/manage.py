@@ -386,7 +386,6 @@ def refresh_popular_cache(args=None):
 
     cc = CacheClient()
     for query, cacheable_time in queries:
-        print query, cacheable_time
         query.cacheable = cc
         query.cacheable_time = cacheable_time
         query.execute(connection)
@@ -449,6 +448,7 @@ def refresh_stats_table(args=None):
     conn.execute(delete)
     conn.execute(insert)
     conn.commit()
+    conn.close()
 refresh_stats_table.args = ''
 
 def update_new_channel_queue(args=None):
@@ -459,11 +459,11 @@ def update_new_channel_queue(args=None):
     from channelguide import db
     conn = db.connect()
     new_channel = conn.execute('SELECT approved_at FROM cg_channel WHERE approved_at>(SELECT timestamp FROM cg_channel_last_approved) ORDER BY approved_at ASC LIMIT 1')
-    print new_channel
     if new_channel:
         conn.execute('UPDATE cg_channel_last_approved SET timestamp=%s',
-                (new_channel[0]))
+                new_channel[0])
         conn.commit()
+    conn.close()
 update_new_channel_queue.args = ''
 
 action_mapping['syncdb'] = syncdb
