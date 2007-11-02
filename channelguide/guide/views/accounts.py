@@ -5,6 +5,7 @@ import django.newforms as forms
 from channelguide import cache
 from channelguide import util
 from channelguide.guide.auth import logout, login, moderator_required, login_required
+from channelguide.guide.exceptions import AuthError
 from channelguide.guide.forms import user as user_forms
 from channelguide.guide.models import User, UserAuthToken
 from channelguide.guide.templateutil import Pager
@@ -112,7 +113,7 @@ def confirm(request, id, code):
     """
     user = util.get_object_or_404(request.connection, User.query(), id)
     if user.id != request.user.id and not request.user.is_admin():
-        raise Http404
+        raise AuthError('must be logged in as the same user')
     userApproved = False
     if user.generate_confirmation_code() == code:
         userApproved = True
