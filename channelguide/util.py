@@ -128,7 +128,7 @@ def set_cookie(response, key, value, seconds):
             secure=secure)
 
 def hash_string(str):
-    return md5.new(str).hexdigest()
+    return md5.new(str.encode('utf8')).hexdigest()
 
 def get_object_or_404(connection, record_or_query, id):
     from sqlhelper.orm import Record

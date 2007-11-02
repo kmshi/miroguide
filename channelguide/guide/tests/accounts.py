@@ -20,7 +20,8 @@ class AccountTest(TestCase):
         Return a dictionary of data used to register a new user.
         """
         return {'newusername': 'mike', 'email': 'mike@mike.com',
-                'newpassword': 'password', 'newpassword2': 'password',
+                'newpassword': u'password\xdf\xdf',
+                'newpassword2': u'password\xdf\xdf',
                 'which-form': 'register' }
 
     def register(self):
@@ -32,7 +33,8 @@ class AccountTest(TestCase):
         response = self.get_page('/')
         self.assertEquals(response.context[0]['user'].username, 'mike')
         self.assertEquals(response.context[0]['user'].email, 'mike@mike.com')
-        self.assert_(response.context[0]['user'].check_password('password'))
+        self.assert_(response.context[0]['user'].check_password(
+            u'password\xdf\xdf'))
         return response
 
     def bad_login_data(self):
@@ -51,12 +53,7 @@ class AccountTest(TestCase):
         self.assert_(not response.context[0]['user'].is_authenticated())
 
     def test_register(self):
-        response = self.post_data("/accounts/login", self.register_data())
-        self.assertRedirect(response, '')
-        response = self.get_page('/')
-        self.assertEquals(response.context[0]['user'].username, 'mike')
-        self.assertEquals(response.context[0]['user'].email, 'mike@mike.com')
-        self.assert_(response.context[0]['user'].check_password('password'))
+        self.register()
 
     def test_forgot_password(self):
         user = self.make_user('rachel')
