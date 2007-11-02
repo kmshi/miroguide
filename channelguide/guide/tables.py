@@ -211,7 +211,7 @@ FROM cg_channel_rating JOIN user ON user.id=cg_channel_rating.user_id
 WHERE cg_channel_rating.channel_id=#table#.id AND user.approved=1""")
 
 channel.add_subquery_column('average_rating', """\
-SELECT IFNULL(AVG(rating), 0)
+SELECT IFNULL(ROUND(AVG(rating), 1), 0)
 FROM cg_channel_rating JOIN user ON user.id=cg_channel_rating.user_id
 WHERE cg_channel_rating.channel_id=#table#.id AND user.approved=1""")
 
