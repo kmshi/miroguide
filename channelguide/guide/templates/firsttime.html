@@ -90,12 +90,12 @@ function createVideo(obj, url, width, height) {
                     <div id="video"><img src="{{ STATIC_BASE_URL}}images/meetmiro.jpg"></div><div id="download"><a href="http://subscribe.getmiro.com/download?url1={{ MOVIE_URL|urlencode }}">Download this video</a></div></dd>
         <dt class="selected step"><a href="#"><span>2</span><h1>Add Your Favorite Topics to Miro</h1></a></dt>
         <dd id="channellist" style="padding-top: 8px;">
-            <span class="info">Each channel pack gets you started with 5 great channels &mdash; add as many as you want.</span>
+            <span class="info">Each channel pack gets you started with 5 great channels &mdash; add <img src="{{ STATIC_BASE_URL }}images/mini-add.png" alt=""> as many as you want.</span>
             {% fourcolumnloop  with column in channel_columns %}
                 {% for channel in column %}
                     <div class="channel">
-                        <span class="pack"></span>
-                        <div class="subscribe"><a class="add" href="{{ channel.1 }}"><span class="icon"></span>Add {{ channel.0 }}</a></div>
+                        <img src="{{ STATIC_BASE_URL }}css/images/pack.png" alt="Icon for {{ channel.0 }} Channel Pack">
+                        <div class="subscribe"><a class="add" href="{{ channel.2 }}"><span class="icon"></span>Add {{ channel.0 }}</a></div>
                     </div>
                 {% endfor %}
             {% endfourcolumnloop %}

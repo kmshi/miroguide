@@ -8,14 +8,14 @@ from channelguide.guide.models import Channel, Category
 def index(request):
     channel_packs = [
             [
-                ('Sports',
+                ('Sports', 'sports.jpg',
                     'http://sports.espn.go.com/espnradio/podcast/feeds/itunes/podCast?id=2870570',
                     'http://feeds.foxnews.com/podcasts/FightGame',
                     'http://www.bleacherbloggers.com/rss',
                     'http://www.sportal.com.au/podcast/sportalcomau_rss.xml',
                     'http://www.onnetworks.com/videos/shows/1699/podcast/hd'
                 ),
-                ('Movies/TV',
+                ('Movies/TV', 'moviesTV.jpg',
                     'http://www.kqed.org/rss/private/spark.xml',
                     'http://feeds.feedburner.com/theburg',
                     'http://www.atomfilms.com/rss/atomtogo.xml',
@@ -24,13 +24,13 @@ def index(request):
                     'http://www.sesameworkshop.org/podcasts/sesamestreet/rss.xml'),
             ],
             [
-                ('Music',
+                ('Music', 'music.jpg',
                     'http://www.telemusicvision.com/videos/rss.php?i=1',
                     'http://revision3.com/notmtv/feed/quicktime-large',
                     'http://feeds.feedburner.com/theswitched',
                     'http://feeds.feedburner.com/volcast',
                     'http://abcnews.go.com/xmldata/xmlPodcast?id=1456635&src=i'),
-                ('Tech',
+                ('Tech', 'tech.jpg',
                     'http://feeds.feedburner.com/TEDTalks_video',
                     'http://revision3.com/tekzilla/feed/quicktime-high-definition',
                     'http://jetset.blip.tv/?skin=rss',
@@ -39,14 +39,14 @@ def index(request):
                     'http://feeds.feedburner.com/webbalert')
             ],
             [
-                ('Science',
+                ('Science', 'science.jpg',
                     'http://feeds.feedburner.com/Terravideos',
                     'http://www.pbs.org/wnet/nature/rss/podcast.xml',
                     'http://podcast.nationalgeographic.com/wild-chronicles/',
                     'http://krampf.blip.tv/rss',
                     'http://www.discovery.com/radio/xml/sciencevideo.xml',
                     'http://www.discovery.com/radio/xml/discovery_video.xml'),
-                ('Entertainment',
+                ('Entertainment', 'entertainment.jpg',
                     'http://feeds.boingboing.net/boingboing/tv',
                     'http://revision3.com/webdrifter/feed/quicktime-high-definition',
                     'http://feeds.theonion.com/OnionNewsNetwork',
@@ -55,7 +55,7 @@ def index(request):
                     'http://feeds.feedburner.com/classicanimation')
             ],
             [
-                ('News',
+                ('News', 'news.jpg',
                     'http://feeds.cbsnews.com/podcast_eveningnews_video_1.rss',
                     'http://abcnews.go.com/xmldata/xmlPodcast?id=1478958&src=i',
                     'http://podcast.msnbc.com/audio/podcast/MSNBC-NN-NETCAST-M4V.xml',
@@ -63,7 +63,7 @@ def index(request):
                     'http://submedia.tv/submediatv/bm/rss/2',
                     'http://www.rocketboom.com/vlog/rb_hd.xml'
                 ),
-                ('Food',
+                ('Food', 'food.jpg',
                     'http://www.epicurious.com/services/rss/feeds/sitewide_podcast.xml',
                     'http://aww.ninemsn.com.au/podcast/freshtv/video/',
                     'http://www.simplyming.org/rss/vodcast.xml',
@@ -81,7 +81,8 @@ def index(request):
 <p><strong>Picture Quality</strong>: Your computer screen can display a sharper image than most TV sets. YouTube cannot take advantage of this fact (they only stream video), but Miro was designed to handle HD (High Definition) video. More and more creators are publishing their channels in HD. Miro is the best way to take advantage.</p>"""),
             ('How can I find channels I want to watch?', """<p>We keep track of popular and top rated channels in the Miro Guide. You can also browse by category or language.  In the near future, the Miro Guide will give personalized recommendations, based on the way you rate channels. Any ratings you leave now will count towards this feature.</p>"""),
             ]
-    channel_columns = [[(column[0], util.get_subscription_url(*column[1:]))
+    channel_columns = [[(column[0], column[1],
+        util.get_subscription_url(*column[2:]))
         for column in row] for row in channel_packs]
     return util.render_to_response(request, 'firsttime.html',
             { 'faqs': faqs,

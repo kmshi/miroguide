@@ -2273,11 +2273,8 @@ div.first-time-page {
     width: 185px;
 }
 
-.first-time-page #channellist span.pack {
+.first-time-page #channellist .four-column-list img {
     display: block;
-    background: url(images/pack.png);
-    height: 108px;
-    width: 147px;
     margin-left: 12px;
 }
 .first-time-page .subscribe {
