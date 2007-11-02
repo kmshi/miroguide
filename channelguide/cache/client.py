@@ -48,6 +48,14 @@ def get_multi(keys):
     finally:
         memcache_client_lock.release()
 
+def delete(key):
+    key = settings.CACHE_PREFIX + key
+    memcache_client_lock.acquire()
+    try:
+        return memcache_client.delete(key)
+    finally:
+        memcache_client_lock.release()
+
 def incr(key, delta=1):
     key = settings.CACHE_PREFIX + key
     memcache_client_lock.acquire()

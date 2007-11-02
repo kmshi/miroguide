@@ -6,6 +6,7 @@ from sqlhelper import NotFoundError, NOW
 from django.conf import settings
 
 from channelguide import db, util
+from channelguide.cache import client
 from models import Session
 
 def delete_old_sessions():
@@ -28,7 +29,7 @@ def make_new_session_key(connection):
     while 1:
         randstring = '%x' % random.getrandbits(128)
         key = util.hash_string(randstring + settings.SECRET_KEY)
-        if Session.query(session_key=key).count(connection) == 0:
+        if client.get(Session._cache_key(key)) is None:
             return key
 
 def get_session_from_key(connection, session_key):

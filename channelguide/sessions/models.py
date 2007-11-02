@@ -1,30 +1,46 @@
 from datetime import datetime, timedelta
-import cPickle
+import time
 
 from django.conf import settings
-from sqlhelper.orm import Table, columns, Record
+from sqlhelper import NotFoundError
+from channelguide.cache import client
 
-from channelguide import cache
-
-session_table = Table('cg_session', 
-        columns.String('session_key', 40, primary_key=True),
-        columns.String('data'),
-        columns.DateTime('expires'))
-
-class Session(Record):
-    table = session_table
+class Session(object):
 
     def __init__(self):
-        Record.__init__(self)
         self.set_data({})
         self.session_key = None
+        self.update_expire_date()
 
     def set_data(self, dict):
-        self.data = cPickle.dumps(dict)
+        self.data = dict
 
     def get_data(self):
-        return cPickle.loads(self.data)
+        if not isinstance(self.data, dict):
+            raise Exception()
+        return self.data
 
     def update_expire_date(self):
         age_timedelta = timedelta(seconds=settings.SESSION_COOKIE_AGE)
         self.expires = datetime.now() + age_timedelta
+
+    @staticmethod
+    def _cache_key(session_key):
+        return 'Session:' + session_key
+
+    @classmethod
+    def get(cls, connection, session_key):
+        obj = client.get(cls._cache_key(session_key))
+        if obj is None:
+            raise NotFoundError
+        return obj
+
+    def save(self, connection):
+        expires = time.mktime(self.expires.timetuple())
+        key = self._cache_key(self.session_key)
+        client.set(key, self, expires)
+
+    def delete(self, connection):
+        client.delete(self._cache_key(self.session_key))
+
+    delete_if_exists = delete
