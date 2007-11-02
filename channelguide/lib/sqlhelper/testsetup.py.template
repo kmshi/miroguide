@@ -1,7 +1,0 @@
-# You just need to define a dbinfo variable that holds the info for the test
-# database.  The user you give must have privileges to create/drop the test
-# database.
-
-from sqlhelper import dbinfo
-
-dbinfo = dbinfo.blah blah blah...
