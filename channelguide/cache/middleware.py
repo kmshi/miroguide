@@ -1,5 +1,5 @@
 from Cookie import SimpleCookie
-import time, md5
+import time, md5, logging
 from django.conf import settings
 from django.http import HttpResponseNotModified
 from django.core.handlers.wsgi import WSGIRequest
@@ -135,12 +135,15 @@ class AggressiveCacheMiddleware(CacheMiddleware):
 
     def response_from_cache_object(self, request, cached_response):
         t = loader.get_template("guide/account-bar.html")
-        new_account_bar = t.render(Context({'user': request.user})).decode('ascii')
+        new_account_bar = t.render(Context({'user': request.user})).encode('utf8')
         content = cached_response.content
         start = content.find(self.account_bar_start)
         head = content[:start]
         end = content.find(self.account_bar_end, start) + len(self.account_bar_end)
         tail = content[end:]
+        if type(cached_response.content) != type(new_account_bar) != str:
+            logging.info(type(cached_response.content))
+            logging.info(type(new_account_bar))
         cached_response.content = head
         cached_response.content += new_account_bar
         cached_response.content += tail
