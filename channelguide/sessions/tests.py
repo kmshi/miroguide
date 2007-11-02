@@ -72,3 +72,6 @@ class SessionTest(TestCase):
         self.connection.commit()
         self.assertRaises(LookupError, Session.get, self.connection, old_key)
         session = Session.get(self.connection, new_key)
+
+    def test_delete_ignores_missing_session_key(self):
+        Session().delete(self.connection)

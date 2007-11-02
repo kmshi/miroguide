@@ -41,6 +41,7 @@ class Session(object):
         client.set(key, self, expires)
 
     def delete(self, connection):
-        client.delete(self._cache_key(self.session_key))
+        if self.session_key is not None:
+            client.delete(self._cache_key(self.session_key))
 
     delete_if_exists = delete
