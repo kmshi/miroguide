@@ -323,3 +323,13 @@ def get_subscription_url(*links):
     parts = ['url%i=%s' % (index, quote(url)) for (index, url) in
                 izip(count(1), links)]
     return settings.SUBSCRIBE_URL + '&'.join(parts)
+
+def unicodify(s, encoding='utf8'):
+    """
+    Returns a Unicode string.  If u is already Unicode, return it, otherwise
+    decode it using the given encoding (default: utf8)
+    """
+    if isinstance(s, unicode):
+        return s
+    else:
+        return s.decode(encoding)
