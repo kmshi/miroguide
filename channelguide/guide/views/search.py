@@ -33,13 +33,13 @@ def search_items(request, terms):
     return query
 
 def more_results_link(query, total_results):
-    href = 'search-more-channels?query=' + urllib.quote_plus(query)
+    href = 'search-more-channels?query=' + urllib.quote_plus(query.encode('utf8'))
     label = _('%d More Matching Channels >>') % (total_results -
             FRONT_PAGE_LIMIT)
     return util.make_link(href, label)
 
 def more_results_link_items(query, total_results):
-    href = 'search-more-items?query=' + urllib.quote_plus(query)
+    href = 'search-more-items?query=' + urllib.quote_plus(query.encode('utf8'))
     label = _('%d More Matching Channel Videos >>') % (total_results -
             FRONT_PAGE_LIMIT_ITEMS)
     return util.make_link(href, label)
@@ -50,7 +50,7 @@ def search_results(connection, class_, terms, search_attribute='name'):
 
     search_column = class_.c.get(search_attribute)
     for term in terms:
-        query.where(search_column.like('%s%%' % term))
+        query.where(search_column.like('%s%%' % term.encode('utf8')))
     return query.execute(connection)
 
 @cache.aggresively_cache('search')
