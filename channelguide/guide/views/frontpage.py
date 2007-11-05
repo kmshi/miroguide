@@ -1,11 +1,20 @@
 import urllib
 
 from django.conf import settings
+from django.utils.decorators import decorator_from_middleware
 
 from channelguide import util, cache
+from channelguide.cache.middleware import AggressiveCacheMiddleware
 from channelguide.guide import tables
 from channelguide.guide.models import Channel, Category, PCFBlogPost
 from sqlhelper.orm.query import ResultHandler
+
+class FrontpageCacheMiddleware(AggressiveCacheMiddleware):
+
+    def get_cache_key_tuple(self, request):
+        return (AggressiveCacheMiddleware.get_cache_key_tuple(self, request) +
+                (request.user.is_authenticated(),))
+
 def get_popular_channels(connection, count):
     query = Channel.query_approved()
     query.load('subscription_count_today', 'average_rating')
@@ -93,7 +102,7 @@ def make_category_peek(request):
     }
 
 
-@cache.aggresively_cache
+@decorator_from_middleware(FrontpageCacheMiddleware)
 @cache.cache_page_externally_for(300)
 def index(request):
     if not request.user.is_authenticated():
