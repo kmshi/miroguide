@@ -423,7 +423,10 @@ def hd(request):
 
 @cache.aggresively_cache
 def features(request):
-    query = FeaturedQueue.query().where(FeaturedQueue.state!=0).order_by(FeaturedQueue.c.state).order_by(FeaturedQueue.c.featured_at, desc=True)
+    query = Channel.query().join('featured_queue')
+    j = query.joins['featured_queue']
+    j.where(j.c.state!=0)
+    query.order_by(j.c.state).order_by(j.c.featured_at, desc=True)
     return make_simple_list(request, query, _("Featured Channels"))
 
 def get_toprated_query():
