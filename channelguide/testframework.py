@@ -65,29 +65,32 @@ class TestCase(unittest.TestCase):
         return recipients
 
     def sanity_check_email(self, email):
-        self.assertEquals(type(email['email_from']), str)
+        self.assert_(isinstance(email['email_from'], (str, unicode)),
+                '%r is not a string' % (email['email_from'],))
         self.assertEquals(type(email['recipient_list']), list)
 
     def tearDown(self):
-        self.resume_logging()
-        util.emailer = None
-        self.connection.commit()
-        self.connection.close()
-        if os.path.exists(settings.MEDIA_ROOT):
-            shutil.rmtree(settings.MEDIA_ROOT)
-        if os.path.exists(settings.IMAGE_DOWNLOAD_CACHE_DIR):
-            shutil.rmtree(settings.IMAGE_DOWNLOAD_CACHE_DIR)
-        for name, oldvalue in self.changed_settings:
-            setattr(settings, name, oldvalue)
-        dispatcher.send(signals.request_finished)
-        # The above line should close any open request connections
-        for connection in db.pool.free:
-            connection.close_raw_connection()
-        db.pool.free = []
-        for connection in list(db.pool.used):
-            connection.destroy()
-        db.pool.used = set()
-        teardown_test_environment()
+        try:
+            self.resume_logging()
+            util.emailer = None
+            self.connection.commit()
+            self.connection.close()
+            if os.path.exists(settings.MEDIA_ROOT):
+                shutil.rmtree(settings.MEDIA_ROOT)
+            if os.path.exists(settings.IMAGE_DOWNLOAD_CACHE_DIR):
+                shutil.rmtree(settings.IMAGE_DOWNLOAD_CACHE_DIR)
+            for name, oldvalue in self.changed_settings:
+                setattr(settings, name, oldvalue)
+            dispatcher.send(signals.request_finished)
+            # The above line should close any open request connections
+            for connection in db.pool.free:
+                connection.close_raw_connection()
+            db.pool.free = []
+            for connection in list(db.pool.used):
+                connection.destroy()
+            db.pool.used = set()
+        finally:
+            teardown_test_environment()
 
     def assertSameSet(self, iterable1, iterable2):
         self.assertEquals(set(iterable1), set(iterable2))
@@ -238,6 +241,7 @@ class TestCase(unittest.TestCase):
                     context['exception_value'],
                     self.get_traceback_from_response(response))
             trace = '\n'.join(trace)
+            file('/tmp/error.html', 'w').write(response.content)
             raise ValueError("Got 500 status code.  Traceback:\n\n%s" % trace)
         elif response.status_code == 404:
             if 'Django tried these URL patterns' in str(response):
@@ -301,7 +305,8 @@ class TestCase(unittest.TestCase):
 
 def setup_test_environment():
     settings.OLD_DATABASE_NAME = settings.DATABASE_NAME
-    settings.DATABASE_NAME = 'test_' + settings.DATABASE_NAME
+    if not settings.DATABASE_NAME.startswith('test_'):
+        settings.DATABASE_NAME = 'test_' + settings.DATABASE_NAME
     reload(db)
     import django.test.utils
     try:
