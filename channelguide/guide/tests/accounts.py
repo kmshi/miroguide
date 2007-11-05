@@ -121,7 +121,7 @@ The Miro Guide""", email['body'])
         """
         response = self.register()
         user = response.context[0]['request'].user
-        url = user.generate_confirmation_url()[len(settings.BASE_URL)-1:]
+        url = user.generate_confirmation_url()[len(settings.BASE_URL_FULL)-1:]
         response = self.get_page(url)
         user = user.get(self.connection, user.id)
         self.assert_(user.approved)
@@ -132,7 +132,7 @@ The Miro Guide""", email['body'])
         """
         response = self.register()
         user = response.context[0]['request'].user
-        url = user.generate_confirmation_url()[len(settings.BASE_URL)-1:-1]
+        url = user.generate_confirmation_url()[len(settings.BASE_URL_FULL)-1:-1]
         response = self.get_page(url)
         user = user.get(self.connection, user.id)
         self.assert_(not user.approved)
@@ -144,11 +144,21 @@ The Miro Guide""", email['body'])
         """
         response = self.register()
         user = response.context[0]['request'].user
-        parts = user.generate_confirmation_url()[len(settings.BASE_URL)-1:].split('/')
+        parts = user.generate_confirmation_url()[len(settings.BASE_URL_FULL)-1:].split('/')
         url = '/'.join(parts[:-1]) + '/resend'
         self.emails = []
         response = self.get_page(url)
         self.check_confirmation_email(user)
+
+    def test_unicode_in_data(self):
+        """
+        The profile page should render even when the user has Unicode elements.
+        """
+        response = self.register()
+        user = response.context[0]['request'].user
+        user.city = u'S\u1111o'
+        user.save(self.connection)
+        self.get_page(user.get_url())
 
 class ModerateUserTest(TestCase):
     def setUp(self):

@@ -25,7 +25,7 @@ def search_score(table, terms):
     return important * 50 + normal
 
 def search_where(table, terms):
-    query = ' '.join('+%s*' % t for t in terms)
+    query = ' '.join(u'+%s*' % t for t in terms)
     return BooleanMatch(query, table.c.important_text, table.c.text)
 
 class ChannelItemSearchSelect(sql.CompoundExpression):
@@ -45,7 +45,7 @@ def contains_hd(terms):
 
 def search_channels(terms):
     terms = util.ensure_list(terms)
-    terms = [t.encode('utf-8') for t in terms]
+#    terms = [t.encode('utf-8') for t in terms]
     query = Channel.query().join('search_data')
     search_data_table = query.joins['search_data'].table
     if contains_hd(terms):
@@ -57,7 +57,7 @@ def search_channels(terms):
 
 def search_items(terms):
     terms = util.ensure_list(terms)
-    terms = [t.encode('utf-8') for t in terms]
+#    terms = [t.encode('utf-8') for t in terms]
     item_search_select = ChannelItemSearchSelect(terms)
     query = Channel.query()
     query.add_raw_join(item_search_select.label('search_data'),

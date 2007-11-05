@@ -593,7 +593,8 @@ Errors: %s""" % (response.status_code, errors)
         response = self.submit(tags='\xff')
         last = self.get_last_channel()
         for tag in last.tags:
-            tag.name.decode('utf8')
+            self.assert_(isinstance(tag.name, unicode))
+#            tag.name.decode('utf8')
 
     def test_no_tags(self):
         self.login_and_submit_url()

@@ -9,7 +9,8 @@ from channelguide.guide.auth import (admin_required, moderator_required,
         login_required)
 from channelguide.guide.exceptions import AuthError
 from channelguide.guide.models import (Channel, Item, User, FeaturedEmail,
-        ModeratorAction, ChannelNote, Rating, Tag, Category, Language)
+        ModeratorAction, ChannelNote, Rating, Tag, Category, Language,
+        FeaturedQueue)
 from channelguide.guide.notes import get_note_info, make_rejection_note
 from sqlhelper.sql.statement import Select
 from sqlhelper.sql.expression import Literal
@@ -117,13 +118,8 @@ def channel(request, id):
             channel.toggle_moderator_share(request.user)
         elif action == 'feature':
             request.user.check_is_supermoderator()
-            count = Channel.query(featured=True).count(request.connection)
-            if count <= settings.MAX_FEATURES:
-                channel.change_featured(request.user, request.connection)
-            else:
-                msg = _("Can't feature more than %s channels") % \
-                        settings.MAX_FEATURES
-                request.session['channel-edit-error'] = msg
+            FeaturedQueue.feature_channel(channel, request.user,
+                    request.connection)
         elif action == 'unfeature':
             request.user.check_is_supermoderator()
             channel.change_featured(None, request.connection)

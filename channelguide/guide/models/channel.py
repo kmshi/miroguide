@@ -308,8 +308,8 @@ WHERE channel_id=%%s AND %s)""" % ignoresWhere
         for attr in ('tags', 'categories', 'secondary_languages'):
             for obj in getattr(self, attr):
                 values.append(obj.name)
-        values = [v.decode('utf-8') for v in values]
-        return u' '.join(values).encode('utf-8')
+        values = [util.unicodify(v) for v in values]
+        return u' '.join(values)
 
     def get_missing_image_url(self, width, height):
         return ''

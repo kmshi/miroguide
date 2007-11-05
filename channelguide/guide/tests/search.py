@@ -18,7 +18,7 @@ class SearchTestCase(TestCase):
         self.save_to_db(self.unicode_lang)
         self.unicode.primary_language_id = self.unicode_lang.id
         self.save_to_db(self.unicode)
-        self.make_item(self.unicode, u'\u5f20\u9753\u9896')
+        self.make_item(self.unicode, u'\u5f20\u9753\u9896\u5f20')
         self.refresh_connection()
         manage.update_search_data()
         self.refresh_connection()
@@ -72,7 +72,7 @@ class SearchTestCase(TestCase):
 
     def test_search_item_for_unicode(self):
         request = self.process_request()
-        rows = search.search_items(request, u'\u5f20\u9753\u9896').execute(self.connection)
+        rows = search.search_items(request, u'\u5f20\u9753\u9896\u5f20').execute(self.connection)
         self.check_same_records(rows, [self.unicode])
 
     def test_search_results(self):
