@@ -72,6 +72,11 @@ def update_recommendations():
     logging.info('updating recommendations')
     manage.calculate_recommendations()
 
+@run_every_day
+def shuffle_featured_channel_queue():
+    logging.info('shuffling featured channels')
+    manage.shuffle_featured_channel_queue()
+
 def setup_logging():
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)

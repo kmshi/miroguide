@@ -122,7 +122,7 @@ def channel(request, id):
                     request.connection)
         elif action == 'unfeature':
             request.user.check_is_supermoderator()
-            channel.change_featured(None, request.connection)
+            FeaturedQueue.unfeature_channel(channel, request.connection)
         elif action == 'change-state':
             request.user.check_is_moderator()
             submit_value = request.POST['submit']
@@ -188,7 +188,7 @@ def show(request, id, featured_form=None):
     query.join('categories', 'tags', 'notes', 'owner', 'last_moderated_by',
             'notes.user')
     if request.user.is_supermoderator():
-        query.join('featured_by')
+        query.join('featured_by', 'featured_queue')
     query.load('average_rating', 'count_rating')
     item_query = Item.query(channel_id=id).join('channel').order_by('date', desc=True).limit(4)
     c = util.get_object_or_404(request.connection, query, id)
@@ -208,6 +208,9 @@ def show(request, id, featured_form=None):
     if 'channel-edit-error' in request.session:
         context['error'] = request.session['channel-edit-error']
         del request.session['channel-edit-error']
+    if c.featured_queue and c.featured_queue.state in (FeaturedQueue.IN_QUEUE,
+            FeaturedQueue.CURRENT):
+        c.featured = True
     if request.user.is_supermoderator() and c.featured:
         query = FeaturedEmail.query().join('sender')
         query.where(channel_id=c.id)
@@ -420,9 +423,8 @@ def hd(request):
 
 @cache.aggresively_cache
 def features(request):
-    query = Channel.query_approved(featured=1)
-    return make_simple_list(request, query, _("Featured Channels"),
-            Channel.c.featured_at)
+    query = FeaturedQueue.query().where(FeaturedQueue.state!=0).order_by(FeaturedQueue.c.state).order_by(FeaturedQueue.c.featured_at, desc=True)
+    return make_simple_list(request, query, _("Featured Channels"))
 
 def get_toprated_query():
     query = Channel.query_approved()

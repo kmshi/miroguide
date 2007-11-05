@@ -10,14 +10,14 @@ from channelguide.guide.models import Channel
 from channelguide.sessions.models import Session
 import time, pickle
 from channelguide.testframework import TestCase
-try:
-    import memcache
-except ImportError:
-    memcache = None
-    memcache
+from sqlhelper.orm import Table, columns
 
-#class MockCachedRecord(cg_cache.CachedRecord):
-#    table = Channel.table
+mock_table = Table('test_table',
+        columns.Int('id', primary_key=True, auto_increment=True),
+        columns.String('name', 200))
+
+class MockCachedRecord(cg_cache.CachedRecord):
+    table = mock_table
 
 class CacheTestBase(TestCase):
     def setUp(self):
@@ -52,7 +52,6 @@ class CacheTestBase(TestCase):
         if self.middleware.process_request(request) is None:
             self.middleware.process_response(request, self.make_response())
         self.assert_(self.is_request_cached(path, query))
-
 
 class CacheTest(CacheTestBase):
     def setUp(self):
@@ -145,25 +144,19 @@ class TableDependentCacheTest(CacheTestBase):
         self.assert_('userkelly' not in bobby_page.content)
         self.assert_('userkelly' not in anon_page.content)
 
-'''
+
 class CachedRecordTest(TestCase):
     def setUp(self):
         TestCase.setUp(self)
+        self.connection.execute("""CREATE TABLE test_table (
+                id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(200) DEFAULT NULL) ENGINE=InnoDB""")
         self.change_setting_for_test("DISABLE_CACHE", False)
         cg_cache.client.clear_cache()
-        self.user = self.make_user('molly')
-        self.channel = self.make_channel(self.user)
         time.sleep(1)
         self.record = MockCachedRecord()
-        self.record.__dict__ = self.channel.__dict__.copy()
         self.record.id = -1
-        self.record.owner_id = self.user.id
-        self.record.name = "Channel Name"
-        self.record.url = self.record.website_url = "http://www.com"
-        self.record.description = self.record.short_description = "Channel Description\nHas a new line"
-        self.record.primary_language_id = self.channel.primary_language_id
-        self.record.language = self.channel.language
-        self.record.publisher = "Me"
+        self.record.name = "Mock Record"
 
     def test_save_to_cache(self):
         """
@@ -280,4 +273,3 @@ class CachedRecordTest(TestCase):
         new_record = MockCachedRecord.get(self.connection, -1, join=['owner'])
         self.assertEquals(new_record.owner.id, self.user.id)
         self.assertEquals(new_record.name, "Foobar")
-'''

@@ -161,6 +161,11 @@ user_auth_token = Table('cg_user_auth_token',
         columns.Int('user_id', fk=user.c.id, primary_key=True),
         columns.String('token', 255),
         columns.DateTime('expires'))
+featured_queue = Table('cg_channel_featured_queue',
+        columns.Int('channel_id', fk=channel.c.id, primary_key=True),
+        columns.Int('state', default=0),
+        columns.Int('featured_by_id', fk=user.c.id),
+        columns.DateTime('featured_at', default=datetime.now))
 featured_email = Table('cg_channel_featured_email',
         columns.Int('sender_id', fk=user.c.id),
         columns.Int('channel_id', fk=channel.c.id, primary_key=True),
@@ -247,6 +252,12 @@ make_subscription_count('subscription_count')
 make_subscription_count('subscription_count_today', 'DAY')
 make_subscription_count('subscription_count_month', 'MONTH')
 
+featured_queue.add_subquery_column('last_time', """\
+COALESCE(
+    (SELECT featured_at from cg_channel_featured_queue AS q2 WHERE q2.state!=0
+    AND q2.featured_by_id=#table#.featured_by_id
+     ORDER BY featured_at LIMIT 1), 0)""")
+
 # set up relations
 channel.many_to_many('categories', category, category_map, backref='channels')
 channel.many_to_many('secondary_languages', language, secondary_language_map)
@@ -259,6 +270,7 @@ channel.many_to_one('featured_by', user,
 channel.one_to_many('items', item, backref='channel')
 channel.one_to_many('notes', channel_note, backref='channel')
 channel.one_to_one('search_data', channel_search_data, backref='channel')
+channel.one_to_one('featured_queue', featured_queue, backref='channel_id')
 item.one_to_one('search_data', item_search_data, backref='item')
 item.many_to_one('channel', channel, backref='item')
 category_map.many_to_one('category', category, backref='category_maps')
@@ -275,4 +287,6 @@ moderator_action.many_to_one('user', user, backref='moderator_actions')
 moderator_action.many_to_one('channel', channel, backref='moderator_actions')
 channel_rating.many_to_one('user', user, backref='channel_rating')
 channel_rating.many_to_one('channel', channel, backref='channel_rating')
+featured_queue.one_to_one('channel', channel, backref='channel_id')
+featured_queue.many_to_one('user', user, backref='featured_by')
 featured_email.many_to_one('sender', user, backref='featured_email')

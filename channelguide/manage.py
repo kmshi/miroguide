@@ -466,6 +466,19 @@ def update_new_channel_queue(args=None):
     conn.close()
 update_new_channel_queue.args = ''
 
+def shuffle_featured_channel_queue(args=None):
+    """
+    Shuffle the featured queue table.
+    """
+    from channelguide import db
+    from channelguide.guide.models import FeaturedQueue
+    conn = db.connect()
+    FeaturedQueue.shuffle_queue(conn)
+    conn.close()
+update_new_channel_queue.args = ''
+
+
+
 action_mapping['syncdb'] = syncdb
 action_mapping['download_thumbnails'] = download_thumbnails
 action_mapping['update_search_data'] = update_search_data

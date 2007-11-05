@@ -15,7 +15,7 @@
     </form>
 </li>
 <li class="channel-action">
-    {% if channel.featured %}
+    {% ifequals channel.featured_queue.state 2 %}
     <form method="POST" action="{{ channel.get_url }}">
         <input type="hidden" name="action" value="unfeature">
         <input type="submit" value="Unfeature">
