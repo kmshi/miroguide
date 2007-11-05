@@ -19,7 +19,8 @@ kwargs = {
         'host': settings.DATABASE_HOST,
         'db': settings.DATABASE_NAME,
         'user': settings.DATABASE_USER, 
-        'passwd': settings.DATABASE_PASSWORD
+        'passwd': settings.DATABASE_PASSWORD,
+        'use_unicode': True
 }
 if settings.DATABASE_PORT:
     kwargs['port'] = settings.DATABASE_PORT
