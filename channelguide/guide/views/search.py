@@ -5,6 +5,7 @@ from django.utils.translation import gettext as _
 from django.http import Http404
 
 from channelguide import util, cache
+from channelguide.cache.middleware import AggressiveCacheMiddleware
 from channelguide.guide import search as search_mod
 from channelguide.guide.templateutil import Pager
 from channelguide.guide.models import (Channel, Category, Tag, Item, Language,
@@ -52,7 +53,7 @@ def search_results(connection, class_, terms, search_attribute='name'):
         query.where(search_column.like('%s%%' % term))
     return query.execute(connection)
 
-@cache.aggresively_cache
+@cache.aggresively_cache('search')
 def search(request):
     context = {}
     try:
@@ -118,7 +119,7 @@ def do_search_more(request, title, search_func):
         'pager': pager,
         })
 
-@cache.aggresively_cache
+@cache.aggresively_cache('search')
 def search_more(request):
     title = _('Channels Matching %s')
     return do_search_more(request, title, search_channels)

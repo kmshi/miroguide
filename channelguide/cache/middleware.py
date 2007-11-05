@@ -38,9 +38,14 @@ class CacheTimingMiddleware(object):
 
 class CacheMiddlewareBase(object):
     cache_time = 0 # how many seconds to cache for
+    namespace = 'namespace'
     def get_cache_key_tuple(self, request): 
         """Return a tuple that will be used to create the cache key."""
-        raise NotImplementedError
+        namespace = client.get(self.namespace)
+        if namespace is None:
+            namespace = time.time()
+            client.set(self.namespace, namespace)
+        return (namespace, )
 
     def response_to_cache_object(self, request, response):
         return response
@@ -49,11 +54,7 @@ class CacheMiddlewareBase(object):
         return cached_object
 
     def get_cache_key(self, request):
-        namespace = client.get('namespace')
-        if namespace is None:
-            namespace = time.time()
-            client.set('namespace', namespace)
-        prefix = self.__class__.__name__ + str(namespace) + ':'
+        prefix = self.__class__.__name__ + ':'
         return prefix + hex(hash(self.get_cache_key_tuple(request)))
 
     def can_cache_request(self, request):
@@ -107,14 +108,15 @@ class CacheMiddleware(CacheMiddlewareBase):
         return CacheMiddlewareBase.process_response(self, request, response)
 
     def get_cache_key_tuple(self, request):
+        parent = CacheMiddlewareBase.get_cache_key_tuple(self, request)
         cookie = request.META.get('HTTP_COOKIE')
         if type(cookie) is SimpleCookie:
             # Maybe this is the test browser, which sends the HTTP_COOKIE
             # value as an python Cookie object
-            return (request.path, request.META['QUERY_STRING'],
+            return parent + (request.path, request.META['QUERY_STRING'],
                     cookie.output())
         else:
-            return (request.path, request.META['QUERY_STRING'], cookie)
+            return parent + (request.path, request.META['QUERY_STRING'], cookie)
 
 class AggressiveCacheMiddleware(CacheMiddleware):
     """Aggresively Caches a page.  This should only be used for pages that
@@ -130,8 +132,14 @@ class AggressiveCacheMiddleware(CacheMiddleware):
 
     account_bar_start = '<!-- START ACCOUNT BAR -->'
     account_bar_end = '<!-- END ACCOUNT BAR -->'
-    def get_cache_key_tuple(self, request): 
-        return (request.path, request.META['QUERY_STRING'])
+
+    def __init__(self, namespace=None):
+        CacheMiddleware.__init__(self)
+        if namespace:
+            self.namespace = namespace
+
+    def get_cache_key_tuple(self, request):
+        return CacheMiddlewareBase.get_cache_key_tuple(self, request) + (request.path, request.META['QUERY_STRING'])
 
     def response_from_cache_object(self, request, cached_response):
         t = loader.get_template("guide/account-bar.html")

@@ -152,6 +152,7 @@ def update_search_data(args=None):
     "Update the search data for each channel."
     from channelguide.guide import tables
     from channelguide import db
+    from channelguide.cache import client
     connection = db.connect()
     connection.execute("""DELETE FROM cg_item_search_data
 WHERE NOT EXISTS (SELECT * FROM cg_channel_item WHERE id=item_id)""")
@@ -162,6 +163,8 @@ WHERE NOT EXISTS (SELECT * FROM cg_channel WHERE id=channel_id)""")
             'items.search_data', approved=True)
     for channel in iter:
         channel.update_search_data(connection)
+    # refresh the search namespace
+    client.set('search', time.time())
 update_search_data.args = ''
 
 def update_thumbnails(args):
