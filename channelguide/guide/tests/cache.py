@@ -75,7 +75,6 @@ class CacheTest(CacheTestBase):
         response.headers['Cache-Control'] = 'max-age=123'
         self.process_response_middleware(request, response)
         self.assertEquals(response.headers['Cache-Control'], 'max-age=123')
-    """
 
 class TableDependentCacheTest(CacheTestBase):
     def setUp(self):
@@ -85,7 +84,7 @@ class TableDependentCacheTest(CacheTestBase):
         # hack because we may have called memcached.flush_all recently.
         # Because memcached has a resolution of 1 second, we need this to make
         # sure flush_all goes through.
-"""
+
     def tearDown(self):
         cg_cache.clear_cache()
         TestCase.tearDown(self)

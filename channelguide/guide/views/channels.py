@@ -208,23 +208,24 @@ def show(request, id, featured_form=None):
     if 'channel-edit-error' in request.session:
         context['error'] = request.session['channel-edit-error']
         del request.session['channel-edit-error']
-    if c.featured_queue and c.featured_queue.state in (FeaturedQueue.IN_QUEUE,
-            FeaturedQueue.CURRENT):
-        c.featured = True
-    if request.user.is_supermoderator() and c.featured:
-        query = FeaturedEmail.query().join('sender')
-        query.where(channel_id=c.id)
-        query.order_by(FeaturedEmail.c.timestamp, desc=True)
-        query.limit(1)
-        last_featured_email = query.execute(request.connection)
-        if last_featured_email:
-            last_featured_email = last_featured_email[0]
-        else:
-            last_featured_email = None
-        if featured_form is None:
-            featured_form = forms.FeaturedEmailForm(request, c)
-        context['featured_email_form'] = featured_form
-        context['last_featured_email'] = last_featured_email
+    if request.user.is_supermoderator():
+        if c.featured_queue and c.featured_queue.state in (
+                FeaturedQueue.IN_QUEUE, FeaturedQueue.CURRENT):
+            c.featured = True
+        if c.featured:
+            query = FeaturedEmail.query().join('sender')
+            query.where(channel_id=c.id)
+            query.order_by(FeaturedEmail.c.timestamp, desc=True)
+            query.limit(1)
+            last_featured_email = query.execute(request.connection)
+            if last_featured_email:
+                last_featured_email = last_featured_email[0]
+            else:
+                last_featured_email = None
+            if featured_form is None:
+                featured_form = forms.FeaturedEmailForm(request, c)
+            context['featured_email_form'] = featured_form
+            context['last_featured_email'] = last_featured_email
     return util.render_to_response(request, 'show-channel.html', context)
 
 def after_submit(request):

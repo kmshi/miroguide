@@ -15,7 +15,7 @@
     </form>
 </li>
 <li class="channel-action">
-    {% ifequals channel.featured_queue.state 2 %}
+    {% ifequal channel.featured_queue.state 2 %}
     <form method="POST" action="{{ channel.get_url }}">
         <input type="hidden" name="action" value="unfeature">
         <input type="submit" value="Unfeature">
@@ -25,7 +25,7 @@
         <input type="hidden" name="action" value="feature">
         <input type="submit" value="Feature">
     </form>
-    {% endif %}
+    {% endifequal %}
 </li>
 {% else %}
 <li class="channel-action">

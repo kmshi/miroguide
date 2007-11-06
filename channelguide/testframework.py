@@ -229,8 +229,9 @@ class TestCase(unittest.TestCase):
 
     def check_response(self, response):
         if response.status_code == 500:
+            file('/tmp/error.html', 'w').write(response.content)
             if isinstance(response.context, list):
-                context = response.context[0]
+                context = response.context[-1]
             else:
                 context = response.context
             try:
@@ -241,7 +242,6 @@ class TestCase(unittest.TestCase):
                     context['exception_value'],
                     self.get_traceback_from_response(response))
             trace = '\n'.join(trace)
-            file('/tmp/error.html', 'w').write(response.content)
             raise ValueError("Got 500 status code.  Traceback:\n\n%s" % trace)
         elif response.status_code == 404:
             if 'Django tried these URL patterns' in str(response):
