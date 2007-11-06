@@ -49,8 +49,7 @@ return false;
                     </a>
                 </li>
                 <li id="rate">
-                    {{ ratings_bar }}
-                    <div id="average">Avg. of {{ channel.count_rating }} rating{{ channel.count_rating|pluralize }}: <strong>{{ channel.average_rating|floatformat }}</strong> star{{ channel.average_rating|pluralize }}</div>
+                    {{ rating_bar }}
                 </li>
             </ul>
         </div>

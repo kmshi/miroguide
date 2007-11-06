@@ -1,4 +1,4 @@
-{% load cg_helpers i18n %}
+{% load cg_helpers i18n channels %}
 <div class="channel channel-in-list">
     <div class="half-size-list">
         {% twocolumns %}
@@ -28,7 +28,7 @@
                     Subscribes {{ channel.timeline }}: {{ channel.popular_count }}
                 </div>
                 <div class="ratings-bar">
-                    {{ channel.ratings_bar }}
+                    {% show_rating_stars channel %}
                     Avg. of {{ channel.count_rating }} rating{{ channel.count_rating|pluralize }}: <strong>{{ channel.average_rating|floatformat }}</strong>
                 </div>
             </div>  

@@ -1,9 +1,11 @@
 from django.conf import settings
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.template import loader, context
+from django.utils.decorators import decorator_from_middleware
 from django.utils.translation import gettext as _
 
 from channelguide import util, cache
+from channelguide.cache.middleware import AggressiveCacheMiddleware
 from channelguide.guide import forms, templateutil, tables
 from channelguide.guide.auth import (admin_required, moderator_required,
         login_required)
@@ -183,6 +185,39 @@ def channel(request, id):
         channel.save(request.connection)
     return util.redirect_to_referrer(request)
 
+class ShowChannelCacheMiddleware(AggressiveCacheMiddleware):
+
+    start = '<!-- RATING BAR -->'
+    end = '<!-- END RATING BAR -->'
+
+    def __init__(self):
+        AggressiveCacheMiddleware.__init__(self, 'channel')
+
+    def response_from_cache_object(self, request, cache_object):
+        response = AggressiveCacheMiddleware.response_from_cache_object(self,
+                request, cache_object)
+        t = get_show_rating_bar(request, channel)
+        start = response.text.find(self.start)
+        end = response.text.find(self.end, start)
+        head = response.text[:start]
+        tail = response.text[end:]
+        response.text = ''.join((head, t, tail))
+        return response
+
+    def get_cache_key_tuple(self, request):
+        print request
+        user = request.user
+        if not user.can_edit_channel(channel):
+            role = 'U'
+        elif not user.is_supermoderator():
+            role = 'M'
+        else:
+            role = 'S'
+        return (AggressiveCacheMiddleware.get_cache_key_tuple(self, request)
+                + (role,))
+
+#@decorator_from_middleware(ShowChannelCacheMiddleware)
+@cache.aggresively_cache
 def show(request, id, featured_form=None):
     query = Channel.query()
     query.join('categories', 'tags', 'notes', 'owner', 'last_moderated_by',
@@ -200,7 +235,7 @@ def show(request, id, featured_form=None):
         'show_extra_info': request.user.can_edit_channel(c),
         'link_to_channel': True,
         'BASE_URL': settings.BASE_URL,
-        'ratings_bar': get_ratings_bar(request, c),
+        'rating_bar': get_show_rating_bar(request, c),
         'notes': get_note_info(c, request.user),
     }
     if len(c.description.split()) > 73:
@@ -290,26 +325,6 @@ def get_recommendations(request, id):
     return [Channel.query().get(request.connection, rec)
         for rec in recommendations]
 
-def get_ratings_bar(request, channel):
-    try:
-        rating = Rating.query(Rating.c.user_id==request.user.id,
-            Rating.c.channel_id==channel.id).get(request.connection)
-    except Exception:
-        rating = Rating()
-        rating.channel_id = channel.id
-        rating.has_user_rating = False
-        rating.average_rating = channel.average_rating
-    else:
-        rating.has_user_rating = True
-        if rating.rating is None:
-            rating.rating = 0
-
-    c = {
-            'rating': rating,
-            'referer': request.path
-        }
-    return loader.render_to_string('guide/rating.html', c)
-
 def rate(request, id):
     if not request.user.is_authenticated():
         if 'HTTP_REFERER' in request.META:
@@ -383,7 +398,6 @@ def popular_view(request):
             channel.timeline = 'This Month'
         else:
             channel.timeline = 'All-Time'
-        channel.ratings_bar = get_ratings_bar(request, channel)
         channel.popular_count = getattr(channel, count_name)
     window_select = PopularWindowSelect(request)
     context = {
@@ -447,7 +461,6 @@ def toprated(request):
     pager = templateutil.Pager(10, query, request)
     for channel in pager.items:
         channel.popular_count = channel.subscription_count_today
-        channel.ratings_bar = get_ratings_bar(request, channel)
         channel.timeline = 'Today'
     context = {'pager': pager,
             'title': 'Top Rated Channels'
@@ -544,3 +557,9 @@ def email_owners(request):
             return util.redirect('moderate')
     return util.render_to_response(request, 'email-channel-owners.html', {
         'form': form})
+
+def get_show_rating_bar(request, channel):
+    context = {'channel': channel, 'request':request}
+    return loader.render_to_string('guide/show-channel-rating.html', context)
+
+
