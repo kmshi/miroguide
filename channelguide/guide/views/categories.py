@@ -9,6 +9,8 @@ from channelguide.guide.models import Category, Channel
 def index(request):
     query = Category.query().load('channel_count')
     query.order_by('channel_count', desc=True)
+    query.cacheable = cahe.client
+    query.cacheable_time = 3600
     return util.render_to_response(request, 'group-list.html', {
         'group_name': _('Categories'),
         'groups': query.execute(request.connection),
