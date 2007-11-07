@@ -200,13 +200,13 @@ class TestCase(unittest.TestCase):
         channel.state = state
         channel.language = self.language
         channel.owner = owner
-        channel.name = "My Channel"
+        channel.name = u"My Channel \u1111"
         channel.url = "http://myblog.com/videos/rss/" 
         channel.url += util.random_string(20)
         channel.website_url = "http://myblog.com/"
         channel.publisher = "TestVision"
-        channel.short_description = "stuff"
-        channel.description = "lots of stuff"
+        channel.short_description = u"stuff \u2222"
+        channel.description = u"lots of stuff \u3333"
         self.save_to_db(channel)
         return channel
 
