@@ -79,8 +79,9 @@ class CacheMiddlewareBase(object):
         if cached_object is None or settings.DISABLE_CACHE:
             return None
         else:
-            request._cache_hit = True
-            return self.response_from_cache_object(request, cached_object)
+            response = self.response_from_cache_object(request, cached_object)
+            request._cache_hit = response._cache_hit = True
+            return response
 
     def process_response(self, request, response):
         if 'Cache-Control' not in response.headers:
@@ -133,7 +134,7 @@ class TableDependentCacheMiddleware(CacheMiddlewareBase):
         key = cache_key + ':' + ':'.join(appends)
         return key
 
-class AggressiveCacheMiddleware(CacheMiddleware):
+class AggressiveCacheMiddleware(CacheMiddlewareBase):
     """Aggresively Caches a page.  This should only be used for pages that
      * Don't use any session data, or any cookie data
      * Are displayed the same for each user (except the account bar)
@@ -149,7 +150,7 @@ class AggressiveCacheMiddleware(CacheMiddleware):
     account_bar_end = '<!-- END ACCOUNT BAR -->'
 
     def __init__(self, namespace=None):
-        CacheMiddleware.__init__(self)
+        CacheMiddlewareBase.__init__(self)
         if namespace:
             self.namespace = namespace
 
