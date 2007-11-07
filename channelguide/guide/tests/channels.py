@@ -475,6 +475,11 @@ Errors: %s""" % (response.status_code, errors)
         response = self.submit_url()
         self.check_submit_url_worked(response)
 
+    def test_submit_without_thumbnail(self):
+        self.login()
+        response = self.submit_url(test_data_url('no-thumbnail.xml'))
+        self.check_submit_url_failed(response)
+
     def test_bad_url(self):
         self.login()
         response = self.submit_url('')

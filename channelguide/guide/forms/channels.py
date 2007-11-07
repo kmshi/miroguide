@@ -55,6 +55,11 @@ class RSSFeedField(WideCharField):
         parsed.url = url
         if not parsed.feed or not parsed.entries:
             raise forms.ValidationError(missing_feed_msg)
+        try:
+            parsed.feed.image.href
+        except AttributeError:
+            raise forms.ValidationError("That feed does not have a thumbnail, "
+                    "please try again.")
         return parsed
 
 class FeedURLForm(Form):
