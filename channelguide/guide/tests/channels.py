@@ -6,10 +6,10 @@ import time
 from django.conf import settings
 from django.template import loader
 
-from channelguide import util, manage
+from channelguide import util, manage, cache
 from channelguide.guide import search
 from channelguide.guide.models import (Channel, Category, Tag, Item, User, 
-        Language, TagMap)
+        Language, TagMap, Rating)
 from channelguide.testframework import TestCase
 
 def test_data_path(filename):
@@ -1003,3 +1003,131 @@ class ChannelHTMLTest(ChannelTestBase):
         self.save_to_db(category)
         self.channel.categories.add_record(self.connection, category)
         self.check_escaping()
+
+class ChannelCacheTest(ChannelTestBase):
+
+    def setUp(self):
+        ChannelTestBase.setUp(self)
+        self.change_setting_for_test("DISABLE_CACHE", False)
+        cache.clear_cache()
+        time.sleep(1) # 1 sec granulaity in cache clearing
+        self.regular = self.make_user('regular')
+        self.regular.approved = 1
+        self.save_to_db(self.regular)
+        self.mod = self.make_user('mod', role='M')
+        self.super = self.make_user('super', role='S')
+        self.channel = self.make_channel(state='A')
+        self.channel2 = self.make_channel(state='A')
+
+    def get_renderings(self):
+        url = self.channel.get_url()
+        regular_render = self.get_page(url, login_as=self.regular).content
+        mod_render = self.get_page(url, login_as=self.mod).content
+        super_render = self.get_page(url, login_as=self.super).content
+        owner_render = self.get_page(url, login_as=self.ralph).content
+        return (regular_render, mod_render, super_render, owner_render)
+
+    def test_channel_renders_differently_for_each_class(self):
+        """
+        The channel page should render differently for each class of user,
+        regular, moderator, owner, and super-mod.
+        """
+        (regular_render, mod_render, super_render,
+                owner_render) = self.get_renderings()
+        self.failIfEqual(regular_render, mod_render)
+        self.failIfEqual(regular_render, super_render)
+        self.failIfEqual(regular_render, owner_render)
+        self.failIfEqual(mod_render, super_render)
+        self.failIfEqual(mod_render, owner_render)
+        self.failIfEqual(super_render, owner_render)
+
+    def test_rating_is_updated(self):
+        """
+        Changing a rating should update the rating part of the page.
+        """
+        (regular_render, mod_render, super_render,
+                owner_render) = self.get_renderings()
+        new_user = self.make_user('new')
+        new_user.approved = 1
+        self.save_to_db(new_user)
+        r = Rating()
+        r.channel_id = self.channel.id
+        r.user_id = new_user.id
+        r.rating = 5
+        self.save_to_db(r)
+        self.refresh_connection()
+        (regular_rated, mod_rated, super_rated,
+                owner_rated) = self.get_renderings()
+        for render, rated in [
+                (regular_render, regular_rated),
+                (mod_render, mod_rated),
+                (super_render, super_rated),
+                (owner_render, owner_rated)]:
+            self.failIfEqual(render, rated)
+            self.failIfEqual(rated.find('Average Rating: 5'), -1)
+
+    def test_rating_gives_user_rating(self):
+        """
+        If the user has rated a channel, it should give the user
+        rating.  Otherwise, it should give the average rating.
+        """
+        r = Rating()
+        r.channel_id = self.channel.id
+        r.user_id = self.regular.id
+        r.rating = 5
+        self.save_to_db(r)
+        self.refresh_connection()
+        (regular_rated, mod_rated, super_rated,
+                owner_rated) = self.get_renderings()
+        self.failIfEqual(regular_rated.find('User Rating: 5'), -1)
+        for rated in (mod_rated, super_rated, owner_rated):
+            self.failIfEqual(rated.find('Average Rating: 5'), -1,
+                    rated)
+
+    def test_updating_channel_refreshes_page(self):
+        """
+        Changing the channel record should refresh the page.
+        """
+        url = self.channel.get_url()
+        for user in (self.regular, self.mod, self.super, self.ralph):
+            self.assert_(not hasattr(self.get_page(url, login_as=user),
+                '_cache_hit'))
+            self.assert_(hasattr(self.get_page(url, login_as=user),
+                '_cache_hit'))
+        (regular_render, mod_render, super_render,
+                owner_render) = self.get_renderings()
+        self.channel.description = 'Hello World!'
+        self.save_to_db(self.channel)
+        self.refresh_connection()
+        for user in (self.regular, self.mod, self.super, self.ralph):
+            self.assert_(not hasattr(self.get_page(url, login_as=user),
+                '_cache_hit'))
+            self.assert_(hasattr(self.get_page(url, login_as=user),
+                '_cache_hit'))
+        (regular_rated, mod_rated, super_rated,
+                owner_rated) = self.get_renderings()
+        for render, rated in [
+                (regular_render, regular_rated),
+                (mod_render, mod_rated),
+                (super_render, super_rated),
+                (owner_render, owner_rated)]:
+            self.failIfEqual(render, rated)
+            self.failIfEqual(rated.find('Hello World!'), -1)
+
+    def test_changing_other_channel_doesnt_clear_cache(self):
+        """
+        Updating a different channel should not clear the cache for other
+        channels.
+        """
+        url = self.channel.get_url()
+        for user in (self.regular, self.mod, self.super, self.ralph):
+            self.assert_(not hasattr(self.get_page(url, login_as=user),
+                '_cache_hit'))
+            self.assert_(hasattr(self.get_page(url, login_as=user),
+                '_cache_hit'))
+        self.channel2.description = 'Hello World!'
+        self.save_to_db(self.channel2)
+        self.refresh_connection()
+        for user in (self.regular, self.mod, self.super, self.ralph):
+            self.assert_(hasattr(self.get_page(url, login_as=user),
+                '_cache_hit'), 'cache cleared for %s' % user.username)

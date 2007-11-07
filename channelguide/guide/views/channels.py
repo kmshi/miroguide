@@ -218,6 +218,8 @@ class ShowChannelCacheMiddleware(AggressiveCacheMiddleware):
             role = 'U' # regular user
         elif not user.is_moderator():
             role = 'O' # owner
+        elif not user.is_moderator():
+            role = 'E'
         elif not user.is_supermoderator():
             role = 'M' # moderator
         else:
