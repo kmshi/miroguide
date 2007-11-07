@@ -201,12 +201,12 @@ class ShowChannelCacheMiddleware(AggressiveCacheMiddleware):
         channel = util.get_object_or_404(request.connection, query, id)
         response = AggressiveCacheMiddleware.response_from_cache_object(self,
                 request, cache_object)
-        t = get_show_rating_bar(request, channel)
+        t = get_show_rating_bar(request, channel).decode('utf8')
         start = response.content.find(self.start)
         end = response.content.find(self.end, start)
-        head = response.content[:start]
-        tail = response.content[end:]
-        response.content = ''.join((head, t, tail))
+        head = response.content[:start].decode('utf8')
+        tail = response.content[end:].decode('utf8')
+        response.content = u''.join((head, t, tail))
         return response
 
     def get_cache_key_tuple(self, request):
