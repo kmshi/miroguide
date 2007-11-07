@@ -5,6 +5,7 @@ from django.utils.decorators import decorator_from_middleware
 from django.utils.translation import gettext as _
 
 from channelguide import util, cache
+from channelguide.cache import client
 from channelguide.cache.middleware import AggressiveCacheMiddleware
 from channelguide.guide import forms, templateutil, tables
 from channelguide.guide.auth import (admin_required, moderator_required,
@@ -16,7 +17,8 @@ from channelguide.guide.models import (Channel, Item, User, FeaturedEmail,
 from channelguide.guide.notes import get_note_info, make_rejection_note
 from sqlhelper.sql.statement import Select
 from sqlhelper.sql.expression import Literal
-import re, urllib
+from sqlhelper import signals
+import re, urllib, time
 
 SESSION_KEY = 'submitted-feed'
 
@@ -191,33 +193,44 @@ class ShowChannelCacheMiddleware(AggressiveCacheMiddleware):
     end = '<!-- END RATING BAR -->'
 
     def __init__(self):
-        AggressiveCacheMiddleware.__init__(self, 'channel')
+        AggressiveCacheMiddleware.__init__(self, None)
 
     def response_from_cache_object(self, request, cache_object):
+        id = request.path.split('/')[-1]
+        query = Channel.query().load('average_rating', 'count_rating')
+        channel = util.get_object_or_404(request.connection, query, id)
         response = AggressiveCacheMiddleware.response_from_cache_object(self,
                 request, cache_object)
         t = get_show_rating_bar(request, channel)
-        start = response.text.find(self.start)
-        end = response.text.find(self.end, start)
-        head = response.text[:start]
-        tail = response.text[end:]
-        response.text = ''.join((head, t, tail))
+        start = response.content.find(self.start)
+        end = response.content.find(self.end, start)
+        head = response.content[:start]
+        tail = response.content[end:]
+        response.content = ''.join((head, t, tail))
         return response
 
     def get_cache_key_tuple(self, request):
-        print request
+        id = request.path.split('/')[-1].encode('utf-8')
+        self.namespace = 'Channel:%s' % id
+        channel = util.get_object_or_404(request.connection, Channel, id)
         user = request.user
         if not user.can_edit_channel(channel):
-            role = 'U'
+            role = 'U' # regular user
+        elif not user.is_moderator():
+            role = 'O' # owner
         elif not user.is_supermoderator():
-            role = 'M'
+            role = 'M' # moderator
         else:
-            role = 'S'
+            role = 'S' # supermod or admin
         return (AggressiveCacheMiddleware.get_cache_key_tuple(self, request)
                 + (role,))
 
-#@decorator_from_middleware(ShowChannelCacheMiddleware)
-@cache.aggresively_cache
+@signals.record_update.connect
+def on_channel_record_update(record):
+    if isinstance(record, Channel):
+        client.set('Channel:%s' % record.id, time.time())
+
+@decorator_from_middleware(ShowChannelCacheMiddleware)
 def show(request, id, featured_form=None):
     query = Channel.query()
     query.join('categories', 'tags', 'notes', 'owner', 'last_moderated_by',

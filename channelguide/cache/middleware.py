@@ -58,7 +58,6 @@ class CacheMiddlewareBase(object):
         return prefix + hex(hash(self.get_cache_key_tuple(request)))
 
     def can_cache_request(self, request):
-        print request.method, request.META.get('HTTP_CACHE_CONTROL', '')
         return (request.method == 'GET' and
                 'no-cache' not in request.META.get('HTTP_CACHE_CONTROL', ''))
 
@@ -68,7 +67,6 @@ class CacheMiddlewareBase(object):
 #        lastModified = request.META.get('HTTP_IF_MODIFIED_SINCE')
 #        etag = request.META.get('HTTP_IF_NONE_MATCH')
         key = self.get_cache_key(request)
-        print 'cache key for', request,path,':', key
 #        httpKeys = {}
 #        if lastModified:
 #            httpKeys[key+':last_modified'] = lastModified
@@ -102,7 +100,7 @@ class CacheMiddlewareBase(object):
         return response
 
 
-class CacheMiddleware(object):
+class CacheMiddleware(CacheMiddlewareBase):
 
     def get_cache_key_tuple(self, request):
         parent = CacheMiddlewareBase.get_cache_key_tuple(self, request)
@@ -114,15 +112,6 @@ class CacheMiddleware(object):
                     cookie.output())
         else:
             return parent + (request.path, request.META['QUERY_STRING'], cookie)
-
-    def process_request(self, request):
-        pass
-
-    def process_response(self, request, response):
-        if 'Cache-Control' not in response.headers:
-            response.headers['Cache-Control'] = 'max-age=0'
-        return response
-
 
 class TableDependentCacheMiddleware(CacheMiddlewareBase):
 

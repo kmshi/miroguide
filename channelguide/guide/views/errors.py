@@ -20,14 +20,18 @@ def render_error_500(request):
         'id': id,
         'user': None,
     })
-    path = settings.BASE_URL_FULL[:-1] + request.get_full_path()
+    if not hasattr(request, 'get_full_path'):
+        path = 'Unknown'
+    else:
+        path = request.get_full_path()
+    path = settings.BASE_URL_FULL[:-1] + path
     title = 'Error %s on %s' % (id, path)
     io = cStringIO.StringIO()
     io.write('URL: %s\n\n' % path)
     traceback.print_exc(None, io)
     io.write('\nRequest Object:\n')
     pprint.pprint(request, stream=io)
-    if request.user.is_authenticated():
+    if hasattr(request, 'user') and request.user.is_authenticated():
         io.write('\nUser Name: %s' % request.user.username)
         io.write('\nE-mail: %s' % request.user.email)
         email_from = request.user.email
