@@ -553,8 +553,8 @@ div.clear {
 .front-page .category-list {
     border: 1px solid #EDCBD4;
     background: url(images/category-list-bg.gif);
-    margin: 40px -17px 30px -17px;
-    padding: 12px 16px;
+    margin: 20px -17px 30px;
+    padding: 12px 16px 20px;
 }
 
 .front-page .category-list li.column {
@@ -563,11 +563,13 @@ div.clear {
 }
 
 .front-page .category-list h2 {
-    padding-bottom: 10px;
+    padding-bottom: 0px;
     color: #ffffac;
 }
 
 .front-page .category-list a {
+    font-size: 110%;
+    font-weight: bold;
     color: white;
 }
 
@@ -1223,7 +1225,7 @@ li.blog-post .title {
     margin-top: -6px;
     margin-bottom: 0px;
     height: 2.4em;
-    font-size: 120%;
+    font-size: 100%;
 }
 
 .channel-in-category .title a {
@@ -1783,6 +1785,11 @@ div.category-peek {
 .front-page-list li {
     padding: 10px 0px;
     border-bottom: 1px solid #bbb;
+    height: 40px;
+}
+
+.first-column .front-page-list li {
+    height: 86px;
 }
 
 .view-all-link {
