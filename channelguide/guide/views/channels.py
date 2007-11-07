@@ -323,9 +323,12 @@ def subscribe_hit(request, id):
             ignore_for_recommendations = True
         else:
             ignore_for_recommendations = False
-        channel.add_subscription(request.connection,
-                request.META.get('REMOTE_ADDR', '0.0.0.0'),
-                ignore_for_recommendations=ignore_for_recommendations)
+        try:
+            channel.add_subscription(request.connection,
+                    request.META.get('REMOTE_ADDR', '0.0.0.0'),
+                    ignore_for_recommendations=ignore_for_recommendations)
+        except:
+            pass # ignore errors silently
     return HttpResponse("Hit successfull")
 
 def get_recommendations(request, id):
