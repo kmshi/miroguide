@@ -76,10 +76,10 @@ class CacheTest(CacheTestBase):
         self.process_response_middleware(request, response)
         self.assertEquals(response.headers['Cache-Control'], 'max-age=123')
 
-class TableDependentCacheTest(CacheTestBase):
+class CacheMiddlewareTest(CacheTestBase):
     def setUp(self):
         CacheTestBase.setUp(self)
-        self.middleware = cg_cache.middleware.TableDependentCacheMiddleware('cg_channel')
+        self.middleware = cg_cache.middleware.CacheMiddleware()
         time.sleep(1) 
         # hack because we may have called memcached.flush_all recently.
         # Because memcached has a resolution of 1 second, we need this to make
