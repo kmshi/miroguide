@@ -9,7 +9,7 @@ from channelguide.guide.models import Category, Channel
 def index(request):
     query = Category.query().load('channel_count')
     query.order_by('channel_count', desc=True)
-    query.cacheable = cahe.client
+    query.cacheable = cache.client
     query.cacheable_time = 3600
     return util.render_to_response(request, 'group-list.html', {
         'group_name': _('Categories'),
@@ -24,7 +24,7 @@ def category(request, id):
     templateutil.order_channels_using_request(query, request)
     pager =  templateutil.Pager(8, query, request)
     return util.render_to_response(request, 'two-column-list.html', {
-        'header': category,
+        'header': category.name,
         'pager': pager,
         'order_select': templateutil.OrderBySelect(request),
     })

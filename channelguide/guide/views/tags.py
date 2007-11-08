@@ -21,7 +21,7 @@ def tag(request, id):
     templateutil.order_channels_using_request(query, request)
     pager =  templateutil.Pager(8, query, request)
     return util.render_to_response(request, 'two-column-list.html', {
-        'header': tag,
+        'header': tag.name,
         'pager': pager,
         'order_select': templateutil.OrderBySelect(request),
     })

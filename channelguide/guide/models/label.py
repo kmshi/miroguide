@@ -14,7 +14,7 @@ class Label(Record):
         self.name = name
 
     def link(self):
-        return util.make_link(self.get_url(), str(self))
+        return util.make_link(self.get_url(), self.name)
 
     def __str__(self):
         return self.name

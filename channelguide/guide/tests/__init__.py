@@ -4,7 +4,7 @@ from cache import *
 from emaildisable import *
 from notes import *
 from channels import *
-from languages import *
+from labels import *
 from recommendations import *
 from rating import *
 from search import *
