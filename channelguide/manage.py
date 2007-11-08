@@ -501,6 +501,7 @@ action_mapping['calculate_recommendations'] = calculate_recommendations
 action_mapping['refresh_popular_cache'] = refresh_popular_cache
 action_mapping['refresh_stats_table'] = refresh_stats_table
 action_mapping['update_new_channel_queue'] = update_new_channel_queue
+action_mapping['shuffle_featured_channel_queue'] = shuffle_featured_channel_queue
 del action_mapping['test']
 
 def add_static_urls():
