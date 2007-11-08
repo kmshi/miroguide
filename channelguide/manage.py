@@ -361,6 +361,7 @@ for key in ['startproject', 'adminindex', 'createcachetable', 'install',
         del action_mapping[key]
     except KeyError:
         pass
+calculate_recommendations.args = ''
 
 def refresh_popular_cache(args=None):
     """
@@ -478,7 +479,7 @@ def shuffle_featured_channel_queue(args=None):
     conn = db.connect()
     FeaturedQueue.shuffle_queue(conn)
     conn.close()
-update_new_channel_queue.args = ''
+shuffle_featured_channel_queue.args = ''
 
 
 
