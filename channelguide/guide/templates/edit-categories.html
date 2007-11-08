@@ -13,6 +13,10 @@
     <LI>
     <div class="name">{{ category }}</div>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <form class="inline" method="POST" action="{{ action_url_prefix }}/toggle_frontpage">
+        <input type="hidden" name="id" value="{{ category.id }}">
+        <input type="submit" value="{% if category.on_frontpage %}hide{% else %}show{% endif %} on frontpage">
+    </form>
     <form class="inline" method="POST" action="{{ action_url_prefix }}/change_name">
         <input type="hidden" name="id" value="{{ category.id }}">
         <input name="name"> 

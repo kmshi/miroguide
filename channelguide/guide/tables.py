@@ -23,7 +23,8 @@ def name_for_state_code(state):
 # create the tables
 category = Table('cg_category', 
         columns.Int('id', primary_key=True, auto_increment=True),
-        columns.String('name', 200))
+        columns.String('name', 200),
+        columns.Int('on_frontpage', default=1))
 tag = Table('cg_tag', 
         columns.Int('id', primary_key=True, auto_increment=True),
         columns.String('name', 200))

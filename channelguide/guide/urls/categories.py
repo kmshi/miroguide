@@ -6,5 +6,6 @@ urlpatterns = patterns('channelguide.guide.views.categories',
     (r'^add$', 'add'),
     (r'^delete$', 'delete'),
     (r'^change_name$', 'change_name'),
+    (r'^toggle_frontpage$', 'toggle_frontpage'),
     (r'^(.+)', 'category'),
 )

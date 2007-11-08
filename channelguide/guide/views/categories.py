@@ -60,3 +60,11 @@ def change_name(request):
         category.name = request.POST['name']
         category.save(request.connection)
     return util.redirect('categories/moderate')
+
+@admin_required
+def toggle_frontpage(request):
+    if request.method == 'POST':
+        category = Category.get(request.connection, request.POST['id'])
+        category.on_frontpage = not category.on_frontpage
+        category.save(request.connection)
+    return util.redirect('categories/moderate')

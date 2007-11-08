@@ -76,6 +76,7 @@ def get_peeked_category(connection, get_params):
         dir, name = get_params['category_peek'].split(':')
     except:
         query = Category.query().load('channel_count')
+        query.where(Category.c.on_frontpage==False)
         return util.select_random(connection, query)[0]
     try:
         return get_adjecent_category(dir, name, connection)
