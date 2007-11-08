@@ -64,7 +64,7 @@ def calculateRecommendations(database, channels):
     inserts = []
     for c1 in channels:
         gas = getAllSimilar(database, c1)
-        logging.info('%i has %i similar' % (c1, len(gas)))
+#        logging.info('%i has %i similar' % (c1, len(gas)))
         if gas:
             for c2 in gas:
                 id1 = c1
