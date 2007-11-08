@@ -20,6 +20,7 @@ from django.template import loader
 from django.template.context import RequestContext
 from django.core.mail import send_mail as django_send_mail
 from django.conf import settings
+from django.utils.http import urlquote
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 emailer = None
@@ -43,7 +44,7 @@ def make_absolute_url(relative_url, get_data=None):
     return settings.BASE_URL_FULL + relative_url + format_get_data(get_data)
 
 def make_url(relative_url, get_data=None):
-    return settings.BASE_URL + relative_url + format_get_data(get_data)
+    return urlquote(settings.BASE_URL + relative_url) + format_get_data(get_data)
 
 def format_get_data(get_data):
     if not get_data:
@@ -132,13 +133,28 @@ def hash_string(str):
 
 def get_object_or_404(connection, record_or_query, id):
     from sqlhelper.orm import Record
-    if isinstance(record_or_query, Record):
+    if isinstance(record_or_query, Record) or issubclass(record_or_query,
+            Record):
         query = record_or_query.query()
     else:
         query = record_or_query
     try:
         return query.get(connection, id)
     except LookupError:
+        raise Http404
+
+def get_object_or_404_by_name(connection, record_or_query, name):
+    from sqlhelper.orm import Record
+    if isinstance(record_or_query, Record) or issubclass(record_or_query,
+            Record):
+        query = record_or_query.query()
+    else:
+        query = record_or_query
+    query.where(query.c.name==name)
+    ret = query.execute(connection)
+    if len(ret) == 1:
+        return ret[0]
+    else:
         raise Http404
 
 def send_mail(title, body, recipient_list, email_from=None, break_lines=True):

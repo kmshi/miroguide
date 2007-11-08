@@ -17,10 +17,11 @@ def index(request):
     })
 
 @cache.aggresively_cache
-def category(request, id):
-    category = util.get_object_or_404(request.connection, Category, id)
+def category(request, name):
+    category = util.get_object_or_404_by_name(request.connection, Category,
+            name)
     query = Channel.query_approved().join('categories')
-    query.joins['categories'].where(id=id)
+    query.joins['categories'].where(id=category.id)
     templateutil.order_channels_using_request(query, request)
     pager =  templateutil.Pager(8, query, request)
     return util.render_to_response(request, 'two-column-list.html', {

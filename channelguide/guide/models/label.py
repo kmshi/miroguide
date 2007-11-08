@@ -29,7 +29,7 @@ class Category(Label):
     table = tables.category
 
     def get_url(self):
-        return util.make_url('categories/%d' % self.id)
+        return util.make_url('categories/%s' % self.name.encode('utf8'))
 
 class Tag(Label):
     """Tags are user created labels.  Any string of text can be a tag and any
