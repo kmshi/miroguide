@@ -2272,6 +2272,10 @@ div.first-time-page {
     margin-left: 15pt;
 }
 
+.first-time-page #channellist .channel {
+    margin: 30px 10px;
+}
+
 .first-time-page #channellist ul.four-column-list {
     margin-top: 10px;
 }
@@ -2285,7 +2289,7 @@ div.first-time-page {
     margin-left: 12px;
 }
 .first-time-page .subscribe {
-    margin: 5px 0 10px 14px;
+    margin: 14px 0 10px 14px;
 }
 
 .first-time-page .add .icon {
@@ -2302,7 +2306,7 @@ div.first-time-page {
     font-size: 130%;
     line-height: 24px;
     vertical-align: middle;
-    margin: 0px 30px 0 0;
+    margin: 0px auto;
 
 }
 
