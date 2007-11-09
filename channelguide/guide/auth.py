@@ -46,19 +46,19 @@ supermoderator_required = user_passes_test(lambda u: u.is_supermoderator())
 moderator_required = user_passes_test(lambda u: u.is_moderator())
 
 def check_adult(request):
+    if request.user.is_authenticated():
+        adult_ok = {True: 'yes', False: 'no', None: None}[
+            request.user.adult_ok]
+    else:
+        adult_ok = request.COOKIES.get(ADULT_COOKIE_NAME, None)
+    if adult_ok == 'yes':
+        return
     if request.method == 'GET':
-        if request.user.is_authenticated():
-            adult_ok = {True: 'yes', False: 'no', None: None}[
-                    request.user.adult_ok]
-        else:
-            adult_ok = request.COOKIES.get(ADULT_COOKIE_NAME, None)
         if adult_ok is None:
             return util.render_to_response(request, 'adult-warning.html')
         elif adult_ok == 'no':
             url = request.META.get('HTTP_REFERER', '/')
             return util.redirect(url)
-        else:
-            return
     else:
         adult_ok = request.POST.get('adult_ok')
         if adult_ok == 'no':
