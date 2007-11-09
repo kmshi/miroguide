@@ -324,6 +324,9 @@ class SubmitChannelForm(Form):
         channel.add_tags(self.connection, channel.owner, tags)
 
     def save_channel(self, creator, feed_url):
+        if Channel.query().where(
+                Channel.c.url==feed_url).count(self.connection):
+            raise forms.ValidationError("Feed URL already exists")
         channel = Channel()
         channel.url = feed_url
         channel.owner = creator
