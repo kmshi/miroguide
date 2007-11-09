@@ -94,7 +94,8 @@ channel = Table('cg_channel',
         columns.DateTime('approved_at'),
         columns.String('cc_licence', 1, default='Z'),
         columns.Int('last_moderated_by_id', fk=user.c.id),
-        columns.String('postal_code', 15))
+        columns.String('postal_code', 15),
+        columns.Int('adult', default=0))
 moderator_action = Table('cg_moderator_action', 
         columns.Int("id", primary_key=True, auto_increment=True),
         columns.Int("user_id", fk=user.c.id),

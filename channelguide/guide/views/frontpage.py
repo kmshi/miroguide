@@ -1,4 +1,4 @@
-import urllib
+import urllib, operator
 
 from django.conf import settings
 from django.utils.decorators import decorator_from_middleware
@@ -17,6 +17,7 @@ class FrontpageCacheMiddleware(AggressiveCacheMiddleware):
 
 def get_popular_channels(connection, count):
     query = Channel.query_approved()
+    query.where(Channel.c.adult==False)
     query.load('subscription_count_today', 'average_rating')
     query.order_by('subscription_count_today', desc=True)
     query.limit(count)
@@ -33,6 +34,7 @@ def get_featured_channels(connection):
 
 def get_new_channels(connection, count):
     query = Channel.query_new().load('item_count').limit(count)
+    query.where(Channel.c.adult==False)
 #    query.cacheable = cache.client
 #    query.cacheable_time = 3600
     return query.execute(connection)
@@ -42,13 +44,18 @@ def get_new_posts(connection, count):
     return query.limit(count).execute(connection)
 
 def get_categories(connection):
-    return Category.query().order_by('name').execute(connection)
+    rows = list(Category.query().order_by('name').execute(connection))
+    adult_category = Category('Adult')
+    rows.append(adult_category)
+    rows.sort(key=operator.attrgetter('name'))
+    return rows
 
 def get_category_channels(connection, category):
     query = Channel.query_approved().join("categories")
     query.joins['categories'].where(id=category.id)
     query.load('subscription_count_month')
     query.order_by('subscription_count_month', desc=True)
+    query.where(Channel.c.adult==False)
     query.limit(2)
     query.cacheable = cache.client
     query.cacheable_time = 300
@@ -56,6 +63,7 @@ def get_category_channels(connection, category):
 
     query = Channel.query_approved().join("categories").limit(4-len(popular_channels))
     query.joins['categories'].where(id=category.id)
+    query.where(Channel.c.adult==False)
     if popular_channels:
         query.where(Channel.c.id.not_in(c.id for c in popular_channels))
     query.order_by('RAND()')

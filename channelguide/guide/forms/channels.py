@@ -20,7 +20,8 @@ from channelguide import util
 from fields import WideCharField, WideURLField, WideChoiceField
 from form import Form
 
-HD_HELP_TEXT = '<strong>%s</strong>  %s' % \
+HELP_FORMAT = '<strong>%s</strong> %s'
+HD_HELP_TEXT = HELP_FORMAT % \
         (_('What is HD?'), 
         _("""Material that is roughly 640x480 non-interlaced, and higher, can
         be marked as HD. This basically translates to DVD quality (without a
@@ -28,6 +29,13 @@ HD_HELP_TEXT = '<strong>%s</strong>  %s' % \
         material on the channel must meet this criteria for it to be considered
         HD.  Note: you are welcome to have an HD and non-HD version of the same
         channel """))
+ADULT_HELP_TEXT = HELP_FORMAT % \
+        (_('What is Adult?'),
+            _("""Check the box if this channel's primary purpose is to
+            sexually arouse or excite viewers. This includes channels that
+            contain softcore videos of "models in panties", "hot girls in
+            bikinis", "cute girls' butts", etc."""))
+
 
 class RSSFeedField(WideCharField):
     def clean(self, value):
@@ -230,6 +238,8 @@ class SubmitChannelForm(Form):
                 'tag with a comma.'))
     hi_def = forms.BooleanField(label=_('High Definition'), 
             help_text=HD_HELP_TEXT, required=False)
+    adult = forms.BooleanField(label=_('Adult Channel?'),
+            help_text=ADULT_HELP_TEXT, required=False)
     postal_code = WideCharField(max_length=15, label=_("Postal Code"),
             required=False)
     thumbnail_file = forms.Field(widget=ChannelThumbnailWidget, 
@@ -326,6 +336,8 @@ class SubmitChannelForm(Form):
         for attr in string_cols:
             setattr(channel, attr, self.cleaned_data[attr].encode('utf-8'))
         channel.hi_def = self.cleaned_data['hi_def']
+        channel.adult = self.cleaned_data['adult']
+        print channel.adult
         channel.primary_language_id = int(self.cleaned_data['language'])
         channel.save(self.connection)
         self.add_tags(channel)
@@ -356,6 +368,8 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
         self.fields['thumbnail_file'].required = False
         if not request.user.is_supermoderator():
             del self.fields['owner']
+        if not request.user.is_moderator():
+            del self.fields['adult']
         self.set_image_from_channel = False
         self.set_initial_values()
 
@@ -378,6 +392,8 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
         if 'owner' in self.fields:
             owner = User.query(id=self.channel.owner_id).get(self.connection)
             self.fields['owner'].initial = owner.username
+        if 'adult' in self.fields:
+            self.fields['adult'].initial = self.channel.adult
         tags = self.channel.get_tags_for_owner(self.connection)
         tag_names = [tag.name for tag in tags]
         self.fields['tags'].initial = ', '.join(tag_names)
@@ -420,7 +436,8 @@ class FeaturedEmailForm(Form):
                 name = "%s (%s)" % (request.user.fname, request.user.username)
         else:
             name = request.user.username
-        self.fields['body'].initial = """Hello,
+        self.fields['body'].initial = \
+                """Hello,
 
 We want to let you know that %s has been featured on Miro in the Channel Guide. Every week we showcase different podcasts to expose our users to interesting and high quality video feeds. Feel free to take a look and you will see %s scrolling across on the featured channels here:
 
