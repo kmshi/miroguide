@@ -47,7 +47,7 @@ class CacheMiddlewareBase(object):
             namespace_names = self.namespace
         namespace_values = client.get_multi(namespace_names)
         for name in namespace_names:
-            if type(namespace_values.get(name, None)) is not int:
+            if type(namespace_values.get(name, None)) is not float:
                 namespace_values[name] = None
             if namespace_values.get(name, None) is None:
                 namespace_values[name] = time.time()
