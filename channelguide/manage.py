@@ -270,7 +270,11 @@ remove_blank_space.args = ''
 def clear_cache(args):
     """Clear all cached pages.  """
     from channelguide.cache import client
-    client.set('namespace', time.time())
+    namespaces = args[2:]
+    if not namespaces:
+        namespaces = ['namespace']
+    for name in namespaces:
+        client.set(name, time.time())
 clear_cache.args = ''
 
 def optimize_template_dir(source_dir, dest_dir):
