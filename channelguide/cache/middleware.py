@@ -41,11 +41,18 @@ class CacheMiddlewareBase(object):
     namespace = 'namespace'
     def get_cache_key_tuple(self, request): 
         """Return a tuple that will be used to create the cache key."""
-        namespace = client.get(self.namespace)
-        if namespace is None:
-            namespace = time.time()
-            client.set(self.namespace, namespace)
-        return (namespace, )
+        if not isinstance(self.namespace, tuple):
+            namespace_names = (self.namespace,)
+        else:
+            namespace_names = self.namespace
+        namespace_values = client.get_multi(namespace_names)
+        for name in namespace_names:
+            if type(namespace_values.get(name, None)) is not int:
+                namespace_values[name] = None
+            if namespace_values.get(name, None) is None:
+                namespace_values[name] = time.time()
+                client.set(name, namespace_values[name])
+        return tuple([namespace_values[k] for k in namespace_names])
 
     def response_to_cache_object(self, request, response):
         return response
@@ -55,7 +62,8 @@ class CacheMiddlewareBase(object):
 
     def get_cache_key(self, request):
         prefix = self.__class__.__name__ + ":"
-        return prefix + hex(hash(self.get_cache_key_tuple(request)))
+        tuple = self.get_cache_key_tuple(request)
+        return prefix + hex(hash(tuple))
 
     def can_cache_request(self, request):
         return (request.method == 'GET' and

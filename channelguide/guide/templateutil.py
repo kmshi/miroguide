@@ -180,7 +180,7 @@ def order_channels_using_request(query, request):
     if order_by == 'alphabetical':
         query.order_by('name')
     elif order_by == 'date':
-        query.order_by('approved', desc=True)
+        query.order_by('approved_at', desc=True)
     elif order_by == 'toprated':
         query.load('average_rating', 'count_rating')
         query.order_by('average_rating', desc=True)

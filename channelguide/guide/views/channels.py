@@ -203,7 +203,7 @@ class ShowChannelCacheMiddleware(AggressiveCacheMiddleware):
                 request, cache_object)
         t = get_show_rating_bar(request, channel).decode('utf8')
         start = response.content.find(self.start)
-        end = response.content.find(self.end, start)
+        end = response.content.find(self.end, start) + len(self.end)
         head = response.content[:start].decode('utf8')
         tail = response.content[end:].decode('utf8')
         response.content = u''.join((head, t, tail))
@@ -211,7 +211,7 @@ class ShowChannelCacheMiddleware(AggressiveCacheMiddleware):
 
     def get_cache_key_tuple(self, request):
         id = request.path.split('/')[-1].encode('utf-8')
-        self.namespace = 'Channel:%s' % id
+        self.namespace = ('channel', 'Channel:%s' % id)
         channel = util.get_object_or_404(request.connection, Channel, id)
         user = request.user
         if not user.can_edit_channel(channel):
