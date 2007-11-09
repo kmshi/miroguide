@@ -1468,7 +1468,7 @@ li.blog-post .title {
     background: url(images/up-arrow.jpg) bottom no-repeat;
 }
 
-.channel-full #hide, .channel-full #reveal {
+.channel-full #hide {
     display: none;
 }
 
