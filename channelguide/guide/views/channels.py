@@ -9,7 +9,7 @@ from channelguide.cache import client
 from channelguide.cache.middleware import AggressiveCacheMiddleware
 from channelguide.guide import forms, templateutil, tables
 from channelguide.guide.auth import (admin_required, moderator_required,
-        login_required)
+        login_required, check_adult)
 from channelguide.guide.exceptions import AuthError
 from channelguide.guide.models import (Channel, Item, User, FeaturedEmail,
         ModeratorAction, ChannelNote, Rating, Tag, Category, Language,
@@ -112,6 +112,11 @@ def submit_channel(request):
     return util.render_to_response(request, 'submit-channel.html', context)
 
 def channel(request, id):
+    c = util.get_object_or_404(request.connection, Channel, id)
+    if c.adult:
+        ca = check_adult(request)
+        if ca is not None:
+            return ca
     if request.method == 'GET':
         return show(request, id)
     else:
