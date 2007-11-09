@@ -1235,6 +1235,7 @@ li.blog-post .title {
 
 .channel-in-category div.actions {
     margin-top: 6px;
+    width: 70px;
 }
 
 .channel-in-category .actions a {
