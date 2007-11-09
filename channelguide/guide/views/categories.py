@@ -41,7 +41,11 @@ def category(request, name):
 @cache.aggresively_cache
 def adult_category(request):
     if request.method == 'GET':
-        adult_ok = request.COOKIES.get(ADULT_COOKIE_NAME, None)
+        if request.user.is_authenticated():
+            adult_ok = {True: 'yes', False: 'no', None: None}[
+                    request.user.adult_ok]
+        else:
+            adult_ok = request.COOKIES.get(ADULT_COOKIE_NAME, None)
         if adult_ok is None:
             return util.render_to_response(request, 'adult-warning.html')
         elif adult_ok == 'no':
@@ -61,11 +65,19 @@ def adult_category(request):
         if adult_ok == 'no':
             url = request.META.get('HTTP_REFERER', '/')
             response = util.redirect(url)
-            util.set_cookie(response, ADULT_COOKIE_NAME,
+            if request.user.is_authenticated():
+                request.user.adult_ok = False
+                request.user.save(request.connection)
+            else:
+                util.set_cookie(response, ADULT_COOKIE_NAME,
                     'no', ADULT_COOKIE_AGE)
         elif adult_ok == 'yes':
             response = util.redirect(request.path)
-            util.set_cookie(response, ADULT_COOKIE_NAME,
+            if request.user.is_authenticated():
+                request.user.adult_ok = True
+                request.user.save(request.connection)
+            else:
+                util.set_cookie(response, ADULT_COOKIE_NAME,
                     'yes', ADULT_COOKIE_AGE)
         else:
             response = util.redirect(request.path)

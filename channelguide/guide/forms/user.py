@@ -102,6 +102,7 @@ class EditUserForm(PasswordComparingForm):
             label=_("IM Username"))
     im_type = WideCharField(max_length=25, required=False,
             label=_("IM Type"))
+    adult_ok = forms.BooleanField(label=_('Adult Channels?'), required=False)
 
     password_key = 'change_password'
     password_check_key = 'change_password2'
