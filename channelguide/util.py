@@ -133,8 +133,7 @@ def hash_string(str):
 
 def get_object_or_404(connection, record_or_query, id):
     from sqlhelper.orm import Record
-    if isinstance(record_or_query, Record) or issubclass(record_or_query,
-            Record):
+    if isinstance(record_or_query, Record):
         query = record_or_query.query()
     else:
         query = record_or_query
@@ -145,8 +144,7 @@ def get_object_or_404(connection, record_or_query, id):
 
 def get_object_or_404_by_name(connection, record_or_query, name):
     from sqlhelper.orm import Record
-    if isinstance(record_or_query, Record) or issubclass(record_or_query,
-            Record):
+    if hasattr(record_or_query, 'query'):
         query = record_or_query.query()
     else:
         query = record_or_query
