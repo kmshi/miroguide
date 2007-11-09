@@ -5,6 +5,9 @@ from channelguide.guide import templateutil
 from channelguide.guide.auth import admin_required
 from channelguide.guide.models import Category, Channel
 
+ADULT_COOKIE_NAME = 'adult_ok'
+ADULT_COOKIE_AGE = 60*60*24*365 # 1 year
+
 @cache.aggresively_cache
 def index(request):
     query = Category.query().load('channel_count')
@@ -37,14 +40,36 @@ def category(request, name):
 
 @cache.aggresively_cache
 def adult_category(request):
-    query = Channel.query_approved().where(Channel.c.adult==True)
-    templateutil.order_channels_using_request(query, request)
-    pager = templateutil.Pager(8, query, request)
-    return util.render_to_response(request, 'two-column-list.html', {
-        'header': _('Adult'),
-        'pager': pager,
-        'order_select': templateutil.OrderBySelect(request),
-    })
+    if request.method == 'GET':
+        adult_ok = request.COOKIES.get(ADULT_COOKIE_NAME, None)
+        if adult_ok is None:
+            return util.render_to_response(request, 'adult-warning.html')
+        elif adult_ok == 'no':
+            url = request.META.get('HTTP_REFERER', '/')
+            return util.redirect(url)
+        else:
+            query = Channel.query_approved().where(Channel.c.adult==True)
+            templateutil.order_channels_using_request(query, request)
+            pager = templateutil.Pager(8, query, request)
+            return util.render_to_response(request, 'two-column-list.html', {
+                'header': _('Adult'),
+                'pager': pager,
+                'order_select': templateutil.OrderBySelect(request),
+            })
+    else:
+        adult_ok = request.POST.get('adult_ok')
+        if adult_ok == 'no':
+            url = request.META.get('HTTP_REFERER', '/')
+            response = util.redirect(url)
+            util.set_cookie(response, ADULT_COOKIE_NAME,
+                    'no', ADULT_COOKIE_AGE)
+        elif adult_ok == 'yes':
+            response = util.redirect(request.path)
+            util.set_cookie(response, ADULT_COOKIE_NAME,
+                    'yes', ADULT_COOKIE_AGE)
+        else:
+            response = util.redirect(request.path)
+        return response
 
 @admin_required
 def moderate(request):
@@ -62,6 +87,7 @@ def add(request):
         new_category = Category(request.POST['name'])
         new_category.save(request.connection)
     return util.redirect('categories/moderate')
+
 @admin_required
 def delete(request):
     if request.method == 'POST':
