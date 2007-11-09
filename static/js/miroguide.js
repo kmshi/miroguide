@@ -76,6 +76,10 @@ function handleSubscriptionLink(channel_guide_url, subscribe_url) {
     if (!request) return true;
     request.onreadystatechange = function() {
         if (request.readyState == 2) {
+            if (navigator.userAgent.indexOf('Miro') != -1) {
+                subscribe_url = 'action:addFeed?selected=1&' + 
+                    subscribe_url.replace('http://subscribe.getmiro.com/?', '');
+            }
             window.location.href = subscribe_url;
         }
     };
