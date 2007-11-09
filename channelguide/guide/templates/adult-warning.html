@@ -1,0 +1,31 @@
+{% load i18n cg_helpers %}
+{% extends 'base.html' %}
+{% block title %}Miro Guide - Adult{% endblock %}
+{% block content %}
+<div class="adult-warning">
+    <h1>{% trans "Warning: Adult Section" %}</h1>
+    <p>{% blocktrans %}
+    This section contains channels that are of a sexual nature and
+    are geared towards an adult audience. Some of the videos could
+    be offensive to certain viewers. To browse this setion, you
+    must be at least 18 years of age.
+    {% endblocktrans %}</p>
+    <form class="adult-buttons" method="POST" action="{{ request.path }}">
+        <input type="hidden" name="adult_ok" value="no">
+        <input type="submit" value="I'm under 18 or am easily offended">
+    </form>
+    <form class="adult-buttons" method="POST" action="{{ request.path }}">
+        <input type="hidden" name="adult_ok" value="yes">
+        {% if request.user.is_authenticated %}
+            <input type="submit" id="yes" value="I'm over 18, unlock the adult section">
+        {% else %}
+            <input type="submit" id="yes" value="I'm over 18, take me to the adult section">
+        {% endif %}
+    </form>
+    {% if request.user.is_authenticated %}
+        <p id="user-note">
+            This choice will be saved in your <a {% link user.get_url %}>preferences</a>. It can be changed at any time
+        </p>
+    {% endif %}
+</div>
+{%endblock%}
