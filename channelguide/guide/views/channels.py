@@ -125,6 +125,9 @@ def channel(request, id):
         if action == 'toggle-moderator-share':
             request.user.check_is_moderator()
             channel.toggle_moderator_share(request.user)
+        elif action == 'toggle-adult':
+            request.user.check_is_moderator()
+            channel.adult = not channel.adult
         elif action == 'feature':
             request.user.check_is_supermoderator()
             FeaturedQueue.feature_channel(channel, request.user,
