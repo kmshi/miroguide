@@ -2380,3 +2380,25 @@ div.first-time-page {
     padding-top: 14px;
 }
 
+.adult-warning {
+    text-align: center;
+    font-size: 150%;
+}
+
+.adult-warning p {
+    width: 541px;
+    margin: 0 auto 50px;
+}
+
+.adult-warning input {
+    margin-bottom:20px;
+}
+
+.adult-warning p#user-note {
+    font-size: 60%;
+}
+
+.adult-warning #user-note a{
+    color: blue;
+    text-decoration: underline;
+}
