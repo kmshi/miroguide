@@ -77,7 +77,7 @@ function handleSubscriptionLink(channel_guide_url, subscribe_url) {
     request.onreadystatechange = function() {
         if (request.readyState == 2) {
             if (navigator.userAgent.indexOf('Miro') != -1) {
-                if (subscribe_url.indexOf('=', subscribe_url.indexOf('=')) == -1) {
+                if (subscribe_url.indexOf('=', subscribe_url.indexOf('=') + 1) == -1) {
 
                     subscribe_url = subscribe_url.replace('http://subscribe.getmiro.com/?url1', 'action:addFeed?selected=1&url');
                 }
