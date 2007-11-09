@@ -19,6 +19,8 @@ def get_popular_channels(connection, count):
     query = Channel.query_approved()
     query.where(Channel.c.adult==False)
     query.load('subscription_count_today', 'average_rating')
+    query.join('categories')
+    query.joins['categories'].where(on_frontpage=True)
     query.order_by('subscription_count_today', desc=True)
     query.limit(count)
     query.cacheable = cache.client
@@ -34,6 +36,8 @@ def get_featured_channels(connection):
 
 def get_new_channels(connection, count):
     query = Channel.query_new().load('item_count').limit(count)
+    query.join('categories')
+    query.joins['categories'].where(on_frontpage=True)
     query.where(Channel.c.adult==False)
 #    query.cacheable = cache.client
 #    query.cacheable_time = 3600
