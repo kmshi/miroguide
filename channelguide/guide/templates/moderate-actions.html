@@ -71,9 +71,9 @@
     <form method="POST" action="{{ channel.get_url }}">
         <input type="hidden" name="action" value="toggle-adult">
         {% if channel.adult %}
-        <input type="submit" value="Not Adult?">
+        <input type="submit" value="Mark Not Adult">
         {% else %}
-        <input type="submit" value="Adult?">
+        <input type="submit" value="Mark Adult">
         {% endif %}
     </form>
 </li>
