@@ -11,7 +11,7 @@ def index(request):
     query.cacheable = cache.client
     query.cacheable_time = 3600
     rows = list(query.execute(request.connection))
-    adult_count = Channel.query().where(Channel.c.adult==True).count(request.connection)
+    adult_count = Channel.query_approved().where(Channel.c.adult==True).count(request.connection)
     adult_category = Category('Adult')
     adult_category.channel_count = adult_count
     rows.append(adult_category)
