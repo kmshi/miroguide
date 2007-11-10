@@ -394,6 +394,10 @@ div.clear {
     color: #75B1ED
 }
 
+#account-bar a.adult-toggle {
+    color: white;
+}
+
 #account-bar .left a {
     margin-right: 10px;
 }
