@@ -44,6 +44,9 @@ def make_absolute_url(relative_url, get_data=None):
     return settings.BASE_URL_FULL + relative_url + format_get_data(get_data)
 
 def make_url(relative_url, get_data=None):
+    if '?' in relative_url: # a query
+        relative_url, query = relative_url.split('?', 1)
+        get_data = dict([f.split('=', 1) for f in query.split('&')])
     return urlquote(settings.BASE_URL + relative_url) + format_get_data(get_data)
 
 def format_get_data(get_data):

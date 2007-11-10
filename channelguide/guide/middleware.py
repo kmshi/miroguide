@@ -7,7 +7,7 @@ from channelguide import util, settings
 from exceptions import AuthError
 from models import Channel, User
 from models.user import AnonymousUser
-from auth import SESSION_KEY
+from auth import SESSION_KEY, check_adult
 import hotshot, hotshot.stats, tempfile, sys
 
 class UserMiddleware(object):
@@ -40,6 +40,9 @@ class UserMiddleware(object):
                 req.connection.commit()
         else:
             req.user = AnonymousUser()
+        if isinstance(req.user, AnonymousUser):
+            # set adult_ok variable
+            req.user.adult_ok = check_adult(req, True)
 
     def process_exception(self, request, exception):
         if isinstance(exception, AuthError):
