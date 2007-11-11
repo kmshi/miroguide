@@ -1,7 +1,9 @@
 from django.conf import settings
 from channelguide import util
+import sha, os
 
-style_nonce = util.random_string(5)
+style_file = os.path.dirname(__file__) + '/../static/css/style.css'
+style_nonce = hash(os.stat(style_file))
 
 def guide(request):
     """Channelguide context processor.  These attributes get added to every
