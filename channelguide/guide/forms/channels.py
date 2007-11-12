@@ -339,8 +339,8 @@ class SubmitChannelForm(Form):
         for attr in string_cols:
             setattr(channel, attr, self.cleaned_data[attr].encode('utf-8'))
         channel.hi_def = self.cleaned_data['hi_def']
-        channel.adult = self.cleaned_data['adult']
-        print channel.adult
+        if 'adult' in self.cleaned_data:
+            channel.adult = self.cleaned_data['adult']
         channel.primary_language_id = int(self.cleaned_data['language'])
         channel.save(self.connection)
         self.add_tags(channel)
@@ -414,9 +414,11 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
     def update_channel(self, channel):
         if self.cleaned_data['url'] is not None:
             channel.url = self.cleaned_data['url'].url
-        if 'owner' in self.fields and self.cleaned_data.get('owner') is not None:
+        if 'owner' in self.fields and self.cleaned_data.get('owner') is not None and self.request.user.is_admin():
             user = User.query(username=self.cleaned_data['owner']).get(self.connection)
             channel.owner_id = user.id
+        if 'adult' in self.fields and self.cleaned_data.get('adult', None) is not None and self.request.user.is_moderator():
+            channel.adult = self.cleaned_data.pop('adult')
         super(EditChannelForm, self).update_channel(channel)
 
 class FeaturedEmailForm(Form):

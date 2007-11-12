@@ -5,6 +5,7 @@ from channelguide.guide import templateutil
 from channelguide.guide.auth import admin_required, adult_required
 from channelguide.guide.models import Category, Channel
 
+@cache.aggresively_cache
 def index(request):
     query = Category.query().load('channel_count')
     query.order_by('channel_count', desc=True)
@@ -20,11 +21,11 @@ def index(request):
         'groups': rows,
     })
 
-@cache.aggresively_cache
+@cache.aggresively_cache(adult_differs=True)
 def category(request, name):
     category = util.get_object_or_404_by_name(request.connection, Category,
             name)
-    query = Channel.query_approved().join('categories')
+    query = Channel.query_approved(user=request.user).join('categories')
     query.joins['categories'].where(id=category.id)
     templateutil.order_channels_using_request(query, request)
     pager =  templateutil.Pager(8, query, request)

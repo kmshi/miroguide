@@ -64,6 +64,14 @@ class Channel(Record, Thumbnailable):
     state_name = property(get_state_name)
 
     @classmethod
+    def query(cls, *args, **kwargs):
+        if 'user' in kwargs:
+            user = kwargs.pop('user')
+            if user.adult_ok != 'yes':
+                kwargs['adult'] = 0
+        return super(Channel, cls).query(*args, **kwargs)
+
+    @classmethod
     def query_approved(cls, *args, **kwargs):
         kwargs['state'] = cls.APPROVED
         return cls.query(*args, **kwargs)

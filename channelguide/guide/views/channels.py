@@ -201,7 +201,7 @@ class ShowChannelCacheMiddleware(AggressiveCacheMiddleware):
     end = '<!-- END RATING BAR -->'
 
     def __init__(self):
-        AggressiveCacheMiddleware.__init__(self, None)
+        AggressiveCacheMiddleware.__init__(self, None, adult_differs=True)
 
     def response_from_cache_object(self, request, cache_object):
         id = request.path.split('/')[-1]
@@ -444,16 +444,16 @@ def make_simple_list(request, query, header, order_by=None):
         'pager': pager,
     })
 
-@cache.aggresively_cache
+@cache.aggresively_cache(adult_differs=True)
 def by_name(request):
     query = Channel.query_approved()
     return make_simple_list(request, query, _("Channels By Name"),
             Channel.c.name)
 
 
-@cache.aggresively_cache
+@cache.aggresively_cache(adult_differs=True)
 def hd(request):
-    query = Channel.query_approved(hi_def=1)
+    query = Channel.query_approved(hi_def=1, user=request.user)
     templateutil.order_channels_using_request(query, request)
     pager =  templateutil.Pager(8, query, request)
     return util.render_to_response(request, 'two-column-list.html', {
@@ -462,16 +462,16 @@ def hd(request):
         'order_select': templateutil.OrderBySelect(request),
     })
 
-@cache.aggresively_cache
+@cache.aggresively_cache(adult_differs=True)
 def features(request):
-    query = Channel.query().join('featured_queue')
+    query = Channel.query(user=request.user).join('featured_queue')
     j = query.joins['featured_queue']
     j.where(j.c.state!=0)
     query.order_by(j.c.state).order_by(j.c.featured_at, desc=True)
     return make_simple_list(request, query, _("Featured Channels"))
 
-def get_toprated_query():
-    query = Channel.query_approved()
+def get_toprated_query(user):
+    query = Channel.query_approved(user=user)
     query.load('average_rating', 'count_rating', 'item_count',
             'subscription_count_today')
     query.where(Literal("""cg_channel.id IN (SELECT channel_id
@@ -483,7 +483,7 @@ WHERE c2.channel_id=cg_channel.id AND user.approved=1))"""))
     return query
 
 def toprated(request):
-    query = get_toprated_query()
+    query = get_toprated_query(request.user)
     pager = templateutil.Pager(10, query, request)
     for channel in pager.items:
         channel.popular_count = channel.subscription_count_today
@@ -516,9 +516,9 @@ def group_channels_by_date(channels):
         retval.append({'date': current_date, 'channels': channels_in_date})
     return retval
 
-@cache.aggresively_cache
+@cache.aggresively_cache(adult_differs=True)
 def recent(request):
-    query = Channel.query_new()
+    query = Channel.query_new(user=request.user)
     pager =  templateutil.Pager(8, query, request)
     return util.render_to_response(request, 'recent.html', {
         'header': "RECENT CHANNELS",
@@ -528,7 +528,7 @@ def recent(request):
 
 def for_user(request, user_id):
     user = util.get_object_or_404(request.connection, User, user_id)
-    query = Channel.query(owner_id=user.id)
+    query = Channel.query(owner_id=user.id, user=request.user)
     query.join('categories', 'tags', 'owner', 'last_moderated_by')
     if request.user.id == long(user_id) or request.user.is_admin():
         query.load('subscription_count_today', 'subscription_count_today_rank')

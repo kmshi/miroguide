@@ -366,6 +366,7 @@ class SubmitChannelTest(TestCase):
             'category2': self.cat2.id,
             'thumbnail_file': open(test_data_path('thumbnail.jpg')),
             'thumbnail_file_submitted_path': '',
+            'adult': False,
         }
         if isinstance(dont_send, list):
             for key in dont_send:

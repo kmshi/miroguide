@@ -11,37 +11,41 @@ from sqlhelper.orm.query import ResultHandler
 
 class FrontpageCacheMiddleware(AggressiveCacheMiddleware):
 
+    def __init__(self):
+        AggressiveCacheMiddleware.__init__(self, adult_differs=True)
+
     def get_cache_key_tuple(self, request):
         return (AggressiveCacheMiddleware.get_cache_key_tuple(self, request) +
                 (request.user.is_authenticated(),))
 
-def get_popular_channels(connection, count):
-    query = Channel.query_approved()
-    query.where(Channel.c.adult==False)
+def get_popular_channels(request, count):
+    query = Channel.query_approved(user=request.user)
     query.load('subscription_count_today', 'average_rating')
-    query.join('categories')
-    query.joins['categories'].where(on_frontpage=True)
+    if request.user.adult_ok != 'yes':
+        query.join('categories')
+        query.joins['categories'].where(on_frontpage=True)
     query.order_by('subscription_count_today', desc=True)
     query.limit(count)
     query.cacheable = cache.client
     query.cacheable_time = 300
-    result = query.execute(connection)
+    result = query.execute(request.connection)
     for r in result:
         r.star_width = r.average_rating * 20
     return result
 
-def get_featured_channels(connection):
-    query = Channel.query_approved(featured=1)
-    return query.order_by('RAND()').execute(connection)
+def get_featured_channels(request):
+    query = Channel.query_approved(featured=1, user=request.user)
+    return query.order_by('RAND()').execute(request.connection)
 
-def get_new_channels(connection, count):
-    query = Channel.query_new().load('item_count').limit(count)
-    query.join('categories')
-    query.joins['categories'].where(on_frontpage=True)
-    query.where(Channel.c.adult==False)
+def get_new_channels(request, count):
+    query = Channel.query_new(user=request.user).load(
+            'item_count').limit(count)
+    if request.user.adult_ok != 'yes':
+        query.join('categories')
+        query.joins['categories'].where(on_frontpage=True)
 #    query.cacheable = cache.client
 #    query.cacheable_time = 3600
-    return query.execute(connection)
+    return query.execute(request.connection)
 
 def get_new_posts(connection, count):
     query = PCFBlogPost.query().order_by('position')
@@ -54,24 +58,23 @@ def get_categories(connection):
     rows.sort(key=operator.attrgetter('name'))
     return rows
 
-def get_category_channels(connection, category):
-    query = Channel.query_approved().join("categories")
+def get_category_channels(request, category):
+    query = Channel.query_approved(user=request.user).join("categories")
     query.joins['categories'].where(id=category.id)
     query.load('subscription_count_month')
     query.order_by('subscription_count_month', desc=True)
-    query.where(Channel.c.adult==False)
     query.limit(2)
     query.cacheable = cache.client
     query.cacheable_time = 300
-    popular_channels = list(query.execute(connection))
+    popular_channels = list(query.execute(request.connection))
 
-    query = Channel.query_approved().join("categories").limit(4-len(popular_channels))
+    query = Channel.query_approved(user=request.user).join(
+            "categories").limit(4-len(popular_channels))
     query.joins['categories'].where(id=category.id)
-    query.where(Channel.c.adult==False)
     if popular_channels:
         query.where(Channel.c.id.not_in(c.id for c in popular_channels))
     query.order_by('RAND()')
-    random_channels = list(query.execute(connection))
+    random_channels = list(query.execute(request.connection))
     return popular_channels + random_channels
 
 def get_adjecent_category(dir, name, connection):
@@ -107,7 +110,7 @@ def make_category_peek(request):
     name = urllib.quote_plus(category.name)
     return {
             'category': category,
-            'channels': get_category_channels(request.connection, category),
+            'channels': get_category_channels(request, category),
             'prev_url': '?category_peek=before:%s' % name,
             'next_url': '?category_peek=after:%s' % name,
             'prev_url_ajax': 'category-peek-fragment?category_peek=before:%s' % name,
@@ -120,10 +123,10 @@ def make_category_peek(request):
 def index(request):
     if not request.user.is_authenticated():
         request.add_notification('Rate', 'Now you can rate channels in Miro Guide &mdash; it only takes 15 seconds to <a href="/accounts/login">get started</a>.<img src="%simages/small-star.png" />' % settings.STATIC_BASE_URL)
-    featured_channels = get_featured_channels(request.connection)
+    featured_channels = get_featured_channels(request)
     return util.render_to_response(request, 'frontpage.html', {
-        'popular_channels': get_popular_channels(request.connection, 7),
-        'new_channels': get_new_channels(request.connection, 7),
+        'popular_channels': get_popular_channels(request, 7),
+        'new_channels': get_new_channels(request, 7),
         'featured_channels': featured_channels[:2],
         'featured_channels_hidden': featured_channels[2:],
         'blog_posts': get_new_posts(request.connection, 3),
@@ -131,7 +134,7 @@ def index(request):
         'category_peek': make_category_peek(request),
     })
 
-@cache.aggresively_cache
+@cache.aggresively_cache(adult_differs=True)
 def category_peek_fragment(request):
     return util.render_to_response(request, 'category-peek.html', {
         'category_peek': make_category_peek(request),
