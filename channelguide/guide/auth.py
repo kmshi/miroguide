@@ -60,6 +60,12 @@ def set_adult(request, response, adult_ok):
         else:
             util.set_cookie(response, ADULT_COOKIE_NAME,
                 'yes', ADULT_COOKIE_AGE)
+    else:
+        if request.user.is_authenticated():
+            request.user.adult_ok = None
+            request.user.save(request.connection)
+        else:
+            response.delete_cookie(ADULT_COOKIE_NAME)
 
 def check_adult(request, boolean=False):
     """
@@ -93,13 +99,13 @@ def check_adult(request, boolean=False):
                 url = '/'
             response = util.redirect(url)
             set_adult(request, response, 'no')
-        elif adult_ok == 'yes':
+        elif adult_ok in ('yes', 'reset'):
             if request.method == 'GET':
                 path = request.META.get('HTTP_REFERER', request.path)
             else:
                 path = request.path
             response = util.redirect(path)
-            set_adult(request, response, 'yes')
+            set_adult(request, response, adult_ok)
         else:
             response = util.redirect(request.path)
         return response
