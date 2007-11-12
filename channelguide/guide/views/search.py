@@ -24,7 +24,7 @@ def search_channels(request, terms):
     query = search_mod.search_channels(terms)
     if not request.user.is_moderator():
         query.where(state=Channel.APPROVED)
-    if request.user.adult_ok != 'yes':
+    if request.user.adult_ok != True:
         query.where(adult=0)
     return query
 
@@ -32,7 +32,7 @@ def search_items(request, terms):
     query = search_mod.search_items(terms)
     if not request.user.is_moderator():
         query.where(state=Channel.APPROVED)
-    if request.user.adult_ok != 'yes':
+    if request.user.adult_ok != True:
         query.where(adult=0)
     return query
 

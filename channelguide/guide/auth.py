@@ -69,8 +69,8 @@ def set_adult(request, response, adult_ok):
 
 def check_adult(request, boolean=False):
     """
-    If boolean is True, return 'yes' if the user wants adult videos,
-    'no' if they do not, otherwise None.
+    If boolean is True, return True if the user wants adult videos,
+    False if they do not, otherwise None.
     If boolean is False, display the adult warning page appropriately.
     """
     if boolean or request.REQUEST.get('adult_ok', None) is None:
@@ -80,7 +80,7 @@ def check_adult(request, boolean=False):
         else:
             adult_ok = request.COOKIES.get(ADULT_COOKIE_NAME, None)
         if boolean:
-            return adult_ok
+            return {'yes':True, 'no':False}.get(adult_ok, None)
         if adult_ok == 'yes':
             return
     if request.method == 'GET' and request.GET.get('adult_ok', None) is None:

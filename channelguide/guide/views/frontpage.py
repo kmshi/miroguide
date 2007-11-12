@@ -21,7 +21,7 @@ class FrontpageCacheMiddleware(AggressiveCacheMiddleware):
 def get_popular_channels(request, count):
     query = Channel.query_approved(user=request.user)
     query.load('subscription_count_today', 'average_rating')
-    if request.user.adult_ok != 'yes':
+    if request.user.adult_ok != True:
         query.join('categories')
         query.joins['categories'].where(on_frontpage=True)
     query.order_by('subscription_count_today', desc=True)
@@ -40,7 +40,7 @@ def get_featured_channels(request):
 def get_new_channels(request, count):
     query = Channel.query_new(user=request.user).load(
             'item_count').limit(count)
-    if request.user.adult_ok != 'yes':
+    if request.user.adult_ok != True:
         query.join('categories')
         query.joins['categories'].where(on_frontpage=True)
 #    query.cacheable = cache.client
