@@ -51,6 +51,9 @@ def search_channels(terms):
     if contains_hd(terms):
         query.where(hi_def=1)
         terms = [t for t in terms if t.lower() != 'hd']
+    if 'adult' in [term.lower() for term in terms]:
+        query.where(adult=1)
+        terms = [t for t in terms if t.lower() != 'adult']
     query.where(search_where(search_data_table, terms))
     query.order_by(search_score(search_data_table, terms), desc=True)
     return query
