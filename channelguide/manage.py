@@ -482,6 +482,7 @@ def shuffle_featured_channel_queue(args=None):
     from channelguide.guide.models import FeaturedQueue
     conn = db.connect()
     FeaturedQueue.shuffle_queue(conn)
+    conn.commit()
     conn.close()
 shuffle_featured_channel_queue.args = ''
 
