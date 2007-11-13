@@ -270,7 +270,7 @@ def show(request, id, featured_form=None):
         if c.featured_queue and c.featured_queue.state in (
                 FeaturedQueue.IN_QUEUE, FeaturedQueue.CURRENT):
             c.featured = True
-        if c.featured:
+        if c.featured and c.owner is not None:
             query = FeaturedEmail.query().join('sender')
             query.where(channel_id=c.id)
             query.order_by(FeaturedEmail.c.timestamp, desc=True)
@@ -345,11 +345,19 @@ def get_recommendations(request, id):
     recSelect.wheres.append('channel1_id=%s OR channel2_id=%s' % (id, id))
     recSelect.wheres.append('cosine>=0.025')
     recSelect.order_by.append('cosine DESC')
-    recSelect.limit = 4 
     elements = recSelect.execute(request.connection)
     recommendations = [e[0] == int(id) and e[1] or e[0] for e in elements]
-    return [Channel.query().get(request.connection, rec)
-        for rec in recommendations]
+    channels = []
+    for rec in recommendations:
+        if len(channels) == 4:
+            break
+        try:
+            chan = Channel.query(user=request.user).get(request.connection, rec)
+        except Exception:
+            continue
+        else:
+            channels.append(chan)
+    return channels
 
 def rate(request, id):
     if not request.user.is_authenticated():
