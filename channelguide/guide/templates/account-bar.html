@@ -20,9 +20,9 @@
             </div>
             {% else %}
             <div class="right">
-                {% if user.adult_ok %}
+                {% ifequal user.adult_ok None %}{% else %}
                     <a {% link "categories/Adult?adult_ok=reset" "adult-toggle" %}>Reset Adult Filtering</a>
-                {% endif %}</a>
+                {% endifequal %}</a>
                 <a {% link "accounts/login" %}>{% trans "Login / Register" %}</a>
             </div>
             <div class="left">
