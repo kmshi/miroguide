@@ -404,6 +404,7 @@ class PopularWindowSelect(templateutil.ViewSelect):
         else:
             return _("All-Time")
 
+@cache.aggresively_cache(adult_differs=True)
 def popular_view(request):
     timespan = request.GET.get('view', 'today')
     if timespan == 'today':
@@ -413,7 +414,7 @@ def popular_view(request):
     else:
         timespan = None
         count_name = 'subscription_count'
-    query = Channel.query_approved()
+    query = Channel.query_approved(user=request.user)
     query.load(count_name, "average_rating", "count_rating", 'item_count')
     query.order_by(query.get_column(count_name), desc=True)
     pager = templateutil.Pager(10, query, request)
