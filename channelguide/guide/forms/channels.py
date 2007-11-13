@@ -393,7 +393,7 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
             self.fields[key].initial = getattr(self.channel, key)
         self.fields['language'].initial = self.channel.language.id
         if 'owner' in self.fields and self.channel.owner is not None:
-            self.fields['owner'].initial = self.owner.username
+            self.fields['owner'].initial = self.channel.owner.username
         if 'adult' in self.fields:
             self.fields['adult'].initial = self.channel.adult
         tags = self.channel.get_tags_for_owner(self.connection)
@@ -413,10 +413,10 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
     def update_channel(self, channel):
         if self.cleaned_data['url'] is not None:
             channel.url = self.cleaned_data['url'].url
-        if 'owner' in self.fields and self.cleaned_data.get('owner') is not None and self.request.user.is_admin():
+        if 'owner' in self.fields and self.cleaned_data.get('owner') is not None:
             user = User.query(username=self.cleaned_data['owner']).get(self.connection)
             channel.owner_id = user.id
-        if 'adult' in self.fields and self.cleaned_data.get('adult', None) is not None and self.request.user.is_moderator():
+        if 'adult' in self.fields and self.cleaned_data.get('adult', None) is not None:
             channel.adult = self.cleaned_data.pop('adult')
         super(EditChannelForm, self).update_channel(channel)
 

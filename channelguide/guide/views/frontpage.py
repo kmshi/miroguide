@@ -21,9 +21,6 @@ class FrontpageCacheMiddleware(AggressiveCacheMiddleware):
 def get_popular_channels(request, count):
     query = Channel.query_approved(user=request.user)
     query.load('subscription_count_today', 'average_rating')
-    if request.user.adult_ok != True:
-        query.join('categories')
-        query.joins['categories'].where(on_frontpage=True)
     query.order_by('subscription_count_today', desc=True)
     query.limit(count)
     query.cacheable = cache.client
@@ -40,9 +37,6 @@ def get_featured_channels(request):
 def get_new_channels(request, count):
     query = Channel.query_new(user=request.user).load(
             'item_count').limit(count)
-    if request.user.adult_ok != True:
-        query.join('categories')
-        query.joins['categories'].where(on_frontpage=True)
 #    query.cacheable = cache.client
 #    query.cacheable_time = 3600
     return query.execute(request.connection)
@@ -118,8 +112,8 @@ def make_category_peek(request):
     }
 
 
-@decorator_from_middleware(FrontpageCacheMiddleware)
 @cache.cache_page_externally_for(300)
+@decorator_from_middleware(FrontpageCacheMiddleware)
 def index(request):
     if not request.user.is_authenticated():
         request.add_notification('Rate', 'Now you can rate channels in Miro Guide &mdash; it only takes 15 seconds to <a href="/accounts/login">get started</a>.<img src="%simages/small-star.png" />' % settings.STATIC_BASE_URL)

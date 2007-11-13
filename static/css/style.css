@@ -311,7 +311,7 @@ div.clear {
 
 #navigation {
     margin-top: 26px;
-    background: #b2b2b1 url(images/navigation-bg.png) repeat-x left top;
+    background: #008AE5 url(images/navigation-bg.png) repeat-x left top;
     height: 34px;
     background-color: white;
     font-size: 90%;
@@ -371,7 +371,7 @@ div.clear {
 }
 
 #account-bar {
-    background: url(images/account-bar.png) repeat-x left top;
+    background: #004B8D url(images/account-bar.png) repeat-x left top;
     height: 16px;
     padding: 7px;
     color: #fff;
@@ -556,7 +556,7 @@ div.clear {
 
 .front-page .category-list {
     border: 1px solid #EDCBD4;
-    background: url(images/category-list-bg.gif);
+    background: #843E77 url(images/category-list-bg.gif) repeat scroll 0% 50%;
     margin: 20px -17px 30px;
     padding: 12px 16px 20px;
 }
