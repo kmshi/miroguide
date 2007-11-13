@@ -385,16 +385,15 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
 
     def set_initial_values(self):
         join = self.channel.join('language', 'secondary_languages',
-                'categories')
+                'categories', 'owner')
         join.execute(self.connection)
         for key in ('url', 'name', 'hi_def', 'website_url',
                 'short_description', 'description', 'publisher',
                 'postal_code'):
             self.fields[key].initial = getattr(self.channel, key)
         self.fields['language'].initial = self.channel.language.id
-        if 'owner' in self.fields:
-            owner = User.query(id=self.channel.owner_id).get(self.connection)
-            self.fields['owner'].initial = owner.username
+        if 'owner' in self.fields and self.channel.owner is not None:
+            self.fields['owner'].initial = self.owner.username
         if 'adult' in self.fields:
             self.fields['adult'].initial = self.channel.adult
         tags = self.channel.get_tags_for_owner(self.connection)
