@@ -90,7 +90,8 @@ def check_adult(request, boolean=False):
             url = request.META.get('HTTP_REFERER', '/')
             if url.endswith(request.path):
                 url = '/'
-            return util.redirect(url)
+            return util.render_to_response(request, 'adult-denied.html',
+                    { 'redirect_url': url })
     else:
         adult_ok = request.REQUEST.get('adult_ok')
         if adult_ok == 'no':

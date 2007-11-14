@@ -1,0 +1,26 @@
+{% load i18n cg_helpers %}
+{% extends 'base.html' %}
+{% block title %}Miro Guide - Adult{% endblock %}
+{% block head-extra %}<META http-equiv="refresh" content="10;url={{ redirect_url }}">{% endblock %}
+{% block content %}
+<div class="adult adult-denied">
+    <h1>{% trans "Denied: Adult Section" %}</h1>
+    <p>{% blocktrans %}
+    This section contains channels that are of a sexual nature and
+    are geared towards an adult audience. Some of the videos could
+    be offensive to certain viewers. You have asked not to see
+    these channels.
+    {% endblocktrans %}</p>
+    <p>
+    {% if request.user.is_authenticated %}
+    You can change this setting in your <a {% link user.get_url %}>profile</a>
+    {% else %}
+    You can reset this setting by clicking on the 'Reset Adult Filtering'
+    link underneath the navigation bar.
+    {% endif %}
+    </p>
+    <p>You will be redirected back to the page you came from in 10 seconds.
+    <a {% link redirect_url %}>Go back immediately</a>
+    </p>
+</div>
+{%endblock%}
