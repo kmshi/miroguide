@@ -1482,10 +1482,20 @@ div.channel-full {
 
 .channel-full #episodes > h2 {
     font-size: 22pt;
-    height: 35px;
+    height: 29px;
+    line-height: 29px;
     color: #343434;
     background: #e3e4e4;
+    padding-left: 3px;
     margin-bottom: 10px;
+    position: relative;
+    top: -3px;
+}
+
+.channel-full #episodes > .header {
+    display: block;
+    height: 6px;
+    background: url(images/details/episodes-header.png) no-repeat;
 }
 
 .channel-full #episodes table tr.header {

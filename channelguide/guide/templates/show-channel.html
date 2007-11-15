@@ -61,23 +61,35 @@
         </div>
         <div id="description-toggle">Reveal All</div>
         <script type="text/javascript">
-            var title_height = $("h1").height() + 15; // +15 for margin
-            var max_height = 177 - title_height;
-            var description_height = ($("#description").height());
+            title_height = $("h1").height() + 15; // +15 for margin
+            max_height = 177 - title_height;
+            description_height = ($("#description").height());
             if (description_height > max_height) { // have to shade
-                var toggle_height = $("#description-toggle").height() + 15; // +15 for margin
-                $("#description").height(max_height-toggle_height);
+                // find out how high a line is
+                var em = $(document.createElement('i')).css({                    
+                        'display': 'block',                       
+                        'top': '-1em',                   
+                        'position': 'absolute',                 
+                        'visibility': 'hidden',                      
+                        'height': '1em'             
+                        });
+                $('body').prepend(em);
+                line_height = em.height();
+                toggle_height = $("#description-toggle").height() + 15; // +15 for margin
+                extra = (max_height - toggle_height) % line_height;
+                $("#description").height(max_height-toggle_height-extra);
                 $("#description-toggle").show().toggle(function() {
                         $("#description").animate({'height': description_height}, 'slow',
                             function() {$('#description-toggle').text("Hide").addClass("open");});
                         }, function() {
-                        $("#description").animate({'height': max_height-toggle_height}, 'slow',
+                        $("#description").animate({'height': max_height-toggle_height-extra}, 'slow',
                             function() {$('#description-toggle').text("Reveal All").removeClass("open");});
                     });
             }
         </script>
         {% if items %}
         <div id="episodes">
+            <span class="header"></span>
             <h2>{% trans "Episodes" %}</h2>
             <table>
                 <tr class="header">
