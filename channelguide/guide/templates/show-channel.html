@@ -112,7 +112,8 @@
             </table>
         </div>
         {% endif %}
-
+    {% endtwocolumns %}
+    <div id="extra">
         {% if show_extra_info %}
         <ul id="extra-info">
             <li><h3>{% trans "Owner Email" %}</h3>
@@ -133,7 +134,8 @@
                     at {{ channel.featured_at }}
                 {% endif %}
             {% endif %}
-        </li></ul>
+            </li>
+        </ul>
         {% endif %}
 
         {% if user.is_moderator or show_edit_button %}
@@ -169,6 +171,6 @@
         </ul>
         {% endif %}
     {% show_channel_notes notes channel %}
-    {% endtwocolumns %}
+    </div>
 </div>
 {% endblock %}
