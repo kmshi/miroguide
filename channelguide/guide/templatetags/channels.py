@@ -41,23 +41,28 @@ def show_channel_in_category(channel):
 def show_channel_in_list(channel):
     return {'channel': channel, 'BASE_URL': settings.BASE_URL }
 
-@register.inclusion_tag('guide/channel-in-popular-list.html',
-        takes_context=True)
+@register.inclusion_tag('guide/channel-in-popular-list.html', takes_context=True)
+def show_channel_in_popular_list(context, channel):
+    return {'channel': channel, 'BASE_URL': settings.BASE_URL,
+            'request': context['request']}
+
+@register.inclusion_tag('guide/channel-in-recommendation.html')
+def show_channel_in_recommendation(channel):
+    return {'channel': channel, 'BASE_URL': settings.BASE_URL }
+
 @register.inclusion_tag('guide/channel-mini.html', takes_context=True)
 def show_channel_mini(context, channel, count):
-    return {'channel': channel, 'count': count,
+    return {'channel': channel, 'count': count, 
             'BASE_URL': settings.BASE_URL,
-            'request': context['request'],
+            'request': context['request']
             }
 
-@register.inclusion_tag('guide/channel-in-recommendation.html', takes_context=True)
-def show_channel_in_recommendation(context, channel):
-    return { 'channel': channel,
-            'request': context['request'],
-            'BASE_URL': settings.BASE_URL}
+@register.inclusion_tag('guide/channel-mini.html')
+def show_channel_recommendation(channel):
+    return { 'channel': channel }
 
 @register.inclusion_tag('guide/item.html')
-def show_item(item):
+def show_item(item, open=True):
     return {'item': item}
 
 @register.inclusion_tag('guide/rating.html', takes_context=True)
