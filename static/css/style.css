@@ -1544,10 +1544,6 @@ div.channel-full {
     display: none;
 }
 
-.channel-full #extra {
-    float: left;
-}
-
 /* Recommended channels in the channel-full template */
 
 div.channel-recommended {
