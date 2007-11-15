@@ -191,7 +191,7 @@ class User(UserBase, Record):
 
     def generate_confirmation_code(self):
         s = '%s%s%s' % (self.id, self.username, self.created_at.timetuple())
-        return sha.new(s).hexdigest()[:16]
+        return sha.new(s.encode('utf8')).hexdigest()[:16]
 
     def generate_confirmation_url(self):
         return settings.BASE_URL_FULL + 'accounts/confirm/%s/%s' % (self.id,
