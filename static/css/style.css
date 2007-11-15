@@ -1367,7 +1367,7 @@ div.channel-full {
 .channel-full .subscribe a {
     padding-left: 28px;
     color: white;
-    font-size: 16pt;
+    font-size: 14pt;
     font-weight: bold;
 }
 .channel-full #rating {
@@ -1414,7 +1414,7 @@ div.channel-full {
 
 .channel-full .meta a {
     color: #555;
-    font-size: 11pt;
+    font-size: 9pt;
     text-decoration: underline;
 }
 
@@ -1427,7 +1427,7 @@ div.channel-full {
 .channel-full .meta h3 {
     display: block;
     clear: both;
-    font-size: 14pt;
+    font-size: 13pt;
     line-height: 20px;
     margin-left: -5px;
     padding: 3px 0 3px 5px;
@@ -1440,13 +1440,14 @@ div.channel-full {
 }
 
 .channel-full #recommendations > h3 {
-    font-size: 14pt;
+    font-size: 12pt;
     color: #454545;
-    text-align: center;
+    margin-left: 6px;
+    text-align: left;
 }
 
 .channel-full h1 {
-    font-size: 26pt;
+    font-size: 22pt;
     margin-bottom: 15px;
     line-height: 1;
 }
@@ -1481,7 +1482,7 @@ div.channel-full {
 }
 
 .channel-full #episodes > h2 {
-    font-size: 22pt;
+    font-size: 19pt;
     height: 29px;
     line-height: 29px;
     color: #343434;
@@ -1494,7 +1495,7 @@ div.channel-full {
 
 .channel-full #episodes > .header {
     display: block;
-    height: 6px;
+    height: 9px;
     background: url(images/details/episodes-header.png) no-repeat;
 }
 
@@ -1504,7 +1505,7 @@ div.channel-full {
 }
 
 .channel-full #episodes table {
-    font-size: 10pt;
+    font-size: 9pt;
     border-collapse: collapse;
     table-layout: auto;
 }
@@ -1570,7 +1571,7 @@ div.channel-recommended {
 }
 
 .channel-recommended h3 {
-    font-size: 12pt;
+    font-size: 11pt;
     margin-top: -1px;
     margin-left: 6px;
     color: #212121;
