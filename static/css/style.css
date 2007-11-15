@@ -1370,6 +1370,11 @@ div.channel-full {
     font-size: 14pt;
     font-weight: bold;
 }
+
+.channel-full .subscribe a:hover {
+    text-decoration: none;
+}
+
 .channel-full #rating {
     margin-bottom: 30px;
 }
@@ -1471,7 +1476,7 @@ div.channel-full {
 }
 
 .channel-full #description-toggle.open {
-    background-image: url(images/details/arrow-opened.png);
+    background-image: url(images/details/arrow-revealed.png);
 }
 
 .channel-full #episodes {
@@ -1597,6 +1602,11 @@ div.channel-recommended {
     font-weight: bold;
     color: white;
 }
+
+.channel-recommended .info a:hover {
+    text-decoration: none;
+}
+
 .channel-recommended .info .subscribe, .channel-recommended .info .details {
     width: 124px;
     height: 15px;
