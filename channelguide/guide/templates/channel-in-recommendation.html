@@ -1,22 +1,15 @@
-{% load i18n cg_helpers %}
-<div class="channel channel-in-recommendation">
-    <h3 class="title">{{ channel.name_as_link }}</h3>
+{% load i18n cg_helpers channels %}
+<div class="channel channel-recommended">
+    <h3>{{ channel.name_as_link }}</h3>
     <div class="screenshot">
-        <a {% link channel.get_url %}>{{ channel.thumb_120_80 }}</a>
+        <a {% link channel.get_url %}>{{ channel.thumb_95_63 }}</a>
         {% if channel.hi_def %}
-            <img class="hd-icon-medium" src="{{ BASE_URL }}images/hd-icon-medium.png" alt="HD">
+            <img class="hd-icon-small" src="{{ BASE_URL }}images/hd-icon-small.png" alt="HD">
         {% endif %}
     </div>
-    <div class="actions">
-        <div class="small horizontal">
-            <a {{ channel.subscription_link }}>
-                <span class="icon"></span>
-                {% trans "Add" %}
-            </a>
-            <a {% link channel.get_url "info-button" %}>
-                <span class="icon"></span>
-                {% trans "Details" %}
-            </a>
-        </div>
+    <div class="info">
+        <div class="subscribe"><a {{ channel.subscription_link }}>Add Channel</a></div>
+        <div class="details"><a {% link channel.get_url %}>Get Info</a></div>
+        {% show_rating_static channel %}
     </div>
 </div>
