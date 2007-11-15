@@ -78,6 +78,7 @@
                 toggle_height = $("#description-toggle").height() + 15; // +15 for margin
                 extra = (max_height - toggle_height) % line_height;
                 $("#description").height(max_height-toggle_height-extra);
+                $("#description-toggle").css("margin-bottom", extra+1);
                 $("#description-toggle").show().toggle(function() {
                         $("#description").animate({'height': description_height}, 'slow',
                             function() {$('#description-toggle').text("Hide").addClass("open");});
