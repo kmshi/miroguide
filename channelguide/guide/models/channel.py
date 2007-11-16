@@ -177,7 +177,7 @@ class Channel(Record, Thumbnailable):
         recently.
         """
 
-        subscription_table = tables.channel_subscription
+        subscription_table = tables.channel_subscription_holding
         select = subscription_table.select_count()
         select.wheres.append(subscription_table.c.ip_address==ip_address)
         second_ago = timestamp - timedelta(seconds=1)
@@ -192,7 +192,7 @@ class Channel(Record, Thumbnailable):
             timestamp = datetime.now()
         if self._should_throttle_ip_address(connection, ip_address, timestamp):
             return
-        insert = tables.channel_subscription.insert()
+        insert = tables.channel_subscription_holding.insert()
         insert.add_values(channel_id=self.id, ip_address=ip_address,
                 timestamp=timestamp,
                 ignore_for_recommendations=ignore_for_recommendations)

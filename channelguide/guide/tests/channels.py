@@ -170,9 +170,9 @@ class ChannelModelTest(ChannelTestBase):
                 util.read_file(test_data_path('thumbnail.jpg')))
 
     def check_subscription_counts(self, total, month, today):
-        subscription_count_today = self.connection.execute('SELECT COUNT(*) FROM cg_channel_subscription WHERE channel_id=%s and timestamp>DATE_SUB(NOW(), INTERVAL 1 DAY)', self.channel.id)[0][0]
-        subscription_count_month = self.connection.execute('SELECT COUNT(*) FROM cg_channel_subscription WHERE channel_id=%s and timestamp>DATE_SUB(NOW(), INTERVAL 1 MONTH)', self.channel.id)[0][0]
-        subscription_count = self.connection.execute('SELECT COUNT(*) FROM cg_channel_subscription WHERE channel_id=%s', self.channel.id)[0][0]
+        subscription_count_today = self.connection.execute('SELECT COUNT(*) FROM cg_channel_subscription_holding WHERE channel_id=%s and timestamp>DATE_SUB(NOW(), INTERVAL 1 DAY)', self.channel.id)[0][0]
+        subscription_count_month = self.connection.execute('SELECT COUNT(*) FROM cg_channel_subscription_holding WHERE channel_id=%s and timestamp>DATE_SUB(NOW(), INTERVAL 1 MONTH)', self.channel.id)[0][0]
+        subscription_count = self.connection.execute('SELECT COUNT(*) FROM cg_channel_subscription_holding WHERE channel_id=%s', self.channel.id)[0][0]
         self.assertEquals(subscription_count, total)
         self.assertEquals(subscription_count_month, month)
         self.assertEquals(subscription_count_today, today)
@@ -198,6 +198,28 @@ class ChannelModelTest(ChannelTestBase):
         self.check_subscription_counts(1, 1, 1)
         self.channel.add_subscription(self.connection, '1.1.1.1', next_week)
         self.check_subscription_counts(2, 2, 2)
+
+    def test_stats_refresh(self):
+        """
+        Test that manage.refresh_stats_table() correctly updates the
+        subscription table.
+        """
+        now = datetime.now()
+        week = timedelta(days=7)
+        self.channel.state = 'A'
+        self.channel.save(self.connection)
+        self.channel.add_subscription(self.connection, '1.1.1.1', now)
+        self.channel.add_subscription(self.connection, '1.1.1.2', now-week*1)
+        self.channel.add_subscription(self.connection, '1.1.1.3', now-week*6)
+        self.refresh_connection()
+        manage.refresh_stats_table()
+        self.refresh_connection()
+        q = self.channel.query()
+        chan = q.load('subscription_count_today','subscription_count_month',
+                'subscription_count').get(self.connection, self.channel.id)
+        self.assertEquals(chan.subscription_count, 3)
+        self.assertEquals(chan.subscription_count_month, 2)
+        self.assertEquals(chan.subscription_count_today, 1)
 
     def check_tag_map_count(self, correct_count):
         tag_count = TagMap.query().count(self.connection)
@@ -470,16 +492,6 @@ Errors: %s""" % (response.status_code, errors)
         self.login()
         response = self.get_page('/channels/submit/step2')
         self.assertEquals(response.status_code, 302)
-
-    def test_submit_url(self):
-        self.login()
-        response = self.submit_url()
-        self.check_submit_url_worked(response)
-
-    def test_submit_without_thumbnail(self):
-        self.login()
-        response = self.submit_url(test_data_url('no-thumbnail.xml'))
-        self.check_submit_url_failed(response)
 
     def test_bad_url(self):
         self.login()

@@ -402,11 +402,20 @@ refresh_popular_cache.args = ''
 def refresh_stats_table(args=None):
     """
     Refreshes the statistics table so that we can calculate the ranks of
-    channels.
+    channels.  This also copies the recent subscriptions out of
+    cg_channel_subscription_holding into the main table.
     """
     from channelguide import db
-    delete = "DELETE FROM cg_channel_generated_stats"
-    insert = """
+    conn = db.connect()
+    copy_holding = """INSERT INTO cg_channel_subscription
+    SELECT channel_id, timestamp, ip_address, ignore_for_recommendations
+    FROM cg_channel_subscription_holding"""
+    delete_holding = "DELETE FROM cg_channel_subscription_holding"
+    conn.execute(copy_holding)
+    conn.execute(delete_holding)
+    conn.commit()
+    delete_stats = "DELETE FROM cg_channel_generated_stats"
+    insert_stats = """
     INSERT into cg_channel_generated_stats
     SELECT 
     cg_channel.id, 
@@ -452,9 +461,8 @@ def refresh_stats_table(args=None):
     DESC, 
       cg_channel_subscription_count
     DESC"""
-    conn = db.connect()
-    conn.execute(delete)
-    conn.execute(insert)
+    conn.execute(delete_stats)
+    conn.execute(insert_stats)
     conn.commit()
     conn.close()
 refresh_stats_table.args = ''
