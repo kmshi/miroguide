@@ -1365,7 +1365,10 @@ div.channel-full {
 }
 
 .channel-full .subscribe a {
-    padding-left: 28px;
+    padding-left: 34px;
+    padding-right: 20px;
+    position: relative;
+    top: 3px;
     color: white;
     font-size: 14pt;
     font-weight: bold;
@@ -1505,7 +1508,8 @@ div.channel-full {
 }
 
 .channel-full #episodes table tr.header {
-    font-size: 12pt;
+    font-size: 10pt;
+    font-weight: normal;
     border-bottom: 2px solid #e3e4e4;
 }
 
@@ -1528,11 +1532,11 @@ div.channel-full {
 }
 
 .channel-full #episodes table tr.item {
-    background: url(images/details/arrow-closed.png) no-repeat 0 4px;
+    background: url(images/details/arrow-closed.png) no-repeat 5px 4px;
 }
 
 .channel-full #episodes table tr.header + tr.item {
-    background-position: 0 19px;
+    background-position: 5px 19px;
 }
 
 .channel-full #episodes table tr.header + tr.item td {
@@ -1604,9 +1608,9 @@ div.channel-recommended {
 }
 
 .channel-recommended .info a {
+    position: static;
     font-size: 8pt;
-    padding-left: 6px;
-    width: 124px;
+    margin: 0 auto;
     font-weight: bold;
     color: white;
 }
@@ -1626,9 +1630,17 @@ div.channel-recommended {
     margin-bottom: 8px;
 }
 
+.channel-recommended .info .subscribe a {
+    padding: 0 27px;
+}
+
 .channel-recommended .info .details {
     background: url(images/details/details-small.png) no-repeat;
     margin-bottom: 10px;
+}
+
+.channel-recommended .info .details a {
+    padding: 0 40px;
 }
 
 /* Item list in the channel-full template */
@@ -2095,68 +2107,6 @@ h3 .note-author {
 	top: -10px;
 	left: 0px;
 	margin-bottom: 0px;
-}
-
-.channel-in-recommendation .info {
-    padding: 0px 5px 10px 5px;
-    width: 100px;
-    text-align: left;
-}
-
-.channel-in-recommendation .screenshot {
-    width: 120px;
-    height: 80px;
-}
-
-.channel-in-recommendation img.hd-icon-medium {
-    bottom: 2px;
-}
-
-.channel-in-recommendation .title {
-    margin-bottom: 2px;
-    font-size: 110%;
-    padding: 0;
-    height: 1.2em;
-}
-
-.channel-in-recommendation .title a {
-    color: black;
-}
-
-.channel-in-recommendation .screenshot {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.channel-in-recommendation .actions {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.channel-in-recommendation .actions a {
-    font-size: 90%;
-    margin-left: 10px;
-    background: no-repeat left top;
-    line-height: 17px;
-    color: #2E6195;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.channel-in-recommendation .actions .icon {
-    float: left;
-    margin-right: 5px;
-}
-.channel-in-recommendation .actions .add .icon {
-    margin-top: 5px;
-    margin-left: 11px;
-    background-image: url(images/icons/add-small-white.png);
-}
-
-
-.channel-in-recommendation .actions .info-button .icon {
-    margin-top: 5px;
-    background-image: url(images/icons/info-small-white.png);
 }
 
 div#store {
