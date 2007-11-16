@@ -195,27 +195,39 @@ def channel(request, id):
         channel.save(request.connection)
     return util.redirect_to_referrer(request)
 
-class ShowChannelCacheMiddleware(AggressiveCacheMiddleware):
+class ReplaceRatingsMiddleware(AggressiveCacheMiddleware):
+    ratings_match = re.compile('<!-- RATING BAR (\d)+ -->.*?<!-- END RATING BAR -->')
 
-    start = '<!-- RATING BAR -->'
-    end = '<!-- END RATING BAR -->'
-
-    def __init__(self):
-        AggressiveCacheMiddleware.__init__(self, None, adult_differs=True)
+    def _replace_ratings(self, request, content):
+        ratings = {} # channel_id -> text_to_replace
+        match = self.ratings_match.search(content)
+        while match:
+            id = int(match.groups(1))
+            start = match.start()
+            end = match.end()
+            ratings[id] = content[start:end]
+            match = self.rating_match.search(content, end)
+        query = Channel.query().where(Channel.c.id.in_(ratings.keys()))
+        query.load('average_rating', 'count_rating')
+        channels = query.execute(request.connection)
+        for channel in channels:
+            old_bar = ratings[channel.id]
+            new_bar = get_rating_bar(request, channel).decode('utf8')
+            content = content.replace(old_bar, new_bar)
+        return content
 
     def response_from_cache_object(self, request, cache_object):
         id = request.path.split('/')[-1]
         query = Channel.query().load('average_rating', 'count_rating')
-        channel = util.get_object_or_404(request.connection, query, id)
         response = AggressiveCacheMiddleware.response_from_cache_object(self,
                 request, cache_object)
-        t = get_show_rating_bar(request, channel).decode('utf8')
-        start = response.content.find(self.start)
-        end = response.content.find(self.end, start) + len(self.end)
-        head = response.content[:start].decode('utf8')
-        tail = response.content[end:].decode('utf8')
-        response.content = u''.join((head, t, tail))
+        response.content = self._replace_ratings(request, response.content)
         return response
+
+class ShowChannelCacheMiddleware(ReplaceRatingsMiddleware):
+
+    def __init__(self):
+        AggressiveCacheMiddleware.__init__(self, None, adult_differs=True)
 
     def get_cache_key_tuple(self, request):
         id = request.path.split('/')[-1].encode('utf-8')
@@ -412,7 +424,8 @@ class PopularWindowSelect(templateutil.ViewSelect):
         else:
             return _("All-Time")
 
-@cache.aggresively_cache(adult_differs=True)
+#@cache.aggresively_cache(adult_differs=True)
+@decorator_from_middleware(ReplaceRatingsMiddleware)
 def popular_view(request):
     timespan = request.GET.get('view', 'today')
     if timespan == 'today':
@@ -491,6 +504,7 @@ WHERE c2.channel_id=cg_channel.id AND user.approved=1))"""))
     query.order_by('count_rating', desc=True)
     return query
 
+@decorator_from_middleware(ReplaceRatingsMiddleware)
 def toprated(request):
     query = get_toprated_query(request.user)
     pager = templateutil.Pager(10, query, request)

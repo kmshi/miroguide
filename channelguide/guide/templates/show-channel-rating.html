@@ -1,5 +1,5 @@
 {% load channels %}
-<!-- RATING BAR -->
+<!-- RATING BAR {{ channel.id }} -->
                     {% show_rating_stars channel %}
                     <div class="average">Average of {{ channel.count_rating }} rating{{ channel.count_rating|pluralize }}: <strong>{{ channel.average_rating|floatformat }}</strong> star{{ channel.average_rating|pluralize }}</div>
 <!-- END RATING BAR -->
