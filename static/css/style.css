@@ -1531,6 +1531,14 @@ div.channel-full {
     background: url(images/details/arrow-closed.png) no-repeat 0 4px;
 }
 
+.channel-full #episodes table tr.header + tr.item {
+    background-position: 0 19px;
+}
+
+.channel-full #episodes table tr.header + tr.item td {
+    padding-top: 15px;
+}
+
 .channel-full #episodes table tr.item.closed {
     background-image: url(images/details/arrow-opened.png);
 }
