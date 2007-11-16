@@ -178,6 +178,11 @@ featured_email = Table('cg_channel_featured_email',
         columns.String('title', 100),
         columns.String('body'),
         columns.DateTime('timestamp', primary_key=True, default=datetime.now))
+generated_ratings = Table('cg_channel_generated_ratings',
+        columns.Int('channel_id', fk=channel.c.id, primary_key=True),
+        columns.Int('average'),
+        columns.Int('count'),
+        columns.Int('total'))
 # set up count subquery columns.  These are a little more complex than the
 # other columns, so they are separated out
 category.add_subquery_column('channel_count', """\
@@ -214,7 +219,7 @@ channel.add_subquery_column('item_count', """\
 SELECT COUNT(*)
 FROM cg_channel_item
 WHERE cg_channel_item.channel_id=#table#.id""")
-
+'''
 channel.add_subquery_column('count_rating', """\
 SELECT COUNT(rating)
 FROM cg_channel_rating JOIN user ON user.id=cg_channel_rating.user_id
@@ -224,7 +229,7 @@ channel.add_subquery_column('average_rating', """\
 SELECT IFNULL(ROUND(AVG(rating), 1), 0)
 FROM cg_channel_rating JOIN user ON user.id=cg_channel_rating.user_id
 WHERE cg_channel_rating.channel_id=#table#.id AND user.approved=1""")
-
+'''
 def make_subscription_count(name, timeline=None):
     if timeline is None:
         column = 'subscription_count_total'
@@ -275,7 +280,8 @@ channel.many_to_one('featured_by', user,
 channel.one_to_many('items', item, backref='channel')
 channel.one_to_many('notes', channel_note, backref='channel')
 channel.one_to_one('search_data', channel_search_data, backref='channel')
-channel.one_to_one('featured_queue', featured_queue, backref='channel_id')
+channel.one_to_one('featured_queue', featured_queue, backref='channel')
+channel.one_to_one('rating', generated_ratings, backref='channel')
 item.one_to_one('search_data', item_search_data, backref='item')
 item.many_to_one('channel', channel, backref='item')
 category_map.many_to_one('category', category, backref='category_maps')

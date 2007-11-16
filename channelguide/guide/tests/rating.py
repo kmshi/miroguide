@@ -10,6 +10,8 @@ class ChannelRatingsTest(TestCase):
     def setUp(self):
         TestCase.setUp(self)
         self.owner = self.make_user('owner')
+        self.owner.approved = 1
+        self.owner.save(self.connection)
         self.channel = self.make_channel(self.owner)
         self.users = []
         for rating in range(6):
@@ -17,20 +19,22 @@ class ChannelRatingsTest(TestCase):
             user.approved = 1
             user.save(self.connection)
             self.users.append(user)
-            r = Rating()
-            r.user_id = user.id
-            r.channel_id = self.channel.id
-            r.rating = rating
-            r.save(self.connection)
-        self.connection.commit()
+            self.rate_channel(self.channel, user, rating)
+            self.connection.commit()
+        self.logout()
+
+    def rate_channel(self, channel, user, rating):
+        self.refresh_connection()
+        self.get_page('/channels/rate/%i' % channel.id, login_as=user,
+                data = {'rating': rating})
 
     def test_get_average(self):
         """
-        Channel.query().load('average_rating') should return the average rating
+        Channel.query().join('rating').average should return the average rating
         for the channel.
         """
-        c = self.channel.query().load('average_rating').get(self.connection)
-        self.assertEquals(float(c.average_rating), 2.5)
+        c = self.channel.query().join('rating').get(self.connection)
+        self.assertEquals(float(c.rating.average), 3)
 
     def test_get_average_ignores_unapproved(self):
         """
@@ -38,13 +42,9 @@ class ChannelRatingsTest(TestCase):
         approved.
         """
         new_user = self.make_user('foo')
-        r = Rating()
-        r.rating = 5
-        r.channel_id = self.channel.id
-        r.user_id = new_user.id
-        r.save(self.connection)
-        c = self.channel.query().load('average_rating').get(self.connection)
-        self.assertEquals(float(c.average_rating), 2.5)
+        self.rate_channel(self.channel, new_user, 5)
+        c = self.channel.query().join('rating').get(self.connection)
+        self.assertEquals(float(c.rating.average), 3)
 
     def test_get_average_ignores_null(self):
         """
@@ -53,21 +53,17 @@ class ChannelRatingsTest(TestCase):
         new_user = self.make_user('foo')
         new_user.approved = 1
         new_user.save(self.connection)
-        r = Rating()
-        r.rating = None
-        r.channel_id = self.channel.id
-        r.user_id = new_user.id
-        r.save(self.connection)
-        c = self.channel.query().load('average_rating').get(self.connection)
-        self.assertEquals(float(c.average_rating), 2.5)
+        self.rate_channel(self.channel, new_user, 0)
+        c = self.channel.query().join('rating').get(self.connection)
+        self.assertEquals(float(c.rating.average), 3)
 
     def test_get_count(self):
         """
-        Channel.query().load('count_rating') should return the number of
+        Channel.query().join('rating').count should return the number of
         ratings for the channel.
         """
-        c = self.channel.query().load('count_rating').get(self.connection)
-        self.assertEquals(c.count_rating, 6)
+        c = self.channel.query().join('rating').get(self.connection)
+        self.assertEquals(c.rating.count, 5)
 
     def test_get_count_ignores_unapproved(self):
         """
@@ -75,13 +71,9 @@ class ChannelRatingsTest(TestCase):
         approved.
         """
         new_user = self.make_user('foo')
-        r = Rating()
-        r.rating = 5
-        r.channel_id = self.channel.id
-        r.user_id = new_user.id
-        r.save(self.connection)
-        c = self.channel.query().load('count_rating').get(self.connection)
-        self.assertEquals(c.count_rating, 6)
+        self.rate_channel(self.channel, new_user, 5)
+        c = self.channel.query().join('rating').get(self.connection)
+        self.assertEquals(c.rating.count, 5)
 
     def test_get_count_ignores_null(self):
         """
@@ -90,13 +82,9 @@ class ChannelRatingsTest(TestCase):
         new_user = self.make_user('foo')
         new_user.approved = 1
         new_user.save(self.connection)
-        r = Rating()
-        r.rating = None
-        r.channel_id = self.channel.id
-        r.user_id = new_user.id
-        r.save(self.connection)
-        c = self.channel.query().load('count_rating').get(self.connection)
-        self.assertEquals(float(c.count_rating), 6)
+        self.rate_channel(self.channel, new_user, 0)
+        c = self.channel.query().join('rating').get(self.connection)
+        self.assertEquals(float(c.rating.count), 5)
 
 
     def test_unauthenticated_details_has_average(self):
@@ -106,7 +94,7 @@ class ChannelRatingsTest(TestCase):
         url = self.channel.get_url()[len(settings.BASE_URL)-1:]
         page = self.get_page(url)
         matches = re.findall('Average Rating: (\d\.\d*)', page.content)
-        self.assertEquals(float(matches[0]), 2.5)
+        self.assertEquals(float(matches[0]), 3)
 
     def test_unrated_user_details_has_average(self):
         """
@@ -116,7 +104,7 @@ class ChannelRatingsTest(TestCase):
         url = self.channel.get_url()[len(settings.BASE_URL)-1:]
         page = self.get_page(url, self.owner)
         matches = re.findall('Average Rating: (\d\.\d*)', page.content)
-        self.assertEquals(float(matches[0]), 2.5)
+        self.assertEquals(float(matches[0]), 3)
 
     def test_rated_user_details_has_rating(self):
         """
@@ -129,7 +117,10 @@ class ChannelRatingsTest(TestCase):
             rating = Rating.query(Rating.c.user_id==user.id,
                     Rating.c.channel_id==self.channel.id).get(self.connection)
             matches = re.findall('User Rating: (\d[\.\d*]*)', page.content)
-            self.assertEquals(float(matches[0]), rating.rating)
+            if rating.rating is None:
+                self.assertEquals(matches[0], "0")
+            else:
+                self.assertEquals(float(matches[0]), rating.rating)
 
     def test_rating_needs_login(self):
         """
@@ -137,25 +128,53 @@ class ChannelRatingsTest(TestCase):
         to the login page.
         """
         url = '/channels/rate/%i' % self.channel.id
-        self.assertLoginRedirect(url)
+        self.assertLoginRedirect(url, login_as=None)
 
     def test_new_rating(self):
         """
         Going to the rating page should create a new rating in the database.
         """
         page = self.get_page('/channels/rate/%i' % self.channel.id,
-                self.owner, {'rating': '3'})
+                self.owner, {'rating': '5'})
         self.assertEquals(float(Rating.query(Rating.c.user_id==self.owner.id,
             Rating.c.channel_id==self.channel.id).get(self.connection).rating),
-            3)
+            5)
+        rating = self.channel.query().join('rating').get(self.connection,
+                self.channel.id).rating
+        self.assertEquals(rating.average, 3.3)
+        self.assertEquals(rating.count, 6)
+        self.assertEquals(rating.total, 20)
 
     def test_rating_update(self):
         """
         Going to the rating page again should update the old rating.
         """
+        self.rate_channel(self.channel, self.users[0], 3)
         page = self.get_page('/channels/rate/%i' % self.channel.id,
-                self.users[0], {'rating': '3'})
+                self.users[0], {'rating': '5'})
         self.assertEquals(float(Rating.query(Rating.c.user_id==self.users[0].id,
             Rating.c.channel_id==self.channel.id).get(self.connection).rating),
-            3)
+            5)
+        rating = self.channel.query().join('rating').get(self.connection,
+                self.channel.id).rating
+        self.assertEquals(rating.average, 3.3)
+        self.assertEquals(rating.count, 6)
+        self.assertEquals(rating.total, 20)
+
+    def test_confirming_a_user_updates_table(self):
+        """
+        When a user is approved, their ratings should be added to the
+        generated ratings table.
+        """
+        user = self.make_user('foo')
+        self.rate_channel(self.channel, user, 5)
+        c = self.channel.query().join('rating').get(self.connection)
+        self.assertEquals(c.rating.average, 3)
+        self.assertEquals(c.rating.count, 5)
+        url = user.generate_confirmation_url()[len(settings.BASE_URL_FULL)-1:]
+        response = self.get_page(url)
+        self.refresh_connection()
+        c = self.channel.query().join('rating').get(self.connection)
+        self.assertEquals(c.rating.average, 3.3)
+        self.assertEquals(c.rating.count, 6)
 

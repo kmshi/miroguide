@@ -76,7 +76,10 @@ def show_rating_stars(context, channel):
         rating = Rating()
         rating.channel_id = channel.id
         rating.has_user_rating = False
-        rating.average_rating = channel.average_rating
+        if channel.rating:
+            rating.average_rating = channel.rating.average
+        else:
+            rating.average_rating = 0
     else:
         rating.has_user_rating = True
         if rating.rating is None:

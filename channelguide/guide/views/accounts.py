@@ -7,7 +7,7 @@ from channelguide import util
 from channelguide.guide.auth import logout, login, moderator_required, login_required
 from channelguide.guide.exceptions import AuthError
 from channelguide.guide.forms import user as user_forms
-from channelguide.guide.models import User, UserAuthToken
+from channelguide.guide.models import User, UserAuthToken, Rating, Channel
 from channelguide.guide.templateutil import Pager
 
 def get_login_message(next_url):
@@ -120,6 +120,15 @@ def confirm(request, id, code):
         user.approved = True
         user.blocked = False
         user.save(request.connection)
+        for rating in Rating.query().where(user_id=user.id).execute(request.connection):
+            if rating.rating is not None:
+                channel = Channel.query().join(
+                        'rating').get(request.connection,
+                            rating.channel_id)
+                channel.rating.count += 1
+                channel.rating.total += rating.rating
+                channel.rating.average = float(channel.rating.total) / channel.rating.count
+                channel.rating.save(request.connection)
         if request.user.id == user.id:
             request.user = user # so it doesn't do the warning bar
         form = None

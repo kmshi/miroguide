@@ -208,7 +208,7 @@ class ReplaceRatingsMiddleware(AggressiveCacheMiddleware):
             ratings[id] = content[start:end]
             match = self.rating_match.search(content, end)
         query = Channel.query().where(Channel.c.id.in_(ratings.keys()))
-        query.load('average_rating', 'count_rating')
+        query.join('rating')
         channels = query.execute(request.connection)
         for channel in channels:
             old_bar = ratings[channel.id]
@@ -218,7 +218,7 @@ class ReplaceRatingsMiddleware(AggressiveCacheMiddleware):
 
     def response_from_cache_object(self, request, cache_object):
         id = request.path.split('/')[-1]
-        query = Channel.query().load('average_rating', 'count_rating')
+        query = Channel.query().join('rating')
         response = AggressiveCacheMiddleware.response_from_cache_object(self,
                 request, cache_object)
         response.content = self._replace_ratings(request, response.content)
@@ -256,10 +256,9 @@ def on_channel_record_update(record):
 def show(request, id, featured_form=None):
     query = Channel.query()
     query.join('categories', 'tags', 'notes', 'owner', 'last_moderated_by',
-            'notes.user')
+            'notes.user', 'rating')
     if request.user.is_supermoderator():
         query.join('featured_by', 'featured_queue')
-    query.load('average_rating', 'count_rating')
     item_query = Item.query(channel_id=id).join('channel').order_by('date', desc=True).limit(4)
     c = util.get_object_or_404(request.connection, query, id)
     context = {
@@ -381,11 +380,14 @@ def rate(request, id):
         raise AuthError("need to log in to rate")
     try:
         dbRating = Rating.query(Rating.c.user_id==request.user.id,
-            Rating.c.channel_id==id).join('channel').get(request.connection)
+            Rating.c.channel_id==id).get(request.connection)
     except Exception:
         dbRating = Rating()
+        dbRating.channel_id = id
         dbRating.user_id = request.user.id
-        dbRating.channel = Channel.query(Channel.c.id==id).get(request.connection)
+        dbRating.rating = None
+    channel = util.get_object_or_404(request.connection,
+            Channel.query().join('rating'), id)
     if request.REQUEST.get('rating', None) is None:
         if dbRating.exists_in_db():
             return HttpResponse('User Rating: %s' %  dbRating.rating)
@@ -394,14 +396,30 @@ def rate(request, id):
     rating = request.REQUEST.get('rating', None)
     if rating not in ['0', '1', '2', '3', '4', '5']:
         raise Http404
+    if dbRating.rating:
+        channel.rating.count -= 1
+        channel.rating.total -= dbRating.rating
     dbRating.rating = int(rating)
     if dbRating.rating == 0:
         dbRating.rating = None
+    elif request.user.approved:
+        if channel.rating:
+            channel.rating.count += 1
+            channel.rating.total += dbRating.rating
+            channel.rating.average = float(channel.rating.total) / channel.rating.count
+            channel.rating.save(request.connection)
+        else:
+            insert = tables.generated_ratings.insert()
+            insert.add_values(channel_id=channel.id,
+                    average=dbRating.rating,
+                    total=dbRating.rating, count=1)
+            insert.execute(request.connection)
+            request.connection.commit()
     dbRating.save(request.connection)
     if request.GET.get('referer'):
         redirect = request.GET['referer']
     else:
-        redirect = dbRating.channel.get_absolute_url()
+        redirect = channel.get_absolute_url()
     return HttpResponseRedirect(redirect)
 
 class PopularWindowSelect(templateutil.ViewSelect):
@@ -425,7 +443,7 @@ class PopularWindowSelect(templateutil.ViewSelect):
             return _("All-Time")
 
 #@cache.aggresively_cache(adult_differs=True)
-@decorator_from_middleware(ReplaceRatingsMiddleware)
+#@decorator_from_middleware(ReplaceRatingsMiddleware)
 def popular_view(request):
     timespan = request.GET.get('view', 'today')
     if timespan == 'today':
@@ -436,7 +454,8 @@ def popular_view(request):
         timespan = None
         count_name = 'subscription_count'
     query = Channel.query_approved(user=request.user)
-    query.load(count_name, "average_rating", "count_rating", 'item_count')
+    query.join('rating')
+    query.load(count_name, 'item_count')
     query.order_by(query.get_column(count_name), desc=True)
     pager = templateutil.Pager(10, query, request)
     for channel in pager.items:
@@ -494,12 +513,9 @@ def features(request):
 
 def get_toprated_query(user):
     query = Channel.query_approved(user=user)
-    query.load('average_rating', 'count_rating', 'item_count',
-            'subscription_count_today')
-    query.where(Literal("""cg_channel.id IN (SELECT channel_id
-FROM cg_channel_rating AS c1 WHERE 3 < (SELECT COUNT(rating)
-FROM cg_channel_rating AS c2 JOIN user ON user.id=c2.user_id
-WHERE c2.channel_id=cg_channel.id AND user.approved=1))"""))
+    query.join('rating')
+    query.joins['rating'].where(query.joins['rating'].table.c.count_rating > 3)
+    query.load('item_count', 'subscription_count_today')
     query.order_by('average_rating', desc=True)
     query.order_by('count_rating', desc=True)
     return query
