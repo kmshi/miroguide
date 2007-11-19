@@ -29,7 +29,7 @@
                 </div>
                 <div class="ratings-bar">
                     {% show_rating_stars channel %}
-                    Avg. of {{ channel.count_rating }} rating{{ channel.count_rating|pluralize }}: <strong>{{ channel.average_rating|floatformat }}</strong>
+                    Avg. of {{ channel.rating.count }} rating{{ channel.rating.count|pluralize }}: <strong>{{ channel.rating.average|floatformat }}</strong>
                 </div>
             </div>  
             <div class="description">{{ channel.description|escape }}</div>

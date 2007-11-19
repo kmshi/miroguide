@@ -38,7 +38,7 @@ class ChannelRatingsTest(TestCase):
 
     def test_get_average_ignores_unapproved(self):
         """
-        Channel.average_rating should ignore ratings from users who are not
+        Channel.rating.average should ignore ratings from users who are not
         approved.
         """
         new_user = self.make_user('foo')
@@ -48,7 +48,7 @@ class ChannelRatingsTest(TestCase):
 
     def test_get_average_ignores_null(self):
         """
-        Channel.average_rating should ignore NULL ratings.
+        Channel.rating.average should ignore NULL ratings.
         """
         new_user = self.make_user('foo')
         new_user.approved = 1
@@ -67,7 +67,7 @@ class ChannelRatingsTest(TestCase):
 
     def test_get_count_ignores_unapproved(self):
         """
-        Channel.count_rating should ignore ratings from users who are not
+        Channel.rating.count should ignore ratings from users who are not
         approved.
         """
         new_user = self.make_user('foo')
@@ -77,7 +77,7 @@ class ChannelRatingsTest(TestCase):
 
     def test_get_count_ignores_null(self):
         """
-        Channel.count_rating should ignore NULL ratings.
+        Channel.rating.count should ignore NULL ratings.
         """
         new_user = self.make_user('foo')
         new_user.approved = 1

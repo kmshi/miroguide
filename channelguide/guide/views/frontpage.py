@@ -20,14 +20,15 @@ class FrontpageCacheMiddleware(AggressiveCacheMiddleware):
 
 def get_popular_channels(request, count):
     query = Channel.query_approved(user=request.user)
-    query.load('subscription_count_today', 'average_rating')
+    query.join('rating')
+    query.load('subscription_count_today')
     query.order_by('subscription_count_today', desc=True)
     query.limit(count)
     query.cacheable = cache.client
     query.cacheable_time = 300
     result = query.execute(request.connection)
     for r in result:
-        r.star_width = r.average_rating * 20
+        r.star_width = r.rating.average * 20
     return result
 
 def get_featured_channels(request):

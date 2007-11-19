@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.template import Library
-from channelguide.guide.models import Rating
+from channelguide.guide.models import Rating, GeneratedRatings
 register = Library()
 
 @register.inclusion_tag('guide/channel-full.html', takes_context=True)
@@ -91,9 +91,9 @@ def show_rating_stars(context, channel):
 
 @register.inclusion_tag('guide/rating-static.html', takes_context=True)
 def show_rating_static(context, channel):
-    query = channel.query().load('average_rating')
+    query = GeneratedRatings.query()
     request = context['request']
-    average = query.get(request.connection, channel.id).average_rating
+    average = query.get(request.connection, channel.id).average
     return {
             'average': average,
             'width': '%i%%' % (average*20),

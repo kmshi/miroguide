@@ -1068,11 +1068,8 @@ class ChannelCacheTest(ChannelTestBase):
         new_user = self.make_user('new')
         new_user.approved = 1
         self.save_to_db(new_user)
-        r = Rating()
-        r.channel_id = self.channel.id
-        r.user_id = new_user.id
-        r.rating = 5
-        self.save_to_db(r)
+        self.get_page('/channels/rate/%i' % self.channel.id,
+                login_as=new_user, data={'rating': 5 })
         self.refresh_connection()
         (regular_rated, mod_rated, super_rated,
                 owner_rated) = self.get_renderings()
@@ -1089,11 +1086,9 @@ class ChannelCacheTest(ChannelTestBase):
         If the user has rated a channel, it should give the user
         rating.  Otherwise, it should give the average rating.
         """
-        r = Rating()
-        r.channel_id = self.channel.id
-        r.user_id = self.regular.id
-        r.rating = 5
-        self.save_to_db(r)
+        self.get_page('/channels/rate/%i' % self.channel.id,
+                login_as=self.regular,
+                data = {'rating': 5})
         self.refresh_connection()
         (regular_rated, mod_rated, super_rated,
                 owner_rated) = self.get_renderings()

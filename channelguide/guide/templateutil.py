@@ -183,13 +183,10 @@ def order_channels_using_request(query, request):
     elif order_by == 'date':
         query.order_by('approved_at', desc=True)
     elif order_by == 'toprated':
-        query.load('average_rating', 'count_rating')
-        query.where(Literal("""cg_channel.id IN (SELECT channel_id
-FROM cg_channel_rating AS c1 WHERE 3 < (SELECT COUNT(rating)
-FROM cg_channel_rating AS c2 JOIN user ON user.id=c2.user_id
-WHERE c2.channel_id=cg_channel.id AND user.approved=1))"""))
-        query.order_by('average_rating', desc=True)
-        query.order_by('count_rating', desc=True)
+        query.join('rating')
+        query.joins['rating'].where(query.joins['rating'].c.count > 3)
+        query.order_by(query.joins['rating'].c.average, desc=True)
+        query.order_by(query.joins['rating'].c.count, desc=True)
     else:
         query.load('subscription_count_month')
         query.order_by('subscription_count_month', desc=True)
