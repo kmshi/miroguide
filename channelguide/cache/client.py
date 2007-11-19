@@ -23,7 +23,15 @@ def set(key, value, time=0):
     key = settings.CACHE_PREFIX + key
     memcache_client_lock.acquire()
     try:
-        memcache_client.set(key, value, time)
+        return memcache_client.set(key, value, time)
+    finally:
+        memcache_client_lock.release()
+
+def set_multi(mapping, time=0):
+    memcache_client_lock.acquire()
+    try:
+        return memcache_client.set_multi(mapping, time,
+                key_prefix=settings.CACHE_PREFIX)
     finally:
         memcache_client_lock.release()
 
@@ -36,15 +44,10 @@ def get(key):
         memcache_client_lock.release()
 
 def get_multi(keys):
-    keys = [settings.CACHE_PREFIX + key for key in keys]
     memcache_client_lock.acquire()
     try:
-        ret = memcache_client.get_multi(keys)
-        d = {}
-        for k in ret:
-            newkey = k[len(settings.CACHE_PREFIX):]
-            d[newkey] = ret[k]
-        return d
+        return memcache_client.get_multi(keys,
+                key_prefix=settings.CACHE_PREFIX)
     finally:
         memcache_client_lock.release()
 
