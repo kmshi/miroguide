@@ -1,16 +1,14 @@
-<tr class="item">
-    <td class="title">
-        <h4>{{ item.name }}</h4>
-        <div class="screenshot">
-            {{ item.thumb }}
-        </div>
-    </td>
-    <td>
-        <div class="description">
-            {{ item.description|striptags }}
-        </div>
-        <div class="date">
-            Date Posted: <strong>{{ item.date|date:"M j Y" }}</strong>
-        </div>
-    </td>
-</tr>
+<div class="item">
+    <h2>
+        {{ item.linked_name }}
+    </h2>
+    <div class="date">
+                {{ item.date|date:"M j Y" }}
+    </div>
+    <div class="screenshot">
+        {{ item.thumb }}
+    </div>
+    <div class="description">
+        {{ item.description|striptags|truncatewords:30 }}
+    </div>
+</div>

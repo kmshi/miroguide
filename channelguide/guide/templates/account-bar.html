@@ -22,7 +22,7 @@
             <div class="right">
                 {% ifequal user.adult_ok None %}{% else %}
                     <a {% link "categories/Adult?adult_ok=reset" "adult-toggle" %}>Reset Adult Filtering</a>
-                {% endifequal %}
+                {% endifequal %}</a>
                 <a {% link "accounts/login" %}>{% trans "Login / Register" %}</a>
             </div>
             <div class="left">

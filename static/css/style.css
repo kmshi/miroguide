@@ -1301,20 +1301,19 @@ li.blog-post .title {
     color: #377FC8;
 }
 
-.averagerating .stars, .averagerating .stars span {
+.channel-mini .averagerating, .channel-mini .averagerating span {
     background: url(images/small-star.png) left -1000px repeat-x;
 }
 
-.averagerating .stars {
+.channel-mini .averagerating {
     position: relative;
     height: 12px;
     width: 60px;
     overflow: hidden;
     background-position: left top;
-    float: left;
 }
 
-.averagerating .stars span {
+.channel-mini .averagerating span {
     position: absolute;
     top: 0;
     left: 0;
@@ -1326,349 +1325,321 @@ li.blog-post .title {
     background-position: left center;
 }
 
-.averagerating .text {
-    font-size: 8pt;
-    margin-left: 6px;
-}
-.averagerating .text strong {
-    color: black;
-}
-
 /* Full page channels */
 
-div.channel-full {
-    padding-top: 20px;
+.channel-full {
+    overflow: visible;
 }
 
-.channel-full li.column {
-    width: 470px;
-    margin: 0;
-    position: relative;
+.channel-full .title {
+    padding: 10px 0px 5px 0px;
+    height: auto;
 }
 
-.channel-full li.first-column {
-    width: 250px;
-    margin-right: 25px;
+.channel-full .two-column-list li.second-column {
+    width: 380px;
+    margin-left: 10px;
 }
 
 .channel-full .screenshot {
-    width: 250px;
-    height: 167px;
-    background: black;
-    margin-bottom: 10px;
-}
-
-.channel-full div.subscribe {
-    background: url(images/details/add-big.png) no-repeat;
-    height: 30px;
-    margin-bottom: 8px;
-}
-
-.channel-full .subscribe a {
-    padding-left: 34px;
-    padding-right: 20px;
-    position: relative;
-    top: 3px;
-    color: white;
-    font-size: 14pt;
-    font-weight: bold;
-}
-
-.channel-full .subscribe a:hover {
-    text-decoration: none;
-}
-
-.channel-full #rating {
-    margin-bottom: 30px;
-}
-
-.channel-full #rating div.rating {
-    float: left;
-    margin-right: 10px;
-}
-
-.channel-full #rating .average {
-    color: gray;
-    font-size: 8pt;
-}
-
-.channel-full #rating .average strong {
-    color: black;
-}
-
-.channel-full .meta {
-    color: #555;
-    border-bottom: 2px solid #e3e4e4;
-    width: 242px;
-}
-
-.channel-full .meta .header {
-    display: block;
-    background: url(images/details/meta-header.png) top left no-repeat;
-    height: 7px;
-    margin-left
-}
-
-.channel-full .meta div {
-    border-left: 2px solid #e3e4e4;
-    border-right: 2px solid #e3e4e4;
-    width: 233px; /* -8 because of the padding on either end */
-    font-size: 11pt;
-    background: url(images/details/meta-bg.png) repeat-x;
-    background-position: 0 20px;
-    padding-left: 5px;
-    padding-bottom: 20px;
-}
-
-.channel-full .meta a {
-    color: #555;
-    font-size: 9pt;
-    text-decoration: underline;
-}
-
-.channel-full .meta span.header + div h3 {
-    line-height: 17px;
-    position: relative;
-    top: -3px;
-}
-
-.channel-full .meta h3 {
-    display: block;
-    clear: both;
-    font-size: 13pt;
-    line-height: 20px;
-    margin-left: -5px;
-    padding: 3px 0 3px 5px;
-    color: #adadad;
-    background-color: #e3e4e4;
-}
-
-.channel-full div#recommendations {
-    margin-top: 30px;
-}
-
-.channel-full #recommendations > h3 {
-    font-size: 12pt;
-    color: #454545;
-    margin-left: 6px;
-    text-align: left;
+    width: 370px;
+    height: 247px;
 }
 
 .channel-full h1 {
-    font-size: 22pt;
-    margin-bottom: 15px;
-    line-height: 1;
-}
-
-.channel-full #description {
-    font-size: 14pt;
-    overflow: hidden;
-}
-
-.channel-full #description-toggle {
-    font-size: 14pt;
-    color: #a4a4a4;
-    float: right;
-    margin-top: 15px;
-    display: none;
-    padding-right: 30px;
-    background: url(images/details/arrow-closed.png) no-repeat 100px;
-    text-align: right;
-    width: 85px;
-    cursor: pointer;
-}
-
-.channel-full #description-toggle.open {
-    background-image: url(images/details/arrow-revealed.png);
-}
-
-.channel-full #episodes {
-    clear: right;
-    position: absolute;
-    top: 177px;
-    width: 470px;
-}
-
-.channel-full #episodes > h2 {
-    font-size: 19pt;
-    height: 29px;
-    line-height: 29px;
-    color: #343434;
-    background: #e3e4e4;
-    padding-left: 3px;
+    font-size: 240%;
     margin-bottom: 10px;
-    position: relative;
-    top: -3px;
+    text-align: left;
 }
 
-.channel-full #episodes > .header {
-    display: block;
-    height: 9px;
-    background: url(images/details/episodes-header.png) no-repeat;
+.channel-full li {
+    margin-bottom: 5px;
 }
 
-.channel-full #episodes table tr.header {
-    font-size: 10pt;
-    font-weight: normal;
-    border-bottom: 2px solid #e3e4e4;
+.channel-full ul.actions {
+    margin: 5px 5px 14px 5px; 
 }
 
-.channel-full #episodes table {
-    font-size: 9pt;
-    border-collapse: collapse;
-    table-layout: auto;
-}
-
-.channel-full #episodes tr.header {
-    margin-bottom: 6px;
-}
-
-.channel-full #episodes tr {
-    margin-bottom: 14px;
-}
-
-.channel-full #episodes table .title {
-    width: 243px;
-}
-
-.channel-full #episodes table tr.item {
-    background: url(images/details/arrow-closed.png) no-repeat 5px 4px;
-}
-
-.channel-full #episodes table tr.header + tr.item {
-    background-position: 5px 19px;
-}
-
-.channel-full #episodes table tr.header + tr.item td {
-    padding-top: 15px;
-}
-
-.channel-full #episodes table tr.item.closed {
-    background-image: url(images/details/arrow-opened.png);
-}
-
-.channel-full tr.item.closed h4, .channel-full tr.item.closed .description {
-    height: 1.3em;
-    overflow: hidden;
-}
-
-.channel-full tr.item.closed .screenshot, .channel-full tr.item.closed .date {
-    display: none;
-}
-
-/* Recommended channels in the channel-full template */
-
-div.channel-recommended {
-    height: 100px;
-    width: 242px;
-    margin-bottom: 8px;
-    position: relative;
-}
-
-.channel-recommended > .header {
-    display: block;
-    background: url(images/details/similar-top.png) no-repeat;
-    height: 7px;
-}
-
-.channel-recommended .inside {
-    background: #e3e4e4;
-    height: 86px;
-    position: absolute;
-    top: 7px;
-}
-
-.channel-recommended > .footer {
-    display: block;
-    background: url(images/details/similar-bottom.png) no-repeat;
-    height: 7px;
-    position: relative;
-    top: 86px;
-    z-index: 100;
-}
-
-.channel-recommended h3 {
-    font-size: 11pt;
-    margin-top: -1px;
-    margin-left: 6px;
-    color: #212121;
-    height: 25px;
-    overflow: hidden;
-}
-
-.channel-recommended .screenshot {
+.channel-full .actions li {
     float: left;
-    margin-left: 6px;
-    width: 95px;
-    height: 63px;
 }
 
-.channel-recommended .info {
+.channel-full .actions #rate #average {
+    clear: left; 
+    font-size: 80%;
+    color: #666666;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
 }
 
-.channel-recommended .info a {
-    position: static;
-    font-size: 8pt;
-    margin: 0 auto;
-    font-weight: bold;
-    color: white;
+.channel-full .actions #rate #average strong {
+    color: #000000;
 }
 
-.channel-recommended .info a:hover {
+.channel-full .big .add .icon {
+    background-image: url(images/icons/add-big-white.png);
+}
+
+.channel-full .big a.add {
+    font-weight: bold;
+    font-size: 130%;
+    margin: 0px 30px 0 0;
+}
+
+.channel-full #categories {
+    float: left;
+    margin-top: 20px;
+    min-width: 100px;
+    max-width: 250px;
+    margin-right: 20px;
+}
+
+.channel-full #tags {
+    float: left;
+    margin-top: 20px;
+    min-width: 100px;
+    max-width: 250px;
+}
+
+.channel-full #website {
+    clear: left;
+    float: left;
+    margin-top: 20px;
+}
+
+.channel-full #extra-info {
+    float: left;
+    clear: left;
+    margin-top: 10px;
+}
+
+.channel-full .separator {
+    padding: 10px 16px 0px;
+    margin: 0px -16px;
+    height: 3px;
+    width: 373px;
+}
+
+.channel-full .first-column .separator {
+    clear: left;
+    background: url(images/channel-left-separator.jpg) left center no-repeat;
+}
+
+.channel-full .second-column .separator {
+    clear: right;
+    background: url(images/channel-right-separator.jpg) right center no-repeat;
+}
+
+.channel-full .sub-header {
+    color: #666666;
+    display: block;
+}
+
+.channel-full #description {
+    position: relative;
+    font-size: 130%;
+    height: 14.4em;
+/*    overflow: hidden;*/
+    padding-left: 10px;
+}
+
+.channel-full #description #full {
+    display: none;
+}
+
+.channel-full #reveal, .channel-full #hide {
+/*   font-size: 130%;*/
+    text-align: right;
+}
+
+.channel-full #reveal a, .channel-full #hide a {
+    color: #AAAAAA;
     text-decoration: none;
 }
 
-.channel-recommended .info .subscribe, .channel-recommended .info .details {
-    width: 124px;
-    height: 15px;
-    margin-right: 6px;
+.channel-full #reveal .icon, .channel-full #hide .icon {
+    display: block;
+    float: right;
+    height: 16px;
+    width: 20px;
 }
 
-.channel-recommended .info .subscribe {
-    background: url(images/details/add-small.png) no-repeat;
-    margin-bottom: 8px;
+.channel-full #reveal .icon {
+    background: url(images/down-arrow.jpg) bottom no-repeat;
 }
 
-.channel-recommended .info .subscribe a {
-    padding: 0 27px;
+.channel-full #hide .icon {
+    background: url(images/up-arrow.jpg) bottom no-repeat;
 }
 
-.channel-recommended .info .details {
-    background: url(images/details/details-small.png) no-repeat;
-    margin-bottom: 10px;
+.channel-full #hide {
+    display: none;
 }
 
-.channel-recommended .info .details a {
-    padding: 0 40px;
+.channel-full a {
+    text-decoration: underline;
+}
+
+.channel-full .title a {
+    text-decoration: none;
+}
+
+.channel-full .channel-action {
+    margin-top: 10px;
+}
+
+.channel-full li.channel-action {
+    float: left;
+}
+
+.channel-full .form-inputs li {
+    float: left;
+    clear: left;
+}
+
+.channel-full .rejection-actions {
+    border: 1px solid white;
+    padding: 2px 5px 10px 5px;
+}
+
+.channel-full .rejection-actions h3 {
+    margin-bottom: 5px;
+}
+
+.channel-full .channel-action input {
+    float: left;
+    font-size: 81%;
+    margin-right: 10px;
+    padding: 0px 5px;
+}
+
+.channel-full #comments {
+    position: relative;
+    top: 60px;
+}
+
+.channel-full #comments #review-link {
+    position: relative;
+    bottom: 20px;
+    font-size: 80%;
+    color: #666666;
+    text-align: right;
+    display: none;
+}
+
+.channel-full #comments #review-link a {
+    text-decoration: none;
+}
+
+.channel-full #comments #review textarea {
+    width: 100%;
+    height: 120px;
+}
+
+.channel-full .stats {
+    clear: both;
 }
 
 /* Item list in the channel-full template */
 
-.item td {
-    vertical-align: top;
+.channel-full-separator {
+    margin-top: 30px;
+    margin-bottom: 20px;
 }
 
-.item h4 {
-    font-weight: bold;
-    padding-left: 25px;
-    width: 200px;
+.recent-videos-header {
+    font-size: 150%;
+    padding-bottom: 15px;
+}
+
+#items .separator {
+    background: url(images/channel-item-separator.jpg) left center no-repeat;
+    height: 1px;
+    width: 338px;
+}
+
+.item {
+    color: black;
+    overflow: hidden;
 }
 
 .item .screenshot {
-    width: 200px;
-    height: 133px;
-    margin: 12px 15px 14px 25px;
+    float: left;
+    padding: 4px;
+    margin-top: 5px;
+    margin-right: 4px;
+    width: 120px;
+    height: 80px;
 }
 
 .item .date {
-    margin-top: 16px;
-    color: #747474;
+    font-size: 81%;
+    color: #666666;
+    margin-bottom: 7px;
+    float: right;
+    position: relative;
+    bottom: 13px;
 }
 
-.item .date strong {
-    color: black;
-    font-weight: normal;
+.item .description {
+    margin: 5px 0 0 130px;
+    min-height: 94px;
+    padding-right: 10px;
+    position: relative;
+    bottom: 4px;
+/*    word-wrap: break-word;*/
+}
+
+.item h2 {
+    height: 1.1em;
+    margin-top: 5px;
+    width: 18em;
+    overflow: hidden;
+}
+
+.channel-full h2 {
+    padding: 5px 0 0 0;
+    color: #000000;
+}
+
+.channel-full #recommendations .top {
+    height: 11px;
+    width: 381px;
+    background: url(images/recommendations-top.jpg) no-repeat bottom right;
+}
+
+.channel-full #recommendations .bottom  {
+    height: 11px;
+    width: 381px;
+    background: url(images/recommendations-bottom.gif) no-repeat bottom right;
+}
+
+.channel-full #recommendations table {
+    width: 370px;
+}
+
+.channel-full #recommendations td {
+    padding: 0 10px 0 10px;
+    width: 150px;
+    text-align: center;
+}
+
+.channel-full #recommendations-pad {
+    height: 20px;
+    clear: both;
+}
+
+.channel-full #recommendations {
+    background-color: #D9E9FA;
+    clear: left;
+}
+
+.channel-full #recommendations h2 {
+    text-align: center;
+    color: #666666;
+    position: relative;
+    top: -10px;
 }
 
 /* Channels in the tag/category/language lists */
@@ -2109,6 +2080,68 @@ h3 .note-author {
 	margin-bottom: 0px;
 }
 
+.channel-in-recommendation .info {
+    padding: 0px 5px 10px 5px;
+    width: 100px;
+    text-align: left;
+}
+
+.channel-in-recommendation .screenshot {
+    width: 120px;
+    height: 80px;
+}
+
+.channel-in-recommendation img.hd-icon-medium {
+    bottom: 2px;
+}
+
+.channel-in-recommendation .title {
+    margin-bottom: 2px;
+    font-size: 110%;
+    padding: 0;
+    height: 1.2em;
+}
+
+.channel-in-recommendation .title a {
+    color: black;
+}
+
+.channel-in-recommendation .screenshot {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.channel-in-recommendation .actions {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.channel-in-recommendation .actions a {
+    font-size: 90%;
+    margin-left: 10px;
+    background: no-repeat left top;
+    line-height: 17px;
+    color: #2E6195;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.channel-in-recommendation .actions .icon {
+    float: left;
+    margin-right: 5px;
+}
+.channel-in-recommendation .actions .add .icon {
+    margin-top: 5px;
+    margin-left: 11px;
+    background-image: url(images/icons/add-small-white.png);
+}
+
+
+.channel-in-recommendation .actions .info-button .icon {
+    margin-top: 5px;
+    background-image: url(images/icons/info-small-white.png);
+}
+
 div#store {
     height:83px;
     left:-14px;
@@ -2374,4 +2407,3 @@ div.first-time-page {
     color: blue;
     text-decoration: underline;
 }
-

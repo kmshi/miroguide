@@ -1,4 +1,4 @@
-{% load i18n cg_helpers channels %}
+{% load i18n cg_helpers %}
 <div class="channel channel-mini">
     <div class="info">
         <h3 class="title">{{ channel.name_as_link }}</h3>
@@ -8,7 +8,9 @@
             {{ count }} subscribes today
             {% endblocktrans %}
         </div>
-        {% show_rating_static channel %}
+        <div class="averagerating">
+            <span style="width: {{ channel.star_width }}%;">Average Rating: {{ channel.average_rating}} star{{ channel.average_rating|pluralize }}</span>
+        </div>
         {% endifequal %}
         {% ifequal count "episodes" %}
         {% if channel.item_count %}

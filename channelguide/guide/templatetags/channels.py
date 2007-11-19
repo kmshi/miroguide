@@ -41,29 +41,24 @@ def show_channel_in_category(channel):
 def show_channel_in_list(channel):
     return {'channel': channel, 'BASE_URL': settings.BASE_URL }
 
-@register.inclusion_tag('guide/channel-in-popular-list.html', takes_context=True)
+@register.inclusion_tag('guide/channel-in-popular-list.html',
+        takes_context=True)
 def show_channel_in_popular_list(context, channel):
     return {'channel': channel, 'BASE_URL': settings.BASE_URL,
             'request': context['request']}
 
-@register.inclusion_tag('guide/channel-in-recommendation.html', takes_context=True)
-def show_channel_in_recommendation(context, channel):
-    return {'request': context['request'], 'channel': channel,
-            'BASE_URL': settings.BASE_URL }
-
-@register.inclusion_tag('guide/channel-mini.html', takes_context=True)
-def show_channel_mini(context, channel, count):
-    return {'channel': channel, 'count': count, 
-            'BASE_URL': settings.BASE_URL,
-            'request': context['request']
-            }
+@register.inclusion_tag('guide/channel-in-recommendation.html')
+def show_channel_in_recommendation(channel):
+    return {'channel': channel, 'BASE_URL': settings.BASE_URL }
 
 @register.inclusion_tag('guide/channel-mini.html')
-def show_channel_recommendation(channel):
-    return { 'channel': channel }
+def show_channel_mini(channel, count):
+    return {'channel': channel, 'count': count, 
+            'BASE_URL': settings.BASE_URL
+            }
 
 @register.inclusion_tag('guide/item.html')
-def show_item(item, open=True):
+def show_item(item):
     return {'item': item}
 
 @register.inclusion_tag('guide/rating.html', takes_context=True)
@@ -89,12 +84,4 @@ def show_rating_stars(context, channel):
             'referer': request.path
         }
 
-@register.inclusion_tag('guide/rating-static.html', takes_context=True)
-def show_rating_static(context, channel):
-    query = GeneratedRatings.query()
-    request = context['request']
-    average = query.get(request.connection, channel.id).average
-    return {
-            'average': average,
-            'width': '%i%%' % (average*20),
-            }
+
