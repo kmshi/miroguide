@@ -117,7 +117,8 @@ class TagField(WideCharField):
             return []
         tags = []
         for name in value.strip().split(','):
-            name = to_utf8(name.strip())
+            #name = to_utf8(name.strip())
+            name = name.strip()
             if name != '':
                 tags.append(name)
         if len(tags) > self.tag_limit:
@@ -315,7 +316,7 @@ class SubmitChannelForm(Form):
         channel.join('tags', 'owner').execute(self.connection)
         for tag in channel.tags:
             if tag.name not in tags:
-                channel.delete_tag(self.connection, channel.owner, tag)
+                channel.delete_tag(self.connection, channel.owner, tag.name)
         channel.add_tags(self.connection, channel.owner, tags)
 
     def save_channel(self, creator, feed_url):

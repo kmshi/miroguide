@@ -835,7 +835,7 @@ class EditChannelTest(ChannelTestBase):
         self.make_language("klingon")
         self.channel.categories.add_record(self.connection, self.categories['arts'])
         self.channel.categories.add_record(self.connection, self.categories['tech'])
-        self.channel.add_tag(self.connection, self.ralph, "funny")
+        self.channel.add_tag(self.connection, self.ralph, u"funny\xfc")
         self.channel.add_tag(self.connection, self.ralph, "awesome")
         self.channel.url = test_data_url('feed.xml')
         self.channel.update_items(self.connection,
@@ -915,6 +915,7 @@ class EditChannelTest(ChannelTestBase):
         data = self.get_default_values()
         data['short_description'] = '\xd8\x8d\xd8\xa8\xd8\xa8\xd8\xa6\xd8\xb5'
         data['description'] = '\xd8\x8d\xd8\xa8\xd8\xa8\xd8\xa6\xd8\xb5'
+        data['tags'] = 'Saxony, Sachsen, Th\xfcringen, Sachsen-Anhalt, MDR'
         self.post_to_edit_page(data)
         self.connection.commit()
         updated = self.refresh_record(self.channel, 'tags')
