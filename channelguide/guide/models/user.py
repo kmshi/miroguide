@@ -28,11 +28,11 @@ class UserBase(object):
 
     def check_can_edit(self, channel):
         if not self.can_edit_channel(channel):
-            raise AuthError("Permission denied for %s" % channel)
+            raise AuthError("Permission denied")
 
     def check_same_user(self, other):
         if self.id != other.id:
-            raise AuthError("Access denied for account: %s" % other)
+            raise AuthError("Access denied for account")
 
     def is_authenticated(self):
         raise NotImplementedError()
