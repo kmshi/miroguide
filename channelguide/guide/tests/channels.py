@@ -9,7 +9,7 @@ from django.template import loader
 from channelguide import util, manage, cache
 from channelguide.guide import search
 from channelguide.guide.models import (Channel, Category, Tag, Item, User, 
-        Language, TagMap, Rating, ChannelNote)
+        Language, TagMap, Rating)
 from channelguide.testframework import TestCase
 
 def test_data_path(filename):
@@ -21,11 +21,12 @@ def test_data_url(filename):
 class ChannelTestBase(TestCase):
     def setUp(self):
         TestCase.setUp(self)
-        cache.clear_cache()
         self.ralph = self.make_user('ralph')
         Channel.table.record_class = Channel
         self.channel = self.make_channel()
-        self.channel = self.refresh_record(self.channel)
+        join = self.channel.join('items', 'tags', 'categories', 'owner',
+                'last_moderated_by', 'featured_by')
+        join.execute(self.connection)
 
     def make_channel(self, **kwargs):
         return TestCase.make_channel(self, self.ralph, **kwargs)
@@ -40,6 +41,7 @@ class ChannelTagTest(ChannelTestBase):
 
     def check_tags(self, *correct_tags):
         channel = Channel.get(self.connection, self.channel.id)
+        channel.join('tags').execute(self.connection)
         current_tags = [tag.name for tag in channel.tags]
         self.assertSameSet(current_tags, correct_tags)
 
@@ -66,19 +68,17 @@ class ChannelTagTest(ChannelTestBase):
         self.assertEquals(tag.channel_count, channel_count)
 
     def test_info(self):
-        self.channel.change_state(self.ralph, Channel.APPROVED,
-                self.connection)
+        self.channel.state = Channel.APPROVED
         self.channel.add_tag(self.connection, self.ben, 'funny')
         self.channel.add_tag(self.connection, self.nick, 'funny')
         self.channel.save(self.connection)
         self.check_tag_counts('funny', 2, 1)
-        channel2 = self.refresh_record(
-                self.make_channel(state=Channel.APPROVED))
+        channel2 = self.make_channel(state=Channel.APPROVED)
         channel2.add_tags(self.connection, self.ben, ['tech', 'funny'])
         self.channel.add_tag(self.connection, self.ben, 'tech')
         self.check_tag_counts('funny', 2, 2)
         self.check_tag_counts('tech', 1, 2)
-        non_active = self.refresh_record(self.make_channel())
+        non_active = self.make_channel()
         non_active.add_tag(self.connection, self.nick, 'funny')
         non_active.add_tag(self.connection, self.ben, 'funny')
         self.check_tag_counts('funny', 2, 2)
@@ -267,7 +267,7 @@ class ChannelModelTest(ChannelTestBase):
         self.assertEquals(channel2.featured_by.id, self.ralph.id)
         channel2.change_featured(None, self.connection)
         channel3 = self.refresh_record(self.channel, 'featured_by')
-        self.assertEquals(channel3.featured_by, None)
+        self.assertEquals(self.channel.featured_by, None)
 
 
 class ChannelItemTest(ChannelTestBase):
@@ -348,8 +348,9 @@ class ChannelItemTest(ChannelTestBase):
 
     def test_item_info(self):
         def check_count(correct):
-            channel = Channel.get(self.connection, self.channel.id)
-            self.assertEquals(len(channel.items), correct)
+            channel = Channel.get(self.connection, self.channel.id,
+                    load='item_count')
+            self.assertEquals(channel.item_count, correct)
         check_count(0)
         self.channel.update_items(self.connection,
                 feedparser_input=open(test_data_path('feed.xml')))
@@ -881,7 +882,8 @@ class EditChannelTest(ChannelTestBase):
 
         self.post_to_edit_page(data)
         self.connection.commit()
-        updated = self.refresh_record(self.channel)
+        updated = self.refresh_record(self.channel, 'language', 'categories',
+                'tags', 'secondary_languages')
         self.assertEquals(updated.publisher, 'some guy')
         self.assertEquals(updated.language.name, 'klingon')
         self.check_names(updated.categories, 'arts', 'comedy')
@@ -895,7 +897,7 @@ class EditChannelTest(ChannelTestBase):
             data[key] = getattr(self.channel, key)
         for i in xrange(len(self.channel.categories)):
             data['category%d' % (i + 1)] = self.channel.categories[i].id
-        data['tags'] = ', '.join((tag.name for tag in self.channel.tags))
+        data['tags'] = ', '.join(self.channel.tags)
         data['language'] = self.channel.language.id
         return data
 
@@ -1021,7 +1023,7 @@ class ChannelHTMLTest(ChannelTestBase):
         self.channel.categories.add_record(self.connection, category)
         self.check_escaping()
 
-class ChannelViewCacheTest(ChannelTestBase):
+class ChannelCacheTest(ChannelTestBase):
 
     def setUp(self):
         ChannelTestBase.setUp(self)
@@ -1143,455 +1145,3 @@ class ChannelViewCacheTest(ChannelTestBase):
         for user in (self.regular, self.mod, self.super, self.ralph):
             self.assert_(hasattr(self.get_page(url, login_as=user),
                 '_cache_hit'), 'cache cleared for %s' % user.username)
-
-
-class ChannelGetChannelsTest(TestCase):
-
-    def setUp(self):
-        super(ChannelGetChannelsTest, self).setUp()
-        self.categories = []
-        self.tags = []
-        self.languages = []
-        for i in range(3):
-            c = Category(u'Category %i' % i)
-            c.save(self.connection)
-            self.categories.append(c)
-            t = Tag(u'Tag %i' % i)
-            t.save(self.connection)
-            self.tags.append(t)
-            l = Language(u'Language %i' % i)
-            l.save(self.connection)
-            self.languages.append(l)
-        self.user = self.make_user('user')
-        self.user.approved = 1
-        self.save_to_db(self.user)
-        self.owner = self.make_user('owner')
-        self.owner.approved = 1
-        self.owner.adult_ok = 1
-        self.save_to_db(self.owner)
-        self.channels = []
-        for i in range(10):
-            c = self.refresh_record(self.make_channel(self.owner, state='A'))
-            c.name = u'Channel %i' % i
-            c.add_category(self.connection, self.categories[i % 3])
-            c.add_tag(self.connection, self.owner, self.tags[i % 3].name)
-            c.set_language(self.connection, self.languages[i % 3])
-            self.channels.append(c)
-
-        # subscriptions
-        now = datetime.now()
-        week = now - timedelta(days=7)
-        past = now - timedelta(days=32)
-        self.channels[9].add_subscription(self.connection, '1.1.1.1', now)
-        self.channels[9].add_subscription(self.connection, '2.1.1.1', week)
-        self.channels[9].add_subscription(self.connection, '3.1.1.1', past)
-        self.channels[9].add_subscription(self.connection, '4.1.1.1', past)
-        self.channels[8].add_subscription(self.connection, '5.1.1.1', week)
-        self.channels[8].add_subscription(self.connection, '6.1.1.1', past)
-        self.channels[8].add_subscription(self.connection, '7.1.1.1', past)
-        self.channels[7].add_subscription(self.connection, '8.1.1.1', past)
-        self.channels[7].add_subscription(self.connection, '9.1.1.1', past)
-        self.channels[4].add_subscription(self.connection, '10.1.1.1', past)
-        self.refresh_connection()
-        manage.refresh_stats_table()
-        self.refresh_connection()
-
-        # ratings
-        Rating.update_rating(self.connection, self.channels[9], self.owner, 5)
-        Rating.update_rating(self.connection, self.channels[9], self.user, 5)
-        Rating.update_rating(self.connection, self.channels[8], self.user, 5)
-        Rating.update_rating(self.connection, self.channels[7], self.owner, 4)
-
-        self.refresh_connection()
-        for i in range(3):
-            user = self.make_user('user%i' % i)
-            user.approved = 1
-            user.save(self.connection)
-            Rating.update_rating(self.connection, self.channels[9], user, 5)
-            Rating.update_rating(self.connection, self.channels[8], user, 5)
-            Rating.update_rating(self.connection, self.channels[7], user, 4)
-
-        # clear cache
-        cache.clear_cache()
-        time.sleep(1)
-
-    def check_same_list(self, l1, l2, attr='id'):
-        self.assertEquals([getattr(l, attr) for l in l1],
-                [getattr(l, attr) for l in l2])
-
-    def test_get_channels(self):
-        self.check_same_list(Channel.get_channels(self.connection, self.owner),
-                self.channels)
-
-    def test_get_channels_from_cache(self):
-        for c in self.channels:
-            c.name = u'New Name %i' % c.id
-            c.update_cache()
-        cs = Channel.get_channels(self.connection, self.owner) # cached
-        self.check_same_list(cs, self.channels)
-        self.check_same_list(cs, self.channels, 'name')
-
-    def test_get_some_channels_from_cache(self):
-        self.channels[0].name = u'New Name'
-        self.channels[0].update_cache()
-        cs = Channel.get_channels(self.connection, self.owner)
-        self.check_same_list(cs, self.channels)
-        self.check_same_list(cs, self.channels, 'name')
-
-    def test_sorts_by_popularity(self):
-        cs_today = Channel.get_channels(self.connection, self.owner,
-                sort='subscription_count_today')
-        cs_month = Channel.get_channels(self.connection, self.owner,
-                sort='subscription_count_month')
-        cs = Channel.get_channels(self.connection, self.owner,
-                sort='subscription_count')
-        self.check_same_list(cs_today[:1], self.channels[:8:-1])
-        self.check_same_list(cs_month[:2], self.channels[:7:-1])
-        self.check_same_list(cs_today[:3], self.channels[:6:-1])
-
-    def test_get_sorts_by_rating(self):
-        cs = Channel.get_channels(self.connection, self.owner,
-                sort='rating')
-        self.check_same_list(cs, self.channels[:6:-1])
-
-    def test_get_sort_by_random(self):
-        cs = Channel.get_channels(self.connection, self.owner,
-                sort='random')
-        cs2 = Channel.get_channels(self.connection, self.owner,
-                sort="random")
-        ids = [c.id for c in cs]
-        ids2 = [c.id for c in cs2]
-        self.failIfEqual(ids, ids2)
-
-    def test_get_sorts_by_new(self):
-        for c in self.channels[7:]:
-            c.change_state(self.user, 'A', self.connection)
-            time.sleep(1) # to have distinct approved_at times
-        cs = Channel.get_channels(self.connection, self.owner, sort='new')
-        self.check_same_list(cs[:3], self.channels[:6:-1])
-
-    def test_filters_by_category(self):
-        cs = Channel.get_channels(self.connection, self.owner,
-                filter='category', filter_value=self.categories[0].id)
-        self.check_same_list(cs, self.channels[::3])
-
-    def test_filters_by_category_and_sorts(self):
-        cs = Channel.get_channels(self.connection, self.owner,
-                sort='subscription_count', filter="category",
-                filter_value=self.categories[1].id)
-        self.assertEquals([c.id for c in cs], [self.channels[7].id,
-            self.channels[4].id, self.channels[1].id])
-
-    def test_filters_by_tag(self):
-        cs = Channel.get_channels(self.connection, self.owner,
-                filter='tag', filter_value=self.tags[0].id)
-        self.check_same_list(cs, self.channels[::3])
-
-    def test_filters_by_tag_and_sorts(self):
-        cs = Channel.get_channels(self.connection, self.owner,
-                sort='subscription_count', filter="tag",
-                filter_value=self.tags[1].id)
-        self.assertEquals([c.id for c in cs], [self.channels[7].id,
-            self.channels[4].id, self.channels[1].id])
-
-    def test_filters_by_language(self):
-        cs = Channel.get_channels(self.connection, self.owner,
-                filter='language', filter_value=self.languages[0].id)
-        self.check_same_list(cs, self.channels[::3])
-
-    def test_filters_by_language_and_sorts(self):
-        cs = Channel.get_channels(self.connection, self.owner,
-                sort='subscription_count', filter="language",
-                filter_value=self.languages[1].id)
-        self.assertEquals([c.id for c in cs], [self.channels[7].id,
-            self.channels[4].id, self.channels[1].id])
-
-    def test_filter_by_language_includes_secondary(self):
-        self.channels[9].add_secondary_language(self.connection,
-                self.languages[1])
-        cs = Channel.get_channels(self.connection, self.owner,
-                filter='language', filter_value=self.languages[1].id)
-        self.check_same_list(cs, self.channels[1::3] + [self.channels[9]])
-
-    def test_filter_by_owner(self):
-        self.channels[0].set_owner(self.connection, self.user)
-        cs = Channel.get_channels(self.connection, self.owner,
-                filter='owner', filter_value=self.owner.id)
-        self.check_same_list(cs, self.channels[1:])
-        cs = Channel.get_channels(self.connection, self.user,
-                filter='owner', filter_value=self.user.id)
-        self.check_same_list(cs, self.channels[:1])
-
-    def test_filter_by_featured(self):
-        self.channels[9].featured = True
-        self.save_to_db(self.channels[9])
-        self.check_same_list(Channel.get_channels(self.connection, self.owner,
-            filter="featured", filter_value=True), [self.channels[9]])
-
-    def test_filters_adult_based_on_user(self):
-        self.channels[0].adult = True
-        self.channels[0].save(self.connection)
-        self.check_same_list(Channel.get_channels(self.connection, self.owner),
-                self.channels)
-        self.check_same_list(Channel.get_channels(self.connection, self.user),
-                self.channels[1:])
-
-    def test_filter_adult_with_sort(self):
-        self.channels[9].adult = True
-        self.channels[9].save(self.connection)
-        cs = Channel.get_channels(self.connection, self.user,
-                sort='rating')
-        self.check_same_list(cs, self.channels[8:6:-1])
-
-    def test_filter_adult_with_filter(self):
-        self.channels[0].adult = True
-        self.channels[0].save(self.connection)
-        cs = Channel.get_channels(self.connection, self.user,
-                filter='category', filter_value=self.categories[0].id)
-        self.check_same_list(cs, self.channels[3::3])
-
-    def test_filter_adult_with_filter_and_sort(self):
-        self.channels[1].adult = True
-        self.channels[1].save(self.connection)
-        cs = Channel.get_channels(self.connection, self.user,
-                sort='subscription_count', filter="category",
-                filter_value=self.categories[1].id)
-        self.assertEquals([c.id for c in cs], [self.channels[7].id,
-            self.channels[4].id])
-
-    def test_state(self):
-        self.channels[0].state = 'S'
-        self.channels[0].save(self.connection)
-        self.check_same_list(Channel.get_channels(self.connection, self.owner,
-            state='S'), [self.channels[0]])
-
-    def test_count(self):
-        self.assertEquals(Channel.get_channels(self.connection, self.owner,
-            sort="count"), 10)
-        self.assertEquals(Channel.get_channels(self.connection, self.owner,
-            sort="count", filter="category",
-            filter_value=self.categories[0].id), 4)
-        self.assertEquals(Channel.get_channels(self.connection, self.owner,
-            sort="count", filter="tag",
-            filter_value=self.tags[0].id), 4)
-        self.assertEquals(Channel.get_channels(self.connection, self.owner,
-            sort="count", filter="language",
-            filter_value=self.languages[0].id), 4)
-        self.assertEquals(Channel.get_channels(self.connection, self.owner,
-            sort="count", filter="owner",
-            filter_value=self.owner.id), 10)
-
-    def test_count_respects_state(self):
-        self.channels[0].state = 'S'
-        self.channels[0].save(self.connection)
-        self.assertEquals(Channel.get_channels(self.connection, self.owner,
-            sort='count', state='S'), 1)
-
-    def test_extra_joins(self):
-        cs = Channel.get_channels(self.connection, self.owner,
-            joins=("subscriptions", "rating"))
-        self.assertEquals(cs[9].subscription_count_total, 4)
-        self.assertEquals(cs[9].subscription_count_month, 2)
-        self.assertEquals(cs[9].subscription_count_today, 1)
-        self.assertEquals(cs[9].rating.count, 5)
-        self.assertEquals(cs[9].rating.average, 5)
-        self.assertEquals(cs[9].rating.total, 25)
-
-    def test_limit(self):
-        self.check_same_list(Channel.get_channels(self.connection,
-            self.owner, sort="rating", limit=1), [self.channels[9]])
-        self.check_same_list(Channel.get_channels(self.connection,
-            self.owner, sort="rating", limit=(2, 1)), [self.channels[7]])
-
-class ChannelCacheTest(ChannelTestBase):
-
-    def setUp(self):
-        super(ChannelCacheTest, self).setUp()
-        cache.clear_cache()
-        time.sleep(1)
-        self.channel = Channel.get(self.connection, self.channel.id)
-
-    def test_updating_category_updates_channel(self):
-        c = Category("Category")
-        self.save_to_db(c)
-        self.channel.add_category(self.connection, c)
-        self.assertEquals(len(self.channel.categories), 1)
-        self.assertEquals(self.channel.categories[0].name, "Category")
-
-        # reload, check that the category is there
-        channel = Channel.get(self.connection, self.channel.id)
-        self.assertEquals(len(channel.categories), 1)
-        self.assertEquals(channel.categories[0].name, "Category")
-
-        # change the name
-        self.refresh_connection()
-        c.name = "New Name"
-        self.save_to_db(c)
-
-        # reload the object, and check the name
-        channel = Channel.get(self.connection, self.channel.id)
-        self.assertEquals(len(channel.categories), 1)
-        self.assertEquals(channel.categories[0].name, "New Name")
-
-        # remove the category from the channel
-        channel.delete_category(self.connection, c)
-        self.assertEquals(len(channel.categories), 0)
-
-        # reload the object, check that it doesn't have the category
-        channel = Channel.get(self.connection, self.channel.id)
-        self.assertEquals(len(channel.categories), 0)
-
-    def test_updating_language_updates_channel(self):
-        l = Language("Language")
-        self.save_to_db(l)
-        self.channel.set_language(self.connection, l)
-        self.assertEquals(self.channel.language.name, 'Language')
-        self.refresh_connection()
-        l.name = "New Name"
-        self.save_to_db(l)
-
-        # reload the object, and check the name
-        channel = Channel.get(self.connection, self.channel.id)
-        self.assertEquals(channel.language.name, 'New Name')
-
-    def test_update_secondary_language_updates_channel(self):
-        l = Language("Language")
-        self.save_to_db(l)
-        self.channel.add_secondary_language(self.connection, l)
-        self.assertEquals(len(self.channel.secondary_languages), 1)
-        self.assertEquals(self.channel.secondary_languages[0].name, 'Language')
-
-        # reload, check that the language is there
-        channel = Channel.get(self.connection, self.channel.id)
-        self.assertEquals(len(self.channel.secondary_languages), 1)
-        self.assertEquals(channel.secondary_languages[0].name, 'Language')
-
-        # change the name
-        self.refresh_connection()
-        l.name = "New Name"
-        self.save_to_db(l)
-
-        # reload the object, and check the name
-        channel = Channel.get(self.connection, self.channel.id)
-        self.assertEquals(len(self.channel.secondary_languages), 1)
-        self.assertEquals(channel.secondary_languages[0].name, 'New Name')
-
-        # remove the language
-        channel.delete_secondary_language(self.connection, l)
-        self.assertEquals(len(channel.secondary_languages), 0)
-
-        # reload the object, check that the language is gone
-        channel = Channel.get(self.connection, self.channel.id)
-        self.assertEquals(len(channel.secondary_languages), 0)
-
-    def test_updating_owner_updates_channel(self):
-        self.channel.update_cache()
-        self.ralph.email = "new@email.com"
-        self.save_to_db(self.ralph)
-
-        channel = Channel.get(self.connection, self.channel.id)
-        self.assertEquals(channel.owner.email, "new@email.com")
-
-    def test_updating_owner_tags_updates_channel(self):
-        t = Tag("Tag")
-        self.save_to_db(t)
-        self.channel.add_tag(self.connection, self.ralph, t.name)
-        self.assertEquals(len(self.channel.tags), 1)
-        self.assertEquals(self.channel.tags[0].name, "Tag")
-
-        # reload, check that the tag is there
-        channel = Channel.get(self.connection, self.channel.id)
-        self.assertEquals(len(channel.tags), 1)
-        self.assertEquals(channel.tags[0].name, "Tag")
-
-        # remove the tag from the channel
-        channel.delete_tag(self.connection, self.ralph, t.name)
-        self.assertEquals(len(channel.tags), 0)
-
-        # reload the object, check that it doesn't have the tag
-        channel = Channel.get(self.connection, self.channel.id)
-        self.assertEquals(len(channel.tags), 0)
-
-    def test_updating_items_updates_cache(self):
-        i = Item()
-        i.channel_id = self.channel.id
-        i.url = self.channel.url
-        i.name = "Item"
-        i.description = "Description"
-        self.save_to_db(i)
-        self.channel._replace_items(self.connection, [i])
-        self.assertEquals(len(self.channel.items), 1)
-        self.assertEquals(self.channel.items[0].name, 'Item')
-
-        # reload, check that the item is there
-        channel = Channel.get(self.connection, self.channel.id)
-        self.assertEquals(len(channel.items), 1)
-        self.assertEquals(channel.items[0].name, 'Item')
-
-        # remove the item
-        channel._replace_items(self.connection, [])
-        self.assertEquals(len(channel.items), 0)
-
-        # reload, check that the item is gone
-        channel = Channel.get(self.connection, self.channel.id)
-        self.assertEquals(len(channel.items), 0)
-
-    def test_moderating_updates_channel(self):
-        self.channel.change_state(self.ralph, 'A', self.connection)
-        self.assertEquals(self.channel.last_moderated_by.username,
-                self.ralph.username)
-
-        # reload, check the name
-        channel = Channel.get(self.connection, self.channel.id)
-        self.assertEquals(self.channel.last_moderated_by.username,
-                self.ralph.username)
-
-        # make another moderation
-        user = self.make_user('test')
-        self.channel.change_state(user, 'B', self.connection)
-        self.assertEquals(self.channel.last_moderated_by.username,
-                user.username)
-
-        # reload, check the name
-        channel = Channel.get(self.connection, self.channel.id)
-        self.assertEquals(self.channel.last_moderated_by.username,
-                user.username)
-
-    def test_updating_notes_updates_channel(self):
-        self.assertEquals(len(self.channel.notes), 0)
-
-        note = ChannelNote(self.ralph, 'Title', 'Body',
-                ChannelNote.MODERATOR_TO_OWNER)
-        note.channel = self.channel
-        self.save_to_db(note)
-
-        channel = Channel.get(self.connection, self.channel.id)
-        self.assertEquals(len(channel.notes), 1)
-        self.assertEquals(channel.notes[0].title, 'Title')
-
-        note2 = ChannelNote(self.ralph, 'Different', 'Body',
-                ChannelNote.MODERATOR_TO_OWNER)
-        note2.channel = channel
-        self.save_to_db(note2)
-
-        channel = Channel.get(self.connection, self.channel.id)
-        self.assertEquals(len(channel.notes), 2)
-        self.assertEquals(channel.notes[0].title, 'Different')
-
-    def test_updating_featured_updates_channel(self):
-        self.channel.change_featured(self.ralph, self.connection)
-        self.assertEquals(self.channel.featured_by.username,
-                self.ralph.username)
-
-        # reload, then check the name
-        channel = Channel.get(self.connection, self.channel.id)
-        self.assertEquals(channel.featured_by.username,
-                self.ralph.username)
-
-        # unfeature
-        channel.change_featured(None, self.connection)
-        self.assertEquals(channel.featured_by, None)
-
-        # reload
-        channel = Channel.get(self.connection, self.channel.id)
-        self.assertEquals(channel.featured_by, None)

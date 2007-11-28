@@ -30,9 +30,6 @@ class SearchTestCase(TestCase):
         item.description = channel.description
         item.name = name
         item.save(self.connection)
-        # do the things the Channel._replace_items would do
-        channel.items.add_record(self.connection, item)
-        channel.update_cache()
         return item
 
     def check_same_records(self, list1, list2):

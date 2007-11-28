@@ -139,14 +139,14 @@ class NotesPageTest(NotesPageTestBase):
         start_count = self.get_note_count()
         note = ChannelNote(self.user, 'test', 'test',
                 ChannelNote.MODERATOR_TO_OWNER)
-        note.channel_id = self.channel.id
-        self.save_to_db(note)
+        self.channel.notes.add_record(self.connection, note)
         self.check_note_count(start_count + 1)
         return note
 
     def get_note_count(self):
         self.connection.commit()
         updated_channel = self.refresh_record(self.channel)
+        updated_channel.join("notes").execute(self.connection)
         return len(updated_channel.notes)
 
     def check_note_count(self, correct_count):

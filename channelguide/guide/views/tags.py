@@ -16,9 +16,10 @@ def index(request):
 @cache.aggresively_cache(adult_differs=True)
 def tag(request, id):
     tag = util.get_object_or_404(request.connection, Tag, id)
-    sort = templateutil.getchannels_sort_using_request(request)
-    pager =  templateutil.GetChannelsPager(8, request, filter="tag",
-            filter_value=tag.id, sort=sort)
+    query = Channel.query_approved(user=request.user).join('tags')
+    query.joins['tags'].where(id=id)
+    templateutil.order_channels_using_request(query, request)
+    pager =  templateutil.Pager(8, query, request)
     return util.render_to_response(request, 'two-column-list.html', {
         'header': tag.name,
         'pager': pager,

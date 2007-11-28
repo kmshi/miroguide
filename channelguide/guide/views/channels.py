@@ -13,7 +13,7 @@ from channelguide.guide.auth import (admin_required, moderator_required,
 from channelguide.guide.exceptions import AuthError
 from channelguide.guide.models import (Channel, Item, User, FeaturedEmail,
         ModeratorAction, ChannelNote, Rating, Tag, Category, Language,
-        FeaturedQueue, GeneratedRatings)
+        FeaturedQueue)
 from channelguide.guide.notes import get_note_info, make_rejection_note
 from sqlhelper.sql.statement import Select
 from sqlhelper.sql.expression import Literal
@@ -242,17 +242,16 @@ def on_channel_record_update(record):
 
 @decorator_from_middleware(ShowChannelCacheMiddleware)
 def show(request, id, featured_form=None):
-    c = util.get_object_or_404(request.connection, Channel, id)
-    try:
-        rating = GeneratedRatings.get(request.connection, c.id)
-    except LookupError:
-        rating = GeneratedRatings()
-        rating.count = rating.average = rating.total = 0
-        rating.save(self.connection)
-    c.rating = rating
+    query = Channel.query()
+    query.join('categories', 'tags', 'notes', 'owner', 'last_moderated_by',
+            'notes.user', 'rating')
+    if request.user.is_supermoderator():
+        query.join('featured_by', 'featured_queue')
+    item_query = Item.query(channel_id=id).join('channel').order_by('date', desc=True).limit(4)
+    c = util.get_object_or_404(request.connection, query, id)
     context = {
         'channel': c,
-        'items': c.items[:4],
+        'items': item_query.execute(request.connection),
         'recommendations': get_recommendations(request, id),
         'show_edit_button': request.user.can_edit_channel(c),
         'show_extra_info': request.user.can_edit_channel(c),
@@ -267,28 +266,23 @@ def show(request, id, featured_form=None):
         context['error'] = request.session['channel-edit-error']
         del request.session['channel-edit-error']
     if request.user.is_supermoderator():
-        try:
-            fq = FeaturedQueue.get(request.connection, c.id)
-        except LookupError:
-            pass
-        else:
-            if fq.state in (
-                    FeaturedQueue.IN_QUEUE, FeaturedQueue.CURRENT):
-                c.featured = True
-            if c.featured and c.owner is not None:
-                query = FeaturedEmail.query().join('sender')
-                query.where(channel_id=c.id)
-                query.order_by(FeaturedEmail.c.timestamp, desc=True)
-                query.limit(1)
-                last_featured_email = query.execute(request.connection)
-                if last_featured_email:
-                    last_featured_email = last_featured_email[0]
-                else:
-                    last_featured_email = None
-                if featured_form is None:
-                    featured_form = forms.FeaturedEmailForm(request, c)
-                context['featured_email_form'] = featured_form
-                context['last_featured_email'] = last_featured_email
+        if c.featured_queue and c.featured_queue.state in (
+                FeaturedQueue.IN_QUEUE, FeaturedQueue.CURRENT):
+            c.featured = True
+        if c.featured and c.owner is not None:
+            query = FeaturedEmail.query().join('sender')
+            query.where(channel_id=c.id)
+            query.order_by(FeaturedEmail.c.timestamp, desc=True)
+            query.limit(1)
+            last_featured_email = query.execute(request.connection)
+            if last_featured_email:
+                last_featured_email = last_featured_email[0]
+            else:
+                last_featured_email = None
+            if featured_form is None:
+                featured_form = forms.FeaturedEmailForm(request, c)
+            context['featured_email_form'] = featured_form
+            context['last_featured_email'] = last_featured_email
     return util.render_to_response(request, 'show-channel.html', context)
 
 def after_submit(request):
@@ -372,20 +366,44 @@ def rate(request, id):
                 referer = referer[len(settings.BASE_URL_FULL)-1:]
             request.META['QUERY_STRING'] += "%%26referer=%s" % referer
         raise AuthError("need to log in to rate")
+    try:
+        dbRating = Rating.query(Rating.c.user_id==request.user.id,
+            Rating.c.channel_id==id).get(request.connection)
+    except Exception:
+        dbRating = Rating()
+        dbRating.channel_id = id
+        dbRating.user_id = request.user.id
+        dbRating.rating = None
+    channel = util.get_object_or_404(request.connection,
+            Channel.query().join('rating'), id)
     if request.REQUEST.get('rating', None) is None:
-        try:
-            dbRating = Rating.query(Rating.c.user_id==request.user.id,
-                Rating.c.channel_id==id).get(request.connection)
-        except Exception:
-            raise Http404
-        else:
+        if dbRating.exists_in_db():
             return HttpResponse('User Rating: %s' %  dbRating.rating)
+        else:
+            raise Http404
     rating = request.REQUEST.get('rating', None)
     if rating not in ['0', '1', '2', '3', '4', '5']:
         raise Http404
-    rating = int(rating)
-    channel = util.get_object_or_404(request.connection, Channel, id)
-    Rating.update_rating(request.connection, channel, request.user, rating)
+    if dbRating.rating:
+        channel.rating.count -= 1
+        channel.rating.total -= dbRating.rating
+    dbRating.rating = int(rating)
+    if dbRating.rating == 0:
+        dbRating.rating = None
+    elif request.user.approved:
+        if channel.rating:
+            channel.rating.count += 1
+            channel.rating.total += dbRating.rating
+            channel.rating.average = float(channel.rating.total) / channel.rating.count
+            channel.rating.save(request.connection)
+        else:
+            insert = tables.generated_ratings.insert()
+            insert.add_values(channel_id=channel.id,
+                    average=dbRating.rating,
+                    total=dbRating.rating, count=1)
+            insert.execute(request.connection)
+            request.connection.commit()
+    dbRating.save(request.connection)
     if request.GET.get('referer'):
         redirect = request.GET['referer']
     else:
@@ -422,8 +440,11 @@ def popular_view(request):
     else:
         timespan = None
         count_name = 'subscription_count'
-    pager = templateutil.GetChannelsPager(10, request, sort=count_name,
-            joins=("subscriptions", "rating"))
+    query = Channel.query_approved(user=request.user)
+    query.join('rating')
+    query.load(count_name, 'item_count')
+    query.order_by(query.get_column(count_name), desc=True)
+    pager = templateutil.Pager(10, query, request)
     for channel in pager.items:
         if timespan == 'today':
             channel.timeline = 'Today'
@@ -453,11 +474,10 @@ def make_simple_list(request, query, header, order_by=None):
 
 @cache.aggresively_cache(adult_differs=True)
 def by_name(request):
-    pager = templateutil.GetChannelsPager(8, request)
-    return util.render_to_response(request, 'two-column-list.html', {
-        'header': _("Channels By Name"),
-        'pager': pager,
-    })
+    query = Channel.query_approved()
+    return make_simple_list(request, query, _("Channels By Name"),
+            Channel.c.name)
+
 
 @cache.aggresively_cache(adult_differs=True)
 def hd(request):
@@ -488,8 +508,8 @@ def get_toprated_query(user):
     return query
 
 def toprated(request):
-    pager = templateutil.GetChannelsPager(10, request, sort="rating",
-            joins=("subscriptions", "rating"))
+    query = get_toprated_query(request.user)
+    pager = templateutil.Pager(10, query, request)
     for channel in pager.items:
         channel.popular_count = channel.subscription_count_today
         channel.timeline = 'Today'
@@ -523,7 +543,8 @@ def group_channels_by_date(channels):
 
 @cache.aggresively_cache(adult_differs=True)
 def recent(request):
-    pager =  templateutil.GetChannelsPager(8, request, sort="new")
+    query = Channel.query_new(user=request.user)
+    pager =  templateutil.Pager(8, query, request)
     return util.render_to_response(request, 'recent.html', {
         'header': "RECENT CHANNELS",
         'pager': pager,
@@ -545,7 +566,9 @@ def for_user(request, user_id):
         })
 
 def edit_channel(request, id):
-    channel = util.get_object_or_404(request.connection, Channel, id)
+    query = Channel.query()
+    query.join('language', 'secondary_languages', 'categories')
+    channel = util.get_object_or_404(request.connection, query, id)
     request.user.check_can_edit(channel)
     if request.method != 'POST':
         form = forms.EditChannelForm(request, channel)

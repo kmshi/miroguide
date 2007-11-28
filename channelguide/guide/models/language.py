@@ -24,6 +24,3 @@ class Language(Record):
 
     def __repr__(self):
         return '%s(%r)' % (self.__class__.__name__, self.name)
-
-class LanguageMap(Record):
-    table = tables.secondary_language_map
