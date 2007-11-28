@@ -32,8 +32,8 @@ def render_error_500(request):
     io.write('\nRequest Object:\n')
     pprint.pprint(request, stream=io)
     if hasattr(request, 'user') and request.user.is_authenticated():
-        io.write('\nUser Name: %s' % request.user.username)
-        io.write('\nE-mail: %s' % request.user.email)
+        io.write('\nUser Name: %s' % request.user.username.encode('utf8'))
+        io.write('\nE-mail: %s' % request.user.email.encode('utf8'))
         email_from = request.user.email
     else:
         io.write('\nAnonymous User')
