@@ -92,14 +92,22 @@ class RejectionEmail(EmailMessage):
         right = '-' * ((51 - len(text)) / 2)
         return left + text + right
 
-class BrokenChannelEmail(RejectionEmail): 
+class BrokenChannelEmail(RejectionEmail):
     def __init__(self, channel):
         feedvalidator_link = 'http://feedvalidator.org/check.cgi?url='
         feedvalidator_link += urllib.quote_plus(channel.url)
         RejectionEmail.__init__(self, channel, 'BROKEN', """\
-Your feed doesn't seem to work in Miro. Check it out in feedvalidator.org
-(%s). If you're having problems finding the problem, please search the
-Miro forums (%s) and post a question if you don't find an answer.
+Your feed doesn't seem to work in Miro. You should add your channel into
+Miro for yourself to test whether it works or not.  This can easily be done by:
+       1. copy your feed
+       2. go to the Channels menu, and selecting "Add Channel."
+
+You can also try and see what's wrong by testing it in feedvalidator.org (%s).
+If you're having problems finding the problem, please search the Miro forums
+(%s) and post a question if you don't find an answer.
+
+Also keep in mind that Miro does not support Shockwave (.swf) files; it does
+support Flash video (.flv) files.
 
 Once you have your feed working in Miro, please post a message for us on
 the channel page (%s).""" % (feedvalidator_link, settings.FORUMS_URL,
