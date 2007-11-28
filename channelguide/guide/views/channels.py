@@ -13,7 +13,7 @@ from channelguide.guide.auth import (admin_required, moderator_required,
 from channelguide.guide.exceptions import AuthError
 from channelguide.guide.models import (Channel, Item, User, FeaturedEmail,
         ModeratorAction, ChannelNote, Rating, Tag, Category, Language,
-        FeaturedQueue)
+        FeaturedQueue, GeneratedRatings)
 from channelguide.guide.notes import get_note_info, make_rejection_note
 from sqlhelper.sql.statement import Select
 from sqlhelper.sql.expression import Literal
@@ -249,6 +249,10 @@ def show(request, id, featured_form=None):
         query.join('featured_by', 'featured_queue')
     item_query = Item.query(channel_id=id).join('channel').order_by('date', desc=True).limit(4)
     c = util.get_object_or_404(request.connection, query, id)
+    if c.rating is None:
+        c.rating = GeneratedRatings()
+        c.rating.count = c.rating.average = c.rating.total = 0
+        c.rating.save(request.connection)
     context = {
         'channel': c,
         'items': item_query.execute(request.connection),
