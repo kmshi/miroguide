@@ -117,7 +117,6 @@ class TagField(WideCharField):
             return []
         tags = []
         for name in value.strip().split(','):
-            #name = to_utf8(name.strip())
             name = name.strip()
             if name != '':
                 tags.append(name)
