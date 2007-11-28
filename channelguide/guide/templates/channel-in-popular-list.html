@@ -24,7 +24,7 @@
                     </div>
                 </div>
                  <div class="channel-info">
-                    Videos Available: {{ channel.item_count }}<br/>
+                    Videos Available: {{ channel.items|length }}<br/>
                     Subscribes {{ channel.timeline }}: {{ channel.popular_count }}
                 </div>
                 <div class="ratings-bar">

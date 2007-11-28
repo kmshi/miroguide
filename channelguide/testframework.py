@@ -192,6 +192,7 @@ class TestCase(unittest.TestCase):
         user = User(username, password, "%s@test.test" % username)
         user.role = role
         self.save_to_db(user)
+        self.refresh_connection()
         return user
 
     def make_channel(self, owner, state='N'):
@@ -208,6 +209,7 @@ class TestCase(unittest.TestCase):
         channel.short_description = u"stuff \u2222"
         channel.description = u"lots of stuff \u3333"
         self.save_to_db(channel)
+        self.refresh_connection()
         return channel
 
     def login(self, username, password='password'):

@@ -159,8 +159,7 @@ WHERE NOT EXISTS (SELECT * FROM cg_channel_item WHERE id=item_id)""")
     connection.execute("""DELETE FROM cg_channel_search_data
 WHERE NOT EXISTS (SELECT * FROM cg_channel WHERE id=channel_id)""")
 
-    iter = all_channel_iterator(connection, 'updating search data', 'items',
-            'items.search_data', approved=True)
+    iter = all_channel_iterator(connection, 'updating search data', approved=True)
     for channel in iter:
         channel.update_search_data(connection)
     # refresh the search namespace

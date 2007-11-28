@@ -13,9 +13,9 @@
         </div>
         {% endifequal %}
         {% ifequal count "episodes" %}
-        {% if channel.item_count %}
+        {% if channel.items %}
         <div class="count">
-            {% blocktrans with channel.item_count as count %}
+            {% blocktrans with channel.items|length as count %}
             {{ count }} shows
             {% endblocktrans %}
         </div>

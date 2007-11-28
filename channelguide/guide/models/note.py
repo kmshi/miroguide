@@ -13,6 +13,15 @@ class NoteBase(Record):
         self.title = title
         self.body = body
 
+    def get_id(self):
+        return self._id
+
+    def set_id(self, id):
+        self._id = id
+        if hasattr(self, 'channel'):
+            self.channel.update_cache()
+
+    id = property(get_id, set_id)
 class ModeratorPost(NoteBase):
     table = tables.moderator_post
 

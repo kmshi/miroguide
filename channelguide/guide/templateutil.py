@@ -57,6 +57,19 @@ class Pager(ManualPager):
         super(Pager, self).__init__(items_per_page, total_items, callback,
                 request)
 
+class GetChannelsPager(ManualPager):
+
+    def __init__(self, items_per_page, request, **kwargs):
+        def callback(offset, limit):
+            return Channel.get_channels(request.connection, request.user,
+                    limit=(offset, limit), **kwargs)
+        k = kwargs.copy()
+        k['sort'] = 'count'
+        total_items = Channel.get_channels(request.connection, request.user,
+                **k)
+        super(GetChannelsPager, self).__init__(items_per_page, total_items,
+                callback, request)
+
 class PageLinks(object):
     LINKS_BEFORE_CURRENT = 5
     LINKS_AFTER_CURRENT = 5
@@ -190,3 +203,14 @@ def order_channels_using_request(query, request):
     else:
         query.load('subscription_count_month')
         query.order_by('subscription_count_month', desc=True)
+
+def getchannels_sort_using_request(request):
+    order_by = request.GET.get('view')
+    if order_by == 'alphabetical':
+        return 'name'
+    elif order_by == 'date':
+        return 'new'
+    elif order_by == 'toprated':
+        return 'rating'
+    else:
+        return 'subscription_count_month'

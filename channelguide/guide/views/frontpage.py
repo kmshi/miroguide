@@ -19,28 +19,20 @@ class FrontpageCacheMiddleware(AggressiveCacheMiddleware):
                 (request.user.is_authenticated(),))
 
 def get_popular_channels(request, count):
-    query = Channel.query_approved(user=request.user)
-    query.join('rating')
-    query.load('subscription_count_today')
-    query.order_by('subscription_count_today', desc=True)
-    query.limit(count)
-    query.cacheable = cache.client
-    query.cacheable_time = 300
-    result = query.execute(request.connection)
+    result = Channel.get_channels(request.connection, request.user,
+            sort="subscription_count_today", limit=7,
+            joins=("rating", "subscriptions"))
     for r in result:
         r.star_width = r.rating.average * 20
     return result
 
 def get_featured_channels(request):
-    query = Channel.query_approved(featured=1, user=request.user)
-    return query.order_by('RAND()').execute(request.connection)
+    return Channel.get_channels(request.connection, request.user,
+        sort="random", filter="featured", filter_value=True)
 
 def get_new_channels(request, count):
-    query = Channel.query_new(user=request.user).load(
-            'item_count').limit(count)
-#    query.cacheable = cache.client
-#    query.cacheable_time = 3600
-    return query.execute(request.connection)
+    return Channel.get_channels(request.connection, request.user,
+        sort="new", limit=count)
 
 def get_new_posts(connection, count):
     query = PCFBlogPost.query().order_by('position')
@@ -54,14 +46,9 @@ def get_categories(connection):
     return rows
 
 def get_category_channels(request, category):
-    query = Channel.query_approved(user=request.user).join("categories")
-    query.joins['categories'].where(id=category.id)
-    query.load('subscription_count_month')
-    query.order_by('subscription_count_month', desc=True)
-    query.limit(2)
-    query.cacheable = cache.client
-    query.cacheable_time = 300
-    popular_channels = list(query.execute(request.connection))
+    popular_channels = Channel.get_channels(request.connection, request.user,
+        sort="subscription_count_month", filter="category",
+        filter_value=category.id, limit=2)
 
     query = Channel.query_approved(user=request.user).join(
             "categories").limit(4-len(popular_channels))

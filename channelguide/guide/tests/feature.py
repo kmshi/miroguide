@@ -124,7 +124,8 @@ class FeaturedQueueTestCase(TestCase):
             c = self.refresh_record(c)
             self.assertEquals(c.featured, 1)
             self.assertEquals(c.featured_by_id, user.id)
-            self.assertEquals(c.featured_at, fq.featured_at)
+            self.assertEquals(c.featured_at.replace(microsecond=0),
+                    fq.featured_at)
         for c in self.channels[3:6]:
             # get rid of old features
             FeaturedQueue.feature_channel(c, user, self.connection)

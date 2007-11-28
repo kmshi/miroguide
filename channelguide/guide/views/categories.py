@@ -25,10 +25,9 @@ def index(request):
 def category(request, name):
     category = util.get_object_or_404_by_name(request.connection, Category,
             name)
-    query = Channel.query_approved(user=request.user).join('categories')
-    query.joins['categories'].where(id=category.id)
-    templateutil.order_channels_using_request(query, request)
-    pager =  templateutil.Pager(8, query, request)
+    sort = templateutil.getchannels_sort_using_request(request)
+    pager =  templateutil.GetChannelsPager(8, request, filter="category",
+            filter_value=category.id, sort=sort)
     return util.render_to_response(request, 'two-column-list.html', {
         'header': category.name,
         'pager': pager,

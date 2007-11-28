@@ -13,7 +13,6 @@ from django.utils.translation import gettext as _
 import django.newforms as forms
 import feedparser
 
-from channelguide.guide.feedutil import to_utf8
 from channelguide.guide.models import Language, Category, Channel, User
 from channelguide.guide.forms.user import UsernameField
 from channelguide import util
@@ -74,7 +73,7 @@ class FeedURLForm(Form):
         data['url'] = parsed.url
         def try_to_get(feed_key):
             try:
-                return to_utf8(parsed['feed'][feed_key])
+                return parsed['feed'][feed_key]
             except KeyError:
                 return None
         data['name'] = try_to_get('title')
@@ -82,7 +81,7 @@ class FeedURLForm(Form):
         data['publisher'] = try_to_get('publisher')
         data['short_description'] = try_to_get('description')
         try:
-            data['thumbnail_url'] = to_utf8(parsed['feed'].image.href)
+            data['thumbnail_url'] = parsed['feed'].image.href
         except AttributeError:
             data['thumbnail_url'] = None
         return data
@@ -290,30 +289,31 @@ class SubmitChannelForm(Form):
         return ids
 
     def add_categories(self, channel):
-        channel.join('categories').execute(self.connection)
-        channel.categories.clear(self.connection)
         ids = self.get_ids('category1', 'category2', 'category3')
         if not ids:
             return
         query = Category.query(Category.c.id.in_(ids))
         categories = query.execute(self.connection)
-        channel.categories.add_records(self.connection, categories)
+        for category in channel.categories[:]:
+            if category.id not in ids:
+                channel.delete_category(self.connection, category)
+        channel.add_categories(self.connection, categories)
 
     def add_languages(self, channel):
-        channel.join("secondary_languages").execute(self.connection)
-        channel.secondary_languages.clear(self.connection)
         ids = self.get_ids('language2', 'language3')
         ids = [id for id in ids if id != channel.primary_language_id]
         if not ids:
             return
         query = Language.query(Language.c.id.in_(ids))
         languages = query.execute(self.connection)
-        channel.secondary_languages.add_records(self.connection, languages)
+        for language in channel.secondary_languages[:]:
+            if language.id not in ids:
+                channel.delete_secondary_languages(self.connection, language)
+        channel.add_secondary_languages(self.connection, languages)
 
     def add_tags(self, channel):
         tags = self.cleaned_data['tags']
-        channel.join('tags', 'owner').execute(self.connection)
-        for tag in channel.tags:
+        for tag in channel.tags[:]:
             if tag.name not in tags:
                 channel.delete_tag(self.connection, channel.owner, tag.name)
         channel.add_tags(self.connection, channel.owner, tags)
@@ -332,11 +332,13 @@ class SubmitChannelForm(Form):
         string_cols = ('name', 'website_url', 'short_description',
                 'description', 'publisher', 'postal_code')
         for attr in string_cols:
-            setattr(channel, attr, self.cleaned_data[attr].encode('utf-8'))
+            setattr(channel, attr, self.cleaned_data[attr])
         channel.hi_def = self.cleaned_data['hi_def']
         if 'adult' in self.cleaned_data:
             channel.adult = self.cleaned_data['adult']
-        channel.primary_language_id = int(self.cleaned_data['language'])
+        language_id = int(self.cleaned_data['language'])
+        channel.set_language(self.connection,
+                Language.get(self.connection, language_id))
         channel.save(self.connection)
         self.add_tags(channel)
         self.add_categories(channel)

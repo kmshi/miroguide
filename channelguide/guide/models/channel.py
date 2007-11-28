@@ -1,31 +1,41 @@
 from datetime import datetime, timedelta
 from glob import glob
+from itertools import izip, count
 from urllib import quote
 import cgi
 import feedparser
 import logging
 import traceback
 import math
+import operator
 
 from django.conf import settings
 from django.utils.translation import ngettext
 
-from channelguide import util
+from channelguide import util, db
 from channelguide.guide import feedutil, tables, exceptions, emailmessages
 from channelguide.guide.thumbnail import Thumbnailable
-from channelguide import cache
+from channelguide.cache import client as cache_client
+from sqlhelper import signals
 from sqlhelper.orm import Record
 from sqlhelper.sql import expression
 
+from memory import MemoryRecord
 from user import ModeratorAction, User
+from note import ChannelNote
 from item import Item
-from label import Tag, TagMap
+from language import Language, LanguageMap
+from label import Tag, TagMap, Category, CategoryMap
+from rating import GeneratedRatings
 import search
 
-class Channel(Record, Thumbnailable):
+class Channel(MemoryRecord, Thumbnailable):
     """An RSS feed containing videos for use in Miro."""
     table = tables.channel
 
+    default_joins = ('categories', 'tags', 'language',
+                'secondary_languages', 'owner', 'last_moderated_by',
+                'featured_by', 'items', 'notes')
     NEW = 'N'
     DONT_KNOW = 'D'
     REJECTED = 'R'
@@ -89,6 +99,141 @@ class Channel(Record, Thumbnailable):
         query.order_by(query.joins['items'].c.date, desc=True)
         return query
 
+    @classmethod
+    def get_channels(cls, connection, user, sort="name", filter=None,
+            filter_value=None, limit=None, state='A', joins=None):
+        select = cls.table.select()
+        select.columns.append(cls.table.c.id)
+        id_column = cls.table.c.id
+        if state is not None:
+            select.wheres.append(cls.table.c.state==state)
+        if user is not None and user.adult_ok != True: # filter adult channels
+            select.wheres.append(cls.c.adult==False)
+        if sort == 'name':
+            select.order_by.append('name')
+        elif sort == 'rating':
+            table = tables.generated_ratings
+            join = cls.table.join(table, table.c.channel_id==id_column,
+                    'LEFT')
+            select.froms[0] = join
+            select.wheres.append(table.c.count > 3)
+            select.order_by.append('%s DESC' %
+                    table.c.average.fullname())
+            select.order_by.append('%s DESC' %
+                    table.c.count.fullname())
+        elif sort == 'new':
+            select.order_by.append('approved_at DESC')
+        elif sort.startswith('subscription_count'):
+            table = tables.generated_stats
+            join = cls.table.join(table, table.c.channel_id==id_column,
+                    'LEFT')
+            select.froms[0] = join
+            if sort.endswith('today'):
+                select.order_by.append('%s DESC' %
+                        table.c.subscription_count_today.fullname())
+            if not sort.endswith('count'):
+                select.order_by.append('%s DESC' %
+                        table.c.subscription_count_month.fullname())
+            select.order_by.append('%s DESC' %
+                    table.c.subscription_count_total.fullname())
+        elif sort == 'count':
+            wheres = select.wheres
+            select = cls.table.select_count()
+            select.wheres = wheres
+            if 'rating' in joins:
+                # add a filter to remove channels that don't have enough ratings
+                join = select.froms[0].join(tables.generated_ratings,
+                        tables.generated_ratings.c.channel_id==id_column,
+                        'LEFT')
+                select.froms[0] = join
+                select.wheres.append(tables.generated_ratings.c.count > 3)
+        elif sort == 'random':
+            select.order_by.append('RAND()')
+        else:
+            raise ValueError, 'unknown sort: %s' % sort
+        if joins and sort != 'count':
+            if 'subscriptions' in joins:
+                table = tables.generated_stats
+                if not sort.startswith('subscription_count'):
+                    join = select.froms[0].join(table,
+                            table.c.channel_id==id_column, 'LEFT')
+                    select.froms[0] = join
+                select.columns.append(table.c.subscription_count_total)
+                select.columns.append(table.c.subscription_count_month)
+                select.columns.append(table.c.subscription_count_today)
+            if 'rating' in joins:
+                table = tables.generated_ratings
+                if sort != "rating":
+                    join = select.froms[0].join(table,
+                            table.c.channel_id==id_column, 'LEFT')
+                    select.froms[0] = join
+                select.columns.append(table.c.average)
+                select.columns.append(table.c.count)
+                select.columns.append(table.c.total)
+        if filter is not None:
+            if filter == 'category':
+                join = select.froms[0].join(tables.category_map,
+                    tables.category_map.c.channel_id==id_column, 'LEFT')
+                select.froms[0] = join
+                select.wheres.append(
+                        tables.category_map.c.category_id==filter_value)
+            elif filter == 'tag':
+                join = select.froms[0].join(tables.tag_map,
+                        tables.tag_map.c.channel_id==id_column, 'LEFT')
+                select.froms[0] = join
+                select.wheres.append(
+                        tables.tag_map.c.tag_id==filter_value)
+            elif filter == 'owner':
+                select.wheres.append(
+                    cls.table.c.owner_id==filter_value)
+            elif filter == 'language':
+                where1 = cls.table.c.primary_language_id==filter_value
+                join = select.froms[0].join(tables.secondary_language_map,
+                        tables.secondary_language_map.c.channel_id == id_column,
+                        'LEFT')
+                select.froms[0] = join
+                where2 = \
+                        tables.secondary_language_map.c.language_id==filter_value
+                select.wheres.append(where1 | where2)
+                s, a = select.compile()
+            elif filter == 'featured':
+                select.wheres.append(cls.table.c.featured==filter_value)
+            else:
+                raise ValueError, 'unknown filter: %s' % filter
+        if limit:
+            if isinstance(limit, int):
+                select.limit = limit
+            else:
+                select.offset, select.limit = limit
+        rows = select.execute(connection)
+        if sort == 'count':
+            return rows[0][0]
+        ids = [row[0] for row in rows]
+        channels = cls._get_records_from_cache(ids)
+        _cache_key = cls._cache_key # put it in the local namespace
+        missing = [id for id in ids if _cache_key(id) not in channels]
+        if missing:
+            rest = cls._get_records_from_db(connection, missing)
+            channels.update(dict([(_cache_key(c.id), c) for c in rest]))
+        list_of_channels = [channels[_cache_key(id)] for id in ids]
+        if joins:
+            iterator = iter(list_of_channels)
+            for row in rows:
+                channel = iterator.next()
+                if 'subscriptions' in joins:
+                    total, month, today = row[1:4]
+                    channel.subscription_count_total = total
+                    channel.subscription_count_month = month
+                    channel.subscription_count_today = today
+                if 'rating' in joins:
+                    average, count, total = row[-3:]
+                    channel.rating = GeneratedRatings()
+                    channel.rating.channel_id = channel.id
+                    channel.rating.average = average
+                    channel.rating.count = count
+                    channel.rating.total = total
+        return list_of_channels
+
     def get_url(self):
         return util.make_url('channels/%d' % self.id)
 
@@ -113,7 +258,7 @@ class Channel(Record, Thumbnailable):
         return self.state == self.APPROVED
 
     def add_note(self, connection, note):
-        self.join('notes').execute(connection)
+        #self.join('notes').execute(connection)
         self.notes.add_record(connection, note)
         if note.user_id == self.owner_id:
             self.waiting_for_reply_date = datetime.now()
@@ -121,6 +266,35 @@ class Channel(Record, Thumbnailable):
         elif self.waiting_for_reply_date is not None:
             self.waiting_for_reply_date = None
             self.save(connection)
+        self.update_cache()
+
+    def add_categories(self, connection, categories):
+        for category in categories:
+            self.add_category(connection, category)
+
+    def add_category(self, connection, category):
+        query = CategoryMap.query()
+        query.where(channel_id=self.id, category_id=category.id)
+        if query.count(connection) == 0:
+            cm = CategoryMap()
+            cm.channel_id = self.id
+            cm.category_id = category.id
+            cm.save(connection)
+            self.categories.records.append(category)
+            self.update_cache()
+
+    def delete_category(self, connection, category):
+        try:
+            categorymap = CategoryMap.query(channel_id=self.id,
+                    category_id=category.id).get(connection)
+        except LookupError:
+            return
+        categorymap.delete(connection)
+        for index, c in izip(count(), self.categories):
+            if c.id == category.id:
+                del self.categories.records[index]
+                break
+        self.update_cache()
 
     def add_tag(self, connection, user, tag_name):
         """Add a tag to this channel."""
@@ -134,6 +308,9 @@ class Channel(Record, Thumbnailable):
         if query.count(connection) == 0:
             tm = TagMap(self, user, tag)
             tm.save(connection)
+            if tag_name not in (tag.name for tag in self.tags):
+                self.tags.records.append(tag)
+                self.update_cache()
 
     def delete_tag(self, connection, user, tag_name):
         try:
@@ -145,6 +322,11 @@ class Channel(Record, Thumbnailable):
         except LookupError:
             return
         tag_map.delete(connection)
+        for index, t in izip(count(), self.tags):
+            if t.id == tag.id:
+                del self.tags.records[index]
+                break
+        self.update_cache()
 
     def add_tags(self, connection, user, tags):
         """Tag this channel with a list of tags."""
@@ -159,6 +341,44 @@ class Channel(Record, Thumbnailable):
     def get_tags_for_owner(self, connection):
         self.join('owner').execute(connection)
         return self.get_tags_for_user(connection, self.owner)
+
+    def set_language(self, connection, language):
+        self.primary_language_id = language.id
+        self.language = language
+        self.save(connection)
+        self.update_cache()
+
+    def add_secondary_languages(self, connection, languages):
+        for language in languages:
+            self.add_secondary_language(connection, language)
+
+    def add_secondary_language(self, connection, language):
+        query = LanguageMap.query()
+        query.where(channel_id=self.id, language_id=language.id)
+        if query.count(connection) == 0:
+            lm = LanguageMap()
+            lm.channel_id = self.id
+            lm.language_id = language.id
+            lm.save(connection)
+            self.secondary_languages.records.append(language)
+            self.update_cache()
+
+    def delete_secondary_language(self, connection, language):
+        try:
+            lm = LanguageMap.query(channel_id=self.id,
+                    language_id=language.id).get(connection)
+        except LookupError:
+            return
+        lm.delete(connection)
+        for index, l in izip(count(), self.secondary_languages):
+            if l.id == language.id:
+                del self.secondary_languages.records[index]
+                break
+        self.update_cache()
+
+    def set_owner(self, connection, owner):
+        self.owner_id = owner.id
+        self.save(connection)
 
     def get_subscription_str(self):
         return ngettext('%(count)d subscriber', 
@@ -297,8 +517,7 @@ WHERE channel_id=%%s AND %s)""" % ignoresWhere
             item.download_thumbnail(connection, redownload)
 
     def update_search_data(self, connection):
-        self.join("search_data", "items", 'tags', 'categories',
-                'secondary_languages', 'language').execute(connection)
+        self.join("search_data").execute(connection)
         if self.search_data is None:
             self.search_data = search.ChannelSearchData()
             self.search_data.channel_id = self.id
@@ -396,9 +615,14 @@ WHERE channel_id=%%s AND %s)""" % ignoresWhere
                 to_add.discard(i)
         for i in to_delete:
             self.items.remove_record(connection, i)
-        for i in new_items:
-            if i in to_add:
+        if to_add:
+            for i in to_add:
                 self.items.add_record(connection, i)
+            # sort the items by date
+            self.items.records.sort(key=operator.attrgetter('date'))
+            self.items.records.reverse()
+        if to_delete or to_add:
+            self.update_cache()
 
     def _thumb_html(self, width, height):
         thumb_url = self.thumb_url(width, height)
@@ -428,7 +652,7 @@ WHERE channel_id=%%s AND %s)""" % ignoresWhere
         self.state = newstate
         if newstate == self.APPROVED:
             self.approved_at = datetime.now()
-            self.join('owner').execute(connection)
+#            self.join('owner').execute(connection)
             if self.owner.email is not None:
                 emailmessages.ApprovalEmail(self, self.owner).send_email()
             else:
@@ -439,17 +663,21 @@ WHERE channel_id=%%s AND %s)""" % ignoresWhere
         else:
             self.approved_at = None
         self.last_moderated_by_id = user.id
+        self.last_moderated_by = user
         self.save(connection)
+        self.update_cache()
         ModeratorAction(user, self, newstate).save(connection)
 
     def change_featured(self, user, connection):
         if user is not None:
             self.featured = True
             self.featured_at = datetime.now()
+            self.featured_by = user
             self.featured_by_id = user.id
         else:
             self.featured = False
             self.featured_at = None
+            self.featured_by = None
             self.featured_by_id = None
         self.save(connection)
 
@@ -487,4 +715,77 @@ def cosine(v1, v2):
         return 0.0
     return dotProduct(v1, v2)/(l1 * l2)
 
+def on_record_insert(record):
+    if isinstance(record, ChannelNote):
+        if not hasattr(record, 'channel'):
+            conn = db.connect()
+            channel = Channel.get(conn, record.channel_id)
+            record.channel = channel
+        else:
+            channel = record.channel
+            conn = None
+        channel.notes.records.reverse()
+        channel.notes.records.append(record) # prepend
+        channel.notes.records.reverse()
+        channel.update_cache()
+        if conn:
+            conn.close()
 
+def on_record_delete(record):
+    if isinstance(record, ChannelNote):
+        if not hasattr(record, 'channel'):
+            conn = db.connect()
+            channel = Channel.get(conn, record.channel_id)
+            record.channel = channel
+        else:
+            channel = record.channel
+            conn = None
+        for index, note in izip(count(), channel.notes):
+            if note.id == record.id:
+                del channel.notes.records[index]
+                break
+        channel.update_cache()
+        if conn:
+            conn.close()
+
+def on_record_update(record):
+    conn = None
+    if isinstance(record, Category):
+        conn = db.connect()
+        channels = Channel.get_channels(conn, None, filter='category',
+                filter_value=record.id, state=None)
+        for channel in channels:
+            for index, category in izip(count(), channel.categories):
+                if category.id == record.id:
+                    channel.categories.records[index] = record
+                    break
+            channel.update_cache()
+        conn.close()
+    elif isinstance(record, Language):
+        conn = db.connect()
+        channels = Channel.get_channels(conn, None, filter='language',
+                filter_value=record.id, state=None)
+        for channel in channels:
+            if channel.primary_language_id == record.id:
+                channel.language = record
+                channel.update_cache()
+            else:
+                for index, language in izip(count(),
+                        channel.secondary_languages):
+                    if language.id == record.id:
+                        channel.secondary_languages.records[index] = record
+                        channel.update_cache()
+                        break
+        conn.close()
+    elif isinstance(record, User):
+        conn = db.connect()
+        channels = Channel.get_channels(conn, None, filter='owner',
+                filter_value=record.id, state=None)
+        for channel in channels:
+            channel.owner = record
+            channel.update_cache()
+        conn.close()
+
+signals.record_insert.connect(on_record_insert)
+signals.record_delete.connect(on_record_delete)
+signals.record_update.connect(on_record_update)
