@@ -52,6 +52,9 @@ class ChannelRecommendationsTest(TestCase):
             self.connection.commit()
         finally:
             channel._should_throttle_ip_address = oldThrottle
+            self.refresh_connection()
+            manage.refresh_stats_table()
+            self.refresh_connection()
 
     def test_get_similarity(self):
         """
