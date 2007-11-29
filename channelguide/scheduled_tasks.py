@@ -14,6 +14,11 @@ from django.conf import settings
 from channelguide import db, tasks, sessions
 from channelguide.tasks.decorators import run_every_hour, run_every_day
 
+@run_every_hour
+def delete_old_sessions():
+    logging.info('Deleting old sessions')
+    sessions.delete_old_sessions()
+
 @run_every_day
 def remove_empty_tags():
     logging.info('Deleting empty tags')
