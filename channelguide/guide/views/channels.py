@@ -247,7 +247,8 @@ def show(request, id, featured_form=None):
             'notes.user', 'rating')
     if request.user.is_supermoderator():
         query.join('featured_by', 'featured_queue')
-    c = util.get_object_or_404(request.connection, Channel, id)
+    item_query = Item.query(channel_id=id).join('channel').order_by('date', desc=True).limit(4)
+    c = util.get_object_or_404(request.connection, query, id)
     if c.rating is None:
         c.rating = GeneratedRatings()
         c.rating.channel_id = c.id
