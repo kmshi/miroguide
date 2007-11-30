@@ -20,11 +20,13 @@ function getNextElement(elt) {
 }
 
 function showLoadIndicator() {
-    document.getElementById('load-indicator').style.display = 'block';
+    loadIndicator = document.getElementById('load-indicator');
+    if (loadIndicator) {loadIndicator.style.display = 'block';}
 }
 
 function hideLoadIndicator() {
-    document.getElementById('load-indicator').style.display = 'none';
+    loadIndicator = document.getElementById('load-indicator');
+    if (loadIndicator) {loadIndicator.style.display = 'none';}
 }
 
 function makeXMLHttpRequest() {
@@ -95,3 +97,4 @@ function handleFormLink(url) {
     window.location.href = url;
     return false;
 }
+
