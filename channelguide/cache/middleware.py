@@ -70,6 +70,8 @@ class CacheMiddlewareBase(object):
                 'no-cache' not in request.META.get('HTTP_CACHE_CONTROL', ''))
 
     def process_request(self, request):
+        if settings.DISABLE_CACHE:
+            return
         if not self.can_cache_request(request):
             return None
 #        lastModified = request.META.get('HTTP_IF_MODIFIED_SINCE')
@@ -84,7 +86,7 @@ class CacheMiddlewareBase(object):
 #            request._cache_hit = True
 #            return HttpResponseNotModified()
         cached_object = client.get(key)
-        if cached_object is None or settings.DISABLE_CACHE:
+        if cached_object is None:
             return None
         else:
             response = self.response_from_cache_object(request, cached_object)
@@ -94,8 +96,9 @@ class CacheMiddlewareBase(object):
     def process_response(self, request, response):
         if 'Cache-Control' not in response.headers:
             response.headers['Cache-Control'] = 'max-age=0'
-        if (request.method == 'GET' and response.status_code == 200 and 
-                not hasattr(request, '_cache_hit')):
+        if (request.method == 'GET' and response.status_code == 200 and
+                not hasattr(request, '_cache_hit') and
+                not settings.DISABLE_CACHE):
             key = self.get_cache_key(request)
             client.set(key,
                     self.response_to_cache_object(request, response),

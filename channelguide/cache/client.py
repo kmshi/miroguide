@@ -41,7 +41,7 @@ def get(key):
 
 def get_multi(keys):
     if memcache_client is None:
-        return
+        return {}
     memcache_client_lock.acquire()
     try:
         return memcache_client.get_multi(keys,
