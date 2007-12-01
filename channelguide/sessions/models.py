@@ -62,4 +62,7 @@ class Session(Record):
             super(Session, self).delete(connection)
             client.delete(self._cache_key(self.session_key))
 
-    delete_if_exists = delete
+    def delete_if_exists(self, connection):
+        super(Session, self).delete_if_exists(connection)
+        if self.session_key is not None:
+            client.delete(self._cache_key(self.session_key))
