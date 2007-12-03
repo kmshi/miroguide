@@ -410,7 +410,12 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
             channel.url = self.cleaned_data['url'].url
         if 'owner' in self.fields and self.cleaned_data.get('owner') is not None:
             user = User.query(username=self.cleaned_data['owner']).get(self.connection)
-            channel.owner_id = user.id
+            if channel.owner_id != user.id:
+                tags = channel.get_tags_for_owner(self.connection)
+                for tag in tag:
+                    channel.delete_tag(self.connection, channel.owner, tag)
+                channel.owner_id = user.id
+                channel.add_tags(self.connection, user, tags)
         if 'adult' in self.fields and self.cleaned_data.get('adult', None) is not None:
             channel.adult = self.cleaned_data.pop('adult')
         super(EditChannelForm, self).update_channel(channel)
