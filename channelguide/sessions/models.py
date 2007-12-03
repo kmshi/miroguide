@@ -29,6 +29,8 @@ class Session(Record):
         self.data = pickle.dumps(dict)
 
     def get_data(self):
+        if not hasattr(self, '_unencoded_data'):
+            self._unencoded_data = None
         if self._unencoded_data is None:
             self._unencoded_data = pickle.loads(self.data.encode('charmap'))
         return self._unencoded_data
