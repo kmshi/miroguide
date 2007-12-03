@@ -451,7 +451,9 @@ WHERE channel_id=%%s AND %s)""" % ignoresWhere
         for attr in ('tags', 'categories', 'secondary_languages'):
             for obj in getattr(self, attr):
                 values.append(obj.name)
-        #values = [util.unicodify(v) for v in values]
+        logging.info(repr(values))
+        values = [util.unicodify(v) for v in values]
+        logging.info(repr(values))
         return u' '.join(values)
 
     def get_missing_image_url(self, width, height):

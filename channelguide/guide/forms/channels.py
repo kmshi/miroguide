@@ -202,8 +202,8 @@ def try_to_download_thumb(url):
 
 class SubmitChannelForm(Form):
     name = WideCharField(max_length=200, label=_("Channel Name"))
-    website_url = WideURLField(label=_('Website URL'))
-    short_description = WideCharField()
+    website_url = WideURLField(label=_('Website URL'), max_length=200)
+    short_description = WideCharField(max_length=200)
     description = WideCharField(widget=forms.Textarea, 
             label=_("Full Description"))
     publisher = WideCharField(max_length=100)
