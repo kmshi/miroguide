@@ -430,7 +430,7 @@ class FeaturedEmailForm(Form):
         Form.__init__(self, request.connection, data)
         self.channel = channel.join('owner').execute(request.connection)
         self.fields['email'].initial = channel.owner.email
-        self.fields['title'].initial = ('%s featued on Miro Guide'
+        self.fields['title'].initial = ('%s featured on Miro Guide'
                 % channel.name)
         if request.user.fname:
             if request.user.lname:
