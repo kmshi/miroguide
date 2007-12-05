@@ -1,6 +1,7 @@
 """Helper classes for the templates"""
 
 from urllib import urlencode
+from django.http import Http404
 from channelguide import util
 from channelguide.guide.models import Channel
 from sqlhelper.sql.expression import Literal
