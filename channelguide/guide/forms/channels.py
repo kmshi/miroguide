@@ -412,7 +412,7 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
             user = User.query(username=self.cleaned_data['owner']).get(self.connection)
             if channel.owner_id != user.id:
                 tags = channel.get_tags_for_owner(self.connection)
-                for tag in tag:
+                for tag in tags:
                     channel.delete_tag(self.connection, channel.owner, tag)
                 channel.owner_id = user.id
                 channel.add_tags(self.connection, user, tags)
