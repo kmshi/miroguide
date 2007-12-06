@@ -8,6 +8,7 @@
     <h1>{% trans "User Info for" %} {{ for_user }}</h1>
 {% endifequal %}
 {% if for_user.has_full_name %}<div class="user-info-name"><h2>Name:</h2> {{ for_user.get_full_name }}</div>{% endif %}
+{% if user.is_supermoderator %}<div class="user-info-email"><h2>E-Mail:</h2> {{ for_user.email }}</div>{% endif %}
 {% if for_user.has_location %}<div class="user-info-location"><h2>Location:</h2> {{ for_user.get_location }}</div>{% endif %}
 {% if for_user.has_im %}<div class="user-info-im"><h2>IM:</h2> {{ for_user.get_im }}</div>{% endif %}
 <div class="user-info-since"><h2>User Since:</h2> {{ for_user.created_at }}</div>
