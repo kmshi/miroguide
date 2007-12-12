@@ -233,8 +233,6 @@ class SubmitChannelForm(Form):
                 'tag with a comma.'))
     hi_def = forms.BooleanField(label=_('High Definition'), 
             help_text=HD_HELP_TEXT, required=False)
-    adult = forms.BooleanField(label=_('Adult Channel?'),
-            help_text=ADULT_HELP_TEXT, required=False)
     postal_code = WideCharField(max_length=15, label=_("Postal Code"),
             required=False)
     thumbnail_file = forms.Field(widget=ChannelThumbnailWidget, 
@@ -334,8 +332,6 @@ class SubmitChannelForm(Form):
         for attr in string_cols:
             setattr(channel, attr, self.cleaned_data[attr].encode('utf-8'))
         channel.hi_def = self.cleaned_data['hi_def']
-        if 'adult' in self.cleaned_data:
-            channel.adult = self.cleaned_data['adult']
         channel.primary_language_id = int(self.cleaned_data['language'])
         channel.save(self.connection)
         self.add_tags(channel)
@@ -366,8 +362,6 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
         self.fields['thumbnail_file'].required = False
         if not request.user.is_supermoderator():
             del self.fields['owner']
-        if not request.user.is_moderator():
-            del self.fields['adult']
         self.set_image_from_channel = False
         self.set_initial_values()
 
@@ -389,8 +383,6 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
         self.fields['language'].initial = self.channel.language.id
         if 'owner' in self.fields and self.channel.owner is not None:
             self.fields['owner'].initial = self.channel.owner.username
-        if 'adult' in self.fields:
-            self.fields['adult'].initial = self.channel.adult
         tags = self.channel.get_tags_for_owner(self.connection)
         tag_names = [tag.name for tag in tags]
         self.fields['tags'].initial = ', '.join(tag_names)
@@ -416,8 +408,6 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
                     channel.delete_tag(self.connection, channel.owner, tag)
                 channel.owner_id = user.id
                 channel.add_tags(self.connection, user, tags)
-        if 'adult' in self.fields and self.cleaned_data.get('adult', None) is not None:
-            channel.adult = self.cleaned_data.pop('adult')
         super(EditChannelForm, self).update_channel(channel)
 
 class FeaturedEmailForm(Form):

@@ -24,16 +24,12 @@ def search_channels(request, terms):
     query = search_mod.search_channels(terms)
     if not request.user.is_moderator():
         query.where(state=Channel.APPROVED)
-    if request.user.adult_ok != True:
-        query.where(adult=0)
     return query
 
 def search_items(request, terms):
     query = search_mod.search_items(terms)
     if not request.user.is_moderator():
         query.where(state=Channel.APPROVED)
-    if request.user.adult_ok != True:
-        query.where(adult=0)
     return query
 
 def more_results_link(query, total_results):
@@ -57,7 +53,7 @@ def search_results(connection, class_, terms, search_attribute='name'):
         query.where(search_column.like('%s%%' % term.encode('utf8')))
     return query.execute(connection)
 
-@cache.aggresively_cache('search', adult_differs=True)
+@cache.aggresively_cache('search')
 def search(request):
     context = {}
     try:
@@ -123,12 +119,12 @@ def do_search_more(request, title, search_func):
         'pager': pager,
         })
 
-@cache.aggresively_cache('search', adult_differs=True)
+@cache.aggresively_cache('search')
 def search_more(request):
     title = _('Channels Matching %s')
     return do_search_more(request, title, search_channels)
 
-@cache.aggresively_cache('search', adult_differs=True)
+@cache.aggresively_cache('search')
 def search_more_items(request):
     title = _('Channels With Videos Matching %s')
     return do_search_more(request, title, search_items)

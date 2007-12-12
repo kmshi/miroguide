@@ -154,25 +154,19 @@ class AggressiveCacheMiddleware(CacheMiddlewareBase):
     This middleware caches pages without regard to the cookies.  When a
     request is about to be processed, if there is a page in the cache, it uses
     that page, but replaces the account bar with a newly generated account
-    bar.  If adult_differs is True, the cache will also differentiate based
-    on the value of the adult_ok flag of the user.
+    bar.
     """
 
     account_bar_start = '<!-- START ACCOUNT BAR -->'
     account_bar_end = '<!-- END ACCOUNT BAR -->'
 
-    def __init__(self, namespace=None, adult_differs=False):
+    def __init__(self, namespace=None):
         CacheMiddlewareBase.__init__(self)
         if namespace:
             self.namespace = namespace
-        self.adult_differs = adult_differs
 
     def get_cache_key_tuple(self, request):
-        key_tuple = CacheMiddlewareBase.get_cache_key_tuple(self, request) + (request.path, request.META['QUERY_STRING'])
-        if self.adult_differs:
-            return key_tuple + (request.user.adult_ok,)
-        else:
-            return key_tuple
+        return CacheMiddlewareBase.get_cache_key_tuple(self, request) + (request.path, request.META['QUERY_STRING'])
 
     def response_from_cache_object(self, request, cached_response):
         t = loader.get_template("guide/account-bar.html")

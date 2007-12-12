@@ -102,10 +102,6 @@ class EditUserForm(PasswordComparingForm):
             label=_("IM Username"))
     im_type = WideCharField(max_length=25, required=False,
             label=_("IM Type"))
-    adult_ok = forms.ChoiceField(label=_('Adult Channels?'), required=False,
-            help_text=_("I am over 18, am not easily offended, and want to see adult channels."),
-            choices=(('ask', 'Ask'), ('yes', 'Yes'), ('no', 'No')))
-    adult_ok.widget.attrs = {'style': 'width: 40pt;'}
 
     password_key = 'change_password'
     password_check_key = 'change_password2'
@@ -120,26 +116,15 @@ class EditUserForm(PasswordComparingForm):
             if name not in ('change_password', 'change_password2'):
                 yield name, field
 
-    def clean_adult_ok(self):
-        val = self.cleaned_data['adult_ok']
-        new_val = {'ask':None, 'yes':True, 'no':False}[val]
-        return new_val
-
     def set_defaults(self):
         for name, field in self.simple_fields():
-            if name is 'adult_ok':
-                field.initial = {None:'ask', True:'yes',
-                        False:'no'}[self.user.adult_ok]
-            else:
-                field.initial = getattr(self.user, name)
+            field.initial = getattr(self.user, name)
 
     def update_user(self):
         for name, field in self.simple_fields():
             if self.cleaned_data.get(name) is not None:
                 value = self.cleaned_data[name]
                 setattr(self.user, name, self.cleaned_data[name])
-        if self.cleaned_data.has_key('adult_ok'):
-            setattr(self.user, 'adult_ok', self.cleaned_data['adult_ok'])
         if self.cleaned_data.get('change_password'):
             self.user.set_password(self.cleaned_data['change_password'])
         self.user.save(self.connection)

@@ -67,8 +67,6 @@ class Channel(Record, Thumbnailable):
     def query(cls, *args, **kwargs):
         if 'user' in kwargs:
             user = kwargs.pop('user')
-            if user.adult_ok != True:
-                kwargs['adult'] = 0
         return super(Channel, cls).query(*args, **kwargs)
 
     @classmethod

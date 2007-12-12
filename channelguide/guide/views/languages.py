@@ -25,7 +25,7 @@ def secondary_language_exists_where(language_id):
     select.wheres.append('language_id=%s', language_id)
     return select.exists()
 
-@cache.aggresively_cache(adult_differs=True)
+@cache.aggresively_cache
 def view(request, id):
     language = Language.get(request.connection, id)
     order_select = templateutil.OrderBySelect(request)

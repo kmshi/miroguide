@@ -20,10 +20,7 @@
             </div>
             {% else %}
             <div class="right">
-                {% ifequal user.adult_ok None %}{% else %}
-                    <a {% link "categories/Adult?adult_ok=reset" "adult-toggle" %}>Reset Adult Filtering</a>
-                {% endifequal %}</a>
-                <a {% link "accounts/login" %}>{% trans "Login / Register" %}</a>
+               <a {% link "accounts/login" %}>{% trans "Login / Register" %}</a>
             </div>
             <div class="left">
                 <a {% link "channels/submit" %}>{% trans "Submit A Channel" %}</a>

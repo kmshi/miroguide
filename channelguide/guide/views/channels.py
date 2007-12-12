@@ -9,7 +9,7 @@ from channelguide.cache import client
 from channelguide.cache.middleware import AggressiveCacheMiddleware
 from channelguide.guide import forms, templateutil, tables
 from channelguide.guide.auth import (admin_required, moderator_required,
-        login_required, check_adult)
+        login_required)
 from channelguide.guide.exceptions import AuthError
 from channelguide.guide.models import (Channel, Item, User, FeaturedEmail,
         ModeratorAction, ChannelNote, Rating, Tag, Category, Language,
@@ -112,11 +112,6 @@ def submit_channel(request):
     return util.render_to_response(request, 'submit-channel.html', context)
 
 def channel(request, id):
-    c = util.get_object_or_404(request.connection, Channel, id)
-    if c.adult:
-        ca = check_adult(request)
-        if ca is not None:
-            return ca
     if request.method == 'GET':
         return show(request, id)
     else:
@@ -125,9 +120,6 @@ def channel(request, id):
         if action == 'toggle-moderator-share':
             request.user.check_is_moderator()
             channel.toggle_moderator_share(request.user)
-        elif action == 'toggle-adult':
-            request.user.check_is_moderator()
-            channel.adult = not channel.adult
         elif action == 'feature':
             request.user.check_is_supermoderator()
             FeaturedQueue.feature_channel(channel, request.user,
@@ -201,7 +193,7 @@ class ShowChannelCacheMiddleware(AggressiveCacheMiddleware):
     end = '<!-- END RATING BAR -->'
 
     def __init__(self):
-        AggressiveCacheMiddleware.__init__(self, None, adult_differs=True)
+        AggressiveCacheMiddleware.__init__(self, None)
 
     def response_from_cache_object(self, request, cache_object):
         id = request.path.split('/')[-1]
@@ -435,7 +427,7 @@ class PopularWindowSelect(templateutil.ViewSelect):
         else:
             return _("All-Time")
 
-@cache.aggresively_cache(adult_differs=True)
+@cache.aggresively_cache
 def popular_view(request):
     timespan = request.GET.get('view', 'today')
     if timespan == 'today':
@@ -477,14 +469,14 @@ def make_simple_list(request, query, header, order_by=None):
         'pager': pager,
     })
 
-@cache.aggresively_cache(adult_differs=True)
+@cache.aggresively_cache
 def by_name(request):
     query = Channel.query_approved()
     return make_simple_list(request, query, _("Channels By Name"),
             Channel.c.name)
 
 
-@cache.aggresively_cache(adult_differs=True)
+@cache.aggresively_cache
 def hd(request):
     query = Channel.query_approved(hi_def=1, user=request.user)
     templateutil.order_channels_using_request(query, request)
@@ -495,7 +487,7 @@ def hd(request):
         'order_select': templateutil.OrderBySelect(request),
     })
 
-@cache.aggresively_cache(adult_differs=True)
+@cache.aggresively_cache
 def features(request):
     query = Channel.query(user=request.user).join('featured_queue')
     j = query.joins['featured_queue']
@@ -546,7 +538,7 @@ def group_channels_by_date(channels):
         retval.append({'date': current_date, 'channels': channels_in_date})
     return retval
 
-@cache.aggresively_cache(adult_differs=True)
+@cache.aggresively_cache
 def recent(request):
     query = Channel.query_new(user=request.user)
     pager =  templateutil.Pager(8, query, request)

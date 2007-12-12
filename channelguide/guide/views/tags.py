@@ -13,7 +13,7 @@ def index(request):
         'pager': pager,
     })
 
-@cache.aggresively_cache(adult_differs=True)
+@cache.aggresively_cache
 def tag(request, id):
     tag = util.get_object_or_404(request.connection, Tag, id)
     query = Channel.query_approved(user=request.user).join('tags')

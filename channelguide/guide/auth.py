@@ -2,8 +2,6 @@ from channelguide import util
 from models.user import AnonymousUser
 
 SESSION_KEY = 'user'
-ADULT_COOKIE_NAME = 'adult_ok'
-ADULT_COOKIE_AGE = 60*60*24*365 # 1 year
 
 def login(request, user):
     """Try to log a user in."""
@@ -44,87 +42,3 @@ login_required = user_passes_test(lambda u: u.is_authenticated())
 admin_required = user_passes_test(lambda u: u.is_admin())
 supermoderator_required = user_passes_test(lambda u: u.is_supermoderator())
 moderator_required = user_passes_test(lambda u: u.is_moderator())
-
-def set_adult(request, response, adult_ok):
-    if adult_ok == 'no':
-        if request.user.is_authenticated():
-            request.user.adult_ok = False
-            request.user.save(request.connection)
-        else:
-            util.set_cookie(response, ADULT_COOKIE_NAME,
-                'no', ADULT_COOKIE_AGE)
-    elif adult_ok == 'yes':
-        if request.user.is_authenticated():
-            request.user.adult_ok = True
-            request.user.save(request.connection)
-        else:
-            util.set_cookie(response, ADULT_COOKIE_NAME,
-                'yes', ADULT_COOKIE_AGE)
-    else:
-        if request.user.is_authenticated():
-            request.user.adult_ok = None
-            request.user.save(request.connection)
-        else:
-            response.delete_cookie(ADULT_COOKIE_NAME)
-
-def check_adult(request, boolean=False):
-    """
-    If boolean is True, return True if the user wants adult videos,
-    False if they do not, otherwise None.
-    If boolean is False, display the adult warning page appropriately.
-    """
-    if boolean or request.REQUEST.get('adult_ok', None) is None:
-        if request.user.is_authenticated():
-            adult_ok = {True: 'yes', False: 'no', None: None}[
-                request.user.adult_ok]
-        else:
-            adult_ok = request.COOKIES.get(ADULT_COOKIE_NAME, None)
-        if boolean:
-            return {'yes':True, 'no':False}.get(adult_ok, None)
-        if adult_ok == 'yes':
-            return
-    if request.method == 'GET' and request.GET.get('adult_ok', None) is None:
-        if adult_ok is None:
-            return util.render_to_response(request, 'adult-warning.html')
-        elif adult_ok == 'no':
-            url = request.META.get('HTTP_REFERER', '/')
-            if url.endswith(request.path):
-                url = '/'
-            return util.render_to_response(request, 'adult-denied.html',
-                    { 'redirect_url': url })
-    else:
-        adult_ok = request.REQUEST.get('adult_ok')
-        if adult_ok == 'no':
-            url = request.META.get('HTTP_REFERER', '/')
-            if url.endswith(request.path):
-                url = '/'
-            response = util.redirect(url)
-            set_adult(request, response, 'no')
-        elif adult_ok in ('yes', 'reset'):
-            if request.method == 'GET':
-                path = request.META.get('HTTP_REFERER', request.path)
-            else:
-                path = request.path
-            response = util.redirect(path)
-            set_adult(request, response, adult_ok)
-        else:
-            response = util.redirect(request.path)
-        return response
-
-def adult_required(view_func):
-    """
-    Decorator which checks if the user has agreed to see adult channels.
-    If they haven't, then they're sent to a warning page.  If they've
-    said they don't want to see adult channels, they're redirected back to
-    where they came from.
-    """
-    def _checkadult(request, *args, **kw):
-        ca = check_adult(request)
-        if ca is not None:
-            return ca
-        else:
-            return view_func(request, *args, **kw)
-    _checkadult.__doc__ = view_func.__doc__
-    _checkadult.__dict__ = view_func.__dict__
-    return _checkadult
-

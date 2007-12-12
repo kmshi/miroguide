@@ -11,9 +11,6 @@ from sqlhelper.orm.query import ResultHandler
 
 class FrontpageCacheMiddleware(AggressiveCacheMiddleware):
 
-    def __init__(self):
-        AggressiveCacheMiddleware.__init__(self, adult_differs=True)
-
     def get_cache_key_tuple(self, request):
         return (AggressiveCacheMiddleware.get_cache_key_tuple(self, request) +
                 (request.user.is_authenticated(),))
@@ -47,11 +44,7 @@ def get_new_posts(connection, count):
     return query.limit(count).execute(connection)
 
 def get_categories(connection):
-    rows = list(Category.query().order_by('name').execute(connection))
-    adult_category = Category('Adult')
-    rows.append(adult_category)
-    rows.sort(key=operator.attrgetter('name'))
-    return rows
+    return Category.query().order_by('name').execute(connection)
 
 def get_category_channels(request, category):
     query = Channel.query_approved(user=request.user).join("categories")
@@ -129,7 +122,7 @@ def index(request):
         'category_peek': make_category_peek(request),
     })
 
-@cache.aggresively_cache(adult_differs=True)
+@cache.aggresively_cache
 def category_peek_fragment(request):
     return util.render_to_response(request, 'category-peek.html', {
         'category_peek': make_category_peek(request),

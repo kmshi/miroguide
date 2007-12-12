@@ -2,7 +2,7 @@ from django.conf import settings
 
 from channelguide import util, cache
 from channelguide.guide import templateutil
-from channelguide.guide.auth import admin_required, adult_required
+from channelguide.guide.auth import admin_required
 from channelguide.guide.models import Category, Channel
 
 @cache.aggresively_cache
@@ -12,16 +12,12 @@ def index(request):
     query.cacheable = cache.client
     query.cacheable_time = 3600
     rows = list(query.execute(request.connection))
-    adult_count = Channel.query_approved().where(Channel.c.adult==True).count(request.connection)
-    adult_category = Category('Adult')
-    adult_category.channel_count = adult_count
-    rows.append(adult_category)
     return util.render_to_response(request, 'group-list.html', {
         'group_name': _('Categories'),
         'groups': rows,
     })
 
-@cache.aggresively_cache(adult_differs=True)
+@cache.aggresively_cache
 def category(request, name):
     category = util.get_object_or_404_by_name(request.connection, Category,
             name)
@@ -31,18 +27,6 @@ def category(request, name):
     pager =  templateutil.Pager(8, query, request)
     return util.render_to_response(request, 'two-column-list.html', {
         'header': category.name,
-        'pager': pager,
-        'order_select': templateutil.OrderBySelect(request),
-    })
-
-@adult_required
-@cache.aggresively_cache
-def adult_category(request):
-    query = Channel.query_approved().where(Channel.c.adult==True)
-    templateutil.order_channels_using_request(query, request)
-    pager = templateutil.Pager(8, query, request)
-    return util.render_to_response(request, 'two-column-list.html', {
-        'header': _('Adult'),
         'pager': pager,
         'order_select': templateutil.OrderBySelect(request),
     })
