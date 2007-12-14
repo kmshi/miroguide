@@ -24,8 +24,7 @@ jQuery.fn.rating = function(){
         var div = jQuery("<div/>").attr({
             title: this.title,
             className: this.className
-        }).insertAfter( this );
-
+        });
         jQuery(this).find("select option").each(function(){
             div.append( this.value == "0" ?
                 "<div class='cancel'><a href='#0' title='No Opinion/Not Interested'>No Opinion/Not Interested</a></div>" :
@@ -57,6 +56,8 @@ jQuery.fn.rating = function(){
             .click(click);
 
         reset();
+
+        div.insertAfter(this);
 
         function drainFill(){ drain(); fill(this); }
         function drainReset(){ drain(); reset(); }
@@ -113,6 +114,8 @@ if ( jQuery.browser.msie == true )
     document.execCommand('BackgroundImageCache', false, true);
 
 $(document).ready(function () {
-    $("form.rating").rating('', {maxvalue:5});
+    try {
+        $("form.rating").rating('', {maxvalue:5});
+    } catch (e) {}
     $('.rating').height(25);
     });
