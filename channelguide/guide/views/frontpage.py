@@ -109,6 +109,7 @@ def make_category_peek(request):
 @cache.cache_page_externally_for(300)
 @decorator_from_middleware(FrontpageCacheMiddleware)
 def index(request):
+    request.add_notification('I &hearts; Miro', 'Do you use Firefox? <a href="http://www.iheartmiro.org/">Here\'s the easiest way to help Miro ever.</a>')
     if not request.user.is_authenticated():
         request.add_notification('Rate', 'Now you can rate channels in Miro Guide &mdash; it only takes 15 seconds to <a href="/accounts/login">get started</a>.<img src="%simages/small-star.png" />' % settings.STATIC_BASE_URL)
     featured_channels = get_featured_channels(request)
