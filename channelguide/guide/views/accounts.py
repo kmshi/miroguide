@@ -72,8 +72,14 @@ def login_view(request):
         login(request, login_form.get_user())
         return util.redirect(next)
     elif register_form.is_valid():
-        login(request, register_form.make_user())
-        return util.redirect(next)
+        try:
+            user = register_form.make_user()
+        except Exception:
+            # check again, it's probably a duplicate user
+            register_form.full_clean()
+        else:
+            login(request, user)
+            return util.redirect(next)
     return util.render_to_response(request, 'login.html', { 
         'next' : next,
         'login_form': login_form,
