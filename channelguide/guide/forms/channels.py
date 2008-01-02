@@ -6,6 +6,7 @@ import logging
 import os
 import tempfile
 import urllib2
+import socket # for socket.error
 
 from django.conf import settings
 from django.newforms.forms import BoundField
@@ -197,7 +198,7 @@ class ChannelThumbnailWidget(forms.Widget):
 def try_to_download_thumb(url):
     try:
         return urllib2.urlopen(url).read()
-    except urllib2.URLError, ValueError:
+    except urllib2.URLError, ValueError, socket.error:
         return None
 
 class SubmitChannelForm(Form):
