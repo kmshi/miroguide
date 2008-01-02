@@ -69,8 +69,12 @@ class NotificationMiddleware(object):
     <div id="notification-bar-inner">
         <ul>"""
             for (title, line) in request.notifications:
-                notification_bar += """
+                if title is not None:
+                    notification_bar += """
             <li><strong>%s:</strong> %s</li>""" % (title, line)
+                else:
+                    notification_bar += """
+            <li>%s</li>""" % line
             notification_bar += """
         </ul>
     </div>
