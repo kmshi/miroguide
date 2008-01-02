@@ -112,7 +112,7 @@ class User(UserBase, Record):
     def channel_url(self):
         return "channels/user/%d" % self.id
 
-    def __str__(self):
+    def __unicode__(self):
         return self.username
 
     def __repr__(self):
