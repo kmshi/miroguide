@@ -26,13 +26,16 @@ class Session(Record):
 
     def set_data(self, dict):
         self._unencoded_data = dict
-        self.data = pickle.dumps(dict)
+        self.data = pickle.dumps(dict).decode('charmap')
 
     def get_data(self):
         if not hasattr(self, '_unencoded_data'):
             self._unencoded_data = None
         if self._unencoded_data is None:
-            self._unencoded_data = pickle.loads(self.data.encode('charmap'))
+            if self.data:
+                self._unencoded_data = pickle.loads(self.data.encode('charmap'))
+            else:
+                self._unencoded_data = {}
         return self._unencoded_data
 
     def update_expire_date(self):
