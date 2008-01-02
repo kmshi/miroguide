@@ -19,7 +19,7 @@ class AccountTest(TestCase):
         """
         Return a dictionary of data used to register a new user.
         """
-        return {'newusername': 'mike', 'email': 'mike@mike.com',
+        return {'newusername': u'mike\xf6', 'email': 'mike@mike.com',
                 'newpassword': u'password\xdf\xdf',
                 'newpassword2': u'password\xdf\xdf',
                 'which-form': 'register' }
@@ -31,7 +31,7 @@ class AccountTest(TestCase):
         response = self.post_data("/accounts/login", self.register_data())
         self.assertRedirect(response, '')
         response = self.get_page('/')
-        self.assertEquals(response.context[0]['user'].username, 'mike')
+        self.assertEquals(response.context[0]['user'].username, u'mike\xf6')
         self.assertEquals(response.context[0]['user'].email, 'mike@mike.com')
         self.assert_(response.context[0]['user'].check_password(
             u'password\xdf\xdf'))
