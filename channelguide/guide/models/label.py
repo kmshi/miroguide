@@ -16,8 +16,11 @@ class Label(Record):
     def link(self):
         return util.make_link(self.get_url(), self.name)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
+
+    def __len__(self):
+        return len(self.name)
 
     def __repr__(self):
         return '%s(%r)' % (self.__class__.__name__, self.name)

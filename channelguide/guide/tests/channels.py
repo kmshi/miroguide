@@ -920,6 +920,16 @@ class EditChannelTest(ChannelTestBase):
         self.connection.commit()
         updated = self.refresh_record(self.channel, 'tags')
 
+    def test_owner(self):
+        admin = self.make_user('admin', role='A')
+        self.login(admin)
+        data = self.get_default_values()
+        data['owner'] = 'admin'
+        self.post_to_edit_page(data)
+        self.refresh_connection()
+        updated = self.refresh_record(self.channel)
+        self.assertEquals(updated.owner_id, admin.id)
+
     def test_change_url(self):
         self.login(self.ralph)
         data = self.get_default_values()

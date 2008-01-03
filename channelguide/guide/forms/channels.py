@@ -402,7 +402,8 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
         if self.cleaned_data['url'] is not None:
             channel.url = self.cleaned_data['url'].url
         if 'owner' in self.fields and self.cleaned_data.get('owner') is not None:
-            user = User.query(username=self.cleaned_data['owner']).get(self.connection)
+            user = User.query(username=self.cleaned_data['owner'].username
+                    ).get(self.connection)
             if channel.owner_id != user.id:
                 tags = channel.get_tags_for_owner(self.connection)
                 for tag in tags:
