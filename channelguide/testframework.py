@@ -211,7 +211,7 @@ class TestCase(unittest.TestCase):
         return channel
 
     def login(self, username, password='password'):
-        data = {'username': username, 'password': password,
+        data = {'username': unicode(username), 'password': password,
                 'which-form': 'login' }
         return self.client.post('/accounts/login', data)
 
