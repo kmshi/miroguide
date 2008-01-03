@@ -148,7 +148,6 @@ class ProfileMiddleware(object):
             if request.has_key('cumulative'):
                 stats.sort_stats('cumulative', 'calls')
             else:
-    
                 stats.sort_stats('time', 'calls')
             if request.has_key('all'):
                 stats.print_stats()
