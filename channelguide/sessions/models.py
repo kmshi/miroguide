@@ -47,10 +47,12 @@ class Session(Record):
         return 'Session:' + session_key.encode('utf-8')
 
     @classmethod
-    def get(cls, connection, session_key):
+    def get(cls, connection, session_key, **kw):
+        if isinstance(session_key, (list, tuple)):
+            session_key = session_key[0]
         obj = client.get(cls._cache_key(session_key))
         if obj is None:
-            obj = super(Session, cls).get(connection, session_key)
+            obj = super(Session, cls).get(connection, session_key, **kw)
             obj._unencoded_data = None
             obj.save(None)
         return obj

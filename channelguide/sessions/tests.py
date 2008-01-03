@@ -50,9 +50,11 @@ class SessionTest(TestCase):
         session_key = response.cookies[settings.SESSION_COOKIE_NAME].value
         self.connection.commit()
         session = Session.get(self.connection, session_key)
+        # remove the non-pickled data, so that it has to be loaded
+        del session._unencoded_data
         session.data = 'BOOYA---12312b'
         session.save(self.connection)
-        self.connection.commit()
+        self.refresh_connection()
         self.pause_logging()
         request = self.process_request(cookies_from=response.cookies)
         self.check_logging(warnings=1)
