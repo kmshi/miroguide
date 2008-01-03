@@ -15,6 +15,7 @@ import subprocess
 import sys
 import textwrap
 import threading
+import socket # for socket.error
 
 from django.template import loader
 from django.template.context import RequestContext
@@ -171,7 +172,10 @@ def send_mail(title, body, recipient_list, email_from=None, break_lines=True):
     if email_from is None:
         email_from = settings.EMAIL_FROM
     for email_to in ensure_list(recipient_list):
-        email_func(title, body, email_from, [email_to])
+        try:
+            email_func(title, body, email_from, [email_to])
+        except socket.error:
+            pass
 
 class URLGrabber(threading.Thread):
     def __init__(self, in_queue, out_queue):
