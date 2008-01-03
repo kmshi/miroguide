@@ -5,7 +5,7 @@ def cg_include(module):
 
 urlpatterns = patterns('channelguide.guide.views',
     (r'^$', 'frontpage.index'),
-    (r'firsttime$', 'firsttime.index'),
+    (r'^firsttime$', 'firsttime.index'),
     (r'^category-peek-fragment$', 'frontpage.category_peek_fragment'),
     (r'^moderate$', 'moderator.index'),
     (r'^how-to-moderate$', 'moderator.how_to_moderate'),
@@ -19,6 +19,16 @@ urlpatterns = patterns('channelguide.guide.views',
     (r'^moderate/', cg_include('moderate')),
     (r'^notes/', cg_include('notes')),
     (r'^tags/', cg_include('tags')),
+)
+
+from channelguide.guide import feeds
+
+urlpatterns = urlpatterns + patterns('',
+    (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed',
+        {'feed_dict':
+            {   'new': feeds.NewChannelsFeed,
+                'categories': feeds.CategoriesFeed}
+        }),
 )
 
 handler500 = 'channelguide.guide.views.errors.error_500'
