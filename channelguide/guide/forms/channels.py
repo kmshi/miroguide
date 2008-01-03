@@ -198,7 +198,7 @@ class ChannelThumbnailWidget(forms.Widget):
 def try_to_download_thumb(url):
     try:
         return urllib2.urlopen(url).read()
-    except urllib2.URLError, ValueError, socket.error:
+    except (urllib2.URLError, ValueError, socket.error):
         return None
 
 class SubmitChannelForm(Form):
