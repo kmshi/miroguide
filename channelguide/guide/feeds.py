@@ -3,9 +3,20 @@ init.init_external_libraries()
 from channelguide import db, util
 from channelguide.guide.models import Channel, Category
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.syndication.feeds import Feed
+from django.contrib.syndication import feeds
 
-class ChannelsFeed(Feed):
+def https_add_domain(domain, url):
+    """
+    The built-in add_domain doesn't support https:// URLs, so we fake it.
+    """
+    if url.startswith('https://'):
+        return url
+    return _old_add_domain(domain, url)
+
+_old_add_domain = feeds.add_domain
+feeds.add_domain = https_add_domain
+
+class ChannelsFeed(feeds.Feed):
     title_template = "feeds/channel_title.html"
     description_template = "feeds/channel_description.html"
 
