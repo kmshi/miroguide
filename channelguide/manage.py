@@ -296,9 +296,8 @@ def optimize_templates(args):
     dest_dir = settings.OPTIMIZED_TEMPLATE_DIR
     if os.path.exists(dest_dir):
         shutil.rmtree(dest_dir)
-    optimize_template_dir(source_dir, dest_dir)
-    optimize_template_dir(os.path.join(source_dir, 'guide'),
-            os.path.join(dest_dir, 'guide'))
+    for path in ('', '/guide', '/feeds'):
+        optimize_template_dir(source_dir+path, dest_dir+path)
 optimize_templates.args = ''
 
 def remove_empty_tags(args=None):
