@@ -15,24 +15,24 @@ class NewChannelsFeed(ChannelsFeed):
     description = "The newest channels on the Miro Guide."
 
     def items(self):
-        connection = db.connect()
+        import logging
+        logging.info(self.title_template_name)
+        logging.info(self.description_template_name)
         query = Channel.query_new().limit(10)
-        items = query.execute(connection)
-        connection.close()
+        items = query.execute(self.request.connection)
+        logging.info(repr(items))
         return items
 
 class CategoriesFeed(ChannelsFeed):
 
     def get_object(self, bits):
-        connection = db.connect()
         if len(bits) != 1:
             raise ObjectDoesNotExist
-        print 'getting object for', bits
         try:
-            obj = util.get_object_or_404_by_name(connection, Category, bits[0])
+            obj = util.get_object_or_404_by_name(self.request.connection,
+                    Category, bits[0])
         except Exception:
             raise ObjectDoesNotExist
-        connection.close()
         return obj
 
     def title(self, obj):
@@ -42,15 +42,11 @@ class CategoriesFeed(ChannelsFeed):
         return obj.get_url()
 
     def description(self, obj):
-        return 'The newest %u channels in the Miro Guide' % obj.name.encode('utf8')
+        return 'The newest %s channels in the Miro Guide' % obj.name.encode('utf8')
 
     def items(self, obj):
-        connection = db.connect()
         query = Channel.query_new().join('categories').limit(10)
         query.joins['categories'].where(id=obj.id)
-        items = query.execute(connection)
-        for item in items:
-            print repr(item.name), repr(item.description)
-        connection.close()
+        items = query.execute(self.request.connection)
         return items
 
