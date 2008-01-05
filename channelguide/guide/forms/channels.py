@@ -76,7 +76,7 @@ class FeedURLForm(Form):
         def try_to_get(feed_key):
             try:
                 return to_utf8(parsed['feed'][feed_key])
-            except KeyError:
+            except (KeyError, TypeError):
                 return None
         data['name'] = try_to_get('title')
         data['website_url'] = try_to_get('link')
