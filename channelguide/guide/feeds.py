@@ -1,7 +1,7 @@
 from channelguide import init
 init.init_external_libraries()
 from channelguide import db, util
-from channelguide.guide.models import Channel, Category
+from channelguide.guide.models import Channel, Category, FeaturedQueue
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.syndication import feeds
 
@@ -32,6 +32,18 @@ class ChannelsFeed(feeds.Feed):
     def item_enclosure_mime_type(self, item):
         if item.items:
             return item.items[0].mime_type
+
+class FeaturedChannelsFeed(ChannelsFeed):
+    title = "Featured Channels"
+    link = "/channels/features"
+    description = "Featured channels on the Miro Guide."
+
+    def items(self):
+        query = Channel.query().join('featured_queue')
+        j = query.joins['featured_queue']
+        j.where(j.c.state==1)
+        query.order_by(j.c.state).order_by(j.c.featured_at, desc=True)
+        return query.execute(self.request.connection)
 
 class NewChannelsFeed(ChannelsFeed):
     title = 'Newest Channels'

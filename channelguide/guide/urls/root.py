@@ -27,6 +27,7 @@ urlpatterns = urlpatterns + patterns('',
     (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed',
         {'feed_dict':
             {   'new': feeds.NewChannelsFeed,
+                'features': feeds.FeaturedChannelsFeed,
                 'categories': feeds.CategoriesFeed}
         }),
 )
