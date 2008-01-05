@@ -20,19 +20,27 @@ class ChannelsFeed(feeds.Feed):
     title_template = "feeds/channel_title.html"
     description_template = "feeds/channel_description.html"
 
+    def item_enclosure_url(self, item):
+        item.join('items').execute(self.request.connection)
+        if item.items:
+            return item.items[0].url
+
+    def item_enclosure_length(self, item):
+        if item.items:
+            return item.items[0].size
+
+    def item_enclosure_mime_type(self, item):
+        if item.items:
+            return item.items[0].mime_type
+
 class NewChannelsFeed(ChannelsFeed):
     title = 'Newest Channels'
     link = "/channels/recent"
     description = "The newest channels on the Miro Guide."
 
     def items(self):
-        import logging
-        logging.info(self.title_template_name)
-        logging.info(self.description_template_name)
         query = Channel.query_new().limit(10)
-        items = query.execute(self.request.connection)
-        logging.info(repr(items))
-        return items
+        return query.execute(self.request.connection)
 
 class CategoriesFeed(ChannelsFeed):
 
@@ -58,6 +66,4 @@ class CategoriesFeed(ChannelsFeed):
     def items(self, obj):
         query = Channel.query_new().join('categories').limit(10)
         query.joins['categories'].where(id=obj.id)
-        items = query.execute(self.request.connection)
-        return items
-
+        return query.execute(self.request.connection)
