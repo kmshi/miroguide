@@ -1,13 +1,19 @@
 {% load i18n channels  cg_helpers %}
 {% extends 'base.html' %}
-{% block title %}{{ cobrand.long_title }}{%endblock %}
+{% block head-extra %}<link rel="StyleSheet" type="text/css" href="{{ STATIC_BASE_URL }}css/cobranding.css?nonce={{ style_nonce }}">{% endblock %}
+{% block title %}{{ cobrand.html_title }}{%endblock %}
 {% block content %}
 <div class="channel-list-page cobranding">
     <h1>
-        {{ cobrand.long_title }}
+        {{ cobrand.page_title }}
     </h1>
+    {% if cobrand.icon_url %}
+    <div class="icon">
+        <img src="{{ cobrand.icon_url }}" alt="Icon for {{ cobrand.page_title }}">
+    </div>
+    {% endif %}
     <div class="description">{{ cobrand.description }}</div>
-    <div class="cobranding-info">
+    <div class="info">
         <ul>
             <li>Website: <a href="{{ cobrand.url }}">{{ cobrand.url }}</a></li>
             {% if cobrand.link1_text %}
@@ -22,7 +28,7 @@
         </ul>
     </div>
     <div class="clear"></div>
-    <h2>{% blocktrans with cobrand.short_title as title %}All {{ title }} Channels{% endblocktrans %}</h2>
+    <h2>{% blocktrans with cobrand.page_title as title %}All {{ title }} Channels{% endblocktrans %}</h2>
     <div class="channel-list">
       {% twocolumnloop with channel in pager.items %}
           {% show_channel_in_list channel %}

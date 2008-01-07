@@ -5,9 +5,11 @@ from channelguide.guide.models import Cobranding
 from form import Form
 
 class CobrandingAdminForm(Form):
-    long_title = forms.CharField(max_length=100, label=_("In-Guide Title"))
-    short_title = forms.CharField(max_length=30, label=_("Sidebar Title"))
-    url = forms.CharField(max_length=100, label=_("URL"))
+    html_title = forms.CharField(max_length=100, label=_("Title in Miro App"))
+    page_title = forms.CharField(max_length=30, label=_("Page Title"))
+    url = forms.CharField(max_length=100, label=_("Website URL"))
+    icon_url = forms.CharField(max_length=100, label=_("Icon URL"),
+            help_text=_("Icon should be [X by Y] pixels."))
     description = forms.CharField(widget=forms.Textarea, label=_("Description"))
     link1_url = forms.CharField(required=False, max_length=100,
             label=_("Link 1 URL"), help_text=_("Or leave this blank to have plain text.  All these links are optional."))
@@ -35,6 +37,12 @@ class CobrandingAdminForm(Form):
         for name in ('long_title', 'short_title', 'url', 'description'):
             if self.cleaned_data.get(name) is not None:
                 setattr(self.cobrand, name, self.cleaned_data[name])
+        icon_url = self.cleaned_data.get('icon_url')
+        if icon_url is not None:
+            if icon_url == u'':
+                self.cobrand.icon_url = None
+            else:
+                self.cobrand.icon_url = icon_url
         for i in range(1, 4):
             for suffix in ('url', 'text'):
                 name = 'link%i_%s' % (i, suffix)

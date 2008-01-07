@@ -1,0 +1,16 @@
+.cobranding .icon {
+    float: left;
+}
+
+.cobranding .description {
+    float: left;
+}
+
+.cobranding .info {
+    background: lightGrey;
+    width: 200px;
+    float: right;
+    font-size: 120%;
+    line-height: 170%;
+    padding: 20px;
+}
