@@ -13,7 +13,7 @@ from channelguide.guide.auth import (admin_required, moderator_required,
 from channelguide.guide.exceptions import AuthError
 from channelguide.guide.models import (Channel, Item, User, FeaturedEmail,
         ModeratorAction, ChannelNote, Rating, Tag, Category, Language,
-        FeaturedQueue, GeneratedRatings)
+        FeaturedQueue, GeneratedRatings, Cobranding)
 from channelguide.guide.notes import get_note_info, make_rejection_note
 from sqlhelper.sql.statement import Select
 from sqlhelper.sql.expression import Literal
@@ -555,9 +555,18 @@ def for_user(request, user_id):
     if request.user.id == long(user_id) or request.user.is_admin():
         query.load('subscription_count_today', 'subscription_count_today_rank')
         query.load('subscription_count_month', 'subscription_count_month_rank')
+    if request.user.is_admin() or request.user.id == user_id:
+#        try:
+            cobrand = Cobranding.get(request.connection, user.username)
+#        except:
+#            cobrand = None
+    else:
+        cobrand = None
+    print 'cobrand:', cobrand
     pager =  templateutil.Pager(10, query, request)
     return util.render_to_response(request, 'for-user.html', {
         'for_user': user,
+        'cobrand': cobrand,
         'channels': pager.items,
         'pager': pager,
         })
