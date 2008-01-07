@@ -1,0 +1,33 @@
+{% load i18n channels  cg_helpers %}
+{% extends 'base.html' %}
+{% block title %}{{ cobrand.long_title }}{%endblock %}
+{% block content %}
+<div class="channel-list-page cobranding">
+    <h1>
+        {{ cobrand.long_title }}
+    </h1>
+    <div class="description">{{ cobrand.description }}</div>
+    <div class="cobranding-info">
+        <ul>
+            <li>Website: <a href="{{ cobrand.url }}">{{ cobrand.url }}</a></li>
+            {% if cobrand.link1_text %}
+            <li>{% if cobrand.link1_url %}<a href="{{ cobrand.link1_url }}">{% endif %}{{ cobrand.link1_text }}{% if cobrand.link1_url %}</a>{% endif %}</li>
+            {% endif %}
+            {% if cobrand.link2_text %}
+            <li>{% if cobrand.link2_url %}<a href="{{ cobrand.link2_url }}">{% endif %}{{ cobrand.link2_text }}{% if cobrand.link2_url %}</a>{% endif %}</li>
+            {% endif %}
+            {% if cobrand.link3_text %}
+            <li>{% if cobrand.link3_url %}<a href="{{ cobrand.link3_url }}">{% endif %}{{ cobrand.link3_text }}{% if cobrand.link3_url %}</a>{% endif %}</li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="clear"></div>
+    <h2>{% blocktrans with cobrand.short_title as title %}All {{ title }} Channels{% endblocktrans %}</h2>
+    <div class="channel-list">
+      {% twocolumnloop with channel in pager.items %}
+          {% show_channel_in_list channel %}
+      {% endtwocolumnloop %}
+    </div>
+    {% show_pager pager %}
+</div>
+{% endblock %}

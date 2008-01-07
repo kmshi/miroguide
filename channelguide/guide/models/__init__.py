@@ -8,3 +8,4 @@ from search import ChannelSearchData, ItemSearchData
 from channel import Channel
 from rating import Rating, GeneratedRatings
 from feature import FeaturedQueue
+from cobranding import Cobranding

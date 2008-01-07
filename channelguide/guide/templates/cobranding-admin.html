@@ -1,0 +1,12 @@
+{% load i18n cg_helpers %}
+{% extends 'base.html' %}
+{% block title %}{{ cobrand.long_title }} {% trans "Administration" %}{%endblock %}
+{% block content %}
+<h1>{{ cobrand.long_title }} {% trans "Administration" %}</h1>
+<div class="big-form">
+    <form method="POST" action="{{ request.path }}">
+        {% show_form form %}
+        <input type="submit" class="submit" value="Update Cobrand">
+    </form>
+</div>
+{% endblock %}

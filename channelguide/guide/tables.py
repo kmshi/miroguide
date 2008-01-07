@@ -183,6 +183,18 @@ generated_ratings = Table('cg_channel_generated_ratings',
         columns.Int('average'),
         columns.Int('count'),
         columns.Int('total'))
+cobranding = Table('cg_cobranding',
+        columns.Int('name', fk=user.c.username, primary_key=True),
+        columns.String('long_title', 100),
+        columns.String('short_title', 30),
+        columns.String('url', 100),
+        columns.String('description'),
+        columns.String('link1_url', 100),
+        columns.String('link1_text', 100),
+        columns.String('link2_url', 100),
+        columns.String('link2_text', 100),
+        columns.String('link3_url', 100),
+        columns.String('link3_text', 100))
 # set up count subquery columns.  These are a little more complex than the
 # other columns, so they are separated out
 category.add_subquery_column('channel_count', """\
