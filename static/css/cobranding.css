@@ -1,16 +1,36 @@
-.cobranding .icon {
-    float: left;
+.cobranding > h2 {
+    color: #7a7a7a;
+    font-size: 135%;
+    margin: 25px 0 -8px;
 }
 
-.cobranding .description {
+.cobranding > .icon {
     float: left;
+    background: black;
+    width: 175px;
+    height: 125px;
 }
 
-.cobranding .info {
-    background: lightGrey;
+.cobranding > .description {
+    float: left;
+    width: 300px;
+    margin: 5px;
+}
+
+.cobranding > .info {
+    background: #eee;
     width: 200px;
     float: right;
-    font-size: 120%;
-    line-height: 170%;
-    padding: 20px;
+    line-height: 125%;
+    font-size: 105%;
+    padding: 16px 20px;
+}
+
+.cobranding > .info li {
+    padding: 4px 0;
+}
+
+.cobranding > .info a {
+    color: black;
+    text-decoration: underline;
 }

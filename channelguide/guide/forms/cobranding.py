@@ -5,8 +5,10 @@ from channelguide.guide.models import Cobranding
 from form import Form
 
 class CobrandingAdminForm(Form):
-    html_title = forms.CharField(max_length=100, label=_("Title in Miro App"))
-    page_title = forms.CharField(max_length=30, label=_("Page Title"))
+    html_title = forms.CharField(max_length=100, label=_("Title in Miro App"),
+            help_text=_("This is the title that will appear in the sidebar of Miro."))
+    page_title = forms.CharField(max_length=30, label=_("Page Title"),
+            help_text=_("This is the title that will be displayed at the top of the page."))
     url = forms.CharField(max_length=100, label=_("Website URL"))
     icon_url = forms.CharField(max_length=100, label=_("Icon URL"),
             help_text=_("Icon should be [X by Y] pixels."))
