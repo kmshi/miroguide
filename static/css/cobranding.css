@@ -7,8 +7,13 @@
 .cobranding > .icon {
     float: left;
     background: black;
+    width: 175px;
     height: 125px;
     text-align: center;
+}
+
+.cobranding > .icon img {
+    height: 125px;
 }
 
 .cobranding > .description {
