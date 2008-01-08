@@ -10,3 +10,4 @@ from recommendations import *
 from rating import *
 from search import *
 from feature import *
+from cobranding import *

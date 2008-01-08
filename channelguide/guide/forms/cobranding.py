@@ -11,7 +11,7 @@ class CobrandingAdminForm(Form):
             help_text=_("This is the title that will be displayed at the top of the page."))
     url = forms.CharField(max_length=100, label=_("Website URL"))
     icon_url = forms.CharField(max_length=100, label=_("Icon URL"),
-            help_text=_("Icon should be [X by Y] pixels."))
+            help_text=_("Icon should be 175x125 pixels."))
     description = forms.CharField(widget=forms.Textarea, label=_("Description"))
     link1_url = forms.CharField(required=False, max_length=100,
             label=_("Link 1 URL"), help_text=_("Or leave this blank to have plain text.  All these links are optional."))
