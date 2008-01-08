@@ -7,19 +7,19 @@
 .cobranding > .icon {
     float: left;
     background: black;
-    width: 175px;
     height: 125px;
+    text-align: center;
 }
 
 .cobranding > .description {
     float: left;
     width: 300px;
-    margin: 5px;
+    margin-left: 18px;
 }
 
 .cobranding > .info {
     background: #eee;
-    width: 200px;
+    width: 225px;
     float: right;
     line-height: 125%;
     font-size: 105%;
