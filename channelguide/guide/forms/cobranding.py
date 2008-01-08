@@ -34,7 +34,7 @@ class CobrandingAdminForm(Form):
             field.initial = getattr(self.cobrand, name)
 
     def update_cobrand(self):
-        for name in ('long_title', 'short_title', 'url', 'description'):
+        for name in ('html_title', 'page_title', 'url', 'description'):
             if self.cleaned_data.get(name) is not None:
                 setattr(self.cobrand, name, self.cleaned_data[name])
         icon_url = self.cleaned_data.get('icon_url')
