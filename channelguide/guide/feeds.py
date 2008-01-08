@@ -4,6 +4,7 @@ from channelguide import db, util
 from channelguide.guide.models import Channel, Category, FeaturedQueue
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.syndication import feeds
+from django.http import Http404
 
 def https_add_domain(domain, url):
     """
@@ -70,12 +71,18 @@ class CategoriesFeed(ChannelsFeed):
         return 'Newest Channels in %s' % obj.name.encode('utf8')
 
     def link(self, obj):
+        if obj is None:
+            raise Http404
         return obj.get_url()
 
     def description(self, obj):
+        if obj is None:
+            return ''
         return 'The newest %s channels in the Miro Guide' % obj.name.encode('utf8')
 
     def items(self, obj):
+        if obj is None:
+            return ''
         query = Channel.query_new().join('categories').limit(10)
         query.joins['categories'].where(id=obj.id)
         return query.execute(self.request.connection)
