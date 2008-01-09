@@ -19,6 +19,7 @@ urlpatterns = patterns('channelguide.guide.views',
     (r'^moderate/', cg_include('moderate')),
     (r'^notes/', cg_include('notes')),
     (r'^tags/', cg_include('tags')),
+    (r'^cobranding/', cg_include('cobranding')),
     (r'^watch/', cg_include('cobranding')),
 )
 
