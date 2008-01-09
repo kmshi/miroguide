@@ -6,7 +6,7 @@
 
 .cobranding > .icon {
     float: left;
-    background: black;
+    background: white;
     width: 175px;
     height: 125px;
     text-align: center;
@@ -24,7 +24,7 @@
 
 .cobranding > .info {
     background: #eee;
-    width: 225px;
+    width: 210px;
     float: right;
     line-height: 125%;
     font-size: 105%;
