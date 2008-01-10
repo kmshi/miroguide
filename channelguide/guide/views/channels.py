@@ -556,13 +556,12 @@ def for_user(request, user_id):
         query.load('subscription_count_today', 'subscription_count_today_rank')
         query.load('subscription_count_month', 'subscription_count_month_rank')
     if request.user.is_admin() or request.user.id == user_id:
-#        try:
+        try:
             cobrand = Cobranding.get(request.connection, user.username)
-#        except:
-#            cobrand = None
+        except:
+            cobrand = None
     else:
         cobrand = None
-    print 'cobrand:', cobrand
     pager =  templateutil.Pager(10, query, request)
     return util.render_to_response(request, 'for-user.html', {
         'for_user': user,
