@@ -17,6 +17,8 @@ def name_for_state_code(state):
         return _('Rejected')
     elif state == 'S':
         return _('Suspended')
+    elif state == 'U':
+        return _('Audio')
     else:
         return _('Unknown')
 

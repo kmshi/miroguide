@@ -137,6 +137,8 @@ def channel(request, id):
                 newstate = Channel.DONT_KNOW
             elif submit_value == 'Unapprove':
                 newstate = Channel.NEW
+            elif submit_value == 'Audio':
+                newstate = Channel.AUDIO
             else:
                 newstate = None
             if newstate is not None:

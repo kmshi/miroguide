@@ -30,6 +30,7 @@ class Channel(Record, Thumbnailable):
     DONT_KNOW = 'D'
     REJECTED = 'R'
     APPROVED = 'A'
+    AUDIO = 'U'
     BROKEN = 'B'
     SUSPENDED ='S'
 

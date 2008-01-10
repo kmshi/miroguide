@@ -30,7 +30,8 @@ def cobranding(request, cobrand_name):
     except:
         raise Http404
     user = User.query(User.c.username==cobrand_name).join('channels').execute(request.connection)[0]
-    query = Channel.query_approved().where(Channel.c.owner_id==user.id)
+    query = Channel.query().where(Channel.c.owner_id==user.id)
+    query.where(Channel.c.state.in_((Channel.APPROVED, Channel.AUDIO)))
     pager = templateutil.Pager(6, query, request)
     return util.render_to_response(request, 'cobranding.html', {
         'cobrand': cobrand,
