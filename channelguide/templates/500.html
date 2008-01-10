@@ -4,10 +4,10 @@
 {% block content %}
 <div class="error-500">
 <h1>{% blocktrans %} Server Error (id: {{ id }} ){% endblocktrans %}</h1>
-<p> {% blocktrans %}Sorry!  Your request resulted in an error.  If this error
-persists, please send an email telling us what you were doing to:<br>
+<p> {% blocktrans %}Sorry!  Your request resulted in an error.  We have logged it and our developers will fix it as soon as they can.  If this error
+persists, please contact:<br>
 channels &lt;at&gt; pculture.org<br>
-Make sure to include the error id at the top of this page.
+Make sure to include the error ID at the top of this page.
 {% endblocktrans %}</p>
 <a href="{{ BASE_URL }}">{% trans "go to front page" %} &gt;&gt;</a>
 </div>
