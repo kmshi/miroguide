@@ -205,7 +205,6 @@ class TestCase(unittest.TestCase):
         channel.url += util.random_string(20)
         channel.website_url = "http://myblog.com/"
         channel.publisher = "TestVision"
-        channel.short_description = u"stuff \u2222"
         channel.description = u"lots of stuff \u3333"
         self.save_to_db(channel)
         return channel

@@ -442,7 +442,7 @@ WHERE channel_id=%%s AND %s)""" % ignoresWhere
             item.update_search_data(connection)
 
     def get_search_data(self):
-        simple_attrs = ('short_description', 'description', 'url',
+        simple_attrs = ('description', 'url',
                 'website_url', 'publisher')
         values = [getattr(self, attr) for attr in simple_attrs]
         values.append(self.language.name)

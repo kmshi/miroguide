@@ -81,7 +81,7 @@ class FeedURLForm(Form):
         data['name'] = try_to_get('title')
         data['website_url'] = try_to_get('link')
         data['publisher'] = try_to_get('publisher')
-        data['short_description'] = try_to_get('description')
+        data['description'] = try_to_get('description')
         try:
             data['thumbnail_url'] = to_utf8(parsed['feed'].image.href)
         except AttributeError:
@@ -204,7 +204,6 @@ def try_to_download_thumb(url):
 class SubmitChannelForm(Form):
     name = WideCharField(max_length=200, label=_("Channel Name"))
     website_url = WideURLField(label=_('Website URL'), max_length=200)
-    short_description = WideCharField(max_length=200)
     description = WideCharField(widget=forms.Textarea, 
             label=_("Full Description"))
     publisher = WideCharField(max_length=100)
@@ -257,7 +256,7 @@ class SubmitChannelForm(Form):
                 'thumbnail_file')
 
     def set_defaults(self, saved_data):
-        for key in ('name', 'website_url', 'publisher', 'short_description'):
+        for key in ('name', 'website_url', 'publisher', 'description'):
             if saved_data[key] is not None:
                 self.fields[key].initial = saved_data[key]
         if saved_data['thumbnail_url']:
@@ -328,7 +327,7 @@ class SubmitChannelForm(Form):
         return channel
 
     def update_channel(self, channel):
-        string_cols = ('name', 'website_url', 'short_description',
+        string_cols = ('name', 'website_url',
                 'description', 'publisher', 'postal_code')
         for attr in string_cols:
             setattr(channel, attr, self.cleaned_data[attr].encode('utf-8'))
@@ -378,7 +377,7 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
                 'categories', 'owner')
         join.execute(self.connection)
         for key in ('url', 'name', 'hi_def', 'website_url',
-                'short_description', 'description', 'publisher',
+                'description', 'publisher',
                 'postal_code'):
             self.fields[key].initial = getattr(self.channel, key)
         self.fields['language'].initial = self.channel.language.id

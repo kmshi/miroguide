@@ -163,7 +163,6 @@ class ChannelModelTest(ChannelTestBase):
         c.url = "http://myblog.com/videos/rss"
         c.website_url = "http://myblog.com/"
         c.publisher = "TestVision"
-        c.short_description = "stuff"
         c.description = "lots of stuff"
         self.assertRaises(ValueError, c.save_thumbnail,
                 self.connection, 
@@ -380,7 +379,6 @@ class SubmitChannelTest(TestCase):
         data = {
             'name': 'foo',
             'website_url': 'http://foo.com/' + util.random_string(16),
-            'short_description': 'booya',
             'description': 'Awesome channel',
             'publisher': 'Foo incorporated',
             'language': self.language.id,
@@ -481,7 +479,7 @@ Errors: %s""" % (response.status_code, errors)
         form = response.context[0]['form']
         self.assertEquals(form.errors.keys(), ['url'])
         self.submit_url()
-        should_complain = ['name', 'website_url', 'short_description',
+        should_complain = ['name', 'website_url',
                 'description', 'publisher', 'language','category1',
                 'thumbnail_file']
         response = self.post_data('/channels/submit/step2', {})
@@ -509,7 +507,6 @@ Errors: %s""" % (response.status_code, errors)
         check_default('name', 'Rocketboom RSS 2.0 Main Index')
         check_default('website_url', 'http://www.rocketboom.com/vlog/')
         check_default('publisher', None)
-        check_default('short_description', 'Daily with Joanne Colan')
         thumb_widget = form.fields['thumbnail_file'].widget
         self.assert_(thumb_widget.submitted_thumb_path is not None)
         self.assert_(os.path.exists(os.path.join(settings.MEDIA_ROOT, 'tmp',
@@ -875,7 +872,6 @@ class EditChannelTest(ChannelTestBase):
                 'tags': 'funny, cool, booya',
                 'publisher': 'some guy',
                 'name': 'cool vids',
-                'short_description': 'wow',
                 'description': 'These are the best.',
                 'website_url': 'http://www.google.com/',
         }
@@ -892,7 +888,7 @@ class EditChannelTest(ChannelTestBase):
 
     def get_default_values(self):
         data = {}
-        for key in ['publisher', 'name', 'short_description',
+        for key in ['publisher', 'name',
                 'website_url', 'description', 'url']:
             data[key] = getattr(self.channel, key)
         for i in xrange(len(self.channel.categories)):
@@ -913,7 +909,6 @@ class EditChannelTest(ChannelTestBase):
     def test_unicode(self):
         self.login(self.ralph)
         data = self.get_default_values()
-        data['short_description'] = '\xd8\x8d\xd8\xa8\xd8\xa8\xd8\xa6\xd8\xb5'
         data['description'] = '\xd8\x8d\xd8\xa8\xd8\xa8\xd8\xa6\xd8\xb5'
         data['tags'] = 'Saxony, Sachsen, Th\xfcringen, Sachsen-Anhalt, MDR'
         self.post_to_edit_page(data)
