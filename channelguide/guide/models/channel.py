@@ -48,8 +48,10 @@ class Channel(Record, Thumbnailable):
     THUMBNAIL_DIR = 'thumbnails'
     THUMBNAIL_SIZES = [
             (60, 40),
+            (95, 63),
             (120, 80),
             (165, 110),
+            (245, 164),
             (252, 169),
             (370, 247),
     ]
@@ -541,8 +543,10 @@ WHERE channel_id=%%s AND %s)""" % ignoresWhere
         return '<img src="%s" alt="%s">' % (thumb_url, cgi.escape(self.name))
 
     def thumb_60_40(self): return self._thumb_html(60, 40)
+    def thumb_95_63(self): return self._thumb_html(95, 63)
     def thumb_120_80(self): return self._thumb_html(120, 80)
     def thumb_165_110(self): return self._thumb_html(165, 110)
+    def thumb_245_164(self): return self._thumb_html(245, 164)
     def thumb_252_169(self): return self._thumb_html(252, 169)
     def thumb_370_247(self): return self._thumb_html(370, 247)
 

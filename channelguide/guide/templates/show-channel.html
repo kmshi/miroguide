@@ -10,79 +10,115 @@
 <div class="error">{{ error }}</div>
 {% endif %}
 <div class="channel channel-full">
-<h1 class="title">
-    {{ channel.name|escape }}
-</h1>
     {% twocolumns %}
         <div class="screenshot">
-            {{ channel.thumb_370_247 }}
+            {{ channel.thumb_245_164 }}
             {% if channel.hi_def %}
                 <img class="hd-icon-large" src="{{ STATIC_BASE_URL }}images/hd-icon-large.png" alt="HD">
             {% endif %}
         </div>
-        <div class="big horizontal">
-            <ul class="actions">
-                <li id="subscribe" class="big horizontal">
-                    <a {{ channel.subscription_link }}>
-                        <span class="icon"></span>
-                        {% trans "Add Channel" %}
-                    </a>
-                </li>
-                <li id="rate">
-                    {{ rating_bar }}
-                </li>
-            </ul>
+        <div class="subscribe">
+            <a {{ channel.subscription_link }}>
+                {% trans "Add Channel to Miro" %}
+            </a>
         </div>
-    {% splitcolumns %}
-         <div id="description">
-        {% if shade_description %}
-            <div id="summary">{{ channel.description|escape|striptags|truncatewords:73 }}</div>
-            <div id="full">{{ channel.description|escape|striptags }}</div>
-            <div id="reveal"><a href="#" onclick='$("#description #summary").hide();$("#description #reveal").hide();$("#description #full").show();$("#description #hide").show();$("#description").height("auto").height();'><span class="icon"></span>reveal all</a></div>
-            <div id="hide"><a href="#" onclick='$("#description #summary").show();$("#description #reveal").show();$("#description #full").hide();$("#description #hide").hide();'><span class="icon"></span>hide</a></div>
-        {% else %}
-            {{ channel.description|escape }}
-        {% endif %}
+        <div id="rating">
+            {{ rating_bar }}
         </div>
-{% comment %}            <div id=
-            <div id="full">{{ channel.description|escape|striptags }}</div>
-        </div>
-        <div id="reveal"><a href="#" onclick='lowerDescription()'><span class="icon"></span>reveal all</a></div>
-        <div id="hide"><a href="#" onclick='raiseDescription()'><span class="icon"></span>hide</a></div>{% endcomment %}
-        {% comment %}
-        <div id="comments">
-            <h2>{% trans "User Reviews" %}</h2>
-            <div id="review-link">(<a onclick="$('#comments #review').toggle();" href="#">{% trans "review this channel" %}</a>)</div>
-            <div id="review">
-                <form action="{{ channel.review_url }}" method="POST">
-                    <textarea name="review">{{ user_review }}</textarea>
-                    {% if user_review %}
-                    <input type="submit" value="Edit">
-                    {% else %}
-                    <input type="submit" value="Submit">
-                    {% endif %}
-                </form>
+        <div class="meta">
+            <span class="header"></span>
+            <div>
+                <h3>{% trans "Website" %}</h3>
+                {{ channel.website_link }}
             </div>
+            <div>
+                <h3>{% trans "Categories" %}</h3>
+                {% for cat in channel.categories %}
+                    {{ cat.link }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </div>
+            {% if channel.tags %}
+            <div>
+                <h3>{% trans "Tags" %}</h3>
+                {% for tag in channel.tags %}
+                    {{ tag.link }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
-        {% endcomment %}
-        <div id="categories">
-            <h3>{% trans "Categories" %}</h3>
-            {% for cat in channel.categories %}
-                {{ cat.link }}{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-        </div>
-        {% if channel.tags %}
-        <div id="tags">
-            <h3>{% trans "Tags" %}</h3>
-            {% for tag in channel.tags %}
-                {{ tag.link }}{% if not forloop.last %}, {% endif %}
+        {% if recommendations %}
+        <div id="recommendations">
+            <h3>{% trans "If you like this channel, try:" %}</h3>
+            {% for r in recommendations %}
+                {% show_channel_in_recommendation r forloop.first forloop.last %}
             {% endfor %}
         </div>
         {% endif %}
-        <div id="website">
-            <h3>{% trans "Website" %}</h3>
-            {{ channel.website_link }}
+    {% splitcolumns %}
+        <h1>{{ channel.name }}</h1>
+        <div id="description">
+            {{ channel.description|escape }}
         </div>
+        <div id="description-toggle">Reveal All</div>
+        <script type="text/javascript">
+            title_height = $("h1").height() + 15; // +15 for margin
+            max_height = 174 - title_height;
+            description_height = ($("#description").height());
+            if (description_height > max_height) { // have to shade
+                // find out how high a line is
+                var em = $(document.createElement('i')).css({                    
+                        'display': 'block',                       
+                        'top': '-1em',                   
+                        'position': 'absolute',                 
+                        'visibility': 'hidden',                      
+                        'height': '1em'             
+                        });
+                $('#description').prepend(em);
+                line_height = em.height()*1.35;
+                toggle_height = $("#description-toggle").height() + 15; // +15 for margin
+                extra = (max_height - toggle_height) % line_height;
+                $("#description").height(max_height-toggle_height-extra);
+                $("#description-toggle").css("margin-bottom", extra+1);
+                $("#description-toggle").show().toggle(function() {
+                        $("#description").animate({'height': description_height}, 'slow',
+                            function() {$('#description-toggle').text("Hide").addClass("open");});
+                        }, function() {
+                        $("#description").animate({'height': max_height-toggle_height-extra}, 'slow',
+                            function() {$('#description-toggle').text("Reveal All").removeClass("open");});
+                    });
+            }
+        </script>
+        {% if items %}
+        <div id="episodes">
+            <div class="rounded"></div>
+            <h2>{% trans "Recent Episodes" %}</h2>
+            <div class="header">
+                <div class="title"><h4>{% trans "Title" %}</h4></div>
+                <div><h4>{% trans "Synopsis" %}</h4></div>
+            </div>
+            {% for item in items %}
+                {% show_item item %}
+            {% endfor %}
+            <script type="text/javascript">
+                if (description_height > max_height) {
+                    $("#episodes").css("position", "static");
+                }
+var openHeight = 160;
+var closedHeight = 15;
+$(".item:gt(0)").addClass('closed').css('height', closedHeight);
+$(".item .title h4").css('cursor', 'pointer').click(function(){
+    var item = $(this).parent().parent();
+    if (item.attr('class').indexOf('closed') == -1) {
+        item.addClass('closed').animate({'height': closedHeight}, 'slow');
+    } else {
+        item.removeClass('closed').animate({'height': openHeight}, 'slow');
+    }
+});
+            </script>
+        </div>
+        {% endif %}
+    {% endtwocolumns %}
+    <div id="extra">
         {% if show_extra_info %}
         <ul id="extra-info">
             <li><h3>{% trans "Owner Email" %}</h3>
@@ -103,7 +139,8 @@
                     at {{ channel.featured_at }}
                 {% endif %}
             {% endif %}
-        </li></ul>
+            </li>
+        </ul>
         {% endif %}
 
         {% if user.is_moderator or show_edit_button %}
@@ -138,48 +175,7 @@
         {% endif %}
         </ul>
         {% endif %}
-   {% endtwocolumns %}
-    {% twocolumns %}
-        {% if items %}
-            <div class="separator"></div>
-            <h2 class="recent-videos-header">
-                {% blocktrans %}
-                Recent Videos
-                <span class="sub-header">add this channel to watch</span>
-                {% endblocktrans %}
-                </h2>
-            <ul id="items">
-                {% for item in items %}
-                    <li>
-                    {% show_item item %}
-                    {% if not forloop.last %}
-                        <div class="separator"></div>
-                    {% endif %}
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% splitcolumns %}
-
-        {% if recommendations %}
-        <div id="recommendations-pad"></div>
-        <div id="recommendations">
-            <div class="top"></div>
-            <h2>{% trans "People who like this channel also like:" %}</h2>
-        <table>
-            <tr>
-                <td>{% show_channel_in_recommendation recommendations.0 %}</td>
-                <td>{%if recommendations.1 %}{% show_channel_in_recommendation recommendations.1 %}{% endif %}</td>
-            </tr>
-            <tr>
-                <td>{% if recommendations.2 %}{% show_channel_in_recommendation recommendations.2 %}{% endif %}</td>
-                <td>{% if recommendations.3 %}{% show_channel_in_recommendation recommendations.3 %}{% endif %}</td>
-            </tr>
-        </table>
-        <div class="bottom"></div>
-        </div>
-        {% endif %}
-    {% endtwocolumns %}
+    {% show_channel_notes notes channel %}
+    </div>
 </div>
-{% show_channel_notes notes channel %}
 {% endblock %}

@@ -116,15 +116,26 @@ class EditUserForm(PasswordComparingForm):
             if name not in ('change_password', 'change_password2'):
                 yield name, field
 
+    def clean_adult_ok(self):
+        val = self.cleaned_data['adult_ok']
+        new_val = {'ask':None, 'yes':True, 'no':False}[val]
+        return new_val
+
     def set_defaults(self):
         for name, field in self.simple_fields():
-            field.initial = getattr(self.user, name)
+            if name is 'adult_ok':
+                field.initial = {None:'ask', True:'yes',
+                        False:'no'}[self.user.adult_ok]
+            else:
+                field.initial = getattr(self.user, name)
 
     def update_user(self):
         for name, field in self.simple_fields():
             if self.cleaned_data.get(name) is not None:
                 value = self.cleaned_data[name]
                 setattr(self.user, name, self.cleaned_data[name])
+        if self.cleaned_data.has_key('adult_ok'):
+            setattr(self.user, 'adult_ok', self.cleaned_data['adult_ok'])
         if self.cleaned_data.get('change_password'):
             self.user.set_password(self.cleaned_data['change_password'])
         self.user.save(self.connection)
