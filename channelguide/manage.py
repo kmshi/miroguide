@@ -144,7 +144,7 @@ def download_thumbnails(args=None):
             channel.download_item_thumbnails(connection, redownload)
         except:
             logging.warn("\nerror updating thumbnails for %s\n\n%s\n" % 
-                    (channel, traceback.format_exc()))
+                    (unicode(channel).encode('utf8'), traceback.format_exc()))
     spawn_threads_for_channels('updating thumbnails', callback, 4)
 download_thumbnails.args = '[--redownload]'
 
@@ -186,7 +186,7 @@ def update_thumbnails(args):
             channel.update_thumbnails(connection, overwrite, sizes)
         except:
             logging.warn("\nError updating thumbnails for %s\n\n%s\n" % 
-                    (channel, traceback.format_exc()))
+                    (unicode(channel).encode('utf8'), traceback.format_exc()))
 update_thumbnails.args = '[size] [--overwrite]'
 
 def fix_utf8_strings(args):

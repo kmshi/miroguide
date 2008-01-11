@@ -100,20 +100,29 @@
                 {% show_item item %}
             {% endfor %}
             <script type="text/javascript">
-                if (description_height > max_height) {
-                    $("#episodes").css("position", "static");
-                }
+function recalcHeight() {
+    var height = $('h1').height() + $('#description').height() + $("#episodes").height() + 120;
+    if ($("div.channel-full").height() < height) {
+        $("div.channel-full").css('height', height);
+    }
+}
+if (description_height > max_height) {
+    $("#episodes").css("position", "static");
+}
 var openHeight = 160;
 var closedHeight = 15;
 $(".item:gt(0)").addClass('closed').css('height', closedHeight);
 $(".item .title h4").css('cursor', 'pointer').click(function(){
     var item = $(this).parent().parent();
     if (item.attr('class').indexOf('closed') == -1) {
-        item.addClass('closed').animate({'height': closedHeight}, 'slow');
+        item.addClass('closed').animate({'height': closedHeight}, 'slow',
+        recalcHeight);
     } else {
-        item.removeClass('closed').animate({'height': openHeight}, 'slow');
+        item.removeClass('closed').animate({'height': openHeight}, 'slow',
+        recalcHeight);
     }
 });
+recalcHeight();
             </script>
         </div>
         {% endif %}
