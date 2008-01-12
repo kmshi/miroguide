@@ -100,10 +100,12 @@
                 {% show_item item %}
             {% endfor %}
             <script type="text/javascript">
+var divHeight = $("div.channel-full").height();
 function recalcHeight() {
     var height = $('h1').height() + $('#description').height() + $("#episodes").height() + 120;
-    if ($("div.channel-full").height() < height) {
+    if (divHeight < height) {
         $("div.channel-full").css('height', height);
+        divHeight = height;
     }
 }
 if (description_height > max_height) {

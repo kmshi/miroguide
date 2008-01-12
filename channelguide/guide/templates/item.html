@@ -1,6 +1,6 @@
 <div class="item">
     <div class="title">
-        <h4>{{ item.name }}</h4>
+        <h4>{% if item.name %}{{ item.name }}{% else %}(no name){% endif %}</h4>
         <div class="screenshot">
             {{ item.thumb }}
         </div>
