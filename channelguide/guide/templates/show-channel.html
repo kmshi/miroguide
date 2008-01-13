@@ -62,8 +62,8 @@
         <div id="description-toggle">Reveal All</div>
         <script type="text/javascript">
             title_height = $("h1").height() + 15; // +15 for margin
-            max_height = 174 - title_height;
-            description_height = ($("#description").height());
+            var max_height = 174 - title_height;
+            var description_height = ($("#description").height());
             if (description_height > max_height) { // have to shade
                 // find out how high a line is
                 var em = $(document.createElement('i')).css({                    
@@ -100,6 +100,7 @@
                 {% show_item item %}
             {% endfor %}
             <script type="text/javascript">
+$("#episodes").parent().css('position', 'relative');
 var divHeight = $("div.channel-full").height();
 function recalcHeight() {
     var height = $('h1').height() + $('#description').height() + $("#episodes").height() + 120;
