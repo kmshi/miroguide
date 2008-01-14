@@ -1452,7 +1452,7 @@ div.channel-full {
 }
 
 .channel-full h1 {
-    font-size: 242%;
+    font-size: 230%;
     margin-bottom: 15px;
     line-height: 1;
 }
@@ -1494,7 +1494,7 @@ div.channel-full {
 }
 
 .channel-full #episodes > h2 {
-    font-size: 202%;
+    font-size: 195%;
     height: 28px;
     color: #454545;
     background: #e3e4e4;
