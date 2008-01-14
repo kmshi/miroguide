@@ -1482,8 +1482,6 @@ div.channel-full {
 
 .channel-full #episodes {
     clear: right;
-    position: absolute;
-    top: 177px;
     width: 470px;
 }
 
