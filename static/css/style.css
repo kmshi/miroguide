@@ -1592,6 +1592,7 @@ div.channel-recommended {
     margin-left: 6px;
     color: #212121;
     height: 25px;
+    max-height: 1em;
     overflow: hidden;
 }
 
