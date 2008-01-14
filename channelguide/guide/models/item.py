@@ -25,7 +25,7 @@ class Item(Record, Thumbnailable):
             return None
 
     def get_missing_image_url(self, width, height):
-        return self.channel.thumb_url(120, 80)
+        return self.channel.thumb_url(200, 133)
 
     def thumb(self):
         url = self.thumb_url(200, 133)
