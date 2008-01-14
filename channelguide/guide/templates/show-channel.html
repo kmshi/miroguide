@@ -59,7 +59,7 @@
         <div id="description">
             {{ channel.description|escape }}
         </div>
-        <div id="description-toggle">Reveal All</div>
+        <div id="description-toggle">...read more</div>
         <script type="text/javascript">
             title_height = $("h1").height() + 15; // +15 for margin
             var max_height = 174 - title_height;
@@ -75,16 +75,16 @@
                         });
                 $('#description').prepend(em);
                 line_height = em.height()*1.35;
-                toggle_height = $("#description-toggle").height() + 15; // +15 for margin
+                toggle_height = $("#description-toggle").height() + 27; // +15 for margin
                 extra = (max_height - toggle_height) % line_height;
                 $("#description").height(max_height-toggle_height-extra);
-                $("#description-toggle").css("margin-bottom", extra+1);
+                $("#description-toggle").css("margin-bottom", extra+25);
                 $("#description-toggle").show().toggle(function() {
                         $("#description").animate({'height': description_height}, 'slow',
                             function() {$('#description-toggle').text("Hide").addClass("open");});
                         }, function() {
                         $("#description").animate({'height': max_height-toggle_height-extra}, 'slow',
-                            function() {$('#description-toggle').text("Reveal All").removeClass("open");});
+                            function() {$('#description-toggle').text("...read more").removeClass("open");});
                     });
             }
         </script>

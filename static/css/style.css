@@ -1464,14 +1464,15 @@ div.channel-full {
 
 .channel-full #description-toggle {
     font-size: 125%;
-    color: #a4a4a4;
+    color: #000;
     float: right;
-    margin-top: 15px;
+    margin-top: 3px;
+    margin-bottom: 24px;
     display: none;
     padding-right: 30px;
     background: url(images/details/arrow-closed.png) no-repeat 100px;
     text-align: right;
-    width: 85px;
+    width: 95px;
     cursor: pointer;
 }
 
