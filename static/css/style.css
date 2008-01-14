@@ -1588,11 +1588,11 @@ div.channel-recommended {
 
 .channel-recommended h3 {
     font-size: 108.1%;
+    margin: -1px auto 8px 6px;
     margin-top: -1px;
     margin-left: 6px;
     color: #212121;
-    height: 25px;
-    max-height: 1em;
+    height: 1.3em;
     overflow: hidden;
 }
 
