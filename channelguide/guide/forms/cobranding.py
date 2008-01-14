@@ -10,8 +10,10 @@ class CobrandingAdminForm(Form):
     page_title = forms.CharField(max_length=30, label=_("Page Title"),
             help_text=_("This is the title that will be displayed at the top of the page."))
     url = forms.CharField(max_length=100, label=_("Website URL"))
-    icon_url = forms.CharField(max_length=100, label=_("Icon URL"),
-            help_text=_("Icon should be 175x125 pixels."))
+    icon_url = forms.CharField(required=False, max_length=100,
+            label=_("Icon URL"), help_text=_("Icon should be 175x125 pixels."))
+    favicon_url = forms.CharField(required=False, max_length=100,
+            label=_("Favicon URL"))
     description = forms.CharField(widget=forms.Textarea, label=_("Description"))
     link1_url = forms.CharField(required=False, max_length=100,
             label=_("Link 1 URL"), help_text=_("Or leave this blank to have plain text.  All these links are optional."))
@@ -39,12 +41,13 @@ class CobrandingAdminForm(Form):
         for name in ('html_title', 'page_title', 'url', 'description'):
             if self.cleaned_data.get(name) is not None:
                 setattr(self.cobrand, name, self.cleaned_data[name])
-        icon_url = self.cleaned_data.get('icon_url')
-        if icon_url is not None:
-            if icon_url == u'':
-                self.cobrand.icon_url = None
-            else:
-                self.cobrand.icon_url = icon_url
+        for name in ('icon_url', 'favicon_url'):
+            icon_url = self.cleaned_data.get(name)
+            if icon_url is not None:
+                if icon_url == u'':
+                    setattr(self.cobrand, name, None)
+                else:
+                    setattr(self.cobrand, name, icon_url)
         for i in range(1, 4):
             for suffix in ('url', 'text'):
                 name = 'link%i_%s' % (i, suffix)
