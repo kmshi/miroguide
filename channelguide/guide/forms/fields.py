@@ -15,7 +15,8 @@ class WideCharField(WideMixin, forms.CharField):
     def clean(self, value):
         if isinstance(value, unicode):
             if self.max_length is not None and len(value.encode('utf8')) > self.max_length:
-                raise forms.ValidationError(_('Ensure this value has at most %d bytes (it has %d).') % (self.max_length, len(value.encode('utf8'))))
+                raise forms.ValidationError(_('Ensure this value has at most %(maximum)d bytes (it has %(length)d).') % {'maximum':self.max_length,
+                    'length': len(value.encode('utf8'))})
         return super(WideCharField, self).clean(value)
 
 class WideURLField(WideMixin, forms.URLField):
