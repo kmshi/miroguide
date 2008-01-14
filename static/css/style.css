@@ -1652,7 +1652,8 @@ div.channel-recommended {
 }
 
 .item .description {
-    max-height: 10.4em;
+    height: 100px;
+    overflow: hidden;
 }
 
 .item .date {
