@@ -1609,12 +1609,17 @@ div.channel-recommended {
 
 .channel-recommended .info a {
     font-size: 94%;
-    padding-left: 6px;
+    padding: 0 24px;
     width: 124px;
     font-weight: bold;
     color: white;
     line-height: 1.2em;
 }
+
+.channel-recommended .info .details a {
+    padding: 0 38px;
+}
+
 .channel-recommended .info .subscribe, .channel-recommended .info .details {
     width: 124px;
     height: 15px;
