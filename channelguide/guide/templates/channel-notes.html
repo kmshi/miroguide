@@ -1,6 +1,5 @@
 {% load notes cg_helpers i18n %}
 {% if notes.show_moderator_notes or notes.show_owner_notes %}
-{% twocolumns %}
     {% if notes.show_owner_notes %}
     <h2 class="note-title">
         {% if user.is_moderator %}
@@ -12,11 +11,9 @@
     {% show_note_list notes.owner_notes %}
     {% show_add_note "moderator-to-owner" channel %}
     {% endif %}
-{% splitcolumns %}
     {% if notes.show_moderator_notes %}
     <h2 class="note-title">{% trans "Notes For Moderators" %}</h2>
     {% show_note_list notes.moderator_notes %}
     {% show_add_note "moderator-only" channel %}
     {% endif %}
-{% endtwocolumns %}
 {% endif %}
