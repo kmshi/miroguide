@@ -46,7 +46,7 @@ class Item(Record, Thumbnailable):
     def download_thumbnail(self, connection, redownload=False):
         if self.thumbnail_url is None:
             return
-        if not self.thumbnail_exists() or redownload:
+        if (not self.thumbnail_exists()) or redownload:
             util.ensure_dir_exists(settings.IMAGE_DOWNLOAD_CACHE_DIR)
             cache_path = os.path.join(settings.IMAGE_DOWNLOAD_CACHE_DIR,
                     util.hash_string(self.thumbnail_url))
@@ -54,7 +54,8 @@ class Item(Record, Thumbnailable):
                 image_data = util.read_file(cache_path)
             else:
                 try:
-                    image_data = urllib2.urlopen(self.thumbnail_url).read()
+                    url = self.thumbnail_url[:8] + self.thumbnail_url[8:].replace('//', '/')
+                    image_data = urllib2.urlopen(url).read()
                 except urllib2.URLError, ValueError:
                     return
                 else:

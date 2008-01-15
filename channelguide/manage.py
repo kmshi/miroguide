@@ -137,7 +137,7 @@ def download_thumbnails(args=None):
         args = []
     db.pool.max_connections = 20
     set_short_socket_timeout()
-    redownload = (len(args) > 3 and args[3] in ('-r', '--redownload'))
+    redownload = (len(args) > 2 and args[2] in ('-r', '--redownload'))
     def callback(connection, channel):
         channel.join("items").execute(connection)
         try:
