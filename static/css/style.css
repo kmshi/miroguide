@@ -1366,7 +1366,7 @@ div.channel-full {
 }
 
 .channel-full div.subscribe:hover, .channel-full div.screenshot:hover + .subscribe {
-    background-image: url(images/details/add-big-hover.png);
+    background-position: 0 -30px;
 }
 
 .channel-full .subscribe a {
@@ -1635,17 +1635,13 @@ div.channel-recommended {
     margin-bottom: 8px;
 }
 
-.channel-recommended .info .subscribe:hover {
-    background-image: url(images/details/add-small-hover.png);
+.channel-recommended .info div:hover {
+    background-position: 0 -15px;
 }
 
 .channel-recommended .info .details {
     background: url(images/details/details-small.png) no-repeat;
     margin-bottom: 10px;
-}
-
-.channel-recommended .info .details:hover {
-    background-image: url(images/details/details-small-hover.png);
 }
 
 /* Item list in the channel-full template */
@@ -1673,15 +1669,18 @@ div.channel-recommended {
     width: 129px;
     height: 15px;
     float: right;
+    padding-left: 7px;
     position: relative;
-    top: -15px;
+    top: -19px;
+    left: 7px;
     z-index: 1;
     text-align: center;
     color: white;
+    font-weight: bold;
 }
 
 .item div.screenshot:hover .download {
-    background: url(images/details/download-hover.png);
+    background-position: 0 -15px;
 }
 
 .item .description {
