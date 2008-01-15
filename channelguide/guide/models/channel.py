@@ -424,7 +424,7 @@ WHERE channel_id=%%s AND %s)""" % ignoresWhere
                 self.save(connection)
 
         Thumbnailable.refresh_thumbnails(self, overwrite, sizes)
-        for item in self.items:
+        for item in self.items[::-1]:
             item.refresh_thumbnails(overwrite, sizes)
 
     def download_item_thumbnails(self, connection, redownload=False):
