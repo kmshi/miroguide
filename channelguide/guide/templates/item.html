@@ -2,7 +2,9 @@
     <div class="title">
         <h4>{% if item.name %}{{ item.name }}{% else %}(no name){% endif %}</h4>
         <div class="screenshot">
-            {{ item.thumb }}
+            <a href="{{ item.download_url }}">{{ item.thumb }}
+                <div class="download">download</div>
+            </a>
         </div>
     </div>
     <div>

@@ -21,7 +21,7 @@ div#content {
 <div class="channel channel-full">
     {% twocolumns %}
         <div class="screenshot">
-            {{ channel.thumb_245_164 }}
+            <a {{ channel.subscription_link }}>{{ channel.thumb_245_164 }}</a>
             {% if channel.hi_def %}
                 <img class="hd-icon-large" src="{{ STATIC_BASE_URL }}images/hd-icon-large.png" alt="HD">
             {% endif %}

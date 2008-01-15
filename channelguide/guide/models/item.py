@@ -31,8 +31,11 @@ class Item(Record, Thumbnailable):
         url = self.thumb_url(200, 133)
         return '<img width="200" height="133" src="%s" alt="%s">' % (url, self.name.replace('"', "'"))
 
+    def download_url(self):
+        return "http://subscribe.getmiro.com/download/?url1=%s" % self.url
+
     def linked_name(self):
-        return '<a href="http://subscribe.getmiro.com/download.php?url1=%s">%s</a>' % (self.url, self.name)
+        return '<a href="%s">%s</a>' % (self.download_url(), self.name)
 
     def update_search_data(self, connection):
         self.join('search_data').execute(connection)
