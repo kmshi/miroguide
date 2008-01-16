@@ -331,9 +331,11 @@ def subscribe_hit(request, id):
             ignore_for_recommendations = True
         else:
             ignore_for_recommendations = False
+        ip = request.META.get('REMOTE_ADDR', '0.0.0.0')
+        if ip == '127.0.0.1':
+            ip = request.META.get('HTTP_X_FORWARDED_FOR', '0.0.0.0')
         try:
-            channel.add_subscription(request.connection,
-                    request.META.get('REMOTE_ADDR', '0.0.0.0'),
+            channel.add_subscription(request.connection, ip,
                     ignore_for_recommendations=ignore_for_recommendations)
         except:
             pass # ignore errors silently
