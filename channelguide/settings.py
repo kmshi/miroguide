@@ -102,7 +102,7 @@ DOWNLOAD_URL = 'http://subscribe.getmiro.com/download?'
 FORUMS_URL = 'http://www.getmiro.com/forum/categories.php'
 BASE_URL_PATH = urlparse(BASE_URL)[2]
 AUTH_TOKEN_EXPIRATION_TIME = timedelta(days=1)
-MAX_FEATURES = 15
+MAX_FEATURES = 8
 
 MAX_THREADS = 30
 MAX_DB_CONNECTIONS = 5
