@@ -1683,6 +1683,10 @@ div.channel-recommended {
     background-position: 0 -15px;
 }
 
+.item .screenshot a:hover {
+    text-decoration: none;
+}
+
 .item .description {
     height: 100px;
     overflow: hidden;
