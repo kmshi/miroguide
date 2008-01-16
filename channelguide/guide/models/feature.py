@@ -50,7 +50,7 @@ class FeaturedQueue(Record):
     @classmethod
     def shuffle_queue(cls, connection):
         count = cls.featured().count(connection)
-        if count == settings.MAX_FEATURES:
+        while count >= settings.MAX_FEATURES:
             query = cls.featured().order_by(None).order_by(cls.c.featured_at).limit(1)
             old = query.join('channel').get(connection)
             old.channel.change_featured(None, connection)
