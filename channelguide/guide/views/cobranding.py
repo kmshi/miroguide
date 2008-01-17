@@ -10,7 +10,10 @@ def admin(request, cobrand_name):
             raise Http404
         c = Cobranding()
         c.name = c.html_title = c.page_title = c.url = c.description = cobrand_name
-        c.save(request.connection)
+        try:
+            c.save(request.connection)
+        except:
+            raise Http404
     if not request.user.is_admin() or cobrand_name == request.user.username:
         return util.send_to_login_page(request)
     cobrand = Cobranding.get(request.connection, cobrand_name)
