@@ -56,10 +56,10 @@ def calculateRecent(database, length=None):
         return
     container = ','.join([str(x) for x in channels])
     database.execute("DELETE FROM cg_channel_recommendations WHERE channel1_id IN (%s) OR channel2_id IN (%s)" % (container, container))
-    logging.info('calculating for %i channels' % len(channels))
     calculateRecommendations(database, channels)
 
 def calculateRecommendations(database, channels):
+    logging.info('calculating for %i channels' % len(channels))
     hit = set()
     inserts = []
     for c1 in channels:
