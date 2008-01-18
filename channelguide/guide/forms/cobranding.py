@@ -14,6 +14,8 @@ class CobrandingAdminForm(Form):
             label=_("Icon URL"), help_text=_("Icon should be 175x125 pixels."))
     favicon_url = forms.CharField(required=False, max_length=100,
             label=_("Favicon URL"))
+    css_url = forms.CharField(required=False, max_length=100,
+            label=_("External CSS URL"))
     description = forms.CharField(widget=forms.Textarea, label=_("Description"))
     link1_url = forms.CharField(required=False, max_length=100,
             label=_("Link 1 URL"), help_text=_("Or leave this blank to have plain text.  All these links are optional."))
@@ -41,7 +43,7 @@ class CobrandingAdminForm(Form):
         for name in ('html_title', 'page_title', 'url', 'description'):
             if self.cleaned_data.get(name) is not None:
                 setattr(self.cobrand, name, self.cleaned_data[name])
-        for name in ('icon_url', 'favicon_url'):
+        for name in ('icon_url', 'favicon_url', 'css_url'):
             icon_url = self.cleaned_data.get(name)
             if icon_url is not None:
                 if icon_url == u'':

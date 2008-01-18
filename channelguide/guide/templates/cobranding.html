@@ -1,6 +1,9 @@
 {% load i18n channels  cg_helpers %}
 {% extends 'base.html' %}
 {% block head-extra %}<link rel="StyleSheet" type="text/css" href="{{ STATIC_BASE_URL }}css/cobranding.css?nonce={{ style_nonce }}">
+{% if cobrand.css_url %}
+<link rel="StyleSheet" type="text/css" href="{{ cobrand.css_url }}">
+{% endif %}
 {% if cobrand.favicon_url %}
 <link rel="shortcut icon" type="image/x-icon" href="{{ cobrand.favicon_url }}">
 {% endif %}{% endblock %}
