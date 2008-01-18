@@ -352,6 +352,8 @@ def calculate_recommendations(args=None):
         recommendations.calculateAll(connection)
     else:
         recommendations.calculateRecent(connection)
+    connection.commit()
+    connection.close()
 calculate_recommendations.args = '[full]'
 
 # Remove django default actions that we don't use.  Many of these probably
