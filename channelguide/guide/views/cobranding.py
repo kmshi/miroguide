@@ -14,7 +14,7 @@ def admin(request, cobrand_name):
             c.save(request.connection)
         except:
             raise Http404
-    if not request.user.is_admin() or cobrand_name == request.user.username:
+    if not (request.user.is_admin() or cobrand_name == request.user.username):
         return util.send_to_login_page(request)
     cobrand = Cobranding.get(request.connection, cobrand_name)
     if request.method != 'POST':
