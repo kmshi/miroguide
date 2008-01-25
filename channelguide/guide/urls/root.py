@@ -1,10 +1,14 @@
 from django.conf.urls.defaults import *
+from django.views.generic.simple import direct_to_template
 
 def cg_include(module):
     return include('channelguide.guide.urls.%s' % module)
 
 urlpatterns = patterns('channelguide.guide.views',
-    (r'^$', 'frontpage.index'),
+#    (r'^$', 'frontpage.index'),
+    (r'^$', direct_to_template, {
+        'template': 'index.html'}),
+    (r'^frontpage$', 'frontpage.index'),
     (r'^firsttime$', 'firsttime.index'),
     (r'^category-peek-fragment$', 'frontpage.category_peek_fragment'),
     (r'^moderate$', 'moderator.index'),
