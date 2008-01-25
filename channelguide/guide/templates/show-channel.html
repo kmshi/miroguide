@@ -19,9 +19,6 @@ div#content {
 <div class="error">{{ error }}</div>
 {% endif %}
 <div class="channel channel-full">
-    {% if show_edit_button %}
-    {% show_edit_bar channel %}
-    {% endif %}
     {% twocolumns %}
         <div class="screenshot">
             <a {{ channel.subscription_link }}>{{ channel.thumb_245_164 }}</a>
@@ -143,5 +140,64 @@ $(".item .title h4").css('cursor', 'pointer').click(function(){
         </div>
         {% endif %}
     {% endtwocolumns %}
+    <div id="extra">
+        {% if show_extra_info %}
+        <ul id="extra-info">
+            <li><h3>{% trans "Owner Email" %}</h3>
+            {{ channel.owner.email }}</li>
+            <li><h3>{% trans "Moderation Status" %}</h3>
+            {% blocktrans with channel.state_name as state %}
+            Channel is {{ state }}
+            {% endblocktrans %}
+            {% if channel.last_moderated_by %}
+            {% blocktrans with channel.last_moderated_by as mod %}
+            (set by {{ mod }})
+            {% endblocktrans %}
+            {% endif %}
+            {% if channel.featured_by %}
+                <br/>
+                {% trans "Featured by" %} {{ channel.featured_by }}
+                {% if channel.featured_at %}
+                    at {{ channel.featured_at }}
+                {% endif %}
+            {% endif %}
+            </li>
+        </ul>
+        {% endif %}
+
+        {% if user.is_moderator or show_edit_button %}
+        <div class="clear"></div>
+        <ul class="channel-actions">
+        {% if user.is_moderator %}
+            {% show_moderate_actions channel %}
+        {% endif %}
+        {% if show_edit_button %}
+        <li class="channel-action">
+        <form action="#" method="GET" onsubmit="return handleFormLink('{{ channel.get_edit_url }}');">
+                <input type="submit" value="{% trans "Edit" %}">
+            </form>
+        </li>
+        {% endif %}
+        {% if featured_email_form %}
+        <li class="channel-action">
+            <h3>{% trans "Featured Channel Notification" %}</h3>
+            {% if last_featured_email %}
+            Last E-mail sent by <strong>{{ last_featured_email.sender }}</strong> at {{ last_featured_email.timestamp }}
+            {% endif %}
+            <form method="POST" action="{{ channel.get_url }}">
+                {% show_form featured_email_form %}
+                <input type="hidden" name="action" value="send-featured-email">
+                <ul class="form-inputs">
+                    <li>
+                        <input type="submit" value="Send">
+                    </li>
+                </ul>
+            </form>
+        </li>
+        {% endif %}
+        </ul>
+        {% endif %}
+    {% show_channel_notes notes channel %}
+    </div>
 </div>
 {% endblock %}
