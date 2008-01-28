@@ -1,9 +1,10 @@
 from django.http import Http404
 from channelguide import util
-from channelguide.guide import templateutil
+from channelguide.guide import templateutil, auth
 from channelguide.guide.models import Channel, Cobranding, User
 from channelguide.guide.forms import CobrandingAdminForm
 
+@auth.login_required
 def admin(request, cobrand_name):
     if Cobranding.query(Cobranding.c.name==cobrand_name).count(request.connection) == 0: # doesn't exist
         if not request.user.is_admin():
