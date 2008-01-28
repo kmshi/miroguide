@@ -9,12 +9,6 @@ from channelguide.guide import tables
 from channelguide.guide.models import Channel, Category, PCFBlogPost
 from sqlhelper.orm.query import ResultHandler
 
-class FrontpageCacheMiddleware(AggressiveCacheMiddleware):
-
-    def get_cache_key_tuple(self, request):
-        return (AggressiveCacheMiddleware.get_cache_key_tuple(self, request) +
-                (request.user.is_authenticated(),))
-
 def get_popular_channels(request, count):
     query = Channel.query_approved(user=request.user)
     query.join('rating')
@@ -107,11 +101,8 @@ def make_category_peek(request):
 
 
 @cache.cache_page_externally_for(300)
-@decorator_from_middleware(FrontpageCacheMiddleware)
+@cache.aggresively_cache
 def index(request):
-    request.add_notification(None, 'Do you use Firefox? <a href="http://www.iheartmiro.org/">Here\'s the easiest way to help Miro ever.</a>')
-    if not request.user.is_authenticated():
-        request.add_notification('Rate', 'Now you can rate channels in Miro Guide &mdash; it only takes 15 seconds to <a href="/accounts/login">get started</a>.<img src="%simages/small-star.png" />' % settings.STATIC_BASE_URL)
     featured_channels = get_featured_channels(request)
     return util.render_to_response(request, 'frontpage.html', {
         'popular_channels': get_popular_channels(request, 7),

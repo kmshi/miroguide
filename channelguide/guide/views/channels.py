@@ -462,8 +462,6 @@ def popular_view(request):
             'timeline' : window_select.current_choice_label(),
             'popular_window_select': window_select
         }
-    if not request.user.is_authenticated():
-        request.add_notification('Rate', 'Now you can rate channels in Miro Guide &mdash; it only takes 15 seconds to <a href="/accounts/login">get started</a>.<img src="/images/small-star.png" />')
     return util.render_to_response(request, 'popular.html', context)
 
 def make_simple_list(request, query, header, order_by=None):
@@ -519,8 +517,6 @@ def toprated(request):
     context = {'pager': pager,
             'title': 'Top Rated Channels'
         }
-    if not request.user.is_authenticated():
-        request.add_notification('Rate', 'Now you can rate channels in Miro Guide &mdash; it only takes 15 seconds to <a href="/accounts/login">get started</a>.<img src="/images/small-star.png" />')
     return util.render_to_response(request, 'popular.html', context)
 
 def group_channels_by_date(channels):
