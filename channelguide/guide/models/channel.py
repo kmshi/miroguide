@@ -425,13 +425,18 @@ WHERE channel_id=%%s AND %s)""" % ignoresWhere
 
         Thumbnailable.refresh_thumbnails(self, overwrite, sizes)
         for item in self.items[::-1]:
-            item.refresh_thumbnails(overwrite, sizes)
+            try:
+                item.refresh_thumbnails(overwrite, sizes)
+            except: pass
 
     def download_item_thumbnails(self, connection, redownload=False):
         """Download item thumbnails."""
 
         for item in self.items:
-            item.download_thumbnail(connection, redownload)
+            try:
+                item.download_thumbnail(connection, redownload)
+            except:
+                pass
 
     def update_search_data(self, connection):
         self.join("search_data", "items", 'tags', 'categories',
