@@ -1635,7 +1635,7 @@ div.channel-recommended {
     margin-bottom: 8px;
 }
 
-.channel-recommended .info div:hover {
+.channel-recommended .info div.subscribe:hover, .channel-recommended .info div.details:hover {
     background-position: 0 -15px;
 }
 
