@@ -85,6 +85,10 @@ div#content {
                         });
                 $('#description').prepend(em);
                 line_height = em.height()*1.32;
+                
+                // for some reason, Miro OSX requires this line
+                document.getElementById('description-toggle').style.display = 'block';
+
                 toggle_height = $("#description-toggle").height() + 27; // +15 for margin
                 extra = (max_height - toggle_height) % line_height;
                 $("#description").height(max_height-toggle_height-extra);
@@ -135,7 +139,7 @@ $(".item .title h4").css('cursor', 'pointer').click(function(){
     } else {
         item.removeClass('closed').animate({'height': openHeight}, 'slow');
     }
-});
+    });
             </script>
         </div>
         {% endif %}
