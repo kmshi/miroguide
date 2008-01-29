@@ -26,9 +26,20 @@ import Queue
 from glob import glob
 
 from django.conf.urls.defaults import patterns
-from django.core import management 
-action_mapping = management.DEFAULT_ACTION_MAPPING.copy()
-original_action_mapping_keys = action_mapping.keys()
+from django.core import management
+managementUtility = management.ManagementUtility()
+
+# Remove django default actions that we don't use.  Many of these probably
+# would screw things up fairly bad.
+
+for key in ['startproject', 'adminindex', 'createcachetable', 'install',
+        'reset', 'sql', 'sqlall', 'sqlclear', 'sqlindexes', 'sqlinitialdata',
+        'sqlreset', 'sqlsequencereset', 'validate']:
+    try:
+        del managementUtility.commands[key]
+    except KeyError:
+        pass
+action_mapping = {}
 print_stuff = False
 
 from channelguide import util
@@ -355,17 +366,6 @@ def calculate_recommendations(args=None):
     connection.commit()
     connection.close()
 calculate_recommendations.args = '[full]'
-
-# Remove django default actions that we don't use.  Many of these probably
-# would screw things up fairly bad.
-
-for key in ['startproject', 'adminindex', 'createcachetable', 'install',
-        'reset', 'sql', 'sqlall', 'sqlclear', 'sqlindexes', 'sqlinitialdata',
-        'sqlreset', 'sqlsequencereset', 'validate']:
-    try:
-        del action_mapping[key]
-    except KeyError:
-        pass
 calculate_recommendations.args = ''
 
 def refresh_popular_cache(args=None):
@@ -496,7 +496,6 @@ def shuffle_featured_channel_queue(args=None):
 shuffle_featured_channel_queue.args = ''
 
 
-
 action_mapping['syncdb'] = syncdb
 action_mapping['download_thumbnails'] = download_thumbnails
 action_mapping['update_search_data'] = update_search_data
@@ -517,7 +516,6 @@ action_mapping['refresh_popular_cache'] = refresh_popular_cache
 action_mapping['refresh_stats_table'] = refresh_stats_table
 action_mapping['update_new_channel_queue'] = update_new_channel_queue
 action_mapping['shuffle_featured_channel_queue'] = shuffle_featured_channel_queue
-del action_mapping['test']
 
 def add_static_urls():
     static_patterns = []
@@ -547,9 +545,8 @@ if __name__ == "__main__":
         init.initialize()
     else:
         init.init_external_libraries()
-    if (action not in original_action_mapping_keys and 
-            action in action_mapping):
+    if action in action_mapping:
         func = action_mapping[action]
         func(sys.argv)
     else:
-        management.execute_from_command_line(action_mapping, sys.argv)
+        managementUtility.execute(sys.argv)
