@@ -381,9 +381,9 @@ class SubmitChannelTest(TestCase):
             'website_url': 'http://foo.com/' + util.random_string(16),
             'description': 'Awesome channel',
             'publisher': 'Foo incorporated',
-            'language': self.language.id,
-            'category1': self.cat1.id,
-            'category2': self.cat2.id,
+            'languages_0': self.language.id,
+            'categories_0': self.cat1.id,
+            'categories_1': self.cat2.id,
             'thumbnail_file': open(test_data_path('thumbnail.jpg')),
             'thumbnail_file_submitted_path': '',
             'adult': False,
@@ -480,7 +480,7 @@ Errors: %s""" % (response.status_code, errors)
         self.assertEquals(form.errors.keys(), ['url'])
         self.submit_url()
         should_complain = ['name', 'website_url',
-                'description', 'publisher', 'language','category1',
+                'description', 'publisher', 'languages','categories',
                 'thumbnail_file']
         response = self.post_data('/channels/submit/step2', {})
         form = response.context[0]['form']
@@ -532,13 +532,13 @@ Errors: %s""" % (response.status_code, errors)
         language2 = Language("fooese")
         language3 = Language("barwegian")
         self.save_to_db(language1, language2, language3)
-        response = self.submit(language=language1.id, language2=language2.id)
+        response = self.submit(languages_0=language1.id, languages_1=language2.id)
         self.check_submit_worked(response)
         self.check_submitted_languages(language1, language2)
         self.delete_last_channel()
         self.login_and_submit_url()
-        response = self.submit(language=language3.id, language2=language2.id,
-                language3=language3.id)
+        response = self.submit(languages_0=language3.id, languages_1=language2.id,
+                languages_2=language3.id)
         self.check_submit_worked(response)
         self.check_submitted_languages(language3, language2)
 
@@ -582,7 +582,7 @@ Errors: %s""" % (response.status_code, errors)
 
     def check_category_names(self, response, *correct_names):
         form = response.context[0]['form']
-        names = [c[1] for c in form.fields['category1'].choices]
+        names = [c[1] for c in form.fields['categories'].fields[0].choices]
         self.assertSameSet(names, list(correct_names) + ['<none>'])
 
     def test_categories_widget_updates(self):
@@ -619,8 +619,9 @@ Errors: %s""" % (response.status_code, errors)
 
     def test_duplicate_category(self):
         self.login_and_submit_url()
-        response = self.submit(category1=self.cat1.id, category2=self.cat2.id, 
-                category3=self.cat1.id)
+        response = self.submit(categories_0=self.cat1.id,
+                categories_1=self.cat2.id,
+                categories_2=self.cat1.id)
         self.check_submit_worked(response)
         last = self.get_last_channel()
         category_ids = [c.id for c in last.categories]
@@ -657,6 +658,7 @@ class ModerateChannelTest(ChannelTestBase):
 
     def setUp(self):
         ChannelTestBase.setUp(self)
+        self.supermod = self.make_user('supermod', role=User.SUPERMODERATOR)
         self.joe = self.make_user('joe', role=User.MODERATOR)
         self.schmoe = self.make_user('schmoe')
 
@@ -712,33 +714,51 @@ class ModerateChannelTest(ChannelTestBase):
             self.assertEquals(len(after.notes), len(before.notes) + 1)
             self.assertEquals(len(self.emails), starting_email_count + 1)
         check_rejection_button('Broken')
-        check_rejection_button('Copyright')
+        check_rejection_button('Copyrighted')
         check_rejection_button('Explicit')
-        check_rejection_button('No Video')
+        check_rejection_button('No Media')
 
     def test_custom_reject(self):
         self.login('joe')
-        title = 'CUSTOM TITLE'
         body = 'CUSTOM BODY'
         url = '/channels/%d' % self.channel.id
-        self.post_data(url, {'action': 'reject', 'title': title, 'body':
+        self.post_data(url, {'action': 'reject', 'body':
             body})
         updated = self.refresh_record(self.channel, 'notes')
         self.assertEquals(updated.state, Channel.REJECTED)
         self.assertEquals(len(updated.notes), 1)
+        self.assertEquals(updated.notes[0].body, body)
         self.assertEquals(len(self.emails), 1)
 
-    def test_custom_reject_needs_title_and_body(self):
+    def test_custom_reject_needs_body(self):
         self.login('joe')
         url = '/channels/%d' % self.channel.id
-        self.post_data(url, {'action': 'reject', 'title': 'stuff', 'body':
+        self.post_data(url, {'action': 'reject', 'body':
             ''})
         updated = self.refresh_record(self.channel, 'notes')
         self.assertEquals(updated.state, Channel.NEW)
-        self.post_data(url, {'action': 'reject', 'title': '', 'body':
-            'stuff'})
-        updated = self.refresh_record(self.channel, 'notes')
+
+    def test_approve_and_feature_email(self):
+        self.login('supermod')
+        url = '/channels/%d' % self.channel.id
+        self.post_data(url, {'action': 'email', 'type':'Approve & Feature',
+            'body': 'body', 'email':'email@address.com'})
+        updated = self.refresh_record(self.channel, 'featured_queue')
+        self.assertEquals(updated.state, Channel.APPROVED)
+        self.assertEquals(updated.featured_queue.state,
+                updated.featured_queue.IN_QUEUE)
+        self.assertEquals(len(self.emails), 2)
+
+    def test_feature_email(self):
+        self.login('supermod')
+        url = '/channels/%d' % self.channel.id
+        self.post_data(url, {'action': 'email', 'type':'Feature',
+            'body': 'body', 'email':'email@address.com'})
+        updated = self.refresh_record(self.channel, 'featured_queue')
         self.assertEquals(updated.state, Channel.NEW)
+        self.assertEquals(updated.featured_queue.state,
+                updated.featured_queue.IN_QUEUE)
+        self.assertEquals(len(self.emails), 1)
 
 class ChannelSearchTest(ChannelTestBase):
     def setUp(self):
@@ -865,10 +885,10 @@ class EditChannelTest(ChannelTestBase):
         self.login(self.ralph)
         data = {
                 'url': self.channel.url,
-                'category1': self.categories['arts'].id,
-                'category3': self.categories['comedy'].id,
-                'language': self.languages['klingon'].id,
-                'language2': self.languages['piglatin'].id,
+                'categories_0': self.categories['arts'].id,
+                'categories_1': self.categories['comedy'].id,
+                'languages_0': self.languages['klingon'].id,
+                'languages_1': self.languages['piglatin'].id,
                 'tags': 'funny, cool, booya',
                 'publisher': 'some guy',
                 'name': 'cool vids',
@@ -892,9 +912,9 @@ class EditChannelTest(ChannelTestBase):
                 'website_url', 'description', 'url']:
             data[key] = getattr(self.channel, key)
         for i in xrange(len(self.channel.categories)):
-            data['category%d' % (i + 1)] = self.channel.categories[i].id
+            data['categories_%d' % i] = self.channel.categories[i].id
         data['tags'] = ', '.join(self.channel.tags)
-        data['language'] = self.channel.language.id
+        data['languages_0'] = self.channel.language.id
         return data
 
     def test_empty_tags(self):
@@ -914,16 +934,6 @@ class EditChannelTest(ChannelTestBase):
         self.post_to_edit_page(data)
         self.connection.commit()
         updated = self.refresh_record(self.channel, 'tags')
-
-    def test_owner(self):
-        admin = self.make_user('admin', role='A')
-        self.login(admin)
-        data = self.get_default_values()
-        data['owner'] = 'admin'
-        self.post_to_edit_page(data)
-        self.refresh_connection()
-        updated = self.refresh_record(self.channel)
-        self.assertEquals(updated.owner_id, admin.id)
 
     def test_change_url(self):
         self.login(self.ralph)
@@ -990,7 +1000,7 @@ class ChannelHTMLTest(ChannelTestBase):
         templates = [
             'channel-feature.html',
             'channel-feature-no-image.html',
-            'channel-full.html',
+            'show-channel.html',
             'channel-in-category.html',
             'channel-in-list.html',
             'channel-mini.html',
@@ -1150,3 +1160,6 @@ class ChannelCacheTest(ChannelTestBase):
         for user in (self.regular, self.mod, self.super, self.ralph):
             self.assert_(hasattr(self.get_page(url, login_as=user),
                 '_cache_hit'), 'cache cleared for %s' % user.username)
+
+if settings.DISABLE_CACHE or not settings.MEMCACHED_SERVERS:
+    del ChannelCacheTest

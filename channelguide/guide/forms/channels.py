@@ -10,6 +10,7 @@ import socket # for socket.error
 
 from django.conf import settings
 from django.newforms.forms import BoundField
+from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
 import django.newforms as forms
 import feedparser
@@ -107,6 +108,42 @@ class CategoriesField(DBChoiceField):
 
 class LanguageField(DBChoiceField):
     db_class = Language
+
+class TripletWidget(forms.MultiWidget):
+
+    def __init__(self, widget):
+        super(TripletWidget, self).__init__((widget, widget, widget))
+
+    def decompress(self, value):
+        if value is None:
+            return [None, None, None]
+        return value
+
+    def format_output(self, rendered_widgets):
+        names = (_("1st"), _("2nd"), _("3rd"))
+        context = {'rendered_widgets': zip(names, rendered_widgets),
+                'STATIC_BASE_URL': settings.STATIC_BASE_URL }
+        return render_to_string('guide/form-field-triplet.html', context)
+
+class TripletField(forms.MultiValueField):
+
+    def __init__(self, field, *args, **kw):
+        kw['widget'] = TripletWidget(field.widget)
+        kw['required'] = False
+        args = ((field(), field(), field()),) + args
+        super(TripletField, self).__init__(*args, **kw)
+
+    def update_choices(self):
+        for field, widget in zip(self.fields, self.widget.widgets):
+            field.connection = self.connection
+            field.update_choices()
+            widget.choices = field.choices
+
+    def compress(self, values):
+        if not values or values[0] is None:
+            raise forms.ValidationError(_(
+                "You must at least enter a primary value."))
+        return values
 
 class TagField(WideCharField):
     def __init__(self, tag_limit, *args, **kwargs):
@@ -206,44 +243,26 @@ class SubmitChannelForm(Form):
     website_url = WideURLField(label=_('Website URL'), max_length=200)
     description = WideCharField(widget=forms.Textarea, 
             label=_("Full Description"))
-    publisher = WideCharField(max_length=100)
-    language = LanguageField(label=_("Primary Language"),
-            help_text=_("What language are most of these videos in?"))
-    language2 = LanguageField(label=_("Additional Language"), 
-            help_text=_('Are some of these videos in an additional '
-                        'language?'),
-            required=False)
-    language3 = LanguageField(label=_("Additional Language"), 
-            help_text=_('Are some of these videos in an additional '
-                        'language?'),
-            required=False)
-    category1 = CategoriesField(label=_("Primary Category"),
-            help_text=_('Which category best fits this channel?'))
-    category2 = CategoriesField(label=_("Additional Category"),
-            help_text=_('Is there another category that this channel '
-                        'belongs in?'),
-            required=False)
-    category3 = CategoriesField(label=_("Additional Category"),
-            help_text=_('Is there another category that this channel '
-                        'belongs in?'),
-            required=False)
     tags = TagField(tag_limit=5, required=False,
-            label=_('Tags (up to 5)'),
+            label=_('Tags') + ' <span>' + _('(up to 5)') + '</span>',
             help_text=_('Keywords that describe this channel.  Separate each '
                 'tag with a comma.'))
-    hi_def = forms.BooleanField(label=_('High Definition'), 
-            help_text=HD_HELP_TEXT, required=False)
+    categories = TripletField(CategoriesField, label=_("Categories"))
+    languages = TripletField(LanguageField, label=_("Languages"),
+            help_text=_("What language are most of these videos in?"))
+    publisher = WideCharField(max_length=100)
     postal_code = WideCharField(max_length=15, label=_("Postal Code"),
             required=False)
+    hi_def = forms.BooleanField(label=_('High Definition'), 
+            help_text=HD_HELP_TEXT, required=False)
     thumbnail_file = forms.Field(widget=ChannelThumbnailWidget, 
             label=_('Upload Image'))
 
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
         self.set_image_from_feed = False
-        for name in ('category1', 'category2', 'category3',
-                'language', 'language2', 'language3'):
-            self.fields[name].update_choices()
+        self.fields['languages'].update_choices()
+        self.fields['categories'].update_choices()
 
     def field_list(self):
         for field in super(SubmitChannelForm, self).field_list():
@@ -290,7 +309,7 @@ class SubmitChannelForm(Form):
     def add_categories(self, channel):
         channel.join('categories').execute(self.connection)
         channel.categories.clear(self.connection)
-        ids = self.get_ids('category1', 'category2', 'category3')
+        ids = self.cleaned_data['categories']
         if not ids:
             return
         query = Category.query(Category.c.id.in_(ids))
@@ -298,9 +317,10 @@ class SubmitChannelForm(Form):
         channel.categories.add_records(self.connection, categories)
 
     def add_languages(self, channel):
+        channel.primary_language_id = self.cleaned_data['languages'][0]
         channel.join("secondary_languages").execute(self.connection)
         channel.secondary_languages.clear(self.connection)
-        ids = self.get_ids('language2', 'language3')
+        ids = self.cleaned_data['languages'][1:]
         ids = [id for id in ids if id != channel.primary_language_id]
         if not ids:
             return
@@ -322,7 +342,7 @@ class SubmitChannelForm(Form):
             raise forms.ValidationError("Feed URL already exists")
         channel = Channel()
         channel.url = feed_url
-        channel.owner = creator
+        channel.owner_id = creator.id
         self.update_channel(channel)
         return channel
 
@@ -332,7 +352,7 @@ class SubmitChannelForm(Form):
         for attr in string_cols:
             setattr(channel, attr, self.cleaned_data[attr].encode('utf-8'))
         channel.hi_def = self.cleaned_data['hi_def']
-        channel.primary_language_id = int(self.cleaned_data['language'])
+        channel.primary_language_id = int(self.cleaned_data['languages'][0])
         channel.save(self.connection)
         self.add_tags(channel)
         self.add_categories(channel)
@@ -351,8 +371,6 @@ class SubmitChannelForm(Form):
 
 class EditChannelForm(FeedURLForm, SubmitChannelForm):
 
-    owner = UsernameField()
-
     def __init__(self, request, channel, data=None):
         # django hack to get fields to work right with subclassing
         #self.base_fields = SubmitChannelForm.base_fields 
@@ -360,8 +378,6 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
         super(EditChannelForm, self).__init__(request.connection, data)
         self.channel = channel
         self.fields['thumbnail_file'].required = False
-        if not request.user.is_supermoderator():
-            del self.fields['owner']
         self.set_image_from_channel = False
         self.set_initial_values()
 
@@ -374,41 +390,22 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
 
     def set_initial_values(self):
         join = self.channel.join('language', 'secondary_languages',
-                'categories', 'owner')
+                'categories')
         join.execute(self.connection)
         for key in ('url', 'name', 'hi_def', 'website_url',
                 'description', 'publisher',
                 'postal_code'):
             self.fields[key].initial = getattr(self.channel, key)
-        self.fields['language'].initial = self.channel.language.id
-        if 'owner' in self.fields and self.channel.owner is not None:
-            self.fields['owner'].initial = self.channel.owner.username
         tags = self.channel.get_tags_for_owner(self.connection)
         tag_names = [tag.name for tag in tags]
         self.fields['tags'].initial = ', '.join(tag_names)
-        def set_from_list(key, list, index):
-            try:
-                self.fields[key].initial = list[index].id
-            except IndexError:
-                pass
-        set_from_list('language2', self.channel.secondary_languages, 0)
-        set_from_list('language3', self.channel.secondary_languages, 1)
-        set_from_list('category1', self.channel.categories, 0)
-        set_from_list('category2', self.channel.categories, 1)
-        set_from_list('category3', self.channel.categories, 2)
+        self.fields['categories'].initial = [c.id for c in self.channel.categories]
+        self.fields['languages'].initial = [self.channel.primary_language_id] +\
+                [l.id for l in self.channel.secondary_languages]
 
     def update_channel(self, channel):
         if self.cleaned_data['url'] is not None:
             channel.url = self.cleaned_data['url'].url
-        if 'owner' in self.fields and self.cleaned_data.get('owner') is not None:
-            user = User.query(username=self.cleaned_data['owner'].username
-                    ).get(self.connection)
-            if channel.owner_id != user.id:
-                tags = channel.get_tags_for_owner(self.connection)
-                for tag in tags:
-                    channel.delete_tag(self.connection, channel.owner, tag)
-                channel.owner_id = user.id
-                channel.add_tags(self.connection, user, tags)
         super(EditChannelForm, self).update_channel(channel)
 
 class FeaturedEmailForm(Form):

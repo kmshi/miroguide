@@ -17,14 +17,14 @@ class NotesTest(TestCase):
         self.channel.join("notes").execute(self.connection)
         self.non_owner = self.make_user('tony')
         self.moderator = self.make_user('greg', role=User.MODERATOR)
-        self.moderator_note = self.make_note('foo', ChannelNote.MODERATOR_ONLY)
-        self.owner_note = self.make_note('bar', ChannelNote.MODERATOR_TO_OWNER)
+        self.moderator_note = self.make_note('foo')
+        self.owner_note = self.make_note('bar')
         self.channel.notes.add_record(self.connection, self.moderator_note)
         self.channel.notes.add_record(self.connection, self.owner_note)
         self.connection.commit()
 
-    def make_note(self, title, type):
-        return ChannelNote(self.channel_owner, title, 'Booya', type)
+    def make_note(self, body):
+        return ChannelNote(self.channel_owner, body)
 
     def assertSameNote(self, note1, note2):
         self.assertEquals(note1.title, note2.title)
@@ -41,47 +41,31 @@ class NotesTest(TestCase):
         self.assertSameNote(notes[1], self.owner_note)
 
     def check_non_owner_notes(self, notes):
-        self.assertEquals(notes['show_owner_notes'], False)
-        self.assertSameNoteList(notes['owner_notes'], [])
-        self.assertEquals(notes['show_moderator_notes'], False)
-        self.assertSameNoteList(notes['moderator_notes'], [])
+        self.assertEquals(notes, [])
 
     def check_owner_notes(self, notes):
-        self.assertEquals(notes['show_owner_notes'], True)
-        self.assertSameNoteList(notes['owner_notes'], [self.owner_note])
-        self.assertEquals(notes['show_moderator_notes'], False)
-        self.assertSameNoteList(notes['moderator_notes'], [])
-
-    def check_moderator_notes(self, notes):
-        self.assertEquals(notes['show_owner_notes'], True)
-        self.assertSameNoteList(notes['owner_notes'], [self.owner_note])
-        self.assertEquals(notes['show_moderator_notes'], True)
-        self.assertSameNoteList(notes['moderator_notes'], [self.moderator_note])
+        self.assertSameNoteList(notes, [self.owner_note, self.moderator_note])
 
     def test_get_note_info(self):
         self.check_non_owner_notes(
                 get_note_info(self.channel, self.non_owner))
         self.check_owner_notes(
                 get_note_info(self.channel, self.channel_owner))
-        self.check_moderator_notes(
+        self.check_owner_notes(
                 get_note_info(self.channel, self.moderator))
 
     def test_channel_page(self):
         """
-        On the channel page, if  the user is not the owner or no user is
+        On the channel edit page, if  the user is not the owner or no user is
         logged in, no notes should be displayed.  If the user is the owner,
         display the notes for the owner.  If the user is a moderator, display
         all the notes.
         """
-        channel_path = "/channels/%d" % self.channel.id
-        page = self.get_page(channel_path)
-        self.check_non_owner_notes(page.context[-1]['notes'])
-        page = self.get_page(channel_path, self.non_owner)
-        self.check_non_owner_notes(page.context[-1]['notes'])
+        channel_path = "/channels/edit/%d" % self.channel.id
         page = self.get_page(channel_path, self.channel_owner)
-        self.check_owner_notes(page.context[-1]['notes'])
+        self.check_owner_notes(page.context[0]['notes'])
         page = self.get_page(channel_path, self.moderator)
-        self.check_moderator_notes(page.context[-1]['notes'])
+        self.check_owner_notes(page.context[0]['notes'])
 
 class NotesPageTestBase(TestCase):
     def setUp(self):
@@ -95,50 +79,32 @@ class NotesPageTestBase(TestCase):
         self.channel = self.make_channel(self.user)
         self.channel.join('notes').execute(self.connection)
 
-    def make_note_post_data(self, send_email=False, 
-            type=ChannelNote.MODERATOR_ONLY):
+    def make_note_post_data(self):
         post_data = {
                 'channel-id': self.channel.id,
-                'title': 'test title',
                 'body': 'test body',
             }
-        if type == ChannelNote.MODERATOR_ONLY:
-            post_data['type'] = 'moderator-only'
-        else:
-            post_data['type'] = 'moderator-to-owner'
-        if send_email:
-            post_data['send-email'] = 1
         return post_data
 
 
 class NotesPageTest(NotesPageTestBase):
     def test_add_note(self):
-        self.login(self.moderator)
+        self.login(self.user)
         post_data = self.make_note_post_data()
         page = self.post_data("/notes/new", post_data)
         self.channel = self.refresh_record(self.channel, 'notes')
         self.assertEquals(len(self.channel.notes), 1)
-        self.assertEquals(self.channel.notes[-1].title, post_data['title'])
         self.assertEquals(self.channel.notes[-1].body, post_data['body'])
-        self.assertEquals(self.channel.notes[-1].type,
-                ChannelNote.MODERATOR_ONLY)
         self.assertEquals(len(self.emails), 0)
-        page = self.post_data("/notes/new", self.make_note_post_data(True))
+        self.login(self.moderator)
+        page = self.post_data("/notes/new", post_data)
         self.channel = self.refresh_record(self.channel, 'notes')
         self.assertEquals(len(self.channel.notes), 2)
         self.assertEquals(len(self.emails), 1)
 
-    def test_email_checkbox(self):
-        channel_path = "/channels/%d" % self.channel.id
-        page = self.get_page(channel_path, self.user)
-        self.assert_('send-email' not in str(page))
-        page = self.get_page(channel_path, self.moderator)
-        self.assert_('send-email' in str(page))
-
     def add_note_to_channel(self):
         start_count = self.get_note_count()
-        note = ChannelNote(self.user, 'test', 'test',
-                ChannelNote.MODERATOR_TO_OWNER)
+        note = ChannelNote(self.user, 'test')
         self.channel.notes.add_record(self.connection, note)
         self.check_note_count(start_count + 1)
         return note
@@ -152,62 +118,28 @@ class NotesPageTest(NotesPageTestBase):
     def check_note_count(self, correct_count):
         self.assertEquals(self.get_note_count(), correct_count)
 
-    def test_delete_note(self):
-        note = self.add_note_to_channel()
-        self.login(self.moderator)
-        page = self.post_data("/notes/%d" % note.id, {'action' : 'delete'})
-        self.check_note_count(0)
-
-    def check_can_delete(self, user, can_delete):
-        start_note_count = self.get_note_count()
-        self.channel = self.refresh_record(self.channel, 'notes')
+    def check_can_add(self, user, can_add):
         if user is not None:
             self.login(user)
-        page = self.post_data("/notes/%d" % self.channel.notes[0].id, 
-                {'action' : 'delete'})
-        if can_delete:
-            self.check_note_count(start_note_count - 1)
+        start_count = self.get_note_count()
+        page = self.post_data("/notes/new", self.make_note_post_data())
+        if can_add:
+            self.check_note_count(start_count + 1)
         else:
             self.assertLoginRedirect(page)
-            self.check_note_count(start_note_count)
-
-    def test_delete_auth(self):
-        for x in range(5):
-            self.add_note_to_channel()
-        self.check_note_count(5)
-        self.check_can_delete(None, False)
-        self.check_can_delete(self.random_user, False)
-        self.check_can_delete(self.user, False)
-        self.check_can_delete(self.moderator, True)
-        self.check_can_delete(self.supermod, True)
-
-    def check_can_add(self, user, can_add_normal, can_add_moderator_only):
-        if user is not None:
-            self.login(user)
-        def do_check(post_data, can_add):
-            start_count = self.get_note_count()
-            page = self.post_data("/notes/new", post_data)
-            if can_add:
-                self.check_note_count(start_count + 1)
-            else:
-                self.assertLoginRedirect(page)
-                self.check_note_count(start_count)
-        do_check(self.make_note_post_data(), can_add_moderator_only)
-        do_check(self.make_note_post_data(type=ChannelNote.MODERATOR_TO_OWNER), 
-                can_add_normal)
 
     def test_add_auth(self):
-        self.check_can_add(None, False, False)
-        self.check_can_add(self.random_user, False, False)
-        self.check_can_add(self.user, True, False)
-        self.check_can_add(self.moderator, True, True)
-        self.check_can_add(self.supermod, True, True)
+        self.check_can_add(None, False)
+        self.check_can_add(self.random_user, False)
+        self.check_can_add(self.user, True)
+        self.check_can_add(self.moderator, True)
+        self.check_can_add(self.supermod, True)
 
     def check_can_email(self, user, can_email):
         start_count = len(self.emails)
         if user is not None:
             self.login(user)
-        page = self.post_data("/notes/new", self.make_note_post_data(True))
+        page = self.post_data("/notes/new", self.make_note_post_data())
         if can_email:
             self.assertEquals(len(self.emails), start_count + 1)
         else:
@@ -215,12 +147,12 @@ class NotesPageTest(NotesPageTestBase):
 
     def test_email_from(self):
         self.login(self.moderator)
-        page = self.post_data("/notes/new", self.make_note_post_data(True))
+        page = self.post_data("/notes/new", self.make_note_post_data())
         self.assertEquals(self.emails[0]['email_from'], settings.EMAIL_FROM)
 
     def test_channel_link(self):
         self.login(self.moderator)
-        page = self.post_data("/notes/new", self.make_note_post_data(True))
+        page = self.post_data("/notes/new", self.make_note_post_data())
         self.assert_(self.channel.get_absolute_url() in self.emails[0]['body'])
 
     def test_email_auth(self):
@@ -330,8 +262,7 @@ class ModeratorPostTest(TestCase):
 class WaitingForReplyTest(NotesPageTestBase):
     def make_user_post(self):
         self.login(self.user)
-        self.post_data("/notes/new", self.make_note_post_data(
-                type=ChannelNote.MODERATOR_TO_OWNER))
+        self.post_data("/notes/new", self.make_note_post_data())
 
     def test_waiting_for_reply(self):
         self.assertEquals(self.channel.waiting_for_reply_date, None)
@@ -344,8 +275,7 @@ class WaitingForReplyTest(NotesPageTestBase):
     def test_waiting_for_reply_moderator_post(self):
         self.make_user_post()
         self.login(self.moderator)
-        self.post_data("/notes/new", self.make_note_post_data(
-                type=ChannelNote.MODERATOR_TO_OWNER))
+        self.post_data("/notes/new", self.make_note_post_data())
         updated = self.refresh_record(self.channel)
         self.assertEquals(updated.waiting_for_reply_date, None)
 

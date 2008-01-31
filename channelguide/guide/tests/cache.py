@@ -274,3 +274,8 @@ class CachedRecordTest(TestCase):
         self.assertEquals(new_record.name, "Foobar")
 
 '''
+
+if settings.DISABLE_CACHE or not settings.MEMCACHED_SERVERS:
+    del CacheTest
+    del CacheMiddlewareTest
+    del CacheTestBase

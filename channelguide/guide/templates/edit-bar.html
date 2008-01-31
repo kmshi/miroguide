@@ -1,0 +1,90 @@
+{% load i18n channels %}
+<div class="edit" editURL="{{ channel.get_edit_url }}">
+    {% if user.is_moderator %}
+    <h2>{% trans "Click to Edit Channel / Assist Manager" %}</h2>
+    <h3>
+    {% if channel.is_approved %}
+        {% blocktrans with channel.state_name as state and channel.last_moderated_by as mod and channel.approved_at|date:"m/d/Y" as mod_time %}{{ state }} by {{mod}} on {{ mod_time }}{% endblocktrans %}
+    {% else %}
+        {% if channel.last_moderated_by %}
+        {% blocktrans with channel.state_name as state and channel.last_moderated_by as mod %}{{ state }} by {{ mod }}{% endblocktrans %}
+        {% else %}
+        {% blocktrans with channel.state_name as state %}Channel is {{ state }}{% endblocktrans %}
+        {% endif %}
+    {% endif %}
+    {% if channel.featured %}
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    {% blocktrans with channel.featured_at|date:"m/d/Y" as featured_time and channel.featured_by as mod %}Featured by {{ mod }} on {{ featured_time }}{% endblocktrans %}
+    {% endif %}
+    </h3>
+    {% show_simple_moderate_actions channel %}
+    {% else  %}
+        <h2>{% trans "Edit Your Channel / View Statistics / Get Help" %}</h2>
+        {% if channel.featured %}
+        <h3>Last Featured on {{ channel.featured_at|date:"m/d/Y" }}</h3>
+        {% endif %}
+    {% endif %}
+</div>
+<div class="edit-box" style="display: none;"></div>
+{% if show_script %}
+<script type="text/javascript">
+function toggleEditBox() {
+    var edit = $(this).parent();
+    var editBox = edit.next('.edit-box');
+    if (editBox.contents().length) {
+        editBox.slideToggle('slow');
+        edit.toggleClass('open');
+    } else {
+        edit.addClass('loading');
+        url = edit.attr('editURL')
+            editBox.load(url + " .big-form" , function(){
+            editBox.find('.big-form').removeClass('big-form');
+            editBox.append('<div class="clear"></div>').height(0).css('display', 'block');
+            editBox.find("li:lt(5)").each(function() {
+                var label = $(this).children("div label");
+                var input = $(this).children("input");
+                var textarea = $(this).children("textarea");
+                input.width($(this).width() - label.width() - 20);
+                textarea.width($(this).width() - 20).height('6em');
+                });
+            editBox.find('form').css('float', 'left');
+            edit.addClass('open').removeClass('loading');
+            editBox.height(0);
+            editBox.show();
+            setTimeout(function(){editBox.height('');}, 10);
+        });
+    }
+}
+
+function showEmailForm(event) {
+    var type = $(this).attr('value');
+    var top = (window.innerHeight - 300) / 2;
+    var left = (window.innerWidth - 600) / 2;
+    $('body div').fadeTo('slow', 0.7);
+    $('body').prepend('<div class="email-form embedded" style="width: 600px; height: 300px; border: 2px solid black; background: white; z-index: 1; top: ' + top +'px; left: ' + left + 'px; position: fixed;"></div>');
+    var url = $(this).parent().attr('action').replace(/channels/, 'channels/email');
+    $('body div.email-form').load(url + ' div.email-form > *', {type: type},
+            function() {
+                var emailForm = $('div.email-form');
+                button = '<input type="button" class="cancelemail" value="{% trans "Cancel and go back" %}">'
+                form = emailForm.find('form:last');
+                form.append(button);
+                $('input.cancelemail').click(function(event) {
+                    emailForm.remove();
+                    $('body div').css('opacity', '1');
+                    document.body.style.opacity = 1;
+                    event.stopPropagation();
+                    return false;
+                    });
+                }
+        );
+    return false;
+}
+
+$(".edit h2").click(toggleEditBox);
+$('input.email-form').click(showEmailForm);
+if (location.hash == '#edit') {
+    $(".edit h2").each(toggleEditBox);
+}
+</script>
+{% endif %}

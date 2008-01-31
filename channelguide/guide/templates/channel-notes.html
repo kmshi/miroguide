@@ -1,19 +1,24 @@
-{% load notes cg_helpers i18n %}
-{% if notes.show_moderator_notes or notes.show_owner_notes %}
-    {% if notes.show_owner_notes %}
-    <h2 class="note-title">
-        {% if user.is_moderator %}
-            {% trans "Conversation With Channnel Owner" %}
-        {% else %}
-            {% trans "Conversation With Moderators" %}
-        {% endif %}
-    </h2>
-    {% show_note_list notes.owner_notes %}
-    {% show_add_note "moderator-to-owner" channel %}
-    {% endif %}
-    {% if notes.show_moderator_notes %}
-    <h2 class="note-title">{% trans "Notes For Moderators" %}</h2>
-    {% show_note_list notes.moderator_notes %}
-    {% show_add_note "moderator-only" channel %}
-    {% endif %}
+{% load i18n notes %}
+<div class="notes">
+    <h2>{% trans "Issues" %}: <span>({% trans "need support? post here." %})</span></h2>
+{% if notes %}
+<ul class="note-list">
+{% for note in notes %}
+    <li>
+        <div class="name">
+            {% ifequal note.user_id user.id %}
+                {% trans "Me" %}
+            {% else %}
+                {% ifequal note.user_id channel.owner_id %}
+                    {% trans "Manager" %}
+                {% else %}
+                    {{ note.user.username }}
+                {% endifequal %}
+            {% endifequal %}
+        </div>
+        <div class="body">{{ note.body|linebreaks}}</div>
+    </li>
+{% endfor %}
+</ul>
 {% endif %}
+{% show_add_note channel %}

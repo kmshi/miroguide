@@ -1,0 +1,37 @@
+{% load i18n cg_helpers %}
+{% extends "base.html" %}
+{% block content %}
+<div class="email-form">
+    <h2>{% trans "Please Send a Note to the Channel Manager!" %}</h2>
+    <form method="POST" action="{{ channel.get_url }}">
+        {% ifequal type "Reject" %}
+        <input type="hidden" name="action" value="reject">
+        {% else %}
+        <input type="hidden" name="action" value="email">
+        <input type="hidden" name="type" value="{{ type }}">
+        {% endifequal %}
+        <textarea cols=70 rows=8 name="body">{{ body }}</textarea>
+        <div>
+            <label for="email">{% trans "send e-mail to" %}</label>
+            {% ifequal channel.owner.email "Dean@NottheMessiah.net" %}
+            <input type="text" name="email" value="">
+            {% else %}
+            <input type="text" name="email" value="{{ channel.owner.email }}">
+            {% endifequal %}
+            <input type="submit" value="{% trans "Send" %}">
+        </div>
+    </form>
+    {% if skipable %}
+    <form method="POST" action="{{ channel.get_url }}">
+        <input type="hidden" name="action" value="{{ action }}">
+        <input type="hidden" name="submit" value="{{ type }}">
+        <input type="submit" class="skip" value="{% blocktrans %}Skip the note, just {{ type }}{% endblocktrans %}">
+    </form>
+    {% endif %}
+    <span>
+    {% ifequal channel.owner.email "Dean@NottheMessiah.net" %}
+    {% trans "* This channel has been added by us. You can hunt for the producer's email address here:" %} <a target="_blank" {% link channel.website_url %}>{{ channel.website_url }}</a>
+    {% endifequal %}
+    </span>
+</div>
+{% endblock %}

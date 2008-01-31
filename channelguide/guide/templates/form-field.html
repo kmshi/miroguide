@@ -1,7 +1,11 @@
 {% load i18n %}
 <div class="label">
-    {% if field.errors %}<img src="{{ BASE_URL }}images/form-error-arrow.png" alt="error"> {% endif %}
-    {{ field.label_tag|linebreaksbr }}:&nbsp;
+    {% if field.errors %}<img src="{{ BASE_URL }}images/form-error-arrow.png" alt="{% trans "Error" %}"> {% endif %}
+    {% if field.field.label %}
+    {{ field.field.label|linebreaksbr }}:
+    {% else %}
+    {{ field.label_tag|linebreaksbr }}:
+    {% endif %}&nbsp;
 </div>
 {{ field }}
 {% if field.field.help_text %}

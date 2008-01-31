@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% load channels cg_helpers notes %}
-
+{% block head-extra %}<script type="text/javascript" src='{{ STATIC_BASE_URL }}js/jquery.js'></script>{% endblock %}
 {% block content %}
 <div class="moderator-channel-list">
 {% show_pager pager %}
 <h1>{{ header }}</h1>
 <ul class="channel-list">
   {% for channel in channels %}
-    <li>{% show_channel_full channel %}</li>
+  <li>{% show_channel_moderate channel forloop.last %}</li>
   {% endfor %}
 </ul>
 {% show_pager pager %}

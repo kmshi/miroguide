@@ -1,0 +1,41 @@
+{% load cg_helpers channels i18n %}
+<div class="channel channel-moderate">
+    {% twocolumns %}
+        <div class="screenshot">
+            <a href="{{ channel.get_url }}">{{ channel.thumb_245_164 }}
+            {% if channel.hi_def %}
+            <img class="hd-icon-large" src="{{ BASE_URL }}images/hd-icon-large.png" alt="HD">
+            {% endif %}
+            </a>
+        </div>
+    {% splitcolumns %}
+        <h1 class="title">
+            <a href="{{ channel.get_url }}">{{ channel.name|escape }}</a>
+        </h1>
+        <div class="description">{{ channel.description|escape }}</div>
+        <div class="actions">
+            <div class="big horizontal">
+                <a {{ channel.subscription_link }}>
+                    <span class="icon"></span>
+                    {% trans "Add Channel" %}
+                </a>
+            </div>
+        </div>
+        <div class="website">
+            <h3>{% trans "Website" %}</h3>
+            {{ channel.website_link }}
+        </div>
+        {% if can_edit %}
+        <div class="extra-info">
+            <h3>{% trans "Manager Email" %}</h3>
+            {{ channel.owner.email }}
+        </div>
+        {% endif %}
+    {% endtwocolumns %}
+    {% if user.is_moderator %}
+    {% show_moderate_actions channel %}
+    {% endif %}
+    {% if can_edit %}
+    {% show_edit_bar channel show_script %}
+    {% endif %}
+</div>

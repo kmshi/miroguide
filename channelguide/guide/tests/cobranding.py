@@ -7,6 +7,7 @@ class CobrandingAdminTestCase(TestCase):
         TestCase.setUp(self)
         self.admin = self.make_user('admin', role='A')
         self.user = self.make_user('user')
+        self.plain = self.make_user('plain')
         self.channels = []
         for i in range(3):
             channel = self.make_channel(self.user, state='A')
@@ -22,10 +23,10 @@ class CobrandingAdminTestCase(TestCase):
         self.assert_(self.get_page('/cobranding/admin/user', self.user) is
                 None)
 
-    def test_user_cannot_edit_cobrand(self):
+    def test_regular_cannot_edit_cobrand(self):
         self.get_page('/cobranding/admin/user', self.admin)
         self.assertLoginRedirect(self.get_page('/cobranding/admin/user',
-            self.user))
+            self.plain))
 
     def test_admin_can_change_cobrand(self):
         names = ('html_title', 'page_title', 'url', 'icon_url', 'description',

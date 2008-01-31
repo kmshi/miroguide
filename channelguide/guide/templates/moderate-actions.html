@@ -1,83 +1,20 @@
-{% load i18n %}
-<div class="clear"></div>
-{% if channel.waiting_for_reply_date %}
-<li class="channel-action">
+{% load i18n channels %}
+{% show_simple_moderate_actions channel %}
+<ul class="reject-moderate-actions moderate-actions">
+    <li class="channel-action">
     <form method="POST" action="{{ channel.get_url }}">
-        <input type="hidden" name="action" value="mark-replied">
-        <input type="submit" name="submit" value="Mark Replied">
-    </form>
-</li>
-{% endif %}
-{% if channel.is_approved %}
-<li class="channel-action">
-    <form method="POST" action="{{ channel.get_url }}">
-        <input type="hidden" name="action" value="change-state">
-        <input type="submit" name="submit" value="Unapprove">
-    </form>
-</li>
-<li class="channel-action">
-    {% if channel.featured %}
-    <form method="POST" action="{{ channel.get_url }}">
-        <input type="hidden" name="action" value="unfeature">
-        <input type="submit" value="Unfeature">
-    </form>
-    {% else %}
-    <form method="POST" action="{{ channel.get_url }}">
-        <input type="hidden" name="action" value="feature">
-        <input type="submit" value="Feature">
-    </form>
-    {% endif %}
-</li>
-{% else %}
-<li class="channel-action">
-    <form method="POST" action="{{ channel.get_url }} ">
-        <input type="hidden" name="action" value="change-state">
-        <input type="submit" name="submit" value="Approve">
-        <input type="submit" name="submit" value="Audio">
-        <input type="submit" name="submit" value="Don't Know">
-    </form>
-</li>
-<li class="channel-action rejection-actions">
-    <h3>{% trans "Standard Rejections"%}</h3>
-    <form method="POST" action="{{ channel.get_url }} ">
         <input type="hidden" name="action" value="standard-reject">
         <input type="submit" name="submit" value="Broken">
-        <input type="submit" name="submit" value="Copyright">
+        <input type="submit" name="submit" value="Copyrighted">
         <input type="submit" name="submit" value="Explicit">
-        <input type="submit" name="submit" value="No Video">
-    </form>
-</li>
-<li class="channel-action rejection-actions">
-    <h3>{% trans "Custom Rejection "%}</h3>
-    <form method="POST" action="{{ channel.get_url }}">
-        <input type="hidden" name="action" value="reject">
-        <table border=0 cellpadding=0 cellspacing=2>
-            <tr><td>Title:</td><td><input size=40 name="title"></td></tr>
-            <tr><td>Body:</td><td><textarea cols=40 rows=8 name="body"></textarea></td></tr>
-            <tr><td></td><td><input type="submit" value="Reject"></td></tr>
-        </table>
-    </form>
-</li>
-{% endif %}
-<li class="channel-action">
-    <form method="POST" action="{{ channel.get_url }}">
-        <input type="hidden" name="action" value="toggle-moderator-share">
-        {% if channel.moderator_shared_at %}
-        <input type="submit" value="Unshare w/ mods">
-        {% else %}
-        <input type="submit" value="Share w/ mods">
-        {% endif %}
+        <input type="submit" name="submit" value="No Media">
+        <input class="email-form" type="submit" name="submit" value="Custom">
     </form>
     </li>
-<li class="channel-action">
-    <form method="POST" action="{{ channel.get_url }}">
-        <input type="hidden" name="action" value="toggle-adult">
-        {% if channel.adult %}
-        <input type="submit" value="Mark Not Adult">
-        {% else %}
-        <input type="submit" value="Mark Adult">
-        {% endif %}
-    </form>
-</li>
-        
+    {% if channel.hi_def %}
+    <li class="question">
+    {% trans "Channel marked as HD! Does it meet" %} <a href=".">{% trans "requirements"%}</a>{% trans "?" %}
+    </li>
+    {% endif %}
+</ul>
 

@@ -1,0 +1,59 @@
+{% load i18n %}
+<ul class="simple-moderate-actions moderate-actions">
+{% if channel.is_approved %}
+<li class="channel-action">
+    {% if user.is_supermoderator %}
+        {% ifequal channel.featured_queue.state channel.featured_queue.CURRENT %}
+        <form method="POST" action="{{ channel.get_url }}">
+            <input type="hidden" name="action" value="unfeature">
+            <input type="submit" value="Unfeature">
+        </form>
+        {% else %}
+        <form method="POST" action="{{ channel.get_url }}">
+            <input type="hidden" name="action" value="feature">
+            <input class="email-form" type="submit" value="Feature">
+        </form>
+        {% endifequal %}
+    {% else %}
+        <form method="POST" action="{{ channel.get_url }}">
+            <input type="hidden" name="action" value="toggle-moderator-share">
+            {% if channel.moderator_shared_at %}
+            <input type="submit" value="Unshare w/ mods">
+            {% else %}
+            <input type="submit" value="Share w/ mods">
+            {% endif %}
+        </form>
+        {% endif %}
+    </li>
+    <li class="channel-action">
+    <form method="POST" action="{{ channel.get_url }}">
+            <input type="hidden" name="action" value="change-state">
+            <input type="submit" name="submit" value="Unapprove">
+        </form>
+    </li>
+{% else %}
+<li class="channel-action">
+    <form method="POST" action="{{ channel.get_url }} ">
+        <input type="hidden" name="action" value="change-state">
+        <input type="submit" name="submit" value="Approve">
+        {% if user.is_supermoderator %}
+        <input class="email-form" type="submit" name="submit" value="Approve &amp; Feature">
+        {% else %}
+        <input type="submit" name="submit" value="Approve &amp; Share">
+        {% endif %}
+        <input type="submit" name="submit" value="Audio">
+        <input type="submit" name="submit" value="Don't Know">
+    </form>
+</li>
+{% endif %}
+    {% if user.is_supermoderator %}
+    <li class="channel-action channel-action-right">
+        <form method="POST" action="{{ channel.get_url }}">
+            <input type="hidden" name="action" value="change-owner">
+            <label for="owner">Channel Manager:</label>
+            <input type="text" name="owner" value="{{ channel.owner }}">
+            <input type="submit" value="change">
+        </form>
+    </li>
+    {% endif %}
+</ul>

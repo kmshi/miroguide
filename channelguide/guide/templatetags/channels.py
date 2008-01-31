@@ -3,27 +3,29 @@ from django.template import Library
 from channelguide.guide.models import Rating, GeneratedRatings
 register = Library()
 
-@register.inclusion_tag('guide/channel-full.html', takes_context=True)
-def show_channel_full(context, channel):
+@register.inclusion_tag('guide/channel-moderate.html', takes_context=True)
+def show_channel_moderate(context, channel, showScript=True):
     user = context['user']
     return {'channel': channel, 'user': user,
-            'show_edit_button': user.can_edit_channel(channel),
-            'show_extra_info': user.can_edit_channel(channel),
-            'link_to_channel': True,
+            'can_edit': user.can_edit_channel(channel),
+            'show_script': showScript,
             'BASE_URL': settings.BASE_URL}
 
-@register.inclusion_tag('guide/channel-full.html', takes_context=True)
-def show_channel_full_no_link(context, channel):
-    user = context['user']
-    return {'channel': channel, 'user': user,
-            'show_edit_button': user.can_edit_channel(channel),
-            'show_extra_info': user.can_edit_channel(channel),
-            'link_to_channel': False,
-            'BASE_URL': settings.BASE_URL}
+@register.inclusion_tag('guide/edit-bar.html', takes_context=True)
+def show_edit_bar(context, channel, showScript=True):
+    return {'channel': channel, 'user': context['user'],
+            'show_script': showScript}
 
-@register.inclusion_tag('guide/moderate-actions.html')
-def show_moderate_actions(channel):
-    return {'channel': channel, 'BASE_URL': settings.BASE_URL}
+@register.inclusion_tag('guide/moderate-actions.html', takes_context=True)
+def show_moderate_actions(context, channel):
+    return {'channel': channel, 'BASE_URL': settings.BASE_URL,
+            'user': context['user']}
+
+@register.inclusion_tag('guide/simple-moderate-actions.html',
+        takes_context=True)
+def show_simple_moderate_actions(context, channel):
+    return {'channel': channel, 'BASE_URL': settings.BASE_URL,
+            'user': context['user']}
 
 @register.inclusion_tag('guide/channel-feature.html')
 def show_channel_feature(channel):
@@ -58,8 +60,6 @@ def show_channel_mini(context, channel, count):
             'request': context['request']
             }
 
-@register.inclusion_tag('guide/channel-mini.html')
-def show_channel_recommendation(channel):
     return { 'channel': channel }
 
 @register.inclusion_tag('guide/item.html')

@@ -15,6 +15,7 @@ from channelguide.guide.models import (Channel, Item, User, FeaturedEmail,
         ModeratorAction, ChannelNote, Rating, Tag, Category, Language,
         FeaturedQueue, GeneratedRatings, Cobranding)
 from channelguide.guide.notes import get_note_info, make_rejection_note
+from channelguide.guide.emailmessages import EmailMessage
 from sqlhelper.sql.statement import Select
 from sqlhelper.sql.expression import Literal
 from sqlhelper import signals
@@ -120,6 +121,9 @@ def channel(request, id):
         if action == 'toggle-moderator-share':
             request.user.check_is_moderator()
             channel.toggle_moderator_share(request.user)
+        elif action == 'toggle-hd':
+            request.user.check_is_moderator()
+            channel.hi_def = not channel.hi_def
         elif action == 'feature':
             request.user.check_is_supermoderator()
             FeaturedQueue.feature_channel(channel, request.user,
@@ -130,9 +134,15 @@ def channel(request, id):
         elif action == 'change-state':
             request.user.check_is_moderator()
             submit_value = request.POST['submit']
-            if submit_value == 'Approve':
+            if submit_value.startswith('Approve'):
                 channel.join('owner').execute(request.connection)
                 newstate = Channel.APPROVED
+                if '&' in submit_value: # feature or share
+                    if request.user.is_supermoderator():
+                        FeaturedQueue.feature_channel(channel, request.user,
+                                request.connection)
+                    else:
+                        channel.toggle_moderator_share(request.user)
             elif submit_value == "Don't Know":
                 newstate = Channel.DONT_KNOW
             elif submit_value == 'Unapprove':
@@ -158,34 +168,47 @@ def channel(request, id):
                     request.connection)
         elif action == 'reject':
             request.user.check_is_moderator()
-            title = request.POST.get('title')
             body = request.POST.get('body')
-            if title and body:
-                note = ChannelNote(request.user, title, body,
-                        ChannelNote.MODERATOR_TO_OWNER)
+            if body:
+                note = ChannelNote(request.user, body)
                 note.channel = channel
                 note.save(request.connection)
-                note.send_email(request.connection)
+                note.send_email(request.connection, request.POST.get('email'))
                 channel.change_state(request.user, Channel.REJECTED,
                         request.connection)
             else:
-                msg = _("Rejection emails need a title and body")
+                msg = _("Rejection emails need a body")
                 request.session['channel-edit-error'] = msg
-        elif action == 'send-featured-email':
+        elif action == 'email':
             request.user.check_is_supermoderator()
-            form = forms.FeaturedEmailForm(request, channel,
-                    request.POST.copy())
-            if form.is_valid():
-                form.send_email()
-                obj = FeaturedEmail()
-                obj.title = form.title
-                obj.body = form.body
-                obj.email = form.email
-                obj.channel_id = id
-                obj.sender_id = request.user.id
-                obj.save(request.connection)
-            else:
-                return show(request, channel.id, form)
+            _type = request.POST['type']
+            title = _('%s featured on Miro Guide') % channel.name
+            body = request.POST['body']
+            email = request.POST['email']
+            message = EmailMessage(title, body)
+            message.send_email([email])
+            if _type == 'Approve & Feature':
+                channel.change_state(request.user, Channel.APPROVED,
+                        request.connection)
+            FeaturedQueue.feature_channel(channel, request.user,
+                    request.connection)
+            obj = FeaturedEmail()
+            obj.title = title
+            obj.body = body
+            obj.email = email
+            obj.channel_id = id
+            obj.sender_id = request.user.id
+            obj.save(request.connection)
+        elif action == "change-owner":
+            request.user.check_is_supermoderator()
+            new_owner = request.POST['owner']
+            user = User.query(username=new_owner).get(request.connection)
+            if channel.owner_id != user.id:
+                tags = channel.get_tags_for_owner(request.connection)
+                for tag in tags:
+                    channel.delete_tag(request.connection, channel.owner, tag)
+                channel.owner_id = user.id
+                channel.add_tags(request.connection, user, [tag.name for tag in tags])
         channel.save(request.connection)
     return util.redirect_to_referrer(request)
 
@@ -237,8 +260,7 @@ def on_channel_record_update(record):
 @decorator_from_middleware(ShowChannelCacheMiddleware)
 def show(request, id, featured_form=None):
     query = Channel.query()
-    query.join('categories', 'tags', 'notes', 'owner', 'last_moderated_by',
-            'notes.user', 'rating')
+    query.join('categories', 'tags', 'owner', 'last_moderated_by', 'rating')
     if request.user.is_supermoderator():
         query.join('featured_by', 'featured_queue')
     item_query = Item.query(channel_id=id).join('channel').order_by('date', desc=True).limit(4)
@@ -257,7 +279,6 @@ def show(request, id, featured_form=None):
         'link_to_channel': True,
         'BASE_URL': settings.BASE_URL,
         'rating_bar': get_show_rating_bar(request, c),
-        'notes': get_note_info(c, request.user),
     }
     if len(c.description.split()) > 73:
         context['shade_description'] =  True
@@ -553,10 +574,7 @@ def recent(request):
 def for_user(request, user_id):
     user = util.get_object_or_404(request.connection, User, user_id)
     query = Channel.query(owner_id=user.id, user=request.user)
-    query.join('categories', 'tags', 'owner', 'last_moderated_by')
-    if request.user.id == long(user_id) or request.user.is_admin():
-        query.load('subscription_count_today', 'subscription_count_today_rank')
-        query.load('subscription_count_month', 'subscription_count_month_rank')
+    query.join('categories', 'tags', 'owner', 'last_moderated_by', 'featured_queue')
     if request.user.is_admin() or request.user.id == user_id:
         try:
             cobrand = Cobranding.get(request.connection, user.username)
@@ -574,7 +592,11 @@ def for_user(request, user_id):
 
 def edit_channel(request, id):
     query = Channel.query()
-    query.join('language', 'secondary_languages', 'categories')
+    query.join('language', 'secondary_languages', 'categories', 'notes',
+            'notes.user')
+    query.load('subscription_count_today', 'subscription_count_today_rank')
+    query.load('subscription_count_month', 'subscription_count_month_rank')
+    query.load('subscription_count', 'subscription_count_rank')
     channel = util.get_object_or_404(request.connection, query, id)
     request.user.check_can_edit(channel)
     if request.method != 'POST':
@@ -584,15 +606,74 @@ def edit_channel(request, id):
                 util.copy_post_and_files(request))
         if form.is_valid():
             form.update_channel(channel)
-            return util.redirect(channel.get_absolute_url())
+            return util.redirect_to_referrer(request)
         else:
             form.save_submitted_thumbnail()
     context = form.get_template_data()
+    context['channel'] = channel
+    context['notes'] = get_note_info(channel, request.user)
     if form.set_image_from_channel:
         context['thumbnail_description'] = _("Current image (no change)")
     else:
         context['thumbnail_description'] = _("Current image (uploaded)")
     return util.render_to_response(request, 'edit-channel.html', context)
+
+@moderator_required
+def email(request, id):
+    channel = util.get_object_or_404(request.connection, Channel, id)
+    channel.join('owner').execute(request.connection)
+    email_type = request.REQUEST['type']
+    skipable = True
+    if request.user.has_full_name():
+        mod_name = '%s (%s)' % (request.user.get_full_name(), request.user.username)
+    else:
+        mod_name = request.user.username
+    common_body = """%s is in line to be featured on the Miro Channel Guide, which is great because 50,000-100,000 people see this page every day! 
+
+Depending on the number of channels in line, %s should appear on the front page in the next few days; it will remain in the spotlight for 4 full days at: https://miroguide.com/""" % (channel.name, channel.name)
+    common_footer ="""If you want to show off your featured channel, you can link to this page: https://www.miroguide.com/channels/features
+
+Regards,
+%s
+
+PS. Miro 1-click links rock! They give your viewers a simple way to go directly
+from your website to being subscribed to your feed in Miro:
+http://subscribe.getmiro.com/""" % mod_name
+
+    if channel.owner.username != 'freelance':
+        if channel.owner.has_full_name():
+            name = channel.owner.get_full_name()
+        else:
+            name = channel.owner.username
+        body  = """Hello %s,
+
+%s
+
+Modify your channel and get stats here: %s#edit
+
+%s""" % (name, common_body, channel.get_absolute_url(), common_footer)
+    else:
+        body = """Hello,
+
+%s
+
+Currently we're managing your channel -- if you'd like to take control, view stats, and be able to change the images and details associated with it, please contact us at: support@pculture.org
+
+%s""" % (common_body, common_footer)
+    if email_type == 'Feature':
+        action = 'feature'
+    elif email_type == 'Approve & Feature':
+        action = 'change-state'
+    elif email_type == "Custom":
+        email_type = 'Reject'
+        action = 'reject'
+        body = ''
+        skipable = False
+    else:
+        raise Http404
+    return util.render_to_response(request, 'email-form.html',
+            {'channel': channel, 'type': email_type,
+                'action': action, 'body': body, 'skipable': skipable})
 
 @admin_required
 def moderator_history(request):

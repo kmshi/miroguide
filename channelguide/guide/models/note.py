@@ -44,13 +44,8 @@ class ModeratorPost(NoteBase):
 class ChannelNote(NoteBase):
     table = tables.channel_note
 
-    # codes for the type column
-    MODERATOR_ONLY = 'M'
-    MODERATOR_TO_OWNER = 'O'
-
-    def __init__(self, user, title, body, type):
-        super(ChannelNote, self).__init__(user, title, body)
-        self.type = type
+    def __init__(self, user, body):
+        super(ChannelNote, self).__init__(user, '', body)
 
     def get_url(self):
         return util.make_url("notes/%d" % self.id)
@@ -59,21 +54,16 @@ class ChannelNote(NoteBase):
     def create_note_from_request(request):
         """Create a channel note using a request from an add note form. """
 
-        if request.POST['type'] == 'moderator-only':
-            note_type = ChannelNote.MODERATOR_ONLY
-        elif request.POST['type'] == 'moderator-to-owner':
-            note_type = ChannelNote.MODERATOR_TO_OWNER
-        else:
-            raise ValueError("Invalid not type")
-        return ChannelNote(request.user, request.POST['title'],
-                request.POST['body'], note_type)
+        return ChannelNote(request.user, request.POST['body'])
 
-    def send_email(self, connection):
+    def send_email(self, connection, email=None):
         self.join('channel').execute(connection)
         self.channel.join('owner').execute(connection)
-        if self.channel.owner.email is not None:
+        if email is None:
+            email = self.channel.owner.email
+        if email is not None:
             message = emailmessages.ChannelNoteEmail(self)
-            message.send_email(self.channel.owner.email)
+            message.send_email(email)
         else:
             logging.warn("not sending message for channel %d (%s) because "
                     "the owner email is not set", self.channel.id,

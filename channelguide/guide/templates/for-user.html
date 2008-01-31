@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load channels cg_helpers i18n %}
+{% block head-extra %}<script src="{{ STATIC_BASE_URL }}js/jquery.js" type="text/javascript"></script>{% endblock %}
 {% block content %}
 <div class="user-info">
 {% ifequal user for_user %}
@@ -26,7 +27,7 @@
 <ul class="channel-list">
   {% for channel in channels %}
     <li>
-        {% show_channel_full channel %}
+        {% show_channel_moderate channel forloop.last %}
         {% if not forloop.last %}
         <div class="divider"></div>
         {% endif %}

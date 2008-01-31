@@ -15,23 +15,11 @@ def add_note(request):
     query = Channel.query().join('notes', 'owner')
     channel = util.get_object_or_404(request.connection, query, channel_id)
     note = ChannelNote.create_note_from_request(request)
-    if note.type == ChannelNote.MODERATOR_ONLY:
-        request.user.check_is_moderator()
-    else:
-        request.user.check_can_edit(channel)
+    request.user.check_can_edit(channel)
     channel.add_note(request.connection, note)
-    if request.POST.get('send-email') and request.user.is_moderator():
+    if request.user.id != channel.owner_id:
         note.send_email(request.connection)
-    return util.redirect('channels/%d#notes' % channel.id)
-
-@moderator_required
-def note(request, id):
-    note = util.get_object_or_404(request.connection, ChannelNote, id)
-    if request.method == 'POST':
-        if request.POST['action'] == 'delete':
-            note.delete(request.connection)
-            return util.redirect_to_referrer(request)
-    return util.redirect('channels/%d#notes' % note.channel_id)
+    return util.redirect('channels/%d' % channel.id)
 
 @moderator_required
 def moderator_board(request):

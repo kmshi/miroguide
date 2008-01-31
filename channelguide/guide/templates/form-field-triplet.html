@@ -1,0 +1,10 @@
+<ul class="form-input-triplet">
+    {% for widget in rendered_widgets %}
+    <li>
+    <div class="label">
+        <label>({{ widget.0 }})</label>
+    </div>
+    {{ widget.1 }}
+    </li>
+    {% endfor %}
+</ul>

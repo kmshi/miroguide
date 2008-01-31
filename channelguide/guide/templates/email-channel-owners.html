@@ -1,13 +1,13 @@
 {% load i18n cg_helpers %}
 {% extends 'base.html' %}
-{% block title %}Miro - {% trans "Email Channel Owners" %}{%endblock %}
+{% block title %}Miro - {% trans "Email Channel Managers" %}{%endblock %}
 {% block content %}
 <div class="email-channel-owners-page">
-<h1>Email all channel owners</h1>
+<h1>Email all channel managers</h1>
 <div class="big-form">
 <form method="POST" action="{{ BASE_URL }}channels/email-owners">
     {% show_form form %}
-    <input onclick="return confirm('Are you positive you want to email ALL channel owners?');" type="submit" class="submit" value="Send Email">
+    <input onclick="return confirm('Are you positive you want to email ALL channel managers?');" type="submit" class="submit" value="Send Email">
 </form>
 </div>
 {%endblock%}
