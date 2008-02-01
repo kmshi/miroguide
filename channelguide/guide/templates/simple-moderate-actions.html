@@ -3,7 +3,7 @@
 {% if channel.is_approved %}
 <li class="channel-action">
     {% if user.is_supermoderator %}
-        {% ifequal channel.featured_queue.state channel.featured_queue.CURRENT %}
+        {% if channel.featured_queue %}
         <form method="POST" action="{{ channel.get_url }}">
             <input type="hidden" name="action" value="unfeature">
             <input type="submit" value="Unfeature">
@@ -13,7 +13,7 @@
             <input type="hidden" name="action" value="feature">
             <input class="email-form" type="submit" value="Feature">
         </form>
-        {% endifequal %}
+        {% endif %}
     {% else %}
         <form method="POST" action="{{ channel.get_url }}">
             <input type="hidden" name="action" value="toggle-moderator-share">

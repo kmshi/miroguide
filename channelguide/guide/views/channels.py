@@ -262,7 +262,7 @@ def show(request, id, featured_form=None):
     query = Channel.query()
     query.join('categories', 'tags', 'owner', 'last_moderated_by', 'rating')
     if request.user.is_supermoderator():
-        query.join('featured_by', 'featured_queue')
+        query.join('featured_queue', 'featured_queue.featured_by')
     item_query = Item.query(channel_id=id).join('channel').order_by('date', desc=True).limit(4)
     c = util.get_object_or_404(request.connection, query, id)
     if c.rating is None:
@@ -574,7 +574,7 @@ def recent(request):
 def for_user(request, user_id):
     user = util.get_object_or_404(request.connection, User, user_id)
     query = Channel.query(owner_id=user.id, user=request.user)
-    query.join('categories', 'tags', 'owner', 'last_moderated_by', 'featured_queue')
+    query.join('categories', 'tags', 'owner', 'last_moderated_by', 'featured_queue', 'featured_queue.featured_by')
     if request.user.is_admin() or request.user.id == user_id:
         try:
             cobrand = Cobranding.get(request.connection, user.username)

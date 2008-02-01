@@ -12,9 +12,9 @@
         {% blocktrans with channel.state_name as state %}Channel is {{ state }}{% endblocktrans %}
         {% endif %}
     {% endif %}
-    {% if channel.featured %}
+    {% if channel.featured_queue %}
     &nbsp;&nbsp;|&nbsp;&nbsp;
-    {% blocktrans with channel.featured_at|date:"m/d/Y" as featured_time and channel.featured_by as mod %}Featured by {{ mod }} on {{ featured_time }}{% endblocktrans %}
+    {% blocktrans with channel.featured_queue.featured_at|date:"m/d/Y" as featured_time and channel.featured_queue.featured_by as mod %}Featured by {{ mod }} on {{ featured_time }}{% endblocktrans %}
     {% endif %}
     </h3>
     {% show_simple_moderate_actions channel %}
