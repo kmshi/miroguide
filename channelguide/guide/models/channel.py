@@ -581,7 +581,7 @@ WHERE channel_id=%%s AND %s)""" % ignoresWhere
                 logging.warn('not sending approval message for channel %d '
                         '(%s) because the owner email is not set', self.id,
                         self.name)
-
+            self.update_items(connection)
         else:
             self.approved_at = None
         self.last_moderated_by_id = user.id
