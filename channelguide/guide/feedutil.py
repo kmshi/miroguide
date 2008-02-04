@@ -37,21 +37,30 @@ def has_video_type(enclosure):
 def get_thumbnail_url(entry):
     """Get the URL for a thumbnail from a feedparser entry."""
     # Try the video enclosure
+    def _get(d):
+        if 'thumbnail' in d:
+            if isinstance(d['thumbnail'], dict) and 'url' in d['thumbnail']:
+                return to_utf8(d['thumbnail']['url'])
+            else:
+                return to_utf8(d['thumbnail'])
+        if 'media:thumbnail' in d:
+            return to_utf8(d['media:thumbnail'])
+        raise KeyError
     video_enclosure = get_first_video_enclosure(entry)
     if video_enclosure is not None:
         try:
-            return to_utf8(video_enclosure["thumbnail"]["url"])
+            return _get(video_enclosure)
         except KeyError:
             pass 
     # Try to get any enclosure thumbnail
     for enclosure in entry.enclosures:
         try:
-            return to_utf8(enclosure["thumbnail"]["url"])
+            return _get(enclosure)
         except KeyError:
             pass
     # Try to get the thumbnail for our entry
     try:
-        return to_utf8(entry["thumbnail"]["url"])
+        return _get(entry)
     except KeyError:
         return None
 

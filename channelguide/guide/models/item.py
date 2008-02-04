@@ -53,7 +53,7 @@ class Item(Record, Thumbnailable):
             util.ensure_dir_exists(settings.IMAGE_DOWNLOAD_CACHE_DIR)
             cache_path = os.path.join(settings.IMAGE_DOWNLOAD_CACHE_DIR,
                     util.hash_string(self.thumbnail_url))
-            if os.path.exists(cache_path):
+            if os.path.exists(cache_path) and not redownload:
                 image_data = util.read_file(cache_path)
             else:
                 try:
