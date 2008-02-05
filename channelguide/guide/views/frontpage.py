@@ -9,18 +9,30 @@ from channelguide.guide import tables
 from channelguide.guide.models import Channel, Category, PCFBlogPost
 from sqlhelper.orm.query import ResultHandler
 
+def _filter_categories(result, count):
+    for channel in result:
+        if count == 0:
+            break
+        for cat in channel.categories:
+            if cat.on_frontpage == False:
+                break
+        else:
+            count -= 1
+            yield channel
+
 def get_popular_channels(request, count):
     query = Channel.query_approved(user=request.user)
     query.join('rating')
     query.load('subscription_count_today')
     query.order_by('subscription_count_today', desc=True)
-    query.limit(count)
+    query.join('categories')
+    query.limit(count*30)
     query.cacheable = cache.client
     query.cacheable_time = 300
     result = query.execute(request.connection)
     for r in result:
         r.star_width = r.rating.average * 20
-    return result
+    return _filter_categories(result, count)
 
 def get_featured_channels(request):
     query = Channel.query_approved(featured=1, user=request.user)
@@ -28,36 +40,44 @@ def get_featured_channels(request):
 
 def get_new_channels(request, count):
     query = Channel.query_new(user=request.user).load(
-            'item_count').limit(count)
+            'item_count').limit(count*3)
+    query.join('categories')
 #    query.cacheable = cache.client
 #    query.cacheable_time = 3600
-    return query.execute(request.connection)
+    return _filter_categories(query.execute(request.connection), count)
 
 def get_new_posts(connection, count):
     query = PCFBlogPost.query().order_by('position')
     return query.limit(count).execute(connection)
 
 def get_categories(connection):
-    return Category.query().order_by('name').execute(connection)
+    return Category.query(on_frontpage=True).order_by('name').execute(connection)
 
 def get_category_channels(request, category):
+    category.join('channels').execute(request.connection)
     query = Channel.query_approved(user=request.user).join("categories")
-    query.joins['categories'].where(id=category.id)
+    query.where(Channel.c.id.in_(c.id for c in category.channels))
     query.load('subscription_count_month')
     query.order_by('subscription_count_month', desc=True)
-    query.limit(2)
-    query.cacheable = cache.client
-    query.cacheable_time = 300
-    popular_channels = list(query.execute(request.connection))
+    query.limit(6)
+#    query.cacheable = cache.client
+#    query.cacheable_time = 300
+    popular_channels = []
+    for channel in _filter_categories(query.execute(
+        request.connection), 2):
+        popular_channels.append(channel)
+        yield channel
 
-    query = Channel.query_approved(user=request.user).join(
-            "categories").limit(4-len(popular_channels))
-    query.joins['categories'].where(id=category.id)
+    query = Channel.query_approved(user=request.user)
+    query.join('categories')
+    query.limit(6)
+    query.where(Channel.c.id.in_(c.id for c in category.channels))
     if popular_channels:
         query.where(Channel.c.id.not_in(c.id for c in popular_channels))
     query.order_by('RAND()')
     random_channels = list(query.execute(request.connection))
-    return popular_channels + random_channels
+    for channel in _filter_categories(query.execute(request.connection), 2):
+        yield channel
 
 def get_adjecent_category(dir, name, connection):
     query = Category.query().load('channel_count')
