@@ -574,7 +574,7 @@ def recent(request):
 def for_user(request, user_id):
     user = util.get_object_or_404(request.connection, User, user_id)
     query = Channel.query(owner_id=user.id, user=request.user)
-    query.join('categories', 'tags', 'owner', 'last_moderated_by', 'featured_queue', 'featured_queue.featured_by')
+    query.join('owner', 'last_moderated_by', 'featured_queue', 'featured_queue.featured_by')
     if request.user.is_admin() or request.user.id == user_id:
         try:
             cobrand = Cobranding.get(request.connection, user.username)
