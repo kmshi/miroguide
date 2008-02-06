@@ -13,7 +13,7 @@ class CobrandingAdminForm(Form):
     icon_url = forms.CharField(required=False, max_length=100,
             label=_("Icon URL"), help_text=_("Icon should be 175x125 pixels."))
     favicon_url = forms.CharField(required=False, max_length=100,
-            label=_("Favicon URL"))
+            label=_("Favicon URL"), help_text=_("This is best as a 20x20 png graphic. It shows up in the sidebar of the Miro App."))
     css_url = forms.CharField(required=False, max_length=100,
             label=_("External CSS URL"))
     description = forms.CharField(widget=forms.Textarea, label=_("Description"))
