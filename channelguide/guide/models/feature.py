@@ -59,10 +59,10 @@ class FeaturedQueue(Record):
             count -= 1
         for i in range(count, settings.MAX_FEATURES):
             fq = cls.get_next_feature(connection)
-            fq.join('channel', 'user').execute(connection)
+            fq.join('channel', 'featured_by').execute(connection)
             fq.state = cls.CURRENT
             fq.featured_at = datetime.datetime.now()
-            fq.channel.change_featured(fq.user, connection)
+            fq.channel.change_featured(fq.featured_by, connection)
             fq.save(connection)
 
     @classmethod
