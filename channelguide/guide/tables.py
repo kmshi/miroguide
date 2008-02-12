@@ -267,7 +267,7 @@ channel_id=#table#.id""" % column
     rank_names = ['subscription_count_total']
     if timeline != None:
         rank_names.append('subscription_count_month')
-    if timeline != 'MONTH':
+    if timeline == 'DAY':
         rank_names.append('subscription_count_today')
     rank_names.reverse()
     rank_where = ' AND '.join(["%s > (SELECT %s FROM cg_channel_generated_stats WHERE channel_id=#table#.id)" % (n, n) for n in rank_names])
