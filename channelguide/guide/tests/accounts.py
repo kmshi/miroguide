@@ -100,14 +100,14 @@ this address \((.*?)\) as your e-mail address.
 If you did not do this, simply ignore this e-mail.  To confirm your
 registration, please follow this link:
 
-(http://.*?)
+(.*?)
 
 Your ratings will show up, but won't count towards the average until
 you use this confirmation link.
 
 Thanks,
 The Miro Guide""", email['body'])
-        self.assert_(m)
+        self.assert_(m, 'Email does not match:\n%s' % email['body'])
         self.assertEquals(m.groups()[0], 'mike@mike.com')
         self.assertEquals(m.groups()[1],
                 '%saccounts/confirm/%s/%s' % (settings.BASE_URL_FULL,
