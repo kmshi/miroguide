@@ -25,20 +25,14 @@ def secondary_language_exists_where(language_id):
     select.wheres.append('language_id=%s', language_id)
     return select.exists()
 
-@cache.aggresively_cache
 def view(request, id):
     language = Language.get(request.connection, id)
     order_select = templateutil.OrderBySelect(request)
     query = Channel.query_approved(user=request.user)
     query.where((Channel.c.primary_language_id==id) |
             secondary_language_exists_where(id))
-    templateutil.order_channels_using_request(query, request)
-    pager = templateutil.Pager(8, query, request)
-    return util.render_to_response(request, 'two-column-list.html', {
-        'header': _("Language: %s") % language.name,
-        'pager': pager,
-        'order_select': templateutil.OrderBySelect(request)
-    })
+    return templateutil.render_limited_query(request, query,
+         _("Language: %s") % language.name)
 
 @admin_required
 def moderate(request):

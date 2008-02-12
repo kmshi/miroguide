@@ -17,19 +17,13 @@ def index(request):
         'groups': rows,
     })
 
-@cache.aggresively_cache
 def category(request, name):
     category = util.get_object_or_404_by_name(request.connection, Category,
             name)
     query = Channel.query_approved(user=request.user).join('categories')
     query.joins['categories'].where(id=category.id)
-    templateutil.order_channels_using_request(query, request)
-    pager =  templateutil.Pager(8, query, request)
-    return util.render_to_response(request, 'two-column-list.html', {
-        'header': category.name,
-        'pager': pager,
-        'order_select': templateutil.OrderBySelect(request),
-    })
+    return templateutil.render_limited_query(request, query,
+            category.name)
 
 @admin_required
 def moderate(request):

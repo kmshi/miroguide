@@ -13,15 +13,8 @@ def index(request):
         'pager': pager,
     })
 
-@cache.aggresively_cache
 def tag(request, id):
     tag = util.get_object_or_404(request.connection, Tag, id)
     query = Channel.query_approved(user=request.user).join('tags')
     query.joins['tags'].where(id=id)
-    templateutil.order_channels_using_request(query, request)
-    pager =  templateutil.Pager(8, query, request)
-    return util.render_to_response(request, 'two-column-list.html', {
-        'header': tag.name,
-        'pager': pager,
-        'order_select': templateutil.OrderBySelect(request),
-    })
+    return templateutil.render_limited_query(request, query, tag.name)

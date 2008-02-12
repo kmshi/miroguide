@@ -184,10 +184,33 @@ def order_channels_using_request(query, request):
     elif order_by == 'date':
         query.order_by('approved_at', desc=True)
     elif order_by == 'toprated':
+        query.load('subscription_count_month', 'item_count')
         query.join('rating')
-        query.joins['rating'].where(query.joins['rating'].c.count > 3)
+        query.joins['rating'].where(query.joins['rating'].c.count > 1)
         query.order_by(query.joins['rating'].c.average, desc=True)
         query.order_by(query.joins['rating'].c.count, desc=True)
     else:
-        query.load('subscription_count_month')
+        query.load('subscription_count_month', 'item_count')
+        query.join('rating')
         query.order_by('subscription_count_month', desc=True)
+
+def render_limited_query(request, query, title):
+    order_channels_using_request(query, request)
+    pager =  Pager(8, query, request)
+    if request.GET.get('view') not in ('toprated', 'popular', None):
+        return util.render_to_response(request, 'two-column-list.html', {
+            'header': title,
+            'pager': pager,
+            'order_select': OrderBySelect(request),
+        })
+    else:
+        for channel in pager.items:
+            channel.popular_count = channel.subscription_count_month
+            channel.timeline = 'Month'
+        return util.render_to_response(request, 'popular.html', {
+            'title': title,
+            'pager': pager,
+            'order_select': OrderBySelect(request)
+        })
+
+

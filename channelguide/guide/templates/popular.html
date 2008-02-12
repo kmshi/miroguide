@@ -16,6 +16,7 @@
         {% show_view_select popular_window_select %}
     {% else %}
         {{ title }}
+        {% if order_select %}{% show_view_select order_select %}{% endif %}
     {% endif %}
     </h1>
     <div class="clear"></div>
