@@ -332,7 +332,7 @@ class ChannelItemTest(ChannelTestBase):
                 feedparser_input=open(test_data_path('thumbnails.xml')))
         self.channel.download_item_thumbnails(self.connection)
         self.assertEquals(self.channel.items[0].thumbnail_url,
-                "http://www.getdemocracy.com/images/"
+                "http://www.getmiro.com/images/"
                 "x11-front-page-screenshots/02.jpg")
         thumb_path = os.path.join(settings.MEDIA_ROOT, Item.THUMBNAIL_DIR,
                 dir, '%d.jpeg' % self.channel.items[0].id)
