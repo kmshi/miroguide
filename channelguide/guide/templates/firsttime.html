@@ -17,78 +17,23 @@ $(document).ready(function(){
             $(this).toggleClass('open').next().toggle('slow');
             return false;
             });
-    createVideo($('#video'), "{{ MOVIE_URL }}", 300, 226);
     });
-
-function vlcPlayPause(obj, button) {
-    if (obj.isplaying() == true) { 
-        obj.pause();
-        button.attr('value', 'Play');
-    } else {
-        obj.play();
-        button.attr('value', 'Pause');
-    }
-}
-
-function vlcRestart(obj) {
-    obj.stop();
-    obj.play();
-}
-
-function createVideo(obj, url, width, height) {
-    win = 0;
-    if (navigator.platform == 'Win32') {
-        /* use VLC */
-        html = '<embed type="application/x-vlc-plugin" width=' + width + ' height=' + height + ' autoplay="yes" loop="no" name="video1" target="' + url + '" />'
-        + '<input id="playpause" type="button" value="Pause" onclick="vlcPlayPause(document.video1, $(\'#playpause\'));" />'
-        + '<input type="button" value="Restart" onclick="vlcRestart(document.video1);" />'
-        + '<input type="button" value="Mute" onclick="document.video1.mute(); document.video1.get_volume();" />'
-        win = 1;
-        height = height + 23;
-    } else if (navigator.platform.indexOf('Mac') == 0) {
-        height = height + 19;
-        html = '<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" id="player" height="' + height +'" width="' + width + '">' +
-        '<param name="CONTROLS" value="imagewindow">'+
-        '<param name="autogotourl" value="false">'+
-        '<param name="console" value="radio">'+
-        '<param name="autostart" value="true">'+
-        '<param name="type" value="video/quicktime">'+
-        '<param name="src" value="' + url + '">'+
-        '<embed controls="imagewindow" autogotourl="false" console="radio" autostart="true" type="video/quicktime" src="' + url + '" name="player" height="' + height +'" width="' + width + '">'+
-        '</object>';
-    } else {
-        html = '';
-    }
-    if (html) {
-        $('div#download').hide();
-        oldhtml = obj.html()
-        obj.html(html).height(height);
-        if (win) {
-/*            $('#list dt.step').one('click', function(){
-                obj.html(oldhtml);
-                alert('replaced old html');
-                window.setTimeout(function() {
-                    createVideo(obj, url, width, height);
-                    }, 100);
-            });*/
-            for (var i=10; i<=100; i+= 10) {
-                window.setTimeout(function(){
-                    document.video1.set_volume(i);
-                    }, i);
-            }
-        }
-    }
-}
 </script>
 
 {% endblock %} 
 {% block content %}
 <div class="first-time-page">
-    <dl id="list" class="initial">
-        <dt class="selected step"><a href="#"><span>1</span><h1>Meet Miro</h1></a></dt>
-                <dd style="padding-top: 12px;">
-                    <div id="video"><img src="{{ STATIC_BASE_URL}}images/meetmiro.jpg"></div><div id="download"><a href="http://subscribe.getmiro.com/download?url1={{ MOVIE_URL|urlencode }}">Download this video</a></div></dd>
-        <dt class="selected step"><a href="#"><span>2</span><h1>Add Your Favorite Topics to Miro</h1></a></dt>
+    <dl id="list">
+        <dt class="first">{% trans "WELCOME TO MIRO!" %}</dt>
+        <dd class="first">
+            <h2>{% trans "Three things to remember..." %}</h2>
+            <ul>
+                <li>1) {% trans "Miro lets you subscribe to channels for free (they go to your sidebar)" %}</li>
+                <li>2) {% trans "Miro will automatically download new videos from your channels" %}</li>
+                <li>3) {% trans "A " %}<em>{% trans "green" %}</em>{% trans " bubble (in the sidebar) means you've got " %}<em>{% trans "new" %}</em>{% trans " video" %}</li>
+            </ul>
+        </dd>
+        <dt style="background-image: none;">{% trans "We Have Channel Recommendations for You!" %}</dt>
         <dd id="channellist" style="padding-top: 8px;">
             <span class="info">Each channel pack gets you started with 5 great channels &mdash; add <img src="{{ STATIC_BASE_URL }}images/mini-add.png" alt=""> as many as you want.</span>
             {% fourcolumnloop  with column in channel_columns %}
@@ -100,7 +45,8 @@ function createVideo(obj, url, width, height) {
                 {% endfor %}
             {% endfourcolumnloop %}
         </dd>
-        <dt class="selected step"><a href="#"><span>3</span><h1>Learn How to Watch!</h1></a></dt>
+        {% comment %}
+        <dt class="closed">{% trans "Share Miro With Your Friends:" %}</dt>
         <dd>
             <div class="third-step">
                 <h2>Miro is doing its thing...</h2>
@@ -120,10 +66,11 @@ function createVideo(obj, url, width, height) {
                 {% endfor %}
                 </dl>
             </div>
-        </dd>
+            </dd>
+            {% endcomment %}
     </dl>
     <div id="nothanks">
-        <div class="button"><a {% link "/" %} >Go to the Miro Guide</a></a>
+        <div class="button"><a {% link "/" %}>{% trans "Get Started"%}<span>{% blocktrans with total_channels as total_channels %}Browse All {{ total_channels }} channels{% endblocktrans %}</span></a></a>
     </div>
 </div>
 {% endblock %}

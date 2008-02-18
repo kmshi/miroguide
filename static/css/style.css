@@ -2514,67 +2514,59 @@ div.shadow div {
 }
 
 div.first-time-page {
-    padding-top: 8px;
+    color: #0e0d23;
+    margin-top: -10px;
 }
 
 .first-time-page dl#list > dt {
-    background: url(images/inactive-step.gif) top left no-repeat;
-    vertical-align: bottom;
-    height: 70px;
-    position: relative;
-    margin: 10px -10px 0;
+    background:#FFF49E url(images/arrow-right.png) no-repeat scroll 10px 50%;
+    border-bottom:4px solid #6B6B6B;
+    border-top:4px solid #6B6B6B;
+    font-size:25px;
+    font-weight:bold;
+    height:40px;
+    line-height:40px;
+    margin:10px -17px;
+    padding-left: 30px;
+
 }
 
-.first-time-page dl.initial > dt + dd {
+.first-time-page dl#list > dt.first {
+    text-align:center;
+    background-image: none;
+    border-top: none;
+    height: 50px;
+    line-height: 50px;
+    font-size: 40px;
+    padding: 0;
+}
+
+.first-time-page dl#list > dd {
+    padding: 10px 0 0 20px;
+    margin: -10px -17px;
+    background: #e7e9fe;
+    font-size: 20px;
+}
+
+.first-time-page dl#list > dt.closed{
+    margin: -4px -17px;
+}
+
+.first-time-page dl#list > dt.closed + dd {
     display: none;
 }
 
-.first-time-page dl#list > dt.selected {
-    background: url(images/active-step.gif) top left no-repeat;
+.first-time-page dl#list > dd.first {
+    padding-left: 100px;
 }
 
-.first-time-page dl#list > dt.selected a {
-    text-decoration: none;
-    cursor: default;
+.first-time-page dl#list > dd.first li {
+    padding: 10px 0;
 }
 
-.first-time-page dl#list > dt + dd {
-    background: url(images/active-step-bg.gif) top left no-repeat;
-    display: block;
-    margin: 0 -10px;
-    padding: 5px 10px 0 10px;
-}
-
-.first-time-page dl#list > dt h1, .first-time-page dl#list > dt span {
-    position: absolute;
-    top: 30px;
-    text-align: left;
-    color: white;
-    font-size:220%;
-    margin-bottom:8px;
-    font-family:Arial,sans-serif;
-    font-weight:bold;
-
-}
-
-.first-time-page dl#list > dt span {
-    width: 65px;
-    text-align: center;
-    display: block;
-    color: white;
-}
-
-.first-time-page dl#list > dt h1 {
-    margin-left: 65px;
-    width: 695px;
-}
-
-.first-time-page div#video {
-    width: 300px;
-    height: 226px;
-    background: black;
-    margin-left: auto;
-    margin-right: auto;
+.first-time-page dl#list > dd.first li em {
+    color: #090;
+    font-style: normal;
 }
 
 .first-time-page div#download {
@@ -2603,7 +2595,7 @@ div.first-time-page {
     margin-left: 12px;
 }
 .first-time-page .subscribe {
-    margin: 14px 0 10px 14px;
+    margin: 14px 0 10px 6px;
 }
 
 .first-time-page .add .icon {
@@ -2617,7 +2609,7 @@ div.first-time-page {
 
 .first-time-page a.add {
     font-weight: bold;
-    font-size: 130%;
+    font-size: 68%;
     line-height: 24px;
     vertical-align: middle;
     margin: 0px auto;
@@ -2672,26 +2664,33 @@ div.first-time-page {
 }
 
 .first-time-page div#nothanks {
-    height: 48px;
+    height: 100px;
     margin-top: 30px;
     text-align: center;
 }
 
 .first-time-page div#nothanks .button {
     background: url(images/green-button-guide.png) center no-repeat;
-    width: 349px;
-    height: 68px;
+    width: 277px;
+    height: 105px;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+    font-size: 22px;
+    line-height: 42px;
 }
 
 .first-time-page div#nothanks .button a {
     font-size: 200%;
     color: white;
-    text-decoration: underline;
     display: block;
     padding-top: 14px;
+}
+
+.first-time-page div#nothanks .button span {
+    display: block;
+    text-decoration: underline;
+    font-size: 20px;
 }
 
 .adult {
