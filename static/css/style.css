@@ -2518,6 +2518,11 @@ div.first-time-page {
     margin-top: -10px;
 }
 
+.first-time-page dl#list > * {
+    margin-left: -17px;
+    margin-right: -17px;
+}
+
 .first-time-page dl#list > dt {
     background:#FFF49E url(images/arrow-right.png) no-repeat scroll 10px 50%;
     border-bottom:4px solid #6B6B6B;
@@ -2526,9 +2531,14 @@ div.first-time-page {
     font-weight:bold;
     height:40px;
     line-height:40px;
-    margin:10px -17px;
     padding-left: 30px;
+    cursor: pointer;
+}
 
+.first-time-page dl#list > dt.selected {
+    background-image: url(images/arrow-down.png);
+    border-top: none;
+    cursor: auto;
 }
 
 .first-time-page dl#list > dt.first {
@@ -2538,22 +2548,12 @@ div.first-time-page {
     height: 50px;
     line-height: 50px;
     font-size: 40px;
-    padding: 0;
+    margin-top: 10px;
 }
 
 .first-time-page dl#list > dd {
-    padding: 10px 0 0 20px;
-    margin: -10px -17px;
-    background: #e7e9fe;
+   background: #e7e9fe;
     font-size: 20px;
-}
-
-.first-time-page dl#list > dt.closed{
-    margin: -4px -17px;
-}
-
-.first-time-page dl#list > dt.closed + dd {
-    display: none;
 }
 
 .first-time-page dl#list > dd.first {
@@ -2567,10 +2567,6 @@ div.first-time-page {
 .first-time-page dl#list > dd.first li em {
     color: #090;
     font-style: normal;
-}
-
-.first-time-page div#download {
-    text-align: center;
 }
 
 .first-time-page #channellist .info {
@@ -2594,6 +2590,7 @@ div.first-time-page {
     display: block;
     margin-left: 12px;
 }
+
 .first-time-page .subscribe {
     margin: 14px 0 10px 6px;
 }
@@ -2619,48 +2616,6 @@ div.first-time-page {
 .first-time-page a.subscribe {
     background: blue;
     color: white;
-}
-
-.first-time-page div.third-step {
-    width: 320px;
-    margin:20px 10px 20px 20px;
-    float: left;
-    font-size: 120%;
-    text-align: center
-}
-
-.first-time-page .third-step img {
-    margin-left: 70px;
-    margin-right: 70px;
-    border: 1px solid black;
-}
-
-.first-time-page .third-step a {
-    color: blue;
-}
-
-.first-time-page .third-step a:hover {
-    text-decoration: underline;
-}
-
-.first-time-page div#faqs {
-    clear: left;
-}
-
-.first-time-page div#faqs dt {
-    background: url(images/arrow-r.gif) left center no-repeat;
-    padding-left: 20px;
-    font-size: 180%;
-    font-weight: bold;
-}
-
-.first-time-page div#faqs dt.open {
-    background: url(images/arrow-d.gif) left center no-repeat;
-}
-
-.first-time-page div#faqs dd {
-    margin-left: 40px;
-    font-size: 130%;
 }
 
 .first-time-page div#nothanks {
