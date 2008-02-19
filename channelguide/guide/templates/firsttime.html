@@ -6,13 +6,27 @@
 <script src="{{ STATIC_BASE_URL }}js/jquery.dimensions.js" type="text/javascript"></script>
 <script src="{{ STATIC_BASE_URL }}js/jquery-ui.js" type="text/javascript"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-    $('#list').accordion({
-header: 'dt'}).change(function(event, newHeader, oldHeader, newContent, oldContent) { newContent.height('auto'); });
-    $('#list dd').height('auto')
-    });
-</script>
+var height = undefined;    
+function showPacks() {
+    $(this).toggleClass('selected');
+    $("#channellist").animate({height:height}, 'slow');
+}
 
+function hidePacks() {
+    $(this).toggleClass('selected');
+    $("#channellist").animate({height:0}, 'slow');
+}
+
+$(document).ready(function (){
+        height = $("#channellist").height();
+        if (height < 500) {
+            height = 550;
+        }
+    $("#channellist").height(0);
+    $("dt:eq(1)").toggle(showPacks, hidePacks);
+    });
+
+</script>
 {% endblock %} 
 {% block content %}
 <div class="first-time-page">
@@ -27,7 +41,7 @@ header: 'dt'}).change(function(event, newHeader, oldHeader, newContent, oldConte
             </ul>
         </dd>
         <dt>{% trans "We Have Channel Recommendations for You!" %}</dt>
-        <dd id="channellist" style="padding-top: 8px;">
+        <dd id="channellist">
             <span class="info">Each channel pack gets you started with 5 great channels &mdash; add <img src="{{ STATIC_BASE_URL }}images/mini-add.png" alt=""> as many as you want.</span>
             {% fourcolumnloop  with column in channel_columns %}
                 {% for channel in column %}

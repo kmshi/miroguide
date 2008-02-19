@@ -2537,8 +2537,6 @@ div.first-time-page {
 
 .first-time-page dl#list > dt.selected {
     background-image: url(images/arrow-down.png);
-    border-top: none;
-    cursor: auto;
 }
 
 .first-time-page dl#list > dt.first {
@@ -2549,6 +2547,7 @@ div.first-time-page {
     line-height: 50px;
     font-size: 40px;
     margin-top: 10px;
+    cursor: auto;
 }
 
 .first-time-page dl#list > dd {
@@ -2567,6 +2566,11 @@ div.first-time-page {
 .first-time-page dl#list > dd.first li em {
     color: #090;
     font-style: normal;
+}
+
+.first-time-page #channellist {
+    height: 0;
+    overflow: hidden;
 }
 
 .first-time-page #channellist .info {
