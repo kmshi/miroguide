@@ -37,7 +37,7 @@ $(document).ready(function (){
                 <li>3) {% trans "A " %}<em>{% trans "green" %}</em>{% trans " bubble (in the sidebar) means you've got " %}<em>{% trans "new" %}</em>{% trans " video" %}</li>
             </ul>
         </dd>
-        <dt>{% trans "We Have Channel Recommendations for You!" %}</dt>
+        <dt>{% trans "We Have Channel Recommendations for You! <u>click here</u>" %}</dt>
         <dd id="channellist">
             <span class="info">Each channel pack gets you started with 5 great channels &mdash; add <img src="{{ STATIC_BASE_URL }}images/mini-add.png" alt=""> as many as you want.</span>
             {% fourcolumnloop  with column in channel_columns %}
