@@ -18,10 +18,7 @@ function hidePacks() {
 }
 
 $(document).ready(function (){
-        height = $("#channellist").height();
-        if (height < 500) {
-            height = 550;
-        }
+    height = 485;
     $("#channellist").height(0);
     $("dt:eq(1)").toggle(showPacks, hidePacks);
     });

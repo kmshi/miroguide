@@ -2556,7 +2556,7 @@ div.first-time-page {
 }
 
 .first-time-page dl#list > dd.first {
-    padding-left: 100px;
+    padding: 15px 0 15px 100px;
 }
 
 .first-time-page dl#list > dd.first li {
@@ -2566,6 +2566,14 @@ div.first-time-page {
 .first-time-page dl#list > dd.first li em {
     color: #090;
     font-style: normal;
+}
+
+.first-time-page dd.first ul {
+    line-height: 0.8em;
+}
+
+.first-time-page dt.selected + dd#channellist {
+    border-bottom:4px solid #6B6B6B;
 }
 
 .first-time-page #channellist {
@@ -2579,7 +2587,7 @@ div.first-time-page {
 }
 
 .first-time-page #channellist .channel {
-    margin: 30px 10px;
+    margin: 15px 10px;
 }
 
 .first-time-page #channellist ul.four-column-list {
@@ -2588,6 +2596,11 @@ div.first-time-page {
 
 .first-time-page #channellist li.column {
     width: 185px;
+}
+
+.first-time-page #channellist li.first-column {
+    clear: left;
+    margin-left:20px !important;
 }
 
 .first-time-page #channellist .four-column-list img {
@@ -2626,6 +2639,10 @@ div.first-time-page {
     height: 100px;
     margin-top: 30px;
     text-align: center;
+}
+
+.first-time-page div#nothanks a:hover {
+    text-decoration: inherit;
 }
 
 .first-time-page div#nothanks .button {
