@@ -25,11 +25,18 @@ jQuery.fn.rating = function(){
             title: this.title,
             className: this.className
         });
+        var names = [
+            "Not interested",
+            "I hate this channel",
+            "I dislike this channel",
+            "I like this channel",
+            "I really like this channel",
+            "I love this channel!"]
+
         jQuery(this).find("select option").each(function(){
             div.append( this.value == "0" ?
-                "<div class='cancel'><a href='#0' title='No Opinion/Not Interested'>No Opinion/Not Interested</a></div>" :
-                "<div class='star'><a href='#" + this.value + "' title='Give it a " + 
-                    this.value + " Star Rating'>" + this.value + "</a></div>" );
+                "<div class='cancel'><a href='#0' title='" + names[this.value] + "'></a></div>" :
+                "<div class='star'><a href='#" + this.value + "' title='" + names[this.value] + "'>" + this.value + "</a></div>" );
         });
 
         var ratingType;
