@@ -2753,3 +2753,29 @@ div.email-form {
     float: right;
     clear: right;
 }
+
+#underwriting {
+    color: #FFF;
+    text-align: center;
+    margin: 8px 0 12px;
+    letter-spacing: 0.06em;
+}
+
+#underwriting span {
+    font-size: 85%;
+    margin-bottom: 4px;
+}
+
+#underwriting div {
+    width: 785px;
+    border: solid 1px #084a8d;
+    background-color: #548ed2;
+    font-weight: bold;
+    font-size: 142%;
+    margin: 0 auto;
+}
+
+#underwriting a {
+    color: #fff;
+    text-decoration: underline;
+}
