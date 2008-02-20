@@ -2557,6 +2557,7 @@ div.first-time-page {
 
 .first-time-page dl#list > dd.first {
     padding: 15px 0 15px 100px;
+    background: #fff;
 }
 
 .first-time-page dl#list > dd.first li {
@@ -2757,21 +2758,23 @@ div.email-form {
 #underwriting {
     color: #FFF;
     text-align: center;
-    margin: 8px 0 12px;
+    margin: -22px 0 12px;
     letter-spacing: 0.06em;
 }
 
 #underwriting span {
+    display: block;
     font-size: 85%;
     margin-bottom: 4px;
 }
 
 #underwriting div {
+    height: 30px;
+    line-height: 30px;
     width: 785px;
     border: solid 1px #084a8d;
     background-color: #548ed2;
-    font-weight: bold;
-    font-size: 142%;
+    font-size: 110%;
     margin: 0 auto;
 }
 
