@@ -6,8 +6,12 @@
     width: 150px;
     height: 0px;
     overflow: hidden;
+    float: left;
 }
 
+.rating.small {
+    width: 78px;
+}
 .rating input {
     display: inline;
 }
@@ -29,14 +33,28 @@
     text-indent: -999em;
     cursor: pointer;
 }
+
+.small .cancel, .small .star {
+    width: 13px;
+    height: 13px;
+}
 .cancel,
 .cancel a {background: url(images/no-star.gif) no-repeat 0 0px;}
+
+.small .cancel,
+.small .cancel a { background-image: url(images/small-no-star.png);}
 
 .star.userrating,
 .star.userrating a {background: url(images/user-star.gif) no-repeat 0 0px;}
 
+.small .star.userrating,
+.small .star.userrating a {background-image: url(images/small-user-star.png);}
+
 .star.averagerating,
 .star.averagerating a {background: url(images/avg-star.gif) no-repeat 0 0px;}
+
+.small .star.averagerating,
+.small .star.averagerating a {background-image: url(images/small-avg-star.png);}
 
 .cancel a,
 .star a {
@@ -51,8 +69,17 @@ div.rating div.on a {
     background-position: 0 -24px;
 }
 
+div.rating.small div.on a {
+    background-position: 0 -12px;
+}
+
 div.rating div.hover a,
 div.rating div a:hover {
     display: block;
     background-position: 0 -48px;
+}
+
+div.rating.small div.hover a,
+div.rating.small div a:hover {
+    background-position: 0 -24px;
 }

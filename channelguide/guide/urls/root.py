@@ -23,6 +23,7 @@ urlpatterns = patterns('channelguide.guide.views',
     (r'^tags/', cg_include('tags')),
     (r'^cobranding/', cg_include('cobranding')),
     (r'^watch/', cg_include('cobranding')),
+    (r'^recommend/', cg_include('recommend')),
 )
 
 from channelguide.guide import feeds

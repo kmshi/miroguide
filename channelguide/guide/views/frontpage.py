@@ -120,8 +120,8 @@ def make_category_peek(request):
     }
 
 
-@cache.cache_page_externally_for(300)
-@cache.aggresively_cache
+#@cache.cache_page_externally_for(300)
+@cache.cache_for_user
 def index(request):
     featured_channels = get_featured_channels(request)
     return util.render_to_response(request, 'frontpage.html', {
@@ -134,7 +134,7 @@ def index(request):
         'category_peek': make_category_peek(request),
     })
 
-@cache.aggresively_cache
+@cache.cache_for_user
 def category_peek_fragment(request):
     return util.render_to_response(request, 'category-peek.html', {
         'category_peek': make_category_peek(request),

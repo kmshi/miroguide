@@ -1,7 +1,5 @@
 {% load i18n cg_helpers channels %}
-<div class="channel channel-recommended recommendation">
-    <div class="header{% if first %} rounded{% endif %}"></div>
-    <div class="inside">
+<div class="channel recommendation personalized-recommendation">
         <h3>{{ channel.name_as_link }}</h3>
         <div class="screenshot">
             <a {% link channel.get_url %}>{{ channel.thumb_95_63 }}</a>
@@ -15,8 +13,17 @@
             <div>
                 {% show_small_rating_stars channel %}
                 <strong>{% if channel.rating.average %}{{ channel.rating.average }}{% else %}{% trans "Rate!" %}{% endif %}</strong>
-            </div> 
+            </div>
         </div>
-    </div>
-    <div class="footer{% if last %} rounded {% endif %}"></div>
+        <div class="recommendation">
+            <h3>{% trans "Confidence" %}: {{ channel.confidence }}%</h3>
+            <div class="reasons">
+                <ul>
+                    <li>{% trans "Because you like" %}:</li>
+                    {% for reason in channel.reasons %}
+                    <li>{{ reason.name_as_link }}</li><!-- {{ reason.score }} -->
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
 </div>

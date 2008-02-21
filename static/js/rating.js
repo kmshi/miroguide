@@ -124,5 +124,11 @@ $(document).ready(function () {
     try {
         $("form.rating").rating('', {maxvalue:5});
     } catch (e) {}
-    $('.rating').height(25);
-    });
+    $('.rating').each(function() {
+        var height = 25;
+        if ($(this).hasClass('small')) {
+            height = 13;
+        }
+        $(this).height(height);
+    })
+});

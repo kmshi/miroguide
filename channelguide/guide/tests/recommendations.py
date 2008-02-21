@@ -1,12 +1,30 @@
-from channelguide.guide.models import Channel
+from channelguide.guide.models import Rating
 from channelguide.guide import tables
 from channelguide.testframework import TestCase
 from channelguide import manage
 from datetime import datetime, timedelta
 import math
+from channelguide.guide import recommendations
 
-class ChannelRecommendationsTest(TestCase):
+cos45 = float('%6f' % math.cos(math.radians(45)))
 
+class RecommendationsTestBase(TestCase):
+    """
+    The item similarities should be:
+        0-1: 1
+        0-2: 0.5
+        0-4: 0.707
+        0-6: 0.707
+        0-9: 0.707
+        1-2: 0.5
+        1-4: 0.707
+        1-6: 0.707
+        1-9: 0.707
+        2-8: 0.707
+        4-6: 1
+        4-9: 1
+        6-9: 1
+    """
     def setUp(self):
         TestCase.setUp(self)
         self.user = self.make_user('user')
@@ -56,6 +74,8 @@ class ChannelRecommendationsTest(TestCase):
             manage.refresh_stats_table()
             self.refresh_connection()
 
+class ChannelRecommendationsTest(RecommendationsTestBase):
+
     def test_get_similarity(self):
         """
         Test that the similarity is calculated as the cosine between the two
@@ -63,23 +83,25 @@ class ChannelRecommendationsTest(TestCase):
         """
         c0, c1, c2, c3, c4 = self.channels[:5]
         # angle of 90 degrees
-        self.assertEquals(c3.get_similarity(self.connection, c4.id), 0)
+        self.assertEquals(recommendations.get_similarity(c3,
+            self.connection, c4.id), 0)
         # angle of 60 degrees
-        self.assertAlmostEquals(c0.get_similarity(self.connection, c2.id),
-                0.5, 8)
-        self.assertAlmostEquals(c1.get_similarity(self.connection, c2.id),
-                0.5, 8)
+        self.assertAlmostEquals(recommendations.get_similarity(c0,
+            self.connection, c2.id), 0.5, 8)
+        self.assertAlmostEquals(recommendations.get_similarity(c1,
+            self.connection, c2.id), 0.5, 8)
         # angle of 0 degrees
-        self.assertAlmostEqual(c0.get_similarity(self.connection, c1.id),
-                1, 8)
+        self.assertAlmostEqual(recommendations.get_similarity(c0,
+            self.connection, c1.id), 1, 8)
 
     def test_ignore_null_ip_address(self):
         """
         get_similarity should not count 0.0.0.0 as a common IP since it is used
-        if the IP is not know.
+        if the IP is not known.
         """
         c0, c3 = self.channels[0], self.channels[3]
-        self.assertEquals(c0.get_similarity(self.connection, c3.id), 0)
+        self.assertEquals(recommendations.get_similarity(c0,
+            self.connection, c3.id), 0)
 
     def test_ignore_old_recommendations(self):
         """
@@ -87,7 +109,8 @@ class ChannelRecommendationsTest(TestCase):
         6 months (16070400 seconds).
         """
         c4, c7 = self.channels[4], self.channels[7]
-        self.assertEquals(c4.get_similarity(self.connection, c7.id), 0)
+        self.assertEquals(recommendations.get_similarity(c4,
+            self.connection, c7.id), 0)
 
     def test_ignore_ignored_subscription(self):
         """
@@ -95,7 +118,8 @@ class ChannelRecommendationsTest(TestCase):
         ignore_for_recommendations field is True.
         """
         c4, c5 = self.channels[4], self.channels[5]
-        self.assertEquals(c4.get_similarity(self.connection, c5.id), 0)
+        self.assertEquals(recommendations.get_similarity(c4,
+            self.connection, c5.id), 0)
 
     def get_recommendation_from_database(self, id1, id2, returnOne=True):
         value = self.connection.execute("""
@@ -114,8 +138,8 @@ WHERE channel1_id=%s AND channel2_id=%s
         """
         c0, c1, c2 = self.channels[:3]
         self.connection.execute("DELETE FROM cg_channel_recommendations")
-        c0.insert_recommendation(self.connection, c1.id)
-        c2.insert_recommendation(self.connection, c1.id)
+        recommendations.insert_recommendation(c0, self.connection, c1.id)
+        recommendations.insert_recommendation(c2, self.connection, c1.id)
 
     def test_insert_recommendation(self):
         """
@@ -125,10 +149,10 @@ WHERE channel1_id=%s AND channel2_id=%s
         """
         c0, c1, c2 = self.channels[:3]
         self.connection.execute("DELETE FROM cg_channel_recommendations")
-        c0.insert_recommendation(self.connection, c1.id)
+        recommendations.insert_recommendation(c0, self.connection, c1.id)
         self.assertAlmostEquals(self.get_recommendation_from_database(c0.id,
             c1.id), 1, 3)
-        c2.insert_recommendation(self.connection, c1.id)
+        recommendations.insert_recommendation(c2, self.connection, c1.id)
         self.assertAlmostEquals(self.get_recommendation_from_database(c1.id,
             c2.id), 0.5, 3)
 
@@ -137,7 +161,7 @@ WHERE channel1_id=%s AND channel2_id=%s
         insert_recommendation should not insert 0 recommendations.
         """
         c2, c4 = self.channels[2], self.channels[4]
-        c2.insert_recommendation(self.connection, c4.id)
+        recommendations.insert_recommendation(c2, self.connection, c4.id)
         self.assertEquals(self.get_recommendation_from_database(c2.id, c4.id, False), ())
 
     def test_delete_old_recommendations(self):
@@ -147,8 +171,10 @@ WHERE channel1_id=%s AND channel2_id=%s
         """
         self.insert_recommendations() # add some recommendations
         c0, c1, c2 = self.channels[:3]
-        c0.insert_recommendation(self.connection, c2.id)
-        c2.delete_old_recommendations(self.connection, [c0.id, c1.id])
+        recommendations.insert_recommendation(c0, self.connection, c2.id)
+        for other in [c0, c1]:
+            recommendations.delete_recommendation(c2, self.connection,
+                other.id)
         self.assertEquals(self.connection.execute("""
 SELECT * FROM cg_channel_recommendations
 WHERE channel1_id=%s OR channel2_id=%s""", (c2.id, c2.id)), ())
@@ -162,8 +188,8 @@ WHERE channel1_id=%s OR channel2_id=%s""", (c2.id, c2.id)), ())
         """
         c0, c1 = self.channels[:2]
         c4, c6, c9 = self.channels[4], self.channels[6], self.channels[9]
-        self.assertEquals(c1.find_relevant_similar(self.connection, '1.1.1.1'),
-            [c0.id, c4.id, c6.id, c9.id])
+        self.assertEquals(recommendations.find_relevant_similar(c1,
+            self.connection, '1.1.1.1'), [c0.id, c4.id, c6.id, c9.id])
 
     def test_find_relevant_similar_no_ip(self):
         """
@@ -175,12 +201,12 @@ WHERE channel1_id=%s OR channel2_id=%s""", (c2.id, c2.id)), ())
         c0, c1, c2 = self.channels[:3]
         c4, c6, c8 = self.channels[4], self.channels[6], self.channels[8]
         c9 = self.channels[9]
-        self.assertEquals(c1.find_relevant_similar(self.connection),
-                [c0.id, c2.id, c4.id, c6.id, c9.id])
-        self.assertEquals(c2.find_relevant_similar(self.connection),
-                [c0.id, c1.id, c8.id])
-        self.assertEquals(c4.find_relevant_similar(self.connection),
-                [c0.id, c1.id, c6.id, c9.id])
+        self.assertEquals(recommendations.find_relevant_similar(c1,
+            self.connection), [c0.id, c2.id, c4.id, c6.id, c9.id])
+        self.assertEquals(recommendations.find_relevant_similar(c2,
+            self.connection), [c0.id, c1.id, c8.id])
+        self.assertEquals(recommendations.find_relevant_similar(c4,
+            self.connection), [c0.id, c1.id, c6.id, c9.id])
 
     def test_full_calculation(self):
         """
@@ -192,7 +218,6 @@ WHERE channel1_id=%s OR channel2_id=%s""", (c2.id, c2.id)), ())
         calculate = manage.action_mapping['calculate_recommendations']
         calculate(['manage.py', 'calculate_recommendations', 'full'])
         rows = sorted(tables.channel_recommendations.select('*').execute(self.connection))
-        cos45 = float('%6f' % math.cos(math.radians(45)))
         check = sorted(((c0.id, c1.id, 1),
                 (c0.id, c2.id, 0.5),
                 (c0.id, c4.id, cos45),
@@ -235,3 +260,38 @@ WHERE channel1_id=%s OR channel2_id=%s""", (c2.id, c2.id)), ())
                 ))
         self.assertEquals(rows, check)
 
+class PersonalizedRecommendationsTest(RecommendationsTestBase):
+
+    def setUp(self):
+        RecommendationsTestBase.setUp(self)
+        recommendations.recalculate_recently_subscribed(self.connection)
+
+    def test_calculate_scores(self):
+        ratings = {
+                self.channels[0].id: 5,
+                self.channels[4].id: 3,
+            }
+        recommendations = self.user._get_recommendations(self.connection,
+               ratings.keys())
+        scores, numScores, topThree = self.user._calculate_scores(
+                recommendations, ratings)
+        self.assertEquals(scores, {
+                    self.channels[1].id: (5 + (3 * cos45)) / (1 + cos45),
+                    self.channels[2].id: 5,
+                    self.channels[6].id: (3 + (5 * cos45)) / (1 + cos45),
+                    self.channels[9].id: (3 + (5 * cos45)) / (1 + cos45)})
+        self.assertEquals(numScores, {
+                    self.channels[1].id: 2,
+                    self.channels[2].id: 1,
+                    self.channels[6].id: 2,
+                    self.channels[9].id: 2})
+        self.assertEquals(topThree, {
+            self.channels[1].id:
+                [(3 * cos45, self.channels[4].id), (5, self.channels[0].id)],
+            self.channels[2].id:
+                [(0.5 * 5, self.channels[0].id)],
+            self.channels[6].id:
+                [(3, self.channels[4].id), (5 * cos45, self.channels[0].id)],
+            self.channels[9].id:
+                [(3, self.channels[4].id), (5 * cos45, self.channels[0].id)],
+            })

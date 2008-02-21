@@ -145,6 +145,19 @@ class TableDependentCacheMiddleware(CacheMiddlewareBase):
         key = cache_key + ':' + ':'.join(appends)
         return key
 
+class UserCacheMiddleware(CacheMiddlewareBase):
+    """
+    Caches a page that's different for each user.  Useful for pages
+    that have ratings.
+    """
+    def get_cache_key_tuple(self, request):
+        if request.user.is_authenticated():
+            user = request.user.username
+        else:
+            user = None
+        return CacheMiddlewareBase.get_cache_key_tuple(self, request) + (request.path, request.META['QUERY_STRING'], user)
+
+
 class AggressiveCacheMiddleware(CacheMiddlewareBase):
     """Aggresively Caches a page.  This should only be used for pages that
      * Don't use any session data, or any cookie data

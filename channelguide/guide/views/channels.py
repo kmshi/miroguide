@@ -19,7 +19,7 @@ from channelguide.guide.emailmessages import EmailMessage
 from sqlhelper.sql.statement import Select
 from sqlhelper.sql.expression import Literal
 from sqlhelper import signals
-import re, urllib, time
+import re, urllib, time, operator
 
 SESSION_KEY = 'submitted-feed'
 
@@ -212,52 +212,12 @@ def channel(request, id):
         channel.save(request.connection)
     return util.redirect_to_referrer(request)
 
-class ShowChannelCacheMiddleware(AggressiveCacheMiddleware):
-
-    start = '<!-- RATING BAR -->'
-    end = '<!-- END RATING BAR -->'
-
-    def __init__(self):
-        AggressiveCacheMiddleware.__init__(self, None)
-
-    def response_from_cache_object(self, request, cache_object):
-        id = request.path.split('/')[-1]
-        query = Channel.query().join('rating')
-        channel = util.get_object_or_404(request.connection, query, id)
-        response = AggressiveCacheMiddleware.response_from_cache_object(self,
-                request, cache_object)
-        t = get_show_rating_bar(request, channel).decode('utf8')
-        start = response.content.find(self.start)
-        end = response.content.find(self.end, start) + len(self.end)
-        head = response.content[:start].decode('utf8')
-        tail = response.content[end:].decode('utf8')
-        response.content = u''.join((head, t, tail))
-        return response
-
-    def get_cache_key_tuple(self, request):
-        id = request.path.split('/')[-1].encode('utf-8')
-        self.namespace = ('channel', 'Channel:%s' % id)
-        channel = util.get_object_or_404(request.connection, Channel, id)
-        user = request.user
-        if not user.can_edit_channel(channel):
-            role = 'U' # regular user
-        elif not user.is_moderator():
-            role = 'O' # owner
-        elif not user.is_moderator():
-            role = 'E'
-        elif not user.is_supermoderator():
-            role = 'M' # moderator
-        else:
-            role = 'S' # supermod or admin
-        return (AggressiveCacheMiddleware.get_cache_key_tuple(self, request)
-                + (role,))
-
 @signals.record_update.connect
 def on_channel_record_update(record):
     if isinstance(record, Channel):
         client.set('Channel:%s' % record.id, time.time())
 
-@decorator_from_middleware(ShowChannelCacheMiddleware)
+@cache.cache_for_user
 def show(request, id, featured_form=None):
     query = Channel.query()
     query.join('categories', 'tags', 'owner', 'last_moderated_by', 'rating')
@@ -454,7 +414,7 @@ class PopularWindowSelect(templateutil.ViewSelect):
         else:
             return _("All-Time")
 
-@cache.aggresively_cache
+@cache.cache_for_user
 def popular_view(request):
     timespan = request.GET.get('view', 'today')
     if timespan == 'today':
@@ -529,6 +489,7 @@ def get_toprated_query(user):
     query.order_by(query.joins['rating'].c.count, desc=True)
     return query
 
+@cache.cache_for_user
 def toprated(request):
     query = get_toprated_query(request.user)
     pager = templateutil.Pager(10, query, request)

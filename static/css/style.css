@@ -1842,7 +1842,7 @@ div.channel-recommended {
     background: url(images/details/similar-bottom.png) no-repeat;
 }
 
-.channel-recommended h3 {
+.recommendation h3 {
     font-size: 108.1%;
     margin: -1px auto 5px 6px;
     margin-top: -1px;
@@ -1852,20 +1852,20 @@ div.channel-recommended {
     overflow: hidden;
 }
 
-.channel-recommended .screenshot {
+.recommendation .screenshot {
     float: left;
     margin-left: 6px;
     width: 95px;
     height: 63px;
 }
 
-.channel-recommended .info {
+.recommendation .info {
     text-align: center;
-    position: relative;
-    right: 2px;
+    float: left;
+    margin-left: 7px;
 }
 
-.channel-recommended .info a {
+.recommendation .info > div > a {
     font-size: 94%;
     padding: 0 24px;
     width: 124px;
@@ -1874,26 +1874,26 @@ div.channel-recommended {
     line-height: 1.2em;
 }
 
-.channel-recommended .info .details a {
+.recommendation .info .details a {
     padding: 0 38px;
 }
 
-.channel-recommended .info .subscribe, .channel-recommended .info .details {
+.recommendation .info .subscribe, .recommendation .info .details {
     width: 124px;
     height: 15px;
     margin-right: 6px;
 }
 
-.channel-recommended .info .subscribe {
+.recommendation .info .subscribe {
     background: url(images/details/add-small.png) no-repeat;
     margin-bottom: 8px;
 }
 
-.channel-recommended .info div.subscribe:hover, .channel-recommended .info div.details:hover {
+.recommendation .info div.subscribe:hover, .recommendation .info div.details:hover {
     background-position: 0 -15px;
 }
 
-.channel-recommended .info .details {
+.recommendation .info .details {
     background: url(images/details/details-small.png) no-repeat;
     margin-bottom: 10px;
 }
@@ -2175,17 +2175,17 @@ h3 .note-author {
     line-height: 1.25;
 }
 
-.channel-list-page .view-select {
+.view-select {
     margin-left: 40px;
     font-size: 55%;
     vertical-align: bottom;
 }
 
-.channel-list-page .view-select a {
+.view-select a {
     text-decoration: underline;
 }
 
-.channel-list-page .view-select .option {
+.view-select .option {
     margin-left: 5px;
 }
 
@@ -2753,6 +2753,58 @@ div.email-form {
 .email-form input.cancelemail {
     float: right;
     clear: right;
+}
+
+.personalized-recommendation-channel-list {
+    margin: 0 -7px;
+}
+
+.personalized-recommendation-channel-list li.column {
+    width: 381px;
+}
+
+.personalized-recommendation-channel-list li.column {
+    margin-left: 12px;
+}
+
+.personalized-recommendation {
+    margin-top: 20px;
+    padding-top: 3px;
+}
+
+.personalized-recommendation > h3 {
+    width: 230px;
+}
+
+.personalized-recommendation .recommendation {
+    float: left;
+    width: 115px;
+    margin-left: 10px;
+    margin-top: -26px;
+}
+
+.personalized-recommendation .recommendation h3 {
+    font-size: 120%;
+    margin-left: 0;
+    padding-top: 3px;
+    color: #595959;
+    font-weight: normal;
+    width: 130px;
+}
+
+.personalized-recommendation .recommendation .reasons li {
+    max-height: 1.3em;
+    padding-left: 2px;
+    overflow: hidden;
+    color: #595959;
+}
+
+.personalized-recommendation .recommendation .reasons a {
+    color: #999;
+}
+
+#user_ratings td {
+    padding-right: 30px;
 }
 
 #underwriting {

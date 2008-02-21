@@ -220,6 +220,64 @@ The Miro Guide""" % (self.email, url)
         util.send_mail('Approve your Miro Guide account', body, [self.email],
                 break_lines=False)
 
+    @staticmethod
+    def get_recommendations_from_ratings(connection, ratings):
+        ratings = dict((r.channel_id, r.rating) for r in ratings)
+        recommendations = User._get_recommendations(connection, ratings.keys())
+        scores, numScores, topThree = User._calculate_scores(recommendations,
+                ratings)
+        return User._filter_scores(scores, numScores), topThree
+
+    @staticmethod
+    def _get_recommendations(connection, ids):
+        if not ids:
+            return []
+        table = tables.channel_recommendations
+        select = table.select()
+        for column in table.c:
+            select.columns.append(column)
+        select.wheres.append(
+                (table.c.channel1_id.in_(ids)) |
+                (table.c.channel2_id.in_(ids)))
+        return select.execute(connection)
+
+    @staticmethod
+    def _filter_scores(scores, numScores):
+        valid = [id for id in numScores if numScores[id] > 3]
+        return dict((id, scores[id]) for id in valid)
+
+    @staticmethod
+    def _calculate_scores(recommendations, ratings):
+        simTable = {}
+        scores = {}
+        topThree = {}
+        numScores = {}
+        totalSim = {}
+        for channel1_id, channel2_id, cosine in recommendations:
+            if channel1_id in ratings:
+                simTable.setdefault(channel1_id, {})[channel2_id] = cosine
+            if channel2_id in ratings:
+                simTable.setdefault(channel2_id, {})[channel1_id] = cosine
+        for channel1_id in simTable:
+            rating = ratings.get(channel1_id)
+            if rating is None:
+                continue
+            for channel2_id, cosine in simTable[channel1_id].items():
+                if channel2_id in ratings:
+                    continue
+                scores.setdefault(channel2_id, 0)
+                totalSim.setdefault(channel2_id, 0)
+                numScores.setdefault(channel2_id, 0)
+                score = (cosine * rating)
+                scores[channel2_id] += score
+                totalSim[channel2_id] += cosine
+                numScores[channel2_id] += 1
+                topThree.setdefault(channel2_id, [])
+                thisTop = topThree[channel2_id]
+                thisTop.append((score, channel1_id))
+                thisTop.sort()
+        scores = dict((id, scores[id] / totalSim[id]) for id in scores)
+        return scores, numScores, topThree
 
 class UserAuthToken(Record):
     table = tables.user_auth_token

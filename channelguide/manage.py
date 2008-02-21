@@ -357,12 +357,15 @@ def calculate_recommendations(args=None):
     """
     Calculate the item-item channel recomendations.
     """
-    from channelguide import db, recommendations
+    from channelguide import db
+    from channelguide.guide import recommendations
     connection = db.connect()
-    if args and args[-1] == 'full':
-        recommendations.calculateAll(connection)
+    if len(args) > 2 and args[2] == 'full':
+        from channelguide.guide.models import Channel
+        channels = Channel.query_approved().execute(connection)
+        recommendations.recalculate_recommendations(channels, connection)
     else:
-        recommendations.calculateRecent(connection)
+        recommendations.recalculate_recently_subscribed(connection)
     connection.commit()
     connection.close()
 calculate_recommendations.args = '[full]'

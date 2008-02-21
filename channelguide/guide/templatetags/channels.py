@@ -53,6 +53,11 @@ def show_channel_in_recommendation(context, channel, first, last):
     return {'request': context['request'], 'channel': channel,
             'BASE_URL': settings.BASE_URL, 'first': first, 'last': last}
 
+@register.inclusion_tag('guide/personalized-recommendation.html', takes_context=True)
+def show_personalized_recommendation(context, channel):
+    return {'channel': channel, 'BASE_URL': settings.BASE_URL,
+            'request': context['request']}
+
 @register.inclusion_tag('guide/channel-mini.html', takes_context=True)
 def show_channel_mini(context, channel, count):
     return {'channel': channel, 'count': count, 
@@ -66,9 +71,10 @@ def show_channel_mini(context, channel, count):
 def show_item(item, open=True):
     return {'item': item}
 
-@register.inclusion_tag('guide/rating.html', takes_context=True)
-def show_rating_stars(context, channel):
+def _get_rating_context(context, channel):
     request = context['request']
+    if not hasattr(channel, 'rating'):
+        channel.join('rating').execute(request.connection)
     try:
         rating = Rating.query(Rating.c.user_id==request.user.id,
             Rating.c.channel_id==channel.id).get(request.connection)
@@ -86,18 +92,15 @@ def show_rating_stars(context, channel):
             rating.rating = 0
     return {
             'rating': rating,
-            'referer': request.path
+            'referer': request.path,
         }
 
-@register.inclusion_tag('guide/rating-static.html', takes_context=True)
-def show_rating_static(context, channel):
-    query = GeneratedRatings.query()
-    request = context['request']
-    try:
-        average = query.get(request.connection, channel.id).average
-    except LookupError:
-        average = 0
-    return {
-            'average': average,
-            'width': '%i%%' % (average*20),
-            }
+@register.inclusion_tag('guide/rating.html', takes_context=True)
+def show_rating_stars(context, channel):
+    return _get_rating_context(context, channel)
+
+@register.inclusion_tag('guide/rating.html', takes_context=True)
+def show_small_rating_stars(context, channel):
+    context = _get_rating_context(context, channel)
+    context['small'] = 'small'
+    return context

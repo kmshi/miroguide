@@ -334,82 +334,6 @@ class Channel(Record, Thumbnailable):
                 timestamp=timestamp,
                 ignore_for_recommendations=ignore_for_recommendations)
         insert.execute(connection)
-#        self.recalculate_recommendations(connection, ip_address)
-
-    def recalculate_recommendations(self, connection, ip_address):
-        if ip_address == '0.0.0.0':
-            return # don't bother with no IP
-        updates = self.find_relevant_similar(connection, ip_address)
-        self.delete_old_recommendations(connection, updates)
-        for channel in updates:
-            self.insert_recommendation(connection, channel)
-
-    def insert_recommendation(self, connection, other):
-        recommendation = self.get_similarity(connection, other)
-        if recommendation == 0:
-            return
-        c1, c2 = self.id, other
-        if c1 > c2:
-            c1, c2 = c2, c1
-        insert = tables.channel_recommendations.insert()
-        insert.add_values(channel1_id=c1, channel2_id=c2,
-                cosine=recommendation)
-        insert.execute(connection)
-
-    def delete_old_recommendations(self, connection, channels):
-        for c in channels:
-            c1 = self.id
-            c2 = c
-            if c1 > c2:
-                c1, c2 = c2, c1
-            delete = tables.channel_recommendations.delete()
-            delete.wheres.append(
-                    tables.channel_recommendations.c.channel1_id==c1)
-            delete.wheres.append(
-                tables.channel_recommendations.c.channel2_id==c2)
-            delete.execute(connection)
-
-    def find_relevant_similar(self, connection, ip_address=None):
-        ignoresWhere = """timestamp > DATE_SUB(NOW(), INTERVAL 1 MONTH)
-AND ignore_for_recommendations=%s AND ip_address<>%s"""
-        ignoresArgs = [False, '0.0.0.0']
-        sql = """
-SELECT DISTINCT channel_id FROM cg_channel_subscription
-JOIN cg_channel ON cg_channel.id=channel_id
-WHERE channel_id<>%%s AND %s AND cg_channel.state=%%s""" % ignoresWhere
-        args = [self.id] + ignoresArgs + ['A']
-        if ip_address is None:
-            sql += """ AND ip_address IN
-(SELECT ip_address FROM cg_channel_subscription
-WHERE channel_id=%%s AND %s)""" % ignoresWhere
-            args.append(self.id)
-            args.extend(ignoresArgs)
-        else:
-            sql += " AND ip_address=%s"
-            args.append(ip_address)
-        results = connection.execute(sql, args)
-        return [e[0] for e in results]
-
-    def get_similarity(self, connection, other):
-        sql = 'SELECT channel_id, ip_address from cg_channel_subscription WHERE channel_id IN (%s, %s) AND timestamp > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND ip_address<>%s AND ignore_for_recommendations=%s ORDER BY ip_address'
-        entries = connection.execute(sql, (self.id, other, "0.0.0.0", False))
-        if not entries:
-            return 0.0
-        vectors = {}
-        for (channel, ip) in entries:
-            vectors.setdefault(ip, [False, False])
-            i = int(channel)
-            if i == self.id:
-                vectors[ip][0] = True
-            elif i == other:
-                vectors[ip][1] = True
-            else:
-                raise RuntimeError("%r != to %r or %r" % (i, self.id, other))
-        keys = vectors.keys()
-        keys.sort()
-        v1 = [vectors[k][0] for k in keys]
-        v2 = [vectors[k][1] for k in keys]
-        return cosine(v1, v2)
 
     def update_thumbnails(self, connection, overwrite=False, sizes=None):
         """Recreate the thumbnails using the original data."""
@@ -620,18 +544,4 @@ WHERE channel_id=%%s AND %s)""" % ignoresWhere
         if self.moderator_shared_by_id == 0:
             return None
         return self.moderator_shared_by
-
-def dotProduct(vector1, vector2):
-    return sum([v1*v2 for v1, v2 in zip(vector1, vector2)])
-
-def length(vector):
-    return math.sqrt(sum([v**2 for v in vector]))
-
-def cosine(v1, v2):
-    l1 = length(v1)
-    l2 = length(v2)
-    if l1 == 0 or l2 == 0:
-        return 0.0
-    return dotProduct(v1, v2)/(l1 * l2)
-
 

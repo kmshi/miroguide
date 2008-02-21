@@ -8,7 +8,7 @@
             {{ count }} subscribes today
             {% endblocktrans %}
         </div>
-        {% show_rating_static channel %}
+        {% show_small_rating_stars channel %}
         {% endifequal %}
         {% ifequal count "episodes" %}
         {% if channel.item_count %}
