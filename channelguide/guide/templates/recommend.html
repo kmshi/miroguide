@@ -8,12 +8,13 @@
 <div class="channel-list-page">
     <div class="personalized-recommendation-channel-list">
         <h1>{% trans "Channels You'll &hearts;" %}<span class="view-select"><a {% link "/recommend/ratings" %}>{% trans "Channels You've Rated" %}</a></span></h1>
-        {% twocolumnloop with channel in channels %}
+        {% twocolumnloop with channel in pager.items %}
             {% show_personalized_recommendation channel %}
         {% endtwocolumnloop %}
         <script type="text/javascript">
             $(".first-column:even").add(".second-column:odd").css('background', '#f1f5fa');
         </script>
     </div>
+    {% show_pager pager %}
 </div>
 {% endblock %}
