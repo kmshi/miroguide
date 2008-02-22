@@ -54,7 +54,7 @@ def get_channel_ids(approved=False):
     from channelguide import db
     from channelguide.guide.models import Channel
     connection = db.connect()
-    if approved:
+    if not approved:
         query = Channel.query()
     else:
         query = Channel.query_approved()
