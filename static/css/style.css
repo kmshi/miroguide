@@ -2760,16 +2760,20 @@ div.email-form {
 }
 
 .personalized-recommendation-channel-list li.column {
-    width: 381px;
+    width: 396px;
+    margin-left: 0;
 }
 
-.personalized-recommendation-channel-list li.column {
-    margin-left: 12px;
+.personalized-recommendation-channel-list li.first-column {
+    margin-left: -9px !important;
+}
+
+.personalized-recommendation-channel-list li.second-column {
+    margin-right: -9px !important;
 }
 
 .personalized-recommendation {
-    margin-top: 20px;
-    padding-top: 3px;
+    padding: 7px 10px;
 }
 
 .personalized-recommendation > h3 {
