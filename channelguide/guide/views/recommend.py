@@ -21,7 +21,8 @@ class RecommendationsPager(templateutil.ManualPager):
         toSort.sort(key=operator.itemgetter(1), reverse=True)
         self.recommendations = recommendations
         self.reasons = reasons
-        self.ids = ids = [cid for (cid, rating) in toSort if rating>=2.25]
+        ids = [cid for (cid, rating) in toSort if rating>=3.25]
+        self.ids = ids[:10 * items_per_page]
         templateutil.ManualPager.__init__(self, items_per_page, len(self.ids),
                 self._items_callback, request)
 
