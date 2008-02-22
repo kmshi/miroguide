@@ -2759,6 +2759,14 @@ div.email-form {
     margin: 0 -7px;
 }
 
+.personalized-recommendation-channel-list h2 {
+    margin-bottom: 10px;
+}
+
+.personalized-recommendation-channel-list h2 a {
+    text-decoration: underline;
+}
+
 .personalized-recommendation-channel-list li.column {
     width: 396px;
     margin-left: 0;

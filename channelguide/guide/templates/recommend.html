@@ -7,7 +7,8 @@
 {% block content %}
 <div class="channel-list-page">
     <div class="personalized-recommendation-channel-list">
-        <h1>{% trans "Channels You'll &hearts;" %}<span class="view-select"><a {% link "/recommend/ratings" %}>{% trans "Channels You've Rated" %}</a></span></h1>
+        <h1>{% trans "Channels You'll &hearts;" %}<span class="view-select"><a {% link "recommend/ratings" %}>{% trans "Channels You've Rated" %}</a></span></h1>
+        <h2>{% trans "To get new recommendations, rate these channels then "%} <a {% link "recommend/" %}>{% trans "reload" %}</a>{% trans " this page."%}</h2>
         {% twocolumnloop with channel in pager.items %}
             {% show_personalized_recommendation channel %}
         {% endtwocolumnloop %}
