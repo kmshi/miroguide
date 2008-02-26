@@ -1,6 +1,6 @@
 from channelguide.guide.models import Channel, Rating
 from channelguide.guide import templateutil
-from channelguide.guide.auth import moderator_required
+from channelguide.guide.auth import beta_required
 from channelguide import util
 import operator
 
@@ -50,7 +50,7 @@ class RecommendationsPager(templateutil.ManualPager):
         else:
             return []
 
-@moderator_required
+@beta_required
 def index(request):
     pager = RecommendationsPager(10, request)
     context = {'pager': pager,
@@ -58,7 +58,7 @@ def index(request):
         }
     return util.render_to_response(request, 'recommend.html', context)
 
-@moderator_required
+@beta_required
 def ratings(request):
     query = Rating.query(user_id=request.user.id)
     query.order_by('rating', desc=True)

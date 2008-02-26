@@ -39,6 +39,7 @@ def user_passes_test(test_func):
     return _dec
 
 login_required = user_passes_test(lambda u: u.is_authenticated())
+beta_required = user_passes_test(lambda u: u.is_beta_tester())
 admin_required = user_passes_test(lambda u: u.is_admin())
 supermoderator_required = user_passes_test(lambda u: u.is_supermoderator())
 moderator_required = user_passes_test(lambda u: u.is_moderator())

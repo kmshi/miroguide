@@ -14,6 +14,10 @@ class UserBase(object):
         if not self.is_authenticated():
             raise AuthError("Moderator Access Required")
 
+    def check_beta_tester(self):
+        if not self.is_beta_tester():
+            raise AuthError('Beta Test Access Required')
+
     def check_is_moderator(self):
         if not self.is_moderator():
             raise AuthError("Moderator Access Required")
@@ -35,6 +39,8 @@ class UserBase(object):
             raise AuthError("Access denied for account")
 
     def is_authenticated(self):
+        raise NotImplementedError()
+    def is_beta_tester():
         raise NotImplementedError()
     def is_moderator(self):
         raise NotImplementedError()
@@ -58,6 +64,7 @@ class User(UserBase, Record):
     table = tables.user
 
     USER = 'U'
+    BETATESTER = 'B'
     MODERATOR = 'M'
     SUPERMODERATOR = 'S'
     ADMIN = 'A'
@@ -69,7 +76,7 @@ class User(UserBase, Record):
     SOME_EMAIL = 'S'
     NO_EMAIL = 'N'
 
-    roles_in_order = [USER, MODERATOR, SUPERMODERATOR, ADMIN]
+    roles_in_order = [USER, BETATESTER, MODERATOR, SUPERMODERATOR, ADMIN]
 
     ALL_MODERATOR_ROLES = (ADMIN, MODERATOR, SUPERMODERATOR)
     ALL_SUPERMODERATOR_ROLES = (ADMIN, SUPERMODERATOR)
@@ -100,6 +107,9 @@ class User(UserBase, Record):
     def is_authenticated(self):
         return True
 
+    def is_beta_tester(self):
+        return self.role == self.BETATESTER or self.is_moderator()
+
     def is_admin(self):
         return self.role == self.ADMIN
 
@@ -126,6 +136,8 @@ class User(UserBase, Record):
     def role_string(self):
         if self.role == self.USER:
             return "user"
+        elif self.role == self.BETATESTER:
+            return 'team miro'
         elif self.role == self.MODERATOR:
             return "moderator"
         elif self.role == self.SUPERMODERATOR:
