@@ -138,30 +138,30 @@ WHERE channel1_id=%s AND channel2_id=%s
         """
         c0, c1, c2 = self.channels[:3]
         self.connection.execute("DELETE FROM cg_channel_recommendations")
-        recommendations.insert_recommendation(c0, self.connection, c1.id)
-        recommendations.insert_recommendation(c2, self.connection, c1.id)
+        recommendations.insert_similarity(c0, self.connection, c1.id)
+        recommendations.insert_similarity(c2, self.connection, c1.id)
 
-    def test_insert_recommendation(self):
+    def test_insert_similarity(self):
         """
-        insert_recommendation should add a new row to the recommendations
+        insert_similarity should add a new row to the recommendations
         table.  It should keep the first channel id lower than the second
         channel id.
         """
         c0, c1, c2 = self.channels[:3]
         self.connection.execute("DELETE FROM cg_channel_recommendations")
-        recommendations.insert_recommendation(c0, self.connection, c1.id)
+        recommendations.insert_similarity(c0, self.connection, c1.id)
         self.assertAlmostEquals(self.get_recommendation_from_database(c0.id,
             c1.id), 1, 3)
-        recommendations.insert_recommendation(c2, self.connection, c1.id)
+        recommendations.insert_similarity(c2, self.connection, c1.id)
         self.assertAlmostEquals(self.get_recommendation_from_database(c1.id,
             c2.id), 0.5, 3)
 
     def test_insert_skips_null(self):
         """
-        insert_recommendation should not insert 0 recommendations.
+        insert_similarity should not insert 0 recommendations.
         """
         c2, c4 = self.channels[2], self.channels[4]
-        recommendations.insert_recommendation(c2, self.connection, c4.id)
+        recommendations.insert_similarity(c2, self.connection, c4.id)
         self.assertEquals(self.get_recommendation_from_database(c2.id, c4.id, False), ())
 
     def test_delete_old_recommendations(self):
@@ -171,9 +171,9 @@ WHERE channel1_id=%s AND channel2_id=%s
         """
         self.insert_recommendations() # add some recommendations
         c0, c1, c2 = self.channels[:3]
-        recommendations.insert_recommendation(c0, self.connection, c2.id)
+        recommendations.insert_similarity(c0, self.connection, c2.id)
         for other in [c0, c1]:
-            recommendations.delete_recommendation(c2, self.connection,
+            recommendations.delete_similarity(c2, self.connection,
                 other.id)
         self.assertEquals(self.connection.execute("""
 SELECT * FROM cg_channel_recommendations
@@ -264,17 +264,18 @@ class PersonalizedRecommendationsTest(RecommendationsTestBase):
 
     def setUp(self):
         RecommendationsTestBase.setUp(self)
-        recommendations.recalculate_recently_subscribed(self.connection)
+        recommendations.recalculate_similarity_recently_subscribed(
+                self.connection)
 
     def test_calculate_scores(self):
         ratings = {
                 self.channels[0].id: 5,
                 self.channels[4].id: 3,
             }
-        recommendations = self.user._get_recommendations(self.connection,
+        similarities = recommendations._get_recommendations(self.connection,
                ratings.keys())
-        scores, numScores, topThree = self.user._calculate_scores(
-                recommendations, ratings)
+        scores, numScores, topThree = recommendations._calculate_scores(
+                similarities, ratings)
         self.assertEquals(scores, {
                     self.channels[1].id: (5 + (3 * cos45)) / (1 + cos45),
                     self.channels[2].id: 5,

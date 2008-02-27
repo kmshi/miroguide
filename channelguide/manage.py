@@ -363,9 +363,9 @@ def calculate_recommendations(args=None):
     if len(args) > 2 and args[2] == 'full':
         from channelguide.guide.models import Channel
         channels = Channel.query_approved().execute(connection)
-        recommendations.recalculate_recommendations(channels, connection)
+        recommendations.recalculate_similarity(channels, connection)
     else:
-        recommendations.recalculate_recently_subscribed(connection)
+        recommendations.recalculate_similarity_recently_subscribed(connection)
     connection.commit()
     connection.close()
 calculate_recommendations.args = '[full]'

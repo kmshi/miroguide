@@ -1,5 +1,5 @@
 from channelguide.guide.models import Channel, Rating
-from channelguide.guide import templateutil
+from channelguide.guide import templateutil, recommendations
 from channelguide.guide.auth import beta_required
 from channelguide import util
 import operator
@@ -14,12 +14,12 @@ class RecommendationsPager(templateutil.ManualPager):
         else:
             user_id = request.user.id
         ratings = Rating.query(user_id=user_id).execute(request.connection)
-        (recommendations,
-            reasons) = request.user.get_recommendations_from_ratings(
+        (channels,
+            reasons) = recommendations.get_recommendations_from_ratings(
                 request.connection, ratings)
-        toSort = recommendations.items()
+        toSort = channels.items()
         toSort.sort(key=operator.itemgetter(1), reverse=True)
-        self.recommendations = recommendations
+        self.recommendations = channels
         self.reasons = reasons
         ids = [cid for (cid, rating) in toSort if rating>=3.25]
         self.ids = ids[:10 * items_per_page]

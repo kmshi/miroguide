@@ -3,14 +3,69 @@ from channelguide.guide.models import Channel
 import logging
 import math
 
-def recalculate_recently_subscribed(connection):
+def get_recommendations_from_ratings(connection, ratings):
+    ratings = dict((r.channel_id, r.rating) for r in ratings)
+    recommendations = _get_recommendations(connection, ratings.keys())
+    scores, numScores, topThree = _calculate_scores(recommendations,
+            ratings)
+    return _filter_scores(scores, numScores), topThree
+
+def _get_recommendations(connection, ids):
+    if not ids:
+        return []
+    table = tables.channel_recommendations
+    select = table.select()
+    for column in table.c:
+        select.columns.append(column)
+    select.wheres.append(
+            (table.c.channel1_id.in_(ids)) |
+            (table.c.channel2_id.in_(ids)))
+    return select.execute(connection)
+
+def _filter_scores(scores, numScores):
+    valid = [id for id in numScores if numScores[id] > 3]
+    return dict((id, scores[id]) for id in valid)
+
+def _calculate_scores(recommendations, ratings):
+    simTable = {}
+    scores = {}
+    topThree = {}
+    numScores = {}
+    totalSim = {}
+    for channel1_id, channel2_id, cosine in recommendations:
+        if channel1_id in ratings:
+            simTable.setdefault(channel1_id, {})[channel2_id] = cosine
+        if channel2_id in ratings:
+            simTable.setdefault(channel2_id, {})[channel1_id] = cosine
+    for channel1_id in simTable:
+        rating = ratings.get(channel1_id)
+        if rating is None:
+            continue
+        for channel2_id, cosine in simTable[channel1_id].items():
+            if channel2_id in ratings:
+                continue
+            scores.setdefault(channel2_id, 0)
+            totalSim.setdefault(channel2_id, 0)
+            numScores.setdefault(channel2_id, 0)
+            score = (cosine * rating)
+            scores[channel2_id] += score
+            totalSim[channel2_id] += cosine
+            numScores[channel2_id] += 1
+            topThree.setdefault(channel2_id, [])
+            thisTop = topThree[channel2_id]
+            thisTop.append((score, channel1_id))
+            thisTop.sort()
+    scores = dict((id, scores[id] / totalSim[id]) for id in scores)
+    return scores, numScores, topThree
+
+def recalculate_similarity_recently_subscribed(connection):
     channels = get_recently_subscribed(connection, 60*60*24)
     if not channels:
         return
-    recalculate_recommendations(channels, connection)
+    recalculate_similarity(channels, connection)
 
-def recalculate_recommendations(channels, connection):
-    logging.info('calculating for %i channels' % len(channels))
+def recalculate_similarity(channels, connection):
+    logging.info('calculating similarity for %i channels' % len(channels))
     hit = set()
     inserts = []
     for c1 in channels:
@@ -37,15 +92,7 @@ def get_recently_subscribed(connection, seconds):
     query.where(Channel.c.id.in_([e[0] for e in results]))
     return query.execute(connection)
 
-def recalculate_recommendations_for_ip(channel, connection, ip_address):
-    if ip_address == '0.0.0.0':
-        return # don't bother with no IP
-    updates = find_relevant_similar(channel, connection, ip_address)
-    for other in updates:
-        delete_recommendation(channel, connection, other)
-        insert_recommendation(channel, connection, other)
-
-def insert_recommendation(channel, connection, other):
+def insert_similarity(channel, connection, other):
     recommendation = get_similarity(channel, connection, other)
     if recommendation == 0:
         return
@@ -57,7 +104,7 @@ def insert_recommendation(channel, connection, other):
             cosine=recommendation)
     insert.execute(connection)
 
-def delete_recommendation(channel, connection, other):
+def delete_similarity(channel, connection, other):
     c1 = channel.id
     c2 = other
     if c1 > c2:
