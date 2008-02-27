@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n cg_helpers %}
 <ul class="simple-moderate-actions moderate-actions">
 {% if channel.is_approved %}
 <li class="channel-action">
@@ -50,7 +50,7 @@
     <li class="channel-action channel-action-right">
         <form method="POST" action="{{ channel.get_url }}">
             <input type="hidden" name="action" value="change-owner">
-            <label for="owner">Channel Manager:</label>
+            <label for="owner"><a {% link channel.owner.get_absolute_url %}>Channel Manager</a>:</label>
             <input type="text" name="owner" value="{{ channel.owner }}">
             <input type="submit" value="change">
         </form>
