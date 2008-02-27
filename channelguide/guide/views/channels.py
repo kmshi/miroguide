@@ -590,9 +590,8 @@ def email(request, id):
         mod_name = '%s (%s)' % (request.user.get_full_name(), request.user.username)
     else:
         mod_name = request.user.username
-    common_body = """%s is in line to be featured on the Miro Channel Guide, which is great because 50,000-100,000 people see this page every day! 
-
-Depending on the number of channels in line, %s should appear on the front page in the next few days; it will remain in the spotlight for 4 full days at: https://miroguide.com/""" % (channel.name, channel.name)
+    common_body = """%s is in line to be featured on the Miro Channel Guide, which is great because 50,000-100,000 people see this page every day!""" % channel.name
+    common_middle = """Depending on the number of channels in line, %s should appear on the front page in the next few days; it will remain in the spotlight for 4 full days at: https://miroguide.com/""" % channel.name
     common_footer ="""If you want to show off your featured channel, you can link to this page: https://www.miroguide.com/channels/features
 
 Regards,
@@ -611,17 +610,22 @@ http://subscribe.getmiro.com/""" % mod_name
 
 %s
 
+%s
+
 Modify your channel and get stats here: %s#edit
 
-%s""" % (name, common_body, channel.get_absolute_url(), common_footer)
+%s""" % (name, common_body, common_middle, channel.get_absolute_url(),
+        common_footer)
     else:
         body = """Hello,
+
+%s  The Guide is part of Miro, the free internet TV application: http://www.getmiro.com/
 
 %s
 
 Currently we're managing your channel -- if you'd like to take control, view stats, and be able to change the images and details associated with it, please contact us at: support@pculture.org
 
-%s""" % (common_body, common_footer)
+%s""" % (common_body, common_middle, common_footer)
     if email_type == 'Feature':
         action = 'feature'
     elif email_type == 'Approve & Feature':
