@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 from channelguide.testframework import TestCase
 from channelguide.guide import blogtrack
 

@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 from django.conf import settings
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.template import loader, context

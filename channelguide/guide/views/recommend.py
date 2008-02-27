@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 from channelguide.guide.models import Channel, Rating
 from channelguide.guide import templateutil, recommendations
 from channelguide.guide.auth import beta_required

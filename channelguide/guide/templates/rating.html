@@ -1,3 +1,7 @@
+{% comment %}
+Copyright (c) 2008 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
 <form class="rating {{ small }}" method="GET"{% if rating.has_user_rating %}
 title="User Rating: {{ rating.rating|default:0 }}"{% else %}
 title="Average Rating: {{ rating.average_rating }}"{% endif %}

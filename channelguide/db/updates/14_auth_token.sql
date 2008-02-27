@@ -1,3 +1,6 @@
+-- Copyright (c) 2008 Participatory Culture Foundation
+-- See LICENSE for details
+
 CREATE TABLE cg_user_auth_token (
   user_id INT(11) NOT NULL PRIMARY KEY,
   token VARCHAR(255) NOT NULL,

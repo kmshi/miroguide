@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 from channelguide.guide import emailmessages
 from channelguide.guide.models import ChannelNote
 

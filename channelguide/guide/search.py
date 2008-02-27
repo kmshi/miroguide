@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 """search channels."""
 from channelguide import util
 from channelguide.guide import tables

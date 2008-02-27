@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 from Cookie import SimpleCookie
 import time, md5, logging
 from django.conf import settings

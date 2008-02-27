@@ -1,3 +1,6 @@
+-- Copyright (c) 2008 Participatory Culture Foundation
+-- See LICENSE for details
+
 CREATE TABLE cg_cobranding (
     name VARCHAR(40) UNIQUE NOT NULL,
     long_title VARCHAR(100) NOT NULL,

@@ -1,3 +1,6 @@
+-- Copyright (c) 2008 Participatory Culture Foundation
+-- See LICENSE for details
+
 ALTER TABLE cg_secondary_language_map DROP FOREIGN KEY fk_language_map_channel;
 ALTER TABLE cg_secondary_language_map ADD CONSTRAINT fk_language_map_channel FOREIGN KEY (channel_id) REFERENCES cg_channel (id) ON DELETE CASCADE;
 ALTER TABLE cg_secondary_language_map DROP FOREIGN KEY fk_language_map_language;

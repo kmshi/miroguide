@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 """manage.py
 
 Channelguide management system.  This has been modified a good deal from the

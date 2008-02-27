@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 from django.conf import settings
 from django.template import Library
 from channelguide.guide.models import Rating, GeneratedRatings

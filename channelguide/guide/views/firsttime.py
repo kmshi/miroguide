@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 from urllib import urlencode
 from channelguide import cache, util, settings
 from channelguide.guide.views import frontpage, channels

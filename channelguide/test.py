@@ -1,4 +1,7 @@
 #!/usr/bin/env python2.4
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))

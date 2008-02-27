@@ -1,3 +1,6 @@
+-- Copyright (c) 2008 Participatory Culture Foundation
+-- See LICENSE for details
+
 -- Make tables to store FULLTEXT indexes.  Unfortunately, this means they must
 -- be MyISAM tables
 CREATE TABLE cg_channel_search_data (

@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 from channelguide.guide.models import User, Category, Language, Tag
 from channelguide.testframework import TestCase
 

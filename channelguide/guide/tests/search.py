@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 from channelguide.guide.views import search
 from channelguide.guide.models import Item, Language
 from channelguide import manage

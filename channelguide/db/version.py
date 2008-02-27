@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 def version_table_exists(connection):
     rows = connection.execute("SHOW TABLES")
     tables = [row[0] for row in rows]

@@ -1,3 +1,6 @@
+-- Copyright (c) 2008 Participatory Culture Foundation
+-- See LICENSE for details
+
 CREATE TABLE cg_channel_recommendations ( 
   channel1_id INT(11) NOT NULL,
   channel2_id INT(11) NOT NULL,

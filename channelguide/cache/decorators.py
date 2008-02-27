@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 from middleware import AggressiveCacheMiddleware, UserCacheMiddleware
 from django.utils.decorators import decorator_from_middleware
 

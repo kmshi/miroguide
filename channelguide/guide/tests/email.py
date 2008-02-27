@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 import socket
 from channelguide.testframework import TestCase
 from channelguide import util

@@ -1,3 +1,6 @@
+-- Copyright (c) 2008 Participatory Culture Foundation
+-- See LICENSE for details
+
 ALTER TABLE cg_channel MODIFY COLUMN name VARCHAR(255) NOT NULL;
 ALTER TABLE cg_channel MODIFY COLUMN url VARCHAR(255) NOT NULL;
 ALTER TABLE cg_channel MODIFY COLUMN website_url VARCHAR(255) NOT NULL;

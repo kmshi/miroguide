@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 from django.http import HttpResponseRedirect, Http404
 from django.utils.translation import gettext as _
 import django.newforms as forms

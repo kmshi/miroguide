@@ -1,3 +1,6 @@
+-- Copyright (c) 2008 Participatory Culture Foundation
+-- See LICENSE for details
+
 -- changes how much email moderators get.  Possible values:
 -- S - "some" - receieve posts marked "Email moderators"
 -- A - "all" - recieve all posts

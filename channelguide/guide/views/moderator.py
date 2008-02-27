@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 from channelguide import util, cache
 from channelguide.guide import templateutil
 from channelguide.guide.auth import moderator_required

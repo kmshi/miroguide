@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 """Helper utilities that change the django's behaviour."""
 
 from django import newforms as forms

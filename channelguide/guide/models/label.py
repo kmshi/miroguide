@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 """labels.py contains labels that are attached to channels.  This includes
 categories which are defined by the moderaters and tags which are
 user-created.

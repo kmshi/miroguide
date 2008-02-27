@@ -1,3 +1,6 @@
+-- Copyright (c) 2008 Participatory Culture Foundation
+-- See LICENSE for details
+
 CREATE TABLE cg_channel_featured_email (
     sender_id INT(11) NOT NULL,
     channel_id INT(11) NOT NULL,

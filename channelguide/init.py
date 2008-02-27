@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 """Contains code needed to initialize channelguide.  This should be run at
 startup, before any real work starts.
 """

@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 """emails.py has the classes that contain the text of the emails we send out.
 The main point of this module is to store the text in 1 place.
 """

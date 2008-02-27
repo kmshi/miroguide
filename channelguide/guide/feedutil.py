@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 """Tools for getting data from feedparser objects.  Most of this code is
 ripped out from democracy.
 """

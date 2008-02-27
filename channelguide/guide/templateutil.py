@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 """Helper classes for the templates"""
 
 from urllib import urlencode

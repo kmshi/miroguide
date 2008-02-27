@@ -1,3 +1,6 @@
+-- Copyright (c) 2008 Participatory Culture Foundation
+-- See LICENSE for details
+
 CREATE TABLE user (
   id INT(11) NOT NULL AUTO_INCREMENT,
   username VARCHAR(40) NOT NULL,

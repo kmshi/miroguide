@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 from django.http import Http404
 from channelguide import util
 from channelguide.guide import templateutil, auth

@@ -1,3 +1,6 @@
+-- Copyright (c) 2008 Participatory Culture Foundation
+-- See LICENSE for details
+
 CREATE TABLE cg_moderator_post (
   id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   user_id INT(11) NOT NULL,

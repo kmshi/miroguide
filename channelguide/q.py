@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 """This is just a quick list of imports for when I'm running the shell.
 
 Typical usage is:

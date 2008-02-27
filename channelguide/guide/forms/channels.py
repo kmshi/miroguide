@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 """submitform.py.  Channel submission form.  This is fairly complicated, so
 it's split off into its own module.  """
 

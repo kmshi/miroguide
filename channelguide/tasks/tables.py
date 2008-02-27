@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 from sqlhelper.orm import columns, Table
 
 task_time = Table('cg_task_time', 

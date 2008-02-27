@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 import md5
 
 for result in connection.execute("SELECT model_name, serial from robot"):

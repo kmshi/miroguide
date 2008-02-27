@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 from sqlhelper.orm import Record
 from channelguide import util
 from channelguide.cache import client

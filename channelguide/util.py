@@ -1,3 +1,6 @@
+# Copyright (c) 2008 Participatory Culture Foundation
+# See LICENSE for details.
+
 """Util package.  Used for often used convenience functions. """
 
 from datetime import datetime, timedelta

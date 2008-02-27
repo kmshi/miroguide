@@ -1,3 +1,6 @@
+-- Copyright (c) 2008 Participatory Culture Foundation
+-- See LICENSE for details
+
 create table cg_channel_last_approved
 (
     timestamp DATETIME,

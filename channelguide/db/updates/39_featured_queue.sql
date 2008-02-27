@@ -1,3 +1,6 @@
+-- Copyright (c) 2008 Participatory Culture Foundation
+-- See LICENSE for details
+
 CREATE TABLE cg_channel_featured_queue (
     channel_id INT(11) NOT NULL PRIMARY KEY,
     state TINYINT(1) NOT NULL DEFAULT 0,
