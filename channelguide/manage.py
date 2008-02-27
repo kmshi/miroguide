@@ -171,7 +171,7 @@ WHERE NOT EXISTS (SELECT * FROM cg_channel_item WHERE id=item_id)""")
 WHERE NOT EXISTS (SELECT * FROM cg_channel WHERE id=channel_id)""")
 
     iter = all_channel_iterator(connection, 'updating search data', 'items',
-            'items.search_data', approved=True)
+            'items.search_data')
     for channel in iter:
         channel.update_search_data(connection)
     # refresh the search namespace
