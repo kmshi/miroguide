@@ -60,7 +60,11 @@ def index(request):
 
 @beta_required
 def ratings(request):
-    query = Rating.query(user_id=request.user.id)
+    if request.user.is_admin():
+        user_id = request.GET.get('user_id', request.user.id)
+    else:
+        user_id = request.user.id
+    query = Rating.query(user_id=user_id)
     query.order_by('rating', desc=True)
     query.join('channel')
     context = {'ratings':query.execute(request.connection)}
