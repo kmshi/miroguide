@@ -204,6 +204,7 @@ class ModerateUserTest(TestCase):
 
     def test_promote_user(self):
         self.login(self.jane)
+        self.check_promote_demote(self.bob, 'promote', User.BETATESTER)
         self.check_promote_demote(self.bob, 'promote', User.MODERATOR)
         self.check_promote_demote(self.bob, 'promote', User.SUPERMODERATOR)
         self.check_promote_demote(self.bob, 'promote', User.ADMIN)
@@ -215,6 +216,7 @@ class ModerateUserTest(TestCase):
         self.cathy.save(self.connection)
         self.check_promote_demote(self.cathy, 'demote', User.SUPERMODERATOR)
         self.check_promote_demote(self.cathy, 'demote', User.MODERATOR)
+        self.check_promote_demote(self.cathy, 'demote', User.BETATESTER)
         self.check_promote_demote(self.cathy, 'demote', User.USER)
         self.check_promote_demote(self.cathy, 'demote', User.USER)
 
