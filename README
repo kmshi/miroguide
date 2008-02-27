@@ -1,0 +1,52 @@
+The software you'll need
+------------------------
+* Subversion
+* Python (at least 2.4)
+* Django (development version)
+* ImageMagick
+* MySQL
+* pyMySQLdb
+
+Getting the Guide code
+----------------------
+svn co https://videobomb.com/svn/channelguide2/trunk miroguide
+
+You won't be able to make checkins, but you can make patches to send
+using:
+
+svn diff -u > here-are-my-changes.diff
+
+Setting up MySQL
+----------------
+I won't go into setting up MySQL.
+
+Setting up Django
+-----------------
+svn co http://code.djangoproject.com/svn/django/trunk@6051 django
+cd django
+python setup.py build
+python setup.py install (you may have to do this step with sudo)
+
+Setting up the Guide
+--------------------
+cd miroguide
+cp channelguide/sitespecific.py.template channelguide/sitespecific.py
+
+You'll want to edit channelguide/sitespecific.py to fill in all the
+"FILL ME IN" parts.
+
+If you don't have an SMTP server running, you'll probably want to comment out channelguide/guide/util.py:173-174
+
+python channelguide/manage.py syncdb (sets up the database)
+
+To run the Guide
+----------------
+python channelguide/manage.py runserver (runs a development HTTP server
+on http://localhost:8000)
+
+Getting Help
+------------
+Mailing list: http://participatoryculture.org/mailman/listinfo/develop
+IRC Channel: #miro-hackers
+
+Happy Hacking!
