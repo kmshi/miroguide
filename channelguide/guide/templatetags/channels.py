@@ -12,7 +12,7 @@ def show_channel_moderate(context, channel, showScript=True):
     return {'channel': channel, 'user': user,
             'can_edit': user.can_edit_channel(channel),
             'show_script': showScript,
-            'BASE_URL': settings.BASE_URL}
+            'STATIC_BASE_URL': settings.STATIC_BASE_URL}
 
 @register.inclusion_tag('guide/edit-bar.html', takes_context=True)
 def show_edit_bar(context, channel, showScript=True):
@@ -21,13 +21,13 @@ def show_edit_bar(context, channel, showScript=True):
 
 @register.inclusion_tag('guide/moderate-actions.html', takes_context=True)
 def show_moderate_actions(context, channel):
-    return {'channel': channel, 'BASE_URL': settings.BASE_URL,
+    return {'channel': channel, 'STATIC_BASE_URL': settings.STATIC_BASE_URL,
             'user': context['user']}
 
 @register.inclusion_tag('guide/simple-moderate-actions.html',
         takes_context=True)
 def show_simple_moderate_actions(context, channel):
-    return {'channel': channel, 'BASE_URL': settings.BASE_URL,
+    return {'channel': channel, 'STATIC_BASE_URL': settings.STATIC_BASE_URL,
             'user': context['user']}
 
 @register.inclusion_tag('guide/channel-feature.html')
@@ -40,31 +40,32 @@ def show_channel_feature_no_image(channel, position):
 
 @register.inclusion_tag('guide/channel-in-category.html')
 def show_channel_in_category(channel):
-    return {'channel': channel, 'BASE_URL': settings.BASE_URL }
+    return {'channel': channel, 'STATIC_BASE_URL': settings.STATIC_BASE_URL }
 
 @register.inclusion_tag('guide/channel-in-list.html')
 def show_channel_in_list(channel):
-    return {'channel': channel, 'BASE_URL': settings.BASE_URL }
+    return {'channel': channel, 'STATIC_BASE_URL': settings.STATIC_BASE_URL }
 
 @register.inclusion_tag('guide/channel-in-popular-list.html', takes_context=True)
 def show_channel_in_popular_list(context, channel):
-    return {'channel': channel, 'BASE_URL': settings.BASE_URL,
+    return {'channel': channel, 'STATIC_BASE_URL': settings.STATIC_BASE_URL,
             'request': context['request']}
 
 @register.inclusion_tag('guide/channel-in-recommendation.html', takes_context=True)
 def show_channel_in_recommendation(context, channel, first, last):
     return {'request': context['request'], 'channel': channel,
-            'BASE_URL': settings.BASE_URL, 'first': first, 'last': last}
+            'STATIC_BASE_URL': settings.STATIC_BASE_URL,
+            'first': first, 'last': last}
 
 @register.inclusion_tag('guide/personalized-recommendation.html', takes_context=True)
 def show_personalized_recommendation(context, channel):
-    return {'channel': channel, 'BASE_URL': settings.BASE_URL,
+    return {'channel': channel, 'STATIC_BASE_URL': settings.STATIC_BASE_URL,
             'request': context['request']}
 
 @register.inclusion_tag('guide/channel-mini.html', takes_context=True)
 def show_channel_mini(context, channel, count):
     return {'channel': channel, 'count': count, 
-            'BASE_URL': settings.BASE_URL,
+            'STATIC_BASE_URL': settings.STATIC_BASE_URL,
             'request': context['request']
             }
 
