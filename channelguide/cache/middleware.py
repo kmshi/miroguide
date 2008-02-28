@@ -97,8 +97,8 @@ class CacheMiddlewareBase(object):
             return response
 
     def process_response(self, request, response):
-        if 'Cache-Control' not in response.headers:
-            response.headers['Cache-Control'] = 'max-age=0'
+        if not response.has_header('Cache-Control'):
+            response['Cache-Control'] = 'max-age=0'
         if (request.method == 'GET' and response.status_code == 200 and
                 not hasattr(request, '_cache_hit') and
                 not settings.DISABLE_CACHE):

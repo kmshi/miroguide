@@ -50,6 +50,7 @@ class TestCase(unittest.TestCase):
         self.emails = []
         settings.DISABLE_CACHE = True
         settings.USE_S3 = False
+        settings.BASE_URL_FULL = 'http://testserver/'
         self.client = Client()
         self.changed_settings = []
 
@@ -107,7 +108,7 @@ class TestCase(unittest.TestCase):
         self.assertEquals(response.status_code, 302,
                 "Not redirected:\nHeader: %i\nContent: %s" % (
                     response.status_code, response.content))
-        location_path = response.headers['Location'].split('?')[0]
+        location_path = response['Location'].split('?')[0]
         self.assertEqual(location_path, util.make_absolute_url(redirect_url))
 
     def assertLoginRedirect(self, response_or_url, login_as=None):
@@ -125,7 +126,7 @@ class TestCase(unittest.TestCase):
         if response.status_code == 200:
             return
         elif response.status_code == 302:
-            location_path = response.headers['Location'].split('?')[0]
+            location_path = response['Location'].split('?')[0]
             self.assertNotEquals(location_path,
                     util.make_absolute_url('accounts/login'))
         else:

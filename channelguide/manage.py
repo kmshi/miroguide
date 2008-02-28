@@ -30,7 +30,7 @@ from glob import glob
 
 from django.conf.urls.defaults import patterns
 from django.core import management
-managementUtility = management.ManagementUtility()
+commands = management.get_commands()
 
 # Remove django default actions that we don't use.  Many of these probably
 # would screw things up fairly bad.
@@ -39,7 +39,7 @@ for key in ['startproject', 'adminindex', 'createcachetable', 'install',
         'reset', 'sql', 'sqlall', 'sqlclear', 'sqlindexes', 'sqlinitialdata',
         'sqlreset', 'sqlsequencereset', 'validate']:
     try:
-        del managementUtility.commands[key]
+        del commands[key]
     except KeyError:
         pass
 action_mapping = {}
@@ -555,4 +555,4 @@ if __name__ == "__main__":
         func = action_mapping[action]
         func(sys.argv)
     else:
-        managementUtility.execute(sys.argv)
+        management.execute_manager('channelguide.settings')

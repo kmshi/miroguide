@@ -29,6 +29,8 @@ def init_logging():
 
 def init_external_libraries():
     sys.path.insert(0, settings.EXTERNAL_LIBRARY_DIR)
+    from django.utils.translation import ugettext
+    __builtins__['_'] = ugettext
 
 def initialize():
     init_logging()

@@ -451,8 +451,12 @@ def popular_view(request):
 def make_simple_list(request, query, header, order_by=None):
     if order_by:
         query = query.order_by(order_by)
+    query.load('item_count', 'subscription_count_today').join('rating')
     pager =  templateutil.Pager(8, query, request)
-    return util.render_to_response(request, 'two-column-list.html', {
+    for channel in pager.items:
+        channel.popular_count = channel.subscription_count_today
+        channel.timeline = 'Today'
+     return util.render_to_response(request, 'two-column-list.html', {
         'header': header,
         'pager': pager,
     })
@@ -467,8 +471,12 @@ def by_name(request):
 @cache.aggresively_cache
 def hd(request):
     query = Channel.query_approved(hi_def=1, user=request.user)
+    query.load('subscription_count_today', 'item_count').join('rating')
     templateutil.order_channels_using_request(query, request)
     pager =  templateutil.Pager(8, query, request)
+    for channel in pager.items:
+        channel.popular_count = channel.subscription_count_today
+        channel.timeline = 'Today'
     return util.render_to_response(request, 'two-column-list.html', {
         'header': _('HD Channels'),
         'pager': pager,

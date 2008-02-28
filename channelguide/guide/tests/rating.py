@@ -5,7 +5,8 @@ from channelguide.guide.models import Channel, Rating
 from channelguide.guide.views import channels
 from channelguide.guide import tables
 from channelguide.testframework import TestCase
-from channelguide import manage, settings
+from channelguide import manage
+from django.conf import settings
 import re
 
 class ChannelRatingsTest(TestCase):
