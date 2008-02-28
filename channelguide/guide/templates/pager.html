@@ -28,7 +28,11 @@ See LICENSE for details.
         {% endif %}
         
         {% if pager.links.next %}
+        {% if pager.links.next.text %}
+        <a {% link pager.links.next.url "next" %}>{{ pager.links.next.text }}</a>
+        {% else %}
         <a {% link pager.links.next.url "next" %}>{%trans "Next &gt;&gt;" %}</a>
+        {% endif %}
         {% endif %}
     </div>
     <div class="location">{% blocktrans with pager.start_item as start and pager.end_item as end and pager.total_items as total %}{{start}}-{{end}} of {{total}}

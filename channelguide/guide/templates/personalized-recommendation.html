@@ -20,7 +20,7 @@ See LICENSE for details.
             </div>
         </div>
         <div class="recommendation">
-            <h3>{% trans "Confidence" %}: {{ channel.confidence }}%</h3>
+            <h3>{% blocktrans with channel.guessed|floatformat:"1" as stars%}Our Bet: {{ stars }} Stars{% endblocktrans %}</h3>
             <div class="reasons">
                 <ul>
                     <li>{% trans "Because you like" %}:</li>

@@ -347,14 +347,13 @@ form .form-input-triplet label {
 }
 
 #navigation a {
-    color: #fff;
     line-height: 33px;
     font-size: 110%;
     font-weight: bold;
     vertical-align: middle;
     display: block;
-    padding: 0px 7px;
-    color: #A6D0FA;
+    padding: 0px 10px;
+    color: #bfdaff;
 }
 
 #navigation a.current-page {
@@ -1115,9 +1114,20 @@ li.blog-post .title {
     padding: 0px;
     border: 0px;
     margin-left: 5px;
-    margin-bottom: 35px;
+    margin-bottom: 25px;
     overflow: hidden;
     position: relative;
+}
+
+#featured-list-container + div {
+   bottom:20px;
+   float:right;
+   position:relative;
+   height: 0;
+}
+
+#featured-list-container + div a {
+    color: #545454;
 }
 
 #feature-section {
@@ -2761,6 +2771,7 @@ div.email-form {
 
 .personalized-recommendation-channel-list h2 {
     margin-bottom: 10px;
+    padding: 15px 0;
 }
 
 .personalized-recommendation-channel-list h2 a {
@@ -2780,8 +2791,12 @@ div.email-form {
     margin-right: -9px !important;
 }
 
+.personalized-recommendation-channel-list + .pager a.next {
+    font-size: 120%;
+}
+
 .personalized-recommendation {
-    padding: 7px 10px;
+    padding: 12px;
 }
 
 .personalized-recommendation > h3 {
@@ -2796,7 +2811,7 @@ div.email-form {
 }
 
 .personalized-recommendation .recommendation h3 {
-    font-size: 120%;
+    font-size: 115%;
     margin-left: 0;
     padding-top: 3px;
     color: #595959;
@@ -2845,4 +2860,13 @@ div.email-form {
 #underwriting a {
     color: #fff;
     text-decoration: underline;
+}
+
+.browse-page {
+    min-height: 300px;
+}
+
+.browse-page li{
+font-size:130%;
+line-height:1.7em;
 }

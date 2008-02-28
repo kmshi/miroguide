@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% comment %}
+Copyright (c) 2008 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load i18n channels cg_helpers %}
+{% block content %}
+<div class="browse-page">
+        <h1>{% trans "Browse" %}</h1>
+        {% threecolumns %}
+       <ul>
+        <li><a {% link "categories/" %}>{% trans "Categories" %}</a>
+        <li><a {% link "channels/hd" %}>{% trans "High-Definition (HD)" %}</a>
+        <li><a {% link "channels/features" %}>{% trans "Featured Channels" %}</a>
+        </ul>
+        {% splitcolumns %}
+        <ul>
+        <li><a {% link "languages/" %}>{% trans "Languages" %}</a> 
+        <li><a {% link "channels/recent" %}>{% trans "New Channels" %}</a>
+        <li><a {% link "tags/" %}>{% trans "Tags" %}</a>
+        </ul>
+        {% splitcolumns %}
+        <ul>
+        <li><a {% link "channels/by-name" %}>{% trans "Full List (A-Z)" %}</a>
+        <li><a {% link "channels/popular" %}>{% trans "Popular Channels" %}</a>
+        <li><a {% link "channels/toprated" %}>{% trans "Top-Rated Channels" %}</a>
+        </ul>
+         {% endthreecolumns %}
+</div>
+{% endblock %}

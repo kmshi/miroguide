@@ -3,7 +3,6 @@
 
 from channelguide.guide.models import Channel, Rating
 from channelguide.guide import templateutil, recommendations
-from channelguide.guide.auth import beta_required
 from channelguide import util
 import operator
 
@@ -28,6 +27,8 @@ class RecommendationsPager(templateutil.ManualPager):
         self.ids = ids[:10 * items_per_page]
         templateutil.ManualPager.__init__(self, items_per_page, len(self.ids),
                 self._items_callback, request)
+        if self.links.next:
+            self.links.next['text'] = 'More Recommendations &gt;&gt;'
 
     def _items_callback(self, start, length):
         ids = self.ids[start:start+length]
@@ -36,9 +37,7 @@ class RecommendationsPager(templateutil.ManualPager):
             query.join('rating')
             channels = query.execute(self.request.connection)
             for channel in channels:
-                channel.confidence = int(self.recommendations[channel.id] * 20)
-                if channel.confidence == 100:
-                    channel.confidence = 99 # artificially cap it
+                channel.guessed = self.recommendations[channel.id]
                 channelReasons = self.reasons[channel.id][-3:]
                 channelReasons = dict((cid, score) for (score, cid) in channelReasons)
                 query = Channel.query(Channel.c.id.in_(channelReasons.keys()))
@@ -48,12 +47,11 @@ class RecommendationsPager(templateutil.ManualPager):
                 channel.reasons = list(channel.reasons)
                 channel.reasons.sort(key=operator.attrgetter('score'), reverse=True)
             channels = list(channels)
-            channels.sort(key=operator.attrgetter('confidence'), reverse=True)
+            channels.sort(key=operator.attrgetter('guessed'), reverse=True)
             return channels
         else:
             return []
 
-@beta_required
 def index(request):
     pager = RecommendationsPager(10, request)
     context = {'pager': pager,
@@ -61,7 +59,6 @@ def index(request):
         }
     return util.render_to_response(request, 'recommend.html', context)
 
-@beta_required
 def ratings(request):
     if request.user.is_admin():
         user_id = request.GET.get('user_id', request.user.id)

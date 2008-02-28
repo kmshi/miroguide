@@ -11,6 +11,8 @@ urlpatterns = patterns('channelguide.guide.views',
     (r'^$', 'frontpage.index'),
     (r'^frontpage$', 'frontpage.index'),
     (r'^firsttime$', 'firsttime.index'),
+    (r'^browse/$', direct_to_template, {
+        'template': 'guide/browse.html'}),
     (r'^category-peek-fragment$', 'frontpage.category_peek_fragment'),
     (r'^moderate$', 'moderator.index'),
     (r'^how-to-moderate$', 'moderator.how_to_moderate'),

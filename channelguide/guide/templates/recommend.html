@@ -12,14 +12,20 @@ See LICENSE for details.
 <div class="channel-list-page">
     <div class="personalized-recommendation-channel-list">
         <h1>{% trans "Channels You'll &hearts;" %}<span class="view-select"><a {% link "recommend/ratings" %}>{% trans "Channels You've Rated" %}</a></span></h1>
+    {% if pager.items %}
         <h2>{% trans "To get new recommendations, rate these channels then "%} <a {% link "recommend/" %}>{% trans "reload" %}</a>{% trans " this page."%}</h2>
         {% twocolumnloop with channel in pager.items %}
             {% show_personalized_recommendation channel %}
         {% endtwocolumnloop %}
         <script type="text/javascript">
-            $(".first-column:even").add(".second-column:odd").css('background', '#f1f5fa');
+            $(".first-column:even").add(".second-column:odd").css('background', '#e9edf2');
         </script>
     </div>
     {% show_pager pager %}
+    {% else %}
+    {% blocktrans %}
+    You can rate channels by clicking on stars. Please go rate a few channels and come back, we'll have recommendations for you.
+    {% endblocktrans %}
+    {% endif %}
 </div>
 {% endblock %}
