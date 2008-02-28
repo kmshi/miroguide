@@ -25,6 +25,7 @@ from django.template.context import RequestContext
 from django.core.mail import send_mail as django_send_mail
 from django.conf import settings
 from django.utils.http import urlquote
+from django.utils.safestring import mark_safe
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 emailer = None
@@ -299,7 +300,7 @@ def make_link_attributes(href, css_class=None, **extra_link_attributes):
         attributes.append('class="%s"' % css_class)
     for name, value in extra_link_attributes.items():
         attributes.append('%s="%s"' % (name, value))
-    return ' '.join(attributes)
+    return mark_safe(' '.join(attributes))
 
 def rotate_grid(list, columns):
     """Used to make columned lists be ordered by column instead of rows.  For
@@ -320,7 +321,7 @@ def random_string(length):
 
 def make_link(href, label, css_class=None, **extra_link_attributes):
     attrs = make_link_attributes(href, css_class, **extra_link_attributes)
-    return '<a %s>%s</a>' % (attrs, cgi.escape(label))
+    return mark_safe('<a %s>%s</a>' % (attrs, cgi.escape(label)))
 
 def ensure_dir_exists(dir):
     if not os.path.exists(dir):
