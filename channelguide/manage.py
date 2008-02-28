@@ -32,11 +32,10 @@ from django.conf.urls.defaults import patterns
 from django.core import management
 try:
     managementUtility = management.ManagementUtility()
+    commands = managementUtility.commands
 except AttributeError:
     managementUtility = None
     commands = management.get_commands()
-else:
-    commands = managementUtility.commands
 
 # Remove django default actions that we don't use.  Many of these probably
 # would screw things up fairly bad.
