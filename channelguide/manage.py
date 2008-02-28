@@ -555,4 +555,5 @@ if __name__ == "__main__":
         func = action_mapping[action]
         func(sys.argv)
     else:
-        management.execute_manager('channelguide.settings')
+        from channelguide import settings
+        management.execute_manager(settings)
