@@ -30,7 +30,13 @@ from glob import glob
 
 from django.conf.urls.defaults import patterns
 from django.core import management
-commands = management.get_commands()
+try:
+    managementUtility = management.ManagementUtility()
+except AttributeError:
+    managementUtility = None
+    commands = management.get_commands()
+else:
+    commands = managementUtility.commands
 
 # Remove django default actions that we don't use.  Many of these probably
 # would screw things up fairly bad.
@@ -555,5 +561,8 @@ if __name__ == "__main__":
         func = action_mapping[action]
         func(sys.argv)
     else:
-        from channelguide import settings
-        management.execute_manager(settings)
+        if managementUtility:
+            managementUtility.execute(sys.argv)
+        else:
+            from channelguide import settings
+            management.execute_manager(settings)
