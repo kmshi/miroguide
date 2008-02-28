@@ -25,9 +25,11 @@ from django.template.context import RequestContext
 from django.core.mail import send_mail as django_send_mail
 from django.conf import settings
 from django.utils.http import urlquote
-from django.utils.safestring import mark_safe
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-
+try:
+    from django.utils.safestring import mark_safe
+except ImportError:
+    mark_safe = lambda x: x
 emailer = None
 
 def render_to_response(request, template_name, context=None, **kwargs):
