@@ -13,12 +13,6 @@ See LICENSE for details.
 {% endblock %}
 
 {% block onload-extra %}scheduleFeatureRotate();{% endblock %}
-{% block underwriting %}        <div id="underwriting">
-            <span>{% filter upper %}{% now "F" %}{% endfilter %} UNDERWRITING FROM</span>
-            <div>THIS SPACE COULD BE YOURS! SUPPORT MIRO BY BECOMING AN UNDERWRITER. <a href="http://getmiro.com/underwriting">LEARN MORE</a></div>
-            <span>(<a href="#">why are we doing this?</a>)</span>
-        </div>
-{% endblock %}
 {% block content %}
 <div class="front-page">
 {% comment %}   <div id="store">
