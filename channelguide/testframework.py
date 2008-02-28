@@ -49,6 +49,7 @@ class TestCase(unittest.TestCase):
         util.emailer = self.catch_email
         self.emails = []
         settings.DISABLE_CACHE = True
+        settings.USE_S3 = False
         self.client = Client()
         self.changed_settings = []
 

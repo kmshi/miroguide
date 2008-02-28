@@ -108,6 +108,22 @@ def get_image_extension(image_data):
     identify_output = call_command('identify', '-', data=image_data)
     return identify_output.split(" ")[1].lower()
 
+def push_media_to_s3(subpath, content_type):
+    """
+    Upload a subpath of the media directory to S3.
+    """
+    if not settings.USE_S3:
+        return
+    import S3
+    conn = S3.AWSAuthConnection(settings.S3_ACCESS_KEY, settings.S3_SECRET_KEY)
+    localPath = os.path.join(settings.MEDIA_ROOT, subpath)
+    obj = S3.S3Object(file(localPath).read())
+    conn.put(settings.S3_BUCKET,
+            settings.S3_PATH + subpath,
+            obj,
+            {'Content-Type': content_type,
+             'x-amz-acl': 'public-read'})
+
 def make_thumbnail(source_path, dest_path, width, height):
     # From the "Pad Out Image" recipe at
     # http://www.imagemagick.org/Usage/thumbnails/

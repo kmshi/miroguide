@@ -45,14 +45,23 @@ class Thumbnailable(object):
         return urljoin(settings.MEDIA_URL, '%s/%dx%d/%s' % 
                 (self.THUMBNAIL_DIR, width, height, self.get_filename()))
 
+    def _save_to_s3(self, path):
+        if not settings.USE_S3:
+            return
+        subpath = self.THUMBNAIL_DIR + '/' + path + '/' + self.get_filename()
+        content_type = 'image/' + self.thumbnail_extension
+        util.push_media_to_s3(subpath, content_type)
+
     def _save_original_thumbnail(self, image_data):
         dest = self.thumb_path('original')
         util.write_file(dest, image_data)
+        self._save_to_s3('original')
 
     def _make_thumbnail(self, image_data, width, height):
         source = self.thumb_path('original')
         dest = self.thumb_path("%dx%d" % (width, height))
         util.make_thumbnail(source, dest, width, height)
+        self._save_to_s3('%dx%d' % (width, height))
 
     def save_thumbnail(self, connection, image_data):
         """Save the thumbnail for this image.  image_data should be a string
