@@ -548,3 +548,34 @@ class Channel(Record, Thumbnailable):
             return None
         return self.moderator_shared_by
 
+    def rate(self, connection, user, score):
+        self.join('rating').execute(connection)
+        query = Rating.query(channel_id=self.id, user_id=user.id)
+        try:
+            rating = query.get(connection)
+        except:
+            rating = Rating()
+            rating.channel_id = self.id
+            rating.user_id = user.id
+            rating.rating = None
+        if rating.rating:
+            self.rating.count -= 1
+            self.rating.total -= rating.rating
+        rating.rating = int(score)
+        rating.timestamp = datetime.now()
+        if rating.rating == 0:
+            rating.rating = None
+        elif user.approved:
+            if self.rating:
+                self.rating.count += 1
+                self.rating.total += rating.rating
+                self.rating.average = float(self.rating.total) / self.rating.count
+                self.rating.save(connection)
+            else:
+                insert = tables.generated_ratings.insert()
+                insert.add_values(self_id=self.id,
+                        average=rating.rating,
+                        total=rating.rating, count=1)
+                insert.execute(connection)
+                connection.commit()
+            return rating

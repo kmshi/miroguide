@@ -2,7 +2,7 @@
 # See LICENSE for details.
 
 from channelguide.guide import tables
-from channelguide.guide.models import Channel
+from channelguide.guide.models import Channel, Rating
 import logging
 import math
 
@@ -144,6 +144,16 @@ WHERE channel_id=%%s AND %s)""" % ignoresWhere
     return [e[0] for e in results]
 
 def get_similarity(channel, connection, other):
+    """
+    Returns the similarity between two channels.  channel is a Channel object;
+    other is a channel id.
+    """
+    from_sub = get_similarity_from_subscriptions(channel, connection, other)
+    from_rat = get_similarity_from_ratings(channel, connection, other)
+
+    return sum(((from_sub - 1) / 2, from_rat * 2)) / 3
+
+def get_similarity_from_subscriptions(channel, connection, other):
     sql = 'SELECT channel_id, ip_address from cg_channel_subscription WHERE channel_id IN (%s, %s) AND timestamp > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND ip_address<>%s AND ignore_for_recommendations=%s ORDER BY ip_address'
     entries = connection.execute(sql, (channel.id, other, "0.0.0.0", False))
     if not entries:
@@ -163,6 +173,38 @@ def get_similarity(channel, connection, other):
     v1 = [vectors[k][0] for k in keys]
     v2 = [vectors[k][1] for k in keys]
     return cosine(v1, v2)
+
+def get_similarity_from_ratings(channel, connection, other):
+    query = Rating.query().where(Rating.c.channel_id.in_((channel.id, other)))
+    vectors = {}
+    for rating in query.execute(connection):
+        vectors.setdefault(rating.user_id, [-1, -1])
+        i = int(rating.channel_id)
+        if i == channel.id:
+            vectors[rating.user_id][0] = rating.rating
+        else:
+            vectors[rating.user_id][1] = rating.rating
+    keys = [key for key in vectors.keys() if -1 not in vectors[key]]
+    keys.sort()
+    v1 = [vectors[k][0] for k in keys]
+    v2 = [vectors[k][1] for k in keys]
+    return pearson_coefficient(v1, v2)
+
+def pearson_coefficient(vector1, vector2):
+    n = float(len(vector1))
+    if not n:
+        return 0.0
+    sum1 = sum(vector1)
+    sum2 = sum(vector2)
+    sq1 = sum([v**2 for v in vector1])
+    sq2 = sum([v**2 for v in vector2])
+    dp = dotProduct(vector1, vector2)
+    numerator = dp - (sum1*sum2/n)
+    denominator = math.sqrt((sq1 - sum1**2 / n) * (sq2 - sum2**2 / n))
+    if denominator == 0:
+        return 0.0
+    else:
+        return numerator / denominator
 
 def dotProduct(vector1, vector2):
     return sum([v1*v2 for v1, v2 in zip(vector1, vector2)])

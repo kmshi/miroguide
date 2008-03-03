@@ -129,7 +129,8 @@ channel_recommendations = Table('cg_channel_recommendations',
 channel_rating = Table('cg_channel_rating',
         columns.Int('channel_id', fk=channel.c.id, primary_key=True),
         columns.Int('user_id', fk=user.c.id, primary_key=True),
-        columns.Int('rating'))
+        columns.Int('rating'),
+        columns.DateTime('timestamp', default=datetime.now))
 channel_review = Table('cg_channel_review',
         columns.Int('user_id', fk=user.c.id, primary_key=True),
         columns.Int('channel_id', fk=channel.c.id, primary_key=True),

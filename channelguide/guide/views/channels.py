@@ -353,44 +353,19 @@ def rate(request, id):
                 referer = referer[len(settings.BASE_URL_FULL)-1:]
             request.META['QUERY_STRING'] += "%%26referer=%s" % referer
         raise AuthError("need to log in to rate")
-    try:
-        dbRating = Rating.query(Rating.c.user_id==request.user.id,
-            Rating.c.channel_id==id).get(request.connection)
-    except Exception:
-        dbRating = Rating()
-        dbRating.channel_id = id
-        dbRating.user_id = request.user.id
-        dbRating.rating = None
+    if request.REQUEST.get('rating', None) is None:
+        try:
+            dbRating = Rating.query(Rating.c.user_id==request.user.id,
+                Rating.c.channel_id==id).get(request.connection)
+            return HttpResponse('User Rating: %s' %  dbRating.rating)
+        except Exception:
+            raise Http404
     channel = util.get_object_or_404(request.connection,
             Channel.query().join('rating'), id)
-    if request.REQUEST.get('rating', None) is None:
-        if dbRating.exists_in_db():
-            return HttpResponse('User Rating: %s' %  dbRating.rating)
-        else:
-            raise Http404
-    rating = request.REQUEST.get('rating', None)
-    if rating not in ['0', '1', '2', '3', '4', '5']:
+    score = request.REQUEST.get('rating')
+    if score not in ['0', '1', '2', '3', '4', '5']:
         raise Http404
-    if dbRating.rating:
-        channel.rating.count -= 1
-        channel.rating.total -= dbRating.rating
-    dbRating.rating = int(rating)
-    if dbRating.rating == 0:
-        dbRating.rating = None
-    elif request.user.approved:
-        if channel.rating:
-            channel.rating.count += 1
-            channel.rating.total += dbRating.rating
-            channel.rating.average = float(channel.rating.total) / channel.rating.count
-            channel.rating.save(request.connection)
-        else:
-            insert = tables.generated_ratings.insert()
-            insert.add_values(channel_id=channel.id,
-                    average=dbRating.rating,
-                    total=dbRating.rating, count=1)
-            insert.execute(request.connection)
-            request.connection.commit()
-    dbRating.save(request.connection)
+    channel.rate(request.connection, request.user, score)
     if request.GET.get('referer'):
         redirect = request.GET['referer']
     else:
