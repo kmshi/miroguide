@@ -91,6 +91,7 @@ class RecommendationsTestBase(TestCase):
         user = self.users[user_index]
         for score, channel in zip(ratings, self.channels):
             channel.rate(self.connection, user, score)
+        self.refresh_connection()
 
 
 class ChannelRecommendationsTest(RecommendationsTestBase):
@@ -107,14 +108,14 @@ class ChannelRecommendationsTest(RecommendationsTestBase):
         # angle of 60 degrees
         self.assertAlmostEquals(
                 recommendations.get_similarity_from_subscriptions(c0,
-                self.connection, c2.id), 0.5, 8)
+                self.connection, c2.id), -0.5)
         self.assertAlmostEquals(
                 recommendations.get_similarity_from_subscriptions(c1,
-                self.connection, c2.id), 0.5, 8)
+                self.connection, c2.id), -0.5)
         # angle of 0 degrees
         self.assertAlmostEqual(
                 recommendations.get_similarity_from_subscriptions(c0,
-                self.connection, c1.id), 1, 8)
+                self.connection, c1.id), 0)
 
     def test_get_similarity_from_ratings(self):
        c0, c1, c2, c3, c4 = self.channels[:5]
@@ -147,7 +148,6 @@ class ChannelRecommendationsTest(RecommendationsTestBase):
         c0, c3 = self.channels[0], self.channels[3]
         self.assertEquals(recommendations.get_similarity_from_subscriptions(c0,
             self.connection, c3.id), 0)
-
     def test_ignore_old_recommendations(self):
         """
         Recommendation calculations should ignore subscriptions older than
@@ -196,18 +196,10 @@ WHERE channel1_id=%s AND channel2_id=%s
         self.connection.execute("DELETE FROM cg_channel_recommendations")
         recommendations.insert_similarity(c0, self.connection, c1.id)
         self.assertAlmostEquals(self.get_recommendation_from_database(c0.id,
-            c1.id), 1, 3)
+            c1.id), 0.5, 3)
         recommendations.insert_similarity(c2, self.connection, c1.id)
         self.assertAlmostEquals(self.get_recommendation_from_database(c1.id,
-            c2.id), 0.5, 3)
-
-    def test_insert_skips_null(self):
-        """
-        insert_similarity should not insert 0 recommendations.
-        """
-        c2, c4 = self.channels[2], self.channels[4]
-        recommendations.insert_similarity(c2, self.connection, c4.id)
-        self.assertEquals(self.get_recommendation_from_database(c2.id, c4.id, False), ())
+            c2.id), -0.25, 3)
 
     def test_delete_old_recommendations(self):
         """
@@ -223,7 +215,7 @@ WHERE channel1_id=%s AND channel2_id=%s
         self.assertEquals(self.connection.execute("""
 SELECT * FROM cg_channel_recommendations
 WHERE channel1_id=%s OR channel2_id=%s""", (c2.id, c2.id)), ())
-        self.assertAlmostEquals(self.get_recommendation_from_database(c0.id, c1.id), 1, 3)
+        self.assertAlmostEquals(self.get_recommendation_from_database(c0.id, c1.id), 0.5, 3)
 
     def test_find_relevant_similar(self):
         """
@@ -308,8 +300,19 @@ class PersonalizedRecommendationsTest(RecommendationsTestBase):
 
     def setUp(self):
         RecommendationsTestBase.setUp(self)
-        recommendations.recalculate_similarity_recently_subscribed(
-                self.connection)
+        rows = (
+                (self.channels[0].id, self.channels[1].id, 0.5),
+                (self.channels[0].id, self.channels[2].id, -0.5),
+                (self.channels[0].id, self.channels[3].id, 0.6),
+                (self.channels[1].id, self.channels[4].id, -0.1),
+                (self.channels[2].id, self.channels[4].id, 0.9),
+                (self.channels[3].id, self.channels[4].id, 0.2),
+            )
+        for row in rows:
+            insert = tables.channel_recommendations.insert()
+            insert.add_values(channel1_id=row[0], channel2_id=row[1],
+                    cosine=row[2])
+            insert.execute(self.connection)
 
     def test_calculate_scores(self):
         ratings = {
@@ -321,22 +324,23 @@ class PersonalizedRecommendationsTest(RecommendationsTestBase):
         scores, numScores, topThree = recommendations._calculate_scores(
                 similarities, ratings)
         self.assertEquals(scores, {
-                    self.channels[1].id: (5 + (3 * cos45)) / (1 + cos45),
-                    self.channels[2].id: 5,
-                    self.channels[6].id: (3 + (5 * cos45)) / (1 + cos45),
-                    self.channels[9].id: (3 + (5 * cos45)) / (1 + cos45)})
+                    self.channels[1].id: ((2.5 * 0.5 + 0.5 * -0.1) / 0.6)+2.5,
+                    self.channels[2].id: ((2.5 * -0.5 + 0.5 * 0.9) / 1.4)+2.5,
+                    self.channels[3].id: ((2.5 * 0.6 + 0.5 * 0.2) / 0.8)+2.5,
+                    })
         self.assertEquals(numScores, {
                     self.channels[1].id: 2,
-                    self.channels[2].id: 1,
-                    self.channels[6].id: 2,
-                    self.channels[9].id: 2})
+                    self.channels[2].id: 2,
+                    self.channels[3].id: 2,
+                })
         self.assertEquals(topThree, {
             self.channels[1].id:
-                [(3 * cos45, self.channels[4].id), (5, self.channels[0].id)],
+                [(0.5 * -0.1, self.channels[4].id),
+                    (2.5 * 0.5, self.channels[0].id)],
             self.channels[2].id:
-                [(0.5 * 5, self.channels[0].id)],
-            self.channels[6].id:
-                [(3, self.channels[4].id), (5 * cos45, self.channels[0].id)],
-            self.channels[9].id:
-                [(3, self.channels[4].id), (5 * cos45, self.channels[0].id)],
+                [(2.5 * -0.5, self.channels[0].id),
+                    (0.5 * 0.9, self.channels[4].id)],
+            self.channels[3].id:
+                [(0.5 * 0.2, self.channels[4].id),
+                    (2.5 * 0.6, self.channels[0].id)],
             })

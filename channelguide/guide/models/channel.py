@@ -23,6 +23,7 @@ from sqlhelper.sql import expression
 from user import ModeratorAction, User
 from item import Item
 from label import Tag, TagMap
+from rating import Rating
 import search
 
 class Channel(Record, Thumbnailable):
@@ -573,9 +574,10 @@ class Channel(Record, Thumbnailable):
                 self.rating.save(connection)
             else:
                 insert = tables.generated_ratings.insert()
-                insert.add_values(self_id=self.id,
+                insert.add_values(channel_id=self.id,
                         average=rating.rating,
                         total=rating.rating, count=1)
                 insert.execute(connection)
                 connection.commit()
-            return rating
+        rating.save(connection)
+        return rating

@@ -27,6 +27,8 @@ def _get_recommendations(connection, ids):
 
 def _filter_scores(scores, numScores):
     valid = [id for id in numScores if numScores[id] > 3]
+    if not valid:
+        return scores
     return dict((id, scores[id]) for id in valid)
 
 def _calculate_scores(recommendations, ratings):
@@ -50,15 +52,15 @@ def _calculate_scores(recommendations, ratings):
             scores.setdefault(channel2_id, 0)
             totalSim.setdefault(channel2_id, 0)
             numScores.setdefault(channel2_id, 0)
-            score = (cosine * rating)
+            score = (cosine * (rating-2.5))
             scores[channel2_id] += score
-            totalSim[channel2_id] += cosine
+            totalSim[channel2_id] += abs(cosine)
             numScores[channel2_id] += 1
             topThree.setdefault(channel2_id, [])
             thisTop = topThree[channel2_id]
             thisTop.append((score, channel1_id))
             thisTop.sort()
-    scores = dict((id, scores[id] / totalSim[id]) for id in scores)
+    scores = dict((id, (scores[id] / totalSim[id]) + 2.5) for id in scores)
     return scores, numScores, topThree
 
 def recalculate_similarity_recently_subscribed(connection):
@@ -172,7 +174,7 @@ def get_similarity_from_subscriptions(channel, connection, other):
     keys.sort()
     v1 = [vectors[k][0] for k in keys]
     v2 = [vectors[k][1] for k in keys]
-    return cosine(v1, v2)
+    return pearson_coefficient(v1, v2)
 
 def get_similarity_from_ratings(channel, connection, other):
     query = Rating.query().where(Rating.c.channel_id.in_((channel.id, other)))
