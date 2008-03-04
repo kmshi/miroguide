@@ -180,13 +180,13 @@ def get_similarity_from_ratings(channel, connection, other):
     query = Rating.query().where(Rating.c.channel_id.in_((channel.id, other)))
     vectors = {}
     for rating in query.execute(connection):
-        vectors.setdefault(rating.user_id, [-1, -1])
+        vectors.setdefault(rating.user_id, [None, None])
         i = int(rating.channel_id)
         if i == channel.id:
             vectors[rating.user_id][0] = rating.rating
         else:
             vectors[rating.user_id][1] = rating.rating
-    keys = [key for key in vectors.keys() if -1 not in vectors[key]]
+    keys = [key for key in vectors.keys() if None not in vectors[key]]
     keys.sort()
     v1 = [vectors[k][0] for k in keys]
     v2 = [vectors[k][1] for k in keys]
