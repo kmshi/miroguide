@@ -4,6 +4,7 @@
 from channelguide import util
 from channelguide.guide import tables
 from sqlhelper.orm import Record
+from sqlhelper import sql
 
 class Language(Record):
     """Languages are names for the different languages a channel can be in.
@@ -27,3 +28,12 @@ class Language(Record):
 
     def __repr__(self):
         return '%s(%r)' % (self.__class__.__name__, self.name)
+
+    @staticmethod
+    def secondary_language_exists_where(language_id):
+        select = sql.Select('*')
+        select.froms.append('cg_secondary_language_map')
+        select.wheres.append('channel_id=cg_channel.id')
+        select.wheres.append('language_id=%s', language_id)
+        return select.exists()
+

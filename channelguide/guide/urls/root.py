@@ -28,17 +28,19 @@ urlpatterns = patterns('channelguide.guide.views',
     (r'^tags/', cg_include('tags')),
     (r'^cobranding/', cg_include('cobranding')),
     (r'^watch/', cg_include('cobranding')),
+    (r'^api/', cg_include('api')),
     (r'^recommend/', cg_include('recommend')),
 )
 
 from channelguide.guide import feeds
 
 urlpatterns = urlpatterns + patterns('',
-    (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed',
+    (r'^feeds/(?P<url>.*)$', 'django.contrib.syndication.views.feed',
         {'feed_dict':
             {   'new': feeds.NewChannelsFeed,
                 'features': feeds.FeaturedChannelsFeed,
-                'categories': feeds.CategoriesFeed}
+                'categories': feeds.CategoriesFeed,
+                'search': feeds.SearchFeed}
         }),
 )
 

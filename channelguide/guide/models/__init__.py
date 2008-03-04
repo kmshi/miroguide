@@ -12,3 +12,4 @@ from channel import Channel
 from rating import Rating, GeneratedRatings
 from feature import FeaturedQueue
 from cobranding import Cobranding
+from api import ApiKey

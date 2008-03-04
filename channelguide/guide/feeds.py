@@ -4,10 +4,14 @@
 from channelguide import init
 init.init_external_libraries()
 from channelguide import db, util
+from channelguide.guide import api
 from channelguide.guide.models import Channel, Category, FeaturedQueue
+from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.syndication import feeds
 from django.http import Http404
+
+from operator import attrgetter
 
 def https_add_domain(domain, url):
     """
@@ -27,6 +31,7 @@ class ChannelsFeed(feeds.Feed):
     def item_enclosure_url(self, item):
         item.join('items').execute(self.request.connection)
         if item.items:
+            item.items.records.sort(key=attrgetter('date'), reverse=True)
             return item.items[0].url
 
     def item_enclosure_length(self, item):
@@ -89,3 +94,30 @@ class CategoriesFeed(ChannelsFeed):
         query = Channel.query_new().join('categories').limit(10)
         query.joins['categories'].where(id=obj.id)
         return query.execute(self.request.connection)
+
+class SearchFeed(ChannelsFeed):
+
+    def get_object(self, bits):
+        if len(bits) != 1:
+            raise ObjectDoesNotExist
+        terms = bits[0].split('+')
+        return terms
+
+    def title(self, obj):
+        return 'Search Feed: %s' % ' '.join(obj)
+
+    def link(self, obj):
+        if obj is None:
+            raise Http404
+        return settings.BASE_URL_FULL + 'search?query=' + '+'.join(obj)
+
+    def description(self, obj):
+        if obj is None:
+            return ''
+        return 'Channels that match "%s"' % ' '.join(obj)
+
+    def items(self, obj):
+        if obj is None:
+            return ''
+        return api.search(self.request.connection, obj)
+

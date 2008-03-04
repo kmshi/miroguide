@@ -35,8 +35,9 @@ class CacheTimingMiddleware(object):
         f.write(line)
         f.close()
         del request.start_time
-        footer = '\n<!-- %s -->' % line
-        response.content = response.content + footer.encode('utf-8')
+        if response['Content-Type'].startswith('text/html'):
+            footer = '\n<!-- %s -->' % line
+            response.content = response.content + footer.encode('utf-8')
         return response
 
 class CacheMiddlewareBase(object):

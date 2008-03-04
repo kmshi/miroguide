@@ -115,7 +115,7 @@ channel_note = Table('cg_channel_note',
         columns.String('body'),
         columns.Int('type', default=0),
         columns.DateTime('created_at', default=datetime.now))
-channel_subscription = Table('cg_channel_subscription', 
+channel_subscription = Table('cg_channel_subscription',
         columns.Int('channel_id', fk=channel.c.id),
         columns.String('ip_address', 16),
         columns.DateTime('timestamp', default=datetime.now),
@@ -188,6 +188,12 @@ generated_ratings = Table('cg_channel_generated_ratings',
         columns.Int('average'),
         columns.Int('count'),
         columns.Int('total'))
+api_key = Table('cg_api_key',
+    columns.String('api_key', 40, primary_key=True),
+    columns.Int('owner_id', fk=user.c.id),
+    columns.Int('active'),
+    columns.String('description'),
+    columns.DateTime('created_at', default=datetime.now))
 cobranding = Table('cg_cobranding',
         columns.Int('name', fk=user.c.username, primary_key=True),
         columns.String('html_title', 100),
@@ -315,6 +321,7 @@ user.one_to_many('notes', channel_note, backref='user')
 user.one_to_one('auth_token', user_auth_token, backref='user')
 moderator_action.many_to_one('user', user, backref='moderator_actions')
 moderator_action.many_to_one('channel', channel, backref='moderator_actions')
+api_key.many_to_one('owner', user)
 channel_rating.many_to_one('user', user, backref='channel_rating')
 channel_rating.many_to_one('channel', channel, backref='channel_rating')
 featured_queue.one_to_one('channel', channel, backref='featured_queue')

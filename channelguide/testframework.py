@@ -250,6 +250,7 @@ class TestCase(unittest.TestCase):
         elif response.status_code == 404:
             if 'Django tried these URL patterns' in str(response):
                 raise ValueError("Got 404 status code, no url conf match")
+            return response
         else:
             return response
 

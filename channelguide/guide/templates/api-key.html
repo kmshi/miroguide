@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block head-extra %}
+<style>
+    td {
+    padding: 5px;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<form method="POST" action="{{ request.path }}">
+    <input type="hidden" name="action" value="add">
+    <label for="name">Owner:</label><input type="text" name="owner">
+    <label for="description">Description:</label><textarea name="description"></textarea>
+    <input type="submit">
+</form>
+<table>
+    {% for key in keys %}
+    <tr>
+        <td>{{ key.api_key }}</td>
+        <td>{{ key.owner.username }}</td>
+        <td>{{ key.description }}</td>
+        <td><form method="POST" action="{{ request.path }}">
+                <input type="hidden" name="action" value="toggle-active">
+                <input type="hidden" name="key" value="{{ key.api_key }}">
+                <input type="submit" value="{% if key.active %}disable{% else %}enable{% endif %}">
+        </form></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
