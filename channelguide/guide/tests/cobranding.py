@@ -23,8 +23,8 @@ class CobrandingAdminTestCase(TestCase):
         Cobranding.get(self.connection, 'user')
 
     def test_user_cannot_create_cobrand(self):
-        self.assert_(self.get_page('/cobranding/admin/user', self.user) is
-                None)
+        page = self.get_page('/cobranding/admin/user', self.user)
+        self.assertEquals(page.status_code, 404)
 
     def test_regular_cannot_edit_cobrand(self):
         self.get_page('/cobranding/admin/user', self.admin)
