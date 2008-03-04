@@ -474,7 +474,7 @@ class Channel(Record, Thumbnailable):
 
     def _thumb_html(self, width, height):
         thumb_url = self.thumb_url(width, height)
-        return '<img src="%s" alt="%s">' % (thumb_url, cgi.escape(self.name))
+        return util.mark_safe('<img src="%s" alt="%s">' % (thumb_url, cgi.escape(self.name)))
 
     def thumb_60_40(self): return self._thumb_html(60, 40)
     def thumb_95_63(self): return self._thumb_html(95, 63)

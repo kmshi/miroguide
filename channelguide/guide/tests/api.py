@@ -109,6 +109,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
         channel = self.channels[0]
         response = self.make_api_request('get_channel', id=channel.id)
         self.assertEquals(response.status_code, 200)
+        print response.content
         data = eval(response.content)
         self.assertEquals(data['id'], channel.id)
         self.assertEquals(data['name'], channel.name)

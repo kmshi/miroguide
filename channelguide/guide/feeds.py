@@ -5,7 +5,7 @@ from channelguide import init
 init.init_external_libraries()
 from channelguide import db, util
 from channelguide.guide import api
-from channelguide.guide.models import Channel, Category, FeaturedQueue
+from channelguide.guide.models import Channel, Category, Tag, Language, FeaturedQueue
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.syndication import feeds
@@ -63,14 +63,16 @@ class NewChannelsFeed(ChannelsFeed):
         query = Channel.query_new().limit(10)
         return query.execute(self.request.connection)
 
-class CategoriesFeed(ChannelsFeed):
+class FilteredFeed(ChannelsFeed):
+    model = None
+    filter = None
 
     def get_object(self, bits):
         if len(bits) != 1:
             raise ObjectDoesNotExist
         try:
             obj = util.get_object_or_404_by_name(self.request.connection,
-                    Category, bits[0])
+                    self.model, bits[0])
         except Exception:
             raise ObjectDoesNotExist
         return obj
@@ -91,9 +93,32 @@ class CategoriesFeed(ChannelsFeed):
     def items(self, obj):
         if obj is None:
             return ''
-        query = Channel.query_new().join('categories').limit(10)
-        query.joins['categories'].where(id=obj.id)
+        query = Channel.query_new().join(self.filter).limit(10)
+        query.joins[self.filter].where(id=obj.id)
         return query.execute(self.request.connection)
+
+
+class CategoriesFeed(FilteredFeed):
+    model = Category
+    filter = 'categories'
+
+
+class TagsFeed(FilteredFeed):
+    model = Tag
+    filter = 'tags'
+
+
+class LanguagesFeed(FilteredFeed):
+    model = Language
+
+    def items(self, obj):
+        if obj is None:
+            return ''
+        query = Channel.query_new().join('secondary_languages').limit(10)
+        query.where((Channel.c.primary_language_id==obj.id) |
+                Language.secondary_language_exists_where(obj.id))
+        return query.execute(self.request.connection)
+
 
 class SearchFeed(ChannelsFeed):
 

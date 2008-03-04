@@ -32,7 +32,7 @@ class Item(Record, Thumbnailable):
 
     def thumb(self):
         url = self.thumb_url(200, 133)
-        return '<img width="200" height="133" src="%s" alt="%s">' % (url, self.name.replace('"', "'"))
+        return util.mark_safe('<img width="200" height="133" src="%s" alt="%s">' % (url, self.name.replace('"', "'")))
 
     def download_url(self):
         return "http://subscribe.getmiro.com/download/?url1=%s" % self.url

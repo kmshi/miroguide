@@ -40,6 +40,8 @@ urlpatterns = urlpatterns + patterns('',
             {   'new': feeds.NewChannelsFeed,
                 'features': feeds.FeaturedChannelsFeed,
                 'categories': feeds.CategoriesFeed,
+                'tags': feeds.TagsFeed,
+                'languages': feeds.LanguagesFeed,
                 'search': feeds.SearchFeed}
         }),
 )
