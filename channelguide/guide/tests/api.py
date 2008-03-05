@@ -2,6 +2,7 @@ from datetime import datetime
 
 from channelguide.guide.models import ApiKey, Category, Item, Language, Tag
 from channelguide.testframework import TestCase
+from channelguide import manage
 from channelguide.guide import api
 from channelguide.guide.tests.channels import test_data_path
 
@@ -14,6 +15,7 @@ class ChannelApiTestBase(TestCase):
         self.channels = []
         for i in range(2):
             channel = self.make_channel(self.owner, state='A')
+            channel.name = 'My Channel %i' % i
             channel.save(self.connection)
             self.channels.append(channel)
         categories = []
@@ -109,7 +111,6 @@ class ChannelApiViewTest(ChannelApiTestBase):
         channel = self.channels[0]
         response = self.make_api_request('get_channel', id=channel.id)
         self.assertEquals(response.status_code, 200)
-        print response.content
         data = eval(response.content)
         self.assertEquals(data['id'], channel.id)
         self.assertEquals(data['name'], channel.name)
@@ -142,6 +143,9 @@ class ChannelApiViewTest(ChannelApiTestBase):
                  'text': 'Channel -1 not found'})
 
 class ChannelApiFunctionTest(ChannelApiTestBase):
+
+    def assertSameChannels(self, l1, l2):
+        self.assertEquals([c.id for c in l1], [c.id for c in l2])
 
     def test_get_channel(self):
         """
@@ -195,6 +199,104 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         objs3 = api.get_channels(self.connection, 'language', 'unknown')
         self.assertEquals(len(objs3), 0)
 
+    def test_get_channels_sort_name(self):
+        """
+        Passing sort='name' to get_channels should sort the channels by their
+        name.  Also, if no sort is specified, it should be sorted by name.
+        """
+        new = self.make_channel(self.owner, state='A')
+        new.name = 'AAA'
+        new.save(self.connection)
+
+        objs = api.get_channels(self.connection, 'null', '', sort='name')
+        self.assertSameChannels(objs, [new] + self.channels)
+
+        objs = api.get_channels(self.connection, 'null', '', sort='-name')
+        self.assertSameChannels(objs, reversed([new] + self.channels))
+
+        objs = api.get_channels(self.connection, 'null', '')
+        self.assertSameChannels(objs, [new] + self.channels)
+
+    def test_get_channels_sort_id(self):
+        """
+        Passing sort='id' to get_channels should sort the channels by their
+        id.
+        """
+        new = self.make_channel(self.owner, state='A')
+        new.name = 'AAA'
+        new.save(self.connection)
+
+        objs = api.get_channels(self.connection, 'null', '', sort='id')
+        self.assertSameChannels(objs, self.channels + [new])
+
+        objs = api.get_channels(self.connection, 'null', '', sort='-id')
+        self.assertSameChannels(objs, reversed(self.channels + [new]))
+
+    def test_get_channels_sort_age(self):
+        """
+        Passing sort='age' to get_channels should sort the channels by their
+        approval date.
+        """
+        new = self.make_channel(self.owner, state='A')
+        new.approved_at = datetime.min.replace(year=1900)
+        new.save(self.connection)
+
+        objs = api.get_channels(self.connection, 'null', '', sort='age')
+        self.assertEquals(objs[-1].id, new.id)
+
+        objs = api.get_channels(self.connection, 'null', '', sort='-age')
+        self.assertEquals(objs[0].id, new.id)
+
+    def test_get_channels_sort_popular(self):
+        """
+        Passing sort='popular' to get_channels should sort the channels by
+        their popularity.
+        """
+        new = self.make_channel(self.owner, state='A')
+        new.add_subscription(self.connection, '1.1.1.1')
+        self.refresh_connection()
+        manage.refresh_stats_table()
+        self.refresh_connection()
+
+        objs = api.get_channels(self.connection, 'null', '', sort='popular')
+        self.assertEquals(objs[-1].id, new.id)
+
+        objs = api.get_channels(self.connection, 'null', '', sort='-popular')
+        self.assertEquals(objs[0].id, new.id)
+
+    def test_get_channels_sort_rating(self):
+        """
+        Passing sort='rating' to get_channels should sort the channels by
+        their rating.
+        """
+        self.owner.approved = True
+        self.owner.save(self.connection)
+        new = self.make_channel(self.owner, state='A')
+        new.rate(self.connection, self.owner, 5)
+
+        objs = api.get_channels(self.connection, 'null', '', sort='rating')
+        self.assertEquals(objs[-1].id, new.id)
+
+        objs = api.get_channels(self.connection, 'null', '', sort='-rating')
+        self.assertEquals(objs[0].id, new.id)
+
+    def test_get_channels_limit(self):
+        """
+        Passing a limit kwarg to get_channels should limit the number of
+        channels that are returned.
+        """
+        objs = api.get_channels(self.connection, 'null', '', limit=1)
+        self.assertEquals(len(objs), 1)
+        self.assertEquals(objs[0].id, self.channels[0].id)
+
+    def test_get_channels_offset(self):
+        """
+        Passing an offset kwarg to get_channels should skip that number of
+        channels.
+        """
+        objs = api.get_channels(self.connection, 'null', '', offset=1)
+        self.assertEquals(len(objs), 1)
+        self.assertEquals(objs[0].id, self.channels[1].id)
     def test_search(self):
         """
         api.search(connection, 'query') should return a list of Channels

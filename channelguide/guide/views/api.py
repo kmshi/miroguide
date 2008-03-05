@@ -21,6 +21,16 @@ def requires_api_key(func):
         return func(request)
     return wrapper
 
+def requires_arguments(*arguments):
+    def outer(func):
+        def wrapper(request):
+            for name in arguments:
+                if name not in request.REQUEST:
+                    return HttpResponseBadRequest('You forgot the "%s" argument' % name)
+            return func(request)
+        return wrapper
+    return outer
+
 def data_for_channel(channel):
     default_keys = ('id', 'name', 'description', 'url', 'website_url',
             'hi_def', 'publisher', 'postal_code')
@@ -108,6 +118,7 @@ def test(request):
     return response_for_data(request, data)
 
 @requires_api_key
+@requires_arguments('id')
 def get_channel(request):
     id = request.GET.get('id')
     try:
@@ -116,4 +127,13 @@ def get_channel(request):
         return error_response(request, 'CHANNEL_NOT_FOUND',
                 'Channel %s not found' % id)
     data = data_for_channel(channel)
+    return response_for_data(request, data)
+
+@requires_api_key
+@requires_arguments('filter', 'filter_value')
+def get_channels(request):
+    filter = request.GET.get('filter')
+    value = request.GET.get('filter_value')
+    channels = api.get_channels(request.connection, filter, value)
+    ret = map(data_for_channel, channels)
     return response_for_data(request, data)
