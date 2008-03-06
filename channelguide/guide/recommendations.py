@@ -63,8 +63,11 @@ def _calculate_scores(recommendations, ratings):
     scores = dict((id, (scores[id] / totalSim[id]) + 2.5) for id in scores)
     return scores, numScores, topThree
 
-def recalculate_similarity_recently_subscribed(connection):
-    channels = get_recently_subscribed(connection, 60*60*24)
+def recalculate_similarity_recent(connection):
+    seconds = 60*60*24
+    subscribed = set(get_recently_subscribed(connection, seconds))
+    rated = set(get_recently_rated(connection, seconds))
+    channels = subscribed | rated
     if not channels:
         return
     recalculate_similarity(channels, connection)
@@ -74,6 +77,7 @@ def recalculate_similarity(channels, connection):
     hit = set()
     inserts = []
     for c1 in channels:
+        delete_all_similarities(c1, connection)
         similar = find_relevant_similar(c1, connection)
         if similar:
             for c2 in similar:
@@ -87,11 +91,19 @@ def recalculate_similarity(channels, connection):
                     gs = get_similarity(c1, connection, c2)
                     if gs:
                         connection.execute("INSERT LOW_PRIORITY INTO cg_channel_recommendations VALUES (%s, %s, %s)", (id1, id2, gs))
-            connection.commit()
+        connection.commit()
 
 def get_recently_subscribed(connection, seconds):
     sql = """SELECT DISTINCT channel_id FROM cg_channel_subscription JOIN cg_channel ON cg_channel_subscription.channel_id = cg_channel.id WHERE (NOW()-timestamp) < %s AND ip_address!=%s AND ignore_for_recommendations<>%s AND state=%s"""
     args = (seconds, '0.0.0.0', True, 'A')
+    results = connection.execute(sql, args)
+    query = Channel.query()
+    query.where(Channel.c.id.in_([e[0] for e in results]))
+    return query.execute(connection)
+
+def get_recently_rated(connection, seconds):
+    sql = """SELECT DISTINCT channel_id FROM cg_channel_rating JOIN cg_channel ON cg_channel_rating.channel_id = cg_channel.id WHERE (NOW()-timestamp) < %s AND state=%s"""
+    args = (seconds, 'A')
     results = connection.execute(sql, args)
     query = Channel.query()
     query.where(Channel.c.id.in_([e[0] for e in results]))
@@ -109,6 +121,13 @@ def insert_similarity(channel, connection, other):
             cosine=recommendation)
     insert.execute(connection)
 
+def delete_all_similarities(channel, connection):
+    delete = tables.channel_recommendations.delete()
+    delete.wheres.append(
+            (tables.channel_recommendations.c.channel1_id==channel.id) |
+            (tables.channel_recommendations.c.channel2_id==channel.id))
+    delete.execute(connection)
+
 def delete_similarity(channel, connection, other):
     c1 = channel.id
     c2 = other
@@ -121,7 +140,12 @@ def delete_similarity(channel, connection, other):
         tables.channel_recommendations.c.channel2_id==c2)
     delete.execute(connection)
 
-def find_relevant_similar(channel, connection, ip_address=None):
+def find_relevant_similar(channel, connection):
+    return set(
+            find_relevant_similar_subscription(channel, connection)) | set(
+                    find_relevant_similar_rating(channel, connection))
+
+def find_relevant_similar_subscription(channel, connection, ip_address=None):
     """
     Returns a list of integers representing channel ids.
     """
@@ -144,6 +168,15 @@ WHERE channel_id=%%s AND %s)""" % ignoresWhere
         args.append(ip_address)
     results = connection.execute(sql, args)
     return [e[0] for e in results]
+
+def find_relevant_similar_rating(channel, connection):
+    ratings = Rating.query(channel_id=channel.id).execute(connection)
+    if not ratings:
+        return []
+    user_ids = [r.user_id for r in ratings]
+    query = Rating.query(Rating.c.user_id.in_(user_ids))
+    query.where(Rating.c.channel_id != channel.id)
+    return [c.channel_id for c in query.execute(connection)]
 
 def get_similarity(channel, connection, other):
     """

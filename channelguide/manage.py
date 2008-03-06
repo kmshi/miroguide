@@ -373,7 +373,7 @@ def calculate_recommendations(args=None):
         channels = Channel.query_approved().execute(connection)
         recommendations.recalculate_similarity(channels, connection)
     else:
-        recommendations.recalculate_similarity_recently_subscribed(connection)
+        recommendations.recalculate_similarity_recent(connection)
     connection.commit()
     connection.close()
 calculate_recommendations.args = '[full]'
