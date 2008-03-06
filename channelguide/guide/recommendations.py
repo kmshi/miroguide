@@ -186,7 +186,7 @@ def get_similarity(channel, connection, other):
     from_sub = get_similarity_from_subscriptions(channel, connection, other)
     from_rat = get_similarity_from_ratings(channel, connection, other)
 
-    return sum(((from_sub - 1) / 2, from_rat * 2)) / 3
+    return sum((from_sub / 2, from_rat )) / 2
 
 def get_similarity_from_subscriptions(channel, connection, other):
     sql = 'SELECT channel_id, ip_address from cg_channel_subscription WHERE channel_id IN (%s, %s) AND timestamp > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND ip_address<>%s AND ignore_for_recommendations=%s ORDER BY ip_address'
@@ -207,7 +207,8 @@ def get_similarity_from_subscriptions(channel, connection, other):
     keys.sort()
     v1 = [vectors[k][0] for k in keys]
     v2 = [vectors[k][1] for k in keys]
-    return cosine(v1, v2)
+    c = cosine(v1, v2)
+    return c
 
 def get_similarity_from_ratings(channel, connection, other):
     query = Rating.query().where(Rating.c.channel_id.in_((channel.id, other)))
