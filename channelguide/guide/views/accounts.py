@@ -66,9 +66,9 @@ def login_view(request):
     elif request.POST.get('which-form') == 'register':
         register_data = request.POST
     else:
-        message = get_login_message(next)
-    register_message = get_register_message(next)
-    additional = get_login_additional(next)
+        message = util.mark_safe(get_login_message(next))
+    register_message = util.mark_safe(get_register_message(next))
+    additional = util.mark_safe(get_login_additional(next))
     login_form = user_forms.LoginForm(request.connection, login_data)
     register_form = user_forms.RegisterForm(request.connection, register_data)
     if login_form.is_valid():

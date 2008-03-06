@@ -152,6 +152,11 @@ def channel(request, id):
                 newstate = Channel.NEW
             elif submit_value == 'Audio':
                 newstate = Channel.AUDIO
+            elif submit_value == 'Delete':
+                if not request.user.is_admin() and \
+                        request.user.id != channel.owner_id:
+                            request.user.check_is_admin()
+                newstate = Channel.REJECTED
             else:
                 newstate = None
             if newstate is not None:

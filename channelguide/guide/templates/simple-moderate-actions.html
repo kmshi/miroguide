@@ -35,6 +35,23 @@ See LICENSE for details.
             <input type="submit" name="submit" value="Unapprove">
         </form>
     </li>
+    {% if user.is_admin %}
+    <li class="channel-action">
+    <form method="POST" action="{{ channel.get_url }}">
+        <input type="hidden" name="action" value="change-state">
+        <input type="submit" name="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this channel?');">
+    </form>
+    </li>
+    {% else %}
+        {% ifequal user.id channel.owner_id %}
+    <li class="channel-action">
+    <form method="POST" action="{{ channel.get_url }}">
+        <input type="hidden" name="action" value="change-state">
+        <input type="submit" name="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this channel?');">
+    </form>
+    </li>
+        {% endifequal %}
+    {% endif %}
 {% else %}
 <li class="channel-action">
     <form method="POST" action="{{ channel.get_url }} ">
