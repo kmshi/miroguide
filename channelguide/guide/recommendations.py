@@ -207,7 +207,7 @@ def get_similarity_from_subscriptions(channel, connection, other):
     keys.sort()
     v1 = [vectors[k][0] for k in keys]
     v2 = [vectors[k][1] for k in keys]
-    return pearson_coefficient(v1, v2)
+    return cosine(v1, v2)
 
 def get_similarity_from_ratings(channel, connection, other):
     query = Rating.query().where(Rating.c.channel_id.in_((channel.id, other)))
