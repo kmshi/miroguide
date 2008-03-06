@@ -38,14 +38,15 @@ class RecommendationsPager(templateutil.ManualPager):
             channels = query.execute(self.request.connection)
             for channel in channels:
                 channel.guessed = self.recommendations[channel.id]
-                channelReasons = self.reasons[channel.id][-3:]
-                channelReasons = dict((cid, score) for (score, cid) in channelReasons)
-                query = Channel.query(Channel.c.id.in_(channelReasons.keys()))
-                channel.reasons = query.execute(self.request.connection)
-                for reason in channel.reasons:
-                    reason.score = channelReasons[reason.id]
-                channel.reasons = list(channel.reasons)
-                channel.reasons.sort(key=operator.attrgetter('score'), reverse=True)
+                if channel.id in self.reasons:
+                    channelReasons = self.reasons[channel.id][-3:]
+                    channelReasons = dict((cid, score) for (score, cid) in channelReasons)
+                    query = Channel.query(Channel.c.id.in_(channelReasons.keys()))
+                    channel.reasons = query.execute(self.request.connection)
+                    for reason in channel.reasons:
+                        reason.score = channelReasons[reason.id]
+                    channel.reasons = list(channel.reasons)
+                    channel.reasons.sort(key=operator.attrgetter('score'), reverse=True)
             channels = list(channels)
             channels.sort(key=operator.attrgetter('guessed'), reverse=True)
             return channels
