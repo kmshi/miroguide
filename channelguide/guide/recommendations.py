@@ -56,10 +56,11 @@ def _calculate_scores(recommendations, ratings):
             scores[channel2_id] += score
             totalSim[channel2_id] += abs(cosine)
             numScores[channel2_id] += 1
-            topThree.setdefault(channel2_id, [])
-            thisTop = topThree[channel2_id]
-            thisTop.append((score, channel1_id))
-            thisTop.sort()
+            if rating > 2:
+                topThree.setdefault(channel2_id, [])
+                thisTop = topThree[channel2_id]
+                thisTop.append((score, channel1_id))
+                thisTop.sort()
     scores = dict((id, (scores[id] / totalSim[id]) + 2.5) for id in scores)
     return scores, numScores, topThree
 
