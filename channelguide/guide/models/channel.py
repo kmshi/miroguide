@@ -448,12 +448,11 @@ class Channel(Record, Thumbnailable):
 
     def _check_archived(self, connection):
         latest = None
-        items = self.items[:]
-        items.sort(key=lambda x: x.date)
-        while latest is None and items:
-            latest = items.pop().date
-        if latest is None:
+        items = [item for item in self.items if item.date is not None]
+        if not items:
             return
+        items.sort(key=lambda x: x.date)
+        latest = items[-1].date
         if (datetime.now() - latest).days > 90:
             self.archived = True
         else:
