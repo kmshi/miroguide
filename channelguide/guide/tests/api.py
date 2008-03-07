@@ -142,6 +142,15 @@ class ChannelApiViewTest(ChannelApiTestBase):
                 {'error': 'CHANNEL_NOT_FOUND',
                  'text': 'Channel -1 not found'})
 
+    def test_get_channels(self):
+        response = self.make_api_request('get_channels', filter='category',
+            filter_value='category0')
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assert_(isinstance(data, list))
+        self.assertEquals(data[0]['id'], self.channels[0].id)
+        self.assertEquals(data[0].get('category'), None)
+
 class ChannelApiFunctionTest(ChannelApiTestBase):
 
     def assertSameChannels(self, l1, l2):
@@ -208,13 +217,13 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         new.name = 'AAA'
         new.save(self.connection)
 
-        objs = api.get_channels(self.connection, 'null', '', sort='name')
+        objs = api.get_channels(self.connection, 'name', '', sort='name')
         self.assertSameChannels(objs, [new] + self.channels)
 
-        objs = api.get_channels(self.connection, 'null', '', sort='-name')
+        objs = api.get_channels(self.connection, 'name', '', sort='-name')
         self.assertSameChannels(objs, reversed([new] + self.channels))
 
-        objs = api.get_channels(self.connection, 'null', '')
+        objs = api.get_channels(self.connection, 'name', '')
         self.assertSameChannels(objs, [new] + self.channels)
 
     def test_get_channels_sort_id(self):
@@ -226,10 +235,10 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         new.name = 'AAA'
         new.save(self.connection)
 
-        objs = api.get_channels(self.connection, 'null', '', sort='id')
+        objs = api.get_channels(self.connection, 'name', '', sort='id')
         self.assertSameChannels(objs, self.channels + [new])
 
-        objs = api.get_channels(self.connection, 'null', '', sort='-id')
+        objs = api.get_channels(self.connection, 'name', '', sort='-id')
         self.assertSameChannels(objs, reversed(self.channels + [new]))
 
     def test_get_channels_sort_age(self):
@@ -241,10 +250,10 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         new.approved_at = datetime.min.replace(year=1900)
         new.save(self.connection)
 
-        objs = api.get_channels(self.connection, 'null', '', sort='age')
+        objs = api.get_channels(self.connection, 'name', '', sort='age')
         self.assertEquals(objs[-1].id, new.id)
 
-        objs = api.get_channels(self.connection, 'null', '', sort='-age')
+        objs = api.get_channels(self.connection, 'name', '', sort='-age')
         self.assertEquals(objs[0].id, new.id)
 
     def test_get_channels_sort_popular(self):
@@ -258,10 +267,10 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         manage.refresh_stats_table()
         self.refresh_connection()
 
-        objs = api.get_channels(self.connection, 'null', '', sort='popular')
+        objs = api.get_channels(self.connection, 'name', '', sort='popular')
         self.assertEquals(objs[-1].id, new.id)
 
-        objs = api.get_channels(self.connection, 'null', '', sort='-popular')
+        objs = api.get_channels(self.connection, 'name', '', sort='-popular')
         self.assertEquals(objs[0].id, new.id)
 
     def test_get_channels_sort_rating(self):
@@ -274,10 +283,10 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         new = self.make_channel(self.owner, state='A')
         new.rate(self.connection, self.owner, 5)
 
-        objs = api.get_channels(self.connection, 'null', '', sort='rating')
+        objs = api.get_channels(self.connection, 'name', '', sort='rating')
         self.assertEquals(objs[-1].id, new.id)
 
-        objs = api.get_channels(self.connection, 'null', '', sort='-rating')
+        objs = api.get_channels(self.connection, 'name', '', sort='-rating')
         self.assertEquals(objs[0].id, new.id)
 
     def test_get_channels_limit(self):
@@ -285,7 +294,7 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         Passing a limit kwarg to get_channels should limit the number of
         channels that are returned.
         """
-        objs = api.get_channels(self.connection, 'null', '', limit=1)
+        objs = api.get_channels(self.connection, 'name', '', limit=1)
         self.assertEquals(len(objs), 1)
         self.assertEquals(objs[0].id, self.channels[0].id)
 
@@ -294,7 +303,7 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         Passing an offset kwarg to get_channels should skip that number of
         channels.
         """
-        objs = api.get_channels(self.connection, 'null', '', offset=1)
+        objs = api.get_channels(self.connection, 'name', '', offset=1)
         self.assertEquals(len(objs), 1)
         self.assertEquals(objs[0].id, self.channels[1].id)
     def test_search(self):

@@ -132,8 +132,16 @@ def get_channel(request):
 @requires_api_key
 @requires_arguments('filter', 'filter_value')
 def get_channels(request):
-    filter = request.GET.get('filter')
-    value = request.GET.get('filter_value')
-    channels = api.get_channels(request.connection, filter, value)
-    ret = map(data_for_channel, channels)
+    filter = request.GET['filter']
+    value = request.GET['filter_value']
+    sort = request.GET.get('sort')
+    limit = request.GET.get('limit')
+    if limit is not None:
+        limit = int(limit)
+    offset = request.GET.get('offset')
+    if offset is not None:
+        offset = int(offset)
+    channels = api.get_channels(request.connection, filter, value, sort,
+            limit, offset)
+    data = map(data_for_channel, channels)
     return response_for_data(request, data)

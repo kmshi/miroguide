@@ -7,20 +7,23 @@ def get_channel(connection, id):
 
 def get_channels(connection, filter, value, sort=None, limit=None, offset=None):
     query = Channel.query_approved()
+    join = None
     if filter == 'category':
         try:
             category_id = Category.query(name=value).get(connection).id
         except LookupError:
             return []
-        query.join('categories')
-        query.joins['categories'].where(id=category_id)
+        join = 'categories'
+        query.join(join)
+        query.joins[join].where(id=category_id)
     elif filter == 'tag':
         try:
             tag_id = Tag.query(name=value).get(connection).id
         except LookupError:
             return []
-        query.join('tags')
-        query.joins['tags'].where(id=tag_id)
+        join = 'tags'
+        query.join(join)
+        query.joins[join].where(id=tag_id)
     elif filter == 'language':
         try:
             language_id = Language.query(name=value).get(connection).id
@@ -28,8 +31,9 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None):
             return []
         query.where((Channel.c.primary_language_id == language_id) |
                 Language.secondary_language_exists_where(language_id))
-    elif filter == 'null':
-        pass
+    elif filter == 'name':
+        if value:
+            query.where(Channel.c.name.like(value + '%'))
     else:
         return []
     if sort is not None and sort[0] == '-':
@@ -56,7 +60,11 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None):
     if offset is None:
         offset = 0
     query.limit(limit).offset(offset)
-    return query.execute(connection)
+    results = query.execute(connection)
+    if join:
+        for result in results:
+            delattr(result, join)
+    return results
 
 def search(connection, terms):
     query = search_mod.search_channels(terms)
