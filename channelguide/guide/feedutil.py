@@ -56,12 +56,13 @@ def get_thumbnail_url(entry):
         except KeyError:
             pass 
     # Try to get any enclosure thumbnail
-    for enclosure in entry.enclosures:
-        try:
-            return _get(enclosure)
-        except KeyError:
-            pass
-    # Try to get the thumbnail for our entry
+    if 'enclosures' in entry:
+        for enclosure in entry.enclosures:
+            try:
+                return _get(enclosure)
+            except KeyError:
+                pass
+        # Try to get the thumbnail for our entry
     try:
         return _get(entry)
     except KeyError:

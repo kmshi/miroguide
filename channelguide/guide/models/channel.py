@@ -434,8 +434,6 @@ class Channel(Record, Thumbnailable):
         else:
             items = []
             for entry in parsed.entries:
-                if feedutil.get_first_video_enclosure(entry) is None:
-                    continue
                 try:
                     items.append(Item.from_feedparser_entry(entry))
                 except exceptions.EntryMissingDataError:
