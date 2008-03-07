@@ -425,7 +425,7 @@ class Channel(Record, Thumbnailable):
             if feedparser_input is None:
                 parsed = self.download_feed()
                 if parsed is None:
-                    return
+                    self._check_archived(connection)
             else:
                 parsed = feedparser.parse(feedparser_input)
         except:
@@ -442,8 +442,10 @@ class Channel(Record, Thumbnailable):
                     logging.warn("Error converting feedparser entry: %s (%s)" 
                             % (e, self))
             self._replace_items(connection, items)
-        if not self.items:
-            return
+        if self.items:
+            self._check_archived(connection)
+
+    def _check_archived(self, connection):
         latest = None
         items = self.items[:]
         items.sort(key=lambda x: x.date)
