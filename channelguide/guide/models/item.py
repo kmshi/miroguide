@@ -8,7 +8,7 @@ import urllib2
 from django.conf import settings
 
 from channelguide import util
-from channelguide.guide import feedutil, exceptions, tables
+from channelguide.guide import feedutil, filetypes, exceptions, tables
 from channelguide.guide.thumbnail import Thumbnailable
 from sqlhelper.orm import Record
 import search
@@ -72,13 +72,22 @@ class Item(Record, Thumbnailable):
     def from_feedparser_entry(entry):
         enclosure = feedutil.get_first_video_enclosure(entry)
         if enclosure is None:
-            raise exceptions.FeedparserEntryError("No video enclosure")
+            if 'link' not in entry:
+                raise exceptions.FeedparserEntryError("No video enclosure and no link")
+            if not filetypes.isAllowedFilename(entry['link']):
+                raise exceptions.EntryMissingDataError('Link is invalid')
         rv = Item()
         try:
             rv.name = feedutil.to_utf8(entry['title'])
-            rv.url = feedutil.to_utf8(enclosure['url'])
-            rv.mime_type = feedutil.to_utf8(enclosure['type'])
+            if enclosure is not None:
+                rv.url = feedutil.to_utf8(enclosure['url'])
+                rv.mime_type = feedutil.to_utf8(enclosure['type'])
+            else:
+                rv.url = entry['link']
+                rv.mime_type = filetypes.guessMimeType(rv.url)
             try:
+                if enclosure is None:
+                    raise KeyError
                 rv.desciption = feedutil.to_utf8(enclosure['text'])
             except KeyError:
                 try:
@@ -90,10 +99,11 @@ class Item(Record, Thumbnailable):
                     raise KeyError('description')
         except KeyError, e:
             raise exceptions.EntryMissingDataError(e.args[0])
-        try:
-            rv.size = feedutil.to_utf8(enclosure['length'])
-        except KeyError:
-            rv.size = None
+        if enclosure is not None:
+            try:
+                rv.size = feedutil.to_utf8(enclosure['length'])
+            except KeyError:
+                rv.size = None
         try:
             rv.guid = feedutil.to_utf8(entry['id'])
         except KeyError:
