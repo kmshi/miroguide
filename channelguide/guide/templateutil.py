@@ -128,8 +128,9 @@ class PageLinks(object):
             self.next = ''
 
     def make_url(self, page_number):
-        self.request_params['page'] = page_number
-        return '%s?%s' % (self.link_prefix, urlencode(self.request_params))
+        self.request_params['page'] = str(page_number)
+        print self.request_params
+        return util.make_url(self.link_prefix, self.request_params)
 
     def make_link(self, page_number):
         return {'url': self.make_url(page_number), 'number': page_number}

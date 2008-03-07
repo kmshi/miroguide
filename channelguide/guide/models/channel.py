@@ -442,6 +442,19 @@ class Channel(Record, Thumbnailable):
                     logging.warn("Error converting feedparser entry: %s (%s)" 
                             % (e, self))
             self._replace_items(connection, items)
+        if not self.items:
+            return
+        latest = None
+        items = self.items[:]
+        while latest is None and items:
+            latest = items.pop().date
+        if latest is None:
+            return
+        if (datetime.now() - latest).days > 90:
+            self.archived = True
+        else:
+            self.archived = False
+        self.save(connection)
 
     def _replace_items(self, connection, new_items):
         """Replace the items currently in the channel with a new list of

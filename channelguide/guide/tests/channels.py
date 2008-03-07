@@ -1164,5 +1164,38 @@ class ChannelCacheTest(ChannelTestBase):
             self.assert_(hasattr(self.get_page(url, login_as=user),
                 '_cache_hit'), 'cache cleared for %s' % user.username)
 
+
+class ChannelArchivalTest(ChannelTestBase):
+
+    def test_archived(self):
+        """
+        If after a channel is updated, it hasn't had a new item in
+        90 days, it should have its 'archived' flag set.
+        """
+        self.assertEquals(self.channel.archived, False)
+        self.channel.update_items(self.connection,
+                feedparser_input=open(test_data_path('feed.xml')))
+        self.assertEquals(self.channel.archived, True)
+
+        newer = """<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+<channel>
+<title>Rocketboom RSS 2.0 Main Index</title>
+<link>http://www.rocketboom.com/vlog/</link>
+<item>
+<title>Test</title>
+<description>Test</description>
+<link>Test</link>
+<guid>Test</guid>
+<pubDate>%s</pubDate>
+<enclosure url="http://test.com/movie.mov" length="10000" type="video/quicktime"/>
+</item>
+</channel>
+</rss>""" % datetime.now().strftime('%a,%e %h %Y %H:%M:%S %z')
+
+        self.channel.update_items(self.connection, newer)
+        self.assertEquals(self.channel.archived, False)
+
+
 if settings.DISABLE_CACHE or not settings.MEMCACHED_SERVERS:
     del ChannelCacheTest

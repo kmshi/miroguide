@@ -7,6 +7,9 @@ See LICENSE for details.
     <div class="half-size-list">
         {% twocolumns %}
             <div class="screenshot">
+            {% if channel.archived %}
+            <div class="archived">{% trans "archived" %}</div>
+            {% endif %}
                 <a {% link channel.get_url %}>{{ channel.thumb_165_110 }}</a>
                 {% if channel.hi_def %}
                 <img class="hd-icon-medium" src="{{ STATIC_BASE_URL }}images/hd-icon-medium.png" alt="HD">

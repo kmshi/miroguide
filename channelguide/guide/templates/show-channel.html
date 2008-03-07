@@ -28,6 +28,9 @@ div#content {
     {% endif %}
     {% twocolumns %}
         <div class="screenshot">
+            {% if channel.archived %}
+            <div class="archived">{% trans "archived" %}</div>
+            {% endif %}
             <a {{ channel.subscription_link }}>{{ channel.thumb_245_164 }}</a>
             {% if channel.hi_def %}
                 <img class="hd-icon-large" src="{{ STATIC_BASE_URL }}images/hd-icon-large.png" alt="HD">
@@ -62,6 +65,11 @@ div#content {
             </div>
             {% endif %}
         </div>
+        {% if channel.archived %}
+        <div class="archived-date">
+            {% trans "Archived: no episodes since " %}{{ items.0.date|date:"n/d/Y" }}
+        </div>
+        {% endif %}
         {% if recommendations %}
         <div id="recommendations">
             <h3>{% trans "If you like this channel, try:" %}</h3>

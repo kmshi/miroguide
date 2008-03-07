@@ -18,6 +18,9 @@ See LICENSE for details.
             </div>
         </div>
         <div class="screenshot">
+            {% if channel.archived %}
+            <div class="archived">{% trans "archived" %}</div>
+            {% endif %}
             {% block screenshot %}
             <a {% link channel.get_url %}>{{ channel.thumb_252_169 }}</a>
             {% endblock %}

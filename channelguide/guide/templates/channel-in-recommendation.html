@@ -8,6 +8,9 @@ See LICENSE for details.
     <div class="inside">
         <h3>{{ channel.name_as_link }}</h3>
         <div class="screenshot">
+            {% if channel.archived %}
+            <div class="archived">{% trans "archived" %}</div>
+            {% endif %}
             <a {% link channel.get_url %}>{{ channel.thumb_95_63 }}</a>
             {% if channel.hi_def %}
                 <img class="hd-icon-small" src="{{ STATIC_BASE_URL }}images/hd-icon-small.png" alt="HD">
