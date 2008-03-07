@@ -446,6 +446,7 @@ class Channel(Record, Thumbnailable):
             return
         latest = None
         items = self.items[:]
+        items.sort(key=lambda x: x.date)
         while latest is None and items:
             latest = items.pop().date
         if latest is None:
