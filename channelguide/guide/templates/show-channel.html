@@ -29,7 +29,7 @@ div#content {
     {% twocolumns %}
         <div class="screenshot">
             {% if channel.archived %}
-            <div class="archived">{% trans "archived" %}</div>
+            <div class="archived">{% trans "archival" %}</div>
             {% endif %}
             <a {{ channel.subscription_link }}>{{ channel.thumb_245_164 }}</a>
             {% if channel.hi_def %}
@@ -44,6 +44,11 @@ div#content {
         <div id="rating">
             {{ rating_bar }}
         </div>
+        {% if channel.archived %}
+        <div class="archived-date">
+            {% trans "Archival: no episodes since " %}{{ items.0.date|date:"n/d/Y" }}
+        </div>
+        {% endif %}
         <div class="meta">
             <span class="header"></span>
             <div>
@@ -65,11 +70,6 @@ div#content {
             </div>
             {% endif %}
         </div>
-        {% if channel.archived %}
-        <div class="archived-date">
-            {% trans "Archived: no episodes since " %}{{ items.0.date|date:"n/d/Y" }}
-        </div>
-        {% endif %}
         {% if recommendations %}
         <div id="recommendations">
             <h3>{% trans "If you like this channel, try:" %}</h3>

@@ -9,7 +9,7 @@ See LICENSE for details.
         <h3>{{ channel.name_as_link }}</h3>
         <div class="screenshot">
             {% if channel.archived %}
-            <div class="archived">{% trans "archived" %}</div>
+            <div class="archived">{% trans "archival" %}</div>
             {% endif %}
             <a {% link channel.get_url %}>{{ channel.thumb_95_63 }}</a>
             {% if channel.hi_def %}
