@@ -426,6 +426,7 @@ class Channel(Record, Thumbnailable):
                 parsed = self.download_feed()
                 if parsed is None:
                     self._check_archived(connection)
+                    return
             else:
                 parsed = feedparser.parse(feedparser_input)
         except:
