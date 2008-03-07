@@ -1729,7 +1729,7 @@ div.channel-full {
 }
 
 .channel-full .archived-date {
-    color: red;
+    color: #d42336;
     font-weight: bold;
 }
 .channel-full div#recommendations {
