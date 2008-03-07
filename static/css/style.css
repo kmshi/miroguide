@@ -1886,6 +1886,10 @@ div.channel-recommended {
     overflow: hidden;
 }
 
+.recommendation .archived {
+    font-size: 100%;
+}
+
 .recommendation .screenshot {
     float: left;
     margin-left: 6px;
