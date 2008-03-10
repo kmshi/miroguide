@@ -1731,6 +1731,8 @@ div.channel-full {
 .channel-full .archived-date {
     color: #d42336;
     font-weight: bold;
+    position: relative;
+    top: -12px;
 }
 .channel-full div#recommendations {
     margin-top: 15px;
