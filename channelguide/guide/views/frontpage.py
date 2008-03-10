@@ -1,16 +1,12 @@
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
-import urllib, operator
+import urllib
 
 from django.conf import settings
-from django.utils.decorators import decorator_from_middleware
 
 from channelguide import util, cache
-from channelguide.cache.middleware import AggressiveCacheMiddleware
-from channelguide.guide import tables
 from channelguide.guide.models import Channel, Category, PCFBlogPost
-from sqlhelper.orm.query import ResultHandler
 
 def _filter_categories(result, count):
     for channel in result:
@@ -24,7 +20,7 @@ def _filter_categories(result, count):
             yield channel
 
 def get_popular_channels(request, count):
-    query = Channel.query_approved(user=request.user)
+    query = Channel.query_approved(archived=0, user=request.user)
     query.join('rating')
     query.load('subscription_count_today')
     query.order_by('subscription_count_today', desc=True)
@@ -38,11 +34,11 @@ def get_popular_channels(request, count):
     return _filter_categories(result, count)
 
 def get_featured_channels(request):
-    query = Channel.query_approved(featured=1, user=request.user)
+    query = Channel.query_approved(featured=1, archived=0, user=request.user)
     return query.order_by('RAND()').execute(request.connection)
 
 def get_new_channels(request, count):
-    query = Channel.query_new(user=request.user).load(
+    query = Channel.query_new(archived=0, user=request.user).load(
             'item_count').limit(count*3)
     query.join('categories')
 #    query.cacheable = cache.client
@@ -58,7 +54,8 @@ def get_categories(connection):
 
 def get_category_channels(request, category):
     category.join('channels').execute(request.connection)
-    query = Channel.query_approved(user=request.user).join("categories")
+    query = Channel.query_approved(archived=0, user=request.user)
+    query.join("categories")
     query.where(Channel.c.id.in_(c.id for c in category.channels))
     query.load('subscription_count_month')
     query.order_by('subscription_count_month', desc=True)
@@ -71,7 +68,7 @@ def get_category_channels(request, category):
         popular_channels.append(channel)
         yield channel
 
-    query = Channel.query_approved(user=request.user)
+    query = Channel.query_approved(archived=0, user=request.user)
     query.join('categories')
     query.limit(6)
     query.where(Channel.c.id.in_(c.id for c in category.channels))

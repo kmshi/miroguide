@@ -11,7 +11,7 @@ def get_recommendations_from_ratings(connection, ratings):
     recommendations = _get_recommendations(connection, ratings.keys())
     scores, numScores, topThree = _calculate_scores(recommendations,
             ratings)
-    return _filter_scores(scores, numScores), topThree
+    return _filter_scores(connection, scores, numScores), topThree
 
 def _get_recommendations(connection, ids):
     if not ids:
@@ -25,11 +25,13 @@ def _get_recommendations(connection, ids):
             (table.c.channel2_id.in_(ids)))
     return select.execute(connection)
 
-def _filter_scores(scores, numScores):
+def _filter_scores(connection, scores, numScores):
     valid = [id for id in numScores if numScores[id] > 3]
     if not valid:
         return scores
-    return dict((id, scores[id]) for id in valid)
+    channels = Channel.query(Channel.c.id.in_(valid), archived=0).execute(
+        connection)
+    return dict((c.id, scores[c.id]) for c in channels)
 
 def _calculate_scores(recommendations, ratings):
     simTable = {}
