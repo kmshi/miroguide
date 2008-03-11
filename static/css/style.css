@@ -2865,30 +2865,22 @@ div.email-form {
 }
 
 #underwriting {
-    color: #FFF;
+    color: #BFDAFF;
     text-align: center;
     margin: -22px 0 12px;
     letter-spacing: 0.06em;
 }
 
-#underwriting span {
-    display: block;
-    font-size: 85%;
-    margin-bottom: 4px;
-}
-
 #underwriting div {
-    height: 30px;
-    line-height: 30px;
-    width: 785px;
-    border: solid 1px #000;
-    background-color: #084b8e;
-    font-size: 110%;
-    margin: 0 auto;
+background-color:#084B8E;
+border:1px solid #000000;
+font-size:80%;
+margin:0pt auto;
+width:466px;
 }
 
 #underwriting a {
-    color: #fff;
+    color: #BFDAFF;
     text-decoration: underline;
 }
 
