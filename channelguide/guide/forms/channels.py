@@ -64,7 +64,10 @@ class RSSFeedField(WideCharField):
             data = stream.read()
         except:
             raise forms.ValidationError(missing_feed_msg)
-        parsed = feedparser.parse(data)
+        try:
+            parsed = feedparser.parse(data)
+        except:
+            raise forms.ValidationError(missing_feed_msg)
         parsed.url = url
         if not parsed.feed or not parsed.entries:
             raise forms.ValidationError(missing_feed_msg)
