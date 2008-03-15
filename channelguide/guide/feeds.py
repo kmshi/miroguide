@@ -3,6 +3,7 @@
 
 from channelguide import init
 init.init_external_libraries()
+from sqlhelper.sql.expression import NULL
 from channelguide import db, util
 from channelguide.guide import api
 from channelguide.guide.models import Channel, Category, Tag, Language, FeaturedQueue
@@ -29,7 +30,9 @@ class ChannelsFeed(feeds.Feed):
     description_template = "feeds/channel_description.html"
 
     def item_enclosure_url(self, item):
-        item.join('items').execute(self.request.connection)
+        q = item.join('items')
+        q.where(q.joins['items'].is_not(NULL))
+        item = q.execute(self.request.connection)
         if item.items:
             item.items.records.sort(key=attrgetter('date'), reverse=True)
             return item.items[0].url
