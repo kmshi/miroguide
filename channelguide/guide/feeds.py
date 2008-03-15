@@ -3,10 +3,9 @@
 
 from channelguide import init
 init.init_external_libraries()
-from sqlhelper.sql.expression import NULL
-from channelguide import db, util
+from channelguide import util
 from channelguide.guide import api
-from channelguide.guide.models import Channel, Category, Tag, Language, FeaturedQueue
+from channelguide.guide.models import Channel, Category, Tag, Language
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.syndication import feeds
@@ -34,7 +33,7 @@ class ChannelsFeed(feeds.Feed):
         results = [i for i in item.items.records[:] if i.date is not None]
         if results:
             results.sort(key=attrgetter('date'), reverse=True)
-            items.newest = results[0]
+            item.newest = results[0]
             return item.newest.url
         else:
             item.newest = None
@@ -44,7 +43,7 @@ class ChannelsFeed(feeds.Feed):
             return item.newest.size
 
     def item_enclosure_mime_type(self, item):
-        if item.results:
+        if item.newest:
             return item.newest.mime_type
 
 class FeaturedChannelsFeed(ChannelsFeed):
