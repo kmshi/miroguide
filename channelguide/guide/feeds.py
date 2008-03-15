@@ -30,12 +30,11 @@ class ChannelsFeed(feeds.Feed):
     description_template = "feeds/channel_description.html"
 
     def item_enclosure_url(self, item):
-        q = item.join('items')
-        q.where(q.joins['items'].is_not(NULL))
-        item = q.execute(self.request.connection)
+        item.join('items').execute(self.request.connection)
+        results = [i for i in item.items.records[:] if i.date is not None]
         if item.items:
-            item.items.records.sort(key=attrgetter('date'), reverse=True)
-            return item.items[0].url
+            results.sort(key=attrgetter('date'), reverse=True)
+            return results[0].url
 
     def item_enclosure_length(self, item):
         if item.items:
