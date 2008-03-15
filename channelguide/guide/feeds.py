@@ -32,17 +32,20 @@ class ChannelsFeed(feeds.Feed):
     def item_enclosure_url(self, item):
         item.join('items').execute(self.request.connection)
         results = [i for i in item.items.records[:] if i.date is not None]
-        if item.items:
+        if results:
             results.sort(key=attrgetter('date'), reverse=True)
-            return results[0].url
+            items.newest = results[0]
+            return item.newest.url
+        else:
+            item.newest = None
 
     def item_enclosure_length(self, item):
-        if item.items:
-            return item.items[0].size
+        if item.newest:
+            return item.newest.size
 
     def item_enclosure_mime_type(self, item):
-        if item.items:
-            return item.items[0].mime_type
+        if item.results:
+            return item.newest.mime_type
 
 class FeaturedChannelsFeed(ChannelsFeed):
     title = "Featured Channels"
