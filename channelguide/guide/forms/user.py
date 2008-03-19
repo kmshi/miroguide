@@ -41,8 +41,9 @@ class UsernameField(forms.CharField):
             raise forms.ValidationError(_("That username is not valid."))
 
 class LoginForm(Form):
-    username = UsernameField(max_length=20)
-    password = forms.CharField(max_length=20, widget=forms.PasswordInput)
+    username = UsernameField(max_length=20, required=False)
+    password = forms.CharField(max_length=20, widget=forms.PasswordInput,
+                               required=False)
 
     def clean_password(self):
         user = self.cleaned_data.get('username')
@@ -72,7 +73,7 @@ class RegisterForm(PasswordComparingForm):
     newpassword = forms.CharField(max_length=20, widget=forms.PasswordInput,
             label=_("Pick a Password"))
     newpassword2 = forms.CharField(max_length=20, widget=forms.PasswordInput,
-            label=_("Confirm Password"), required=False)
+            label=_("Confirm Password"))
     password_key = 'newpassword'
     password_check_key = 'newpassword2'
 
