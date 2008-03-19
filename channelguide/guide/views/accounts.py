@@ -41,7 +41,7 @@ the feed address, answer a few easy questions, and you&apos;re all done.
         return _("""<div>
 <h1>Why Should I Rate Channels?</h1>
 <img id="registration1" src="/images/registration1.jpg" />
-In the very near future, we will be giving personalized recommendations, based on what you do and don't like. If you've ever used Netflix&reg;, you already know what we're talking about here. The more you rate, the more accurately we can recommend channels to you. It&apos;s that simple!
+We are giving personalized recommendations, based on what you do and don't like. If you've ever used Netflix&reg;, you already know what we're talking about here. The more you rate, the more accurately we can recommend channels to you. It&apos;s that simple!
 </div>
 <div>
 <h1>A Completely Open Guide</h1>
