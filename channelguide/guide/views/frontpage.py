@@ -124,7 +124,7 @@ def make_category_peek(request):
 @cache.cache_for_user
 def index(request):
     if not request.user.is_authenticated():
-        request.add_notification("Recommendations", '<a href="http://testchannelguide.participatoryculture.org/accounts/login">Login</a> to rate channels and get personalized recommendations!')
+        request.add_notification(None, 'Rate channels to get personalized recommendations!')
     featured_channels = get_featured_channels(request)
     return util.render_to_response(request, 'frontpage.html', {
         'popular_channels': get_popular_channels(request, 7),
