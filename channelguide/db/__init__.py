@@ -10,7 +10,7 @@ import os
 import re
 
 from sqlhelper.pool import ConnectionPool
-from sqlhelper.dbinfo import MySQLDBInfo
+from sqlhelper.engines.mysql import MySQLDBInfo
 from channelguide.cache import client
 from channelguide import util
 import version
