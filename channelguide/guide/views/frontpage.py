@@ -123,6 +123,8 @@ def make_category_peek(request):
 #@cache.cache_page_externally_for(300)
 @cache.cache_for_user
 def index(request):
+    if not request.user.is_authenticated():
+        request.add_notification("Recommendations", "Login to rate channels and get personalized recommendations!")
     featured_channels = get_featured_channels(request)
     return util.render_to_response(request, 'frontpage.html', {
         'popular_channels': get_popular_channels(request, 7),
