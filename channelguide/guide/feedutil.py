@@ -9,6 +9,8 @@ from datetime import datetime
 
 from sqlhelper.orm import columns
 
+import filetypes
+
 def get_first_video_enclosure(entry):
     """Find the first video enclosure in a feedparser entry.  Returns the
     enclosure, or None if no video enclosure is found.
@@ -20,6 +22,8 @@ def get_first_video_enclosure(entry):
         return None
     for enclosure in enclosures:
         if has_video_type(enclosure):
+            return enclosure
+        if filetypes.isAllowedFilename(enclosure['href']):
             return enclosure
     return None
 
