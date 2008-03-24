@@ -81,4 +81,6 @@ def index(request):
         for column in row] for row in channel_packs]
     return util.render_to_response(request, 'firsttime.html',
             { 'channel_columns': channel_columns,
+              'MOVIE_URL_FLASH': 'http://blip.tv/file/get/Miropcf-FundraisingUpdate155.flv',
+              'MOVIE_URL_MP4': 'http://blip.tv/file/get/Miropcf-FundraisingUpdate155.mp4',
               })

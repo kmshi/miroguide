@@ -21,11 +21,76 @@ function hidePacks() {
     $("#channellist").animate({height:0}, 'slow');
 }
 
+function vlcPlayPause(obj, button) {
+    if (obj.isplaying() == true) { 
+        obj.pause();
+        button.attr('value', 'Play');
+    } else {
+        obj.play();
+        button.attr('value', 'Pause');
+    }
+}
+
+function vlcRestart(obj) {
+    obj.stop();
+    obj.play();
+}
+
+function createFlash(obj, url, width, height) {
+html = '<object id="video_player_object" width="' + width + '" height="' + height + '" allowscriptaccess="always" allowfullscreen="true" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" type="application/x-shockwave-flash"><param value="true" name="allowfullscreen"/><param value="always" name="allowscriptaccess"/><param value="window" name="wmode"/><param value="http://blip.tv/scripts/flash/showplayer.swf?file=' + url + '&enablejs=true&showplayerpath=http%3A//blip.tv/scripts/flash/showplayer.swf&autostart=true&feedurl=http%3A//miropcf.blip.tv/rss" name="movie"/><param value="best" name="quality"/><embed id="video_player_embed" width="' + width + '" height="' + height + '" src="http://blip.tv/scripts/flash/showplayer.swf?file=' + url + '&enablejs=true&showplayerpath=http%3A//blip.tv/scripts/flash/showplayer.swf&autostart=true&feedurl=http%3A//miropcf.blip.tv/rss" pluginspage="http://www.macromedia.com/go/getflashplayer" allowfullscreen="true" allowscriptaccess="always" wmode="window" type="application/x-shockwave-flash"/></object>';
+    $("div#download").hide();
+    obj.html(html);
+}
+
+function createVideo(obj, url, width, height) {
+    win = 0;
+    if (navigator.platform == 'Win32') {
+        /* use VLC */
+        html = '<embed type="application/x-vlc-plugin" width=' + width + ' height=' + height + ' autoplay="yes" loop="no" name="video1" target="' + url + '" />'
+        + '<input id="playpause" type="button" value="Pause" onclick="vlcPlayPause(document.video1, $(\'#playpause\'));" />'
+        + '<input type="button" value="Restart" onclick="vlcRestart(document.video1);" />'
+        + '<input type="button" value="Mute" onclick="document.video1.mute(); document.video1.get_volume();" />'
+        win = 1;
+        height = height + 23;
+    } else if (navigator.platform.indexOf('Mac') == 0) {
+        height = height + 19;
+        html = '<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" id="player" height="' + height +'" width="' + width + '">' +
+        '<param name="CONTROLS" value="imagewindow">'+
+        '<param name="autogotourl" value="false">'+
+        '<param name="console" value="radio">'+
+        '<param name="autostart" value="true">'+
+        '<param name="type" value="video/quicktime">'+
+        '<param name="src" value="' + url + '">'+
+        '<embed controls="imagewindow" autogotourl="false" console="radio" autostart="true" type="video/quicktime" src="' + url + '" name="player" height="' + height +'" width="' + width + '">'+
+        '</object>';
+    } else {
+        html = '';
+    }
+    if (html) {
+        $('div#download').hide();
+        oldhtml = obj.html()
+        obj.html(html).height(height);
+        if (win) {
+            for (var i=10; i<=100; i+= 10) {
+                window.setTimeout(function(){
+                    document.video1.set_volume(i);
+                    }, i);
+            }
+        }
+    }
+}
+
 $(document).ready(function (){
     height = 485;
     $("#channellist").height(0);
     $("dt:eq(1)").toggle(showPacks, hidePacks);
-    });
+    if (navigator.mimeTypes["application/x-shockwave-flash"]) {
+        createFlash($('#video'), "{{ MOVIE_URL_FLASH }}", 300, 226);
+    } else {
+        createVideo($('#video'), "{{ MOVIE_URL_MP4 }}", 300, 226);
+    }
+});
+
 
 </script>
 {% endblock %} 
@@ -40,6 +105,7 @@ $(document).ready(function (){
                 <li>2) {% trans "Miro will automatically download new videos from your channels" %}</li>
                 <li>3) {% trans "A " %}<em>{% trans "green" %}</em>{% trans " bubble (in the sidebar) means you've got " %}<em>{% trans "new" %}</em>{% trans " video" %}</li>
             </ul>
+	    <div id="video"></div>
         </dd>
         <dt>{% trans "We Have Channel Recommendations for You! <u>click here</u>" %}</dt>
         <dd id="channellist">
