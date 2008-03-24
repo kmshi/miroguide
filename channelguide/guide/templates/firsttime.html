@@ -37,7 +37,7 @@ function vlcRestart(obj) {
 }
 
 function createFlash(obj, url, width, height) {
-html = '<object id="video_player_object" width="' + width + '" height="' + height + '" allowscriptaccess="always" allowfullscreen="true" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" type="application/x-shockwave-flash"><param value="true" name="allowfullscreen"/><param value="always" name="allowscriptaccess"/><param value="window" name="wmode"/><param value="http://blip.tv/scripts/flash/showplayer.swf?file=' + url + '&enablejs=true&showplayerpath=http%3A//blip.tv/scripts/flash/showplayer.swf&autostart=true&feedurl=http%3A//miropcf.blip.tv/rss" name="movie"/><param value="best" name="quality"/><embed id="video_player_embed" width="' + width + '" height="' + height + '" src="http://blip.tv/scripts/flash/showplayer.swf?file=' + url + '&enablejs=true&showplayerpath=http%3A//blip.tv/scripts/flash/showplayer.swf&autostart=true&feedurl=http%3A//miropcf.blip.tv/rss" pluginspage="http://www.macromedia.com/go/getflashplayer" allowfullscreen="true" allowscriptaccess="always" wmode="window" type="application/x-shockwave-flash"/></object>';
+html = '<object id="video_player_object" width="' + width + '" height="' + height + '" allowscriptaccess="always" allowfullscreen="true" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" type="application/x-shockwave-flash"><param value="true" name="allowfullscreen"/><param value="always" name="allowscriptaccess"/><param value="window" name="wmode"/><param value="http://blip.tv/scripts/flash/showplayer.swf?file=' + url + '&enablejs=true&showplayerpath=http%3A//blip.tv/scripts/flash/showplayer.swf&autostart=false&feedurl=http%3A//miropcf.blip.tv/rss" name="movie"/><param value="best" name="quality"/><embed id="video_player_embed" width="' + width + '" height="' + height + '" src="http://blip.tv/scripts/flash/showplayer.swf?file=' + url + '&enablejs=true&showplayerpath=http%3A//blip.tv/scripts/flash/showplayer.swf&autostart=false&feedurl=http%3A//miropcf.blip.tv/rss" pluginspage="http://www.macromedia.com/go/getflashplayer" allowfullscreen="true" allowscriptaccess="always" wmode="window" type="application/x-shockwave-flash"/></object>';
     $("div#download").hide();
     obj.html(html);
 }
@@ -46,7 +46,7 @@ function createVideo(obj, url, width, height) {
     win = 0;
     if (navigator.platform == 'Win32') {
         /* use VLC */
-        html = '<embed type="application/x-vlc-plugin" width=' + width + ' height=' + height + ' autoplay="yes" loop="no" name="video1" target="' + url + '" />'
+        html = '<embed type="application/x-vlc-plugin" width=' + width + ' height=' + height + ' autoplay="no" loop="no" name="video1" target="' + url + '" />'
         + '<input id="playpause" type="button" value="Pause" onclick="vlcPlayPause(document.video1, $(\'#playpause\'));" />'
         + '<input type="button" value="Restart" onclick="vlcRestart(document.video1);" />'
         + '<input type="button" value="Mute" onclick="document.video1.mute(); document.video1.get_volume();" />'
@@ -58,10 +58,10 @@ function createVideo(obj, url, width, height) {
         '<param name="CONTROLS" value="imagewindow">'+
         '<param name="autogotourl" value="false">'+
         '<param name="console" value="radio">'+
-        '<param name="autostart" value="true">'+
+        '<param name="autostart" value="false">'+
         '<param name="type" value="video/quicktime">'+
         '<param name="src" value="' + url + '">'+
-        '<embed controls="imagewindow" autogotourl="false" console="radio" autostart="true" type="video/quicktime" src="' + url + '" name="player" height="' + height +'" width="' + width + '">'+
+        '<embed controls="imagewindow" autogotourl="false" console="radio" autostart="false" type="video/quicktime" src="' + url + '" name="player" height="' + height +'" width="' + width + '">'+
         '</object>';
     } else {
         html = '';
