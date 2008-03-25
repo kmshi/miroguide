@@ -30,7 +30,23 @@
 </div> <!--/COLUMN-->
 
 <div class="column right">
-  <a href="#donate" onclick="javascript:document.getElementById('donate').style.display='block'; return false;"><img src="{{ STATIC_BASE_URL }}images/donate/donate.png" alt="donate button" /></a>
+  <script type="text/javascript">
+    
+function showDonateRibbon() {
+    ribbon = $("#donate");
+    everythingElse = $("#header").add(".column.left").add(".column.right > *");
+    ribbon.css('opacity', 0).show();
+    everythingElse.animate({ opacity: 0.6}, 'fast');
+    ribbon.animate({opacity: 1}, 'fast');
+}
+function hideDonateRibbon() {
+    ribbon = $("#donate");
+    everythingElse = $("#header").add(".column.left").add(".column.right > *");
+    everythingElse.animate({ opacity: 1}, 'fast');
+    ribbon.animate({opacity: 0}, 'fast', function() {ribbon.hide();});
+}
+  </script>
+  <a href="#donate" onclick="javascript:showDonateRibbon(); return false;"><img src="{{ STATIC_BASE_URL }}images/donate/donate.png" alt="donate button" /></a>
    <div id="donate" style="display: none;">
      <div>
        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" name="paypal">
@@ -48,13 +64,12 @@
        </form>
        <a href="#paypal" onclick="javascript:document.paypal.submit(); return false;"><img src="{{ STATIC_BASE_URL }}images/donate/paypal.png" alt="Donate with Paypal" /></a>
        <a href="cc.html"><img src="{{ STATIC_BASE_URL }}images/donate/card.png" alt="Donate with a Credit Card" /></a>
+       <span class="close"><a href="#close" onclick="javascript:hideDonateRibbon(); return false;">x</a></span>
      </div>
    </div>
 
 <div id="video"></div>
 <script type="text/javascript">
-
-
 function vlcPlayPause(obj, button) {
     if (obj.isplaying() == true) { 
         obj.pause();
@@ -78,7 +93,7 @@ function createFlash(obj, url, width, height) {
 
 function createVideo(obj, url, width, height) {
     win = 0;
-    if (navigator.platform == 'Win32') {
+    if (navigator.mimeTypes["application/x-vluc-plugin"]) {
         /* use VLC */
         html = '<embed type="application/x-vlc-plugin" width=' + width + ' height=' + height + ' autoplay="yes" loop="no" name="video1" target="' + url + '" />'
             + '<input id="playpause" type="button" value="Pause" onclick="vlcPlayPause(document.video1, $(\'#playpause\'));" />'
@@ -86,7 +101,7 @@ function createVideo(obj, url, width, height) {
             + '<input type="button" value="Mute" onclick="document.video1.mute(); document.video1.get_volume();" />'
         win = 1;
         height = height + 23;
-    } else if (navigator.platform.indexOf('Mac') == 0) {
+    } else if (navigator.mimeTypes["video/quicktime"]) {
         height = height + 19;
         html = '<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" id="player" height="' + height +'" width="' + width + '">' +
             '<param name="CONTROLS" value="imagewindow">'+

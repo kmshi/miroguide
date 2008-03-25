@@ -91,6 +91,19 @@ a {
     margin: 75px 15px 0;
 }
 
+#donate .close {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    border: 1px solid black;
+}
+
+#donate .close a {
+    padding: 3px;
+    color: black;
+    text-decoration: none;
+}
+    
 .video {
 	height: 228px;
 	width: 280px;
