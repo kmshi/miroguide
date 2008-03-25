@@ -77,7 +77,9 @@ function vlcRestart(obj) {
 function createVideo(obj, flv, mp4, image, width, height) {
     win = 0;
     var htmlCode = '';
-    if (navigator.mimeTypes["application/x-vlc-plugin"].enabledPlugin) {
+    
+    if (navigator.mimeTypes["application/x-vlc-plugin"] &&
+	navigator.mimeTypes["application/x-vlc-plugin"].enabledPlugin) {
         /* use VLC */
         htmlCode = '<embed type="application/x-vlc-plugin" width=' + width + ' height=' + height + ' autoplay="no" loop="no" name="video1" target="' + mp4 + '" />'
             + '<input id="playpause" type="button" value="Play" onclick="vlcPlayPause(document.video1, $(\'#playpause\'));" />'
@@ -85,7 +87,8 @@ function createVideo(obj, flv, mp4, image, width, height) {
             + '<input type="button" value="Mute" onclick="document.video1.mute(); document.video1.get_volume();" />'
         win = 1;
         height = height + 23;
-    } else if (navigator.mimeTypes["video/quicktime"].enabledPlugin) {
+    } else if (navigator.mimeTypes["video/quicktime"] &&
+	       navigator.mimeTypes["video/quicktime"].enabledPlugin) {
         height = height + 19;
         htmlCode = '<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" id="player" height="' + height +'" width="' + width + '">' +
             '<param name="CONTROLS" value="imagewindow">'+
