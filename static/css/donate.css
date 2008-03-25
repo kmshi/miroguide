@@ -1,0 +1,110 @@
+html {
+	padding: 0;
+	margin: 0;
+	min-height: 100%;
+	font-family: helvecita,"Lucida Grande","Vera Sans","Lucida Sans",Helvetica,Arial,sans-serif;
+	font-size: 80%;
+	line-height: 1.4em;
+	color: #404040;
+}
+
+body {
+	background: #71b7ff url(images/donate/sky-bg.jpg) no-repeat top center;
+	padding: 0;
+	margin: 0;
+	min-height: 100%;
+}
+
+img {
+	border: 0;
+}	
+
+#header {
+	position: relative;
+	top: -95px;
+	padding: 0;
+	margin: 0 auto;
+	text-align: center;	
+}
+
+#content {
+
+	width: 630px;
+	background-color: white;
+	padding: 0 35px;
+	min-height: 100%;
+	margin: 95px auto 0 auto;
+	border: 1px solid #9ec7f0;
+}
+
+.column {
+	position: relative;	
+	top: -70px;
+	float: left;
+	width: 300px;
+}
+
+.left {
+	width: 300px;
+	padding-right: 30px;
+}
+
+.right {
+	text-align: center;
+	margin: 0 auto;
+	padding-top: 30px;
+}
+
+strong {
+	font-size: 105%;
+}
+
+a {
+	color: #d91a26;
+}
+
+.special {
+	font-size: 90%;
+}
+
+.special a {
+	color: #404040;
+}
+
+#donate {
+    position: relative;
+    right: 365px;
+    width: 700px;
+    height: 158px;
+    background: white;
+}
+
+#donate div {
+    width: 705px;
+    height: 158px;
+    position: absolute;
+    left: -3px;
+    background: url(images/donate/donate-bg.png);
+}
+
+#donate img {
+    margin: 75px 15px 0;
+}
+
+.video {
+	height: 228px;
+	width: 280px;
+	background: #cccccc;
+	text-align: center;
+	margin: 45px auto 12px auto;
+}
+
+.subvid {
+	color: #2597d7;
+	font-size: 110%;
+	margin-bottom: 45px;
+}
+
+.clear {
+    clear: both;
+}
