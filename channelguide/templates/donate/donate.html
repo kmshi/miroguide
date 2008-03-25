@@ -1,24 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-
-<title>Miro Guide</title>
-
-<meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
-<meta http-equiv="imagetoolbar" content="no" />
-<script src="{{ STATIC_BASE_URL }}js/jquery.js" type="text/javascript"></script>
-<link rel="stylesheet" href="{{ STATIC_BASE_URL }}css/donate.css" type="text/css" media="screen"  />
-</head>
-
-<body>
-
-<div id="content">
-<div  id="header">
-<img src="{{ STATIC_BASE_URL }}images/donate/header.png" alt="header" />
-<img src="{{ STATIC_BASE_URL }}images/donate/title.png" alt="title" />
-</div> <!--/HEADER-->
-
+{% extends "donate/base.html" %}
+{% block head-extra %}<script src="{{ STATIC_BASE_URL }}js/jquery.js" type="text/javascript"></script>{% endblock %}
+{% block content %}
 <div class="column left">
 <p><strong>Supporters of Open Media:</strong></p>
 <p style="padding-top:10px;">Miro is made by a non-profit organization that is leading the fight for open internet video: hundreds of thousands of people use our open software every month, we’ve powered the distribution of thousands of independent creators and public broadcasters, and we’re demonstrating why net neutrality matters. Miro has a chance to become a desktop application for a truly mass audience. If we can reach this point, we’ll have ensured that open video distribution is here to stay. But we’re at a critical moment.</p>
@@ -35,6 +17,7 @@
 function showDonateRibbon() {
     ribbon = $("#donate");
     everythingElse = $("#header").add(".column.left").add(".column.right > *");
+    $("#video").hide();
     ribbon.css('opacity', 0).show();
     everythingElse.animate({ opacity: 0.6}, 'fast');
     ribbon.animate({opacity: 1}, 'fast');
@@ -43,7 +26,11 @@ function hideDonateRibbon() {
     ribbon = $("#donate");
     everythingElse = $("#header").add(".column.left").add(".column.right > *");
     everythingElse.animate({ opacity: 1}, 'fast');
-    ribbon.animate({opacity: 0}, 'fast', function() {ribbon.hide();});
+    ribbon.animate({opacity: 0}, 'fast',
+		   function() {
+		       ribbon.hide();
+		       $("#video").show();
+		   });
 }
   </script>
   <a href="#donate" onclick="javascript:showDonateRibbon(); return false;"><img src="{{ STATIC_BASE_URL }}images/donate/donate.png" alt="donate button" /></a>
@@ -63,7 +50,7 @@ function hideDonateRibbon() {
 	 <input type="hidden" name="bn" value="PP-DonationsBF" />
        </form>
        <a href="#paypal" onclick="javascript:document.paypal.submit(); return false;"><img src="{{ STATIC_BASE_URL }}images/donate/paypal.png" alt="Donate with Paypal" /></a>
-       <a href="cc.html"><img src="{{ STATIC_BASE_URL }}images/donate/card.png" alt="Donate with a Credit Card" /></a>
+       <a href="http://www.getmiro.com/about/donate/cc.php"><img src="{{ STATIC_BASE_URL }}images/donate/card.png" alt="Donate with a Credit Card" /></a>
        <span class="close"><a href="#close" onclick="javascript:hideDonateRibbon(); return false;">x</a></span>
      </div>
    </div>
@@ -140,8 +127,4 @@ if (navigator.mimeTypes["application/x-shockwave-flash"]) {
 <a href="{% if request.GET.next %}{{ request.GET.next }}{% else %}/{% endif %}"><img src="{{ STATIC_BASE_URL }}images/donate/goto-guide.png" alt="go to the guide" /></a>
 
 </div> <!--/COLUMN-->
-<div class="clear"></div>
-</div> <!--/CONTENT-->
-
-</body>
-</html>
+{% endblock %}
