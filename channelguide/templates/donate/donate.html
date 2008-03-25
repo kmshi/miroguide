@@ -72,47 +72,41 @@ function vlcRestart(obj) {
     obj.play();
 }
 
-function createFlash(obj, url, image, width, height) {
-    html = '<embed ' +
-	'src="{{ STATIC_BASE_URL }}images/mediaplayer.swf" '+
-	'width="' + width + '" ' +
-	'height="' + height + '" ' +
-	'allowscriptaccess="always" ' +
-	'allowfullscreen="true" ' +
-	'flashvars="height=' + height + '&width=' + width + '&file=' + url +
-	'&image=' + image + '&showdigits=false&usefullscreen=false" '+
-	'/>';
-    obj.html(html);
-}
-
-function createVideo(obj, url, width, height) {
+function createVideo(obj, flv, mp4, image, width, height) {
     win = 0;
-    if (navigator.mimeTypes["application/x-vluc-plugin"]) {
+    var htmlCode = '';
+    if (navigator.mimeTypes["application/x-vlc-plugin"]) {
         /* use VLC */
-        html = '<embed type="application/x-vlc-plugin" width=' + width + ' height=' + height + ' autoplay="yes" loop="no" name="video1" target="' + url + '" />'
-            + '<input id="playpause" type="button" value="Pause" onclick="vlcPlayPause(document.video1, $(\'#playpause\'));" />'
+        htmlCode = '<embed type="application/x-vlc-plugin" width=' + width + ' height=' + height + ' autoplay="no" loop="no" name="video1" target="' + mp4 + '" />'
+            + '<input id="playpause" type="button" value="Play" onclick="vlcPlayPause(document.video1, $(\'#playpause\'));" />'
             + '<input type="button" value="Restart" onclick="vlcRestart(document.video1);" />'
             + '<input type="button" value="Mute" onclick="document.video1.mute(); document.video1.get_volume();" />'
         win = 1;
         height = height + 23;
     } else if (navigator.mimeTypes["video/quicktime"]) {
         height = height + 19;
-        html = '<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" id="player" height="' + height +'" width="' + width + '">' +
+        htmlCode = '<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" id="player" height="' + height +'" width="' + width + '">' +
             '<param name="CONTROLS" value="imagewindow">'+
             '<param name="autogotourl" value="false">'+
             '<param name="console" value="radio">'+
-            '<param name="autostart" value="true">'+
+            '<param name="autostart" value="false">'+
             '<param name="type" value="video/quicktime">'+
-            '<param name="src" value="' + url + '">'+
-            '<embed controls="imagewindow" autogotourl="false" console="radio" autostart="true" type="video/quicktime" src="' + url + '" name="player" height="' + height +'" width="' + width + '">'+
+            '<param name="src" value="' + mp4 + '">'+
+            '<embed controls="imagewindow" autogotourl="false" console="radio" autostart="true" type="video/quicktime" src="' + mp4 + '" name="player" height="' + height +'" width="' + width + '">'+
             '</object>';
-    } else {
-        html = '';
+    } else if (navigator.mimeTypes['application/x-shockwave-flash']) {
+        var htmlCode = '<embed ' +
+    	'src="{{ STATIC_BASE_URL }}images/mediaplayer.swf" '+
+    	'width="' + width + '" ' +
+	'height="' + height + '" ' +
+	'allowscriptaccess="always" ' +
+	'allowfullscreen="true" ' +
+	'flashvars="height=' + height + '&width=' + width + '&file=' + flv +
+	'&image=' + image + '&showdigits=false&usefullscreen=false" '+
+	'/>';
     }
-    if (html) {
-        $('div#download').hide();
-        oldhtml = obj.html()
-        obj.html(html).height(height);
+    if (htmlCode != '') {
+        obj.html(htmlCode).height(height);
         if (win) {
             for (var i=10; i<=100; i+= 10) {
                 window.setTimeout(function(){
@@ -122,12 +116,10 @@ function createVideo(obj, url, width, height) {
         }
     }
 }
-if (navigator.userAgent.indexOf('Linux') == -1) {
-    if (navigator.mimeTypes["application/x-shockwave-flash"]) {
-	createFlash($("#video"), "http://blip.tv/file/get/Miropcf-HelpUsMakeMediaMoreOpen255.flv", "http://e.static.blip.tv/Miropcf-HelpUsMakeMediaMoreOpen877.jpg", 280, 210);
-    } else {
-	createVideo($("#video"), "http://blip.tv/file/get/Miropcf-HelpUsMakeMediaMoreOpen853.mp4", 280, 210);
-    }
+if (navigator.userAgent.indexOf('Linux') == -1 || navigator.userAgent.indexOf('Miro') == -1) {
+	createVideo($("#video"), "http://blip.tv/file/get/Miropcf-HelpUsMakeMediaMoreOpen255.flv",
+        "http://blip.tv/file/get/Miropcf-HelpUsMakeMediaMoreOpen853.mp4",
+        "http://e.static.blip.tv/Miropcf-HelpUsMakeMediaMoreOpen877.jpg", 280, 210);
 }
        </script>
 <p class="subvid">OKGO's Andy Ross: Why Miro Matters</p>
