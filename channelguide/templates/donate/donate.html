@@ -122,7 +122,7 @@ function createVideo(obj, url, width, height) {
         }
     }
 }
-if (navigator.userAgent.indexOf('Linux') != -1) {
+if (navigator.userAgent.indexOf('Linux') == -1) {
     if (navigator.mimeTypes["application/x-shockwave-flash"]) {
 	createFlash($("#video"), "http://blip.tv/file/get/Miropcf-HelpUsMakeMediaMoreOpen255.flv", "http://e.static.blip.tv/Miropcf-HelpUsMakeMediaMoreOpen877.jpg", 280, 210);
     } else {
