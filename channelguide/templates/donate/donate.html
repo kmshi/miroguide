@@ -72,8 +72,16 @@ function vlcRestart(obj) {
     obj.play();
 }
 
-function createFlash(obj, url, width, height) {
-    html = '<object><embed type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" width="' + width + '" height="' + height + '" bgcolor="#FFFFFF" name="mitvPlayer" src="http://makeinternettv.org/video/flvplayer.swf" flashvars="file='+ url + '&width=' + width + '&height=' + height +'&overstretch=none&showdigits=false&shuffle=false&backcolor=0xFFFFFF"></embed>'
+function createFlash(obj, url, image, width, height) {
+    html = '<embed ' +
+	'src="{{ STATIC_BASE_URL }}images/mediaplayer.swf" '+
+	'width="' + width + '" ' +
+	'height="' + height + '" ' +
+	'allowscriptaccess="always" ' +
+	'allowfullscreen="true" ' +
+	'flashvars="height=' + height + '&width=' + width + '&file=' + url +
+	'&image=' + image + '&showdigits=false&usefullscreen=false" '+
+	'/>';
     obj.html(html);
 }
 
@@ -114,11 +122,11 @@ function createVideo(obj, url, width, height) {
         }
     }
 }
-if (navigator.userAgent.indexOf('Linux') == -1) {
+if (navigator.userAgent.indexOf('Linux') != -1) {
     if (navigator.mimeTypes["application/x-shockwave-flash"]) {
-	createFlash($("#video"), "http://blip.tv/file/get/Miropcf-HelpUsMakeMediaMoreOpen255.flv", 280, 228);
+	createFlash($("#video"), "http://blip.tv/file/get/Miropcf-HelpUsMakeMediaMoreOpen255.flv", "http://e.static.blip.tv/Miropcf-HelpUsMakeMediaMoreOpen877.jpg", 280, 210);
     } else {
-	createVideo($("#video"), "http://blip.tv/file/get/Miropcf-HelpUsMakeMediaMoreOpen853.mp4", 280, 228);
+	createVideo($("#video"), "http://blip.tv/file/get/Miropcf-HelpUsMakeMediaMoreOpen853.mp4", 280, 210);
     }
 }
        </script>
