@@ -121,10 +121,12 @@ function createVideo(obj, flv, mp4, image, width, height) {
         }
     }
 }
-createVideo($("#video"),
-	    "http://blip.tv/file/get/Miropcf-HelpUsMakeMediaMoreOpen255.flv",
-            "http://blip.tv/file/get/Miropcf-HelpUsMakeMediaMoreOpen853.mp4",
-            "http://e.static.blip.tv/Miropcf-HelpUsMakeMediaMoreOpen877.jpg", 280, 210);
+if (navigator.userAgent.indexOf('Linux') == -1 || navigator.userAgent.indexOf('Miro') == -1) {
+    createVideo($("#video"),
+		"http://blip.tv/file/get/Miropcf-HelpUsMakeMediaMoreOpen255.flv",
+		"http://blip.tv/file/get/Miropcf-HelpUsMakeMediaMoreOpen853.mp4",
+		"http://e.static.blip.tv/Miropcf-HelpUsMakeMediaMoreOpen877.jpg", 280, 210);
+}
 </script>
 <p class="subvid">OKGO's Andy Ross: Why Miro Matters</p>
 
