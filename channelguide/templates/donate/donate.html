@@ -52,7 +52,7 @@ function hideDonateRibbon() {
 	 <input type="hidden" name="bn" value="PP-DonationsBF" />
        </form>
        <a href="#paypal" onclick="javascript:document.paypal.submit(); return false;"><img src="{{ STATIC_BASE_URL }}images/donate/paypal.png" alt="Donate with Paypal" /></a>
-       <a href="http://www.getmiro.com/about/donate/cc.php"><img src="{{ STATIC_BASE_URL }}images/donate/card.png" alt="Donate with a Credit Card" /></a>
+       <a href="{{ BASE_URL }}donate/cc" target="_blank"><img src="{{ STATIC_BASE_URL }}images/donate/card.png" alt="Donate with a Credit Card" /></a>
        <span class="close"><a href="#close" onclick="javascript:hideDonateRibbon(); return false;">x</a></span>
      </div>
    </div>
@@ -129,8 +129,8 @@ if (navigator.userAgent.indexOf('Linux') == -1 || navigator.userAgent.indexOf('M
 }
 </script>
 <p class="subvid">OKGO's Andy Ross: Why Miro Matters</p>
-
-<a href="{% if request.GET.next %}{{ request.GET.next }}{% else %}/{% endif %}"><img src="{{ STATIC_BASE_URL }}images/donate/goto-guide.png" alt="go to the guide" /></a>
-
+{% if request.GET.next %}
+<a href="{{ request.GET.next }}<img src="{{ STATIC_BASE_URL }}images/donate/goto-guide.png" alt="go to the guide" /></a>
+{% endif %}
 </div> <!--/COLUMN-->
 {% endblock %}

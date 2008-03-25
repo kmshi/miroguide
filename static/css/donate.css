@@ -136,3 +136,36 @@ top:-20px;
 width:129px;
 z-index:1;
 }
+
+.donation_zone {
+font-size:16px;
+line-height:24px;
+margin:10px 0pt;
+padding:20px 10px 13px;
+}
+
+.donation_zone input, .donation_zone select {
+    vertical-align: middle;
+}
+
+.donation_zone dt {
+clear:left;
+color:#333333;
+float:left;
+font-size:16px;
+line-height:24px;
+margin:4px 8px 0pt 0pt;
+padding:0pt;
+position:relative;
+text-align:right;
+white-space:nowrap;
+width:240px;
+}
+
+.donation_zone dd {
+    color:#333333;
+font-size:17px;
+line-height:24px;
+margin:0pt 0pt 12px 0px;
+text-align:left;
+}
