@@ -73,8 +73,7 @@ function vlcRestart(obj) {
 }
 
 function createFlash(obj, url, width, height) {
-    html = '<object id="video_player_object" width="' + width + '" height="' + height + '" allowscriptaccess="always" allowfullscreen="true" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" type="application/x-shockwave-flash"><param value="true" name="allowfullscreen"/><param value="always" name="allowscriptaccess"/><param value="window" name="wmode"/><param value="http://blip.tv/scripts/flash/showplayer.swf?file=' + url + '&enablejs=true&showplayerpath=http%3A//blip.tv/scripts/flash/showplayer.swf&autostart=true&feedurl=http%3A//miropcf.blip.tv/rss" name="movie"/><param value="best" name="quality"/><embed id="video_player_embed" width="' + width + '" height="' + height + '" src="http://blip.tv/scripts/flash/showplayer.swf?file=' + url + '&enablejs=true&showplayerpath=http%3A//blip.tv/scripts/flash/showplayer.swf&autostart=true&feedurl=http%3A//miropcf.blip.tv/rss" pluginspage="http://www.macromedia.com/go/getflashplayer" allowfullscreen="true" allowscriptaccess="always" wmode="window" type="application/x-shockwave-flash"/></object>';
-    $("div#download").hide();
+    html = '<object><embed type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" width="' + width + '" height="' + height + '" bgcolor="#FFFFFF" name="mitvPlayer" src="http://makeinternettv.org/video/flvplayer.swf" flashvars="file='+ url + '&width=' + width + '&height=' + height +'&overstretch=none&showdigits=false&shuffle=false&backcolor=0xFFFFFF"></embed>'
     obj.html(html);
 }
 
