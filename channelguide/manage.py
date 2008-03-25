@@ -315,7 +315,7 @@ def optimize_templates(args):
     dest_dir = settings.OPTIMIZED_TEMPLATE_DIR
     if os.path.exists(dest_dir):
         shutil.rmtree(dest_dir)
-    for path in ('', '/guide', '/feeds'):
+    for path in ('', '/guide', '/feeds', '/donate'):
         optimize_template_dir(source_dir+path, dest_dir+path)
 optimize_templates.args = ''
 
