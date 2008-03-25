@@ -378,3 +378,15 @@ def unicodify(s, encoding='utf8'):
         return s
     else:
         return s.decode(encoding)
+
+def donation_decorator (func):
+    """ """
+    def wrapper (request, *args):
+        """ """
+        referrer = request.META.get('HTTP_REFERER', '')
+        print referrer, settings.BASE_URL_FULL
+        if referrer.startswith(settings.BASE_URL_FULL):
+            return func(request, *args)
+        return redirect('/donate', {'next': request.path})
+    return wrapper
+            

@@ -6,6 +6,7 @@ from channelguide import cache, util, settings
 from channelguide.guide.views import frontpage, channels
 from channelguide.guide.models import Channel, Category
 
+@util.donation_decorator
 @cache.aggresively_cache
 @cache.cache_page_externally_for(3600)
 def index(request):
