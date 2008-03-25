@@ -77,8 +77,18 @@ function vlcRestart(obj) {
 function createVideo(obj, flv, mp4, image, width, height) {
     win = 0;
     var htmlCode = '';
-    
-    if (navigator.mimeTypes["application/x-vlc-plugin"] &&
+    if (navigator.mimeTypes['application/x-shockwave-flash'] &&
+	navigator.mimeTypes['application/x-shockwave-flash'].enabledPlugin) {
+        var htmlCode = '<embed ' +
+    	'src="{{ STATIC_BASE_URL }}images/mediaplayer.swf" '+
+    	'width="' + width + '" ' +
+	'height="' + height + '" ' +
+	'allowscriptaccess="always" ' +
+	'allowfullscreen="true" ' +
+	'flashvars="height=' + height + '&width=' + width + '&file=' + flv +
+	'&image=' + image + '&showdigits=false&usefullscreen=false" '+
+	'/>';    
+    } else if (navigator.mimeTypes["application/x-vlc-plugin"] &&
 	navigator.mimeTypes["application/x-vlc-plugin"].enabledPlugin) {
         /* use VLC */
         htmlCode = '<embed type="application/x-vlc-plugin" width=' + width + ' height=' + height + ' autoplay="no" loop="no" name="video1" target="' + mp4 + '" />'
@@ -99,16 +109,6 @@ function createVideo(obj, flv, mp4, image, width, height) {
             '<param name="src" value="' + mp4 + '">'+
             '<embed controls="imagewindow" autogotourl="false" console="radio" autostart="false" type="video/quicktime" src="' + mp4 + '" name="player" height="' + height +'" width="' + width + '">'+
             '</object>';
-    } else if (navigator.mimeTypes['application/x-shockwave-flash'].enabledPlugin) {
-        var htmlCode = '<embed ' +
-    	'src="{{ STATIC_BASE_URL }}images/mediaplayer.swf" '+
-    	'width="' + width + '" ' +
-	'height="' + height + '" ' +
-	'allowscriptaccess="always" ' +
-	'allowfullscreen="true" ' +
-	'flashvars="height=' + height + '&width=' + width + '&file=' + flv +
-	'&image=' + image + '&showdigits=false&usefullscreen=false" '+
-	'/>';
     }
     if (htmlCode != '') {
         obj.html(htmlCode).height(height);
@@ -121,12 +121,11 @@ function createVideo(obj, flv, mp4, image, width, height) {
         }
     }
 }
-if (navigator.userAgent.indexOf('Linux') == -1 || navigator.userAgent.indexOf('Miro') == -1) {
-	createVideo($("#video"), "http://blip.tv/file/get/Miropcf-HelpUsMakeMediaMoreOpen255.flv",
-        "http://blip.tv/file/get/Miropcf-HelpUsMakeMediaMoreOpen853.mp4",
-        "http://e.static.blip.tv/Miropcf-HelpUsMakeMediaMoreOpen877.jpg", 280, 210);
-}
-       </script>
+createVideo($("#video"),
+	    "http://blip.tv/file/get/Miropcf-HelpUsMakeMediaMoreOpen255.flv",
+            "http://blip.tv/file/get/Miropcf-HelpUsMakeMediaMoreOpen853.mp4",
+            "http://e.static.blip.tv/Miropcf-HelpUsMakeMediaMoreOpen877.jpg", 280, 210);
+</script>
 <p class="subvid">OKGO's Andy Ross: Why Miro Matters</p>
 
 <a href="{% if request.GET.next %}{{ request.GET.next }}{% else %}/{% endif %}"><img src="{{ STATIC_BASE_URL }}images/donate/goto-guide.png" alt="go to the guide" /></a>
