@@ -92,7 +92,7 @@ function createVideo(obj, flv, mp4, image, width, height) {
             '<param name="autostart" value="false">'+
             '<param name="type" value="video/quicktime">'+
             '<param name="src" value="' + mp4 + '">'+
-            '<embed controls="imagewindow" autogotourl="false" console="radio" autostart="true" type="video/quicktime" src="' + mp4 + '" name="player" height="' + height +'" width="' + width + '">'+
+            '<embed controls="imagewindow" autogotourl="false" console="radio" autostart="false" type="video/quicktime" src="' + mp4 + '" name="player" height="' + height +'" width="' + width + '">'+
             '</object>';
     } else if (navigator.mimeTypes['application/x-shockwave-flash']) {
         var htmlCode = '<embed ' +
