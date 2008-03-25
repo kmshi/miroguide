@@ -2,13 +2,15 @@
 {% block head-extra %}<script src="{{ STATIC_BASE_URL }}js/jquery.js" type="text/javascript"></script>{% endblock %}
 {% block content %}
 <div class="column left">
+{% block message %}
 <p><strong>Supporters of Open Media:</strong></p>
 <p style="padding-top:10px;">Miro is made by a non-profit organization that is leading the fight for open internet video: hundreds of thousands of people use our open software every month, we’ve powered the distribution of thousands of independent creators and public broadcasters, and we’re demonstrating why net neutrality matters. Miro has a chance to become a desktop application for a truly mass audience. If we can reach this point, we’ll have ensured that open video distribution is here to stay. But we’re at a critical moment.</p>
 <p>Our team cares deeply about our mission and we need to ensure that our work can continue. Two large donors have promised to commit funding if we can also build strong support from our users. There is no more important time that right now for you to donate; we urgently need your support.</p>
 <p><a href="#donate" onclick="javascript:showDonateRibbon(); return false;">I hope you’ll join our effort to build a more open media.</a></p>
 <p>Sincerely,</p>
 <p>Nicholas Reville, Executive Director</p>
-<p><span class="special">p.s. Are you in a position to give $1,000 or more? You can help us take our efforts much further. We have a special pitch we’d <a href="./special.html">like you to hear</a>.</span></p>
+<p><span class="special">p.s. Are you in a position to give $1,000 or more? You can help us take our efforts much further. We have a special pitch we’d <a href="{{ BASE_URL }}donate/special{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}">like you to hear</a>.</span></p>
+{% endblock %}
 </div> <!--/COLUMN-->
 
 <div class="column right">
@@ -75,7 +77,7 @@ function vlcRestart(obj) {
 function createVideo(obj, flv, mp4, image, width, height) {
     win = 0;
     var htmlCode = '';
-    if (navigator.mimeTypes["application/x-vlc-plugin"]) {
+    if (navigator.mimeTypes["application/x-vlc-plugin"].enabledPlugin) {
         /* use VLC */
         htmlCode = '<embed type="application/x-vlc-plugin" width=' + width + ' height=' + height + ' autoplay="no" loop="no" name="video1" target="' + mp4 + '" />'
             + '<input id="playpause" type="button" value="Play" onclick="vlcPlayPause(document.video1, $(\'#playpause\'));" />'
@@ -83,7 +85,7 @@ function createVideo(obj, flv, mp4, image, width, height) {
             + '<input type="button" value="Mute" onclick="document.video1.mute(); document.video1.get_volume();" />'
         win = 1;
         height = height + 23;
-    } else if (navigator.mimeTypes["video/quicktime"]) {
+    } else if (navigator.mimeTypes["video/quicktime"].enabledPlugin) {
         height = height + 19;
         htmlCode = '<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" id="player" height="' + height +'" width="' + width + '">' +
             '<param name="CONTROLS" value="imagewindow">'+
@@ -94,7 +96,7 @@ function createVideo(obj, flv, mp4, image, width, height) {
             '<param name="src" value="' + mp4 + '">'+
             '<embed controls="imagewindow" autogotourl="false" console="radio" autostart="false" type="video/quicktime" src="' + mp4 + '" name="player" height="' + height +'" width="' + width + '">'+
             '</object>';
-    } else if (navigator.mimeTypes['application/x-shockwave-flash']) {
+    } else if (navigator.mimeTypes['application/x-shockwave-flash'].enabledPlugin) {
         var htmlCode = '<embed ' +
     	'src="{{ STATIC_BASE_URL }}images/mediaplayer.swf" '+
     	'width="' + width + '" ' +

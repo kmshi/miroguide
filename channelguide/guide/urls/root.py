@@ -15,6 +15,8 @@ urlpatterns = patterns('channelguide.guide.views',
         'template': 'guide/browse.html'}),
     (r'^donate$', direct_to_template, {
             'template': 'donate/donate.html'}),
+    (r'^donate/special$', direct_to_template, {
+            'template': 'donate/special.html'}),
     (r'^category-peek-fragment$', 'frontpage.category_peek_fragment'),
     (r'^moderate$', 'moderator.index'),
     (r'^how-to-moderate$', 'moderator.how_to_moderate'),
