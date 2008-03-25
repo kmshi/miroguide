@@ -71,6 +71,10 @@ a {
 	color: #404040;
 }
 
+h2 {
+    margin-top: -70px;
+}
+
 #donate {
     position: relative;
     right: 365px;
