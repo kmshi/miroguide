@@ -121,3 +121,18 @@ a {
 .clear {
     clear: both;
 }
+
+#video .download {
+background:transparent url(images/details/download.png) no-repeat scroll 0% 0%;
+color:white;
+float:right;
+font-weight:bold;
+height:15px;
+left:-3px;
+padding-left:7px;
+position:relative;
+text-align:center;
+top:-20px;
+width:129px;
+z-index:1;
+}
