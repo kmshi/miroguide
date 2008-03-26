@@ -90,16 +90,15 @@ h2 {
 #donate {
     position: relative;
     right: 365px;
-    width: 700px;
-    height: 158px;
-    background: white;
+    width: 709px;
+    height: 160px;
 }
 
 #donate div {
-    width: 705px;
-    height: 158px;
+    width: 709px;
+    height: 160px;
     position: absolute;
-    left: -3px;
+    left: -5px;
     background: url(images/donate/donate-bg.png);
 }
 
@@ -108,10 +107,13 @@ h2 {
 }
 
 #donate .close {
+    display: block;
+    background: url(images/donate/x.png) no-repeat;
+    width: 15px;
+    height: 15px;
     position: absolute;
-    bottom: 5px;
-    right: 5px;
-    border: 1px solid #3783D1;
+    bottom: 10px;
+    right: 10px;
 }
 
 #donate .close a {

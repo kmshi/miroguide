@@ -19,6 +19,7 @@
       <div  id="header">
 	<img src="{{ STATIC_BASE_URL }}images/donate/header.png" alt="header" />
 	<img src="{% block title-image %}{{ STATIC_BASE_URL }}images/donate/title.png{% endblock %}" alt="title" />
+	{% block extra-title %}{% endblock %}
       </div> <!--/HEADER-->
 	{% block content %}
 	{% endblock %}
