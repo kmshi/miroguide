@@ -94,12 +94,35 @@ h2 {
     height: 160px;
 }
 
-#donate div {
+#donate > div {
     width: 709px;
     height: 160px;
     position: absolute;
     left: -5px;
     background: url(images/donate/donate-bg.png);
+}
+
+#donate .amounts div {
+    height: 39px;
+    width: 101px;
+    float: left;
+    margin-top: 65px;
+    margin-left: 30px;
+}
+
+#donate .amounts .g20 {background: url(images/donate/give20.png);}
+#donate .amounts .g50 {background: url(images/donate/give50.png);}
+#donate .amounts .g100 {background: url(images/donate/give100.png);}
+#donate .amounts .g200 {background: url(images/donate/give200.png);}
+#donate .amounts .other {
+    background: url(images/donate/give-x.png);
+    width: 122px;
+}
+
+.amounts input {
+    margin-top: 10px;
+    margin-left: 30px;
+    border: 2px solid #7f8d9f;
 }
 
 #donate img {

@@ -36,6 +36,29 @@ function hideDonateRibbon() {
 		       $("#video").show();
 		   });	
 }
+$(document).ready(function () {
+    $("#donate .amounts div").click(function () {
+	var amount;
+	if ($(this).hasClass('other')) {
+	    amount = $(this).children('input').val();
+	    if (!amount) {
+		$(this).children('input').css('border-color', 'red');
+		return;
+	    }
+	} else {
+	    amount = $(this).attr('amount');
+	}
+	paypal = $("#donate .types a:eq(0)");
+	paypal.attr('href', paypal.attr('href') + '&amount=' + amount);
+	cc = $("#donate .types a:eq(1)");
+	cc.attr('href', cc.attr('href') + '?' + amount);
+	$("#donate .types").show();
+	$("#donate .amounts").hide();
+    });
+    $("#donate .amounts input").keypress(function(e) {
+	if (e.which == 13) $(this).parent().click();
+    }).click(function() {return false;});
+});
 {% if request.GET.next %}
 $(document).ready(function () {
     $("#donate a:lt(2)").click(function () {
@@ -49,7 +72,14 @@ $(document).ready(function () {
   </script>
   <a href="#donate" onclick="javascript:showDonateRibbon(); return false;"><img src="{{ STATIC_BASE_URL }}images/donate/donate.png" alt="donate button" /></a>
    <div id="donate" style="left: -10000px; display: inline;">
-     <div>
+     <div class="amounts">
+       <div class="g20" amount="20"></div>
+       <div class="g50" amount="50"></div>
+       <div class="g100" amount="100"></div>
+       <div class="g200" amount="200"></div>
+       <div class="other"><input size="5" /></div>
+     </div>
+     <div class="types" style="display: none;">
        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=donate%40pculture%2eorg&item_name=Tax%20Deductible%20Donation%20to%20Miro&no_shipping=0&no_note=1&currency_code=USD&lc=US&bn=PP%2dBuyNowBF&charset=UTF%2d8"><img src="{{ STATIC_BASE_URL }}images/donate/paypal.png" alt="Donate with Paypal" /></a>
        <a href="https://www.getmiro.com/about/donate/cc-guide.html"><img src="{{ STATIC_BASE_URL }}images/donate/card.png" alt="Donate with a Credit Card" /></a>
        <a href="#close" onclick="javascript:hideDonateRibbon(); return false;"><span class="close"></span></a>
