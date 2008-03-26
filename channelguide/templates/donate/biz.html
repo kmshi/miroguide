@@ -1,11 +1,81 @@
 {% extends "donate/base.html" %}
+{% block head-extra %}
+<style type="text/css">
+li img, p img {
+    float: left;
+    padding: 5px;
+}
+
+a img {
+    text-align: center;
+    padding: 0 20px 30px;
+}
+
+#donate {
+    right:35px;
+}
+</style>
+   <script src="{{ STATIC_BASE_URL }}js/jquery.js" type="text/javascript"></script>
+{% endblock %}
 {% block title-image %}{{ STATIC_BASE_URL }}images/donate/title-biz.png{% endblock %}
 {% block content %}
   <p style="margin-top: -70px">We’re a non-profit that is busy developing a scalable business model so that we can self-fund our work. But we’ll never earn money by compromising our mission; in fact, the reason that we are setup as a 501c3 non-profit is to ensure that our mission will always be built into the core of what we do. Mozilla is our model: they have been able to earn revenue that funds their work while staying completely focused on building the open web.</p>
   <h3>Current Sustainability Efforts:</h3>
   <ul>
-    <li>I Heart Miro: When you shop at Amazon, this browser extension gives a referral fee to Miro. It is generating significant revenue and gives Miro users a simple way to support our mission.</li>
-    <li>Co-branded Players: We are partnering with organizations like Revision3 and the TED conference to create custom versions of Miro. These deals benefit our work in three ways: they extend the reach of publishers, they enlist more organizations is spreading Miro, and they generate revenue for our work.</li>
+    <li><img src="{{ STATIC_BASE_URL }}images/donate/iheart.png" alt="I Heart Miro" /><strong>I Heart Miro:</strong> When you shop at Amazon, this browser extension gives a referral fee to Miro. It is generating significant revenue and gives Miro users a simple way to support our mission.</li>
+    <li><img src="{{ STATIC_BASE_URL }}images/donate/rev3.png" alt="Revision 3" /><strong>Co-branded Players:</strong> We are partnering with organizations like Revision3 and the TED conference to create custom versions of Miro. These deals benefit our work in three ways: they extend the reach of publishers, they enlist more organizations is spreading Miro, and they generate revenue for our work.</li>
   </ul>
-  <p>"We are committed to becoming self-funding in a way that doesn’t compromise our mission. What you give doesn’t just fund us for a moment in time, it helps us build a sustainable source of funding. Your donations are not a gift, they are really an investment in open media."</p>
+  <p style="height: 75px;"><img src="http://s3.getmiro.com/images/staff/jesse.jpg" />"We are committed to becoming self-funding in a way that doesn’t compromise our mission. What you give doesn’t just fund us for a moment in time, it helps us build a sustainable source of funding. Your donations are not a gift, they are really an investment in open media."</p>
+  <p>Jesse Patel<br/>
+Business Development<br/>
+   Participatory Culture Foundation</p>
+
+<script type="text/javascript">
+
+function showDonateRibbon() {
+ribbon = $("#donate");
+    everythingElse = $("#header").add("p").add("ul").add("h3").add("#goto");
+$("#video").hide();
+ribbon.css('opacity', 0).show();
+everythingElse.animate({ opacity: 0.6}, 'fast');
+ribbon.animate({opacity: 1}, 'fast');
+}
+function hideDonateRibbon() {
+ribbon = $("#donate");
+    everythingElse = $("#header").add("p").add("ul").add("h3").add("#goto");
+everythingElse.animate({ opacity: 1}, 'fast');
+ribbon.animate({opacity: 0}, 'fast',
+function() {
+ribbon.hide();
+$("#video").show();
+});
+}
+</script>
+<a href="#donate" onclick="javascript:showDonateRibbon(); return false;"><img src="/images/donate/donate.png" alt="donate button" /></a>
+<div id="donate" style="display: none;">
+
+<div>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" name="paypal">
+<input type="hidden" name="cmd" value="_xclick" />
+<input type="hidden" name="business" value="donate@pculture.org" />
+<input type="hidden" name="item_name" value="Donation to Miro" />
+<input type="hidden" name="item_number" value="111" />
+<input type="hidden" name="no_shipping" value="1" />
+<input type="hidden" name="return" value="http://www.getmiro.com/" />
+<input type="hidden" name="cancel_return" value="http://www.getmiro.com/donate" />
+<input type="hidden" name="no_note" value="1" />
+<input type="hidden" name="currency_code" value="USD" />
+<input type="hidden" name="tax" value="0" />
+<input type="hidden" name="bn" value="PP-DonationsBF" />
+</form>
+<a href="#paypal" onclick="javascript:document.paypal.submit(); return false;"><img src="/images/donate/paypal.png" alt="Donate with Paypal" /></a>
+<a href="https://www.getmiro.com/about/donate/cc-guide.html"><img src="/images/donate/card.png" alt="Donate with a Credit Card" /></a>
+<span class="close"><a href="#close" onclick="javascript:hideDonateRibbon(); return false;">x</a></span>
+
+</div>
+</div>
+
+{% if request.GET.next %}
+   <a id="goto" href="{{ request.GET.next }}"><img src="/images/donate/goto-guide.png" alt="go to the guide" /></a>
+   {% endif %}
 {% endblock %}

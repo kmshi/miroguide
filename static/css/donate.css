@@ -173,3 +173,11 @@ line-height:24px;
 margin:0pt 0pt 12px 0px;
 text-align:left;
 }
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    height: 106px;
+}
