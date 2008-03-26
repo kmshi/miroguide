@@ -19,6 +19,8 @@
     
 function showDonateRibbon() {
     ribbon = $("#donate");
+    ribbon.children('.amounts').show();
+    ribbon.children('.types').hide();
     ribbon.hide().attr('style', '');
     everythingElse = $("#header").add(".column.left").add(".column.right > *");
     $("#video").hide();
@@ -49,9 +51,13 @@ $(document).ready(function () {
 	    amount = $(this).attr('amount');
 	}
 	paypal = $("#donate .types a:eq(0)");
-	paypal.attr('href', paypal.attr('href') + '&amount=' + amount);
+	if (!paypal.attr('oldHref'))
+	    paypal.attr('oldHref', paypal.attr('href'));
+	paypal.attr('href', paypal.attr('oldHref') + '&amount=' + amount);
 	cc = $("#donate .types a:eq(1)");
-	cc.attr('href', cc.attr('href') + '?' + amount);
+	if (!cc.attr('oldHref'))
+	    cc.attr('oldHref', cc.attr('href'));
+	cc.attr('href', cc.attr('oldHref') + '?' + amount);
 	$("#donate .types").show();
 	$("#donate .amounts").hide();
     });
