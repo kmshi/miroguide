@@ -29,8 +29,8 @@ def _filter_scores(connection, scores, numScores):
     valid = [id for id in numScores if numScores[id] > 3]
     if not valid:
         return scores
-    channels = Channel.query(Channel.c.id.in_(valid), archived=0).execute(
-        connection)
+    channels = Channel.query_approved(Channel.c.id.in_(valid),
+                                      archived=0).execute(connection)
     return dict((c.id, scores[c.id]) for c in channels)
 
 def _calculate_scores(recommendations, ratings):
