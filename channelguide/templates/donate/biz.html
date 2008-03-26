@@ -26,7 +26,7 @@ li img, p img {
     <li><a href="http://www.iheartmiro.org/"><img src="{{ STATIC_BASE_URL }}images/donate/iheart.png" alt="I Heart Miro" /><strong>I Heart Miro:</strong></a> When you shop at Amazon, this browser extension gives a referral fee to Miro. It is generating significant revenue and gives Miro users a simple way to support our mission.</li>
     <li><a href="http://revision3.com/content/miro"><img src="{{ STATIC_BASE_URL }}images/donate/rev3.png" alt="Revision 3" /><strong>Co-branded Players:</strong></a> We are partnering with organizations like Revision3 and the TED conference to create custom versions of Miro. These deals benefit our work in three ways: they extend the reach of publishers, they enlist more organizations is spreading Miro, and they generate revenue for our work.</li>
   </ul>
-<div id="donate" style="left: -10000px;">
+<div id="donate" style="left: -10000px; display: inline;">
 
 <div>
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=donate%40pculture%2eorg&item_name=Tax%20Deductible%20Donation%20to%20Miro&no_shipping=0&no_note=1&currency_code=USD&lc=US&bn=PP%2dBuyNowBF&charset=UTF%2d8"><img src="/images/donate/paypal.png" alt="Donate with Paypal" /></a>
@@ -62,7 +62,6 @@ function hideDonateRibbon() {
 		   });
 }
 $(document).ready(function () {
-    $("#donate").hide();
     $("#donate a:lt(2)").click(function () {
 	setTimeout(function() {
 	    document.location = "{{ BASE_URL_FULL }}donate/thanks{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}";
