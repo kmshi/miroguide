@@ -195,3 +195,18 @@ ul {
 li {
     height: 106px;
 }
+
+li a {
+    color: inherit;
+}
+
+.buttons {
+    margin-top: 5px;
+    text-align:center;
+}
+
+.buttons img {
+    display: block;
+    margin: 0 auto;
+    margin-top: 15px;
+}
