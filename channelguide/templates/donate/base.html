@@ -13,16 +13,17 @@
 </head>
 
 <body>
-
-<div id="content">
-<div  id="header">
-<img src="{{ STATIC_BASE_URL }}images/donate/header.png" alt="header" />
-<img src="{% block title-image %}{{ STATIC_BASE_URL }}images/donate/title.png{% endblock %}" alt="title" />
-</div> <!--/HEADER-->
-{% block content %}
-{% endblock %}
-<div class="clear"></div>
-</div> <!--/CONTENT-->
-
+  <div id="outer">
+    <div id="cap"></div>
+    <div id="content">
+      <div  id="header">
+	<img src="{{ STATIC_BASE_URL }}images/donate/header.png" alt="header" />
+	<img src="{% block title-image %}{{ STATIC_BASE_URL }}images/donate/title.png{% endblock %}" alt="title" />
+      </div> <!--/HEADER-->
+	{% block content %}
+	{% endblock %}
+	<div class="clear"></div>
+      </div> <!--/CONTENT-->
+  </div>
 </body>
 </html>
