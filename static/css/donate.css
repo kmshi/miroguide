@@ -99,12 +99,12 @@ h2 {
     position: absolute;
     bottom: 5px;
     right: 5px;
-    border: 1px solid black;
+    border: 1px solid #3783D1;
 }
 
 #donate .close a {
     padding: 3px;
-    color: black;
+    color:#3783D1;
     text-decoration: none;
 }
     
