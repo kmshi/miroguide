@@ -61,13 +61,16 @@ function hideDonateRibbon() {
 		       $("#video").show();
 		   });
 }
+{% if request.GET.next %}
 $(document).ready(function () {
     $("#donate a:lt(2)").click(function () {
 	setTimeout(function() {
-	    document.location = "{{ BASE_URL_FULL }}donate/thanks{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}";
+	    document.location = "{{ BASE_URL }}donate/thanks{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}";
 	}, 1000);
+	return true;
     });
 });
+{% endif %}
 </script>
 <div class="buttons">
   <a href="#donate" onclick="javascript:showDonateRibbon(); return false;"><img src="/images/donate/donate.png" alt="donate button" /></a>
