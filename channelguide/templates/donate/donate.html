@@ -24,7 +24,7 @@ function showDonateRibbon() {
     ribbon.hide().attr('style', '');
     everythingElse = $("#header").add(".column.left").add(".column.right > *");
     $("#video").hide();
-    ribbon.css('opacity', 0).show();
+    ribbon.css('opacity', 0.6).show();
     everythingElse.css('opacity', "0.6");
     ribbon.animate({opacity: 1}, 'fast');
 }
