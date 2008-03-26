@@ -19,6 +19,7 @@
     
 function showDonateRibbon() {
     ribbon = $("#donate");
+    ribbon.hide().attr('style', '');
     everythingElse = $("#header").add(".column.left").add(".column.right > *");
     $("#video").hide();
     ribbon.css('opacity', 0).show();
@@ -44,7 +45,7 @@ $(document).ready(function () {
 });
   </script>
   <a href="#donate" onclick="javascript:showDonateRibbon(); return false;"><img src="{{ STATIC_BASE_URL }}images/donate/donate.png" alt="donate button" /></a>
-   <div id="donate" style="display: none;">
+   <div id="donate" style="left: -10000px;">
      <div>
        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=donate%40pculture%2eorg&item_name=Tax%20Deductible%20Donation%20to%20Miro&no_shipping=0&no_note=1&currency_code=USD&lc=US&bn=PP%2dBuyNowBF&charset=UTF%2d8"><img src="{{ STATIC_BASE_URL }}images/donate/paypal.png" alt="Donate with Paypal" /></a>
        <a href="https://www.getmiro.com/about/donate/cc-guide.html"><img src="{{ STATIC_BASE_URL }}images/donate/card.png" alt="Donate with a Credit Card" /></a>

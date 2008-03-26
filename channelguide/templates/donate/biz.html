@@ -26,7 +26,7 @@ li img, p img {
     <li><a href="http://www.iheartmiro.org/"><img src="{{ STATIC_BASE_URL }}images/donate/iheart.png" alt="I Heart Miro" /><strong>I Heart Miro:</strong></a> When you shop at Amazon, this browser extension gives a referral fee to Miro. It is generating significant revenue and gives Miro users a simple way to support our mission.</li>
     <li><a href="http://revision3.com/content/miro"><img src="{{ STATIC_BASE_URL }}images/donate/rev3.png" alt="Revision 3" /><strong>Co-branded Players:</strong></a> We are partnering with organizations like Revision3 and the TED conference to create custom versions of Miro. These deals benefit our work in three ways: they extend the reach of publishers, they enlist more organizations is spreading Miro, and they generate revenue for our work.</li>
   </ul>
-<div id="donate" style="display: none;">
+<div id="donate" style="left: -10000px;">
 
 <div>
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=donate%40pculture%2eorg&item_name=Tax%20Deductible%20Donation%20to%20Miro&no_shipping=0&no_note=1&currency_code=USD&lc=US&bn=PP%2dBuyNowBF&charset=UTF%2d8"><img src="/images/donate/paypal.png" alt="Donate with Paypal" /></a>
@@ -43,22 +43,23 @@ Business Development<br/>
 <script type="text/javascript">
 
 function showDonateRibbon() {
-ribbon = $("#donate");
+    ribbon = $("#donate");
+    ribbon.hide().attr('style', '');
     everythingElse = $("#header").add("p").add("ul").add("h3").add("#content > a");
-$("#video").hide();
-ribbon.css('opacity', 0).show();
-everythingElse.animate({ opacity: 0.6}, 'fast');
-ribbon.animate({opacity: 1}, 'fast');
+    $("#video").hide();
+    ribbon.css('opacity', 0).show();
+    everythingElse.animate({ opacity: 0.6}, 'fast');
+    ribbon.animate({opacity: 1}, 'fast');
 }
 function hideDonateRibbon() {
-ribbon = $("#donate");
+    ribbon = $("#donate");
     everythingElse = $("#header").add("p").add("ul").add("h3").add("#content > a");
-everythingElse.animate({ opacity: 1}, 'fast');
-ribbon.animate({opacity: 0}, 'fast',
-function() {
-ribbon.hide();
-$("#video").show();
-});
+    everythingElse.animate({ opacity: 1}, 'fast');
+    ribbon.animate({opacity: 0}, 'fast',
+		   function() {
+		       ribbon.hide();
+		       $("#video").show();
+		   });
 }
 $(document).ready(function () {
     $("#donate a:lt(2)").click(function () {
