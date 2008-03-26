@@ -1,12 +1,21 @@
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
+from django.conf import settings
 from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
 
 def cg_include(module):
     return include('channelguide.guide.urls.%s' % module)
 
+def donate_thanks(request):
+    response = direct_to_template(request,
+                                  template='donate/thanks.html')
+    if 'donate_donated' not in request.COOKIES:
+        response.set_cookie('donate_donated', 'yes', max_age=60*60*24*30,
+                            secure=settings.USE_SECURE_COOKIES or None)
+    return response
+        
 urlpatterns = patterns('channelguide.guide.views',
     (r'^$', 'frontpage.index'),
     (r'^frontpage$', 'frontpage.index'),
@@ -19,8 +28,7 @@ urlpatterns = patterns('channelguide.guide.views',
             'template': 'donate/special.html'}),
     (r'^donate/biz$', direct_to_template, {
             'template': 'donate/biz.html'}),
-    (r'^donate/thanks$', direct_to_template, {
-            'template': 'donate/thanks.html'}),
+    (r'^donate/thanks$', donate_thanks),
     (r'^category-peek-fragment$', 'frontpage.category_peek_fragment'),
     (r'^moderate$', 'moderator.index'),
     (r'^how-to-moderate$', 'moderator.how_to_moderate'),

@@ -384,14 +384,14 @@ def donation_decorator (func):
     def wrapper (request, *args):
         """ """
         referrer = request.META.get('HTTP_REFERER', '')
-        print referrer, settings.BASE_URL_FULL
-        if referrer.startswith(settings.BASE_URL_FULL):
-            return func(request, *args)
-        if request.path not in ('/', '/firsttime'):
-            return func(request, *args)
-        next = request.path
-        if next == '/':
-            next = '/frontpage'
-        return redirect('/donate', {'next': next})
+        hasCookie = request.COOKIES.get('donate_pitch') or \
+            request.COOKIES.get('donate_donated')
+        if referrer.startswith(settings.BASE_URL_FULL) or hasCookie:
+            response = func(request, *args)
+        else:
+            response = redirect('/donate', {'next': request.path})
+        if not hasCookie:
+            response.set_cookie('donate_pitch', 'yes', max_age=None,
+                                secure=settings.USE_SECURE_COOKIES or None)
+        return response
     return wrapper
-            
