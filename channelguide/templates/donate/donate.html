@@ -169,12 +169,14 @@ if (navigator.userAgent.indexOf('Linux') == -1 || navigator.userAgent.indexOf('M
 {% if request.GET.next %}
 <a href="{{ request.GET.next }}"><img src="{{ STATIC_BASE_URL }}images/donate/goto-guide.png" alt="go to the guide" /></a>
 {% endif %}
-   {% block moreinfo %}
-   <p id="moreinfo">More Information:</p>
-<ul>
-<li>Making Miro Sustainable</li>
-<li>Our Pitch to Big Funders</li>
-</ul>
-       {% endblock %}
+{% block moreinfo %}
+<div id="moreinfo">
+  <p>Additional Information:</p>
+  <ul>
+    <li><a href="{{ BASE_URL }}donate/biz{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}">Making Miro Sustainable</a></li>
+    <li><a href="{{ BASE_URL }}donate/special{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}">Our Pitch to Big Funders</a></li>
+  </ul>
+</div>
+{% endblock %}
 </div> <!--/COLUMN-->
 {% endblock %}

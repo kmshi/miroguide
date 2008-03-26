@@ -242,3 +242,25 @@ img.thanks {
     display: block;
     margin: 60px auto 0;
 }
+
+#moreinfo {
+    color:#787878;
+}
+
+#moreinfo p{
+margin-bottom: 0px; 
+text-align: right; 
+margin-right: 15px;
+padding-top: 10px;
+}
+#moreinfo li {
+    height:18px;
+}
+
+#moreinfo ul {
+    list-style-type: disc;
+    font-size: 90%;
+    margin-right: 15px;
+    text-align: right;
+    margin-top: 6px;
+}
