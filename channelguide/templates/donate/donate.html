@@ -39,20 +39,7 @@ function hideDonateRibbon() {
   <a href="#donate" onclick="javascript:showDonateRibbon(); return false;"><img src="{{ STATIC_BASE_URL }}images/donate/donate.png" alt="donate button" /></a>
    <div id="donate" style="display: none;">
      <div>
-       <form action="https://www.paypal.com/cgi-bin/webscr" method="post" name="paypal">
-	 <input type="hidden" name="cmd" value="_xclick" />
-	 <input type="hidden" name="business" value="donate@pculture.org" />
-	 <input type="hidden" name="item_name" value="Donation to Miro" />
-	 <input type="hidden" name="item_number" value="111" />
-	 <input type="hidden" name="no_shipping" value="1" />
-	 <input type="hidden" name="return" value="http://www.getmiro.com/" />
-	 <input type="hidden" name="cancel_return" value="http://www.getmiro.com/donate" />
-	 <input type="hidden" name="no_note" value="1" />
-	 <input type="hidden" name="currency_code" value="USD" />
-	 <input type="hidden" name="tax" value="0" />
-	 <input type="hidden" name="bn" value="PP-DonationsBF" />
-       </form>
-       <a href="#paypal" onclick="javascript:document.paypal.submit(); return false;"><img src="{{ STATIC_BASE_URL }}images/donate/paypal.png" alt="Donate with Paypal" /></a>
+       <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=donate%40pculture%2eorg&item_name=Tax%20Deductible%20Donation%20to%20Participatory%20Culture%20Foundation&no_shipping=0&no_note=1&currency_code=USD&lc=US&bn=PP%2dBuyNowBF&charset=UTF%2d8"><img src="{{ STATIC_BASE_URL }}images/donate/paypal.png" alt="Donate with Paypal" /></a>
        <a href="https://www.getmiro.com/about/donate/cc-guide.html"><img src="{{ STATIC_BASE_URL }}images/donate/card.png" alt="Donate with a Credit Card" /></a>
        <a href="#close" onclick="javascript:hideDonateRibbon(); return false;"><span class="close"></span></a>
      </div>
