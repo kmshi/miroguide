@@ -21,13 +21,13 @@ img {
 
 #outer {
     background: url(images/donate/content-bg.png) repeat-y;
-    width: 838px;
+    width: 764px;
     margin: 0 auto;
 }
 
 #cap {
     background: url(images/donate/content-cap.png) no-repeat;
-    width: 838px;
+    width: 764px;
     height: 25px;
     margin-top: 95px;
     position: relative;
