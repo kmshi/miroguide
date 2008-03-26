@@ -169,10 +169,12 @@ if (navigator.userAgent.indexOf('Linux') == -1 || navigator.userAgent.indexOf('M
 {% if request.GET.next %}
 <a href="{{ request.GET.next }}"><img src="{{ STATIC_BASE_URL }}images/donate/goto-guide.png" alt="go to the guide" /></a>
 {% endif %}
+   {% block moreinfo %}
    <p id="moreinfo">More Information:</p>
 <ul>
 <li>Making Miro Sustainable</li>
 <li>Our Pitch to Big Funders</li>
 </ul>
+       {% endblock %}
 </div> <!--/COLUMN-->
 {% endblock %}
