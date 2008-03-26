@@ -387,6 +387,11 @@ def donation_decorator (func):
         print referrer, settings.BASE_URL_FULL
         if referrer.startswith(settings.BASE_URL_FULL):
             return func(request, *args)
-        return redirect('/donate', {'next': request.path})
+        if request.path not in ('/', '/firsttime'):
+            return func(request, *args)
+        next = request.path
+        if next == '/':
+            next = '/frontpage'
+        return redirect('/donate', {'next': next})
     return wrapper
             
