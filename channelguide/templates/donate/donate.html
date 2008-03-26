@@ -51,6 +51,7 @@ $(document).ready(function () {
        <a href="#close" onclick="javascript:hideDonateRibbon(); return false;"><span class="close"></span></a>
      </div>
    </div>
+{% block video %}
 
 <div id="video"><a href="http://subscribe.getmiro.com/download/?url1=http://blip.tv/file/get/Miropcf-HelpUsMakeMediaMoreOpen316.mp4"><img src="http://e.static.blip.tv/Miropcf-HelpUsMakeMediaMoreOpen877.jpg" alt="Thumbnail of OKGO's Andy Ross talking about Why Miro Matters" /><div class="download">download video</div></a></div>
 <script type="text/javascript">
@@ -124,6 +125,7 @@ if (navigator.userAgent.indexOf('Linux') == -1 || navigator.userAgent.indexOf('M
 }
 </script>
 <p class="subvid">OKGO's Andy Ross: Why Miro Matters</p>
+   {% endblock %}
 {% if request.GET.next %}
 <a href="{{ request.GET.next }}"><img src="{{ STATIC_BASE_URL }}images/donate/goto-guide.png" alt="go to the guide" /></a>
 {% endif %}
