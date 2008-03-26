@@ -60,6 +60,13 @@ ribbon.hide();
 $("#video").show();
 });
 }
+$(document).ready(function () {
+    $("#donate a:lt(2)").click(function () {
+	setTimeout(function() {
+	    document.location = "{{ BASE_URL_FULL }}donate/thanks{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}";
+	}, 1000);
+    });
+});
 </script>
 <div class="buttons">
   <a href="#donate" onclick="javascript:showDonateRibbon(); return false;"><img src="/images/donate/donate.png" alt="donate button" /></a>

@@ -210,3 +210,8 @@ li a {
     margin: 0 auto;
     margin-top: 15px;
 }
+
+img.thanks {
+    display: block;
+    margin: 60px auto 0;
+}
