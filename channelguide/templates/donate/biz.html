@@ -62,6 +62,7 @@ function hideDonateRibbon() {
 		   });
 }
 $(document).ready(function () {
+    $("#donate").hide();
     $("#donate a:lt(2)").click(function () {
 	setTimeout(function() {
 	    document.location = "{{ BASE_URL_FULL }}donate/thanks{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}";
