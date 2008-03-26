@@ -13,15 +13,11 @@ li img, p img {
 #donate {
     position: absolute;
     left: 0px;
-    z-index: 1;
+    bottom: 130px;
 }
-
-#donate div {
-    background-repeat: no-repeat;
-    padding-left: 80px;
-    width: 628px;
+#donate .amounts input {
+    margin-left: 50px;
 }
-
 </style>
    <script src="{{ STATIC_BASE_URL }}js/jquery.js" type="text/javascript"></script>
 {% endblock %}
@@ -33,26 +29,18 @@ li img, p img {
     <li><a href="http://www.iheartmiro.org/"><img src="{{ STATIC_BASE_URL }}images/donate/iheart.png" alt="I Heart Miro" /><strong>I Heart Miro:</strong></a> When you shop at Amazon, this browser extension gives a referral fee to Miro. It is generating significant revenue and gives Miro users a simple way to support our mission.</li>
     <li><a href="http://www.getmiro.com/co-branding/"><img src="{{ STATIC_BASE_URL }}images/donate/rev3.png" alt="Revision 3" /><strong>Co-branded Players:</strong></a> We are partnering with organizations like Revision3 and the TED conference to create custom versions of Miro. These deals benefit our work in three ways: they extend the reach of publishers, they enlist more organizations is spreading Miro, and they generate revenue for our work.</li>
   </ul>
-<div id="donate" style="left: -10000px; display: inline;">
-
-<div>
-<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=donate%40pculture%2eorg&item_name=Tax%20Deductible%20Donation%20to%20Miro&no_shipping=0&no_note=1&currency_code=USD&lc=US&bn=PP%2dBuyNowBF&charset=UTF%2d8"><img src="/images/donate/paypal.png" alt="Donate with Paypal" /></a>
-<a href="https://www.getmiro.com/about/donate/cc-guide.html"><img src="/images/donate/card.png" alt="Donate with a Credit Card" /></a>
-<a href="#close" onclick="javascript:hideDonateRibbon(); return false;"><span class="close"></span></a>
-
-</div>
-</div>
   <p style="height: 90px; margin-top: 25px;"><img src="{{ STATIC_BASE_URL }}images/donate/jpatel.jpg" style="margin-right: 10px;"/>"We are committed to becoming self-funding in a way that doesn’t compromise our mission. What you give doesn’t just fund us for a moment in time, it helps us build a sustainable source of funding. Your donations are not a gift, they are really an investment in open media."</p>
   <p>Jesse Patel<br/>
 Business Development<br/>
    Participatory Culture Foundation</p>
-
-<script type="text/javascript">
-
+  <script type="text/javascript">
+    
 function showDonateRibbon() {
     ribbon = $("#donate");
+    ribbon.children('.amounts').show();
+    ribbon.children('.types').hide();
     ribbon.hide().attr('style', '');
-    everythingElse = $("#header").add("p").add("ul").add("h3").add("#content > a");
+    everythingElse = $("#header").add(".column.left").add(".column.right > *");
     $("#video").hide();
     ribbon.css('opacity', 0).show();
     everythingElse.animate({ opacity: 0.6}, 'fast');
@@ -60,14 +48,41 @@ function showDonateRibbon() {
 }
 function hideDonateRibbon() {
     ribbon = $("#donate");
-    everythingElse = $("#header").add("p").add("ul").add("h3").add("#content > a");
+    everythingElse = $("#header").add(".column.left").add(".column.right > *");
     everythingElse.animate({ opacity: 1}, 'fast');
     ribbon.animate({opacity: 0}, 'fast',
 		   function() {
 		       ribbon.hide();
 		       $("#video").show();
-		   });
+		   });	
 }
+$(document).ready(function () {
+    $("#donate .amounts div").click(function () {
+	var amount;
+	if ($(this).hasClass('other')) {
+	    amount = $(this).children('input').val();
+	    if (!amount) {
+		$(this).children('input').css('border-color', 'red');
+		return;
+	    }
+	} else {
+	    amount = $(this).attr('amount');
+	}
+	paypal = $("#donate .types a:eq(0)");
+	if (!paypal.attr('oldHref'))
+	    paypal.attr('oldHref', paypal.attr('href'));
+	paypal.attr('href', paypal.attr('oldHref') + '&amount=' + amount);
+	cc = $("#donate .types a:eq(1)");
+	if (!cc.attr('oldHref'))
+	    cc.attr('oldHref', cc.attr('href'));
+	cc.attr('href', cc.attr('oldHref') + '?' + amount);
+	$("#donate .types").show();
+	$("#donate .amounts").hide();
+    });
+    $("#donate .amounts input").keypress(function(e) {
+	if (e.which == 13) $(this).parent().click();
+    }).click(function() {return false;});
+});
 {% if request.GET.next %}
 $(document).ready(function () {
     $("#donate a:lt(2)").click(function () {
@@ -78,7 +93,23 @@ $(document).ready(function () {
     });
 });
 {% endif %}
-</script>
+  </script>
+
+   <div id="donate" style="left: -10000px; display: inline;">
+     <div class="amounts">
+       <div class="g20" amount="20"></div>
+       <div class="g50" amount="50"></div>
+       <div class="g100" amount="100"></div>
+       <div class="g200" amount="200"></div>
+       <div class="other"><input size="3" /></div>
+     </div>
+     <div class="types" style="display: none;">
+       <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=donate%40pculture%2eorg&item_name=Tax%20Deductible%20Donation%20to%20Miro&no_shipping=0&no_note=1&currency_code=USD&lc=US&bn=PP%2dBuyNowBF&charset=UTF%2d8"><img src="{{ STATIC_BASE_URL }}images/donate/paypal.png" alt="Donate with Paypal" /></a>
+       <a href="https://www.getmiro.com/about/donate/cc-guide.html"><img src="{{ STATIC_BASE_URL }}images/donate/card.png" alt="Donate with a Credit Card" /></a>
+     </div>
+     <a href="#close" onclick="javascript:hideDonateRibbon(); return false;"><span class="close"></span></a>
+   </div>
+
 <div class="buttons">
   <a href="#donate" onclick="javascript:showDonateRibbon(); return false;"><img src="/images/donate/donate.png" alt="donate button" /></a>
 {% if request.GET.next %}
