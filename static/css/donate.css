@@ -16,7 +16,7 @@ body {
 }
 
 img {
-	border: 0;
+    border: 0;
 }	
 
 #outer {
@@ -94,12 +94,18 @@ h2 {
     height: 160px;
 }
 
-#donate > div {
+#donate div.amounts, #donate div.types {
     width: 709px;
     height: 160px;
     position: absolute;
     left: -5px;
     background: url(images/donate/donate-bg.png);
+}
+
+/* hack for IE6 */
+* html #donate {
+    position: absolute;
+    right: -45px;
 }
 
 #donate .amounts div {

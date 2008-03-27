@@ -1,5 +1,5 @@
 {% extends "donate/base.html" %}
-{% block extra-title %}<img src="{{STATIC_BASE_URL}}images/donate/sub-title.png" alt="If you believe in open media, we need your donation now" />{% endblock %}
+{% block extra-title %}<img src="{{STATIC_BASE_URL}}images/donate/sub-title.png" alt="If you believe in open media, we need your donation now" >{% endblock %}
 {% block content %}
 <div class="column left">
 {% block message %}
@@ -21,24 +21,24 @@
     });
   </script>
 {% endif %}
-  <a href="#donate" onclick="javascript:showDonateRibbon(); return false;"><img src="{{ STATIC_BASE_URL }}images/donate/donate.png" alt="donate button" /></a>
+  <a href="#donate" onclick="javascript:showDonateRibbon(); return false;"><img src="{{ STATIC_BASE_URL }}images/donate/donate.png" alt="donate button" ></a>
    <div id="donate" style="left: -10000px; display: inline;">
-     <div class="amounts">
+     <div class="amounts" style="display: none;">
        <div class="g20" amount="20"></div>
        <div class="g50" amount="50"></div>
        <div class="g100" amount="100"></div>
        <div class="g200" amount="200"></div>
-       <div class="other"><input size="3" /></div>
+       <div class="other"><input size="3" ></div>
      </div>
      <div class="types" style="display: none;">
-       <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=donate%40pculture%2eorg&item_name=Tax%20Deductible%20Donation%20to%20Miro&no_shipping=0&no_note=1&currency_code=USD&lc=US&bn=PP%2dBuyNowBF&charset=UTF%2d8"><img src="{{ STATIC_BASE_URL }}images/donate/paypal.png" alt="Donate with Paypal" /></a>
-       <a href="https://www.getmiro.com/about/donate/cc-guide.html"><img src="{{ STATIC_BASE_URL }}images/donate/card.png" alt="Donate with a Credit Card" /></a>
+       <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=donate%40pculture%2eorg&amp;item_name=Tax%20Deductible%20Donation%20to%20Miro&amp;no_shipping=0&amp;no_note=1&amp;currency_code=USD&amp;lc=US&amp;bn=PP%2dBuyNowBF&amp;charset=UTF%2d8"><img src="{{ STATIC_BASE_URL }}images/donate/paypal.png" alt="Donate with Paypal" ></a>
+       <a href="https://www.getmiro.com/about/donate/cc-guide.html"><img src="{{ STATIC_BASE_URL }}images/donate/card.png" alt="Donate with a Credit Card" ></a>
      </div>
      <a href="#close" onclick="javascript:hideDonateRibbon(); return false;"><span class="close"></span></a>
    </div>
 {% block video %}
 
-<div id="video"><a href="{{ STATIC_BASE_URL }}movies/Miropcf-HelpUsMakeMediaMoreOpen316.mp4"><img src="{{ STATIC_BASE_URL }}images/donate/Miropcf-HelpUsMakeMediaMoreOpen877.jpg" alt="Thumbnail of OKGO's Andy Ross talking about Why Miro Matters" /><div class="download">download video</div></a></div>
+<div id="video"><a href="{{ STATIC_BASE_URL }}movies/Miropcf-HelpUsMakeMediaMoreOpen316.mp4"><img src="{{ STATIC_BASE_URL }}images/donate/Miropcf-HelpUsMakeMediaMoreOpen877.jpg" alt="Thumbnail of OKGO's Andy Ross talking about Why Miro Matters" ><span class="download">download video</span></a></div>
 <script type="text/javascript">
 if (navigator.userAgent.indexOf('Linux') == -1 || navigator.userAgent.indexOf('Miro') == -1) {
     createVideo($("#video"),
@@ -50,7 +50,7 @@ if (navigator.userAgent.indexOf('Linux') == -1 || navigator.userAgent.indexOf('M
 <p class="subvid">OKGO's Andy Ross: Why Miro Matters</p>
    {% endblock %}
 {% if request.GET.next %}
-<a href="{{ request.GET.next }}"><img src="{{ STATIC_BASE_URL }}images/donate/goto-guide.png" alt="go to the guide" /></a>
+<a href="{{ request.GET.next }}"><img src="{{ STATIC_BASE_URL }}images/donate/goto-guide.png" alt="go to the guide" ></a>
 {% endif %}
 {% block moreinfo %}
 <div id="moreinfo">
