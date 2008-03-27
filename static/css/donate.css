@@ -118,14 +118,19 @@ h2 {
 #donate .amounts .other {
     background: url(images/donate/give-x.png);
     width: 122px;
+    position: relative;
+    margin-left: 0;
+    left: 30px;
 }
 
 .amounts input {
-    margin-top: 10px;
-    margin-left: -30px;
     border: 2px solid #7f8d9f;
     background: url(images/donate/give-bg.png) no-repeat;
     padding-left: 12px;
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    width: 36px;
 }
 
 #donate img {

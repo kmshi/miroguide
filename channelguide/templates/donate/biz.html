@@ -15,11 +15,8 @@ li img, p img {
     left: 0px;
     bottom: 130px;
 }
-#donate .amounts input {
-    margin-left: 20px;
-}
+
 </style>
-   <script src="{{ STATIC_BASE_URL }}js/jquery.js" type="text/javascript"></script>
 {% endblock %}
 {% block title-image %}{{ STATIC_BASE_URL }}images/donate/title-biz.png{% endblock %}
 {% block content %}
@@ -29,73 +26,17 @@ li img, p img {
     <li><a href="http://www.iheartmiro.org/"><img src="{{ STATIC_BASE_URL }}images/donate/iheart.png" alt="I Heart Miro" /><strong>I Heart Miro:</strong></a> When you shop at Amazon, this browser extension gives a referral fee to Miro. It is generating significant revenue and gives Miro users a simple way to support our mission.</li>
     <li><a href="http://www.getmiro.com/co-branding/"><img src="{{ STATIC_BASE_URL }}images/donate/rev3.png" alt="Revision 3" /><strong>Co-branded Players:</strong></a> We are partnering with organizations like Revision3 and the TED conference to create custom versions of Miro. These deals benefit our work in three ways: they extend the reach of publishers, they enlist more organizations in spreading Miro, and they generate revenue for our work.</li>
   </ul>
-  <p style="height: 90px; margin-top: 25px;"><img src="{{ STATIC_BASE_URL }}images/donate/jpatel.jpg" style="margin-right: 10px;"/>"We are committed to becoming self-funding in a way that doesn’t compromise our mission. What you give doesn’t just fund us for a moment in time, it helps us build a sustainable source of funding. Your donations are not a gift, they are really an investment in open media."</p>
-  <p>Jesse Patel<br/>
+  <p style="height: 160px; margin-top: 25px;"><img src="{{ STATIC_BASE_URL }}images/donate/jpatel.jpg" style="margin-right: 10px;"/>"We are committed to becoming self-funding in a way that doesn’t compromise our mission. What you give doesn’t just fund us for a moment in time, it helps us build a sustainable source of funding. Your donations are not a gift, they are really an investment in open media."<br/><br/>
+  Jesse Patel<br/>
 Business Development<br/>
    Participatory Culture Foundation</p>
-  <script type="text/javascript">
-    
-function showDonateRibbon() {
-    ribbon = $("#donate");
-    ribbon.children('.amounts').show();
-    ribbon.children('.types').hide();
-    ribbon.hide().attr('style', '');
-    everythingElse = $("#header").add("p").add("ul").add(".buttons");
-    $("#video").hide();
-    ribbon.css('opacity', 0).show();
-    everythingElse.css('opacity', "0.6");
-    ribbon.animate({opacity: 1}, 'fast');
-}
-function hideDonateRibbon() {
-    ribbon = $("#donate");
-    everythingElse = $("#header").add("p").add("ul").add(".buttons");
-    everythingElse.animate({ opacity: 1}, 'fast', function(){
-	everythingElse.css('opacity', 1);});
-    ribbon.animate({opacity: 0}, 'fast',
-		   function() {
-		       ribbon.hide();
-		       $("#video").show();
-		   });	
-}
-$(document).ready(function () {
-    $("#donate .amounts div").click(function () {
-	var amount;
-	if ($(this).hasClass('other')) {
-	    amount = $(this).children('input').val();
-	    if (!amount) {
-		$(this).children('input').css('border-color', 'red');
-		return;
-	    }
-	} else {
-	    amount = $(this).attr('amount');
-	}
-	paypal = $("#donate .types a:eq(0)");
-	if (!paypal.attr('oldHref'))
-	    paypal.attr('oldHref', paypal.attr('href'));
-	paypal.attr('href', paypal.attr('oldHref') + '&amount=' + amount);
-	cc = $("#donate .types a:eq(1)");
-	if (!cc.attr('oldHref'))
-	    cc.attr('oldHref', cc.attr('href'));
-	cc.attr('href', cc.attr('oldHref') + '?' + amount);
-	$("#donate .types").show();
-	$("#donate .amounts").hide();
-    });
-    $("#donate .amounts input").keypress(function(e) {
-	if (e.which == 13) $(this).parent().click();
-    }).click(function() {return false;});
-});
 {% if request.GET.next %}
-$(document).ready(function () {
-    $("#donate a:lt(2)").click(function () {
-	setTimeout(function() {
-	    document.location = "{{ BASE_URL }}donate/thanks{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}";
-	}, 1000);
-	return true;
-    });
-});
+   <script type="text/javascript">
+     $(document).ready(function () {
+	 setThanksTimeout("{{ BASE_URL }}donate/thanks{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}");
+     });
+   </script>
 {% endif %}
-  </script>
-
    <div id="donate" style="left: -10000px; display: inline;">
      <div class="amounts">
        <div class="g20" amount="20"></div>
