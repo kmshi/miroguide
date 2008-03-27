@@ -94,6 +94,7 @@ function createVideo(obj, flv, mp4, image, width, height) {
     var htmlCode = '';
     if (navigator.mimeTypes['application/x-shockwave-flash'] &&
 	navigator.mimeTypes['application/x-shockwave-flash'].enabledPlugin) {
+        height = height + 19;
         var htmlCode = '<embed ' +
     	    'src="http://s3.miroguide.com/static/images/mediaplayer.swf" '+
     	'width="' + width + '" ' +
@@ -102,7 +103,7 @@ function createVideo(obj, flv, mp4, image, width, height) {
 	'allowfullscreen="true" ' +
 	'flashvars="height=' + height + '&width=' + width + '&file=' + flv +
 	'&image=' + image + '&showdigits=false&usefullscreen=false" '+
-	'/>';    
+	'/>';
     } else if (navigator.mimeTypes["application/x-vlc-plugin"] &&
 	navigator.mimeTypes["application/x-vlc-plugin"].enabledPlugin) {
         /* use VLC */
