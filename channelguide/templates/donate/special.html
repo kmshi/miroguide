@@ -14,6 +14,16 @@
 <p>Co-Founder, Executive Director</p>
 {% endblock %}
 {% block video %}
-<div id="video" style="background: inherit;"><img src="{{ STATIC_BASE_URL }}images/donate/glassco.png" /></div>
+<div id="video">
+<a href="{{ STATIC_BASE_URL }}movies/Miropcf-OurSpecialPitchToBigDonors853.mp4"><img src="{{ STATIC_BASE_URL }}images/donate/Miropcf-OurSpecialPitchToBigDonors326.jpg" alt="Thumbnail of OKGO's Andy Ross talking about Why Miro Matters" ><span class="download">download video</span></a></div>
+<script type="text/javascript">
+if (navigator.userAgent.indexOf('Linux') == -1 || navigator.userAgent.indexOf('Miro') == -1) {
+    createVideo($("#video"),
+		"{{ STATIC_BASE_URL }}movies/Miropcf-OurSpecialPitchToBigDonors853.flv",
+		"{{ STATIC_BASE_URL }}movies/Miropcf-OurSpecialPitchToBigDonors853.mp4",
+		"{{ STATIC_BASE_URL }}images/donate/Miropcf-OurSpecialPitchToBigDonors326.jpg", 280, 158);
+}
+</script>
+</div>
 {% endblock %}
      {% block moreinfo %}{% endblock %}
