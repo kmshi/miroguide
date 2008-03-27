@@ -8,9 +8,19 @@ from django.views.generic.simple import direct_to_template
 def cg_include(module):
     return include('channelguide.guide.urls.%s' % module)
 
+def donate_render(request, template):
+    context = {'request': request,
+               'BASE_URL': settings.BASE_URL,
+               'BASE_URL_FULL': settings.BASE_URL_FULL,
+               'PAYPAL_URL': 'https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=donate%40pculture%2eorg&item_name=Tax%20Deductible%20Donation%20to%20Miro&no_shipping=0&no_note=1&currency_code=USD&lc=US&bn=PP%2dBuyNowBF&charset=UTF%2d8&return=https://www.miroguide.com/donate/thanks',
+               'CC_URL': 'https://www.getmiro.com/about/donate/cc-guide.html',
+              }
+    return direct_to_template(request,
+                              template=template,
+                              extra_context = context)
+
 def donate_thanks(request):
-    response = direct_to_template(request,
-                                  template='donate/thanks.html')
+    response = donate_render(request, template='donate/thanks.html')
     if 'donate_donated' not in request.COOKIES:
         response.set_cookie('donate_donated', 'yes', max_age=60*60*24*30,
                             secure=settings.USE_SECURE_COOKIES or None)
@@ -22,11 +32,11 @@ urlpatterns = patterns('channelguide.guide.views',
     (r'^firsttime$', 'firsttime.index'),
     (r'^browse/$', direct_to_template, {
         'template': 'guide/browse.html'}),
-    (r'^donate$', direct_to_template, {
+    (r'^donate$', donate_render, {
             'template': 'donate/donate.html'}),
-    (r'^donate/special$', direct_to_template, {
+    (r'^donate/special$', donate_render, {
             'template': 'donate/special.html'}),
-    (r'^donate/biz$', direct_to_template, {
+    (r'^donate/biz$', donate_render, {
             'template': 'donate/biz.html'}),
     (r'^donate/thanks$', donate_thanks),
     (r'^category-peek-fragment$', 'frontpage.category_peek_fragment'),
