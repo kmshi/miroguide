@@ -12,7 +12,7 @@ def donate_render(request, template):
     context = {'request': request,
                'BASE_URL': settings.BASE_URL,
                'BASE_URL_FULL': settings.BASE_URL_FULL,
-               'PAYPAL_URL': 'https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=donate%40pculture%2eorg&item_name=Tax%20Deductible%20Donation%20to%20Miro&no_shipping=0&no_note=1&currency_code=USD&lc=US&bn=PP%2dBuyNowBF&charset=UTF%2d8&return=https://www.miroguide.com/donate/thanks',
+               'PAYPAL_URL': 'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=donate%40pculture%2eorg&item_name=Tax%20Deductible%20Donation%20to%20Miro&page_style=MiroStore&no_shipping=1&return=https%3a%2f%2fwww%2emiroguide%2ecom%2fdonate%2fthanks&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8',
                'CC_URL': 'https://www.getmiro.com/about/donate/cc-guide.html',
               }
     return direct_to_template(request,
