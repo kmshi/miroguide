@@ -95,7 +95,7 @@ function createVideo(obj, flv, mp4, image, width, height) {
     if (navigator.mimeTypes['application/x-shockwave-flash'] &&
 	navigator.mimeTypes['application/x-shockwave-flash'].enabledPlugin) {
         var htmlCode = '<embed ' +
-    	'src="{{ STATIC_BASE_URL }}images/mediaplayer.swf" '+
+    	    'src="http://s3.miroguide.com/static/images/mediaplayer.swf" '+
     	'width="' + width + '" ' +
 	'height="' + height + '" ' +
 	'allowscriptaccess="always" ' +
