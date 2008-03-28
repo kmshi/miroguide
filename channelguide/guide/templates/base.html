@@ -53,12 +53,17 @@ See LICENSE for details.
     {% endblock %}
     <script type="text/javascript">
 
-if (top.frames.length == 2 && top.frames[1].name == 'miro_guide_frame') {
+if ((top.frames.length == 2 && top.frames[1].name == 'miro_guide_frame') ||
+    navigator.userAgent.indexOf('Miro') == -1) {
     navBar = document.getElementById('nav-bar');
     navigation = document.getElementById('navigation');
-    loadIndicator = document.getElementById('load-indicator');
+
     navBar.style.display = 'none';
     navigation.style.margin = 0;
+    if (navigator.userAgent.indexOf('Miro') == -1) {
+	loadIndicator = document.getElementById('load-indicator');
+	loadIndicator.parentNode.removeChild(loadIndicator);
+    }
 }
     </script>
     {% if user %}
