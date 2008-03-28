@@ -21,11 +21,11 @@ function getNextElement(elt) {
 
 function showLoadIndicator() {
     indicator = $("#load-indicator");
-    indicator.height(0).show().animate({height: 27}, 'fast');
+    indicator.animate({bottom: 0}, 'fast');
 }
 
 function hideLoadIndicator() {
-    indicator = $("#load-indicator").hide();
+    indicator = $("#load-indicator").css('bottom', '-30px');
 }
 
 function makeXMLHttpRequest() {

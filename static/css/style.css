@@ -368,8 +368,7 @@ form .form-input-triplet label {
 
 #navigation #load-indicator {
     position: fixed;
-    display: none;
-    bottom: 0px;
+    bottom: -30px;
     z-index: 1;
     width: 100%;
 }
