@@ -121,7 +121,6 @@ def make_category_peek(request):
 
 
 #@cache.cache_page_externally_for(300)
-@util.donation_decorator
 @cache.cache_for_user
 def index(request):
     if not request.user.is_authenticated():
