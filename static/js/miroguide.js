@@ -25,8 +25,7 @@ function showLoadIndicator() {
 }
 
 function hideLoadIndicator() {
-    indicator = $("#load-indicator");
-    indicator.animate({height: 0}, 'slow', function(){indicator.hide()});
+    indicator = $("#load-indicator").hide();
 }
 
 function makeXMLHttpRequest() {
