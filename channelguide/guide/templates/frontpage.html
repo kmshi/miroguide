@@ -7,7 +7,6 @@ See LICENSE for details.
 {% block head-extra %}
     <link rel="StyleSheet" type="text/css" href="{{ STATIC_BASE_URL }}css/rating.css">
     <script src="{{ STATIC_BASE_URL }}js/feature_rotate.js" type="text/javascript"></script>
-    <script src="{{ STATIC_BASE_URL }}js/jquery.js" type="text/javascript"></script>
     <script src="{{ STATIC_BASE_URL }}js/rating.js" type="text/javascript"></script>
     <link rel="StyleSheet" type="text/css" href="{{ STATIC_BASE_URL }}css/rating.css">
 {% endblock %}
@@ -57,7 +56,7 @@ See LICENSE for details.
         {% endfor %}
     </ul>
     <div class="view-all-link">
-    <a href="{{ category_peek.category.get_url }}">{% blocktrans with category_peek.category as category_name %}View All {{ category_name }}{% endblocktrans %} »</a>
+    <a href="{{ category_peek.category.get_url }}">{% blocktrans with category_peek.category as category_name %}View All {{ category_name }}{% endblocktrans %} Â»</a>
     </div>
 {% splitcolumns %}
     <h2><a {% link "channels/popular" %}>{% trans "Popular Today" %}</a></h2>
@@ -67,7 +66,7 @@ See LICENSE for details.
         {% endfor %}
     </ul>
     <div class="view-all-link">
-    <a href="{{ BASE_URL }}channels/popular">{% trans "View All Popular" %} »</a>
+    <a href="{{ BASE_URL }}channels/popular">{% trans "View All Popular" %} Â»</a>
     </div>
 {% splitcolumns %}
     <h2><a {% link "channels/recent" %}>{% trans "Just Added" %}</a></h2>
@@ -77,7 +76,7 @@ See LICENSE for details.
         {% endfor %}
     </ul>
     <div class="view-all-link">
-    <a href="{{ BASE_URL }}channels/recent">{% trans "View All New" %} »</a>
+    <a href="{{ BASE_URL }}channels/recent">{% trans "View All New" %} Â»</a>
     </div>
 {% endthreecolumns %}
 <div class="clear"></div>
@@ -103,7 +102,7 @@ See LICENSE for details.
             </li>
         {% endfor %}
         </ul>
-        <h3><a href="http://www.getmiro.com/news/">{% trans "Miro Blog" %} »</a></h3>
+        <h3><a href="http://www.getmiro.com/news/">{% trans "Miro Blog" %} Â»</a></h3>
     </div>
     {% splitcolumns %}
     <div class="help-links">
