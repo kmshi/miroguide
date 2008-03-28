@@ -47,7 +47,7 @@ See LICENSE for details.
             <li><a {% navlink "languages/" %}>{% trans "Languages" %}</a></li>
 	    <li><a onclick="showLoadIndicator();" href="/donate?next={{ request.path }}">{% trans "Support Open Media" %}</a></li>
         </ul>
-        <img id="load-indicator" alt="loading" src="{{ STATIC_BASE_URL }}images/load-indicator.gif">
+        <div id="load-indicator"><img alt="loading" src="{{ STATIC_BASE_URL }}images/load-indicator.gif"></div>
     </div>
     {% endblock %}
     <script type="text/javascript">
@@ -57,7 +57,6 @@ if (top.frames.length == 2 && top.frames[1].name == 'miro_guide_frame') {
     loadIndicator = document.getElementById('load-indicator');
     navBar.style.display = 'none';
     navigation.style.margin = 0;
-    navigation.removeChild(loadIndicator);
 }
     </script>
     {% if user %}
