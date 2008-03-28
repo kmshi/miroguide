@@ -7,6 +7,8 @@ import sha, os
 
 style_file = os.path.dirname(__file__) + '/../static/css/style.css'
 style_nonce = hash(os.stat(style_file))
+js_file = os.path.dirname(__file__) + '/../static/js/miroguide.js'
+js_nonce = hash(os.stat(js_file))
 
 def guide(request):
     """Channelguide context processor.  These attributes get added to every
@@ -19,6 +21,7 @@ def guide(request):
             'GUIDE_EMAIL': settings.EMAIL_FROM,
             'google_analytics_ua': settings.GOOGLE_ANALYTICS_UA,
             'style_nonce': style_nonce,
+            'js_nonce': js_nonce,
             'request': request,
             'user': request.user,
             'total_channels': request.total_channels,
