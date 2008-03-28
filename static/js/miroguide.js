@@ -20,13 +20,13 @@ function getNextElement(elt) {
 }
 
 function showLoadIndicator() {
-    loadIndicator = document.getElementById('load-indicator');
-    if (loadIndicator) {loadIndicator.style.display = 'block';}
+    indicator = $("#load-indicator");
+    indicator.height(0).show().animate({height: 27}, 'fast');
 }
 
 function hideLoadIndicator() {
-    loadIndicator = document.getElementById('load-indicator');
-    if (loadIndicator) {loadIndicator.style.display = 'none';}
+    indicator = $("#load-indicator");
+    indicator.animate({height: 0}, 'slow', function(){indicator.hide()});
 }
 
 function makeXMLHttpRequest() {
@@ -98,3 +98,4 @@ function handleFormLink(url) {
     return false;
 }
 
+$(document).ready(hideLoadIndicator);
