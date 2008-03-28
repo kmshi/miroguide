@@ -45,11 +45,7 @@ See LICENSE for details.
             <li><a {% navlink "channels/toprated" %}>{% trans "Top Rated" %}</a></li>
             <li><a {% navlink "recommend/" %}>{% trans "Channels You'll &hearts;" %}</a></li>
             <li><a {% navlink "languages/" %}>{% trans "Languages" %}</a></li>
-            {%comment %}<li><a {% navlink "channels/recent" %}>{% trans "New" %}</a></li>
-            <li><a {% navlink "channels/hd" %}>{% trans "HD" %}</a></li>
-            <li><a {% navlink "categories/" %}>{% trans "Categories" %}</a></li>
-            <li><a {% navlink "tags/" %}>{% trans "Tags" %}</a></li>
-            <li><a {% navlink "channels/by-name" %}>{% trans "A - Z" %}</a></li>{% endcomment %}
+	    <li><a onclick="showLoadIndicator();" href="/donate?next={{ request.path }}">{% trans "Support Open Media" %}</a></li>
         </ul>
         <img id="load-indicator" alt="loading" src="{{ STATIC_BASE_URL }}images/load-indicator.gif">
     </div>
