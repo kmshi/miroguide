@@ -55,8 +55,8 @@ def search_channels(terms):
         query.where(hi_def=1)
         terms = [t for t in terms if t.lower() != 'hd']
     query.where(search_where(search_data_table, terms))
-    query.order_by(search_score(search_data_table, terms), desc=True)
     query.order_by(Channel.c.archived)
+    query.order_by(search_score(search_data_table, terms), desc=True)
     return query
 
 def search_items(terms):
