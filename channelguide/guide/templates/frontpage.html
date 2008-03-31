@@ -96,8 +96,8 @@ See LICENSE for details.
         <ul>
         {% for post in blog_posts %}
             <li class="blog-post">
-                <h3 class="title">{{ post.title }} </h3>
-                {{ post.body|truncatewords:15 }}
+                {% autoescape off %}<h3 class="title">{{ post.title }} </h3>
+                {{ post.body|truncatewords:15 }}{% endautoescape %}
                 <a href="{{ post.url }}">{% trans "read more" %}</a>
             </li>
         {% endfor %}
