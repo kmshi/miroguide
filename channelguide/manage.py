@@ -368,7 +368,7 @@ def calculate_recommendations(args=None):
     from channelguide import db
     from channelguide.guide import recommendations
     connection = db.connect()
-    if len(args) > 2 and args[2] == 'full':
+    if args is not None and len(args) > 2 and args[2] == 'full':
         from channelguide.guide.models import Channel
         channels = Channel.query_approved().execute(connection)
         recommendations.recalculate_similarity(channels, connection)
