@@ -199,7 +199,7 @@ class TestCase(unittest.TestCase):
         self.save_to_db(user)
         return user
 
-    def make_channel(self, owner, state='N'):
+    def make_channel(self, owner, state='N', keep_download=False):
         from channelguide.guide.models import Channel
         channel = Channel()
         channel.state = state
@@ -211,6 +211,8 @@ class TestCase(unittest.TestCase):
         channel.website_url = "http://myblog.com/"
         channel.publisher = "TestVision"
         channel.description = u"lots of stuff \u3333"
+        if not keep_download:
+            channel.download_feed = lambda: None # don't try to download feed
         self.save_to_db(channel)
         return channel
 

@@ -29,8 +29,9 @@ def _filter_scores(connection, scores, numScores):
     valid = [id for id in numScores if numScores[id] > 3]
     if not valid:
         return scores
-    channels = Channel.query_approved(Channel.c.id.in_(valid),
-                                      archived=0).execute(connection)
+    query = Channel.query(Channel.c.id.in_(valid), state=Channel.APPROVED,
+                                      archived=0)
+    channels = query.execute(connection)
     return dict((c.id, scores[c.id]) for c in channels)
 
 def _calculate_scores(recommendations, ratings):
@@ -77,8 +78,6 @@ def recalculate_similarity_recent(connection):
 
 def recalculate_similarity(channels, connection):
     logging.info('calculating similarity for %i channels' % len(channels))
-    hit = set()
-    inserts = []
     for c1 in channels:
         delete_all_similarities(c1, connection)
         similar = find_relevant_similar(c1, connection)
@@ -89,11 +88,13 @@ def recalculate_similarity(channels, connection):
                 if id1 > id2:
                     id1, id2 = id2, id1
                 k = (id1, id2)
-                if k not in hit:
-                    hit.add(k)
-                    gs = get_similarity(c1, connection, c2)
-                    if gs:
-                        connection.execute("INSERT LOW_PRIORITY INTO cg_channel_recommendations VALUES (%s, %s, %s)", (id1, id2, gs))
+                gs = get_similarity(c1, connection, c2)
+                if gs:
+                    i = tables.channel_recommendations.insert()
+                    i.add_values(channel1_id=id1,
+                                 channel2_id=id2,
+                                 cosine=gs)
+                    i.execute(connection)
         connection.commit()
 
 def get_recently_subscribed(connection, seconds):
@@ -179,7 +180,7 @@ def find_relevant_similar_rating(channel, connection):
     user_ids = [r.user_id for r in ratings]
     query = Rating.query(Rating.c.user_id.in_(user_ids))
     query.where(Rating.c.channel_id != channel.id)
-    return [c.channel_id for c in query.execute(connection)]
+    return set([c.channel_id for c in query.execute(connection)])
 
 def get_similarity(channel, connection, other):
     """

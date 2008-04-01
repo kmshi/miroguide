@@ -1,3 +1,4 @@
+
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
@@ -108,14 +109,14 @@ class ChannelRecommendationsTest(RecommendationsTestBase):
         # angle of 60 degrees
         self.assertAlmostEquals(
                 recommendations.get_similarity_from_subscriptions(c0,
-                self.connection, c2.id), -0.5)
+                self.connection, c2.id), 0.5)
         self.assertAlmostEquals(
                 recommendations.get_similarity_from_subscriptions(c1,
-                self.connection, c2.id), -0.5)
+                self.connection, c2.id), 0.5)
         # angle of 0 degrees
         self.assertAlmostEqual(
                 recommendations.get_similarity_from_subscriptions(c0,
-                self.connection, c1.id), 0)
+                self.connection, c1.id), 1)
 
     def test_get_similarity_from_ratings(self):
        c0, c1, c2, c3, c4 = self.channels[:5]
@@ -196,10 +197,10 @@ WHERE channel1_id=%s AND channel2_id=%s
         self.connection.execute("DELETE FROM cg_channel_recommendations")
         recommendations.insert_similarity(c0, self.connection, c1.id)
         self.assertAlmostEquals(self.get_recommendation_from_database(c0.id,
-            c1.id), 0.5, 3)
+            c1.id), 0.75, 3)
         recommendations.insert_similarity(c2, self.connection, c1.id)
         self.assertAlmostEquals(self.get_recommendation_from_database(c1.id,
-            c2.id), -0.25, 3)
+            c2.id), 0.125, 3)
 
     def test_delete_old_recommendations(self):
         """
@@ -215,9 +216,9 @@ WHERE channel1_id=%s AND channel2_id=%s
         self.assertEquals(self.connection.execute("""
 SELECT * FROM cg_channel_recommendations
 WHERE channel1_id=%s OR channel2_id=%s""", (c2.id, c2.id)), ())
-        self.assertAlmostEquals(self.get_recommendation_from_database(c0.id, c1.id), 0.5, 3)
+        self.assertTrue(self.get_recommendation_from_database(c0.id, c1.id))
 
-    def test_find_relevant_similar(self):
+    def test_find_relevant_similar_subscription(self):
         """
         find_relevant_similar when given an IP address should return the other
         channels that the ip_address has subscribed to.  It should not include
@@ -225,7 +226,7 @@ WHERE channel1_id=%s OR channel2_id=%s""", (c2.id, c2.id)), ())
         """
         c0, c1 = self.channels[:2]
         c4, c6, c9 = self.channels[4], self.channels[6], self.channels[9]
-        self.assertEquals(recommendations.find_relevant_similar(c1,
+        self.assertEquals(recommendations.find_relevant_similar_subscription(c1,
             self.connection, '1.1.1.1'), [c0.id, c4.id, c6.id, c9.id])
 
     def test_find_relevant_similar_no_ip(self):
@@ -238,13 +239,19 @@ WHERE channel1_id=%s OR channel2_id=%s""", (c2.id, c2.id)), ())
         c0, c1, c2 = self.channels[:3]
         c4, c6, c8 = self.channels[4], self.channels[6], self.channels[8]
         c9 = self.channels[9]
-        self.assertEquals(recommendations.find_relevant_similar(c1,
+        self.assertEquals(recommendations.find_relevant_similar_subscription(c1,
             self.connection), [c0.id, c2.id, c4.id, c6.id, c9.id])
-        self.assertEquals(recommendations.find_relevant_similar(c2,
+        self.assertEquals(recommendations.find_relevant_similar_subscription(c2,
             self.connection), [c0.id, c1.id, c8.id])
-        self.assertEquals(recommendations.find_relevant_similar(c4,
+        self.assertEquals(recommendations.find_relevant_similar_subscription(c4,
             self.connection), [c0.id, c1.id, c6.id, c9.id])
 
+    def test_find_relevant_similar_rating(self):
+        c0, c1, c2, c3, c4 = self.channels[:5]
+        self.assertSameSet(recommendations.find_relevant_similar_rating(c0,
+                                                       self.connection),
+                          [c1.id, c2.id, c3.id, c4.id])
+        
     def test_full_calculation(self):
         """
         manange.calculateAllRecommendations() should populate the
@@ -256,18 +263,23 @@ WHERE channel1_id=%s OR channel2_id=%s""", (c2.id, c2.id)), ())
         calculate(['manage.py', 'calculate_recommendations', 'full'])
         rows = sorted(tables.channel_recommendations.select('channel1_id, channel2_id').execute(self.connection))
         check = sorted(((c0.id, c1.id),
-                (c0.id, c2.id),
-                (c0.id, c4.id),
-                (c0.id, c6.id),
-                (c0.id, c9.id),
-                (c1.id, c2.id),
-                (c1.id, c4.id),
-                (c1.id, c6.id),
-                (c1.id, c9.id),
-                (c2.id, c8.id),
-                (c4.id, c6.id),
-                (c4.id, c9.id),
-                (c6.id, c9.id),
+                        (c0.id, c2.id),
+                        (c0.id, c3.id),
+                        (c0.id, c4.id),
+                        (c0.id, c6.id),
+                        (c0.id, c9.id),
+                        (c1.id, c2.id),
+                        (c1.id, c3.id),
+                        (c1.id, c4.id),
+                        (c1.id, c6.id),
+                        (c1.id, c9.id),
+                        (c2.id, c3.id),
+                        (c2.id, c4.id),
+                        (c2.id, c8.id),
+                        (c3.id, c4.id),
+                        (c4.id, c6.id),
+                        (c4.id, c9.id),
+                        (c6.id, c9.id),
                 ))
         self.assertEquals(rows, check)
 
@@ -279,21 +291,28 @@ WHERE channel1_id=%s OR channel2_id=%s""", (c2.id, c2.id)), ())
         """
         c0, c1, c2, c3, c4, c5, c6, c7, c8, c9 = self.channels[:10]
         calculate = manage.action_mapping['calculate_recommendations']
-        calculate(['manage.py', 'calculate_recommendations'])
-        rows = sorted(tables.channel_recommendations.select('channel1_id, channel2_id').execute(self.connection))
+        calculate()
+        self.refresh_connection()
+        query = tables.channel_recommendations.select('channel1_id, channel2_id')
+        rows = sorted(query.execute(self.connection))
         check = sorted(((c0.id, c1.id),
-                (c0.id, c2.id),
-                (c0.id, c4.id),
-                (c0.id, c6.id),
-                (c0.id, c9.id),
-                (c1.id, c2.id),
-                (c1.id, c4.id),
-                (c1.id, c6.id),
-                (c1.id, c9.id),
-                (c2.id, c8.id),
-                (c4.id, c6.id),
-                (c4.id, c9.id),
-                ))
+                        (c0.id, c2.id),
+                        (c0.id, c3.id),
+                        (c0.id, c4.id),
+                        (c0.id, c6.id),
+                        (c0.id, c9.id),
+                        (c1.id, c2.id),
+                        (c1.id, c3.id),
+                        (c1.id, c4.id),
+                        (c1.id, c6.id),
+                        (c1.id, c9.id),
+                        (c2.id, c3.id),
+                        (c2.id, c4.id),
+                        (c2.id, c8.id),
+                        (c3.id, c4.id),
+                        (c4.id, c6.id),
+                        (c4.id, c9.id),
+                        ))
         self.assertEquals(rows, check)
 
 class PersonalizedRecommendationsTest(RecommendationsTestBase):

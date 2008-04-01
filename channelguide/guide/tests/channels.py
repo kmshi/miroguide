@@ -681,6 +681,7 @@ class ModerateChannelTest(ChannelTestBase):
         self.login('joe')
         def check_state(action, state):
             self.channel.state = Channel.NEW
+            self.channel.url = ''
             self.save_to_db(self.channel)
             url = '/channels/%d' % self.channel.id
             self.post_data(url, {'action': 'change-state', 'submit': action})
@@ -693,6 +694,8 @@ class ModerateChannelTest(ChannelTestBase):
     def test_approve_without_owner_email(self):
         self.channel.owner.email = None
         self.save_to_db(self.channel.owner)
+        self.channel.url = ''
+        self.save_to_db(self.channel)
         self.login('joe')
         url = '/channels/%d' % self.channel.id
         self.pause_logging()
@@ -742,6 +745,8 @@ class ModerateChannelTest(ChannelTestBase):
         self.assertEquals(updated.state, Channel.NEW)
 
     def test_approve_and_feature_email(self):
+        self.channel.url = ''
+        self.save_to_db(self.channel)
         self.login('supermod')
         url = '/channels/%d' % self.channel.id
         self.post_data(url, {'action': 'email', 'type':'Approve & Feature',
