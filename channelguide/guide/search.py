@@ -66,5 +66,6 @@ def search_items(terms):
     query = Channel.query()
     query.add_raw_join(item_search_select.label('search_data'),
             'cg_channel.id=search_data.channel_id')
+    query.order_by(Channel.c.archived)
     query.order_by('search_data.score', desc=True)
     return query
