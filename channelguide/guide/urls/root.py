@@ -10,6 +10,7 @@ def cg_include(module):
 
 def donate_render(request, template):
     context = {'request': request,
+               'google_analytics_ua': settings.GOOGLE_ANALYTICS_UA,
                'BASE_URL': settings.BASE_URL,
                'BASE_URL_FULL': settings.BASE_URL_FULL,
                'PAYPAL_URL': 'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=donate%40pculture%2eorg&item_name=Tax%20Deductible%20Donation%20to%20Miro&page_style=MiroStore&no_shipping=1&return=https%3a%2f%2fwww%2emiroguide%2ecom%2fdonate%2fthanks&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8',
