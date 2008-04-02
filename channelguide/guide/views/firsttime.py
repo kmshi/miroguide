@@ -64,7 +64,7 @@ def index(request):
                     'http://feeds.cbsnews.com/podcast_eveningnews_video_1.rss',
                     'http://abcnews.go.com/xmldata/xmlPodcast?id=1478958&src=i',
                     'http://podcast.msnbc.com/audio/podcast/MSNBC-NN-NETCAST-M4V.xml',
-                    'http://www.democracynow.org/podcast-video.xml',
+                    'http://ewheel.democracynow.org/rss.xml',
                     'http://submedia.tv/submediatv/bm/rss/2',
                     'http://www.rocketboom.com/vlog/rb_hd.xml'
                 ),
