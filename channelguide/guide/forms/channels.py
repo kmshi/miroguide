@@ -223,6 +223,8 @@ class ChannelThumbnailWidget(forms.Widget):
         self.submitted_thumb_path = os.path.basename(path)
         try:
             self.resize_submitted_thumb()
+        except ValueError:
+            self.submitted_thumb_path = None
         except:
             self.submitted_thumb_path = None
             raise
@@ -238,6 +240,20 @@ class ChannelThumbnailWidget(forms.Widget):
         path, ext = os.path.splitext(self.submitted_thumb_path)
         return path + '-resized' + ext
 
+class ChannelThumbnailField(forms.Field):
+
+    widget = ChannelThumbnailWidget
+
+    def clean(self, value):
+        try:
+            ext = util.get_image_extension(value)
+        except ValueError:
+            raise forms.ValidationError('Not a valid image')
+        else:
+            if not ext:
+                raise forms.ValidationError('Not an image in a format we support.')
+            return value
+        
 def try_to_download_thumb(url):
     try:
         return urllib2.urlopen(url).read()
@@ -261,24 +277,13 @@ class SubmitChannelForm(Form):
             required=False)
     hi_def = forms.BooleanField(label=_('High Definition'), 
             help_text=HD_HELP_TEXT, required=False)
-    thumbnail_file = forms.Field(widget=ChannelThumbnailWidget, 
-            label=_('Upload Image'))
+    thumbnail_file = ChannelThumbnailField(label=_('Upload Image'))
 
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
         self.set_image_from_feed = False
         self.fields['languages'].update_choices()
         self.fields['categories'].update_choices()
-
-    def field_list(self):
-        for field in super(SubmitChannelForm, self).field_list():
-            # thumbnail_file is special cased
-            if field.name != 'thumbnail_file': 
-                yield field
-
-    def thumbnail_widget(self):
-        return BoundField(self, self.fields['thumbnail_file'],
-                'thumbnail_file')
 
     def set_defaults(self, saved_data):
         for key in ('name', 'website_url', 'publisher', 'description'):

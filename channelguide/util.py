@@ -110,7 +110,10 @@ def write_file(path, data, mode='b'):
         f.close()
 
 def get_image_extension(image_data):
-    identify_output = call_command('identify', '-', data=image_data)
+    try:
+        identify_output = call_command('identify', '-', data=image_data)
+    except EnvironmentError:
+        raise ValueError('not an image we could identify')
     return identify_output.split(" ")[1].lower()
 
 def push_media_to_s3(subpath, content_type):
@@ -133,13 +136,16 @@ def make_thumbnail(source_path, dest_path, width, height):
     # From the "Pad Out Image" recipe at
     # http://www.imagemagick.org/Usage/thumbnails/
     border_width = max(width, height) / 2
-    call_command("convert",  source_path, 
-            "-strip",
-            "-resize", "%dx%d>" % (width, height), 
-            "-gravity", "center", "-bordercolor", "black",
-            "-border", "%s" % border_width,
-            "-crop", "%dx%d+0+0" % (width, height),
-            "+repage", dest_path)
+    try: 
+        call_command("convert",  source_path, 
+                     "-strip",
+                     "-resize", "%dx%d>" % (width, height), 
+                     "-gravity", "center", "-bordercolor", "black",
+                     "-border", "%s" % border_width,
+                     "-crop", "%dx%d+0+0" % (width, height),
+                     "+repage", dest_path)
+    except EnvironmentError:
+        raise ValueError('could not resize image')
 
 def copy_post_and_files(request):
     data = request.POST.copy()
