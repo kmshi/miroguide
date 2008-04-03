@@ -245,6 +245,8 @@ class ChannelThumbnailField(forms.Field):
     widget = ChannelThumbnailWidget
 
     def clean(self, value):
+        if not value:
+            return None
         try:
             ext = util.get_image_extension(value)
         except ValueError:
