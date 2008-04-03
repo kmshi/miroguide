@@ -97,4 +97,8 @@ function handleFormLink(url) {
     return false;
 }
 
-$(document).ready(hideLoadIndicator);
+$(document).ajaxStart(function() {
+    showLoadIndicator();
+}).ajaxStop(function() {
+    hideLoadIndicator();
+});

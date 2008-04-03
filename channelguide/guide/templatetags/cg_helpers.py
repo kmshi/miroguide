@@ -170,7 +170,8 @@ def show_account_bar(user):
 
 @register.inclusion_tag('guide/form.html')
 def show_form(form):
-    return {'form': form, 'BASE_URL': settings.BASE_URL }
+    return {'form': form, 'BASE_URL': settings.BASE_URL,
+            'STATIC_BASE_URL': settings.STATIC_BASE_URL}
 
 @register.inclusion_tag('guide/form-errors.html')
 def show_form_errors(form):
@@ -178,7 +179,8 @@ def show_form_errors(form):
 
 @register.inclusion_tag('guide/form-field.html')
 def show_form_field(field):
-    return {'field': field, 'BASE_URL': settings.BASE_URL }
+    return {'field': field, 'BASE_URL': settings.BASE_URL,
+            'STATIC_BASE_URL': settings.STATIC_BASE_URL}
 
 @register.inclusion_tag('guide/pager.html')
 def show_pager(pager):
