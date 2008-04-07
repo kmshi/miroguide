@@ -9,7 +9,7 @@ See LICENSE for details.
 <div class="edit-channel-page">
 {% block heading %}{% endblock %}
 <div class="big-form">
-<form method="POST" enctype="multipart/form-data" action="{{ request.path }}">
+<form method="POST" enctype="multipart/form-data" action="{{ request.path }}" onsubmit="showLoadIndicator();">
     {% show_form form %}
 <div class="thumbnail-select">
 <h2>{% trans "Channel Thumbnail" %}</h2>

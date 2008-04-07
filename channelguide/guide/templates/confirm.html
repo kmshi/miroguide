@@ -15,7 +15,7 @@ See LICENSE for details.
         <h1>{% trans "Confirmation sent" %}</h1>
             {% if form %}
             <p>{% trans "If the address below isn't the correct one; change it and we'll send a code to that address." %}</p>
-            <form method="POST" action="/accounts/confirm/{{ user.id }}/resend">
+            <form method="POST" action="/accounts/confirm/{{ user.id }}/resend" onsubmit="showLoadIndicator();">
                 {% show_form_errors form %}
                 <ul class="form-inputs">
                     {% for field in form.field_list %}

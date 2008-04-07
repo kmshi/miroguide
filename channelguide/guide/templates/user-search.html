@@ -11,7 +11,7 @@ See LICENSE for details.
 <h1>Search Users</h1>
 {% endif %}
 
-<form method="GET" action="{{BASE_URL}}accounts/search">
+<form method="GET" action="{{BASE_URL}}accounts/search" onsubmit="showLoadIndicator();">
     <input name="query" value="{{ query }}">
     <input type="submit" value="search">
 </form>

@@ -27,7 +27,7 @@ See LICENSE for details.
 {% endif %}
 {% show_add_note channel %}
 {% if user.is_moderator and channel.waiting_for_reply_date %}
-<form method="POST" action="{{ channel.get_url }}">
+<form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">
 <input type="hidden" name="action" value="mark-replied">
 <input type="submit" value="Mark as Replied">
 </form>

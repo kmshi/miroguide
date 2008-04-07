@@ -13,7 +13,7 @@ See LICENSE for details.
 
     <div class="new-post-form">
         <h3>Make New post:</h3>
-        <form action="{{ BASE_URL }}notes/new-moderator-post" method="POST">
+        <form action="{{ BASE_URL }}notes/new-moderator-post" method="POST" onsubmit="showLoadIndicator();">
             <table border=0 cellpadding=0 cellspacing=2>
                 <tr><td>Title:</td><td><input size=40 name="title"></td></tr>
                 <tr><td>Body:</td><td><textarea cols=40 rows=8 name="body"></textarea></td></tr>

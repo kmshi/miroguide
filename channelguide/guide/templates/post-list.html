@@ -8,7 +8,7 @@ See LICENSE for details.
     <li>
         {% if user.is_moderator %}
         <div class="delete-button">
-        <form action="{{ note.get_url }}" method="POST">
+        <form action="{{ note.get_url }}" method="POST" onsubmit="showLoadIndicator();">
             <input type="hidden" name="action" value="delete">
             <input type="submit" value="delete note">
         </form>
