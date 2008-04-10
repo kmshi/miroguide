@@ -56,7 +56,7 @@ See LICENSE for details.
         {% endfor %}
     </ul>
     <div class="view-all-link">
-    <a href="{{ category_peek.category.get_url }}">{% blocktrans with category_peek.category as category_name %}View All {{ category_name }}{% endblocktrans %} Â»</a>
+    <a href="{{ category_peek.category.get_url }}">{% blocktrans with category_peek.category as category_name %}View All {{ category_name }}{% endblocktrans %} »</a>
     </div>
 {% splitcolumns %}
     <h2><a {% link "channels/popular" %}>{% trans "Popular Today" %}</a></h2>
@@ -66,7 +66,7 @@ See LICENSE for details.
         {% endfor %}
     </ul>
     <div class="view-all-link">
-    <a href="{{ BASE_URL }}channels/popular">{% trans "View All Popular" %} Â»</a>
+    <a href="{{ BASE_URL }}channels/popular">{% trans "View All Popular" %} »</a>
     </div>
 {% splitcolumns %}
     <h2><a {% link "channels/recent" %}>{% trans "Just Added" %}</a></h2>
@@ -76,7 +76,7 @@ See LICENSE for details.
         {% endfor %}
     </ul>
     <div class="view-all-link">
-    <a href="{{ BASE_URL }}channels/recent">{% trans "View All New" %} Â»</a>
+    <a href="{{ BASE_URL }}channels/recent">{% trans "View All New" %} »</a>
     </div>
 {% endthreecolumns %}
 <div class="clear"></div>
