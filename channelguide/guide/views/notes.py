@@ -13,7 +13,7 @@ from channelguide.guide.templateutil import Pager
 def add_note(request):
     try:
         channel_id = int(request.POST['channel-id'])
-    except ValueError:
+    except (ValueError, KeyError):
         raise Http404
     query = Channel.query().join('notes', 'owner')
     channel = util.get_object_or_404(request.connection, query, channel_id)
