@@ -4,6 +4,7 @@
 from channelguide.guide.models import Channel, Rating
 from channelguide.guide import templateutil, recommendations
 from channelguide import util
+from channelguide.guide.auth import login_required
 from channelguide.cache import client
 import operator
 
@@ -70,6 +71,7 @@ class RecommendationsPager(templateutil.ManualPager):
         else:
             return []
 
+@login_required
 def index(request):
     pager = RecommendationsPager(10, request)
     context = {'pager': pager,
@@ -77,6 +79,7 @@ def index(request):
         }
     return util.render_to_response(request, 'recommend.html', context)
 
+@login_required
 def ratings(request):
     if request.user.is_admin():
         user_id = request.GET.get('user_id', request.user.id)

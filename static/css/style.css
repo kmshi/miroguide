@@ -36,6 +36,16 @@ ul {
     list-style-type: none;
 }
 
+ol {
+    list-style-type: none;
+    counter-reset: ol;
+}
+
+ol li:before {
+    content: counter(ol) ") ";
+    counter-increment: ol;
+}
+
 input,select,option,textarea {
     color: #333;
     font-size: 100%;
@@ -803,16 +813,31 @@ li.blog-post .title {
 }
 
 .login-page div.message {
+    position: relative;
     margin-bottom: 15px;
+    min-height: 132px;
 }
 
 .login-page div.message h1, .login-page .additional h1 {
     font-weight: normal;
-    margin-top: 5px;
     margin-bottom: 2px;
 }
 
-.login-page div.message, .login-page .additional div {
+.login-page .message img {
+    position: absolute;
+    right: -41px;
+    top: 0;
+}
+
+.login-page .message ol {
+    font-size: 150%;
+    height: 4em;
+}
+
+.login-page div.message {
+    font-size: 120%;
+}
+.login-page .additional div {
     font-size: 120%;
     margin-top: 5px;
 }
@@ -2802,6 +2827,13 @@ div.email-form {
 
 .personalized-recommendation-channel-list {
     margin: 0 -7px;
+}
+
+.personalized-recommendation-channel-list > img {
+    float: right;
+    position: relative;
+    top: -10px;
+    right: -10px;
 }
 
 .personalized-recommendation-channel-list h2 {
