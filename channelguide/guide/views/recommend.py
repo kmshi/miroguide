@@ -73,10 +73,23 @@ class RecommendationsPager(templateutil.ManualPager):
 
 @login_required
 def index(request):
+    recommendations = True
     pager = RecommendationsPager(10, request)
+    if not pager.items:
+        recommendations = False
+        query = Channel.query_approved(user=request.user)
+        query.join('rating')
+        query.load('subscription_count_month', 'item_count')
+        query.order_by(query.get_column('subscription_count_month'), desc=True)
+        pager = templateutil.Pager(10, query, request)
+        for channel in pager.items:
+                channel.timeline = 'This Month'
+                channel.popular_count = getattr(channel,
+                                                'subscription_count_month')
     context = {'pager': pager,
-            'title': "Channels You'll &hearts;"
-        }
+               'recommendations': recommendations,
+               'title': "Channels You'll &hearts;"
+               }
     return util.render_to_response(request, 'recommend.html', context)
 
 @login_required
