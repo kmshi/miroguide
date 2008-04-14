@@ -73,9 +73,9 @@ class RecommendationsPager(templateutil.ManualPager):
 
 @login_required
 def index(request):
-    recommendations = True
+    recommendations = bool('test' not in request.GET)
     pager = RecommendationsPager(10, request)
-    if not pager.items:
+    if not pager.items and recommendations:
         recommendations = False
         query = Channel.query_approved(user=request.user)
         query.join('rating')
