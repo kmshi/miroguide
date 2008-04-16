@@ -1527,7 +1527,7 @@ div.channel-full {
     width: 100%;
 }
 
-.edit-box li div.label, .edit-box .thumbnail-select h2 {
+.edit-box li div.label {
     font-size: 120%;
 }
 
@@ -1593,7 +1593,7 @@ div.channel-full {
     width: 6em;
 }
 
-.edit-box .thumbnail-select p, .edit-box div.thumbnail-select label, .edit-box .thumbnail-select img, .edit-box .thumbnail-select h4 {
+.edit-box .thumbnail-select {
     display: none;
 }
 

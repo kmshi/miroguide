@@ -39,7 +39,9 @@ function editBoxLoad(){
     editBox = $(this);
     edit = editBox.prev();
     editBox.find('.big-form').removeClass('big-form');
-    editBox.append('<div class="clear"></div>').height(0).css('display', 'block');
+    
+    editBox.append('<div class="clear"></div>')
+    editBox.height(0).css('overflow', 'hidden').show();
     editBox.find("li:lt(5)").each(function() {
         var label = $(this).children("div label");
         var input = $(this).children("input");
@@ -57,10 +59,10 @@ function editBoxLoad(){
 	    editBox.empty().append(result);
 	    editBox.each(editBoxLoad);
 	});
-    edit.addClass('open');
-    editBox.height(0);
-    editBox.show();
-    setTimeout(function(){editBox.height('');}, 10);
+    editBox.hide().height('');
+    editBox.slideDown('slow', function() {
+	edit.addClass('open');
+    });
 }
 
 function toggleEditBox() {
