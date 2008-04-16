@@ -17,6 +17,7 @@ def show_channel_moderate(context, channel, showScript=True):
 @register.inclusion_tag('guide/edit-bar.html', takes_context=True)
 def show_edit_bar(context, channel, showScript=True):
     return {'channel': channel, 'user': context['user'],
+            'STATIC_BASE_URL': settings.STATIC_BASE_URL,
             'show_script': showScript}
 
 @register.inclusion_tag('guide/moderate-actions.html', takes_context=True)
