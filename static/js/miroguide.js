@@ -19,9 +19,11 @@ function getNextElement(elt) {
     return null;
 }
 
-function showLoadIndicator() {
-    indicator = $("#load-indicator");
-    indicator.animate({bottom: 0}, 'fast');
+function showLoadIndicator(always) {
+    if (always || navigator.userAgent.indexOf('Miro') != -1) {
+	indicator = $("#load-indicator");
+	indicator.animate({bottom: 0}, 'fast');
+    }
 }
 
 function hideLoadIndicator() {
@@ -98,7 +100,7 @@ function handleFormLink(url) {
 }
 
 $(document).ajaxStart(function() {
-    showLoadIndicator();
+    showLoadIndicator(true);
 }).ajaxStop(function() {
     hideLoadIndicator();
 });
