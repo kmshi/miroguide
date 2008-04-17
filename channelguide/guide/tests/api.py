@@ -103,14 +103,9 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(eval(response.content),
                 {'text': 'Valid API key'})
 
-    def test_get_channel(self):
-        """
-        /api/get_channel should return the information for a channel given
-        its id.
-        """
-        channel = self.channels[0]
-        response = self.make_api_request('get_channel', id=channel.id)
+    def _verifyChannelResponse(self, response, channel):
         self.assertEquals(response.status_code, 200)
+
         data = eval(response.content)
         self.assertEquals(data['id'], channel.id)
         self.assertEquals(data['name'], channel.name)
@@ -130,6 +125,15 @@ class ChannelApiViewTest(ChannelApiTestBase):
             self.assert_(item.get('size') is not None)
             self.assert_(item.get('date') is not None)
             self.assert_('thumbnail_url' in item)
+        
+    def test_get_channel(self):
+        """
+        /api/get_channel should return the information for a channel given
+        its id.
+        """
+        channel = self.channels[0]
+        response = self.make_api_request('get_channel', id=channel.id)
+        self._verifyChannelResponse(response, channel)
 
     def test_get_channel_404(self):
         """
@@ -142,6 +146,21 @@ class ChannelApiViewTest(ChannelApiTestBase):
                 {'error': 'CHANNEL_NOT_FOUND',
                  'text': 'Channel -1 not found'})
 
+    def test_get_channel_url(self):
+        """
+        A get_channel request with a URL should function just like a request
+        with a channel ID.
+        """
+        channel = self.channels[0]
+        response = self.make_api_request('get_channel', url=channel.url)
+        self._verifyChannelResponse(response, channel)
+
+        response = self.make_api_request('get_channel', url=channel.url[:-5])
+        self.assertEquals(response.status_code, 404)
+        self.assertEquals(eval(response.content),
+                {'error': 'CHANNEL_NOT_FOUND',
+                 'text': 'Channel %s not found' % channel.url[:-5]})
+        
     def test_get_channels(self):
         response = self.make_api_request('get_channels', filter='category',
             filter_value='category0')
@@ -151,6 +170,29 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(data[0]['id'], self.channels[0].id)
         self.assertEquals(data[0].get('category'), None)
 
+    def test_rate(self):
+        response = self.make_api_request('rate', id=self.channels[0].id,
+                                         username=self.owner.username,
+                                         password='password')
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assertEquals(data, {'rating': None})
+
+        response = self.make_api_request('rate', id=self.channels[0].id,
+                                         username=self.owner.username,
+                                         password='password',
+                                         rating=5)
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assertEquals(data, {'rating': 5})
+        
+        response = self.make_api_request('rate', id=self.channels[0].id,
+                                         username=self.owner.username,
+                                         password='password')
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assertEquals(data, {'rating': 5})        
+        
 class ChannelApiFunctionTest(ChannelApiTestBase):
 
     def assertSameChannels(self, l1, l2):
@@ -162,11 +204,26 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         categories, tags, and items.
         """
         obj = api.get_channel(self.connection, self.channels[0].id)
+        self.assertEquals(obj.id, self.channels[0].id)
+        self.assertEquals(obj.url, self.channels[0].url)
         self.assertEquals(obj.owner.username, 'owner')
         self.assertEquals(len(obj.categories), 2)
         self.assertEquals(len(obj.tags), 2)
         self.assertEquals(len(obj.items), 2)
 
+    def test_get_channel_by_url(self):
+        """
+        api.get_channel_by_url(connection, url0 should return a full channel
+        object with categories, tags, and items.
+        """
+        obj = api.get_channel_by_url(self.connection, self.channels[0].url)
+        self.assertEquals(obj.id, self.channels[0].id)
+        self.assertEquals(obj.url, self.channels[0].url)
+        self.assertEquals(obj.owner.username, 'owner')
+        self.assertEquals(len(obj.categories), 2)
+        self.assertEquals(len(obj.tags), 2)
+        self.assertEquals(len(obj.items), 2)
+        
     def test_get_channels_filter_category(self):
         """
         api.get_channels(connection, 'category', 'category name') should
@@ -306,6 +363,7 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         objs = api.get_channels(self.connection, 'name', '', offset=1)
         self.assertEquals(len(objs), 1)
         self.assertEquals(objs[0].id, self.channels[1].id)
+
     def test_search(self):
         """
         api.search(connection, 'query') should return a list of Channels
@@ -316,6 +374,17 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         objs = api.search(self.connection, ['description'])
         self.assertEquals(len(objs), 1)
         self.assertEquals(objs[0].id, self.channels[1].id)
+
+    def test_get_rating(self):
+        """
+        api.get_rating(connection, user, channel) should return the rating
+        the user gave the channel, or none if it hasn't been rated.
+        """
+        self.assertEquals(api.get_rating(self.connection, self.owner,
+                                         self.channels[0]), None)
+        self.channels[0].rate(self.connection, self.owner, 5)
+        self.assertEquals(api.get_rating(self.connection, self.owner,
+                                         self.channels[0]), 5)
 
 class ChannelApiManageTest(TestCase):
 

@@ -1,9 +1,21 @@
-from channelguide.guide.models import Category, Channel, Language, Tag
+from channelguide.guide.models import Category, Channel, Language, Tag, Rating
 from channelguide.guide import search as search_mod
+
+def login(connection, username, password):
+    user = User.query(username=username).get(connection)
+    if user.check_password(password):
+        return user
 
 def get_channel(connection, id):
     return Channel.get(connection, id, join=['categories', 'tags', 'items',
         'owner', 'language', 'secondary_languages'])
+
+def get_channel_by_url(connection, url):
+    return Channel.query(url=url).join('categories', 'tags',
+                                       'items', 'owner',
+                                       'language',
+                                       'secondary_languages').get(
+        connection)
 
 def get_channels(connection, filter, value, sort=None, limit=None, offset=None):
     query = Channel.query_approved()
@@ -69,3 +81,12 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None):
 def search(connection, terms):
     query = search_mod.search_channels(terms)
     return query.execute(connection)
+
+def get_rating(connection, user, channel):
+    try:
+        r = Rating.query(user_id=user.id, channel_id=channel.id).get(
+            connection)
+    except LookupError:
+        return
+    else:
+        return r.rating

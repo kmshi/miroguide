@@ -1,23 +1,24 @@
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseNotFound
 from channelguide.guide.models import ApiKey, User
 from channelguide import util
 from channelguide.guide import api, tables
 from channelguide.guide.auth import admin_required
 
-class HttpResponseBadRequest(HttpResponse):
-    status_code = 400
-
 def requires_api_key(func):
     def wrapper(request):
         if 'key' not in request.REQUEST:
-            return HttpResponseBadRequest('You forgot to send your API key')
+            return error_response(request, 'API_KEY_MISSING',
+                                  'You forgot to send your API key',
+                                  400)
         select = tables.api_key.select(tables.api_key.c.active)
         select.wheres.append(tables.api_key.c.api_key==request.REQUEST['key'])
         result = select.execute(request.connection)
         if not result:
-            return HttpResponseForbidden('Invalid API key')
+            return error_response(request, 'API_KEY_INVALID',
+                                  'Invalid API key', 403)
         elif result[0][0] == 0:
-            return HttpResponseForbidden('Disabled API key')
+            return error_response(request, 'API_KEY_DISABLED',
+                                  'Disabled API key', 403)
         return func(request)
     return wrapper
 
@@ -118,14 +119,23 @@ def test(request):
     return response_for_data(request, data)
 
 @requires_api_key
-@requires_arguments('id')
 def get_channel(request):
-    id = request.GET.get('id')
-    try:
-        channel = api.get_channel(request.connection, id)
-    except LookupError:
-        return error_response(request, 'CHANNEL_NOT_FOUND',
-                'Channel %s not found' % id)
+    if not ('id' in request.GET or 'url' in request.GET):
+        return HttpResponseBadRequest("get_channel requires either an id or a URL")
+    if 'id' in request.GET:
+        id = request.GET.get('id')
+        try:
+            channel = api.get_channel(request.connection, id)
+        except LookupError:
+            return error_response(request, 'CHANNEL_NOT_FOUND',
+                              'Channel %s not found' % id)
+    else:
+        url = request.GET.get('url')
+        try:
+            channel = api.get_channel_by_url(request.connection, url)
+        except LookupError:
+            return error_response(request, 'CHANNEL_NOT_FOUND',
+                                  'Channel %s not found' % url)
     data = data_for_channel(channel)
     return response_for_data(request, data)
 
@@ -145,3 +155,22 @@ def get_channels(request):
             limit, offset)
     data = map(data_for_channel, channels)
     return response_for_data(request, data)
+
+@requires_api_key
+@requires_arguments('id', 'username', 'password')
+def rate(request):
+    user = api.login(request.connection, request.GET['username'],
+                     request.GET['password'])
+    if not user:
+        return error_response(request, 'INVALID_USER',
+                              'Invalid username or password', 403)
+    try:
+        channel = api.get_channel(request.connection, request.GET.get('id'))
+    except LookupError:
+        return error_response(request, 'CHANNEL_NOT_FOUND',
+                              'Channel %s not found' % request.GET.get('id'))
+    if 'rating' in request.GET:
+        channel.rate(request.connection, user, request.GET.get('rating'))
+    return response_for_data(request,
+                             {'rating': api.get_rating(request.connection,
+                                                       user, channel)})
