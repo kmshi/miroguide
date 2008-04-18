@@ -1,5 +1,6 @@
 from channelguide.guide.models import (Category, Channel, Language, Tag, Rating,
                                        User)
+from channelguide.guide import recommendations
 from channelguide.guide import search as search_mod
 from channelguide.cache import client
 import operator
@@ -108,9 +109,9 @@ def get_recommendations(connection, user, start=0, length=10):
             toSort = estimatedRatings.items()
             toSort.sort(key=operator.itemgetter(1), reverse=True)
             ids = [cid for (cid, rating) in toSort if rating>=3.25]
-            self.ids = ids[:100]
-            for id in channels.keys():
-                if id not in self.ids:
+            ids = ids[:99]
+            for id in estimatedRatings.keys():
+                if id not in ids:
                     del estimatedRatings[id]
                     del reasons[id]
             result = estimatedRatings, reasons, ids
