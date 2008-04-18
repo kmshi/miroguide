@@ -1,4 +1,5 @@
-from channelguide.guide.models import Category, Channel, Language, Tag, Rating
+from channelguide.guide.models import (Category, Channel, Language, Tag, Rating,
+                                       User)
 from channelguide.guide import search as search_mod
 from channelguide.cache import client
 import operator

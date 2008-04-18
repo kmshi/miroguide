@@ -32,6 +32,21 @@ def requires_arguments(*arguments):
         return wrapper
     return outer
 
+def requires_login(func):
+    def wrapper(request):
+        if 'username' not in request.REQUEST:
+            return HttpResponseBadRequest('You forgot the "username" argument')
+        if 'password' not in request.REQUEST:
+            return HttpResponseBadRequest('You forgot the "password" argument')
+        request.user = api.login(request.connection,
+                                 request.REQUEST['username'],
+                                 request.REQUEST['password'])
+        if request.user is None:
+            return error_response(request, 'INVALID_USER',
+                                  'Invalid username or password', 403)
+        return func(request)
+    return wrapper
+        
 def data_for_channel(channel):
     default_keys = ('id', 'name', 'description', 'url', 'website_url',
             'hi_def', 'publisher', 'postal_code')
@@ -157,20 +172,27 @@ def get_channels(request):
     return response_for_data(request, data)
 
 @requires_api_key
-@requires_arguments('id', 'username', 'password')
+@requires_login
+@requires_arguments('id')
 def rate(request):
-    user = api.login(request.connection, request.GET['username'],
-                     request.GET['password'])
-    if not user:
-        return error_response(request, 'INVALID_USER',
-                              'Invalid username or password', 403)
     try:
         channel = api.get_channel(request.connection, request.GET.get('id'))
     except LookupError:
         return error_response(request, 'CHANNEL_NOT_FOUND',
                               'Channel %s not found' % request.GET.get('id'))
     if 'rating' in request.GET:
-        channel.rate(request.connection, user, request.GET.get('rating'))
+        channel.rate(request.connection, request.user,
+                     request.GET.get('rating'))
     return response_for_data(request,
                              {'rating': api.get_rating(request.connection,
-                                                       user, channel)})
+                                                       request.user, channel)})
+
+@requires_api_key
+@requires_login
+def get_recommendations(request):
+    start = int(request.GET.get('start', 0))
+    count = int(request.GET.get('count', 50))
+    channels = api.get_recommendations(request.connection,
+                                       request.user, start, count)
+    return response_for_data(request, map(data_for_channel,
+                                          channels))
