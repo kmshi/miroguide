@@ -1,5 +1,7 @@
 from channelguide.guide.models import Category, Channel, Language, Tag, Rating
 from channelguide.guide import search as search_mod
+from channelguide.cache import client
+import operator
 
 def login(connection, username, password):
     user = User.query(username=username).get(connection)
@@ -90,3 +92,47 @@ def get_rating(connection, user, channel):
         return
     else:
         return r.rating
+
+def get_recommendations(connection, user, start=0, length=10):
+    query = Rating.query(user_id=user.id).order_by(Rating.c.timestamp)
+    ratings = query.execute(connection)
+    if ratings:
+        cacheKey = ':'.join(('recommendations_for', str(user.id),
+                             str(ratings[-1].timestamp.isoformat())))
+        result = client.get(cacheKey)
+        if result is None:
+            (estimatedRatings,
+             reasons) = recommendations.get_recommendations_from_ratings(
+                connection, ratings)
+            toSort = estimatedRatings.items()
+            toSort.sort(key=operator.itemgetter(1), reverse=True)
+            ids = [cid for (cid, rating) in toSort if rating>=3.25]
+            self.ids = ids[:100]
+            for id in channels.keys():
+                if id not in self.ids:
+                    del estimatedRatings[id]
+                    del reasons[id]
+            result = estimatedRatings, reasons, ids
+            client.set(cacheKey, result)
+        else:
+            estimatedRatings, reasons, ids = result
+        if start is None:
+            return len(ids)
+        query = Channel.query(Channel.c.id.in_(ids))
+        query.join('rating')
+        channels = list(query.execute(connection))
+        for channel in channels:
+            channel.guseed = estimatedRatings[channel.id]
+            if channel.id in reasons:
+                channelReasons = dict((cid, score) for (score, cid) in
+                                      reasons[channel.id][-3:])
+                query = Channel.query(Channel.c.id.in_(channelReasons.keys()))
+                channel.reasons = list(query.execute(connection))
+                for reason in channel.reasons:
+                    reason.score = channelReasons[reason.id]
+                channel.reasons.sort(key=operator.attrgetter('score'),
+                                     reverse=True)
+        channels.sort(key=operator.attrgetter('guseed'), reverse=True)
+        return channels[start:start+length]
+    else:
+        return []
