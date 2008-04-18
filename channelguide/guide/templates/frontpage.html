@@ -47,6 +47,9 @@ See LICENSE for details.
     <div><a {% link "channels/features" %}>{% trans "See All Featured Channels" %}</a></div>
 </div>
 <div class="clear"></div>
+{% if language %}
+<a {% link language.get_url %}><h1>{% trans "Channels in" %} {% trans language.name %}</h1></a>
+{% endif %}
 <div class="column-section">
 {% threecolumns %}
     <h2>{% blocktrans with category_peek.category.link as category %}Category: {{ category }}{% endblocktrans %}</h2>
@@ -59,7 +62,11 @@ See LICENSE for details.
     <a href="{{ category_peek.category.get_url }}">{% blocktrans with category_peek.category as category_name %}View All {{ category_name }}{% endblocktrans %} »</a>
     </div>
 {% splitcolumns %}
+     {% if language %}
+     <h2><a {% link language.get_absolute_url %}>{% trans "Popular Today in" %} {% trans language.name %}</a></h2>
+     {% else %}
     <h2><a {% link "channels/popular" %}>{% trans "Popular Today" %}</a></h2>
+    {% endif %}
     <ul class="front-page-list">
         {% for channel in popular_channels %}
             <li>{% show_channel_mini channel "subscribers" %}</li>
@@ -68,8 +75,18 @@ See LICENSE for details.
     <div class="view-all-link">
     <a href="{{ BASE_URL }}channels/popular">{% trans "View All Popular" %} »</a>
     </div>
+    {% if language %}
+    <div class="view-all-link">
+      <a href="{{ language.get_absolute_url }}?view=date">{% trans "View All Popular in" %} {% trans language.name %} »</a>
+    </div>
+    {% endif %}    
 {% splitcolumns %}
-    <h2><a {% link "channels/recent" %}>{% trans "Just Added" %}</a></h2>
+<h2><a {% link "channels/recent" %}>
+        {% if language %}
+        {% trans "Just Added In" %} {% trans language.name %}
+        {% else %}
+        {% trans "Just Added" %}
+        {% endif %}</a></h2>
     <ul class="front-page-list">
         {% for channel in new_channels %}
             <li>{% show_channel_mini channel "episodes" %}</li>
@@ -78,6 +95,11 @@ See LICENSE for details.
     <div class="view-all-link">
     <a href="{{ BASE_URL }}channels/recent">{% trans "View All New" %} »</a>
     </div>
+    {% if language %}
+    <div class="view-all-link">
+      <a href="{{ language.get_absolute_url }}?view=date">{% trans "View All New in" %} {% trans language.name %} »</a>
+    </div>
+    {% endif %}
 {% endthreecolumns %}
 <div class="clear"></div>
 </div>
@@ -130,13 +152,9 @@ See LICENSE for details.
 </div>
 <div class="clear"></div>
 <div class="about">
-{% blocktrans %}
-The Miro Guide is part of the Miro Internet TV
-Platform.<BR>
-Miro is made by the Participatory Culture Foundation, a non-profit
-organization.<BR>
-Visit <a href="http://www.getmiro.com/">getmiro.com</a> for more information
-{% endblocktrans %}
+    {% trans "The Miro Guide is part of the Miro Internet TV Platform." %}<BR>
+    {% trans "Miro is made by the Participatory Culture Foundation, a non-profit organization." %}<BR>
+    {% trans 'Visit <a href="http://www.getmiro.com/">getmiro.com</a> for more information' %}
 </div>
 
 </div>

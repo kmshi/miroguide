@@ -1,14 +1,22 @@
+{% load i18n cg_helpers %}
 {% comment %}
 Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
 <div class="item">
     <div class="title">
-        <h4>{% if item.name %}{{ item.name }}{% else %}(no name){% endif %}</h4>
+        <h4>{% if item.name %}{{ item.name }}{% else %}{% trans "(no name)" %}{% endif %}</h4>
         <div class="screenshot">
-            <a href="{{ item.download_url }}">{{ item.thumb }}
-                <div class="download">download episode</div>
+	  <span class="only-in-miro">
+            <a {% link item.download_url %}>{{ item.thumb }}
+                <div class="download">{% trans "download episode" %}</div>
             </a>
+	  </span>
+	  <span class="only-in-browser">
+	    <a {% link item.url %}>{{ item.thumb }}
+	    <div class="download">{% trans "download episode" %}</div>
+	    </a>
+	  </span>
         </div>
     </div>
     <div>

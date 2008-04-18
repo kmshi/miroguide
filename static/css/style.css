@@ -173,6 +173,10 @@ div.clear {
     background: white;
 }
 
+.only-in-miro {
+    display: none;
+}
+
 /* Accessability */
 
 #accessability {
@@ -330,6 +334,7 @@ form .form-input-triplet label {
     height: 34px;
     background-color: white;
     font-size: 90%;
+    position: relative;
 }
 
 #navigation ul {
@@ -383,6 +388,21 @@ form .form-input-triplet label {
     width: 100%;
 }
 
+#language-switcher {
+    position: relative;
+    bottom: 1.8em;
+}
+
+#language-switcher span {
+    float: left;
+    margin-right: 5px;
+    line-height: 1.8em;
+}
+
+#language-switcher form {
+    float: right;
+}
+
 #navigation #load-indicator img {
     margin: 0 auto;
     padding: 4px;
@@ -413,6 +433,9 @@ form .form-input-triplet label {
     color: #75B1ED
 }
 
+#account-bar .links a:first-child{
+    margin-left: 20px;
+    }
 #account-bar a.adult-toggle {
     color: white;
 }
@@ -1322,7 +1345,7 @@ margin: 0 !important;
 
 .channel-in-category div.actions {
     margin-top: 6px;
-    width: 70px;
+    width: 80px;
 }
 
 .channel-in-category .actions a {
@@ -1725,7 +1748,7 @@ div.channel-full {
     margin-left
 }
 
-.channel-full .meta div {
+.channel-full .meta > div {
     width: 237px;
     font-size: 96.4%;
     background: url(images/details/meta-bg.png) repeat-x;
@@ -1764,6 +1787,17 @@ div.channel-full {
     position: relative;
     top: -12px;
 }
+
+.channel-full .meta h3 .rss-icon {
+    display: block;
+    width: 14px;
+    height: 14px;
+    background: url(images/icons/rss.png);
+    float: right;
+    margin-right: 5px;
+    margin-top: 2px;
+}
+
 .channel-full div#recommendations {
     margin-top: 15px;
 }
@@ -2049,7 +2083,7 @@ div.channel-recommended {
 }
 
 .channel-in-list .two-column-list li.second-column {
-    width: 186px;
+    width: 196px;
     margin-left: 4px;
 }
 
@@ -2318,7 +2352,7 @@ h3 .note-author {
 }
 
 .popular-channel-list .top-row {
-    width: 315px;
+    width: 330px;
     position: relative;
     top: 25px;
 }

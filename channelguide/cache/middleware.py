@@ -32,7 +32,7 @@ class CacheTimingMiddleware(object):
         else:
             type = 'R'
         line = '%s!%s!%i!%s!%s!%f\n' % (time.asctime(),type, response.status_code, request.path, request.META.get('QUERY_STRING', ''), total)
-        f.write(line)
+        f.write(line.encode('utf8'))
         f.close()
         del request.start_time
         if response['Content-Type'].startswith('text/html'):
@@ -43,7 +43,7 @@ class CacheTimingMiddleware(object):
 class CacheMiddlewareBase(object):
     cache_time = 0 # how many seconds to cache for
     namespace = 'namespace'
-    def get_cache_key_tuple(self, request): 
+    def get_cache_key_tuple(self, request):
         """Return a tuple that will be used to create the cache key."""
         if not isinstance(self.namespace, tuple):
             namespace_names = (self.namespace,)
@@ -56,7 +56,7 @@ class CacheMiddlewareBase(object):
             if namespace_values.get(name, None) is None:
                 namespace_values[name] = time.time()
                 client.set(name, namespace_values[name])
-        return tuple([namespace_values[k] for k in namespace_names])
+        return tuple([namespace_values[k] for k in namespace_names]) + (request.LANGUAGE_CODE,)
 
     def response_to_cache_object(self, request, response):
         return response

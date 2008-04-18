@@ -6,7 +6,8 @@ import urllib
 from django.conf import settings
 
 from channelguide import util, cache
-from channelguide.guide.models import Channel, Category, PCFBlogPost
+from channelguide.guide.models import Channel, Category, Language, PCFBlogPost
+from sqlhelper.exceptions import NotFoundError
 
 def _filter_categories(result, count):
     for channel in result:
@@ -19,8 +20,25 @@ def _filter_categories(result, count):
             count -= 1
             yield channel
 
-def get_popular_channels(request, count):
+def get_current_language(request):
+    """
+    Returns a Language object for the current language, or None if it's
+    the default language.
+    """
+    if request.LANGUAGE_CODE != settings.LANGUAGE_CODE:
+        languageName = settings.LANGUAGE_MAP[request.LANGUAGE_CODE]
+        try:
+            return Language.query().where(name=languageName).get(
+                    request.connection)
+        except NotFoundError:
+            pass
+
+def get_popular_channels(request, count, language=None):
     query = Channel.query_approved(archived=0, user=request.user)
+    lang = get_current_language(request)
+    if lang is not None:
+        query.where((Channel.c.primary_language_id==lang.id) |
+                    Language.secondary_language_exists_where(lang.id))
     query.join('rating')
     query.load('subscription_count_today')
     query.order_by('subscription_count_today', desc=True)
@@ -30,7 +48,10 @@ def get_popular_channels(request, count):
     query.cacheable_time = 300
     result = query.execute(request.connection)
     for r in result:
-        r.star_width = r.rating.average * 20
+        if r.rating is None:
+            r.star_width = 0
+        else:
+            r.star_width = r.rating.average * 20
     return _filter_categories(result, count)
 
 def get_featured_channels(request):
@@ -38,8 +59,17 @@ def get_featured_channels(request):
     return query.order_by('RAND()').execute(request.connection)
 
 def get_new_channels(request, count):
-    query = Channel.query_new(archived=0, user=request.user).load(
-            'item_count').limit(count*3)
+    lang = get_current_language(request)
+    if lang is not None:
+        query = Channel.query_approved(user=request.user)
+        query.where((Channel.c.primary_language_id==lang.id) |
+                    Language.secondary_language_exists_where(lang.id))
+        query.where(archived=0)
+        query.order_by(Channel.c.approved_at, desc=True).limit(count)
+        query.load('item_count')
+    else:
+        query = Channel.query_new(archived=0, user=request.user).load(
+                'item_count').limit(count)
     query.join('categories')
 #    query.cacheable = cache.client
 #    query.cacheable_time = 3600
@@ -124,7 +154,11 @@ def make_category_peek(request):
 @cache.cache_for_user
 def index(request):
     if not request.user.is_authenticated():
-        request.add_notification(None, '<center>Rate channels to get <a href="/recommend/">personalized recommendations</a>!</center>')
+        title = _("What is Miro?")
+        desc = _("Miro is an easy way to subscribe and watch off of these shows.  Using it is 100% free.")
+        link = _("Download Miro")        
+        request.add_notification(None, '<span class="only-in-miro"><center>Rate channels to get <a href="/recommend/">personalized recommendations</a>!</center></span><span class="only-in-browser"><strong>%s</strong> %s <a href="http://www.getmiro.com/download">%s</a></span>' % (title, desc, link))
+
     featured_channels = get_featured_channels(request)
     return util.render_to_response(request, 'frontpage.html', {
         'popular_channels': get_popular_channels(request, 7),
@@ -134,6 +168,7 @@ def index(request):
         'blog_posts': get_new_posts(request.connection, 3),
         'categories': get_categories(request.connection),
         'category_peek': make_category_peek(request),
+        'language' : get_current_language(request),
     })
 
 @cache.cache_for_user

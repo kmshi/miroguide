@@ -10,7 +10,12 @@ See LICENSE for details.
             <div class="small">
                 <a {{ channel.subscription_link }}>
                     <span class="icon"></span>
+		    <span class="only-in-miro">
                     {% trans "Add" %}
+		    </span>
+		    <span class="only-in-browser">
+		      {% trans "Subscribe" %}
+		    </span>
                 </a>
                 <a {% link channel.get_url "info-button" %}>
                     <span class="icon"></span>

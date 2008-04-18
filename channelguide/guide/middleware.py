@@ -74,10 +74,11 @@ class NotificationMiddleware(object):
             for (title, line) in request.notifications:
                 if title is not None:
                     notification_bar += """
-            <li><strong>%s:</strong> %s</li>""" % (title, line)
+            <li><strong>%s:</strong> %s</li>""" % (title.encode('utf8'),
+                                                   line.encode('utf8'))
                 else:
                     notification_bar += """
-            <li>%s</li>""" % line
+            <li>%s</li>""" % line.encode('utf8')
             notification_bar += """
         </ul>
     </div>

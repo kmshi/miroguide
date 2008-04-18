@@ -36,7 +36,7 @@ class CacheTestBase(TestCase):
 
     def make_response(self):
         response = HttpResponse("Hello World")
-        responseastatus_code = 200
+        response.status_code = 200
         return response
 
     def rand_path(self):
@@ -44,6 +44,7 @@ class CacheTestBase(TestCase):
 
     def is_request_cached(self, path, query=None):
         request = self.make_request(path, query)
+        request.LANGUAGE_CODE = settings.LANGUAGE_CODE
         if self.middleware.process_request(request) is None:
             self.middleware.process_response(request, self.make_response())
             return False
@@ -52,6 +53,7 @@ class CacheTestBase(TestCase):
 
     def make_request_cached(self, path, query=None):
         request = self.make_request(path, query)
+        request.LANGUAGE_CODE = settings.LANGUAGE_CODE
         if self.middleware.process_request(request) is None:
             self.middleware.process_response(request, self.make_response())
         self.assert_(self.is_request_cached(path, query))
@@ -68,16 +70,16 @@ class CacheTest(CacheTestBase):
         path = self.rand_path()
         request = self.process_request(request=self.make_request(path))
         response = self.process_response(request)
-        self.assertEquals(response.headers['Cache-Control'], 'max-age=0')
+        self.assertEquals(response['Cache-Control'], 'max-age=0')
 
     def test_manual_cache_control(self):
         path = self.rand_path()
         request = self.process_request(request=self.make_request(path))
         self.middleware.process_request(request)
         response = self.make_response()
-        response.headers['Cache-Control'] = 'max-age=123'
+        response['Cache-Control'] = 'max-age=123'
         self.process_response_middleware(request, response)
-        self.assertEquals(response.headers['Cache-Control'], 'max-age=123')
+        self.assertEquals(response['Cache-Control'], 'max-age=123')
 
 class CacheMiddlewareTest(CacheTestBase):
     def setUp(self):

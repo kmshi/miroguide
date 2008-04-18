@@ -36,4 +36,3 @@ class Language(Record):
         select.wheres.append('channel_id=cg_channel.id')
         select.wheres.append('language_id=%s', language_id)
         return select.exists()
-

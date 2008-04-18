@@ -27,7 +27,52 @@ MANAGERS = ADMINS
 # Language code for this installation. All choices can be found here:
 # http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
 # http://blogs.law.harvard.edu/tech/stories/storyReader$15
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+
+_ = lambda x: x
+LANGUAGES = (
+    ('en', _("English")),
+    ('ar', _("Arabic")),
+    ('bn', _("Bengali")),
+    ('ca', _("Catalan")),
+    ('zh_CN', _("Chinese")), # TODO What to do about Cantonese/Mandarin?
+    ('hr', _("Croation")),
+    ('da', _("Danish")),
+    ('nl', _("Dutch")),
+    ('et', _("Estonian")),
+    ('fi', _("Finnish")),
+    ('fr', _("French")),
+    ('de', _("German")),
+    ('el', _("Greek")),
+    ('he', _("Hebrew")),
+    ('hi', _("Hinidi")),
+    ('hu', _("Hungarian")),
+    ('is', _("Icelandic")),
+    ('id', _("Indonesian")),
+    ('it', _("Italian")),
+    ('ja', _("Japanese")),
+    ('ko', _("Korean")),
+    ('ckb', _('Kurdish (Sorani)')),
+    ('lv', _("Latvian")),
+    ('lt', _("Lithuanian")),
+    ('ms', _("Malay")),
+    ('no', _("Norwegian")),
+    ('fa', _('Persian')),
+    ('pl', _("Polish")),
+    ('pt', _('Portuguese (Brazillian)')),
+    ('pt', _("Portuguese (Portugal)")),
+    ('ro', _("Romanian")),
+    ('ru', _("Russian")),
+    ('sh', _("Serbo-Croatian")),
+    ('sk', _("Slovak")),
+    ('es', _("Spanish")),
+    ('sv', _("Swedish")),
+    ('th', _("Thai")),
+    ('tr', _("Turkish")),
+    ('vi', _("Vietnamese")),
+    )
+
+LANGUAGE_MAP = dict(LANGUAGES)
 
 SITE_ID = 1
 
@@ -44,9 +89,10 @@ TEMPLATE_LOADERS = (
 
 MIDDLEWARE_CLASSES = (
     'channelguide.cache.middleware.CacheTimingMiddleware',
-    'channelguide.cache.middleware.CacheMiddleware',
     'channelguide.db.middleware.DBMiddleware',
     'channelguide.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'channelguide.cache.middleware.CacheMiddleware',
     'channelguide.guide.middleware.NotificationMiddleware',
     'channelguide.guide.middleware.UserMiddleware',
     'channelguide.guide.middleware.ChannelCountMiddleware',

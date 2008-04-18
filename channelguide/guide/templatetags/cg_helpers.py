@@ -164,9 +164,10 @@ def formbutton(url, action, label=None):
         label = action
     return {'url': url, 'action': action, 'label': label}
 
-@register.inclusion_tag('guide/account-bar.html')
-def show_account_bar(user):
-    return {'user': user}
+@register.inclusion_tag('guide/account-bar.html', takes_context=True)
+def show_account_bar(context, user):
+    return {'user': user, 'LANGUAGES': settings.LANGUAGES,
+            'request': context['request']}
 
 @register.inclusion_tag('guide/form.html')
 def show_form(form):

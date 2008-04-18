@@ -104,3 +104,7 @@ $(document).ajaxStart(function() {
 }).ajaxStop(function() {
     hideLoadIndicator();
 });
+
+if (navigator.userAgent.indexOf('Miro') != -1) {
+    document.write('<style type="text/css">.only-in-miro {  display: inherit !important;}.only-in-browser {  display: none !important;}</style>');
+}

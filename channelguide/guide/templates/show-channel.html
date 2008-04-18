@@ -37,7 +37,12 @@ div#content {
         </div>
         <div class="subscribe">
             <a {{ channel.subscription_link }}>
+	      <span class="only-in-miro">
                 {% trans "Add Channel to Miro" %}
+	      </span>
+	      <span class="only-in-browser">
+		{% trans "Subscribe with Miro" %}
+	      </span>
             </a>
         </div>
         <div id="rating">
@@ -51,8 +56,14 @@ div#content {
         <div class="meta">
             <span class="header"></span>
             <div>
-                <h3>{% trans "Website" %}</h3>
-                {{ channel.website_link }}
+                <span class="only-in-miro"><h3>{% trans "Website" %}</h3></span>
+		<span class="only-in-browser">
+		<h3>
+		  <a {% link channel.url %}<span class="rss-icon"></span></a>
+		{% trans "Website and Feed" %}</h3></span>
+                <div><span class="only-in-browser">{% trans "site" %}: </span>{{ channel.website_link }}</div>
+		<div class="only-in-browser">{% trans "feed" %}: <a {% link channel.url %}>{% trans "video" %}</a></div>
+		  
             </div>
             <div>
                 <h3>{% trans "Categories" %}</h3>

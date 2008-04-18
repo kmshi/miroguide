@@ -55,6 +55,7 @@ urlpatterns = patterns('channelguide.guide.views',
     (r'^tags/', cg_include('tags')),
     (r'^cobranding/', cg_include('cobranding')),
     (r'^watch/', cg_include('cobranding')),
+    (r'^i18n/setlang/', 'i18n.set_language'),
     (r'^api/', cg_include('api')),
     (r'^recommend/', cg_include('recommend')),
 )
