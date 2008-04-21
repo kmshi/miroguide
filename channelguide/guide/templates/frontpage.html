@@ -5,10 +5,12 @@ See LICENSE for details.
 {% endcomment %}
 {% load channels cg_helpers i18n %}
 {% block head-extra %}
-    <link rel="StyleSheet" type="text/css" href="{{ STATIC_BASE_URL }}css/rating.css">
-    <script src="{{ STATIC_BASE_URL }}js/feature_rotate.js" type="text/javascript"></script>
-    <script src="{{ STATIC_BASE_URL }}js/rating.js" type="text/javascript"></script>
-    <link rel="StyleSheet" type="text/css" href="{{ STATIC_BASE_URL }}css/rating.css">
+<link rel="StyleSheet" type="text/css" href="{{ STATIC_BASE_URL }}css/rating.css"/>
+<script src="{{ STATIC_BASE_URL }}js/feature_rotate.js" type="text/javascript"></script>
+<script src="{{ STATIC_BASE_URL }}js/rating.js" type="text/javascript"></script>
+<link rel="StyleSheet" type="text/css" href="{{ STATIC_BASE_URL }}css/rating.css"/>
+<link rel="alternate" type="application/rss+xml" title="Featured Channels" href="{{ BASE_URL_FULL }}feeds/features"/>
+<link rel="alternate" type="application/rss+xml" title="New Channels" href="{{ BASE_URL_FULL }}feeds/new" />
 {% endblock %}
 
 {% block onload-extra %}scheduleFeatureRotate();{% endblock %}
@@ -59,7 +61,7 @@ See LICENSE for details.
         {% endfor %}
     </ul>
     <div class="view-all-link">
-    <a href="{{ category_peek.category.get_url }}">{% blocktrans with category_peek.category as category_name %}View All {{ category_name }}{% endblocktrans %} »</a>
+    <a href="{{ category_peek.category.get_url }}">{% blocktrans with category_peek.category as category_name %}View All {{ category_name }}{% endblocktrans %} &raquo;</a>
     </div>
 {% splitcolumns %}
      {% if language %}
@@ -73,11 +75,11 @@ See LICENSE for details.
         {% endfor %}
     </ul>
     <div class="view-all-link">
-    <a href="{{ BASE_URL }}channels/popular">{% trans "View All Popular" %} »</a>
+    <a href="{{ BASE_URL }}channels/popular">{% trans "View All Popular" %} &raquo;</a>
     </div>
     {% if language %}
     <div class="view-all-link">
-      <a href="{{ language.get_absolute_url }}?view=date">{% trans "View All Popular in" %} {% trans language.name %} »</a>
+      <a href="{{ language.get_absolute_url }}?view=date">{% trans "View All Popular in" %} {% trans language.name %} Â»</a>
     </div>
     {% endif %}    
 {% splitcolumns %}
@@ -93,11 +95,11 @@ See LICENSE for details.
         {% endfor %}
     </ul>
     <div class="view-all-link">
-    <a href="{{ BASE_URL }}channels/recent">{% trans "View All New" %} »</a>
+    <a href="{{ BASE_URL }}channels/recent">{% trans "View All New" %} &raquo;</a>
     </div>
     {% if language %}
     <div class="view-all-link">
-      <a href="{{ language.get_absolute_url }}?view=date">{% trans "View All New in" %} {% trans language.name %} »</a>
+      <a href="{{ language.get_absolute_url }}?view=date">{% trans "View All New in" %} {% trans language.name %} &raquo;</a>
     </div>
     {% endif %}
 {% endthreecolumns %}
@@ -124,7 +126,7 @@ See LICENSE for details.
             </li>
         {% endfor %}
         </ul>
-        <h3><a href="http://www.getmiro.com/news/">{% trans "Miro Blog" %} »</a></h3>
+        <h3><a href="http://www.getmiro.com/news/">{% trans "Miro Blog" %} &raquo;</a></h3>
     </div>
     {% splitcolumns %}
     <div class="help-links">

@@ -197,14 +197,16 @@ def order_channels_using_request(query, request):
         query.join('rating')
         query.order_by('subscription_count_month', desc=True)
 
-def render_limited_query(request, query, title):
+def render_limited_query(request, query, title, rss_feed=None):
     order_channels_using_request(query, request)
     pager =  Pager(8, query, request)
+    print repr(rss_feed)
     if request.GET.get('view') not in ('toprated', 'popular', None):
         return util.render_to_response(request, 'two-column-list.html', {
             'header': title,
             'pager': pager,
             'order_select': OrderBySelect(request),
+            'rss_feed': rss_feed
         })
     else:
         for channel in pager.items:
@@ -213,7 +215,8 @@ def render_limited_query(request, query, title):
         return util.render_to_response(request, 'popular.html', {
             'title': title,
             'pager': pager,
-            'order_select': OrderBySelect(request)
+            'order_select': OrderBySelect(request),
+            'rss_feed': rss_feed,
         })
 
 

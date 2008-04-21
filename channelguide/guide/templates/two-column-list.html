@@ -4,7 +4,13 @@ Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
 {% load i18n channels  cg_helpers %}
-{% block title %}Miro - {{ header }}{%endblock %}
+{% block title %}{% trans "Miro Guide - " %}{{ header }}{%endblock %}
+{% block head-extra %}
+  {% if rss_feed %}
+  <link rel="alternate" type="application/rss+xml" title="{% trans header %}" href="{{ rss_feed }}" />
+  {% endif %}
+{% endblock %}
+
 {% block content %}
 <div class="channel-list-page">
     <h1>

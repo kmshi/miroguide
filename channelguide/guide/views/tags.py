@@ -20,4 +20,5 @@ def tag(request, id):
     tag = util.get_object_or_404(request.connection, Tag, id)
     query = Channel.query_approved(user=request.user).join('tags')
     query.joins['tags'].where(id=id)
-    return templateutil.render_limited_query(request, query, tag.name)
+    return templateutil.render_limited_query(request, query, tag.name,
+                                             tag.get_rss_feed())

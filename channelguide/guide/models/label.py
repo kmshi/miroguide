@@ -37,6 +37,9 @@ class Category(Label):
     def get_url(self):
         return util.make_url('categories/%s' % self.name.encode('utf8'))
 
+    def get_rss_feed(self):
+        return util.make_url('feeds/categories/%s' % self.name)
+    
 class Tag(Label):
     """Tags are user created labels.  Any string of text can be a tag and any
     user can tag any channel.
@@ -45,6 +48,9 @@ class Tag(Label):
 
     def get_url(self):
         return util.make_url('tags/%d' % self.id)
+
+    def get_rss_feed(self):
+        return util.make_url('feeds/tags/%s' % self.name)
 
 class CategoryMap(Record):
     table = tables.category_map

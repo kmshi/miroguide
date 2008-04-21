@@ -4,6 +4,7 @@ Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
 {% load channels cg_helpers i18n %}
+  {% block title %}{% trans "Miro Guide - Channels for" %} {{ for_user.username }}{% endblock %}
 {% block content %}
 <div class="user-info">
 {% ifequal user for_user %}

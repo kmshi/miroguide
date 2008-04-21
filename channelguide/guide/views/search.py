@@ -68,6 +68,7 @@ def search(request):
     if terms_too_short(terms):
         return util.render_to_response(request, 'channel-search.html', {
             'results_count': 0,
+            'search_terms': terms,
             'search_query': search_query,
             'terms_too_short': True,
             })
@@ -98,6 +99,7 @@ def search(request):
         'tags': tags,
         'languages': languages,
         'categories': categories,
+        'search_terms': terms,
         'search_query': search_query,
         'more_results_link': more_results_link(search_query, results_count),
         'more_results_link_items': more_results_link_items(search_query, 

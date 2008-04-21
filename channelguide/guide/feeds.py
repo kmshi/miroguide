@@ -28,6 +28,10 @@ class ChannelsFeed(feeds.Feed):
     title_template = "feeds/channel_title.html"
     description_template = "feeds/channel_description.html"
 
+    def item_guid(self, item):
+        if item.newest:
+            return item.newest.guid or item.newest.url
+    
     def item_enclosure_url(self, item):
         item.join('items').execute(self.request.connection)
         results = [i for i in item.items.records[:] if i.date is not None]
@@ -72,12 +76,14 @@ class FilteredFeed(ChannelsFeed):
     filter = None
 
     def get_object(self, bits):
+        print bits
         if len(bits) != 1:
             raise ObjectDoesNotExist
         try:
             obj = util.get_object_or_404_by_name(self.request.connection,
                     self.model, bits[0])
-        except Exception:
+        except Http404:
+            print 'error'
             raise ObjectDoesNotExist
         return obj
 

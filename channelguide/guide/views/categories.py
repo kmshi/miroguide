@@ -26,7 +26,7 @@ def category(request, name):
     query = Channel.query_approved(user=request.user).join('categories')
     query.joins['categories'].where(id=category.id)
     return templateutil.render_limited_query(request, query,
-            category.name)
+            category.name, category.get_rss_feed())
 
 @admin_required
 def moderate(request):

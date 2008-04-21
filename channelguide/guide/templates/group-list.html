@@ -4,7 +4,7 @@ Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
 {% load cg_helpers i18n %}
-{% block title %}Miro - {{ group_name }}{%endblock %}
+{% block title %}{% blocktrans with group_name as group_name %}Miro Guide - {{ group_name }}{% endblocktrans %}{%endblock %}
 {% block content %}
 <h1 class="group-list-name">{{ group_name }}</h1>
 <ul class="group-list">

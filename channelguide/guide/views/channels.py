@@ -442,13 +442,14 @@ def popular_view(request):
         }
     return util.render_to_response(request, 'popular.html', context)
 
-def make_simple_list(request, query, header, order_by=None):
+def make_simple_list(request, query, header, order_by=None, rss_feed=None):
     if order_by:
         query = query.order_by(order_by)
     pager =  templateutil.Pager(8, query, request)
     return util.render_to_response(request, 'two-column-list.html', {
         'header': header,
         'pager': pager,
+        'rss_feed': rss_feed
     })
 
 @cache.aggresively_cache
@@ -475,7 +476,9 @@ def features(request):
     j = query.joins['featured_queue']
     j.where(j.c.state!=0)
     query.order_by(j.c.state).order_by(j.c.featured_at, desc=True)
-    return make_simple_list(request, query, _("Featured Channels"))
+    return make_simple_list(request, query, _("Featured Channels"),
+                            rss_feed = settings.BASE_URL_FULL +
+                            '/feeds/features')
 
 def get_toprated_query(user):
     query = Channel.query_approved(user=user)
@@ -527,6 +530,7 @@ def recent(request):
         'header': "RECENT CHANNELS",
         'pager': pager,
         'channels_by_date': group_channels_by_date(pager.items),
+        'rss_feed': settings.BASE_URL_FULL + 'feeds/new'
     })
 
 def for_user(request, user_id):

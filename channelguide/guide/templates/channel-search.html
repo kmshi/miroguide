@@ -4,7 +4,10 @@ Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
 {% load i18n channels  cg_helpers %}
-{% block title %}Miro - {% blocktrans %}Search for '{{ search_query }}'{% endblocktrans %}{%endblock %}
+{% block title %}{% blocktrans %}Miro Guide - Search for '{{ search_query }}'{% endblocktrans %}{%endblock %}
+{% block head-extra %}
+  <link rel="alternate" type="application/rss+xml" title="Search for '{{ search_query }}'" href="{{ BASE_URL_FULL }}feeds/search/{{ search_terms|join:"+" }}"/>
+{% endblock %}
 {% block content %}
 <div class="search-page">
     <div class="group-matches">

@@ -13,8 +13,6 @@ from channelguide.guide.models import Language, Channel
 @cache.aggresively_cache
 def index(request):
     query = Language.query().load('channel_count').order_by('name')
-    query.cacheable = cache.client
-    query.cacheable_time = 3600
     return util.render_to_response(request, 'group-list.html', {
         'group_name': _('Channels by Language'),
         'groups': query.execute(request.connection),
@@ -27,7 +25,7 @@ def view(request, id):
     query.where((Channel.c.primary_language_id==id) |
             Language.secondary_language_exists_where(id))
     return templateutil.render_limited_query(request, query,
-         _("Language: %s") % language.name)
+         _("Language: %s") % language.name, language.get_rss_url())
 
 @admin_required
 def moderate(request):
