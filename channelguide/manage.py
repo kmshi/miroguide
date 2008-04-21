@@ -291,7 +291,7 @@ def clear_cache(args):
     from channelguide.cache import client
     namespaces = args[2:]
     if not namespaces:
-        namespaces = ['namespace']
+        namespaces = ['namespace', 'channel', 'search']
     for name in namespaces:
         client.set(name, time.time())
 clear_cache.args = ''

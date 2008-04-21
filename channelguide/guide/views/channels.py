@@ -9,7 +9,7 @@ from django.utils.translation import gettext as _
 
 from channelguide import util, cache
 from channelguide.cache import client
-from channelguide.cache.middleware import AggressiveCacheMiddleware
+from channelguide.cache.middleware import UserCacheMiddleware
 from channelguide.guide import forms, templateutil, tables
 from channelguide.guide.auth import (admin_required, moderator_required,
         login_required)
@@ -25,6 +25,13 @@ from sqlhelper import signals
 import re, urllib, time, operator
 
 SESSION_KEY = 'submitted-feed'
+
+class ChannelCacheMiddleware(UserCacheMiddleware):
+
+    def get_cache_key_tuple(self, request):
+        channelId = request.path.split('/')[-1].encode('utf8')
+        self.namespace = ('channel', 'Channel:%s' % channelId)
+        return UserCacheMiddleware.get_cache_key_tuple(self, request)
 
 @moderator_required
 def moderator_channel_list(request, state):
@@ -224,8 +231,15 @@ def channel(request, id):
 def on_channel_record_update(record):
     if isinstance(record, Channel):
         client.set('Channel:%s' % record.id, time.time())
+    elif isinstance(record, Rating):
+        client.set('Channel:%s' % record.channel_id, time.time())
 
-@cache.cache_for_user
+@signals.record_insert.connect
+def on_channel_record_insert(record):
+    if isinstance(record, Rating):
+        client.set('Channel:%s' % record.channel_id, time.time())
+        
+@decorator_from_middleware(ChannelCacheMiddleware)
 def show(request, id, featured_form=None):
     query = Channel.query()
     query.join('categories', 'tags', 'owner', 'last_moderated_by', 'rating')

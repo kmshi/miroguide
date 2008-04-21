@@ -38,7 +38,8 @@ def requires_login(func):
             return HttpResponseBadRequest('You forgot the "username" argument')
         if 'password' not in request.REQUEST:
             return HttpResponseBadRequest('You forgot the "password" argument')
-        request.user = api.login(request.connection,
+        request.user = api.login(request.
+                                 connection,
                                  request.REQUEST['username'],
                                  request.REQUEST['password'])
         if request.user is None:
@@ -74,6 +75,11 @@ def data_for_channel(channel):
         for item in channel.items:
             items.append(data_for_item(item))
         data['item'] = tuple(items)
+    if hasattr(channel, 'score'):
+        data['score'] = channel.score
+    if hasattr(channel, 'guessed'):
+        data['guessed'] = channel.guessed
+        data['reasons'] = map(data_for_channel, channel.reasons)
     return data
 
 def data_for_item(item):

@@ -6,7 +6,10 @@ from channelguide.cache import client
 import operator
 
 def login(connection, username, password):
-    user = User.query(username=username).get(connection)
+    try:
+        user = User.query(username=username).get(connection)
+    except LookupError:
+        return None
     if user.check_password(password):
         return user
 
@@ -124,7 +127,7 @@ def get_recommendations(connection, user, start=0, length=10):
         query.join('rating')
         channels = list(query.execute(connection))
         for channel in channels:
-            channel.guseed = estimatedRatings[channel.id]
+            channel.guessed = estimatedRatings[channel.id]
             if channel.id in reasons:
                 channelReasons = dict((cid, score) for (score, cid) in
                                       reasons[channel.id][-3:])
@@ -134,7 +137,7 @@ def get_recommendations(connection, user, start=0, length=10):
                     reason.score = channelReasons[reason.id]
                 channel.reasons.sort(key=operator.attrgetter('score'),
                                      reverse=True)
-        channels.sort(key=operator.attrgetter('guseed'), reverse=True)
+        channels.sort(key=operator.attrgetter('guessed'), reverse=True)
         return channels[start:start+length]
     else:
         return []

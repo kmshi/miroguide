@@ -246,6 +246,8 @@ class ChannelThumbnailField(forms.Field):
 
     def clean(self, value):
         if not value:
+            if self.required:
+                raise forms.ValidationError('This field is required.')
             return None
         try:
             ext = util.get_image_extension(value)

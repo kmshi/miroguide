@@ -481,7 +481,7 @@ Errors: %s""" % (response.status_code, errors)
         response = self.post_data('/channels/submit/step1', {})
         form = response.context[0]['form']
         self.assertEquals(form.errors.keys(), ['url'])
-        self.submit_url()
+        self.submit_url(test_data_url('no-thumbnail.xml'))
         should_complain = ['name', 'website_url',
                 'description', 'publisher', 'languages','categories',
                 'thumbnail_file']

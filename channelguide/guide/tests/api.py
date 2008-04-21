@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from channelguide.guide.models import ApiKey, Category, Item, Language, Tag
 from channelguide.testframework import TestCase
@@ -54,7 +54,12 @@ class ChannelApiTestBase(TestCase):
 
         self.channels[1].description = 'This is a different description.'
         self.channels[1].save(self.connection)
+        self.channels[0].add_subscription(self.connection, '123.123.123.123',
+                                          datetime.now())
+        self.channels[1].add_subscription(self.connection, '123.123.123.123',
+                                          datetime.now() + timedelta(days=1))
 
+        
 class ChannelApiViewTest(ChannelApiTestBase):
 
     def setUp(self):
@@ -171,6 +176,20 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(data[0].get('category'), None)
 
     def test_rate(self):
+        response = self.make_api_request('rate', id=-1,
+                                         username=self.owner.username,
+                                         password='password')
+        self.assertEquals(response.status_code, 404)
+        self.assertEquals(eval(response.content),
+                          {'error': 'CHANNEL_NOT_FOUND',
+                           'text': 'Channel -1 not found'})
+        response = self.make_api_request('rate', id=self.channels[0].id,
+                                         username='not a real user name',
+                                         password='password')
+        self.assertEquals(response.status_code, 403)
+        self.assertEquals(eval(response.content),
+                          {'error': 'INVALID_USER',
+                           'text': 'Invalid username or password'})
         response = self.make_api_request('rate', id=self.channels[0].id,
                                          username=self.owner.username,
                                          password='password')
@@ -192,6 +211,32 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(response.status_code, 200)
         data = eval(response.content)
         self.assertEquals(data, {'rating': 5})        
+
+    def test_get_recommendations(self):
+        response = self.make_api_request('get_recommendations',
+                                         username='not a real user name',
+                                         password='password')
+        self.assertEquals(response.status_code, 403)
+        self.assertEquals(eval(response.content),
+                          {'error': 'INVALID_USER',
+                           'text': 'Invalid username or password'})
+        self.channels[0].rate(self.connection, self.owner, 5)
+        self.refresh_connection()
+        manage.refresh_stats_table()
+        manage.calculate_recommendations([None, None, 'full'])
+        self.refresh_connection()
+        response = self.make_api_request('get_recommendations',
+                                         username = self.owner.username,
+                                         password = 'password')
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assertEquals(len(data), 1)
+        self.assertEquals(data[0]['id'], self.channels[1].id)
+        self.assertEquals(data[0]['guessed'], 5.0)
+        self.assertEquals(len(data[0]['reasons']), 1)
+        self.assertEquals(data[0]['reasons'][0]['id'], self.channels[0].id)
+        self.assertEquals(data[0]['reasons'][0]['score'], 0.625)
+        
         
 class ChannelApiFunctionTest(ChannelApiTestBase):
 
@@ -319,6 +364,8 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         their popularity.
         """
         new = self.make_channel(self.owner, state='A')
+        new.add_subscription(self.connection, '2.2.2.2',
+                             timestamp = datetime.now() - timedelta(seconds=5))
         new.add_subscription(self.connection, '1.1.1.1')
         self.refresh_connection()
         manage.refresh_stats_table()
@@ -386,6 +433,20 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         self.assertEquals(api.get_rating(self.connection, self.owner,
                                          self.channels[0]), 5)
 
+    def test_get_recommendations(self):
+        self.channels[0].rate(self.connection, self.owner, 5)
+        self.refresh_connection()
+        manage.refresh_stats_table()
+        manage.calculate_recommendations([None, None, 'full'])
+        self.refresh_connection()
+        channels = api.get_recommendations(self.connection, self.owner)
+        self.assertEquals(len(channels), 1)
+        self.assertEquals(channels[0].id, self.channels[1].id)
+        self.assertEquals(channels[0].guessed, 5.0)
+        self.assertEquals(len(channels[0].reasons), 1)
+        self.assertEquals(channels[0].reasons[0].id, self.channels[0].id)
+        self.assertEquals(channels[0].reasons[0].score, 0.625)
+        
 class ChannelApiManageTest(TestCase):
 
     def setUp(self):
