@@ -23,6 +23,8 @@ def render_error_500(request):
         'id': id,
         'user': None,
     })
+    if not hasattr(request, 'connection'): # database connection error
+        context['database_error'] = True
     if not hasattr(request, 'get_full_path'):
         path = 'Unknown'
     else:
