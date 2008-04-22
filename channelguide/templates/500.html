@@ -7,12 +7,18 @@ See LICENSE for details.
 {% block title %}{% trans "Miro Guide" %}{%endblock %}
 {% block content %}
 <div class="error-500">
+  {% if database_error %}
+  <h1>{% trans "Sorry!" %}</h1>
+  <p>{% blocktrans %}Our server is experiencing higher than normal load.
+Please try again shortly.  Thanks for your patience.{% endblocktrans %}</p>
+  {% else %}
 <h1>{% blocktrans %} Server Error (id: {{ id }} ){% endblocktrans %}</h1>
 <p> {% blocktrans %}Sorry!  Your request resulted in an error.  We have logged it and our developers will fix it as soon as they can.  If this error
 persists, please contact:{% endblocktrans %}<br>
 channels &lt;at&gt; pculture.org<br>
 {% trans "Make sure to include the error ID at the top of this page." %}
 </p>
+   {% endif %}
 <a href="{{ BASE_URL }}">{% trans "go to front page" %} &gt;&gt;</a>
 </div>
 {% endblock %}
