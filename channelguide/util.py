@@ -63,7 +63,7 @@ def format_get_data(get_data):
         return ''
     parts = []
     for key, value in get_data.items():
-        parts.append('%s=%s' % (key, quote(value)))
+        parts.append('%s=%s' % (key, quote(value.encode('utf8'))))
     return '?' + '&'.join(parts)
 
 def get_relative_path(request):
