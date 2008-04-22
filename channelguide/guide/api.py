@@ -140,4 +140,7 @@ def get_recommendations(connection, user, start=0, length=10):
         channels.sort(key=operator.attrgetter('guessed'), reverse=True)
         return channels[start:start+length]
     else:
-        return []
+        if start is None:
+            return 0
+        else:
+            return []
