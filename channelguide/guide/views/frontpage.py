@@ -65,11 +65,11 @@ def get_new_channels(request, count):
         query.where((Channel.c.primary_language_id==lang.id) |
                     Language.secondary_language_exists_where(lang.id))
         query.where(archived=0)
-        query.order_by(Channel.c.approved_at, desc=True).limit(count)
+        query.order_by(Channel.c.approved_at, desc=True).limit(count * 3)
         query.load('item_count')
     else:
         query = Channel.query_new(archived=0, user=request.user).load(
-                'item_count').limit(count)
+                'item_count').limit(count * 3)
     query.join('categories')
 #    query.cacheable = cache.client
 #    query.cacheable_time = 3600
