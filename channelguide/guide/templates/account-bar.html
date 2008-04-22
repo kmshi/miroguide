@@ -26,7 +26,7 @@ See LICENSE for details.
 	      <a {% link "channels/submit" %}>{% trans "Submit A Channel" %}</a>
             </div>
             {% endif %}
-	    <div class="right" id="language-switcher">
+{%comment%}	    <div class="right" id="language-switcher">
 	  <span><a href="http://pculture.org/devblogs/paul/2008/03/20/translate-the-guide/">{% trans "help translate" %}</a></span>
           <form name="languageswitcher" action="/i18n/setlang/" method="GET">
             <select name="language">
@@ -42,7 +42,7 @@ See LICENSE for details.
             document.languageswitcher.submit();
             });
           </script>	      
-	    </div>
+	    </div>{%endcomment %}
         </div>
         <div class="clear"></div>
     </div>
