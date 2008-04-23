@@ -1350,13 +1350,11 @@ margin: 0 !important;
 
 .channel-in-category .actions a {
     font-size: 90%;
-}
-
-.channel-in-category .actions a {
     background: no-repeat left top;
     line-height: 17px;
     color: #2E6195;
     font-weight: bold;
+    width: 100px;
 }
 
 .channel-in-category .actions .icon {
