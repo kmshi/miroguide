@@ -116,6 +116,8 @@ def get_recommendations(connection, user, start=0, length=10):
             for id in estimatedRatings.keys():
                 if id not in ids:
                     del estimatedRatings[id]
+            for id in reasons.keys():
+                if id not in ids:
                     del reasons[id]
             result = estimatedRatings, reasons, ids
             client.set(cacheKey, result)
