@@ -69,7 +69,7 @@ def get_new_channels(request, count):
         query.load('item_count')
     else:
         query = Channel.query_new(archived=0, user=request.user).load(
-                'item_count').limit(count * 3)
+                'item_count').limit(count *3)
     query.join('categories')
 #    query.cacheable = cache.client
 #    query.cacheable_time = 3600
@@ -158,6 +158,8 @@ def index(request):
         desc = _("Miro is an easy way to subscribe and watch off of these shows.  Using it is 100% free.")
         link = _("Download Miro")        
         request.add_notification(None, '<span class="only-in-miro"><center>Rate channels to get <a href="/recommend/">personalized recommendations</a>!</center></span><span class="only-in-browser"><strong>%s</strong> %s <a href="http://www.getmiro.com/download">%s</a></span>' % (title, desc, link))
+    request.add_notification(_("Help Test Miro"), '%s <a href="http://www.getmiro.com/wiki/index.php/Miro_Quality_Assurance">%s</a> %s' %
+                             (_("Join the Miro"), _("Quality Assurance"), _("team!")))
 
     featured_channels = get_featured_channels(request)
     return util.render_to_response(request, 'frontpage.html', {
