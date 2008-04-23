@@ -16,14 +16,14 @@ See LICENSE for details.
                 <a {% link user.get_url %}>{% trans "profile" %}</a>
                 <a {% link "accounts/logout" %}>{% trans "logout" %}</a>
                 {% if user.channels %}
-                <a {% link user.channel_url %}>{% trans "My Submitted Channels" %}</a>
+                <a {% link user.channel_url %}>{% trans "my submitted channels" %}</a>
                 {% endif %}
-	      <a {% link "channels/submit" %}>{% trans "Submit A Channel" %}</a>
+	      <a {% link "channels/submit" %}>{% trans "submit a channel" %}</a>
             </div>
             {% else %}
             <div class="left">
-	      <a {% link "accounts/login" %}>{% trans "Login / Register" %}</a>
-	      <a {% link "channels/submit" %}>{% trans "Submit A Channel" %}</a>
+	      <a {% link "accounts/login" %}>{% trans "login / register" %}</a>
+	      <a {% link "channels/submit" %}>{% trans "submit a channel" %}</a>
             </div>
             {% endif %}
 {%comment%}	    <div class="right" id="language-switcher">
