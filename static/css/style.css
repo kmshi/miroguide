@@ -2361,6 +2361,7 @@ h3 .note-author {
 }
 .popular-channel-list .actions a.add {
     margin-right: 10px;
+    min-width: 5em;
 }
 
 .popular-channel-list .channel-info {
