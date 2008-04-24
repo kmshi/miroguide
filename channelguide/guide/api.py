@@ -125,6 +125,8 @@ def get_recommendations(connection, user, start=0, length=10):
             estimatedRatings, reasons, ids = result
         if start is None:
             return len(ids)
+        if not ids:
+            return []
         query = Channel.query(Channel.c.id.in_(ids))
         query.join('rating')
         channels = list(query.execute(connection))
