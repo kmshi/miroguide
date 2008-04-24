@@ -13,6 +13,7 @@ import socket # for socket.error
 
 from django.conf import settings
 from django.newforms.forms import BoundField
+from django.newforms.fields import URLField
 from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
 import django.newforms as forms
@@ -95,6 +96,15 @@ class FeedURLForm(Form):
             data['thumbnail_url'] = None
         return data
 
+    
+class StreamingURLForm(Form):
+    url = URLField(label=_("Streaming Video URL"))
+
+    def get_feed_data(self):
+        return{'url': '',
+               'website_url': self.cleaned_data['url']}
+
+    
 class DBChoiceField(WideChoiceField):
     def update_choices(self):
         query = self.db_class.query().order_by('name')
@@ -291,9 +301,9 @@ class SubmitChannelForm(Form):
 
     def set_defaults(self, saved_data):
         for key in ('name', 'website_url', 'publisher', 'description'):
-            if saved_data[key] is not None:
+            if saved_data.get(key) is not None:
                 self.fields[key].initial = saved_data[key]
-        if saved_data['thumbnail_url']:
+        if saved_data.get('thumbnail_url'):
             content = try_to_download_thumb(saved_data['thumbnail_url'])
             if content:
                 widget = self.fields['thumbnail_file'].widget

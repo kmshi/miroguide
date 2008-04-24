@@ -22,6 +22,7 @@ You can update the details about your channel at anytime.  Just login
 to your account and click the 'My Submitted Channels' link.
 {% endblocktrans %}</p>
 
+{% if url %}
 <h1>{% trans "Add a 1-Click Subscribe Button to Your Website" %}</h1>
     <div id="one-click-example">
         <img src="/images/1click-example.jpg">
@@ -35,6 +36,7 @@ your channel.{% endblocktrans %}</p>
 content on an ongoing basis. If you have any questions about the
 buttons, email: channels [at] pculture [d] org.{% endblocktrans %}</p>
     <div class="one-click-button">
-    {{ html }}
+    {% autoescape off %}{{ html }}{% endautoescape %}
     </div>
+{% endif %}
 {%endblock%}
