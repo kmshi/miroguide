@@ -141,6 +141,9 @@ def update_items(args=None):
     def callback(connection, channel):
         channel.join('items').execute(connection)
         try:
+            old_len = len(channel.items)
+            if old_len == 0:
+                channel.feed_modified = channel.feed_etag = None
             channel.update_items(connection)
         except:
             logging.warn("\nError updating items for %s\n\n%s\n" % 
