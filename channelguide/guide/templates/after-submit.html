@@ -35,6 +35,6 @@ your channel.{% endblocktrans %}</p>
 content on an ongoing basis. If you have any questions about the
 buttons, email: channels [at] pculture [d] org.{% endblocktrans %}</p>
     <div class="one-click-button">
-    {{ html }}
+    {% autoescape off %}{{ html }}{% endautoescape %}
     </div>
 {%endblock%}
