@@ -169,5 +169,8 @@ $(".item .title h4").css('cursor', 'pointer').click(function(){
         </div>
         {% endif %}
     {% endtwocolumns %}
+    {% if channel.url %}{% else %}
+    <iframe src="{{ channel.website_url }}" width="100%" height="600">
+      {% endif %}
 </div>
 {% endblock %}
