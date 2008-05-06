@@ -31,32 +31,10 @@ def show_simple_moderate_actions(context, channel):
     return {'channel': channel, 'STATIC_BASE_URL': settings.STATIC_BASE_URL,
             'user': context['user']}
 
-@register.inclusion_tag('guide/channel-feature.html')
-def show_channel_feature(channel):
-    return {'channel': channel }
-
-@register.inclusion_tag('guide/channel-feature-no-image.html')
-def show_channel_feature_no_image(channel, position):
-    return {'channel': channel, 'position': position}
-
-@register.inclusion_tag('guide/channel-in-category.html')
-def show_channel_in_category(channel):
-    return {'channel': channel, 'STATIC_BASE_URL': settings.STATIC_BASE_URL }
-
-@register.inclusion_tag('guide/channel-in-list.html')
-def show_channel_in_list(channel):
-    return {'channel': channel, 'STATIC_BASE_URL': settings.STATIC_BASE_URL }
-
-@register.inclusion_tag('guide/channel-in-popular-list.html', takes_context=True)
-def show_channel_in_popular_list(context, channel):
-    return {'channel': channel, 'STATIC_BASE_URL': settings.STATIC_BASE_URL,
-            'request': context['request']}
-
-@register.inclusion_tag('guide/channel-in-recommendation.html', takes_context=True)
-def show_channel_in_recommendation(context, channel, first, last):
+@register.inclusion_tag('guide/channel-small.html', takes_context=True)
+def channel_small(context, channel):
     return {'request': context['request'], 'channel': channel,
-            'STATIC_BASE_URL': settings.STATIC_BASE_URL,
-            'first': first, 'last': last}
+            'STATIC_BASE_URL': settings.STATIC_BASE_URL }
 
 @register.inclusion_tag('guide/personalized-recommendation.html', takes_context=True)
 def show_personalized_recommendation(context, channel):
@@ -64,7 +42,7 @@ def show_personalized_recommendation(context, channel):
             'request': context['request']}
 
 @register.inclusion_tag('guide/channel-mini.html', takes_context=True)
-def show_channel_mini(context, channel, count):
+def channel_mini(context, channel, count):
     return {'channel': channel, 'count': count, 
             'STATIC_BASE_URL': settings.STATIC_BASE_URL,
             'request': context['request']
@@ -75,37 +53,3 @@ def show_channel_mini(context, channel, count):
 @register.inclusion_tag('guide/item.html')
 def show_item(item, open=True):
     return {'item': item}
-
-def _get_rating_context(context, channel):
-    request = context['request']
-    if not hasattr(channel, 'rating'):
-        channel.join('rating').execute(request.connection)
-    try:
-        rating = Rating.query(Rating.c.user_id==request.user.id,
-            Rating.c.channel_id==channel.id).get(request.connection)
-    except Exception:
-        rating = Rating()
-        rating.channel_id = channel.id
-        rating.has_user_rating = False
-        if channel.rating:
-            rating.average_rating = channel.rating.average
-        else:
-            rating.average_rating = 0
-    else:
-        rating.has_user_rating = True
-        if rating.rating is None:
-            rating.rating = 0
-    return {
-            'rating': rating,
-            'referer': request.path,
-        }
-
-@register.inclusion_tag('guide/rating.html', takes_context=True)
-def show_rating_stars(context, channel):
-    return _get_rating_context(context, channel)
-
-@register.inclusion_tag('guide/rating.html', takes_context=True)
-def show_small_rating_stars(context, channel):
-    context = _get_rating_context(context, channel)
-    context['small'] = 'small'
-    return context

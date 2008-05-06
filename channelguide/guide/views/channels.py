@@ -196,12 +196,8 @@ def show(request, id, featured_form=None):
         'recommendations': get_recommendations(request, id),
         'show_edit_button': request.user.can_edit_channel(c),
         'show_extra_info': request.user.can_edit_channel(c),
-        'link_to_channel': True,
         'BASE_URL': settings.BASE_URL,
-        'rating_bar': get_show_rating_bar(request, c),
     }
-    if len(c.description.split()) > 73:
-        context['shade_description'] =  True
     if 'channel-edit-error' in request.session:
         context['error'] = request.session['channel-edit-error']
         del request.session['channel-edit-error']
@@ -223,7 +219,7 @@ def show(request, id, featured_form=None):
                 featured_form = forms.FeaturedEmailForm(request, c)
             context['featured_email_form'] = featured_form
             context['last_featured_email'] = last_featured_email
-    return util.render_to_response(request, 'show-channel.html', context)
+    return util.render_to_response(request, 'channel-details.html', context)
 
 def subscribe(request, id):
     channel = util.get_object_or_404(request.connection, Channel, id)
@@ -577,9 +573,4 @@ def email_owners(request):
             return util.redirect('moderate')
     return util.render_to_response(request, 'email-channel-owners.html', {
         'form': form})
-
-def get_show_rating_bar(request, channel):
-    context = {'channel': channel, 'request':request}
-    return loader.render_to_string('guide/show-channel-rating.html', context)
-
 

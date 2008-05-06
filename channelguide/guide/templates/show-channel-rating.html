@@ -1,9 +1,0 @@
-{% comment %}
-Copyright (c) 2008 Participatory Culture Foundation
-See LICENSE for details.
-{% endcomment %}
-{% load channels %}
-<!-- RATING BAR -->
-                    {% show_rating_stars channel %}
-                    <div class="average">Average from {{ channel.rating.count }} rating{{ channel.rating.count|pluralize }}: <strong>{{ channel.rating.average|floatformat }}</strong> star{{ channel.rating.average|pluralize }}</div>
-<!-- END RATING BAR -->

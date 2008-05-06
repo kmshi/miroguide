@@ -4,47 +4,11 @@ See LICENSE for details.
 {% endcomment %}
 <!-- START ACCOUNT BAR -->
 {% load cg_helpers i18n %}
-<div id="account-bar">
-    <div id="account-bar-inner">
-        <div class="links">
-            {% if user.is_authenticated %}
-            <div class="left">
-                {{ user }}
-                {% if user.is_moderator %}
-                <a {% link "moderate" %}>{% trans "moderate" %}</a>
-                {% endif %}
-                <a {% link user.get_url %}>{% trans "profile" %}</a>
-                <a {% link "accounts/logout" %}>{% trans "logout" %}</a>
-                {% if user.channels %}
-                <a {% link user.channel_url %}>{% trans "my submitted channels" %}</a>
-                {% endif %}
-	      <a {% link "channels/submit" %}>{% trans "submit a channel" %}</a>
-            </div>
-            {% else %}
-            <div class="left">
-	      <a {% link "accounts/login" %}>{% trans "login / register" %}</a>
-	      <a {% link "channels/submit" %}>{% trans "submit a channel" %}</a>
-            </div>
-            {% endif %}
-{%comment%}	    <div class="right" id="language-switcher">
-	  <span><a href="http://pculture.org/devblogs/paul/2008/03/20/translate-the-guide/">{% trans "help translate" %}</a></span>
-          <form name="languageswitcher" action="/i18n/setlang/" method="GET">
-            <select name="language">
-              {% for lang in LANGUAGES %}
-              <option value="{{ lang.0 }}" {% ifequal lang.0 request.LANGUAGE_CODE %}selected=selected{% endifequal %}>{% trans lang.1 %}</option>
-              {% endfor %}
-            </select>
-            <input type="submit" name="go" value="Go">
-          </form>
-          <script type="text/javascript">
-            document.languageswitcher.go.style.display = 'none';
-            document.languageswitcher.language.onchange = (function () {
-            document.languageswitcher.submit();
-            });
-          </script>	      
-	    </div>{%endcomment %}
-        </div>
-        <div class="clear"></div>
-    </div>
-</div>
+<ul id="account-bar">
+  {% if user.is_authenticated %}
+  {% else %}
+  <li><a {% link "/accounts/login" %}>{% trans "Log in" %}</a> to take full advantage of Miro</li>
+  <li class="right warning">{% trans "You are not logged in" %}</li>
+  {% endif %}
+</ul>
 <!-- END ACCOUNT BAR -->
