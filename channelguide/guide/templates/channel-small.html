@@ -4,7 +4,6 @@ See LICENSE for details.
 {% endcomment %}
 {% load i18n cg_helpers channels %}
 <div class="channel channel-small ">
-  <h3>{{ channel.name_as_link }}</h3>
   <div class="screenshot">
     {% if channel.archived %}
     <div class="archived">{% trans "archival" %}</div>
@@ -13,9 +12,13 @@ See LICENSE for details.
     {% if channel.hi_def %}
     <img class="hd-icon-small" src="{{ STATIC_BASE_URL }}images/hd-icon-small.png" alt="{% trans "HD" %}">
       {% endif %}
-    </div>
-    <div class="info">
-      <div class="subscribe"><a {{ channel.subscription_link }}>{% trans "Add" %}</a></div>
-      <div class="details"><a {% link channel.get_url %}>{% trans "Get Info" %}</a></div>
-    </div>
+  </div>
+  <h1>{{ channel.name_as_link }}</h1>
+  <div class="description">
+    {{ channel.description }}
+  </div>
+  <div class="info">
+    <div class="subscribe"><a {{ channel.subscription_link }}>{% trans "Add" %}</a></div>
+    <div class="details"><a {% link channel.get_url %}>{% trans "Get Info" %}</a></div>
+  </div>
 </div>

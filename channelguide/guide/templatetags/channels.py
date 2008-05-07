@@ -51,5 +51,5 @@ def channel_mini(context, channel, count):
     return { 'channel': channel }
 
 @register.inclusion_tag('guide/item.html')
-def show_item(item, open=True):
+def item(item):
     return {'item': item}

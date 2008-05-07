@@ -32,8 +32,8 @@ function toggleSection(obj) {
 	{{ channel.thumb_252_169 }}
 	<div id="description">
 	  {{ channel.description }}
-	{% if channel.items %}
-	<span class="duration">{% trans "Duration:" %} {{ channel.items.0.length }}</span>
+	{% if items %}
+	<span class="duration">{% trans "Duration:" %} {{ items.0.length }}</span>
 	{% endif %}
 	</div>
 	{% if recommendations %}
@@ -48,13 +48,13 @@ function toggleSection(obj) {
 	  </ul>
       </div>
       {% endif %}
-      {% if channel.items %}
+      {% if items %}
       <div id="items">
 	<h3>{% trans "Recently On This Channel" %}</h3>
 	<ul>
-	  {% for item in channel.items %}
+	  {% for item in items %}
 	  <li>
-{%comment%}	    {% item item %}{%endcomment %}
+	    {% item item %}
 	  </li>
 	  {% endfor %}
 	</ul>
