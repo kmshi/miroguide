@@ -35,7 +35,15 @@ class Item(Record, Thumbnailable):
         return util.mark_safe('<img width="200" height="133" src="%s" alt="%s">' % (url, self.name.replace('"', "'")))
 
     def download_url(self):
-        return "http://subscribe.getmiro.com/download/?url1=%s" % self.url
+        data = {
+            'title1': self.name,
+            'description1': self.description,
+            'length1': str(self.size),
+            'type1': self.mime_type,
+            'thumbnail1': self.thumb_url(200, 133),
+            'url1': self.url
+            }
+        return settings.DOWNLOAD_URL + util.format_get_data(data)
 
     def linked_name(self):
         return '<a href="%s">%s</a>' % (self.download_url(), self.name)
