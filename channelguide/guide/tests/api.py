@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import simplejson
 
 from channelguide.guide.models import ApiKey, Category, Item, Language, Tag
 from channelguide.testframework import TestCase
@@ -108,6 +109,30 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(eval(response.content),
                 {'text': 'Valid API key'})
 
+    def test_json_response(self):
+        """
+        Making a request with datatype=json should return a JSON object instead
+        of a Python object.
+        """
+        response = self.get_page('/api/test', data={'key': self.key,
+                                                    'datatype': 'json'})
+        self.assertEquals(simplejson.loads(response.content),
+                          {'text': 'Valid API key'})
+
+    def test_json_callback(self):
+        """
+        A request with datatype=json and jsoncallback=<function name> should
+        return a string which calls the given function with the data.
+        """
+        response = self.get_page('/api/test', data={'key': self.key,
+                                                    'datatype': 'json',
+                                                    'jsoncallback': 'foo'})
+        content = response.content
+        self.assertTrue(content.startswith('foo('))
+        self.assertTrue(content.endswith(');'))
+        self.assertEquals(simplejson.loads(response.content[4:-2]),
+                          {'text': 'Valid API key'})
+        
     def _verifyChannelResponse(self, response, channel):
         self.assertEquals(response.status_code, 200)
 
@@ -212,6 +237,37 @@ class ChannelApiViewTest(ChannelApiTestBase):
         data = eval(response.content)
         self.assertEquals(data, {'rating': 5})        
 
+    def test_get_ratings(self):
+        self.channels[0].rate(self.connection, self.owner, 5)
+        self.channels[1].rate(self.connection, self.owner, 4)
+        self.refresh_connection()
+        response = self.make_api_request('get_ratings',
+                                         username=self.owner.username,
+                                         password='password')
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assertEquals(len(data), 2)
+        for channel in data:
+            if channel['id'] == self.channels[0].id:
+                self.assertEquals(channel['rating'], 5)
+            elif channel['id'] == self.channels[1].id:
+                self.assertEquals(channel['rating'], 4)
+            else:
+                self.fail('unknown channel id: %i' % channel['id'])
+
+    def test_get_ratings_filter(self):
+        self.channels[0].rate(self.connection, self.owner, 5)
+        self.channels[1].rate(self.connection, self.owner, 4)
+        self.refresh_connection()
+        response = self.make_api_request('get_ratings',
+                                         username=self.owner.username,
+                                         password='password',
+                                         rating='4')
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assertEquals(len(data), 1)
+        self.assertEquals(data[0]['id'], self.channels[1].id)
+        
     def test_get_recommendations(self):
         response = self.make_api_request('get_recommendations',
                                          username='not a real user name',
@@ -433,6 +489,29 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         self.assertEquals(api.get_rating(self.connection, self.owner,
                                          self.channels[0]), 5)
 
+    def test_get_ratings(self):
+        """
+        api.get_ratings(connection, user) should return the ratings the
+        user has given.
+        """
+        self.channels[0].rate(self.connection, self.owner, 5)
+        self.channels[1].rate(self.connection, self.owner, 4)
+        self.assertEquals(api.get_ratings(self.connection, self.owner),
+                          {self.channels[0]: 5,
+                           self.channels[1]: 4
+                           })
+
+    def test_get_ratings_filter(self):
+        """
+        api.get_ratings(connection, user, rating=<value>) should return a list
+        of the channels with that rating.
+        """
+        self.channels[0].rate(self.connection, self.owner, 5)
+        self.channels[1].rate(self.connection, self.owner, 4)
+        self.assertEquals(api.get_ratings(self.connection, self.owner,
+                                          rating=5),
+                          self.channels[:1])
+                          
     def test_get_recommendations(self):
         self.channels[0].rate(self.connection, self.owner, 5)
         self.refresh_connection()
@@ -446,6 +525,7 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         self.assertEquals(len(channels[0].reasons), 1)
         self.assertEquals(channels[0].reasons[0].id, self.channels[0].id)
         self.assertEquals(channels[0].reasons[0].score, 0.625)
+
         
 class ChannelApiManageTest(TestCase):
 

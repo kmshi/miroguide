@@ -1,3 +1,5 @@
+import simplejson
+from itertools import izip, count
 from django.http import HttpResponse, HttpResponseNotFound
 from channelguide.guide.models import ApiKey, User
 from channelguide import util
@@ -99,7 +101,18 @@ def error_response(request, error, text, code=None):
     return response_for_data(request, data, code)
 
 def response_for_data(request, data, code=None):
-    response = HttpResponse(repr(data), content_type='text/x-python')
+    datatype = request.REQUEST.get('datatype', 'python')
+    if datatype == 'python':
+        contentType = 'text/x-python'
+        stringData = repr(data)
+    elif datatype == 'json':
+        contentType = 'text/javascript'
+        stringData = simplejson.dumps(data)
+        if 'jsoncallback' in request.REQUEST:
+            stringData = '%s(%s);' % (request.REQUEST['jsoncallback'],
+                                      stringData)
+    response = HttpResponse(stringData,
+                            content_type=contentType)
     if code:
         response.status_code = code
     return response
@@ -202,3 +215,22 @@ def get_recommendations(request):
                                        request.user, start, count)
     return response_for_data(request, map(data_for_channel,
                                           channels))
+
+@requires_api_key
+@requires_login
+def get_ratings(request):
+    rating = request.GET.get('rating')
+    if rating is not None:
+        ratings = api.get_ratings(request.connection, request.user,
+                                  int(rating))
+        return response_for_data(request, map(data_for_channel,
+                                              ratings))
+    else:
+        ratings = api.get_ratings(request.connection, request.user)
+        channels = ratings.keys()
+        data = map(data_for_channel, channels)
+        for index, channels in izip(count(), channels):
+            data[index]['rating'] = ratings[channels]
+        return response_for_data(request, data)
+        
+        

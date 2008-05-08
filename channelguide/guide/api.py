@@ -98,6 +98,16 @@ def get_rating(connection, user, channel):
     else:
         return r.rating
 
+def get_ratings(connection, user, rating=None):
+    if rating is None:
+        return dict((r.channel, r.rating) for r in
+                    Rating.query(user_id=user.id).join('channel').execute(
+                connection))
+    else:
+        return [r.channel for r in
+                Rating.query(user_id=user.id, rating=rating).join(
+                'channel').execute(connection)]
+
 def get_recommendations(connection, user, start=0, length=10):
     query = Rating.query(user_id=user.id).order_by(Rating.c.timestamp)
     ratings = query.execute(connection)
