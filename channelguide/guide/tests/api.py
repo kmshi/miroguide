@@ -3,7 +3,7 @@ import simplejson
 
 from channelguide.guide.models import ApiKey, Category, Item, Language, Tag
 from channelguide.testframework import TestCase
-from channelguide import manage
+from channelguide import manage, sessions
 from channelguide.guide import api
 from channelguide.guide.tests.channels import test_data_path
 
@@ -200,50 +200,112 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(data[0]['id'], self.channels[0].id)
         self.assertEquals(data[0].get('category'), None)
 
+    def test_get_session(self):
+        response = self.make_api_request('get_session')
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assertEquals(len(data['session']), 32)
+
+    def _do_authentication(self,  response):
+        self.assertEquals(response.status_code, 200)
+        context = response.context[0]
+        self.assertEquals(context['key'], self.key)
+
+        data = {'key': context['key'],
+              'verification': context['verification']
+              }
+        if context.get('session'):
+            data['session'] = context['session']
+        if context.get('redirect'):
+            data['redirect'] = context['redirect']
+            
+        return self.post_data('/api/authenticate', data, self.owner)
+
+    def _get_session(self):
+        response = self.get_page('/api/authenticate', self.owner,
+                                 {'key': self.key})
+        response = self._do_authentication(response)
+        return response.context[0]['session']
+    
+    def test_authenticate(self):
+        response = self.get_page('/api/authenticate', self.owner, {
+                'key': self.key,
+                'redirect': 'http://test.com/'})
+        context = response.context[0]
+        self.assertEquals(context['session'], None)
+        self.assertEquals(context['redirect'], 'http://test.com/')        
+        response = self._do_authentication(response)
+        self.assertRedirect(response, 'http://test.com/')
+        self.assert_('?session=' in response['Location'])
+        session = sessions.util.get_session_from_key(self.connection,
+                                                response['Location'][-32:])
+        data = session.get_data()
+        self.assertEquals(data['key'], self.key)
+        self.assertEquals(data['apiUser'], self.owner.id)
+        
+
+    def test_authenticate_without_redirect(self):
+        response = self.get_page('/api/authenticate', self.owner, {
+                'key': self.key})
+        response = self._do_authentication(response)
+        self.assertEquals(response.context[0]['success'], True)
+
+    def test_authenticate_with_session(self):
+        sessionID = sessions.util.make_new_session_key(self.connection)
+        response = self.get_page('/api/authenticate', self.owner,
+                                 {'key': self.key,
+                                  'redirect': 'http://test.com/',
+                                  'session': sessionID})
+        response = self._do_authentication(response)
+        self.assertRedirect(response, 'http://test.com/')
+        self.assertEquals(response['Location'], 'http://test.com/?session=%s'
+                            % sessionID)
+
+    def test_authenticate_not_verified(self):
+        response = self.post_data('/api/authenticate', {'key': self.key,
+                                  'verification': 'foo'}, self.owner)
+        self.assertNotEquals(response.context[0].get('error'), None)
+
     def test_rate(self):
+        session = self._get_session()
         response = self.make_api_request('rate', id=-1,
-                                         username=self.owner.username,
-                                         password='password')
+                                         session=session)
         self.assertEquals(response.status_code, 404)
         self.assertEquals(eval(response.content),
                           {'error': 'CHANNEL_NOT_FOUND',
                            'text': 'Channel -1 not found'})
         response = self.make_api_request('rate', id=self.channels[0].id,
-                                         username='not a real user name',
-                                         password='password')
+                                         session='invalid session')
         self.assertEquals(response.status_code, 403)
         self.assertEquals(eval(response.content),
-                          {'error': 'INVALID_USER',
-                           'text': 'Invalid username or password'})
+                          {'error': 'INVALID_SESSION',
+                           'text': 'Invalid session'})
         response = self.make_api_request('rate', id=self.channels[0].id,
-                                         username=self.owner.username,
-                                         password='password')
+                                         session=session)
         self.assertEquals(response.status_code, 200)
         data = eval(response.content)
         self.assertEquals(data, {'rating': None})
 
         response = self.make_api_request('rate', id=self.channels[0].id,
-                                         username=self.owner.username,
-                                         password='password',
+                                         session=session,
                                          rating=5)
         self.assertEquals(response.status_code, 200)
         data = eval(response.content)
         self.assertEquals(data, {'rating': 5})
         
         response = self.make_api_request('rate', id=self.channels[0].id,
-                                         username=self.owner.username,
-                                         password='password')
+                                         session=session)
         self.assertEquals(response.status_code, 200)
         data = eval(response.content)
         self.assertEquals(data, {'rating': 5})        
 
     def test_get_ratings(self):
+        session = self._get_session()
         self.channels[0].rate(self.connection, self.owner, 5)
         self.channels[1].rate(self.connection, self.owner, 4)
         self.refresh_connection()
         response = self.make_api_request('get_ratings',
-                                         username=self.owner.username,
-                                         password='password')
+                                         session=session)
         self.assertEquals(response.status_code, 200)
         data = eval(response.content)
         self.assertEquals(len(data), 2)
@@ -256,12 +318,12 @@ class ChannelApiViewTest(ChannelApiTestBase):
                 self.fail('unknown channel id: %i' % channel['id'])
 
     def test_get_ratings_filter(self):
+        session = self._get_session()
         self.channels[0].rate(self.connection, self.owner, 5)
         self.channels[1].rate(self.connection, self.owner, 4)
         self.refresh_connection()
         response = self.make_api_request('get_ratings',
-                                         username=self.owner.username,
-                                         password='password',
+                                         session=session,
                                          rating='4')
         self.assertEquals(response.status_code, 200)
         data = eval(response.content)
@@ -269,21 +331,20 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(data[0]['id'], self.channels[1].id)
         
     def test_get_recommendations(self):
+        session = self._get_session()
         response = self.make_api_request('get_recommendations',
-                                         username='not a real user name',
-                                         password='password')
+                                         session='invalid session')
         self.assertEquals(response.status_code, 403)
         self.assertEquals(eval(response.content),
-                          {'error': 'INVALID_USER',
-                           'text': 'Invalid username or password'})
+                          {'error': 'INVALID_SESSION',
+                           'text': 'Invalid session'})
         self.channels[0].rate(self.connection, self.owner, 5)
         self.refresh_connection()
         manage.refresh_stats_table()
         manage.calculate_recommendations([None, None, 'full'])
         self.refresh_connection()
         response = self.make_api_request('get_recommendations',
-                                         username = self.owner.username,
-                                         password = 'password')
+                                         session=session)
         self.assertEquals(response.status_code, 200)
         data = eval(response.content)
         self.assertEquals(len(data), 1)

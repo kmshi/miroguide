@@ -5,6 +5,8 @@ urlpatterns = patterns('channelguide.guide.views.api',
                        (r'^test$', 'test'),
                        (r'^get_channel$', 'get_channel'),
                        (r'^get_channels$', 'get_channels'),
+                       (r'^get_session$', 'get_session'),
+                       (r'^authenticate$', 'authenticate'),
                        (r'^rate$', 'rate'),
                        (r'^get_ratings$', 'get_ratings'),
                        (r'^get_recommendations$', 'get_recommendations')

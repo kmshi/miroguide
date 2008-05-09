@@ -82,7 +82,6 @@ class FilteredFeed(ChannelsFeed):
             obj = util.get_object_or_404_by_name(self.request.connection,
                     self.model, bits[0])
         except Http404:
-            print 'error'
             raise ObjectDoesNotExist
         return obj
 

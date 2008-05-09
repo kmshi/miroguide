@@ -5,13 +5,12 @@ from channelguide.guide import search as search_mod
 from channelguide.cache import client
 import operator
 
-def login(connection, username, password):
+def login(connection, id):
     try:
-        user = User.query(username=username).get(connection)
+        user = User.query(id=id).get(connection)
     except LookupError:
         return None
-    if user.check_password(password):
-        return user
+    return user
 
 def get_channel(connection, id):
     return Channel.get(connection, id, join=['categories', 'tags', 'items',

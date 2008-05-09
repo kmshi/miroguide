@@ -1,10 +1,13 @@
 import simplejson
 from itertools import izip, count
-from django.http import HttpResponse, HttpResponseNotFound
+import sha
+from django.conf import settings
+from django.http import HttpResponse, HttpResponseNotFound, Http404
 from channelguide.guide.models import ApiKey, User
 from channelguide import util
 from channelguide.guide import api, tables
-from channelguide.guide.auth import admin_required
+from channelguide.guide.auth import admin_required, login_required
+from channelguide import sessions
 
 def requires_api_key(func):
     def wrapper(request):
@@ -12,15 +15,15 @@ def requires_api_key(func):
             return error_response(request, 'API_KEY_MISSING',
                                   'You forgot to send your API key',
                                   400)
-        select = tables.api_key.select(tables.api_key.c.active)
-        select.wheres.append(tables.api_key.c.api_key==request.REQUEST['key'])
-        result = select.execute(request.connection)
-        if not result:
+        try:
+            key = ApiKey.get(request.connection, request.REQUEST['key'])
+        except LookupError:
             return error_response(request, 'API_KEY_INVALID',
                                   'Invalid API key', 403)
-        elif result[0][0] == 0:
+        if not key.active:
             return error_response(request, 'API_KEY_DISABLED',
                                   'Disabled API key', 403)
+        request.key = key
         return func(request)
     return wrapper
 
@@ -29,24 +32,32 @@ def requires_arguments(*arguments):
         def wrapper(request):
             for name in arguments:
                 if name not in request.REQUEST:
-                    return HttpResponseBadRequest('You forgot the "%s" argument' % name)
+                    return error_response(request, 'MISSING_ARGUMENT',
+                                          'You forgot the "%s" argument'
+                                          % name)
             return func(request)
         return wrapper
     return outer
 
 def requires_login(func):
     def wrapper(request):
-        if 'username' not in request.REQUEST:
-            return HttpResponseBadRequest('You forgot the "username" argument')
-        if 'password' not in request.REQUEST:
-            return HttpResponseBadRequest('You forgot the "password" argument')
-        request.user = api.login(request.
-                                 connection,
-                                 request.REQUEST['username'],
-                                 request.REQUEST['password'])
-        if request.user is None:
-            return error_response(request, 'INVALID_USER',
-                                  'Invalid username or password', 403)
+        error = error_response(request, 'INVALID_SESSION',
+                               'Invalid session', 403)
+        if 'session' not in request.REQUEST:
+            return error
+        session = sessions.util.get_session_from_key(request.connection,
+                                                     request.REQUEST[
+                'session'])
+        data = session.get_data()
+        if 'apiUser' not in data:
+            return error
+        if data.get('key') != request.REQUEST['key']:
+            return error
+        session.update_expire_date()
+        session.save(request.connection)
+        request.user = api.login(request.connection,
+                                 data['apiUser'])
+
         return func(request)
     return wrapper
         
@@ -190,6 +201,53 @@ def get_channels(request):
     data = map(data_for_channel, channels)
     return response_for_data(request, data)
 
+@requires_api_key
+def get_session(request):
+    key = sessions.util.make_new_session_key(request.connection)
+    return response_for_data(request, {'session': key})
+
+@login_required
+def authenticate(request):
+    try:
+        key = ApiKey.get(request.connection, request.REQUEST['key'])
+    except KeyError, LookupError:
+        raise Http404
+    if not key.active:
+        raise Http404
+    redirectURL = request.REQUEST.get('redirect')
+    sessionID = request.REQUEST.get('session')
+    verification = sha.new(key.api_key + settings.SECRET_KEY +
+                           str(redirectURL) + str(sessionID)).hexdigest()
+    context = {
+        'key': key.api_key,
+        'redirect': redirectURL,
+        'session': sessionID,
+        'verification': verification
+    }
+    if request.method == 'POST':
+        if request.POST.get('submit') == 'No':
+            return util.redirect('/')
+        if request.POST.get('verification') == verification:
+            if not sessionID:
+                sessionID = sessions.util.make_new_session_key(
+                    request.connection)
+            session = sessions.util.get_session_from_key(request.connection,
+                                                          sessionID)
+            data = session.get_data()
+            data['key'] = key.api_key
+            data['apiUser'] = request.user.id
+            session.session_key = sessionID
+            session.set_data(data)
+            session.save(request.connection)
+            context['session'] = sessionID
+            if redirectURL:
+                return util.redirect(redirectURL, {'session': sessionID})
+            else:
+                context['success'] = True
+        else:
+            context['error'] = _("Invalid verification code.")
+    return util.render_to_response(request, 'api_authenticate.html',
+                                   context)
 @requires_api_key
 @requires_login
 @requires_arguments('id')

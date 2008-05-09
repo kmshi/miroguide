@@ -48,6 +48,9 @@ def import_last_component(name):
     return mod
 
 def make_absolute_url(relative_url, get_data=None):
+    if relative_url.startswith('http://') or \
+            relative_url.startswith('https://'):
+        return relative_url + format_get_data(get_data)
     return settings.BASE_URL_FULL + relative_url + format_get_data(get_data)
 
 def make_url(relative_url, get_data=None):

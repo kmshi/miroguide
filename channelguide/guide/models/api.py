@@ -1,3 +1,4 @@
+from django.conf import settings
 from channelguide.guide import tables
 from sqlhelper.orm import record
 import sha
