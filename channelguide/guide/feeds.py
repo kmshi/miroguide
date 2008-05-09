@@ -76,7 +76,6 @@ class FilteredFeed(ChannelsFeed):
     filter = None
 
     def get_object(self, bits):
-        print bits
         if len(bits) != 1:
             raise ObjectDoesNotExist
         try:
