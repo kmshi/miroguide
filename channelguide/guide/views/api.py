@@ -210,7 +210,7 @@ def get_session(request):
 def authenticate(request):
     try:
         key = ApiKey.get(request.connection, request.REQUEST['key'])
-    except KeyError, LookupError:
+    except (KeyError, LookupError):
         raise Http404
     if not key.active:
         raise Http404

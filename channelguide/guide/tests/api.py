@@ -266,6 +266,11 @@ class ChannelApiViewTest(ChannelApiTestBase):
                                   'verification': 'foo'}, self.owner)
         self.assertNotEquals(response.context[0].get('error'), None)
 
+    def test_authenticate_invalid_key_404(self):
+        response = self.get_page('/api/authenticate', self.owner,
+                                 {'key': 'invalid key'})
+        self.assertEquals(response.status_code, 404)
+        
     def test_rate(self):
         session = self._get_session()
         response = self.make_api_request('rate', id=-1,
