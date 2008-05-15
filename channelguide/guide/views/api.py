@@ -167,21 +167,27 @@ def test(request):
 def get_channel(request):
     if not ('id' in request.GET or 'url' in request.GET):
         return HttpResponseBadRequest("get_channel requires either an id or a URL")
+    channels = []
     if 'id' in request.GET:
-        id = request.GET.get('id')
-        try:
-            channel = api.get_channel(request.connection, id)
-        except LookupError:
-            return error_response(request, 'CHANNEL_NOT_FOUND',
+        ids = request.GET.getlist('id')
+        for id in ids:
+            try:
+                channels.append(api.get_channel(request.connection, id))
+            except LookupError:
+                return error_response(request, 'CHANNEL_NOT_FOUND',
                               'Channel %s not found' % id)
+    if 'url' in request.GET:
+        urls = request.GET.getlist('url')
+        for url in urls:
+            try:
+                channels.append(api.get_channel_by_url(request.connection, url))
+            except LookupError, e:
+                return error_response(request, 'CHANNEL_NOT_FOUND',
+                                      'Channel %s not found' % url)
+    if len(channels) == 1:
+        data = data_for_channel(channels[0])
     else:
-        url = request.GET.get('url')
-        try:
-            channel = api.get_channel_by_url(request.connection, url)
-        except LookupError:
-            return error_response(request, 'CHANNEL_NOT_FOUND',
-                                  'Channel %s not found' % url)
-    data = data_for_channel(channel)
+        data = map(data_for_channel, channels)
     return response_for_data(request, data)
 
 @requires_api_key
