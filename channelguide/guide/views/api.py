@@ -1,6 +1,7 @@
 import simplejson
 from itertools import izip, count
 import sha
+import cgi
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from channelguide.guide.models import ApiKey, User
@@ -168,22 +169,21 @@ def get_channel(request):
     if not ('id' in request.GET or 'url' in request.GET):
         return HttpResponseBadRequest("get_channel requires either an id or a URL")
     channels = []
-    if 'id' in request.GET:
-        ids = request.GET.getlist('id')
-        for id in ids:
+    for key, value in cgi.parse_qsl(request.META['QUERY_STRING']):
+        if key == 'id':
             try:
-                channels.append(api.get_channel(request.connection, id))
+                channels.append(api.get_channel(request.connection,
+                                                int(value)))
             except LookupError:
                 return error_response(request, 'CHANNEL_NOT_FOUND',
-                              'Channel %s not found' % id)
-    if 'url' in request.GET:
-        urls = request.GET.getlist('url')
-        for url in urls:
+                              'Channel %s not found' % value)
+        elif key == 'url':
             try:
-                channels.append(api.get_channel_by_url(request.connection, url))
+                channels.append(api.get_channel_by_url(request.connection,
+                                                       value))
             except LookupError, e:
                 return error_response(request, 'CHANNEL_NOT_FOUND',
-                                      'Channel %s not found' % url)
+                                      'Channel %s not found' % value)
     if len(channels) == 1:
         data = data_for_channel(channels[0])
     else:

@@ -202,6 +202,20 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(eval(response.content),
                 {'error': 'CHANNEL_NOT_FOUND',
                  'text': 'Channel %s not found' % channel.url[:-5]})
+
+    def test_get_channel_combine_url_id(self):
+        """
+        /api/get_channel should handle mixing url and id lookups.
+        """
+        response = self.get_page('/api/get_channel', data=
+                                 [('key', self.key),
+                                  ('url', self.channels[0].url),
+                                  ('id', self.channels[01].id)])
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assertEquals(len(data), 2)
+        self.assertEquals(data[0]['id'], self.channels[0].id)
+        self.assertEquals(data[1]['url'], self.channels[1].url)
         
     def test_get_channels(self):
         response = self.make_api_request('get_channels', filter='category',
