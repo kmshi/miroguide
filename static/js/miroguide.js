@@ -3,6 +3,16 @@
  * Shared functions used in channel guide
  */
 
+function MiroVersion() {
+    if (navigator.userAgent.indexOf('Miro') != -1) {
+	return /Miro\/([\d.]+)/.exec(navigator.userAgent)[1];
+    } else if (top.frames.length == 2 &&
+	       top.frames[1].name == 'miro_guide_frame') {
+	return "1.2";
+    } else {
+	return undefined;
+}
+
 function getPreviousElement(elt) {
     while(elt.previousSibling) {
         elt = elt.previousSibling;
@@ -53,7 +63,7 @@ function doAjaxCall(url, callback) {
                 callback(request);
             }
          }
-    };
+    }; 
     request.open('GET', url, true);
     request.send(null);
     return true;
@@ -75,6 +85,7 @@ function ajaxLink(url, id) {
  * channelguide URL redirects te the subscribe_url.
  */
 function handleSubscriptionLink(channel_guide_url, subscribe_url) {
+    if (MiroVersion() && MiroVersion() > "1.2") return true;
     request = makeXMLHttpRequest();
     if (!request) return true;
     request.onreadystatechange = function() {
