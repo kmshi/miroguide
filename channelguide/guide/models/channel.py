@@ -247,7 +247,7 @@ class Channel(Record, Thumbnailable):
                 (cg_link, subscribe_link))
 
     def get_subscribe_hit_url(self):
-        return util.make_url('channels/subscribe-hit/%d' % self.id)
+        return util.make_absolute_url('channels/subscribe-hit/%d' % self.id)
     
     def get_subscription_url(self):
         return util.get_subscription_url(self.url,
