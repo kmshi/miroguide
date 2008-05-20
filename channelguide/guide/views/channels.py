@@ -58,6 +58,10 @@ def moderator_channel_list(request, state):
         'pager': pager,
         'channels': pager.items,
         'header': header,
+        'subscribe_all_link': util.make_link(
+                util.get_subscription_url(*[channel.url for channel in
+                                            pager.items]),
+                _("Subscribe to all 10 channels"))
         })
 
 def destroy_submit_url_session(request):
