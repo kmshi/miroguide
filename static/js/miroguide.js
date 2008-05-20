@@ -92,7 +92,7 @@ function ajaxLink(url, id) {
  * channelguide URL redirects te the subscribe_url.
  */
 function handleSubscriptionLink(channel_guide_url, subscribe_url) {
-    if (isMiro() && MiroVersion() > "1.2") return true;
+    if (isMiro() && MiroVersion() >= "1.5") return true;
     request = makeXMLHttpRequest();
     if (!request) return true;
     request.onreadystatechange = function() {
