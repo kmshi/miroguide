@@ -361,11 +361,12 @@ def get_recommendations(request, id):
         if len(channels) == 4:
             break
         try:
-            chan = Channel.query(user=request.user).get(request.connection, rec)
+            chan = Channel.get(request.connection, rec)
         except Exception:
             continue
         else:
-            channels.append(chan)
+            if chan.state == Channel.APPROVED and not chan.archived:
+                channels.append(chan)
     return channels
 
 def rate(request, id):
