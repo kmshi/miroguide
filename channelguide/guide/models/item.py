@@ -88,7 +88,7 @@ class Item(Record, Thumbnailable):
         try:
             rv.name = feedutil.to_utf8(entry['title'])
             if enclosure is not None:
-                rv.url = feedutil.to_utf8(enclosure['url'])
+                rv.url = feedutil.to_utf8(enclosure['href'])
                 rv.mime_type = feedutil.to_utf8(enclosure['type'])
             else:
                 rv.url = entry['link']
