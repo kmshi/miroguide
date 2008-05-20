@@ -46,7 +46,8 @@ def get_thumbnail_url(entry):
     # Try the video enclosure
     def _get(d):
         if 'thumbnail' in d:
-            if isinstance(d['thumbnail'], dict) and 'url' in d['thumbnail']:
+            if isinstance(d['thumbnail'], dict) and d['thumbnail'].get(
+                'url') is not None:
                 return to_utf8(d['thumbnail']['url'])
             else:
                 return to_utf8(d['thumbnail'])
