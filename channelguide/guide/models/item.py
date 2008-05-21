@@ -89,7 +89,10 @@ class Item(Record, Thumbnailable):
             rv.name = feedutil.to_utf8(entry['title'])
             if enclosure is not None:
                 rv.url = feedutil.to_utf8(enclosure['href'])
-                rv.mime_type = feedutil.to_utf8(enclosure['type'])
+                # split off the front if there's additional data in the
+                # MIME type
+                rv.mime_type = feedutil.to_utf8(enclosure['type']
+                                                ).split(';', 1)[0]
             else:
                 rv.url = entry['link']
                 rv.mime_type = filetypes.guessMimeType(rv.url)
