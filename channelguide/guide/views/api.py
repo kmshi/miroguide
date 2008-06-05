@@ -167,7 +167,8 @@ def test(request):
 @requires_api_key
 def get_channel(request):
     if not ('id' in request.GET or 'url' in request.GET):
-        return HttpResponseBadRequest("get_channel requires either an id or a URL")
+        return error_response('MISSING_ARGUMENT',
+                              "get_channel requires either an id or a URL")
     channels = []
     for key, value in cgi.parse_qsl(request.META['QUERY_STRING']):
         if key == 'id':
