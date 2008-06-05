@@ -9,5 +9,9 @@ urlpatterns = patterns('channelguide.guide.views.api',
                        (r'^authenticate$', 'authenticate'),
                        (r'^rate$', 'rate'),
                        (r'^get_ratings$', 'get_ratings'),
-                       (r'^get_recommendations$', 'get_recommendations')
+                       (r'^get_recommendations$', 'get_recommendations'),
+                       (r'^list_categories', 'list_labels',
+                        {'type': 'category'}),
+                       (r'^list_languages', 'list_labels',
+                        {'type': 'language'})
                        )

@@ -157,3 +157,12 @@ def get_recommendations(connection, user, start=0, length=10):
             return 0
         else:
             return []
+
+def list_labels(connection, type):
+    if type == 'category':
+        model = Category
+    elif type == 'language':
+        model = Language
+    else:
+        raise ValueError("type must be 'category' or 'language'")
+    return model.query().order_by(model.c.name).execute(connection)

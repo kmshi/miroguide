@@ -19,8 +19,8 @@ class ChannelApiTestBase(TestCase):
             channel.name = 'My Channel %i' % i
             channel.save(self.connection)
             self.channels.append(channel)
-        categories = []
-        languages = []
+        self.categories = categories = []
+        self.languages = languages = []
         items = []
         for n in range(2):
             cat = Category('category%i' % n)
@@ -385,7 +385,28 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(data[0]['reasons'][0]['id'], self.channels[0].id)
         self.assertEquals(data[0]['reasons'][0]['score'], 0.625)
         
-        
+    def test_list_categories(self):
+        response = self.make_api_request('list_categories')
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assertEquals(len(data), 2)
+        for i in range(2):
+            self.assertEquals(data[i]['name'], self.categories[i].name)
+            self.assertEquals(data[i]['url'],
+                              self.categories[i].get_absolute_url())
+
+    def test_list_languages(self):
+        response = self.make_api_request('list_languages')
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assertEquals(len(data), 3)
+        languages = [self.language] + self.languages
+        for i in range(3):
+            self.assertEquals(data[i]['name'], languages[i].name)
+            self.assertEquals(data[i]['url'],
+                              languages[i].get_absolute_url())
+
+    
 class ChannelApiFunctionTest(ChannelApiTestBase):
 
     def assertSameChannels(self, l1, l2):
@@ -618,7 +639,21 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         self.assertEquals(channels[0].reasons[0].id, self.channels[0].id)
         self.assertEquals(channels[0].reasons[0].score, 0.625)
 
-        
+
+    def test_list_categories(self):
+        categories = api.list_labels(self.connection, 'category')
+        self.assertEquals(len(categories), 2)
+        self.assertEquals(categories[0].id, self.categories[0].id)
+        self.assertEquals(categories[1].id, self.categories[1].id)
+
+    def test_list_languages(self):
+        languages = api.list_labels(self.connection, 'language')
+        self.assertEquals(len(languages), 3)
+        self.assertEquals(languages[0].id, self.language.id)
+        self.assertEquals(languages[1].id, self.languages[0].id)
+        self.assertEquals(languages[2].id, self.languages[1].id)
+
+
 class ChannelApiManageTest(TestCase):
 
     def setUp(self):

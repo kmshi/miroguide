@@ -11,7 +11,7 @@ from channelguide.guide.auth import admin_required, login_required
 from channelguide import sessions
 
 def requires_api_key(func):
-    def wrapper(request):
+    def wrapper(request, *args, **kw):
         if 'key' not in request.REQUEST:
             return error_response(request, 'API_KEY_MISSING',
                                   'You forgot to send your API key',
@@ -25,7 +25,7 @@ def requires_api_key(func):
             return error_response(request, 'API_KEY_DISABLED',
                                   'Disabled API key', 403)
         request.key = key
-        return func(request)
+        return func(request, *args, **kw)
     return wrapper
 
 def requires_arguments(*arguments):
@@ -298,4 +298,11 @@ def get_ratings(request):
             data[index]['rating'] = ratings[channels]
         return response_for_data(request, data)
         
-        
+@requires_api_key
+def list_labels(request, type):
+    labels = api.list_labels(request.connection, type)
+    data = [
+        {'name': label.name,
+         'url': label.get_absolute_url()}
+        for label in labels]
+    return response_for_data(request, data)
