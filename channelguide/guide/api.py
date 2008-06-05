@@ -60,9 +60,9 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None):
     else:
         desc = False
     if sort in ('name', 'id'):
-        query.order_by(sort, desc=desc)
+        query.order_by(getattr(Channel.c, sort), desc=desc)
     elif sort == 'age':
-        query.order_by('approved_at', desc=desc)
+        query.order_by(Channel.c.approved_at, desc=desc)
     elif sort == 'popular':
         query.load('subscription_count_month')
         query.order_by('subscription_count_month', desc=desc)
@@ -70,7 +70,7 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None):
         query.join('rating')
         query.order_by(query.joins['rating'].c.average, desc=desc)
     else: # default to name
-        query.order_by('name')
+        query.order_by(Channel.c.name)
     if limit is None:
         limit = 20
     if limit > 100:
