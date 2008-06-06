@@ -101,7 +101,8 @@ def data_for_item(item):
     data = {}
     for key in default_keys:
         data[key] = getattr(item, key)
-    data['date'] = item.date.isoformat()
+    if item.date is not None:
+        data['date'] = item.date.isoformat()
     if item.thumbnail_exists():
         data['thumbnail_url'] = item.thumb_url(200, 133)
     return data
