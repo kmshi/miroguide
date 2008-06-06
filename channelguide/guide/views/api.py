@@ -175,7 +175,7 @@ def get_channel(request):
             try:
                 channels.append(api.get_channel(request.connection,
                                                 int(value)))
-            except LookupError:
+            except (LookupError, ValueError):
                 return error_response(request, 'CHANNEL_NOT_FOUND',
                               'Channel %s not found' % value)
         elif key == 'url':

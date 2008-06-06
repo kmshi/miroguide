@@ -75,7 +75,7 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None):
         limit = 20
     if limit > 100:
         limit = 100
-    if offset is None:
+    if offset is None or offset < 0:
         offset = 0
     query.limit(limit).offset(offset)
     results = query.execute(connection)

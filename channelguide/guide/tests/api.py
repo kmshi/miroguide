@@ -176,6 +176,13 @@ class ChannelApiViewTest(ChannelApiTestBase):
                 {'error': 'CHANNEL_NOT_FOUND',
                  'text': 'Channel -1 not found'})
 
+        response = self.make_api_request('get_channel', id='all')
+        self.assertEquals(response.status_code, 404)
+        self.assertEquals(eval(response.content),
+                {'error': 'CHANNEL_NOT_FOUND',
+                 'text': 'Channel all not found'})
+
+
     def test_get_channel_multiple_ids(self):
         """
         /api/get_channel should take multiple ids and return a list of the
@@ -360,7 +367,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
         data = eval(response.content)
         self.assertEquals(len(data), 1)
         self.assertEquals(data[0]['id'], self.channels[1].id)
-        
+
     def test_get_recommendations(self):
         session = self._get_session()
         response = self.make_api_request('get_recommendations',
