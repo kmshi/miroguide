@@ -92,7 +92,7 @@ def redirect_to_referrer(request):
         return redirect(settings.BASE_URL)
 
 def send_to_login_page(request):
-    login_url = 'accounts/login?next=%s' % get_relative_path(request)
+    login_url = '/accounts/login?next=%s' % get_relative_path(request)
     return redirect(login_url)
 
 def make_qs(**query_dict):
