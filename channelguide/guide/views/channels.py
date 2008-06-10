@@ -49,6 +49,10 @@ def moderator_channel_list(request, state):
     elif state == 'suspended':
         query.where(state=Channel.SUSPENDED)
         header = _("Suspended Channels")
+    elif state == 'featured':
+        query.join('featured_queue')
+        query.where(query.joins['featured_queue'].c.state == FeaturedQueue.IN_QUEUE)
+        header = _("Featured Queue")
     else:
         query.where(state=Channel.NEW)
         header = _("Unreviewed Channels")
@@ -61,7 +65,7 @@ def moderator_channel_list(request, state):
         'subscribe_all_link': util.make_link(
                 util.get_subscription_url(*[channel.url for channel in
                                             pager.items]),
-                _("Subscribe to all 10 channels"))
+                _("Subscribe to all %i channels") % len(pager.items))
         })
 
 def destroy_submit_url_session(request):
