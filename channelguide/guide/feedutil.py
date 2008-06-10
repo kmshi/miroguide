@@ -46,7 +46,7 @@ def get_thumbnail_url(entry):
     # Try the video enclosure
     def _get(d):
         if 'thumbnail' in d:
-            if isinstance(d['thumbnail'], dict) and d['thumbnail'].get(
+            if hasattr(d['thumbnail'], 'get') and  d['thumbnail'].get(
                 'url') is not None:
                 return to_utf8(d['thumbnail']['url'])
             else:
@@ -76,7 +76,7 @@ def get_thumbnail_url(entry):
 def to_utf8(feedparser_string):
     if str is None:
         return None
-    elif type(feedparser_string) is str:
+    elif isinstance(feedparser_string, str):
         try:
             decoded = feedparser_string.decode('utf-8')
         except UnicodeError:
@@ -85,7 +85,7 @@ def to_utf8(feedparser_string):
             except UnicodeError:
                 decoded = feedparser_string.decode('utf-8', 'ignore')
         return decoded.encode('utf-8')
-    else:
+    elif isinstance(feedparser_string, unicode):
         return feedparser_string.encode('utf-8')
 
 string_column_cache = {}
