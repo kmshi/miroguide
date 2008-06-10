@@ -6,13 +6,11 @@
 from datetime import datetime, timedelta
 from itertools import cycle, count, izip
 from urllib import quote, urlopen
-from urlparse import urlparse
 import Queue
 import cgi
 import md5
 import os
 import random
-import re
 import string
 import subprocess
 import sys
@@ -28,6 +26,7 @@ from django.utils.http import urlquote
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 try:
     from django.utils.safestring import mark_safe
+    mark_safe = mark_safe # fix pyflakes error
 except ImportError:
     mark_safe = lambda x: x
 emailer = None
@@ -132,11 +131,19 @@ def push_media_to_s3(subpath, content_type):
     conn = S3.AWSAuthConnection(settings.S3_ACCESS_KEY, settings.S3_SECRET_KEY)
     localPath = os.path.join(settings.MEDIA_ROOT, subpath)
     obj = S3.S3Object(file(localPath).read())
-    conn.put(settings.S3_BUCKET,
-            settings.S3_PATH + subpath,
-            obj,
-            {'Content-Type': content_type,
-             'x-amz-acl': 'public-read'})
+    count = 5
+    while True:
+        try:
+            conn.put(settings.S3_BUCKET,
+                     settings.S3_PATH + subpath,
+                     obj,
+                     {'Content-Type': content_type,
+                      'x-amz-acl': 'public-read'})
+        except:
+            count -= 1
+            if not count:
+                raise
+        
 
 def make_thumbnail(source_path, dest_path, width, height):
     # From the "Pad Out Image" recipe at
@@ -183,7 +190,6 @@ def get_object_or_404(connection, record_or_query, id):
         raise Http404
 
 def get_object_or_404_by_name(connection, record_or_query, name):
-    from sqlhelper.orm import Record
     if hasattr(record_or_query, 'query'):
         query = record_or_query.query()
     else:
