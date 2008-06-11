@@ -1858,6 +1858,15 @@ div.channel-full {
     margin-bottom: 8px;
 }
 
+.channel-full #episodes > h2 span {
+    font-size: 50%;
+}
+
+.channel-full #episodes > h2 span#showall,
+.channel-full #episodes > h2 span#hideall {
+    cursor: pointer;
+}
+
 .channel-full #episodes .title {
     height: 160px;
     width: 243px;
@@ -2012,6 +2021,10 @@ div.channel-recommended {
     width: 200px;
     max-height:1.3em;
     overflow:hidden;
+}
+
+.item .title h4 {
+    cursor: pointer;
 }
 
 .item .screenshot {
