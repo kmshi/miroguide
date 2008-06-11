@@ -3,20 +3,18 @@
 
 from datetime import datetime, timedelta
 from glob import glob
-from urllib import quote
 import cgi
 import feedparser
 import logging
 import traceback
-import math
+import time
 
-from django.conf import settings
 from django.utils.translation import ngettext
 
 from channelguide import util
 from channelguide.guide import feedutil, tables, exceptions, emailmessages
 from channelguide.guide.thumbnail import Thumbnailable
-from channelguide import cache
+from channelguide.cache import client
 from sqlhelper.orm import Record
 from sqlhelper.sql import expression
 
@@ -380,6 +378,7 @@ class Channel(Record, Thumbnailable):
         self.search_data.save(connection)
         for item in self.items:
             item.update_search_data(connection)
+        client.set('search', time.time()) # reset search cache
 
     def get_search_data(self):
         simple_attrs = ('description', 'url',
