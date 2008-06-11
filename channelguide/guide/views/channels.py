@@ -148,7 +148,12 @@ def channel(request, id):
                     request.connection)
         elif action == 'unfeature':
             request.user.check_is_supermoderator()
-            FeaturedQueue.unfeature_channel(channel, request.connection)
+            channel.join('featured_queue').execute(request.connection)
+            if channel.featured_queue.state == FeaturedQueue.PAST:
+                FeaturedQueue.feature_channel(channel, request.user,
+                                              request.connection)
+            else:
+                FeaturedQueue.unfeature_channel(channel, request.connection)
         elif action == 'change-state':
             request.user.check_is_moderator()
             submit_value = request.POST['submit']
