@@ -53,7 +53,7 @@ def delete(request):
 
 @admin_required
 def change_name(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.POST.get('name'):
         language = Language.get(request.connection, request.POST['id'])
         language.name = request.POST['name']
         language.save(request.connection)

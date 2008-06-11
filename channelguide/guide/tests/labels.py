@@ -36,6 +36,10 @@ class LabelModerationTestBase(TestCase):
             'name': 'fooese'})
         labels = self.get_labels_from_moderate_page()
         self.check_label_names(labels, 'fooese')
+        self.post_data(self.label_url + '/change_name', {'id': labels[0].id,
+                                                         'name': ''})
+        labels = self.get_labels_from_moderate_page()
+        self.check_label_names(labels, 'fooese')
 
     def test_moderate_access(self):
         super_mod = self.make_user('wendy', role=User.SUPERMODERATOR)
