@@ -362,7 +362,6 @@ class SubmitChannelForm(Form):
         return channel
 
     def update_channel(self, channel):
-        logging.info('cleaned data = %r' % dict(self.cleaned_data))
         string_cols = ('name', 'website_url',
                 'description', 'publisher', 'postal_code')
         for attr in string_cols:
