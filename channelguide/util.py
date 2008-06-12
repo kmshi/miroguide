@@ -143,6 +143,8 @@ def push_media_to_s3(subpath, content_type):
             count -= 1
             if not count:
                 raise
+        else:
+            return
         
 
 def make_thumbnail(source_path, dest_path, width, height):
