@@ -147,7 +147,7 @@ def manage(request):
             except LookupError:
                 return HttpResponseNotFound('invalid user name %s' % owner)
             description = request.POST['description']
-            key = ApiKey.new(owner.id, description)
+            key = ApiKey(owner.id, description)
             key.save(request.connection)
             return util.redirect_to_referrer(request)
         elif action == 'toggle-active':

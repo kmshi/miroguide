@@ -65,7 +65,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
 
     def setUp(self):
         ChannelApiTestBase.setUp(self)
-        key = ApiKey.new(self.owner.id, '')
+        key = ApiKey(self.owner.id, '')
         key.save(self.connection)
         self.key = key.api_key
         self.refresh_connection()
@@ -92,7 +92,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
                 data={'key': '0'*20})
         self.assertEquals(response.status_code, 403)
 
-        key = ApiKey.new(self.owner.id, '')
+        key = ApiKey(self.owner.id, '')
         key.active = False
         key.save(self.connection)
         self.refresh_connection()
@@ -668,7 +668,7 @@ class ChannelApiManageTest(TestCase):
         self.admin = self.make_user('admin', role='A')
 
     def _make_key(self):
-        key = ApiKey.new(self.admin.id, '')
+        key = ApiKey(self.admin.id, '')
         key.save(self.connection)
         self.refresh_connection()
         return key
