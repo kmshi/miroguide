@@ -16,3 +16,4 @@ from feature import *
 from cobranding import *
 from blogtrack import *
 from api import *
+from watched import *

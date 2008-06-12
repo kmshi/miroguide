@@ -195,6 +195,10 @@ api_key = Table('cg_api_key',
     columns.Int('active'),
     columns.String('description'),
     columns.DateTime('created_at', default=datetime.now))
+watched_videos = Table('cg_watched_videos',
+                       columns.Int('type', primary_key=True),
+                       columns.Int('id', primary_key=True),
+                       columns.Int('count', default=0))
 cobranding = Table('cg_cobranding',
         columns.Int('name', fk=user.c.username, primary_key=True),
         columns.String('html_title', 100),
