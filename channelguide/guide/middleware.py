@@ -62,7 +62,8 @@ class NotificationMiddleware(object):
     """
 
     def process_request(self, request):
-        request.notifications = []
+        request.notifications = [
+            ("Survey Says", "We're doing a survey to get a better sense of our users.  <a href='#' onclick='javascript:goToSurvey(); return false;'>Help us out!</a>")]
         request.add_notification = (
                 lambda t, l: request.notifications.append((t, l)))
 
