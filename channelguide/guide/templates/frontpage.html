@@ -11,6 +11,15 @@ See LICENSE for details.
 <link rel="StyleSheet" type="text/css" href="{{ STATIC_BASE_URL }}css/rating.css"/>
 <link rel="alternate" type="application/rss+xml" title="Featured Channels" href="{{ BASE_URL_FULL }}feeds/features"/>
 <link rel="alternate" type="application/rss+xml" title="New Channels" href="{{ BASE_URL_FULL }}feeds/new" />
+<script type="text/javascript">
+function random8() {
+    return (((Math.random()+1)* 0x10000000)|0).toString(16);
+}
+
+function goToSurvey() {
+    document.location = 'http://app.crowdscience.com/survey/?plan=727&style=&guid=' + random8() + random8() + random8() + random8();
+}
+</script>
 {% endblock %}
 
 {% block onload-extra %}scheduleFeatureRotate();{% endblock %}
@@ -48,6 +57,10 @@ See LICENSE for details.
 </div>
     <div><a {% link "channels/features" %}>{% trans "See All Featured Channels" %}</a></div>
 </div>
+<div class="clear"></div>
+<div id="survey" onclick="javascript:goToSurvey(); return false;">
+  <img src="{{ STATIC_BASE_URL }}images/Survey-Banner.png">
+  </div>
 <div class="clear"></div>
 {% if language %}
 <a {% link language.get_url %}><h1>{% trans "Channels in" %} {% trans language.name %}</h1></a>

@@ -32,16 +32,6 @@ pageTracker._initData();
 pageTracker._trackPageview();
 </script>
 {% endif %}
-<script>
-function random8() {
-    return (((Math.random()+1)* 0x10000000)|0).toString(16);
-}
-
-function goToSurvey() {
-    document.location = 'http://app.crowdscience.com/survey/?plan=727&style=&guid=' + random8() + random8() + random8() + random8();
-}
-</script>
-
 {% block head-extra %}{% endblock %}
 </head>
 <body onload="{% block onload-extra %}{% endblock%}" onpagehide="hideLoadIndicator();" >

@@ -2975,3 +2975,9 @@ width:466px;
 font-size:130%;
 line-height:1.7em;
 }
+
+#survey {
+    padding: 10px;
+    margin: 0 auto;
+    cursor: pointer;
+}
