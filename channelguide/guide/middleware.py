@@ -62,7 +62,18 @@ class NotificationMiddleware(object):
     """
 
     def process_request(self, request):
-        request.notifications = []
+        request.notifications = [("""Live Chat <script type="text/javascript">
+var minutes = ((new Date("Tue, 17 Jun 2008 20:30:00 GMT") - new Date()) / 60000);
+if (minutes > 60) {
+   var output = "in " + parseInt(minutes / 60) + " Hours";
+} else if (minutes > 0) {
+   var output = "in " + parseInt(minutes) + " Minutes";
+} else {
+   var output = "Now";
+}
+document.write(output);
+</script>""",
+"""Meet the creators of <a href="https://www.miroguide.com/channels/3632" onclick="showLoadIndicator();">Ryan Is Hungry</a> in the <a href="http://www.getmiro.com/forum/?Page=chat">Miro chat room</a>""")]
         request.add_notification = (
                 lambda t, l: request.notifications.append((t, l)))
 
