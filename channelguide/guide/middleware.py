@@ -73,7 +73,7 @@ if (minutes > 60) {
 }
 document.write(output);
 </script>""",
-"""Meet the creators of <a href="https://www.miroguide.com/channels/3632" onclick="showLoadIndicator();">Ryan Is Hungry</a> in the <a href="http://www.getmiro.com/forum/?Page=chat">Miro chat room</a>""")]
+"""Meet the creators of <a href="https://www.miroguide.com/channels/3632" onclick="showLoadIndicator();">Ryan Is Hungry</a> in the <a href="http://www.getmiro.com/forum/?Page=chat">Miro chat room</a> at 4:30PM EST""")]
         request.add_notification = (
                 lambda t, l: request.notifications.append((t, l)))
 
