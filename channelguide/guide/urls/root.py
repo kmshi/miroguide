@@ -71,7 +71,8 @@ urlpatterns = urlpatterns + patterns('',
                 'categories': feeds.CategoriesFeed,
                 'tags': feeds.TagsFeed,
                 'languages': feeds.LanguagesFeed,
-                'search': feeds.SearchFeed}
+                'search': feeds.SearchFeed,
+                'recommend': feeds.RecommendationsFeed}
         }),
 )
 

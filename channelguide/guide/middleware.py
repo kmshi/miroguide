@@ -6,12 +6,23 @@ import logging
 import traceback
 import cStringIO
 
+from django.http import HttpResponse
+
 from channelguide import util, settings
 from exceptions import AuthError
 from models import Channel, User
 from models.user import AnonymousUser
 from auth import SESSION_KEY
 import hotshot, hotshot.stats, tempfile, sys
+
+class HttpResponseUnauthorized(HttpResponse):
+
+    status_code = 401
+    
+    def __init__(self):
+        HttpResponse.__init__(self, "Authentication Required",
+                              mimetype='text/plain')
+        self['WWW-Authenticate'] = 'Basic realm="Miro Guide"'
 
 class UserMiddleware(object):
     """Add a User object to each request.
@@ -20,30 +31,58 @@ class UserMiddleware(object):
     """
 
     def process_request(self, req):
-        if SESSION_KEY in req.session:
-            try:
-                username, password = req.session[SESSION_KEY]
-            except:
-                logging.warn("Error reading user session info:")
-                logging.warn(traceback.format_exc())
-                del req.session[SESSION_KEY]
-                req.user = AnonymousUser()
-                return
-            query = User.query(username=username, hashed_password=password)
-            query.join("channels")
-            try:
-                req.user = query.get(req.connection)
-            except LookupError:
-                req.user = AnonymousUser()
-            else:
-                if req.user.approved == 0:
-                    req.add_notification('Welcome', 'You are now logged in!  Click into any channel to give it a star rating.')
-                    req.add_notification('Confirm', """Confirm your e-mail to make your ratings count towards the average.  <a href="/accounts/confirm/%i/resend">Didn't get the e-mail?</a>""" % req.user.id)
-
-                req.connection.commit()
+        if req.META.has_key('HTTP_AUTHORIZATION'):
+            return self.authenticateWithHTTPAuthorization(req)
+        elif req.path.startswith('/feeds/recommend'):
+            return HttpResponseUnauthorized()
+        elif SESSION_KEY in req.session:
+            self.authenticateWithCookie(req)
         else:
-            req.user = AnonymousUser()
+            self.authenticateWithAnonymous(req)
 
+    def authenticateWithCookie(self, req):
+        try:
+            username, password = req.session[SESSION_KEY]
+        except:
+            logging.warn("Error reading user session info:")
+            logging.warn(traceback.format_exc())
+            del req.session[SESSION_KEY]
+            return self.authenticateWithAnonymous(req)
+        query = User.query(username=username, hashed_password=password)
+        query.join("channels")
+        try:
+            req.user = query.get(req.connection)
+        except LookupError:
+            return self.authenticateWithAnonymous(req)
+        else:
+            if req.user.approved == 0:
+                req.add_notification('Welcome', 'You are now logged in!  Click into any channel to give it a star rating.')
+                req.add_notification('Confirm', """Confirm your e-mail to make your ratings count towards the average.  <a href="/accounts/confirm/%i/resend">Didn't get the e-mail?</a>""" % req.user.id)
+
+            req.connection.commit()
+
+    def authenticateWithHTTPAuthorization(self, req):
+        method, authentication = req.META.get('HTTP_AUTHORIZATION'
+                                                  ).split(' ', 1)
+        if method.lower() != 'basic':
+            return HttpResponseUnauthorized()
+        username, password = authentication.strip().decode('base64'
+                                                           ).split(':', 1)
+        try:
+            user = User.query(username=username).get(req.connection)
+        except LookupError:
+            return HttpReponseUnauthorized()
+        try:
+            if user.check_password(password):
+                req.user = user
+                return
+        except:
+            pass
+        return HttpResponseUnauthorized()
+
+    def authenticateWithAnonymous(self, req):
+        req.user = AnonymousUser()
+        
     def process_exception(self, request, exception):
         if isinstance(exception, AuthError):
             return util.send_to_login_page(request)

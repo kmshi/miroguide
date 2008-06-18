@@ -17,7 +17,7 @@ def https_add_domain(domain, url):
     """
     The built-in add_domain doesn't support https:// URLs, so we fake it.
     """
-    if url.startswith('https://'):
+    if url and url.startswith('https://'):
         return url
     return _old_add_domain(domain, url)
 
@@ -154,3 +154,17 @@ class SearchFeed(ChannelsFeed):
             return ''
         return api.search(self.request.connection, obj)
 
+class RecommendationsFeed(ChannelsFeed):
+
+    def title(self):
+        return 'Recommended Channels for %s' % self.request.user.username
+
+    def description(self):
+        return 'These channels are recommended for \
+%s based on their ratings in the Miro Guide' % self.request.user.username
+
+    def link(Self):
+        return settings.BASE_URL_FULL + '/recommend/'
+    def items(self):
+        return api.get_recommendations(self.request.connection,
+                                       self.request.user)

@@ -4,6 +4,7 @@
 import os
 
 from django.conf import settings
+from django.http import HttpRequest
 
 from channelguide import db, util
 from channelguide.guide import tables
@@ -21,7 +22,7 @@ class AuthTest(TestCase):
         self.assert_(self.user.check_password('password'))
         self.assert_(not self.user.check_password('badpassword'))
 
-    def test_middleware(self):
+    def test_middleware_cookie(self):
         request = self.process_request()
         login(request, self.user)
         response = self.process_response(request)
@@ -34,6 +35,14 @@ class AuthTest(TestCase):
         self.assert_(not request.user.is_authenticated())
         self.process_response(request)
 
+    def test_middleware_basic(self):
+        request = HttpRequest()
+        request.META['HTTP_AUTHORIZATION'] = 'basic %s' % 'joe:password'.encode(
+            'base64')
+        self.process_request(request=request)
+        self.assert_(request.user.is_authenticated())
+        self.assertEquals(request.user.username, 'joe')
+        
     def test_corrupt_cookie(self):
         request = self.process_request(cookies_from={SESSION_KEY:'corrupt'})
         self.assert_(not request.user.is_authenticated())
