@@ -5,7 +5,7 @@ from channelguide import init
 init.init_external_libraries()
 from channelguide import util
 from channelguide.guide import api
-from channelguide.guide.models import Channel, Category, Tag, Language
+from channelguide.guide.models import Channel, Category, Tag, Language, User
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.syndication import feeds
