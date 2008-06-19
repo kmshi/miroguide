@@ -156,15 +156,29 @@ class SearchFeed(ChannelsFeed):
 
 class RecommendationsFeed(ChannelsFeed):
 
-    def title(self):
-        return 'Recommended Channels for %s' % self.request.user.username
+    def get_object(self, bits):
+        if len(bits) != 2:
+            raise ObjectDoesNotExist
+        username, password = bits
+        try:
+            user = User.query(username=username).get(self.request.connection)
+        except LookupError:
+            raise ObjectDoesNotExist
+        if user.check_password(password):
+            return user
+        else:
+            raise ObjectDoesNotExist
+        
+    def title(self, user):
+        return 'Recommended Channels for %s' % user.username
 
-    def description(self):
+    def description(self, user):
         return 'These channels are recommended for \
-%s based on their ratings in the Miro Guide' % self.request.user.username
+%s based on their ratings in the Miro Guide' % user.username
 
-    def link(Self):
+    def link(self):
         return settings.BASE_URL_FULL + '/recommend/'
-    def items(self):
+
+    def items(self, user):
         return api.get_recommendations(self.request.connection,
-                                       self.request.user)
+                                       user)
