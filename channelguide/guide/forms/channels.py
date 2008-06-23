@@ -1,8 +1,7 @@
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
-"""submitform.py.  Channel submission form.  This is fairly complicated, so
-it's split off into its own module.  """
+"""submitform.py.  Channel submission form.  This is fairly complicated, so it's split off into its own module.  """
 
 from urlparse import urljoin, urlparse
 import logging
@@ -85,10 +84,34 @@ class FeedURLForm(Form):
                 return to_utf8(parsed['feed'][feed_key])
             except (KeyError, TypeError):
                 return None
+        def get_license():
+            #hmm this? x = L[0]; if all( y == x for y in L[1:] ):
+            for items in parsed.entries:
+                try:
+                    if (items.license).startswith("http://creativecommons.org/licenses/by"):
+                    #if "http://creativecommons.org/licenses/" in items.license:
+                        if "/by-nc-nd/" in items.license:
+                            return "C"
+                        if "/by-nc-sa/" in items.license:
+                            return "E"
+                        if "/by-nc/" in items.license:
+                            return "D"
+                        if "/by-nd/" in items.license:
+                            return "B"
+                        if "/by-sa/" in items.license:
+                            return "F"
+                        if "/by/" in items.license:
+                            return "A"
+                    else:
+                        return "Z"
+                except (AttributeError):
+                    print "Attribution error: I couldn't find the license in the feed."
+            return "Z"
         data['name'] = try_to_get('title')
         data['website_url'] = try_to_get('link')
         data['publisher'] = try_to_get('publisher')
         data['description'] = try_to_get('description')
+        data['license_info'] = get_license()
         try:
             data['thumbnail_url'] = to_utf8(parsed['feed'].image.href)
         except AttributeError:
@@ -279,6 +302,15 @@ class SubmitChannelForm(Form):
     publisher = WideCharField(max_length=100)
     postal_code = WideCharField(max_length=15, label=_("Postal Code"),
             required=False)
+    license_info = forms.ChoiceField(choices=[('Z', 'Not CC Licensed'),
+                                        ('X', 'Mixed CC Licensing'),
+                                        ('A', 'Attribution'),
+                                        ('B', 'Attribution-NoDerivs'),
+                                        ('C', 'Attribution-NonCommercial-NoDerivatives'),
+                                        ('D', 'Attribution-NonCommercial'),
+                                        ('E', 'Attribution-NonCommercial-ShareAlike'),
+                                        ('F', 'Attribution-ShareAlike')
+                                        ], label=_("License"))
     hi_def = forms.BooleanField(label=_('High Definition'), 
             help_text=HD_HELP_TEXT, required=False)
     thumbnail_file = ChannelThumbnailField(label=_('Upload Image'))
@@ -290,7 +322,7 @@ class SubmitChannelForm(Form):
         self.fields['categories'].update_choices()
 
     def set_defaults(self, saved_data):
-        for key in ('name', 'website_url', 'publisher', 'description'):
+        for key in ('name', 'website_url', 'publisher', 'description', 'license_info'):
             if saved_data[key] is not None:
                 self.fields[key].initial = saved_data[key]
         if saved_data['thumbnail_url']:
@@ -363,7 +395,7 @@ class SubmitChannelForm(Form):
 
     def update_channel(self, channel):
         string_cols = ('name', 'website_url',
-                'description', 'publisher', 'postal_code')
+                'description', 'publisher', 'postal_code',"license_info")
         for attr in string_cols:
             setattr(channel, attr, self.cleaned_data[attr].encode('utf-8'))
         channel.hi_def = self.cleaned_data['hi_def']
@@ -389,7 +421,6 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
     def __init__(self, request, channel, data=None):
         # django hack to get fields to work right with subclassing
         #self.base_fields = SubmitChannelForm.base_fields 
-
         super(EditChannelForm, self).__init__(request.connection, data)
         self.channel = channel
         self.fields['thumbnail_file'].required = False
@@ -409,7 +440,7 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
         join.execute(self.connection)
         for key in ('url', 'name', 'hi_def', 'website_url',
                 'description', 'publisher',
-                'postal_code'):
+                'postal_code',"license_info"):
             self.fields[key].initial = getattr(self.channel, key)
         tags = self.channel.get_tags_for_owner(self.connection)
         tag_names = [tag.name for tag in tags]

@@ -101,7 +101,6 @@ def submit_channel(request):
     post-submission page.  Otherwise, redisplay the form with the errors
     highlighted.
     """
-
     if not SESSION_KEY in request.session:
         return util.redirect('channels/submit/step1')
     session_dict = request.session[SESSION_KEY]
@@ -124,6 +123,7 @@ def submit_channel(request):
         else:
             form.save_submitted_thumbnail()
     context = form.get_template_data()
+    STATIC_BASE_URL = settings.STATIC_BASE_URL
     if session_dict.get('detected_thumbnail'):
         context['thumbnail_description'] = _("Current image (from the feed)")
     else:
