@@ -12,15 +12,13 @@ import urllib2
 import socket # for socket.error
 
 from django.conf import settings
-from django.newforms.forms import BoundField
 from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
 import django.newforms as forms
 import feedparser
 
 from channelguide.guide.feedutil import to_utf8
-from channelguide.guide.models import Language, Category, Channel, User
-from channelguide.guide.forms.user import UsernameField
+from channelguide.guide.models import Language, Category, Channel
 from channelguide import util
 from fields import WideCharField, WideURLField, WideChoiceField
 from form import Form
@@ -34,12 +32,6 @@ HD_HELP_TEXT = HELP_FORMAT % \
         material on the channel must meet this criteria for it to be considered
         HD.  Note: you are welcome to have an HD and non-HD version of the same
         channel """))
-ADULT_HELP_TEXT = HELP_FORMAT % \
-        (_('What is Adult?'),
-            _("""Check the box if this channel's primary purpose is to
-            sexually arouse or excite viewers. This includes channels that
-            contain softcore videos of "models in panties", "hot girls in
-            bikinis", "cute girls' butts", etc."""))
 
 
 class RSSFeedField(WideCharField):
