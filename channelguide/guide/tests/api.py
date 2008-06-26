@@ -1,8 +1,9 @@
 from datetime import datetime, timedelta
+import simplejson
 
 from channelguide.guide.models import ApiKey, Category, Item, Language, Tag
 from channelguide.testframework import TestCase
-from channelguide import manage
+from channelguide import manage, sessions
 from channelguide.guide import api
 from channelguide.guide.tests.channels import test_data_path
 
@@ -18,8 +19,8 @@ class ChannelApiTestBase(TestCase):
             channel.name = 'My Channel %i' % i
             channel.save(self.connection)
             self.channels.append(channel)
-        categories = []
-        languages = []
+        self.categories = categories = []
+        self.languages = languages = []
         items = []
         for n in range(2):
             cat = Category('category%i' % n)
@@ -64,7 +65,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
 
     def setUp(self):
         ChannelApiTestBase.setUp(self)
-        key = ApiKey.new(self.owner.id, '')
+        key = ApiKey(self.owner.id, '')
         key.save(self.connection)
         self.key = key.api_key
         self.refresh_connection()
@@ -91,7 +92,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
                 data={'key': '0'*20})
         self.assertEquals(response.status_code, 403)
 
-        key = ApiKey.new(self.owner.id, '')
+        key = ApiKey(self.owner.id, '')
         key.active = False
         key.save(self.connection)
         self.refresh_connection()
@@ -108,6 +109,30 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(eval(response.content),
                 {'text': 'Valid API key'})
 
+    def test_json_response(self):
+        """
+        Making a request with datatype=json should return a JSON object instead
+        of a Python object.
+        """
+        response = self.get_page('/api/test', data={'key': self.key,
+                                                    'datatype': 'json'})
+        self.assertEquals(simplejson.loads(response.content),
+                          {'text': 'Valid API key'})
+
+    def test_json_callback(self):
+        """
+        A request with datatype=json and jsoncallback=<function name> should
+        return a string which calls the given function with the data.
+        """
+        response = self.get_page('/api/test', data={'key': self.key,
+                                                    'datatype': 'json',
+                                                    'jsoncallback': 'foo'})
+        content = response.content
+        self.assertTrue(content.startswith('foo('))
+        self.assertTrue(content.endswith(');'))
+        self.assertEquals(simplejson.loads(response.content[4:-2]),
+                          {'text': 'Valid API key'})
+        
     def _verifyChannelResponse(self, response, channel):
         self.assertEquals(response.status_code, 200)
 
@@ -151,6 +176,25 @@ class ChannelApiViewTest(ChannelApiTestBase):
                 {'error': 'CHANNEL_NOT_FOUND',
                  'text': 'Channel -1 not found'})
 
+        response = self.make_api_request('get_channel', id='all')
+        self.assertEquals(response.status_code, 404)
+        self.assertEquals(eval(response.content),
+                {'error': 'CHANNEL_NOT_FOUND',
+                 'text': 'Channel all not found'})
+
+
+    def test_get_channel_multiple_ids(self):
+        """
+        /api/get_channel should take multiple ids and return a list of the
+        channels.
+        """
+        response = self.make_api_request('get_channel', id=(self.channels[0].id, self.channels[1].id))
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assertEquals(type(data), list)
+        self.assertEquals(data[0]['id'], self.channels[0].id)
+        self.assertEquals(data[1]['id'], self.channels[1].id)
+        
     def test_get_channel_url(self):
         """
         A get_channel request with a URL should function just like a request
@@ -165,6 +209,20 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(eval(response.content),
                 {'error': 'CHANNEL_NOT_FOUND',
                  'text': 'Channel %s not found' % channel.url[:-5]})
+
+    def test_get_channel_combine_url_id(self):
+        """
+        /api/get_channel should handle mixing url and id lookups.
+        """
+        response = self.get_page('/api/get_channel', data=
+                                 [('key', self.key),
+                                  ('url', self.channels[0].url),
+                                  ('id', self.channels[01].id)])
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assertEquals(len(data), 2)
+        self.assertEquals(data[0]['id'], self.channels[0].id)
+        self.assertEquals(data[1]['url'], self.channels[1].url)
         
     def test_get_channels(self):
         response = self.make_api_request('get_channels', filter='category',
@@ -175,59 +233,156 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(data[0]['id'], self.channels[0].id)
         self.assertEquals(data[0].get('category'), None)
 
+    def test_get_session(self):
+        response = self.make_api_request('get_session')
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assertEquals(len(data['session']), 32)
+
+    def _do_authentication(self,  response):
+        self.assertEquals(response.status_code, 200)
+        context = response.context[0]
+        self.assertEquals(context['key'], self.key)
+
+        data = {'key': context['key'],
+              'verification': context['verification']
+              }
+        if context.get('session'):
+            data['session'] = context['session']
+        if context.get('redirect'):
+            data['redirect'] = context['redirect']
+            
+        return self.post_data('/api/authenticate', data, self.owner)
+
+    def _get_session(self):
+        response = self.get_page('/api/authenticate', self.owner,
+                                 {'key': self.key})
+        response = self._do_authentication(response)
+        return response.context[0]['session']
+    
+    def test_authenticate(self):
+        response = self.get_page('/api/authenticate', self.owner, {
+                'key': self.key,
+                'redirect': 'http://test.com/'})
+        context = response.context[0]
+        self.assertEquals(context['session'], None)
+        self.assertEquals(context['redirect'], 'http://test.com/')        
+        response = self._do_authentication(response)
+        self.assertRedirect(response, 'http://test.com/')
+        self.assert_('?session=' in response['Location'])
+        session = sessions.util.get_session_from_key(self.connection,
+                                                response['Location'][-32:])
+        data = session.get_data()
+        self.assertEquals(data['key'], self.key)
+        self.assertEquals(data['apiUser'], self.owner.id)
+        
+
+    def test_authenticate_without_redirect(self):
+        response = self.get_page('/api/authenticate', self.owner, {
+                'key': self.key})
+        response = self._do_authentication(response)
+        self.assertEquals(response.context[0]['success'], True)
+
+    def test_authenticate_with_session(self):
+        sessionID = sessions.util.make_new_session_key(self.connection)
+        response = self.get_page('/api/authenticate', self.owner,
+                                 {'key': self.key,
+                                  'redirect': 'http://test.com/',
+                                  'session': sessionID})
+        response = self._do_authentication(response)
+        self.assertRedirect(response, 'http://test.com/')
+        self.assertEquals(response['Location'], 'http://test.com/?session=%s'
+                            % sessionID)
+
+    def test_authenticate_not_verified(self):
+        response = self.post_data('/api/authenticate', {'key': self.key,
+                                  'verification': 'foo'}, self.owner)
+        self.assertNotEquals(response.context[0].get('error'), None)
+
+    def test_authenticate_invalid_key_404(self):
+        response = self.get_page('/api/authenticate', self.owner,
+                                 {'key': 'invalid key'})
+        self.assertEquals(response.status_code, 404)
+        
     def test_rate(self):
+        session = self._get_session()
         response = self.make_api_request('rate', id=-1,
-                                         username=self.owner.username,
-                                         password='password')
+                                         session=session)
         self.assertEquals(response.status_code, 404)
         self.assertEquals(eval(response.content),
                           {'error': 'CHANNEL_NOT_FOUND',
                            'text': 'Channel -1 not found'})
         response = self.make_api_request('rate', id=self.channels[0].id,
-                                         username='not a real user name',
-                                         password='password')
+                                         session='invalid session')
         self.assertEquals(response.status_code, 403)
         self.assertEquals(eval(response.content),
-                          {'error': 'INVALID_USER',
-                           'text': 'Invalid username or password'})
+                          {'error': 'INVALID_SESSION',
+                           'text': 'Invalid session'})
         response = self.make_api_request('rate', id=self.channels[0].id,
-                                         username=self.owner.username,
-                                         password='password')
+                                         session=session)
         self.assertEquals(response.status_code, 200)
         data = eval(response.content)
         self.assertEquals(data, {'rating': None})
 
         response = self.make_api_request('rate', id=self.channels[0].id,
-                                         username=self.owner.username,
-                                         password='password',
+                                         session=session,
                                          rating=5)
         self.assertEquals(response.status_code, 200)
         data = eval(response.content)
         self.assertEquals(data, {'rating': 5})
         
         response = self.make_api_request('rate', id=self.channels[0].id,
-                                         username=self.owner.username,
-                                         password='password')
+                                         session=session)
         self.assertEquals(response.status_code, 200)
         data = eval(response.content)
         self.assertEquals(data, {'rating': 5})        
 
+    def test_get_ratings(self):
+        session = self._get_session()
+        self.channels[0].rate(self.connection, self.owner, 5)
+        self.channels[1].rate(self.connection, self.owner, 4)
+        self.refresh_connection()
+        response = self.make_api_request('get_ratings',
+                                         session=session)
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assertEquals(len(data), 2)
+        for channel in data:
+            if channel['id'] == self.channels[0].id:
+                self.assertEquals(channel['rating'], 5)
+            elif channel['id'] == self.channels[1].id:
+                self.assertEquals(channel['rating'], 4)
+            else:
+                self.fail('unknown channel id: %i' % channel['id'])
+
+    def test_get_ratings_filter(self):
+        session = self._get_session()
+        self.channels[0].rate(self.connection, self.owner, 5)
+        self.channels[1].rate(self.connection, self.owner, 4)
+        self.refresh_connection()
+        response = self.make_api_request('get_ratings',
+                                         session=session,
+                                         rating='4')
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assertEquals(len(data), 1)
+        self.assertEquals(data[0]['id'], self.channels[1].id)
+
     def test_get_recommendations(self):
+        session = self._get_session()
         response = self.make_api_request('get_recommendations',
-                                         username='not a real user name',
-                                         password='password')
+                                         session='invalid session')
         self.assertEquals(response.status_code, 403)
         self.assertEquals(eval(response.content),
-                          {'error': 'INVALID_USER',
-                           'text': 'Invalid username or password'})
+                          {'error': 'INVALID_SESSION',
+                           'text': 'Invalid session'})
         self.channels[0].rate(self.connection, self.owner, 5)
         self.refresh_connection()
         manage.refresh_stats_table()
         manage.calculate_recommendations([None, None, 'full'])
         self.refresh_connection()
         response = self.make_api_request('get_recommendations',
-                                         username = self.owner.username,
-                                         password = 'password')
+                                         session=session)
         self.assertEquals(response.status_code, 200)
         data = eval(response.content)
         self.assertEquals(len(data), 1)
@@ -237,7 +392,28 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(data[0]['reasons'][0]['id'], self.channels[0].id)
         self.assertEquals(data[0]['reasons'][0]['score'], 0.625)
         
-        
+    def test_list_categories(self):
+        response = self.make_api_request('list_categories')
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assertEquals(len(data), 2)
+        for i in range(2):
+            self.assertEquals(data[i]['name'], self.categories[i].name)
+            self.assertEquals(data[i]['url'],
+                              self.categories[i].get_absolute_url())
+
+    def test_list_languages(self):
+        response = self.make_api_request('list_languages')
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assertEquals(len(data), 3)
+        languages = [self.language] + self.languages
+        for i in range(3):
+            self.assertEquals(data[i]['name'], languages[i].name)
+            self.assertEquals(data[i]['url'],
+                              languages[i].get_absolute_url())
+
+    
 class ChannelApiFunctionTest(ChannelApiTestBase):
 
     def assertSameChannels(self, l1, l2):
@@ -433,6 +609,29 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         self.assertEquals(api.get_rating(self.connection, self.owner,
                                          self.channels[0]), 5)
 
+    def test_get_ratings(self):
+        """
+        api.get_ratings(connection, user) should return the ratings the
+        user has given.
+        """
+        self.channels[0].rate(self.connection, self.owner, 5)
+        self.channels[1].rate(self.connection, self.owner, 4)
+        self.assertEquals(api.get_ratings(self.connection, self.owner),
+                          {self.channels[0]: 5,
+                           self.channels[1]: 4
+                           })
+
+    def test_get_ratings_filter(self):
+        """
+        api.get_ratings(connection, user, rating=<value>) should return a list
+        of the channels with that rating.
+        """
+        self.channels[0].rate(self.connection, self.owner, 5)
+        self.channels[1].rate(self.connection, self.owner, 4)
+        self.assertEquals(api.get_ratings(self.connection, self.owner,
+                                          rating=5),
+                          self.channels[:1])
+                          
     def test_get_recommendations(self):
         self.channels[0].rate(self.connection, self.owner, 5)
         self.refresh_connection()
@@ -446,7 +645,22 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         self.assertEquals(len(channels[0].reasons), 1)
         self.assertEquals(channels[0].reasons[0].id, self.channels[0].id)
         self.assertEquals(channels[0].reasons[0].score, 0.625)
-        
+
+
+    def test_list_categories(self):
+        categories = api.list_labels(self.connection, 'category')
+        self.assertEquals(len(categories), 2)
+        self.assertEquals(categories[0].id, self.categories[0].id)
+        self.assertEquals(categories[1].id, self.categories[1].id)
+
+    def test_list_languages(self):
+        languages = api.list_labels(self.connection, 'language')
+        self.assertEquals(len(languages), 3)
+        self.assertEquals(languages[0].id, self.language.id)
+        self.assertEquals(languages[1].id, self.languages[0].id)
+        self.assertEquals(languages[2].id, self.languages[1].id)
+
+
 class ChannelApiManageTest(TestCase):
 
     def setUp(self):
@@ -454,7 +668,7 @@ class ChannelApiManageTest(TestCase):
         self.admin = self.make_user('admin', role='A')
 
     def _make_key(self):
-        key = ApiKey.new(self.admin.id, '')
+        key = ApiKey(self.admin.id, '')
         key.save(self.connection)
         self.refresh_connection()
         return key

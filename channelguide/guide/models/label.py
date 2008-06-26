@@ -28,6 +28,10 @@ class Label(Record):
     def __repr__(self):
         return '%s(%r)' % (self.__class__.__name__, self.name)
 
+    def get_absolute_url(self):
+        return util.make_absolute_url(self.get_url())
+
+    
 class Category(Label):
     """Categories are created by the admins and assigned to a channel by that
     channel's submitter.

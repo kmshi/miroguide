@@ -4,6 +4,7 @@
 import os
 
 from django.conf import settings
+from django.http import HttpRequest
 
 from channelguide import db, util
 from channelguide.guide import tables
@@ -33,7 +34,7 @@ class AuthTest(TestCase):
         request = self.process_request(cookies_from=response.cookies)
         self.assert_(not request.user.is_authenticated())
         self.process_response(request)
-
+        
     def test_corrupt_cookie(self):
         request = self.process_request(cookies_from={SESSION_KEY:'corrupt'})
         self.assert_(not request.user.is_authenticated())

@@ -47,7 +47,7 @@ class Session(Record):
 
     @staticmethod
     def _cache_key(session_key):
-        return 'Session:' + session_key.encode('utf-8')
+        return 'Session:%i' % hash(session_key)
 
     @classmethod
     def get(cls, connection, session_key, **kw):

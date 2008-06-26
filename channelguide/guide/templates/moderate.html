@@ -34,6 +34,11 @@ See LICENSE for details.
         {{ count }} Rejected channels
         {% endblocktrans %}</a>
 </h2>
+<h2><a {% link "channels/moderator-list/featured" %}>
+  {% blocktrans with featured_count as count %}
+  {{ count }} channels in Featured Queue
+  {% endblocktrans %}</a>
+</h2>
 {% splitcolumns %}
 <ul>
     <li><h2><a href="{{ BASE_URL}}how-to-moderate">{% trans "How to Moderate" %}</a></h2></li>

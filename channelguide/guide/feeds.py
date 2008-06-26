@@ -5,7 +5,7 @@ from channelguide import init
 init.init_external_libraries()
 from channelguide import util
 from channelguide.guide import api
-from channelguide.guide.models import Channel, Category, Tag, Language
+from channelguide.guide.models import Channel, Category, Tag, Language, User
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.syndication import feeds
@@ -17,7 +17,7 @@ def https_add_domain(domain, url):
     """
     The built-in add_domain doesn't support https:// URLs, so we fake it.
     """
-    if url.startswith('https://'):
+    if url and url.startswith('https://'):
         return url
     return _old_add_domain(domain, url)
 
@@ -76,14 +76,12 @@ class FilteredFeed(ChannelsFeed):
     filter = None
 
     def get_object(self, bits):
-        print bits
         if len(bits) != 1:
             raise ObjectDoesNotExist
         try:
             obj = util.get_object_or_404_by_name(self.request.connection,
                     self.model, bits[0])
         except Http404:
-            print 'error'
             raise ObjectDoesNotExist
         return obj
 
@@ -156,3 +154,31 @@ class SearchFeed(ChannelsFeed):
             return ''
         return api.search(self.request.connection, obj)
 
+class RecommendationsFeed(ChannelsFeed):
+
+    def get_object(self, bits):
+        if len(bits) != 2:
+            raise ObjectDoesNotExist
+        username, password = bits
+        try:
+            user = User.query(username=username).get(self.request.connection)
+        except LookupError:
+            raise ObjectDoesNotExist
+        if user.check_password(password):
+            return user
+        else:
+            raise ObjectDoesNotExist
+        
+    def title(self, user):
+        return 'Recommended Channels for %s' % user.username
+
+    def description(self, user):
+        return 'These channels are recommended for \
+%s based on their ratings in the Miro Guide' % user.username
+
+    def link(self):
+        return settings.BASE_URL_FULL + '/recommend/'
+
+    def items(self, user):
+        return api.get_recommendations(self.request.connection,
+                                       user)

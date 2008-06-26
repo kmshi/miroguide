@@ -48,6 +48,10 @@ def moderator_channel_list(request, state):
     elif state == 'suspended':
         query.where(state=Channel.SUSPENDED)
         header = _("Suspended Channels")
+    elif state == 'featured':
+        query.join('featured_queue')
+        query.where(query.joins['featured_queue'].c.state == FeaturedQueue.IN_QUEUE)
+        header = _("Featured Queue")
     else:
         query.where(state=Channel.NEW)
         header = _("Unreviewed Channels")
@@ -57,6 +61,10 @@ def moderator_channel_list(request, state):
         'pager': pager,
         'channels': pager.items,
         'header': header,
+        'subscribe_all_link': util.make_link(
+                util.get_subscription_url(*[channel.url for channel in
+                                            pager.items]),
+                _("Subscribe to all %i channels") % len(pager.items))
         })
 
 
@@ -78,7 +86,12 @@ def channel(request, id):
                     request.connection)
         elif action == 'unfeature':
             request.user.check_is_supermoderator()
-            FeaturedQueue.unfeature_channel(channel, request.connection)
+            channel.join('featured_queue').execute(request.connection)
+            if channel.featured_queue.state == FeaturedQueue.PAST:
+                FeaturedQueue.feature_channel(channel, request.user,
+                                              request.connection)
+            else:
+                FeaturedQueue.unfeature_channel(channel, request.connection)
         elif action == 'change-state':
             request.user.check_is_moderator()
             submit_value = request.POST['submit']
@@ -267,11 +280,12 @@ def get_recommendations(request, id):
         if len(channels) == 4:
             break
         try:
-            chan = Channel.query(user=request.user).get(request.connection, rec)
+            chan = Channel.get(request.connection, rec)
         except Exception:
             continue
         else:
-            channels.append(chan)
+            if chan.state == Channel.APPROVED and not chan.archived:
+                channels.append(chan)
     return channels
 
 def rate(request, id):

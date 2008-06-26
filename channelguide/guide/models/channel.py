@@ -3,20 +3,18 @@
 
 from datetime import datetime, timedelta
 from glob import glob
-from urllib import quote
 import cgi
 import feedparser
 import logging
 import traceback
-import math
+import time
 
-from django.conf import settings
 from django.utils.translation import ngettext
 
 from channelguide import util
 from channelguide.guide import feedutil, tables, exceptions, emailmessages
 from channelguide.guide.thumbnail import Thumbnailable
-from channelguide import cache
+from channelguide.cache import client
 from sqlhelper.orm import Record
 from sqlhelper.sql import expression
 
@@ -240,15 +238,18 @@ class Channel(Record, Thumbnailable):
         return util.make_url('channels/edit/%d' % self.id)
 
     def subscription_link(self):
-        cg_link = util.make_url('channels/subscribe-hit/%d' %
-                self.id)
+        cg_link = self.get_subscribe_hit_url()
         subscribe_link = self.get_subscription_url()
         return util.make_link_attributes(subscribe_link, "add",
                 onclick="return handleSubscriptionLink('%s', '%s');" %
                 (cg_link, subscribe_link))
 
+    def get_subscribe_hit_url(self):
+        return util.make_absolute_url('channels/subscribe-hit/%d' % self.id)
+    
     def get_subscription_url(self):
-        return util.get_subscription_url(self.url)
+        return util.get_subscription_url(self.url,
+                                         trackback=self.get_subscribe_hit_url())
 
     def is_approved(self):
         return self.state == self.APPROVED
@@ -377,6 +378,7 @@ class Channel(Record, Thumbnailable):
         self.search_data.save(connection)
         for item in self.items:
             item.update_search_data(connection)
+        client.set('search', time.time()) # reset search cache
 
     def get_search_data(self):
         simple_attrs = ('description', 'url',
@@ -386,9 +388,7 @@ class Channel(Record, Thumbnailable):
         for attr in ('tags', 'categories', 'secondary_languages'):
             for obj in getattr(self, attr):
                 values.append(obj.name)
-        logging.info(repr(values))
         values = [util.unicodify(v) for v in values]
-        logging.info(repr(values))
         return u' '.join(values)
 
     def get_missing_image_url(self, width, height):

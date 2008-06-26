@@ -14,9 +14,14 @@
     <input type="submit">
 </form>
 <table>
+  <tr>
+    <td>API Key</td>
+    <td>Username</td>
+    <td>Description</td>
+  </tr>
     {% for key in keys %}
     <tr>
-        <td>{{ key.api_key }}</td>
+        <td>{{ key.api_key }}</td>	
         <td>{{ key.owner.username }}</td>
         <td>{{ key.description }}</td>
         <td><form method="POST" action="{{ request.path }}" onsubmit="showLoadIndicator();">

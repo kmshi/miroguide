@@ -138,10 +138,23 @@ class FeaturedQueueTestCase(TestCase):
             fq = FeaturedQueue.get(self.connection, c.id)
             self.assertEquals(fq.state, fq.PAST)
 
+    def test_shuffle_doesnt_error_when_theres_no_queue(self):
+        """Shuffling the channels when there's nothing in the queue
+        shouldn't raise an error.
+        """
+        user = self.users[0]
+        for c in self.channels[:3]:
+            FeaturedQueue.feature_channel(c, user, self.connection)
+            c = self.refresh_record(c)
+            self.assertEquals(c.featured, 0)
+        FeaturedQueue.shuffle_queue(self.connection)
+        FeaturedQueue.shuffle_queue(self.connection)
+        
     def test_unfeaturing_channel_in_queue(self):
         """
         Unfeaturing a channel in the queue should remove it from the queue
-        entirely.        """
+        entirely.
+        """
         url = self.channels[0].get_url()
         self.post_data(url, {'action':'feature'}, self.owner)
         self.refresh_connection()

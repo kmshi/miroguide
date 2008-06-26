@@ -6,13 +6,11 @@
 from datetime import datetime, timedelta
 from itertools import cycle, count, izip
 from urllib import quote, urlopen
-from urlparse import urlparse
 import Queue
 import cgi
 import md5
 import os
 import random
-import re
 import string
 import subprocess
 import sys
@@ -28,6 +26,7 @@ from django.utils.http import urlquote
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 try:
     from django.utils.safestring import mark_safe
+    mark_safe = mark_safe # fix pyflakes error
 except ImportError:
     mark_safe = lambda x: x
 emailer = None
@@ -48,6 +47,12 @@ def import_last_component(name):
     return mod
 
 def make_absolute_url(relative_url, get_data=None):
+    if relative_url.startswith('http://') or \
+            relative_url.startswith('https://'):
+        return relative_url + format_get_data(get_data)
+    if (relative_url and relative_url[0] == '/' and
+        settings.BASE_URL_FULL[-1] == '/'):
+        relative_url = relative_url[1:]
     return settings.BASE_URL_FULL + relative_url + format_get_data(get_data)
 
 def make_url(relative_url, get_data=None):
@@ -86,7 +91,7 @@ def redirect_to_referrer(request):
         return redirect(settings.BASE_URL)
 
 def send_to_login_page(request):
-    login_url = 'accounts/login?next=%s' % get_relative_path(request)
+    login_url = '/accounts/login?next=%s' % get_relative_path(request)
     return redirect(login_url)
 
 def make_qs(**query_dict):
@@ -126,11 +131,21 @@ def push_media_to_s3(subpath, content_type):
     conn = S3.AWSAuthConnection(settings.S3_ACCESS_KEY, settings.S3_SECRET_KEY)
     localPath = os.path.join(settings.MEDIA_ROOT, subpath)
     obj = S3.S3Object(file(localPath).read())
-    conn.put(settings.S3_BUCKET,
-            settings.S3_PATH + subpath,
-            obj,
-            {'Content-Type': content_type,
-             'x-amz-acl': 'public-read'})
+    count = 5
+    while True:
+        try:
+            conn.put(settings.S3_BUCKET,
+                     settings.S3_PATH + subpath,
+                     obj,
+                     {'Content-Type': content_type,
+                      'x-amz-acl': 'public-read'})
+        except:
+            count -= 1
+            if not count:
+                raise
+        else:
+            return
+        
 
 def make_thumbnail(source_path, dest_path, width, height):
     # From the "Pad Out Image" recipe at
@@ -177,7 +192,6 @@ def get_object_or_404(connection, record_or_query, id):
         raise Http404
 
 def get_object_or_404_by_name(connection, record_or_query, name):
-    from sqlhelper.orm import Record
     if hasattr(record_or_query, 'query'):
         query = record_or_query.query()
     else:
@@ -370,9 +384,15 @@ def ensure_list(object):
     else:
         return [object]
 
-def get_subscription_url(*links):
+def get_subscription_url(*links, **kwargs):
     parts = ['url%i=%s' % (index, quote(url)) for (index, url) in
                 izip(count(1), links)]
+    if 'trackback' in kwargs:
+        trackback = kwargs['trackback']
+        if isinstance(trackback, (str, unicode)):
+            trackback = [trackback]
+        parts.extend('trackback%i=%s' % (index, quote(url)) for (index, url) in
+                     izip(count(1), trackback))
     return settings.SUBSCRIBE_URL + '&'.join(parts)
 
 def unicodify(s, encoding='utf8'):

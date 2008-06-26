@@ -3,6 +3,23 @@
  * Shared functions used in channel guide
  */
 
+function isMiro() {
+    return (navigator.userAgent.indexOf('Miro') != -1 ||
+	    (top.frames.length == 2 &&
+	     top.frames[1].name == 'miro_guide_frame'));
+}
+
+function MiroVersion() {
+    if (navigator.userAgent.indexOf('Miro') != -1) {
+	return /Miro\/([\d.]+)/.exec(navigator.userAgent)[1];
+    } else if (top.frames.length == 2 &&
+	       top.frames[1].name == 'miro_guide_frame') {
+	return "1.2";
+    } else {
+	return undefined;
+    }
+}
+
 function getPreviousElement(elt) {
     while(elt.previousSibling) {
         elt = elt.previousSibling;
@@ -53,7 +70,7 @@ function doAjaxCall(url, callback) {
                 callback(request);
             }
          }
-    };
+    }; 
     request.open('GET', url, true);
     request.send(null);
     return true;
@@ -75,16 +92,11 @@ function ajaxLink(url, id) {
  * channelguide URL redirects te the subscribe_url.
  */
 function handleSubscriptionLink(channel_guide_url, subscribe_url) {
+    if (isMiro() && MiroVersion() >= "1.5") return true;
     request = makeXMLHttpRequest();
     if (!request) return true;
     request.onreadystatechange = function() {
         if (request.readyState == 2) {
-            if (navigator.userAgent.indexOf('Miro') != -1) {
-                if (subscribe_url.indexOf('=', subscribe_url.indexOf('=') + 1) == -1) {
-
-                    subscribe_url = subscribe_url.replace('http://subscribe.getmiro.com/?url1', 'action:addFeed?selected=1&url');
-                }
-            }
             window.location.href = subscribe_url;
         }
     };
@@ -105,6 +117,6 @@ $(document).ajaxStart(function() {
     hideLoadIndicator();
 });
 
-if (navigator.userAgent.indexOf('Miro') != -1) {
+if (isMiro()) {
     document.write('<style type="text/css">.only-in-miro {  display: inherit !important;}.only-in-browser {  display: none !important;}</style>');
 }

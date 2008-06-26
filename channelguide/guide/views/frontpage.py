@@ -155,11 +155,9 @@ def make_category_peek(request):
 def index(request):
     if not request.user.is_authenticated():
         title = _("What is Miro?")
-        desc = _("Miro is an easy way to subscribe and watch off of these shows.  Using it is 100% free.")
+        desc = _("Miro is an easy way to subscribe and watch all of these shows.  Using it is 100% free.")
         link = _("Download Miro")        
         request.add_notification(None, '<span class="only-in-miro"><center>Rate channels to get <a href="/recommend/">personalized recommendations</a>!</center></span><span class="only-in-browser"><strong>%s</strong> %s <a href="http://www.getmiro.com/download">%s</a></span>' % (title, desc, link))
-    request.add_notification(_("Help Test Miro"), '%s <a href="http://www.getmiro.com/wiki/index.php/Miro_Quality_Assurance">%s</a> %s' %
-                             (_("Join the Miro"), _("Quality Assurance"), _("team!")))
 
     featured_channels = get_featured_channels(request)
     return util.render_to_response(request, 'frontpage.html', {

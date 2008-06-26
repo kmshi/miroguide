@@ -5,13 +5,12 @@ from channelguide.guide import search as search_mod
 from channelguide.cache import client
 import operator
 
-def login(connection, username, password):
+def login(connection, id):
     try:
-        user = User.query(username=username).get(connection)
+        user = User.query(id=id).get(connection)
     except LookupError:
         return None
-    if user.check_password(password):
-        return user
+    return user
 
 def get_channel(connection, id):
     return Channel.get(connection, id, join=['categories', 'tags', 'items',
@@ -61,9 +60,9 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None):
     else:
         desc = False
     if sort in ('name', 'id'):
-        query.order_by(sort, desc=desc)
+        query.order_by(getattr(Channel.c, sort), desc=desc)
     elif sort == 'age':
-        query.order_by('approved_at', desc=desc)
+        query.order_by(Channel.c.approved_at, desc=desc)
     elif sort == 'popular':
         query.load('subscription_count_month')
         query.order_by('subscription_count_month', desc=desc)
@@ -71,12 +70,12 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None):
         query.join('rating')
         query.order_by(query.joins['rating'].c.average, desc=desc)
     else: # default to name
-        query.order_by('name')
+        query.order_by(Channel.c.name)
     if limit is None:
         limit = 20
     if limit > 100:
         limit = 100
-    if offset is None:
+    if offset is None or offset < 0:
         offset = 0
     query.limit(limit).offset(offset)
     results = query.execute(connection)
@@ -97,6 +96,16 @@ def get_rating(connection, user, channel):
         return
     else:
         return r.rating
+
+def get_ratings(connection, user, rating=None):
+    if rating is None:
+        return dict((r.channel, r.rating) for r in
+                    Rating.query(user_id=user.id).join('channel').execute(
+                connection))
+    else:
+        return [r.channel for r in
+                Rating.query(user_id=user.id, rating=rating).join(
+                'channel').execute(connection)]
 
 def get_recommendations(connection, user, start=0, length=10):
     query = Rating.query(user_id=user.id).order_by(Rating.c.timestamp)
@@ -148,3 +157,12 @@ def get_recommendations(connection, user, start=0, length=10):
             return 0
         else:
             return []
+
+def list_labels(connection, type):
+    if type == 'category':
+        model = Category
+    elif type == 'language':
+        model = Language
+    else:
+        raise ValueError("type must be 'category' or 'language'")
+    return model.query().order_by(model.c.name).execute(connection)

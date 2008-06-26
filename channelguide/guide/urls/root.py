@@ -58,6 +58,7 @@ urlpatterns = patterns('channelguide.guide.views',
     (r'^i18n/setlang/', 'i18n.set_language'),
     (r'^api/', cg_include('api')),
     (r'^recommend/', cg_include('recommend')),
+    (r'^ping/', cg_include('ping')),
 )
 
 from channelguide.guide import feeds
@@ -70,7 +71,8 @@ urlpatterns = urlpatterns + patterns('',
                 'categories': feeds.CategoriesFeed,
                 'tags': feeds.TagsFeed,
                 'languages': feeds.LanguagesFeed,
-                'search': feeds.SearchFeed}
+                'search': feeds.SearchFeed,
+                'recommend': feeds.RecommendationsFeed}
         }),
 )
 

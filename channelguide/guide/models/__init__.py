@@ -13,3 +13,4 @@ from rating import Rating, GeneratedRatings
 from feature import FeaturedQueue
 from cobranding import Cobranding
 from api import ApiKey
+from watched import WatchedVideos

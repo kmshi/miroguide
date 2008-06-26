@@ -79,6 +79,8 @@ jQuery.fn.rating = function(){
                 rating: jQuery(this).find('a')[0].href.slice(-1)
             });
             request.onreadystatechange = function() {
+                if (request.readyState == 4 && request.status == 302)
+                    document.location = request.getResponseHeader('Location');
                 if (request.readyState == 4 && request.status == 200) {
                     if (request.responseText.indexOf('<div class="login-page">') != -1) {
                         document.location = url+'?rating=' + ratingValue;

@@ -17,6 +17,9 @@ class Language(Record):
     def __init__(self, name=None):
         self.name = name
 
+    def get_absolute_url(self):
+        return util.make_absolute_url(self.get_url())
+    
     def get_url(self):
         return util.make_url('languages/%d' % self.id)
 

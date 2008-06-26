@@ -4,7 +4,7 @@
 from channelguide import util, cache
 from channelguide.guide import templateutil
 from channelguide.guide.auth import moderator_required
-from channelguide.guide.models import Channel, ModeratorPost
+from channelguide.guide.models import Channel, ModeratorPost, FeaturedQueue
 
 def count_for_state(connection, state):
     return Channel.query(state=state).count(connection)
@@ -28,7 +28,8 @@ def index(request):
             Channel.SUSPENDED)
     context['rejected_count'] = count_for_state(request.connection,
             Channel.REJECTED)
-
+    context['featured_count'] = FeaturedQueue.query(FeaturedQueue.c.state==0).count(request.connection)
+    
     query = ModeratorPost.query().order_by('created_at', desc=True)
     query.join('user')
     context['latest_posts'] = query.limit(5).execute(request.connection)
