@@ -599,9 +599,9 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 }
 
 .small_add_button {
-    display: table-cell;
-    display: -moz-box;
     color: white;
+    float: left;
+    display: inline;
 }
 .small_add_button a {float: left; display: inline;}
 .small_add_button a span.button_text {
@@ -633,9 +633,9 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 }
 
 .details_button, .streaming_button, .rss_button {
-    display: table-cell;
-    display: -moz-box;
     color: white;
+    float: left;
+    display: inline;
 }
 .details_button a, .streaming_button a, .rss_button a {float: left; display: inline;}
 .details_button a span.button_text, .streaming_button a span.button_text, .rss_button a span.button_text {
@@ -656,12 +656,11 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 }
 
 .button_block {
-    display: table;
+    display: inline-block;
     display: -moz-box;
     margin: 0 auto;
 }
 .search_meta_buttons {overflow: hidden; height: 100%;}
-del {text-decoration: none;}
 
 .channel_page_button {float: right; display: inline; margin: 10px 13px 0 4px;}
 
