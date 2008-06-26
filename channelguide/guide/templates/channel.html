@@ -1,0 +1,27 @@
+{% load channels %}
+<div class=" thumb{% if featured %} featuredItem{% endif %}">
+<a href="#">
+  {% if channel.hd %}
+    {% if featured %}
+    <img class="hd_tag_large" src="{{ STATIC_BASE_URL}}images/ico_hd_tag_large.png" alt="" />
+    {% else %}
+    <img class="hd_tag_small" src="{{ STATIC_BASE_URL}}images/ico_hd_tag_small.png"> alt="" />
+    {% endif %}
+  {% endif %}
+  {% if small %}
+  <img src="{{ STATIC_BASE_URL }}images/tekzilla_img.png" />
+  {% else %}
+  <img src="{{ STATIC_BASE_URL }}images/gesalten_tv_img.png" alt="Featured" />
+  {% endif %}
+</a>
+</div>
+<div class="meta">
+{% if buttons %}
+   {% button_block channel %}
+{% endif %}
+    <span class="title"><a href="#">Numero Uno Podcast</a></span>
+{% if description %}    <span class="description">Curabitur eget sem. Morbi sed neque nec tortor pellentesque ullamcorper. </span>{% endif %}
+{% if buttons_bottom %}
+   {% button_block channel %}
+{% endif %}
+</div>

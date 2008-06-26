@@ -1,3 +1,4 @@
+{% load channels %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -88,41 +89,10 @@
 				<div id="innerContent">
 					<ul>
 						<li>
-							<div class="featuredItem">
-								<a href="#">
-									<img class="hd_tag_large" src="{{ STATIC_BASE_URL}}images/ico_hd_tag_large.png" alt="" />
-									<img src="{{ STATIC_BASE_URL}}images/gesalten_tv_img.png" alt="Featured" />
-								</a>
-							</div>
-							<del><div class="button_block">
-								<div class="small_add_button">
-									<a href="#"><span class="button_text">Add channel</span></a>
-									<a href="#"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_small_rss.png" alt="" /></a>
-								</div>
-								<div class="details_button">
-									<a href="#"><span class="button_text">Details</span></a>
-									<a href="#"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_details_right.png" alt="" /></a>
-								</div>
-							</div></del><!--button_block-->
-							<span class="title"><a href="#">Numero Uno Podcast</a></span>
-							<span class="description">Curabitur eget sem. Morbi sed neque nec tortor pellentesque ullamcorper. </span>
+                                                  {% channel 0 featured %}
 						</li>
 						<li>
-							<div class="featuredItem">
-								<a href="#"><img src="{{ STATIC_BASE_URL}}images/gesalten_tv_img.png" alt="Featured" /></a>
-							</div>
-							<del><div class="button_block">
-								<div class="small_add_button">
-									<a href="#"><span class="button_text">Add channel</span></a>
-									<a href="#"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_small_rss.png" alt="" /></a>
-								</div>
-								<div class="details_button">
-									<a href="#"><span class="button_text">Details</span></a>
-									<a href="#"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_details_right.png" alt="" /></a>
-								</div>
-							</div></del><!--button_block-->
-							<span class="title"><a href="#">Numero Uno Podcast</a></span>
-							<span class="description">Curabitur eget sem. Morbi sed neque nec tortor pellentesque ullamcorper. </span>
+                                                  {% channel 0 featured %}
 						</li>
 					</ul>
 				</div><!--innerContent-->
@@ -136,43 +106,32 @@
 			<h3 class="title_bar"><span class="rss">New Feed Videos</span></h3>
 			<ul class="videoFeed">
 				<li>
-					<a href="#"><img src="{{ STATIC_BASE_URL}}images/geekbrief_img.png" alt="" /></a>
-					<span class="title"><a href="#">GeekBrief TV (iPod)</a></span>
+                                  {% channel 0 small %}
 				</li>
 				<li>
-					<a href="#">
-						<img class="hd_tag_small" src="{{ STATIC_BASE_URL}}images/ico_hd_tag_small.png" alt="" />
-						<img src="{{ STATIC_BASE_URL}}images/tekzilla_img.png" alt="" />
-					</a>
-					<span class="title"><a href="#">Tekzilla (HD)</a></span>
+                                  {% channel 0 small %}
 				</li>
 				<li>
-					<a href="#"><img src="{{ STATIC_BASE_URL}}images/geekbrief_img.png" alt="" /></a>
-					<span class="title"><a href="#">GeekBrief TV (iPod)</a></span>
+                                  {% channel 0 small %}
 				</li>
 				<li>
-					<a href="#"><img src="{{ STATIC_BASE_URL}}images/tekzilla_img.png" alt="" /></a>
-					<span class="title"><a href="#">Tekzilla (HD)</a></span>
+                                  {% channel 0 small %}
 				</li>
 			</ul>
 			
 			<h3 class="title_bar"><span class="streaming">New Streaming Videos</span></h3>
 			<ul class="videoFeed">
 				<li>
-					<a href="#"><img src="{{ STATIC_BASE_URL}}images/geekbrief_img.png" alt="" /></a>
-					<span class="title"><a href="#">GeekBrief TV (iPod)</a></span>
+                                  {% channel 0 small %}
 				</li>
 				<li>
-					<a href="#"><img src="{{ STATIC_BASE_URL}}images/tekzilla_img.png" alt="" /></a>
-					<span class="title"><a href="#">Tekzilla (HD)</a></span>
+                                  {% channel 0 small %}
 				</li>
 				<li>
-					<a href="#"><img src="{{ STATIC_BASE_URL}}images/geekbrief_img.png" alt="" /></a>
-					<span class="title"><a href="#">GeekBrief TV (iPod)</a></span>
+                                  {% channel 0 small %}
 				</li>
 				<li>
-					<a href="#"><img src="{{ STATIC_BASE_URL}}images/tekzilla_img.png" alt="" /></a>
-					<span class="title"><a href="#">Tekzilla (HD)</a></span>
+                                  {% channel 0 small %}
 				</li>
 			</ul>
 		</div><!--content-->
@@ -182,36 +141,10 @@
 			<div class="widget">
 				<ul class="recommended">
 					<li>
-						<div class="thumb"><a href="#"><img src="{{ STATIC_BASE_URL}}images/widget_img.png" alt="" /></a></div>
-						<div class="meta">
-							<span class="title">Movies in the public domain</span>
-							<del><div class="button_block">
-								<div class="tiny_add_button">
-									<a href="#"><span class="button_text">Add</span></a>
-									<a href="#"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_small_plus.png" alt="" /></a>
-								</div>
-								<div class="details_button">
-									<a href="#"><span class="button_text">Details</span></a>
-									<a href="#"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_details_right.png" alt="" /></a>
-								</div>
-							</div></del><!--button_block-->
-						</div><!--meta-->
+                                          {% channel 0 buttons_bottom small %}
 					</li>
 					<li class="last_li">
-						<div class="thumb"><a href="#"><img src="{{ STATIC_BASE_URL}}images/widget_img.png" alt="" /></a></div>
-						<div class="meta">
-							<span class="title">Movies in the public domain</span>
-							<del><div class="button_block">
-								<div class="tiny_add_button">
-									<a href="#"><span class="button_text">Add</span></a>
-									<a href="#"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_small_plus.png" alt="" /></a>
-								</div>
-								<div class="details_button">
-									<a href="#"><span class="button_text">Details</span></a>
-									<a href="#"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_details_right.png" alt="" /></a>
-								</div>
-							</div></del><!--button_block-->
-						</div><!--meta-->
+                                          {% channel 0 buttons_bottom small %}
 					</li>
 				</ul>
 			</div><!--widget-->
