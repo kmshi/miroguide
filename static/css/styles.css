@@ -580,15 +580,19 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	Buttons, images, etc.
 ******************************************************/
 /*Buttons*/
-.large_add_button {
-	color: white;
-	float: left;
-	display: inline;
+.large_add_button, .small_add_button, .tiny_add_button {
+    color: white;
+    float: left;
+    display: inline;
 }
-.large_add_button a {float: left; display: inline;}
-.large_add_button a span.button_text {
+
+.large_add_button a, .small_add_button a, .tiny_add_button a {
+    display: inline;
+    float: left;
+}
+.large_add_button a span.button_text, .small_add_button a span.button_text, .tiny_add_button a span.button_text {
 	background: url(images/buttons/button_large.png) 0 0 no-repeat;
-	float: left;
+        float: left;
 	display: inline;
 	font-size: 12px;
 	text-transform: uppercase;
@@ -598,38 +602,17 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	cursor: pointer;
 }
 
-.small_add_button {
-    color: white;
-    float: left;
-    display: inline;
-}
-.small_add_button a {float: left; display: inline;}
-.small_add_button a span.button_text {
+.small_add_button a span.button_text, .tiny_add_button a span.button_text {
 	background: url(images/buttons/button_small.png) 0 0 no-repeat;
-	float: left;
-	display: inline;
 	font-size: 10px;
-	color: white;
 	padding: 2px 5px 5px 7px;
 	margin: 0;
-	cursor: pointer;
+        text-transform: none;
 }
 
-.tiny_add_button {
-	color: white;
-	float: left;
-	display: inline;
-}
-.tiny_add_button a {float: left; display: inline;}
 .tiny_add_button a span.button_text {
-	background: url(images/buttons/button_small.png) 0 0 no-repeat;
-	float: left;
-	display: inline;
 	font-size: 9px;
-	color: white;
-	padding: 3px 5px 5px 7px;
-	margin: 0;
-	cursor: pointer;
+	padding: 3px 2px 5px 5px;
 }
 
 .details_button, .streaming_button, .rss_button {
@@ -640,11 +623,11 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 .details_button a, .streaming_button a, .rss_button a {float: left; display: inline;}
 .details_button a span.button_text, .streaming_button a span.button_text, .rss_button a span.button_text {
 	background: url(images/buttons/button_details.png) top left no-repeat;
-	float: left;
 	display: inline;
+        float: left;
 	font-size: 10px;
 	color: white;
-	padding: 2px 3px 5px 22px;
+	padding: 2px 0px 5px 20px;
 	margin: 0 0 0 4px;
 	cursor: pointer;
 }
@@ -656,10 +639,10 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 }
 
 .button_block {
-    display: inline-block;
-    display: -moz-box;
     margin: 0 auto;
+    padding: 0;
 }
+
 .search_meta_buttons {overflow: hidden; height: 100%;}
 
 .channel_page_button {float: right; display: inline; margin: 10px 13px 0 4px;}
