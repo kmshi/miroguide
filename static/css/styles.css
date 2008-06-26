@@ -1,0 +1,686 @@
+/*
+	Color sets
+	
+	Red: #c01723
+	Brick red: #8e111a
+	Dark gray: #191919
+	
+*/
+
+html {margin: 0; padding: 0;}
+body {
+	margin: 0;
+	padding: 0;
+	background: white;
+	font-family: Arial, sans-serif;
+	font-size: 12px; /*I don't normally like to set fixed font, but this site kinda calls for it*/
+	color: #191919;
+}
+
+a {color: #333333; text-decoration: none;}
+a:hover {color: #666; text-decoration: none;}
+
+img, img a, img a:hover {border: 0;}
+h1, h2, h3, h4, h5 {font-weight: normal;}
+
+/*****************************************************
+	Structure
+******************************************************/
+.page {
+	width: 820px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+#container {
+	width: 820px;
+	overflow: hidden;
+	margin: 0 auto;
+	padding: 17px 0;
+}
+
+#content {
+	float: left;
+	display: inline;
+	width: 501px;
+}
+#sideBar {
+	float: right;
+	display: inline;
+	width: 261px;
+}
+
+#topBar {
+	background: url(images/top_bar_menu_bg.png) 0 0 repeat-x;
+	height: 34px;
+	width: 100%;
+}
+#topBar .page {
+	background: url(images/top_bar_bg.png) 0 0 repeat-x;
+	border-right: 1px solid #76181b;
+}
+#topBarLower {
+	background: url(images/lower_top_bar_bg.png) 0 0 repeat-x;
+	height: 25px;
+	width: 100%;
+	border-bottom: 1px solid #414141;
+}
+#guestEditorsPicks, #featured {
+	height: 221px;
+	padding: 17px 0;
+	border-bottom: 1px solid #8e111a;
+	background: #c01723;
+}
+#featured {
+	background: #737373;
+	border-bottom: 1px solid #454545;
+}
+#guestEditorsPicks .page {padding: 0 17px; width: 786px;}
+
+
+
+/*****************************************************
+	Content
+******************************************************/
+/*Guest editor*/
+#guestEditorContent {
+	width: 216px;
+	float: left;
+	display: inline;
+	color: white;
+}
+#guestEditorContent .preamble {width: 200px; margin: 0 auto; overflow: hidden;}
+#guestEditorContent h2 {font-size: 22px; margin: 0 0 10px 0;}
+#guestEditorContent p {margin: 7px 0; font-size: 11px;}
+#guestEditorContent p a {color: white; text-decoration: underline;}
+
+#guestEditorContent .userInfo {margin: 20px 0; font-size: 12px;}
+#guestEditorContent .userInfo a.tiny_thumbnail {float: left; display: inline; margin-right: 10px;}
+#guestEditorContent .userInfo .username, #guestEditorContent .userInfo .username a {font-weight: bold; color: white; text-decoration: none;}
+#guestEditorContent .userInfo .location {display: block; padding-top: 5px;}
+
+
+
+/*Featured items carousel widget*/
+#featuredItemsCarousel {
+	height: 221px;
+}
+.smallCarousel {width: 536px; float: right; display: inline;}
+.largeCarousel {width: 770px; margin: 0 auto;}
+
+#featuredItemsCarousel #innerContent {
+	background: url(images/featured_bg.png) 0 0 repeat-x;
+	overflow: hidden;
+	height: 221px;
+	float: left;
+	display: inline;
+}
+.smallCarousel #innerContent {width: 468px;}
+.largeCarousel #innerContent {width: 702px;}
+
+#featuredItemsCarousel #innerContent ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	width: 10000px;
+}
+#featuredItemsCarousel #innerContent ul li {
+	height: 219px;
+	width: 215px;
+	padding: 0 10px;
+	background: url(images/featured_separator.png) right center no-repeat;
+	float: left;
+	overflow: hidden;
+	display: inline;
+	text-align: center;
+}
+#featuredItemsCarousel #innerContent ul li div.featuredItem {
+	background: url(images/featured_img_bg.png) 0 0 no-repeat;
+	padding: 3px 3px 0 3px;
+	width: 142px;
+	height: 115px;
+	margin: 16px auto 6px auto;
+}
+
+#featuredItemsCarousel #innerContent ul li span.title {
+	font-weight: bold;
+	font-size: 13px;
+	display: block;
+	padding: 2px 30px;
+}
+
+#featuredItemsCarousel #innerContent ul li span.description {
+	font-size: 9px;
+	display: block;
+	padding: 2px 30px;
+}
+
+
+
+
+/*Carousel buttons*/
+#featuredItemsCarousel #button_previous {
+	height: 221px;
+	width: 34px;
+	background: url(images/buttons/featured_left_button.png) 0 0 no-repeat;
+	cursor: pointer;
+	position: relative;
+	z-index: 2;
+	float: left;
+	display: inline;
+}
+#featuredItemsCarousel #button_next {
+	height: 221px;
+	width: 34px;
+	background: url(images/buttons/featured_right_button.png) 0 0 no-repeat;
+	cursor: pointer;
+	position: relative;
+	z-index: 2;
+	float: right;
+	display: inline;
+}
+
+
+
+/*Video thumbnail lists*/
+ul.videoFeed {
+	list-style: none;
+	margin: 15px 0;
+	padding: 0 0 0 5px;
+	overflow: hidden;
+	height: 100%;
+}
+ul.videoFeed li {
+	width: 115px;
+	float: left;
+	display: inline;
+	margin: 0 4px;
+	text-align: center;
+}
+ul.videoFeed li span.title {font-weight: bold; display: block; margin: 2px 0 0 0;}
+
+
+/*Title bar headers and widget boxes*/
+h3.title_bar, h3.search_result {
+	width: 469px;
+	background: url(images/title_bar.png) 0 0 no-repeat;
+	height: 33px;
+	line-height: 33px;
+	color: #c01723;
+	font-size: 14px;
+	margin: 0;
+	padding: 0 16px;
+}
+h3.search_result {color: #191919;}
+
+h3.widget_title_bar {
+	width: 229px;
+	background: url(images/small_title_bar.png) 0 0 no-repeat;
+	height: 31px;
+	line-height: 31px;
+	font-size: 14px;
+	margin: 0;
+	padding: 0 16px;
+}
+.widget {
+	padding: 0 13px 13px 13px;
+	width: 233px;
+	border: 1px solid #c3c3c3;
+}
+
+.widget ul.recommended {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.widget ul.recommended li {
+	border-bottom: 1px solid #d9d9d9;
+	margin: 13px 0 0 0;
+	padding-bottom: 10px;
+	overflow: hidden;
+	height: 100%;
+}
+
+.widget ul.recommended li .thumb {float: left; display: inline; width: 109px;}
+.widget ul.recommended li .meta {width: 115px; float: right; display: inline;}
+.widget ul.recommended li .meta span.title {display: block; height: 54px; overflow: hidden;}
+.widget ul.recommended li.last_li {border: 0; padding: 0;}
+
+.widget_close {
+	width: 229px;
+	background: url(images/small_title_bar_bottom.png) 0 0 no-repeat;
+	height: 31px;
+	line-height: 31px;
+	font-size: 11px;
+	margin: 0;
+	padding: 0 16px;
+	text-align: right;
+}
+.widget_close a {background: url(images/arrow_1.png) right 3px no-repeat; padding: 0 13px 0 0;}
+.widget_close a span {position: relative; z-index: 1;}
+
+span.rss {background: url(images/ico_rss_title.png) right 11px no-repeat; display: block;}
+span.streaming {background: url(images/ico_streaming_title.png) right 8px no-repeat; display: block;}
+span.favorite {background: url(images/ico_heart.png) right 10px no-repeat; display: block;}
+
+
+/*Search Results*/
+h2.searchResults {
+	margin: 10px 0 24px 0;
+	padding: 0 0 0 10px;
+}
+h2.searchResults span.main_results {display: block; margin: 0 0 7px 0; font-size: 15px; font-weight: bold;}
+h2.searchResults span.comprehensive_results {display: block; margin: 0 0 7px 0; font-size: 10px; font-weight: normal; color: #8c8c8c;}
+h2.searchResults span.comprehensive_results a {color: #8c8c8c; text-decoration: underline;}
+
+ul#searchResults {
+	margin: 10px 0;
+	padding: 0 0 0 10px;
+	list-style: none;
+}
+ul#searchResults li {
+	overflow: hidden;
+	height: 100%;
+	margin: 10px 0 5px 0;
+}
+ul#searchResults li h4 {font-size: 16px; font-weight: bold; margin: 12px 0 8px 0; padding: 0;}
+ul#searchResults li .searchResultContent {
+	width: 348px;
+	float: right;
+	display: inline;
+	font-size: 10px;
+}
+ul#searchResults li .searchResultContent p {margin: 5px 0 0 0;}
+
+ul#searchResults li .searchResultsMeta {
+	clear: both;
+	overflow: hidden;
+	margin: 4px 0 0 0;
+	height: 100%;
+}
+
+
+
+/*Ratings*/
+ul.rating {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+ul.rating li {
+	float: left;
+	display: inline;
+	margin: 0 1px;
+}
+ul.rating li a {
+	float: left;
+	display: inline;
+	margin: 0 1px;
+}
+ul.rating li.score {font-size: 9px; color: #818181; padding: 3px 0 0 10px;}
+ul.rating li.score strong {color: #191919;}
+ul.rating li.available, ul.rating li.subscribers {font-size: 9px; float: right; display: inline; padding: 3px 0 0 20px;}
+ul.rating li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13px; font-weight: bold;}
+
+ul#channelRate {float: right; display: inline; margin: 18px 15px 0 0;}
+
+/*Channel info*/
+#channelInfo {
+	background: url(images/channel_info_bg.png) 0 0 repeat-x;
+	height: 53px;
+}
+
+#channelInfo h1 {margin: 0 0 0 13px; padding: 0; line-height: 53px; font-size: 22px; float: left; display: inline;}
+#channelInfo h1 img {margin-left: 10px; display: inline;}
+
+#channelWebsite {
+	background: url(images/channel_website_bg.png) 0 0 repeat-x;
+	height: 31px;
+}
+h4.inactive {margin: 0; line-height: 31px; float: left; display: inline;}
+h4.inactive a {
+	color: white;
+	font-size: 15px;
+	background: url(images/channel_arrow_right_white.png) 0 3px no-repeat;
+	padding: 0 0 0 18px;
+	margin: 0;
+}
+h4.active {margin: 0; line-height: 31px; float: left; display: inline;}
+h4.active a {
+	font-size: 15px;
+	background: url(images/channel_arrow_down_black.png) 0 3px no-repeat;
+	padding: 0 0 0 18px;
+	margin: 0;
+}
+
+
+#channelDetails {
+	background: #cccccc;
+	padding: 10px 0;
+	overflow: hidden;
+	height: 100%;
+	border-bottom: 1px solid #bababa;
+}
+#channelDetails .channelDetailsContent {float: left; display: inline; width: 565px;}
+#channelDetails .channelDetailsContent p.description {
+	width: 400px;
+	margin: 10px 0 10px 18px;
+	float: left;
+	display: inline;
+	clear: left;
+}
+
+#channelDetails .thumb {
+	float: right;
+	display: inline;
+	width: 222px;
+	height: 156px;
+	background: url(images/channel_thumb_bg.png) 0 0 no-repeat;
+	padding: 3px;
+	margin: 10px 13px 0 0;
+}
+
+
+#channelRelated {
+	background: #e9e9e9;
+	border-bottom: 1px solid #bababa;
+	padding: 10px 0;
+}
+#channelRelated h3 {
+	padding: 0;
+	margin: 0 0 10px 13px;
+	font-size: 14px;
+	font-weight: bold;
+}
+#channelRelated ul {
+	list-style: none;
+	margin: 10px 0 10px 0;
+	padding: 0 0 0 13px;
+	overflow: hidden;
+	height: 100%;
+}
+#channelRelated ul li {
+	width: 250px;
+	float: left;
+	display: inline;
+	margin: 0 28px 0 0;
+}
+#channelRelated ul li.last_li {margin: 0;}
+#channelRelated ul li div.thumb {float: left; display: inline;}
+#channelRelated ul li div.info {float: right; display: inline; width: 150px; padding: 8px 0 0 0;}
+#channelRelated ul li div.info span.title {font-weight: bold; display: block; margin: 0 0 6px 0;}
+
+
+
+/*****************************************************
+	Menus
+******************************************************/
+ul#mainMenu {
+	background: url(images/top_bar_menu_bg.png) 0 0 repeat-x;
+	float: left;
+	display: inline;
+	height: 34px;
+	overflow: hidden;
+	list-style: none;
+	border-right: 1px solid #76181b;
+	margin: 0;
+	padding: 0;
+}
+ul#mainMenu li {
+	background: url(images/top_bar_menu_separator.png) top right no-repeat;
+	height: 34px;
+	line-height: 34px;
+	font-family: "Arial Bold", Arial;
+	text-transform: uppercase;
+	float: left;
+	display: inline;
+	padding: 0 15px;
+
+}
+ul#mainMenu li a {color: white; float: left; display: inline; height: 34px;}
+ul#mainMenu li a:hover {color: #eed9db;}
+ul#mainMenu li#logo {width: 89px; padding: 0 2px 0 0;}
+
+
+
+
+/*Second Menu*/
+ul#lowerMenu {
+	background: url(images/lower_top_bar_bg.png) 0 0 repeat-x;
+	height: 25px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+ul#lowerMenu li {
+	height: 25px;
+	line-height: 25px;
+	font-family: "Arial Bold", Arial;
+	padding: 0 15px 0 15px;
+	float: left;
+	display: inline;
+}
+ul#lowerMenu li a {color: #252525; float: left; display: inline; height: 25px;}
+ul#lowerMenu li a:hover {color: #545454;}
+
+ul#lowerMenu li#account {
+	padding: 0;
+	float: right;
+	display: inline;
+	background: url(images/lower_top_bar_separator.png) 0 0 no-repeat;
+}
+ul#lowerMenu li#language {
+	padding: 0;
+	float: right;
+	display: inline;
+	background: url(images/lower_top_bar_separator.png) 0 0 no-repeat;
+}
+
+ul#lowerMenu li#language a, ul#lowerMenu li#account a {
+	padding: 0 15px;
+	display: inline;
+	float: left;
+	width: 1%;
+}
+ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
+	background-color: #c92323;
+	color: white;
+}
+
+
+#searchBG {
+	height: 34px;
+	float: left; display: inline;
+	overflow: hidden;
+	width: 170px;
+	background: url(images/search_bg.png) top left no-repeat;
+}
+#searchSpot {
+	height: 34px;
+	float: right; display: inline;
+	position: relative;
+	z-index: 3;
+	margin: -33px 0 0 0;
+}
+#searchSpot input.headSearch {
+	background: url(images/top_bar_search.png) 0 0 no-repeat;
+	width: 130px;
+	padding: 4px 14px 1px 9px;
+	border: 0;
+	text-align: right;
+	float: right;
+	display: inline;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	height: 16px;
+	color: #333;
+	overflow: hidden;
+	margin: 5px 8px 0 0;
+}
+
+
+
+/*Hover Menu*/
+#hover_align{
+	width: 820px;
+	margin: 0 auto;
+}
+#hoverMenu {
+	width: 274px;
+	overflow: hidden;
+
+	position: absolute;
+	margin: -1px 0 0 576px;
+	z-index: 100;
+}
+#hoverMenu #upButton {
+	width: 274px;
+	height: 27px;
+	background: url(images/hover_menu_top.png) 0 0 no-repeat;
+	cursor: pointer;
+}
+#hoverMenu #downButton {
+	width: 274px;
+	height: 56px;
+	background: url(images/hover_menu_bottom.png) 0 0 no-repeat;
+	cursor: pointer;
+}
+#hoverMenu ul {
+	list-style: none;
+	margin: 0;
+	padding: 0 30px;
+	height: 100%;
+	background: url(images/hover_menu.png) 0 0 repeat-y;
+}
+#hoverMenu ul li {
+	height: 30px;
+	width: 214px;
+	margin: 0;
+	line-height: 30px;
+	color: white;
+}
+#hoverMenu ul li a {
+	display: block;
+	height: 30px;
+	width: 214px;
+	background: url(images/hover_menu_bg.png) 0 0 repeat-x;
+	color: white;
+	font-weight: bold;
+}
+#hoverMenu ul li a:hover {background: url(images/hover_menu_bg.png) bottom left repeat-x;}
+#hoverMenu ul li a span {
+	padding: 0 0 0 10px;
+	display: block;
+}
+#hoverMenu ul li a:hover span {background: url(images/menu_check.png) 190px 10px no-repeat;}
+
+
+
+/*****************************************************
+	Buttons, images, etc.
+******************************************************/
+/*Buttons*/
+.large_add_button {
+	color: white;
+	float: left;
+	display: inline;
+}
+.large_add_button a {float: left; display: inline;}
+.large_add_button a span.button_text {
+	background: url(images/buttons/button_large.png) 0 0 no-repeat;
+	float: left;
+	display: inline;
+	font-size: 12px;
+	text-transform: uppercase;
+	color: white;
+	padding: 8px 7px 7px 14px;
+	margin: 1px 0 0 0;
+	cursor: pointer;
+}
+
+.small_add_button {
+	color: white;
+/*	display: table-cell; */
+}
+.small_add_button a {float: left; display: inline;}
+.small_add_button a span.button_text {
+	background: url(images/buttons/button_small.png) 0 0 no-repeat;
+	float: left;
+	display: inline;
+	font-size: 10px;
+	color: white;
+	padding: 2px 5px 5px 7px;
+	margin: 0;
+	cursor: pointer;
+}
+
+.tiny_add_button {
+	color: white;
+	float: left;
+	display: inline;
+}
+.tiny_add_button a {float: left; display: inline;}
+.tiny_add_button a span.button_text {
+	background: url(images/buttons/button_small.png) 0 0 no-repeat;
+	float: left;
+	display: inline;
+	font-size: 9px;
+	color: white;
+	padding: 3px 5px 5px 7px;
+	margin: 0;
+	cursor: pointer;
+}
+
+.details_button, .streaming_button, .rss_button {
+	color: white;
+/*	display: table-cell;*/
+}
+.details_button a, .streaming_button a, .rss_button a {float: left; display: inline;}
+.details_button a span.button_text, .streaming_button a span.button_text, .rss_button a span.button_text {
+	background: url(images/buttons/button_details.png) top left no-repeat;
+	float: left;
+	display: inline;
+	font-size: 10px;
+	color: white;
+	padding: 2px 3px 5px 22px;
+	margin: 0 0 0 4px;
+	cursor: pointer;
+}
+.streaming_button a span.button_text {
+	background: url(images/buttons/button_streaming.png) top left no-repeat;
+}
+.rss_button a span.button_text {
+	background: url(images/buttons/button_rss.png) top left no-repeat;
+}
+
+.button_block {display: table; margin: 0 auto;}
+.search_meta_buttons {overflow: hidden; height: 100%;}
+del {text-decoration: none;}
+
+.channel_page_button {float: right; display: inline; margin: 10px 13px 0 4px;}
+
+
+/*Link buttons*/
+.view_more_featured_videos a {
+	width: 200px;
+	height: 26px;
+	display: block;
+	background: url(images/buttons/guest_transparent.png) 0 0 no-repeat;
+	line-height: 26px;
+	margin: 10px 0 0 0;
+	padding: 0 0 0 16px;
+	text-decoration: none;
+	cursor: pointer;
+	color: white;
+}
+.view_more_featured_videos a:hover {color: #eed9db;}
+
+/*Images*/
+.tiny_thumbnail {display: block; width: 57px; border: 1px solid #881019; padding: 3px; background: #e1e1e1;}
+.hd_tag_large {position: absolute; z-index: 2; margin: -9px 0 0 56px;}
+.hd_tag_small {position: absolute; z-index: 2; margin: -7px 0 0 39px;}
+.search_hd {margin-left: 56px;}
+.channel_hd {margin-left: 93px;}
+.searchThumb {float: left; display: inline;}
+.add_favorite_channel {float: right; display: inline; margin: 10px 10px 0 0;}
+.channel_feed_only {float: left; display: inline; margin: 17px 0 0 10px;}

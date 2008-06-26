@@ -1,0 +1,86 @@
+#featuredItemsCarousel #innerContent {
+	background: none;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src=images/featured_bg.png, sizingMethod=scale);
+}
+#featuredItemsCarousel #button_previous {
+	background: none;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src=images/buttons/featured_left_button.png, sizingMethod=image);
+}
+#featuredItemsCarousel #button_next {
+	background: none;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src=images/buttons/featured_right_button.png, sizingMethod=image);
+}
+.view_more_featured_videos a {
+	background: none;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src=images/buttons/guest_transparent.png, sizingMethod=image);
+}
+h3.title_bar, h3.search_result {
+	background: none;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src=images/title_bar.png, sizingMethod=image);
+}
+h3.widget_title_bar {
+	background: none;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src=images/small_title_bar.png, sizingMethod=image);
+}
+.widget_close {
+	background: none;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src=images/small_title_bar_bottom.png, sizingMethod=image);
+}
+
+#searchSpot input.headSearch {
+	background-attachment: fixed;
+}
+
+h4.inactive a {
+	background: none;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src=images/channel_arrow_right_white.png, sizingMethod=image);
+}
+h4.active a {
+	background: none;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src=images/channel_arrow_down_black.png, sizingMethod=image);
+}
+
+#hoverMenu #upButton {
+	background: none;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src=images/hover_menu_top.png, sizingMethod=image);
+}
+#hoverMenu #downButton {
+	background: none;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src=images/hover_menu_bottom.png, sizingMethod=image);
+}
+#hoverMenu ul {
+	background: none;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src=images/hover_menu.png, sizingMethod=scale);
+}
+
+
+.small_add_button a span.button_text {
+	background: none;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src=images/buttons/button_small.png, sizingMethod=crop);
+}
+.tiny_add_button a span.button_text {
+	background: none;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src=images/buttons/button_tiny.png, sizingMethod=crop);
+}
+.large_add_button a span.button_text {
+	background: none;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src=images/buttons/button_large.png, sizingMethod=crop);
+}
+.details_button a span.button_text {
+	background: none;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src=images/buttons/button_details.png, sizingMethod=crop);
+}
+.rss_button a span.button_text {
+	background: none;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src=images/buttons/button_rss.png, sizingMethod=crop);
+}
+.streaming_button a span.button_text {
+	background: none;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src=images/buttons/button_streaming.png, sizingMethod=crop);
+}
+
+
+/*Button alignment fixes*/
+.small_add_button, .tiny_add_button, 
+.details_button, .rss_button, .streaming_button {float: left; display: inline;}
+del {display: inline-block;}

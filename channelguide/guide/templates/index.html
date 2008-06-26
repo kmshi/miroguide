@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Untitled Document</title>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+	<meta name="author" content="" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta name="robots" content="all" />
+<link rel="stylesheet" href="{{ STATIC_BASE_URL }}css/styles.css" type="text/css" media="screen" />
+<!--[if lt IE 7]>
+<link rel="stylesheet" href="{{ STATIC_BASE_URL }}css/ie_styles.css" type="text/css" media="screen" />
+<script defer type="text/javascript" src="{{ STATIC_BASE_URL }}js/ie_png.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+	function hideMenu(el) {box = document.getElementById(el); box.style.display = "none";}
+</script>
+
+</head>
+<body>
+	<div id="topBar">
+		<div class="page">
+			<ul id="mainMenu">
+				<li id="logo"><a href="#"><img src="{{ STATIC_BASE_URL}}images/logo.png" alt="Miro" /></a></li>
+				<li><a href="#">Video feeds</a></li>
+				<li><a href="#">Streaming shows</a></li>
+				<li><a href="#">Videos you'll love</a></li>
+			</ul>
+			<div id="searchBG"></div>
+			<div id="searchSpot">
+				<input type="text" class="headSearch" name="search[query]" id="search_query" value="Search" />
+			</div><!--searchSpot-->
+		</div><!--page-->
+	</div><!--topBar-->
+	<div id="topBarLower">
+		<div class="page">
+			<ul id="lowerMenu">
+				<li><a href="#">Genres</a></li>
+				<li><a href="#">HD Channels</a></li>
+				<li><a href="#">Most Popular</a></li>
+				<li><a href="#">New Shows</a></li>
+				<li><a href="#">Video by Language</a></li>
+				<li id="language"><a href="javascript:;" onclick="hideMenu('hoverMenu')">Language</a></li>
+				<li id="account"><a href="#" onclick="hideMenu('hoverMenu')">Account</a></li>
+			</ul>
+		</div><!--page-->
+	</div><!--topBarLower-->
+
+	<div id="hover_align">
+		<div style="display: none;" id="hoverMenu">
+			<div id="upButton"></div>
+			<ul>
+				<li><a href="#"><span>Albanian</span></a></li>
+				<li><a href="#"><span>Arabic</span></a></li>
+				<li><a href="#"><span>Basque</span></a></li>
+				<li><a href="#"><span>Cantonese</span></a></li>
+				<li><a href="#"><span>Catalan</span></a></li>
+				<li><a href="#"><span>English</span></a></li>
+				<li><a href="#"><span>French</span></a></li>
+				<li><a href="#"><span>Portuguese</span></a></li>
+				<li><a href="#"><span>Spanish</span></a></li>
+			</ul>
+			<div id="downButton"></div>
+		</div><!--hoverMenu-->
+	</div><!--hover_align-->
+
+	<div id="guestEditorsPicks">
+		<div class="page">
+			<div id="guestEditorContent">
+				<div class="preamble">
+					<h2>Guest Editor's Picks</h2>
+					<p>Hand-picked video by our lorem ipsum dolor sit amet, consectetuer adipiscing</p>
+					<p><a href="#">Become a Guest Editor!</a></p>
+					
+					<p class="userInfo">
+						<a href="#" class="tiny_thumbnail"><img src="{{ STATIC_BASE_URL}}images/editor_thumbnail.png" alt="" /></a>
+						<span class="username"><a href="#">ElDuderino78</a></span>
+						<span class="location">Worcester, MA</span>
+					</p>
+				</div><!--preamble-->
+				<div class="view_more_featured_videos"><a href="#">View Miro Featured Videos</a></div>
+			</div><!--guestEditorContent-->
+			
+			<!--Carousel-->
+			<div id="featuredItemsCarousel" class="smallCarousel">
+				<div id="button_previous"></div>
+				<div id="innerContent">
+					<ul>
+						<li>
+							<div class="featuredItem">
+								<a href="#">
+									<img class="hd_tag_large" src="{{ STATIC_BASE_URL}}images/ico_hd_tag_large.png" alt="" />
+									<img src="{{ STATIC_BASE_URL}}images/gesalten_tv_img.png" alt="Featured" />
+								</a>
+							</div>
+							<del><div class="button_block">
+								<div class="small_add_button">
+									<a href="#"><span class="button_text">Add channel</span></a>
+									<a href="#"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_small_rss.png" alt="" /></a>
+								</div>
+								<div class="details_button">
+									<a href="#"><span class="button_text">Details</span></a>
+									<a href="#"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_details_right.png" alt="" /></a>
+								</div>
+							</div></del><!--button_block-->
+							<span class="title"><a href="#">Numero Uno Podcast</a></span>
+							<span class="description">Curabitur eget sem. Morbi sed neque nec tortor pellentesque ullamcorper. </span>
+						</li>
+						<li>
+							<div class="featuredItem">
+								<a href="#"><img src="{{ STATIC_BASE_URL}}images/gesalten_tv_img.png" alt="Featured" /></a>
+							</div>
+							<del><div class="button_block">
+								<div class="small_add_button">
+									<a href="#"><span class="button_text">Add channel</span></a>
+									<a href="#"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_small_rss.png" alt="" /></a>
+								</div>
+								<div class="details_button">
+									<a href="#"><span class="button_text">Details</span></a>
+									<a href="#"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_details_right.png" alt="" /></a>
+								</div>
+							</div></del><!--button_block-->
+							<span class="title"><a href="#">Numero Uno Podcast</a></span>
+							<span class="description">Curabitur eget sem. Morbi sed neque nec tortor pellentesque ullamcorper. </span>
+						</li>
+					</ul>
+				</div><!--innerContent-->
+				<div id="button_next"></div>
+			</div><!--featuredItemsCarousel-->
+		</div><!--page-->
+	</div><!--guestEditorsPicks-->
+	
+	<div id="container">
+		<div id="content">
+			<h3 class="title_bar"><span class="rss">New Feed Videos</span></h3>
+			<ul class="videoFeed">
+				<li>
+					<a href="#"><img src="{{ STATIC_BASE_URL}}images/geekbrief_img.png" alt="" /></a>
+					<span class="title"><a href="#">GeekBrief TV (iPod)</a></span>
+				</li>
+				<li>
+					<a href="#">
+						<img class="hd_tag_small" src="{{ STATIC_BASE_URL}}images/ico_hd_tag_small.png" alt="" />
+						<img src="{{ STATIC_BASE_URL}}images/tekzilla_img.png" alt="" />
+					</a>
+					<span class="title"><a href="#">Tekzilla (HD)</a></span>
+				</li>
+				<li>
+					<a href="#"><img src="{{ STATIC_BASE_URL}}images/geekbrief_img.png" alt="" /></a>
+					<span class="title"><a href="#">GeekBrief TV (iPod)</a></span>
+				</li>
+				<li>
+					<a href="#"><img src="{{ STATIC_BASE_URL}}images/tekzilla_img.png" alt="" /></a>
+					<span class="title"><a href="#">Tekzilla (HD)</a></span>
+				</li>
+			</ul>
+			
+			<h3 class="title_bar"><span class="streaming">New Streaming Videos</span></h3>
+			<ul class="videoFeed">
+				<li>
+					<a href="#"><img src="{{ STATIC_BASE_URL}}images/geekbrief_img.png" alt="" /></a>
+					<span class="title"><a href="#">GeekBrief TV (iPod)</a></span>
+				</li>
+				<li>
+					<a href="#"><img src="{{ STATIC_BASE_URL}}images/tekzilla_img.png" alt="" /></a>
+					<span class="title"><a href="#">Tekzilla (HD)</a></span>
+				</li>
+				<li>
+					<a href="#"><img src="{{ STATIC_BASE_URL}}images/geekbrief_img.png" alt="" /></a>
+					<span class="title"><a href="#">GeekBrief TV (iPod)</a></span>
+				</li>
+				<li>
+					<a href="#"><img src="{{ STATIC_BASE_URL}}images/tekzilla_img.png" alt="" /></a>
+					<span class="title"><a href="#">Tekzilla (HD)</a></span>
+				</li>
+			</ul>
+		</div><!--content-->
+		
+		<div id="sideBar">
+			<h3 class="widget_title_bar"><span class="favorite">Recommended for you</span></h3>
+			<div class="widget">
+				<ul class="recommended">
+					<li>
+						<div class="thumb"><a href="#"><img src="{{ STATIC_BASE_URL}}images/widget_img.png" alt="" /></a></div>
+						<div class="meta">
+							<span class="title">Movies in the public domain</span>
+							<del><div class="button_block">
+								<div class="tiny_add_button">
+									<a href="#"><span class="button_text">Add</span></a>
+									<a href="#"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_small_plus.png" alt="" /></a>
+								</div>
+								<div class="details_button">
+									<a href="#"><span class="button_text">Details</span></a>
+									<a href="#"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_details_right.png" alt="" /></a>
+								</div>
+							</div></del><!--button_block-->
+						</div><!--meta-->
+					</li>
+					<li class="last_li">
+						<div class="thumb"><a href="#"><img src="{{ STATIC_BASE_URL}}images/widget_img.png" alt="" /></a></div>
+						<div class="meta">
+							<span class="title">Movies in the public domain</span>
+							<del><div class="button_block">
+								<div class="tiny_add_button">
+									<a href="#"><span class="button_text">Add</span></a>
+									<a href="#"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_small_plus.png" alt="" /></a>
+								</div>
+								<div class="details_button">
+									<a href="#"><span class="button_text">Details</span></a>
+									<a href="#"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_details_right.png" alt="" /></a>
+								</div>
+							</div></del><!--button_block-->
+						</div><!--meta-->
+					</li>
+				</ul>
+			</div><!--widget-->
+			<div class="widget_close"><a href="#"><span>View all</span></a></div>
+		</div>
+	</div><!--container-->
+	
+	
+</body>
+</html>

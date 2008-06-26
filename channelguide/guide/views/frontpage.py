@@ -20,6 +20,7 @@ def _filter_categories(result, count):
             count -= 1
             yield channel
 
+
 def get_current_language(request):
     """
     Returns a Language object for the current language, or None if it's
@@ -32,27 +33,6 @@ def get_current_language(request):
                     request.connection)
         except NotFoundError:
             pass
-
-def get_popular_channels(request, count, language=None):
-    query = Channel.query_approved(archived=0, user=request.user)
-    lang = get_current_language(request)
-    if lang is not None:
-        query.where((Channel.c.primary_language_id==lang.id) |
-                    Language.secondary_language_exists_where(lang.id))
-    query.join('rating')
-    query.load('subscription_count_today')
-    query.order_by('subscription_count_today', desc=True)
-    query.join('categories')
-    query.limit(count*30)
-    query.cacheable = cache.client
-    query.cacheable_time = 300
-    result = query.execute(request.connection)
-    for r in result:
-        if r.rating is None:
-            r.star_width = 0
-        else:
-            r.star_width = r.rating.average * 20
-    return _filter_categories(result, count)
 
 def get_featured_channels(request):
     query = Channel.query_approved(featured=1, archived=0, user=request.user)
@@ -75,82 +55,6 @@ def get_new_channels(request, count):
 #    query.cacheable_time = 3600
     return _filter_categories(query.execute(request.connection), count)
 
-def get_new_posts(connection, count):
-    query = PCFBlogPost.query().order_by('position')
-    return query.limit(count).execute(connection)
-
-def get_categories(connection):
-    return Category.query(on_frontpage=True).order_by('name').execute(connection)
-
-def get_category_channels(request, category):
-    category.join('channels').execute(request.connection)
-    query = Channel.query_approved(archived=0, user=request.user)
-    query.join("categories")
-    query.where(Channel.c.id.in_(c.id for c in category.channels))
-    query.load('subscription_count_month')
-    query.order_by('subscription_count_month', desc=True)
-    query.limit(6)
-#    query.cacheable = cache.client
-#    query.cacheable_time = 300
-    popular_channels = []
-    for channel in _filter_categories(query.execute(
-        request.connection), 2):
-        popular_channels.append(channel)
-        yield channel
-
-    query = Channel.query_approved(archived=0, user=request.user)
-    query.join('categories')
-    query.limit(6)
-    query.where(Channel.c.id.in_(c.id for c in category.channels))
-    if popular_channels:
-        query.where(Channel.c.id.not_in(c.id for c in popular_channels))
-    query.order_by('RAND()')
-    random_channels = list(query.execute(request.connection))
-    for channel in _filter_categories(query.execute(request.connection), 2):
-        yield channel
-
-def get_adjecent_category(dir, name, connection):
-    query = Category.query().load('channel_count')
-    if dir == 'after':
-        query.where(Category.c.name > name).order_by('name')
-    else:
-        query.where(Category.c.name < name).order_by('name', desc=True)
-    return query.limit(1).get(connection)
-
-# category peeks are windows into categories that show a few (6) channels.
-def get_peeked_category(connection, get_params):
-    try:
-        dir, name = get_params['category_peek'].split(':')
-    except:
-        query = Category.query().load('channel_count')
-        query.where(Category.c.on_frontpage==True)
-        return util.select_random(connection, query)[0]
-    try:
-        return get_adjecent_category(dir, name, connection)
-    except LookupError:
-        if dir == 'after':
-            query = Category.query().order_by('name')
-        else:
-            query = Category.query().order_by('name', desc=True)
-        return query.limit(1).get(connection)
-
-def make_category_peek(request):
-    try:
-        category = get_peeked_category(request.connection, request.GET)
-    except IndexError: # no categories defined
-        return None
-    name = urllib.quote_plus(category.name)
-    return {
-            'category': category,
-            'channels': get_category_channels(request, category),
-            'prev_url': '?category_peek=before:%s' % name,
-            'next_url': '?category_peek=after:%s' % name,
-            'prev_url_ajax': 'category-peek-fragment?category_peek=before:%s' % name,
-            'next_url_ajax': 'category-peek-fragment?category_peek=after:%s' % name,
-    }
-
-
-#@cache.cache_page_externally_for(300)
 @cache.cache_for_user
 def index(request):
     if not request.user.is_authenticated():
@@ -160,24 +64,9 @@ def index(request):
         request.add_notification(None, '<span class="only-in-miro"><center>Rate channels to get <a href="/recommend/">personalized recommendations</a>!</center></span><span class="only-in-browser"><strong>%s</strong> %s <a href="http://www.getmiro.com/download">%s</a></span>' % (title, desc, link))
 
     featured_channels = get_featured_channels(request)
-    return util.render_to_response(request, 'frontpage.html', {
-        'popular_channels': get_popular_channels(request, 7),
+    return util.render_to_response(request, 'index.html', {
         'new_channels': get_new_channels(request, 7),
         'featured_channels': featured_channels[:2],
         'featured_channels_hidden': featured_channels[2:],
-        'blog_posts': get_new_posts(request.connection, 3),
-        'categories': get_categories(request.connection),
-        'category_peek': make_category_peek(request),
         'language' : get_current_language(request),
     })
-
-@cache.cache_for_user
-def category_peek_fragment(request):
-    return util.render_to_response(request, 'category-peek.html', {
-        'category_peek': make_category_peek(request),
-    })
-
-@cache.cache_page_externally_for(60 * 60 * 24)
-def refresh(request):
-    return util.render_to_response(request, 'refresh.html',
-            {'BASE_URL_FULL': settings.BASE_URL_FULL })
