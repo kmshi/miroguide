@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="{{ STATIC_BASE_URL }}css/ie_styles.css" type="text/css" media="screen" />
 <script defer type="text/javascript" src="{{ STATIC_BASE_URL }}js/ie_png.js"></script>
 <![endif]-->
-
+<script type="text/javascript" src="{% if DEBUG %}{{ STATIC_BASE_URL }}js/jquery.min.js{% else %}http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js{% endif %}"></script>
 <script type="text/javascript">
 	function hideMenu(el) {box = document.getElementById(el); box.style.display = "none";}
 </script>

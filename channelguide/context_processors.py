@@ -11,11 +11,12 @@ def guide(request):
     """
 
     return {
-            'BASE_URL': settings.BASE_URL,
-            'STATIC_BASE_URL': settings.STATIC_BASE_URL,
-            'GUIDE_EMAIL': settings.EMAIL_FROM,
-            'google_analytics_ua': settings.GOOGLE_ANALYTICS_UA,
-            'request': request,
-            'user': request.user,
-            'total_channels': request.total_channels,
+        'DEBUG': settings.DEBUG,
+        'BASE_URL': settings.BASE_URL,
+        'STATIC_BASE_URL': settings.STATIC_BASE_URL,
+        'GUIDE_EMAIL': settings.EMAIL_FROM,
+        'google_analytics_ua': settings.GOOGLE_ANALYTICS_UA,
+        'request': request,
+        'user': request.user,
+        'total_channels': request.total_channels,
         }
