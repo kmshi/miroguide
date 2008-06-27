@@ -192,7 +192,6 @@ def on_channel_record_insert(record):
         
 @decorator_from_middleware(ChannelCacheMiddleware)
 def show(request, id, featured_form=None):
-    return util.render_to_response(request, 'details.html', {})
     query = Channel.query()
     query.join('categories', 'tags', 'owner', 'last_moderated_by', 'rating')
     if request.user.is_supermoderator():
@@ -206,15 +205,11 @@ def show(request, id, featured_form=None):
         c.rating.save(request.connection)
     context = {
         'channel': c,
-        'items': item_query.execute(request.connection),
+        #'items': item_query.execute(request.connection),
         'recommendations': get_recommendations(request, id),
-        'show_edit_button': request.user.can_edit_channel(c),
-        'show_extra_info': request.user.can_edit_channel(c),
-        'BASE_URL': settings.BASE_URL,
+        #'show_edit_button': request.user.can_edit_channel(c),
+        #'show_extra_info': request.user.can_edit_channel(c),
     }
-    if 'channel-edit-error' in request.session:
-        context['error'] = request.session['channel-edit-error']
-        del request.session['channel-edit-error']
     if request.user.is_supermoderator():
         if c.featured_queue and c.featured_queue.state in (
                 FeaturedQueue.IN_QUEUE, FeaturedQueue.CURRENT):
@@ -233,7 +228,7 @@ def show(request, id, featured_form=None):
                 featured_form = forms.FeaturedEmailForm(request, c)
             context['featured_email_form'] = featured_form
             context['last_featured_email'] = last_featured_email
-    return util.render_to_response(request, 'channel-details.html', context)
+    return util.render_to_response(request, 'details.html', context)
 
 def subscribe(request, id):
     channel = util.get_object_or_404(request.connection, Channel, id)

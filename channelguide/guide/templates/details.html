@@ -3,9 +3,9 @@
 {% block body %}
 	<div id="channelInfo">
 		<div class="page">
-			<h1>Shoot The Baby</h1>
+			<h1>{{ channel.name }}</h1>
 			<a href="#" class="channel_feed_only"><img src="{{ STATIC_BASE_URL }}images/buttons/feed_only.png" height="18" width="84" alt="" /></a>
-                        {% button_large 0 %}
+                        {% button_large channel %}
 			<ul id="channelRate" class="rating">
 				<li class="rate_tag">Rate:</li>
 				<li><a href="#"><img src="{{ STATIC_BASE_URL }}images/ico_no_rate.png" alt="" /></a></li>
@@ -28,13 +28,13 @@
 		<div class="page">
 			<div class="channelDetailsContent">
 				<h4 class="active"><a href="#">Show Channel Details</a></h4>
-				<p class="description">Watch sneak previews of premiere episodes and favorite moments from National Geographic Channel's Dog Whisperer. See how Cesar Millan rehabilitates dogs and trains their owners. Watch Dog Whisperer Mondays at 9P et/pt on the National Geographic Channel.</p>
+				<p class="description">{{ channel.description }}</p>
 			</div><!--channelDetailsContent-->
 				
 			<div class="thumb">
 				<a href="#">
-					<img class="hd_tag_large channel_hd" src="{{ STATIC_BASE_URL }}images/ico_hd_tag_large.png" alt="" />
-					<img src="{{ STATIC_BASE_URL }}images/channel_thumb.jpg" alt="" />
+                                  {% if channel.hd %}<img class="hd_tag_large channel_hd" src="{{ STATIC_BASE_URL }}images/ico_hd_tag_large.png" alt="High-Definition Channel" />{% endif %}
+                                  {{ channel.thumbnail_large }}
 				</a>
 			</div><!--thumb-->
 		</div><!--page-->

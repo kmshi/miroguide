@@ -49,14 +49,12 @@ class Channel(Record, Thumbnailable):
 
     THUMBNAIL_DIR = 'thumbnails'
     THUMBNAIL_SIZES = [
-            (60, 40),
-            (95, 63),
-            (120, 80),
-            (165, 110),
-            (200, 133),
-            (245, 164),
-            (252, 169),
-            (370, 247),
+        (85, 57), # recommended
+        (98, 66), # new on front page
+        (109, 73), # small on search page
+        (132, 88), # search page
+        (142, 96), # featured on front page
+        (222, 146), # large image on details page
     ]
 
     def __str__(self):
