@@ -68,6 +68,8 @@ urlpatterns = urlpatterns + patterns('',
         {'feed_dict':
             {   'new': feeds.NewChannelsFeed,
                 'features': feeds.FeaturedChannelsFeed,
+                'popular': feeds.PopularChannelsFeed,
+                'toprated': feeds.TopRatedChannelsFeed,
                 'categories': feeds.CategoriesFeed,
                 'tags': feeds.TagsFeed,
                 'languages': feeds.LanguagesFeed,
