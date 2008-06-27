@@ -335,13 +335,14 @@ ul#channelRate {float: right; display: inline; margin: 18px 15px 0 0;}
 
 #channelWebsite {
 	background: url(images/channel_website_bg.png) 0 0 repeat-x;
-	height: 31px;
 }
 
 #channelWebsite iframe {
-    position: absolute:
-    left: 0;
     width: 100%;
+}
+
+.inactive, .inactive .page {
+    height: 31px;
 }
 
 .inactive h4 {margin: 0; line-height: 31px; float: left; display: inline;}
@@ -353,11 +354,7 @@ ul#channelRate {float: right; display: inline; margin: 18px 15px 0 0;}
 	margin: 0;
 }
 
-.inactive .page {
-    height: 31px;
-}
-
-.inactive iframe {
+.inactive iframe, #channelDetails.inactive .thumb {
     display: none;
 }
 
@@ -377,6 +374,7 @@ h4 a {
 	height: 100%;
 	border-bottom: 1px solid #bababa;
 }
+
 #channelDetails .channelDetailsContent {float: left; display: inline; width: 565px;}
 #channelDetails .channelDetailsContent p.description {
 	width: 400px;
