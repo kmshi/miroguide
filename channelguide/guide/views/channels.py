@@ -273,7 +273,7 @@ def get_recommendations(request, id):
     recommendations = [e[0] == int(id) and e[1] or e[0] for e in elements]
     channels = []
     for rec in recommendations:
-        if len(channels) == 4:
+        if len(channels) == 3:
             break
         try:
             chan = Channel.get(request.connection, rec)
