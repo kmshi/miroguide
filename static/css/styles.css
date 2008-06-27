@@ -337,16 +337,32 @@ ul#channelRate {float: right; display: inline; margin: 18px 15px 0 0;}
 	background: url(images/channel_website_bg.png) 0 0 repeat-x;
 	height: 31px;
 }
-h4.inactive {margin: 0; line-height: 31px; float: left; display: inline;}
-h4.inactive a {
+
+#channelWebsite iframe {
+    position: absolute:
+    left: 0;
+    width: 100%;
+}
+
+.inactive h4 {margin: 0; line-height: 31px; float: left; display: inline;}
+.inactive h4 a {
 	color: white;
 	font-size: 15px;
 	background: url(images/channel_arrow_right_white.png) 0 3px no-repeat;
 	padding: 0 0 0 18px;
 	margin: 0;
 }
-h4.active {margin: 0; line-height: 31px; float: left; display: inline;}
-h4.active a {
+
+.inactive .page {
+    height: 31px;
+}
+
+.inactive iframe {
+    display: none;
+}
+
+h4 {margin: 0; line-height: 31px; float: left; display: inline;}
+h4 a {
 	font-size: 15px;
 	background: url(images/channel_arrow_down_black.png) 0 3px no-repeat;
 	padding: 0 0 0 18px;
@@ -486,6 +502,7 @@ ul#lowerMenu li#language a, ul#lowerMenu li#account a {
 ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	background-color: #c92323;
 	color: white;
+        width: auto;
 }
 
 
