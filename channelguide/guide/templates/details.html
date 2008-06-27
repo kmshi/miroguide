@@ -34,7 +34,7 @@
 			<div class="thumb">
 				<a href="#">
                                   {% if channel.hd %}<img class="hd_tag_large channel_hd" src="{{ STATIC_BASE_URL }}images/ico_hd_tag_large.png" alt="High-Definition Channel" />{% endif %}
-                                  {{ channel.thumbnail_large }}
+                                  {{ channel.thumb_222_146 }}
 				</a>
 			</div><!--thumb-->
 		</div><!--page-->
@@ -44,15 +44,11 @@
 		<div class="page">
 			<h3>People Who Like This Channel Also Like</h3>
 			<ul>
-				<li>
-                                  {% channel 0 buttons_bottom tiny %}
+                          {% for rec in recommendations %}
+				<li{% if forloop.last %} class="last_li"{% endif %}>
+                                  {% channel rec buttons_bottom tiny %}
 				</li>
-				<li>
-                                  {% channel 0 buttons_bottom tiny %}
-				</li>
-				<li class="last_li">
-                                  {% channel 0 buttons_bottom tiny %}
-				</li>
+                          {% endfor %}
 			</ul>
 		</div><!--page-->
 	</div><!--channelRelated-->	

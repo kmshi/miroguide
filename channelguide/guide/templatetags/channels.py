@@ -13,19 +13,19 @@ class ChannelNode(template.Node):
 
     def render(self, context):
         channel = self.channelVariable.resolve(context)
+        print channel.name, self.channelVariable
         t = template.loader.get_template('guide/channel.html')
         self.nodelist = t.nodelist
-        new_context = template.context.Context(self.features)
-        new_context['channel'] = channel
+        new_context = template.context.Context(self.features,
+                                               autoescape=context.autoescape)
         new_context.update(context)
-        return self.nodelist.render(
-            template.context.Context(new_context,
-                                     autoescape=context.autoescape))
+        new_context['channel'] = channel       
+        print new_context
+        return self.nodelist.render(new_context)
 
 @register.tag('channel')
 def channel(parser, token):
     tokens = token.split_contents()
-    print tokens
     if len(tokens) < 2:
         raise template.TemplateSyntaxError(
             'syntax is {% channel <channel> [description] [buttons] \
@@ -37,6 +37,7 @@ def channel(parser, token):
         features['buttons'] = features['description'] = True
     if 'tiny' in features:
         features['small'] = True
+    print tokens[1], features
     return ChannelNode(template.Variable(tokens[1]), features)
 
 
@@ -44,8 +45,10 @@ def channel(parser, token):
 def button_block(context, channel):
     new_context = {'STATIC_BASE_URL': settings.STATIC_BASE_URL}
     new_context['small'] = context.get('small', False)
+    new_context['channel'] = channel
     return new_context
 
 @register.inclusion_tag('guide/button_large.html')
 def button_large(channel):
-    return {'STATIC_BASE_URL': settings.STATIC_BASE_URL}
+    return {'STATIC_BASE_URL': settings.STATIC_BASE_URL,
+            'channel': channel}

@@ -487,15 +487,7 @@ class Channel(Record, Thumbnailable):
     def _thumb_html(self, width, height):
         thumb_url = self.thumb_url(width, height)
         return util.mark_safe('<img src="%s" alt="%s">' % (thumb_url, cgi.escape(self.name)))
-
-    def thumb_60_40(self): return self._thumb_html(60, 40)
-    def thumb_95_63(self): return self._thumb_html(95, 63)
-    def thumb_120_80(self): return self._thumb_html(120, 80)
-    def thumb_165_110(self): return self._thumb_html(165, 110)
-    def thumb_245_164(self): return self._thumb_html(245, 164)
-    def thumb_252_169(self): return self._thumb_html(252, 169)
-    def thumb_370_247(self): return self._thumb_html(370, 247)
-
+        
     def fake_feature_thumb(self): 
         thumb_url = self.thumb_url(252, 169)
         return 'src: "%s" alt:"%s"' % (thumb_url, cgi.escape(self.name))
@@ -592,3 +584,9 @@ class Channel(Record, Thumbnailable):
                 ge.save(connection)
         rating.save(connection)
         return rating
+
+for width, height in Channel.THUMBNAIL_SIZES:
+    def thumb(self, width=width, height=height):
+        return self._thumb_html(width, height)
+    setattr(Channel, 'thumb_%i_%i' % (width, height), thumb)
+    del thumb

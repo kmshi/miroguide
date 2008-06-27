@@ -2,20 +2,20 @@
 <div class=" thumb{% if featured %} featuredItem{% endif %}">
 <a href="#">
   {% if channel.hd %}
-    {% if featured %}
-    <img class="hd_tag_large" src="{{ STATIC_BASE_URL}}images/ico_hd_tag_large.png" alt="" />
+    {% if small %}
+    <img class="hd_tag_small" src="{{ STATIC_BASE_URL}}images/ico_hd_tag_small.png"> alt="High-Definition Channel" />
     {% else %}
-    <img class="hd_tag_small" src="{{ STATIC_BASE_URL}}images/ico_hd_tag_small.png"> alt="" />
+    <img class="hd_tag_large" src="{{ STATIC_BASE_URL}}images/ico_hd_tag_large.png" alt="High-Definition Channel" />
     {% endif %}
   {% endif %}
   {% if small %}
   {% if tiny %}
-  <img src="{{ STATIC_BASE_URL }}images/cartech_img.png" />
+  {{ channel.thumb_85_57 }}
   {% else %}
-  <img src="{{ STATIC_BASE_URL }}images/tekzilla_img.png" />
+  {{ channel.thumb_98_66 }}
   {% endif %}
   {% else %}
-  <img src="{{ STATIC_BASE_URL }}images/gesalten_tv_img.png" alt="Featured" />
+  {{ channel.thumb_142_96 }}
   {% endif %}
 </a>
 </div>
@@ -23,8 +23,8 @@
 {% if buttons %}
    {% button_block channel %}
 {% endif %}
-    <span class="title"><a href="#">Numero Uno Podcast</a></span>
-{% if description %}    <span class="description">Curabitur eget sem. Morbi sed neque nec tortor pellentesque ullamcorper. </span>{% endif %}
+    <span class="title"><a href="#">{{ channel.name }}</a></span>
+{% if description %}    <span class="description">{{ channel.description }}</span>{% endif %}
 {% if buttons_bottom %}
    {% button_block channel %}
 {% endif %}

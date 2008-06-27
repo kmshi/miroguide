@@ -1,12 +1,12 @@
 <table class="button_block">
   <tr>
     <td class="{% if small %}tiny{% else %}small{% endif %}_add_button">
-      <a href="#"><span class="button_text">Add{% if small %}{% else%} channel{% endif %}</span></a>
-      <a href="#"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_small_rss.png" alt="" /></a>
+      <a href="{{ channel.get_subscription_url }}"><span class="button_text">Add{% if small %}{% else%} channel{% endif %}</span></a>
+      <a href="{{ channel.get_subscription_url }}"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_small_rss.png" alt="" /></a>
     </td>
     <td class="details_button">
-      <a href="#"><span class="button_text">Details</span></a>
-      <a href="#"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_details_right.png" alt="" /></a>
+      <a href="{{ channel.get_absolute_url }}"><span class="button_text">Details</span></a>
+      <a href="{{ channel.get_absolute_url }}"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_details_right.png" alt="" /></a>
     </td>
   </tr>
 </table><!--button_block-->
