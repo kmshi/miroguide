@@ -407,8 +407,9 @@ h4.active a {
 }
 #channelRelated ul li.last_li {margin: 0;}
 #channelRelated ul li div.thumb {float: left; display: inline;}
-#channelRelated ul li div.info {float: right; display: inline; width: 150px; padding: 8px 0 0 0;}
-#channelRelated ul li div.info span.title {font-weight: bold; display: block; margin: 0 0 6px 0;}
+#channelRelated ul li div.meta {float: right; display: inline; width: 150px; padding: 8px 0 0 0;}
+#channelRelated ul li div.meta table {margin: 0 0 0 -5px;}
+#channelRelated ul li div.meta span.title {font-weight: bold; display: block; margin: 0 0 6px 0;}
 
 
 
@@ -597,7 +598,7 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	font-size: 12px;
 	text-transform: uppercase;
 	color: white;
-	padding: 8px 7px 7px 14px;
+	padding: 9px 7px 7px 14px;
 	margin: 1px 0 0 0;
 	cursor: pointer;
 }

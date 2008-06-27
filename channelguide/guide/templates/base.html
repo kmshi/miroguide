@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Untitled Document</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta name="robots" content="all" />
+<link rel="stylesheet" href="{{ STATIC_BASE_URL }}css/styles.css" type="text/css" media="screen" />
+<!--[if lt IE 7]>
+<link rel="stylesheet" href="{{ STATIC_BASE_URL }}css/ie_styles.css" type="text/css" media="screen" />
+<script defer type="text/javascript" src="{{ STATIC_BASE_URL }}js/ie_png.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+	function hideMenu(el) {box = document.getElementById(el); box.style.display = "none";}
+</script>
+
+</head>
+<body>
+	<div id="topBar">
+		<div class="page">
+			<ul id="mainMenu">
+				<li id="logo"><a href="#"><img src="{{ STATIC_BASE_URL}}images/logo.png" alt="Miro" /></a></li>
+				<li><a href="#">Video feeds</a></li>
+				<li><a href="#">Streaming shows</a></li>
+				<li><a href="#">Videos you'll love</a></li>
+			</ul>
+			<div id="searchBG"></div>
+			<div id="searchSpot">
+				<input type="text" class="headSearch" name="search[query]" id="search_query" value="Search" />
+			</div><!--searchSpot-->
+		</div><!--page-->
+	</div><!--topBar-->
+	<div id="topBarLower">
+		<div class="page">
+			<ul id="lowerMenu">
+				<li><a href="#">Genres</a></li>
+				<li><a href="#">HD Channels</a></li>
+				<li><a href="#">Most Popular</a></li>
+				<li><a href="#">New Shows</a></li>
+				<li><a href="#">Video by Language</a></li>
+				<li id="language"><a href="javascript:;" onclick="hideMenu('hoverMenu')">Language</a></li>
+				<li id="account"><a href="#" onclick="hideMenu('hoverMenu')">Account</a></li>
+			</ul>
+		</div><!--page-->
+	</div><!--topBarLower-->
+
+	<div id="hover_align">
+		<div style="display: none;" id="hoverMenu">
+			<div id="upButton"></div>
+			<ul>
+				<li><a href="#"><span>Albanian</span></a></li>
+				<li><a href="#"><span>Arabic</span></a></li>
+				<li><a href="#"><span>Basque</span></a></li>
+				<li><a href="#"><span>Cantonese</span></a></li>
+				<li><a href="#"><span>Catalan</span></a></li>
+				<li><a href="#"><span>English</span></a></li>
+				<li><a href="#"><span>French</span></a></li>
+				<li><a href="#"><span>Portuguese</span></a></li>
+				<li><a href="#"><span>Spanish</span></a></li>
+			</ul>
+			<div id="downButton"></div>
+		</div><!--hoverMenu-->
+	</div><!--hover_align-->
+        {% block body %}{% endblock %}
+	
+</body>
+</html>

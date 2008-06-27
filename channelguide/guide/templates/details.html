@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load channels %}
+{% block body %}
+	<div id="channelInfo">
+		<div class="page">
+			<h1>Shoot The Baby</h1>
+			<a href="#" class="channel_feed_only"><img src="{{ STATIC_BASE_URL }}images/buttons/feed_only.png" height="18" width="84" alt="" /></a>
+                        {% button_large 0 %}
+			<ul id="channelRate" class="rating">
+				<li class="rate_tag">Rate:</li>
+				<li><a href="#"><img src="{{ STATIC_BASE_URL }}images/ico_no_rate.png" alt="" /></a></li>
+				<li><a href="#"><img src="{{ STATIC_BASE_URL }}images/ico_rating_star.png" alt="" /></a></li>
+				<li><a href="#"><img src="{{ STATIC_BASE_URL }}images/ico_rating_star.png" alt="" /></a></li>
+				<li><a href="#"><img src="{{ STATIC_BASE_URL }}images/ico_rating_star.png" alt="" /></a></li>
+				<li><a href="#"><img src="{{ STATIC_BASE_URL }}images/ico_rating_star.png" alt="" /></a></li>
+				<li><a href="#"><img src="{{ STATIC_BASE_URL }}images/ico_rating_star.png" alt="" /></a></li>
+			</ul>
+		</div><!--page-->
+	</div><!--channelInfo-->
+	
+	<div id="channelWebsite">
+		<div class="page">
+			<h4 class="inactive"><a href="#">Show Channel Website</a></h4>
+		</div><!--page-->
+	</div><!--channelWebsite-->
+
+	<div id="channelDetails">
+		<div class="page">
+			<div class="channelDetailsContent">
+				<h4 class="active"><a href="#">Show Channel Details</a></h4>
+				<p class="description">Watch sneak previews of premiere episodes and favorite moments from National Geographic Channel's Dog Whisperer. See how Cesar Millan rehabilitates dogs and trains their owners. Watch Dog Whisperer Mondays at 9P et/pt on the National Geographic Channel.</p>
+			</div><!--channelDetailsContent-->
+				
+			<div class="thumb">
+				<a href="#">
+					<img class="hd_tag_large channel_hd" src="{{ STATIC_BASE_URL }}images/ico_hd_tag_large.png" alt="" />
+					<img src="{{ STATIC_BASE_URL }}images/channel_thumb.jpg" alt="" />
+				</a>
+			</div><!--thumb-->
+		</div><!--page-->
+	</div><!--channelDetails-->
+	
+	<div id="channelRelated">
+		<div class="page">
+			<h3>People Who Like This Channel Also Like</h3>
+			<ul>
+				<li>
+                                  {% channel 0 buttons_bottom tiny %}
+				</li>
+				<li>
+                                  {% channel 0 buttons_bottom tiny %}
+				</li>
+				<li class="last_li">
+                                  {% channel 0 buttons_bottom tiny %}
+				</li>
+			</ul>
+		</div><!--page-->
+	</div><!--channelRelated-->	
+
+{% endblock %}

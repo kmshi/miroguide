@@ -35,9 +35,17 @@ def channel(parser, token):
         features[token] = True
     if 'featured' in features:
         features['buttons'] = features['description'] = True
+    if 'tiny' in features:
+        features['small'] = True
     return ChannelNode(template.Variable(tokens[1]), features)
 
 
 @register.inclusion_tag('guide/button_block.html', takes_context=True)
 def button_block(context, channel):
-    return context
+    new_context = {'STATIC_BASE_URL': settings.STATIC_BASE_URL}
+    new_context['small'] = context.get('small', False)
+    return new_context
+
+@register.inclusion_tag('guide/button_large.html')
+def button_large(channel):
+    return {'STATIC_BASE_URL': settings.STATIC_BASE_URL}

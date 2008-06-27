@@ -192,6 +192,7 @@ def on_channel_record_insert(record):
         
 @decorator_from_middleware(ChannelCacheMiddleware)
 def show(request, id, featured_form=None):
+    return util.render_to_response(request, 'details.html', {})
     query = Channel.query()
     query.join('categories', 'tags', 'owner', 'last_moderated_by', 'rating')
     if request.user.is_supermoderator():

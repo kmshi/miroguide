@@ -9,7 +9,11 @@
     {% endif %}
   {% endif %}
   {% if small %}
+  {% if tiny %}
+  <img src="{{ STATIC_BASE_URL }}images/cartech_img.png" />
+  {% else %}
   <img src="{{ STATIC_BASE_URL }}images/tekzilla_img.png" />
+  {% endif %}
   {% else %}
   <img src="{{ STATIC_BASE_URL }}images/gesalten_tv_img.png" alt="Featured" />
   {% endif %}
