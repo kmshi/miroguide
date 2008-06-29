@@ -133,6 +133,8 @@ h1, h2, h3, h4, h5 {font-weight: normal;}
 	overflow: hidden;
 	display: inline;
 	text-align: center;
+        position: relative;
+        left: 0;
 }
 #featuredItemsCarousel #innerContent ul li div.featuredItem {
 	background: url(images/featured_img_bg.png) 0 0 no-repeat;
@@ -163,7 +165,6 @@ h1, h2, h3, h4, h5 {font-weight: normal;}
 	height: 221px;
 	width: 34px;
 	background: url(images/buttons/featured_left_button.png) 0 0 no-repeat;
-	cursor: pointer;
 	position: relative;
 	z-index: 2;
 	float: left;

@@ -65,8 +65,7 @@ def index(request):
 
     featured_channels = get_featured_channels(request)
     return util.render_to_response(request, 'index.html', {
-        'new_channels': get_new_channels(request, 7),
-        'featured_channels': featured_channels[:2],
-        'featured_channels_hidden': featured_channels[2:],
+        'feed': get_new_channels(request, 4),
+        'featured': featured_channels,
         'language' : get_current_language(request),
     })

@@ -20,22 +20,6 @@ function MiroVersion() {
     }
 }
 
-function getPreviousElement(elt) {
-    while(elt.previousSibling) {
-        elt = elt.previousSibling;
-        if(elt.nodeType == 1) return elt;
-    }
-    return null;
-}
-
-function getNextElement(elt) {
-    while(elt.nextSibling) {
-        elt = elt.nextSibling;
-        if(elt.nodeType == 1) return elt;
-    }
-    return null;
-}
-
 function showLoadIndicator(always) {
     if (always || navigator.userAgent.indexOf('Miro') != -1) {
 	indicator = $("#load-indicator");

@@ -1,6 +1,48 @@
 {% extends "base.html" %}
 {% load channels %}
+{% block head %}
+<script type="text/javascript">
+var currentFeature = 0;
+var featureWidth = 235;
+function featuredPrevious() {
+    currentFeature = currentFeature - 1;
+    if (currentFeature < 0) {
+        currentFeature = 0;
+    }
+    animateFeatured();
+};
+function featuredNext() {
+    li = $("#featuredItemsCarousel ul li");
+    currentFeature = currentFeature + 1;
+    if (currentFeature > li.length - 3) {
+        currentFeature = li.length - 3;
+    }
+    animateFeatured();
+}
+
+function animateFeatured() {
+    li = $("#featuredItemsCarousel ul li");
+    if (currentFeature < li.length - 3) {
+        $("#button_next").css('cursor', 'pointer')
+    } else {
+        $("#button_next").css('cursor', 'inherit');
+    }
+    if (currentFeature) {
+        $("#button_previous").css('cursor', 'pointer');
+    } else {
+        $("#button_previous").css('cursor', 'inherit');
+    }
+    li.animate({left: -(currentFeature * featureWidth)}, 'slow');
+}
+
+$(document).ready(function() {
+    $("#button_next").click(featuredNext);
+    $("#button_previous").click(featuredPrevious);
+});
+</script>
+{% endblock %}
 {% block body %}
+{% comment %}
 <div id="guestEditorsPicks">
 		<div class="page">
 			<div id="guestEditorContent">
@@ -35,39 +77,45 @@
 			</div><!--featuredItemsCarousel-->
 		</div><!--page-->
 	</div><!--guestEditorsPicks-->
-	
+{% endcomment %}
+	<div id="featured">
+		<div class="page">
+			
+			<!--Carousel-->
+			<div id="featuredItemsCarousel" class="largeCarousel">
+				<div id="button_previous"></div>
+				<div id="innerContent">
+					<ul>
+                                          {% for channel in featured %}
+						<li>
+                                                  {% channel channel featured %}
+                                                </li>
+                                          {% endfor %}
+					</ul>
+				</div><!--innerContent-->
+				<div id="button_next"></div>
+			</div><!--featuredItemsCarousel-->
+		</div><!--page-->
+	</div><!--featured-->
+     
 	<div id="container">
 		<div id="content">
 			<h3 class="title_bar"><span class="rss">New Feed Videos</span></h3>
 			<ul class="videoFeed">
+                          {% for channel in feed %}
 				<li>
-                                  {% channel 0 small %}
+                                  {% channel channel small %}
 				</li>
-				<li>
-                                  {% channel 0 small %}
-				</li>
-				<li>
-                                  {% channel 0 small %}
-				</li>
-				<li>
-                                  {% channel 0 small %}
-				</li>
+                          {% endfor %}
 			</ul>
 			
 			<h3 class="title_bar"><span class="streaming">New Streaming Videos</span></h3>
 			<ul class="videoFeed">
+                          {% for channel in streaming %}
 				<li>
-                                  {% channel 0 small %}
+                                  {% channel channel small %}
 				</li>
-				<li>
-                                  {% channel 0 small %}
-				</li>
-				<li>
-                                  {% channel 0 small %}
-				</li>
-				<li>
-                                  {% channel 0 small %}
-				</li>
+                          {% endfor %}
 			</ul>
 		</div><!--content-->
 		
@@ -75,12 +123,11 @@
 			<h3 class="widget_title_bar"><span class="favorite">Recommended for you</span></h3>
 			<div class="widget">
 				<ul class="recommended">
-					<li>
-                                          {% channel 0 buttons_bottom small %}
+                                  {% for channel in recommended %}
+					<li{% if forloop.last %} class="last_li"{% endif %}>
+                                          {% channel channel buttons_bottom small %}
 					</li>
-					<li class="last_li">
-                                          {% channel 0 buttons_bottom small %}
-					</li>
+                                  {% endfor %}
 				</ul>
 			</div><!--widget-->
 			<div class="widget_close"><a href="#"><span>View all</span></a></div>
