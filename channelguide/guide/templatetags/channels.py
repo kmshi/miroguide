@@ -13,14 +13,12 @@ class ChannelNode(template.Node):
 
     def render(self, context):
         channel = self.channelVariable.resolve(context)
-        print channel.name, self.channelVariable
         t = template.loader.get_template('guide/channel.html')
         self.nodelist = t.nodelist
         new_context = template.context.Context(self.features,
                                                autoescape=context.autoescape)
         new_context.update(context)
         new_context['channel'] = channel       
-        print new_context
         return self.nodelist.render(new_context)
 
 @register.tag('channel')
@@ -37,7 +35,6 @@ def channel(parser, token):
         features['buttons'] = features['description'] = True
     if 'tiny' in features:
         features['small'] = True
-    print tokens[1], features
     return ChannelNode(template.Variable(tokens[1]), features)
 
 
