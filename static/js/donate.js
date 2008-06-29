@@ -69,7 +69,7 @@ function setThanksTimeout(url) {
     $("#donate a:lt(2)").click(function () {
 	setTimeout(function() {
 	    document.location = url;
-	}, 1000);
+	}, 5000);
 	return true;
     });
 }
