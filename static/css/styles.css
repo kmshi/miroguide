@@ -293,9 +293,7 @@ ul#searchResults li .meta {
 }
 ul#searchResults li .meta p {margin: 5px 0 0 0;}
 
-ul#searchResults li .button_block {
-    margin: 5px 0 0 0 ;
-}
+ul#searchResults li .button_block {margin: 0;}
 
 ul#searchResults li .searchResultsMeta {
 	clear: both;
