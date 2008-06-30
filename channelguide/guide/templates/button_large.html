@@ -1,4 +1,6 @@
 <div class="large_add_button channel_page_button">
-  <a href="#"><span class="button_text">Add to favorites</span></a>
-  <a href="#"><img class="button_icon" src="{{ STATIC_BASE_URL }}images/buttons/button_large_streaming.png" alt="" /></a>
+  <a href="{{ chanel.get_subscription_url }}">
+    <span class="button_text">Add to favorites</span>
+    <img class="button_icon" src="{{ STATIC_BASE_URL }}images/buttons/button_large_streaming.png" alt="Add {{ channel.name }} to Miro" />
+  </a>
 </div>

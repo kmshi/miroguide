@@ -1,12 +1,16 @@
-<table class="button_block">
+<table class="button_block">{# I wish I could do this with CSS #}
   <tr>
     <td class="{% if small %}tiny{% else %}small{% endif %}_add_button">
-      <a href="{{ channel.get_subscription_url }}"><span class="button_text">Add{% if small %}{% else%} channel{% endif %}</span></a>
-      <a href="{{ channel.get_subscription_url }}"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_small_rss.png" alt="" /></a>
+      <a href="{{ channel.get_subscription_url }}">
+        <span class="button_text">Add{% if small %}{% else%} channel{% endif %}</span>
+        <img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_small_rss.png" alt="Add {{ channel.name }} to Miro" />
+      </a>
     </td>
     <td class="details_button">
-      <a href="{{ channel.get_absolute_url }}"><span class="button_text">Details</span></a>
-      <a href="{{ channel.get_absolute_url }}"><img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_details_right.png" alt="" /></a>
+      <a href="{{ channel.get_absolute_url }}">
+        <span class="button_text">Details</span>
+        <img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_details_right.png" alt="Details about {{ channel.name }}" />
+      </a>
     </td>
   </tr>
 </table><!--button_block-->
