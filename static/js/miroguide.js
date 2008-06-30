@@ -95,6 +95,19 @@ function handleFormLink(url) {
     return false;
 }
 
+function searchFocus() {
+    input = $(this);
+    if (input.hasClass('headSearch'))
+        input.removeClass('headSearch').val('');
+}
+
+function searchBlur() {
+    input = $(this);
+    if (!input.val()) {
+        input.addClass('headSearch').val('Search');
+    }
+}
+
 $(document).ajaxStart(function() {
     showLoadIndicator(true);
 }).ajaxStop(function() {
