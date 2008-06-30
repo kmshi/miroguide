@@ -1,4 +1,5 @@
 {% load channels %}
+{% if search %}<h4>{{ channel.name }}</h4>{% endif %}
 <div class=" thumb{% if featured %} featuredItem{% endif %}">
 <a href="#">
   {% if channel.hi_def %}
@@ -9,13 +10,21 @@
     {% endif %}
   {% endif %}
   {% if small %}
-  {% if tiny %}
+    {% if tiny %}
   {{ channel.thumb_85_57 }}
-  {% else %}
+    {% else %}
+      {% if search %}
+  {{ channel.thum_109_73 }}
+      {% else %}
   {{ channel.thumb_98_66 }}
-  {% endif %}
+      {% endif %}
+    {% endif %}
   {% else %}
+    {% if search %}
+  {{ channel.thumb_132_88 }}
+    {% else %}
   {{ channel.thumb_142_96 }}
+    {% endif %}
   {% endif %}
 </a>
 </div>
@@ -23,7 +32,7 @@
 {% if buttons %}
    {% button_block channel %}
 {% endif %}
-    <span class="title"><a href="#">{{ channel.name }}</a></span>
+{% if search %}{% else %}    <span class="title"><a href="#">{{ channel.name }}</a></span>{% endif %}
 {% if description %}    <span class="description">{{ channel.description }}</span>{% endif %}
 {% if buttons_bottom %}
    {% button_block channel %}
