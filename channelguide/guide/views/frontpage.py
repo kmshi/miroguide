@@ -6,6 +6,7 @@ import urllib
 from django.conf import settings
 
 from channelguide import util, cache
+from channelguide.guide import api
 from channelguide.guide.models import Channel, Category, Language, PCFBlogPost
 from sqlhelper.exceptions import NotFoundError
 
@@ -63,9 +64,15 @@ def index(request):
         link = _("Download Miro")        
         request.add_notification(None, '<span class="only-in-miro"><center>Rate channels to get <a href="/recommend/">personalized recommendations</a>!</center></span><span class="only-in-browser"><strong>%s</strong> %s <a href="http://www.getmiro.com/download">%s</a></span>' % (title, desc, link))
 
-    featured_channels = get_featured_channels(request)
-    return util.render_to_response(request, 'index.html', {
+    context = {
         'feed': get_new_channels(request, 4),
-        'featured': featured_channels,
-        'language' : get_current_language(request),
-    })
+        'streaming': get_new_channels(request, 4),
+        'featured': get_featured_channels(request),
+        'recommended': [],
+        }
+    if request.user.is_authenticated():
+        context['recommended'] = api.get_recommendations(request.connection,
+                                                         request.user,
+                                                         length=2)
+        
+    return util.render_to_response(request, 'index.html', context)
