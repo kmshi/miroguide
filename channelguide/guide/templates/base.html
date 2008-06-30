@@ -3,9 +3,9 @@
 <head>
 <title>{% block title %}Miro Guide{% endblock %}</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<meta name="author" content="" />
-	<meta name="keywords" content="" />
-	<meta name="description" content="" />
+	<meta name="author" content="Participatory Culture Foundation" />
+	<meta name="keywords" content="Miro Guide, Miro, Internet TV, RSS Video Player, Open Source Television, Bittorrent, Democracy Player, Participatory Culture Foundation, Flash, Streaming" />
+	<meta name="description" content="A content directory of free channels that you can watch on your computer.  Works best when paired with Miro, an open-source Internet TV player." />
 	<meta name="robots" content="all" />
 <link rel="stylesheet" href="{{ STATIC_BASE_URL }}css/styles.css" type="text/css" media="screen" />
 <!--[if lt IE 7]>
@@ -24,29 +24,31 @@
 	<div id="topBar">
 		<div class="page">
 			<ul id="mainMenu">
-				<li id="logo"><a href="#"><img src="{{ STATIC_BASE_URL}}images/logo.png" alt="Miro" /></a></li>
-				<li><a href="#">Video feeds</a></li>
-				<li><a href="#">Streaming shows</a></li>
-				<li><a href="#">Videos you'll love</a></li>
+				<li id="logo"><a href=""><a href="{{ BASE_URL }}" img src="{{ STATIC_BASE_URL}}images/logo.png" alt="Miro" /></a></li>
+				<li><a href="{{ BASE_URL }}/feeds/">Video feeds</a></li>
+				<li><a href="{{ BASE_URL }}/shows/">Streaming shows</a></li>
+				<li><a href="{{ BASE_URL }}/recommended/">Videos you'll love</a></li>
 			</ul>
 			<div id="searchBG"></div>
 			<div id="searchSpot">
+                          <form method="GET" action="{{ BASE_URL }}/search/">
 				<input type="text" class="headSearch" name="search[query]" id="search_query" value="Search" />
                                 <script type="text/javascript">
                                     $("#searchSpot input").focus(searchFocus).blur(searchBlur);
                                 </script>
+                          </form>
 			</div><!--searchSpot-->
 		</div><!--page-->
 	</div><!--topBar-->
 	<div id="topBarLower">
 		<div class="page">
 			<ul id="lowerMenu">
-				<li><a href="#">Genres</a></li>
-				<li><a href="#">HD Channels</a></li>
-				<li><a href="#">Most Popular</a></li>
-				<li><a href="#">New Shows</a></li>
-				<li><a href="#">Video by Language</a></li>
-				<li id="language"><a href="javascript:;" onclick="hideMenu('hoverMenu')">Language</a></li>
+				<li><a href="{{ BASE_URL }}/genre/">Genres</a></li>
+				<li><a href="{{ BASE_URL }}/channels/hd/">HD Channels</a></li>
+				<li><a href="{{ BASE_URL }}/channels/popular/">Most Popular</a></li>
+				<li><a href="{{ BASE_URL }}/channels/new/">New Shows</a></li>
+				<li><a href="{{ BASE_URL }}/language/">Video by Language</a></li>
+				<li id="language"><a href="#" onclick="hideMenu('hoverMenu')">Language</a></li>
 				<li id="account"><a href="#" onclick="hideMenu('hoverMenu')">Account</a></li>
 			</ul>
 		</div><!--page-->
