@@ -31,7 +31,7 @@ def channel(parser, token):
     features = {}
     for token in tokens[2:]:
         features[token] = True
-    if 'featured' in features:
+    if 'featured' in features or 'search' in features:
         features['buttons'] = features['description'] = True
     if 'tiny' in features:
         features['small'] = True

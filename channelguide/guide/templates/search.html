@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load channels %}
+{% block body %}
+	<div id="container">
+		<h2 class="searchResults">
+			<span class="main_results">"blogs" search results: 206 video feeds and 25 streaming shows found</span>
+			<span class="comprehensive_results">Comprehensive results: <a href="#">574 Channels contain videos that match "blogs"</a></span>
+		</h2>
+		
+		<div id="content">
+			<h3 class="search_result"><span class="rss">First <strong>10</strong> of <strong>236</strong> video feeds</span></h3>
+			<ul id="searchResults">
+                          {% for channel in results %}
+				<li>
+                                  {% channel channel search %}
+					<br clear="all" />
+					<div class="searchResultsMeta">
+						<ul class="rating">
+							<li><a href="#"><img src="images/ico_no_rate.png" alt="" /></a></li>
+							<li><a href="#"><img src="images/ico_rating_star.png" alt="" /></a></li>
+							<li><a href="#"><img src="images/ico_rating_star.png" alt="" /></a></li>
+							<li><a href="#"><img src="images/ico_rating_star.png" alt="" /></a></li>
+							<li><a href="#"><img src="images/ico_rating_star.png" alt="" /></a></li>
+							<li><a href="#"><img src="images/ico_rating_star.png" alt="" /></a></li>
+							<li class="score">Avg. of 16 ratings: <strong>4.3</strong></li>
+							<li class="subscribers">Subscribers: 240</li>
+							<li class="available">Videos Available: 15</li>
+						</ul>
+					</div>
+				</li>
+                                {% endfor %}
+ 			</ul>
+			
+		</div><!--content-->
+		
+		<div id="sideBar">
+			<h3 class="widget_title_bar"><span class="streaming">First <strong>4</strong> of <strong>25</strong> streaming shows</span></h3>
+			<div class="widget">
+				<ul class="recommended">
+					<li>
+						<div class="thumb"><a href="#"><img src="images/widget_img.png" alt="" /></a></div>
+						<div class="meta">
+							<span class="title">Movies in the public domain</span>
+							<del><div class="button_block">
+								<div class="tiny_add_button">
+									<a href="#"><span class="button_text">Add</span></a>
+									<a href="#"><img class="button_icon" src="images/buttons/button_small_plus.png" alt="" /></a>
+								</div>
+								<div class="details_button">
+									<a href="#"><span class="button_text">Details</span></a>
+									<a href="#"><img class="button_icon" src="images/buttons/button_details_right.png" alt="" /></a>
+								</div>
+							</div></del><!--button_block-->
+						</div><!--meta-->
+					</li>
+					<li>
+						<div class="thumb">
+							<a href="#">
+								<img class="hd_tag_small" src="images/ico_hd_tag_small.png" alt="" />
+								<img src="images/widget_img.png" alt="" />
+							</a>
+						</div>
+						<div class="meta">
+							<span class="title">Movies in the public domain</span>
+							<del><div class="button_block">
+								<div class="tiny_add_button">
+									<a href="#"><span class="button_text">Add</span></a>
+									<a href="#"><img class="button_icon" src="images/buttons/button_small_plus.png" alt="" /></a>
+								</div>
+								<div class="details_button">
+									<a href="#"><span class="button_text">Details</span></a>
+									<a href="#"><img class="button_icon" src="images/buttons/button_details_right.png" alt="" /></a>
+								</div>
+							</div></del><!--button_block-->
+						</div><!--meta-->
+					</li>
+					<li>
+						<div class="thumb"><a href="#"><img src="images/widget_img.png" alt="" /></a></div>
+						<div class="meta">
+							<span class="title">Movies in the public domain</span>
+							<del><div class="button_block">
+								<div class="tiny_add_button">
+									<a href="#"><span class="button_text">Add</span></a>
+									<a href="#"><img class="button_icon" src="images/buttons/button_small_plus.png" alt="" /></a>
+								</div>
+								<div class="details_button">
+									<a href="#"><span class="button_text">Details</span></a>
+									<a href="#"><img class="button_icon" src="images/buttons/button_details_right.png" alt="" /></a>
+								</div>
+							</div></del><!--button_block-->
+						</div><!--meta-->
+					</li>
+					<li class="last_li">
+						<div class="thumb"><a href="#"><img src="images/widget_img.png" alt="" /></a></div>
+						<div class="meta">
+							<span class="title">Movies in the public domain</span>
+							<del><div class="button_block">
+								<div class="tiny_add_button">
+									<a href="#"><span class="button_text">Add</span></a>
+									<a href="#"><img class="button_icon" src="images/buttons/button_small_plus.png" alt="" /></a>
+								</div>
+								<div class="details_button">
+									<a href="#"><span class="button_text">Details</span></a>
+									<a href="#"><img class="button_icon" src="images/buttons/button_details_right.png" alt="" /></a>
+								</div>
+							</div></del><!--button_block-->
+						</div><!--meta-->
+					</li>
+				</ul>
+			</div><!--widget-->
+			<div class="widget_close"><a href="#"><span>View All 25 Streaming Show Matches</span></a></div>
+		</div>
+	</div><!--container-->
+{% endblock %}

@@ -66,7 +66,7 @@ def search(request):
     search_query = search_query.strip()
     terms = get_search_terms(search_query)
     if terms_too_short(terms):
-        return util.render_to_response(request, 'channel-search.html', {
+        return util.render_to_response(request, 'search.html', {
             'results_count': 0,
             'search_terms': terms,
             'search_query': search_query,
@@ -89,7 +89,7 @@ def search(request):
         len(languages) == len(categories) == 0)):
         return util.redirect(results[0].get_absolute_url())
 
-    return util.render_to_response(request, 'channel-search.html', {
+    return util.render_to_response(request, 'search.html', {
         'results': results,
         'results_count': results_count,
         'item_results': item_results,

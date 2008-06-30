@@ -285,13 +285,17 @@ ul#searchResults li {
 	margin: 10px 0 5px 0;
 }
 ul#searchResults li h4 {font-size: 16px; font-weight: bold; margin: 12px 0 8px 0; padding: 0;}
-ul#searchResults li .searchResultContent {
+ul#searchResults li .meta {
 	width: 348px;
 	float: right;
 	display: inline;
 	font-size: 10px;
 }
-ul#searchResults li .searchResultContent p {margin: 5px 0 0 0;}
+ul#searchResults li .meta p {margin: 5px 0 0 0;}
+
+ul#searchResults li .button_block {
+    margin: 5px 0 0 0 ;
+}
 
 ul#searchResults li .searchResultsMeta {
 	clear: both;
@@ -359,14 +363,19 @@ ul#channelRate {float: right; display: inline; margin: 18px 15px 0 0;}
     display: none;
 }
 
-h4 {margin: 0; line-height: 31px; float: left; display: inline;}
-h4 a {
+#channelWebsite h4, #channelDetails h4 {
+    margin: 0;
+    line-height: 31px;
+    float: left;
+    display: inline;
+}
+
+#channelWebsite h4 a, #channelDetails h4 a {
 	font-size: 15px;
 	background: url(images/channel_arrow_down_black.png) 0 3px no-repeat;
 	padding: 0 0 0 18px;
 	margin: 0;
 }
-
 
 #channelDetails {
 	background: #cccccc;
@@ -686,6 +695,6 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 .hd_tag_small {position: absolute; z-index: 2; margin: -7px 0 0 39px;}
 .search_hd {margin-left: 56px;}
 .channel_hd {margin-left: 93px;}
-.searchThumb {float: left; display: inline;}
+#searchResults .thumb {float: left; display: inline;}
 .add_favorite_channel {float: right; display: inline; margin: 10px 10px 0 0;}
 .channel_feed_only {float: left; display: inline; margin: 17px 0 0 10px;}
