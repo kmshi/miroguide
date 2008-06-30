@@ -3,17 +3,16 @@
 {% block body %}
 	<div id="container">
 		<h2 class="searchResults">
-			<span class="main_results">"blogs" search results: 206 video feeds and 25 streaming shows found</span>
-			<span class="comprehensive_results">Comprehensive results: <a href="#">574 Channels contain videos that match "blogs"</a></span>
+			<span class="main_results">"{{ search_query }}" search results: {{ results_count }} video feeds and 25 streaming shows found</span>
+			<span class="comprehensive_results">Comprehensive results: <a href="#">{{ item_results_count }} Channels contain videos that match "{{ search_query }}"</a></span>
 		</h2>
 		
 		<div id="content">
-			<h3 class="search_result"><span class="rss">First <strong>10</strong> of <strong>236</strong> video feeds</span></h3>
+			<h3 class="search_result"><span class="rss">First <strong>10</strong> of <strong>{{ results_count }}</strong> video feeds</span></h3>
 			<ul id="searchResults">
                           {% for channel in results %}
 				<li>
                                   {% channel channel search %}
-					<br clear="all" />
 					<div class="searchResultsMeta">
 						<ul class="rating">
 							<li><a href="#"><img src="images/ico_no_rate.png" alt="" /></a></li>
