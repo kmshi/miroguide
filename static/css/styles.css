@@ -114,6 +114,7 @@ h1, h2, h3, h4, h5 {font-weight: normal;}
 	height: 221px;
 	float: left;
 	display: inline;
+        position: relative;
 }
 .smallCarousel #innerContent {width: 468px;}
 .largeCarousel #innerContent {width: 702px;}
@@ -123,6 +124,8 @@ h1, h2, h3, h4, h5 {font-weight: normal;}
 	padding: 0;
 	list-style: none;
 	width: 10000px;
+        position: absolute;
+        left: 0;
 }
 #featuredItemsCarousel #innerContent ul li {
 	height: 219px;
@@ -133,8 +136,6 @@ h1, h2, h3, h4, h5 {font-weight: normal;}
 	overflow: hidden;
 	display: inline;
 	text-align: center;
-        position: relative;
-        left: 0;
 }
 #featuredItemsCarousel #innerContent ul li div.featuredItem {
 	background: url(images/featured_img_bg.png) 0 0 no-repeat;
