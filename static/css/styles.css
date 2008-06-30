@@ -528,12 +528,12 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	z-index: 3;
 	margin: -33px 0 0 0;
 }
-#searchSpot input.headSearch {
+#searchSpot input {
 	background: url(images/top_bar_search.png) 0 0 no-repeat;
 	width: 130px;
 	padding: 4px 14px 1px 9px;
 	border: 0;
-	text-align: right;
+	text-align: left;
 	float: right;
 	display: inline;
 	font-family: Arial, Helvetica, sans-serif;
@@ -544,6 +544,10 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	margin: 5px 8px 0 0;
 }
 
+#searchSpot input.headSearch {
+    text-align: right;
+    color: #999;
+}
 
 
 /*Hover Menu*/
