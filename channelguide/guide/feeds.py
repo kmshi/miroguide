@@ -10,6 +10,7 @@ from channelguide.guide.views.channels import get_toprated_query
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.syndication import feeds
+from django.utils import feedgenerator
 from django.http import Http404
 
 from operator import attrgetter
@@ -25,9 +26,21 @@ def https_add_domain(domain, url):
 _old_add_domain = feeds.add_domain
 feeds.add_domain = https_add_domain
 
+class MiroFeedGenerator(feedgenerator.DefaultFeed):
+    thumbnail_url = "http://s3.getmiro.com/img/home-logo-revised.png"
+    
+    def write_items(self, handler):
+        handler.startElement(u"image", {})
+        handler.addQuickElement(u"url", self.thumbnail_url)
+        handler.addQuickElement(u"title", self.feed['title'])
+        handler.addQuickElement(u"link", self.feed['link'])
+        handler.endElement(u"image")
+        feedgenerator.DefaultFeed.write_items(self, handler)
+        
 class ChannelsFeed(feeds.Feed):
     title_template = "feeds/channel_title.html"
     description_template = "feeds/channel_description.html"
+    feed_type = MiroFeedGenerator
 
     def item_guid(self, item):
         if item.newest:
