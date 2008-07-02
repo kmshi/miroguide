@@ -67,7 +67,8 @@ ul.rating li.score strong {color: #191919;}
     background-position: 0 0px;
 }
 
-.rating .star.on, .rating .star.on a {
+.rating .star.on, .rating .star.on a,
+.rating .cancel.on, .rating .cancel.on a {
     display: block;
     background-position: 0 -15px;
 }
