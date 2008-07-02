@@ -380,7 +380,7 @@ def get_recommendations(request, id):
 
 def rate(request, id):
     if not request.user.is_authenticated():
-        if 'HTTP_REFERER' in request.META:
+        if 'HTTP_REFERER' in request.META and not request.REQUEST.get('referer'):
             referer = request.META['HTTP_REFERER']
             if referer.startswith(settings.BASE_URL_FULL):
                 referer = referer[len(settings.BASE_URL_FULL)-1:]
