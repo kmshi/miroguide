@@ -21,55 +21,37 @@
  */
 jQuery.fn.rating = function(){
     return this.each(function(){
-        var div = jQuery("<div/>").attr({
-            title: this.title,
-            className: this.className
-        });
-        var names = [
-            "Not interested",
-            "I hate this channel",
-            "I dislike this channel",
-            "I like this channel",
-            "I really like this channel",
-            "I love this channel!"]
-
-        jQuery(this).find("select option").each(function(){
-            div.append( this.value == "0" ?
-                "<div class='cancel'><a href='#0' title='" + names[this.value] + "'></a></div>" :
-                "<div class='star'><a href='#" + this.value + "' title='" + names[this.value] + "'>" + this.value + "</a></div>" );
-        });
-
-        var ratingType;
-        if (this.title.split(/ /)[0] == "User") {
-            ratingType = "userrating";
+        var ratingValue;
+        var ul = jQuery(this);
+        if (ul.attr('user')) {
+            ratingValue = parseFloat(ul.attr('user'));
         } else {
-            ratingType = "averagerating";
+            ratingValue = parseFloat(ul.attr('average'));
         }
-        var ratingValue = this.title.split(/:\s*/)[1],
-            url = this.action,
-            ratingIndex = parseInt(ratingValue);
+
+        var ratingType = (ul.find('li').hasClass('userrating') ?
+                          'userrating' : 'averagerating');
+        var ratingIndex = parseInt(ratingValue);
         var ratingPercent = (parseFloat(ratingValue) - ratingIndex) * 10;
 
         // hover events and focus events added
-        var stars = div.find("div.star")
+        var stars = ul.find("li.star")
             .mouseover(drainFill).focus(drainFill)
             .mouseout(drainReset).blur(drainReset)
             .click(click);
 
         // cancel button events
-        var cancel = div.find("div.cancel")
+        var cancel = ul.find("li.cancel")
             .mouseover(drainAdd).focus(drainAdd)
             .mouseout(resetRemove).blur(resetRemove)
             .click(click);
 
         reset();
 
-        div.insertAfter(this);
-
         function drainFill(){ drain(); fill(this); }
         function drainReset(){ drain(); reset(); }
-        function resetRemove(){ jQuery(this).removeClass('on'); reset();}
-        function drainAdd(){ drain(); jQuery(this).addClass('on'); }
+        function resetRemove(){ jQuery(this).removeClass('hover'); reset();}
+        function drainAdd(){ drain(); jQuery(this).addClass('hover'); }
 
         function click(){
             ratingValue = ratingIndex = stars.index(this) + 1;
@@ -92,7 +74,6 @@ jQuery.fn.rating = function(){
 
         // fill to the current mouse position.
         function fill( elem ){
-            stars.find("a").css("width", "100%");
             stars.slice(0, stars.index(elem) + 1 ).addClass("hover");
         }
     
@@ -115,22 +96,15 @@ jQuery.fn.rating = function(){
                 cancel.addClass('on');
             }
         }
-    }).remove();
+    });
 };
 
 // fix ie6 background flicker problem.
 if ( jQuery.browser.msie == true )
     document.execCommand('BackgroundImageCache', false, true);
 
-/*$(document).ready(function () {
-    try {
-        $("form.rating").rating('', {maxvalue:5});
-    } catch (e) {}
-    $('.rating').each(function() {
-        var height = 25;
-        if ($(this).hasClass('small')) {
-            height = 13;
-        }
-        $(this).height(height);
-    })
-});*/
+$(document).ready(function () {
+/*    try {*/
+        $("ul.rating").rating();
+/*    } catch (e) {}*/
+});

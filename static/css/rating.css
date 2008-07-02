@@ -11,8 +11,7 @@
 ul.rating li.score {font-size: 9px; color: #818181; padding: 3px 0 0 10px;}
 ul.rating li.score strong {color: #191919;}
 
-.rating .score 
-.rating.small {
+.rating .score {
     width: 78px;
 }
 .rating li {
@@ -37,27 +36,11 @@ ul.rating li.score strong {color: #191919;}
     cursor: pointer;
 }
 
-.small .cancel, .small .star {
-    width: 13px;
-    height: 13px;
-}
-.cancel,
 .cancel a {background: url(images/no-star.png) no-repeat 0 0px;}
 
-.small .cancel,
-.small .cancel a { background-image: url(images/small-no-star.png);}
-
-.star.userrating,
 .star.userrating a {background: url(images/user-star.png) no-repeat 0 0px;}
 
-.small .star.userrating,
-.small .star.userrating a {background-image: url(images/small-user-star.png);}
-
-.star.averagerating,
 .star.averagerating a {background: url(images/avg-star.png) no-repeat 0 0px;}
-
-.small .star.averagerating,
-.small .star.averagerating a {background-image: url(images/small-avg-star.png);}
 
 .cancel a,
 .star a {
@@ -67,23 +50,13 @@ ul.rating li.score strong {color: #191919;}
     background-position: 0 0px;
 }
 
-.rating .star.on, .rating .star.on a,
-.rating .cancel.on, .rating .cancel.on a {
+.rating .star.on a,
+.rating .cancel.on a {
     display: block;
     background-position: 0 -15px;
 }
 
-div.rating.small div.on a {
-    background-position: 0 -12px;
-}
-
-div.rating div.hover a,
-div.rating div a:hover {
+.rating .hover a {
     display: block;
-    background-position: 0 -48px;
-}
-
-div.rating.small div.hover a,
-div.rating.small div a:hover {
-    background-position: 0 -24px;
+    background-position: 0 -31px;
 }
