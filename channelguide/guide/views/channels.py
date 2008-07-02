@@ -201,7 +201,6 @@ def show(request, id, featured_form=None):
     if c.rating is None:
         c.rating = GeneratedRatings()
         c.rating.channel_id = c.id
-        c.rating.count = c.rating.average = c.rating.total = 0
         c.rating.save(request.connection)
     context = {
         'channel': c,

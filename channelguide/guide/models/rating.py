@@ -9,3 +9,6 @@ class Rating(Record):
 
 class GeneratedRatings(Record):
     table = tables.generated_ratings
+
+    def __init__(self):
+        self.count = self.average = self.total = 0
