@@ -36,13 +36,14 @@ h1, h2, h3, h4, h5 {font-weight: normal;}
 	width: 820px;
 	overflow: hidden;
 	margin: 0 auto;
-	padding: 17px 0;
+	padding: 17px 0 0;
 }
 
 #content {
 	float: left;
 	display: inline;
 	width: 501px;
+        padding-left: 16px;
 }
 #sideBar {
 	float: right;
@@ -64,6 +65,9 @@ h1, h2, h3, h4, h5 {font-weight: normal;}
 	height: 25px;
 	width: 100%;
 	border-bottom: 1px solid #414141;
+}
+#topBarLower .page {
+    padding-left: 10px;
 }
 #guestEditorsPicks, #featured {
 	height: 221px;
@@ -319,7 +323,7 @@ ul.info li a {
 	float: left;
 	display: inline;
 	margin: 0 1px;
-}
+####}
 
 ul.info li.available, ul.info li.subscribers {font-size: 9px; float: right; display: inline; padding: 3px 0 0 20px;}
 ul.info li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13px; font-weight: bold;}
