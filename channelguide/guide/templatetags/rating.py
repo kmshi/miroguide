@@ -3,7 +3,7 @@
 
 from django.conf import settings
 from django import template
-from channelguide.guide.models import Rating
+from channelguide.guide.models import Rating, GeneratedRatings
 register = template.Library()
 
 @register.tag
@@ -16,8 +16,13 @@ def rating_header(parser, tokens):
 @register.inclusion_tag('guide/rating.html', takes_context=True)
 def rating(context, channel):
     request = context['request']
+    user_rating = False
     if not hasattr(channel, 'rating'):
         channel.join('rating').execute(request.connection)
+    if not channel.rating:
+        channel.rating = GeneratedRatings()
+        channel.rating.channel_id = channel.id
+        channel.rating.save(request.connection)
     try:
         rating = Rating.query(Rating.c.user_id==request.user.id,
                               Rating.c.channel_id==channel.id).get(request.connection)
@@ -30,6 +35,6 @@ def rating(context, channel):
     return {
         'rating': rating,
         'channel': channel,
-        'class': (rating and 'userrating' or 'averagerating'),
+        'class': (user_rating and 'userrating' or 'averagerating'),
         'referer': request.path,
         }
