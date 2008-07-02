@@ -323,7 +323,23 @@ ul.info li a {
 	float: left;
 	display: inline;
 	margin: 0 1px;
-####}
+}
+
+#rateTag span {
+    display: block;
+    float: left;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+/*    margin-bottom: -15px; */
+    padding-right: 5px;
+}
+
+#rateTag {
+    display:inline;
+    float:right;
+    margin: 17px 15px 0 0;
+}
 
 ul.info li.available, ul.info li.subscribers {font-size: 9px; float: right; display: inline; padding: 3px 0 0 20px;}
 ul.info li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13px; font-weight: bold;}
