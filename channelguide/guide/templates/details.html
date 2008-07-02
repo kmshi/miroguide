@@ -1,20 +1,15 @@
 {% extends "base.html" %}
-{% load channels %}
+{% load channels rating%}
+{% block head %}
+  {% rating_header %}
+{% endblock %}
 {% block body %}
 	<div id="channelInfo">
 		<div class="page">
 			<h1>{{ channel.name }}</h1>
 			<a href="#" class="channel_feed_only"><img src="{{ STATIC_BASE_URL }}images/buttons/feed_only.png" height="18" width="84" alt="" /></a>
                         {% button_large channel %}
-			<ul id="channelRate" class="rating">
-				<li class="rate_tag">Rate:</li>
-				<li><a href="#"><img src="{{ STATIC_BASE_URL }}images/ico_no_rate.png" alt="" /></a></li>
-				<li><a href="#"><img src="{{ STATIC_BASE_URL }}images/ico_rating_star.png" alt="" /></a></li>
-				<li><a href="#"><img src="{{ STATIC_BASE_URL }}images/ico_rating_star.png" alt="" /></a></li>
-				<li><a href="#"><img src="{{ STATIC_BASE_URL }}images/ico_rating_star.png" alt="" /></a></li>
-				<li><a href="#"><img src="{{ STATIC_BASE_URL }}images/ico_rating_star.png" alt="" /></a></li>
-				<li><a href="#"><img src="{{ STATIC_BASE_URL }}images/ico_rating_star.png" alt="" /></a></li>
-			</ul>
+                        {% rating channel %}
 		</div><!--page-->
 	</div><!--channelInfo-->
 	
