@@ -2,7 +2,8 @@
  * Star Rating - jQuery plugin
  *
  * Copyright (c) 2007 Wil Stuckey
- * Modified by John Resig and Paul Swartz
+ * Modified by John Resig
+ * Modified heavily by Paul Swartz
  *
  * Dual licensed under the MIT and GPL licenses:
  *   http://www.opensource.org/licenses/mit-license.php
@@ -11,13 +12,11 @@
  */
 
 /**
- * Create a degradeable star rating interface out of a simple form structure.
- * Returns a modified jQuery object containing the new interface.
- *   
- * @example jQuery('form.rating').rating();
- * @cat plugin
- * @type jQuery 
- *
+ * The original code created a star rating widget out of a form combo box.
+ * Paul Swartz reworked the code so that it's based on an unordered list
+ * of links, so that it looks like stars even when Javascript isn't available.
+ * It also supports displaying different stars for an average rating and for
+ * a rating that comes from a user.
  */
 jQuery.fn.rating = function(){
     return this.each(function(){
