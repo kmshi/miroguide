@@ -1,3 +1,7 @@
 <ul class="rating">
-  <li class="score">Avg. of {{ channel.rating.count }} rating{{ channel.rating.count|pluralize }}: <strong>{{ channel.rating.average|floatformat }}</strong></li>
+  <li class="score">{% if channel.rating.count %}
+  Avg. of {{ channel.rating.count }} rating{{ channel.rating.count|pluralize }}: <strong>{{ channel.rating.average|floatformat }}</strong>
+  {% else %}
+  Not Yet Rated
+  {% endif %}</li>
 </ul>
