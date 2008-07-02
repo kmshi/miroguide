@@ -566,6 +566,7 @@ class Channel(Record, Thumbnailable):
         if rating.rating:
             self.rating.count -= 1
             self.rating.total -= rating.rating
+            self.rating.save(connection)
         rating.rating = int(score)
         rating.timestamp = datetime.now()
         if rating.rating == 0:
