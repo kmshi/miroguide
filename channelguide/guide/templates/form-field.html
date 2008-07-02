@@ -1,0 +1,19 @@
+{% comment %}
+Copyright (c) 2008 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load i18n %}
+<div class="label">
+    {% if field.errors %}<img src="{{ STATIC_BASE_URL }}images/form-error-arrow.png" alt="{% trans "Error" %}"> {% endif %}
+    {% if field.field.required %}{% ifequal request.path "/accounts/login" %}{%else%}*{% endifequal %}{% endif %}
+    {% autoescape off %}
+    {% if field.field.label %}
+    {{ field.field.label|linebreaksbr }}:
+    {% else %}
+    {{ field.label_tag|linebreaksbr }}:
+    {% endif %}{% endautoescape %}&nbsp;
+</div>
+{{ field }}
+{% if field.field.help_text %}
+<div class="help-text">{% autoescape off %}{{ field.field.help_text }}{% endautoescape %}</div>
+{% endif %}
