@@ -73,20 +73,16 @@ def search(request):
             'terms_too_short': True,
             })
     terms = [t for t in terms if len(t) >= 3]
-    query = search_channels(request, terms)
+    query = search_channels(request, terms).load('subscription_count_month')
     results_count = query.count(request.connection)
     results = query.limit(FRONT_PAGE_LIMIT).execute(request.connection)
+    results.join('items', 'rating').execute(request.connection)
 
     query = search_items(request, terms)
     item_results_count = query.count(request.connection)
     item_results = query.limit(FRONT_PAGE_LIMIT_ITEMS).execute(request.connection)
 
-    tags = search_results(request.connection, Tag, terms)
-    languages = search_results(request.connection, Language, terms)
-    categories = search_results(request.connection, Category, terms)
-
-    if (results_count == 1 and (item_results_count == len(tags) ==
-        len(languages) == len(categories) == 0)):
+    if (results_count == 1 and (item_results_count == 0)):
         return util.redirect(results[0].get_absolute_url())
 
     return util.render_to_response(request, 'search.html', {
@@ -96,9 +92,6 @@ def search(request):
         'item_results_count': item_results_count,
         'extra_results': results_count > FRONT_PAGE_LIMIT,
         'extra_item_results': item_results_count > FRONT_PAGE_LIMIT_ITEMS,
-        'tags': tags,
-        'languages': languages,
-        'categories': categories,
         'search_terms': terms,
         'search_query': search_query,
         'more_results_link': more_results_link(search_query, results_count),
