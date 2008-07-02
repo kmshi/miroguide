@@ -557,7 +557,7 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 #hoverMenu {
 	width: 274px;
 	overflow: hidden;
-
+        display: none;
 	position: absolute;
 	margin: -1px 0 0 576px;
 	z-index: 100;
