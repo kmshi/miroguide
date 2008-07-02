@@ -38,16 +38,24 @@ jQuery.fn.rating = function(){
         var stars = ul.find("li.star")
             .mouseover(drainFill).focus(drainFill)
             .mouseout(drainReset).blur(drainReset)
-            .click(click);
+            .click(click).each(setURL);
 
         // cancel button events
         var cancel = ul.find("li.cancel")
             .mouseover(drainAdd).focus(drainAdd)
             .mouseout(resetRemove).blur(resetRemove)
-            .click(click);
+            .click(click).each(setURL);
 
         reset();
 
+        function setURL(elem) {
+            // this moves the link to the li, so that the crazy URL
+            // doesn't show up in the status bar
+            a = jQuery(this).find('a');
+            a.parent().attr('href',a[0].href);
+            a.removeAttr('href');
+        }
+        
         function drainFill(){ drain(); fill(this); }
         function drainReset(){ drain(); reset(); }
         function resetRemove(){ jQuery(this).removeClass('hover'); reset();}
@@ -57,15 +65,14 @@ jQuery.fn.rating = function(){
             ratingValue = ratingIndex = stars.index(this) + 1;
             ratingPercent = 0;
             ratingType = "userrating"
-            var request = jQuery.get(url,{
-                rating: jQuery(this).find('a')[0].href.slice(-1)
-            });
+            url = jQuery(this).attr('href');
+            var request = jQuery.get(url);
             request.onreadystatechange = function() {
-                if (request.readyState == 4 && request.status == 302)
-                    document.location = request.getResponseHeader('Location');
-                if (request.readyState == 4 && request.status == 200) {
+                if (request.readyState == 4) {
                     if (request.responseText.indexOf('<div class="login-page">') != -1) {
-                        document.location = url+'?rating=' + ratingValue;
+                        // user isn't logged in, go go to the URL directly
+                        // and it'll redirect to the login page
+                        document.location = url;
                     }
                 }
             };
