@@ -36,6 +36,11 @@ ul.rating li.score strong {color: #191919;}
     cursor: pointer;
 }
 
+.rating .saving {
+    display: none;
+    width: 96px; // 6 * 16px;
+}
+    
 .cancel a {background: url(images/no-star.png) no-repeat 0 0px;}
 
 .star.userrating a {background: url(images/user-star.png) no-repeat 0 0px;}

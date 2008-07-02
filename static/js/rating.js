@@ -67,8 +67,14 @@ jQuery.fn.rating = function(){
             ratingType = "userrating"
             url = jQuery(this).attr('href');
             var request = jQuery.get(url);
+            stars.hide();
+            cancel.hide()
+            ul.find('.saving').show();
             request.onreadystatechange = function() {
                 if (request.readyState == 4) {
+                    ul.find('.saving').hide();
+                    stars.show();
+                    cancel.show();
                     if (request.responseText.indexOf('<div class="login-page">') != -1) {
                         // user isn't logged in, go go to the URL directly
                         // and it'll redirect to the login page
