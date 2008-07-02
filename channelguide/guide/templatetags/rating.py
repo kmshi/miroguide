@@ -22,7 +22,7 @@ def _setup_channel(channel, connection):
         channel.rating.save(connection)
 
 def _full_path(request):
-    if 'QUERY_STRING' in request.META:
+    if request.META.get('QUERY_STRING'):
         return request.path + '?' + request.META['QUERY_STRING']
     else:
         return request.path
