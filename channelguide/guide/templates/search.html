@@ -1,5 +1,8 @@
 {% extends "base.html" %}
-{% load channels %}
+{% load channels rating %}
+{% block head %}
+  {% rating_header %}
+{% endblock %}
 {% block body %}
 	<div id="container">
 		<h2 class="searchResults">
@@ -14,16 +17,10 @@
 				<li>
                                   {% channel channel search %}
 					<div class="searchResultsMeta">
-						<ul class="rating">
-							<li><a href="#"><img src="images/ico_no_rate.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/ico_rating_star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/ico_rating_star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/ico_rating_star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/ico_rating_star.png" alt="" /></a></li>
-							<li><a href="#"><img src="images/ico_rating_star.png" alt="" /></a></li>
-							<li class="score">Avg. of 16 ratings: <strong>4.3</strong></li>
-							<li class="subscribers">Subscribers: 240</li>
-							<li class="available">Videos Available: 15</li>
+                                          {% rating channel %}
+                                                <ul class="info">
+							<li class="subscribers">Subscribers: {{ channel.subscription_count_month }}</li>
+							<li class="available">Videos Available: {{ channel.items|length }}</li>
 						</ul>
 					</div>
 				</li>
