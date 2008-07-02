@@ -21,12 +21,6 @@ def _setup_channel(channel, connection):
         channel.rating.channel_id = channel.id
         channel.rating.save(connection)
 
-def _full_path(request):
-    if request.META.get('QUERY_STRING'):
-        return request.path + '?' + request.META['QUERY_STRING']
-    else:
-        return request.path
-
 def _rating_styles(rating):
     if not rating:
         return {'css_0': 'on'}
@@ -60,7 +54,7 @@ def rating(context, channel):
         'rating': rating,
         'channel': channel,
         'class': (user_rating and 'userrating' or 'averagerating'),
-        'referrer': _full_path(request),
+        'referrer': request.get_full_path(),
         'BASE_URL': settings.BASE_URL,
         }
     if user_rating:
