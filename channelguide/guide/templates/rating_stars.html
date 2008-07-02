@@ -1,8 +1,8 @@
 <ul class="rating" average="{{ channel.rating.average}}" user="{{ rating.rating }}">
-  <li class="cancel" ><a href="">Not Interested</a></li>
-  <li class="star {{ class }}"><a href="#">I hate this channel</a></li>
-  <li class="star {{ class }}"><a href="#">I dislike this channel</a></li>
-  <li class="star {{ class }}"><a href="#">I like this channel</a></li>
-  <li class="star {{ class }}"><a href="#">I really like this channel</a></li>
-  <li class="star {{ class }}"><a href="#">I love this channel!</a></li>
+  <li class="cancel {{ css_0 }}" ><a href="{{ BASE_URL }}channels/rate/{{ channel.id }}?rating=0&referer={{ referrer|urlencode }}">Not Interested</a></li>
+  <li class="star {{ class }} {{ css_1 }}"><a href="{{ BASE_URL }}channels/rate/{{ channel.id }}?rating=1&referer={{ referrer|urlencode }}">I hate this channel</a></li>
+  <li class="star {{ class }} {{ css_2 }}"><a href="{{ BASE_URL }}channels/rate/{{ channel.id }}?rating=2&referer={{ referrer|urlencode }}">I dislike this channel</a></li>
+  <li class="star {{ class }} {{ css_3 }}"><a href="{{ BASE_URL }}channels/rate/{{ channel.id }}?rating=3&referer={{ referrer|urlencode }}">I like this channel</a></li>
+  <li class="star {{ class }} {{ css_4 }}"><a href="{{ BASE_URL }}channels/rate/{{ channel.id }}?rating=4&referer={{ referrer|urlencode }}">I really like this channel</a></li>
+  <li class="star {{ class }} {{ css_5 }}"><a href="{{ BASE_URL }}channels/rate/{{ channel.id }}?rating=5&referer={{ referrer|urlencode }}">I love this channel!</a></li>
 </ul>

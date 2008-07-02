@@ -21,6 +21,27 @@ def _setup_channel(channel, connection):
         channel.rating.channel_id = channel.id
         channel.rating.save(connection)
 
+def _full_path(request):
+    if 'QUERY_STRING' in request.META:
+        return request.path + '?' + request.META['QUERY_STRING']
+    else:
+        return request.path
+
+def _rating_styles(rating):
+    if not rating:
+        return {'css_0': 'on'}
+    else:
+        context = {'css_1': 'on'}
+        if rating > 1:
+            context['css_2'] = 'on'
+            if rating > 2:
+                context['css_3'] = 'on'
+                if rating > 3:
+                    context['css_4'] = 'on'
+                    if rating > 4:
+                        context['css_5'] = 'on'
+        return context
+    
 @register.inclusion_tag('guide/rating_stars.html', takes_context=True)
 def rating(context, channel):
     request = context['request']
@@ -35,12 +56,18 @@ def rating(context, channel):
         user_rating = True
         if rating.rating is None:
             rating.rating = 0
-    return {
+    context = {
         'rating': rating,
         'channel': channel,
         'class': (user_rating and 'userrating' or 'averagerating'),
-        'referer': request.path,
+        'referrer': _full_path(request),
+        'BASE_URL': settings.BASE_URL,
         }
+    if user_rating:
+        context.update(_rating_styles(rating.rating))
+    elif channel.rating.count:
+        context.update(_rating_styles(channel.rating.average))
+    return context
 
 @register.inclusion_tag('guide/rating_meta.html', takes_context=True)
 def rating_meta(context, channel):
