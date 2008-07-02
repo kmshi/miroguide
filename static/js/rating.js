@@ -87,7 +87,8 @@ jQuery.fn.rating = function(){
 
         // fill to the current mouse position.
         function fill( elem ){
-            stars.slice(0, stars.index(elem) + 1 ).addClass("hover");
+            stars.slice(0, stars.index(elem) + 1 ).addClass("hover")
+            .find('a').width('100%');
         }
     
         // drain all the stars.
