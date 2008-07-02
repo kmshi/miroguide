@@ -32,8 +32,8 @@ function hideMenu(el) {$('#' + el).hide();}
 			</ul>
 			<div id="searchBG"></div>
 			<div id="searchSpot">
-                          <form method="GET" action="{{ BASE_URL }}/search/">
-				<input type="text" class="headSearch" name="search[query]" id="search_query" value="Search" />
+                          <form method="GET" action="{{ BASE_URL }}search">
+				<input type="text" class="headSearch" name="query" id="search_query" value="Search" />
                                 <script type="text/javascript">
                                     $("#searchSpot input").focus(searchFocus).blur(searchBlur);
                                 </script>
