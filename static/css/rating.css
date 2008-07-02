@@ -1,18 +1,21 @@
 .rating {
     cursor: pointer;
     margin: 0;
+    padding: 0;
     display: block;
     vertical-align: top;
-    width: 150px;
-    height: 0px;
+    height: 16px;
     overflow: hidden;
     float: left;
 }
+ul.rating li.score {font-size: 9px; color: #818181; padding: 3px 0 0 10px;}
+ul.rating li.score strong {color: #191919;}
 
+.rating .score 
 .rating.small {
     width: 78px;
 }
-.rating input {
+.rating li {
     display: inline;
 }
 
@@ -27,8 +30,8 @@
 .cancel,
 .star {
     float: left;
-    width: 25px;
-    height: 25px;
+    width: 16px;
+    height: 16px;
     overflow: hidden;
     text-indent: -999em;
     cursor: pointer;
@@ -39,19 +42,19 @@
     height: 13px;
 }
 .cancel,
-.cancel a {background: url(images/no-star.gif) no-repeat 0 0px;}
+.cancel a {background: url(images/no-star.png) no-repeat 0 0px;}
 
 .small .cancel,
 .small .cancel a { background-image: url(images/small-no-star.png);}
 
 .star.userrating,
-.star.userrating a {background: url(images/user-star.gif) no-repeat 0 0px;}
+.star.userrating a {background: url(images/user-star.png) no-repeat 0 0px;}
 
 .small .star.userrating,
 .small .star.userrating a {background-image: url(images/small-user-star.png);}
 
 .star.averagerating,
-.star.averagerating a {background: url(images/avg-star.gif) no-repeat 0 0px;}
+.star.averagerating a {background: url(images/avg-star.png) no-repeat 0 0px;}
 
 .small .star.averagerating,
 .small .star.averagerating a {background-image: url(images/small-avg-star.png);}
@@ -64,9 +67,9 @@
     background-position: 0 0px;
 }
 
-div.rating div.on a {
+.rating .star.on, .rating .star.on a {
     display: block;
-    background-position: 0 -24px;
+    background-position: 0 -15px;
 }
 
 div.rating.small div.on a {

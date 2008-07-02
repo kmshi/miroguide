@@ -122,7 +122,7 @@ jQuery.fn.rating = function(){
 if ( jQuery.browser.msie == true )
     document.execCommand('BackgroundImageCache', false, true);
 
-$(document).ready(function () {
+/*$(document).ready(function () {
     try {
         $("form.rating").rating('', {maxvalue:5});
     } catch (e) {}
@@ -133,4 +133,4 @@ $(document).ready(function () {
         }
         $(this).height(height);
     })
-});
+});*/

@@ -280,7 +280,7 @@ ul#searchResults {
 	padding: 0 0 0 10px;
 	list-style: none;
 }
-ul#searchResults li {
+ul#searchResults > li {
 	overflow: hidden;
 	height: 100%;
 	margin: 10px 0 5px 0;
@@ -305,28 +305,24 @@ ul#searchResults li .searchResultsMeta {
 
 
 
-/*Ratings*/
-ul.rating {
+ul.info {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
-ul.rating li {
+ul.info li {
 	float: left;
 	display: inline;
 	margin: 0 1px;
 }
-ul.rating li a {
+ul.info li a {
 	float: left;
 	display: inline;
 	margin: 0 1px;
 }
-ul.rating li.score {font-size: 9px; color: #818181; padding: 3px 0 0 10px;}
-ul.rating li.score strong {color: #191919;}
-ul.rating li.available, ul.rating li.subscribers {font-size: 9px; float: right; display: inline; padding: 3px 0 0 20px;}
-ul.rating li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13px; font-weight: bold;}
 
-ul#channelRate {float: right; display: inline; margin: 18px 15px 0 0;}
+ul.info li.available, ul.info li.subscribers {font-size: 9px; float: right; display: inline; padding: 3px 0 0 20px;}
+ul.info li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13px; font-weight: bold;}
 
 /*Channel info*/
 #channelInfo {

@@ -22,18 +22,14 @@ def rating(context, channel):
         rating = Rating.query(Rating.c.user_id==request.user.id,
                               Rating.c.channel_id==channel.id).get(request.connection)
     except Exception:
-        rating = Rating()
-        rating.channel_id = channel.id
-        rating.has_user_rating = False
-        if channel.rating:
-            rating.average_rating = channel.rating.average
-        else:
-            rating.average_rating = 0
+        rating = None
     else:
-        rating.has_user_rating = True
+        user_rating = True
         if rating.rating is None:
             rating.rating = 0
     return {
         'rating': rating,
+        'channel': channel,
+        'class': (rating and 'userrating' or 'averagerating'),
         'referer': request.path,
         }
