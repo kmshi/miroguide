@@ -21,7 +21,7 @@ function hideMenu(el) {$('#' + el).hide();}
 {% block head %}
 {% endblock %}
 </head>
-<body>
+<body onpageshow="searchPageShow();">
 	<div id="topBar">
 		<div class="page">
 			<ul id="mainMenu">

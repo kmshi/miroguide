@@ -108,6 +108,10 @@ function searchBlur() {
     }
 }
 
+function searchPageShow(e) {
+    $("#searchSpot input").val('Search');
+}
+
 $(document).ajaxStart(function() {
     showLoadIndicator(true);
 }).ajaxStop(function() {
