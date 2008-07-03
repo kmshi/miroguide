@@ -19,12 +19,11 @@ urlpatterns = patterns('channelguide.guide.views.channels',
                        (r'^by-name$', filtered_listing, {
     'filter': 'name',
     'title': 'Channels by Name'}),
-                       (r'^new(?:/?)$', filtered_listing, {
+                       (r'^(?:new|recent)(?:/?)$', filtered_listing, {
     'filter': 'name',
     'default_sort': '-age',
     'title': 'New Channels'}),
     (r'^features$', 'features'),
-    (r'^recent$', 'recent'),
     (r'^hd$', 'hd'),
     (r'^moderator-list/([\w-]+)$', 'moderator_channel_list'),
     (r'^subscribe/(\d+)$', 'subscribe'),
