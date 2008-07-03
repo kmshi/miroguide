@@ -68,7 +68,10 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None):
         query.order_by('subscription_count_month', desc=desc)
     elif sort == 'rating':
         query.join('rating')
+        query.where(query.joins['rating'].c.count > 3)
         query.order_by(query.joins['rating'].c.average, desc=desc)
+    elif sort == 'count':
+        return query.count(connection)
     else: # default to name
         query.order_by(Channel.c.name)
     if limit is None:
@@ -78,6 +81,7 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None):
     if offset is None or offset < 0:
         offset = 0
     query.limit(limit).offset(offset)
+    print query
     results = query.execute(connection)
     if join:
         for result in results:

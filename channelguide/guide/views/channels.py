@@ -383,6 +383,7 @@ def filtered_listing(request, value, filter=None, limit=10,
     sort = request.GET.get('sort', default_sort)
     channels = api.get_channels(request.connection, filter, value, sort,
                                 limit, (page - 1) * limit)
+    count = api.get_channels(request.connection, filter, value, 'count')
     if not channels:
         raise Http404
     if page == 1:
@@ -391,6 +392,7 @@ def filtered_listing(request, value, filter=None, limit=10,
         intro = '%i - %i' % (page * limit - limit + 1, page * limit)
     return util.render_to_response(request, 'listing.html', {
         'results': channels,
+        'count': count,
         'title': title % {'value': value},
         'header_class': header_class,
         'intro': intro,

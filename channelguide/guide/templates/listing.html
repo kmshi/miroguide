@@ -7,7 +7,7 @@
 	<div id="container">
           {% block listing-pre-content %}{% endblock %}
 		<div id="content">
-                  <h3 class="search_result"><span class="{{ header_class }}">{{ intro }} of {{ title }}</span></h3>
+                  <h3 class="search_result"><span class="{{ header_class }}">{{ intro }} of {{ count }} {{ title }}</span></h3>
 			<ul id="searchResults">
                           {% for channel in results %}
 				<li>
