@@ -106,7 +106,6 @@ function handleSubscriptionLink(channel_guide_url, subscribe_url) {
 }
 
 function _redirectToSubscription(request) {
-    alert('redirecting');
     window.location.href = request.subscribe_url;
 }
 
