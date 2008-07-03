@@ -14,7 +14,7 @@ See LICENSE for details.
 <script type="text/javascript">
 function _redirectToSubscription(request) {
     if (isMiro()) {
-        url = /url1=(.*)&/.exec(request.subscribe_url)[0];
+        url = /url1=(.*)&/.exec(request.subscribe_url)[1];
         window.location.href = 'action:addFeed?selected=1&url=' + url;
     } else {
         window.location.href = request.subscription_url;
