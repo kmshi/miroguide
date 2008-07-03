@@ -370,7 +370,7 @@ def make_simple_list(request, query, header, order_by=None, rss_feed=None):
     })
 
 @cache.aggresively_cache
-def filtered_listing(request, value, filter=None, limit=10,
+def filtered_listing(request, value=None, filter=None, limit=10,
                      title='Filtered Listing', header_class='rss',
                      default_sort='rating'):
     if not filter:
