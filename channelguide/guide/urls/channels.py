@@ -16,7 +16,7 @@ urlpatterns = patterns('channelguide.guide.views.channels',
     'filter': 'name',
     'default_sort': '-rating',
     'title': 'Top-Rated Channels'}),
-                       (r'^by-name$', filtered_listing, {
+                       (r'^by-name(?:/?)$', filtered_listing, {
     'filter': 'name',
     'title': 'Channels by Name'}),
                        (r'^(?:new|recent)(?:/?)$', filtered_listing, {
