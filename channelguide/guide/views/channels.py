@@ -9,7 +9,7 @@ from django.utils.translation import gettext as _
 from channelguide import util, cache
 from channelguide.cache import client
 from channelguide.cache.middleware import UserCacheMiddleware
-from channelguide.guide import forms, templateutil
+from channelguide.guide import api, forms, templateutil
 from channelguide.guide.auth import (admin_required, moderator_required)
 from channelguide.guide.exceptions import AuthError
 from channelguide.guide.models import (Channel, Item, User, FeaturedEmail,
@@ -369,6 +369,36 @@ def make_simple_list(request, query, header, order_by=None, rss_feed=None):
         'rss_feed': rss_feed
     })
 
+@cache.aggresively_cache
+def filtered_listing(request, value, filter=None, limit=10,
+                     title='Filtered Listing', header_class='rss',
+                     default_sort='rating'):
+    if not filter:
+        raise Http404
+    page = request.GET.get('page', 1)
+    try:
+        page = int(page)
+    except ValueError:
+        raise Http404
+    sort = request.GET.get('sort', default_sort)
+    channels = api.get_channels(request.connection, filter, value, sort,
+                                limit, (page - 1) * limit)
+    if not channels:
+        raise Http404
+    if page == 1:
+        intro = 'First %i' % limit
+    else:
+        intro = '%i - %i' % (page * limit - limit + 1, page * limit)
+    return util.render_to_response(request, 'listing.html', {
+        'results': channels,
+        'title': title % {'value': value},
+        'header_class': header_class,
+        'intro': intro,
+        'page': page
+        })
+        
+
+    
 @cache.aggresively_cache
 def by_name(request):
     query = Channel.query_approved()
