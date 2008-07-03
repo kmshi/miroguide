@@ -20,14 +20,6 @@ def index(request):
         'groups': rows,
     })
 
-def category(request, name):
-    category = util.get_object_or_404_by_name(request.connection, Category,
-            name)
-    query = Channel.query_approved(user=request.user).join('categories')
-    query.joins['categories'].where(id=category.id)
-    return templateutil.render_limited_query(request, query,
-            category.name, category.get_rss_feed())
-
 @admin_required
 def moderate(request):
     categories = Category.query().order_by('name').execute(request.connection)
