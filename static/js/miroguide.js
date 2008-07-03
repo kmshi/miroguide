@@ -95,14 +95,19 @@ function handleSubscriptionLink(channel_guide_url, subscribe_url) {
     if (isMiro() && MiroVersion() >= "1.5") return true;
     request = makeXMLHttpRequest();
     if (!request) return true;
-    request.onreadystatechange = function() {
-        if (request.readyState == 2) {
-            window.location.href = subscribe_url;
-        }
-    };
+    request.subscribe_url = subscribe_url;
+    request.onreadystatechange = function () {
+        if (request.readyState == 2)
+            _redirectToSubscription(request);
+    }
     request.open('GET', channel_guide_url, true);
     request.send(null);
     return false;
+}
+
+function _redirectToSubscription(request) {
+    alert('redirecting');
+    window.location.href = request.subscribe_url;
 }
 
 function handleFormLink(url) {
