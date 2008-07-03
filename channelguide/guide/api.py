@@ -23,9 +23,17 @@ def get_channel_by_url(connection, url):
                                        'secondary_languages').get(
         connection)
 
-def get_channels(connection, filter, value, sort=None, limit=None, offset=None):
+def get_channels(connection, filter, value, sort=None, limit=None, offset=None,
+                 loads=None):
     query = Channel.query_approved()
     join = None
+    if loads:
+        joins = [name for name in loads if not getattr(Channel.c, name, False)] 
+        loads = [name for name in loads if getattr(Channel.c, name, False)]
+        print joins
+        print loads
+    else:
+        joins = loads = ()
     if filter == 'category':
         try:
             category_id = Category.query(name=value).get(connection).id
@@ -80,9 +88,9 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None):
         limit = 100
     if offset is None or offset < 0:
         offset = 0
-    query.limit(limit).offset(offset)
-    print query
+    query.limit(limit).offset(offset).load(*loads)
     results = query.execute(connection)
+    results.join(*joins).execute(connection)
     if join:
         for result in results:
             delattr(result, join)

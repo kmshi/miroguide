@@ -308,67 +308,6 @@ def rate(request, id):
         redirect = channel.get_absolute_url()
     return HttpResponseRedirect(redirect)
 
-class PopularWindowSelect(templateutil.ViewSelect):
-    view_choices = [
-            ('today', _('Today')),
-            ('month', _('Month')),
-            ('alltime', _('All-Time')),
-    ]
-
-    base_url = util.make_url('channels/popular')
-
-    def default_choice(self):
-        return 'today'
-
-    def current_choice_label(self):
-        if self.current_choice == 'today':
-            return _("Today")
-        elif self.current_choice == 'month':
-            return _("This Month")
-        else:
-            return _("All-Time")
-
-@cache.cache_for_user
-def popular_view(request):
-    timespan = request.GET.get('view', 'today')
-    if timespan == 'today':
-        count_name = 'subscription_count_today'
-    elif timespan == 'month':
-        count_name = 'subscription_count_month'
-    else:
-        timespan = None
-        count_name = 'subscription_count'
-    query = Channel.query_approved(user=request.user)
-    query.join('rating')
-    query.load(count_name, 'item_count')
-    query.order_by(query.get_column(count_name), desc=True)
-    pager = templateutil.Pager(10, query, request)
-    for channel in pager.items:
-        if timespan == 'today':
-            channel.timeline = 'Today'
-        elif timespan == 'month':
-            channel.timeline = 'This Month'
-        else:
-            channel.timeline = 'All-Time'
-        channel.popular_count = getattr(channel, count_name)
-    window_select = PopularWindowSelect(request)
-    context = {
-            'pager' : pager,
-            'timeline' : window_select.current_choice_label(),
-            'popular_window_select': window_select
-        }
-    return util.render_to_response(request, 'popular.html', context)
-
-def make_simple_list(request, query, header, order_by=None, rss_feed=None):
-    if order_by:
-        query = query.order_by(order_by)
-    pager =  templateutil.Pager(8, query, request)
-    return util.render_to_response(request, 'two-column-list.html', {
-        'header': header,
-        'pager': pager,
-        'rss_feed': rss_feed
-    })
-
 @cache.aggresively_cache
 def filtered_listing(request, value=None, filter=None, limit=10,
                      title='Filtered Listing', header_class='rss',
@@ -382,7 +321,9 @@ def filtered_listing(request, value=None, filter=None, limit=10,
         raise Http404
     sort = request.GET.get('sort', default_sort)
     channels = api.get_channels(request.connection, filter, value, sort,
-                                limit, (page - 1) * limit)
+                                limit, (page - 1) * limit,
+                                ('subscription_count_month', 'rating',
+                                 'item_count'))
     count = api.get_channels(request.connection, filter, value, 'count')
     if not channels:
         raise Http404
@@ -399,15 +340,6 @@ def filtered_listing(request, value=None, filter=None, limit=10,
         'page': page
         })
         
-
-    
-@cache.aggresively_cache
-def by_name(request):
-    query = Channel.query_approved()
-    return make_simple_list(request, query, _("Channels By Name"),
-            Channel.c.name)
-
-
 @cache.aggresively_cache
 def hd(request):
     query = Channel.query_approved(hi_def=1, user=request.user)
@@ -419,6 +351,17 @@ def hd(request):
         'order_select': templateutil.OrderBySelect(request),
     })
 
+def make_simple_list(request, query, header, order_by=None, rss_feed=None):
+    if order_by:
+        query = query.order_by(order_by)
+    pager =  templateutil.Pager(8, query, request)
+    return util.render_to_response(request, 'two-column-list.html', {
+        'header': header,
+        'pager': pager,
+        'rss_feed': rss_feed
+    })
+
+
 @cache.aggresively_cache
 def features(request):
     query = Channel.query(user=request.user).join('featured_queue')
@@ -428,59 +371,6 @@ def features(request):
     return make_simple_list(request, query, _("Featured Channels"),
                             rss_feed = settings.BASE_URL_FULL +
                             '/feeds/features')
-
-def get_toprated_query(user):
-    query = Channel.query_approved(user=user)
-    query.join('rating')
-    query.joins['rating'].where(query.joins['rating'].c.count > 3)
-    query.load('item_count', 'subscription_count_today')
-    query.order_by(query.joins['rating'].c.average, desc=True)
-    query.order_by(query.joins['rating'].c.count, desc=True)
-    return query
-
-@cache.cache_for_user
-def toprated(request):
-    query = get_toprated_query(request.user)
-    pager = templateutil.Pager(10, query, request)
-    for channel in pager.items:
-        channel.popular_count = channel.subscription_count_today
-        channel.timeline = 'Today'
-    context = {'pager': pager,
-            'title': 'Top Rated Channels'
-        }
-    return util.render_to_response(request, 'popular.html', context)
-
-def group_channels_by_date(channels):
-    if channels is None:
-        return []
-    current_date = None
-    channels_in_date = []
-    retval = []
-
-    for channel in channels:
-        channel_date = channel.approved_at.date()
-        if channel_date != current_date:
-            if channels_in_date:
-                retval.append({'date': current_date, 
-                    'channels': channels_in_date})
-            current_date = channel_date
-            channels_in_date = [channel]
-        else:
-            channels_in_date.append(channel)
-    if channels_in_date:
-        retval.append({'date': current_date, 'channels': channels_in_date})
-    return retval
-
-@cache.aggresively_cache
-def recent(request):
-    query = Channel.query_new(user=request.user)
-    pager =  templateutil.Pager(8, query, request)
-    return util.render_to_response(request, 'recent.html', {
-        'header': "RECENT CHANNELS",
-        'pager': pager,
-        'channels_by_date': group_channels_by_date(pager.items),
-        'rss_feed': settings.BASE_URL_FULL + 'feeds/new'
-    })
 
 def for_user(request, user_id):
     user = util.get_object_or_404(request.connection, User, user_id)
