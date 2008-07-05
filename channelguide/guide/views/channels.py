@@ -330,14 +330,21 @@ def filtered_listing(request, value=None, filter=None, limit=10,
     if page == 1:
         intro = 'First %i' % limit
     else:
-        intro = '%i - %i' % (page * limit - limit + 1, page * limit)
+        intro = '%i - %i' % (page * limit - limit + 1, min(page * limit, count))
+    if (page * limit) >= count:
+        next_page = None
+    else:
+        args = request.GET.copy()
+        args['page'] = str(page + 1)
+        next_page = util.make_absolute_url(request.path, args)
     return util.render_to_response(request, 'listing.html', {
         'results': channels,
         'count': count,
         'title': title % {'value': value},
         'header_class': header_class,
         'intro': intro,
-        'page': page
+        'page': page,
+        'next_page': next_page
         })
         
 @cache.aggresively_cache
