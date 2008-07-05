@@ -90,7 +90,8 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None,
         offset = 0
     query.limit(limit).offset(offset).load(*loads)
     results = query.execute(connection)
-    results.join(*joins).execute(connection)
+    if results:
+        results.join(*joins).execute(connection)
     if join:
         for result in results:
             delattr(result, join)
