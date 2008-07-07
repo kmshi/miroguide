@@ -14,12 +14,12 @@ See LICENSE for details.
 {% endblock %}
 
 {% block onload-extra %}scheduleFeatureRotate();{% endblock %}
-{% block underwriting %}{% endblock %}     
+{% block underwriting %}{% endblock %}
 {% block content %}
 <div class="front-page">
 {% comment %}   <div id="store">
        <a href="http://www.getmiro.com/store/"><img src="{{ STATIC_BASE_URL }}images/visit-the-store.png" /></a>
-    </div> 
+    </div>
 
 {% comment %}<div class="shadow">
     <div id="donate">
@@ -47,7 +47,22 @@ See LICENSE for details.
 {% endfor %}
     </ul>
 </div>
-    <div><a {% link "channels/features" %}>{% trans "See All Featured Channels" %}</a></div>
+    <div>
+      <span class="only-in-miro small horizontal">
+        <a class="add" href="http://subscribe.getmiro.com/?url1=https://www.miroguide.com/feeds/featured">
+          <span class="icon"></span>
+          Watch Previews
+        </a>
+      </span>
+      <span class="only-in-browser small horizontal">
+        <a class="add" {% link "feeds/featured" %}>
+          <span class="icon"></span>
+          Watch Previews
+        </a>
+      </span>
+      -
+      <a {% link "channels/features" %}>{% trans "See All Featured Channels" %}</a>
+    </div>
 </div>
 <div class="clear"></div>
 <div id="survey">
@@ -66,7 +81,7 @@ See LICENSE for details.
    if (document.context) document.write ("&context=" + escape(document.context));
    if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
    document.write ("'><\/scr"+"ipt>");
-//]]>--></script><noscript><a href='http://testchannelguide.participatoryculture.org/openx/www/delivery/ck.php?n=aee8b75b&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://testchannelguide.participatoryculture.org/openx/www/delivery/avw.php?zoneid=5&amp;n=aee8b75b' border='0' alt='' /></a></noscript>  
+//]]>--></script><noscript><a href='http://testchannelguide.participatoryculture.org/openx/www/delivery/ck.php?n=aee8b75b&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://testchannelguide.participatoryculture.org/openx/www/delivery/avw.php?zoneid=5&amp;n=aee8b75b' border='0' alt='' /></a></noscript>
 </div>
 {% if language %}
 <a {% link language.get_url %}><h1>{% trans "Channels in" %} {% trans language.name %}</h1></a>
@@ -100,7 +115,7 @@ See LICENSE for details.
     <div class="view-all-link">
       <a href="{{ language.get_absolute_url }}?view=date">{% trans "View All Popular in" %} {% trans language.name %} Â»</a>
     </div>
-    {% endif %}    
+    {% endif %}
 {% splitcolumns %}
 <h2><a {% link "channels/recent" %}>
         {% if language %}

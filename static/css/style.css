@@ -1145,28 +1145,28 @@ margin: 0 !important;
     color: #FFFFFF;
 }
 
-.channel .actions .icon {
+.icon {
     display: block;
 }
 
-.channel .actions .big .icon {
+.big .icon {
     height: 24px;
     width: 24px;
     background-image: url(images/icons/add-big-white.png);
 }
 
-.channel .actions .small .icon {
+.small .icon {
     margin-top: 1px;
     height: 12px;
     width: 12px;
 }
 
-.channel .actions .horizontal .icon {
+.horizontal .icon {
     float:left;
     margin-right: 5px;
 }
 
-.channel .actions .horizontal a {
+.channel .horizontal a {
     float:left;
     vertical-align: middle;
     line-height: 24px;
@@ -1362,11 +1362,11 @@ margin: 0 !important;
     margin-right: 5px;
 }
 
-.channel-in-category .actions .add .icon {
+.small .add .icon {
     background-image: url(images/icons/add-small-white.png);
 }
 
-.channel-in-category .actions .info-button .icon {
+.small .info-button .icon {
     background-image: url(images/icons/info-small-white.png);
 }
 
