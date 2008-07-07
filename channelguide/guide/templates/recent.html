@@ -12,6 +12,23 @@ See LICENSE for details.
 <div class="channel-list-page">
 <div class="recent-channel-list">
 <h1>{% trans "Recently Added" %}</h1>
+       <div id="fun-feed">
+         <span class="only-in-miro big horizontal">
+           <a class="add" href="http://subscribe.getmiro.com/?url1=https://www.miroguide.com/feeds/popular">
+             <span class="icon"></span>
+             Watch Previews
+           </a>
+         </span>
+         <span class="only-in-browser big horizontal">
+           <a class="add" {% link "feeds/popular" %}>
+             <span class="icon"></span>
+             Watch Previews
+           </a>
+         </span>
+         <div>
+           Click here to see the latest videos from each featured channel.  Then 'add' the ones you like.
+         </div>
+       </div>
 {% for group in channels_by_date %}
     <h2 class="date">{{ group.date|date:"l, F j"}}</h2>
     {% twocolumnloop with channel in group.channels %}
