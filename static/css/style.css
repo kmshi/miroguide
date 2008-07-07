@@ -2982,3 +2982,18 @@ line-height:1.7em;
     cursor: pointer;
     text-align: center;
 }
+
+#fun-feed {
+    width: 12em;
+    float: right;
+}
+
+#fun-feed a {
+    font-size: 120%;
+    font-weight: bold;
+}
+
+#fun-feed div {
+    font-size: 70%;
+    margin-top: 8px;
+}
