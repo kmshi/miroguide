@@ -13,13 +13,13 @@ See LICENSE for details.
 <div class="recent-channel-list">
        <div id="fun-feed">
          <span class="only-in-miro big horizontal">
-           <a class="add" href="http://subscribe.getmiro.com/?url1=https://www.miroguide.com/feeds/popular">
+           <a class="add" href="http://subscribe.getmiro.com/?url1={{ rss_feed }}">
              <span class="icon"></span>
              Watch Previews
            </a>
          </span>
          <span class="only-in-browser big horizontal">
-           <a class="add" {% link "feeds/popular" %}>
+           <a class="add" href="{{ rss_feed }}">
              <span class="icon"></span>
              Watch Previews
            </a>
