@@ -452,7 +452,9 @@ def popular_view(request):
     context = {
             'pager' : pager,
             'timeline' : window_select.current_choice_label(),
-            'popular_window_select': window_select
+            'popular_window_select': window_select,
+            'title': 'Most Popular ' + window_select.current_choice_label(),
+            'rss_feed': settings.BASE_URL_FULL + 'feeds/popular'
         }
     return util.render_to_response(request, 'popular.html', context)
 
@@ -492,7 +494,7 @@ def features(request):
     query.order_by(j.c.state).order_by(j.c.featured_at, desc=True)
     return make_simple_list(request, query, _("Featured Channels"),
                             rss_feed = settings.BASE_URL_FULL +
-                            '/feeds/features')
+                            'feeds/features')
 
 def get_toprated_query(user):
     query = Channel.query_approved(user=user)
@@ -511,7 +513,8 @@ def toprated(request):
         channel.popular_count = channel.subscription_count_today
         channel.timeline = 'Today'
     context = {'pager': pager,
-            'title': 'Top Rated Channels'
+            'title': 'Top Rated Channels',
+            'rss_feed': settings.BASE_URL_FULL + 'feeds/toprated',
         }
     return util.render_to_response(request, 'popular.html', context)
 

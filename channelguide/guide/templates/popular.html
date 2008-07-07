@@ -23,6 +23,25 @@ See LICENSE for details.
 {% block content %}
 <div class="channel-list-page">
 <div class="popular-channel-list">
+  {% if rss_feed %}
+       <div id="fun-feed">
+         <span class="only-in-miro big horizontal">
+           <a class="add" href="http://subscribe.getmiro.com/?url1={{ rss_feed }}">
+             <span class="icon"></span>
+             Watch Previews
+           </a>
+         </span>
+         <span class="only-in-browser big horizontal">
+           <a class="add" href="{{ rss_feed }}">
+             <span class="icon"></span>
+             Watch Previews
+           </a>
+         </span>
+         <div>
+           Click here to see the latest videos from each featured channel.  Then 'add' the ones you like.
+         </div>
+       </div>
+  {% endif %}
     <h1>{% if popular_window_select %}
         {% blocktrans with popular_window_select.current_choice_label as view %}
         Most Popular {{ view }}
