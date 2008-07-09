@@ -80,14 +80,15 @@ if ((top.frames.length == 2 && top.frames[1].name == 'miro_guide_frame') ||
     {% endif %}
     <div id="background">
         {% block underwriting %}<div id="underwriting">
-<!--/* OpenX Javascript Tag v2.4.6 */-->
+<!--/* OpenX Javascript Tag v2.4.7 */-->
 
 <script type='text/javascript'><!--//<![CDATA[
-   var m3_u = (location.protocol=='https:'?'https://testchannelguide.participatoryculture.org/openx/www/delivery/ajs.php':'http://testchannelguide.participatoryculture.org/openx/www/delivery/ajs.php');
+   var m3_u = (location.protocol=='https:'?'https://www.miroguide.com/openx/www/delivery/ajs.php':'http://www.miroguide.com/openx/www/delivery/ajs.php');
    var m3_r = Math.floor(Math.random()*99999999999);
    if (!document.MAX_used) document.MAX_used = ',';
    document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
-   document.write ("?zoneid=5");
+   document.write ("?zoneid=2&amp;target=_top");
+
    document.write ('&amp;cb=' + m3_r);
    if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
    document.write ("&amp;loc=" + escape(window.location));
@@ -95,8 +96,8 @@ if ((top.frames.length == 2 && top.frames[1].name == 'miro_guide_frame') ||
    if (document.context) document.write ("&context=" + escape(document.context));
    if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
    document.write ("'><\/scr"+"ipt>");
-//]]>--></script><noscript><a href='http://testchannelguide.participatoryculture.org/openx/www/delivery/ck.php?n=aee8b75b&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://testchannelguide.participatoryculture.org/openx/www/delivery/avw.php?zoneid=5&amp;n=aee8b75b' border='0' alt='' /></a></noscript>        
-        </div>
+//]]>--></script><noscript><a href='http://www.miroguide.com/openx/www/delivery/ck.php?n=a89e4036&amp;cb={{ total_channels }}' target='_top'><img src='http://www.miroguide.com/openx/www/delivery/avw.php?zoneid=2&amp;n=a89e4036' border='0' alt='Advertisement' /></a></noscript>
+</div>
 	{% endblock %}
         <div id="page">
             <div id="search-bar">
