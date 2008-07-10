@@ -558,9 +558,17 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         Passing sort='rating' to get_channels should sort the channels by
         their rating.
         """
+        new = self.make_channel(self.owner, state='A')
+        for i in range(3):
+            # make some fake ratings so that all the channels have 3 ratings
+            fake = self.make_user('fake%i' % i)
+            fake.approved = True
+            fake.save(self.connection)
+            for channel in self.channels:
+                channel.rate(self.connection, fake, 3)
+            new.rate(self.connection, fake, 3)
         self.owner.approved = True
         self.owner.save(self.connection)
-        new = self.make_channel(self.owner, state='A')
         new.rate(self.connection, self.owner, 5)
 
         objs = api.get_channels(self.connection, 'name', '', sort='rating')
