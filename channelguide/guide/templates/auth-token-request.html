@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% comment %}
+Copyright (c) 2008 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load i18n cg_helpers %}
+{% block title %}Miro - {% trans "Forgot Password" %}{%endblock %}
+{% block body %}
+<div class="forgot-password-page">
+    <div class="big-form">
+        <h2>{% trans "Forgot Password" %}</h2>
+        <p class="explanation">{% blocktrans %}Please enter your email address
+        below.  A link will be sent to you email that you can use to set a new
+        password.{% endblocktrans %}</p>
+        <form method="POST" action="{{ BASE_URL }}accounts/forgot-password" onsubmit="showLoadIndicator();">
+            {% show_form form %}
+            <input type="submit" class="submit" value="{% trans "Send" %} &gt;&gt;">
+        </form>
+    </div>
+</div>
+{% endblock %}
