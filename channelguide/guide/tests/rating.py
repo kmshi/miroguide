@@ -97,7 +97,7 @@ class ChannelRatingsTest(TestCase):
         """
         url = self.channel.get_url()[len(settings.BASE_URL)-1:]
         page = self.get_page(url)
-        matches = re.findall('Average Rating: (\d\.\d*)', page.content)
+        matches = re.findall('average="(\d\.\d*)"', page.content)
         self.assertEquals(float(matches[0]), 3)
 
     def test_unrated_user_details_has_average(self):
@@ -107,7 +107,7 @@ class ChannelRatingsTest(TestCase):
         """
         url = self.channel.get_url()[len(settings.BASE_URL)-1:]
         page = self.get_page(url, self.owner)
-        matches = re.findall('Average Rating: (\d\.\d*)', page.content)
+        matches = re.findall('average="(\d\.\d*)"', page.content)
         self.assertEquals(float(matches[0]), 3)
 
     def test_rated_user_details_has_rating(self):
@@ -120,7 +120,7 @@ class ChannelRatingsTest(TestCase):
             page = self.get_page(url, user)
             rating = Rating.query(Rating.c.user_id==user.id,
                     Rating.c.channel_id==self.channel.id).get(self.connection)
-            matches = re.findall('User Rating: (\d[\.\d*]*)', page.content)
+            matches = re.findall('user="(\d)"', page.content)
             if rating.rating is None:
                 self.assertEquals(matches[0], "0")
             else:
