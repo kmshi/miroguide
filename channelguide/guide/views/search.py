@@ -76,7 +76,8 @@ def search(request):
     query = search_channels(request, terms).load('subscription_count_month')
     results_count = query.count(request.connection)
     results = query.limit(FRONT_PAGE_LIMIT).execute(request.connection)
-    results.join('items', 'rating').execute(request.connection)
+    if results:
+        results.join('items', 'rating').execute(request.connection)
 
     query = search_items(request, terms)
     item_results_count = query.count(request.connection)
