@@ -22,6 +22,7 @@ function hideMenu(el) {$('#' + el).hide();}
 {% endblock %}
 </head>
 <body onpageshow="searchPageShow();">
+  {% block navigation %}
 	<div id="topBar">
 		<div class="page">
 			<ul id="mainMenu">
@@ -72,7 +73,7 @@ function hideMenu(el) {$('#' + el).hide();}
 			<div id="downButton"></div>
 		</div><!--hoverMenu-->
 	</div><!--hover_align-->
+ {% endblock %}
         {% block body %}{% endblock %}
-	
 </body>
 </html>
