@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% comment %}
+Copyright (c) 2008 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load i18n channels cg_helpers %}
+{% block head %}<link rel="StyleSheet" type="text/css" href="{{ STATIC_BASE_URL }}css/cobranding.css?nonce={{ style_nonce }}">
+{% if cobrand.css_url %}
+<link rel="StyleSheet" type="text/css" href="{{ cobrand.css_url }}">
+{% endif %}
+{% if cobrand.favicon_url %}
+<link rel="shortcut icon" type="image/x-icon" href="{{ cobrand.favicon_url }}">
+{% endif %}
+<script type="text/javascript">
+function _redirectToSubscription(request) {
+    if (isMiro()) {
+        url = /url1=(.*)&/.exec(request.subscribe_url)[1];
+        window.location.href = 'action:addFeed?selected=1&url=' + url;
+    } else {
+        window.location.href = request.subscription_url;
+    }
+}
+</script>{% endblock %}
+{% block title %}{{ cobrand.html_title }}{%endblock %}
+{% block navigation %}{% endblock %}
+{% block underwriting %}{% endblock %}
+{% block body %}
+<div class="channel-list-page cobranding">
+    <h1>
+        {{ cobrand.page_title }}
+    </h1>
+    {% if cobrand.icon_url %}
+    <div class="icon">
+        <img src="{{ cobrand.icon_url }}" alt="Icon for {{ cobrand.page_title }}">
+    </div>
+    {% endif %}
+    <div class="description">{{ cobrand.description }}</div>
+    <div class="info">
+        <ul>
+            <li>Website: <a href="{{ cobrand.url }}">{{ cobrand.url }}</a></li>
+            {% if cobrand.link1_text %}
+            <li>{% if cobrand.link1_url %}<a href="{{ cobrand.link1_url }}">{% endif %}{{ cobrand.link1_text }}{% if cobrand.link1_url %}</a>{% endif %}</li>
+            {% endif %}
+            {% if cobrand.link2_text %}
+            <li>{% if cobrand.link2_url %}<a href="{{ cobrand.link2_url }}">{% endif %}{{ cobrand.link2_text }}{% if cobrand.link2_url %}</a>{% endif %}</li>
+            {% endif %}
+            {% if cobrand.link3_text %}
+            <li>{% if cobrand.link3_url %}<a href="{{ cobrand.link3_url }}">{% endif %}{{ cobrand.link3_text }}{% if cobrand.link3_url %}</a>{% endif %}</li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="clear"></div>
+    <h2>{% blocktrans with cobrand.page_title as title %}All {{ title }} Channels{% endblocktrans %}</h2>
+    <div class="channel-list">
+      {% twocolumnloop with channel in pager.items %}
+          {% show_channel_in_list channel %}
+      {% endtwocolumnloop %}
+    </div>
+    {% show_pager pager %}
+</div>
+{% endblock %}

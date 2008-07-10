@@ -2,8 +2,10 @@
 # See LICENSE for details.
 
 from django.conf.urls.defaults import *
-
+from channelguide.guide.views.channels import filtered_listing
 urlpatterns = patterns('channelguide.guide.views.tags',
     (r'^$', 'index'),
-    (r'^(\d+)', 'tag'),
+    (r'^(.+)$', filtered_listing, {
+    'filter': 'tag',
+    'title': 'Tag: %(value)s'}),
 )

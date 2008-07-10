@@ -1,0 +1,42 @@
+{% comment %}
+Copyright (c) 2008 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load i18n cg_helpers %}
+<div class="pager">
+    <div class="links">
+        {% if pager.links.start %}
+        {% for link in pager.links.start %}
+        <a {% link link.url %}>{{ link.number }}</a>
+        <span class="elipsis">...</span>
+        {% endfor %}
+        {% endif %}
+
+        {% for link in pager.links.before_current %}
+        <a {% link link.url %}>{{ link.number }}</a>
+        {% endfor %}
+        <span class="current-page">{{ pager.current_page }}</span>
+        {% for link in pager.links.after_current %}
+        <a {% link link.url %}>{{ link.number }}</a>
+        {% endfor %}
+
+        {% if pager.links.end %}
+        {% for link in pager.links.end %}
+        <span class="elipsis">...</span>
+        <a {% link link.url %}>{{ link.number }}</a>
+        {% endfor %}
+        {% endif %}
+        
+        {% if pager.links.next %}
+        {% if pager.links.next.text %}
+        <a {% link pager.links.next.url "next" %}>{% autoescape off %}{{ pager.links.next.text }}{% endautoescape %}</a>
+        {% else %}
+        <a {% link pager.links.next.url "next" %}>{%trans "Next &gt;&gt;" %}</a>
+        {% endif %}
+        {% endif %}
+    </div>
+    <div class="location">{% blocktrans with pager.start_item as start and pager.end_item as end and pager.total_items as total %}{{start}}-{{end}} of {{total}}
+        {% endblocktrans %}
+    </div>
+    <div class="clear"></div>
+</div>

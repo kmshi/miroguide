@@ -119,3 +119,74 @@ def show_pager(pager):
 @register.inclusion_tag('guide/view-select.html')
 def show_view_select(view_select):
     return {'view_select': view_select}
+
+@register.tag(name='threecolumnloop')
+def do_threecolumnloop(parser, token):
+    columns = ['first-column', 'second-column', 'third-column']
+    return ColumnLoopNode(columns, 'three-column-list',
+            *parse_column_loop(parser, token, 'endthreecolumnloop'))
+class ColumnLoopNode(template.Node):
+    def __init__(self, column_names, list_css_class, nodelist, list_name, 
+            item_name, rotated):
+        self.column_names = column_names
+        self.list_css_class = list_css_class
+        self.width = len(self.column_names)
+        self.nodelist = nodelist
+        self.list_name = list_name
+        self.item_name = item_name
+        self.rotated = rotated
+
+    def rotate_grid(self, list):
+        pad_out = self.width - (len(list) % self.width)
+        if pad_out == self.width: 
+            pad_out = 0
+        list = list + [None] * pad_out
+        source_col = 0
+        source_rows = len(list) / self.width
+        retval = []
+        while len(retval) < len(list):
+            retval.extend(list[source_col:len(list):source_rows])
+            source_col += 1
+        return retval
+    def render(self, context):
+        loop_over = template.resolve_variable(self.list_name, context)
+        if not isinstance(loop_over, list):
+            loop_over = list(loop_over)
+        if self.rotated:
+            loop_over = self.rotate_grid(loop_over)
+        output = ['<ul class="%s">' % self.list_css_class]
+        counter = itertools.count()
+        for item in loop_over:
+            i = counter.next()
+            if item is None:
+                continue
+            context[self.item_name] = item
+            css_class = "column %s" % self.column_names[i % self.width]
+            if i < self.width:
+                css_class += ' first-row'
+            if i + self.width >= len(loop_over):
+                css_class += ' last-row'
+            output.append('<li class="%s">' % css_class)
+            output.append(self.nodelist.render(context))
+            output.append('</li>\n')
+        output.append('</ul><div class="clear"></div>')
+        return ''.join(output)
+def parse_column_loop(parser, token, deliminator):
+    tokens = token.split_contents()
+    syntax_msg = "syntax is twocolumnloop with <varname> in <list> [rotated]"
+    if tokens[1] != 'with' or tokens[3] != 'in':
+        raise template.TemplateSyntaxError(syntax_msg)
+    if len(tokens) == 6:
+        if tokens[5] == 'rotated':
+            rotated = True
+        else:
+            raise template.TemplateSyntaxError(syntax_msg)
+    elif len(tokens) == 5:
+        rotated = False
+    else:
+        raise template.TemplateSyntaxError(syntax_msg)
+    item_name = tokens[2]
+    list_name = tokens[4]
+    nodelist = parser.parse((deliminator,))
+    parser.delete_first_token()
+    return nodelist, list_name, item_name, rotated
