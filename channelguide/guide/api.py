@@ -30,8 +30,6 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None,
     if loads:
         joins = [name for name in loads if not getattr(Channel.c, name, False)] 
         loads = [name for name in loads if getattr(Channel.c, name, False)]
-        print joins
-        print loads
     else:
         joins = loads = ()
     if filter == 'category':
