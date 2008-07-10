@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% comment %}
+Copyright (c) 2008 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load i18n cg_helpers notes %}
+% block body %}
+<div class="moderator-board">
+    <h1>{% trans "Moderator Message Board" %}</h1>
+    {% show_post_list posts %}
+
+    {% show_pager pager %}
+
+    <div class="new-post-form">
+        <h3>Make New post:</h3>
+        <form action="{{ BASE_URL }}notes/new-moderator-post" method="POST" onsubmit="showLoadIndicator();">
+            <table border=0 cellpadding=0 cellspacing=2>
+                <tr><td>Title:</td><td><input size=40 name="title"></td></tr>
+                <tr><td>Body:</td><td><textarea cols=40 rows=8 name="body"></textarea></td></tr>
+                {% if user.is_supermoderator %}
+                <tr><td>Email Moderators:</td><td><input type="checkbox" name="send-email"></td></tr>
+                {% endif %}
+                <tr><td></td><td><input type="submit" value="create post"></td></tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
