@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% comment %}
+Copyright (c) 2008 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load cg_helpers user %}
+{% block body %}
+<div class="user-search-page">
+
+{% if not query %}
+<h1>Search Users</h1>
+{% endif %}
+
+<form method="GET" action="{{BASE_URL}}accounts/search" onsubmit="showLoadIndicator();">
+    <input name="query" value="{{ query }}">
+    <input type="submit" value="search">
+</form>
+
+{% if query %}
+<h1 class="results-label">Results for "{{ query }}" </h1>
+{% endif %}
+
+<ul>
+    {% for result in results %}
+    <li>{% show_user result %}</li>
+    {% endfor %}
+</ul>
+
+{% if pager %}{% show_pager pager %}{% endif %}
+
+</div>
+{%endblock%}
+
