@@ -106,9 +106,12 @@ class ChannelModelTest(ChannelTestBase):
         image_data = util.read_file(test_data_path('thumbnail.jpg'))
         self.channel.save_thumbnail(self.connection, image_data)
         self.check_thumb_exists('original')
-        self.check_thumb_exists('60x40')
-        self.check_thumb_exists('120x80')
-        self.check_thumb_exists('252x169')
+        self.check_thumb_exists('85x57')
+        self.check_thumb_exists('98x66')
+        self.check_thumb_exists('109x73')
+        self.check_thumb_exists('132x88')
+        self.check_thumb_exists('142x96')
+        self.check_thumb_exists('222x146')
         self.assertEquals(image_data,
                 util.read_file(self.get_thumb_path('original')))
 
@@ -1004,16 +1007,23 @@ class EmailChannelOwnersTest(TestCase):
 class ChannelHTMLTest(ChannelTestBase):
     BAD_STRING = '<COOL &STUFF >HERE'
 
+    def get_full_path(self):
+        """
+        Mock function to return a full HTTP path.
+        """
+        return settings.BASE_URL_FULL
+    
     def check_escaping(self):
         templates = [
-            'channel-feature.html',
-            'channel-feature-no-image.html',
-            'show-channel.html',
-            'channel-in-category.html',
-            'channel-in-list.html',
-            'channel-mini.html',
+            'button_block.html',
+            'button_large.html',
+            'channel.html',
+            'details.html',
         ]
-        context = {'channel': self.channel, 'BASE_URL': settings.BASE_URL}
+
+        context = {'channel': self.channel, 'BASE_URL': settings.BASE_URL,
+                   'request': self}
+
         for template in templates:
             html = loader.render_to_string(template, context)
             for bad_string in ('<COOL', '&STUFF', '>HERE'):
