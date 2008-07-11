@@ -11,7 +11,7 @@ function infiniteLoad(data, textStatus) {
     if (!nextpage.length) {
         $('#next-page').remove();
     } else {
-        $('#next-page').attr('href', nextpage.attr('href'));
+        $('#next-page').attr('href', nextpage.attr('href')).text('Next Page');
     }
     checkScroll.loading = false;
 }
@@ -24,6 +24,7 @@ function checkScroll() {
     if (distance < nextpage.height() && !checkScroll.loading) {
         checkScroll.loading = true;
         $.get(nextpage.attr('href'), infiniteLoad);
+        nextpage.text('Loading...');
     }
 }
 
