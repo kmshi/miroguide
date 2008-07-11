@@ -2,6 +2,35 @@
 {% load channels rating %}
 {% block head %}
   {% rating_header %}
+  <script type="text/javascript">
+function infiniteLoad(data, textStatus) {
+    content = $('#content', data);
+    results = content.find('#searchResults > li')
+    $('#searchResults').append(results);
+    nextpage = content.find('#next-page');
+    if (!nextpage.length) {
+        $('#next-page').remove();
+    } else {
+        $('#next-page').attr('href', nextpage.attr('href'));
+    }
+    checkScroll.loading = false;
+}
+
+function checkScroll() {
+    nextpage = $('#next-page');
+    if (!nextpage.length) return;
+    doc = $(document);
+    distance = doc.height() - doc.scrollTop() - $(window).height();
+    if (distance < nextpage.height() && !checkScroll.loading) {
+        checkScroll.loading = true;
+        $.get(nextpage.attr('href'), infiniteLoad);
+    }
+}
+
+checkScroll.loading = false;
+
+$(document).scroll(checkScroll);
+</script>
 {% endblock %}
 {% block body %}
 	<div id="container">
@@ -24,7 +53,7 @@
                                 {% endfor %}
  			</ul>
                 {% if next_page %}
-                <a href="{{ next_page }}">Next Page</a>
+                <a id="next-page" href="{{ next_page }}">Next Page</a>
                 {% endif %}
 		</div><!--content-->
 		{% if sidebar %}
