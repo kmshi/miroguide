@@ -75,5 +75,8 @@ function hideMenu(el) {$('#' + el).hide();}
 	</div><!--hover_align-->
  {% endblock %}
         {% block body %}{% endblock %}
+        <div id="load-indicator">
+          <img alt="Loading..." src="{{ STATIC_BASE_URL }}images/load-indicator.gif" />
+        </div>
 </body>
 </html>
