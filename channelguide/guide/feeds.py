@@ -6,9 +6,11 @@ init.init_external_libraries()
 from channelguide import util
 from channelguide.guide import api
 from channelguide.guide.models import Channel, Category, Tag, Language, User
+from channelguide.guide.views.channels import get_toprated_query
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.syndication import feeds
+from django.utils import feedgenerator
 from django.http import Http404
 
 from operator import attrgetter
@@ -24,9 +26,21 @@ def https_add_domain(domain, url):
 _old_add_domain = feeds.add_domain
 feeds.add_domain = https_add_domain
 
+class MiroFeedGenerator(feedgenerator.DefaultFeed):
+    thumbnail_url = "http://s3.getmiro.com/img/home-logo-revised.png"
+    
+    def write_items(self, handler):
+        handler.startElement(u"image", {})
+        handler.addQuickElement(u"url", self.thumbnail_url)
+        handler.addQuickElement(u"title", self.feed['title'])
+        handler.addQuickElement(u"link", self.feed['link'])
+        handler.endElement(u"image")
+        feedgenerator.DefaultFeed.write_items(self, handler)
+        
 class ChannelsFeed(feeds.Feed):
     title_template = "feeds/channel_title.html"
     description_template = "feeds/channel_description.html"
+    feed_type = MiroFeedGenerator
 
     def item_guid(self, item):
         if item.newest:
@@ -68,9 +82,29 @@ class NewChannelsFeed(ChannelsFeed):
     description = "The newest channels on the Miro Guide."
 
     def items(self):
-        query = Channel.query_new().limit(10)
+        query = Channel.query_new().limit(20)
         return query.execute(self.request.connection)
 
+class PopularChannelsFeed(ChannelsFeed):
+    title = 'Popular Channels'
+    link = "/channels/popular"
+    description = "The most popular channels on the Miro Guide."
+
+    def items(self):
+        query = Channel.query_approved().load('subscription_count_month')
+        query.order_by('subscription_count_month', desc=True).limit(20)
+        return query.execute(self.request.connection)
+
+class TopRatedChannelsFeed(ChannelsFeed):
+    title = 'Top Rated Channels'
+    link = "/channels/toprated"
+    description = "The highest rated channels on the Miro Guide."
+
+    def items(self):
+        query = get_toprated_query(self.request.user)
+        query.limit(20)
+        return query.execute(self.request.connection)
+    
 class FilteredFeed(ChannelsFeed):
     model = None
     filter = None
@@ -101,7 +135,7 @@ class FilteredFeed(ChannelsFeed):
     def items(self, obj):
         if obj is None:
             return ''
-        query = Channel.query_new().join(self.filter).limit(10)
+        query = Channel.query_new().join(self.filter).limit(20)
         query.joins[self.filter].where(id=obj.id)
         return query.execute(self.request.connection)
 

@@ -191,10 +191,12 @@ def get_similarity(channel, connection, other):
     Returns the similarity between two channels.  channel is a Channel object;
     other is a channel id.
     """
-    from_sub = get_similarity_from_subscriptions(channel, connection, other)
+    # XXX: Trying out just using the rating similarity -- pswartz 6/30/2008
+    #from_sub = get_similarity_from_subscriptions(channel, connection, other)
     from_rat = get_similarity_from_ratings(channel, connection, other)
 
-    return sum((from_sub / 2, from_rat )) / 2
+    #return sum((from_sub / 2, from_rat )) / 2
+    return from_rat
 
 def get_similarity_from_subscriptions(channel, connection, other):
     sql = 'SELECT channel_id, ip_address from cg_channel_subscription WHERE channel_id IN (%s, %s) AND timestamp > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND ip_address<>%s AND ignore_for_recommendations=%s ORDER BY ip_address'

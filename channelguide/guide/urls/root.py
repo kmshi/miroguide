@@ -104,6 +104,8 @@ urlpatterns = urlpatterns + patterns('',
         {'feed_dict':
             {   'new': feeds.NewChannelsFeed,
                 'featured': feeds.FeaturedChannelsFeed,
+                'popular': feeds.PopularChannelsFeed,
+                'toprated': feeds.TopRatedChannelsFeed,
                 'categories': feeds.CategoriesFeed,
                 'tags': feeds.TagsFeed,
                 'languages': feeds.LanguagesFeed,
@@ -112,7 +114,7 @@ urlpatterns = urlpatterns + patterns('',
         }),
     # be backwards compatible even though we're using /feeds/* for something
     # else now
-    (r'^feeds/(?P<name>(new|categories|tags|languages|search|recommend).*)$',
+    (r'^feeds/(?P<name>(new|featured|popular|toprated|categories|tags|languages|search|recommend).*)$',
      redirect_to, {'url': '/rss/%(name)s'}),
     (r'^feeds/features/?$', redirect_to, {'url': '/rss/featured'}),
 )
