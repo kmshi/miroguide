@@ -26,7 +26,7 @@ def donate_thanks(request):
         response.set_cookie('donate_donated', 'yes', max_age=60*60*24*30,
                             secure=settings.USE_SECURE_COOKIES or None)
     return response
-        
+
 urlpatterns = patterns('channelguide.guide.views',
     (r'^$', 'frontpage.index'),
     (r'^frontpage$', 'frontpage.index'),
