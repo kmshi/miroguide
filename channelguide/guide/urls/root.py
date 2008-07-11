@@ -100,16 +100,21 @@ urlpatterns += patterns('',
 from channelguide.guide import feeds
 
 urlpatterns = urlpatterns + patterns('',
-    (r'^feeds/(?P<url>.*)$', 'django.contrib.syndication.views.feed',
+    (r'^rss/(?P<url>.*)$', 'django.contrib.syndication.views.feed',
         {'feed_dict':
             {   'new': feeds.NewChannelsFeed,
-                'features': feeds.FeaturedChannelsFeed,
+                'featured': feeds.FeaturedChannelsFeed,
                 'categories': feeds.CategoriesFeed,
                 'tags': feeds.TagsFeed,
                 'languages': feeds.LanguagesFeed,
                 'search': feeds.SearchFeed,
                 'recommend': feeds.RecommendationsFeed}
         }),
+    # be backwards compatible even though we're using /feeds/* for something
+    # else now
+    (r'^feeds/(?P<name>(new|categories|tags|languages|search|recommend).*)$',
+     redirect_to, {'url': '/rss/%(name)s'}),
+    (r'^feeds/features/?$', redirect_to, {'url': '/rss/featured'}),
 )
 
 handler500 = 'channelguide.guide.views.errors.error_500'
