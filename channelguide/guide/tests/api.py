@@ -506,7 +506,7 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         """
         self.channels[1].hi_def = True
         self.channels[1].save(self.connection)
-        objs = api.get_channels(self.connection, 'featured', True)
+        objs = api.get_channels(self.connection, 'hd', True)
         self.assertEquals(len(objs), 1)
         self.assertEquals(objs[0].id, self.channels[1].id)
 
