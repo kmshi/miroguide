@@ -21,14 +21,14 @@ function MiroVersion() {
 }
 
 function showLoadIndicator(always) {
-    if (always || navigator.userAgent.indexOf('Miro') != -1) {
-	indicator = $("#load-indicator");
+    indicator = $("#load-indicator");
+    if ((!indicator.queue().length) && always || navigator.userAgent.indexOf('Miro') != -1) {
 	indicator.animate({bottom: 0}, 'fast');
     }
 }
 
 function hideLoadIndicator() {
-    indicator = $("#load-indicator").css('bottom', '-30px');
+    indicator = $("#load-indicator").stop().css('bottom', '-30px');
 }
 
 function makeXMLHttpRequest() {
