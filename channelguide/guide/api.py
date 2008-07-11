@@ -51,6 +51,8 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None):
                 Language.secondary_language_exists_where(language_id))
     elif filter == 'featured':
         query.where(Channel.c.featured, True)
+    elif filter == 'hd':
+        query.where(Channel.c.hi_def, True)
     elif filter == 'name':
         if value:
             query.where(Channel.c.name.like(value + '%'))
