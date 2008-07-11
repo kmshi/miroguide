@@ -204,12 +204,8 @@ class FeaturedQueueTestCase(TestCase):
         """
         The last time subquery should return the most-recent time the featuring
         user has had a channel featured on the front page (states 1 or 2).
-        Channels from user 'freelance' (Dean on the Miro Guide) should have
-        the highest available time (NOW()).
         """
         times = {}
-        self.users[2].username = 'freelance' # simulate dean
-        self.users[2].save(self.connection)
         for i in range(3):
             fq = FeaturedQueue.feature_channel(self.channels[i],
                                                self.users[i], self.connection)
@@ -227,7 +223,6 @@ class FeaturedQueueTestCase(TestCase):
             fq.save(self.connection)
         fqs = FeaturedQueue.query(FeaturedQueue.c.state == 0).load(
             'last_time').execute(self.connection)
-        times[self.users[2].id] = datetime.datetime.now().replace(microsecond=0)
         for fq in fqs:
             if fq.last_time == '0':
                 self.assertEquals(times.get(fq.featured_by_id, 0), 0)
