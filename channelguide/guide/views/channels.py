@@ -56,6 +56,7 @@ def moderator_channel_list(request, state):
     else:
         query.where(state=Channel.NEW)
         header = _("Unreviewed Channels")
+    query.sort(Channel.c.owner.username != 'freelance')
     pager =  templateutil.Pager(10, query, request)
 
     return util.render_to_response(request, 'moderator-channel-list.html', {
