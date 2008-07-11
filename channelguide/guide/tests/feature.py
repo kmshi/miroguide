@@ -1,7 +1,7 @@
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
-import time
+import time, datetime
 
 from django.conf import settings
 from channelguide.testframework import TestCase
@@ -149,7 +149,7 @@ class FeaturedQueueTestCase(TestCase):
             self.assertEquals(c.featured, 0)
         FeaturedQueue.shuffle_queue(self.connection)
         FeaturedQueue.shuffle_queue(self.connection)
-        
+
     def test_unfeaturing_channel_in_queue(self):
         """
         Unfeaturing a channel in the queue should remove it from the queue
@@ -199,4 +199,39 @@ class FeaturedQueueTestCase(TestCase):
         fq = self.refresh_record(fq)
         self.assertEquals(fq.state, fq.IN_QUEUE)
         self.assert_(old_featured_time < fq.featured_at)
-        
+
+    def test_last_time(self):
+        """
+        The last time subquery should return the most-recent time the featuring
+        user has had a channel featured on the front page (states 1 or 2).
+        Channels from user 'freelance' (Dean on the Miro Guide) should have
+        the highest available time (NOW()).
+        """
+        times = {}
+        self.users[2].username = 'freelance' # simulate dean
+        self.users[2].save(self.connection)
+        for i in range(3):
+            fq = FeaturedQueue.feature_channel(self.channels[i],
+                                               self.users[i], self.connection)
+            fq.state = fq.PAST
+            fq.save(self.connection)
+            times[self.users[i].id] = fq.featured_at.replace(microsecond=0)
+        fq = FeaturedQueue.feature_channel(self.channels[3],
+                                           self.users[0], self.connection)
+        fq.state = fq.CURRENT
+        fq.save(self.connection)
+        times[self.users[0].id] = fq.featured_at.replace(microsecond=0)
+        for i in range(4):
+            fq = FeaturedQueue.feature_channel(self.channels[i+4],
+                                               self.users[i], self.connection)
+            fq.save(self.connection)
+        fqs = FeaturedQueue.query(FeaturedQueue.c.state == 0).load(
+            'last_time').execute(self.connection)
+        times[self.users[2].id] = datetime.datetime.now().replace(microsecond=0)
+        for fq in fqs:
+            if fq.last_time == '0':
+                self.assertEquals(times.get(fq.featured_by_id, 0), 0)
+            else:
+                dt = datetime.datetime.strptime(fq.last_time,
+                                                '%Y-%m-%d %H:%M:%S')
+                self.assertEquals(dt, times[fq.featured_by_id])

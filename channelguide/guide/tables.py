@@ -295,9 +295,10 @@ make_subscription_count('subscription_count_month', 'MONTH')
 
 featured_queue.add_subquery_column('last_time', """\
 COALESCE(
+    (SELECT NOW() FROM user WHERE id=#table#.featured_by_id AND username='freelance'),
     (SELECT featured_at from cg_channel_featured_queue AS q2 WHERE q2.state!=0
     AND q2.featured_by_id=#table#.featured_by_id
-     ORDER BY featured_at LIMIT 1), 0)""")
+     ORDER BY featured_at DESC LIMIT 1), 0)""")
 
 # set up relations
 channel.many_to_many('categories', category, category_map, backref='channels')
