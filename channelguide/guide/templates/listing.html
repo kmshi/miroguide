@@ -2,36 +2,10 @@
 {% load channels rating %}
 {% block head %}
   {% rating_header %}
+  <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/infinitescroll.js"></script>
   <script type="text/javascript">
-function infiniteLoad(data, textStatus) {
-    content = $('#content', data);
-    results = content.find('#searchResults > li')
-    $('#searchResults').append(results);
-    nextpage = content.find('#next-page');
-    if (!nextpage.length) {
-        $('#next-page').remove();
-    } else {
-        $('#next-page').attr('href', nextpage.attr('href')).text('Next Page');
-    }
-    checkScroll.loading = false;
-}
-
-function checkScroll() {
-    nextpage = $('#next-page');
-    if (!nextpage.length) return;
-    doc = $(document);
-    distance = doc.height() - doc.scrollTop() - $(window).height();
-    if (distance < nextpage.height() && !checkScroll.loading) {
-        checkScroll.loading = true;
-        $.get(nextpage.attr('href'), infiniteLoad);
-        nextpage.text('Loading...');
-    }
-}
-
-checkScroll.loading = false;
-
-$(document).scroll(checkScroll);
-</script>
+      checkScroll.loadingImage = "{{ STATIC_BASE_URL }}images/load-indicator.gif";
+  </script>
 {% endblock %}
 {% block body %}
 	<div id="container">
