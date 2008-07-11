@@ -60,7 +60,7 @@ class ChannelApiTestBase(TestCase):
         self.channels[1].add_subscription(self.connection, '123.123.123.123',
                                           datetime.now() + timedelta(days=1))
 
-        
+
 class ChannelApiViewTest(ChannelApiTestBase):
 
     def setUp(self):
@@ -132,7 +132,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertTrue(content.endswith(');'))
         self.assertEquals(simplejson.loads(response.content[4:-2]),
                           {'text': 'Valid API key'})
-        
+
     def _verifyChannelResponse(self, response, channel):
         self.assertEquals(response.status_code, 200)
 
@@ -155,7 +155,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
             self.assert_(item.get('size') is not None)
             self.assert_(item.get('date') is not None)
             self.assert_('thumbnail_url' in item)
-        
+
     def test_get_channel(self):
         """
         /api/get_channel should return the information for a channel given
@@ -194,7 +194,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(type(data), list)
         self.assertEquals(data[0]['id'], self.channels[0].id)
         self.assertEquals(data[1]['id'], self.channels[1].id)
-        
+
     def test_get_channel_url(self):
         """
         A get_channel request with a URL should function just like a request
@@ -223,7 +223,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(len(data), 2)
         self.assertEquals(data[0]['id'], self.channels[0].id)
         self.assertEquals(data[1]['url'], self.channels[1].url)
-        
+
     def test_get_channels(self):
         response = self.make_api_request('get_channels', filter='category',
             filter_value='category0')
@@ -251,7 +251,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
             data['session'] = context['session']
         if context.get('redirect'):
             data['redirect'] = context['redirect']
-            
+
         return self.post_data('/api/authenticate', data, self.owner)
 
     def _get_session(self):
@@ -259,14 +259,14 @@ class ChannelApiViewTest(ChannelApiTestBase):
                                  {'key': self.key})
         response = self._do_authentication(response)
         return response.context[0]['session']
-    
+
     def test_authenticate(self):
         response = self.get_page('/api/authenticate', self.owner, {
                 'key': self.key,
                 'redirect': 'http://test.com/'})
         context = response.context[0]
         self.assertEquals(context['session'], None)
-        self.assertEquals(context['redirect'], 'http://test.com/')        
+        self.assertEquals(context['redirect'], 'http://test.com/')
         response = self._do_authentication(response)
         self.assertRedirect(response, 'http://test.com/')
         self.assert_('?session=' in response['Location'])
@@ -275,7 +275,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
         data = session.get_data()
         self.assertEquals(data['key'], self.key)
         self.assertEquals(data['apiUser'], self.owner.id)
-        
+
 
     def test_authenticate_without_redirect(self):
         response = self.get_page('/api/authenticate', self.owner, {
@@ -303,7 +303,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
         response = self.get_page('/api/authenticate', self.owner,
                                  {'key': 'invalid key'})
         self.assertEquals(response.status_code, 404)
-        
+
     def test_rate(self):
         session = self._get_session()
         response = self.make_api_request('rate', id=-1,
@@ -330,12 +330,12 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(response.status_code, 200)
         data = eval(response.content)
         self.assertEquals(data, {'rating': 5})
-        
+
         response = self.make_api_request('rate', id=self.channels[0].id,
                                          session=session)
         self.assertEquals(response.status_code, 200)
         data = eval(response.content)
-        self.assertEquals(data, {'rating': 5})        
+        self.assertEquals(data, {'rating': 5})
 
     def test_get_ratings(self):
         session = self._get_session()
@@ -391,7 +391,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(len(data[0]['reasons']), 1)
         self.assertEquals(data[0]['reasons'][0]['id'], self.channels[0].id)
         self.assertEquals(data[0]['reasons'][0]['score'], 0.625)
-        
+
     def test_list_categories(self):
         response = self.make_api_request('list_categories')
         self.assertEquals(response.status_code, 200)
@@ -413,7 +413,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
             self.assertEquals(data[i]['url'],
                               languages[i].get_absolute_url())
 
-    
+
 class ChannelApiFunctionTest(ChannelApiTestBase):
 
     def assertSameChannels(self, l1, l2):
@@ -444,7 +444,7 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         self.assertEquals(len(obj.categories), 2)
         self.assertEquals(len(obj.tags), 2)
         self.assertEquals(len(obj.items), 2)
-        
+
     def test_get_channels_filter_category(self):
         """
         api.get_channels(connection, 'category', 'category name') should
@@ -631,7 +631,7 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         self.assertEquals(api.get_ratings(self.connection, self.owner,
                                           rating=5),
                           self.channels[:1])
-                          
+
     def test_get_recommendations(self):
         self.channels[0].rate(self.connection, self.owner, 5)
         self.refresh_connection()
