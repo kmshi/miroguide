@@ -486,6 +486,30 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         objs3 = api.get_channels(self.connection, 'language', 'unknown')
         self.assertEquals(len(objs3), 0)
 
+    def test_get_channels_filter_featured(self):
+        """
+        api.get_channels(connection, 'featured', True) should return a list of
+        Channels that are currently featured.
+        XXX: What should this do about the queue?
+        """
+        self.channels[1].featured = True
+        self.channels[1].featured_by = self.owner
+        self.channels[1].save(self.connection)
+        objs = api.get_channels(self.connection, 'featured', True)
+        self.assertEquals(len(objs), 1)
+        self.assertEquals(objs[0].id, self.channels[1].id)
+
+    def test_get_channels_filter_hd(self):
+        """
+        api.get_channeles(connection, 'hd', True) should return a list of
+        Channels that are high-def.
+        """
+        self.channels[1].hi_def = True
+        self.channels[1].save(self.connection)
+        objs = api.get_channels(self.connection, 'featured', True)
+        self.assertEquals(len(objs), 1)
+        self.assertEquals(objs[0].id, self.channels[1].id)
+
     def test_get_channels_sort_name(self):
         """
         Passing sort='name' to get_channels should sort the channels by their
