@@ -8,6 +8,66 @@ from django.views.generic.simple import direct_to_template
 def cg_include(module):
     return include('channelguide.guide.urls.%s' % module)
 
+urlpatterns = patterns('channelguide.guide.views',
+    (r'^$', 'frontpage.index'),
+    (r'^frontpage$', 'frontpage.index'),
+    (r'^firsttime$', 'firsttime.index'),
+    (r'^browse/$', direct_to_template, {
+        'template': 'guide/browse.html'}),
+    (r'^category-peek-fragment$', 'frontpage.category_peek_fragment'),
+    (r'^moderate$', 'moderator.index'),
+    (r'^how-to-moderate$', 'moderator.how_to_moderate'),
+    (r'^search$', 'search.search'),
+    (r'^search-more-channels$', 'search.search_more'),
+    (r'^search-more-items$', 'search.search_more_items'),
+    (r'^accounts/', cg_include('accounts')),
+                       (r'^categories/', cg_include('categories')),
+    (r'^channels/', cg_include('channels')),
+    (r'^languages/', cg_include('languages')),
+    (r'^moderate/', cg_include('moderate')),
+    (r'^notes/', cg_include('notes')),
+    (r'^tags/', cg_include('tags')),
+    (r'^cobranding/', cg_include('cobranding')),
+    (r'^watch/', cg_include('cobranding')),
+    (r'^i18n/setlang/', 'i18n.set_language'),
+    (r'^api/', cg_include('api')),
+    (r'^recommend/', cg_include('recommend')),
+    (r'^ping/', cg_include('ping')),
+)
+
+# new channel pages
+urlpatterns += patterns('channelguide.guide.views.channels',
+                        (r'^popular(?:/?)$', 'filtered_listing', {
+                    'filter': 'name',
+                    'default_sort': '-popular',
+                    'title': 'Popular Channels'}),
+                        (r'^toprated(?:/?)$', 'filtered_listing', {
+                    'filter': 'name',
+                    'default_sort': '-rating',
+                    'title': 'Top-Rated Channels'}),
+                        (r'^feeds(?:/?)$', 'filtered_listing', {
+                    'filter': 'name',
+                    'default_sort': 'name',
+                    'title': 'Channels by Name'}),
+                        (r'^new(?:/?)$', 'filtered_listing', {
+                    'filter': 'name',
+                    'default_sort': '-age',
+                    'title': 'New Channels'}),
+                        (r'^featured$', 'features'),
+                        (r'^hd$', 'hd'),
+                        )
+
+# submission
+urlpatterns += patterns('channelguide.guide.views.submit',
+    (r'^submit$', 'submit_feed'),
+    (r'^submit/streaming$', 'submit_streaming'),
+    (r'^submit/step1$', 'submit_feed'),
+    (r'^submit/step2$', 'submit_channel'),
+    (r'^submit/after$', 'after_submit'),
+)
+
+
+# donation pages
 def donate_render(request, template):
     context = {'request': request,
                'google_analytics_ua': settings.GOOGLE_ANALYTICS_UA,
@@ -27,40 +87,17 @@ def donate_thanks(request):
                             secure=settings.USE_SECURE_COOKIES or None)
     return response
 
-urlpatterns = patterns('channelguide.guide.views',
-    (r'^$', 'frontpage.index'),
-    (r'^frontpage$', 'frontpage.index'),
-    (r'^firsttime$', 'firsttime.index'),
-    (r'^browse/$', direct_to_template, {
-        'template': 'guide/browse.html'}),
-    (r'^donate$', donate_render, {
-            'template': 'donate/donate.html'}),
-    (r'^donate/special$', donate_render, {
-            'template': 'donate/special.html'}),
-    (r'^donate/biz$', donate_render, {
-            'template': 'donate/biz.html'}),
-    (r'^donate/thanks$', donate_thanks),
-    (r'^category-peek-fragment$', 'frontpage.category_peek_fragment'),
-    (r'^moderate$', 'moderator.index'),
-    (r'^how-to-moderate$', 'moderator.how_to_moderate'),
-    (r'^search$', 'search.search'),
-    (r'^search-more-channels$', 'search.search_more'),
-    (r'^search-more-items$', 'search.search_more_items'),
-    (r'^accounts/', cg_include('accounts')),
-    (r'^categories/', cg_include('categories')),
-    (r'^channels/', cg_include('channels')),
-    (r'^languages/', cg_include('languages')),
-    (r'^moderate/', cg_include('moderate')),
-    (r'^notes/', cg_include('notes')),
-    (r'^tags/', cg_include('tags')),
-    (r'^cobranding/', cg_include('cobranding')),
-    (r'^watch/', cg_include('cobranding')),
-    (r'^i18n/setlang/', 'i18n.set_language'),
-    (r'^api/', cg_include('api')),
-    (r'^recommend/', cg_include('recommend')),
-    (r'^ping/', cg_include('ping')),
-)
+urlpatterns += patterns('',
+                        (r'^donate$', donate_render, {
+    'template': 'donate/donate.html'}),
+                        (r'^donate/special$', donate_render, {
+    'template': 'donate/special.html'}),
+                        (r'^donate/biz$', donate_render, {
+    'template': 'donate/biz.html'}),
+                        (r'^donate/thanks$', donate_thanks),
+                        )
 
+# RSS feeds
 from channelguide.guide import feeds
 
 urlpatterns = urlpatterns + patterns('',

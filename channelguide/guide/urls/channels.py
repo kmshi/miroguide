@@ -2,30 +2,12 @@
 # See LICENSE for details.
 
 from django.conf.urls.defaults import patterns
-from channelguide.guide.views.channels import filtered_listing
+from django.views.generic.simple import redirect_to
 
 urlpatterns = patterns('channelguide.guide.views.channels',
     (r'^submitted_thumbnails/(\d+)$', 'submitted_thumbnail'),
     (r'^(\d+)$', 'channel'),
     (r'^rate/(\d+)$', 'rate'),
-    (r'^popular(?:/?)$', filtered_listing, {
-    'filter': 'name',
-    'default_sort': '-popular',
-    'title': 'Popular Channels'}),
-                       (r'^toprated(?:/?)$', filtered_listing, {
-    'filter': 'name',
-    'default_sort': '-rating',
-    'title': 'Top-Rated Channels'}),
-                       (r'^by-name(?:/?)$', filtered_listing, {
-    'filter': 'name',
-    'default_sort': 'name',
-    'title': 'Channels by Name'}),
-                       (r'^(?:new|recent)(?:/?)$', filtered_listing, {
-    'filter': 'name',
-    'default_sort': '-age',
-    'title': 'New Channels'}),
-    (r'^features$', 'features'),
-    (r'^hd$', 'hd'),
     (r'^moderator-list/([\w-]+)$', 'moderator_channel_list'),
     (r'^subscribe/(\d+)$', 'subscribe'),
     (r'^subscribe-hit/(\d+)$', 'subscribe_hit'),
@@ -36,10 +18,14 @@ urlpatterns = patterns('channelguide.guide.views.channels',
     (r'^email-owners$', 'email_owners'),
 )
 
-urlpatterns += patterns('channelguide.guide.views.submit',
-    (r'^submit$', 'submit_feed'),
-    (r'^submit/streaming$', 'submit_streaming'),
-    (r'^submit/step1$', 'submit_feed'),
-    (r'^submit/step2$', 'submit_channel'),
-    (r'^submit/after$', 'after_submit'),
-)                        
+# old URLs
+urlpatterns += patterns('',
+                        (r'^popular$', redirect_to, {'url': '/popular/'}),
+                        (r'^toprated$', redirect_to, {'url': '/toprated/'}),
+                        (r'^by-name$', redirect_to, {'url': '/feeds/'}),
+                        (r'^recent$', redirect_to, {'url': '/new/'}),
+                        (r'^features$', redirect_to, {'url': '/featured/'}),
+                        (r'^hd$', redirect_to, {'url': '/hd/'}),
+                        (r'^submit$', redirect_to, {'url': '/submit'})
+                        )
+
