@@ -3,7 +3,7 @@
 
 from django.conf import settings
 from django.conf.urls.defaults import *
-from django.views.generic.simple import direct_to_template
+from django.views.generic.simple import direct_to_template, redirect_to
 
 def cg_include(module):
     return include('channelguide.guide.urls.%s' % module)
@@ -12,16 +12,15 @@ urlpatterns = patterns('channelguide.guide.views',
     (r'^$', 'frontpage.index'),
     (r'^frontpage$', 'frontpage.index'),
     (r'^firsttime$', 'firsttime.index'),
-    (r'^browse/$', direct_to_template, {
-        'template': 'guide/browse.html'}),
-    (r'^category-peek-fragment$', 'frontpage.category_peek_fragment'),
+    (r'^browse/$', redirect_to, {'url': None}),
+    (r'^category-peek-fragment$', redirect_to, {'url': None}),
     (r'^moderate$', 'moderator.index'),
     (r'^how-to-moderate$', 'moderator.how_to_moderate'),
     (r'^search$', 'search.search'),
-    (r'^search-more-channels$', 'search.search_more'),
-    (r'^search-more-items$', 'search.search_more_items'),
+    (r'^search-more-channels$', redirect_to, {'url': '/search'}),
+    (r'^search-more-items$', redirect_to, {'url': '/search'}),
     (r'^accounts/', cg_include('accounts')),
-                       (r'^categories/', cg_include('categories')),
+    (r'^categories/', cg_include('categories')),
     (r'^channels/', cg_include('channels')),
     (r'^languages/', cg_include('languages')),
     (r'^moderate/', cg_include('moderate')),
