@@ -15,7 +15,7 @@
                         </div>
 		</div><!--page-->
 	</div><!--channelInfo-->
-	
+        {% edit_bar channel %}
 	<div id="channelWebsite" class="inactive">
 		<div class="page">
 			<h4><a href="{{ channel.website_url }}">Show Channel Website</a></h4>
@@ -29,7 +29,7 @@
 				<h4><a href="#">Show Channel Details</a></h4>
 				<p class="description">{{ channel.description }}</p>
 			</div><!--channelDetailsContent-->
-				
+
 			<div class="thumb">
 				<a href="#">
                                   {% if channel.hi_def %}<img class="hd_tag_large channel_hd" src="{{ STATIC_BASE_URL }}images/ico_hd_tag_large.png" alt="High-Definition Channel" />{% endif %}
@@ -61,6 +61,6 @@ $("#channelDetails h4").click(function() {
                           {% endfor %}
 			</ul>
 		</div><!--page-->
-	</div><!--channelRelated-->	
+	</div><!--channelRelated-->
         {% endif %}
 {% endblock %}

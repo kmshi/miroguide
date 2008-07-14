@@ -362,6 +362,228 @@ ul.info li a {
 ul.info li.available, ul.info li.subscribers {font-size: 9px; float: right; display: inline; padding: 3px 0 0 20px;}
 ul.info li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13px; font-weight: bold;}
 
+/* Edit interface */
+.edit, .edit-box {
+    background: #fff49e;
+    width: 800px;
+    margin: 0 auto;
+    padding: 5px 10px 2px;
+    min-height: 2em;
+    color: #6d6d6d;
+}
+
+.edit h2 {
+    background: url(images/arrow-right.png) left no-repeat;
+    padding-left: 20px;
+    margin-bottom: 5px;
+    float: left;
+    cursor: pointer;
+}
+
+.edit.open h2 {
+    background-image: url(images/arrow-down.png);
+}
+
+.edit h3 {
+    font-size: 90%;
+    font-weight: normal;
+    float: right;
+    padding-top: 0.5em;
+}
+
+.channel-full .moderate-actions {
+    margin: 5px -10px 0;
+    background: #fffdea;
+    display: block;
+}
+
+.moderate-actions {
+    height: 2em;
+    clear: left;
+    padding: 7px 10px 0;
+    margin: 5px 0;
+}
+
+.moderate-actions li {
+    float: left;
+    display: inline;
+}
+
+.moderate-actions input {
+    margin: 0 2px;
+    cursor: pointer;
+}
+
+.moderate-actions li.channel-action-right {
+    float: right;
+}
+
+.moderate-actions .channel-action-right input[type=text] {
+    border: #9d9d9d 1px solid;
+    cursor: inherit;
+}
+
+.moderate-actions .question {
+    color:black;
+    font-weight:bold;
+    margin-left:15px;
+}
+
+.moderate-actions .question a {
+    text-decoration: underline;
+}
+
+.edit-box {
+    background: #fffdea;
+    border-bottom: #fff49e 2px solid;
+}
+
+.edit-box > div {
+    position: relative; 
+}
+
+.edit-box .help-text {
+    display: none;
+}
+
+.edit-box form {
+    width: 420px;
+    overflow: hidden;
+}
+
+.edit-box form li {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.edit-box li div.label {
+    font-size: 120%;
+}
+
+.edit-box .label {
+    font-weight: bold;
+    display: block;
+    float: left;
+    line-height: 130%;
+}
+
+.edit-box input[type="text"], .edit-box textarea {
+    border: #9d9d9d 1px solid;
+    padding: 2px 4px;
+    wdith: 100px;
+}
+
+.edit-box textarea {
+    clear: left;
+/*    width: 290px;*/
+}
+
+.edit-box .id_url, .edit-box .id_name, .edit-box .id_website_url {
+    padding-top: 5px;
+}
+
+.edit-box .id_description div.label {
+    float: none;
+}
+
+.edit-box .id_tags div.label span {
+    font-weight: normal;
+}
+
+.edit-box li.id_languages, .edit-box li.id_categories, .edit-box li.id_publisher, .edit-box li.id_postal_code {
+    float: left;
+    clear: none;
+    width: auto;
+}
+
+.edit-box li.id_languages, .edit-box li.id_postal_code {
+    margin-left: 20px;
+}
+
+.edit-box li.id_languages > div.label, .edit-box li.id_categories > div.label {
+    float: none;
+    margin-bottom: 5px;
+}
+
+.edit-box .form-input-triplet div.label {
+    width: 2em;
+    text-align: center;
+}
+
+.edit-box li.id_publisher, .edit-box li.id_hi_def {
+    clear: left;
+}
+
+.edit-box li.id_publisher input {
+    width: 9em;
+}
+
+.edit-box li.id_postal_code input {
+    width: 6em;
+}
+
+.edit-box .thumbnail-select {
+    display: none;
+}
+
+.edit-box .thumbnail-select h2 {
+    float: left;
+    margin-right: 10px;
+}
+
+.edit-box .thumbnail-select h2:after {
+    content: ":";
+}
+
+.edit-box input.submit {
+    margin: 5px;
+}
+
+.edit-box div.statistics {
+    background-color:#fff49e;
+    height:220px;
+    width:300px;
+    float: right;
+    margin-top: 5px;
+}
+
+.edit-box .statistics h2 {
+    font-weight: normal;
+    text-align: center;
+}
+
+.edit-box .statistics dl, .edit-box .statistics span {
+    margin-left: 20px;
+}
+
+.edit-box .statistics dl {
+    margin-top: 1em;
+}
+
+.edit-box div.notes {
+    float: right;
+    padding-top: 10px;
+    width: 300px;
+}
+
+.edit-box .notes h2 {
+    color: darkRed;
+    padding-bottom: 5px;
+}
+
+.edit-box .notes h2 span {
+    font-size: 80%;
+    font-weight: normal;
+    color: #6d6d6d;
+}
+
+.edit-box .notes input[type="submit"], .edit-box .notes textarea {
+    float: left;
+    clear: both;
+    margin-top: 10px;
+}
+
+
 /*Channel info*/
 #channelInfo {
 	background: url(images/channel_info_bg.png) 0 0 repeat-x;
