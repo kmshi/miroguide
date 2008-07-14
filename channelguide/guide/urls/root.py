@@ -36,19 +36,19 @@ urlpatterns = patterns('channelguide.guide.views',
 
 # new channel pages
 urlpatterns += patterns('channelguide.guide.views.channels',
-                        (r'^popular(?:/?)$', 'filtered_listing', {
+                        (r'^popular/?$', 'filtered_listing', {
                     'filter': 'name',
                     'default_sort': '-popular',
                     'title': 'Popular Channels'}),
-                        (r'^toprated(?:/?)$', 'filtered_listing', {
+                        (r'^toprated/?$', 'filtered_listing', {
                     'filter': 'name',
                     'default_sort': '-rating',
                     'title': 'Top-Rated Channels'}),
-                        (r'^feeds(?:/?)$', 'filtered_listing', {
+                        (r'^feeds/?$', 'filtered_listing', {
                     'filter': 'name',
                     'default_sort': 'name',
                     'title': 'Channels by Name'}),
-                        (r'^new(?:/?)$', 'filtered_listing', {
+                        (r'^new/?$', 'filtered_listing', {
                     'filter': 'name',
                     'default_sort': '-age',
                     'title': 'New Channels'}),
