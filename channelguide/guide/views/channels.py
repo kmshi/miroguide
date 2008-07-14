@@ -3,26 +3,25 @@
 
 from django.conf import settings
 from django.http import Http404, HttpResponseRedirect, HttpResponse
-from django.template import loader, context
+from django.template import loader
 from django.utils.decorators import decorator_from_middleware
 from django.utils.translation import gettext as _
 
 from channelguide import util, cache
 from channelguide.cache import client
 from channelguide.cache.middleware import UserCacheMiddleware
-from channelguide.guide import forms, templateutil, tables
+from channelguide.guide import forms, templateutil
 from channelguide.guide.auth import (admin_required, moderator_required,
         login_required)
 from channelguide.guide.exceptions import AuthError
 from channelguide.guide.models import (Channel, Item, User, FeaturedEmail,
-        ModeratorAction, ChannelNote, Rating, Tag, Category, Language,
+        ModeratorAction, ChannelNote, Rating,
         FeaturedQueue, GeneratedRatings, Cobranding)
 from channelguide.guide.notes import get_note_info, make_rejection_note
 from channelguide.guide.emailmessages import EmailMessage
 from sqlhelper.sql.statement import Select
-from sqlhelper.sql.expression import Literal
 from sqlhelper import signals
-import re, urllib, time, operator
+import re, time
 
 SESSION_KEY = 'submitted-feed'
 
