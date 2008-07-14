@@ -65,7 +65,7 @@ class ChannelsFeed(feeds.Feed):
             return item.newest.mime_type
 
 class FeaturedChannelsFeed(ChannelsFeed):
-    title = "Featured Channels"
+    title = "Featured in Miro Previews"
     link = "/channels/features"
     description = "Featured channels on the Miro Guide."
 
@@ -77,7 +77,7 @@ class FeaturedChannelsFeed(ChannelsFeed):
         return query.execute(self.request.connection)
 
 class NewChannelsFeed(ChannelsFeed):
-    title = 'Newest Channels'
+    title = 'New in Miro Previews'
     link = "/channels/recent"
     description = "The newest channels on the Miro Guide."
 
@@ -86,7 +86,7 @@ class NewChannelsFeed(ChannelsFeed):
         return query.execute(self.request.connection)
 
 class PopularChannelsFeed(ChannelsFeed):
-    title = 'Popular Channels'
+    title = 'Popular in Miro Previews'
     link = "/channels/popular"
     description = "The most popular channels on the Miro Guide."
 
@@ -96,7 +96,7 @@ class PopularChannelsFeed(ChannelsFeed):
         return query.execute(self.request.connection)
 
 class TopRatedChannelsFeed(ChannelsFeed):
-    title = 'Top Rated Channels'
+    title = 'Top Rated in Miro Previews'
     link = "/channels/toprated"
     description = "The highest rated channels on the Miro Guide."
 
@@ -120,7 +120,7 @@ class FilteredFeed(ChannelsFeed):
         return obj
 
     def title(self, obj):
-        return 'Newest Channels in %s' % obj.name.encode('utf8')
+        return 'Newest %s Channels in Miro Previews' % obj.name.encode('utf8')
 
     def link(self, obj):
         if obj is None:
