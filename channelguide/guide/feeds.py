@@ -73,11 +73,8 @@ class FeaturedChannelsFeed(ChannelsFeed):
     description = "Featured channels on the Miro Guide."
 
     def items(self):
-        query = Channel.query().join('featured_queue')
-        j = query.joins['featured_queue']
-        j.where(j.c.state==1)
-        query.order_by(j.c.state).order_by(j.c.featured_at, desc=True)
-        return query.execute(self.request.connection)
+        return api.get_channels(self.request.connection, 'featured', True,
+                                limit=20)
 
 
 class NewChannelsFeed(ChannelsFeed):
