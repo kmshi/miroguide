@@ -6,7 +6,6 @@ init.init_external_libraries()
 from channelguide import util
 from channelguide.guide import api
 from channelguide.guide.models import Channel, Category, Tag, Language, User
-from channelguide.guide.views.channels import get_toprated_query
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.syndication import feeds
@@ -23,12 +22,14 @@ def https_add_domain(domain, url):
         return url
     return _old_add_domain(domain, url)
 
+
 _old_add_domain = feeds.add_domain
 feeds.add_domain = https_add_domain
 
+
 class MiroFeedGenerator(feedgenerator.DefaultFeed):
     thumbnail_url = "http://s3.getmiro.com/img/home-logo-revised.png"
-    
+
     def write_items(self, handler):
         handler.startElement(u"image", {})
         handler.addQuickElement(u"url", self.thumbnail_url)
@@ -36,7 +37,8 @@ class MiroFeedGenerator(feedgenerator.DefaultFeed):
         handler.addQuickElement(u"link", self.feed['link'])
         handler.endElement(u"image")
         feedgenerator.DefaultFeed.write_items(self, handler)
-        
+
+
 class ChannelsFeed(feeds.Feed):
     title_template = "feeds/channel_title.html"
     description_template = "feeds/channel_description.html"
@@ -45,7 +47,7 @@ class ChannelsFeed(feeds.Feed):
     def item_guid(self, item):
         if item.newest:
             return item.newest.guid or item.newest.url
-    
+
     def item_enclosure_url(self, item):
         item.join('items').execute(self.request.connection)
         results = [i for i in item.items.records[:] if i.date is not None]
@@ -64,9 +66,10 @@ class ChannelsFeed(feeds.Feed):
         if item.newest:
             return item.newest.mime_type
 
+
 class FeaturedChannelsFeed(ChannelsFeed):
     title = "Featured Channels"
-    link = "/channels/features"
+    link = "/featured/"
     description = "Featured channels on the Miro Guide."
 
     def items(self):
@@ -76,35 +79,37 @@ class FeaturedChannelsFeed(ChannelsFeed):
         query.order_by(j.c.state).order_by(j.c.featured_at, desc=True)
         return query.execute(self.request.connection)
 
+
 class NewChannelsFeed(ChannelsFeed):
     title = 'Newest Channels'
-    link = "/channels/recent"
+    link = "/new/"
     description = "The newest channels on the Miro Guide."
 
     def items(self):
-        query = Channel.query_new().limit(20)
-        return query.execute(self.request.connection)
+        return api.get_channels(self.request.connection, 'name', None,
+                                sort='-age', limit=20)
+
 
 class PopularChannelsFeed(ChannelsFeed):
     title = 'Popular Channels'
-    link = "/channels/popular"
+    link = "/popular/"
     description = "The most popular channels on the Miro Guide."
 
     def items(self):
-        query = Channel.query_approved().load('subscription_count_month')
-        query.order_by('subscription_count_month', desc=True).limit(20)
-        return query.execute(self.request.connection)
+        return api.get_channels(self.request.connection, 'name', None,
+                                sort='-popular', limit=20)
+
 
 class TopRatedChannelsFeed(ChannelsFeed):
     title = 'Top Rated Channels'
-    link = "/channels/toprated"
+    link = "/toprated/"
     description = "The highest rated channels on the Miro Guide."
 
     def items(self):
-        query = get_toprated_query(self.request.user)
-        query.limit(20)
-        return query.execute(self.request.connection)
-    
+        return api.get_channels(self.request.connection, 'name', None,
+                                sort='-rating', limit=20)
+
+
 class FilteredFeed(ChannelsFeed):
     model = None
     filter = None
@@ -188,6 +193,7 @@ class SearchFeed(ChannelsFeed):
             return ''
         return api.search(self.request.connection, obj)
 
+
 class RecommendationsFeed(ChannelsFeed):
 
     def get_object(self, bits):
@@ -202,7 +208,7 @@ class RecommendationsFeed(ChannelsFeed):
             return user
         else:
             raise ObjectDoesNotExist
-        
+
     def title(self, user):
         return 'Recommended Channels for %s' % user.username
 
