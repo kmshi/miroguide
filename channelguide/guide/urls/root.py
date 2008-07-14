@@ -2,7 +2,7 @@
 # See LICENSE for details.
 
 from django.conf import settings
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import patterns, include
 from django.views.generic.simple import direct_to_template, redirect_to
 
 def cg_include(module):
@@ -52,8 +52,16 @@ urlpatterns += patterns('channelguide.guide.views.channels',
                     'filter': 'name',
                     'default_sort': '-age',
                     'title': 'New Channels'}),
-                        (r'^featured$', 'features'),
-                        (r'^hd$', 'hd'),
+                        (r'^featured/?$', 'filtered_listing', {
+                    'filter': 'featured',
+                    'value': True,
+                    'default_sort': 'name',
+                    'title': 'Featured Channels'}),
+                        (r'^hd/?$', 'filtered_listing', {
+                    'filter': 'hd',
+                    'value': True,
+                    'default_sort': 'name',
+                    'title': 'High-Definition Channels'}),
                         )
 
 # submission

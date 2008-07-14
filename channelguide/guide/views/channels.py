@@ -346,17 +346,6 @@ def filtered_listing(request, value=None, filter=None, limit=10,
         'page': page,
         'next_page': next_page
         })
-        
-@cache.aggresively_cache
-def hd(request):
-    query = Channel.query_approved(hi_def=1, user=request.user)
-    templateutil.order_channels_using_request(query, request)
-    pager =  templateutil.Pager(8, query, request)
-    return util.render_to_response(request, 'two-column-list.html', {
-        'header': _('HD Channels'),
-        'pager': pager,
-        'order_select': templateutil.OrderBySelect(request),
-    })
 
 def make_simple_list(request, query, header, order_by=None, rss_feed=None):
     if order_by:
@@ -367,17 +356,6 @@ def make_simple_list(request, query, header, order_by=None, rss_feed=None):
         'pager': pager,
         'rss_feed': rss_feed
     })
-
-
-@cache.aggresively_cache
-def features(request):
-    query = Channel.query(user=request.user).join('featured_queue')
-    j = query.joins['featured_queue']
-    j.where(j.c.state!=0)
-    query.order_by(j.c.state).order_by(j.c.featured_at, desc=True)
-    return make_simple_list(request, query, _("Featured Channels"),
-                            rss_feed = settings.BASE_URL_FULL +
-                            '/feeds/features')
 
 def for_user(request, user_id):
     user = util.get_object_or_404(request.connection, User, user_id)
