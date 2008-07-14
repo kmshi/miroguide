@@ -55,6 +55,16 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None,
             return []
         query.where((Channel.c.primary_language_id == language_id) |
                 Language.secondary_language_exists_where(language_id))
+    elif filter == 'featured':
+        if value:
+            query.where(Channel.c.featured)
+        else:
+            query.where(Channel.c.featured.negate())
+    elif filter == 'hd':
+        if value:
+            query.where(Channel.c.hi_def)
+        else:
+            query.where(Channel.c.hi_def.negate())
     elif filter == 'name':
         if value:
             query.where(Channel.c.name.like(value + '%'))
