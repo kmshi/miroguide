@@ -56,7 +56,7 @@ urlpatterns += patterns('channelguide.guide.views.channels',
                     'value': True,
                     'default_sort': 'name',
                     'title': 'High-Definition Channels'}),
-                        (r'^(?feeds|shows)/', include('channels'),
+                        (r'^(feeds|shows)/', cg_include('channels')),
                         )
 
 # submission

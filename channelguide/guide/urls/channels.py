@@ -25,7 +25,7 @@ urlpatterns += patterns('',
                         (r'^recent$', redirect_to, {'url': '/new/'}),
                         (r'^features$', redirect_to, {'url': '/featured/'}),
                         (r'^hd$', redirect_to, {'url': '/hd/'}),
-                        (r'^submit$', redirect_to, {'url': '/submit'})
+                        (r'^submit$', redirect_to, {'url': '/submit'}),
                         (r'^edit/(\d+)$', 'edit_channel'),
                         (r'^rate/(\d+)$', 'rate'),
                         (r'^subscribe/(\d+)$', 'subscribe'),
