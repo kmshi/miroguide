@@ -51,6 +51,16 @@ class AccountTest(TestCase):
         self.assertEquals(response.context[0]['user'].username,
                 self.user.username)
 
+    def test_login_with_email(self):
+        data = self.login_data()
+        data['username'] = self.user.email
+        response = self.post_data("/accounts/login", data)
+        self.assertRedirect(response, '')
+        response = self.get_page('/')
+        self.assertEquals(response.context[0]['user'].username,
+                self.user.username)
+
+
     def test_bad_login(self):
         response = self.post_data("/accounts/login", self.bad_login_data())
         self.assert_(not response.context[0]['user'].is_authenticated())

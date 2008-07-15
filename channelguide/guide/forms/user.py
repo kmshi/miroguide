@@ -40,8 +40,23 @@ class UsernameField(forms.CharField):
         except LookupError:
             raise forms.ValidationError(_("That username is not valid."))
 
+
+class UsernameOrEmailField(UsernameField):
+    def clean(self, value):
+        value = super(forms.CharField, self).clean(value)
+        try:
+            return UsernameField.clean(self, value)
+        except forms.ValidationError:
+            pass
+        try:
+            return User.query(email=value).get(self.connection)
+        except LookupError:
+            raise forms.ValidationError(
+                _("That username or e-mail is not valid."))
+
+
 class LoginForm(Form):
-    username = UsernameField(max_length=20, required=False)
+    username = UsernameOrEmailField(max_length=20, required=False)
     password = forms.CharField(max_length=20, widget=forms.PasswordInput,
                                required=False)
 
