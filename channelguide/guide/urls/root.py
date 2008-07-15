@@ -12,21 +12,15 @@ urlpatterns = patterns('channelguide.guide.views',
     (r'^$', 'frontpage.index'),
     (r'^frontpage$', 'frontpage.index'),
     (r'^firsttime$', 'firsttime.index'),
-    (r'^browse/$', redirect_to, {'url': None}),
-    (r'^category-peek-fragment$', redirect_to, {'url': None}),
     (r'^moderate$', 'moderator.index'),
     (r'^how-to-moderate$', 'moderator.how_to_moderate'),
     (r'^search$', 'search.search'),
     (r'^search-more-channels$', redirect_to, {'url': '/search'}),
     (r'^search-more-items$', redirect_to, {'url': '/search'}),
     (r'^accounts/', cg_include('accounts')),
-    (r'^categories/', cg_include('categories')),
-    (r'^channels/', cg_include('channels')),
     (r'^languages/', cg_include('languages')),
     (r'^moderate/', cg_include('moderate')),
     (r'^notes/', cg_include('notes')),
-    (r'^tags/', cg_include('tags')),
-    (r'^cobranding/', cg_include('cobranding')),
     (r'^watch/', cg_include('cobranding')),
     (r'^i18n/setlang/', 'i18n.set_language'),
     (r'^api/', cg_include('api')),
@@ -62,6 +56,7 @@ urlpatterns += patterns('channelguide.guide.views.channels',
                     'value': True,
                     'default_sort': 'name',
                     'title': 'High-Definition Channels'}),
+                        (r'^(?feeds|shows)/', include('channels'),
                         )
 
 # submission
@@ -126,5 +121,16 @@ urlpatterns = urlpatterns + patterns('',
      redirect_to, {'url': '/rss/%(name)s'}),
     (r'^feeds/features/?$', redirect_to, {'url': '/rss/featured'}),
 )
+
+# backwards compatible URLs
+urlpatterns += patterns('',
+                        (r'^browse/$', redirect_to, {'url': None}),
+                        (r'^category-peek-fragment$', redirect_to,
+                         {'url': None}),
+                        (r'^channels/', cg_include('channels')),
+                        (r'^categories/', cg_include('categories')),
+                        (r'^tags/', cg_include('tags')),
+                        (r'^cobranding/', cg_include('cobranding')),
+                        )
 
 handler500 = 'channelguide.guide.views.errors.error_500'

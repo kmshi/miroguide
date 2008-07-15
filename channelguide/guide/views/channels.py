@@ -187,7 +187,7 @@ def on_channel_record_update(record):
 def on_channel_record_insert(record):
     if isinstance(record, Rating):
         client.set('Channel:%s' % record.channel_id, time.time())
-        
+
 @decorator_from_middleware(ChannelCacheMiddleware)
 def show(request, id, featured_form=None):
     query = Channel.query()
@@ -196,6 +196,9 @@ def show(request, id, featured_form=None):
         query.join('featured_queue', 'featured_queue.featured_by')
     item_query = Item.query(channel_id=id).join('channel').order_by('date', desc=True).limit(4)
     c = util.get_object_or_404(request.connection, query, id)
+    # redirect old URLs to canonical ones
+    if request.path != c.get_url():
+        return util.redirect(c.get_absolute_url(), request.GET)
     if c.rating is None:
         c.rating = GeneratedRatings()
         c.rating.channel_id = c.id
@@ -243,7 +246,9 @@ def subscribe_hit(request, id):
     for id in ids:
         channel = util.get_object_or_404(request.connection, Channel, id)
         referer = request.META.get('HTTP_REFERER', '')
-        match = re.match(settings.BASE_URL_FULL + 'channels/(\d+)?', referer)
+        match = re.match(
+            settings.BASE_URL_FULL + '(?(channels|feeds|shows)/(\d+)?',
+            referer)
         if match and match.groups()[0] != id:
             ignore_for_recommendations = True
         elif referer == settings.BASE_URL_FULL + 'firsttime':
@@ -417,7 +422,7 @@ def email(request, id):
         mod_name = request.user.username
     common_body = """%s is in line to be featured on the Miro Channel Guide, which is great because 50,000-100,000 people see this page every day!""" % channel.name
     common_middle = """Depending on the number of channels in line, %s should appear on the front page in the next few days; it will remain in the spotlight for 4 full days at: https://miroguide.com/""" % channel.name
-    common_footer ="""If you want to show off your featured channel, you can link to this page: https://www.miroguide.com/channels/features
+    common_footer ="""If you want to show off your featured channel, you can link to this page: https://www.miroguide.com/featured/
 
 Regards,
 %s

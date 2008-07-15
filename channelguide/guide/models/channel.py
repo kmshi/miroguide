@@ -227,10 +227,14 @@ class Channel(Record, Thumbnailable):
         return list_of_channels
 
     def get_url(self):
-        return util.make_url('channels/%d' % self.id)
+        if self.url:
+            head = 'feeds'
+        else:
+            head = 'shows'
+        return util.make_url('%s/%i' % (head, self.id))
 
     def get_absolute_url(self):
-        return util.make_absolute_url('channels/%d' % self.id)
+        return util.make_absolute_url(self.get_url())
 
     def get_edit_url(self):
         return util.make_url('channels/edit/%d' % self.id)
