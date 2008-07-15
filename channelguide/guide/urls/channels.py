@@ -6,15 +6,13 @@ from django.views.generic.simple import redirect_to
 
 urlpatterns = patterns('channelguide.guide.views.channels',
     (r'^(\d+)$', 'channel'),
-    (r'^(\d+)/edit/?', 'edit_channel'),
+    (r'^(\d+)/edit/?$', 'edit_channel'),
+    (r'^(\d+)/rate/?$', 'rate'),
+    (r'^(\d+)/subscribe-hit/?$', 'subscribe_hit'),
+    (r'^(\d+)/email/?$', 'email'),
     (r'^submitted_thumbnails/(\d+)$', 'submitted_thumbnail'),
-    (r'^rate/(\d+)$', 'rate'),
     (r'^moderator-list/([\w-]+)$', 'moderator_channel_list'),
-    (r'^subscribe/(\d+)$', 'subscribe'),
-    (r'^subscribe-hit/(\d+)$', 'subscribe_hit'),
     (r'^user/(\d+)$', 'for_user'),
-    (r'^edit/(\d+)$', 'edit_channel'),
-    (r'^email/(\d+)$', 'email'),
     (r'^moderator-history$', 'moderator_history'),
     (r'^email-owners$', 'email_owners'),
 )
@@ -28,5 +26,10 @@ urlpatterns += patterns('',
                         (r'^features$', redirect_to, {'url': '/featured/'}),
                         (r'^hd$', redirect_to, {'url': '/hd/'}),
                         (r'^submit$', redirect_to, {'url': '/submit'})
+                        (r'^edit/(\d+)$', 'edit_channel'),
+                        (r'^rate/(\d+)$', 'rate'),
+                        (r'^subscribe/(\d+)$', 'subscribe'),
+                        (r'^subscribe-hit/(\d+)$', 'subscribe_hit'),
+                        (r'^email/(\d+)$', 'email'),
                         )
 
