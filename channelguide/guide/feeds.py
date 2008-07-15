@@ -28,7 +28,7 @@ feeds.add_domain = https_add_domain
 
 class MiroFeedGenerator(feedgenerator.DefaultFeed):
     thumbnail_url = "http://s3.getmiro.com/img/home-logo-revised.png"
-    
+
     def write_items(self, handler):
         handler.startElement(u"image", {})
         handler.addQuickElement(u"url", self.thumbnail_url)
@@ -36,7 +36,7 @@ class MiroFeedGenerator(feedgenerator.DefaultFeed):
         handler.addQuickElement(u"link", self.feed['link'])
         handler.endElement(u"image")
         feedgenerator.DefaultFeed.write_items(self, handler)
-        
+
 class ChannelsFeed(feeds.Feed):
     title_template = "feeds/channel_title.html"
     description_template = "feeds/channel_description.html"
@@ -44,8 +44,8 @@ class ChannelsFeed(feeds.Feed):
 
     def item_guid(self, item):
         if item.newest:
-            return item.newest.guid or item.newest.url
-    
+            return item.url
+
     def item_enclosure_url(self, item):
         item.join('items').execute(self.request.connection)
         results = [i for i in item.items.records[:] if i.date is not None]
@@ -104,7 +104,7 @@ class TopRatedChannelsFeed(ChannelsFeed):
         query = get_toprated_query(self.request.user)
         query.limit(20)
         return query.execute(self.request.connection)
-    
+
 class FilteredFeed(ChannelsFeed):
     model = None
     filter = None
@@ -202,7 +202,7 @@ class RecommendationsFeed(ChannelsFeed):
             return user
         else:
             raise ObjectDoesNotExist
-        
+
     def title(self, user):
         return 'Recommended Channels for %s' % user.username
 
