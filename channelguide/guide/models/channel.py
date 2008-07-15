@@ -237,7 +237,7 @@ class Channel(Record, Thumbnailable):
         return util.make_absolute_url(self.get_url())
 
     def get_edit_url(self):
-        return util.make_url('channels/edit/%d' % self.id)
+        return self.get_url() + '/edit'
 
     def subscription_link(self):
         cg_link = self.get_subscribe_hit_url()

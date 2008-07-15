@@ -5,8 +5,9 @@ from django.conf.urls.defaults import patterns
 from django.views.generic.simple import redirect_to
 
 urlpatterns = patterns('channelguide.guide.views.channels',
-    (r'^submitted_thumbnails/(\d+)$', 'submitted_thumbnail'),
     (r'^(\d+)$', 'channel'),
+    (r'^(\d+)/edit/?', 'edit_channel'),
+    (r'^submitted_thumbnails/(\d+)$', 'submitted_thumbnail'),
     (r'^rate/(\d+)$', 'rate'),
     (r'^moderator-list/([\w-]+)$', 'moderator_channel_list'),
     (r'^subscribe/(\d+)$', 'subscribe'),
