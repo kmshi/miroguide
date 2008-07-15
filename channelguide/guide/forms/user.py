@@ -85,6 +85,7 @@ class RegisterForm(PasswordComparingForm):
         return user
 
 class EditUserForm(PasswordComparingForm):
+    username = NewUserField(max_length=100)
     email = NewEmailField(max_length=100, required=False)
     change_password = WideCharField(max_length=30, widget=forms.PasswordInput,
             label=_('Change Password'), required=False)
