@@ -3,7 +3,7 @@
 
 from django.conf import settings
 from django.conf.urls.defaults import *
-from django.views.generic.simple import direct_to_template
+from django.views.generic.simple import direct_to_template, redirect_to
 
 def cg_include(module):
     return include('channelguide.guide.urls.%s' % module)
@@ -26,7 +26,7 @@ def donate_thanks(request):
         response.set_cookie('donate_donated', 'yes', max_age=60*60*24*30,
                             secure=settings.USE_SECURE_COOKIES or None)
     return response
-        
+
 urlpatterns = patterns('channelguide.guide.views',
     (r'^$', 'frontpage.index'),
     (r'^frontpage$', 'frontpage.index'),
@@ -63,12 +63,16 @@ urlpatterns = patterns('channelguide.guide.views',
 
 from channelguide.guide import feeds
 
+urlpatterns += patterns('',
+    (r'^rss/(?P<name>new|featured|popular|toprated)/?', redirect_to,
+     {'url': 'http://feeds.feedburner.com/miroguide/%(name)s'}))
+
 urlpatterns = urlpatterns + patterns('',
-    (r'^feeds/(?P<url>.*)$', 'django.contrib.syndication.views.feed',
+(r'^(?:rss|feeds)(?:_real)?/(?P<url>.*)$', 'django.contrib.syndication.views.feed',
         {'feed_dict':
             {   'new': feeds.NewChannelsFeed,
                 'features': feeds.FeaturedChannelsFeed,
-                'featured': feeds.FeaturedChannelsFeed,                
+                'featured': feeds.FeaturedChannelsFeed,
                 'popular': feeds.PopularChannelsFeed,
                 'toprated': feeds.TopRatedChannelsFeed,
                 'categories': feeds.CategoriesFeed,
