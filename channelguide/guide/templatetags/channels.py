@@ -53,10 +53,13 @@ def button_large(channel):
 @register.inclusion_tag('guide/edit-bar.html', takes_context=True)
 def edit_bar(context, channel, show_script=True):
     return {'channel': channel,
+            'request': context['request'],
             'user': context['request'].user,
             'show_script': show_script,
             'STATIC_BASE_URL': settings.STATIC_BASE_URL}
 
-@register.inclusion_tag('guide/moderate-actions-simple.html')
-def moderate_actions_simple(channel):
-    return {'channel': channel}
+@register.inclusion_tag('guide/moderate-actions-simple.html',
+                        takes_context=True)
+def moderate_actions_simple(context, channel):
+    return {'channel': channel,
+            'user': context['request'].user}
