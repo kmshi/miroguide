@@ -819,10 +819,17 @@ ul.info li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13p
 	overflow: hidden;
 	height: 100%;
 }
+#recentlyOnChannel .details a.download {
+    display: none;
+}
 #recentlyOnChannel .details .thumb {
 	width: 154px;
+        height: 105px;
 	float: left;
 	display: inline;
+}
+#recentlyOnChannel .details.playable .thumb {
+    border: 2px solid red;
 }
 
 #recentlyOnChannel .details .description {
