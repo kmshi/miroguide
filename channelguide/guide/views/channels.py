@@ -362,8 +362,12 @@ def make_simple_list(request, query, header, order_by=None, rss_feed=None):
         'rss_feed': rss_feed
     })
 
-def for_user(request, user_id):
-    user = util.get_object_or_404(request.connection, User, user_id)
+def for_user(request, user_name_or_id):
+    try:
+        user = User.query(username=user_name_or_id).get(request.connection)
+    except LookupError:
+        user = util.get_object_or_404(request.connection, User,
+                                      user_name_or_id)
     query = Channel.query(owner_id=user.id, user=request.user)
     query.join('owner', 'last_moderated_by', 'featured_queue', 'featured_queue.featured_by')
     query.order_by(Channel.c.name)
