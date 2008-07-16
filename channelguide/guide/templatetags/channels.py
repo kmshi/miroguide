@@ -37,6 +37,9 @@ def channel(parser, token):
         features['small'] = True
     return ChannelNode(template.Variable(tokens[1]), features)
 
+@register.inclusion_tag('guide/item.html')
+def item(item):
+    return {'item': item}
 
 @register.inclusion_tag('guide/button_block.html', takes_context=True)
 def button_block(context, channel):

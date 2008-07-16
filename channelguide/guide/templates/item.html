@@ -1,0 +1,24 @@
+<div class="detailsTop"></div>
+<div class="details">
+  <span class="thumb">{{ item.thumbnail }}</span>
+  <div class="description on">
+    <h4>{{ item.name }}</h4>
+    <p>{{ item.description }}
+  </div>
+  <div class="meta">
+    <div class="form_row">
+      <span class="tag">Date:</span>
+      <span class="item">{{ item.date|date:"N j, Y" }}</span>
+    </div>
+    <div class="form_row">
+      <span class="tag">Size:</span>
+      <span class="item">{{ item.size|filesizeformat }}</span>
+    </div>
+    <div class="form_row">
+      <span class="tag"> </span>
+      <span class="item"><a href="#">Show Details</a></span>
+    </div>
+    <br clear="all"/><br/>
+    <button type="submit"><a href="{{ item.download_url }}"><span>Download</span></a></button>
+  </div>
+</div>

@@ -205,7 +205,7 @@ def show(request, id, featured_form=None):
         c.rating.save(request.connection)
     context = {
         'channel': c,
-        #'items': item_query.execute(request.connection),
+        'items': item_query.execute(request.connection),
         'recommendations': get_recommendations(request, id),
         #'show_edit_button': request.user.can_edit_channel(c),
         #'show_extra_info': request.user.can_edit_channel(c),

@@ -54,6 +54,7 @@ class Channel(Record, Thumbnailable):
         (109, 73), # small on search page
         (132, 88), # search page
         (142, 96), # featured on front page
+        (154, 105), # item thumbnail size
         (222, 146), # large image on details page
     ]
 
