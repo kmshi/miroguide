@@ -595,6 +595,7 @@ ul.info li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13p
 
 #channelWebsite {
 	background: url(images/channel_website_bg.png) 0 0 repeat-x;
+        height: 31px;
 }
 
 #channelWebsite iframe {
@@ -689,7 +690,81 @@ ul.info li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13p
 #channelRelated ul li div.meta {float: right; display: inline; width: 150px; padding: 8px 0 0 0;}
 #channelRelated ul li div.meta table {margin: 0 0 0 -5px;}
 #channelRelated ul li div.meta span.title {font-weight: bold; display: block; margin: 0 0 6px 0;}
+#channelRelated ul li div.info {float: right; display: inline; width: 150px; padding: 8px 0 0 0;}
+#channelRelated ul li div.info span.title {font-weight: bold; display: block; margin: 0 0 6px 0;}
 
+#recentlyOnChannel {padding: 0 0 20px 0;}
+#recentlyOnChannel h3 {
+	margin: 15px 0 5px 0;
+	padding: 0 0 0 15px;
+}
+
+#recentlyOnChannel .detailsTop {
+	background: url(images/channel_details_box_top.png) top left no-repeat;
+	width: 749px;
+	height: 7px;
+	margin: 10px 0 0 15px;
+	font-size: 1px;
+}
+#recentlyOnChannel .details {
+	background: url(images/channel_details_box.png) left bottom no-repeat;
+	width: 727px;
+	margin: 0 0 0 15px;
+	padding: 4px 11px 11px 11px;
+	overflow: hidden;
+	height: 100%;
+}
+#recentlyOnChannel .details .thumb {
+	width: 154px;
+	float: left;
+	display: inline;
+}
+
+#recentlyOnChannel .details .description {
+	padding: 0 0 0 20px;
+	width: 315px;
+	float: left;
+	display: inline;
+	margin: 3px 0 0 10px;
+}
+#recentlyOnChannel .details .description h4 {
+	color: #1e66f2;
+	margin: 0;
+	padding: 0;
+	color: #1e66f2;
+	font-size: 16px;
+}
+#recentlyOnChannel .details .description p {
+	margin: 3px 0;
+	padding: 0;
+	line-height: 14px;
+	font-size: 11px;
+	color: #575451;
+}
+#recentlyOnChannel .details .on {background: url(images/ico_blue_dot.png) 0 2px no-repeat;}
+
+#recentlyOnChannel .details .meta {
+	width: 170px;
+	float: right;
+	display: inline;
+	overflow: hidden;
+	height: 100%;
+	font-size: 11px;
+}
+#recentlyOnChannel .details .meta .form_row {overflow: hidden; height: 100%; margin: 2px 0;}
+#recentlyOnChannel .details .meta span.tag {
+	float: left;
+	display: inline;
+	width: 5em;
+	color: #8c8c8c;
+}
+#recentlyOnChannel .details .meta span.item {
+	float: left;
+	display: inline;
+	font-weight: bold;
+	color: #444444;
+}
+#recentlyOnChannel .details .meta span.item a {text-decoration: underline;}
 
 
 /*****************************************************
@@ -810,41 +885,41 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	width: 820px;
 	margin: 0 auto;
 }
-#hoverMenu {
+#hoverMenuLanguage {
 	width: 274px;
 	overflow: hidden;
         display: none;
 	position: absolute;
-	margin: -1px 0 0 576px;
+	margin: -1px 0 0 580px;
 	z-index: 100;
 }
-#hoverMenu #upButton {
+#hoverMenuLanguage #upButton {
 	width: 274px;
 	height: 27px;
 	background: url(images/hover_menu_top.png) 0 0 no-repeat;
 	cursor: pointer;
 }
-#hoverMenu #downButton {
+#hoverMenuLanguage #downButton {
 	width: 274px;
 	height: 56px;
 	background: url(images/hover_menu_bottom.png) 0 0 no-repeat;
 	cursor: pointer;
 }
-#hoverMenu ul {
+#hoverMenuLanguage ul {
 	list-style: none;
 	margin: 0;
 	padding: 0 30px;
 	height: 100%;
 	background: url(images/hover_menu.png) 0 0 repeat-y;
 }
-#hoverMenu ul li {
+#hoverMenuLanguage ul li {
 	height: 30px;
 	width: 214px;
 	margin: 0;
 	line-height: 30px;
 	color: white;
 }
-#hoverMenu ul li a {
+#hoverMenuLanguage ul li a {
 	display: block;
 	height: 30px;
 	width: 214px;
@@ -852,13 +927,89 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	color: white;
 	font-weight: bold;
 }
-#hoverMenu ul li a:hover {background: url(images/hover_menu_bg.png) bottom left repeat-x;}
-#hoverMenu ul li a span {
+#hoverMenuLanguage ul li a:hover {background: url(images/hover_menu_bg.png) bottom left repeat-x;}
+#hoverMenuLanguage ul li a span {
 	padding: 0 0 0 10px;
 	display: block;
 }
-#hoverMenu ul li a:hover span {background: url(images/menu_check.png) 190px 10px no-repeat;}
+#hoverMenuLanguage ul li a:hover span {background: url(images/menu_check.png) 190px 10px no-repeat;}
 
+
+/*Hover Menu - Login*/
+#hoverMenuLogin {
+	width: 337px;
+	overflow: hidden;
+        display: none;
+	position: absolute;
+	margin: -1px 0 0 426px;
+	z-index: 100;
+}
+#hoverMenuLogin ul {
+	list-style: none;
+	margin: 0;
+	padding: 0 25px 0 31px;
+	height: 100%;
+	background: url(images/hover_menu2_bg.png) 0 0 repeat-y;
+}
+#hoverMenuLogin ul li#login {
+	background: #b11f1f url(images/hover_menu2_inner_bg.png) 0 0 repeat-x;
+	width: 235px;
+	padding: 20px 23px 14px 23px;
+	margin: 0;
+	line-height: 30px;
+	border-bottom: 1px solid #9e1515;
+	color: white;
+}
+#hoverMenuLogin ul li#login .form_row {height: 100%; overflow: hidden; margin: 0 0 5px 0;}
+#hoverMenuLogin ul li#login label {
+	float: left;
+	display: inline;
+	width: 6em;
+	font-size: 12px;
+	font-weight: bold;
+}
+#hoverMenuLogin ul li#login input.login_text_box {
+	background: url(images/login_text_bg.png) 0 0 no-repeat;
+	width: 130px;
+	padding: 4px 14px 1px 9px;
+	border: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	height: 16px;
+	color: #333;
+	overflow: hidden;
+	margin: 5px 0px 0 0;
+	float: right;
+	display: inline;
+}
+#hoverMenuLogin ul li#login a.forgot_password {
+	background: url(images/ico_forgot_password.png) 0 0 no-repeat;
+	padding: 0 0 0 22px;
+	color: white;
+	float: left;
+	line-height: 20px;
+	font-size: 11px;
+	display: inline;
+}
+#hoverMenuLogin ul li#login a.forgot_password:hover {color: #fadada;}
+#hoverMenuLogin #register {
+	width: 337px;
+	height: 66px;
+	background: url(images/hover_menu2_bottom.png) 0 0 no-repeat;
+}
+#hoverMenuLogin #register p {
+	border-top: 1px solid #b91818;
+	width: 255px;
+	padding: 0 13px;
+	margin: 0 25px 0 31px;
+	color: white;
+	line-height: 33px;
+	height: 33px;
+}
+#hoverMenuLogin #register p a {overflow: hidden; height: 100%; display: block;}
+#hoverMenuLogin #register p a span.register_tag {color: white; float: left; display: inline;}
+#hoverMenuLogin #register p a span.always_free {color: #de6b6b; text-transform: uppercase; font-size: 8px; float: right; display: inline; margin: 0 6px 0 0;}
+#hoverMenuLogin #register p a:hover span.register_tag {color: #eed9db;}
 
 
 /*****************************************************
@@ -932,6 +1083,26 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 
 .channel_page_button {float: right; display: inline; margin: 10px 13px 0 4px;}
 
+button {
+	text-align: center;
+	background: url(images/buttons/button_input_right.png) no-repeat right;
+	border: 0;
+	margin: 0;
+	cursor: pointer;
+	padding: 0 8px 0 0;
+	overflow: visible;
+}
+button span {
+	position: relative;
+	display: block;
+	white-space: nowrap;
+	height: 20px;
+	color: #373737;
+	font: 11px/20px Arial, Helvetica, sans-serif;
+	background: url(images/buttons/button_input_left.png) no-repeat left top;
+	padding: 0 5px 0 14px;
+}
+
 
 /*Link buttons*/
 .view_more_featured_videos a {
@@ -947,6 +1118,11 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	color: white;
 }
 .view_more_featured_videos a:hover {color: #eed9db;}
+
+/*Extras*/
+.fl {float: left; display: inline;}
+.fr {float: right; display: inline;}
+.cleared {clear: both;}
 
 /*Images*/
 .tiny_thumbnail {display: block; width: 57px; border: 1px solid #881019; padding: 3px; background: #e1e1e1;}

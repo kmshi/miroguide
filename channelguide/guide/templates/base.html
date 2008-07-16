@@ -16,7 +16,6 @@
 <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/miroguide.js"></script>
 <script type="text/javascript">
 function toggleMenu(el) {$('#' + el).toggle();}
-function hideMenu(el) {$('#' + el).hide();}
 </script>
 {% block head %}
 {% endblock %}
@@ -50,14 +49,38 @@ function hideMenu(el) {$('#' + el).hide();}
 				<li><a href="{{ BASE_URL }}popular/">Most Popular</a></li>
 				<li><a href="{{ BASE_URL }}new/">New Shows</a></li>
 				<li><a href="{{ BASE_URL }}languages/">Video by Language</a></li>
-				<li id="language"><a href="#" onclick="toggleMenu('hoverMenu')">Language</a></li>
-				<li id="account"><a href="#" onclick="hideMenu('hoverMenu')">Account</a></li>
+				<li id="language"><a href="#" onclick="toggleMenu('hoverMenuLanguage')">Language</a></li>
+				<li id="account"><a href="#" onclick="toggleMenu('hoverMenuLogin')">Account</a></li>
 			</ul>
 		</div><!--page-->
 	</div><!--topBarLower-->
 
 	<div id="hover_align">
-		<div id="hoverMenu">
+          <div id="hoverMenuLogin">
+			<ul>
+				<li id="login">
+					<div class="form_row">
+						<label for="username">Username</label>
+						<input type="text" class="login_text_box" id="username" name="username"/>
+					</div>
+					<div class="form_row">
+						<label for="password">Password</label>
+						<input type="password" class="login_text_box" id="password" name="password"/>
+					</div>
+					<div class="form_row">
+						<a class="forgot_password" href="#">Forgot password</a>
+						<button class="fr" type="submit"><span>Login</span></button>
+					</div>
+				</li>
+			</ul>
+			<div id="register">
+				<p><a href="#">
+					<span class="register_tag">Register Now!</span>
+					<span class="always_free">Always Free</span>
+				</a></p>
+			</div>
+		</div>
+		<div id="hoverMenuLanguage">
 			<div id="upButton"></div>
 			<ul>
 				<li><a href="#"><span>Albanian</span></a></li>
