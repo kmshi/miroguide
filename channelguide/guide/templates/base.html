@@ -13,9 +13,10 @@
 <script defer type="text/javascript" src="{{ STATIC_BASE_URL }}js/ie_png.js"></script>
 <![endif]-->
 <script type="text/javascript" src="{% if DEBUG %}{{ STATIC_BASE_URL }}js/jquery.min.js{% else %}http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js{% endif %}"></script>
+<script type="text/javascript" src="{{ STATIC_BASE_URL }}js/jquery.form.js"></script>
 <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/miroguide.js"></script>
 <script type="text/javascript">
-function toggleMenu(el) {$('#' + el).toggle();}
+function toggleMenu(el) {$('#' + el).toggle(); return false;}
 </script>
 {% block head %}
 {% endblock %}
@@ -49,53 +50,76 @@ function toggleMenu(el) {$('#' + el).toggle();}
 				<li><a href="{{ BASE_URL }}popular/">Most Popular</a></li>
 				<li><a href="{{ BASE_URL }}new/">New Shows</a></li>
 				<li><a href="{{ BASE_URL }}languages/">Video by Language</a></li>
-				<li id="language"><a href="#" onclick="toggleMenu('hoverMenuLanguage')">Language</a></li>
-				<li id="account"><a href="#" onclick="toggleMenu('hoverMenuLogin')">Account</a></li>
+				<li id="language"><a href="#" onclick="return toggleMenu('hoverMenuLanguage')">Language</a></li>
+				<li id="account">
+                                {% if user.is_authenticated %}
+                                  <a href="{{ BASE_URL }}accounts/logout">{{ user.username }}</a>
+                                {% else %}
+                                  <a href="{{ BASE_URL }}accounts/login" onclick="return toggleMenu('hoverMenuLogin')">Account</a>
+                                {% endif %}
+                                </li>
 			</ul>
 		</div><!--page-->
 	</div><!--topBarLower-->
 
 	<div id="hover_align">
           <div id="hoverMenuLogin">
-			<ul>
-				<li id="login">
-					<div class="form_row">
-						<label for="username">Username</label>
-						<input type="text" class="login_text_box" id="username" name="username"/>
-					</div>
-					<div class="form_row">
-						<label for="password">Password</label>
-						<input type="password" class="login_text_box" id="password" name="password"/>
-					</div>
-					<div class="form_row">
-						<a class="forgot_password" href="#">Forgot password</a>
-						<button class="fr" type="submit"><span>Login</span></button>
-					</div>
-				</li>
-			</ul>
-			<div id="register">
-				<p><a href="#">
-					<span class="register_tag">Register Now!</span>
-					<span class="always_free">Always Free</span>
-				</a></p>
-			</div>
-		</div>
-		<div id="hoverMenuLanguage">
-			<div id="upButton"></div>
-			<ul>
-				<li><a href="#"><span>Albanian</span></a></li>
-				<li><a href="#"><span>Arabic</span></a></li>
-				<li><a href="#"><span>Basque</span></a></li>
-				<li><a href="#"><span>Cantonese</span></a></li>
-				<li><a href="#"><span>Catalan</span></a></li>
-				<li><a href="#"><span>English</span></a></li>
-				<li><a href="#"><span>French</span></a></li>
-				<li><a href="#"><span>Portuguese</span></a></li>
-				<li><a href="#"><span>Spanish</span></a></li>
-			</ul>
-			<div id="downButton"></div>
-		</div><!--hoverMenu-->
-	</div><!--hover_align-->
+            <form method="POST" action="{{ BASE_URL }}accounts/login">
+              <input type="hidden" name="which-form" value="login">
+                <ul>
+                  <li class="form-errors">
+                  <li id="login">
+                    <div class="form_row">
+                      <label for="username">Username</label>
+                      <input type="text" class="login_text_box" id="username" name="username"/>
+                    </div>
+                    <div class="form_row">
+                      <label for="password">Password</label>
+                      <input type="password" class="login_text_box" id="password" name="password"/>
+                    </div>
+                    <div class="form_row">
+                      <a class="forgot_password" href={{ BASE_URL }}accounts/forgot-password">Forgot password</a>
+                      <button class="fr" type="submit"><span>Login</span></button>
+                    </div>
+                  </li>
+                </ul>
+              </form>
+              <script type="text/javascript">
+                  $("#hoverMenuLogin form").ajaxForm(
+                      function(data, textStatus) {
+                          result = $('.form-errors ul', data);
+                          if (!result.length) {
+                              location.href = location.href;
+                              return;
+                          } else {
+                              $('#hoverMenuLogin .form-errors')
+                              .replaceWith(result);
+                          }
+                      });
+              </script>
+              <div id="register">
+                <p><a href="{{ BASE_URL }}accounts/login">
+                  <span class="register_tag">Register Now!</span>
+                  <span class="always_free">Always Free</span>
+                </a></p>
+              </div>
+            </div>
+            <div id="hoverMenuLanguage">
+              <div id="upButton"></div>
+              <ul>
+                <li><a href="#"><span>Albanian</span></a></li>
+                <li><a href="#"><span>Arabic</span></a></li>
+                <li><a href="#"><span>Basque</span></a></li>
+                <li><a href="#"><span>Cantonese</span></a></li>
+                <li><a href="#"><span>Catalan</span></a></li>
+                <li><a href="#"><span>English</span></a></li>
+                <li><a href="#"><span>French</span></a></li>
+                <li><a href="#"><span>Portuguese</span></a></li>
+                <li><a href="#"><span>Spanish</span></a></li>
+              </ul>
+              <div id="downButton"></div>
+            </div><!--hoverMenu-->
+          </div><!--hover_align-->
  {% endblock %}
         {% block body %}{% endblock %}
         <div id="load-indicator">
