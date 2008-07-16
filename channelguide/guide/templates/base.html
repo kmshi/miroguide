@@ -69,9 +69,9 @@ function toggleMenu(el) {$('#' + el).toggle(); return false;}
               {% if user.is_moderator %}
               <li><a href="{{ BASE_URL }}moderate/">Moderator's Area</a></li>
               {% endif %}
-              <li><a href="{{ user.get_edit_url }}">View/Edit Profile</a></li>
+              <li><a href="{{ user.get_url }}">View/Edit Profile</a></li>
               {% if user.channels %}
-              <li><a href="{{ user.get_url }}">Channels I Manage</a></li>
+              <li><a href="{{ BASE_URL }}user/{{ user.username }}">Channels I Manage</a></li>
               {% endif %}
               <li><a href="{{ BASE_URL }}submit">Submit a Channel</a></li>
             </ul>
