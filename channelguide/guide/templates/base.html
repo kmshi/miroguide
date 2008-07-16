@@ -53,7 +53,7 @@ function toggleMenu(el) {$('#' + el).toggle(); return false;}
 				<li id="language"><a href="#" onclick="return toggleMenu('hoverMenuLanguage')">Language</a></li>
 				<li id="account">
                                 {% if user.is_authenticated %}
-                                  <a href="{{ BASE_URL }}accounts/logout">{{ user.username }}</a>
+                                  <a href="{{ user.get_url }}" onclick="return toggleMenu('hoverMenuLogin');">{{ user.username }}</a>
                                 {% else %}
                                   <a href="{{ BASE_URL }}accounts/login" onclick="return toggleMenu('hoverMenuLogin')">Account</a>
                                 {% endif %}
@@ -63,6 +63,26 @@ function toggleMenu(el) {$('#' + el).toggle(); return false;}
 	</div><!--topBarLower-->
 
 	<div id="hover_align">
+          {% if user.is_authenticated %}
+          <div id="hoverMenuLogin" class="loggedin">
+            <ul>
+              {% if user.is_moderator %}
+              <li><a href="{{ BASE_URL }}moderate/">Moderator's Area</a></li>
+              {% endif %}
+              <li><a href="{{ user.get_edit_url }}">View/Edit Profile</a></li>
+              {% if user.channels %}
+              <li><a href="{{ user.get_url }}">Channels I Manage</a></li>
+              {% endif %}
+              <li><a href="{{ BASE_URL }}submit">Submit a Channel</a></li>
+            </ul>
+              <div id="register">
+                <p><a href="{{ BASE_URL }}accounts/logout">
+                  <span class="always_free">Log Out</span>
+                </a></p>
+              </div>
+            </div>
+          </div>
+          {% else %}
           <div id="hoverMenuLogin">
             <form method="POST" action="{{ BASE_URL }}accounts/login">
               <input type="hidden" name="which-form" value="login">
@@ -104,6 +124,7 @@ function toggleMenu(el) {$('#' + el).toggle(); return false;}
                 </a></p>
               </div>
             </div>
+            {% endif %}
             <div id="hoverMenuLanguage">
               <div id="upButton"></div>
               <ul>

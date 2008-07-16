@@ -951,6 +951,23 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	height: 100%;
 	background: url(images/hover_menu2_bg.png) 0 0 repeat-y;
 }
+#hoverMenuLogin.loggedin ul {
+    list-style: inside disc;
+    padding: 0 0 0 31px;
+    color: white;
+}
+#hoverMenuLogin.loggedin ul li {
+	background: #b11f1f url(images/hover_menu2_inner_bg.png) 0 0 repeat-x;
+	width: 241px;
+	padding: 5px 20px;
+	margin: 0;
+	line-height: 30px;
+	border-bottom: 1px solid #9e1515;
+        color: white;
+}
+#hoverMenuLogin.loggedin ul li a {
+    color: white;
+}
 #hoverMenuLogin ul li#login {
 	background: #b11f1f url(images/hover_menu2_inner_bg.png) 0 0 repeat-x;
 	width: 235px;
