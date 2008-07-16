@@ -67,7 +67,7 @@ function toggleMenu(el) {$('#' + el).toggle(); return false;}
           <div id="hoverMenuLogin" class="loggedin">
             <ul>
               {% if user.is_moderator %}
-              <li><a href="{{ BASE_URL }}moderate/">Moderator's Area</a></li>
+              <li id="login"><a href="{{ BASE_URL }}moderate/">Moderator's Area</a></li>
               {% endif %}
               <li><a href="{{ user.get_url }}">View/Edit Profile</a></li>
               {% if user.channels %}
@@ -80,7 +80,6 @@ function toggleMenu(el) {$('#' + el).toggle(); return false;}
                   <span class="always_free">Log Out</span>
                 </a></p>
               </div>
-            </div>
           </div>
           {% else %}
           <div id="hoverMenuLogin">

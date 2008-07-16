@@ -818,13 +818,7 @@ ul#lowerMenu li {
 ul#lowerMenu li a {color: #252525; float: left; display: inline; height: 25px;}
 ul#lowerMenu li a:hover {color: #545454;}
 
-ul#lowerMenu li#account {
-	padding: 0;
-	float: right;
-	display: inline;
-	background: url(images/lower_top_bar_separator.png) 0 0 no-repeat;
-}
-ul#lowerMenu li#language {
+ul#lowerMenu li#language, ul#lowerMenu li#account {
 	padding: 0;
 	float: right;
 	display: inline;
@@ -833,14 +827,12 @@ ul#lowerMenu li#language {
 
 ul#lowerMenu li#language a, ul#lowerMenu li#account a {
 	padding: 0 15px;
-	display: inline;
-	float: left;
-	width: 1%;
+	display: block;
+        overflow: hidden;
 }
 ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	background-color: #c92323;
 	color: white;
-        width: auto;
 }
 
 
@@ -951,23 +943,6 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	height: 100%;
 	background: url(images/hover_menu2_bg.png) 0 0 repeat-y;
 }
-#hoverMenuLogin.loggedin ul {
-    list-style: inside disc;
-    padding: 0 0 0 31px;
-    color: white;
-}
-#hoverMenuLogin.loggedin ul li {
-	background: #b11f1f url(images/hover_menu2_inner_bg.png) 0 0 repeat-x;
-	width: 241px;
-	padding: 5px 20px;
-	margin: 0;
-	line-height: 30px;
-	border-bottom: 1px solid #9e1515;
-        color: white;
-}
-#hoverMenuLogin.loggedin ul li a {
-    color: white;
-}
 #hoverMenuLogin ul li#login {
 	background: #b11f1f url(images/hover_menu2_inner_bg.png) 0 0 repeat-x;
 	width: 235px;
@@ -1027,7 +1002,23 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 #hoverMenuLogin #register p a span.register_tag {color: white; float: left; display: inline;}
 #hoverMenuLogin #register p a span.always_free {color: #de6b6b; text-transform: uppercase; font-size: 8px; float: right; display: inline; margin: 0 6px 0 0;}
 #hoverMenuLogin #register p a:hover span.register_tag {color: #eed9db;}
-
+#hoverMenuLogin.loggedin ul {
+    list-style: inside disc;
+    padding: 0 0 0 31px;
+    color: white;
+}
+#hoverMenuLogin.loggedin ul li, #hoverMenuLogin.loggedin ul li#login {
+	background: #b11f1f url(images/hover_menu2_inner_bg.png) 0 0 repeat-x;
+	width: 241px;
+	padding: 5px 20px;
+	margin: 0;
+	line-height: 30px;
+	border-bottom: 1px solid #9e1515;
+        color: white;
+}
+#hoverMenuLogin.loggedin ul li a {
+    color: white;
+}
 
 /*****************************************************
 	Buttons, images, etc.
