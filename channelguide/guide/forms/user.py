@@ -113,6 +113,11 @@ class EditUserForm(PasswordComparingForm):
             label=_("First Name"))
     lname = WideCharField(max_length=45, required=False,
             label=_("Last Name"))
+    age = forms.IntegerField(required=False, label=_("Age"))
+    gender = WideChoiceField(choices = [(None, 'Not Specified'),
+                                        ('F', 'Female'),
+                                        ('M', 'Male')],
+                             label=_("Gender"))
     city = WideCharField(max_length=45, required=False,
             label=_("City"))
     state = WideCharField(max_length=20, required=False,
