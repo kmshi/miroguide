@@ -26,14 +26,14 @@ def name_for_state_code(state):
         return _('Unknown')
 
 # create the tables
-category = Table('cg_category', 
+category = Table('cg_category',
         columns.Int('id', primary_key=True, auto_increment=True),
         columns.String('name', 200),
         columns.Int('on_frontpage', default=1))
-tag = Table('cg_tag', 
+tag = Table('cg_tag',
         columns.Int('id', primary_key=True, auto_increment=True),
         columns.String('name', 200))
-user = Table('user', 
+user = Table('user',
         columns.Int('id', primary_key=True, auto_increment=True),
         columns.String('username', 40),
         columns.String('role', 1, default='U'),
@@ -57,23 +57,24 @@ user = Table('user',
         columns.Boolean('status_emails', default=True),
         columns.Boolean('email_updates', default=False),
         columns.Boolean('channel_owner_emails', default=True),
-        columns.Int('adult_ok', default=None))
-language = Table('cg_channel_language', 
+        columns.Int('age'),
+        columns.String('gender', 1))
+language = Table('cg_channel_language',
         columns.Int('id', primary_key=True, auto_increment=True),
         columns.String('name', 40))
-pcf_blog_post = Table('cg_pcf_blog_post', 
+pcf_blog_post = Table('cg_pcf_blog_post',
         columns.Int('id', primary_key=True, auto_increment=True),
         columns.String('title', 255),
         columns.String('body'),
         columns.String('url', 200),
         columns.Int('position'))
-moderator_post = Table('cg_moderator_post', 
+moderator_post = Table('cg_moderator_post',
         columns.Int('id', primary_key=True, auto_increment=True),
         columns.Int("user_id", fk=user.c.id),
         columns.String('title', 255),
         columns.String('body'),
         columns.DateTime('created_at', default=datetime.now))
-channel = Table('cg_channel', 
+channel = Table('cg_channel',
         columns.Int('id', primary_key=True, auto_increment=True),
         columns.Int('owner_id', fk=user.c.id),
         columns.String('name', 255),
@@ -102,13 +103,13 @@ channel = Table('cg_channel',
         columns.String('postal_code', 15),
         columns.Int('adult', default=0),
         columns.Int('archived', default=0))
-moderator_action = Table('cg_moderator_action', 
+moderator_action = Table('cg_moderator_action',
         columns.Int("id", primary_key=True, auto_increment=True),
         columns.Int("user_id", fk=user.c.id),
         columns.Int("channel_id", fk=channel.c.id),
         columns.String("action", 1),
         columns.DateTime("timestamp", default=datetime.now))
-channel_note = Table('cg_channel_note', 
+channel_note = Table('cg_channel_note',
         columns.Int('id', primary_key=True, auto_increment=True),
         columns.Int('channel_id', fk=channel.c.id),
         columns.Int("user_id", fk=user.c.id),
@@ -150,25 +151,25 @@ item = Table('cg_channel_item',
         columns.Int("size"),
         columns.String("guid", 255),
         columns.DateTime('date'))
-channel_search_data = Table('cg_channel_search_data', 
+channel_search_data = Table('cg_channel_search_data',
         columns.Int('channel_id', fk=channel.c.id, primary_key=True),
         columns.String('important_text', 255),
         columns.String('text'))
-item_search_data = Table('cg_item_search_data', 
+item_search_data = Table('cg_item_search_data',
         columns.Int('item_id', fk=item.c.id, primary_key=True),
         columns.String('important_text', 255),
         columns.String('text'))
-secondary_language_map = Table('cg_secondary_language_map', 
+secondary_language_map = Table('cg_secondary_language_map',
         columns.Int('channel_id', fk=channel.c.id, primary_key=True),
         columns.Int('language_id', fk=language.c.id, primary_key=True))
-category_map = Table('cg_category_map', 
+category_map = Table('cg_category_map',
         columns.Int('channel_id', fk=channel.c.id, primary_key=True),
         columns.Int('category_id', fk=category.c.id, primary_key=True))
-tag_map = Table('cg_tag_map', 
+tag_map = Table('cg_tag_map',
         columns.Int('channel_id', fk=channel.c.id, primary_key=True),
         columns.Int('user_id', fk=user.c.id, primary_key=True),
         columns.Int('tag_id', fk=tag.c.id, primary_key=True))
-user_auth_token = Table('cg_user_auth_token', 
+user_auth_token = Table('cg_user_auth_token',
         columns.Int('user_id', fk=user.c.id, primary_key=True),
         columns.String('token', 255),
         columns.DateTime('expires'))
@@ -220,7 +221,7 @@ category.add_subquery_column('channel_count', """\
 SELECT COUNT(*)
 FROM cg_channel
 JOIN cg_category_map ON cg_channel.id=cg_category_map.channel_id
-WHERE cg_channel.state='A' AND 
+WHERE cg_channel.state='A' AND
       cg_category_map.category_id=#table#.id""")
 
 tag.add_subquery_column('user_count', """\
@@ -229,7 +230,7 @@ FROM cg_tag_map
 WHERE cg_tag_map.tag_id=#table#.id""")
 
 tag.add_subquery_column('channel_count', """
-SELECT COUNT(DISTINCT(cg_channel.id)) FROM cg_channel 
+SELECT COUNT(DISTINCT(cg_channel.id)) FROM cg_channel
 JOIN cg_tag_map ON cg_tag_map.channel_id=cg_channel.id
 WHERE cg_channel.state='A' AND cg_tag_map.tag_id=#table#.id""")
 
