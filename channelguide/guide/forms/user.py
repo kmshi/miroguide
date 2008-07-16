@@ -11,6 +11,9 @@ from fields import WideCharField, WideEmailField, WideChoiceField
 class NewUserField(forms.CharField):
     def clean(self, value):
         rv = super(NewUserField, self).clean(value)
+        if rv == self.initial:
+            # allow keeping the same username
+            return rv
         if User.query(username=value).count(self.connection) > 0:
             raise forms.ValidationError(_("username already taken"))
         return rv
