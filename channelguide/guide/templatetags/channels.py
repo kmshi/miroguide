@@ -66,3 +66,9 @@ def edit_bar(context, channel, show_script=True):
 def moderate_actions_simple(context, channel):
     return {'channel': channel,
             'user': context['request'].user}
+
+@register.inclusion_tag('guide/personalized-recommendation.html',
+                        takes_context=True)
+def show_personalized_recommendation(context,channel):
+    return {'channel': channel,
+            'request': context['request']}

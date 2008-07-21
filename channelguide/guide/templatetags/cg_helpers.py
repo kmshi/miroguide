@@ -120,11 +120,18 @@ def show_pager(pager):
 def show_view_select(view_select):
     return {'view_select': view_select}
 
+@register.tag(name='twocolumnloop')
+def do_twocolumnloop(parser, token):
+    columns = ['first-column', 'second-column']
+    return ColumnLoopNode(columns, 'two-column-list',
+            *parse_column_loop(parser, token, 'endtwocolumnloop'))
+
 @register.tag(name='threecolumnloop')
 def do_threecolumnloop(parser, token):
     columns = ['first-column', 'second-column', 'third-column']
     return ColumnLoopNode(columns, 'three-column-list',
             *parse_column_loop(parser, token, 'endthreecolumnloop'))
+
 class ColumnLoopNode(template.Node):
     def __init__(self, column_names, list_css_class, nodelist, list_name, 
             item_name, rotated):

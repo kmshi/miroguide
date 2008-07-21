@@ -1978,6 +1978,7 @@ div.channel-recommended {
     text-align: center;
     float: left;
     margin-left: 7px;
+    width: 135px;
 }
 
 .recommendation .info > div > a {
