@@ -14,37 +14,37 @@ See LICENSE for details.
 <div class="links">
   <ul class="two-column-list">
       <li class="column first-column">
-<h2><a {% link "channels/moderator-list/new" %}>
+<h2><a {% link "moderate/new" %}>
         {% blocktrans with new_count as count %}
         {{ count }} Unreviewed channels
         {% endblocktrans %}</a>
 </h2>
-<h2><a {% link "channels/moderator-list/dont-know" %}>
+<h2><a {% link "moderate/dont-know" %}>
         {% blocktrans with dont_know_count as count %}
         {{ count }} Don't know channels
         {% endblocktrans %}</a>
 </h2>
-<h2><a {% link "channels/moderator-list/waiting" %}>
+<h2><a {% link "moderate/waiting" %}>
         {% blocktrans with waiting_count as count %}
         {{ count }} Channels waiting for Reply
         {% endblocktrans %}</a>
 </h2>
-<h2><a {% link "channels/moderator-list/suspended" %}>
+<h2><a {% link "moderate/suspended" %}>
         {% blocktrans with suspended_count as count %}
         {{ count }} Suspended Channels
         {% endblocktrans %}</a>
 </h2>
-<h2><a {% link "channels/moderator-list/rejected" %}>
+<h2><a {% link "moderate/rejected" %}>
         {% blocktrans with rejected_count as count %}
         {{ count }} Rejected channels
         {% endblocktrans %}</a>
 </h2>
-<h2><a {% link "channels/moderator-list/featured" %}>
+<h2><a {% link "moderate/featured" %}>
   {% blocktrans with featured_count as count %}
   {{ count }} channels in Featured Queue
   {% endblocktrans %}</a>
 </h2>
- <li class="column second-column"
+ <li class="column second-column">
 <ul>
     <li><h2><a href="{{ BASE_URL}}how-to-moderate">{% trans "How to Moderate" %}</a></h2></li>
     <li><h2><a {% link "accounts/search" %}>{% trans "Search For Users" %}</a></h2></li>

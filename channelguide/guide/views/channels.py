@@ -30,42 +30,6 @@ class ChannelCacheMiddleware(UserCacheMiddleware):
         self.namespace = ('channel', 'Channel:%s' % channelId)
         return UserCacheMiddleware.get_cache_key_tuple(self, request)
 
-@moderator_required
-def moderator_channel_list(request, state):
-    query = Channel.query().join('owner').order_by('creation_time')
-    if state == 'waiting':
-        query.where(Channel.c.waiting_for_reply_date.is_not(None))
-        query.order_by('waiting_for_reply_date')
-        header = _("Channels Waiting For Replies")
-    elif state == 'dont-know':
-        query.where(state=Channel.DONT_KNOW)
-        header = _("Channels Flagged Don't Know By a Moderator")
-    elif state == 'rejected':
-        query.where(state=Channel.REJECTED)
-        header = _("Rejected Channels")
-    elif state == 'suspended':
-        query.where(state=Channel.SUSPENDED)
-        header = _("Suspended Channels")
-    elif state == 'featured':
-        query.join('featured_queue')
-        query.where(query.joins['featured_queue'].c.state == FeaturedQueue.IN_QUEUE)
-        header = _("Featured Queue")
-    else:
-        query.where(state=Channel.NEW)
-        header = _("Unreviewed Channels")
-    pager =  templateutil.Pager(10, query, request)
-
-    return util.render_to_response(request, 'moderator-channel-list.html', {
-        'pager': pager,
-        'channels': pager.items,
-        'header': header,
-        'subscribe_all_link': util.make_link(
-                util.get_subscription_url(*[channel.url for channel in
-                                            pager.items]),
-                _("Subscribe to all %i channels") % len(pager.items))
-        })
-
-
 def channel(request, id):
     if request.method == 'GET':
         return show(request, id)
