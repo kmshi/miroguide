@@ -4,11 +4,15 @@ Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
 {% load channels cg_helpers notes i18n %}
+{% block head %}
+<link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_BASE_URL }}css/old.css" />
+{% endblock %}
 {% block body %}
+<div id="page"><div id="content">
 <div class="moderate-page">
 
 <div class="links">
-  <ul class="two-column-list"
+  <ul class="two-column-list">
       <li class="column first-column">
 <h2><a {% link "channels/moderator-list/new" %}>
         {% blocktrans with new_count as count %}
@@ -54,10 +58,11 @@ See LICENSE for details.
 </ul>
 </li>
 </ul>
+<div class="clear"></div>
 </div>
 
 <div class="posts">
-<ul class="two-columns"
+<ul class="two-column-list"
     <li class="column first-column">
     <h2 class="check-out">Latest Posts 
     <a {% link "notes/moderator-board" %}>(See all {{ post_count }} posts)</a>
@@ -79,4 +84,5 @@ See LICENSE for details.
 </div>
 
 </div>
+</div></div>
 {% endblock %}
