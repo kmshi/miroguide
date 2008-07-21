@@ -5,7 +5,11 @@ See LICENSE for details.
 {% endcomment %}
 {% load i18n cg_helpers %}
 {% block title %}Miro - {% trans "Login" %}{%endblock %}
+{% block head %}
+<link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_BASE_URL }}css/old.css" />
+{% endblock %}
 {% block body %}
+<div id="page"><div id="content">
 <div class="login-page">
 
     {% if message %}<div class="message">{{ message }}</div>{% endif %}
@@ -40,5 +44,5 @@ See LICENSE for details.
         <div class="clear"/> 
     {% endif %}
 </div>
-
+</div></div>
 {% endblock %}
