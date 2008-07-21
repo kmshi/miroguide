@@ -126,8 +126,8 @@ $(document).ready(function() {
 		</div><!--page-->
 	</div><!--featured-->
      
-	<div id="container">
-		<div id="content">
+	<div id="newContainer">
+		<div>
 			<h3 class="title_bar"><span class="rss">New Feed Videos</span></h3>
 			<ul class="videoFeed">
                           {% for channel in feed %}
@@ -145,7 +145,7 @@ $(document).ready(function() {
 				</li>
                           {% endfor %}
 			</ul>
-		</div><!--content-->
+		</div>
 		
 		<div id="sideBar">
 			<h3 class="widget_title_bar"><span class="favorite">Recommended for you</span></h3>

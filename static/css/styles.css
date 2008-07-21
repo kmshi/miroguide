@@ -32,14 +32,14 @@ h1, h2, h3, h4, h5 {font-weight: normal;}
 	overflow: hidden;
 }
 
-#container {
+#newContainer {
 	width: 820px;
 	overflow: hidden;
 	margin: 0 auto;
 	padding: 17px 0 0;
 }
 
-#content {
+#newContainer > div {
 	float: left;
 	display: inline;
 	width: 501px;
@@ -470,7 +470,7 @@ ul.info li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13p
 .edit-box input[type="text"], .edit-box textarea {
     border: #9d9d9d 1px solid;
     padding: 2px 4px;
-    wdith: 100px;
+    width: 100px;
 }
 
 .edit-box textarea {
