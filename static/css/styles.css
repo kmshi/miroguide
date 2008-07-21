@@ -936,14 +936,14 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	margin: -1px 0 0 426px;
 	z-index: 100;
 }
-#hoverMenuLogin ul {
+#hoverMenuLogin > ul {
 	list-style: none;
 	margin: 0;
 	padding: 0 25px 0 31px;
 	height: 100%;
 	background: url(images/hover_menu2_bg.png) 0 0 repeat-y;
 }
-#hoverMenuLogin ul li#login {
+#hoverMenuLogin > ul li {
 	background: #b11f1f url(images/hover_menu2_inner_bg.png) 0 0 repeat-x;
 	width: 235px;
 	padding: 20px 23px 14px 23px;
@@ -952,15 +952,15 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	border-bottom: 1px solid #9e1515;
 	color: white;
 }
-#hoverMenuLogin ul li#login .form_row {height: 100%; overflow: hidden; margin: 0 0 5px 0;}
-#hoverMenuLogin ul li#login label {
+#hoverMenuLogin ul li .form_row {height: 100%; overflow: hidden; margin: 0 0 5px 0;}
+#hoverMenuLogin ul li label {
 	float: left;
 	display: inline;
 	width: 6em;
 	font-size: 12px;
 	font-weight: bold;
 }
-#hoverMenuLogin ul li#login input.login_text_box {
+#hoverMenuLogin ul li input.login_text_box {
 	background: url(images/login_text_bg.png) 0 0 no-repeat;
 	width: 130px;
 	padding: 4px 14px 1px 9px;
@@ -1002,6 +1002,9 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 #hoverMenuLogin #register p a span.register_tag {color: white; float: left; display: inline;}
 #hoverMenuLogin #register p a span.always_free {color: #de6b6b; text-transform: uppercase; font-size: 8px; float: right; display: inline; margin: 0 6px 0 0;}
 #hoverMenuLogin #register p a:hover span.register_tag {color: #eed9db;}
+#hoverMenuLogin #registerHidden, #hoverMenuLogin .form-errors {
+    display: none;
+}
 #hoverMenuLogin.loggedin ul {
     list-style: inside disc;
     padding: 0 0 0 31px;

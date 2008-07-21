@@ -83,48 +83,79 @@ function toggleMenu(el) {$('#' + el).toggle(); return false;}
           </div>
           {% else %}
           <div id="hoverMenuLogin">
-            <form method="POST" action="{{ BASE_URL }}accounts/login">
-              <input type="hidden" name="which-form" value="login">
-                <ul>
-                  <li class="form-errors">
-                  <li id="login">
-                    <div class="form_row">
-                      <label for="username">Username</label>
-                      <input type="text" class="login_text_box" id="username" name="username"/>
-                    </div>
-                    <div class="form_row">
-                      <label for="password">Password</label>
-                      <input type="password" class="login_text_box" id="password" name="password"/>
-                    </div>
-                    <div class="form_row">
-                      <a class="forgot_password" href="{{ BASE_URL }}accounts/forgot-password">Forgot password</a>
-                      <button class="fr" type="submit"><span>Login</span></button>
-                    </div>
-                  </li>
-                </ul>
-              </form>
-              <script type="text/javascript">
-                  $("#hoverMenuLogin form").ajaxForm(
-                      function(data, textStatus) {
-                          result = $('.form-errors ul', data);
-                          if (!result.length) {
-                              location.href = location.href;
-                              return;
-                          } else {
-                              $('#hoverMenuLogin .form-errors')
-                              .replaceWith(result);
-                          }
-                      });
-              </script>
-              <div id="register">
-                <p><a href="{{ BASE_URL }}accounts/login">
-                  <span class="register_tag">Register Now!</span>
-                  <span class="always_free">Always Free</span>
-                </a></p>
-              </div>
+            <ul>
+              <li class="form-errors"></li>
+              <li id="login">
+                <form method="POST" action="{{ BASE_URL }}accounts/login">
+                  <input type="hidden" name="which-form" value="login" />
+                  <div class="form_row">
+                    <label for="username">Username</label>
+                    <input type="text" class="login_text_box" id="username" name="username"/>
+                  </div>
+                  <div class="form_row">
+                    <label for="password">Password</label>
+                    <input type="password" class="login_text_box" id="password" name="password"/>
+                  </div>
+                  <div class="form_row">
+                    <a class="forgot_password" href="{{ BASE_URL }}accounts/forgot-password">Forgot password</a>
+                    <button class="fr" type="submit"><span>Login</span></button>
+                  </div>
+                </form>
+              </li>
+              <li id="registerHidden">
+                <form method="POST" action="{{ BASE_URL }}accounts/login">
+                  <input type="hidden" name="which-form" value="register"/>
+                  <div class="form_row">
+                    <label for="username">Username</label>
+                    <input type="text" class="login_text_box" id="username" name="newusername"/>
+                  </div>
+                  <div class="form_row">
+                    <label for="email">E-mail</label>
+                    <input type="text" class="login_text_box" id="email" name="email"/>
+                  </div>
+                  <div class="form_row">
+                    <label for="newpassword">Password</label>
+                    <input type="password" class="login_text_box" id="newpassword" name="newpassword"/>
+                  </div>
+                  <div class="form_row">
+                    <label for="newpassword2">Confirm</label>
+                    <input type="password" class="login_text_box" id="newpassword2" name="newpassword2"/>
+                  </div>
+                  <div class="form_row">
+                    <button class="fr" type="submit"><span>Register!</span></button>
+                  </div>
+                </form>
+              </li>
+            </ul>
+            <div id="register">
+              <p><a href="{{ BASE_URL }}accounts/login">
+                <span class="register_tag">Register Now!</span>
+                <span class="always_free">Always Free</span>
+              </a></p>
             </div>
-            {% endif %}
-            <div id="hoverMenuLanguage">
+            <script type="text/javascript">
+$("#hoverMenuLogin #login form").ajaxForm(
+    function(data, textStatus) {
+        result = $('.form-errors ul li', data)
+        .addClass('form-errors');
+        if (!result.length) {
+            location.href = location.href;
+            return;
+        } else {
+            $('#hoverMenuLogin .form-errors')
+            .replaceWith(result);
+            $('#hoverMenuLogin .form-errors').show();
+        }
+    });
+$('#hoverMenuLogin #register').click(function() {
+    $('#hoverMenuLogin #login').hide();
+    $('#hoverMenuLogin #registerHidden').show();
+    return false;
+});
+            </script>
+          </div>
+          {% endif %}
+          <div id="hoverMenuLanguage">
               <div id="upButton"></div>
               <ul>
                 <li><a href="#"><span>Albanian</span></a></li>
