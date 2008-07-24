@@ -40,9 +40,15 @@ urlpatterns += patterns('channelguide.guide.views.channels',
                     'default_sort': '-rating',
                     'title': 'Top-Rated Channels'}),
                         (r'^feeds/?$', 'filtered_listing', {
-                    'filter': 'name',
+                    'filter': 'feed',
+                    'value': True,
                     'default_sort': 'name',
-                    'title': 'Channels by Name'}),
+                    'title': 'Feeds'}),
+                        (r'^shows/?$', 'filtered_listing', {
+                     'filter': 'feed',
+                     'value':  False,
+                     'default_sort': 'name',
+                     'title': 'Shows'}),
                         (r'^new/?$', 'filtered_listing', {
                     'filter': 'name',
                     'default_sort': '-age',
