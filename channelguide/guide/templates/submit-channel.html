@@ -5,8 +5,20 @@ Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
 {% block top %}Add a Channel to Miro{%endblock %}
+{% block url %}{{ BASE_URL}}submit/step2{% endblock %}
 {% block upper %}
   {% show_form form %}
+        <div class="form_row_center">
+          {% if submitted_thumb_url and detected_thumbnail %}
+          <h3>{% trans "We have found an image in your feed.  You can either use this image or upload a different one." %}</h3>
+          {% endif %}
+          {{ form.thumbnail_widget.label_tag }}
+          {{ form.thumbnail_widget }}
+          {% if submitted_thumb_url %}
+            <h4>{{ thumbnail_description }}</h4>
+            <img class="preview" width="222" height="146" src="{{ submitted_thumb_url }}" />
+          {% endif %}
+        </div>
 {% endblock %}
 {% block bottom %}
 <button class="fr" type="submit"><span>Submit Channel</span></button>

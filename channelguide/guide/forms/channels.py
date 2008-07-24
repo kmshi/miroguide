@@ -291,7 +291,14 @@ class SubmitChannelForm(Form):
             required=False)
     hi_def = forms.BooleanField(label=_('High Definition'),
             help_text=HD_HELP_TEXT, required=False)
-    thumbnail_file = ChannelThumbnailField(label=_('Upload Image'))
+    thumbnail_file = ChannelThumbnailField(label=_('Upload Image'),
+                                           help_text="Remember that creating "
+                                           "a good channel thumbnail is one of "
+                                           "the most important ways to attract "
+                                           "new viewers.  It's worth making an "
+                                           "effort to do something beautiful.  "
+                                           "You can also update the image after"
+                                           " you submit your channel.")
 
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
