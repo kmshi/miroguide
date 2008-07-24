@@ -251,8 +251,13 @@ class Channel(Record, Thumbnailable):
         return self.get_url() + '/subscribe-hit'
 
     def get_subscription_url(self):
-        return util.get_subscription_url(self.url,
-                                         trackback=self.get_subscribe_hit_url())
+        if self.url:
+            return util.get_subscription_url(self.url,
+                                             trackback=self.get_subscribe_hit_url())
+        else:
+            return util.get_subscription_url(self.website_url,
+                                             type='site',
+                                             trackback=self.get_subscribe_hit_url())
 
     def is_approved(self):
         return self.state == self.APPROVED

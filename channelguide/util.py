@@ -387,13 +387,19 @@ def ensure_list(object):
 def get_subscription_url(*links, **kwargs):
     parts = ['url%i=%s' % (index, quote(url)) for (index, url) in
                 izip(count(1), links)]
-    if 'trackback' in kwargs:
+    if kwargs.get('trackback'):
         trackback = kwargs['trackback']
         if isinstance(trackback, (str, unicode)):
             trackback = [trackback]
         parts.extend('trackback%i=%s' % (index, quote(url)) for (index, url) in
                      izip(count(1), trackback))
-    return settings.SUBSCRIBE_URL + '&'.join(parts)
+
+    attributes = '&'.join(parts)
+
+    if kwargs.get('type') == 'site':
+        return settings.SITE_SUBSCRIBE_URL + attributes
+    else:
+        return settings.SUBSCRIBE_URL + attributes
 
 def unicodify(s, encoding='utf8'):
     """
