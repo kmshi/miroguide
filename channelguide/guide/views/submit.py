@@ -79,8 +79,7 @@ def submit_channel(request):
             feed_url = request.session[SESSION_KEY]['url']
             channel = form.save_channel(request.user, feed_url)
             request.session[SESSION_KEY]['subscribe'] = channel.get_subscription_url()
-            destroy_submit_url_session(request)
-            return util.redirect(settings.BASE_URL_FULL + "submit/after")
+            return util.redirect("submit/after")
         else:
             form.save_submitted_thumbnail()
     context = form.get_template_data()
@@ -94,6 +93,7 @@ def submit_channel(request):
 @check_session_key
 def after_submit(request):
     subscribe = request.session[SESSION_KEY]['subscribe']
+    destroy_submit_url_session(request)
     def img(url):
         return "<img src='%s' alt='Miro Video Player' border='0' class='one-click-image' />" % url
     def link(inside):
