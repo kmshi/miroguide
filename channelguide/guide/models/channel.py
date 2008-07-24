@@ -384,13 +384,14 @@ class Channel(Record, Thumbnailable):
         client.set('search', time.time()) # reset search cache
 
     def get_search_data(self):
-        simple_attrs = ('description', 'url',
-                'website_url', 'publisher')
+        simple_attrs = ('description', 'website_url', 'publisher')
         values = [getattr(self, attr) for attr in simple_attrs]
         values.append(self.language.name)
         for attr in ('tags', 'categories', 'secondary_languages'):
             for obj in getattr(self, attr):
                 values.append(obj.name)
+        if self.url:
+            values.append(self.url)
         values = [util.unicodify(v) for v in values]
         return u' '.join(values)
 
