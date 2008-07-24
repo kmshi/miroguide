@@ -129,7 +129,7 @@ function submitAChannel(submitLink) {
 }
 
 function showNewSubmitForm(data, textStatus) {
-    submit = $('div.top, form, div.bottom', data);
+    submit = $('div.top, form[method=post]', data);
     submit.find('h2').remove();
     submit.find('form').ajaxForm(showNewSubmitForm);
     $('#hoverMenuSubmit').empty().append(submit);
