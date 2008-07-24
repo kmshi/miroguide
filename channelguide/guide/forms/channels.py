@@ -69,7 +69,12 @@ class RSSFeedField(WideCharField):
 
 class FeedURLForm(Form):
     name = WideCharField(max_length=200, label=_("Channel Name"))
-    url = RSSFeedField(label=_("Video Feed URL"), required=False)
+    url = RSSFeedField(label=_("RSS Feed"), required=False,
+                       help_text="An RSS feed is what makes a podcast a "
+                       "podcast. It's a special URL that applications like "
+                       "Miro and iTunes check periodically to know when there "
+                       "is a new video for a channel. Video RSS feeds are "
+                       "strongly recommended for Miro.")
 
     def get_feed_data(self):
         data = {}
