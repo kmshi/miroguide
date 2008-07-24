@@ -68,7 +68,8 @@ class RSSFeedField(WideCharField):
         return parsed
 
 class FeedURLForm(Form):
-    url = RSSFeedField(label=_("Video Feed URL"))
+    name = WideCharField(max_length=200, label=_("Channel Name"))
+    url = RSSFeedField(label=_("Video Feed URL"), required=False)
 
     def get_feed_data(self):
         data = {}

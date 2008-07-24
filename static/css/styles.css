@@ -962,7 +962,7 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	font-size: 12px;
 	font-weight: bold;
 }
-#hoverMenuLogin ul li input[type=text], #hoverMenuLogin ul li input[type=password] {
+#hover_align ul li input[type=text], #hover_align ul li input[type=password] {
 	background: url(images/login_text_bg.png) 0 0 no-repeat;
 	width: 130px;
 	padding: 4px 14px 1px 9px;
@@ -1087,22 +1087,7 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 }
 #hoverMenuSubmit ul li.upper label.longlabel {width: 12em;}
 #hoverMenuSubmit ul li.upper label.question span {background: url(images/ico_question.png) right 1px no-repeat; padding: 0 17px 0 0;}
-#hoverMenuSubmit ul li.upper input.popup_text_box {
-	background: url(images/popup_text_bg.png) 0 0 no-repeat;
-	width: 193px;
-	padding: 4px 14px 1px 9px;
-	border: 0;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	height: 16px;
-	color: #333;
-	overflow: hidden;
-	margin: 5px 0px 0 0;
-	float: right;
-	display: inline;
-}
-
-#hoverMenuSubmit ul li.upper textarea.popup_text_area {
+#hoverMenuSubmit ul li.upper textarea {
 	background: url(images/popup_textarea_bg.png) 0 0 no-repeat;
 	width: 306px;
 	padding: 4px 14px 1px 9px;

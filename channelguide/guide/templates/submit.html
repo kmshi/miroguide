@@ -16,11 +16,16 @@ See LICENSE for details.
     </h5>
   </div>
   <form method="POST" action="{% block url %}{% endblock %}">
-    <div class="upper">
+    <ul>
+      <li class="upper">
       {% block upper %}{% endblock %}
-    </div>
+      </li>
+    </ul>
     <div class="bottom">
-      {% block bottom %}{% endblock %}
+      <p>
+        {% block bottom %}{% endblock %}
+        <span class="required">*required</span>
+      </p>
     </div>
   </form>
 </div>
