@@ -119,12 +119,20 @@ function searchPageShow(e) {
 function submitAChannel(submitLink) {
     console.log(submitLink);
     url = submitLink.attr('href');
-    console.log(url)
     hoverMenuSubmit = $('<div id="hoverMenuSubmit"></div>');
     $("#hover_align").append(hoverMenuSubmit);
     hoverMenuSubmit.load(url + ' #submit > *',
                          function() {
-                             $('#hoverMenuLogin').hide();});
+                             $('#hoverMenuLogin').hide();
+                             $('#hoverMenuSubmit form').ajaxForm(
+                                 showNewSubmitForm);});
+}
+
+function showNewSubmitForm(data, textStatus) {
+    submit = $('div.top, form, div.bottom', data);
+    submit.find('h2').remove();
+    submit.find('form').ajaxForm(showNewSubmitForm);
+    $('#hoverMenuSubmit').empty().append(submit);
 }
 
 $(document).ajaxStart(function() {

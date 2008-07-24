@@ -1032,7 +1032,7 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	margin: -1px 0 0 422px;
 	z-index: 100;
 }
-#hoverMenuSubmit ul {
+#hoverMenuSubmit > form > ul {
 	list-style: none;
 	margin: 0;
 	padding: 0 24px 0 31px;
