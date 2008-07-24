@@ -42,13 +42,13 @@ h1, h2, h3, h4, h5 {font-weight: normal;}
 #container > div {
 	float: left;
 	display: inline;
-	width: 501px;
-        padding-left: 16px;
+        padding-left: 22px;
 }
 #sideBar {
 	float: right;
 	display: inline;
 	width: 261px;
+	margin-left:-10px;
 }
 
 #topBar {
@@ -65,6 +65,7 @@ h1, h2, h3, h4, h5 {font-weight: normal;}
 	height: 25px;
 	width: 100%;
 	border-bottom: 1px solid #414141;
+	padding-left: 4px;
 }
 #topBarLower .page {
     padding-left: 10px;
@@ -805,7 +806,7 @@ ul#lowerMenu {
 	height: 25px;
 	list-style: none;
 	margin: 0;
-	padding: 0;
+	padding:0pt 35px 0pt 0pt;
 }
 ul#lowerMenu li {
 	height: 25px;
@@ -849,6 +850,7 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	position: relative;
 	z-index: 3;
 	margin: -33px 0 0 0;
+	padding-right:20px;
 }
 #searchSpot input {
 	background: url(images/top_bar_search.png) 0 0 no-repeat;
