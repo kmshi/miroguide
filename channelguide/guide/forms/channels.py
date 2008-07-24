@@ -306,6 +306,14 @@ class SubmitChannelForm(Form):
         self.fields['languages'].update_choices()
         self.fields['categories'].update_choices()
 
+    def clean_website_url(self):
+        value = self.cleaned_data['website_url']
+        if self.cleaned_data.get('url'):
+            return value
+        if Channel.query(website_url=value).count(self.connection) > 0:
+            raise forms.ValidationError('That streaming site already exists.')
+        return value
+
     def set_defaults(self, saved_data):
         for key in ('name', 'website_url', 'publisher', 'description'):
             if saved_data.get(key) is not None:
