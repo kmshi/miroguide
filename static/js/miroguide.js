@@ -132,7 +132,6 @@ function showHelpText(help, event) {
 }
 
 function submitAChannel(submitLink) {
-    console.log(submitLink);
     url = submitLink.attr('href');
     hoverMenuSubmit = $('<div id="hoverMenuSubmit"></div>');
     $("#hover_align").append(hoverMenuSubmit);
