@@ -124,7 +124,7 @@ function showHelpText(help, event) {
     display = $("<div class='help_box'><div class='help_box_top'><a href='#' class='close'><img src='" + closeImg + "' alt='Close'></a><span>" + name + "</span></div><div class='help_box_inner'><p>" + text + "</p></div><div class='help_box_bottom'></div></div>");
     display.css('position', 'absolute').css('top',
                                             event.pageY - 31).css('left',
-                                                               event.pageX);
+                                                                  event.pageX);
     display.find('.close').click(function() {
         display.remove();
         return false;
@@ -145,13 +145,18 @@ function submitAChannel(submitLink) {
 
 function showNewSubmitForm(data, textStatus) {
     submit = $('div.top, form[method=post]', data);
-    if (submit.length < 2)
-        return $('body').empty().append(data);
+    if (submit.length < 2) {
+        if ($('.submit-thanks-page', data).length) {
+            window.location.href = '/submit/after';
+            return false;
+        } else {
+            return $('body').empty().append(data);
+        }
+    }
     submit.find('h2').remove();
     submit.eq(1).ajaxForm(showNewSubmitForm);
     $('#hoverMenuSubmit').empty().append(submit);
 }
-
 $(document).ajaxStart(function() {
     showLoadIndicator(true);
 }).ajaxStop(function() {

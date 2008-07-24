@@ -42,7 +42,8 @@ def submit_feed(request):
 def check_session_key(function):
     def check(request, *args, **kw):
         if SESSION_KEY not in request.session:
-            return util.redirect('submit/step1')
+            return util.redirect('submit')
+        print request.session
         return function(request, *args, **kw)
     return check
 
@@ -79,6 +80,7 @@ def submit_channel(request):
             feed_url = request.session[SESSION_KEY]['url']
             channel = form.save_channel(request.user, feed_url)
             request.session[SESSION_KEY]['subscribe'] = channel.get_subscription_url()
+            request.session.modified = True
             return util.redirect("submit/after")
         else:
             form.save_submitted_thumbnail()
@@ -92,8 +94,9 @@ def submit_channel(request):
 @login_required
 @check_session_key
 def after_submit(request):
-    subscribe = request.session[SESSION_KEY]['subscribe']
-    destroy_submit_url_session(request)
+    subscribe = request.session[SESSION_KEY].get('subscribe')
+    if not subscribe:
+        return util.redirect('submit')
     def img(url):
         return "<img src='%s' alt='Miro Video Player' border='0' class='one-click-image' />" % url
     def link(inside):
