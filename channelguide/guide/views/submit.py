@@ -3,6 +3,7 @@ from django.conf import settings
 from channelguide import util
 from channelguide.guide import forms
 from channelguide.guide.auth import login_required
+from channelguide.guide.models import Channel
 
 SESSION_KEY = 'submitted-feed'
 
@@ -20,6 +21,18 @@ def submit_feed(request):
         if form.is_valid():
             request.session[SESSION_KEY] = form.get_feed_data()
             return util.redirect("channels/submit/step2")
+        else:
+            for error in form.error_list():
+                if (error['name'] == 'RSS Feed' and
+                    'is already a channel in the guide' in error['message']):
+                    url = form.data['url'].strip()
+                    try:
+                        channel = Channel.query(url=url).get(request.connection)
+                    except LookupError:
+                        raise # not sure what to do here
+                    return util.render_to_response(request,
+                                                   'submit-feed-exists.html',
+                                                   {'channel': channel})
     return util.render_to_response(request, 'submit-feed-url.html', 
             {'form': form})
 

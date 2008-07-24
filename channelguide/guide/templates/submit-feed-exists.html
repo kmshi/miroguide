@@ -1,0 +1,24 @@
+{% extends 'submit.html' %}
+{% comment %}
+Copyright (c) 2008 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load i18n cg_helpers %}
+{% block top %}It's Already Here!{% endblock %}
+{% block url %}{{ BASE_URL }}submit/claim{% endblock %}
+{% block upper %}
+  <div class="form_row">
+    <strong>We Got It: </strong>
+    {{ channel.name_as_link }}
+  </div
+  <div>Are you the creator of this channel?
+{% endblock %}
+{% block bottom %}
+<button class="fr" type="submit">
+  <span>It's not Mine!</span>
+</button>
+<span class="fr">  or  </span>
+<button class="fr" type="submit">
+  <span>Yes, Let me Claim it</span>
+</button>
+{%endblock%}
