@@ -24,7 +24,7 @@ to your account and click the 'My Submitted Channels' link.
 
 <h1>{% trans "Add a 1-Click Subscribe Button to Your Website" %}</h1>
     <div id="one-click-example">
-        <img src="/images/1click-example.jpg">
+        <img src="{{ STATIC_BASE_URL }}images/1click-example.jpg">
         <span>{% trans 'Visit <a href="http://webbalert.com/">webbalert.com</a> to see a real 1-click button in action' %}</span>
     </div>
     <p>{% blocktrans %}The buttons below point to the feed you've just submitted-- just
@@ -35,6 +35,15 @@ your channel.{% endblocktrans %}</p>
 content on an ongoing basis. If you have any questions about the
 buttons, email: channels [at] pculture [d] org.{% endblocktrans %}</p>
     <div class="one-click-button">
-    {% autoescape off %}{{ html }}{% endautoescape %}
+      <ul>
+        <form name="buttoncode">
+            {% for button in buttons %}
+               <li>{% autoescape off %}{{ button }}{% endautoescape %}
+                 <span>html:<input size="40" name="btn{{ forloop.counter0 }}" value="{% autoescape on %}{{ button }}{% endautoescape %}" onclick="document.buttoncode.btn{{ forloop.counter0 }}.select();" /></span>
+               </li>
+            {% endfor %}
+         </form>
+         <li><h3><a href="{{ subscribe }}">Your 1-Click Subscribe URL</a></h3></li>
+       </ul>
     </div>
 {%endblock%}
