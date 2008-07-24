@@ -116,6 +116,21 @@ function searchPageShow(e) {
     $("#searchSpot input").val('Search');
 }
 
+function showHelpText(help, event) {
+    name = $.trim(help.parent().parent().children('label').text());
+    text = help.next().text();
+    closeImg = help.attr('src').replace('ico_question', 'ico_close2');
+    $(".help_box").remove();
+    display = $("<div class='help_box'><div class='help_box_top'><a href='#' class='close'><img src='" + closeImg + "' alt='Close'></a><span>" + name + "</span></div><div class='help_box_inner'><p>" + text + "</p></div><div class='help_box_bottom'></div></div>");
+    display.css('position', 'absolute').css('top',
+                                            event.clientY - 31).css('left',
+                                                               event.clientX);
+    display.find('.close').click(function() {
+        display.remove();
+    });
+    $("body").append(display);
+}
+
 function submitAChannel(submitLink) {
     console.log(submitLink);
     url = submitLink.attr('href');

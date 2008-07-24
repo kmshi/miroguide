@@ -1132,7 +1132,56 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	padding: 3px 0 0 0;
 	width: 178px;
 }
+/*Help box*/
+.help_box {
+	width: 238px;
+        z-index: 100;
+}
+.help_box_top {
+	width: 238px;
+	height: 30px;
+	background: url(images/help_box_top.png) 0 0 no-repeat;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 10px 0 0 0;
+	color: #3b3b3b;
+}
+.help_box_top span {display: block; text-align: center;}
+.help_box_top a.close {position: absolute; margin: 0 0 0 214px;}
 
+.help_box_inner {
+	color: #3b3b3b;
+	width: 188px;
+	padding: 0 18px 4px 22px;
+	background: url(images/help_box.png) top left repeat-y;
+	margin: 0 0 0 12px;
+	font-size: 1px;
+	overflow: hidden;
+	height: 100%;
+}
+.help_box_inner p {
+	margin: 0;
+	padding: 0;
+	font-size: 11px;
+	line-height: 16px;
+}
+.help_box_inner p.more_info {
+	margin: 5px 0 0 0;
+	text-align: center;
+}
+.help_box_inner p.more_info a {
+	color: #999999;
+	position: relative;
+	z-index: 1;
+}
+
+.help_box_bottom {
+	width: 226px;
+	height: 11px;
+	background: url(images/help_box_bottom.png) 0 0 no-repeat;
+	margin: 0 0 0 12px;
+	font-size: 1px;
+}
 
 /*****************************************************
 	Buttons, images, etc.
