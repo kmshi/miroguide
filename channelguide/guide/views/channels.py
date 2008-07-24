@@ -297,7 +297,7 @@ def filtered_listing(request, value=None, filter=None, limit=10,
     if not channels:
         raise Http404
     if page == 1:
-        intro = 'First %i' % limit
+        intro = 'First %i' % len(channels)
     else:
         intro = '%i - %i' % (page * limit - limit + 1, min(page * limit, count))
     if (page * limit) >= count:
