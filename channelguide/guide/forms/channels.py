@@ -39,6 +39,8 @@ HD_HELP_TEXT = HELP_FORMAT % \
 class RSSFeedField(WideCharField):
     def clean(self, value):
         url = super(RSSFeedField, self).clean(value)
+        if not url and not self.required:
+            return None
         url = url.strip()
         if url.startswith('feed:'):
             url = url.replace('feed:', 'http:', 1)
