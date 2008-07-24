@@ -155,7 +155,7 @@ def on_channel_record_insert(record):
 @decorator_from_middleware(ChannelCacheMiddleware)
 def show(request, id, featured_form=None):
     query = Channel.query()
-    query.join('categories', 'tags', 'owner', 'last_moderated_by', 'rating')
+    query.join('categories', 'tags', 'rating')
     if request.user.is_supermoderator():
         query.join('featured_queue', 'featured_queue.featured_by')
     item_query = Item.query(channel_id=id).join('channel').order_by('date', desc=True).limit(4)

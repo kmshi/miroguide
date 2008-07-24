@@ -55,6 +55,12 @@ def button_large(channel):
 
 @register.inclusion_tag('guide/edit-bar.html', takes_context=True)
 def edit_bar(context, channel, show_script=True):
+    channel.join('owner', 'last_moderated_by').execute(
+        context['request'].connection)
+    if channel.last_moderated_by_id == channel.owner_id and \
+           channel.last_moderated_by is None:
+        # work around bug in sqlhelper
+        channel.last_moderated_by = channel.owner
     return {'channel': channel,
             'request': context['request'],
             'user': context['request'].user,
