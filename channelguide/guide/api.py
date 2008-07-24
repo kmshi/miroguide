@@ -65,6 +65,11 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None,
             query.where(Channel.c.hi_def)
         else:
             query.where(Channel.c.hi_def.negate())
+    elif filter == 'feed':
+        if value:
+            query.where(Channel.c.url.is_not(None))
+        else:
+            query.where(Channel.c.url.is_(None))
     elif filter == 'name':
         if value:
             query.where(Channel.c.name.like(value + '%'))

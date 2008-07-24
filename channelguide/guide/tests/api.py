@@ -507,7 +507,7 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
 
     def test_get_channels_filter_hd(self):
         """
-        api.get_channeles(connection, 'hd', True) should return a list of
+        api.get_channels(connection, 'hd', True) should return a list of
         Channels that are high-def.  False should return a list of Channels
         that are not high-def.
         """
@@ -518,6 +518,21 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         self.assertEquals(objs[0].id, self.channels[1].id)
 
         objs2 = api.get_channels(self.connection, 'hd', False)
+        self.assertEquals(len(objs2), 1)
+        self.assertEquals(objs2[0].id, self.channels[0].id)
+
+    def test_get_channels_filter_feed(self):
+        """
+        api.get_channels(connection', 'feed', True) should return Channels that
+        have a feed.  False should return a list of Channels that do not.
+        """
+        self.channels[1].url = None
+        self.channels[1].save(self.connection)
+        objs = api.get_channels(self.connection, 'feed', False)
+        self.assertEquals(len(objs), 1)
+        self.assertEquals(objs[0].id, self.channels[1].id)
+
+        objs2 = api.get_channels(self.connection, 'feed', True)
         self.assertEquals(len(objs2), 1)
         self.assertEquals(objs2[0].id, self.channels[0].id)
 
