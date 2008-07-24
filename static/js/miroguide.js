@@ -123,10 +123,11 @@ function showHelpText(help, event) {
     $(".help_box").remove();
     display = $("<div class='help_box'><div class='help_box_top'><a href='#' class='close'><img src='" + closeImg + "' alt='Close'></a><span>" + name + "</span></div><div class='help_box_inner'><p>" + text + "</p></div><div class='help_box_bottom'></div></div>");
     display.css('position', 'absolute').css('top',
-                                            event.clientY - 31).css('left',
-                                                               event.clientX);
+                                            event.pageY - 31).css('left',
+                                                               event.pageX);
     display.find('.close').click(function() {
         display.remove();
+        return false;
     });
     $("body").append(display);
 }
