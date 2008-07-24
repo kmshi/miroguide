@@ -7,7 +7,9 @@
 	<div id="channelInfo">
 		<div class="page">
 			<h1>{{ channel.name }}</h1>
-			<a href="#" class="channel_feed_only"><img src="{{ STATIC_BASE_URL }}images/buttons/feed_only.png" height="18" width="84" alt="" /></a>
+                        {% if channel.url %}
+			<a href="{{ channel.url }}" class="channel_feed_only"><img src="{{ STATIC_BASE_URL }}images/buttons/feed_only.png" height="18" width="84" alt="" /></a>
+                        {% endif %}
                         {% button_large channel %}
                         <div id="rateTag">
                           <span>Rate:</span>
