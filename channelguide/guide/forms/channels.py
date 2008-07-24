@@ -238,7 +238,7 @@ class ChannelThumbnailWidget(forms.Widget):
             raise
 
     def resize_submitted_thumb(self):
-        width, heigh = Channel.THUMBNAIL_SIZES[-1]
+        width, height = Channel.THUMBNAIL_SIZES[-1]
         temp_dir = os.path.join(settings.MEDIA_ROOT, 'tmp')
         source = os.path.join(temp_dir, self.submitted_thumb_path)
         dest = os.path.join(temp_dir, self.submitted_thumb_path_resized())
