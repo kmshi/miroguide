@@ -57,7 +57,7 @@ def submit_channel(request):
     """
 
     if not SESSION_KEY in request.session:
-        return util.redirect('channels/submit/step1')
+        return util.redirect('submit/step1')
     session_dict = request.session[SESSION_KEY]
     if request.method != 'POST':
         form = forms.SubmitChannelForm(request.connection)
@@ -74,7 +74,10 @@ def submit_channel(request):
             feed_url = request.session[SESSION_KEY]['url']
             form.save_channel(request.user, feed_url)
             destroy_submit_url_session(request)
-            return util.redirect(settings.BASE_URL_FULL + "channels/submit/after?%s" % feed_url)
+            redirect = settings.BASE_URL_FULL + "submit/after"
+            if feed_url:
+                redirect += "?%s" % feed_url
+            return util.redirect(redirect)
         else:
             form.save_submitted_thumbnail()
     context = form.get_template_data()
