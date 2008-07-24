@@ -10,7 +10,7 @@ See LICENSE for details.
     {% else %}
     {{ field.label_tag|linebreaksbr }}
     {% endif %}{% endautoescape %}
-    {% if field.field.required %}{% ifequal request.path "/accounts/login" %}{%else%}*{% endifequal %}{% endif %}&nbsp;
+    {% if field.field.required %}{% ifequal request.path "/accounts/login" %}{%else%}*{% endifequal %}{% endif %}
 {{ field }}
 {% if field.field.help_text %}
 <div class="help-text">{% autoescape off %}{{ field.field.help_text }}{% endautoescape %}</div>
