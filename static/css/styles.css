@@ -596,7 +596,7 @@ ul.info li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13p
 
 #channelWebsite {
 	background: url(images/channel_website_bg.png) 0 0 repeat-x;
-        height: 31px;
+        height: 100%;
 }
 
 #channelWebsite iframe {
