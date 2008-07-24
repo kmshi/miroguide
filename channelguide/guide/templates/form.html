@@ -4,11 +4,9 @@ See LICENSE for details.
 {% endcomment %}
 {% load cg_helpers i18n %}
 {% show_form_errors form %}
-<ul class="form-inputs">
-    {% for field in form.field_list %}
-    <li class="id_{{ field.name }}">{% show_form_field field %}</li>
-    {% endfor %}
-</ul>
+  {% for field in form.field_list %}
+  <div class="form_row">{% show_form_field field %}</div>
+  {% endfor %}
 {% for field in form.hidden_field_list %}
 {{ field }}
 {% endfor %}

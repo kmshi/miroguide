@@ -962,7 +962,7 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	font-size: 12px;
 	font-weight: bold;
 }
-#hoverMenuLogin ul li input.login_text_box {
+#hoverMenuLogin ul li input[type=text], #hoverMenuLogin ul li input[type=password] {
 	background: url(images/login_text_bg.png) 0 0 no-repeat;
 	width: 130px;
 	padding: 4px 14px 1px 9px;

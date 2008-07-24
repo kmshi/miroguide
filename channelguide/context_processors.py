@@ -3,6 +3,7 @@
 
 from django.conf import settings
 from channelguide import util
+from channelguide.guide.forms import LoginForm, RegisterForm
 import sha, os
 
 def guide(request):
@@ -10,7 +11,7 @@ def guide(request):
     template context.
     """
 
-    return {
+    context = {
         'DEBUG': settings.DEBUG,
         'BASE_URL': settings.BASE_URL,
         'STATIC_BASE_URL': settings.STATIC_BASE_URL,
@@ -20,3 +21,7 @@ def guide(request):
         'user': request.user,
         'total_channels': request.total_channels,
         }
+    if not request.user.is_authenticated():
+        context['login'] = LoginForm(request)
+        context['register'] = RegisterForm(request)
+    return context

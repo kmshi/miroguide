@@ -1,3 +1,4 @@
+{% load cg_helpers %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -88,14 +89,7 @@ function toggleMenu(el) {$('#' + el).toggle(); return false;}
               <li id="login">
                 <form method="POST" action="{{ BASE_URL }}accounts/login">
                   <input type="hidden" name="which-form" value="login" />
-                  <div class="form_row">
-                    <label for="username">Username</label>
-                    <input type="text" class="login_text_box" id="username" name="username"/>
-                  </div>
-                  <div class="form_row">
-                    <label for="password">Password</label>
-                    <input type="password" class="login_text_box" id="password" name="password"/>
-                  </div>
+                  {% show_form login %}
                   <div class="form_row">
                     <a class="forgot_password" href="{{ BASE_URL }}accounts/forgot-password">Forgot password</a>
                     <button class="fr" type="submit"><span>Login</span></button>
@@ -105,22 +99,7 @@ function toggleMenu(el) {$('#' + el).toggle(); return false;}
               <li id="registerHidden">
                 <form method="POST" action="{{ BASE_URL }}accounts/login">
                   <input type="hidden" name="which-form" value="register"/>
-                  <div class="form_row">
-                    <label for="username">Username</label>
-                    <input type="text" class="login_text_box" id="username" name="newusername"/>
-                  </div>
-                  <div class="form_row">
-                    <label for="email">E-mail</label>
-                    <input type="text" class="login_text_box" id="email" name="email"/>
-                  </div>
-                  <div class="form_row">
-                    <label for="newpassword">Password</label>
-                    <input type="password" class="login_text_box" id="newpassword" name="newpassword"/>
-                  </div>
-                  <div class="form_row">
-                    <label for="newpassword2">Confirm</label>
-                    <input type="password" class="login_text_box" id="newpassword2" name="newpassword2"/>
-                  </div>
+                  {% show_form register %}
                   <div class="form_row">
                     <button class="fr" type="submit"><span>Register!</span></button>
                   </div>

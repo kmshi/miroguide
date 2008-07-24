@@ -4,3 +4,4 @@
 from channels import SubmitChannelForm, EditChannelForm, FeedURLForm, FeaturedEmailForm, StreamingURLForm
 from misc import EmailChannelOwnersForm
 from cobranding import CobrandingAdminForm
+from user import LoginForm, RegisterForm
