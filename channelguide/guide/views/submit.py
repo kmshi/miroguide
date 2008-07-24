@@ -36,10 +36,18 @@ def submit_feed(request):
                     return util.render_to_response(request,
                                                    'submit-feed-exists.html',
                                                    {'channel': channel})
-    return util.render_to_response(request, 'submit-feed-url.html', 
+    return util.render_to_response(request, 'submit-feed-url.html',
             {'form': form})
 
+def check_session_key(function):
+    def check(request, *args, **kw):
+        if SESSION_KEY not in request.session:
+            return util.redirect('submit/step1')
+        return function(request, *args, **kw)
+    return check
+
 @login_required
+@check_session_key
 def submit_channel(request):
     """
     Called when the user is submitting a channel.  If the SESSION_KEY
@@ -55,9 +63,6 @@ def submit_channel(request):
     post-submission page.  Otherwise, redisplay the form with the errors
     highlighted.
     """
-
-    if not SESSION_KEY in request.session:
-        return util.redirect('submit/step1')
     session_dict = request.session[SESSION_KEY]
     if request.method != 'POST':
         form = forms.SubmitChannelForm(request.connection)
@@ -65,19 +70,17 @@ def submit_channel(request):
         session_dict['detected_thumbnail'] = form.set_image_from_feed
         request.session.modified = True
     else:
-        form = forms.SubmitChannelForm(request.connection, 
+        form = forms.SubmitChannelForm(request.connection,
                 util.copy_post_and_files(request))
         if form.user_uploaded_file():
             session_dict['detected_thumbnail'] = False
             request.session.modified = True
         if form.is_valid():
             feed_url = request.session[SESSION_KEY]['url']
-            form.save_channel(request.user, feed_url)
+            channel = form.save_channel(request.user, feed_url)
+            request.session[SESSION_KEY]['subscribe'] = channel.get_subscription_url()
             destroy_submit_url_session(request)
-            redirect = settings.BASE_URL_FULL + "submit/after"
-            if feed_url:
-                redirect += "?%s" % feed_url
-            return util.redirect(redirect)
+            return util.redirect(settings.BASE_URL_FULL + "submit/after")
         else:
             form.save_submitted_thumbnail()
     context = form.get_template_data()
@@ -87,27 +90,21 @@ def submit_channel(request):
         context['thumbnail_description'] = _("Current image (uploaded)")
     return util.render_to_response(request, 'submit-channel.html', context)
 
+@login_required
+@check_session_key
 def after_submit(request):
-    url = request.META.get('QUERY_STRING')
-    subscribe = util.get_subscription_url(url)
+    subscribe = request.session[SESSION_KEY]['subscribe']
+    def img(url):
+        return "<img src='%s' alt='Miro Video Player' border='0' class='one-click-image' />" % url
     def link(inside):
         return "<a href='%s' title='Miro: Internet TV'>%s</a>" % (subscribe, inside)
     textLink = '%s' % link("Your 1-Click Subscribe URL")
     buttons = [
         'http://subscribe.getmiro.com/img/buttons/one-click-subscribe-88X34.png',
         'http://subscribe.getmiro.com/img/buttons/one-click-subscribe-109X34.png']
-    html = ['<ul><form name="buttoncode">']
-    for button in buttons:
-        img = "<img src='%s' alt='Miro Video Player' border='0' id='one-click-image' />" % button
-        buttonLink = link(img)
-        inputName = "btn%i" % len(html)
-        wholeButton = '<li>%s<li><span>html:</span><input size="40" id="one-click-link" name="%s" value="%s" onClick="document.buttoncode.%s.select();">' % (img, inputName, buttonLink, inputName)
-        html.append(wholeButton)
-    html.append('</form>')
-    html.append('<li><h3>' + textLink + '</h3>')
-    html.append('</ul>')
+    buttonHTML = [link(img(url)) for url in buttons]
     context = {
-            'html' : ''.join(html),
-            'url': url,
-            }
+        'buttons': buttonHTML,
+        'subscribe': subscribe,
+        }
     return util.render_to_response(request, 'after-submit.html', context)
