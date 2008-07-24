@@ -1107,7 +1107,7 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 }
 #hoverMenuSubmit ul.form-input-triplet {
     list-style-type: none;
-    float: left;
+    float: right;
 }
 #hoverMenuSubmit .bottom {
 	width: 409px;
@@ -1130,10 +1130,10 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 #hoverMenuSubmit .upper a:hover {color: white; text-decoration: none;}
 
 #hoverMenuSubmit select {
-	font-size: 16px;
+	font-size: 11px;
 	height: 26px;
 	padding: 3px 0 0 0;
-	width: 178px;
+	width: 14em;
 }
 /*Help box*/
 .help_box {
