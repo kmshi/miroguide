@@ -19,8 +19,11 @@ def submit_feed(request):
     else:
         form = forms.FeedURLForm(request.connection, request.POST.copy())
         if form.is_valid():
-            request.session[SESSION_KEY] = form.get_feed_data()
-            return util.redirect("channels/submit/step2")
+            if form.cleaned_data['url']:
+                request.session[SESSION_KEY] = form.get_feed_data()
+            else:
+                request.session[SESSION_KEY] = form.cleaned_data
+            return util.redirect("submit/step2")
         else:
             for error in form.error_list():
                 if (error['name'] == 'RSS Feed' and

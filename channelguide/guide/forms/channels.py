@@ -25,14 +25,18 @@ from form import Form
 
 HELP_FORMAT = '<strong>%s</strong> %s'
 HD_HELP_TEXT = HELP_FORMAT % \
-        (_('What is HD?'), 
+        (_('What is HD?'),
         _("""Material that is roughly 640x480 non-interlaced, and higher, can
         be marked as HD. This basically translates to DVD quality (without a
         lot of ugly compression artifacts) or better. Roughly 80% of the
         material on the channel must meet this criteria for it to be considered
         HD.  Note: you are welcome to have an HD and non-HD version of the same
         channel """))
-
+RSS_HELP_TEXT = "An RSS feed is what makes a podcast a "
+"podcast. It's a special URL that applications like "
+"Miro and iTunes check periodically to know when there "
+"is a new video for a channel. Video RSS feeds are "
+"strongly recommended for Miro."
 
 class RSSFeedField(WideCharField):
     def clean(self, value):
@@ -70,11 +74,14 @@ class RSSFeedField(WideCharField):
 class FeedURLForm(Form):
     name = WideCharField(max_length=200, label=_("Channel Name"))
     url = RSSFeedField(label=_("RSS Feed"), required=False,
-                       help_text="An RSS feed is what makes a podcast a "
-                       "podcast. It's a special URL that applications like "
-                       "Miro and iTunes check periodically to know when there "
-                       "is a new video for a channel. Video RSS feeds are "
-                       "strongly recommended for Miro.")
+                       help_text=RSS_HELP_TEXT)
+
+    def clean_name(self):
+        value = self.cleaned_data['name']
+        if Channel.query(name=value).count(self.connection) > 0:
+            raise forms.ValidationError('That channel already exists')
+        else:
+            return value
 
     def get_feed_data(self):
         data = {}
@@ -203,7 +210,7 @@ class ChannelThumbnailWidget(forms.Widget):
         if self.submitted_thumb_path is None:
             return None
         else:
-            return urljoin(settings.MEDIA_URL, 
+            return urljoin(settings.MEDIA_URL,
                 'tmp/%s' % self.submitted_thumb_path_resized())
 
     def save_submitted_thumbnail(self, data, name):
@@ -231,7 +238,7 @@ class ChannelThumbnailWidget(forms.Widget):
             raise
 
     def resize_submitted_thumb(self):
-        width, height = Channel.THUMBNAIL_SIZES[-1]
+        width, heigh = Channel.THUMBNAIL_SIZES[-1]
         temp_dir = os.path.join(settings.MEDIA_ROOT, 'tmp')
         source = os.path.join(temp_dir, self.submitted_thumb_path)
         dest = os.path.join(temp_dir, self.submitted_thumb_path_resized())
@@ -258,7 +265,7 @@ class ChannelThumbnailField(forms.Field):
             if not ext:
                 raise forms.ValidationError('Not an image in a format we support.')
             return value
-        
+
 def try_to_download_thumb(url):
     try:
         return urllib2.urlopen(url).read()
@@ -267,9 +274,12 @@ def try_to_download_thumb(url):
 
 class SubmitChannelForm(Form):
     name = WideCharField(max_length=200, label=_("Channel Name"))
+    url = RSSFeedField(label=_("Feed URL"), max_length=200,
+                      help_text=RSS_HELP_TEXT, required=False)
     website_url = WideURLField(label=_('Website URL'), max_length=200)
-    description = WideCharField(widget=forms.Textarea, 
+    description = WideCharField(widget=forms.Textarea,
             label=_("Full Description"))
+    publisher = forms.EmailField(label=_("Publisher E-mail"), max_length=100)
     tags = TagField(tag_limit=5, required=False,
             label=_('Tags') + ' <span>' + _('(up to 5)') + '</span>',
             help_text=_('Keywords that describe this channel.  Separate each '
@@ -277,10 +287,9 @@ class SubmitChannelForm(Form):
     categories = TripletField(CategoriesField, label=_("Categories"))
     languages = TripletField(LanguageField, label=_("Languages"),
             help_text=_("What language are most of these videos in?"))
-    publisher = WideCharField(max_length=100)
     postal_code = WideCharField(max_length=15, label=_("Postal Code"),
             required=False)
-    hi_def = forms.BooleanField(label=_('High Definition'), 
+    hi_def = forms.BooleanField(label=_('High Definition'),
             help_text=HD_HELP_TEXT, required=False)
     thumbnail_file = ChannelThumbnailField(label=_('Upload Image'))
 
@@ -308,8 +317,8 @@ class SubmitChannelForm(Form):
                     self.set_image_from_feed = True
 
     def get_template_data(self):
-        return { 
-            'form': self, 
+        return {
+            'form': self,
             'submitted_thumb_url':
                 self.fields['thumbnail_file'].widget.get_url(),
         }
@@ -389,7 +398,7 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
 
     def __init__(self, request, channel, data=None):
         # django hack to get fields to work right with subclassing
-        #self.base_fields = SubmitChannelForm.base_fields 
+        #self.base_fields = SubmitChannelForm.base_fields
 
         super(EditChannelForm, self).__init__(request.connection, data)
         self.channel = channel

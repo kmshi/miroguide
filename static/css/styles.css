@@ -1105,7 +1105,10 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	float: right;
 	display: inline;
 }
-
+#hoverMenuSubmit ul.form-input-triplet {
+    list-style-type: none;
+    float: left;
+}
 #hoverMenuSubmit .bottom {
 	width: 409px;
 	height: 66px;
