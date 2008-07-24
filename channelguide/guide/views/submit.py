@@ -24,19 +24,6 @@ def submit_feed(request):
             {'form': form})
 
 @login_required
-def submit_streaming(request):
-    destroy_submit_url_session(request)
-    if request.method != 'POST':
-        form = forms.StreamingURLForm(request.connection)
-    else:
-        form = forms.StreamingURLForm(request.connection, request.POST.copy())
-        if form.is_valid():
-            request.session[SESSION_KEY] = form.get_feed_data()
-            return util.redirect("channels/submit/step2")
-    return util.render_to_response(request, 'submit-streaming-url.html',
-                                   {'form': form})
-
-@login_required
 def submit_channel(request):
     """
     Called when the user is submitting a channel.  If the SESSION_KEY
