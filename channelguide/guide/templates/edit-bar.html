@@ -37,12 +37,13 @@ See LICENSE for details.
 function editBoxLoad(){
     editBox = $(this);
     edit = editBox.prev();
+    console.log(editBox);
     editBox.find('.big-form').removeClass('big-form');
 
     editBox.append('<div class="clear"></div>')
     editBox.height(0).css('overflow', 'hidden').show();
-    editBox.find("li:lt(5)").each(function() {
-        var label = $(this).children("div label");
+    editBox.find("div.form_row:lt(6)").each(function() {
+        var label = $(this).children("label");
         var input = $(this).children("input");
         var textarea = $(this).children("textarea");
 	if (input) input.width($(this).width() - label.width() - 20);

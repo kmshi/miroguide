@@ -59,6 +59,14 @@ def search_channels(terms):
     query.order_by(search_score(search_data_table, terms), desc=True)
     return query
 
+def search_feeds(terms):
+    query = search_channels(terms)
+    return query.where(Channel.c.url.is_not(None))
+
+def search_shows(terms):
+    query = search_channels(terms)
+    return query.where(Channel.c.url.is_(None))
+
 def search_items(terms):
     terms = util.ensure_list(terms)
 #    terms = [t.encode('utf-8') for t in terms]

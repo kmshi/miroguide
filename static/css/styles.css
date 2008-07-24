@@ -39,7 +39,7 @@ h1, h2, h3, h4, h5 {font-weight: normal;}
 	padding: 17px 0 0;
 }
 
-#container > div {
+#container > div#content, #container > div:first-child {
 	float: left;
 	display: inline;
         padding-left: 22px;
@@ -497,18 +497,22 @@ ul.info li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13p
     width: auto;
 }
 
-.edit-box li.id_languages, .edit-box li.id_postal_code {
+.edit-box .id_languages, .edit-box .id_postal_code {
     margin-left: 20px;
 }
 
-.edit-box li.id_languages > div.label, .edit-box li.id_categories > div.label {
+.edit-box li.id_languages > div.label, .edit-box li.id_categories > label {
     float: none;
     margin-bottom: 5px;
 }
 
-.edit-box .form-input-triplet div.label {
+.edit-box .form-input-triplet label {
     width: 2em;
     text-align: center;
+}
+
+.edit-box ul.form-input-triplet {
+    list-style-type: none;
 }
 
 .edit-box li.id_publisher, .edit-box li.id_hi_def {
@@ -1129,7 +1133,7 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 #hoverMenuSubmit .upper a {color: white; text-decoration: underline;}
 #hoverMenuSubmit .upper a:hover {color: white; text-decoration: none;}
 
-#hoverMenuSubmit select {
+.form_row select {
 	font-size: 11px;
 	height: 26px;
 	padding: 3px 0 0 0;

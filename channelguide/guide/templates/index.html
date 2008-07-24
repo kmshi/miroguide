@@ -57,7 +57,7 @@ function animateFeatured() {
         $("#button_previous").css('cursor', 'pointer');
     } else {
         $("#button_previous").css('cursor', 'inherit');
-    }    
+    }
     li.parent().animate({left: -(currentFeature * featureWidth)}, 1500);
 }
 
@@ -78,7 +78,7 @@ $(document).ready(function() {
 					<h2>Guest Editor's Picks</h2>
 					<p>Hand-picked video by our lorem ipsum dolor sit amet, consectetuer adipiscing</p>
 					<p><a href="#">Become a Guest Editor!</a></p>
-					
+
 					<p class="userInfo">
 						<a href="#" class="tiny_thumbnail"><img src="{{ STATIC_BASE_URL}}images/editor_thumbnail.png" alt="" /></a>
 						<span class="username"><a href="#">ElDuderino78</a></span>
@@ -87,7 +87,7 @@ $(document).ready(function() {
 				</div><!--preamble-->
 				<div class="view_more_featured_videos"><a href="#">View Miro Featured Videos</a></div>
 			</div><!--guestEditorContent-->
-			
+
 			<!--Carousel-->
 			<div id="featuredItemsCarousel" class="smallCarousel">
 				<div id="button_previous"></div>
@@ -108,7 +108,7 @@ $(document).ready(function() {
 {% endcomment %}
 	<div id="featured">
 		<div class="page">
-			
+
 			<!--Carousel-->
 			<div id="featuredItemsCarousel" class="largeCarousel">
 				<div id="button_previous"></div>
@@ -125,7 +125,7 @@ $(document).ready(function() {
 			</div><!--featuredItemsCarousel-->
 		</div><!--page-->
 	</div><!--featured-->
-     
+
 	<div id="container">
 		<div>
 			<h3 class="title_bar"><span class="rss">New Feed Videos</span></h3>
@@ -136,7 +136,7 @@ $(document).ready(function() {
 				</li>
                           {% endfor %}
 			</ul>
-			
+
 			<h3 class="title_bar"><span class="streaming">New Streaming Videos</span></h3>
 			<ul class="videoFeed">
                           {% for channel in streaming %}
@@ -146,7 +146,7 @@ $(document).ready(function() {
                           {% endfor %}
 			</ul>
 		</div>
-		
+
 		<div id="sideBar">
 			<h3 class="widget_title_bar"><span class="favorite">Recommended for you</span></h3>
 			<div class="widget">
@@ -158,7 +158,7 @@ $(document).ready(function() {
                                   {% endfor %}
 				</ul>
 			</div><!--widget-->
-			<div class="widget_close"><a href="#"><span>View all</span></a></div>
+			<div class="widget_close"><a href="{{ BASE_URL }}recommend/"><span>View all</span></a></div>
 		</div>
 	</div><!--container-->
-{% endblock %}	
+{% endblock %}
