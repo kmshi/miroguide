@@ -74,7 +74,7 @@ function toggleMenu(el) {$('#' + el).toggle(); return false;}
               {% if user.channels %}
               <li><a href="{{ BASE_URL }}user/{{ user.username }}">Channels I Manage</a></li>
               {% endif %}
-              <li><a href="{{ BASE_URL }}submit">Submit a Channel</a></li>
+              <li><a href="{{ BASE_URL }}submit" onclick="submitAChannel($(this)); return false;">Submit a Channel</a></li>
             </ul>
               <div id="register">
                 <p><a href="{{ BASE_URL }}accounts/logout">

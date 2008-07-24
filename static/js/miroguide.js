@@ -116,6 +116,17 @@ function searchPageShow(e) {
     $("#searchSpot input").val('Search');
 }
 
+function submitAChannel(submitLink) {
+    console.log(submitLink);
+    url = submitLink.attr('href');
+    console.log(url)
+    hoverMenuSubmit = $('<div id="hoverMenuSubmit"></div>');
+    $("#hover_align").append(hoverMenuSubmit);
+    hoverMenuSubmit.load(url + ' #submit > *',
+                         function() {
+                             $('#hoverMenuLogin').hide();});
+}
+
 $(document).ajaxStart(function() {
     showLoadIndicator(true);
 }).ajaxStop(function() {
