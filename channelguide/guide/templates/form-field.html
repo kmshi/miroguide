@@ -5,13 +5,13 @@ See LICENSE for details.
 {% load i18n %}
 <div class="label">
     {% if field.errors %}<img src="{{ STATIC_BASE_URL }}images/form-error-arrow.png" alt="{% trans "Error" %}"> {% endif %}
-    {% if field.field.required %}{% ifequal request.path "/accounts/login" %}{%else%}*{% endifequal %}{% endif %}
     {% autoescape off %}
     {% if field.field.label %}
-    {{ field.field.label|linebreaksbr }}:
+    {{ field.field.label|linebreaksbr }}
     {% else %}
-    {{ field.label_tag|linebreaksbr }}:
-    {% endif %}{% endautoescape %}&nbsp;
+    {{ field.label_tag|linebreaksbr }}
+    {% endif %}{% endautoescape %}
+    {% if field.field.required %}{% ifequal request.path "/accounts/login" %}{%else%}*{% endifequal %}{% endif %}&nbsp;
 </div>
 {{ field }}
 {% if field.field.help_text %}
