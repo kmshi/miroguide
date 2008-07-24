@@ -65,6 +65,7 @@ $("#channelDetails h4").click(function() {
 		</div><!--page-->
 	</div><!--channelRelated-->
         {% endif %}
+        {% if items %}
         <div id="recentlyOnChannel">
           <div class="page">
             <h3>Recently On This Channel</h3>
@@ -73,4 +74,5 @@ $("#channelDetails h4").click(function() {
             {% endfor %}
           </div><!--page-->
 	</div>
+        {% endif %}
 {% endblock %}
