@@ -1016,6 +1016,16 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 #hoverMenuLogin #registerHidden, #hoverMenuLogin .form-errors {
     display: none;
 }
+#hoverMenuLogin.loggedin {
+    width: 16em;
+    margin-left: 543px;
+}
+#hoverMenuLogin.loggedin #register {
+    width: 16em;
+}
+#hoverMenuLogin.loggedin #register p {
+    width: 12em;
+}
 #hoverMenuLogin.loggedin ul {
     list-style: inside disc;
     padding: 0 0 0 31px;
@@ -1023,9 +1033,10 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 }
 #hoverMenuLogin.loggedin ul li, #hoverMenuLogin.loggedin ul li#login {
 	background: #b11f1f url(images/hover_menu2_inner_bg.png) 0 0 repeat-x;
-	width: 241px;
-	padding: 5px 20px;
+	width: 12em;
+	padding: 0 10px;
 	margin: 0;
+        font-weight: bold;
 	line-height: 30px;
 	border-bottom: 1px solid #9e1515;
         color: white;
