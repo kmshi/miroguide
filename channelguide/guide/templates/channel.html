@@ -33,7 +33,7 @@
    {% button_block channel %}
 {% endif %}
 {% if search %}{% else %}    <span class="title"><a href="{{ channel.get_url }}">{{ channel.name }}</a></span>{% endif %}
-{% if description %}    <span class="description">{{ channel.description }}</span>{% endif %}
+{% if description %}    <span class="description">{{ channel.description|striptags|urlize }}</span>{% endif %}
 {% if buttons_bottom %}
    {% button_block channel %}
 {% endif %}
