@@ -55,7 +55,7 @@ function toggleMenu(el) {$('#' + el).toggle(); return false;}
 				<li><a href="{{ BASE_URL }}languages/">Video by Language</a></li>
 				<li id="language"><a href="#" onmouseover="return showMenu('hoverMenuLanguage')" onmouseout="return hideMenu('hoverMenuLanguage')">Language</a></li>
 				<li id="account">
-                                <a href="{% if user.is_authenticated %}{{ user.get_url }}{% else %}{{ BASE_URL }}accounts/login{% endif %}" onmouseover="return showMenu('hoverMenuLogin')" onmouseout="return hideMenu('hoverMenuLogin')">Account</a>
+                                <a href="{% if user.is_authenticated %}{{ user.get_url }}{% else %}{{ BASE_URL }}accounts/login{% endif %}" onmouseover="return showMenu('hoverMenuLogin')" onmouseout="return hideMenu('hoverMenuLogin')">{% if user.is_authenticated %}{{ user.username }}{% else %}Account{% endif %}</a>
                                 </li>
 			</ul>
 		</div><!--page-->
