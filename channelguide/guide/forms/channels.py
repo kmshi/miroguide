@@ -78,6 +78,8 @@ class FeedURLForm(Form):
 
     def clean_name(self):
         value = self.cleaned_data['name']
+        if value == self.fields['name'].initial:
+            return value
         if Channel.query(name=value).count(self.connection) > 0:
             raise forms.ValidationError('That channel already exists')
         else:
@@ -309,6 +311,8 @@ class SubmitChannelForm(Form):
     def clean_website_url(self):
         value = self.cleaned_data['website_url']
         if self.cleaned_data.get('url'):
+            return value
+        if value == self.fields['website_url'].initial:
             return value
         if Channel.query(website_url=value).count(self.connection) > 0:
             raise forms.ValidationError('That streaming site already exists.')
