@@ -39,7 +39,7 @@ def get_featured_channels(request):
     query = Channel.query_approved(featured=1, archived=0, user=request.user)
     return query.order_by('RAND()').execute(request.connection)
 
-def get_new_channels(request, count):
+def get_new_channels(request, type, count):
     lang = get_current_language(request)
     if lang is not None:
         query = Channel.query_approved(user=request.user)
@@ -51,6 +51,11 @@ def get_new_channels(request, count):
     else:
         query = Channel.query_new(archived=0, user=request.user).load(
                 'item_count').limit(count *3)
+    if type:
+        query.where(Channel.c.url.is_not(None))
+    else:
+        query.where(Channel.c.url.is_(None))
+    print query
     query.join('categories')
 #    query.cacheable = cache.client
 #    query.cacheable_time = 3600
@@ -61,12 +66,12 @@ def index(request):
     if not request.user.is_authenticated():
         title = _("What is Miro?")
         desc = _("Miro is an easy way to subscribe and watch all of these shows.  Using it is 100% free.")
-        link = _("Download Miro")        
+        link = _("Download Miro")
         request.add_notification(None, '<span class="only-in-miro"><center>Rate channels to get <a href="/recommend/">personalized recommendations</a>!</center></span><span class="only-in-browser"><strong>%s</strong> %s <a href="http://www.getmiro.com/download">%s</a></span>' % (title, desc, link))
 
     context = {
-        'feed': get_new_channels(request, 4),
-        'streaming': get_new_channels(request, 4),
+        'feed': get_new_channels(request, True, 4),
+        'streaming': get_new_channels(request, False, 4),
         'featured': get_featured_channels(request),
         'recommended': [],
         }
@@ -74,5 +79,5 @@ def index(request):
         context['recommended'] = api.get_recommendations(request.connection,
                                                          request.user,
                                                          length=2)
-        
+
     return util.render_to_response(request, 'index.html', context)
