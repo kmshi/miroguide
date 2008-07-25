@@ -1,5 +1,5 @@
 <ul class="rating" average="{{ channel.rating.average}}" user="{{ rating.rating }}">
-  <li class="cancel {{ css_0 }}" ><a href="{{ channel.get_url }}rate?rating=0&referer={{ referrer|urlencode }}">Not Interested</a></li>
+  <li class="cancel {{ css_0 }}" ><a href="{{ channel.get_url }}/rate?rating=0&referer={{ referrer|urlencode }}">Not Interested</a></li>
   <li class="star {{ class }} {{ css_1 }}"><a href="{{ channel.get_url }}/rate?rating=1&referer={{ referrer|urlencode }}">I hate this channel</a></li>
   <li class="star {{ class }} {{ css_2 }}"><a href="{{ channel.get_url }}/rate?rating=2&referer={{ referrer|urlencode }}">I dislike this channel</a></li>
   <li class="star {{ class }} {{ css_3 }}"><a href="{{ channel.get_url }}/rate?rating=3&referer={{ referrer|urlencode }}">I like this channel</a></li>
