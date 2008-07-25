@@ -43,6 +43,7 @@ h1, h2, h3, h4, h5 {font-weight: normal;}
 	float: left;
 	display: inline;
         padding-left: 22px;
+        width: 501px;
 }
 #sideBar {
 	float: right;
