@@ -130,7 +130,7 @@ h1, h2, h3, h4, h5 {font-weight: normal;}
 	height: 221px;
 }
 .smallCarousel {width: 536px; float: right; display: inline;}
-.largeCarousel {width: 770px; margin: 0 auto;}
+.largeCarousel {width: 711px; margin: 0 auto;}
 
 #featuredItemsCarousel #innerContent {
 	background: url(images/featured_bg.png) 0 0 repeat-x;
@@ -141,7 +141,7 @@ h1, h2, h3, h4, h5 {font-weight: normal;}
         position: relative;
 }
 .smallCarousel #innerContent {width: 468px;}
-.largeCarousel #innerContent {width: 702px;}
+.largeCarousel #innerContent {width: 643px;}
 
 #featuredItemsCarousel #innerContent ul {
 	margin: 0;
@@ -154,7 +154,7 @@ h1, h2, h3, h4, h5 {font-weight: normal;}
 #featuredItemsCarousel #innerContent ul li {
 	height: 219px;
 	width: 215px;
-	padding: 0 10px;
+	padding: 0;
 	background: url(images/featured_separator.png) right center no-repeat;
 	float: left;
 	overflow: hidden;
@@ -172,6 +172,8 @@ h1, h2, h3, h4, h5 {font-weight: normal;}
 #featuredItemsCarousel #innerContent ul li span.title {
 	font-weight: bold;
 	font-size: 13px;
+        height: 13px;
+        overflow: hidden;
 	display: block;
 	padding: 2px 30px;
 }
@@ -813,7 +815,7 @@ ul#lowerMenu {
 	height: 25px;
 	list-style: none;
 	margin: 0;
-	padding:0pt 35px 0pt 0pt;
+	padding:0pt 8px 0pt 0pt;
 }
 ul#lowerMenu li {
 	height: 25px;
