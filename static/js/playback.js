@@ -21,7 +21,7 @@ function supportsMimeType(mimetype) {
 
 function setUpItem() {
     item = $(this);
-    download = item.children('a.download');
+    download = item.children('a.playback');
     mimetype = download.text();
     if (supportsMimeType(mimetype)) {
         item.children('.thumb').prepend('<div class="play_vid_overlay"></div>').parent().children('.thumb img').css('cursor', 'pointer').click(playVideo);
@@ -30,10 +30,6 @@ function setUpItem() {
 
 function playVideo() {
     item = $(this).parent('.details');
-    download = item.children('a.download');
-    url = download.attr('href');
-    console.log(url);
-    embed = $('<embed class="thumb" width="154" height="105"/>');
-    embed.attr('src', url);
-    item.children('.thumb').replaceWith(embed);
+    download = item.children('a.playback');
+    location.href = download.attr('href');
 }

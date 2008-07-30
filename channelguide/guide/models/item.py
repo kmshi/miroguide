@@ -22,6 +22,9 @@ class Item(Record, Thumbnailable):
             (200, 133),
     ]
 
+    def get_url(self):
+        return '/items/%i' % self.id
+
     def get_guid(self):
         try:
             return self.guid
