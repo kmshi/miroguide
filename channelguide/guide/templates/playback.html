@@ -6,9 +6,6 @@
     <a href="{{ item.channel.get_absolute_url }}">Back to {{ item.channel.name }}</a>
   </div>
   <script type="text/javascript">
-      function min(a, b) {
-          return a > b ? b : a;
-      }
-$("embed").width(min(window.innerWidth, 400)).height(window.innerHeight - 200);
+$("embed").width(window.innerWidth / 2).height(window.innerHeight / 2);
   </script>
 {% endblock %}
