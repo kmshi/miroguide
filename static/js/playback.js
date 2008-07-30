@@ -29,6 +29,10 @@ function setUpItem() {
 }
 
 function playVideo() {
+    if ($("#channelDetails .thumb .channel_hd").length) {
+        if (!confirm('Are you sure you want to stream this High-Definition video?'))
+            return;
+    }
     item = $(this).parent('.details');
     download = item.children('a.playback');
     location.href = download.attr('href');
