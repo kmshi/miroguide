@@ -828,10 +828,14 @@ ul.info li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13p
 	float: left;
 	display: inline;
 }
-#recentlyOnChannel .details.playable .thumb {
-    border: 2px solid red;
+#recentlyOnChannel .details .play_vid_overlay {
+    background: url(images/play_transparent.png);
+    width: 86px;
+    height: 66px;
+    margin:18px 0pt 0pt 34px;
+    position:absolute;
+    z-index:2;
 }
-
 #recentlyOnChannel .details .description {
 	padding: 0 0 0 20px;
 	width: 315px;
