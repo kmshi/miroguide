@@ -268,7 +268,7 @@ def show(request, id, featured_form=None):
     context = {
         'channel': c,
         'items': item_query.execute(request.connection),
-        'recommendations': get_recommendations(request, id),
+        'recommendations': get_recommendations(request, c),
         'show_edit_button': request.user.can_edit_channel(c),
         'show_extra_info': request.user.can_edit_channel(c),
         'link_to_channel': True,
@@ -357,24 +357,29 @@ def subscribe_hit(request, id):
             pass # ignore errors silently
     return HttpResponse("Hit successfull")
 
-def get_recommendations(request, id):
+def get_recommendations(request, channel):
     recSelect = Select('*')
     recSelect.froms.append('cg_channel_recommendations')
-    recSelect.wheres.append('channel1_id=%s OR channel2_id=%s' % (id, id))
+    recSelect.wheres.append('channel1_id=%s OR channel2_id=%s' % (
+        channel.id, channel.id))
     recSelect.wheres.append('cosine>=0.025')
     recSelect.order_by.append('cosine DESC')
     elements = recSelect.execute(request.connection)
-    recommendations = [e[0] == int(id) and e[1] or e[0] for e in elements]
+    recommendations = [e[0] == int(channel.id) and e[1] or e[0] for e in elements]
+    categories1 = set(channel.categories)
     channels = []
     for rec in recommendations:
         if len(channels) == 4:
             break
         try:
-            chan = Channel.get(request.connection, rec)
-        except Exception:
+            chan = Channel.query().join('categories').get(request.connection,
+                                                          rec)
+        except LookupError:
             continue
         else:
-            if chan.state == Channel.APPROVED and not chan.archived:
+            categories2 = set(chan.categories)
+            if chan.state == Channel.APPROVED and not chan.archived and \
+            len(categories1 | categories2) < len(categories1) + len(categories2):
                 channels.append(chan)
     return channels
 
