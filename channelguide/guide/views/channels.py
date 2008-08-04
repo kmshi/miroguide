@@ -459,7 +459,7 @@ def popular_view(request):
             'timeline' : window_select.current_choice_label(),
             'popular_window_select': window_select,
             'title': 'Most Popular ' + window_select.current_choice_label(),
-            'rss_feed': 'http://feeds.feedburner.com/miroguide/toprated',
+            'rss_feed': 'https://www.miroguide.com/rss/popular',
         }
     return util.render_to_response(request, 'popular.html', context)
 
@@ -498,7 +498,7 @@ def features(request):
     j.where(j.c.state!=0)
     query.order_by(j.c.state).order_by(j.c.featured_at, desc=True)
     return make_simple_list(request, query, _("Featured Channels"),
-                            rss_feed = 'http://feeds.feedburner.com/miroguide/featured')
+                            rss_feed = 'https://www.miroguide.com/rss/featured')
 
 def get_toprated_query(user):
     query = Channel.query_approved(user=user)
@@ -518,7 +518,7 @@ def toprated(request):
         channel.timeline = 'Today'
     context = {'pager': pager,
             'title': 'Top Rated Channels',
-            'rss_feed': 'http://feeds.feedburner.com/miroguide/toprated',
+            'rss_feed': 'https://www.miroguide.com/rss/toprated',
         }
     return util.render_to_response(request, 'popular.html', context)
 
@@ -551,7 +551,7 @@ def recent(request):
         'header': "RECENT CHANNELS",
         'pager': pager,
         'channels_by_date': group_channels_by_date(pager.items),
-        'rss_feed': 'http://feeds.feedburner.com/miroguide/new',
+        'rss_feed': 'https://www.miroguide.com/rss/new',
     })
 
 def for_user(request, user_id):
