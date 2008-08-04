@@ -192,14 +192,13 @@ def get_similarity(channel, connection, other):
     Returns the similarity between two channels.  channel is a Channel object;
     other is a channel id.
     """
-    # XXX: Trying out just using the rating similarity -- pswartz 6/30/2008
-    from_sub = get_similarity_from_subscriptions(channel, connection, other)
+    #from_sub = get_similarity_from_subscriptions(channel, connection, other)
     from_rat = get_similarity_from_ratings(channel, connection, other)
     from_cat = get_similarity_from_categories(channel, connection, other)
 
-    s = sum((from_rat * 6, from_sub * 2, from_cat)) / 9
-    if s > 0.70 or from_sub > 0.0:
-        print channel.id, other, from_rat, from_sub, from_cat, s
+    s = sum((from_rat * 9, from_cat)) / 10
+    if s > 0.90:
+        print channel.id, other, from_rat, from_cat, s
     return s
 
 
@@ -239,20 +238,22 @@ def get_similarity_from_ratings(channel, connection, other):
     keys.sort()
     v1 = [vectors[k][0] for k in keys]
     v2 = [vectors[k][1] for k in keys]
-    return pearson_coefficient(v1, v2)
+    pc = pearson_coefficient(v1, v2)
+    if len(v1) < 5:
+        pc /= 2
+    return pc
 
 def get_similarity_from_categories(channel, connection, other):
-    categories1 = set([cat.id for cat in channel.categories])
-    categories2 = set([cat.id for cat in Channel.query(id=other
+    cat1 = set([cat.id for cat in channel.categories])
+    cat2 = set([cat.id for cat in Channel.query(id=other
                                                        ).join('categories'
                                                               ).get(
         connection).categories])
-    return (float(len(categories1 | categories2)) /
-            (len(categories1) + len(categories2)))
+    return len(cat1 & cat2) / len(cat1 | cat2)
 
 def pearson_coefficient(vector1, vector2):
     n = float(len(vector1))
-    if n < 3:
+    if n < 3: # two points always have a linear corelation
         return 0.0
     sum1 = sum(vector1)
     sum2 = sum(vector2)
