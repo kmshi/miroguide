@@ -378,8 +378,8 @@ def get_recommendations(request, channel):
             continue
         else:
             categories2 = set(chan.categories)
-            if chan.state == Channel.APPROVED and not chan.archived and \
-            len(categories1 | categories2) < len(categories1) + len(categories2):
+            if chan.state == Channel.APPROVED and not chan.archived:# and \
+#            len(categories1 | categories2) < len(categories1) + len(categories2):
                 channels.append(chan)
     return channels
 

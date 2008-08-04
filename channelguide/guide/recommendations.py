@@ -193,12 +193,15 @@ def get_similarity(channel, connection, other):
     other is a channel id.
     """
     # XXX: Trying out just using the rating similarity -- pswartz 6/30/2008
-    #from_sub = get_similarity_from_subscriptions(channel, connection, other)
+    from_sub = get_similarity_from_subscriptions(channel, connection, other)
     from_rat = get_similarity_from_ratings(channel, connection, other)
     from_cat = get_similarity_from_categories(channel, connection, other)
 
-    #return sum((from_sub / 2, from_rat )) / 2
-    return sum((from_rat * 2, from_cat)) / 3
+    s = sum((from_rat * 6, from_sub * 2, from_cat)) / 9
+    if s > 0.70 or from_sub > 0.0:
+        print channel.id, other, from_rat, from_sub, from_cat, s
+    return s
+
 
 def get_similarity_from_subscriptions(channel, connection, other):
     sql = 'SELECT channel_id, ip_address from cg_channel_subscription WHERE channel_id IN (%s, %s) AND timestamp > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND ip_address<>%s AND ignore_for_recommendations=%s ORDER BY ip_address'
@@ -249,7 +252,7 @@ def get_similarity_from_categories(channel, connection, other):
 
 def pearson_coefficient(vector1, vector2):
     n = float(len(vector1))
-    if not n:
+    if n < 3:
         return 0.0
     sum1 = sum(vector1)
     sum2 = sum(vector2)
