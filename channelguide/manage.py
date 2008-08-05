@@ -468,7 +468,7 @@ def refresh_stats_table(args=None):
     FROM 
       cg_channel
     WHERE 
-      cg_channel.state = 'A'
+      cg_channel.state IN ('A', 'U')
     ORDER BY
       cg_channel_subscription_count_today
     DESC,
