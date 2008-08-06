@@ -372,14 +372,14 @@ def get_recommendations(request, channel):
         if len(channels) == 4:
             break
         try:
-            chan = Channel.query().join('categories').get(request.connection,
-                                                          rec)
+            chan = Channel.query().join('categories',
+                                        'rating').get(request.connection, rec)
         except LookupError:
             continue
         else:
             categories2 = set(chan.categories)
-            if chan.state == Channel.APPROVED and not chan.archived:# and \
-#            len(categories1 | categories2) < len(categories1) + len(categories2):
+            if chan.state == Channel.APPROVED and not chan.archived and \
+                   (channel.rating.average - chan.rating.average) <= 0.5:
                 channels.append(chan)
     return channels
 
