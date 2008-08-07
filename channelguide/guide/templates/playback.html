@@ -1,11 +1,8 @@
 {% extends "base.html" %}
 {% block body %}
   <div style="text-align: center;">
-    <embed width="200" height="200" src="{{ item.url }}"></embed>
+    {{ embed }}
     <br clear="all"/>
     <a href="{{ item.channel.get_absolute_url }}">Back to {{ item.channel.name }}</a>
   </div>
-  <script type="text/javascript">
-$("embed").width(window.innerWidth / 2).height(window.innerHeight / 2);
-  </script>
 {% endblock %}
