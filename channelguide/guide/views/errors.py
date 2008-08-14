@@ -3,9 +3,11 @@
 
 import logging
 import random
+import sys
 import traceback
 import pprint
 import cStringIO
+import MySQLdb
 
 from django import http
 from django.conf import settings
@@ -23,10 +25,11 @@ def render_error_500(request):
         'id': id,
         'user': None,
     })
-    if not hasattr(request, 'connection'): # database connection error
+    exc_type = sys.exc_info()[0]
+    if exc_type in (MySQLdb.MySQLError,): # database error
         context['database_error'] = True
     if not hasattr(request, 'get_full_path'):
-        path = 'Unknown'
+        path = ' Path Unknown'
     else:
         path = request.get_full_path()
     path = settings.BASE_URL_FULL[:-1] + path
