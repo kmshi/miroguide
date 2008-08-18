@@ -249,6 +249,8 @@ def get_similarity_from_categories(channel, connection, other):
                                                        ).join('categories'
                                                               ).get(
         connection).categories])
+    if not len(cat1 | cat2):
+        return 0.0
     return len(cat1 & cat2) / len(cat1 | cat2)
 
 def pearson_coefficient(vector1, vector2):
