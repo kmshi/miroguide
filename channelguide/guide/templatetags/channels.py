@@ -22,7 +22,7 @@ def show_edit_bar(context, channel, showScript=True):
 
 @register.inclusion_tag('guide/moderate-actions.html', takes_context=True)
 def show_moderate_actions(context, channel):
-    return {'channel': channel, 'STATIC_BASE_URL': settings.STATIC_BASE_URL,
+    return {'channel': channel, 'BASE_URL': settings.BASE_URL,
             'user': context['user']}
 
 @register.inclusion_tag('guide/simple-moderate-actions.html',
