@@ -79,6 +79,10 @@ img {
     display: inline;
 }
 
+a.copyright-claim {
+    font-size: 75%;
+}
+
 li.column {
     float: left;
 }

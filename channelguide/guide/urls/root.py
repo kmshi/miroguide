@@ -59,6 +59,8 @@ urlpatterns = patterns('channelguide.guide.views',
     (r'^api/', cg_include('api')),
     (r'^recommend/', cg_include('recommend')),
     (r'^ping/', cg_include('ping')),
+    (r'^dmca$', direct_to_template,
+     {'template': 'guide/dmca.html'}),
 )
 
 from channelguide.guide import feeds
