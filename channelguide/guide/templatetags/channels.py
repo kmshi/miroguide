@@ -18,7 +18,7 @@ def show_channel_moderate(context, channel, showScript=True):
 @register.inclusion_tag('guide/edit-bar.html', takes_context=True)
 def show_edit_bar(context, channel, showScript=True):
     request = context['request']
-    if channel.featured_queue:
+    if getattr(channel, 'featured_queue', None):
         channel.featured_queue.join('featured_by').execute(request.connection)
     return {'channel': channel, 'user': context['user'],
             'STATIC_BASE_URL': settings.STATIC_BASE_URL,
