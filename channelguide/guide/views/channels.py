@@ -34,7 +34,7 @@ class ChannelCacheMiddleware(UserCacheMiddleware):
 
 @moderator_required
 def moderator_channel_list(request, state):
-    query = Channel.query().join('owner').order_by('creation_time')
+    query = Channel.query().join('owner')
     if state == 'waiting':
         query.where(Channel.c.waiting_for_reply_date.is_not(None))
         query.order_by('waiting_for_reply_date')
@@ -51,11 +51,13 @@ def moderator_channel_list(request, state):
     elif state == 'featured':
         query.join('featured_queue')
         query.where(query.joins['featured_queue'].c.state == FeaturedQueue.IN_QUEUE)
+        query.order_by(query.joins['featured_queue'].c.featured_at)
         header = _("Featured Queue")
     else:
         query.where(state=Channel.NEW)
         header = _("Unreviewed Channels")
-    query.order_by(query.joins['owner'].c.username != 'freelance')
+    query.order_by('creation_time', query.joins['owner'].c.username != 'freelance')
+    print query
     pager =  templateutil.Pager(10, query, request)
 
     return util.render_to_response(request, 'moderator-channel-list.html', {
