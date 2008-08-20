@@ -10,12 +10,16 @@ register = Library()
 def show_channel_moderate(context, channel, showScript=True):
     user = context['user']
     return {'channel': channel, 'user': user,
+            'request': context['request'],
             'can_edit': user.can_edit_channel(channel),
             'show_script': showScript,
             'STATIC_BASE_URL': settings.STATIC_BASE_URL}
 
 @register.inclusion_tag('guide/edit-bar.html', takes_context=True)
 def show_edit_bar(context, channel, showScript=True):
+    request = context['request']
+    if channel.featured_queue:
+        channel.featured_queue.join('featured_by').execute(request.connection)
     return {'channel': channel, 'user': context['user'],
             'STATIC_BASE_URL': settings.STATIC_BASE_URL,
             'show_script': showScript}
