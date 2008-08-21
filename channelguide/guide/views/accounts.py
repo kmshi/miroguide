@@ -26,7 +26,6 @@ def get_login_message(next_url):
         line2 = _("Give Channels Star Ratings")
         line3 = _("We'll Give You Recommendations")
         return """<h1>%s</h1>
-<img src="%simages/rating-key.png" alt="%s">
 <ol>
 <li>%s</li>
 <li>%s</li>
