@@ -60,7 +60,7 @@ def make_url(relative_url, get_data=None):
     if '?' in relative_url: # a query
         relative_url, query = relative_url.split('?', 1)
         get_data_list = [f.split('=', 1) for f in query.split('&')]
-        get_data = dict((k, unquote_plus(v)) for (k, v) in
+        get_data = dict((k, unquote_plus(v).decode('utf8')) for (k, v) in
                          get_data_list)
     return mark_safe(
             urlquote(settings.BASE_URL + relative_url) +
