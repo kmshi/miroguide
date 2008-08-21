@@ -691,4 +691,11 @@ def get_show_rating_bar(request, channel):
     context = {'channel': channel, 'request':request}
     return loader.render_to_string('guide/show-channel-rating.html', context)
 
-
+def latest(request, id):
+    query = Item.query(Item.c.channel_id == id).order_by(Item.c.date,
+                                                  desc=True).limit(1)
+    items = query.execute(request.connection)
+    if not items:
+        raise Http404
+    else:
+        return util.redirect(items[0].url)

@@ -52,7 +52,7 @@ class ChannelsFeed(feeds.Feed):
         if results:
             results.sort(key=attrgetter('date'), reverse=True)
             item.newest = results[0]
-            return item.newest.url
+            return util.make_absolute_url('channels/latest/%i' % item.id)
         else:
             item.newest = None
 
