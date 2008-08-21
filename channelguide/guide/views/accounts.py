@@ -21,7 +21,6 @@ def get_login_message(next_url):
         return '<h1>%s</h1>%s' % (header, body)
     else:
         title = _("Rate Channels, Get Recommendations")
-        imageAlt = _("Rating Key | cancel: No Interest; 1 Star: Hate; 2 Stars: Dislike; 3 Stars: Like; 4 Stars; Like Lots; 5 Stars: Love!")
         line1 = _("Sign in (or create an account)")
         line2 = _("Give Channels Star Ratings")
         line3 = _("We'll Give You Recommendations")
@@ -30,7 +29,7 @@ def get_login_message(next_url):
 <li>%s</li>
 <li>%s</li>
 <li>%s</li>
-</ol>""" % (title, settings.STATIC_BASE_URL, imageAlt, line1, line2, line3)
+</ol>""" % (title, line1, line2, line3)
 
 def get_register_message(next_url):
     if "channels/submit" not in next_url:
