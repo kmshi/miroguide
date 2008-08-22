@@ -182,7 +182,15 @@ class ChannelThumbnailWidget(forms.Widget):
     def value_from_datadict(self, data, files, name):
         hidden_name = self.get_hidden_name(name)
         if data.get(name):
-            return data.get(name)['content']
+            uploaded_file = data[name]
+            if isinstance(uploaded_file, dict):
+                # this is for backwards-compatibility with pre-Django 1.0
+                file_data = uploaded_file['content']
+            else:
+                uploaded_file.open()
+                file_data = uploaded_file.read()
+                uploaded_file.close()
+            return file_data
         elif data.get(hidden_name):
             path = os.path.join(settings.MEDIA_ROOT, 'tmp',
                     data.get(hidden_name))
@@ -200,8 +208,17 @@ class ChannelThumbnailWidget(forms.Widget):
     def save_submitted_thumbnail(self, data, name):
         hidden_name = self.get_hidden_name(name)
         if data.get(name):
-            self.save_thumb_content(data[name]['filename'],
-                    data[name]['content'])
+            uploaded_file = data[name]
+            if isinstance(uploaded_file, dict):
+                # this is for backwards-compatibility with pre-Django 1.0
+                file_name = uploaded_file['filename']
+                file_data = uploaded_file['content']
+            else:
+                file_name = uploaded_file.name
+                uploaded_file.open()
+                file_data = uploaded_file.read()
+                uploaded_file.close()
+            self.save_thumb_content(file_name, file_data)
         elif data.get(hidden_name):
             self.submitted_thumb_path = data[hidden_name]
 

@@ -9,12 +9,10 @@ import traceback
 
 from django.conf import settings
 from django.core import signals
-from django.dispatch import dispatcher
 from django.http import HttpRequest, HttpResponse
 from django.test.client import Client
 
-from channelguide import db, cache
-from channelguide.db import version
+from channelguide import db
 from channelguide import util
 
 class TestLogFilter(logging.Filter):
@@ -86,7 +84,12 @@ class TestCase(unittest.TestCase):
                 shutil.rmtree(settings.IMAGE_DOWNLOAD_CACHE_DIR)
             for name, oldvalue in self.changed_settings:
                 setattr(settings, name, oldvalue)
-            dispatcher.send(signals.request_finished)
+            try:
+                signals.request_finished.send(None)
+            except AttributeError:
+                # this is for backwards-compatibility with pre-Django 1.0
+                from django.dispatch import dispatcher
+                dispatcher.send(signals.request_finished)
             # The above line should close any open request connections
             for connection in db.pool.free:
                 connection.close_raw_connection()
@@ -294,7 +297,12 @@ class TestCase(unittest.TestCase):
     def process_response(self, request):
         response = HttpResponse()
         self.process_response_middleware(request, response)
-        dispatcher.send(signals.request_finished)
+        try:
+            signals.request_finished.send(None)
+        except AttributeError:
+            # this is for backwards-compatibility with pre-Django 1.0
+            from django.dispatch import dispatcher
+            dispatcher.send(signals.request_finished)
         return response
 
     def process_response_middleware(self, request, response):
