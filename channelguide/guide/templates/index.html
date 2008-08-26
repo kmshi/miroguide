@@ -6,7 +6,7 @@
 var currentFeature = 0;
 var featureWidth = 215;
 var featureRotateSeconds = 10;
-var featureRotateDirection = 3;
+var featureRotateDirection = 1;
 var featureTimeout = null;
 
 function cancelFeaturedShuffle() {
@@ -18,9 +18,9 @@ function cancelFeaturedShuffle() {
 function rotateFeatures() {
     li = $("#featuredItemsCarousel ul li");
     if (currentFeature == 0 && featureRotateDirection < 0)
-        featureRotateDirection = 3;
+        featureRotateDirection = 1;
     if (currentFeature == li.length - 3 && featureRotateDirection > 0)
-        featureRotateDirection = -3;
+        featureRotateDirection = -1;
     currentFeature += featureRotateDirection;
     animateFeatured();
     if (featureTimeout)
@@ -32,12 +32,12 @@ function featuredPrevious() {
     if (featureTimeout && !currentFeature)
         return;
     cancelFeaturedShuffle();
-    currentFeature = currentFeature - 3;
+    currentFeature = currentFeature - 1;
     animateFeatured();
 };
 function featuredNext() {
     cancelFeaturedShuffle();
-    currentFeature = currentFeature + 3;
+    currentFeature = currentFeature + 1;
     animateFeatured();
 }
 
@@ -59,7 +59,7 @@ function animateFeatured() {
     } else {
         $("#button_previous").css('cursor', 'inherit');
     }
-    li.parent().animate({left: -(currentFeature * featureWidth)}, 1500);
+    li.parent().animate({left: -(currentFeature * featureWidth)}, 500);
 }
 
 $(document).ready(function() {
