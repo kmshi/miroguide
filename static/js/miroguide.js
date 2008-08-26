@@ -142,7 +142,7 @@ function submitAChannel(submitLink) {
                              $('#hoverMenuSubmit form').ajaxForm(
                                  showNewSubmitForm);});
 }
-function showMenu(el, menu) {$('#' + el).show(); $('#' + menu).addClass('hover'); return false;}
+function showMenu(el, menu) {$('#' + el).css('top', 'inherit').show(); $('#' + menu).addClass('hover'); return false;}
 function hideMenu(el, menu) {$('#' + el).hide(); $('#' + menu).removeClass('hover'); return false;}
 function showNewSubmitForm(data, textStatus) {
     submit = $('div.top, form[method=post]', data);

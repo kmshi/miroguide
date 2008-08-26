@@ -914,8 +914,8 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 #hoverMenuLanguage {
 	width: 274px;
 	overflow: hidden;
-        display: none;
 	position: absolute;
+        top: -1000px;
 	margin: -1px 0 0 576px;
 	z-index: 100;
 }
@@ -977,8 +977,8 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 #hoverMenuLogin {
 	width: 337px;
 	overflow: hidden;
-        display: none;
 	position: absolute;
+        top: -1000px;
 	margin: -1px 0 0 422px;
 	z-index: 100;
 }
