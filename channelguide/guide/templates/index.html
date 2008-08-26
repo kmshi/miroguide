@@ -130,6 +130,7 @@ $(document).ready(function() {
 
 	<div id="container">
 		<div>
+                        {% if feed %}
 			<h3 class="title_bar"><span class="rss">New Feed Videos</span></h3>
 			<ul class="videoFeed">
                           {% for channel in feed %}
@@ -138,7 +139,8 @@ $(document).ready(function() {
 				</li>
                           {% endfor %}
 			</ul>
-
+                        {% endif %}
+                        {% if streaming %}
 			<h3 class="title_bar"><span class="streaming">New Streaming Videos</span></h3>
 			<ul class="videoFeed">
                           {% for channel in streaming %}
@@ -147,8 +149,9 @@ $(document).ready(function() {
 				</li>
                           {% endfor %}
 			</ul>
+                        {% endif %}
 		</div>
-
+                {% if recommended %}
 		<div id="sideBar">
 			<h3 class="widget_title_bar"><span class="favorite">Recommended for you</span></h3>
 			<div class="widget">
@@ -162,5 +165,6 @@ $(document).ready(function() {
 			</div><!--widget-->
 			<div class="widget_close"><a href="{{ BASE_URL }}recommend/"><span>View all</span></a></div>
 		</div>
+                {% endif %}
 	</div><!--container-->
 {% endblock %}
