@@ -37,8 +37,6 @@ function featuredNext() {
 
 function animateFeatured() {
     ul = $("#featuredItemsCarousel ul");
-    console.log(currentFeature);
-    console.log(featureCount);
     ul.animate({left: -((currentFeature + 3) * featureWidth)}, 500,
                function () {
                    if (currentFeature == featureCount) {
