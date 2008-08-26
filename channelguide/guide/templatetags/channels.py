@@ -15,6 +15,9 @@ class ChannelNode(template.Node):
 
     def render(self, context):
         channel = self.channelVariable.resolve(context)
+        if 'moderate' in self.features:
+            channel.join('notes').execute(
+                context['request'].connection)
         t = template.loader.get_template('guide/channel.html')
         self.nodelist = t.nodelist
         new_context = template.context.Context(self.features,

@@ -1,4 +1,4 @@
-{% load channels %}
+{% load channels cg_helpers %}
 {% if moderate %}
   <div class="edit">
   {% moderate_actions_simple channel "" %}
@@ -43,3 +43,21 @@
    {% button_block channel %}
 {% endif %}
 </div>
+{% if moderate %}
+     <br clear="both" />
+     <div class="edit">
+     {% if user.is_supermoderator %}
+    <div class="fr">
+        <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">
+            <input type="hidden" name="action" value="change-owner">
+            <label for="owner"><a {% link channel.owner.get_absolute_url %}>Channel Manager</a>:</label>
+            <input type="text" name="owner" value="{{ channel.owner }}">
+            <input type="submit" value="change">
+        </form>
+    </div>
+     {% endif %}
+     <div>
+       Notes: {{ channel.notes|length }}
+     </div>
+   </div>
+{% endif %}
