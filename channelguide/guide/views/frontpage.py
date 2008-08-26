@@ -58,7 +58,7 @@ def get_new_channels(request, type, count):
     query.join('categories')
 #    query.cacheable = cache.client
 #    query.cacheable_time = 3600
-    return _filter_categories(query.execute(request.connection), count)
+    return list(_filter_categories(query.execute(request.connection), count))
 
 @cache.cache_for_user
 def index(request):
