@@ -144,8 +144,9 @@ $('#hoverMenuLogin #register').click(function() {
               <form action="{{ BASE_URL }}i18n/setlang/" method="POST">
                 <ul>
                   {% get_available_languages as LANGUAGES %}
+                  {% get_current_language as LANGUAGE_CODE %}
                   {% for language in LANGUAGES %}
-                  <li>
+                  <li{% ifequal language.0 LANGUAGE_CODE %} class="current"{% endifequal %}>
                     <button type="submit" name="language" value="{{ language.0 }}">
                       <span>{{ language.1 }}</span>
                     </button>
@@ -156,8 +157,8 @@ $('#hoverMenuLogin #register').click(function() {
               <div id="downButton"></div>
               <script type="text/javascript">
 //<!CDATA[[
-$("#upButton").click(languageUp);
-$("#downButton").click(languageDown);
+$("#upButton").hover(languageUp, languageStop);
+$("#downButton").hover(languageDown, languageStop);
 //]]>
               </script>
             </div><!--hoverMenu-->

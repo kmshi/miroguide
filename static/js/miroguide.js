@@ -159,21 +159,35 @@ function showNewSubmitForm(data, textStatus) {
     $('#hoverMenuSubmit').empty().append(submit);
 }
 
+var languageTimeout = null;
+
 function languageUp() {
+    showMenu('hoverMenuLanguage', 'language');
     li = $("#hoverMenuLanguage li");
-    top = parseInt(li.css('top')) + 300;
+    top = parseInt(li.css('top')) + 30;
     if (top > 0) {
         top = 0;
     }
-    li.animate({top: top}, 'slow', languageUpdate);
+    li.animate({top: top}, 'fast', languageUpdate);
+    languageStop();
+    languageTimeout = setTimeout(languageUp, 0);
 }
 function languageDown() {
+    showMenu('hoverMenuLanguage', 'language');
     li = $("#hoverMenuLanguage li");
-    top = parseInt(li.css('top')) - 300;
+    top = parseInt(li.css('top')) - 30;
     if (li.length * -30 + 300 > top) {
         top = li.length * -30 + 300;
     }
-    li.animate({top: top}, 'slow', languageUpdate);
+    li.animate({top: top}, 'fast', languageUpdate);
+    languageStop();
+    languageTimeout = setTimeout(languageDown, 0);
+}
+function languageStop() {
+    if (!languageTimeout)
+        return;
+    clearTimeout(languageTimeout);
+    languageTimeout = null;
 }
 function languageUpdate() {
     li = $("#hoverMenuLanguage li");

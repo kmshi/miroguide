@@ -957,21 +957,15 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
     color: white;
     font-weight: bold;
 }
-#hoverMenuLanguage ul button a {
-	display: block;
-	height: 30px;
-	width: 214px;
-	background: url(images/hover_menu_bg.png) 0 0 repeat-x;
-	color: white;
-	font-weight: bold;
-}
-#hoverMenuLanguage ul button:hover {background: url(images/hover_menu_bg.png) bottom left repeat-x;}
+#hoverMenuLanguage ul li.current button {background: url(images/hover_menu_bg.png) bottom left repeat-x;}
 #hoverMenuLanguage ul button span {
 	padding: 0 0 0 10px;
 	display: block;
 }
-#hoverMenuLanguage ul button:hover span {background: url(images/menu_check.png) 190px 3px no-repeat;}
-
+#hoverMenuLanguage ul li.current button span {background: url(images/menu_check.png) 190px 3px no-repeat;}
+#hoverMenuLanguage ul button:hover span {
+    color: black;
+}
 
 /*Hover Menu - Login*/
 #hoverMenuLogin {
