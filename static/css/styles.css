@@ -875,12 +875,13 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	background: url(images/search_bg.png) top left no-repeat;
 }
 #searchSpot {
-	height: 34px;
-	float: right; display: inline;
-	position: relative;
-	z-index: 3;
-	margin: -33px 0 0 0;
-	padding-right:20px;
+    width: 131px;
+    height: 34px;
+    float: right; display: inline;
+    position: relative;
+    z-index: 3;
+    margin: -33px 0 0 0;
+    padding-right:20px;
 }
 #searchSpot input {
 	background: url(images/top_bar_search.png) 0 0 no-repeat;
