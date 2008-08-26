@@ -112,7 +112,7 @@ def formbutton(url, action, label=None):
         label = action
     return {'url': url, 'action': action, 'label': label}
 
-@register.inclusion_tag('guide/pager.html')
+@register.inclusion_tag('guide/pager-old.html')
 def show_pager(pager):
     return {'pager': pager}
 
