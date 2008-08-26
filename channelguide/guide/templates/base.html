@@ -52,9 +52,11 @@
 				<li><a href="{{ BASE_URL }}popular/">{% trans "Most Popular" %}</a></li>
 				<li><a href="{{ BASE_URL }}new/">{% trans "New Shows" %}</a></li>
 				<li><a href="{{ BASE_URL }}languages/">{% trans "Video by Language" %}</a></li>
-				<li id="language"><a href="#" onmouseover="return showMenu('hoverMenuLanguage', 'language')" onmouseout="return hideMenu('hoverMenuLanguage', 'language')">{% trans "Language" %}</a></li>
-				<li id="account">
-                                  <a href="{% if user.is_authenticated %}{{ user.get_url }}{% else %}{{ BASE_URL }}accounts/login{% endif %}" onmouseover="return showMenu('hoverMenuLogin', 'account')" onmouseout="return hideMenu('hoverMenuLogin', 'account')">{% if user.is_authenticated %}{{ user.username }}{% else %}{% trans "Account" %}{% endif %}</a>
+				<li id="language" onmouseover="return showMenu('hoverMenuLanguage', 'language', event)" onmouseout="return hideMenu('hoverMenuLanguage', 'language', event)">
+                                  <a href="#">{% trans "Language" %}</a>
+                                </li>
+				<li id="account" onmouseover="return showMenu('hoverMenuLogin', 'account', event)" onmouseout="return hideMenu('hoverMenuLogin', 'account', event)">
+                                  <a href="{% if user.is_authenticated %}{{ user.get_url }}{% else %}{{ BASE_URL }}accounts/login{% endif %}">{% if user.is_authenticated %}{{ user.username }}{% else %}{% trans "Account" %}{% endif %}</a>
                                 </li>
 			</ul>
 		</div><!--page-->
@@ -62,7 +64,7 @@
 
 	<div id="hover_align">
           {% if user.is_authenticated %}
-          <div id="hoverMenuLogin" class="loggedin" onmouseover="return showMenu('hoverMenuLogin', 'account')" onmouseout="return hideMenu('hoverMenuLogin', 'account')">
+          <div id="hoverMenuLogin" class="loggedin" onmouseover="return showMenu('hoverMenuLogin', 'account', event)" onmouseout="return hideMenu('hoverMenuLogin', 'account', event)">
             <ul>
               {% if user.is_moderator %}
               <li id="login"><a href="{{ BASE_URL }}moderate/">{% trans "Moderator's Area" %}</a></li>
@@ -81,7 +83,7 @@
           </div>
           {% else %}
           {% if login and register %}
-          <div id="hoverMenuLogin" onmouseover="return showMenu('hoverMenuLogin', 'account')" onmouseout="return hideMenu('hoverMenuLogin', 'account')">
+          <div id="hoverMenuLogin" onmouseover="return showMenu('hoverMenuLogin', 'account', event)" onmouseout="return hideMenu('hoverMenuLogin', 'account', event)">
             <ul>
               <li class="form-errors"></li>
               <li id="login">
@@ -139,7 +141,7 @@ $('#hoverMenuLogin #register').click(function() {
           </div>
           {% endif %}
           {% endif %}
-          <div id="hoverMenuLanguage" onmouseover="return showMenu('hoverMenuLanguage', 'language')" onmouseout="return hideMenu('hoverMenuLanguage', 'language')">
+          <div id="hoverMenuLanguage" onmouseover="return showMenu('hoverMenuLanguage', 'language', event)" onmouseout="return hideMenu('hoverMenuLanguage', 'language', event)">
               <div id="upButton"></div>
               <form action="{{ BASE_URL }}i18n/setlang/" method="POST">
                 <ul>

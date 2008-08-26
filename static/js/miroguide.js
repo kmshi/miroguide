@@ -142,8 +142,31 @@ function submitAChannel(submitLink) {
                              $('#hoverMenuSubmit form').ajaxForm(
                                  showNewSubmitForm);});
 }
-function showMenu(el, menu) {$('#' + el).css('top', 'inherit').show(); $('#' + menu).addClass('hover'); return false;}
-function hideMenu(el, menu) {$('#' + el).hide(); $('#' + menu).removeClass('hover'); return false;}
+function inBounds(val, min, length) {
+    return (min < val && val < (min + length));
+}
+function isWithin(event, obj)  {
+    return (inBounds(event.clientX, obj.offsetLeft, obj.offsetWidth) &&
+            inBounds(event.clientY, obj.offsetTop, obj.offsetHeight))
+}
+function showMenu(el, menu, event) {
+    $('#' + el).css('top', 'inherit').show();
+    $('#' + menu).addClass('hover');
+    return false;
+}
+function hideMenu(el, menu, event) {
+    el_o = $('#' + el);
+    menu_o = $('#' + menu);
+    if (event) {
+        if (isWithin(event, el_o[0]) || isWithin(event, menu_o[0])) {
+            return;
+        }
+
+    }
+    $('#' + el).hide();
+    $('#' + menu).removeClass('hover');
+    return false;
+}
 function showNewSubmitForm(data, textStatus) {
     submit = $('div.top, form[method=post]', data).slice(1);
     if (submit.length < 2) {
