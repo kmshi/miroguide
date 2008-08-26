@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>{% block title %}Miro Guide{% endblock %}</title>
+<title>{% block title %}{% trans "Miro Guide" %}{% endblock %}</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="author" content="Participatory Culture Foundation" />
 	<meta name="keywords" content="Miro Guide, Miro, Internet TV, RSS Video Player, Open Source Television, Bittorrent, Democracy Player, Participatory Culture Foundation, Flash, Streaming" />
@@ -24,16 +24,16 @@
 	<div id="topBar">
 		<div class="page">
 			<ul id="mainMenu">
-				<li id="logo"><a href="{{ BASE_URL }}"><img src="{{ STATIC_BASE_URL}}images/logo.png" alt="Miro" /></a></li>
-				<li><a href="{{ BASE_URL }}feeds/">Video feeds</a></li>
-				<li><a href="{{ BASE_URL }}shows/">Streaming shows</a></li>
-				<li><a href="{{ BASE_URL }}recommend/">Videos you'll love</a></li>
+				<li id="logo"><a href="{{ BASE_URL }}"><img src="{{ STATIC_BASE_URL}}images/logo.png" alt="{% trans "Miro" %}" /></a></li>
+				<li><a href="{{ BASE_URL }}feeds/">{% trans "Video feeds"%}</a></li>
+				<li><a href="{{ BASE_URL }}shows/">{% trans "Streaming shows" %}</a></li>
+				<li><a href="{{ BASE_URL }}recommend/">{% trans "Videos you'll love" %}</a></li>
 			</ul>
 			<div id="searchBG"></div>
 			<div id="searchSpot">
                           <form method="get" action="{{ BASE_URL }}search">
                             <div>
-				<input type="text" class="headSearch" name="query" id="search_query" value="Search" />
+				<input type="text" class="headSearch" name="query" id="search_query" value="{% trans "Search" %}" />
                             </div>
                                 <script type="text/javascript">
 //<![CDATA[
@@ -47,14 +47,14 @@
 	<div id="topBarLower">
 		<div class="page">
 			<ul id="lowerMenu">
-				<li><a href="{{ BASE_URL }}genres/">Genres</a></li>
-				<li><a href="{{ BASE_URL }}hd/">HD Channels</a></li>
-				<li><a href="{{ BASE_URL }}popular/">Most Popular</a></li>
-				<li><a href="{{ BASE_URL }}new/">New Shows</a></li>
-				<li><a href="{{ BASE_URL }}languages/">Video by Language</a></li>
-				<li id="language"><a href="#" onmouseover="return showMenu('hoverMenuLanguage', 'language')" onmouseout="return hideMenu('hoverMenuLanguage', 'language')">Language</a></li>
+				<li><a href="{{ BASE_URL }}genres/">{% trans "Genres" %}</a></li>
+				<li><a href="{{ BASE_URL }}hd/">{% trans "HD Channels" %}</a></li>
+				<li><a href="{{ BASE_URL }}popular/">{% trans "Most Popular" %}</a></li>
+				<li><a href="{{ BASE_URL }}new/">{% trans "New Shows" %}</a></li>
+				<li><a href="{{ BASE_URL }}languages/">{% trans "Video by Language" %}</a></li>
+				<li id="language"><a href="#" onmouseover="return showMenu('hoverMenuLanguage', 'language')" onmouseout="return hideMenu('hoverMenuLanguage', 'language')">{% trans "Language" %}</a></li>
 				<li id="account">
-                                  <a href="{% if user.is_authenticated %}{{ user.get_url }}{% else %}{{ BASE_URL }}accounts/login{% endif %}" onmouseover="return showMenu('hoverMenuLogin', 'account')" onmouseout="return hideMenu('hoverMenuLogin', 'account')">{% if user.is_authenticated %}{{ user.username }}{% else %}Account{% endif %}</a>
+                                  <a href="{% if user.is_authenticated %}{{ user.get_url }}{% else %}{{ BASE_URL }}accounts/login{% endif %}" onmouseover="return showMenu('hoverMenuLogin', 'account')" onmouseout="return hideMenu('hoverMenuLogin', 'account')">{% if user.is_authenticated %}{{ user.username }}{% else %}{% trans "Account" %}{% endif %}</a>
                                 </li>
 			</ul>
 		</div><!--page-->
@@ -65,17 +65,17 @@
           <div id="hoverMenuLogin" class="loggedin" onmouseover="return showMenu('hoverMenuLogin', 'account')" onmouseout="return hideMenu('hoverMenuLogin', 'account')">
             <ul>
               {% if user.is_moderator %}
-              <li id="login"><a href="{{ BASE_URL }}moderate/">Moderator's Area</a></li>
+              <li id="login"><a href="{{ BASE_URL }}moderate/">{% trans "Moderator's Area" %}</a></li>
               {% endif %}
-              <li><a href="{{ user.get_url }}">View/Edit Profile</a></li>
+              <li><a href="{{ user.get_url }}">{% trans "View/Edit Profile" %}</a></li>
               {% if user.channels %}
-              <li><a href="{{ BASE_URL }}user/{{ user.username }}">Channels I Manage</a></li>
+              <li><a href="{{ BASE_URL }}user/{{ user.username }}">{% trans "Channels I Manage" %}</a></li>
               {% endif %}
-              <li><a href="{{ BASE_URL }}submit" onclick="submitAChannel($(this)); return false;">Submit a Channel</a></li>
+              <li><a href="{{ BASE_URL }}submit" onclick="submitAChannel($(this)); return false;">{% trans "Submit a Channel" %}</a></li>
             </ul>
               <div id="register">
                 <p><a href="{{ BASE_URL }}accounts/logout">
-                  <span class="always_free">Log Out</span>
+                  <span class="always_free">{% trans "Log Out" %}</span>
                 </a></p>
               </div>
           </div>
@@ -91,8 +91,8 @@
                   </div>
                   {% show_form login %}
                   <div class="form_row">
-                    <a class="forgot_password" href="{{ BASE_URL }}accounts/forgot-password">Forgot password</a>
-                    <button class="fr" type="submit"><span>Login</span></button>
+                    <a class="forgot_password" href="{{ BASE_URL }}accounts/forgot-password">{% trans "Forgot password" %}</a>
+                    <button class="fr" type="submit"><span>{% trans "Login" %}</span></button>
                   </div>
                 </form>
               </li>
@@ -103,15 +103,15 @@
                   </div>
                   {% show_form register %}
                   <div class="form_row">
-                    <button class="fr" type="submit"><span>Register!</span></button>
+                    <button class="fr" type="submit"><span>{% trans "Register!" %}</span></button>
                   </div>
                 </form>
               </li>
             </ul>
             <div id="register">
               <p><a href="{{ BASE_URL }}accounts/login">
-                <span class="register_tag">Register Now!</span>
-                <span class="always_free">Always Free</span>
+                <span class="register_tag">{% trans "Register Now!" %}</span>
+                <span class="always_free">{% trans "Always Free" %}</span>
               </a></p>
             </div>
             <script type="text/javascript">
@@ -159,7 +159,7 @@ $('#hoverMenuLogin #register').click(function() {
  {% endblock %}
         {% block body %}{% endblock %}
         <div id="load-indicator">
-          <img alt="Loading..." src="{{ STATIC_BASE_URL }}images/load-indicator.gif" />
+          <img alt="{% trans "Loading..."%}" src="{{ STATIC_BASE_URL }}images/load-indicator.gif" />
         </div>
 </body>
 </html>
