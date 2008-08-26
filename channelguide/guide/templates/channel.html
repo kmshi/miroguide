@@ -1,5 +1,5 @@
 {% load channels %}
-{% if search %}<h4>{{ channel.name }}</h4>{% endif %}
+{% if search %}<h4>{{ channel.name_as_link }}</h4>{% endif %}
 <div class=" thumb{% if featured %} featuredItem{% endif %}">
 <a href="{{ channel.get_url }}">
   {% if channel.hi_def %}
