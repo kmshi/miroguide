@@ -105,10 +105,10 @@ def sort(context):
     for first, second in groups:
         if first[1] == current_sort:
             css = 'on'
-            name, sort = second
+            name, sort = first[0], second[1]
         elif second[1] == current_sort:
             css = 'on'
-            name, sort = first
+            name, sort = second[0], first[1]
         else:
             css = ''
             name, sort = first
