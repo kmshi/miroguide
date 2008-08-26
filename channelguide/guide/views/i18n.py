@@ -6,8 +6,8 @@ def set_language(request):
     """
     Based off django.views.i18n.set_language.
     """
-    lang_code = request.GET.get('language', None)
-    next = request.GET.get('next', None)
+    lang_code = request.REQUEST.get('language', None)
+    next = request.REQUEST.get('next', None)
     if not next:
         next = request.META.get('HTTP_REFERER', None)
     if not next:
