@@ -5,6 +5,7 @@
 //<![CDATA[
 var currentFeature = 0;
 var featureWidth = 215;
+var featureCount = 8;
 var featureRotateSeconds = 10;
 var featureRotateDirection = 1;
 var featureTimeout = null;
@@ -16,11 +17,6 @@ function cancelFeaturedShuffle() {
 }
 
 function rotateFeatures() {
-    li = $("#featuredItemsCarousel ul li");
-    if (currentFeature == 0 && featureRotateDirection < 0)
-        featureRotateDirection = 1;
-    if (currentFeature == li.length - 3 && featureRotateDirection > 0)
-        featureRotateDirection = -1;
     currentFeature += featureRotateDirection;
     animateFeatured();
     if (featureTimeout)
@@ -29,8 +25,6 @@ function rotateFeatures() {
 }
 
 function featuredPrevious() {
-    if (featureTimeout && !currentFeature)
-        return;
     cancelFeaturedShuffle();
     currentFeature = currentFeature - 1;
     animateFeatured();
@@ -42,24 +36,19 @@ function featuredNext() {
 }
 
 function animateFeatured() {
-    li = $("#featuredItemsCarousel ul li");
-    if (currentFeature > li.length - 3) {
-        currentFeature = li.length - 3;
-    }
-    if (currentFeature < 0) {
-        currentFeature = 0;
-    }
-    if (currentFeature < li.length - 3) {
-        $("#button_next").css('cursor', 'pointer')
-    } else {
-        $("#button_next").css('cursor', 'inherit');
-    }
-    if (currentFeature) {
-        $("#button_previous").css('cursor', 'pointer');
-    } else {
-        $("#button_previous").css('cursor', 'inherit');
-    }
-    li.parent().animate({left: -(currentFeature * featureWidth)}, 500);
+    ul = $("#featuredItemsCarousel ul");
+    console.log(currentFeature);
+    console.log(featureCount);
+    ul.animate({left: -((currentFeature + 3) * featureWidth)}, 500,
+               function () {
+                   if (currentFeature == featureCount) {
+                       currentFeature = 0;
+                       ul.css('left', -3 * featureWidth);
+                   } else if (currentFeature == -3) {
+                       currentFeature = featureCount - 3;
+                       ul.css('left', -(featureCount * featureWidth));
+                   }
+               });
 }
 
 $(document).ready(function() {
@@ -116,8 +105,18 @@ $(document).ready(function() {
 				<div id="button_previous"></div>
 				<div id="innerContent">
 					<ul>
+                                          {% for channel in featured|slice:"3:" %}
+                                                <li>
+                                                  {% channel channel featured %}
+                                                </li>
+                                          {% endfor %}
                                           {% for channel in featured %}
 						<li>
+                                                  {% channel channel featured %}
+                                                </li>
+                                          {% endfor %}
+                                          {% for channel in featured|slice:":3" %}
+                                                <li>
                                                   {% channel channel featured %}
                                                 </li>
                                           {% endfor %}

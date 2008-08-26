@@ -148,7 +148,7 @@ h1, h2, h3, h4, h5 {font-weight: normal;}
 	list-style: none;
 	width: 10000px;
         position: absolute;
-        left: 0;
+        left: -645px;
 }
 #featuredItemsCarousel #innerContent ul li {
 	height: 219px;
@@ -195,6 +195,7 @@ h1, h2, h3, h4, h5 {font-weight: normal;}
 	z-index: 2;
 	float: left;
 	display: inline;
+        cursor: pointer;
 }
 #featuredItemsCarousel #button_next {
 	height: 221px;
