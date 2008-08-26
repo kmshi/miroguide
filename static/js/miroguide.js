@@ -145,7 +145,7 @@ function submitAChannel(submitLink) {
 function showMenu(el, menu) {$('#' + el).css('top', 'inherit').show(); $('#' + menu).addClass('hover'); return false;}
 function hideMenu(el, menu) {$('#' + el).hide(); $('#' + menu).removeClass('hover'); return false;}
 function showNewSubmitForm(data, textStatus) {
-    submit = $('div.top, form[method=post]', data);
+    submit = $('div.top, form[method=post]', data).slice(1);
     if (submit.length < 2) {
         if ($('.submit-thanks-page', data).length) {
             window.location.href = '/submit/after';
@@ -155,6 +155,7 @@ function showNewSubmitForm(data, textStatus) {
         }
     }
     submit.find('h2').remove();
+    console.log(submit);
     submit.eq(1).ajaxForm(showNewSubmitForm);
     $('#hoverMenuSubmit').empty().append(submit);
 }
