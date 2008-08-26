@@ -1074,7 +1074,7 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	width: 409px;
 	overflow: hidden;
 	position: absolute;
-	margin: -1px 0 0 422px;
+	margin: -1px 0 0 195px;
 	z-index: 100;
 }
 #hoverMenuSubmit > form > ul {
