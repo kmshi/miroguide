@@ -21,6 +21,8 @@ class ChannelNode(template.Node):
                                                autoescape=context.autoescape)
         new_context.update(context)
         new_context['channel'] = channel
+        if len(channel.description.split()) > 40:
+            new_context['truncate_description'] = True
         return self.nodelist.render(new_context)
 
 @register.tag('channel')
