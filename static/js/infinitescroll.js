@@ -12,7 +12,6 @@ function infiniteCallback(data, textStatus) {
     }
     checkScroll.loading = false;
     hideLoadIndicator();
-    checkHash();
 }
 
 function checkScroll() {
@@ -35,18 +34,27 @@ function infiniteLoad() {
 }
 
 function checkHash() {
-    if (!checkHash.hash) {
-        checkHash.hash = hash = location.hash.substring(1);
-    } else {
-        hash = checkHash.hash;
+    if (!location.hash) return;
+    hash = location.hash.substring(1);
+    try {
+        parseInt(hash)
+    } catch (e) {
+        return;
     }
     if (!$('a[name=' + hash + ']').length) {
-        nextpage = $('#next-page');
-        if (!nextpage.length)
-            return;
-        infiniteLoad();
+        args = location.search;
+        if (!args) {
+            args = '?page=' + hash;
+        } else if (args.indexOf('page=') != -1) {
+            args = args.replace(/page=[^&]*/, 'page=' + hash);
+        } else {
+            args = args + '&page=' + hash;
+        }
+        location.href = location.protocol + '//' + location.host +
+            location.pathname + args;
     }
 }
 checkScroll.loading = false;
 
-$(document).scroll(checkScroll).ready(checkHash);
+$(document).scroll(checkScroll);
+checkHash();
