@@ -8,6 +8,7 @@ from itertools import cycle, count, izip
 from urllib import quote, urlopen
 import Queue
 import cgi
+import logging
 import md5
 import os
 import random
@@ -160,6 +161,7 @@ def make_thumbnail(source_path, dest_path, width, height):
                      "-crop", "%dx%d+0+0" % (width, height),
                      "+repage", dest_path)
     except EnvironmentError:
+        logging.exception('error resizing image')
         raise ValueError('could not resize image')
 
 def copy_post_and_files(request):
