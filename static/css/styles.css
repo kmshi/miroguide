@@ -66,7 +66,6 @@ h1, h2, h3, h4, h5 {font-weight: normal;}
 	height: 25px;
 	width: 100%;
 	border-bottom: 1px solid #414141;
-	padding-left: 4px;
 }
 #topBarLower .page {
     padding-left: 10px;
@@ -397,7 +396,7 @@ ul.info li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13p
     background: #fff49e;
     width: 100%;
     margin: 0 auto;
-    padding: 5px 10px 2px;
+    padding: 5px 0 2px;
     min-height: 2em;
     color: #6d6d6d;
 }
