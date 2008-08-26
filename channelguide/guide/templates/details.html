@@ -29,7 +29,7 @@
 		<div class="page">
 			<div class="channelDetailsContent">
 				<h4><a href="#">Show Channel Details</a></h4>
-				<p class="description">{{ channel.description }}</p>
+				<p class="description">{{ channel.description|striptags|urlize }}</p>
 			</div><!--channelDetailsContent-->
 
 			<div class="thumb">

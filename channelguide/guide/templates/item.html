@@ -3,21 +3,25 @@
   <span class="thumb">{{ item.thumbnail }}</span>
   <div class="description on">
     <h4>{{ item.name }}</h4>
-    <p>{{ item.description }}
+    <p>{{ item.description|striptags|urlize }}
   </div>
   <div class="meta">
     <div class="form_row">
       <span class="tag">Date:</span>
       <span class="item">{{ item.date|date:"N j, Y" }}</span>
     </div>
+    {% if size %}
     <div class="form_row">
       <span class="tag">Size:</span>
       <span class="item">{{ item.size|filesizeformat }}</span>
     </div>
+    {% endif %}
+    {% comment %}
     <div class="form_row">
-      <span class="tag"> </span>
+      <span class="tag">Â </span>
       <span class="item"><a href="#">Show Details</a></span>
     </div>
+    {% endcomment %}
     <br clear="all"/><br/>
     <button type="submit"><a href="{{ item.download_url }}"><span>Download</span></a></button>
   </div>
