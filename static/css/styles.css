@@ -1126,7 +1126,6 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 #hoverMenuSubmit ul li.upper label, #hoverMenuSubmit ul li.upper label.longlabel {
 	float: left;
 	display: inline;
-	width: 8.9em;
 	font-size: 12px;
 	font-weight: bold;
 }
