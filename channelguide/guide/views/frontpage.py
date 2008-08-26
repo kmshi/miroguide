@@ -55,7 +55,6 @@ def get_new_channels(request, type, count):
         query.where(Channel.c.url.is_not(None))
     else:
         query.where(Channel.c.url.is_(None))
-    print query
     query.join('categories')
 #    query.cacheable = cache.client
 #    query.cacheable_time = 3600
