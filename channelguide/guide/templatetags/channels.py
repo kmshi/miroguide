@@ -78,3 +78,19 @@ def moderate_actions_simple(context, channel):
 def show_personalized_recommendation(context,channel):
     return {'channel': channel,
             'request': context['request']}
+
+@register.inclusion_tag('guide/sort-bar.html', takes_context=True)
+def sort(context):
+    current_sort = context['sort']
+    direction = 'up'
+    if current_sort[0] == '-':
+        direction = 'down'
+        current_sort = current_sort[1:]
+    sorts = ['popular', 'rating', 'age', 'name']
+    classes = [(sort, current_sort == sort and 'on' or '') for sort in sorts]
+    return {
+        'sort': current_sort,
+        'sorts': sorts,
+        'classes': classes,
+        'direction': direction,
+        }

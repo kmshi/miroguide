@@ -315,7 +315,8 @@ def filtered_listing(request, value=None, filter=None, limit=10,
         'header_class': header_class,
         'intro': intro,
         'page': page,
-        'next_page': next_page
+        'next_page': next_page,
+        'sort': sort,
         })
 
 def make_simple_list(request, query, header, order_by=None, rss_feed=None):
