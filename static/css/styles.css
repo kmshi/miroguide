@@ -1121,7 +1121,14 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 }
 #hoverMenuSubmit ul li.upper .form_row {height: 100%; overflow: hidden; margin: 0 0 5px 0;}
 #hoverMenuSubmit ul li.upper .form_row_center {height: 100%; overflow: hidden; margin: 10px 0; text-align: center;}
-#hoverMenuSubmit ul li.upper .form_row_center img.preview {border: 1px solid #888;}
+#hoverMenuSubmit ul li.upper .form_row_center div.preview {
+    border: 1px solid #888;
+    width: 300px;
+    height: 200px;
+    margin: 0 auto;
+    position: relative;
+}
+#hoverMenuSubmit ul li.upper .form_row_center div.preview .overlay {position: absolute; right: 0; z-index: 2;}
 #hoverMenuSubmit ul li.upper .form_row_center img.add_cat {}
 #hoverMenuSubmit ul li.upper label, #hoverMenuSubmit ul li.upper label.longlabel {
 	float: left;

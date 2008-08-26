@@ -56,6 +56,7 @@ class Channel(Record, Thumbnailable):
         (142, 96), # featured on front page
         (154, 105), # item thumbnail size
         (222, 146), # large image on details page
+        (300, 200), # biggest size
     ]
 
     def __str__(self):

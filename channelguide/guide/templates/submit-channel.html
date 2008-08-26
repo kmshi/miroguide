@@ -16,7 +16,10 @@ See LICENSE for details.
           {{ form.thumbnail_widget }}
           {% if submitted_thumb_url %}
             <h4>{{ thumbnail_description }}</h4>
-            <img class="preview" width="222" height="146" src="{{ submitted_thumb_url }}" />
+            <div class="preview">
+              <img class="overlay" src="{{ STATIC_BASE_URL }}images/submit-thumbnail-overlay.jpg" />
+              <img width="300" height="200" src="{{ submitted_thumb_url }}" />
+            </div>
           {% endif %}
         </div>
 {% endblock %}
