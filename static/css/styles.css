@@ -937,14 +937,19 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	height: 100%;
 	background: url(images/hover_menu.png) 0 0 repeat-y;
 }
-#hoverMenuLanguage ul li {
+#hoverMenuLanguage ul button {
+    background: url(images/hover_menu_bg.png) 0 0 repeat-x;
+    text-align: inherit;
 	height: 30px;
 	width: 214px;
 	margin: 0;
 	line-height: 30px;
+}
+#hoverMenuLanguage ul button span {
+    background: url(images/hover_menu_bg.png) 0 0 repeat-x;
 	color: white;
 }
-#hoverMenuLanguage ul li a {
+#hoverMenuLanguage ul button a {
 	display: block;
 	height: 30px;
 	width: 214px;
@@ -952,12 +957,12 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	color: white;
 	font-weight: bold;
 }
-#hoverMenuLanguage ul li a:hover {background: url(images/hover_menu_bg.png) bottom left repeat-x;}
-#hoverMenuLanguage ul li a span {
+#hoverMenuLanguage ul button:hover {background: url(images/hover_menu_bg.png) bottom left repeat-x;}
+#hoverMenuLanguage ul button a span {
 	padding: 0 0 0 10px;
 	display: block;
 }
-#hoverMenuLanguage ul li a:hover span {background: url(images/menu_check.png) 190px 10px no-repeat;}
+#hoverMenuLanguage ul button:hover span {background: url(images/menu_check.png) 190px 10px no-repeat;}
 
 
 /*Hover Menu - Login*/
@@ -1327,7 +1332,6 @@ button span {
 	background: url(images/buttons/button_input_left.png) no-repeat left top;
 	padding: 0 5px 0 14px;
 }
-
 
 /*Link buttons*/
 .view_more_featured_videos a {

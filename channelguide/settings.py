@@ -9,7 +9,7 @@ from urlparse import urlparse
 # We don't actually use the DATABASE_ENGINE variable, but django requires it
 # for the test suite.  Set it to dummy to prevent django from complaining.
 DATABASE_ENGINE = 'dummy'
-USE_I18N = False
+
 # sitespecific.py stores all server specific data. 
 from sitespecific import *
 

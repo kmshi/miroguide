@@ -1,4 +1,4 @@
-{% load cg_helpers %}
+{% load cg_helpers i18n %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -140,19 +140,20 @@ $('#hoverMenuLogin #register').click(function() {
           {% endif %}
           {% endif %}
           <div id="hoverMenuLanguage" onmouseover="return showMenu('hoverMenuLanguage', 'language')" onmouseout="return hideMenu('hoverMenuLanguage', 'language')">
-              <div id="upButton"></div>
-              <ul>
-                <li><a href="#"><span>Albanian</span></a></li>
-                <li><a href="#"><span>Arabic</span></a></li>
-                <li><a href="#"><span>Basque</span></a></li>
-                <li><a href="#"><span>Cantonese</span></a></li>
-                <li><a href="#"><span>Catalan</span></a></li>
-                <li><a href="#"><span>English</span></a></li>
-                <li><a href="#"><span>French</span></a></li>
-                <li><a href="#"><span>Portuguese</span></a></li>
-                <li><a href="#"><span>Spanish</span></a></li>
-              </ul>
-              <div id="downButton"></div>
+              {% comment %}<div id="upButton"></div>{% endcomment %}
+              <form action="{{ BASE_URL }}i18n/setlang/" method="POST">
+                <ul>
+                  {% get_available_languages as LANGUAGES %}
+                  {% for language in LANGUAGES %}
+                  <li>
+                    <button type="submit" name="language" value="{{ language.0 }}">
+                      <span>{{ language.1 }}</span>
+                    </button>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </form>
+              {% comment %}<div id="downButton"></div>{% endcomment %}
             </div><!--hoverMenu-->
           </div><!--hover_align-->
  {% endblock %}
