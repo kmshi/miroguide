@@ -3,6 +3,7 @@ Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
 {% load i18n channels %}
+{% if channel %}
 <div class="edit" editURL="{{ channel.get_edit_url }}">
     {% if user.is_moderator %}
     <h2>{% trans "Click to Edit Channel / Assist Manager" %}</h2>
@@ -108,4 +109,5 @@ if (location.hash == '#edit') {
     $(".edit h2").each(toggleEditBox);
 }
 </script>
+{% endif %}
 {% endif %}

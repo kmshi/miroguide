@@ -57,6 +57,9 @@ def button_large(channel):
 
 @register.inclusion_tag('guide/edit-bar.html', takes_context=True)
 def edit_bar(context, channel, show_script=True):
+    user = context['user']
+    if not (user.is_moderator() or user.id == channel.owner_id):
+        return {}
     channel.join('owner', 'last_moderated_by').execute(
         context['request'].connection)
     if channel.last_moderated_by_id == channel.owner_id and \
