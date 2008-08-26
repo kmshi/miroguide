@@ -3,7 +3,7 @@ function infiniteCallback(data, textStatus) {
     results = content.find('#searchResults > li')
     $('#searchResults').append(results);
     results.find('ul.rating').rating();
-    location.href = '#' + results.find('a').attr('name');
+    location.href = '#pg' + results.find('a').attr('name');
     nextpage = content.find('#next-page');
     if (!nextpage.length) {
         $('#next-page').remove();
@@ -35,7 +35,7 @@ function infiniteLoad() {
 
 function checkHash() {
     if (!location.hash) return;
-    hash = location.hash.substring(1);
+    hash = location.hash.substring(3);
     try {
         parseInt(hash)
     } catch (e) {
