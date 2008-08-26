@@ -282,8 +282,8 @@ class SubmitChannelForm(Form):
     description = WideCharField(widget=forms.Textarea,
             label=_("Full Description"))
     publisher = forms.EmailField(label=_("Publisher E-mail"), max_length=100)
-    tags = TagField(tag_limit=5, required=False,
-            label=_('Tags') + ' <span>' + _('(up to 5)') + '</span>',
+    tags = TagField(tag_limit=75, required=False,
+            label=_('Tags'),
             help_text=_('Keywords that describe this channel.  Separate each '
                 'tag with a comma.'))
     categories = TripletField(CategoriesField, label=_("Categories"))
