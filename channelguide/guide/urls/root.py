@@ -43,7 +43,7 @@ urlpatterns += patterns('channelguide.guide.views.channels',
                     'filter': 'feed',
                     'value': True,
                     'title': 'Feeds'}),
-                        (r'^shows/?$', 'filtered_listing', {
+                        (r'^streaming/?$', 'filtered_listing', {
                      'filter': 'feed',
                      'value':  False,
                      'title': 'Shows'}),
