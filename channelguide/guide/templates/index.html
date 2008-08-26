@@ -25,11 +25,15 @@ function rotateFeatures() {
 }
 
 function featuredPrevious() {
+    if ($('#featuredItemsCarousel ul').queue().length)
+        return;
     cancelFeaturedShuffle();
     currentFeature = currentFeature - 1;
     animateFeatured();
 };
 function featuredNext() {
+    if ($('#featuredItemsCarousel ul').queue().length)
+        return;
     cancelFeaturedShuffle();
     currentFeature = currentFeature + 1;
     animateFeatured();
