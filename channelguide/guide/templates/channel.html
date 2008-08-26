@@ -1,4 +1,4 @@
-{% load channels cg_helpers %}
+{% load channels cg_helpers i18n %}
 {% if moderate %}
   <div class="edit">
   {% moderate_actions_simple channel "" %}
@@ -9,9 +9,9 @@
 <a href="{{ channel.get_url }}">
   {% if channel.hi_def %}
     {% if small %}
-    <img class="hd_tag_small" src="{{ STATIC_BASE_URL}}images/ico_hd_tag_small.png" alt="High-Definition Channel" />
+    <img class="hd_tag_small" src="{{ STATIC_BASE_URL}}images/ico_hd_tag_small.png" alt="{% trans "High-Definition Channel" %}" />
     {% else %}
-    <img class="hd_tag_large" src="{{ STATIC_BASE_URL}}images/ico_hd_tag_large.png" alt="High-Definition Channel" />
+    <img class="hd_tag_large" src="{{ STATIC_BASE_URL}}images/ico_hd_tag_large.png" alt="{% trans "High-Definition Channel" %}" />
     {% endif %}
   {% endif %}
   {% if small %}
@@ -50,14 +50,14 @@
     <div class="fr">
         <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">
             <input type="hidden" name="action" value="change-owner">
-            <label for="owner"><a {% link channel.owner.get_absolute_url %}>Channel Manager</a>:</label>
+            <label for="owner"><a {% link channel.owner.get_absolute_url %}>{% trans "Channel Manager" %}</a>:</label>
             <input type="text" name="owner" value="{{ channel.owner }}">
             <input type="submit" value="change">
         </form>
     </div>
      {% endif %}
      <div>
-       Notes: {{ channel.notes|length }}
+       {% trans "Notes" %}: {{ channel.notes|length }}
      </div>
    </div>
 {% endif %}
