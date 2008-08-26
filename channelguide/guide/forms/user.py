@@ -2,7 +2,7 @@
 # See LICENSE for details.
 
 from django import newforms as forms
-from django.utils.translation import gettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from channelguide.guide.models import User
 from form import Form
@@ -15,7 +15,7 @@ class NewUserField(forms.CharField):
             # allow keeping the same username
             return rv
         if User.query(username=value).count(self.connection) > 0:
-            raise forms.ValidationError(_("username already taken"))
+            raise forms.ValidationError(_("Username already taken"))
         return rv
 
 class NewEmailField(forms.EmailField):
@@ -25,14 +25,14 @@ class NewEmailField(forms.EmailField):
             # don't check if the user isn't changing the value
             return value
         if User.query(email=value).count(self.connection) > 0:
-            raise forms.ValidationError(_("email already taken"))
+            raise forms.ValidationError(_("E-mail already taken"))
         return value
 
 class ExistingEmailField(forms.EmailField):
     def clean(self, value):
         value = super(ExistingEmailField, self).clean(value)
         if User.query(email=value).count(self.connection) == 0:
-            raise forms.ValidationError(_("email not found"))
+            raise forms.ValidationError(_("E-mail not found"))
         return value
 
 class UsernameField(forms.CharField):

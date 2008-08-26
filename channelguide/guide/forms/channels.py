@@ -13,7 +13,7 @@ import socket # for socket.error
 
 from django.conf import settings
 from django.template.loader import render_to_string
-from django.utils.translation import gettext as _
+from django.utils.translation import ugettext_lazy as _
 import django.newforms as forms
 import feedparser
 
@@ -32,7 +32,7 @@ HD_HELP_TEXT = HELP_FORMAT % \
         material on the channel must meet this criteria for it to be considered
         HD.  Note: you are welcome to have an HD and non-HD version of the same
         channel """))
-RSS_HELP_TEXT = ("An RSS feed is what makes a podcast a "
+RSS_HELP_TEXT = _("An RSS feed is what makes a podcast a "
 "podcast. It's a special URL that applications like "
 "Miro and iTunes check periodically to know when there "
 "is a new video for a channel. Video RSS feeds are "
@@ -257,15 +257,16 @@ class ChannelThumbnailField(forms.Field):
     def clean(self, value):
         if not value:
             if self.required:
-                raise forms.ValidationError('This field is required.')
+                raise forms.ValidationError(_('This field is required.'))
             return None
         try:
             ext = util.get_image_extension(value)
         except ValueError:
-            raise forms.ValidationError('Not a valid image')
+            raise forms.ValidationError(_('Not a valid image'))
         else:
             if not ext:
-                raise forms.ValidationError('Not an image in a format we support.')
+                raise forms.ValidationError(
+                    _('Not an image in a format we support.'))
             return value
 
 def try_to_download_thumb(url):
@@ -294,7 +295,7 @@ class SubmitChannelForm(Form):
     hi_def = forms.BooleanField(label=_('High Definition'),
             help_text=HD_HELP_TEXT, required=False)
     thumbnail_file = ChannelThumbnailField(label=_('Upload Image'),
-                                           help_text="Remember that creating "
+                                           help_text=_("Remember that creating "
                                            "a good channel thumbnail is one of "
                                            "the most important ways to attract "
                                            "new viewers.  It's worth making an "
@@ -315,7 +316,8 @@ class SubmitChannelForm(Form):
         if value == self.fields['website_url'].initial:
             return value
         if Channel.query(website_url=value).count(self.connection) > 0:
-            raise forms.ValidationError('That streaming site already exists.')
+            raise forms.ValidationError(
+                _('That streaming site already exists.'))
         return value
 
     def set_defaults(self, saved_data):
@@ -385,7 +387,7 @@ class SubmitChannelForm(Form):
     def save_channel(self, creator, feed_url):
         if Channel.query().where(
                 Channel.c.url==feed_url).count(self.connection):
-            raise forms.ValidationError("Feed URL already exists")
+            raise forms.ValidationError(_("Feed URL already exists"))
         channel = Channel()
         channel.url = feed_url
         channel.owner_id = creator.id
