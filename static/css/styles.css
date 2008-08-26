@@ -634,6 +634,7 @@ ul.info li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13p
 
 #channelWebsite iframe {
     width: 100%;
+    float: right;
 }
 
 .inactive, .inactive .page {

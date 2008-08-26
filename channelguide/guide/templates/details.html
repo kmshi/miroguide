@@ -42,12 +42,14 @@
 	</div><!--channelDetails-->
         <script type="text/javascript">
 $("#channelWebsite h4").click(function() {
-    $(this).parent().parent().toggleClass('inactive');
+    $(this).parent().children('iframe').slideToggle('fast',
+                                                    function(){$(this).parent().parent().toggleClass('inactive');});
     return false;
 });
 
 $("#channelDetails h4").click(function() {
-    $(this).parent().parent().parent().toggleClass('inactive');
+    $(this).parent().parent().find('p.description, div.thumb').slideToggle('fast',
+                                                                           function(){$(this).parent().toggleClass('inactive');});
     return false;
 });
         </script>
