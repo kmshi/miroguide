@@ -1132,7 +1132,7 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 #hoverMenuSubmit ul li.upper label.longlabel {width: 12em;}
 #hoverMenuSubmit ul li.upper .form_row img {
     float: left;
-    padding: 7px 5px;
+    padding: 10px 5px;
 }
 #hoverMenuSubmit ul li.upper label.question span {background: url(images/ico_question.png) right 1px no-repeat; padding: 0 17px 0 0;}
 #hoverMenuSubmit ul li.upper textarea {
