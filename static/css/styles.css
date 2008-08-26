@@ -23,6 +23,10 @@ a:hover {color: #666; text-decoration: none;}
 img, img a, img a:hover {border: 0;}
 h1, h2, h3, h4, h5 {font-weight: normal;}
 
+form {
+    margin: 0;
+    padding: 0;
+}
 /*****************************************************
 	Structure
 ******************************************************/
@@ -937,10 +941,6 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	height: 300px;
         overflow: hidden;
 	background: url(images/hover_menu.png) 0 0 repeat-y;
-}
-#hoverMenuLanguage ul li {
-    position: relative;
-    top: 0;
 }
 #hoverMenuLanguage ul button {
     background: url(images/hover_menu_bg.png) 0 0 repeat-x;
