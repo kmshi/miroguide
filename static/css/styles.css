@@ -944,14 +944,17 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 #hoverMenuLanguage ul button {
     background: url(images/hover_menu_bg.png) 0 0 repeat-x;
     text-align: inherit;
-	height: 30px;
-	width: 214px;
-	margin: 0;
-	line-height: 30px;
+    height: 30px;
+    width: 214px;
+    margin: 0;
+    padding: 0;
+    line-height: 30px;
 }
 #hoverMenuLanguage ul button span {
     background: url(images/hover_menu_bg.png) 0 0 repeat-x;
-	color: white;
+    font-size: 12px;
+    color: white;
+    font-weight: bold;
 }
 #hoverMenuLanguage ul button a {
 	display: block;
@@ -962,11 +965,11 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	font-weight: bold;
 }
 #hoverMenuLanguage ul button:hover {background: url(images/hover_menu_bg.png) bottom left repeat-x;}
-#hoverMenuLanguage ul button a span {
+#hoverMenuLanguage ul button span {
 	padding: 0 0 0 10px;
 	display: block;
 }
-#hoverMenuLanguage ul button:hover span {background: url(images/menu_check.png) 190px 10px no-repeat;}
+#hoverMenuLanguage ul button:hover span {background: url(images/menu_check.png) 190px 3px no-repeat;}
 
 
 /*Hover Menu - Login*/
