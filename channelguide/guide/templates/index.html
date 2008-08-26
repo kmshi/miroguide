@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load channels %}
+{% load channels i18n %}
 {% block head %}
 <script type="text/javascript">
 //<![CDATA[
@@ -131,7 +131,7 @@ $(document).ready(function() {
 	<div id="container">
 		<div>
                         {% if feed %}
-			<h3 class="title_bar"><span class="rss">New Feed Videos</span></h3>
+			<h3 class="title_bar"><span class="rss">{% trans "New Feed Videos" %}</span></h3>
 			<ul class="videoFeed">
                           {% for channel in feed %}
 				<li>
@@ -141,7 +141,7 @@ $(document).ready(function() {
 			</ul>
                         {% endif %}
                         {% if streaming %}
-			<h3 class="title_bar"><span class="streaming">New Streaming Videos</span></h3>
+			<h3 class="title_bar"><span class="streaming">{% trans "New Streaming Videos" %}</span></h3>
 			<ul class="videoFeed">
                           {% for channel in streaming %}
 				<li>
@@ -153,7 +153,7 @@ $(document).ready(function() {
 		</div>
                 {% if recommended %}
 		<div id="sideBar">
-			<h3 class="widget_title_bar"><span class="favorite">Recommended for you</span></h3>
+			<h3 class="widget_title_bar"><span class="favorite">{% trans "Recommended for you" %}</span></h3>
 			<div class="widget">
 				<ul class="recommended">
                                   {% for channel in recommended %}
@@ -163,7 +163,7 @@ $(document).ready(function() {
                                   {% endfor %}
 				</ul>
 			</div><!--widget-->
-			<div class="widget_close"><a href="{{ BASE_URL }}recommend/"><span>View all</span></a></div>
+			<div class="widget_close"><a href="{{ BASE_URL }}recommend/"><span>{% trans "View all" %}</span></a></div>
 		</div>
                 {% endif %}
 	</div><!--container-->
