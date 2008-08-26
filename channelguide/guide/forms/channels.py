@@ -32,11 +32,11 @@ HD_HELP_TEXT = HELP_FORMAT % \
         material on the channel must meet this criteria for it to be considered
         HD.  Note: you are welcome to have an HD and non-HD version of the same
         channel """))
-RSS_HELP_TEXT = "An RSS feed is what makes a podcast a "
+RSS_HELP_TEXT = ("An RSS feed is what makes a podcast a "
 "podcast. It's a special URL that applications like "
 "Miro and iTunes check periodically to know when there "
 "is a new video for a channel. Video RSS feeds are "
-"strongly recommended for Miro."
+"strongly recommended for Miro.")
 
 class RSSFeedField(WideCharField):
     def clean(self, value):
@@ -276,7 +276,7 @@ def try_to_download_thumb(url):
 
 class SubmitChannelForm(Form):
     name = WideCharField(max_length=200, label=_("Channel Name"))
-    url = RSSFeedField(label=_("Feed URL"), max_length=200,
+    url = RSSFeedField(label=_("RSS Feed"), max_length=200,
                       help_text=RSS_HELP_TEXT, required=False)
     website_url = WideURLField(label=_('Website URL'), max_length=200)
     description = WideCharField(widget=forms.Textarea,
