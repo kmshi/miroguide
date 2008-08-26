@@ -16,11 +16,6 @@
 <script type="text/javascript" src="{% if DEBUG %}{{ STATIC_BASE_URL }}js/jquery.min.js{% else %}http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js{% endif %}"></script>
 <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/jquery.form.js"></script>
 <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/miroguide.js"></script>
-<script type="text/javascript">
-function showMenu(el) {$('#' + el).show(); return false;}
-function hideMenu(el) {$('#' + el).hide(); return false;}
-function toggleMenu(el) {$('#' + el).toggle(); return false;}
-</script>
 {% block head %}
 {% endblock %}
 </head>
@@ -53,9 +48,9 @@ function toggleMenu(el) {$('#' + el).toggle(); return false;}
 				<li><a href="{{ BASE_URL }}popular/">Most Popular</a></li>
 				<li><a href="{{ BASE_URL }}new/">New Shows</a></li>
 				<li><a href="{{ BASE_URL }}languages/">Video by Language</a></li>
-				<li id="language"><a href="#" onmouseover="return showMenu('hoverMenuLanguage')" onmouseout="return hideMenu('hoverMenuLanguage')">Language</a></li>
+				<li id="language"><a href="#" onmouseover="return showMenu('hoverMenuLanguage', 'language')" onmouseout="return hideMenu('hoverMenuLanguage', 'language')">Language</a></li>
 				<li id="account">
-                                <a href="{% if user.is_authenticated %}{{ user.get_url }}{% else %}{{ BASE_URL }}accounts/login{% endif %}" onmouseover="return showMenu('hoverMenuLogin')" onmouseout="return hideMenu('hoverMenuLogin')">{% if user.is_authenticated %}{{ user.username }}{% else %}Account{% endif %}</a>
+                                  <a href="{% if user.is_authenticated %}{{ user.get_url }}{% else %}{{ BASE_URL }}accounts/login{% endif %}" onmouseover="return showMenu('hoverMenuLogin', 'account')" onmouseout="return hideMenu('hoverMenuLogin', 'account')">{% if user.is_authenticated %}{{ user.username }}{% else %}Account{% endif %}</a>
                                 </li>
 			</ul>
 		</div><!--page-->
@@ -63,7 +58,7 @@ function toggleMenu(el) {$('#' + el).toggle(); return false;}
 
 	<div id="hover_align">
           {% if user.is_authenticated %}
-          <div id="hoverMenuLogin" class="loggedin" onmouseover="return showMenu('hoverMenuLogin')" onmouseout="return hideMenu('hoverMenuLogin')">
+          <div id="hoverMenuLogin" class="loggedin" onmouseover="return showMenu('hoverMenuLogin', 'account')" onmouseout="return hideMenu('hoverMenuLogin', 'account')">
             <ul>
               {% if user.is_moderator %}
               <li id="login"><a href="{{ BASE_URL }}moderate/">Moderator's Area</a></li>
@@ -82,7 +77,7 @@ function toggleMenu(el) {$('#' + el).toggle(); return false;}
           </div>
           {% else %}
           {% if login and register %}
-          <div id="hoverMenuLogin" onmouseover="return showMenu('hoverMenuLogin')" onmouseout="return hideMenu('hoverMenuLogin')">
+          <div id="hoverMenuLogin" onmouseover="return showMenu('hoverMenuLogin', 'account')" onmouseout="return hideMenu('hoverMenuLogin', 'account')">
             <ul>
               <li class="form-errors"></li>
               <li id="login">
@@ -134,7 +129,7 @@ $('#hoverMenuLogin #register').click(function() {
           </div>
           {% endif %}
           {% endif %}
-          <div id="hoverMenuLanguage" onmouseover="return showMenu('hoverMenuLanguage')" onmouseout="return hideMenu('hoverMenuLanguage')">
+          <div id="hoverMenuLanguage" onmouseover="return showMenu('hoverMenuLanguage', 'language')" onmouseout="return hideMenu('hoverMenuLanguage', 'language')">
               <div id="upButton"></div>
               <ul>
                 <li><a href="#"><span>Albanian</span></a></li>
