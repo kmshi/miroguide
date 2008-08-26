@@ -4,7 +4,8 @@
   {% rating_header %}
 {% endblock %}
 {% block body %}
-	<div id="channelInfo">
+        {% edit_bar channel %}
+        <div id="channelInfo">
 		<div class="page">
 			<h1>{{ channel.name }}</h1>
                         {% if channel.url %}
@@ -17,7 +18,6 @@
                         </div>
 		</div><!--page-->
 	</div><!--channelInfo-->
-        {% edit_bar channel %}
 	<div id="channelWebsite"{% if channel.url %} class="inactive"{% endif %}>
 		<div class="page">
 			<h4><a href="{{ channel.website_url }}">Show Channel Website</a></h4>

@@ -395,7 +395,7 @@ ul.info li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13p
 /* Edit interface */
 .edit, .edit-box {
     background: #fff49e;
-    width: 800px;
+    width: 100%;
     margin: 0 auto;
     padding: 5px 10px 2px;
     min-height: 2em;
