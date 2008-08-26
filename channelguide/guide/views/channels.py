@@ -334,6 +334,9 @@ def for_user(request, user_name_or_id):
     except LookupError:
         user = util.get_object_or_404(request.connection, User,
                                       user_name_or_id)
+    expected_path = '/user/%s' % user.username
+    if request.path != expected_path:
+        return util.redirect(expected_path)
     query = Channel.query(owner_id=user.id, user=request.user)
     query.join('owner', 'last_moderated_by', 'featured_queue', 'featured_queue.featured_by')
     query.order_by(Channel.c.name)
