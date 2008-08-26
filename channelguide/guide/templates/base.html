@@ -32,9 +32,13 @@
 			<div id="searchBG"></div>
 			<div id="searchSpot">
                           <form method="get" action="{{ BASE_URL }}search">
+                            <div>
 				<input type="text" class="headSearch" name="query" id="search_query" value="Search" />
+                            </div>
                                 <script type="text/javascript">
+                                    <![CDATA[
                                     $("#searchSpot input").focus(searchFocus).blur(searchBlur);
+                                    ]]>
                                 </script>
                           </form>
 			</div><!--searchSpot-->
