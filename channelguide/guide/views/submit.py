@@ -17,12 +17,17 @@ def submit_feed(request):
     if request.method != 'POST':
         form = forms.FeedURLForm(request.connection)
     else:
+        submit_type = request.POST.get('type')
         form = forms.FeedURLForm(request.connection, request.POST.copy())
         if form.is_valid():
             if form.cleaned_data['url']:
                 request.session[SESSION_KEY] = form.get_feed_data()
             else:
                 request.session[SESSION_KEY] = form.cleaned_data
+            if 'Fan' in submit_type:
+                request.session[SESSION_KEY]['owner-is-fan'] = True
+            else:
+                request.session[SESSION_KEY]['owner-is-fan'] = False
             return util.redirect("submit/step2")
         else:
             for error in form.error_list():
@@ -43,7 +48,6 @@ def check_session_key(function):
     def check(request, *args, **kw):
         if SESSION_KEY not in request.session:
             return util.redirect('submit')
-        print request.session
         return function(request, *args, **kw)
     return check
 
@@ -73,6 +77,8 @@ def submit_channel(request):
     else:
         form = forms.SubmitChannelForm(request.connection,
                 util.copy_post_and_files(request))
+        if session_dict['owner-is-fan']:
+            form.fields['publisher'].required = False
         if form.user_uploaded_file():
             session_dict['detected_thumbnail'] = False
             request.session.modified = True

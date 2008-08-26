@@ -319,6 +319,8 @@ class SubmitChannelForm(Form):
         return value
 
     def set_defaults(self, saved_data):
+        if saved_data['owner-is-fan']:
+            self.fields['publisher'].required = False
         for key in ('name', 'website_url', 'publisher', 'description'):
             if saved_data.get(key) is not None:
                 self.fields[key].initial = saved_data[key]
