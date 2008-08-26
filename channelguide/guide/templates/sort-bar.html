@@ -1,15 +1,6 @@
 <div id="sort">
   <h4>Sort by:</h4>
   {% for sort in sorts %}
-  {% if sort.current %}
-  <span class="on">
-      {{ sort.title }}
-      {% ifequal direction "up" %}
-      <span class="on">^</span>
-      <a href="{{ sort.down }}">v</a>{% else %}
-      <a href="{{ sort.up }}">^</a>
-      <span class="on">v</span>{% endifequal %}</span>{% else %}
-  <span>
-    <a href="{{ sort.default }}">{{ sort.title }}</a></span>{% endif %}{% if not forloop.last %}, {% endif %}
+  <a class="{{ sort.class }}" href="{{ sort.url }}">{{ sort.title }}</a>{% if not forloop.last %}, {% endif %}
   {% endfor %}
 </div>

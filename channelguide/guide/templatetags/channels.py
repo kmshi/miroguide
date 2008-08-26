@@ -85,38 +85,38 @@ def show_personalized_recommendation(context,channel):
 def sort(context):
     request = context['request']
     current_sort = context['sort']
-    direction = 'up'
-    if current_sort[0] == '-':
-        direction = 'down'
-        current_sort = current_sort[1:]
-    sorts = ['popular', 'rating', 'age', 'name']
-    d = {}
-    def _url(sort, up):
+    groups = [
+        (('Most Popular', '-popular'),
+         ('Least Popular', 'popular')),
+        (('Top Rated', '-rating'),
+         ('Lowest Rated', 'rating')),
+        (('Newest', '-age'),
+         ('Oldest', 'age')),
+        (('A-Z', 'name'),
+         ('Z-A', '-name'))]
+
+    def _url(sort):
         g = request.GET.copy()
         if 'page' in g:
             del g['page']
-        if up:
-            g['sort'] = sort
-        else:
-            g['sort'] = '-' + sort
+        g['sort'] = sort
         return util.make_absolute_url(request.path, g)
-    def _dict(sort):
-        d = {
-            'title': sort.title(),
-            'current': current_sort == sort,
-            'up': _url(sort, True),
-            'down': _url(sort, False),
-            'default': _url(sort, False)
-            }
-        if sort == 'name':
-            d['default'] = d['up']
-        return d
-    sorts = [_dict(sort) for sort in sorts]
-    return {
-        'sort': current_sort,
-        'sorts': sorts,
-        'direction': direction,
-        }
+    sorts = []
+    for first, second in groups:
+        if first[1] == current_sort:
+            css = 'on'
+            name, sort = second
+        elif second[1] == current_sort:
+            css = 'on'
+            name, sort = first
+        else:
+            css = ''
+            name, sort = first
+        sorts.append(
+            {'title': name,
+             'url': _url(sort),
+             'class': css})
+    return {'sorts': sorts}
 
 @register.inclusion_tag('guide/pager.html', takes_context=True)
 def pager(context, length):
