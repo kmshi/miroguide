@@ -984,11 +984,11 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	width: 235px;
 	padding: 20px 23px 14px 23px;
 	margin: 0;
-	line-height: 30px;
+	line-height: 20px;
 	border-bottom: 1px solid #9e1515;
 	color: white;
 }
-#hoverMenuLogin ul li .form_row {height: 100%; overflow: hidden; margin: 0 0 5px 0;}
+#hoverMenuLogin ul li .form_row {height: 100%; overflow: hidden; margin: 0 0 10px 0;}
 #hoverMenuLogin ul li label {
 	float: left;
 	display: inline;
