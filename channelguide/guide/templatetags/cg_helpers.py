@@ -35,7 +35,10 @@ def do_static_nonce(parser, token):
     fullpath = os.path.join(settings.STATIC_DIR, filename)
     if not os.path.exists(fullpath):
         raise template.TemplateSyntaxError('%s does not exist' % filename)
-    return template.TextNode('?%i' % hash(os.stat(fullpath)))
+    nonce = hash(os.stat(fullpath))
+    return template.TextNode('%s%s?%i' % (settings.STATIC_BASE_URL,
+                                          filename,
+                                          nonce))
 
 @register.tag('link')
 def do_link(parser, token):
