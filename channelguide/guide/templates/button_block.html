@@ -3,7 +3,7 @@
     <td class="{% if small %}tiny{% else %}small{% endif %}_add_button">
       <a href="{{ channel.get_subscription_url }}">
         <span class="button_text">Add{% if small %}{% else%} channel{% endif %}</span>
-        <img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_small_rss.png" alt="Add {{ channel.name }} to Miro" />
+        <img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_small_{% if channel.url %}rss{% else %}streaming{% endif %}.png" alt="Add {{ channel.name }} to Miro" />
       </a>
     </td>
     <td class="details_button">
