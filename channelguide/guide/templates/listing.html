@@ -14,8 +14,8 @@
                   <h3 class="search_result"><span class="{{ header_class }}">We have <strong>{{ count }}</strong> {{ title }}</span></h3>
                   {% if sort %}
                   {% sort %}
-                  {% pager 10 %}
                   {% endif %}
+                  {% pager 10 %}
                   <ul id="searchResults">
                     {% for channel in results %}
                     <li>

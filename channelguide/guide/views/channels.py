@@ -280,7 +280,7 @@ def rate(request, id):
 @cache.aggresively_cache
 def filtered_listing(request, value=None, filter=None, limit=10,
                      title='Filtered Listing', header_class='rss',
-                     default_sort='rating'):
+                     default_sort='-rating'):
     if not filter:
         raise Http404
     page = request.GET.get('page', 1)
@@ -293,6 +293,8 @@ def filtered_listing(request, value=None, filter=None, limit=10,
                                 limit, (page - 1) * limit,
                                 ('subscription_count_month', 'rating',
                                  'item_count'))
+    if default_sort in ('-popular', '-age') and filter == 'name' and value is None:
+        sort = None # don't show sort on popular channels page
     count = api.get_channels(request.connection, filter, value, 'count')
     if not channels:
         raise Http404
