@@ -839,7 +839,7 @@ ul#lowerMenu {
 	height: 25px;
 	list-style: none;
 	margin: 0;
-	padding:0pt 8px 0pt 0pt;
+	padding:0pt 4px 0pt 0pt;
 }
 ul#lowerMenu li {
 	height: 25px;
@@ -864,7 +864,8 @@ ul#lowerMenu li#language a, ul#lowerMenu li#account a {
 	display: block;
         overflow: hidden;
 }
-ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
+ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover,
+ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	background-color: #c92323;
 	color: white;
 }
@@ -917,7 +918,7 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	overflow: hidden;
         display: none;
 	position: absolute;
-	margin: -1px 0 0 580px;
+	margin: -1px 0 0 576px;
 	z-index: 100;
 }
 #hoverMenuLanguage #upButton {
@@ -968,7 +969,7 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 	overflow: hidden;
         display: none;
 	position: absolute;
-	margin: -1px 0 0 426px;
+	margin: -1px 0 0 422px;
 	z-index: 100;
 }
 #hoverMenuLogin > ul {
