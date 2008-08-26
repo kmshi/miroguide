@@ -81,6 +81,7 @@ function toggleMenu(el) {$('#' + el).toggle(); return false;}
               </div>
           </div>
           {% else %}
+          {% if login and register %}
           <div id="hoverMenuLogin" onmouseover="return showMenu('hoverMenuLogin')" onmouseout="return hideMenu('hoverMenuLogin')">
             <ul>
               <li class="form-errors"></li>
@@ -131,6 +132,7 @@ $('#hoverMenuLogin #register').click(function() {
 });
             </script>
           </div>
+          {% endif %}
           {% endif %}
           <div id="hoverMenuLanguage" onmouseover="return showMenu('hoverMenuLanguage')" onmouseout="return hideMenu('hoverMenuLanguage')">
               <div id="upButton"></div>
