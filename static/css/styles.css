@@ -471,10 +471,6 @@ ul.info li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13p
     position: relative; 
 }
 
-.edit-box .help-text {
-    display: none;
-}
-
 .edit-box form {
     width: 420px;
     overflow: hidden;
@@ -1187,6 +1183,9 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	width: 13em;
 }
 /*Help box*/
+.help-text img {
+    cursor: pointer;
+}
 .help_box {
 	width: 238px;
         z-index: 100;
