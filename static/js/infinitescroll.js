@@ -2,6 +2,7 @@ function infiniteLoad(data, textStatus) {
     content = $('#content', data);
     results = content.find('#searchResults > li')
     $('#searchResults').append(results);
+    results.find('ul.rating').rating();
     nextpage = content.find('#next-page');
     if (!nextpage.length) {
         $('#next-page').remove();
