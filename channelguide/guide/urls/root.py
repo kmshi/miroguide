@@ -42,12 +42,10 @@ urlpatterns += patterns('channelguide.guide.views.channels',
                         (r'^feeds/?$', 'filtered_listing', {
                     'filter': 'feed',
                     'value': True,
-                    'default_sort': 'name',
                     'title': 'Feeds'}),
                         (r'^shows/?$', 'filtered_listing', {
                      'filter': 'feed',
                      'value':  False,
-                     'default_sort': 'name',
                      'title': 'Shows'}),
                         (r'^new/?$', 'filtered_listing', {
                     'filter': 'name',
@@ -56,12 +54,10 @@ urlpatterns += patterns('channelguide.guide.views.channels',
                         (r'^featured/?$', 'filtered_listing', {
                     'filter': 'featured',
                     'value': True,
-                    'default_sort': 'name',
                     'title': 'Featured Channels'}),
                         (r'^hd/?$', 'filtered_listing', {
                     'filter': 'hd',
                     'value': True,
-                    'default_sort': 'name',
                     'title': 'High-Definition Channels'}),
                         (r'^(feeds|shows)/', cg_include('channels')),
                         )

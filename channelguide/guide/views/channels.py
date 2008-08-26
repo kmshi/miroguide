@@ -299,7 +299,7 @@ def filtered_listing(request, value=None, filter=None, limit=10,
         count = api.get_channels(request.connection, filter, value, 'ratingcount')
     else:
         count = api.get_channels(request.connection, filter, value, 'count')
-    if default_sort in ('-popular', '-age') and filter == 'name' and value is None:
+    if default_sort is not None and filter == 'name' and value is None:
         sort = None # don't show sort on popular channels page
     if not channels:
         raise Http404
