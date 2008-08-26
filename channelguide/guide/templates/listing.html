@@ -8,6 +8,9 @@
   </script>
 {% endblock %}
 {% block body %}
+  {% if terms_too_short %}
+  Terms too short
+  {% else %}
 	<div id="container">
           {% block listing-pre-content %}{% endblock %}
 		<div id="content">
@@ -58,4 +61,5 @@
 		</div>
                 {% endif %}
 	</div><!--container-->
+  {% endif %}
 {% endblock %}
