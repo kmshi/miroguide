@@ -3,6 +3,7 @@
 
 from django.conf import settings
 from django import template
+from channelguide import util
 
 register = template.Library()
 
@@ -81,16 +82,38 @@ def show_personalized_recommendation(context,channel):
 
 @register.inclusion_tag('guide/sort-bar.html', takes_context=True)
 def sort(context):
+    request = context['request']
     current_sort = context['sort']
     direction = 'up'
     if current_sort[0] == '-':
         direction = 'down'
         current_sort = current_sort[1:]
     sorts = ['popular', 'rating', 'age', 'name']
-    classes = [(sort, current_sort == sort and 'on' or '') for sort in sorts]
+    d = {}
+    def _url(sort, up):
+        g = request.GET.copy()
+        if 'page' in g:
+            del g['page']
+        if up:
+            g['sort'] = sort
+        else:
+            g['sort'] = '-' + sort
+        return util.make_absolute_url(request.path, g)
+    def _dict(sort):
+        d = {
+            'title': sort.title(),
+            'current': current_sort == sort,
+            'up': _url(sort, True),
+            'down': _url(sort, False),
+            'default': _url(sort, False)
+            }
+        if sort == 'name':
+            d['default'] = d['up']
+        return d
+    sorts = [_dict(sort) for sort in sorts]
+    print sorts
     return {
         'sort': current_sort,
         'sorts': sorts,
-        'classes': classes,
         'direction': direction,
         }

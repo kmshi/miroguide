@@ -1,12 +1,21 @@
-<div class="sideBar sort">
-  sort:
-  {% for sort in classes %}
-  <span class="{{ sort.1 }}">
-      {{ sort.0 }}
-      {% if sort.1 %}
-      <span{% ifequal direction "up" %} class="on"{% endifequal %}>^</span>
-      <span{% ifequal direction "down" %} class="on"{% endifequal %}>v</span>
-      {% endif %}
+<div id="sort">
+  Sort by:
+  {% for sort in sorts %}
+  {% if sort.current %}
+  <span class="on">
+    {{ sort.title }}
+    {% ifequal direction "up" %}
+    <span class="on">^</span>
+    <a href="{{ sort.down }}">v</a>
+    {% else %}
+    <a href="{{ sort.up }}">^</a>
+    <span class="on">v</span>
+    {% endifequal %}
   </span>
+  {% else %}
+  <span>
+    <a href="{{ sort.default }}">{{ sort.title }}</a>
+  </span>
+  {% endif %}
   {% endfor %}
 </div>

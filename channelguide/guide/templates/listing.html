@@ -11,25 +11,28 @@
 	<div id="container">
           {% block listing-pre-content %}{% endblock %}
 		<div id="content">
-                  <h3 class="search_result"><span class="{{ header_class }}">{{ intro }} of <strong>{{ count }}</strong> {{ title }}</span></h3>
-			<ul id="searchResults">
-                          {% for channel in results %}
-				<li>
-                                  {% if forloop.first %}<a name="{{ page }}"></a>{% endif %}
-                                  {% channel channel search %}
-					<div class="searchResultsMeta">
-                                          {% rating channel %}
-                                          {% rating_meta channel %}
-                                                <ul class="info">
-							<li class="subscribers">Subscribes: {{ channel.subscription_count_month }}</li>
-                                                        {% if channel.url %}
-							<li class="available">Videos Available: {{ channel.item_count }}</li>
-                                                        {% endif %}
-						</ul>
-					</div>
-				</li>
-                                {% endfor %}
- 			</ul>
+                  <h3 class="search_result"><span class="{{ header_class }}">We have <strong>{{ count }}</strong> {{ title }}</span></h3>
+                  {% if sort %}
+                  {% sort %}
+                  {% endif %}
+                  <ul id="searchResults">
+                    {% for channel in results %}
+                    <li>
+                      {% if forloop.first %}<a name="{{ page }}"></a>{% endif %}
+                      {% channel channel search %}
+                      <div class="searchResultsMeta">
+                        {% rating channel %}
+                        {% rating_meta channel %}
+                        <ul class="info">
+                          <li class="subscribers">Subscribes: {{ channel.subscription_count_month }}</li>
+                          {% if channel.url %}
+                          <li class="available">Videos Available: {{ channel.item_count }}</li>
+                          {% endif %}
+                        </ul>
+                      </div>
+                    </li>
+                    {% endfor %}
+                  </ul>
                 {% if next_page %}
                 <a id="next-page" href="{{ next_page }}">Next Page</a>
                 {% endif %}
@@ -50,9 +53,6 @@
 			<div class="widget_close"><a href="{{ sidebar_url }}"><span>View All {{ sidebar_count }} {{ sidebar_type|title }} Matches</span></a></div>
                         {% endif %}
 		</div>
-                {% endif %}
-                {% if sort %}
-                {% sort %}
                 {% endif %}
 	</div><!--container-->
 {% endblock %}
