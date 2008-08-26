@@ -70,25 +70,6 @@ function ajaxLink(url, id) {
     return false;
 }
 
-/* Handle a subscription link.  We need to hit the channelguide URL, then make
- * the browser navigate to the subscribe link.  This is basically a hack
- * because some older version of democracy get confused because the
- * channelguide URL redirects te the subscribe_url.
- */
-function handleSubscriptionLink(channel_guide_url, subscribe_url) {
-    if (isMiro() && MiroVersion() >= "1.5") return true;
-    request = makeXMLHttpRequest();
-    if (!request) return true;
-    request.subscribe_url = subscribe_url;
-    request.onreadystatechange = function () {
-        if (request.readyState == 2)
-            _redirectToSubscription(request);
-    }
-    request.open('GET', channel_guide_url, true);
-    request.send(null);
-    return false;
-}
-
 function _redirectToSubscription(request) {
     window.location.href = request.subscribe_url;
 }
