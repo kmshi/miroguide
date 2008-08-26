@@ -302,9 +302,15 @@ h2.searchResults span.comprehensive_results {display: block; margin: 0 0 7px 0; 
 h2.searchResults span.comprehensive_results a {color: #8c8c8c; text-decoration: underline;}
 
 ul#searchResults {
-	margin: 10px 0;
+	margin: 20px 0;
 	padding: 0 0 0 10px;
 	list-style: none;
+}
+#sort, .pager {
+    padding-top: 5px;
+}
+#sort {
+    padding-left: 10px;
 }
 #sort, #sort a {
     color: lightGrey;
@@ -313,6 +319,9 @@ ul#searchResults {
     color: grey;
     font-size: 100%;
     display: inline;
+}
+.pager {
+    padding-right: 30px;
 }
 .pager, .pager a {
     color: lightGrey;
