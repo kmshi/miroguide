@@ -337,7 +337,7 @@ def for_user(request, user_name_or_id):
     query = Channel.query(owner_id=user.id, user=request.user)
     query.join('owner', 'last_moderated_by', 'featured_queue', 'featured_queue.featured_by')
     query.order_by(Channel.c.name)
-    if request.user.is_admin() or request.user.id == user_id:
+    if request.user.is_admin() or request.user.id == user.id:
         try:
             cobrand = Cobranding.get(request.connection, user.username)
         except:
