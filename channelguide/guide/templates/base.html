@@ -140,7 +140,7 @@ $('#hoverMenuLogin #register').click(function() {
           {% endif %}
           {% endif %}
           <div id="hoverMenuLanguage" onmouseover="return showMenu('hoverMenuLanguage', 'language')" onmouseout="return hideMenu('hoverMenuLanguage', 'language')">
-              {% comment %}<div id="upButton"></div>{% endcomment %}
+              <div id="upButton"></div>
               <form action="{{ BASE_URL }}i18n/setlang/" method="POST">
                 <ul>
                   {% get_available_languages as LANGUAGES %}
@@ -153,7 +153,13 @@ $('#hoverMenuLogin #register').click(function() {
                   {% endfor %}
                 </ul>
               </form>
-              {% comment %}<div id="downButton"></div>{% endcomment %}
+              <div id="downButton"></div>
+              <script type="text/javascript">
+//<!CDATA[[
+$("#upButton").click(languageUp);
+$("#downButton").click(languageDown);
+//]]>
+              </script>
             </div><!--hoverMenu-->
           </div><!--hover_align-->
  {% endblock %}

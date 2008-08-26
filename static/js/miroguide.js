@@ -158,6 +158,40 @@ function showNewSubmitForm(data, textStatus) {
     submit.eq(1).ajaxForm(showNewSubmitForm);
     $('#hoverMenuSubmit').empty().append(submit);
 }
+
+function languageUp() {
+    li = $("#hoverMenuLanguage li");
+    top = parseInt(li.css('top')) + 300;
+    if (top > 0) {
+        top = 0;
+    }
+    li.animate({top: top}, 'slow', languageUpdate);
+}
+function languageDown() {
+    li = $("#hoverMenuLanguage li");
+    top = parseInt(li.css('top')) - 300;
+    if (li.length * -30 + 300 > top) {
+        top = li.length * -30 + 300;
+    }
+    li.animate({top: top}, 'slow', languageUpdate);
+}
+function languageUpdate() {
+    li = $("#hoverMenuLanguage li");
+    top = parseInt(li.css('top'));
+    count = li.length;
+    up = $("#hoverMenuLanguage #upButton");
+    down = $("#hoverMenuLanguage #downButton");
+    if (top < 0) {
+        up.css('cursor', 'pointer');
+    } else {
+        up.css('cursor', 'inherit');
+    }
+    if (count * -30 + 300 < top) {
+        down.css('cursor', 'pointer');
+    } else {
+        down.css('cursor', 'inherit');
+    }
+}
 $(document).ajaxStart(function() {
     showLoadIndicator(true);
 }).ajaxStop(function() {
