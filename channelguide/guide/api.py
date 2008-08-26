@@ -87,9 +87,11 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None,
     elif sort == 'popular':
         query.load('subscription_count_month')
         query.order_by('subscription_count_month', desc=desc)
-    elif sort == 'rating':
+    elif sort.startswith('rating'):
         query.join('rating')
         query.where(query.joins['rating'].c.count > 3)
+        if sort == 'ratingcount':
+            return query.count(connection)
         query.order_by(query.joins['rating'].c.average, desc=desc)
     elif sort == 'count':
         return query.count(connection)
