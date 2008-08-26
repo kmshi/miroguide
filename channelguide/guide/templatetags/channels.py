@@ -4,6 +4,7 @@
 from django.conf import settings
 from django import template
 from channelguide import util
+from channelguide.guide import templateutil
 
 register = template.Library()
 
@@ -111,9 +112,22 @@ def sort(context):
             d['default'] = d['up']
         return d
     sorts = [_dict(sort) for sort in sorts]
-    print sorts
     return {
         'sort': current_sort,
         'sorts': sorts,
         'direction': direction,
         }
+
+@register.inclusion_tag('guide/pager.html', takes_context=True)
+def pager(context, length):
+    request = context['request']
+    page = context['page']
+    count = context['count'] / float(length)
+    if round(count) != count:
+        count = int(count) + 1
+    links = templateutil.PageLinks(page, count, request)
+    return {'pager':
+            {'links': links,
+             'current_page': page
+             }
+            }

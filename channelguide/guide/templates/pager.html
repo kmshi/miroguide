@@ -1,0 +1,29 @@
+{% comment %}
+Copyright (c) 2008 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load i18n cg_helpers %}
+<div class="pager">
+  <h4>Pages: </h4>
+  {% if pager.links.start %}
+  {% for link in pager.links.start %}
+  <a {% link link.url %}>{{ link.number }}</a>
+  {% endfor %}
+  <span class="elipsis">...</span>
+  {% endif %}
+
+  {% for link in pager.links.before_current %}
+  <a {% link link.url %}>{{ link.number }}</a>
+  {% endfor %}
+  <span class="current-page">{{ pager.current_page }}</span>
+  {% for link in pager.links.after_current %}
+  <a {% link link.url %}>{{ link.number }}</a>
+  {% endfor %}
+
+  {% if pager.links.end %}
+  <span class="elipsis">...</span>
+  {% for link in pager.links.end %}
+  <a {% link link.url %}>{{ link.number }}</a>
+  {% endfor %}
+  {% endif %}
+</div>

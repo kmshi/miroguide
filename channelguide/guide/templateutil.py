@@ -62,8 +62,10 @@ class Pager(ManualPager):
                 request)
 
 class PageLinks(object):
-    LINKS_BEFORE_CURRENT = 5
-    LINKS_AFTER_CURRENT = 5
+    LINKS_BEFORE_ELIPSIS = 3
+    LINKS_BEFORE_CURRENT = 4
+    LINKS_AFTER_CURRENT = 4
+    LINKS_AFTER_ELIPSIS = 3
 
     def __init__(self, current, total, request):
         self.current = current
@@ -106,20 +108,23 @@ class PageLinks(object):
             self.extend_after_current(unused)
 
     def make_start_links(self):
-        if self.before_current_pos <= 1:
+        if self.before_current_pos <= self.LINKS_BEFORE_ELIPSIS - 1:
             self.start = []
         else:
-            self.start = [self.make_link(1)]
+            self.start = [self.make_link(i) for i in range(1,
+                 self.LINKS_BEFORE_ELIPSIS + 1)]
             # shorten by 2 to make room for the start link and the ellipsis
-            self.before_current = self.before_current[2:]
+            self.before_current = self.before_current[
+                self.LINKS_BEFORE_ELIPSIS:]
 
     def make_end_links(self):
         if self.after_current_pos >= self.last:
             self.end = []
         else:
             # shorten by 2 to make room for the end link and the ellipsis
-            self.end = [self.make_link(self.last)]
-            self.after_current = self.after_current[:-2]
+            self.end = [self.make_link(i) for i in range(
+                self.last - self.LINKS_AFTER_ELIPSIS + 1, self.last + 1)]
+            self.after_current = self.after_current[:-self.LINKS_AFTER_ELIPSIS]
 
     def make_next_link(self):
         if self.current < self.last:
@@ -128,7 +133,10 @@ class PageLinks(object):
             self.next = ''
 
     def make_url(self, page_number):
-        self.request_params['page'] = str(page_number)
+        if page_number > 1:
+            self.request_params['page'] = str(page_number)
+        elif 'page' in self.request_params:
+            del self.request_params['page']
         return util.make_url(self.link_prefix, self.request_params)
 
     def make_link(self, page_number):

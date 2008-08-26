@@ -314,6 +314,13 @@ ul#searchResults {
     font-size: 100%;
     display: inline;
 }
+.pager, .pager a {
+    color: lightGrey;
+}
+.pager h4, .pager .current-page {
+    color: grey;
+    display: inline;
+}
 ul#searchResults > li {
 	overflow: hidden;
 	height: 100%;
