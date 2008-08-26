@@ -3,7 +3,6 @@ function infiniteCallback(data, textStatus) {
     results = content.find('#searchResults > li')
     $('#searchResults').append(results);
     results.find('ul.rating').rating();
-    location.href = '#pg' + results.find('a').attr('name');
     nextpage = content.find('#next-page');
     if (!nextpage.length) {
         $('#next-page').remove();
@@ -21,6 +20,15 @@ function checkScroll() {
     distance = doc.height() - doc.scrollTop() - $(window).height();
     if (distance < nextpage.height() && !checkScroll.loading)
         infiniteLoad();
+    as = $('a[name]');
+    i = 0;
+    while (i < as.length && as[i].offsetTop < doc.scrollTop())
+        i++;
+    if (i > 1) {
+        location.href = '#pg' + as.eq(i - 1).attr('name');
+    } else if (location.hash) {
+        location.href = '#pg' + as.eq(0).attr('name');
+    }
 }
 
 function infiniteLoad() {
