@@ -81,7 +81,7 @@ def channel_list(request, state):
     else:
         intro = '%i - %i' % (page * 10 - 11, min(page * 10, count))
 
-    return util.render_to_response(request, 'listing.html', {
+    return util.render_to_response(request, 'moderator-channel-list.html', {
         'results': channels,
         'count': count,
         'title': header,

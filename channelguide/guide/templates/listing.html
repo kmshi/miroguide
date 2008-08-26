@@ -20,6 +20,7 @@
                     {% for channel in results %}
                     <li>
                       {% if forloop.first %}<a name="{{ page }}"></a>{% endif %}
+                      {% block channel-display %}
                       {% channel channel search %}
                       <div class="searchResultsMeta">
                         {% rating channel %}
@@ -31,6 +32,7 @@
                           {% endif %}
                         </ul>
                       </div>
+                      {% endblock %}
                     </li>
                     {% endfor %}
                   </ul>

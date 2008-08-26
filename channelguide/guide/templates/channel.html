@@ -1,4 +1,9 @@
 {% load channels %}
+{% if moderate %}
+  <div class="edit">
+  {% moderate_actions_simple channel "" %}
+  </div>
+{% endif %}
 {% if search %}<h4>{{ channel.name_as_link }}</h4>{% endif %}
 <div class=" thumb{% if featured %} featuredItem{% endif %}">
 <a href="{{ channel.get_url }}">
