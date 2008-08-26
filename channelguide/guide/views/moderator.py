@@ -79,7 +79,7 @@ def channel_list(request, state):
     if page == 1:
         intro = 'First %i' % len(channels)
     else:
-        intro = '%i - %i' (page * 10 - 11, min(page * 10, count))
+        intro = '%i - %i' % (page * 10 - 11, min(page * 10, count))
 
     return util.render_to_response(request, 'listing.html', {
         'results': channels,
