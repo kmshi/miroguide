@@ -145,4 +145,5 @@ def search(request):
 
         'search_terms': terms,
         'search_query': search_query,
+        'page': page,
         })
