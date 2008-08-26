@@ -301,7 +301,7 @@ class SubmitChannelForm(Form):
                                            "new viewers.  It's worth making an "
                                            "effort to do something beautiful.  "
                                            "You can also update the image after"
-                                           " you submit your channel.")
+                                           " you submit your channel."))
 
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
