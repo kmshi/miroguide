@@ -86,7 +86,9 @@
               <li class="form-errors"></li>
               <li id="login">
                 <form method="post" action="{{ BASE_URL }}accounts/login">
-                  <input type="hidden" name="which-form" value="login" />
+                  <div>
+                    <input type="hidden" name="which-form" value="login" />
+                  </div>
                   {% show_form login %}
                   <div class="form_row">
                     <a class="forgot_password" href="{{ BASE_URL }}accounts/forgot-password">Forgot password</a>
@@ -96,7 +98,9 @@
               </li>
               <li id="registerHidden">
                 <form method="post" action="{{ BASE_URL }}accounts/login">
-                  <input type="hidden" name="which-form" value="register"/>
+                  <div>
+                    <input type="hidden" name="which-form" value="register"/>
+                  </div>
                   {% show_form register %}
                   <div class="form_row">
                     <button class="fr" type="submit"><span>Register!</span></button>
