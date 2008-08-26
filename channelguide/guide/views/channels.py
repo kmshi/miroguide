@@ -175,6 +175,7 @@ def show(request, id, featured_form=None):
         #'show_extra_info': request.user.can_edit_channel(c),
     }
     if request.user.is_supermoderator():
+        c.join('owner').execute(request.connection)
         if c.featured_queue and c.featured_queue.state in (
                 FeaturedQueue.IN_QUEUE, FeaturedQueue.CURRENT):
             c.featured = True
