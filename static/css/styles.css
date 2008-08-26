@@ -306,6 +306,14 @@ ul#searchResults {
 	padding: 0 0 0 10px;
 	list-style: none;
 }
+#sort, #sort a {
+    color: lightGrey;
+}
+#sort .on, #sort h4 {
+    color: grey;
+    font-size: 100%;
+    display: inline;
+}
 ul#searchResults > li {
 	overflow: hidden;
 	height: 100%;
