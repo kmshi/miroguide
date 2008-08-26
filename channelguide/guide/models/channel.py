@@ -312,7 +312,7 @@ class Channel(Record, Thumbnailable):
         return self.get_tags_for_user(connection, self.owner)
 
     def get_subscription_str(self):
-        return ngettext('%(count)d subscriber', 
+        return ngettext('%(count)d subscriber',
                 '%(count)d subscribers', self.subscriptions.count) % {
                 'count': self.subscriptions.count
         }
@@ -422,7 +422,7 @@ class Channel(Record, Thumbnailable):
             return None
         if hasattr(parsed, 'modified'):
             new_modified = feedutil.struct_time_to_datetime(parsed.modified)
-            if (self.feed_modified is not None and 
+            if (self.feed_modified is not None and
                     new_modified <= self.feed_modified):
                 return None
             self.feed_modified = new_modified
@@ -450,7 +450,7 @@ class Channel(Record, Thumbnailable):
                 except exceptions.EntryMissingDataError:
                     pass
                 except exceptions.FeedparserEntryError, e:
-                    logging.warn("Error converting feedparser entry: %s (%s)" 
+                    logging.warn("Error converting feedparser entry: %s (%s)"
                             % (e, self))
             self._replace_items(connection, items)
         if self.items:
@@ -498,9 +498,11 @@ class Channel(Record, Thumbnailable):
 
     def _thumb_html(self, width, height):
         thumb_url = self.thumb_url(width, height)
-        return util.mark_safe('<img src="%s" alt="%s" />' % (thumb_url, cgi.escape(self.name)))
-        
-    def fake_feature_thumb(self): 
+        return util.mark_safe(
+            '<img width="%i" height="%i" src="%s" alt="%s" />' %
+            (width, height, thumb_url, cgi.escape(self.name)))
+
+    def fake_feature_thumb(self):
         thumb_url = self.thumb_url(252, 169)
         return 'src: "%s" alt:"%s"' % (thumb_url, cgi.escape(self.name))
 
