@@ -36,7 +36,9 @@
 				<input type="text" class="headSearch" name="query" id="search_query" value="Search" />
                             </div>
                                 <script type="text/javascript">
+//<![CDATA[
                                     $("#searchSpot input").focus(searchFocus).blur(searchBlur);
+//]]>
                                 </script>
                           </form>
 			</div><!--searchSpot-->
@@ -113,6 +115,7 @@
               </a></p>
             </div>
             <script type="text/javascript">
+//<![CDATA[
 $("#hoverMenuLogin #login form").ajaxForm(
     function(data, textStatus) {
         result = $('.form-errors ul li', data)
@@ -131,6 +134,7 @@ $('#hoverMenuLogin #register').click(function() {
     $('#hoverMenuLogin #registerHidden').show();
     return false;
 });
+//]]>
             </script>
           </div>
           {% endif %}
