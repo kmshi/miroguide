@@ -642,9 +642,9 @@ ul.info li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13p
 
 .inactive h4 {margin: 0; line-height: 31px; float: left; display: inline;}
 .inactive h4 a {
-	color: white;
+	color: white !important;
 	font-size: 15px;
-	background: url(images/channel_arrow_right_white.png) 0 3px no-repeat;
+	background: url(images/channel_arrow_right_white.png) 0 3px no-repeat !important;
 	padding: 0 0 0 18px;
 	margin: 0;
 }
