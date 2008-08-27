@@ -41,6 +41,11 @@ def initialize():
 
     # hack for the fact that django tries to rollback its non-existant
     # connection when requests finish.
-    dispatcher.disconnect(django.db._rollback_on_exception, 
-        signal=signals.got_request_exception)
+    try:
+        signals.got_request_exception.disconnect(
+            django.db._rollback_on_exception)
+    except AttributeError:
+        # this is for backwards-compatibility with pre-Django 1.0
+        dispatcher.disconnect(django.db._rollback_on_exception,
+                              signal=signals.got_request_exception)
 
