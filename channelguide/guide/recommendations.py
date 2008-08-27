@@ -113,7 +113,7 @@ def get_recently_rated(connection, seconds):
     sql = """SELECT DISTINCT channel_id FROM cg_channel_rating JOIN cg_channel ON cg_channel_rating.channel_id = cg_channel.id WHERE (NOW()-timestamp) < %s AND state=%s"""
     args = (seconds, 'A')
     results = connection.execute(sql, args)
-    query = Channel.query().join('categories')
+    query = Channel.query().join('categories', 'secondary_languages')
     query.where(Channel.c.id.in_([e[0] for e in results]))
     return query.execute(connection)
 
@@ -194,13 +194,10 @@ def get_similarity(channel, connection, other):
     """
     #from_sub = get_similarity_from_subscriptions(channel, connection, other)
     from_rat = get_similarity_from_ratings(channel, connection, other)
+    from_lang = get_similarity_from_languages(channel, connection, other)
     from_cat = get_similarity_from_categories(channel, connection, other)
 
-    s = sum((from_rat * 9, from_cat)) / 10
-    if s > 0.90:
-        print channel.id, other, from_rat, from_cat, s
-    return s
-
+    return sum((from_rat * 6, from_lang * 3, from_cat)) / 10
 
 def get_similarity_from_subscriptions(channel, connection, other):
     sql = 'SELECT channel_id, ip_address from cg_channel_subscription WHERE channel_id IN (%s, %s) AND timestamp > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND ip_address<>%s AND ignore_for_recommendations=%s ORDER BY ip_address'
@@ -251,7 +248,18 @@ def get_similarity_from_categories(channel, connection, other):
         connection).categories])
     if not len(cat1 | cat2):
         return 0.0
-    return len(cat1 & cat2) / len(cat1 | cat2)
+    return float(len(cat1 & cat2)) / len(cat1 | cat2)
+
+def get_similarity_from_languages(channel, connection, other):
+    lang1 = set([channel.primary_language_id])
+    lang1 |= set(lang.id for lang in channel.secondary_languages)
+
+    other_c = Channel.query(id=other).join('secondary_languages').get(connection)
+    lang2 = set([other_c.primary_language_id])
+    lang2 |= set(lang.id for lang in other_c.secondary_languages)
+    if not len(lang1 | lang2):
+        return 0.0
+    return float(len(lang1 & lang2)) / len(lang1 | lang2)
 
 def pearson_coefficient(vector1, vector2):
     n = float(len(vector1))
