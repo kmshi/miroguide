@@ -15,6 +15,7 @@ body {
 	font-family: Arial, sans-serif;
 	font-size: 12px; /*I don't normally like to set fixed font, but this site kinda calls for it*/
 	color: #191919;
+background: url(images/top.png) repeat-x;
 }
 
 a {color: #333333; text-decoration: none;}
@@ -46,9 +47,10 @@ form {
 #container > div#content, #container > div:first-child {
 	float: left;
 	display: inline;
-        padding-left: 22px;
+        padding-left: 15px;
         width: 501px;
 }
+
 #sideBar {
 	float: right;
 	display: inline;
@@ -57,16 +59,15 @@ form {
 }
 
 #topBar {
-	background: url(images/top_bar_menu_bg.png) 0 0 repeat-x;
 	height: 34px;
 	width: 100%;
 }
+
 #topBar .page {
-	background: url(images/top_bar_bg.png) 0 0 repeat-x;
 	border-right: 1px solid #76181b;
 }
+
 #topBarLower {
-	background: url(images/lower_top_bar_bg.png) 0 0 repeat-x;
 	height: 25px;
 	width: 100%;
 	border-bottom: 1px solid #414141;
@@ -74,12 +75,14 @@ form {
 #topBarLower .page {
     padding-left: 10px;
 }
+
 #guestEditorsPicks, #featured {
 	height: 221px;
 	padding: 17px 0;
 	border-bottom: 1px solid #8e111a;
 	background: #c01723;
 }
+
 #featured {
 	background: #737373;
 	border-bottom: 1px solid #454545;
@@ -126,50 +129,59 @@ form {
 #guestEditorContent .userInfo .username, #guestEditorContent .userInfo .username a {font-weight: bold; color: white; text-decoration: none;}
 #guestEditorContent .userInfo .location {display: block; padding-top: 5px;}
 
-
-
 /*Featured items carousel widget*/
 #featuredItemsCarousel {
 	height: 221px;
 }
+
 .smallCarousel {width: 536px; float: right; display: inline;}
-.largeCarousel {width: 711px; margin: 0 auto;}
+.largeCarousel {width: 794px; margin: 0 auto;}
 
 #featuredItemsCarousel #innerContent {
-	background: url(images/featured_bg.png) 0 0 repeat-x;
 	overflow: hidden;
 	height: 221px;
 	float: left;
-	display: inline;
+	display: block;
         position: relative;
 }
+
 .smallCarousel #innerContent {width: 468px;}
-.largeCarousel #innerContent {width: 643px;}
+.largeCarousel #innerContent {width: 726px;
+    background: url(images/featured_bg.png);}
 
 #featuredItemsCarousel #innerContent ul {
 	margin: 0;
-	padding: 0;
+	padding: 1px;
 	list-style: none;
 	width: 10000px;
         position: absolute;
         left: -645px;
 }
+
 #featuredItemsCarousel #innerContent ul li {
 	height: 219px;
-	width: 215px;
+	width: 230px;
 	padding: 0;
-	background: url(images/featured_separator.png) right center no-repeat;
 	float: left;
 	overflow: hidden;
 	display: inline;
 	text-align: center;
+border-right: 1px solid #fefefe;
+border-left: 1px solid #bbb;
 }
+
+/*
+#featuredItemsCarousel #innerContent ul li:hover {
+background: #eee;
+}
+*/
+
 #featuredItemsCarousel #innerContent ul li div.featuredItem {
-	background: url(images/featured_img_bg.png) 0 0 no-repeat;
-	padding: 3px 3px 0 3px;
-	width: 142px;
-	height: 115px;
-	margin: 16px auto 6px auto;
+	background: url(images/featured_frame.png) 0 0 no-repeat;
+	padding: 5px 3px 0 5px;
+	width: 146px;
+	height: 120px;
+	margin: 11px auto 3px auto;
 }
 
 #featuredItemsCarousel #innerContent ul li span.title {
@@ -178,17 +190,18 @@ form {
         height: 13px;
         overflow: hidden;
 	display: block;
-	padding: 2px 30px;
+	padding: 6px 30px 2px;
+	clear: both;
 }
 
 #featuredItemsCarousel #innerContent ul li span.description {
-	font-size: 9px;
+	font-size: 10px;
 	display: block;
 	padding: 2px 30px;
+	height: 23px;
+	overflow: hidden;
+	line-height: 12px;
 }
-
-
-
 
 /*Carousel buttons*/
 #featuredItemsCarousel #button_previous {
@@ -212,7 +225,13 @@ form {
 	display: inline;
 }
 
+#featuredItemsCarousel #button_next:hover {
+	background-position: 0 -221px;
+}
 
+#featuredItemsCarousel #button_previous:hover {
+	background-position: 0 -221px;
+}
 
 /*Video thumbnail lists*/
 ul.videoFeed {
@@ -222,6 +241,7 @@ ul.videoFeed {
 	overflow: hidden;
 	height: 100%;
 }
+
 ul.videoFeed li {
 	width: 115px;
 	float: left;
@@ -229,6 +249,7 @@ ul.videoFeed li {
 	margin: 0 4px;
 	text-align: center;
 }
+
 ul.videoFeed li span.title {font-weight: bold; display: block; margin: 2px 0 0 0;}
 
 
@@ -243,6 +264,7 @@ h3.title_bar, h3.search_result {
 	margin: 0;
 	padding: 0 16px;
 }
+
 h3.search_result {color: #191919;}
 
 h3.widget_title_bar {
@@ -254,6 +276,7 @@ h3.widget_title_bar {
 	margin: 0;
 	padding: 0 16px;
 }
+
 .widget {
 	padding: 0 13px 13px 13px;
 	width: 233px;
@@ -265,6 +288,7 @@ h3.widget_title_bar {
 	margin: 0;
 	padding: 0;
 }
+
 .widget ul.recommended li {
 	border-bottom: 1px solid #d9d9d9;
 	margin: 13px 0 0 0;
@@ -288,6 +312,7 @@ h3.widget_title_bar {
 	padding: 0 16px;
 	text-align: right;
 }
+
 .widget_close a {background: url(images/arrow_1.png) right 3px no-repeat; padding: 0 13px 0 0;}
 .widget_close a span {position: relative; z-index: 1;}
 
@@ -295,12 +320,12 @@ span.rss {background: url(images/ico_rss_title.png) right 11px no-repeat; displa
 span.streaming {background: url(images/ico_streaming_title.png) right 8px no-repeat; display: block;}
 span.favorite {background: url(images/ico_heart.png) right 10px no-repeat; display: block;}
 
-
 /*Search Results*/
 h2.searchResults {
 	margin: 10px 0 24px 0;
 	padding: 0 0 0 10px;
 }
+
 h2.searchResults span.main_results {display: block; margin: 0 0 7px 0; font-size: 15px; font-weight: bold;}
 h2.searchResults span.comprehensive_results {display: block; margin: 0 0 7px 0; font-size: 10px; font-weight: normal; color: #8c8c8c;}
 h2.searchResults span.comprehensive_results a {color: #8c8c8c; text-decoration: underline;}
@@ -313,32 +338,40 @@ ul#searchResults {
 #sort, .pager {
     padding-top: 5px;
 }
+
 #sort {
     padding-left: 10px;
 }
+
 #sort, #sort a {
     color: lightGrey;
 }
+
 #sort .on, #sort h4 {
     color: grey;
     font-size: 100%;
     display: inline;
 }
+
 .pager {
     padding-right: 30px;
 }
+
 .pager, .pager a {
     color: lightGrey;
 }
+
 .pager h4, .pager .current-page {
     color: grey;
     display: inline;
 }
+
 ul#searchResults > li {
 	overflow: hidden;
 	height: 100%;
 	margin: 10px 0 5px 0;
 }
+
 ul#searchResults li h4 {font-size: 16px; font-weight: bold; margin: 12px 0 8px 0; padding: 0;}
 ul#searchResults li .meta {
 	width: 348px;
@@ -348,6 +381,7 @@ ul#searchResults li .meta {
 	font-size: 11px;
         overflow: hidden;
 }
+
 ul#searchResults li .meta p {margin: 5px 0 0 0;}
 
 ul#searchResults li .button_block {margin: 0;}
@@ -359,18 +393,18 @@ ul#searchResults li .searchResultsMeta {
 	height: 100%;
 }
 
-
-
 ul.info {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
+
 ul.info li {
 	float: left;
 	display: inline;
 	margin: 0 1px;
 }
+
 ul.info li a {
 	float: left;
 	display: inline;
@@ -806,33 +840,96 @@ ul.info li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13p
 	Menus
 ******************************************************/
 ul#mainMenu {
-	background: url(images/top_bar_menu_bg.png) 0 0 repeat-x;
 	float: left;
 	display: inline;
 	height: 34px;
 	overflow: hidden;
 	list-style: none;
-	border-right: 1px solid #76181b;
 	margin: 0;
 	padding: 0;
+	width: 561px;
 }
+
 ul#mainMenu li {
-	background: url(images/top_bar_menu_separator.png) top right no-repeat;
 	height: 34px;
 	line-height: 34px;
 	font-family: "Arial Bold", Arial;
 	text-transform: uppercase;
 	float: left;
 	display: inline;
-	padding: 0 15px;
+	padding: 0;
 
 }
-ul#mainMenu li a {color: white; float: left; display: inline; height: 34px;}
-ul#mainMenu li a:hover {color: #eed9db;}
-ul#mainMenu li#logo {width: 89px; padding: 0 2px 0 0;}
+
+ul#mainMenu li:hover{
+background: url(images/nav_line_dark.png) ;
+}
+
+
+ul#mainMenu li a {
+padding: 0 1px 0 0 ;
+display: block;
+color: #faeaea; 
+height: 34px;
+background: url(images/nav_line_darkest.png) right repeat-y;
+}
+
+ul#mainMenu li a:hover {
+color: #f6bec2;
+background: url(images/nav_line_dark.png) right repeat-y;
+}
 
 
 
+ul#mainMenu li a span{
+padding: 0 21px 0 24px;
+display: block;
+background: url(images/nav_line_dark_lighter.png) right repeat-y;
+}
+
+ul#mainMenu li a:hover span{
+background: none;
+}
+
+
+
+ul#mainMenu li#logo {
+width: 89px; 
+height: 33px;
+
+padding: 0 1px 0 0;
+}
+
+
+ul#mainMenu li#logo a{
+width: 87px; 
+padding-top: 33px !important;
+overflow: hidden;
+height: 0px;
+padding: 0 2px 0 0;
+display: block;
+background: url(images/miro.png) repeat-x;
+}
+
+ul#mainMenu li#logo {
+background: url(images/nav_line_darkest.png) right repeat-y;
+}
+
+ul#mainMenu li#logo a:hover{
+background: url(images/miro.png) 0 -33px repeat-x;
+}
+
+.video_love{
+width: 173px;
+}
+
+.video_feeds{
+width: 130px;
+}
+
+.streaming_shows{
+width: 168px;
+}
 
 /*Second Menu*/
 ul#lowerMenu {
@@ -867,41 +964,35 @@ ul#lowerMenu li#language a, ul#lowerMenu li#account a {
 }
 ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover,
 ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
-	background-color: #c92323;
-	color: white;
+	background: #c92323 url(images/nav_line_darkest.png) right repeat-y;	color: white;
 }
-
 
 #searchBG {
-	height: 34px;
-	float: left; display: inline;
-	overflow: hidden;
-	width: 170px;
-	background: url(images/search_bg.png) top left no-repeat;
+display: none;
 }
+
 #searchSpot {
-    width: 131px;
-    height: 34px;
-    float: right; display: inline;
-    position: relative;
+    width: 259px;
+    height: 33px;
+	float: right;
     z-index: 3;
-    margin: -33px 0 0 0;
-    padding-right:20px;
+	background: #811c1f url(images/search_bg.png) top left no-repeat;
 }
+
 #searchSpot input {
-	background: url(images/top_bar_search.png) 0 0 no-repeat;
-	width: 130px;
-	padding: 4px 14px 1px 9px;
+	background: url(images/top_bar_search.png) 0 1px no-repeat;
+	width: 158px;
+	padding: 8px 16px 1px 12px;
 	border: 0;
 	text-align: left;
 	float: right;
 	display: inline;
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	height: 16px;
+	font-size: 12px;
+	height: 21px;
 	color: #333;
 	overflow: hidden;
-	margin: 5px 8px 0 0;
+	margin: 2px 2px 0 0;
 }
 
 #searchSpot input.headSearch {
@@ -915,6 +1006,11 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	width: 820px;
 	margin: 0 auto;
 }
+
+#hoverMenuLanguage span, #hoverMenuLanguage button{
+background: none;
+}
+
 #hoverMenuLanguage {
 	width: 274px;
 	overflow: hidden;
@@ -923,17 +1019,28 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	margin: -1px 0 0 576px;
 	z-index: 100;
 }
+
 #hoverMenuLanguage #upButton {
 	width: 274px;
-	height: 27px;
+	height: 26px;
 	background: url(images/hover_menu_top.png) 0 0 no-repeat;
 }
+
+#hoverMenuLanguage #upButton:hover {
+	background: url(images/hover_menu_top.png) 0 -27px no-repeat;
+}
+
 #hoverMenuLanguage #downButton {
 	width: 274px;
 	height: 56px;
 	background: url(images/hover_menu_bottom.png) 0 0 no-repeat;
-	cursor: pointer;
 }
+#hoverMenuLanguage #downButton:hover {
+	width: 274px;
+	height: 56px;
+	background: url(images/hover_menu_bottom.png) 0 -56px no-repeat;
+}
+
 #hoverMenuLanguage ul {
 	list-style: none;
 	margin: 0;
@@ -942,27 +1049,42 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
         overflow: hidden;
 	background: url(images/hover_menu.png) 0 0 repeat-y;
 }
+
 #hoverMenuLanguage ul button {
-    background: url(images/hover_menu_bg.png) 0 0 repeat-x;
-    text-align: inherit;
-    height: 30px;
-    width: 214px;
-    margin: 0;
-    padding: 0;
-    line-height: 30px;
-}
+text-align: left;
+width: 214px;
+margin: 0;
+border-top: 1px solid #c23333;
+border-bottom: 1px solid #ab1717;
+height: 30px;
+ }
+
+
+#hoverMenuLanguage ul button:hover {
+background: #ac1717;
+border-bottom: 1px solid #ac1717;
+border-top: 1px solid #8d1515;
+ }
+
+
 #hoverMenuLanguage ul button span {
-    background: url(images/hover_menu_bg.png) 0 0 repeat-x;
-    font-size: 12px;
-    color: white;
-    font-weight: bold;
+font-size: 11px;
+font-weight: bold;
+color: #fff !important;
 }
-#hoverMenuLanguage ul li.current button {background: url(images/hover_menu_bg.png) bottom left repeat-x;}
+
+#hoverMenuLanguage ul li.current button {
+border-bottom: 1px solid #520404;
+border-top: 1px solid #690404;
+background: url(images/hover_menu_bg.png) bottom left repeat-x;}
 #hoverMenuLanguage ul button span {
 	padding: 0 0 0 10px;
 	display: block;
 }
-#hoverMenuLanguage ul li.current button span {background: url(images/menu_check.png) 190px 3px no-repeat;}
+
+#hoverMenuLanguage ul li.current button span {
+background: url(images/menu_check.png) 190px 3px no-repeat;}
+
 #hoverMenuLanguage ul button:hover span {
     color: black;
 }
@@ -976,6 +1098,7 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	margin: -1px 0 0 422px;
 	z-index: 100;
 }
+
 #hoverMenuLogin > ul {
 	list-style: none;
 	margin: 0;
@@ -983,6 +1106,7 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	height: 100%;
 	background: url(images/hover_menu2_bg.png) 0 0 repeat-y;
 }
+
 #hoverMenuLogin > ul li {
 	background: #b11f1f url(images/hover_menu2_inner_bg.png) 0 0 repeat-x;
 	width: 235px;
@@ -992,6 +1116,7 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	border-bottom: 1px solid #9e1515;
 	color: white;
 }
+
 #hoverMenuLogin ul li .form_row {height: 100%; overflow: hidden; margin: 0 0 10px 0;}
 #hoverMenuLogin ul li label {
 	float: left;
@@ -1000,6 +1125,7 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	font-size: 12px;
 	font-weight: bold;
 }
+
 #hover_align ul li input[type=text], #hover_align ul li input[type=password] {
 	background: url(images/login_text_bg.png) 0 0 no-repeat;
 	width: 130px;
@@ -1014,6 +1140,7 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	float: right;
 	display: inline;
 }
+
 #hoverMenuLogin ul li#login a.forgot_password {
 	background: url(images/ico_forgot_password.png) 0 0 no-repeat;
 	padding: 0 0 0 22px;
@@ -1021,8 +1148,21 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	float: left;
 	line-height: 20px;
 	font-size: 11px;
+margin-top: 15px;
 	display: inline;
 }
+
+
+#login_button{
+margin: 15px 0 0 0;
+background: url(http://test2.getmiro.com/redesign/guide/images/login_button.png) !important;
+}
+
+#login_button:hover{
+background: url(http://test2.getmiro.com/redesign/guide/images/login_button.png) 0 -22px !important;
+}
+
+
 #hoverMenuLogin ul li#login a.forgot_password:hover {color: #fadada;}
 #hoverMenuLogin #register {
 	width: 337px;
@@ -1038,28 +1178,34 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	line-height: 33px;
 	height: 33px;
 }
+
 #hoverMenuLogin #register p a {overflow: hidden; height: 100%; display: block;}
 #hoverMenuLogin #register p a span.register_tag {color: white; float: left; display: inline;}
-#hoverMenuLogin #register p a span.always_free {color: #de6b6b; text-transform: uppercase; font-size: 8px; float: right; display: inline; margin: 0 6px 0 0;}
+#hoverMenuLogin #register p a span.always_free {color: #de6b6b; text-transform: uppercase; font-size: 8px; float: right; display: inline; margin: 0 13px 0 0;}
 #hoverMenuLogin #register p a:hover span.register_tag {color: #eed9db;}
 #hoverMenuLogin #registerHidden, #hoverMenuLogin .form-errors {
     display: none;
 }
+
 #hoverMenuLogin.loggedin {
     width: 16em;
     margin-left: 543px;
 }
+
 #hoverMenuLogin.loggedin #register {
     width: 16em;
 }
+
 #hoverMenuLogin.loggedin #register p {
     width: 12em;
 }
+
 #hoverMenuLogin.loggedin ul {
     list-style: inside disc;
     padding: 0 0 0 31px;
     color: white;
 }
+
 #hoverMenuLogin.loggedin ul li, #hoverMenuLogin.loggedin ul li#login {
 	background: #b11f1f url(images/hover_menu2_inner_bg.png) 0 0 repeat-x;
 	width: 12em;
@@ -1070,6 +1216,7 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	border-bottom: 1px solid #9e1515;
         color: white;
 }
+
 #hoverMenuLogin.loggedin ul li a {
     color: white;
 }
@@ -1081,6 +1228,7 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	margin: -1px 0 0 195px;
 	z-index: 100;
 }
+
 #hoverMenuSubmit > form > ul {
 	list-style: none;
 	margin: 0;
@@ -1088,6 +1236,7 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	height: 100%;
 	background: url(images/popup_bg.png) 0 0 repeat-y;
 }
+
 #hoverMenuSubmit .top {
 	background: url(images/popup_top.png) 0 0 repeat-x;
 	width: 349px;
@@ -1095,16 +1244,19 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	padding: 30px 30px 0 30px;
 	height: 22px;
 }
+
 #hoverMenuSubmit .top h5 {
 	color: white;
 	font-size: 18px;
 	margin: 0;
 	padding: 0 0 0 15px;
 }
+
 #hoverMenuSubmit .top h5 span.header {
 	float: left;
 	display: inline;
 }
+
 #hoverMenuSubmit .top h5 span.close a {
 	float: right;
 	font-size: 8px;
@@ -1114,6 +1266,7 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	text-transform: uppercase;
 	display: inline;
 }
+
 #hoverMenuSubmit ul li.upper {
 	background: #b41f1f url(images/popup_inner_bg.png) 0 0 repeat-x;
 	width: 329px;
@@ -1121,8 +1274,10 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	margin: 0;
 	line-height: 30px;
 	border-bottom: 1px solid #9e1515;
-	color: white;
+	color: #fff;
+
 }
+
 #hoverMenuSubmit ul li.upper .form_row {height: 100%; overflow: hidden; margin: 0 0 5px 0;}
 #hoverMenuSubmit ul li.upper .form_row_center {height: 100%; overflow: hidden; margin: 10px 0; text-align: center;}
 #hoverMenuSubmit ul li.upper .form_row_center div.preview {
@@ -1132,6 +1287,7 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
     margin: 0 auto;
     position: relative;
 }
+
 #hoverMenuSubmit ul li.upper .form_row_center div.preview .overlay {position: absolute; right: 0; z-index: 2;}
 #hoverMenuSubmit ul li.upper .form_row_center img.add_cat {}
 #hoverMenuSubmit ul li.upper label, #hoverMenuSubmit ul li.upper label.longlabel {
@@ -1140,11 +1296,13 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	font-size: 12px;
 	font-weight: bold;
 }
+
 #hoverMenuSubmit ul li.upper label.longlabel {width: 12em;}
 #hoverMenuSubmit ul li.upper .form_row img {
     float: left;
     padding: 10px 5px;
 }
+
 #hoverMenuSubmit ul li.upper label.question span {background: url(images/ico_question.png) right 1px no-repeat; padding: 0 17px 0 0;}
 #hoverMenuSubmit ul li.upper textarea {
 	background: url(images/popup_textarea_bg.png) 0 0 no-repeat;
@@ -1160,15 +1318,18 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	float: right;
 	display: inline;
 }
+
 #hoverMenuSubmit ul.form-input-triplet {
     list-style-type: none;
     float: right;
 }
+
 #hoverMenuSubmit .bottom {
 	width: 409px;
 	height: 66px;
 	background: url(images/popup_bottom.png) 0 0 no-repeat;
 }
+
 #hoverMenuSubmit .bottom p {
 	border-top: 1px solid #b91818;
 	width: 327px;
@@ -1180,7 +1341,6 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 }
 
 #hoverMenuSubmit .bottom p span.required {float: left; display: inline; font-size: 10px;}
-
 #hoverMenuSubmit .upper a {color: white; text-decoration: underline;}
 #hoverMenuSubmit .upper a:hover {color: white; text-decoration: none;}
 
@@ -1190,14 +1350,17 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	padding: 3px 0 0 0;
 	width: 13em;
 }
+
 /*Help box*/
 .help-text img {
     cursor: pointer;
 }
+
 .help_box {
 	width: 238px;
         z-index: 100;
 }
+
 .help_box_top {
 	width: 238px;
 	height: 30px;
@@ -1207,6 +1370,7 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	padding: 10px 0 0 0;
 	color: #3b3b3b;
 }
+
 .help_box_top span {display: block; text-align: center;}
 .help_box_top a.close {position: absolute; margin: 0 0 0 214px;}
 
@@ -1220,16 +1384,19 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	overflow: hidden;
 	height: 100%;
 }
+
 .help_box_inner p {
 	margin: 0;
 	padding: 0;
 	font-size: 11px;
 	line-height: 16px;
 }
+
 .help_box_inner p.more_info {
 	margin: 5px 0 0 0;
 	text-align: center;
 }
+
 .help_box_inner p.more_info a {
 	color: #999999;
 	position: relative;
@@ -1244,17 +1411,20 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	font-size: 1px;
 }
 
-/*****************************************************
-	Buttons, images, etc.
-******************************************************/
+/*///////////////////////////////////////////////////////
+	
+ ~ Buttons, images, etc.
+	
+///////////////////////////////////////////////////////*/
+
 /*Buttons*/
-.large_add_button, .small_add_button, .tiny_add_button {
+.large_add_button, .small_add_button, .tiny_add_button, .details_button {
     color: white;
     float: left;
     display: inline;
 }
 
-.large_add_button a, .small_add_button a, .tiny_add_button a {
+.large_add_button a, .small_add_button a, .tiny_add_button a  {
     display: inline;
     float: left;
 }
@@ -1270,26 +1440,72 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	cursor: pointer;
 }
 
-.small_add_button a span.button_text, .tiny_add_button a span.button_text {
-	background: url(images/buttons/button_small.png) 0 0 no-repeat;
-	font-size: 10px;
-	padding: 2px 5px 5px 7px;
-	margin: 0;
-        text-transform: none;
+.small_add_button {
+padding-right: 22px;
+font-size: 10px;
+line-height: 10px;
+background: url(images/small_dl_streaming.png) top right no-repeat;
 }
+.small_add_button:hover {
+color: #d6ffbf ;
+background: url(images/small_dl_streaming.png) right -19px no-repeat;
+
+}
+
+.small_add_button span{
+background: url(images/small_dl.png) top left no-repeat;
+display: block;
+padding: 4px 3px 5px 10px;
+}
+
+.small_add_button:hover span{
+background: url(images/small_dl.png) 0 -19px no-repeat;
+}
+
+.largeCarousel .small_add_button {
+margin-left: 27px;
+}
+
+.details_button {
+line-height: 10px;
+padding-left: 22px;
+font-size: 10px;
+background: url(images/details_icon.png) top left no-repeat;
+}
+
+.details_button:hover {
+background: url(images/details_icon.png) 0 -19px no-repeat;
+color: #daeaff;
+}
+
+.details_button span{
+background: url(images/details.png) top right no-repeat;
+display: block;
+padding: 4px 10px 5px 3px;
+}
+
+.details_button:hover span{
+background: url(images/details.png) right -19px no-repeat;
+}
+
+.largeCarousel .details_button {
+margin-left: 10px;
+}
+
 
 .tiny_add_button a span.button_text {
 	font-size: 9px;
 	padding: 3px 2px 5px 5px;
 }
 
-.details_button, .streaming_button, .rss_button {
+.streaming_button, .rss_button {
     color: white;
     float: left;
     display: inline;
 }
-.details_button a, .streaming_button a, .rss_button a {float: left; display: inline;}
-.details_button a span.button_text, .streaming_button a span.button_text, .rss_button a span.button_text {
+
+.streaming_button a, .rss_button a {float: left; display: inline;}
+.streaming_button a span.button_text, .rss_button a span.button_text {
 	background: url(images/buttons/button_details.png) top left no-repeat;
 	display: inline;
         float: left;
@@ -1299,9 +1515,11 @@ ul#lowerMenu li#language.hover a, ul#lowerMenu li#account.hover a {
 	margin: 0 0 0 4px;
 	cursor: pointer;
 }
+
 .streaming_button a span.button_text {
 	background: url(images/buttons/button_streaming.png) top left no-repeat;
 }
+
 .rss_button a span.button_text {
 	background: url(images/buttons/button_rss.png) top left no-repeat;
 }
@@ -1324,6 +1542,7 @@ button {
 	padding: 0 8px 0 0;
 	overflow: visible;
 }
+
 button span {
 	position: relative;
 	display: block;
@@ -1333,6 +1552,15 @@ button span {
 	font: 11px/20px Arial, Helvetica, sans-serif;
 	background: url(images/buttons/button_input_left.png) no-repeat left top;
 	padding: 0 5px 0 14px;
+}
+
+#login button {
+	background: none;
+
+}
+#login button span {
+
+	background: none;
 }
 
 /*Link buttons*/
@@ -1348,6 +1576,7 @@ button span {
 	cursor: pointer;
 	color: white;
 }
+
 .view_more_featured_videos a:hover {color: #eed9db;}
 
 /*Extras*/
@@ -1357,8 +1586,8 @@ button span {
 
 /*Images*/
 .tiny_thumbnail {display: block; width: 57px; border: 1px solid #881019; padding: 3px; background: #e1e1e1;}
-.hd_tag_large {position: absolute; z-index: 2; margin: -9px 0 0 56px;}
-.hd_tag_small {position: absolute; z-index: 2; margin: -7px 0 0 39px;}
+.hd_tag_large {position: absolute; z-index: 2; margin: -6px 0 0 57px;}
+.hd_tag_small {position: absolute; z-index: 2; margin: -4px 0 0 36px;}
 .search_hd {margin-left: 56px;}
 .channel_hd {margin-left: 93px;}
 #searchResults .thumb {float: left; display: inline;}
