@@ -1,9 +1,9 @@
-from django.conf import settings
-
 from channelguide import util
 from channelguide.guide import forms
 from channelguide.guide.auth import login_required
-from channelguide.guide.models import Channel
+from channelguide.guide.models import Channel, ChannelNote
+
+from datetime import datetime
 
 SESSION_KEY = 'submitted-feed'
 
@@ -42,6 +42,7 @@ def submit_feed(request):
                         channel = Channel.query(url=url).get(request.connection)
                     except LookupError:
                         raise # not sure what to do here
+                    request.session[SESSION_KEY] = {'url': url}
                     return util.render_to_response(request,
                                                    'submit-feed-exists.html',
                                                    {'channel': channel})
@@ -123,3 +124,19 @@ def after_submit(request):
         'subscribe': subscribe,
         }
     return util.render_to_response(request, 'after-submit.html', context)
+
+@login_required
+@check_session_key
+def claim(request):
+    if request.method != 'POST':
+        return util.redirect('submit')
+    url = request.session[SESSION_KEY]['url']
+    channel = Channel.query(url=url).get(request.connection)
+    note = ChannelNote(request.user,
+                       'This user (%s) has asked to claim this channel.' % (
+        request.user.username))
+    channel.add_note(request.connection, note)
+    channel.waiting_for_reply_date = datetime.now()
+    channel.save(request.connection)
+    return util.render_to_response(request, 'submit-feed-claim.html',
+                                   {'channel': channel})
