@@ -170,7 +170,7 @@ def show(request, id, featured_form=None):
     context = {
         'channel': c,
         'items': item_query.execute(request.connection),
-        'recommendations': get_recommendations(request, id),
+        'recommendations': get_recommendations(request, c),
     }
     if request.user.is_supermoderator():
         c.join('owner').execute(request.connection)
