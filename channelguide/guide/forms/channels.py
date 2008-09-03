@@ -344,7 +344,7 @@ class SubmitChannelForm(Form):
         for key in ('name', 'website_url', 'publisher', 'description'):
             if saved_data.get(key) is not None:
                 self.fields[key].initial = saved_data[key]
-        if saved_data['thumbnail_url'] and 'youtube.com/rss' not in saved_data['url']:
+        if saved_data.get('thumbnail_url') and 'youtube.com/rss' not in saved_data['url']:
             content = try_to_download_thumb(saved_data['thumbnail_url'])
             if content:
                 widget = self.fields['thumbnail_file'].widget
