@@ -9,7 +9,7 @@ See LICENSE for details.
 {% block upper %}
   <div class="form_row">
     <strong>We Got It: </strong>
-    {{ channel.name_as_link }}
+    <a target="_blank" href="{{ channel.get_absolute_url }}">{{ channel.name }}</a>
   </div
   <div>Are you the creator of this channel?
 {% endblock %}
