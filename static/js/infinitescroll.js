@@ -14,11 +14,13 @@ function infiniteCallback(data, textStatus) {
 }
 
 function checkScroll() {
+    first = $('ul#searchResults li:first');
     nextpage = $('#next-page');
     if (!nextpage.length) return;
     doc = $(document);
     distance = doc.height() - doc.scrollTop() - $(window).height();
-    if (distance < nextpage.height() && !checkScroll.loading)
+    if (distance < nextpage.height() + (first.height() * 6) &&
+        !checkScroll.loading)
         infiniteLoad();
     as = $('a[name]');
     i = 0;
