@@ -13,6 +13,10 @@ See LICENSE for details.
   </div
 {% endblock %}
 {% block bottom %}
+<button class="fr" type="submit" onclick="window.location='{{ channel.get_absolute_url|escapejs }}'; return false;">
+  <span>It's not Mine</span>
+</button>
+<span class="fr"> or </span>
 <button class="fr" type="submit" name="submit" value="claim">
   <span>Let me Claim it</span>
 </button>
