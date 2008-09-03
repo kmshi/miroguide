@@ -1416,13 +1416,13 @@ background: url(http://test2.getmiro.com/redesign/guide/images/login_button.png)
 ///////////////////////////////////////////////////////*/
 
 /*Buttons*/
-.large_add_button, .small_add_button, .tiny_add_button, .details_button {
+.large_add_button, .small_add_button, .tiny_add_button {
     color: white;
     float: left;
     display: inline;
 }
 
-.large_add_button a, .small_add_button a, .tiny_add_button a  {
+.large_add_button a, .small_add_button a, .tiny_add_button a {
     display: inline;
     float: left;
 }
@@ -1438,72 +1438,32 @@ background: url(http://test2.getmiro.com/redesign/guide/images/login_button.png)
 	cursor: pointer;
 }
 
-.small_add_button {
-padding-right: 22px;
-font-size: 10px;
-line-height: 10px;
-background: url(images/small_dl_streaming.png) top right no-repeat;
+.small_add_button a span.button_text, .tiny_add_button a span.button_text {
+	background: url(images/buttons/button_small.png) 0 0 no-repeat;
+	font-size: 10px;
+	padding: 2px 5px 5px 7px;
+	margin: 0;
+        text-transform: none;
 }
-.small_add_button:hover {
-color: #d6ffbf ;
-background: url(images/small_dl_streaming.png) right -19px no-repeat;
-
-}
-
-.small_add_button span{
-background: url(images/small_dl.png) top left no-repeat;
-display: block;
-padding: 4px 3px 5px 10px;
-}
-
-.small_add_button:hover span{
-background: url(images/small_dl.png) 0 -19px no-repeat;
-}
-
-.largeCarousel .small_add_button {
-margin-left: 27px;
-}
-
-.details_button {
-line-height: 10px;
-padding-left: 22px;
-font-size: 10px;
-background: url(images/details_icon.png) top left no-repeat;
-}
-
-.details_button:hover {
-background: url(images/details_icon.png) 0 -19px no-repeat;
-color: #daeaff;
-}
-
-.details_button span{
-background: url(images/details.png) top right no-repeat;
-display: block;
-padding: 4px 10px 5px 3px;
-}
-
-.details_button:hover span{
-background: url(images/details.png) right -19px no-repeat;
-}
-
-.largeCarousel .details_button {
-margin-left: 10px;
-}
-
 
 .tiny_add_button a span.button_text {
 	font-size: 9px;
 	padding: 3px 2px 5px 5px;
 }
-
-.streaming_button, .rss_button {
+.details_button, .streaming_button, .rss_button {
     color: white;
     float: left;
     display: inline;
 }
 
-.streaming_button a, .rss_button a {float: left; display: inline;}
-.streaming_button a span.button_text, .rss_button a span.button_text {
+.details_button a, .streaming_button a, .rss_button a {
+    float: left;
+    display: inline;
+}
+
+.details_button a span.button_text,
+.streaming_button a span.button_text,
+.rss_button a span.button_text {
 	background: url(images/buttons/button_details.png) top left no-repeat;
 	display: inline;
         float: left;
