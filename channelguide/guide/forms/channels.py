@@ -90,7 +90,6 @@ class FeedURLForm(Form):
             data['thumbnail_url'] = None
 
         # Special hack for YouTube titles.
-
         # It's really a PITA to have to strip out 'YouTube :: ' from
         # the title all the time, and it certainly doesn't look good
         # to have channel names like that in Miro.  So we reverse that
