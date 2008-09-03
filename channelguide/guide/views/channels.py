@@ -20,7 +20,7 @@ from channelguide.guide.models import (Channel, Item, User, FeaturedEmail,
 from channelguide.guide.notes import get_note_info, make_rejection_note
 from channelguide.guide.emailmessages import EmailMessage
 from sqlhelper.sql.statement import Select
-from sqlhelper import signals
+from sqlhelper import signals, exceptions
 import re, time
 
 
@@ -212,7 +212,10 @@ def user_subscriptions(request):
 def user_add(request, id):
     if request.user.is_authenticated():
         ac = AddedChannel(int(id), request.user.id)
-        ac.save(request.connection)
+        try:
+            ac.save(request.connection)
+        except exceptions.SQLError:
+            pass
     return HttpResponse("Added!")
 
 
