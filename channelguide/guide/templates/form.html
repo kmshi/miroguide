@@ -5,7 +5,7 @@ See LICENSE for details.
 {% load cg_helpers i18n %}
 {% show_form_errors form %}
   {% for field in form.field_list %}
-  <div class="form_row">{% show_form_field field %}</div>
+  <div class="form_row id_{{ field.name }}">{% show_form_field field %}</div>
   {% endfor %}
 {% for field in form.hidden_field_list %}
 {{ field }}

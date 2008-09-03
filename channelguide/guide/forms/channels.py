@@ -23,15 +23,12 @@ from channelguide import util
 from fields import WideCharField, WideURLField, WideChoiceField
 from form import Form
 
-HELP_FORMAT = '<strong>%s</strong> %s'
-HD_HELP_TEXT = HELP_FORMAT % \
-        (_('What is HD?'),
-        _("""Material that is roughly 640x480 non-interlaced, and higher, can
+HD_HELP_TEXT =  _("""Material that is roughly 640x480 non-interlaced, and higher, can
         be marked as HD. This basically translates to DVD quality (without a
         lot of ugly compression artifacts) or better. Roughly 80% of the
         material on the channel must meet this criteria for it to be considered
         HD.  Note: you are welcome to have an HD and non-HD version of the same
-        channel """))
+        channel """)
 RSS_HELP_TEXT = _("An RSS feed is what makes a podcast a "
 "podcast. It's a special URL that applications like "
 "Miro and iTunes check periodically to know when there "

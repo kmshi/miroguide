@@ -515,7 +515,7 @@ ul.info li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13p
     overflow: hidden;
 }
 
-.edit-box form li {
+.edit-box form div {
     margin-bottom: 10px;
     width: 100%;
 }
@@ -531,14 +531,20 @@ ul.info li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13p
     line-height: 130%;
 }
 
+.edit-box .help-text {
+    display: inline;
+}
+
 .edit-box input[type="text"], .edit-box textarea {
     border: #9d9d9d 1px solid;
     padding: 2px 4px;
     width: 100px;
+    display: inline;
 }
 
 .edit-box textarea {
     clear: left;
+    display: block;
 /*    width: 290px;*/
 }
 
@@ -550,21 +556,17 @@ ul.info li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13p
     float: none;
 }
 
-.edit-box .id_tags div.label span {
-    font-weight: normal;
-}
-
-.edit-box li.id_languages, .edit-box li.id_categories, .edit-box li.id_publisher, .edit-box li.id_postal_code {
+.edit-box div.id_languages, .edit-box div.id_categories {
     float: left;
     clear: none;
     width: auto;
 }
 
-.edit-box .id_languages, .edit-box .id_postal_code {
+.edit-box .id_languages {
     margin-left: 20px;
 }
 
-.edit-box li.id_languages > div.label, .edit-box li.id_categories > label {
+.edit-box div.id_languages > div.label, .edit-box div.id_categories > label {
     float: none;
     margin-bottom: 5px;
 }
@@ -578,15 +580,11 @@ ul.info li.rate_tag {text-transform: uppercase; padding-top: 1px; font-size: 13p
     list-style-type: none;
 }
 
-.edit-box li.id_publisher, .edit-box li.id_hi_def {
+.edit-box div.id_postal_code, .edit-box div.id_hi_def {
     clear: left;
 }
 
-.edit-box li.id_publisher input {
-    width: 9em;
-}
-
-.edit-box li.id_postal_code input {
+.edit-box div.id_postal_code input {
     width: 6em;
 }
 
