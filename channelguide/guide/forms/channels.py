@@ -7,6 +7,7 @@ it's split off into its own module.  """
 from urlparse import urljoin, urlparse
 import logging
 import os
+import re
 import tempfile
 import urllib2
 import socket # for socket.error
@@ -32,6 +33,8 @@ HD_HELP_TEXT = HELP_FORMAT % \
         material on the channel must meet this criteria for it to be considered
         HD.  Note: you are welcome to have an HD and non-HD version of the same
         channel """))
+
+YOUTUBE_TITLE_RE = re.compile('YouTube :: (?P<realtitle>.+)')
 
 
 class RSSFeedField(WideCharField):
@@ -85,6 +88,18 @@ class FeedURLForm(Form):
             data['thumbnail_url'] = to_utf8(parsed['feed'].image.href)
         except AttributeError:
             data['thumbnail_url'] = None
+
+        # Special hack for YouTube titles.
+
+        # It's really a PITA to have to strip out 'YouTube :: ' from
+        # the title all the time, and it certainly doesn't look good
+        # to have channel names like that in Miro.  So we reverse that
+        # and put it at the end.
+        youtube_re = YOUTUBE_TITLE_RE.match(data['name'])
+        if youtube_re:
+            data['name'] = u'%s :: YouTube' % (
+                youtube_re.groupdict()['realtitle'])
+
         return data
 
 class DBChoiceField(WideChoiceField):
