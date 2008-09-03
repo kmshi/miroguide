@@ -159,7 +159,6 @@ function showNewSubmitForm(data, textStatus) {
         }
     }
     submit.find('h2').remove();
-    console.log(submit);
     submit.eq(1).ajaxForm(showNewSubmitForm);
     $('#hoverMenuSubmit').empty().append(submit);
 }
