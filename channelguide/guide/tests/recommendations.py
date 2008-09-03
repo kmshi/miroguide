@@ -183,6 +183,8 @@ WHERE channel1_id=%s AND channel2_id=%s
         Insert some dummy recommendations into the database.
         """
         c0, c1, c2 = self.channels[:3]
+        c0.join('categories').execute(self.connection)
+        c2.join('categories').execute(self.connection)
         self.connection.execute("DELETE FROM cg_channel_recommendations")
         recommendations.insert_similarity(c0, self.connection, c1.id)
         recommendations.insert_similarity(c2, self.connection, c1.id)
@@ -194,6 +196,7 @@ WHERE channel1_id=%s AND channel2_id=%s
         channel id.
         """
         c0, c1, c2 = self.channels[:3]
+        c0.join('categories').execute(self.connection)
         self.connection.execute("DELETE FROM cg_channel_recommendations")
         recommendations.insert_similarity(c0, self.connection, c1.id)
         self.assertAlmostEquals(self.get_recommendation_from_database(c0.id,

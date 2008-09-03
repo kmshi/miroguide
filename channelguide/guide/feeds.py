@@ -38,7 +38,6 @@ class MiroFeedGenerator(feedgenerator.DefaultFeed):
         handler.endElement(u"image")
         feedgenerator.DefaultFeed.write_items(self, handler)
 
-
 class ChannelsFeed(feeds.Feed):
     title_template = "feeds/channel_title.html"
     description_template = "feeds/channel_description.html"
@@ -54,7 +53,7 @@ class ChannelsFeed(feeds.Feed):
         if results:
             results.sort(key=attrgetter('date'), reverse=True)
             item.newest = results[0]
-            return item.newest.url
+            return util.make_absolute_url('channels/latest/%i' % item.id)
         else:
             item.newest = None
 
@@ -68,7 +67,7 @@ class ChannelsFeed(feeds.Feed):
 
 
 class FeaturedChannelsFeed(ChannelsFeed):
-    title = "Featured Channels"
+    title = "Featured Channel Previews from Miro"
     link = "/featured/"
     description = "Featured channels on the Miro Guide."
 
@@ -78,7 +77,7 @@ class FeaturedChannelsFeed(ChannelsFeed):
 
 
 class NewChannelsFeed(ChannelsFeed):
-    title = 'Newest Channels'
+    title = 'New in Miro Previews'
     link = "/new/"
     description = "The newest channels on the Miro Guide."
 
@@ -88,7 +87,7 @@ class NewChannelsFeed(ChannelsFeed):
 
 
 class PopularChannelsFeed(ChannelsFeed):
-    title = 'Popular Channels'
+    title = 'Popular Channel Previews from Miro'
     link = "/popular/"
     description = "The most popular channels on the Miro Guide."
 
@@ -98,7 +97,7 @@ class PopularChannelsFeed(ChannelsFeed):
 
 
 class TopRatedChannelsFeed(ChannelsFeed):
-    title = 'Top Rated Channels'
+    title = 'Top Rated Channel Previews from Miro'
     link = "/toprated/"
     description = "The highest rated channels on the Miro Guide."
 
@@ -122,7 +121,7 @@ class FilteredFeed(ChannelsFeed):
         return obj
 
     def title(self, obj):
-        return 'Newest Channels in %s' % obj.name.encode('utf8')
+        return 'Newest %s Channel Previews from Miro' % obj.name.encode('utf8')
 
     def link(self, obj):
         if obj is None:
@@ -207,7 +206,7 @@ class RecommendationsFeed(ChannelsFeed):
             raise ObjectDoesNotExist
 
     def title(self, user):
-        return 'Recommended Channels for %s' % user.username
+        return 'Recommended Channels for %s from Miro' % user.username
 
     def description(self, user):
         return 'These channels are recommended for \

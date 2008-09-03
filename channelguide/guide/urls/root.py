@@ -105,10 +105,15 @@ urlpatterns += patterns('',
 # RSS feeds
 from channelguide.guide import feeds
 
+urlpatterns += patterns('',
+    (r'^rss/(?P<name>new|featured|popular|toprated)/?', redirect_to,
+     {'url': 'http://feeds.feedburner.com/miroguide/%(name)s'}))
+
 urlpatterns = urlpatterns + patterns('',
-    (r'^rss/(?P<url>.*)$', 'django.contrib.syndication.views.feed',
+    (r'^(?:rss|feeds)(?:_real)?/(?P<url>.*)$', 'django.contrib.syndication.views.feed',
         {'feed_dict':
             {   'new': feeds.NewChannelsFeed,
+                'features': feeds.FeaturedChannelsFeed,
                 'featured': feeds.FeaturedChannelsFeed,
                 'popular': feeds.PopularChannelsFeed,
                 'toprated': feeds.TopRatedChannelsFeed,

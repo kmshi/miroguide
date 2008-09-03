@@ -1,8 +1,9 @@
+{% load i18n %}
 <div class="detailsTop"></div>
 <div class="details">
   <span class="thumb">{{ item.thumbnail }}</span>
   <div class="description on">
-    <h4>{{ item.name }}</h4>
+    <h4>{% if item.name %}{{ item.name }}{% else %}{% trans "(no name)" %}{% endif %}</h4>
     <p>{{ item.description|striptags|urlize }}
   </div>
   <div class="meta">
@@ -18,7 +19,7 @@
     {% endif %}
     {% comment %}
     <div class="form_row">
-      <span class="tag">Â </span>
+      <span class="tag"></span>
       <span class="item"><a href="#">Show Details</a></span>
     </div>
     {% endcomment %}

@@ -95,7 +95,7 @@ if __name__ == '__main__':
         lock_file = open(lock_path, 'w')
         fcntl.flock(lock_file.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
     except IOError:
-        logging.warn("Could not obtain lock for %s.  Not starting." %
+        logging.exception("Could not obtain lock for %s.  Not starting." %
                 lock_path)
     else:
         connection = db.connect()

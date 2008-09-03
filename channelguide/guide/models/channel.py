@@ -570,10 +570,15 @@ class Channel(Record, Thumbnailable):
             rating.channel_id = self.id
             rating.user_id = user.id
             rating.rating = None
-        if rating.rating:
-            self.rating.count -= 1
-            self.rating.total -= rating.rating
-            self.rating.save(connection)
+        else:
+            if rating.rating and user.approved:
+                self.rating.count -= 1
+                self.rating.total -= rating.rating
+                if self.rating.count:
+                    self.rating.average = float(self.rating.total) / self.rating.count
+                else:
+                    self.rating.average = 0
+                self.rating.save(connection)
         rating.rating = int(score)
         rating.timestamp = datetime.now()
         if rating.rating == 0:

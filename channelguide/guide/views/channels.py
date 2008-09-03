@@ -171,8 +171,6 @@ def show(request, id, featured_form=None):
         'channel': c,
         'items': item_query.execute(request.connection),
         'recommendations': get_recommendations(request, id),
-        #'show_edit_button': request.user.can_edit_channel(c),
-        #'show_extra_info': request.user.can_edit_channel(c),
     }
     if request.user.is_supermoderator():
         c.join('owner').execute(request.connection)
@@ -230,24 +228,29 @@ def subscribe_hit(request, id):
             pass # ignore errors silently
     return HttpResponse("Hit successfull")
 
-def get_recommendations(request, id):
+def get_recommendations(request, channel):
     recSelect = Select('*')
     recSelect.froms.append('cg_channel_recommendations')
-    recSelect.wheres.append('channel1_id=%s OR channel2_id=%s' % (id, id))
+    recSelect.wheres.append('channel1_id=%s OR channel2_id=%s' % (
+        channel.id, channel.id))
     recSelect.wheres.append('cosine>=0.025')
     recSelect.order_by.append('cosine DESC')
     elements = recSelect.execute(request.connection)
-    recommendations = [e[0] == int(id) and e[1] or e[0] for e in elements]
+    recommendations = [e[0] == int(channel.id) and e[1] or e[0] for e in elements]
+    categories1 = set(channel.categories)
     channels = []
     for rec in recommendations:
         if len(channels) == 3:
             break
         try:
-            chan = Channel.get(request.connection, rec)
-        except Exception:
+            chan = Channel.query().join('categories',
+                                        'rating').get(request.connection, rec)
+        except LookupError:
             continue
         else:
-            if chan.state == Channel.APPROVED and not chan.archived:
+            categories2 = set(chan.categories)
+            if chan.state == Channel.APPROVED and not chan.archived and \
+                   (channel.rating.average - chan.rating.average) <= 0.5:
                 channels.append(chan)
     return channels
 
@@ -336,6 +339,7 @@ def make_simple_list(request, query, header, order_by=None, rss_feed=None):
         'pager': pager,
         'rss_feed': rss_feed
     })
+
 
 def for_user(request, user_name_or_id):
     try:
@@ -474,4 +478,3 @@ def email_owners(request):
             return util.redirect('moderate')
     return util.render_to_response(request, 'email-channel-owners.html', {
         'form': form})
-

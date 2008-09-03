@@ -69,9 +69,9 @@ def _calculate_scores(recommendations, ratings):
 
 def recalculate_similarity_recent(connection):
     seconds = 60*60*24
-    subscribed = set(get_recently_subscribed(connection, seconds))
-    rated = set(get_recently_rated(connection, seconds))
-    channels = subscribed | rated
+    #subscribed = set(get_recently_subscribed(connection, seconds))
+    channels = set(get_recently_rated(connection, seconds))
+    #channels = subscribed | rated
     if not channels:
         return
     recalculate_similarity(channels, connection)
@@ -113,7 +113,7 @@ def get_recently_rated(connection, seconds):
     sql = """SELECT DISTINCT channel_id FROM cg_channel_rating JOIN cg_channel ON cg_channel_rating.channel_id = cg_channel.id WHERE (NOW()-timestamp) < %s AND state=%s"""
     args = (seconds, 'A')
     results = connection.execute(sql, args)
-    query = Channel.query()
+    query = Channel.query().join('categories')
     query.where(Channel.c.id.in_([e[0] for e in results]))
     return query.execute(connection)
 
@@ -149,8 +149,9 @@ def delete_similarity(channel, connection, other):
     delete.execute(connection)
 
 def find_relevant_similar(channel, connection):
-    return set(
-            find_relevant_similar_subscription(channel, connection)) | set(
+    #return set(
+           # find_relevant_similar_subscription(channel, connection)) |
+    return       set(
                     find_relevant_similar_rating(channel, connection))
 
 def find_relevant_similar_subscription(channel, connection, ip_address=None):
@@ -191,12 +192,15 @@ def get_similarity(channel, connection, other):
     Returns the similarity between two channels.  channel is a Channel object;
     other is a channel id.
     """
-    # XXX: Trying out just using the rating similarity -- pswartz 6/30/2008
     #from_sub = get_similarity_from_subscriptions(channel, connection, other)
     from_rat = get_similarity_from_ratings(channel, connection, other)
+    from_cat = get_similarity_from_categories(channel, connection, other)
 
-    #return sum((from_sub / 2, from_rat )) / 2
-    return from_rat
+    s = sum((from_rat * 9, from_cat)) / 10
+    if s > 0.90:
+        print channel.id, other, from_rat, from_cat, s
+    return s
+
 
 def get_similarity_from_subscriptions(channel, connection, other):
     sql = 'SELECT channel_id, ip_address from cg_channel_subscription WHERE channel_id IN (%s, %s) AND timestamp > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND ip_address<>%s AND ignore_for_recommendations=%s ORDER BY ip_address'
@@ -234,11 +238,24 @@ def get_similarity_from_ratings(channel, connection, other):
     keys.sort()
     v1 = [vectors[k][0] for k in keys]
     v2 = [vectors[k][1] for k in keys]
-    return pearson_coefficient(v1, v2)
+    pc = pearson_coefficient(v1, v2)
+    if len(v1) < 5:
+        pc /= 2
+    return pc
+
+def get_similarity_from_categories(channel, connection, other):
+    cat1 = set([cat.id for cat in channel.categories])
+    cat2 = set([cat.id for cat in Channel.query(id=other
+                                                       ).join('categories'
+                                                              ).get(
+        connection).categories])
+    if not len(cat1 | cat2):
+        return 0.0
+    return len(cat1 & cat2) / len(cat1 | cat2)
 
 def pearson_coefficient(vector1, vector2):
     n = float(len(vector1))
-    if not n:
+    if n < 3: # two points always have a linear corelation
         return 0.0
     sum1 = sum(vector1)
     sum2 = sum(vector2)

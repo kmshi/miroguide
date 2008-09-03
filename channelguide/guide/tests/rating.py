@@ -31,6 +31,7 @@ class ChannelRatingsTest(TestCase):
         self.refresh_connection()
         self.get_page('/channels/rate/%i' % channel.id, login_as=user,
                 data = {'rating': rating})
+        self.refresh_connection()
 
     def test_get_average(self):
         """
@@ -47,6 +48,9 @@ class ChannelRatingsTest(TestCase):
         """
         new_user = self.make_user('foo')
         self.rate_channel(self.channel, new_user, 5)
+        c = self.channel.query().join('rating').get(self.connection)
+        self.assertEquals(float(c.rating.average), 3)
+        self.rate_channel(self.channel, new_user, 4)
         c = self.channel.query().join('rating').get(self.connection)
         self.assertEquals(float(c.rating.average), 3)
 

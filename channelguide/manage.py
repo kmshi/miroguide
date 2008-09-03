@@ -373,7 +373,7 @@ def calculate_recommendations(args=None):
     connection = db.connect()
     if args is not None and len(args) > 2 and args[2] == 'full':
         from channelguide.guide.models import Channel
-        channels = Channel.query_approved().execute(connection)
+        channels = Channel.query_approved().join('categories').execute(connection)
         recommendations.recalculate_similarity(channels, connection)
     else:
         recommendations.recalculate_similarity_recent(connection)
@@ -468,7 +468,7 @@ def refresh_stats_table(args=None):
     FROM 
       cg_channel
     WHERE 
-      cg_channel.state = 'A'
+      cg_channel.state IN ('A', 'U')
     ORDER BY
       cg_channel_subscription_count_today
     DESC,
