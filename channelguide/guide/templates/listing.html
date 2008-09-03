@@ -9,7 +9,12 @@
 {% endblock %}
 {% block body %}
   {% if terms_too_short %}
-  Terms too short
+  <div id="container">
+    <div id="content">
+      <h2>Terms too short</h2>
+      I'm sorry, your search term was too short; it must be at least 3 characters.
+    </div>
+  </div>
   {% else %}
 	<div id="container">
           {% block listing-pre-content %}{% endblock %}
