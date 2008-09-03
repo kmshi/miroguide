@@ -17,7 +17,7 @@ def submit_feed(request):
     if request.method != 'POST':
         form = forms.FeedURLForm(request.connection)
     else:
-        submit_type = request.POST.get('type')
+        submit_type = request.POST.get('type', '')
         form = forms.FeedURLForm(request.connection, request.POST.copy())
         if form.is_valid():
             if form.cleaned_data['url']:
@@ -28,11 +28,15 @@ def submit_feed(request):
                 request.session[SESSION_KEY]['owner-is-fan'] = True
             else:
                 request.session[SESSION_KEY]['owner-is-fan'] = False
+                if request.session[SESSION_KEY].get('publisher') is None:
+                    request.session[SESSION_KEY]['publisher'] = \
+                                                              request.user.email
             return util.redirect("submit/step2")
         else:
             for error in form.error_list():
-                if (error['name'] == 'RSS Feed' and
-                    'is already a channel in the guide' in error['message']):
+                if (unicode(error['name']) == 'RSS Feed' and
+                    'is already a channel in the guide' in
+                    unicode(error['message'])):
                     url = form.data['url'].strip()
                     try:
                         channel = Channel.query(url=url).get(request.connection)
@@ -69,6 +73,8 @@ def submit_channel(request):
     highlighted.
     """
     session_dict = request.session[SESSION_KEY]
+    if 'subscribe' in session_dict:
+        return util.redirect('/submit')
     if request.method != 'POST':
         form = forms.SubmitChannelForm(request.connection)
         form.set_defaults(session_dict)
@@ -83,9 +89,9 @@ def submit_channel(request):
             session_dict['detected_thumbnail'] = False
             request.session.modified = True
         if form.is_valid():
-            feed_url = request.session[SESSION_KEY]['url']
+            feed_url = session_dict['url']
             channel = form.save_channel(request.user, feed_url)
-            request.session[SESSION_KEY]['subscribe'] = channel.get_subscription_url()
+            session_dict['subscribe'] = channel.get_subscription_url()
             request.session.modified = True
             return util.redirect("submit/after")
         else:

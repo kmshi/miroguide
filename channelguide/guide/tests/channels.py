@@ -373,12 +373,12 @@ class SubmitChannelTest(TestCase):
 
     def login(self):
         TestCase.login(self, 'joe')
-        return self.get_page('/channels/submit/step1')
+        return self.get_page('/submit/step1')
 
     def test_login_required(self):
-        response = self.get_page('/channels/submit/step1')
+        response = self.get_page('/submit/step1')
         self.assertEquals(response.status_code, 302)
-        response = self.get_page('/channels/submit/step2')
+        response = self.get_page('/submit/step2')
         self.assertEquals(response.status_code, 302)
 
     def make_submit_data(self, dont_send=None, **extra_data):
@@ -386,7 +386,7 @@ class SubmitChannelTest(TestCase):
             'name': 'foo',
             'website_url': 'http://foo.com/' + util.random_string(16),
             'description': 'Awesome channel',
-            'publisher': 'Foo incorporated',
+            'publisher': 'publisher@foo.com',
             'languages_0': self.language.id,
             'categories_0': self.cat1.id,
             'categories_1': self.cat2.id,
@@ -456,14 +456,21 @@ Errors: %s""" % (response.status_code, errors)
             raise AssertionError(msg)
         if url is None:
             url = test_data_url('feed.xml')
-        test_url = settings.BASE_URL_FULL + 'channels/submit/after?%s' % url
+        test_url = settings.BASE_URL_FULL + 'submit/after'
         self.assertEquals(response['Location'], test_url)
         self.check_last_channel_thumbnail(thumb_name)
+        return response
 
     def submit_url(self, url=None):
         if url is None:
             url = test_data_url('feed.xml')
-        return self.post_data('/channels/submit/step1', {'url': url})
+        if url is '':
+            # this used to be an error, because URLs were required
+            # now they aren't, so we use a fake URL instead
+            url = test_data_url('thisdoesntexist.xml')
+        return self.post_data('/submit/step1', {
+            'name': 'foo',
+            'url': url})
 
     def login_and_submit_url(self):
         self.login()
@@ -477,24 +484,24 @@ Errors: %s""" % (response.status_code, errors)
             if thumb_widget.submitted_thumb_path is not None:
                 data['thumbnail_file_submitted_path'] = \
                         thumb_widget.submitted_thumb_path
-        return self.post_data('/channels/submit/step2', data)
+        return self.post_data('/submit/step2', data)
 
     def test_required_fields(self):
         self.login()
-        response = self.post_data('/channels/submit/step1', {})
+        response = self.post_data('/submit/step1', {})
         form = response.context[0]['form']
-        self.assertEquals(form.errors.keys(), ['url'])
+        self.assertEquals(form.errors.keys(), ['name'])
         self.submit_url(test_data_url('no-thumbnail.xml'))
         should_complain = ['name', 'website_url',
-                'description', 'publisher', 'languages','categories',
+                'description', 'languages','categories',
                 'thumbnail_file']
-        response = self.post_data('/channels/submit/step2', {})
+        response = self.post_data('/submit/step2', {})
         form = response.context[0]['form']
         self.assertSameSet(form.errors.keys(), should_complain)
 
     def test_step2_redirect(self):
         self.login()
-        response = self.get_page('/channels/submit/step2')
+        response = self.get_page('/submit/step2')
         self.assertEquals(response.status_code, 302)
 
     def test_bad_url(self):
@@ -506,13 +513,13 @@ Errors: %s""" % (response.status_code, errors)
 
     def test_submit_url_sets_defaults(self):
         self.login_and_submit_url()
-        response = self.get_page('/channels/submit/step2')
+        response = self.get_page('/submit/step2')
         form = response.context[0]['form']
         def check_default(key, test_value):
             self.assertEquals(form.fields[key].initial, test_value)
         check_default('name', 'Rocketboom RSS 2.0 Main Index')
         check_default('website_url', 'http://www.rocketboom.com/vlog/')
-        check_default('publisher', None)
+        check_default('publisher', self.joe.email)
         thumb_widget = form.fields['thumbnail_file'].widget
         self.assert_(thumb_widget.submitted_thumb_path is not None)
         self.assert_(os.path.exists(os.path.join(settings.MEDIA_ROOT, 'tmp',
@@ -576,14 +583,14 @@ Errors: %s""" % (response.status_code, errors)
         self.login_and_submit_url()
         response = self.submit()
         self.check_submit_worked(response)
-        response = self.get_page('/channels/submit/step2')
+        response = self.get_page('/submit/step2')
         self.assertEquals(response.status_code, 302)
 
     def test_submit_feed_then_go_back(self):
         self.login_and_submit_url()
         response = self.submit_url('')
         self.check_submit_url_failed(response)
-        response = self.get_page('/channels/submit/step2')
+        response = self.get_page('/submit/step2')
         self.assertEquals(response.status_code, 302)
 
     def check_category_names(self, response, *correct_names):
@@ -593,10 +600,10 @@ Errors: %s""" % (response.status_code, errors)
 
     def test_categories_widget_updates(self):
         self.login_and_submit_url()
-        response = self.get_page('/channels/submit/step2')
+        response = self.get_page('/submit/step2')
         self.check_category_names(response, 'foo', 'bar')
         self.save_to_db(Category(name='baz'))
-        response = self.get_page('/channels/submit/step2')
+        response = self.get_page('/submit/step2')
         self.check_category_names(response, 'foo', 'bar', 'baz')
         self.save_to_db(Category(name='booya'))
         response = self.submit(dont_send='name')
@@ -635,7 +642,7 @@ Errors: %s""" % (response.status_code, errors)
 
     def test_tag_limit(self):
         self.login_and_submit_url()
-        response = self.submit(tags='a,b,c,d,e,f')
+        response = self.submit(tags=','.join([str(i) for i in range(76)]))
         self.check_submit_failed(response)
 
     def test_empty_tag(self):
@@ -656,8 +663,8 @@ Errors: %s""" % (response.status_code, errors)
         channel = self.make_channel(self.joe)
         self.login()
         response = self.submit_url(channel.url)
-        form = response.context[0]['form']
-        self.assertSameSet(form.errors.keys(), ['url'])
+        channel2 = response.context[0]['channel']
+        self.assertEquals(channel.id, channel2.id)
 
 class ModerateChannelTest(ChannelTestBase):
     """Test the moderate channel web page."""
