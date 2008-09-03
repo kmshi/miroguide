@@ -53,10 +53,6 @@ function editBoxLoad(){
         } else {
             extra = 0;
         }
-        console.log(this);
-        console.log($(this).width());
-        console.log(label.width());
-        console.log(extra);
 	if (input.length) input.width($(this).width() - label.width() - extra - 20);
         if (textarea.length) textarea.width($(this).width() - 20).height('6em');
     });
