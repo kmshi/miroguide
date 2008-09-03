@@ -1591,3 +1591,12 @@ button span {
 #searchResults .thumb {float: left; display: inline;}
 .add_favorite_channel {float: right; display: inline; margin: 10px 10px 0 0;}
 .channel_feed_only {float: left; display: inline; margin: 17px 0 0 10px;}
+
+.added_channel {
+    background: beige;
+    border: 2px solid black;
+    border-left: 0px;
+    height: 5em;
+    padding: 5px;
+    width: 10em;
+}
