@@ -2,7 +2,8 @@
 <table class="button_block">{# I wish I could do this with CSS #}
   <tr>
     <td class="{% if small %}tiny{% else %}small{% endif %}_add_button">
-      <a href="{{ channel.get_subscription_url }}">
+      <a href="{{ channel.get_subscription_url }}"
+         onclick='channelAdd("{{ channel.get_user_add_url }}", "{{ channel.get_subscription_url }}"); return false;'>
         <span class="button_text">{% if small %}{% trans "Add" %}{% else%}{% trans "Add channel" %}{% endif %}</span>
         <img class="button_icon" src="{{ STATIC_BASE_URL}}images/buttons/button_small_{% if channel.url %}rss{% else %}streaming{% endif %}.png" alt="{% blocktrans with channel.name as name %}Add {{ name }} to Miro{% endblocktrans %}" />
       </a>

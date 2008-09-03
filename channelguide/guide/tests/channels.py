@@ -12,7 +12,7 @@ from django.template import loader
 from channelguide import util, manage, cache
 from channelguide.guide import search
 from channelguide.guide.models import (Channel, Category, Tag, Item, User, 
-        Language, TagMap, Rating)
+        Language, TagMap, AddedChannel)
 from channelguide.testframework import TestCase
 
 def test_data_path(filename):
@@ -1218,6 +1218,20 @@ class ChannelArchivalTest(ChannelTestBase):
         self.channel.update_items(self.connection, newer)
         self.assertEquals(self.channel.archived, False)
 
+class AddedChannelTestCase(ChannelTestBase):
+
+    def test_user_add(self):
+        url = self.channel.get_user_add_url()
+        page = self.get_page(url, login_as=self.ralph)
+        self.assertEquals(page.status_code, 200)
+        self.refresh_connection()
+        AddedChannel.get(self.connection, (self.channel.id,
+                                              self.ralph.id))
+
+    def test_nonuser_add(self):
+        url = self.channel.get_user_add_url()
+        page = self.get_page(url, login_as=None)
+        self.assertEquals(page.status_code, 200)
 
 if settings.DISABLE_CACHE or not settings.MEMCACHED_SERVERS:
     del ChannelCacheTest

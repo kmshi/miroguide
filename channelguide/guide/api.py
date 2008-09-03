@@ -1,5 +1,5 @@
 from channelguide.guide.models import (Category, Channel, Language, Tag, Rating,
-                                       User)
+                                       User, AddedChannel)
 from channelguide.guide import recommendations
 from channelguide.guide import search as search_mod
 from channelguide.cache import client
@@ -136,19 +136,30 @@ def get_ratings(connection, user, rating=None):
                 'channel').execute(connection)]
 
 def get_recommendations(connection, user, start=0, length=10):
-    query = Rating.query(user_id=user.id).order_by(Rating.c.timestamp)
-    ratings = query.execute(connection)
+    rating_query = Rating.query(user_id=user.id).order_by(Rating.c.timestamp)
+    ratings = rating_query.execute(connection)
+    added_query = AddedChannel.query(user_id=user.id).order_by(
+        AddedChannel.c.timestamp)
+    added_channels = added_query.execute(connection)
     if ratings:
+        if added_channels:
+            key = str(
+                max(ratings[-1].timestamp,
+                    added_channels[-1].timestamp).isoformat())
+        else:
+            key = str(ratings[-1].timestamp.isoformat())
         cacheKey = ':'.join(('recommendations_for', str(user.id),
-                             str(ratings[-1].timestamp.isoformat())))
+                             key))
         result = client.get(cacheKey)
         if result is None:
             (estimatedRatings,
              reasons) = recommendations.get_recommendations_from_ratings(
                 connection, ratings)
+            added_ids = [added.channel_id for added in added_channels]
             toSort = estimatedRatings.items()
             toSort.sort(key=operator.itemgetter(1), reverse=True)
-            ids = [cid for (cid, rating) in toSort if rating>=3.25]
+            ids = [cid for (cid, rating) in toSort if rating>=3.25 and
+                   cid not in added_ids]
             ids = ids[:99]
             for id in estimatedRatings.keys():
                 if id not in ids:

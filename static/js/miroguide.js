@@ -69,7 +69,17 @@ function ajaxLink(url, id) {
     if (!doAjaxCall(url, callback)) return true;
     return false;
 }
-
+function channelAdd(url, redirect) {
+    var xhr = makeXMLHttpRequest();
+    if (!xhr) return true;
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState > 1)
+            window.location = redirect;
+    };
+    xhr.open('GET', url, true);
+    xhr.send(null);
+    return false;
+}
 function _redirectToSubscription(request) {
     window.location.href = request.subscribe_url;
 }

@@ -244,6 +244,9 @@ class Channel(Record, Thumbnailable):
     def get_subscribe_hit_url(self):
         return self.get_url() + '/subscribe-hit'
 
+    def get_user_add_url(self):
+        return self.get_url() + '/add'
+
     def get_subscription_url(self):
         if self.url:
             return util.get_subscription_url(self.url,
@@ -603,3 +606,10 @@ for width, height in Channel.THUMBNAIL_SIZES:
         return self._thumb_html(width, height)
     setattr(Channel, 'thumb_%i_%i' % (width, height), thumb)
     del thumb
+
+class AddedChannel(Record):
+    table = tables.added_channel
+
+    def __init__(self, channel_id, user_id):
+        self.channel_id = channel_id
+        self.user_id = user_id

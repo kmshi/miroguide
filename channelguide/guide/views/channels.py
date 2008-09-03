@@ -10,12 +10,13 @@ from channelguide import util, cache
 from channelguide.cache import client
 from channelguide.cache.middleware import UserCacheMiddleware
 from channelguide.guide import api, forms, templateutil
-from channelguide.guide.auth import (admin_required, moderator_required)
+from channelguide.guide.auth import (admin_required, moderator_required,
+                                     login_required)
 from channelguide.guide.exceptions import AuthError
 from channelguide.guide.models import (Channel, Item, User, FeaturedEmail,
                                        ModeratorAction, ChannelNote, Rating,
                                        FeaturedQueue, GeneratedRatings,
-                                       Cobranding)
+                                       Cobranding, AddedChannel)
 from channelguide.guide.notes import get_note_info, make_rejection_note
 from channelguide.guide.emailmessages import EmailMessage
 from sqlhelper.sql.statement import Select
@@ -193,12 +194,27 @@ def show(request, id, featured_form=None):
             context['last_featured_email'] = last_featured_email
     return util.render_to_response(request, 'details.html', context)
 
-def subscribe(request, id):
-    channel = util.get_object_or_404(request.connection, Channel, id)
-    channel.add_subscription(request.connection,
-            request.META.get('REMOTE_ADDR', '0.0.0.0'))
-    subscribe_url = util.get_subscription_url(channel.url)
-    return HttpResponseRedirect(subscribe_url)
+@login_required
+def user_subscriptions(request):
+    request.user.join('channel_subscriptions').execute(request.connection)
+    request.user.channel_subscriptions.join('channel').execute(request.connection)
+    return util.render_to_response(request, 'listing.html', {
+        'results': (a.channel for a in request.user.channel_subscriptions),
+        'count': len(request.user.channel_subscriptions),
+        'title': _('Subscriptions for %s') % request.user.username,
+        'header_class': 'rss',
+        'intro': 'Intro',
+        'page': 1,
+        'next_page': None,
+        'sort': None,
+        })
+
+def user_add(request, id):
+    if request.user.is_authenticated():
+        ac = AddedChannel(int(id), request.user.id)
+        ac.save(request.connection)
+    return HttpResponse("Added!")
+
 
 def subscribe_hit(request, id):
     """Used by our ajax call handleSubscriptionLink.  It will get a security

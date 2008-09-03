@@ -1,5 +1,6 @@
 <div class="large_add_button channel_page_button">
-  <a href="{{ channel.get_subscription_url }}">
+  <a href="{{ channel.get_subscription_url }}"
+     onclick='channelAdd("{{ channel.get_user_add_url }}", "{{ channel.get_subscription_url }}"); return false;'>
     <span class="button_text">Add to favorites</span>
     <img class="button_icon" src="{{ STATIC_BASE_URL }}images/buttons/button_large_streaming.png" alt="Add {{ channel.name }} to Miro" />
   </a>
