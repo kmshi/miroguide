@@ -77,7 +77,7 @@ form {
 }
 
 #guestEditorsPicks, #featured {
-	height: 221px;
+	height: 272px;
 	padding: 17px 0;
 	border-bottom: 1px solid #8e111a;
 	background: #c01723;
@@ -135,18 +135,20 @@ form {
 }
 
 .smallCarousel {width: 536px; float: right; display: inline;}
-.largeCarousel {width: 794px; margin: 0 auto;}
+.largeCarousel {width: 794px; margin: 0 auto;
+
+}
 
 #featuredItemsCarousel #innerContent {
 	overflow: hidden;
-	height: 221px;
+	height: 271px;
 	float: left;
 	display: block;
         position: relative;
 }
 
 .smallCarousel #innerContent {width: 468px;}
-.largeCarousel #innerContent {width: 726px;
+.largeCarousel #innerContent {width: 728px;
     background: url(images/featured_bg.png);}
 
 #featuredItemsCarousel #innerContent ul {
@@ -159,9 +161,9 @@ form {
 }
 
 #featuredItemsCarousel #innerContent ul li {
-	height: 219px;
-	width: 230px;
-	padding: 0;
+	height: 260px;
+	width: 242px;
+	padding: 8px 0 0 0;
 	float: left;
 	overflow: hidden;
 	display: inline;
@@ -170,44 +172,79 @@ border-right: 1px solid #fefefe;
 border-left: 1px solid #bbb;
 }
 
-/*
+
 #featuredItemsCarousel #innerContent ul li:hover {
-background: #eee;
+
 }
-*/
+
+
 
 #featuredItemsCarousel #innerContent ul li div.featuredItem {
-	background: url(images/featured_frame.png) 0 0 no-repeat;
-	padding: 5px 3px 0 5px;
-	width: 146px;
-	height: 120px;
-	margin: 11px auto 3px auto;
+border: 1px solid #111;
+width: 192px;
+padding: 0 !important; 
+margin: 20px auto 0 !important;
+}
+
+
+
+
+#featuredItemsCarousel #innerContent ul li div.featuredItem a{
+display: block;
+height: 128px;
+background: url(images/thumb_overlay.png) 0 -120px repeat-x;
+}
+
+
+
+
+#featuredItemsCarousel #innerContent ul li:hover div.featuredItem a{
+background: url(images/thumb_overlay.png) 0 19px repeat-x;
+}
+
+
+
+
+
+#featuredItemsCarousel #innerContent ul li div.featuredItem span{
+background: url(images/featured_badge.png) no-repeat;
+display: block;
+height: 15px;
+border-top: 1px solid #333;
+color: #f5e1e1;
+text-transform: uppercase;
+font-size: 10px;
+padding-top: 2px;
 }
 
 #featuredItemsCarousel #innerContent ul li span.title {
-	font-weight: bold;
-	font-size: 13px;
-        height: 13px;
-        overflow: hidden;
-	display: block;
-	padding: 6px 30px 2px;
-	clear: both;
+display: block;
+margin: 15px auto 0;
+clear: both;
+width: 200px;
+background: 0 !important;
+overflow: hidden;
+height: 17px;
+font-weight: bold;
+font-size: 13px;
 }
 
 #featuredItemsCarousel #innerContent ul li span.description {
-	font-size: 10px;
-	display: block;
-	padding: 2px 30px;
-	height: 23px;
-	overflow: hidden;
-	line-height: 12px;
+height: 21px;
+overflow: hidden;
+font-size: 10px;
+display: block;
+margin: 0 auto 13px;
+width: 192px;
+line-height: 1em;
+
 }
 
 /*Carousel buttons*/
 #featuredItemsCarousel #button_previous {
-	height: 221px;
-	width: 34px;
-	background: url(images/buttons/featured_left_button.png) 0 0 no-repeat;
+	height: 271px;
+	width: 33px;
+	background: url(images/feat_button_left.png) 0 0 no-repeat;
 	position: relative;
 	z-index: 2;
 	float: left;
@@ -215,9 +252,9 @@ background: #eee;
         cursor: pointer;
 }
 #featuredItemsCarousel #button_next {
-	height: 221px;
-	width: 34px;
-	background: url(images/buttons/featured_right_button.png) 0 0 no-repeat;
+	height: 271px;
+	width: 33px;
+	background: url(images/feat_button_right.png) 0 0 no-repeat;
 	cursor: pointer;
 	position: relative;
 	z-index: 2;
@@ -225,12 +262,13 @@ background: #eee;
 	display: inline;
 }
 
+
 #featuredItemsCarousel #button_next:hover {
-	background-position: 0 -221px;
+	background-position: 0 -271px;
 }
 
 #featuredItemsCarousel #button_previous:hover {
-	background-position: 0 -221px;
+	background-position: 0 -271px;
 }
 
 /*Video thumbnail lists*/
@@ -879,17 +917,21 @@ background: url(images/nav_line_dark.png) right repeat-y;
 
 
 
-ul#mainMenu li a span{
+ul#mainMenu li a span.nav_text{
 padding: 0 21px 0 24px;
 display: block;
 background: url(images/nav_line_dark_lighter.png) right repeat-y;
 }
 
-ul#mainMenu li a:hover span{
+ul#mainMenu li a:hover span.nav_text{
 background: none;
 }
 
+ul#mainMenu li a span.nav_text .dropShadow{
+margin: -5px 0 0 0 !important;
 
+}
+    
 
 ul#mainMenu li#logo {
 width: 89px; 
@@ -1033,6 +1075,7 @@ background: none;
 	height: 56px;
 	background: url(images/hover_menu_bottom.png) 0 0 no-repeat;
 }
+
 #hoverMenuLanguage #downButton:hover {
 	width: 274px;
 	height: 56px;
@@ -1063,7 +1106,6 @@ background: #ac1717;
 border-bottom: 1px solid #ac1717;
 border-top: 1px solid #8d1515;
  }
-
 
 #hoverMenuLanguage ul button span {
 font-size: 11px;
@@ -1153,11 +1195,11 @@ margin-top: 15px;
 
 #login_button{
 margin: 15px 0 0 0;
-background: url(http://test2.getmiro.com/redesign/guide/images/login_button.png) !important;
+background: url(images/login_button.png) !important;
 }
 
 #login_button:hover{
-background: url(http://test2.getmiro.com/redesign/guide/images/login_button.png) 0 -22px !important;
+background: url(images/login_button.png) 0 -22px !important;
 }
 
 
@@ -1544,8 +1586,9 @@ button span {
 
 /*Images*/
 .tiny_thumbnail {display: block; width: 57px; border: 1px solid #881019; padding: 3px; background: #e1e1e1;}
-.hd_tag_large {position: absolute; z-index: 2; margin: -6px 0 0 57px;}
-.hd_tag_small {position: absolute; z-index: 2; margin: -4px 0 0 36px;}
+.hd_tag_large {position: absolute; z-index: 2; margin: -6px 0 0 -15px;}
+.hd_tag_small {position: absolute; z-index: 2; 
+margin: -4px 0 0 36px;}
 .search_hd {margin-left: 56px;}
 .channel_hd {margin-left: 93px;}
 #searchResults .thumb {float: left; display: inline;}

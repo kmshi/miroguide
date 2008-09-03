@@ -53,8 +53,8 @@ class Channel(Record, Thumbnailable):
         (98, 66), # new on front page
         (109, 73), # small on search page
         (132, 88), # search page
-        (142, 96), # featured on front page
         (154, 105), # item thumbnail size
+        (192, 129), # featured on front page
         (222, 146), # large image on details page
         (300, 200), # biggest size
     ]
@@ -604,7 +604,10 @@ class Channel(Record, Thumbnailable):
 for width, height in Channel.THUMBNAIL_SIZES:
     def thumb(self, width=width, height=height):
         return self._thumb_html(width, height)
+    def thumb_url(self, width=width, height=height):
+        return self.thumb_url(width, height)
     setattr(Channel, 'thumb_%i_%i' % (width, height), thumb)
+    setattr(Channel, 'thumb_url_%i_%i' % (width, height), thumb_url)
     del thumb
 
 class AddedChannel(Record):

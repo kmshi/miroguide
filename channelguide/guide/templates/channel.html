@@ -5,7 +5,7 @@
   </div>
 {% endif %}
 {% if search %}<h4>{{ channel.name_as_link }}</h4>{% endif %}
-<div class=" thumb{% if featured %} featuredItem{% endif %}">
+<div class=" thumb{% if featured %} featuredItem{% endif %}"{% if featured %} style="background: url({{ channel.thumb_url_192_129 }});"{% endif%}>
 <a href="{{ channel.get_url }}">
   {% if channel.hi_def %}
     {% if small %}
@@ -27,8 +27,6 @@
   {% else %}
     {% if search %}
   {{ channel.thumb_132_88 }}
-    {% else %}
-  {{ channel.thumb_142_96 }}
     {% endif %}
   {% endif %}
 </a>

@@ -1,10 +1,11 @@
 {% extends "base.html" %}
-{% load channels i18n %}
+{% load cg_helpers channels i18n %}
 {% block head %}
+<script type="text/javascript" src="{% static_nonce "js/corners.js" %}"></script>
 <script type="text/javascript">
 //<![CDATA[
 var currentFeature = 0;
-var featureWidth = 240;
+var featureWidth = 244;
 var featureCount = 8;
 var featureRotateSeconds = 10;
 var featureRotateDirection = 1;
@@ -58,6 +59,35 @@ $(document).ready(function() {
                                 featureRotateSeconds * 1000);
     $("#button_next").click(featuredNext);
     $("#button_previous").click(featuredPrevious);
+});
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+$(function(){
+    $('.inner').corner({
+	tl: { radius: 6 },
+	tr: { radius: 6 },
+	bl: { radius: 6 },
+	br: { radius: 6 }});
+    $('.featuredItem').corner();
+    $('.c2').corner({
+	tl: { radius: 32 },
+	tr: { radius: 16 },
+	bl: { radius: 16 },
+	br: { radius: 16 },
+	antiAlias: true,
+	autoPad: true,
+	validTags: ["div"] });
+    $('.c3').corner({
+	tl: { radius: 16 },
+	tr: false,
+	bl: false,
+	br: { radius: 16 },
+	antiAlias: true,
+	autoPad: true,
+	validTags: ["div"] });
+
 });
 //]]>
 </script>
