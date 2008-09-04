@@ -227,6 +227,8 @@ def get_similarity_from_ratings(channel, connection, other):
     for rating in query.execute(connection):
         vectors.setdefault(rating.user_id, [None, None])
         i = int(rating.channel_id)
+        if not rating.rating:
+            continue
         if i == channel.id:
             vectors[rating.user_id][0] = rating.rating
         else:
