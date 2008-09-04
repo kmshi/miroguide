@@ -246,7 +246,7 @@ class Channel(Record, Thumbnailable):
 
     def get_subscribe_hit_url(self):
         return util.make_absolute_url('channels/subscribe-hit/%d' % self.id)
-    
+
     def get_subscription_url(self):
         return util.get_subscription_url(self.url,
                                          trackback=self.get_subscribe_hit_url())
@@ -303,7 +303,7 @@ class Channel(Record, Thumbnailable):
         return self.get_tags_for_user(connection, self.owner)
 
     def get_subscription_str(self):
-        return ngettext('%(count)d subscriber', 
+        return ngettext('%(count)d subscriber',
                 '%(count)d subscribers', self.subscriptions.count) % {
                 'count': self.subscriptions.count
         }
@@ -412,7 +412,7 @@ class Channel(Record, Thumbnailable):
             return None
         if hasattr(parsed, 'modified'):
             new_modified = feedutil.struct_time_to_datetime(parsed.modified)
-            if (self.feed_modified is not None and 
+            if (self.feed_modified is not None and
                     new_modified <= self.feed_modified):
                 return None
             self.feed_modified = new_modified
@@ -436,11 +436,11 @@ class Channel(Record, Thumbnailable):
             items = []
             for entry in parsed.entries:
                 try:
-                    items.append(Item.from_feedparser_entry(entry))
+                    items.append(Item.from_feedparser_entry(entry, connection))
                 except exceptions.EntryMissingDataError:
                     pass
                 except exceptions.FeedparserEntryError, e:
-                    logging.warn("Error converting feedparser entry: %s (%s)" 
+                    logging.warn("Error converting feedparser entry: %s (%s)"
                             % (e, self))
             self._replace_items(connection, items)
         if self.items:
@@ -498,7 +498,7 @@ class Channel(Record, Thumbnailable):
     def thumb_252_169(self): return self._thumb_html(252, 169)
     def thumb_370_247(self): return self._thumb_html(370, 247)
 
-    def fake_feature_thumb(self): 
+    def fake_feature_thumb(self):
         thumb_url = self.thumb_url(252, 169)
         return 'src: "%s" alt:"%s"' % (thumb_url, cgi.escape(self.name))
 

@@ -77,7 +77,7 @@ class Item(Record, Thumbnailable):
             self.save_thumbnail(connection, image_data)
 
     @staticmethod
-    def from_feedparser_entry(entry):
+    def from_feedparser_entry(entry, connection):
         enclosure = feedutil.get_first_video_enclosure(entry)
         if enclosure is None:
             if 'link' not in entry:
@@ -128,6 +128,14 @@ class Item(Record, Thumbnailable):
             rv.date = feedutil.struct_time_to_datetime(updated_parsed)
         except KeyError:
             rv.date = None
+        if not(Item.query(url=enclosure['href']).execute(connection)):
+            if "width" in enclosure and "height" in enclosure:
+                rv.width = enclosure['width']
+                rv.height = enclosure['height']
+            else:
+                videoRes = util.videoResFromURL(enclosure['href'])
+                if videoRes != None:
+                    rv.width, rv.height = videoRes
         rv.thumbnail_url = feedutil.get_thumbnail_url(entry)
         return rv
 
