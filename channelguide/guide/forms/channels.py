@@ -230,7 +230,6 @@ class ChannelThumbnailWidget(forms.Widget):
             else:
                 uploaded_file.open()
                 file_data = uploaded_file.read()
-                uploaded_file.close()
             return file_data
         elif data.get(hidden_name):
             path = os.path.join(settings.MEDIA_ROOT, 'tmp',
@@ -258,7 +257,6 @@ class ChannelThumbnailWidget(forms.Widget):
                 file_name = uploaded_file.name
                 uploaded_file.open()
                 file_data = uploaded_file.read()
-                uploaded_file.close()
             self.save_thumb_content(file_name, file_data)
         elif data.get(hidden_name):
             self.submitted_thumb_path = data[hidden_name]
