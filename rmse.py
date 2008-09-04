@@ -24,13 +24,15 @@ for user in  User.query().join('channel_rating').execute(connection):
 print len(g1)
 print len(g2)
 print len(channels)
+channels = sorted(channels,
+                  key=lambda c: c.id)
 # g1 is the test group
 # g2 is the verification group
 
 g1_ids = [u.id for u in g1]
 
 def find_relevant_similar_rating(channel, connection):
-    print 'finding relevant', channel.id
+    print 'finding relevant', channel.id, channels.index(channel) * 100.0 / len(channels)
     ratings = Rating.query(channel_id=channel.id).execute(connection)
     if not ratings:
         return []
@@ -61,9 +63,7 @@ def get_similarity_from_ratings(channel, connection, other):
 recommendations.find_relevant_similar_rating = find_relevant_similar_rating
 recommendations.get_similarity_from_ratings = get_similarity_from_ratings
 
-recommendations.recalculate_similarity(
-    sorted(channels,
-           key=lambda c: c.id), connection)
+recommendations.recalculate_similarity(channels, connection)
 
 errors = []
 
