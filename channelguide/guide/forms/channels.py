@@ -101,7 +101,7 @@ class FeedURLForm(Form):
                             HD+=1
                         else:
                             noHD+=1
-            if (HD / (HD + noHD) > 0.80):
+            if (HD + noHD) and (HD / (HD + noHD) > 0.80):
                 return True
             else:
                 return False
