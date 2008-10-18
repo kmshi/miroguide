@@ -85,6 +85,8 @@ class FeedURLForm(Form):
             noHD = 0.00
             for feedParts in parsed.entries:
                 enclosure = get_first_video_enclosure(feedParts)
+                if not enclosure:
+                    return False
                 videoURL = enclosure['href']
                 if "width" in enclosure and "height" in enclosure:
                     width = enclosure['width']
