@@ -436,7 +436,7 @@ class Channel(Record, Thumbnailable):
             items = []
             for entry in parsed.entries:
                 try:
-                    items.append(Item.from_feedparser_entry(entry, connection))
+                    items.append(Item.from_feedparser_entry(entry))
                 except exceptions.EntryMissingDataError:
                     pass
                 except exceptions.FeedparserEntryError, e:

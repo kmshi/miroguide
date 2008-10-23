@@ -18,7 +18,7 @@ from django.utils.translation import gettext as _
 import django.newforms as forms
 import feedparser
 
-from channelguide.guide.feedutil import to_utf8, get_first_video_enclosure
+from channelguide.guide.feedutil import to_utf8
 from channelguide.guide.models import Language, Category, Channel
 from channelguide import util
 from fields import WideCharField, WideURLField, WideChoiceField
@@ -80,39 +80,10 @@ class FeedURLForm(Form):
                 return to_utf8(parsed['feed'][feed_key])
             except (KeyError, TypeError):
                 return None
-        def isChannelHD():
-            HD = 0.00
-            noHD = 0.00
-            for feedParts in parsed.entries:
-                enclosure = get_first_video_enclosure(feedParts)
-                if not enclosure:
-                    return False
-                videoURL = enclosure['href']
-                if "width" in enclosure and "height" in enclosure:
-                    width = enclosure['width']
-                    height = enclosure['height']
-                    return [width,height]
-                if videoURL is not None:
-                    try:
-                        videoRes = util.videoResFromURL(videoURL)
-                    except:
-                        videoRes = None
-                    if videoRes != None:
-                        width, height = videoRes
-                        if width >= 640 and height >= 480:
-                            HD+=1
-                        else:
-                            noHD+=1
-            if (HD + noHD) and (HD / (HD + noHD) > 0.80):
-                return True
-            else:
-                return False
-
         data['name'] = try_to_get('title')
         data['website_url'] = try_to_get('link')
         data['publisher'] = try_to_get('publisher')
         data['description'] = try_to_get('description')
-        data['hi_def']= isChannelHD()
         try:
             data['thumbnail_url'] = to_utf8(parsed['feed'].image.href)
         except AttributeError:
@@ -340,8 +311,7 @@ class SubmitChannelForm(Form):
         self.fields['categories'].update_choices()
 
     def set_defaults(self, saved_data):
-        for key in ('name', 'website_url', 'publisher', 'description',
-                    'hi_def'):
+        for key in ('name', 'website_url', 'publisher', 'description'):
             if saved_data[key] is not None:
                 self.fields[key].initial = saved_data[key]
         if saved_data['thumbnail_url'] and 'youtube.com/rss' not in saved_data['url']:

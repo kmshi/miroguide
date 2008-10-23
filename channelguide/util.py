@@ -18,8 +18,6 @@ import sys
 import textwrap
 import threading
 import socket # for socket.error
-from subprocess import Popen, PIPE
-import tempfile
 
 from django.template import loader
 from django.template.context import RequestContext
@@ -426,32 +424,3 @@ def donation_decorator (func):
                                 secure=settings.USE_SECURE_COOKIES or None)
         return response
     return wrapper
-
-def videoResFromURL(URL, size = 256000):
-    '''
-    This method takes a url location of a video file and a size in
-    bytes, saves the specified size 256k by default to temporary 
-    location on the harddrive "/tmp/" and then uses mplayer to identify
-    the width and height which it returns.
-    Takes: URL, [size=256000]
-    Returns: [width,height]
-    '''
-    tempVid = tempfile.NamedTemporaryFile()
-    width = None
-    height = None
-    videoURL = urlopen(URL)
-    stream = videoURL.read(size)
-    tempVid.write(stream)
-    commandToRun = "mplayer -identify -frames 0 -vo null -ao null %s"\
-                    % tempVid.name
-    p = Popen(commandToRun, shell=True, stdout=PIPE, stderr=PIPE)
-    output = p.stdout.readlines()
-    for lines in output:
-        if lines.startswith("ID_VIDEO_WIDTH="):
-            width = int(lines[15:].strip())
-        elif lines.startswith("ID_VIDEO_HEIGHT="):
-            height = int(lines[16:].strip())
-        if width and height:
-            tempVid.close()
-            return [width, height]
-
