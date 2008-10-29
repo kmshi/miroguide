@@ -1,6 +1,8 @@
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
+import urlparse
+
 from channelguide import init
 init.init_external_libraries()
 from channelguide import util
@@ -52,7 +54,10 @@ class ChannelsFeed(feeds.Feed):
         if results:
             results.sort(key=attrgetter('date'), reverse=True)
             item.newest = results[0]
-            return util.make_absolute_url('channels/latest/%i' % item.id)
+            if urlparse.urlsplit(item.newest.url)[2].endswith('.swf'):
+                return item.newest.url
+            else:
+                return util.make_absolute_url('channels/latest/%i' % item.id)
         else:
             item.newest = None
 
