@@ -67,12 +67,12 @@ See LICENSE for details.
     </div>
   </div>
 
-    <div class="clear"></div>
-    <div id="survey">
-      <!--/* OpenX Javascript Tag v2.4.7 */-->
+  {% comment %}
+  <div id="survey">
+    <!--/* OpenX Javascript Tag v2.4.7 */-->
 
-      <script type='text/javascript'>
-        <!--//<![CDATA[
+    <script type='text/javascript'>
+      <!--//<![CDATA[
    var m3_u = (location.protocol=='https:'?'https://www.miroguide.com/openx/www/delivery/ajs.php':'http://www.miroguide.com/openx/www/delivery/ajs.php');
    var m3_r = Math.floor(Math.random()*99999999999);
    if (!document.MAX_used) document.MAX_used = ',';
@@ -86,18 +86,20 @@ See LICENSE for details.
    if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
    document.write ("'><\/scr"+"ipt>");
          //]]>-->
-      </script>
-      <noscript>
-        <a href='http://www.miroguide.com/openx/www/delivery/ck.php?n=a2b24d67&amp;cb=INSERT_RANDOM_NUMBER_HERE'
-           target='_blank'>
-          <img src='http://www.miroguide.com/openx/www/delivery/avw.php?zoneid=1&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a2b24d67'
-               border='0' alt='' />
-        </a>
-      </noscript>
-    </div>
-    {% if language %}
-      <a {% link language.get_url %}>
-        <h1>{% trans "Channels in" %} {% trans language.name %}</h1>
+    </script>
+    <noscript>
+      <a href='http://www.miroguide.com/openx/www/delivery/ck.php?n=a2b24d67&amp;cb=INSERT_RANDOM_NUMBER_HERE'
+         target='_blank'>
+        <img src='http://www.miroguide.com/openx/www/delivery/avw.php?zoneid=1&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a2b24d67'
+             border='0' alt='' />
+      </a>
+    </noscript>
+  </div>
+  {% endcomment %}
+
+  {% if language %}
+  <a {% link language.get_url %}>
+    <h1>{% trans "Channels in" %} {% trans language.name %}</h1>
       </a>
     {% endif %}
     <div class="column-section">
