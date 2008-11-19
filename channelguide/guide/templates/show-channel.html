@@ -61,8 +61,10 @@
       </div><!--rate-->
       
       <div class="url">
-	<span class="link"><a href="#">http://www.incrediblylongurl.com</a></span>
-	<span class="tag"><a href="#">Visit Channel Website</a></span>
+	<span class="link">{{ channel.website_link }}</span>
+	<span class="tag">
+          <a href="{{ channel.website_url }}">Visit Channel Website</a>
+        </span>
       </div><!--url-->
     </div><!--page-->
   </div><!--channelRating-->
