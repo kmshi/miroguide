@@ -63,11 +63,53 @@
       <div class="url">
 	<span class="link">{{ channel.website_link }}</span>
 	<span class="tag">
-          <a href="{{ channel.website_url }}">Visit Channel Website</a>
+          <a href="{{ channel.website_url }}">
+            {% trans "Visit Channel Website" %}
+          </a>
         </span>
-      </div><!--url-->
-    </div><!--page-->
-  </div><!--channelRating-->
+      </div>
+    </div>
+  </div>
+
+  <div id="channelDetails2">
+    <div class="page">
+      <div class="channelDetailsContent">
+	<h4>{% trans "Site Details" %}</h4>
+	<p class="description">
+          {{ channel.description }}
+        </p>
+	<a href="#" class="read_more">{% trans "Show all" %}</a>
+	
+	<div class="tags">
+	  <p>
+            <strong>{% trans "Categories" %}</strong> -
+            {% for category in channel.categories %}
+              {{ category.link }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </p>
+          {% if channel.tags %}
+	    <p>
+              <strong>{% trans "Tags" %}</strong> -
+              {% for tag in channel.tags %}
+                {{ tag.link }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            </p>
+          {% endif %}
+	</div>
+      </div>
+      
+      <div class="thumb">
+	<a href="{{ self.get_subscription_url }}">
+	  <img class="hd_tag_large channel2_hd"
+               src="{{ STATIC_BASE_URL }}images/ico_hd_tag_large.png" alt="" />
+          {{ channel.thumb_247_162 }}
+	  <img class="hasCorners"
+               src="{{ STATIC_BASE_URL }}images/channel_thumb2.jpg" alt="" />
+        </a>
+      </div>
+    </div>
+  </div>
+
 
   <div class="channel channel-full">
     {% if show_edit_button %}
@@ -146,7 +188,7 @@
     {% splitcolumns %}
       <h1>{{ channel.name|escape }}</h1>
       <div id="description">
-        {{ channel.description|escape }}
+         {{ channel.description|escape }}
       </div>
       <div id="description-toggle">...read more</div>
       <script type="text/javascript">
