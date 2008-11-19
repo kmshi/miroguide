@@ -144,7 +144,11 @@ See LICENSE for details.
           </div>
         </div><!--detailsHead-->
         
-        <a href="#" class="view_all_videos">View all of <strong>Business</strong></a>
+        <a href="{{ category_peek.category.get_url }}" class="view_all_videos">
+          {% blocktrans with category_peek.category.name as category %}
+            View all of <strong>{{ category }}</strong>
+          {% endblocktrans %}
+        </a>
         
         <br clear="all" />
 
@@ -153,25 +157,6 @@ See LICENSE for details.
           {% for category in categories %}
             <li><a {% link category.get_url %}>{{ category.name }}</a></li>
           {% endfor %}
-          {% comment %}
-            <li><a href="#">Activism</a></li>
-            <li><a href="#">Animals</a></li>
-            <li><a href="#">Animation</a></li>
-            <li><a href="#">Arts</a></li>
-            <li><a href="#">Business</a></li>
-            <li><a href="#">Comedy</a></li>
-            <li><a href="#">Education</a></li>
-            <li><a href="#">Environment</a></li>
-            <li><a href="#">Family</a></li>
-            <li><a href="#">Food</a></li>
-            <li><a href="#">Government</a></li>
-            <li><a href="#">Health</a></li>
-            <li><a href="#">International</a></li>
-            <li><a href="#">Kids</a></li>
-            <li><a href="#">Mac</a></li>
-            <li><a href="#">Movies &amp; TV</a></li>
-            <li><a href="#">Religion</a></li>
-          {% endcomment %}
           <li class="button_down"><a href="#">Down</a></li>
         </ul>
         
