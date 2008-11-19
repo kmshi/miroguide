@@ -24,9 +24,9 @@
 {% block title %}{{ channel.name|escape }} - Miro{% endblock %}
 
 {% block content %}
-{% if error %}
-  <div class="error">{{ error }}</div>
-{% endif %}
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
   <div class="channel channel-full">
     {% if show_edit_button %}
       {% show_edit_bar channel %}
