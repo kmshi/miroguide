@@ -42,7 +42,7 @@ See LICENSE for details.
 
 <body onload="{% block onload-extra %}{% endblock%}"
       onpagehide="hideLoadIndicator();"
-      id="main">
+      {% block body-attributes %}id="main"{% endblock %}>
   {% block navigation %}
     <div id="topBar">
       <div class="page">
@@ -119,10 +119,7 @@ See LICENSE for details.
   
   {% endblock %}
 
-  <div id="content" class="page">
-    <!-- NOTIFICATION BAR -->
-    {% block content %}{% endblock %}
-  </div>
+  {% block content %}{% endblock %}
 
   {% comment %}
 

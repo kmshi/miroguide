@@ -20,180 +20,180 @@ See LICENSE for details.
 {% block underwriting %}{% endblock %}
 
 {% block content %}
+  <div id="content" class="page">
+    <div class="front-page">
+      {% comment %}
+        {# store stuff #}
+        <div id="store">
+          <a href="http://www.getmiro.com/store/">
+            <img src="{{ STATIC_BASE_URL }}images/visit-the-store.png" />
+          </a>
+        </div>
+        {# donate stuff #}
+        <div class="shadow">
+          <div id="donate">
+            <img alt="heart" src="{{ STATIC_BASE_URL }}images/donate-heart.gif" />
+            <h1>YOU ROCK!</h1>
+            <img id="rainbow" src="{{ STATIC_BASE_URL }}images/rainbowoverlay.png" alt="Donation Thermometer at $50k with rainbow out the end" />
+          </div>
+        </div>
+      {% endcomment %}
 
-  <div class="front-page">
-    {% comment %}
-      {# store stuff #}
-      <div id="store">
-        <a href="http://www.getmiro.com/store/">
-          <img src="{{ STATIC_BASE_URL }}images/visit-the-store.png" />
-        </a>
-      </div>
-      {# donate stuff #}
-      <div class="shadow">
-        <div id="donate">
-          <img alt="heart" src="{{ STATIC_BASE_URL }}images/donate-heart.gif" />
-          <h1>YOU ROCK!</h1>
-          <img id="rainbow" src="{{ STATIC_BASE_URL }}images/rainbowoverlay.png" alt="Donation Thermometer at $50k with rainbow out the end" />
+    <div id="featured">
+      <div class="page">
+        <!--Carousel-->
+        <div id="featuredItemsCarousel" class="largeCarousel">
+          <div id="button_previous">
+            <span class="hidden">previous features</span>
+          </div>
+  	<div id="innerContent">
+  	  <ul>
+              {% for channel in featured_channels %}
+                <li>{% show_channel_feature channel %}</li>
+              {% endfor %}
+              {% for channel in featured_channels_hidden %}
+                <li class="column">
+                  {% show_channel_feature_no_image channel forloop.counter %}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+  	<div id="button_next"></div>
         </div>
       </div>
+    </div>
+
+    {% comment %}
+    <div id="survey">
+      <!--/* OpenX Javascript Tag v2.4.7 */-->
+
+      <script type='text/javascript'>
+        <!--//<![CDATA[
+     var m3_u = (location.protocol=='https:'?'https://www.miroguide.com/openx/www/delivery/ajs.php':'http://www.miroguide.com/openx/www/delivery/ajs.php');
+     var m3_r = Math.floor(Math.random()*99999999999);
+     if (!document.MAX_used) document.MAX_used = ',';
+     document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+     document.write ("?zoneid=1");
+     document.write ('&amp;cb=' + m3_r);
+     if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+     document.write ("&amp;loc=" + escape(window.location));
+     if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+     if (document.context) document.write ("&context=" + escape(document.context));
+     if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+     document.write ("'><\/scr"+"ipt>");
+           //]]>-->
+      </script>
+      <noscript>
+        <a href='http://www.miroguide.com/openx/www/delivery/ck.php?n=a2b24d67&amp;cb=INSERT_RANDOM_NUMBER_HERE'
+           target='_blank'>
+          <img src='http://www.miroguide.com/openx/www/delivery/avw.php?zoneid=1&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a2b24d67'
+               border='0' alt='' />
+        </a>
+      </noscript>
+    </div>
     {% endcomment %}
 
-  <div id="featured">
-    <div class="page">
-      <!--Carousel-->
-      <div id="featuredItemsCarousel" class="largeCarousel">
-        <div id="button_previous">
-          <span class="hidden">previous features</span>
-        </div>
-	<div id="innerContent">
-	  <ul>
-            {% for channel in featured_channels %}
-              <li>{% show_channel_feature channel %}</li>
-            {% endfor %}
-            {% for channel in featured_channels_hidden %}
-              <li class="column">
-                {% show_channel_feature_no_image channel forloop.counter %}
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
-	<div id="button_next"></div>
-      </div>
-    </div>
-  </div>
+    {% if language %}
+    <a {% link language.get_url %}>
+      <h1>{% trans "Channels in" %} {% trans language.name %}</h1>
+    </a>
+    {% endif %}
 
-  {% comment %}
-  <div id="survey">
-    <!--/* OpenX Javascript Tag v2.4.7 */-->
-
-    <script type='text/javascript'>
-      <!--//<![CDATA[
-   var m3_u = (location.protocol=='https:'?'https://www.miroguide.com/openx/www/delivery/ajs.php':'http://www.miroguide.com/openx/www/delivery/ajs.php');
-   var m3_r = Math.floor(Math.random()*99999999999);
-   if (!document.MAX_used) document.MAX_used = ',';
-   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
-   document.write ("?zoneid=1");
-   document.write ('&amp;cb=' + m3_r);
-   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
-   document.write ("&amp;loc=" + escape(window.location));
-   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
-   if (document.context) document.write ("&context=" + escape(document.context));
-   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
-   document.write ("'><\/scr"+"ipt>");
-         //]]>-->
-    </script>
-    <noscript>
-      <a href='http://www.miroguide.com/openx/www/delivery/ck.php?n=a2b24d67&amp;cb=INSERT_RANDOM_NUMBER_HERE'
-         target='_blank'>
-        <img src='http://www.miroguide.com/openx/www/delivery/avw.php?zoneid=1&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a2b24d67'
-             border='0' alt='' />
-      </a>
-    </noscript>
-  </div>
-  {% endcomment %}
-
-  {% if language %}
-  <a {% link language.get_url %}>
-    <h1>{% trans "Channels in" %} {% trans language.name %}</h1>
-  </a>
-  {% endif %}
-
-  <div id="container">
-    <div id="contentSmall">
-      <div class="detailsHead3">
-        <h3 class="resultsCount">
-          <span class="heading">{% trans "New Videos" %}</span>
-        </h3>
-        <div class="sortType">
-          <a href="#">{% trans "All" %}</a> {# TODO: add link #}
-        </div>
-      </div>
-      
-      <ul class="newVideos">
-        {% for channel in new_channels %}
-          <li>{% show_channel_mini channel "episodes" %}</li>
-
-          {% ifequal forloop.counter 3 %}
-            <!-- prevents float when a description is too long. -->
-            <li class="separator"><br clear="all" /></li>
-          {% endifequal %}
-        {% endfor %}
-      </ul>
-    </div>
-    
-    <div class="box_ad">
-      <a href="#"><img src="{{ STATIC_BASE_URL }}images/ads/300x250.jpg" alt="" /></a>
-      <span class="tag">
-        {% trans "Please support our sponsors" %}
-      </span>
-      <span class="link"><a href="#">{% trans "Become One" %}</a></span>
-    </div><!--box_ad-->
-    
-  </div><!--container-->
-  
-  <div id="channelEpisodes">
-    <div class="page">
-      <div class="pageContent">
-        <div class="detailsHead">
+    <div id="container">
+      <div id="contentSmall">
+        <div class="detailsHead3">
           <h3 class="resultsCount">
-            <span class="heading">{% trans "Genres" %}</span>
+            <span class="heading">{% trans "New Videos" %}</span>
           </h3>
           <div class="sortType">
-            <a href="#">{% trans "All" %}</a>
+            <a href="#">{% trans "All" %}</a> {# TODO: add link #}
           </div>
-        </div><!--detailsHead-->
+        </div>
         
-        <a href="{{ category_peek.category.get_url }}" class="view_all_videos">
-          {% blocktrans with category_peek.category.name as category %}
-            View all of <strong>{{ category }}</strong>
-          {% endblocktrans %}
-        </a>
-        
-        <br clear="all" />
+        <ul class="newVideos">
+          {% for channel in new_channels %}
+            <li>{% show_channel_mini channel "episodes" %}</li>
 
-        <ul class="scrollNav">
-          <li class="button_up"><a href="#">Up</a></li>
-          {% for category in categories %}
-            <li><a {% link category.get_url %}>{{ category.name }}</a></li>
-          {% endfor %}
-          <li class="button_down"><a href="#">Down</a></li>
-        </ul>
-        
-        <ul class="searchResults">
-          {% for channel in category_peek.channels %}
-            <li>{% show_channel_in_category channel %}</li>
+            {% ifequal forloop.counter 3 %}
+              <!-- prevents float when a description is too long. -->
+              <li class="separator"><br clear="all" /></li>
+            {% endifequal %}
           {% endfor %}
         </ul>
       </div>
       
-      <div class="pageSideBar">
-        <div id="sideBarSmall">
-          <div class="detailsHead2">
+      <div class="box_ad">
+        <a href="#"><img src="{{ STATIC_BASE_URL }}images/ads/300x250.jpg" alt="" /></a>
+        <span class="tag">
+          {% trans "Please support our sponsors" %}
+        </span>
+        <span class="link"><a href="#">{% trans "Become One" %}</a></span>
+      </div><!--box_ad-->
+      
+    </div><!--container-->
+    
+    <div id="channelEpisodes">
+      <div class="page">
+        <div class="pageContent">
+          <div class="detailsHead">
             <h3 class="resultsCount">
-              <span class="heading">
-                {% trans "Videos You'll Love" %}
-              </span>
+              <span class="heading">{% trans "Genres" %}</span>
             </h3>
             <div class="sortType">
               <a href="#">{% trans "All" %}</a>
             </div>
-          </div>
-          <div class="widget_small">
-            <ul class="related">
-              {% comment %}
-              {% for channel in love_channels %}
-                <li>
-                  {% show_channel_mini channel "episodes" %}
-                </li>
-              {% endfor %}
-              {% endcomment %}
-            </ul>
-          </div><!--widget-->
+          </div><!--detailsHead-->
+          
+          <a href="{{ category_peek.category.get_url }}" class="view_all_videos">
+            {% blocktrans with category_peek.category.name as category %}
+              View all of <strong>{{ category }}</strong>
+            {% endblocktrans %}
+          </a>
+          
+          <br clear="all" />
 
-        </div><!--sideBarSmall-->
-      </div><!--pageSideBar-->
-    </div><!--page-->
-  </div><!--channelEpisodes-->
+          <ul class="scrollNav">
+            <li class="button_up"><a href="#">Up</a></li>
+            {% for category in categories %}
+              <li><a {% link category.get_url %}>{{ category.name }}</a></li>
+            {% endfor %}
+            <li class="button_down"><a href="#">Down</a></li>
+          </ul>
+          
+          <ul class="searchResults">
+            {% for channel in category_peek.channels %}
+              <li>{% show_channel_in_category channel %}</li>
+            {% endfor %}
+          </ul>
+        </div>
 
+        <div class="pageSideBar">
+          <div id="sideBarSmall">
+            <div class="detailsHead2">
+              <h3 class="resultsCount">
+                <span class="heading">
+                  {% trans "Videos You'll Love" %}
+                </span>
+              </h3>
+              <div class="sortType">
+                <a href="#">{% trans "All" %}</a>
+              </div>
+            </div>
+            <div class="widget_small">
+              <ul class="related">
+                {% comment %}
+                {% for channel in love_channels %}
+                  <li>
+                    {% show_channel_mini channel "episodes" %}
+                  </li>
+                {% endfor %}
+                {% endcomment %}
+              </ul>
+            </div><!--widget-->
+
+          </div><!--sideBarSmall-->
+        </div><!--pageSideBar-->
+      </div><!--page-->
+    </div><!--channelEpisodes-->
+  </div>
 {% endblock %}
