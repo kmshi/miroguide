@@ -15,6 +15,8 @@ function scheduleFeatureRotate() {
    // loadHiddenScreenshots();
    if(!featureList) featureList = findFeatures();
    featureTimeout = setTimeout(rotateFeatures, FEATURE_ROTATE_TIMEOUT * 1000);
+   $("#button_next").click(rotateFeaturesRight);
+   $("#button_previous").click(rotateFeaturesLeft);
 }
 
 function cancelFeatureRotate() {
