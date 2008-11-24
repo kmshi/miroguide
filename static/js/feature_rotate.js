@@ -7,7 +7,7 @@ var FEATURED_CHANNEL_WIDTH = 385;
 var FEATURE_ROTATE_TIMEOUT = 15; // rotate timeout in seconds
 var featureList = null;
 var featureTimeout = null;
-var manualMode = true;
+var manualMode = false;
 var inRotate = false;
 
 function scheduleFeatureRotate() {
@@ -62,13 +62,9 @@ function doRotate(nextFeature) {
    if(inRotate) return;
    inRotate = true;
    FSStartX = FSCurrentFeature * FEATURED_CHANNEL_WIDTH;
-   console.log(FSStartX);
    FSCurrentFeature = nextFeature;
-   console.log(FSCurrentFeature);
    FSEndX = FSCurrentFeature * FEATURED_CHANNEL_WIDTH;
-   console.log(FSEndX);
    FSTime = 0.0;
-   console.log(FSTime);
    animateFeatureScroll();
 }
 
