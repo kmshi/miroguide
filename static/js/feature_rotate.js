@@ -3,7 +3,7 @@
  * Does the feature rotate animation.
  */
 
-var FEATURED_CHANNEL_WIDTH = 242;
+var FEATURED_CHANNEL_WIDTH = 243;
 var FEATURE_ROTATE_TIMEOUT = 20; // rotate timeout in seconds
 var featureList = null;
 var featureTimeout = null;
@@ -116,7 +116,6 @@ function animateFeatureScroll() {
 }
 
 function moveFeatureList(leftX) {
-    console.log('movin on up')
     var featuredList = document.getElementById('featured-list');
     featuredList.style.left = '-' + leftX + 'px';
 }
