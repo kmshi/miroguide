@@ -3,20 +3,24 @@
  * Does the feature rotate animation.
  */
 
-var FEATURED_CHANNEL_WIDTH = 385;
-var FEATURE_ROTATE_TIMEOUT = 15; // rotate timeout in seconds
+var FEATURED_CHANNEL_WIDTH = 242;
+var FEATURE_ROTATE_TIMEOUT = 20; // rotate timeout in seconds
 var featureList = null;
 var featureTimeout = null;
 var manualMode = false;
 var inRotate = false;
+
+function carouselOnLoad() {
+    $("#button_next").click(rotateFeaturesRight);
+    $("#button_previous").click(rotateFeaturesLeft);
+    scheduleFeatureRotate();
+}
 
 function scheduleFeatureRotate() {
    if(manualMode) return;
    // loadHiddenScreenshots();
    if(!featureList) featureList = findFeatures();
    featureTimeout = setTimeout(rotateFeatures, FEATURE_ROTATE_TIMEOUT * 1000);
-   $("#button_next").click(rotateFeaturesRight);
-   $("#button_previous").click(rotateFeaturesLeft);
 }
 
 function cancelFeatureRotate() {
@@ -51,7 +55,7 @@ function rotateFeaturesLeft() {
 }
 
 function rotateFeaturesRight() {
-    doRotate(Math.min(featureList.length-2, FSCurrentFeature + 3));
+    doRotate(Math.min(featureList.length - 3, FSCurrentFeature + 3));
     cancelFeatureRotate();
 }
 
@@ -72,14 +76,14 @@ function doRotate(nextFeature) {
 
 
 function pickNextFeature() {
-   var nextFeature = FSCurrentFeature + 2*FSScrollDirection;
+   var nextFeature = FSCurrentFeature + 3*FSScrollDirection;
    if(nextFeature < 0) {
         FSScrollDirection *= -1;
         return 0
    }
-   if(nextFeature >= featureList.length-2) {
+   if(nextFeature >= featureList.length-3) {
         FSScrollDirection *= -1;
-        return featureList.length-2;
+        return featureList.length-3;
    }
    return nextFeature;
 }
