@@ -3304,6 +3304,13 @@ a.large_button span {
     margin: -5px 0 0 39px;
 }
 
+.hd_tag_tiny2 {
+    position: absolute;
+    z-index: 2;
+    margin-top: -4px;
+    margin-left: 39px;
+}
+
 .hd_tag_tiny {
     z-index: 2;
     margin-top: -4px;
