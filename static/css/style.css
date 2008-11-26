@@ -3306,9 +3306,10 @@ a.large_button span {
 }
 
 .hd_tag_tiny {
-    position: absolute;
     z-index: 2;
-    margin: -4px 0 0 39px;
+    margin-top: -4px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .play_vid_overlay {
