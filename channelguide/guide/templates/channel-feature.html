@@ -8,8 +8,11 @@
   <a {% link channel.get_url %}>
     <div class="thumb featuredItem top_corners"
          style="background: url({{ channel.thumb_url_194_130 }}); width: 194px; height: 130px;">
-      <img class="hd_tag_large"
-         src="{{ STATIC_BASE_URL }}images/ico_hd_tag_large.png" alt="">
+      {% if channel.hi_def %}
+        <img class="hd_tag_large"
+             src="{{ STATIC_BASE_URL }}images/ico_hd_tag_large.png"
+             alt="">
+      {% endif %}
     </div>
     <img src="{{ STATIC_BASE_URL }}images/featured_img_bg.png">
   </a>
