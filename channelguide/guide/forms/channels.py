@@ -17,6 +17,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 import django.newforms as forms
 import feedparser
+import ip2cc
 
 from channelguide.guide.feedutil import to_utf8
 from channelguide.guide.models import Language, Category, Channel

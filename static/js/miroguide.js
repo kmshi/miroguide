@@ -181,18 +181,12 @@ function showHelpText(help, event) {
 }
 
 function submitAChannel(submitLink) {
-    console.log('1');
     url = submitLink.attr('href');
-    console.log('2');
     hoverMenuSubmit = $('<div id="hoverMenuSubmit"></div>');
-    console.log('3');
     $("#hover_align").append(hoverMenuSubmit);
-    console.log('4');
     hoverMenuSubmit.load(url + ' #submit > *',
                          function() {
-                             console.log('5');
                              $('#hoverMenuLogin').hide();
-                             console.log('6');
                              $('#hoverMenuSubmit form').ajaxForm(
                                  showNewSubmitForm);});
 }
@@ -227,18 +221,17 @@ function hideMenu(el, menu, event) {
 }
 
 function showNewSubmitForm(data, textStatus) {
-    submit = $('div.top, form[method=post]', data).slice(1);
-    if (submit.length < 2) {
-        if ($('.submit-thanks-page', data).length) {
-            window.location.href = '/submit/after';
-            return false;
-        } else {
-            return $('body').empty().append(data);
-        }
+    /* form_data here refers to the new html code that we should *
+       insert into the hovering box */
+    form_data = $('div.top, form[method=post]', data)
+    if ($('.submit-thanks-page', data).length) {
+        /* this is basically a redirect */
+        window.location.href = '/submit/after';
+        return false;
     }
-    submit.find('h2').remove();
-    submit.eq(1).ajaxForm(showNewSubmitForm);
-    $('#hoverMenuSubmit').empty().append(submit);
+    /* form_data.find('h2').remove(); */
+    $('#hoverMenuSubmit').empty().append(form_data);
+    $('#hoverMenuSubmit form').ajaxForm(showNewSubmitForm);
 }
 
 var languageTimeout = null;
