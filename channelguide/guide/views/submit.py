@@ -1,3 +1,5 @@
+from django.http import HttpResponse
+
 from channelguide import util
 from channelguide.guide import forms
 from channelguide.guide.auth import login_required
@@ -94,7 +96,7 @@ def submit_channel(request):
             channel = form.save_channel(request.user, feed_url)
             session_dict['subscribe'] = channel.get_subscription_url()
             request.session.modified = True
-            return util.redirect("submit/after")
+            return HttpResponse('SUBMIT SUCCESS')
         else:
             form.save_submitted_thumbnail()
     context = form.get_template_data()

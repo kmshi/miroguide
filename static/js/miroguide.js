@@ -220,11 +220,15 @@ function hideMenu(el, menu, event) {
     return false;
 }
 
+var DEBUG_DATA = 0;
+var DEBUG_FORM_DATA = 0;
 function showNewSubmitForm(data, textStatus) {
     /* form_data here refers to the new html code that we should *
        insert into the hovering box */
+    DEBUG_DATA = data;
     form_data = $('div.top, form[method=post]', data)
-    if ($('.submit-thanks-page', data).length) {
+    DEBUG_FORM_DATA = form_data;
+    if (data == "SUBMIT SUCCESS") {
         /* this is basically a redirect */
         window.location.href = '/submit/after';
         return false;
