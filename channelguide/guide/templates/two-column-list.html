@@ -1,47 +1,58 @@
 {% extends 'base.html' %}
+
 {% comment %}
-Copyright (c) 2008 Participatory Culture Foundation
-See LICENSE for details.
+  Copyright (c) 2008 Participatory Culture Foundation
+  See LICENSE for details.
 {% endcomment %}
-{% load i18n channels  cg_helpers %}
-{% block title %}{% trans "Miro Guide - " %}{{ header }}{%endblock %}
+
+{% load i18n channels cg_helpers %}
+
+{% block title %}{% trans "Miro Guide - " %}{{ header }}{% endblock %}
+
 {% block head-extra %}
   {% if rss_feed %}
-  <link rel="alternate" type="application/rss+xml" title="{% trans header %}" href="{{ rss_feed }}" />
+    <link rel="alternate"
+          type="application/rss+xml"
+          title="{% trans header %}"
+          href="{{ rss_feed }}" />
   {% endif %}
 {% endblock %}
 
 {% block content %}
-<div class="channel-list-page">
-  {% if rss_feed %}
-       <div id="fun-feed">
-         <span class="only-in-miro big horizontal">
-           <a class="add" href="http://subscribe.getmiro.com/?url1=https://www.miroguide.com{{ rss_feed }}">
-             <span class="icon"></span>
-             Watch Previews
-           </a>
-         </span>
-         <span class="only-in-browser big horizontal">
-           <a class="add" href="{{ rss_feed }}">
-             <span class="icon"></span>
-             Watch Previews
-           </a>
-         </span>
-         <div>
-           Click here to see the latest videos from each featured channel.  Then 'add' the ones you like.
-         </div>
-       </div>
-  {% endif %}
+  <div class="channel-list-page">
+    {% if rss_feed %}
+      <div id="fun-feed">
+        <span class="only-in-miro big horizontal">
+          <a href="http://subscribe.getmiro.com/?url1=https://www.miroguide.com{{ rss_feed }}"
+             class="add" >
+          <span class="icon"></span>
+          Watch Previews
+          </a>
+        </span>
+        <span class="only-in-browser big horizontal">
+          <a class="add" href="{{ rss_feed }}">
+            <span class="icon"></span>
+            Watch Previews
+          </a>
+        </span>
+        <div>
+          Click here to see the latest videos from each featured
+          channel.  Then 'add' the ones you like.
+        </div>
+      </div>
+    {% endif %}
     <h1>
-        {{ header }}
-        {% if order_select %}{% show_view_select order_select %}{% endif %}
+      {{ header }}
+      {% if order_select %}
+        {% show_view_select order_select %}
+      {% endif %}
     </h1>
     <div class="clear"></div>
     <div class="channel-list">
       {% twocolumnloop with channel in pager.items %}
-          {% show_channel_in_list channel %}
+        {% show_channel_in_list channel %}
       {% endtwocolumnloop %}
     </div>
     {% show_pager pager %}
-</div>
+  </div>
 {% endblock %}
