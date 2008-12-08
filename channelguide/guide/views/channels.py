@@ -401,7 +401,7 @@ def make_simple_list(request, query, header, order_by=None, rss_feed=None):
     if order_by:
         query = query.order_by(order_by)
     pager =  templateutil.Pager(8, query, request)
-    return util.render_to_response(request, 'two-column-list.html', {
+    return util.render_to_response(request, 'channel-list.html', {
         'header': header,
         'pager': pager,
         'rss_feed': rss_feed
@@ -412,7 +412,7 @@ def hd(request):
     query = Channel.query_approved(hi_def=1, user=request.user)
     templateutil.order_channels_using_request(query, request)
     pager =  templateutil.Pager(8, query, request)
-    return util.render_to_response(request, 'two-column-list.html', {
+    return util.render_to_response(request, 'channel-list.html', {
         'header': _('HD Channels'),
         'pager': pager,
         'order_select': templateutil.OrderBySelect(request),
