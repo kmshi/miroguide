@@ -2213,7 +2213,6 @@ ul.paginator2 li span {
     height: 24px;
     float: left;
     display: inline;
-    padding: 1px 10px 0;
 }
 
 ul.paginator2 li.selected {
@@ -2225,6 +2224,7 @@ ul.paginator2 li.selected {
 
 ul.paginator2 li.selected span {
     background: url(/images/pagination2_on_right.png) right 0 no-repeat;
+    padding: 1px 10px 0;
 }
 
 
