@@ -1,0 +1,552 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-12-10 10:54-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /data/miroguide/channelguide/settings.py:36
+msgid "English"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:37
+msgid "Arabic"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:38
+msgid "Bengali"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:39
+msgid "Catalan"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:40
+msgid "Chinese"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:41
+msgid "Croation"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:42
+msgid "Danish"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:43
+msgid "Dutch"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:44
+msgid "Estonian"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:45
+msgid "Finnish"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:46
+msgid "French"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:47
+msgid "German"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:48
+msgid "Greek"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:49
+msgid "Hebrew"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:50
+msgid "Hinidi"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:51
+msgid "Hungarian"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:52
+msgid "Icelandic"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:53
+msgid "Indonesian"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:54
+msgid "Italian"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:55
+msgid "Japanese"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:56
+msgid "Korean"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:58
+msgid "Latvian"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:59
+msgid "Lithuanian"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:60
+msgid "Malay"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:61
+msgid "Norwegian"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:63
+msgid "Polish"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:65
+msgid "Portuguese (Portugal)"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:66
+msgid "Romanian"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:67
+msgid "Russian"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:68
+msgid "Serbo-Croatian"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:69
+msgid "Slovak"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:70
+msgid "Spanish"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:71
+msgid "Swedish"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:72
+msgid "Thai"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:73
+msgid "Turkish"
+msgstr ""
+
+#: /data/miroguide/channelguide/settings.py:74
+msgid "Vietnamese"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/user.py:15
+msgid "username already taken"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/user.py:25
+msgid "email already taken"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/user.py:32
+msgid "email not found"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/user.py:41
+msgid "That username is not valid."
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/user.py:55
+msgid "That username or e-mail is not valid."
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/user.py:68
+msgid "That password is not valid."
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/user.py:82
+msgid "Passwords don't match"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/user.py:86
+msgid "Username"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/user.py:87
+msgid "Email Address"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/user.py:89
+msgid "Pick a Password"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/user.py:91
+#: /data/miroguide/channelguide/guide/forms/user.py:107
+#: /data/miroguide/channelguide/guide/forms/user.py:178
+msgid "Confirm Password"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/user.py:109
+msgid "First Name"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/user.py:111
+msgid "Last Name"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/user.py:113
+msgid "City"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/user.py:115
+msgid "State"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/user.py:117
+msgid "Country"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/user.py:119
+msgid "Zip Code"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/user.py:121
+msgid "IM Username"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/user.py:123
+msgid "IM Type"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/cobranding.py:11
+msgid "Title in Miro App"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/cobranding.py:12
+msgid "This is the title that will appear in the sidebar of Miro."
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/cobranding.py:13
+msgid "Page Title"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/cobranding.py:14
+msgid "This is the title that will be displayed at the top of the page."
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/cobranding.py:15
+msgid "Website URL"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/cobranding.py:17
+msgid "Icon URL"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/cobranding.py:17
+msgid "Icon should be 175x125 pixels."
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/cobranding.py:19
+msgid "Favicon URL"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/cobranding.py:19
+msgid ""
+"This is best as a 20x20 png graphic. It shows up in the sidebar of the Miro "
+"App."
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/cobranding.py:21
+msgid "External CSS URL"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/cobranding.py:22
+msgid "Description"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/cobranding.py:24
+msgid "Link 1 URL"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/cobranding.py:24
+msgid "Or leave this blank to have plain text.  All these links are optional."
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/cobranding.py:26
+msgid "Link 1 Text"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/cobranding.py:28
+msgid "Link 2 URL"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/cobranding.py:30
+msgid "Link 2 Text"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/cobranding.py:32
+msgid "Link 3 URL"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/cobranding.py:34
+msgid "Link 3 Text"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/misc.py:14
+msgid "title"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/channels.py:50
+#, c-format
+msgid "%s is already a channel in the guide"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/channels.py:55
+msgid "We can't find a video feed at that address, please try again."
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/channels.py:72
+msgid "Video Feed URL"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/channels.py:135
+msgid "1st"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/channels.py:135
+msgid "2nd"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/channels.py:135
+msgid "3rd"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/channels.py:157
+msgid "You must at least enter a primary value."
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/channels.py:289
+msgid "Channel Name"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/channels.py:292
+msgid "Full Description"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/channels.py:297
+msgid "Categories"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/channels.py:298
+msgid "Languages"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/channels.py:299
+msgid "What language are most of these videos in?"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/channels.py:301
+msgid "Postal Code"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/channels.py:449
+msgid "Email"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/channels.py:450
+msgid "Title"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/channels.py:451
+msgid "Body"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/forms/channels.py:30
+msgid "Material that is roughly 640x480 non-interlaced, and higher, can"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/templateutil.py:151
+msgid "Most Recent"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/templateutil.py:152
+msgid "A-Z"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/frontpage.py:157
+msgid "What is Miro?"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/frontpage.py:158
+#, c-format
+msgid ""
+"Miro is an easy way to subscribe and watch all of these shows.  Using it is "
+"100% free."
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/frontpage.py:159
+msgid "Download Miro"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/api.py:256
+msgid "Invalid verification code."
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/languages.py:28
+#, c-format
+msgid "Language: %s"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/accounts.py:19
+msgid "List Your Channel in the Miro Guide!"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/accounts.py:20
+msgid "All you need is an account..."
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/accounts.py:23
+msgid "Rate Channels, Get Recommendations"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/accounts.py:24
+msgid "Sign in (or create an account)"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/accounts.py:25
+msgid "Give Channels Star Ratings"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/accounts.py:26
+msgid "We'll Give You Recommendations"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/accounts.py:36
+msgid ""
+"Your ratings will show up, but won't count towards the average until you "
+"confirm your e-mail."
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/accounts.py:48
+msgid "Your Video RSS Feed is a Miro Channel"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/accounts.py:49
+msgid ""
+"It is super easy to submit your channel to the Miro Guide. Just give us the "
+"feed address, answer a few easy questions, and you&apos;re all done."
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/accounts.py:61
+msgid "Why Should I Rate Channels?"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/accounts.py:62
+msgid ""
+"We are giving personalized recommendations, based on what you do and don't "
+"like. If you've ever used Netflix&reg;, you already know what we're talking "
+"about here. The more you rate, the more accurately we can recommend channels "
+"to you. It&apos;s that simple!"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/accounts.py:63
+msgid "A Completely Open Guide"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/accounts.py:64
+msgid ""
+"Because we accept channels (RSS feeds, aka 'video podcasts') from anyone, "
+"the Miro Guide is constantly expanding. Channel creators can add their feeds "
+"freely. If you know of a great video podcast that isn&apos;t already in the "
+"Guide, please contact the creator and ask them to submit it."
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/channels.py:41
+msgid "Channels Waiting For Replies"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/channels.py:44
+msgid "Channels Flagged Don't Know By a Moderator"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/channels.py:47
+msgid "Rejected Channels"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/channels.py:50
+msgid "Suspended Channels"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/channels.py:55
+msgid "Featured Queue"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/channels.py:58
+msgid "Unreviewed Channels"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/channels.py:70
+#, c-format
+msgid "Subscribe to all %i channels"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/channels.py:130
+msgid "Current image (from the feed)"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/channels.py:132
+#: /data/miroguide/channelguide/guide/views/channels.py:604
+msgid "Current image (uploaded)"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/channels.py:210
+msgid "Rejection emails need a body"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/channels.py:429
+msgid "Today"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/channels.py:431
+msgid "This Month"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/channels.py:433
+msgid "All-Time"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/channels.py:481
+msgid "Channels By Name"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/channels.py:502
+msgid "Featured Channels"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/views/channels.py:602
+msgid "Current image (no change)"
+msgstr ""
+
+#: /data/miroguide/channelguide/guide/tables.py:18
+msgid "Don't Know"
+msgstr ""

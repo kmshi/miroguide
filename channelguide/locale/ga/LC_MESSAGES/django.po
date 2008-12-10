@@ -1,4 +1,4 @@
-# Slovak translation for miroguide
+# Irish translation for miroguide
 # Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
 # This file is distributed under the same license as the miroguide package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
@@ -8,223 +8,223 @@ msgstr ""
 "Project-Id-Version: miroguide\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2008-08-06 14:32-0400\n"
-"PO-Revision-Date: 2008-09-24 09:46+0000\n"
-"Last-Translator: blackmore <Unknown>\n"
-"Language-Team: Slovak <sk@li.org>\n"
+"PO-Revision-Date: 2008-12-02 00:39+0000\n"
+"Last-Translator: Seanan <Unknown>\n"
+"Language-Team: Irish <ga@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Launchpad-Export-Date: 2008-12-09 21:57+0000\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2;\n"
+"X-Launchpad-Export-Date: 2008-12-09 21:56+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: settings.py:34
 msgid "English"
-msgstr "Anglicky"
+msgstr "Sacs-Bhéarla"
 
 #: settings.py:35
 msgid "Arabic"
-msgstr "Arabsky"
+msgstr "Araibis"
 
 #: settings.py:36
 msgid "Bengali"
-msgstr "Bengálsky"
+msgstr "Beangáilis"
 
 #: settings.py:37
 msgid "Catalan"
-msgstr "Katalánsky"
+msgstr "Catalóinis"
 
 #: settings.py:38
 msgid "Chinese"
-msgstr "Čínsky"
+msgstr "Sínis"
 
 #: settings.py:39
 msgid "Croation"
-msgstr "Chorvátsky"
+msgstr "Cróitis"
 
 #: settings.py:40
 msgid "Danish"
-msgstr "Dánsky"
+msgstr "Danmhairgis"
 
 #: settings.py:41
 msgid "Dutch"
-msgstr "Holandsky"
+msgstr "Ollainis"
 
 #: settings.py:42
 msgid "Estonian"
-msgstr "Estónsky"
+msgstr "Eastóinis"
 
 #: settings.py:43
 msgid "Finnish"
-msgstr "Fínsky"
+msgstr "Fionlainnis"
 
 #: settings.py:44
 msgid "French"
-msgstr "Francúzsky"
+msgstr "Fraincis"
 
 #: settings.py:45
 msgid "German"
-msgstr "Nemecky"
+msgstr "Gearmáinis"
 
 #: settings.py:46
 msgid "Greek"
-msgstr "Grécky"
+msgstr "Gréigis"
 
 #: settings.py:47
 msgid "Hebrew"
-msgstr "Hebrejsky"
+msgstr "Eabhrais"
 
 #: settings.py:48
 msgid "Hinidi"
-msgstr "Hindsky"
+msgstr "Hindí"
 
 #: settings.py:49
 msgid "Hungarian"
-msgstr "Maďarsky"
+msgstr "Ungáiris"
 
 #: settings.py:50
 msgid "Icelandic"
-msgstr "Islandsky"
+msgstr "Íoslainnis"
 
 #: settings.py:51
 msgid "Indonesian"
-msgstr "Indonézsky"
+msgstr "Indinéisis"
 
 #: settings.py:52
 msgid "Italian"
-msgstr "Taliansky"
+msgstr "Iodáilis"
 
 #: settings.py:53
 msgid "Japanese"
-msgstr "Japonsky"
+msgstr "Seapáinis"
 
 #: settings.py:54
 msgid "Korean"
-msgstr "Kórejsky"
+msgstr "Córéis"
 
 #: settings.py:55
 msgid "Kurdish (Sorani)"
-msgstr "Kurdsky (Sorani)"
+msgstr "Coirdis (Sorani)"
 
 #: settings.py:56
 msgid "Latvian"
-msgstr "Lotyšsky"
+msgstr "Laitvís"
 
 #: settings.py:57
 msgid "Lithuanian"
-msgstr "Litovsky"
+msgstr "Liotuáinis"
 
 #: settings.py:58
 msgid "Malay"
-msgstr "Malajsky"
+msgstr "Malaeis"
 
 #: settings.py:59
 msgid "Norwegian"
-msgstr "Nórsky"
+msgstr "Ioruais"
 
 #: settings.py:60
 msgid "Persian"
-msgstr "Perzsky"
+msgstr "Peirsis"
 
 #: settings.py:61
 msgid "Polish"
-msgstr "Poľsky"
+msgstr "Polainnis"
 
 #: settings.py:62
 msgid "Portuguese (Brazillian)"
-msgstr "Portugalsky (Brazília)"
+msgstr "Portaingéilis (Brasaíleach)"
 
 #: settings.py:63
 msgid "Portuguese (Portugal)"
-msgstr "Portugalsky (Portugalsko)"
+msgstr "Portaingéilis (An Phortaingéil)"
 
 #: settings.py:64
 msgid "Romanian"
-msgstr "Rumunsky"
+msgstr "Rómáinis"
 
 #: settings.py:65
 msgid "Russian"
-msgstr "Rusky"
+msgstr "Rúisis"
 
 #: settings.py:66
 msgid "Serbo-Croatian"
-msgstr "Srbochorvátsky"
+msgstr "Seirbea-Chróitis"
 
 #: settings.py:67
 msgid "Slovak"
-msgstr "Slovensky"
+msgstr "Slóvaicis"
 
 #: settings.py:68
 msgid "Spanish"
-msgstr "Španielsky"
+msgstr "Spáinnis"
 
 #: settings.py:69
 msgid "Swedish"
-msgstr "Švédsky"
+msgstr "Sualainnis"
 
 #: settings.py:70
 msgid "Thai"
-msgstr "Thaisky"
+msgstr "Téalannais"
 
 #: settings.py:71
 msgid "Turkish"
-msgstr "Turecky"
+msgstr "Tuircis"
 
 #: settings.py:72
 msgid "Vietnamese"
-msgstr "Vietnamsky"
+msgstr "Vítneaimis"
 
 #: guide/tables.py:12
 msgid "New"
-msgstr "Nový"
+msgstr "Nua"
 
 #: guide/tables.py:14
 msgid "Approved"
-msgstr ""
+msgstr "Ceadaithe"
 
 #: guide/tables.py:16
 msgid "Waiting"
-msgstr ""
+msgstr "Ag Feitheamh"
 
 #: guide/tables.py:18
 msgid "Don't Know"
-msgstr ""
+msgstr "Níl A Fhios Agam"
 
 #: guide/tables.py:20
 msgid "Rejected"
-msgstr ""
+msgstr "Diúltaithe"
 
 #: guide/tables.py:22
 msgid "Suspended"
-msgstr ""
+msgstr "Curtha Ar Fionraí"
 
 #: guide/tables.py:24
 msgid "Audio"
-msgstr ""
+msgstr "Fuaim"
 
 #: guide/tables.py:26
 msgid "Unknown"
-msgstr ""
+msgstr "Anaithnid"
 
 #: guide/templateutil.py:181 guide/templates/base.html:52
 msgid "Most Popular"
-msgstr ""
+msgstr "Na Cinn A Bhfuil Tóir Mhóir Orthu"
 
 #: guide/templateutil.py:182
 msgid "Top Rated"
-msgstr ""
+msgstr "Na Cinn Is Fearr"
 
 #: guide/templateutil.py:183
 msgid "Most Recent"
-msgstr ""
+msgstr "Na Cinn Is Déanaí"
 
 #: guide/templateutil.py:184
 msgid "A-Z"
-msgstr ""
+msgstr "A-Z"
 
 #: guide/forms/channels.py:28
 msgid "What is HD?"
-msgstr ""
+msgstr "Cad é Ardghléine?"
 
 #: guide/forms/channels.py:29
 #, python-format
@@ -239,6 +239,17 @@ msgid ""
 "same\n"
 "        channel "
 msgstr ""
+"Is féidir le ábhair atá go hachomair 640x480 neamh-chrosfhite, agus níos "
+"airde,\n"
+"        bheith mar ábhair Ardghléine. Déanta an fhírinne, is cáilíocht DVD é "
+"(gan a lán \n"
+"        déantáin chomhbhrú gráinne) nó níos fearr. Ní mór do thart ar 80% "
+"den ábhar \n"
+"        ar an bealach seo an slat tomhais seo a sroiche ionas go mbeidh muid "
+"den\n"
+"        tuairim gur ábhar Ardghléine é.  Aire: tá fáilte romhat leagan "
+"Ardghléine agus \n"
+"        leagan neamh-Ardghléine den bealach céanna bheith agat "
 
 #: guide/forms/channels.py:35
 msgid ""
@@ -250,96 +261,99 @@ msgstr ""
 #: guide/forms/channels.py:53
 #, python-format
 msgid "%s is already a channel in the guide"
-msgstr ""
+msgstr "Tá %s mar bealach san eolaí cheana"
 
 #: guide/forms/channels.py:58
 msgid "We can't find a video feed at that address, please try again."
 msgstr ""
+"Ní féidir linn fothaire físeáin a aimsiú ag an seoladh sin, atriail ar ball "
+"le do thoil."
 
 #: guide/forms/channels.py:75 guide/forms/channels.py:279
 msgid "Channel Name"
-msgstr ""
+msgstr "Ainm an Bhealaigh"
 
 #: guide/forms/channels.py:76 guide/forms/channels.py:280
 msgid "RSS Feed"
-msgstr ""
+msgstr "Fothaire RSS"
 
 #: guide/forms/channels.py:139
 msgid "1st"
-msgstr ""
+msgstr "1ú"
 
 #: guide/forms/channels.py:139
 msgid "2nd"
-msgstr ""
+msgstr "2ú"
 
 #: guide/forms/channels.py:139
 msgid "3rd"
-msgstr ""
+msgstr "3ú"
 
 #: guide/forms/channels.py:161
 msgid "You must at least enter a primary value."
-msgstr ""
+msgstr "Caithfear ar a laghad príomh luach a chur isteach."
 
 #: guide/forms/channels.py:178
 #, python-format
 msgid "you can only enter up to %d tags."
-msgstr ""
+msgstr "ní féidir ach %d clibeanna a chur isteach."
 
 #: guide/forms/channels.py:260
 msgid "This field is required."
-msgstr ""
+msgstr "Ní mór an réimse seo a líonadh."
 
 #: guide/forms/channels.py:265
 msgid "Not a valid image"
-msgstr ""
+msgstr "Ní íomhá seasmhach é seo."
 
 #: guide/forms/channels.py:269
 msgid "Not an image in a format we support."
-msgstr ""
+msgstr "Ní tugtar tacaíocht don cineál íomhá seo."
 
 #: guide/forms/channels.py:282 guide/forms/cobranding.py:15
 msgid "Website URL"
-msgstr ""
+msgstr "URL an Láithreán Gréasáin"
 
 #: guide/forms/channels.py:284
 msgid "Full Description"
-msgstr ""
+msgstr "Cur Síos Iomlán"
 
 #: guide/forms/channels.py:285
 msgid "Publisher E-mail"
-msgstr ""
+msgstr "Seoladh Ríomhphoist an Fhoilsitheora"
 
 #: guide/forms/channels.py:287 guide/templates/tag-list.html:7
 msgid "Tags"
-msgstr ""
+msgstr "Clibeanna"
 
 #: guide/forms/channels.py:288
 msgid "Keywords that describe this channel.  Separate each tag with a comma."
 msgstr ""
+"Treoirfhocail a chuireann síos ar an bealach seo. Scar gach clib le camóg."
 
 #: guide/forms/channels.py:290 guide/views/categories.py:19
 msgid "Categories"
-msgstr ""
+msgstr "Aicmí"
 
 #: guide/forms/channels.py:291
 msgid "Languages"
-msgstr ""
+msgstr "Béarlaí"
 
 #: guide/forms/channels.py:292
 msgid "What language are most of these videos in?"
-msgstr ""
+msgstr "Cén béarla ina bhfuil formhór na físeáin seo?"
 
 #: guide/forms/channels.py:293
 msgid "Postal Code"
-msgstr ""
+msgstr "Cód Poist"
 
 #: guide/forms/channels.py:295
 msgid "High Definition"
-msgstr ""
+msgstr "Ardghléine"
 
 #: guide/forms/channels.py:297
 msgid "Upload Image"
-msgstr ""
+msgstr "Uasluchtaigh Íomhá"
 
 #: guide/forms/channels.py:298
 msgid ""
@@ -358,237 +372,244 @@ msgstr ""
 
 #: guide/forms/channels.py:461
 msgid "Email"
-msgstr ""
+msgstr "Ríomhphost"
 
 #: guide/forms/channels.py:462
 msgid "Title"
-msgstr ""
+msgstr "Teideal"
 
 #: guide/forms/channels.py:463 guide/forms/misc.py:15
 msgid "Body"
-msgstr ""
+msgstr "Corp"
 
 #: guide/forms/cobranding.py:11
 msgid "Title in Miro App"
-msgstr ""
+msgstr "Teideal i Miro"
 
 #: guide/forms/cobranding.py:12
 msgid "This is the title that will appear in the sidebar of Miro."
-msgstr ""
+msgstr "Sin é an teideal a fheicfear i dtaobhroinn Miro."
 
 #: guide/forms/cobranding.py:13
 msgid "Page Title"
-msgstr ""
+msgstr "Teideal an Leathanaigh"
 
 #: guide/forms/cobranding.py:14
 msgid "This is the title that will be displayed at the top of the page."
-msgstr ""
+msgstr "Seo an teideal a thaispeánfar ag barr an leathanaigh."
 
 #: guide/forms/cobranding.py:17
 msgid "Icon URL"
-msgstr ""
+msgstr "URL an Deilbhín"
 
 #: guide/forms/cobranding.py:17
 msgid "Icon should be 175x125 pixels."
-msgstr ""
+msgstr "Ba chóir don deilbhín bheith 175x125 picteilíní."
 
 #: guide/forms/cobranding.py:19
 msgid "Favicon URL"
-msgstr ""
+msgstr "URL Deilbhín an Láithreán Gréasáin"
 
 #: guide/forms/cobranding.py:19
 msgid ""
 "This is best as a 20x20 png graphic. It shows up in the sidebar of the Miro "
 "App."
 msgstr ""
+"Moltar é bheith mar grafaic png 20x20. Taispeánfar i dtaobhroinn Miro é."
 
 #: guide/forms/cobranding.py:21
 msgid "External CSS URL"
-msgstr ""
+msgstr "CSS URL Seachtrach"
 
 #: guide/forms/cobranding.py:22
 msgid "Description"
-msgstr ""
+msgstr "Cur síos"
 
 #: guide/forms/cobranding.py:24
 msgid "Link 1 URL"
-msgstr ""
+msgstr "URL Nasc 1"
 
 #: guide/forms/cobranding.py:24
 msgid ""
 "Or leave this blank to have plain text.  All these links are optional."
 msgstr ""
+"Nó fág bán é seo chun gnáth téacs a bheith agat. Tá na naisc uile seo "
+"roghnach."
 
 #: guide/forms/cobranding.py:26
 msgid "Link 1 Text"
-msgstr ""
+msgstr "Téacs Nasc 1"
 
 #: guide/forms/cobranding.py:28
 msgid "Link 2 URL"
-msgstr ""
+msgstr "URL Nasc 2"
 
 #: guide/forms/cobranding.py:30
 msgid "Link 2 Text"
-msgstr ""
+msgstr "Téacs Nasc 2"
 
 #: guide/forms/cobranding.py:32
 msgid "Link 3 URL"
-msgstr ""
+msgstr "URL Nasc 3"
 
 #: guide/forms/cobranding.py:34
 msgid "Link 3 Text"
-msgstr ""
+msgstr "Téacs Nasc 3"
 
 #: guide/forms/fields.py:21
 #, python-format
 msgid "Ensure this value has at most %(maximum)d bytes (it has %(length)d)."
 msgstr ""
+"Cinntigh nach bhfuil níos mó nó ná %(maximum)d beartanna ag an luach seo "
+"(tá%(length)d aige)."
 
 #: guide/forms/misc.py:14
 msgid "title"
-msgstr ""
+msgstr "teideal"
 
 #: guide/forms/user.py:18
 msgid "Username already taken"
-msgstr ""
+msgstr "Tá an t-ainm sin gafa cheana"
 
 #: guide/forms/user.py:28
 msgid "E-mail already taken"
-msgstr ""
+msgstr "Tá an seoladh ríomhphoist sin gafa cheana"
 
 #: guide/forms/user.py:35
 msgid "E-mail not found"
-msgstr ""
+msgstr "Níor aimsíodh an seoladh ríomhphoist sin"
 
 #: guide/forms/user.py:44
 msgid "That username is not valid."
-msgstr ""
+msgstr "Níl an t-ainm úsáideora sin seasmhach."
 
 #: guide/forms/user.py:58
 msgid "That username or e-mail is not valid."
-msgstr ""
+msgstr "Níl an t-ainm nó seoladh ríomhphoist sin seasmhach."
 
 #: guide/forms/user.py:71
 msgid "That password is not valid."
-msgstr ""
+msgstr "Níl an focal faire sin seasmhach."
 
 #: guide/forms/user.py:85
 msgid "Passwords don't match"
-msgstr ""
+msgstr "Ní chomhoiriúnaíonn na focail faire."
 
 #: guide/forms/user.py:89
 msgid "Username"
-msgstr ""
+msgstr "Ainm Úsáideora"
 
 #: guide/forms/user.py:90
 msgid "Email Address"
-msgstr ""
+msgstr "Seoladh Ríomhphoist"
 
 #: guide/forms/user.py:92
 msgid "Pick a Password"
-msgstr ""
+msgstr "Roghnaigh Focal Faire"
 
 #: guide/forms/user.py:94 guide/forms/user.py:111 guide/forms/user.py:176
 msgid "Confirm Password"
-msgstr ""
+msgstr "Deimhnigh an Focal Faire"
 
 #: guide/forms/user.py:109
 msgid "Change Password"
-msgstr ""
+msgstr "Athraigh an Focal Faire"
 
 #: guide/forms/user.py:113
 msgid "First Name"
-msgstr ""
+msgstr "Ainm"
 
 #: guide/forms/user.py:115
 msgid "Last Name"
-msgstr ""
+msgstr "Sloinne"
 
 #: guide/forms/user.py:116
 msgid "Age"
-msgstr ""
+msgstr "Aois"
 
 #: guide/forms/user.py:120
 msgid "Gender"
-msgstr ""
+msgstr "Gnéas"
 
 #: guide/forms/user.py:122
 msgid "City"
-msgstr ""
+msgstr "Cathair"
 
 #: guide/forms/user.py:124
 msgid "State"
-msgstr ""
+msgstr "Stát"
 
 #: guide/forms/user.py:126
 msgid "Country"
-msgstr ""
+msgstr "Tír"
 
 #: guide/forms/user.py:128
 msgid "Zip Code"
-msgstr ""
+msgstr "Cód Poist"
 
 #: guide/forms/user.py:130
 msgid "IM Username"
-msgstr ""
+msgstr "Ainm Úsáideora Cur Teachtaireachtaí Meandracha"
 
 #: guide/forms/user.py:132
 msgid "IM Type"
-msgstr ""
+msgstr "Cineál TM"
 
 #: guide/forms/user.py:161
 msgid "Channel Owner Emails"
-msgstr ""
+msgstr "Seoltaí Ríomhphoist Sealbhóir an Bhealaigh"
 
 #: guide/forms/user.py:165
 msgid "Moderator Board Emails"
-msgstr ""
+msgstr "Seoltaí Ríomhphoist Modhnóir an Chláir Plé"
 
 #: guide/forms/user.py:166
 msgid "Normal"
-msgstr ""
+msgstr "Gnáth"
 
 #: guide/forms/user.py:167
 msgid "No emails"
-msgstr ""
+msgstr "Gan seoltaí ríomhphoist"
 
 #: guide/forms/user.py:168
 msgid "Send all emails"
-msgstr ""
+msgstr "Seol gach ríomhphoist"
 
 #: guide/forms/user.py:169
 msgid "Channel Status Emails"
-msgstr ""
+msgstr "Ríomhphoist Treo an Bhealaigh"
 
 #: guide/forms/user.py:174
 msgid "Set a new Password"
-msgstr ""
+msgstr "Socraigh Focal Faire nua"
 
 #: guide/models/channel.py:315
 #, python-format
 msgid "%(count)d subscriber"
 msgid_plural "%(count)d subscribers"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Síntiúsóir %(count)d"
+msgstr[1] "Síntiúsóirí %(count)d"
+msgstr[2] "Síntiúsóirí %(count)d"
 
 #: guide/models/channel.py:322
 #, python-format
 msgid "%(count)d episode"
 msgid_plural "%(count)d episodes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(count)d clár"
+msgstr[1] "%(count)d cláir"
+msgstr[2] "%(count)d cláir"
 
 #: guide/templates/add-note.html:9
 msgid "Post"
-msgstr ""
+msgstr "Seol"
 
 #: guide/templates/after-submit.html:9
 msgid "Thanks for Submitting Your Channel"
-msgstr ""
+msgstr "Go raibh maith agat as ucht Do Bhealach A Sheoladh Isteach"
 
 #: guide/templates/after-submit.html:10
 msgid "Your channel has been submitted!"
-msgstr ""
+msgstr "Seoladh isteach do bhealach!"
 
 #: guide/templates/after-submit.html:12
 msgid ""
@@ -598,10 +619,15 @@ msgid ""
 "inappropriate.  Once the channel is approved, it will appear in the\n"
 "'Just Added' section on the front page.\n"
 msgstr ""
+"\n"
+"Déanfaidh ár modhnóirí léirmheas ar do bhealach sna laethanta ag teacht \n"
+"chun cinntiú go bhfeidhmíonn sé i Miro agus nach bhfuil an t-ábhar \n"
+"míchuí. Nuair a cheadaítear an bealach, beidh sé le feiceáil sa rannóg \n"
+"'Churtha Leis Anois' ar an leathanach tosaigh.\n"
 
 #: guide/templates/after-submit.html:19
 msgid "Updating Your Channel Info"
-msgstr ""
+msgstr "Ag Nuashonrú Eolas Do Bhealach"
 
 #: guide/templates/after-submit.html:20
 msgid ""
@@ -609,16 +635,21 @@ msgid ""
 "You can update the details about your channel at anytime.  Just login\n"
 "to your account and click the 'My Submitted Channels' link.\n"
 msgstr ""
+"\n"
+"Is féidir sonraí do bhealach a nuashonrú am ar bith. Sínigh isteach \n"
+"chuig do chuntas agus brúigh an nasc 'Na Bealaí A Sheol Mé Isteach'.\n"
 
 #: guide/templates/after-submit.html:25
 msgid "Add a 1-Click Subscribe Button to Your Website"
-msgstr ""
+msgstr "Cuir Cnaipe Síntiús Brúigh Amháin le Do Láithreán Gréasáin"
 
 #: guide/templates/after-submit.html:28
 msgid ""
 "Visit <a href=\"http://webbalert.com/\">webbalert.com</a> to see a real 1-"
 "click button in action"
 msgstr ""
+"Tabhair cuairt ar <a href=\"http://webbalert.com/\">webbalert.com</a> chun "
+"cnaipe brúigh amháin ceart a fheiceáil"
 
 #: guide/templates/after-submit.html:30
 msgid ""
@@ -627,6 +658,11 @@ msgid ""
 "button, Miro will open and they will be automatically subscribed to\n"
 "your channel."
 msgstr ""
+"Treoraíonn an cnaipe thíos chuig an fothaire a sheol tú isteach díreach "
+"anois -- \n"
+"greamaigh an HTML isteach i do bhlag nó láithreán gréasáin. Nuair a bhrúnn \n"
+"daoine ar an gcnaipe, osclóidh Miro agus liostáilfear go \n"
+"huathoibríoch go dtí do bhealach."
 
 #: guide/templates/after-submit.html:34
 msgid ""
@@ -634,11 +670,15 @@ msgid ""
 "content on an ongoing basis. If you have any questions about the\n"
 "buttons, email: channels [at] pculture [d] org."
 msgstr ""
+"Is bealach iontach iad cnaipí brúigh amháin chun do lucht féachana \n"
+"a nascadh le d'ábhar ar dóigh leanúnach. Má tá ceist ar bith agat \n"
+"maidir leis na gcnaipí, seol ríomhphost chuig: channels [at] pculture [d] "
+"org."
 
 #: guide/templates/auth-token-request.html:7
 #: guide/templates/auth-token-request.html:11
 msgid "Forgot Password"
-msgstr ""
+msgstr "Ar Dhearmad Tú D'Fhocal Faire"
 
 #: guide/templates/auth-token-request.html:12
 msgid ""
@@ -647,36 +687,41 @@ msgid ""
 "new\n"
 "        password."
 msgstr ""
+"Cuir isteach do sheoladh ríomhphoist\n"
+"        thíos.  Seolfar nasc chuig do sheoladh ríomhphoist ionas go \n"
+"        mbeidh tú in ann focal faire nua a shocrú."
 
 #: guide/templates/auth-token-request.html:17
 msgid "Send"
-msgstr ""
+msgstr "Seol"
 
 #: guide/templates/bad-auth-token.html:7
 #: guide/templates/change-password.html:7
 #: guide/templates/change-password.html:11
 msgid "Create New Password"
-msgstr ""
+msgstr "Cruthaigh Focal Faire Nua"
 
 #: guide/templates/bad-auth-token.html:10
 msgid "Link invalid"
-msgstr ""
+msgstr "Tá an nasc neamhsheasmhach"
 
 #: guide/templates/bad-auth-token.html:11
 msgid "The link you used to get to this page was not valid."
 msgstr ""
+"Ní raibh an nasc a bhain tú feidhm chun teacht chuig an leathanach seo "
+"seasmhach."
 
 #: guide/templates/base.html:5 templates/500.html:7
 msgid "Miro Guide"
-msgstr ""
+msgstr "Eolaí Miro"
 
 #: guide/templates/base.html:27
 msgid "Miro"
-msgstr ""
+msgstr "Miro"
 
 #: guide/templates/base.html:28
 msgid "Video feeds"
-msgstr ""
+msgstr "Fothairí físeáin"
 
 #: guide/templates/base.html:29
 msgid "Streaming shows"
@@ -684,114 +729,114 @@ msgstr ""
 
 #: guide/templates/base.html:30
 msgid "Videos you'll love"
-msgstr ""
+msgstr "Físeáin ar bhreá leat"
 
 #: guide/templates/base.html:36
 msgid "Search"
-msgstr ""
+msgstr "Cuardaigh"
 
 #: guide/templates/base.html:50
 msgid "Genres"
-msgstr ""
+msgstr "Aicmí"
 
 #: guide/templates/base.html:51
 msgid "HD Channels"
-msgstr ""
+msgstr "Bealaí Ardghléine"
 
 #: guide/templates/base.html:53
 msgid "New Shows"
-msgstr ""
+msgstr "Cláir Nua"
 
 #: guide/templates/base.html:54
 msgid "Video by Language"
-msgstr ""
+msgstr "Físeáin de réir an Béarla"
 
 #: guide/templates/base.html:55
 msgid "Language"
-msgstr ""
+msgstr "Béarla"
 
 #: guide/templates/base.html:57
 msgid "Account"
-msgstr ""
+msgstr "Cuntas"
 
 #: guide/templates/base.html:68
 msgid "Moderator's Area"
-msgstr ""
+msgstr "Limistéar an Mhodhnóra"
 
 #: guide/templates/base.html:70
 msgid "View/Edit Profile"
-msgstr ""
+msgstr "Féach Ar/Cuir in Eagar an Bheathaisnéisín"
 
 #: guide/templates/base.html:72
 msgid "Channels I Manage"
-msgstr ""
+msgstr "Bealaí Atá Faoi Mo Stiúir"
 
 #: guide/templates/base.html:74
 msgid "Submit a Channel"
-msgstr ""
+msgstr "Seol Bealach Isteach"
 
 #: guide/templates/base.html:78
 msgid "Log Out"
-msgstr ""
+msgstr "Scoir"
 
 #: guide/templates/base.html:94
 msgid "Forgot password"
-msgstr ""
+msgstr "Ar dhearmad tú d'fhocal faire"
 
 #: guide/templates/base.html:95 guide/templates/login.html:7
 #: guide/templates/login.html.py:13 guide/templates/login.html:18
 msgid "Login"
-msgstr ""
+msgstr "Sínigh isteach"
 
 #: guide/templates/base.html:106
 msgid "Register!"
-msgstr ""
+msgstr "Cláraigh!"
 
 #: guide/templates/base.html:113
 msgid "Register Now!"
-msgstr ""
+msgstr "Cláraigh Anois!"
 
 #: guide/templates/base.html:114
 msgid "Always Free"
-msgstr ""
+msgstr "Saor In Aisce I gCónaí"
 
 #: guide/templates/base.html:161
 msgid "Loading..."
-msgstr ""
+msgstr "Á luchtú..."
 
 #: guide/templates/button_block.html:6
 msgid "Add"
-msgstr ""
+msgstr "Cuir Leis"
 
 #: guide/templates/button_block.html:6
 msgid "Add channel"
-msgstr ""
+msgstr "Cuir bealach leis"
 
 #: guide/templates/button_block.html:7
 #, python-format
 msgid "Add %(name)s to Miro"
-msgstr ""
+msgstr "Cuir %(name)s le Miro"
 
 #: guide/templates/button_block.html:12
 msgid "Details"
-msgstr ""
+msgstr "Sonraí"
 
 #: guide/templates/button_block.html:13
 #, python-format
 msgid "Details about %(name)s"
-msgstr ""
+msgstr "Sonraí maidir le %(name)s"
 
 #: guide/templates/change-password.html:14
 msgid "Create"
-msgstr ""
+msgstr "Cruthaigh"
 
 #: guide/templates/channel-form.html:7
 msgid "Submit Channel"
-msgstr ""
+msgstr "Cuir Bealach Isteach"
 
 #: guide/templates/channel-form.html:15
 msgid "Channel Thumbnail"
-msgstr ""
+msgstr "Mionsamhail an Bhealaigh"
 
 #: guide/templates/channel-form.html:16
 msgid ""
@@ -801,256 +846,268 @@ msgid ""
 "to do something beautiful.  You can also update the image after you submit\n"
 "your channel."
 msgstr ""
+"Cuimhnigh gurb é mionsamhail bealaigh maith ceann de na slite \n"
+"is tábhachtaí chun lucht féachana nua a fháil. Is fiú an t-iarracht \n"
+"rud álainn a chruthú. Is féidir an íomhá a nuashonrú tar éis duit \n"
+"do bhealach a sheoladh isteach."
 
 #: guide/templates/channel-form.html:21 guide/templates/submit-channel.html:13
 msgid ""
 "We have found an image in your feed.  You can either use this image or "
 "upload a different one."
 msgstr ""
+"D'aimsíomar íomhá ar d'fhothaire. Is féidir feidhm a bhaint as an íomhá seo "
+"nó ceann eile a uasluchtú."
 
 #: guide/templates/channel-notes.html:7
 msgid "Issues"
-msgstr ""
+msgstr "Fadhbanna"
 
 #: guide/templates/channel-notes.html:7
 msgid "need support? post here."
-msgstr ""
+msgstr "an bhfuil tacaíocht de dhíth uait? scríobh anseo."
 
 #: guide/templates/channel-notes.html:14
 msgid "Me"
-msgstr ""
+msgstr "Mise"
 
 #: guide/templates/channel-notes.html:17
 msgid "Manager"
-msgstr ""
+msgstr "Bainisteoir"
 
 #: guide/templates/channel.html:12 guide/templates/channel.html.py:14
 msgid "High-Definition Channel"
-msgstr ""
+msgstr "Bealach Ardghléine"
 
 #: guide/templates/channel.html:53
 msgid "Channel Manager"
-msgstr ""
+msgstr "Bainisteoir an Bhealaigh"
 
 #: guide/templates/channel.html:60
 msgid "Notes"
-msgstr ""
+msgstr "Nótaí"
 
 #: guide/templates/cobranding-admin.html:7
 #: guide/templates/cobranding-admin.html:9
 msgid "Administration"
-msgstr ""
+msgstr "Riarachán"
 
 #: guide/templates/cobranding.html:53
 #, python-format
 msgid "All %(title)s Channels"
-msgstr ""
+msgstr "Gach Bealach %(title)s"
 
 #: guide/templates/confirm.html:7
 msgid "Email Sent"
-msgstr ""
+msgstr "Seoladh an Ríomhphost"
 
 #: guide/templates/confirm.html:11
 msgid "Confirmed!"
-msgstr ""
+msgstr "Deimhnithe!"
 
 #: guide/templates/confirm.html:12
 msgid "Thanks for confirming your account!"
-msgstr ""
+msgstr "Go raibh maith agat as ucht do chuntas a dheimhniú!"
 
 #: guide/templates/confirm.html:15
 msgid "Confirmation sent"
-msgstr ""
+msgstr "Deimhniúchán seolta"
 
 #: guide/templates/confirm.html:17
 msgid ""
 "If the address below isn't the correct one; change it and we'll send a code "
 "to that address."
 msgstr ""
+"Mura bhfuil an seoladh thíos an ceann ceart; athraigh é agus seolaimid "
+"tagairt don seoladh sin."
 
 #: guide/templates/confirm.html:25
 msgid "Resend"
-msgstr ""
+msgstr "Seol Arís"
 
 #: guide/templates/confirm.html:29
 msgid "Incorrect code"
-msgstr ""
+msgstr "Cód mícheart"
 
 #: guide/templates/confirm.html:30
 msgid "I'm sorry, that is not the correct code."
-msgstr ""
+msgstr "Is dona linn, níl an cód sin ceart."
 
 #: guide/templates/edit-bar.html:9
 msgid "Click to Edit Channel / Assist Manager"
 msgstr ""
+"Brúigh chun Eagarthóireacht A Dhéanamh ar an Bealach / Bainisteoir Cabhair"
 
 #: guide/templates/edit-bar.html:13
 #, python-format
 msgid "%(state)s by %(mod)s on %(mod_time)s"
-msgstr ""
+msgstr "%(state)s ag %(mod)s ar %(mod_time)s"
 
 #: guide/templates/edit-bar.html:16
 #, python-format
 msgid "%(state)s by %(mod)s"
-msgstr ""
+msgstr "%(state)s le %(mod)s"
 
 #: guide/templates/edit-bar.html:18
 #, python-format
 msgid "Channel is %(state)s"
-msgstr ""
+msgstr "Tá an bealach %(state)s"
 
 #: guide/templates/edit-bar.html:23
 #, python-format
 msgid "Featured by %(mod)s on %(featured_time)s"
-msgstr ""
+msgstr "Curtha i láthair ag %(mod)s ag a %(featured_time)s"
 
 #: guide/templates/edit-bar.html:28
 msgid "Edit Your Channel / View Statistics / Get Help"
 msgstr ""
+"Déan Eagarthóireacht Ar Do Bhealach / Féach Ar Staidreamh / Faigh Cabhair"
 
 #: guide/templates/edit-bar.html:91
 msgid "Cancel and go back"
-msgstr ""
+msgstr "Cealaigh agus fill ar ais"
 
 #: guide/templates/edit-channel.html:8 guide/templates/edit-channel.html:10
 msgid "Edit Channel"
-msgstr ""
+msgstr "Déan Eagarthóireacht Ar An Bealach"
 
 #: guide/templates/edit-channel.html:12 guide/templates/edit-user.html:30
 msgid "Update"
-msgstr ""
+msgstr "Nuashonraigh"
 
 #: guide/templates/edit-channel.html:15
 msgid "Statistics"
-msgstr ""
+msgstr "Staidreamh"
 
 #: guide/templates/edit-channel.html:17
 msgid "Subscriptions* Today"
-msgstr ""
+msgstr "Síntiúis* Inniu"
 
 #: guide/templates/edit-channel.html:19
 msgid "Subscriptions* Month"
-msgstr ""
+msgstr "Síntiúis* Mí"
 
 #: guide/templates/edit-channel.html:21
 msgid "Subscriptions* Overall"
-msgstr ""
+msgstr "Síntiúis* Iomlán"
 
 #: guide/templates/edit-channel.html:24
 msgid "Popularity Rank Today"
-msgstr ""
+msgstr "Céim Móréilimh Inniu"
 
 #: guide/templates/edit-channel.html:28
 msgid "Popularity Rank Month"
-msgstr ""
+msgstr "Céim Móréilimh Mí"
 
 #: guide/templates/edit-channel.html:32
 msgid "Popularity Rank Overall"
-msgstr ""
+msgstr "Céim Móréilimh Iomlán"
 
 #: guide/templates/edit-channel.html:36
 msgid "* unique Miro Guide 'add channel' hits"
-msgstr ""
+msgstr "* amais 'cuir bealach leis' uathúil in Eolaí Miro"
 
 #: guide/templates/edit-user.html:7
 msgid "Update My Profile"
-msgstr ""
+msgstr "Nuashonraigh Mo Bheathaisnéisín"
 
 #: guide/templates/edit-user.html:11
 msgid "Update My Profile "
-msgstr ""
+msgstr "Nuashonraigh Mo Bheathaisnéisín "
 
 #: guide/templates/email-channel-owners.html:7
 #: guide/templates/moderate.html:52
 msgid "Email Channel Managers"
-msgstr ""
+msgstr "Seol Ríomhphost Chuig Bainisteoirí an Bhealaigh"
 
 #: guide/templates/firsttime.html:34
 msgid "WELCOME TO MIRO!"
-msgstr ""
+msgstr "FÁILTE GO MIRO!"
 
 #: guide/templates/firsttime.html:36
 msgid "Three things to remember..."
-msgstr ""
+msgstr "Trí rud le cuimhniú orthu..."
 
 #: guide/templates/firsttime.html:38
 msgid ""
 "Miro lets you subscribe to channels for free (they go to your sidebar)"
 msgstr ""
+"Ligeann Miro duit liostáil le bealaí saor in aisce (téann siad i do "
+"thaobhroinn)"
 
 #: guide/templates/firsttime.html:39
 msgid "Miro will automatically download new videos from your channels"
-msgstr ""
+msgstr "Íosluchtóidh Miro físeáin nua ó do bhealaí as féin"
 
 #: guide/templates/firsttime.html:40
 msgid "A "
-msgstr ""
+msgstr "A "
 
 #: guide/templates/firsttime.html:40
 msgid "green"
-msgstr ""
+msgstr "uaine"
 
 #: guide/templates/firsttime.html:40
 msgid " bubble (in the sidebar) means you've got "
-msgstr ""
+msgstr " ciallaíonn an bolgán (sa taobhroinn) go bhfuil iad seo agat "
 
 #: guide/templates/firsttime.html:40
 msgid "new"
-msgstr ""
+msgstr "nua"
 
 #: guide/templates/firsttime.html:40
 msgid " video"
-msgstr ""
+msgstr " físeán"
 
 #: guide/templates/firsttime.html:43
 msgid "We Have Channel Recommendations for You! <u>click here</u>"
-msgstr ""
+msgstr "Tá Moltaí Bealaí Againn Duit! <u>brúigh anseo</u>"
 
 #: guide/templates/firsttime.html:56
 msgid "Share Miro With Your Friends:"
-msgstr ""
+msgstr "Roinn Miro Le Do Chairde"
 
 #: guide/templates/firsttime.html:80
 msgid "Get Started"
-msgstr ""
+msgstr "Tosaigh"
 
 #: guide/templates/firsttime.html:80
 #, python-format
 msgid "Browse All %(total_channels)s channels"
-msgstr ""
+msgstr "Siortaigh na %(total_channels)s bealaí uile"
 
 #: guide/templates/for-user.html:7
 msgid "Miro Guide - Channels for"
-msgstr ""
+msgstr "Treorán Miro - Bealaí do"
 
 #: guide/templates/for-user.html:11
 msgid "My User Info"
-msgstr ""
+msgstr "Mo Fhaisnéis Úsáideora"
 
 #: guide/templates/for-user.html:13
 msgid "User Info for"
-msgstr ""
+msgstr "Faisnéis Úsáideora le haghaidh"
 
 #: guide/templates/for-user.html:30
 msgid "Submitted channels: "
-msgstr ""
+msgstr "Bealaí a chuireadh isteach: "
 
 #: guide/templates/form-errors.html:8 templates/500.html:11
 msgid "Sorry!"
-msgstr ""
+msgstr "Is dona linn!"
 
 #: guide/templates/form-field.html:6
 msgid "Error"
-msgstr ""
+msgstr "Botún"
 
 #: guide/templates/group-list.html:7
 #, python-format
 msgid "Miro Guide - %(group_name)s"
-msgstr ""
+msgstr "Treorán Miro - %(group_name)s"
 
 #: guide/templates/how-to-moderate.html:7 guide/templates/moderate.html:45
 msgid "How to Moderate"
-msgstr ""
+msgstr "Conas Modhnaigh"
 
 #: guide/templates/index.html:134
 msgid "New Feed Videos"
@@ -1062,19 +1119,19 @@ msgstr ""
 
 #: guide/templates/index.html:156
 msgid "Recommended for you"
-msgstr ""
+msgstr "Molta duitse"
 
 #: guide/templates/index.html:166
 msgid "View all"
-msgstr ""
+msgstr "Féach orthu uile"
 
 #: guide/templates/login.html:14
 msgid "Got an account? Just log in!"
-msgstr ""
+msgstr "An bhfuil cuntas agat? Sínigh isteach!"
 
 #: guide/templates/login.html:28 guide/templates/login.html.py:32
 msgid "Register"
-msgstr ""
+msgstr "Cláraigh"
 
 #: guide/templates/moderate.html:14
 #, python-format
@@ -1083,6 +1140,9 @@ msgid ""
 "        %(count)s Unreviewed channels\n"
 "        "
 msgstr ""
+"\n"
+"        %(count)s Bealaí gan léirmheas\n"
+"        "
 
 #: guide/templates/moderate.html:19
 #, python-format
@@ -1091,6 +1151,9 @@ msgid ""
 "        %(count)s Don't know channels\n"
 "        "
 msgstr ""
+"\n"
+"        %(count)s Bealaí Níl A Fhios Agam\n"
+"        "
 
 #: guide/templates/moderate.html:24
 #, python-format
@@ -1099,6 +1162,9 @@ msgid ""
 "        %(count)s Channels waiting for Reply\n"
 "        "
 msgstr ""
+"\n"
+"        %(count)s Bealaí ag feitheamh ar Freagra\n"
+"        "
 
 #: guide/templates/moderate.html:29
 #, python-format
@@ -1107,6 +1173,9 @@ msgid ""
 "        %(count)s Suspended Channels\n"
 "        "
 msgstr ""
+"\n"
+"        %(count)s Bealaí Ar Fionraí\n"
+"        "
 
 #: guide/templates/moderate.html:34
 #, python-format
@@ -1115,6 +1184,9 @@ msgid ""
 "        %(count)s Rejected channels\n"
 "        "
 msgstr ""
+"\n"
+"        %(count)s Bealaí Diúltaithe\n"
+"        "
 
 #: guide/templates/moderate.html:39
 #, python-format
@@ -1126,31 +1198,31 @@ msgstr ""
 
 #: guide/templates/moderate.html:46
 msgid "Search For Users"
-msgstr ""
+msgstr "Cuardaigh Le hAghaidh Daoine"
 
 #: guide/templates/moderate.html:47
 msgid "Moderator list"
-msgstr ""
+msgstr "Réim na modhnóirí"
 
 #: guide/templates/moderate.html:49
 msgid "Edit Category list"
-msgstr ""
+msgstr "Déan eagarthóireacht ar réim na hAicmí"
 
 #: guide/templates/moderate.html:50
 msgid "Edit Languages list"
-msgstr ""
+msgstr "Déan eagarthóireacht ar réim na mBéarlaí"
 
 #: guide/templates/moderate.html:51
 msgid "Moderator History"
-msgstr ""
+msgstr "Oireas na Modhnóirí"
 
 #: guide/templates/moderator-board.html:9
 msgid "Moderator Message Board"
-msgstr ""
+msgstr "Clár Plé na Modhnóirí"
 
 #: guide/templates/pager-old.html:34
 msgid "Next &gt;&gt;"
-msgstr ""
+msgstr "&gt;&gt; Ar Aghaidh"
 
 #: guide/templates/pager-old.html:38
 #, python-format
@@ -1158,49 +1230,54 @@ msgid ""
 "%(start)s-%(end)s of %(total)s\n"
 "        "
 msgstr ""
+"%(start)s-%(end)s de %(total)s\n"
+"        "
 
 #: guide/templates/personalized-recommendation.html:18
 msgid "Rate!"
-msgstr ""
+msgstr "Déan é a mheas!"
 
 #: guide/templates/personalized-recommendation.html:22
 #, python-format
 msgid "Our Bet: %(stars)s Stars"
-msgstr ""
+msgstr "Ár Geall: %(stars)s Réalta"
 
 #: guide/templates/personalized-recommendation.html:25
 msgid "Because you like"
-msgstr ""
+msgstr "Mar is maith leat"
 
 #: guide/templates/recommend.html:8
 msgid "Miro Guide - Channels You'll Love"
-msgstr ""
+msgstr "Treorán Miro - Bealaí Ar Bhreá Leat"
 
 #: guide/templates/recommend.html:16 guide/views/accounts.py:24
 msgid ""
 "Rating Key | cancel: No Interest; 1 Star: Hate; 2 Stars: Dislike; 3 Stars: "
 "Like; 4 Stars; Like Lots; 5 Stars: Love!"
 msgstr ""
+"Treorán Meastúcháin | cealaigh: Níl Suim Ar Bith Agam Ann; 1 Réalt: Is Fuath "
+"Liom É; 2 Réalt: Ní Maith Liom É; 3 Réalta: Is Maith Liom É; 4 Réalta; Is "
+"Breá Liom É; 5 Réalta: Is Aoibhinn Liom É!"
 
 #: guide/templates/recommend.html:17 guide/templates/user_ratings.html:14
 msgid "Channels You'll &hearts;"
-msgstr ""
+msgstr "Bealaí Ar &hearts Leat"
 
 #: guide/templates/recommend.html:17 guide/templates/user_ratings.html:14
 msgid "Channels You've Rated"
-msgstr ""
+msgstr "Bealaí A Mheas Tú"
 
 #: guide/templates/recommend.html:20
 msgid "To get new recommendations, rate these channels then "
-msgstr ""
+msgstr "Chun moltaí nua a fháil, déan na bealaí seo a mheas agus ansin "
 
 #: guide/templates/recommend.html:20
 msgid "reload"
-msgstr ""
+msgstr "athluchtaigh"
 
 #: guide/templates/recommend.html:20
 msgid " this page."
-msgstr ""
+msgstr " an leathanach seo."
 
 #: guide/templates/recommend.html:31
 msgid ""
@@ -1214,27 +1291,27 @@ msgstr ""
 
 #: guide/templates/submit.html:7
 msgid "Miro Guide - Submit Channel"
-msgstr ""
+msgstr "Treorán Miro - Seol Bealach"
 
 #: guide/templates/user_ratings.html:8
 msgid "Miro Guide - Channels You've Rated"
-msgstr ""
+msgstr "Treorán Miro - Bealaí A Mheas Tú Cheana"
 
 #: guide/views/accounts.py:19
 msgid "List Your Channel in the Miro Guide!"
-msgstr ""
+msgstr "Cláraigh Do Bhealach san Eolaí Miro!"
 
 #: guide/views/accounts.py:20
 msgid "All you need is an account..."
-msgstr ""
+msgstr "Níl de dhíth uait ach cuntas..."
 
 #: guide/views/accounts.py:23
 msgid "Rate Channels, Get Recommendations"
-msgstr ""
+msgstr "Tabhair Meas Ar Bhealaí, Faigh Moltaí"
 
 #: guide/views/accounts.py:25
 msgid "Sign in (or create an account)"
-msgstr ""
+msgstr "Sínigh isteach (nó cruthaigh cuntas)"
 
 #: guide/views/accounts.py:26
 msgid "Give Channels Star Ratings"
@@ -1242,27 +1319,31 @@ msgstr ""
 
 #: guide/views/accounts.py:27
 msgid "We'll Give You Recommendations"
-msgstr ""
+msgstr "Tabharfaimid Moltaí Duit"
 
 #: guide/views/accounts.py:38
 msgid ""
 "Your ratings will show up, but won't count towards the average until you "
 "confirm your e-mail."
 msgstr ""
+"Taispeánfar cad a mheas tú, ach ní bheidh tionchar acu ar an meán go dtí go "
+"deimhneoidh tú do sheoladh ríomhphoist."
 
 #: guide/views/accounts.py:50
 msgid "Your Video RSS Feed is a Miro Channel"
-msgstr ""
+msgstr "Is Bealach Miro é do Fhothaire RSS Físeán"
 
 #: guide/views/accounts.py:51
 msgid ""
 "It is super easy to submit your channel to the Miro Guide. Just give us the "
 "feed address, answer a few easy questions, and you&apos;re all done."
 msgstr ""
+"Tá sé thar a bheith éasca bealach a sheoladh isteach chuig Eolaí Miro. Seol "
+"seoladh an fhothaire chugainn, freagair ceisteanna éasca, agus beidh leat."
 
 #: guide/views/accounts.py:63
 msgid "Why Should I Rate Channels?"
-msgstr ""
+msgstr "Cén Fáth Ar Chóir Dom Bealaí A Mheas?"
 
 #: guide/views/accounts.py:64
 msgid ""
@@ -1274,7 +1355,7 @@ msgstr ""
 
 #: guide/views/accounts.py:65
 msgid "A Completely Open Guide"
-msgstr ""
+msgstr "Eolaí Iomlán Oscailte"
 
 #: guide/views/accounts.py:66
 msgid ""
@@ -1283,6 +1364,12 @@ msgid ""
 "freely. If you know of a great video podcast that isn&apos;t already in the "
 "Guide, please contact the creator and ask them to submit it."
 msgstr ""
+"Mar gheall go glacaimid le bealaí (fothairí RSS, ar a ghlaoitear "
+"'podchraoladh físeáin) ó dhuine ar bith, tá an t-Eolaí Miro ag dul i méad an "
+"t-am ar fad. Is féidir le cruthaitheoirí bealaigh a bhfothairí a chur leis "
+"gan bac. Más eol duit faoi podchraoladh físeáin den scoth nach bhfuil san "
+"Eolaí cheana, déan teagmháil leis an cruthaitheoir agus iarr orthu é a "
+"sheoladh isteach."
 
 #: guide/views/api.py:256
 msgid "Invalid verification code."
@@ -1290,32 +1377,32 @@ msgstr ""
 
 #: guide/views/categories.py:27
 msgid "Edit Categories"
-msgstr ""
+msgstr "Cuir Aicmí in Eagar"
 
 #: guide/views/categories.py:28
 msgid "New Category"
-msgstr ""
+msgstr "Aicme Nua"
 
 #: guide/views/channels.py:108
 msgid "Rejection emails need a body"
-msgstr ""
+msgstr "Tá téacs de dhíth ó na ríomhphoist diúltaithe"
 
 #: guide/views/channels.py:113
 #, python-format
 msgid "%s featured on Miro Guide"
-msgstr ""
+msgstr "%s ar fáil ar Eolaí Miro"
 
 #: guide/views/channels.py:390
 msgid "Current image (no change)"
-msgstr ""
+msgstr "An íomhá reatha (gan athrú)"
 
 #: guide/views/channels.py:392 guide/views/submit.py:97
 msgid "Current image (uploaded)"
-msgstr ""
+msgstr "An íomhá reatha (uasluchtaithe)"
 
 #: guide/views/frontpage.py:66
 msgid "What is Miro?"
-msgstr ""
+msgstr "Cad é Miro?"
 
 #: guide/views/frontpage.py:67
 #, python-format
@@ -1326,60 +1413,60 @@ msgstr ""
 
 #: guide/views/frontpage.py:68
 msgid "Download Miro"
-msgstr ""
+msgstr "Íosluchtaigh Miro"
 
 #: guide/views/languages.py:17
 msgid "Channels by Language"
-msgstr ""
+msgstr "Bealaí de réir an Béarla"
 
 #: guide/views/languages.py:28
 #, python-format
 msgid "Language: %s"
-msgstr ""
+msgstr "An Béarla: %s"
 
 #: guide/views/languages.py:34
 msgid "Edit Languages"
-msgstr ""
+msgstr "Déan Eagarthóireacht Ar Na Béarlaí"
 
 #: guide/views/languages.py:35
 msgid "New Language"
-msgstr ""
+msgstr "Béarla Nua"
 
 #: guide/views/moderator.py:49
 msgid "Channels Waiting For Replies"
-msgstr ""
+msgstr "Bealaí Ag Feitheamh Ar Freagraí"
 
 #: guide/views/moderator.py:52
 msgid "Channels Flagged Don't Know By a Moderator"
-msgstr ""
+msgstr "Bealaí A D'fhógair Modhnóir Níl A Fhios Agam"
 
 #: guide/views/moderator.py:55
 msgid "Rejected Channels"
-msgstr ""
+msgstr "Bealaí Diúltaithe"
 
 #: guide/views/moderator.py:58
 msgid "Suspended Channels"
-msgstr ""
+msgstr "Bealaí Ar Fionraí"
 
 #: guide/views/moderator.py:62
 msgid "Featured Queue"
-msgstr ""
+msgstr "Gné Scuaine"
 
 #: guide/views/moderator.py:65
 msgid "Unreviewed Channels"
-msgstr ""
+msgstr "Bealaí Gan Léirmheasanna"
 
 #: guide/views/submit.py:95
 msgid "Current image (from the feed)"
-msgstr ""
+msgstr "An íomhá reatha (ón bhfothaire)"
 
 #: templates/404.html:9
 msgid "Page not found"
-msgstr ""
+msgstr "Leathanach gan aimsiú"
 
 #: templates/404.html:10 templates/500.html:22
 msgid "go to front page"
-msgstr ""
+msgstr "téigh chuig an leathanach tosaigh"
 
 #: templates/500.html:12
 msgid ""
@@ -1390,7 +1477,7 @@ msgstr ""
 #: templates/500.html:15
 #, python-format
 msgid " Server Error (id: %(id)s )"
-msgstr ""
+msgstr " Botún leis an Freastalaí (id: %(id)s )"
 
 #: templates/500.html:16
 msgid ""
@@ -1398,7 +1485,11 @@ msgid ""
 "developers will fix it as soon as they can.  If this error\n"
 "persists, please contact:"
 msgstr ""
+"Is dona linn! Tharla botún mar gheall ar d'iarratais. Rinneamar é a thaifead "
+"agus deiseoidh ár forbóirí é chomh\n"
+" luath is ar féidir. Má tharlaíonn an botún seo arís, déan teagmháil le:"
 
 #: templates/500.html:19
 msgid "Make sure to include the error ID at the top of this page."
 msgstr ""
+"Déan cinnte aitheantas an bhotúin ag barr an leathanaigh seo a chuir isteach."
