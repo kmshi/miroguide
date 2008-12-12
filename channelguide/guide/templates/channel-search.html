@@ -67,7 +67,7 @@
       <ul class="searchResults">
         {% for channel in channel_pager.items %}
           <li>
-            {% show_channel_in_category channel %}
+            {% include "guide/channel-in-category.html" %}
           </li>
         {% endfor %}
       </ul>
@@ -90,7 +90,7 @@
       <ul class="searchResults">
         {% for channel in channel_pager.items %}
           <li>
-            {% show_channel_in_category channel %}
+            {% include "guide/channel-in-category.html" %}
           </li>
         {% endfor %}
       </ul>
