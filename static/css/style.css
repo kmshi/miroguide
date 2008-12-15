@@ -988,6 +988,7 @@ h3.resultsCount .pagination {
     height: 16px;
     background: url(/images/big_no-nos.png) 0 -21px no-repeat;
     text-indent: -9999px;
+    padding: 0 1px 0;
 }
 
 #channelRating .rate .cancel:hover {
@@ -997,6 +998,7 @@ h3.resultsCount .pagination {
     height: 16px;
     background: url(/images/big_no-nos.png) 0 -0px no-repeat;
     text-indent: -9999px;
+    padding: 1px 0;
 }
 
 #channelRating .rate .star {
@@ -1007,6 +1009,7 @@ h3.resultsCount .pagination {
     cursor: pointer !important;
     background: url(/images/big_stars.png) 0 -0px no-repeat;
     text-indent: -9999px;
+    padding: 0 1px;
 }
 
 #channelRating .rate .star:hover{
@@ -1016,6 +1019,7 @@ h3.resultsCount .pagination {
     height: 16px;
     background: url(/images/big_stars.png) 0 -19px no-repeat;
     text-indent: -9999px;
+    padding: 0 1px;
 }
 
 #channelRating .rate .on {

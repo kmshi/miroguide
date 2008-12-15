@@ -209,7 +209,7 @@ def render_limited_query(request, query, title, rss_feed=None):
     order_channels_using_request(query, request)
     pager =  Pager(8, query, request)
     if request.GET.get('view') not in ('toprated', 'popular', None):
-        return util.render_to_response(request, 'two-column-list.html', {
+        return util.render_to_response(request, 'channel-list.html', {
             'header': title,
             'pager': pager,
             'order_select': OrderBySelect(request),
