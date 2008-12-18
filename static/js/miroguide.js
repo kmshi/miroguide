@@ -20,6 +20,22 @@ function MiroVersion() {
     }
 }
 
+function getPreviousElement(elt) {
+    while(elt.previousSibling) {
+        elt = elt.previousSibling;
+        if(elt.nodeType == 1) return elt;
+    }
+    return null;
+}
+
+function getNextElement(elt) {
+    while(elt.nextSibling) {
+        elt = elt.nextSibling;
+        if(elt.nodeType == 1) return elt;
+    }
+    return null;
+}
+
 function showLoadIndicator(always) {
     indicator = $("#load-indicator");
     if ((!indicator.queue().length) && always || navigator.userAgent.indexOf('Miro') != -1) {
@@ -69,6 +85,26 @@ function ajaxLink(url, id) {
     if (!doAjaxCall(url, callback)) return true;
     return false;
 }
+
+/* Handle a subscription link.  We need to hit the channelguide URL, then make
+ * the browser navigate to the subscribe link.  This is basically a hack
+ * because some older version of democracy get confused because the
+ * channelguide URL redirects te the subscribe_url.
+ */
+function handleSubscriptionLink(channel_guide_url, subscribe_url) {
+    if (isMiro() && MiroVersion() >= "1.5") return true;
+    request = makeXMLHttpRequest();
+    if (!request) return true;
+    request.subscribe_url = subscribe_url;
+    request.onreadystatechange = function () {
+        if (request.readyState == 2)
+            _redirectToSubscription(request);
+    }
+    request.open('GET', channel_guide_url, true);
+    request.send(null);
+    return false;
+}
+
 function channelAdd(url, redirect, name, event) {
     var xhr = makeXMLHttpRequest();
     if (!xhr) return true;

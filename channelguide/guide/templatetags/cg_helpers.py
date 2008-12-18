@@ -124,6 +124,77 @@ def show_pager(pager):
 def show_view_select(view_select):
     return {'view_select': view_select}
 
+@register.tag(name='twocolumns')
+def do_twocolumns(parser, token):
+    first_column = parser.parse(('splitcolumns',))
+    parser.delete_first_token()
+    second_column = parser.parse(('endtwocolumns',))
+    parser.delete_first_token()
+    return TwoColumnNode(first_column, second_column)
+
+class TwoColumnNode(template.Node):
+    def __init__(self, first_column, second_column):
+        self.columns = (first_column, second_column)
+
+    def render(self, context):
+        return """
+<ul class="two-column-list">
+    <li class="column first-column">
+        %s
+    </li>
+    <li class="column second-column">
+        %s
+    </li>
+</ul>
+<div class="clear"></div>""" % (self.columns[0].render(context),
+        self.columns[1].render(context))
+
+@register.tag(name='threecolumns')
+def do_threecolumns(parser, token):
+    first_column = parser.parse(('splitcolumns',))
+    parser.delete_first_token()
+    second_column = parser.parse(('splitcolumns',))
+    parser.delete_first_token()
+    third_column = parser.parse(('endthreecolumns',))
+    parser.delete_first_token()
+    return ThreeColumnNode(first_column, second_column, third_column)
+
+class ThreeColumnNode(template.Node):
+    def __init__(self, first_column, second_column, third_column):
+        self.columns = (first_column, second_column, third_column)
+
+    def render(self, context):
+        output = []
+        output.append('<ul class="three-column-list">')
+        output.append('<li class="column first-column">')
+        output.append(self.columns[0].render(context))
+        output.append('</li><li class="column second-column">')
+        output.append(self.columns[1].render(context))
+        output.append('</li><li class="column third-column">')
+        output.append(self.columns[2].render(context))
+        output.append('</li></ul><div class="clear"></div>')
+        return ''.join(output)
+
+def parse_column_loop(parser, token, deliminator):
+    tokens = token.split_contents()
+    syntax_msg = "syntax is twocolumnloop with <varname> in <list> [rotated]"
+    if tokens[1] != 'with' or tokens[3] != 'in':
+        raise template.TemplateSyntaxError(syntax_msg)
+    if len(tokens) == 6:
+        if tokens[5] == 'rotated':
+            rotated = True
+        else:
+            raise template.TemplateSyntaxError(syntax_msg)
+    elif len(tokens) == 5:
+        rotated = False
+    else:
+        raise template.TemplateSyntaxError(syntax_msg)
+    item_name = tokens[2]
+    list_name = tokens[4]
+    nodelist = parser.parse((deliminator,))
+    parser.delete_first_token()
+    return nodelist, list_name, item_name, rotated
+
 @register.tag(name='twocolumnloop')
 def do_twocolumnloop(parser, token):
     columns = ['first-column', 'second-column']
@@ -135,6 +206,13 @@ def do_threecolumnloop(parser, token):
     columns = ['first-column', 'second-column', 'third-column']
     return ColumnLoopNode(columns, 'three-column-list',
             *parse_column_loop(parser, token, 'endthreecolumnloop'))
+
+@register.tag(name='fourcolumnloop')
+def do_fourcolumnloop(parser, token):
+    columns = ['first-column', 'second-column', 'third-column',
+            'fourth-column']
+    return ColumnLoopNode(columns, 'four-column-list',
+            *parse_column_loop(parser, token, 'endfourcolumnloop'))
 
 class ColumnLoopNode(template.Node):
     def __init__(self, column_names, list_css_class, nodelist, list_name, 

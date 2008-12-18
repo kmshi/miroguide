@@ -132,6 +132,15 @@ def show_personalized_recommendation(context,channel):
     return {'channel': channel,
             'request': context['request']}
 
+@register.inclusion_tag('guide/channel-mini.html', takes_context=True)
+def show_channel_mini(context, channel, count):
+    return {'channel': channel, 'count': count, 
+            'STATIC_BASE_URL': settings.STATIC_BASE_URL,
+            'request': context['request']
+            }
+
+    return { 'channel': channel }
+
 @register.inclusion_tag('guide/sort-bar.html', takes_context=True)
 def sort(context):
     request = context['request']
