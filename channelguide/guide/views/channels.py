@@ -298,7 +298,7 @@ def show(request, id, featured_form=None):
                 featured_form = forms.FeaturedEmailForm(request, c)
             context['featured_email_form'] = featured_form
             context['last_featured_email'] = last_featured_email
-    return util.render_to_response(request, 'details.html', context)
+    return util.render_to_response(request, 'show-channel.html', context)
 
 @login_required
 def user_subscriptions(request):

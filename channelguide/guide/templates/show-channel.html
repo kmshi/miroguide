@@ -116,7 +116,7 @@
         <div id="recommendations">
           <h3>{% trans "If you like this channel, try:" %}</h3>
           {% for r in recommendations %}
-            {% show_channel_in_recommendation r forloop.first forloop.last %}
+            {% include "guide/channel-in-recommendation.html" %}
           {% endfor %}
         </div>
       {% endif %}
