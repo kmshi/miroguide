@@ -1,12 +1,16 @@
 {% comment %}
-Copyright (c) 2008 Participatory Culture Foundation
-See LICENSE for details.
+  Copyright (c) 2008 Participatory Culture Foundation
+  See LICENSE for details.
 {% endcomment %}
+
 {% load cg_helpers i18n %}
+
 {% show_form_errors form %}
-  {% for field in form.field_list %}
+
+{% for field in form.field_list %}
   <div class="form_row id_{{ field.name }}">{% show_form_field field %}</div>
-  {% endfor %}
+{% endfor %}
+
 {% for field in form.hidden_field_list %}
-{{ field }}
+  {{ field }}
 {% endfor %}

@@ -181,12 +181,18 @@ function showHelpText(help, event) {
 }
 
 function submitAChannel(submitLink) {
+    console.log('1');
     url = submitLink.attr('href');
+    console.log('2');
     hoverMenuSubmit = $('<div id="hoverMenuSubmit"></div>');
+    console.log('3');
     $("#hover_align").append(hoverMenuSubmit);
+    console.log('4');
     hoverMenuSubmit.load(url + ' #submit > *',
                          function() {
+                             console.log('5');
                              $('#hoverMenuLogin').hide();
+                             console.log('6');
                              $('#hoverMenuSubmit form').ajaxForm(
                                  showNewSubmitForm);});
 }

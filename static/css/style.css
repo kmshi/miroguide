@@ -158,6 +158,45 @@ h1, h2, h3, h4, h5 {
  * Content
  *****************************************************/
 
+.gray-button {
+	text-align: center;
+	background: url(/images/buttons/button_input_right.png) no-repeat right;
+	border: 0;
+	margin: 0;
+	cursor: pointer;
+	padding: 0 8px 0 0;
+	overflow: visible;
+}
+
+.gray-button span {
+	position: relative;
+	display: block;
+	white-space: nowrap;
+	height: 20px;
+	color: #373737;
+	font: 11px/20px Arial, Helvetica, sans-serif;
+	background: url(/images/buttons/button_input_left.png) no-repeat left top;
+	padding: 0 5px 0 14px;
+}
+
+/* Load indicator */
+
+#load-indicator {
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    bottom: -30px;
+    z-index: 100;
+}
+
+#load-indicator img {
+    position: relative;
+    bottom: -4px;
+    margin: 0 auto;
+    padding: 4px;
+    background: url(images/load-indicator-bg.png);
+}
+
 /*Welcome message*/
 .welcomeMessage {
     font-size: 18px;
@@ -2580,6 +2619,21 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
     display: inline;
 }
 
+#hover_align ul li input[type=text], #hover_align ul li input[type=password] {
+    background: url(/images/login_text_bg.png) 0 0 no-repeat;
+    width: 130px;
+    padding: 4px 14px 1px 9px;
+    border: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    height: 16px;
+    color: #333;
+    overflow: hidden;
+    margin: 5px 0px 0 0;
+    float: right;
+    display: inline;
+}
+
 #hoverMenuLogin ul li#login a.forgot_password {
     background: url(/images/ico_forgot_password.png) 0 0 no-repeat;
     padding: 0 0 0 22px;
@@ -2637,6 +2691,236 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 
 #hoverMenuLogin, #registerHidden {
     display: none;
+}
+
+#hoverMenuSubmit {
+    width: 409px;
+    overflow: hidden;
+    position: absolute;
+    margin: -1px 0 0 195px;
+    z-index: 100;
+}
+
+#hoverMenuSubmit > form > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0 24px 0 31px;
+    height: 100%;
+    background: url(/images/popup_bg.png) 0 0 repeat-y;
+}
+
+#hoverMenuSubmit .top {
+    background: url(/images/popup_top.png) 0 0 repeat-x;
+    width: 349px;
+    margin: 0;
+    padding: 30px 30px 0 30px;
+    height: 22px;
+}
+
+#hoverMenuSubmit .top h5 {
+    color: white;
+    font-size: 18px;
+    margin: 0;
+    padding: 0 0 0 15px;
+}
+
+#hoverMenuSubmit .top h5 span.header {
+    float: left;
+    display: inline;
+}
+
+#hoverMenuSubmit .top h5 span.close a {
+    float: right;
+    font-size: 8px;
+    color: #eb6f6f;
+    background: url(/images/ico_close.png) right 0 no-repeat;
+    padding: 2px 23px 0 0;
+    text-transform: uppercase;
+    display: inline;
+}
+
+#hoverMenuSubmit ul li.upper {
+    background: #b41f1f;
+    width: 329px;
+    padding: 20px 12px 14px 12px;
+    margin: 0;
+    line-height: 30px;
+    border-bottom: 1px solid #9e1515;
+    color: #fff;
+}
+
+#hoverMenuSubmit ul li.upper .form_row {
+    height: 100%;
+    overflow: hidden;
+    margin: 0 0 5px 0;
+}
+
+#hoverMenuSubmit ul li.upper .form_row_center {
+    height: 100%;
+    overflow: hidden;
+    margin: 10px 0;
+    text-align: center;
+}
+
+#hoverMenuSubmit ul li.upper .form_row_center div.preview {
+    border: 1px solid #888;
+    width: 300px;
+    height: 200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#hoverMenuSubmit ul li.upper .form_row_center div.preview .overlay {
+    position: absolute; 
+    right: 0; 
+    z-index: 2;
+}
+
+#hoverMenuSubmit ul li.upper label, #hoverMenuSubmit ul li.upper label.longlabel {
+    float: left;
+    display: inline;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#hoverMenuSubmit ul li.upper label.longlabel {
+    width: 12em;
+}
+
+#hoverMenuSubmit ul li.upper .form_row img {
+    float: left;
+    padding: 10px 5px;
+}
+
+#hoverMenuSubmit ul li.upper label.question span {
+    background: url(/images/ico_question.png) right 1px no-repeat;
+    padding: 0 17px 0 0;
+}
+
+#hoverMenuSubmit ul li.upper textarea {
+    background: url(/images/popup_textarea_bg.png) 0 0 no-repeat;
+    width: 306px;
+    padding: 4px 14px 1px 9px;
+    border: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    height: 77px;
+    color: #333;
+    overflow: hidden;
+    margin: 0;
+    float: right;
+    display: inline;
+}
+
+#hoverMenuSubmit ul.form-input-triplet {
+    list-style-type: none;
+    float: right;
+}
+
+#hoverMenuSubmit .bottom {
+    width: 409px;
+    height: 66px;
+    background: url(/images/popup_bottom.png) 0 0 no-repeat;
+}
+
+#hoverMenuSubmit .bottom p {
+    border-top: 1px solid #b91818;
+    width: 327px;
+    padding: 5px 13px 0 13px;
+    margin: 0 25px 0 31px;
+    color: white;
+    height: 33px;
+    line-height: 21px;
+}
+
+#hoverMenuSubmit .bottom p span.required {
+    float: left;
+    display: inline;
+    font-size: 10px;
+}
+
+#hoverMenuSubmit .upper a {
+    color: white;
+    text-decoration: underline;
+}
+
+#hoverMenuSubmit .upper a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.form_row select {
+    font-size: 11px;
+    height: 26px;
+    padding: 3px 0 0 0;
+    width: 13em;
+}
+
+/*Help box*/
+.help-text img {
+    cursor: pointer;
+}
+
+.help_box {
+    width: 238px;
+    z-index: 100;
+}
+
+.help_box_top {
+    width: 238px;
+    height: 30px;
+    background: url(/images/help_box_top.png) 0 0 no-repeat;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 0 0 0;
+    color: #3b3b3b;
+}
+
+.help_box_top span {
+    display: block;
+    text-align: center;
+}
+
+.help_box_top a.close {
+    position: absolute;
+    margin: 0 0 0 214px;
+}
+
+.help_box_inner {
+    color: #3b3b3b;
+    width: 188px;
+    padding: 0 18px 4px 22px;
+    background: url(/images/help_box.png) top left repeat-y;
+    margin: 0 0 0 12px;
+    font-size: 1px;
+    overflow: hidden;
+    height: 100%;
+}
+
+.help_box_inner p {
+    margin: 0;
+    padding: 0;
+    font-size: 11px;
+    line-height: 16px;
+}
+
+.help_box_inner p.more_info {
+    margin: 5px 0 0 0;
+    text-align: center;
+}
+
+.help_box_inner p.more_info a {
+    color: #999999;
+    position: relative;
+    z-index: 1;
+}
+
+.help_box_bottom {
+    width: 226px;
+    height: 11px;
+    background: url(/images/help_box_bottom.png) 0 0 no-repeat;
+    margin: 0 0 0 12px;
+    font-size: 1px;
 }
 
 #login_button {

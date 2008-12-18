@@ -27,6 +27,7 @@ urlpatterns = patterns('channelguide.guide.views',
     (r'^api/', cg_include('api')),
     (r'^recommend/', cg_include('recommend')),
     (r'^ping/', cg_include('ping')),
+    (r'^submit/', cg_include('submit')),
     (r'^dmca$', direct_to_template,
      {'template': 'guide/dmca.html'}))
 
@@ -62,16 +63,6 @@ urlpatterns += patterns('channelguide.guide.views.channels',
                     'title': 'High-Definition Channels'}),
                         (r'^(feeds|shows)/', cg_include('channels')),
                         )
-
-# submission
-urlpatterns += patterns('channelguide.guide.views.submit',
-    (r'^submit$', 'submit_feed'),
-    (r'^submit/streaming$', 'submit_streaming'),
-    (r'^submit/step1$', 'submit_feed'),
-    (r'^submit/step2$', 'submit_channel'),
-    (r'^submit/after$', 'after_submit'),
-    (r'^submit/claim$', 'claim'),
-)
 
 
 # donation pages
