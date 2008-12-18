@@ -1,50 +1,45 @@
 {% comment %}
-Copyright (c) 2008 Participatory Culture Foundation
-See LICENSE for details.
+  Copyright (c) 2008 Participatory Culture Foundation
+  See LICENSE for details.
 {% endcomment %}
 {% load cg_helpers i18n channels %}
-<div class="channel channel-in-list">
-    <div class="half-size-list">
-        {% twocolumns %}
-            <h2 class="title">{{ channel.name_as_link }}</h2>
-            <div class="screenshot">
-            {% if channel.archived %}
-            <div class="archived">{% trans "archival" %}</div>
-            {% endif %}
-                <a {% link channel.get_url %}>{{ channel.thumb_165_110 }}</a>
-                {% if channel.hi_def %}
-                <img class="hd-icon-medium" src="{{ STATIC_BASE_URL }}images/hd-icon-medium.png" alt="HD">
-                {% endif %}
-            </div>
-        {% splitcolumns %}
-            <div class="top-row">
-                <div class="actions">
-                    <div class="big horizontal">
-                        <a {{ channel.subscription_link }}>
-                            <span class="icon"></span>
-			    <span class="only-in-miro">
-			      {% trans "Add" %}
-			    </span>
-			    <span class="only-in-browser">
-			      {% trans "Subscribe" %}
-			    </span>
-                       </a>    
-                       <a {% link channel.get_url "info-button" %}>
-                           <span class="icon"></span>
-                           {% trans "Details" %}
-                        </a>
-                    </div>
-                </div>
-                 <div class="channel-info">
-                    Videos Available: {{ channel.item_count }}<br/>
-                    Subscribes {{ channel.timeline }}: {{ channel.popular_count }}
-                </div>
-                <div class="ratings-bar">
-                    {% show_rating_stars channel %}
-                    Avg. of {{ channel.rating.count }} rating{{ channel.rating.count|pluralize }}: <strong>{{ channel.rating.average|floatformat }}</strong>
-                </div>
-            </div>  
-            <div class="description">{{ channel.description|escape }}</div>
-        {% endtwocolumns %}
-    </div>
+<div class="searchThumb">
+  <a href="#">
+    <img class="hd_tag_tiny"
+         src="{{ STATIC_BASE_URL }}images/ico_hd_tag_tiny.png"
+         alt="" />
+    {{ channel.thumb_98_68 }}
+  </a>
 </div>
+
+<div class="searchResultContent">
+  <h4><a href="{{ channel.get_url }}">{{ channel.name }}</a></h4>
+  <p>
+    {{ channel.description }}
+  </p>
+</div>
+<br clear="all" />
+<div class="searchResultsMeta">
+  <ul class="rating">
+    <li class="score">
+      <a href="{{ channel.get_subscription_url }}" class="add_feed_button">
+        {% trans "ADD FEED" %}
+      </a>
+    </li>
+    <li>
+      <div class="small_rate">
+        <span class="cancel"><a href="#">0</a></span>
+        <span class="star on"><a href="#">1</a></span>
+        <span class="star on"><a href="#">2</a></span>
+        <span class="star on"><a href="#">3</a></span>
+        <span class="star"><a href="#">4</a></span>
+        <span class="star"><a href="#">5</a></span>
+      </div>
+    </li>
+    <li class="our_bet">Our Bet <span class="score">100%</span></li>
+  </ul>
+</div>
+
+
+
+

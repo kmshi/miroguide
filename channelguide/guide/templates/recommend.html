@@ -18,51 +18,117 @@
 {% endblock %}
 
 {% block content %}
-  <div class="channel-list-page">
-    <div class="personalized-recommendation-channel-list">
-      <h1>{% trans "Channels You'll &hearts;" %}
-        <span class="view-select">
-          <a {% link "recommend/ratings" %}>
-            {% trans "Channels You've Rated" %}
-          </a>
-        </span>
-      </h1>
+  <div class="infoBox">
+    <h1 class="lovedVideos">{% trans "Videos You'll Love" %}</h1>
+    <ul class="paginator2">
+      <li class="tag">Pages</li>
+      <li><span><a href="#">1</a></span></li>
+      <li><span><a href="#">2</a></span></li>
+      <li><span><a href="#">19</a></span></li>
+      <li><span><a href="#">20</a></span></li>
+      <li class="selected"><span><a href="#">21</a></span></li>
+      <li><span><a href="#">22</a></span></li>
+      <li class="tag">...</li>
+      <li><span><a href="#">98</a></span></li>
+      <li><span><a href="#">99</a></span></li>
+      <li><span><a href="#">100</a></span></li>
+    </ul>
+  </div>
+  
+  <div class="infoBar">
+    <div class="innerBar">
+      <a href="#" class="show_channels">{% trans "show all" %}</a>
+      <span class="extra">
+        {% trans "Certain channels are not available in your region" %}
+      </span>
+    </div>
+  </div>
 
-      {% if recommendations %}
-      <h2>
-        {% trans "To get new recommendations, rate these channels then "%}
-        <a {% link "recommend/" %}>
-          {% trans "reload" %}
-        </a>
-        {% trans " this page."%}
-      </h2>
-      {% twocolumnloop with channel in pager.items %}
-        {% show_personalized_recommendation channel %}
-      {% endtwocolumnloop %}
-      <script type="text/javascript">
-        $(".first-column:even").add(".second-column:odd").css('background', '#e9edf2');
-      </script>
-    </div>
-    {% show_pager pager %}
-    {% else %}
-      <h2>
-        {% blocktrans %}
-You can rate channels by clicking on stars (here or anywhere else in the guide). Please rate some of these channels and <a href="">come back</a>; we'll have recommendations for you. The more you rate, the more accurate we'll be.    
-        {% endblocktrans %}
-      </h2>
-    </div>
-    <div class="popular-channel-list">
-      <ul class="channel-list">
+  <div class="horizontal_banner_ad">
+    <a href="#"><img src="{{ STATIC_BASE_URL }}images/ads/728x90.jpg" alt="Ad" /></a>
+  </div>
+  <br />
+
+  <div class="page">
+    <div class="feedColumn">
+      <div class="detailsHead4">
+        <h3 class="resultsCount">
+          <span class="heading">{% trans "Feeds" %}</span>
+          <span class="button">
+            <a href="#">
+              <img src="{{ STATIC_BASE_URL }}images/ico_rss_title.png" alt="" />
+            </a>
+          </span>
+        </h3>
+        <div class="sortType">
+          <a href="#"><strong>{{ pager.total_items }}</strong></a>
+        </div>
+      </div><!--detailsHead-->
+      <ul class="searchResults">
         {% for channel in pager.items %}
           <li>
-            <div class="position">
-              {{ forloop.counter|add:pager.start_item|add:"-1" }}.
-            </div>
             {% include "guide/channel-in-popular-list.html" %}
-        </li>
+          </li>
         {% endfor %}
+        
+        <li class="rate_more">
+          <h3>Rate more videos!</h3>
+          <p>We're fresh out of recommendations.</p>
+        </li>
       </ul>
-    </div>
-    {% endif %}
-  </div>
+    </div><!--feedColumn-->
+
+    <div class="feedColumn">
+      <div class="detailsHead4">
+	<h3 class="resultsCount">
+	  <span class="heading">Sites</span>
+	  <span class="button">
+            <a href="#">
+              <img src="images/ico_refresh.png" alt="" />
+            </a>
+          </span>
+	</h3>
+	<div class="sortType">
+	  <a href="#"><strong>67</strong></a>
+	</div>
+      </div><!--detailsHead-->
+      <ul class="searchResults">
+	<li>
+	  <div class="searchThumb">
+	    <a href="#">
+	      <img class="hd_tag_tiny"
+                   src="{{ STATIC_BASE_URL }}images/ico_hd_tag_tiny.png" alt="" />
+	      <img src="{{ STATIC_BASE_URL }}images/small_thumb.jpg" alt="" />
+            </a>
+	  </div>
+	  
+	  <div class="searchResultContent">
+	    <h4>Episode 11: Cycle Race Scramble!</h4>
+	    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Cras lobortis elementum neque. Etiam pede. Lorem ipsum dolor sit amet, con-</p>
+	  </div>
+	  <br clear="all" />
+	  <div class="searchResultsMeta">
+	    <ul class="rating">
+	      <li class="score"><a href="#" class="add_feed_button2">ADD FEED</a></li>
+	      <li>
+                <div class="small_rate">
+		  <span class="cancel"><a href="#">0</a></span>
+		  <span class="star on"><a href="#">1</a></span>
+		  <span class="star on"><a href="#">2</a></span>
+		  <span class="star on"><a href="#">3</a></span>
+		  <span class="star"><a href="#">4</a></span>
+		  <span class="star"><a href="#">5</a></span>
+	        </div>
+	      </li>
+	      <li class="our_bet">Our Bet <span class="score">100%</span></li>
+	    </ul>
+	  </div>
+	</li>
+	<li class="rate_more">
+	  <h3>Rate more videos!</h3>
+	  <p>We're fresh out of recommendations.</p>
+	</li>
+      </ul>
+    </div><!--feedColumn-->
+  </div><!--page-->
 {% endblock %}
