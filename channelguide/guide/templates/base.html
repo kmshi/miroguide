@@ -41,10 +41,8 @@ See LICENSE for details.
 </head>
 
 <body onload="{% block onload-extra %}{% endblock%}"
-      onpagehide="hideLoadIndicator();">
-  <div id="accessability">
-      <a href="#content">Skip to content</a>
-  </div>
+      onpagehide="hideLoadIndicator();"
+      id="main">
   <div id="nav-bar">
     <ul>
       <li class="previous">
@@ -62,33 +60,76 @@ See LICENSE for details.
       </li>
     </ul>
   </div>
+
   {% block navigation %}
-  <div id="navigation">
-    <ul>
-      <li>
-        <a class="logo" href="{{ BASE_URL }}">
-          <img class="logo"
-               src="{{ STATIC_BASE_URL }}images/small-logo.png"
-               alt="">
-        </a>
-      </li>
-      <li><a {% navlink "" %}>{% trans "Home" %}</a></li>
-      <li><a {% navlink "browse/" %}>{% trans "Browse" %}</a></li>
-      <li><a {% navlink "channels/popular" %}>{% trans "Popular" %}</a></li>
-      <li><a {% navlink "channels/toprated" %}>{% trans "Top Rated" %}</a></li>
-      <li>
-        <a {% navlink "recommend/" %}>{% trans "Channels You'll &hearts;" %}</a>
-      </li>
-      <li><a {% navlink "languages/" %}>{% trans "Languages" %}</a></li>
-      <li>
-        <a onclick="showLoadIndicator();"
-           href="/donate?next={{ request.path }}">
-          {% trans "Support Open Media" %}
-        </a>
-      </li>
-    </ul>
-    <div id="load-indicator">
-      <img alt="loading" src="{{ STATIC_BASE_URL }}images/load-indicator.gif">
+  <div id="topBar">
+    <div class="page">
+      <ul id="mainMenu">
+        <li id="logo">
+          <a {% navlink "" %}>
+            <img src="{{ STATIC_BASE_URL}}images/logo.png" alt="{% trans "Miro" %}" >
+          </a>
+        </li>
+        <li class="video_feeds">
+          <a href="{{ BASE_URL }}feeds/">
+            <span class="nav_text">{% trans "Video feeds"%}</span>
+          </a>
+        </li>
+        <li class="streaming_shows">
+          <a href="{{ BASE_URL }}streaming/">
+            <span class="nav_text">
+              {% trans "Streaming" %}
+            </span>
+          </a>
+        </li>
+        <li class="video_love">
+          <a href="{{ BASE_URL }}recommend/">
+            <span class="nav_text">{% trans "Videos you'll love" %}</span>
+          </a>
+        </li>
+      </ul>
+
+      <div id="searchBG"></div>
+
+      <div id="searchSpot">
+        <form method="get" action="{{ BASE_URL }}search">
+          <input type="text" class="headSearch" name="query"
+                 id="search_query" value="{% trans "Search" %}" />
+          <script type="text/javascript">
+            //<![CDATA[
+                 $("#searchSpot input").focus(searchFocus).blur(searchBlur);
+            //]]>
+          </script>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="topBarLower">
+    <div class="page">
+      <ul id="lowerMenu">
+        <li><a href="{{ BASE_URL }}genres/">{% trans "Genres" %}</a></li>
+        <li><a href="{{ BASE_URL }}hd/">{% trans "HD Channels" %}</a></li>
+        <li><a href="{{ BASE_URL }}popular/">{% trans "Most Popular" %}</a></li>
+        <li><a href="{{ BASE_URL }}new/">{% trans "New Shows" %}</a></li>
+        <li><a href="{{ BASE_URL }}languages/">{% trans "Video by Language" %}</a></li>
+        <li id="language"
+            onmouseover="return showMenu('hoverMenuLanguage', 'language', event)"
+            onmouseout="return hideMenu('hoverMenuLanguage', 'language', event)">
+          <a href="#">{% trans "Language" %}</a>
+        </li>
+        <li id="account"
+            onmouseover="return showMenu('hoverMenuLogin', 'account', event)"
+            onmouseout="return hideMenu('hoverMenuLogin', 'account', event)">
+          <a href="{% if user.is_authenticated %}{{ user.get_url }}{% else %}{{ BASE_URL }}accounts/login{% endif %}">
+            {% if user.is_authenticated %}
+              {{ user.username }}
+            {% else %}
+              {% trans "Account" %}
+            {% endif %}
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
   {% endblock %}
