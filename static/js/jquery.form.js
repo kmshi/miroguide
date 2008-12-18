@@ -1,10 +1,6 @@
 /*
  * jQuery Form Plugin
-<<<<<<< HEAD:static/js/jquery.form.js
- * version: 2.12 (06/07/2008)
-=======
  * version: 2.17 (06-NOV-2008)
->>>>>>> 66d085b... First step of the ajaxy channel submission finished:static/js/jquery.form.js
  * @requires jQuery v1.2.2 or later
  *
  * Examples and documentation at: http://malsup.com/jquery/form/
@@ -14,11 +10,7 @@
  *
  * Revision: $Id$
  */
-<<<<<<< HEAD:static/js/jquery.form.js
-(function($) {
-=======
 ;(function($) {
->>>>>>> 66d085b... First step of the ajaxy channel submission finished:static/js/jquery.form.js
 
 /*
     Usage Note:  
@@ -75,11 +67,7 @@ $.fn.ajaxSubmit = function(options) {
     if (veto.veto) {
         log('ajaxSubmit: submit vetoed via form-pre-serialize trigger');
         return this;
-<<<<<<< HEAD:static/js/jquery.form.js
-   }
-=======
     }
->>>>>>> 66d085b... First step of the ajaxy channel submission finished:static/js/jquery.form.js
 
     // provide opportunity to alter form data before it is serialized
     if (options.beforeSerialize && options.beforeSerialize(this, options) === false) {
@@ -228,11 +216,7 @@ $.fn.ajaxSubmit = function(options) {
                 }
             }
         }
-<<<<<<< HEAD:static/js/jquery.form.js
-        
-=======
 
->>>>>>> 66d085b... First step of the ajaxy channel submission finished:static/js/jquery.form.js
         // take a breath so that pending repaints get some cpu time before the upload starts
         setTimeout(function() {
             // make sure form attrs are set
