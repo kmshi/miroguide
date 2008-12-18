@@ -49,14 +49,15 @@ class Channel(Record, Thumbnailable):
 
     THUMBNAIL_DIR = 'thumbnails'
     THUMBNAIL_SIZES = [
-        (85, 57), # recommended
-        (98, 66), # new on front page
-        (109, 73), # small on search page
-        (132, 88), # search page
-        (154, 105), # item thumbnail size
-        (192, 129), # featured on front page
-        (222, 146), # large image on details page
-        (300, 200), # biggest size
+            (60, 40),
+            (95, 63),
+            (120, 80),
+            (165, 110),
+            (194, 130),
+            (200, 133),
+            (245, 164),
+            (252, 169),
+            (370, 247),
     ]
 
     def __str__(self):
@@ -240,6 +241,13 @@ class Channel(Record, Thumbnailable):
 
     def get_edit_url(self):
         return self.get_url() + '/edit'
+
+    def subscription_link(self):
+        cg_link = self.get_subscribe_hit_url()
+        subscribe_link = self.get_subscription_url()
+        return util.make_link_attributes(subscribe_link, "large_green_button2",
+                onclick="return handleSubscriptionLink('%s', '%s');" %
+                (cg_link, subscribe_link))
 
     def get_subscribe_hit_url(self):
         return self.get_url() + '/subscribe-hit'
@@ -494,9 +502,7 @@ class Channel(Record, Thumbnailable):
 
     def _thumb_html(self, width, height):
         thumb_url = self.thumb_url(width, height)
-        return util.mark_safe(
-            '<img width="%i" height="%i" src="%s" alt="%s" />' %
-            (width, height, thumb_url, cgi.escape(self.name)))
+        return util.mark_safe('<img src="%s" alt="%s">' % (thumb_url, cgi.escape(self.name)))
 
     def fake_feature_thumb(self):
         thumb_url = self.thumb_url(252, 169)

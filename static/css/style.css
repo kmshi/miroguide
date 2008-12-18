@@ -1,3 +1,4 @@
+
 /*
 	Color sets
 	
@@ -26,7 +27,9 @@ body#main {
 }
 
 
-
+.hidden {
+    display: none;
+}
 
 .tips_on{
 	background: url(/images/tips.png)  repeat-x;
