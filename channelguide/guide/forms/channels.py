@@ -17,10 +17,10 @@ from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 import django.newforms as forms
 import feedparser
-import ip2cc
 
 from channelguide.guide.feedutil import to_utf8
 from channelguide.guide.models import Language, Category, Channel
+from channelguide.resources import ip2cc
 from channelguide import util
 from fields import WideCharField, WideURLField, WideChoiceField
 from form import Form
@@ -312,8 +312,9 @@ class SubmitChannelForm(Form):
     website_url = WideURLField(label=_('Website URL'), max_length=200)
     description = WideCharField(widget=forms.Textarea,
             label=_("Full Description"))
-    publisher = forms.EmailField(label=_("Publisher E-mail"), max_length=100,
-                                 required=False)
+    publisher = forms.EmailField(
+        label=_("Publisher E-mail"), max_length=100,
+        required=False)
     tags = TagField(tag_limit=75, required=False,
             label=_('Tags'),
             help_text=_('Keywords that describe this channel.  Separate each '
