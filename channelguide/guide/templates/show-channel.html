@@ -102,7 +102,7 @@
 	<a href="{{ self.get_subscription_url }}">
 	  <img class="hd_tag_large channel2_hd"
                src="{{ STATIC_BASE_URL }}images/ico_hd_tag_large.png" alt="" />
-          {{ channel.thumb_247_162 }}
+          {{ channel.thumb_245_164 }}
 	  <img class="hasCorners"
                src="{{ STATIC_BASE_URL }}images/channel_thumb2.jpg" alt="" />
         </a>
@@ -115,6 +115,47 @@
       <img src="{{ STATIC_BASE_URL }}images/ads/728x90.jpg" alt="Ad" />
     </a>
   </div>
+
+  <div id="channelEpisodes">
+    <div class="page">
+      <div class="pageContent">
+	<div class="detailsHead">
+	  <h3 class="resultsCount">
+	    <span class="heading">{% trans "Recently Aired" %}</span>
+	    <span class="button">
+              <a href="#">
+                <img src="{{ STATIC_BASE_URL }}images/ico_refresh.png" alt="" />
+              </a>
+            </span>
+	  </h3>
+	  <div class="sortType">
+	    <a href="#">{% trans "All" %}</a>
+	  </div>
+	</div><!--detailsHead-->
+
+	<ul class="paginator">
+	  <li class="tag">{% trans "Pages" %}</li>
+	  <li><span><a href="#">1</a></span></li>
+	  <li><span><a href="#">2</a></span></li>
+	  <li><span><a href="#">19</a></span></li>
+	  <li><span><a href="#">20</a></span></li>
+	  <li class="selected"><span><a href="#">21</a></span></li>
+	  <li><span><a href="#">22</a></span></li>
+	  <li class="tag">...</li>
+	  <li><span><a href="#">98</a></span></li>
+	  <li><span><a href="#">99</a></span></li>
+	  <li><span><a href="#">100</a></span></li>
+	</ul>
+
+	<br clear="all" />
+
+	<div class="detailsTop"></div>
+
+        {% for item in items %}
+            {% include "guide/item.html" %}
+        {% endfor %}
+      </div>
+    </div>
 
   <div class="channel channel-full">
     {% if show_edit_button %}

@@ -18,7 +18,8 @@ class Item(Record, Thumbnailable):
 
     THUMBNAIL_DIR = 'item-thumbnails'
     THUMBNAIL_SIZES = [
-            (154, 105),
+            (98, 68),
+            (200, 133),
     ]
 
     def get_guid(self):
@@ -30,9 +31,11 @@ class Item(Record, Thumbnailable):
     def get_missing_image_url(self, width, height):
         return self.channel.thumb_url(width, height)
 
-    def thumbnail(self):
-        url = self.thumb_url(154, 105)
-        return util.mark_safe('<img width="154" height="105" src="%s" alt="%s">' % (url, self.name.replace('"', "'")))
+    def thumb(self):
+        url = self.thumb_url(98, 68)
+        return util.mark_safe(
+            '<img width="98" height="68" src="%s" alt="%s">' % (
+                url, self.name.replace('"', "'")))
 
     def download_url(self):
         data = {

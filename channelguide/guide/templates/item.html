@@ -1,29 +1,31 @@
-{% load i18n %}
-<div class="detailsTop"></div>
+{% load i18n cg_helpers %}
+{% comment %}
+Copyright (c) 2008 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
 <div class="details">
-  <span class="thumb">{{ item.thumbnail }}</span>
-  <div class="description on">
-    <h4>{% if item.name %}{{ item.name }}{% else %}{% trans "(no name)" %}{% endif %}</h4>
-    <p>{{ item.description|striptags|urlize }}
+  <span class="thumb">
+    <a href="#">
+      <img class="hd_tag_small"
+           src="{{ STATIC_BASE_URL }}images/ico_hd_tag_small.png"
+           alt="" />
+      {{ item.thumb }}
+    </a>
+  </span>
+
+  <div class="description">
+    <h4>
+      {% if item.name %}{{ item.name }}{% else %}{% trans "(no name)" %}{% endif %}
+    </h4>
+    <p>
+      {{ item.description|striptags }}
+    </p>
+    <a href="#" class="read_more">{% trans "Read more" %}</a>
   </div>
+  
   <div class="meta">
-    <div class="form_row">
-      <span class="tag">Date:</span>
-      <span class="item">{{ item.date|date:"N j, Y" }}</span>
-    </div>
-    {% if size %}
-    <div class="form_row">
-      <span class="tag">Size:</span>
-      <span class="item">{{ item.size|filesizeformat }}</span>
-    </div>
-    {% endif %}
-    {% comment %}
-    <div class="form_row">
-      <span class="tag"></span>
-      <span class="item"><a href="#">Show Details</a></span>
-    </div>
-    {% endcomment %}
-    <br clear="all"/><br/>
-    <button type="submit"><a href="{{ item.download_url }}"><span>Download</span></a></button>
+    <strong>{{ item.date|date:"M j" }}, {{ item.date|date:"Y" }}</strong>
+    <a href="#" class="rollover_button">{% trans "Preview" %}</a>
+    <a href="#" class="rollover_button">{% trans "Download" %}</a>
   </div>
 </div>
