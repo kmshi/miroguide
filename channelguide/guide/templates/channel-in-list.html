@@ -1,0 +1,44 @@
+{% comment %}
+Copyright (c) 2008 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load cg_helpers i18n %}
+<div class="channel channel-in-list">
+    <div class="half-size-list">
+        {% twocolumns %}
+            <div class="screenshot">
+            {% if channel.archived %}
+            <div class="archived">{% trans "archival" %}</div>
+            {% endif %}
+                <a {% link channel.get_url %}>
+                  <div class="thumb corners"
+                       style="background: url({{ channel.thumb_url_165_110 }}); width: 165px; height: 110px;">
+                  </div>
+                </a>
+                {% if channel.hi_def %}
+                <img class="hd-icon-medium" src="{{ STATIC_BASE_URL }}images/hd-icon-medium.png" alt="HD">
+                {% endif %}
+            </div>
+        {% splitcolumns %}
+            <h2 class="title">{{ channel.name_as_link }}</h2>
+            <div class="description">{{ channel.description|escape }}</div>
+            <div class="actions">
+            <div class="big horizontal">
+                <a {{ channel.subscription_link }}>
+                    <span class="icon"></span>
+		    <span class="only-in-miro">
+		      {% trans "Add" %}
+		    </span>
+		    <span class="only-in-browser">
+		      {% trans "Subscribe" %}
+		    </span>
+                </a>
+                <a {% link channel.get_url "info-button" %}>
+                    <span class="icon"></span>
+                    {% trans "Details" %}
+                </a>
+            </div>
+            </div>
+        {% endtwocolumns %}
+    </div>
+</div>

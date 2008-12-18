@@ -280,7 +280,7 @@ function languageUpdate() {
 }
 
 function add_corners() {
-    $('.has_corners').corner();
+    $('.corners').corner();
     $('.top_corners').corner('top');
 }
 

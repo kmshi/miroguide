@@ -5,10 +5,14 @@ See LICENSE for details.
 {% load i18n cg_helpers %}
 <div class="searchThumb">
   <a {% link channel.get_url %}>
-    <img class="hd_tag_tiny"
-         src="{{ STATIC_BASE_URL }}images/ico_hd_tag_tiny.png"
-         alt="" />
-    {{ channel.thumb_98_68 }}
+    <div class="thumb corners"
+         style="background: url({{ channel.thumb_url_98_68 }}); width: 98px; height: 68px;">
+      {% if channel.hi_def %}
+        <img class="hd_tag_tiny"
+             src="{{ STATIC_BASE_URL }}images/ico_hd_tag_tiny.png"
+             alt="" />
+      {% endif %}
+    </div>
   </a>
 </div>
 

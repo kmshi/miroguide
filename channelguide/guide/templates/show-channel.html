@@ -98,15 +98,15 @@
 	</div>
       </div>
       
-      <div class="thumb">
-	<a href="{{ self.get_subscription_url }}">
-	  <img class="hd_tag_large channel2_hd"
-               src="{{ STATIC_BASE_URL }}images/ico_hd_tag_large.png" alt="" />
-          {{ channel.thumb_245_164 }}
-	  <img class="hasCorners"
-               src="{{ STATIC_BASE_URL }}images/channel_thumb2.jpg" alt="" />
+      <a href="{{ self.get_subscription_url }}">
+        <div class="thumb corners"
+             style="background: url({{ channel.thumb_url_245_164 }}); width: 245px; height: 164px;">
+          {% if channel.hi_def %}
+          <img class="hd_tag_large channel2_hd"
+               src="{{ STATIC_BASE_URL }}images/ico_hd_tag_large.png" alt="HD" />
+          {% endif %}
+        </div>
         </a>
-      </div>
     </div>
   </div>
 

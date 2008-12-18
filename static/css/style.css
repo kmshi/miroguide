@@ -90,6 +90,11 @@ h1, h2, h3, h4, h5 {
     margin: 0 15px 0 0;
 }
 
+.thumb {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 #container {
     width: 790px;
     overflow: hidden;
@@ -623,8 +628,7 @@ ul.searchResults li {
     display: inline;
     height: 100%;
     width: 360px;
-    padding: 0 20px 0 25px;
-    margin: 10px 0 25px 0;
+    padding: 10px 20px 25px 25px;
 }
 
 ul.searchResults li h4 {
@@ -1112,8 +1116,6 @@ h3.resultsCount .pagination {
 #channelDetails2 .thumb {
     float: right;
     display: inline;
-    width: 247px;
-    height: 162px;
     padding: 3px;
     margin: 10px 6px 0 6px;
 }
