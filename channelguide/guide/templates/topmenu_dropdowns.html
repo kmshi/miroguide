@@ -1,0 +1,161 @@
+{% load i18n cg_helpers %}
+
+<div id="hover_align">
+  {% if user.is_authenticated %}
+  <div id="hoverMenuLogin" class="loggedin"
+       onmouseover="return showMenu('hoverMenuLogin', 'account', event)"
+       onmouseout="return hideMenu('hoverMenuLogin', 'account', event)">
+    <ul>
+      {% if user.is_moderator %}
+        <li id="login">
+          <a href="{{ BASE_URL }}moderate/">{% trans "Moderator's Area" %}</a>
+        </li>
+      {% endif %}
+      <li>
+        <a href="{{ user.get_url }}">{% trans "View/Edit Profile" %}</a>
+      </li>
+      {% if user.channels %}
+        <li>
+          <a href="{{ BASE_URL }}user/{{ user.username }}">
+            {% trans "Channels I Manage" %}
+          </a>
+        </li>
+      {% endif %}
+      <li>
+        <a href="{{ BASE_URL }}submit"
+           onclick="submitAChannel($(this)); return false;">
+          {% trans "Submit a Channel" %}
+        </a>
+      </li>
+    </ul>
+    <div id="register">
+      <p>
+        <a href="{{ BASE_URL }}accounts/logout">
+          <span class="always_free">{% trans "Log Out" %}</span>
+        </a>
+      </p>
+    </div>
+  </div>
+  {% else %}
+    <div id="hoverMenuLogin"
+         onmouseover="return showMenu('hoverMenuLogin', 'account', event)"
+         onmouseout="return hideMenu('hoverMenuLogin', 'account', event)">
+      <ul>
+        <li class="form-errors"></li>
+        <li id="login">
+          <form method="post" action="{{ BASE_URL }}accounts/login">
+            <div>
+              <input type="hidden" name="which-form" value="login" />
+            </div>
+            <div class="form_row">
+              <label for="id_username">{% trans "Username" %}</label>
+              <input id="id_username" name="username" maxlength="20" type="text">
+            </div>
+            <div class="form_row">
+              <label for="id_password">{% trans "Password" %}</label>
+              <input id="id_password" name="password" maxlength="20" type="password">
+            </div>
+            <div class="form_row">
+              <a class="forgot_password"
+                 href="{{ BASE_URL }}accounts/forgot-password">
+                {% trans "Forgot password" %}
+              </a>
+              <button id="login_button" class="fr" type="submit">
+                <span>{% trans "Login" %}</span>
+              </button>
+            </div>
+          </form>
+        </li>
+        <li id="registerHidden">
+          <form method="post" action="{{ BASE_URL }}accounts/login">
+            <div>
+              <input type="hidden" name="which-form" value="register"/>
+            </div>
+            <div class="form_row">
+              <label for="id_newusername">
+                {% trans "Username" %} *
+              </label>
+              <input id="id_newusername" name="newusername" maxlength="20" type="text">
+            </div>
+            <div class="form_row">
+              <label for="id_email">
+                {% trans "Email Address" %} *
+              </label>
+              <input id="id_email" name="email" maxlength="50" type="text">
+            </div>
+            <div class="form_row">
+              <label for="id_newpassword">
+                {% trans "Pick a Password" %} *
+              </label>
+              <input id="id_newpassword" name="newpassword" maxlength="20" type="password">
+            </div>
+            <div class="form_row">
+              <label for="id_newpassword2">
+                {% trans "Confirm Password" %} *
+              </label>
+              <input id="id_newpassword2" name="newpassword2" maxlength="20" type="password">
+            </div>
+            <div class="form_row">
+              <button class="fr" type="submit"><span>{% trans "Register!" %}</span></button>
+            </div>
+          </form>
+        </li>
+      </ul>
+      <div id="register">
+        <p>
+          <a href="{{ BASE_URL }}accounts/login">
+            <span class="register_tag">{% trans "Register Now!" %}</span>
+            <span class="always_free">{% trans "Always Free" %}</span>
+          </a>
+        </p>
+      </div>
+      <script type="text/javascript">
+        //<![CDATA[
+        $("#hoverMenuLogin #login form").ajaxForm(
+                function(data, textStatus) {
+                        result = $('.form-errors ul li', data)
+                        .addClass('form-errors');
+                        if (!result.length) {
+                                location.href = location.href;
+                                return;
+                        } else {
+                                $('#hoverMenuLogin .form-errors')
+                                .replaceWith(result);
+                                $('#hoverMenuLogin .form-errors').show();
+                        }
+                });
+        $('#hoverMenuLogin #register').click(function() {
+                $('#hoverMenuLogin #login').hide();
+                $('#hoverMenuLogin #registerHidden').show();
+                return false;
+        });
+        //]]>
+      </script>
+    </div>
+  {% endif %}
+  <div id="hoverMenuLanguage"
+       onmouseover="return showMenu('hoverMenuLanguage', 'language', event)"
+       onmouseout="return hideMenu('hoverMenuLanguage', 'language', event)">
+    <div id="upButton"></div>
+    <form action="{{ BASE_URL }}i18n/setlang/" method="POST">
+      <ul>
+        {% get_available_languages as LANGUAGES %}
+        {% get_current_language as LANGUAGE_CODE %}
+        {% for language in LANGUAGES %}
+          <li{% ifequal language.0 LANGUAGE_CODE %} class="current"{% endifequal %}>
+            <button type="submit" name="language" value="{{ language.0 }}">
+              <span>{{ language.1 }}</span>
+            </button>
+          </li>
+        {% endfor %}
+      </ul>
+    </form>
+    <div id="downButton"></div>
+    <script type="text/javascript">
+      //<!CDATA[[
+           $("#upButton").hover(languageUp, languageStop);
+           $("#downButton").hover(languageDown, languageStop);
+           //]]>
+    </script>
+  </div><!--hoverMenu-->
+</div><!--hover_align-->

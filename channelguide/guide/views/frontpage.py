@@ -132,12 +132,6 @@ def make_category_peek(request):
 
 @cache.cache_for_user
 def index(request):
-    if not request.user.is_authenticated():
-        title = _("What is Miro?")
-        desc = _("Miro is an easy way to subscribe and watch all of these shows.  Using it is 100% free.")
-        link = _("Download Miro")
-        request.add_notification(None, '<span class="only-in-miro"><center>Rate channels to get <a href="/recommend/">personalized recommendations</a>!</center></span><span class="only-in-browser"><strong>%s</strong> %s <a href="http://www.getmiro.com/download">%s</a></span>' % (title, desc, link))
-
     featured_channels = get_featured_channels(request)
     context = {
         'streaming': get_new_channels(request, False, 4),

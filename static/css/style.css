@@ -2631,6 +2631,27 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
     color: #eed9db;
 }
 
+#hoverMenuLogin, #registerHidden {
+    display: none;
+}
+
+#login_button {
+    background: url(/images/buttons/login_button.png) !important;
+    text-align: center;
+    width: 59px;
+    height: 22px;
+    color: #373737;
+}
+
+#login_button span {
+    color: black;
+    font: 11px/20px Arial, Helvetica, sans-serif;
+}
+
+#login_button:hover {
+    background: url(/images/buttons/login_button.png) 0 -22px !important;
+}
+
 
 /*Popup box*/
 .popupBox {

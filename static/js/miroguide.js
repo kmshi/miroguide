@@ -20,22 +20,6 @@ function MiroVersion() {
     }
 }
 
-function getPreviousElement(elt) {
-    while(elt.previousSibling) {
-        elt = elt.previousSibling;
-        if(elt.nodeType == 1) return elt;
-    }
-    return null;
-}
-
-function getNextElement(elt) {
-    while(elt.nextSibling) {
-        elt = elt.nextSibling;
-        if(elt.nodeType == 1) return elt;
-    }
-    return null;
-}
-
 function showLoadIndicator(always) {
     indicator = $("#load-indicator");
     if ((!indicator.queue().length) && always || navigator.userAgent.indexOf('Miro') != -1) {
@@ -102,6 +86,30 @@ function handleSubscriptionLink(channel_guide_url, subscribe_url) {
     }
     request.open('GET', channel_guide_url, true);
     request.send(null);
+}
+
+function channelAdd(url, redirect, name, event) {
+    var xhr = makeXMLHttpRequest();
+    if (!xhr) return true;
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState > 1) {
+            display = $("<div class='added_channel'>" + name + " added to your Miro sidebar!</div>");
+            display.css('position', 'absolute').css('top', event.pageY - 31).css('left', '-10em');
+            $("body").append(display);
+            display.animate({left: 0}, 'slow');
+            setTimeout(function() {
+                d = $('div.added_channel:eq(0)');
+                d.animate({
+                    left: '-20em'
+                }, 'slow',  function() {
+                    d.remove();
+                });
+            }, 2000);
+            window.location = redirect;
+        }
+    };
+    xhr.open('GET', url, true);
+    xhr.send(null);
     return false;
 }
 
@@ -182,18 +190,22 @@ function submitAChannel(submitLink) {
                              $('#hoverMenuSubmit form').ajaxForm(
                                  showNewSubmitForm);});
 }
+
 function inBounds(val, min, length) {
     return (min < val && val < (min + length));
 }
+
 function isWithin(event, obj)  {
     return (inBounds(event.clientX, obj.offsetLeft, obj.offsetWidth) &&
             inBounds(event.clientY, obj.offsetTop, obj.offsetHeight))
 }
+
 function showMenu(el, menu, event) {
     $('#' + el).css('top', 'inherit').show();
     $('#' + menu).addClass('hover');
     return false;
 }
+
 function hideMenu(el, menu, event) {
     el_o = $('#' + el);
     menu_o = $('#' + menu);
@@ -207,6 +219,7 @@ function hideMenu(el, menu, event) {
     $('#' + menu).removeClass('hover');
     return false;
 }
+
 function showNewSubmitForm(data, textStatus) {
     submit = $('div.top, form[method=post]', data).slice(1);
     if (submit.length < 2) {
@@ -240,6 +253,7 @@ function languageDown() {
     languageStop();
     languageTimeout = setTimeout(languageDown, 50);
 }
+
 function languageStop() {
     if (!languageTimeout)
         return;
