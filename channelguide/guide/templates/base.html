@@ -43,24 +43,6 @@ See LICENSE for details.
 <body onload="{% block onload-extra %}{% endblock%}"
       onpagehide="hideLoadIndicator();"
       id="main">
-  <div id="nav-bar">
-    <ul>
-      <li class="previous">
-        <a href="#" onclick="history.back(); return false;" >
-          <span class="hidden">Previous</span>
-        </a>
-      </li>
-      <li class="next">
-        <a href="#" onclick="history.forward(); return false;" >
-          <span class="hidden">Next</span>
-        </a>
-      </li>
-      <li class="home">
-        {# {% homebutton "/" %}{% trans "HOME" %}{% endhomebutton %} #}
-      </li>
-    </ul>
-  </div>
-
   {% block navigation %}
   <div id="topBar">
     <div class="page">
@@ -133,21 +115,17 @@ See LICENSE for details.
     </div>
   </div>
   {% endblock %}
-  <script type="text/javascript">
-    if ((top.frames.length == 2 && top.frames[1].name == 'miro_guide_frame') ||
-         navigator.userAgent.indexOf('Miro') == -1) {
-        navBar = document.getElementById('nav-bar');
-        navigation = document.getElementById('navigation');
-
-        if (navBar)
-            navBar.style.display = 'none';
-        if (navigation)
-            navigation.style.margin = 0;
-    }
-  </script>
   {% if user %}
     {% show_account_bar user %}
   {% endif %}
+
+  <div id="content" class="page">
+    <!-- NOTIFICATION BAR -->
+    {% block content %}{% endblock %}
+  </div>
+
+  {% comment %}
+
   <div id="background">
     {% block underwriting %}
     <div id="underwriting">
@@ -180,24 +158,7 @@ See LICENSE for details.
       </noscript>
     </div>
     {% endblock %}
-    <div id="page">
-      <div id="search-bar">
-        <h2 class="tagline">{{ total_channels }} channels, all free.</h2>
-        <form action="{{ BASE_URL }}search" onsubmit="showLoadIndicator();" method="get" id="search-form">
-          <div>
-            <label class="hidden" for="search-text">Search</label>
-            <input type="text" name="query" value="{{ search_query }}" id="search-text" >
-            <input type="submit" id="search-submit" value="Search Channels" >
-          </div>
-        </form>
-      </div>
-      <div id="content-bottom">
-        <div id="content">
-          <!-- NOTIFICATION BAR -->
-          {% block content %}{% endblock %}
-        </div>
-      </div>
-    </div>
-  </div>
+  {% endcomment %}
+
 </body>
 </html>
