@@ -1,14 +1,17 @@
 {% comment %}
-Copyright (c) 2008 Participatory Culture Foundation
-See LICENSE for details.
+  Copyright (c) 2008 Participatory Culture Foundation
+  See LICENSE for details.
 {% endcomment %}
 {% load i18n cg_helpers %}
-<div class="featuredItem">
+<div>
   {% block screenshot %}
   <a {% link channel.get_url %}>
-    <img class="hd_tag_large"
+    <div class="thumb featuredItem top_corners"
+         style="background: url({{ channel.thumb_url_194_130 }});">
+      <img class="hd_tag_large"
          src="{{ STATIC_BASE_URL }}images/ico_hd_tag_large.png" alt="">
-    {{ channel.thumb_194_130 }}
+    </div>
+    <img src="{{ STATIC_BASE_URL }}images/featured_img_bg.png">
   </a>
   {% endblock screenshot %}
 </div>

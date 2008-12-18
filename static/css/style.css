@@ -214,10 +214,11 @@ h1, h2, h3, h4, h5 {
 
 #featuredItemsCarousel #innerContent ul li div.featuredItem {
     background: url(/images/featured_img_bg.png) left bottom no-repeat;
-    padding: 10px 0 0 0;
     width: 194px;
-    height: 148px;
-    margin: 16px auto 6px auto;
+    height: 130px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #featuredItemsCarousel #innerContent ul li span.title {
@@ -3284,9 +3285,10 @@ a.large_button span {
 }
 
 .hd_tag_large {
-    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -8px;
     z-index: 2;
-    margin: -5px 0 0 82px;
 }
 
 .hd_tag_small2 {

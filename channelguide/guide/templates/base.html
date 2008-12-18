@@ -19,7 +19,10 @@ See LICENSE for details.
     <meta name="language" content="en">
     <link rel="StyleSheet" type="text/css"
           href="{{ STATIC_BASE_URL }}css/style.css?nonce={{ style_nonce }}">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"
+    <script src="{{ STATIC_BASE_URL }}js/jquery.js"
+            type="text/javascript">
+    </script>
+    <script src="{{ STATIC_BASE_URL }}js/jquery.corner.js"
             type="text/javascript">
     </script>
     <script src="{{ STATIC_BASE_URL }}js/miroguide.js?nonce={{ js_nonce }}"

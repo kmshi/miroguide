@@ -278,6 +278,12 @@ function languageUpdate() {
         down.css('cursor', 'inherit');
     }
 }
+
+function add_corners() {
+    $('.has_corners').corner();
+    $('.top_corners').corner('top');
+}
+
 $(document).ajaxStart(function() {
     showLoadIndicator(true);
 }).ajaxStop(function() {
@@ -287,4 +293,5 @@ $(document).ajaxStart(function() {
 if (isMiro()) {
     document.write('<style type="text/css">.only-in-miro {  display: inherit !important;}.only-in-browser {  display: none !important;}</style>');
 }
+
 window.addEventListener('pageshow', searchPageShow, false);
