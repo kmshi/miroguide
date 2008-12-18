@@ -197,6 +197,8 @@ h1, h2, h3, h4, h5 {
     padding: 0;
     list-style: none;
     width: 10000px;
+    list-style-position: outside;
+    position: absolute;
 }
 
 #featuredItemsCarousel #innerContent ul li {
