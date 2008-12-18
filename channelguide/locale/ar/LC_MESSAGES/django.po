@@ -1,116 +1,119 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Arabic translation for miroguide
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the miroguide package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-06 14:33-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Project-Id-Version: miroguide\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2008-08-06 14:32-0400\n"
+"PO-Revision-Date: 2008-08-22 00:42+0000\n"
+"Last-Translator: ahmed ali <Unknown>\n"
+"Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
+"3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
+"X-Launchpad-Export-Date: 2008-12-09 21:56+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: settings.py:34
 msgid "English"
-msgstr ""
+msgstr "الإنكليزية"
 
 #: settings.py:35
 msgid "Arabic"
-msgstr ""
+msgstr "العربية"
 
 #: settings.py:36
 msgid "Bengali"
-msgstr ""
+msgstr "البنغالية"
 
 #: settings.py:37
 msgid "Catalan"
-msgstr ""
+msgstr "الكتلانية"
 
 #: settings.py:38
 msgid "Chinese"
-msgstr ""
+msgstr "الصينية"
 
 #: settings.py:39
 msgid "Croation"
-msgstr ""
+msgstr "الكرواتية"
 
 #: settings.py:40
 msgid "Danish"
-msgstr ""
+msgstr "الدانماركية"
 
 #: settings.py:41
 msgid "Dutch"
-msgstr ""
+msgstr "الهولندية"
 
 #: settings.py:42
 msgid "Estonian"
-msgstr ""
+msgstr "الاستونية"
 
 #: settings.py:43
 msgid "Finnish"
-msgstr ""
+msgstr "الفنلندية"
 
 #: settings.py:44
 msgid "French"
-msgstr ""
+msgstr "الفرنسية"
 
 #: settings.py:45
 msgid "German"
-msgstr ""
+msgstr "الألمانية"
 
 #: settings.py:46
 msgid "Greek"
-msgstr ""
+msgstr "اليونانية"
 
 #: settings.py:47
 msgid "Hebrew"
-msgstr ""
+msgstr "العبرية"
 
 #: settings.py:48
 msgid "Hinidi"
-msgstr ""
+msgstr "الهندية"
 
 #: settings.py:49
 msgid "Hungarian"
-msgstr ""
+msgstr "المجرية"
 
 #: settings.py:50
 msgid "Icelandic"
-msgstr ""
+msgstr "الآيسلندية"
 
 #: settings.py:51
 msgid "Indonesian"
-msgstr ""
+msgstr "الإندونيسية"
 
 #: settings.py:52
 msgid "Italian"
-msgstr ""
+msgstr "الإيطالية"
 
 #: settings.py:53
 msgid "Japanese"
-msgstr ""
+msgstr "اليابانية"
 
 #: settings.py:54
 msgid "Korean"
-msgstr ""
+msgstr "الكوريّة"
 
 #: settings.py:55
 msgid "Kurdish (Sorani)"
-msgstr ""
+msgstr "الكردية"
 
 #: settings.py:56
 msgid "Latvian"
-msgstr ""
+msgstr "الألبانية"
 
 #: settings.py:57
 msgid "Lithuanian"
-msgstr ""
+msgstr "اللتوانية"
 
 #: settings.py:58
 msgid "Malay"
@@ -118,107 +121,107 @@ msgstr ""
 
 #: settings.py:59
 msgid "Norwegian"
-msgstr ""
+msgstr "النرويجية"
 
 #: settings.py:60
 msgid "Persian"
-msgstr ""
+msgstr "الفارسية"
 
 #: settings.py:61
 msgid "Polish"
-msgstr ""
+msgstr "البولندية"
 
 #: settings.py:62
 msgid "Portuguese (Brazillian)"
-msgstr ""
+msgstr "البرتغالية (البرازيلية)"
 
 #: settings.py:63
 msgid "Portuguese (Portugal)"
-msgstr ""
+msgstr "البرتغالية (البرتغال)"
 
 #: settings.py:64
 msgid "Romanian"
-msgstr ""
+msgstr "الرومانية"
 
 #: settings.py:65
 msgid "Russian"
-msgstr ""
+msgstr "الروسية"
 
 #: settings.py:66
 msgid "Serbo-Croatian"
-msgstr ""
+msgstr "اللغة الصرب-كرواتية"
 
 #: settings.py:67
 msgid "Slovak"
-msgstr ""
+msgstr "السلوفاكية"
 
 #: settings.py:68
 msgid "Spanish"
-msgstr ""
+msgstr "الإسبانية"
 
 #: settings.py:69
 msgid "Swedish"
-msgstr ""
+msgstr "السويدية"
 
 #: settings.py:70
 msgid "Thai"
-msgstr ""
+msgstr "التايلندية"
 
 #: settings.py:71
 msgid "Turkish"
-msgstr ""
+msgstr "التركية"
 
 #: settings.py:72
 msgid "Vietnamese"
-msgstr ""
+msgstr "الفيتنامية"
 
 #: guide/tables.py:12
 msgid "New"
-msgstr ""
+msgstr "جديد"
 
 #: guide/tables.py:14
 msgid "Approved"
-msgstr ""
+msgstr "مستحسن"
 
 #: guide/tables.py:16
 msgid "Waiting"
-msgstr ""
+msgstr "انتظار"
 
 #: guide/tables.py:18
 msgid "Don't Know"
-msgstr ""
+msgstr "لا تعلم"
 
 #: guide/tables.py:20
 msgid "Rejected"
-msgstr ""
+msgstr "مرفوض"
 
 #: guide/tables.py:22
 msgid "Suspended"
-msgstr ""
+msgstr "موقوف"
 
 #: guide/tables.py:24
 msgid "Audio"
-msgstr ""
+msgstr "سمعي"
 
 #: guide/tables.py:26
 msgid "Unknown"
-msgstr ""
+msgstr "غير معروف"
 
 #: guide/templateutil.py:181 guide/templates/base.html:52
 msgid "Most Popular"
-msgstr ""
+msgstr "الاكثر شهرة"
 
 #: guide/templateutil.py:182
 msgid "Top Rated"
-msgstr ""
+msgstr "الاعلى تقديراً"
 
 #: guide/templateutil.py:183
 msgid "Most Recent"
-msgstr ""
+msgstr "الاحدث"
 
 #: guide/templateutil.py:184
 msgid "A-Z"
-msgstr ""
+msgstr "الف - ياء"
 
 #: guide/forms/channels.py:28
 msgid "What is HD?"
@@ -252,7 +255,7 @@ msgstr ""
 
 #: guide/forms/channels.py:58
 msgid "We can't find a video feed at that address, please try again."
-msgstr ""
+msgstr "عذراً لا نجد فيديو بهذا العنوان ، من فضلك حاول مرة ثانية"
 
 #: guide/forms/channels.py:75 guide/forms/channels.py:279
 msgid "Channel Name"
@@ -264,19 +267,19 @@ msgstr ""
 
 #: guide/forms/channels.py:139
 msgid "1st"
-msgstr ""
+msgstr "الأول"
 
 #: guide/forms/channels.py:139
 msgid "2nd"
-msgstr ""
+msgstr "الثاني"
 
 #: guide/forms/channels.py:139
 msgid "3rd"
-msgstr ""
+msgstr "الثالث"
 
 #: guide/forms/channels.py:161
 msgid "You must at least enter a primary value."
-msgstr ""
+msgstr "يتوجب عليك علي الأقل إعطاء قيمة أولية"
 
 #: guide/forms/channels.py:178
 #, python-format
@@ -285,11 +288,11 @@ msgstr ""
 
 #: guide/forms/channels.py:260
 msgid "This field is required."
-msgstr ""
+msgstr "يتوجب عليك ملئ هذا الحقل"
 
 #: guide/forms/channels.py:265
 msgid "Not a valid image"
-msgstr ""
+msgstr "الصورة غير متاحة"
 
 #: guide/forms/channels.py:269
 msgid "Not an image in a format we support."
@@ -297,19 +300,19 @@ msgstr ""
 
 #: guide/forms/channels.py:282 guide/forms/cobranding.py:15
 msgid "Website URL"
-msgstr ""
+msgstr "عنوان صفحة الويب"
 
 #: guide/forms/channels.py:284
 msgid "Full Description"
-msgstr ""
+msgstr "وصف شامل"
 
 #: guide/forms/channels.py:285
 msgid "Publisher E-mail"
-msgstr ""
+msgstr "ناشر الإيميل"
 
 #: guide/forms/channels.py:287 guide/templates/tag-list.html:7
 msgid "Tags"
-msgstr ""
+msgstr "وسوم"
 
 #: guide/forms/channels.py:288
 msgid "Keywords that describe this channel.  Separate each tag with a comma."
@@ -317,19 +320,19 @@ msgstr ""
 
 #: guide/forms/channels.py:290 guide/views/categories.py:19
 msgid "Categories"
-msgstr ""
+msgstr "الفئات"
 
 #: guide/forms/channels.py:291
 msgid "Languages"
-msgstr ""
+msgstr "اللغات"
 
 #: guide/forms/channels.py:292
 msgid "What language are most of these videos in?"
-msgstr ""
+msgstr "ما هي لغة معظم الفيديوهات ؟"
 
 #: guide/forms/channels.py:293
 msgid "Postal Code"
-msgstr ""
+msgstr "الرمز البريدي"
 
 #: guide/forms/channels.py:295
 msgid "High Definition"
@@ -337,7 +340,7 @@ msgstr ""
 
 #: guide/forms/channels.py:297
 msgid "Upload Image"
-msgstr ""
+msgstr "إرفع صورة"
 
 #: guide/forms/channels.py:298
 msgid ""
@@ -345,6 +348,9 @@ msgid ""
 "ways to attract new viewers.  It's worth making an effort to do something "
 "beautiful.  You can also update the image after you submit your channel."
 msgstr ""
+"تذكر أن إبراز قناتك بصور جذابة هو من أشد العوامل التي تجزب المشاهدين لها . "
+"لذلك فحري بك أن تجعلها في أجمل صورة\n"
+"ولكن بإستطاعتك أن تعدل الصورة بعد إتمتم قناتك"
 
 #: guide/forms/channels.py:320
 msgid "That streaming site already exists."
@@ -356,15 +362,15 @@ msgstr ""
 
 #: guide/forms/channels.py:461
 msgid "Email"
-msgstr ""
+msgstr "البريد الإلكتروني"
 
 #: guide/forms/channels.py:462
 msgid "Title"
-msgstr ""
+msgstr "العنوان"
 
 #: guide/forms/channels.py:463 guide/forms/misc.py:15
 msgid "Body"
-msgstr ""
+msgstr "الجسم"
 
 #: guide/forms/cobranding.py:11
 msgid "Title in Miro App"
@@ -376,11 +382,11 @@ msgstr ""
 
 #: guide/forms/cobranding.py:13
 msgid "Page Title"
-msgstr ""
+msgstr "عنوان الصفحة"
 
 #: guide/forms/cobranding.py:14
 msgid "This is the title that will be displayed at the top of the page."
-msgstr ""
+msgstr "هذا هو العنوان الذي سيوضع في كعنوان للصفحة"
 
 #: guide/forms/cobranding.py:17
 msgid "Icon URL"
@@ -406,14 +412,15 @@ msgstr ""
 
 #: guide/forms/cobranding.py:22
 msgid "Description"
-msgstr ""
+msgstr "الوصف"
 
 #: guide/forms/cobranding.py:24
 msgid "Link 1 URL"
 msgstr ""
 
 #: guide/forms/cobranding.py:24
-msgid "Or leave this blank to have plain text.  All these links are optional."
+msgid ""
+"Or leave this blank to have plain text.  All these links are optional."
 msgstr ""
 
 #: guide/forms/cobranding.py:26
@@ -443,23 +450,23 @@ msgstr ""
 
 #: guide/forms/misc.py:14
 msgid "title"
-msgstr ""
+msgstr "العنوان:"
 
 #: guide/forms/user.py:18
 msgid "Username already taken"
-msgstr ""
+msgstr "اسم المستخدم موجود بالفعل"
 
 #: guide/forms/user.py:28
 msgid "E-mail already taken"
-msgstr ""
+msgstr "عنون البريد الإلكتروني موجود بالفعل"
 
 #: guide/forms/user.py:35
 msgid "E-mail not found"
-msgstr ""
+msgstr "العنوان الإلكترون غير موجود"
 
 #: guide/forms/user.py:44
 msgid "That username is not valid."
-msgstr ""
+msgstr "اسم المستخدم غير متاح"
 
 #: guide/forms/user.py:58
 msgid "That username or e-mail is not valid."
@@ -467,63 +474,63 @@ msgstr ""
 
 #: guide/forms/user.py:71
 msgid "That password is not valid."
-msgstr ""
+msgstr "هذا الرقم السري غير متاح"
 
 #: guide/forms/user.py:85
 msgid "Passwords don't match"
-msgstr ""
+msgstr "الرقم السري غير صحيح"
 
 #: guide/forms/user.py:89
 msgid "Username"
-msgstr ""
+msgstr "اسم المستخدم"
 
 #: guide/forms/user.py:90
 msgid "Email Address"
-msgstr ""
+msgstr "عنون البريد الإلكتروني"
 
 #: guide/forms/user.py:92
 msgid "Pick a Password"
-msgstr ""
+msgstr "اختر رقم المرور"
 
 #: guide/forms/user.py:94 guide/forms/user.py:111 guide/forms/user.py:176
 msgid "Confirm Password"
-msgstr ""
+msgstr "أكّد كلمة المرور"
 
 #: guide/forms/user.py:109
 msgid "Change Password"
-msgstr ""
+msgstr "تغيير كلمة المرور"
 
 #: guide/forms/user.py:113
 msgid "First Name"
-msgstr ""
+msgstr "الاسم الأول"
 
 #: guide/forms/user.py:115
 msgid "Last Name"
-msgstr ""
+msgstr "اسم العائلة"
 
 #: guide/forms/user.py:116
 msgid "Age"
-msgstr ""
+msgstr "السن"
 
 #: guide/forms/user.py:120
 msgid "Gender"
-msgstr ""
+msgstr "الجنس"
 
 #: guide/forms/user.py:122
 msgid "City"
-msgstr ""
+msgstr "المدينة"
 
 #: guide/forms/user.py:124
 msgid "State"
-msgstr ""
+msgstr "الولاية"
 
 #: guide/forms/user.py:126
 msgid "Country"
-msgstr ""
+msgstr "البلد"
 
 #: guide/forms/user.py:128
 msgid "Zip Code"
-msgstr ""
+msgstr "الرّمز البريديّ"
 
 #: guide/forms/user.py:130
 msgid "IM Username"
@@ -543,15 +550,15 @@ msgstr ""
 
 #: guide/forms/user.py:166
 msgid "Normal"
-msgstr ""
+msgstr "عادي"
 
 #: guide/forms/user.py:167
 msgid "No emails"
-msgstr ""
+msgstr "لا يوجد بريد إلكتروني"
 
 #: guide/forms/user.py:168
 msgid "Send all emails"
-msgstr ""
+msgstr "إبعث كل الرسائل"
 
 #: guide/forms/user.py:169
 msgid "Channel Status Emails"
@@ -577,15 +584,15 @@ msgstr[1] ""
 
 #: guide/templates/add-note.html:9
 msgid "Post"
-msgstr ""
+msgstr "ارسل"
 
 #: guide/templates/after-submit.html:9
 msgid "Thanks for Submitting Your Channel"
-msgstr ""
+msgstr "نشكرك لصنع هذه القناة"
 
 #: guide/templates/after-submit.html:10
 msgid "Your channel has been submitted!"
-msgstr ""
+msgstr "لقد تم صنع قناتك"
 
 #: guide/templates/after-submit.html:12
 msgid ""
@@ -598,7 +605,7 @@ msgstr ""
 
 #: guide/templates/after-submit.html:19
 msgid "Updating Your Channel Info"
-msgstr ""
+msgstr "تحديث بيانات  قناتك"
 
 #: guide/templates/after-submit.html:20
 msgid ""
@@ -606,6 +613,9 @@ msgid ""
 "You can update the details about your channel at anytime.  Just login\n"
 "to your account and click the 'My Submitted Channels' link.\n"
 msgstr ""
+"\n"
+"تستطيعتحديث بيانات قناتك بأي وقت فقط سجل الدخول لحسابك بالضغط علي الرابط\n"
+"'قناتي '\n"
 
 #: guide/templates/after-submit.html:25
 msgid "Add a 1-Click Subscribe Button to Your Website"
@@ -635,7 +645,7 @@ msgstr ""
 #: guide/templates/auth-token-request.html:7
 #: guide/templates/auth-token-request.html:11
 msgid "Forgot Password"
-msgstr ""
+msgstr "هل نسيت رقم المرور"
 
 #: guide/templates/auth-token-request.html:12
 msgid ""
@@ -647,29 +657,29 @@ msgstr ""
 
 #: guide/templates/auth-token-request.html:17
 msgid "Send"
-msgstr ""
+msgstr "أرسِل"
 
 #: guide/templates/bad-auth-token.html:7
 #: guide/templates/change-password.html:7
 #: guide/templates/change-password.html:11
 msgid "Create New Password"
-msgstr ""
+msgstr "أنشئ رقم مروري"
 
 #: guide/templates/bad-auth-token.html:10
 msgid "Link invalid"
-msgstr ""
+msgstr "الرابط غير متاح"
 
 #: guide/templates/bad-auth-token.html:11
 msgid "The link you used to get to this page was not valid."
-msgstr ""
+msgstr "عذراً لقد استخدمت رابط غير صحيح للوصول لهذه الصفحة"
 
 #: guide/templates/base.html:5 templates/500.html:7
 msgid "Miro Guide"
-msgstr ""
+msgstr "دليل ميرو"
 
 #: guide/templates/base.html:27
 msgid "Miro"
-msgstr ""
+msgstr "ميرو"
 
 #: guide/templates/base.html:28
 msgid "Video feeds"
@@ -681,11 +691,11 @@ msgstr ""
 
 #: guide/templates/base.html:30
 msgid "Videos you'll love"
-msgstr ""
+msgstr "فديوهات ستعجبك"
 
 #: guide/templates/base.html:36
 msgid "Search"
-msgstr ""
+msgstr "ابحث"
 
 #: guide/templates/base.html:50
 msgid "Genres"
@@ -697,19 +707,19 @@ msgstr ""
 
 #: guide/templates/base.html:53
 msgid "New Shows"
-msgstr ""
+msgstr "لقطات جديدة"
 
 #: guide/templates/base.html:54
 msgid "Video by Language"
-msgstr ""
+msgstr "الفديوهات مرتبة وفق اللغة"
 
 #: guide/templates/base.html:55
 msgid "Language"
-msgstr ""
+msgstr "اللغة"
 
 #: guide/templates/base.html:57
 msgid "Account"
-msgstr ""
+msgstr "حساب"
 
 #: guide/templates/base.html:68
 msgid "Moderator's Area"
@@ -725,40 +735,40 @@ msgstr ""
 
 #: guide/templates/base.html:74
 msgid "Submit a Channel"
-msgstr ""
+msgstr "إدخال قناة"
 
 #: guide/templates/base.html:78
 msgid "Log Out"
-msgstr ""
+msgstr "خروج"
 
 #: guide/templates/base.html:94
 msgid "Forgot password"
-msgstr ""
+msgstr "نسيت رقم المرور"
 
 #: guide/templates/base.html:95 guide/templates/login.html:7
 #: guide/templates/login.html.py:13 guide/templates/login.html:18
 msgid "Login"
-msgstr ""
+msgstr "دخول"
 
 #: guide/templates/base.html:106
 msgid "Register!"
-msgstr ""
+msgstr "سجل"
 
 #: guide/templates/base.html:113
 msgid "Register Now!"
-msgstr ""
+msgstr "سجل الأن"
 
 #: guide/templates/base.html:114
 msgid "Always Free"
-msgstr ""
+msgstr "مجاني دائماً"
 
 #: guide/templates/base.html:161
 msgid "Loading..."
-msgstr ""
+msgstr "جارِ التّحميل..."
 
 #: guide/templates/button_block.html:6
 msgid "Add"
-msgstr ""
+msgstr "أضف"
 
 #: guide/templates/button_block.html:6
 msgid "Add channel"
@@ -771,7 +781,7 @@ msgstr ""
 
 #: guide/templates/button_block.html:12
 msgid "Details"
-msgstr ""
+msgstr "التفاصيل"
 
 #: guide/templates/button_block.html:13
 #, python-format
@@ -780,15 +790,15 @@ msgstr ""
 
 #: guide/templates/change-password.html:14
 msgid "Create"
-msgstr ""
+msgstr "أنشئ"
 
 #: guide/templates/channel-form.html:7
 msgid "Submit Channel"
-msgstr ""
+msgstr "أنشئ قناة"
 
 #: guide/templates/channel-form.html:15
 msgid "Channel Thumbnail"
-msgstr ""
+msgstr "صورة القناة"
 
 #: guide/templates/channel-form.html:16
 msgid ""
@@ -819,7 +829,7 @@ msgstr ""
 
 #: guide/templates/channel-notes.html:17
 msgid "Manager"
-msgstr ""
+msgstr "المدير"
 
 #: guide/templates/channel.html:12 guide/templates/channel.html.py:14
 msgid "High-Definition Channel"
@@ -831,12 +841,12 @@ msgstr ""
 
 #: guide/templates/channel.html:60
 msgid "Notes"
-msgstr ""
+msgstr "ملاحظات"
 
 #: guide/templates/cobranding-admin.html:7
 #: guide/templates/cobranding-admin.html:9
 msgid "Administration"
-msgstr ""
+msgstr "الإدارة"
 
 #: guide/templates/cobranding.html:53
 #, python-format
@@ -845,19 +855,19 @@ msgstr ""
 
 #: guide/templates/confirm.html:7
 msgid "Email Sent"
-msgstr ""
+msgstr "تم أرسال الرسالة"
 
 #: guide/templates/confirm.html:11
 msgid "Confirmed!"
-msgstr ""
+msgstr "أكّد"
 
 #: guide/templates/confirm.html:12
 msgid "Thanks for confirming your account!"
-msgstr ""
+msgstr "شكراً لتأكيد حسابك"
 
 #: guide/templates/confirm.html:15
 msgid "Confirmation sent"
-msgstr ""
+msgstr "تأكيد الإرسال"
 
 #: guide/templates/confirm.html:17
 msgid ""
@@ -867,15 +877,15 @@ msgstr ""
 
 #: guide/templates/confirm.html:25
 msgid "Resend"
-msgstr ""
+msgstr "إعادة إرسال"
 
 #: guide/templates/confirm.html:29
 msgid "Incorrect code"
-msgstr ""
+msgstr "كود غير صحيح"
 
 #: guide/templates/confirm.html:30
 msgid "I'm sorry, that is not the correct code."
-msgstr ""
+msgstr "عذراً هذا ليس الكود الصحيح"
 
 #: guide/templates/edit-bar.html:9
 msgid "Click to Edit Channel / Assist Manager"
@@ -911,15 +921,15 @@ msgstr ""
 
 #: guide/templates/edit-channel.html:8 guide/templates/edit-channel.html:10
 msgid "Edit Channel"
-msgstr ""
+msgstr "تحرير القناة"
 
 #: guide/templates/edit-channel.html:12 guide/templates/edit-user.html:30
 msgid "Update"
-msgstr ""
+msgstr "تحديث"
 
 #: guide/templates/edit-channel.html:15
 msgid "Statistics"
-msgstr ""
+msgstr "إحصائيات"
 
 #: guide/templates/edit-channel.html:17
 msgid "Subscriptions* Today"
@@ -971,7 +981,8 @@ msgid "Three things to remember..."
 msgstr ""
 
 #: guide/templates/firsttime.html:38
-msgid "Miro lets you subscribe to channels for free (they go to your sidebar)"
+msgid ""
+"Miro lets you subscribe to channels for free (they go to your sidebar)"
 msgstr ""
 
 #: guide/templates/firsttime.html:39

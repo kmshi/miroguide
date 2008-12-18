@@ -1,40 +1,42 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Danish translation for miroguide
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the miroguide package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: miroguide\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2008-08-06 14:32-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2008-07-03 18:58+0000\n"
+"Last-Translator: David Laursen <Unknown>\n"
+"Language-Team: Danish <da@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2008-12-09 21:56+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: settings.py:34
 msgid "English"
-msgstr ""
+msgstr "Engelsk"
 
 #: settings.py:35
 msgid "Arabic"
-msgstr ""
+msgstr "Arabisk"
 
 #: settings.py:36
 msgid "Bengali"
-msgstr ""
+msgstr "Bengali"
 
 #: settings.py:37
 msgid "Catalan"
-msgstr ""
+msgstr "Katalansk"
 
 #: settings.py:38
 msgid "Chinese"
-msgstr ""
+msgstr "Kinesisk"
 
 #: settings.py:39
 msgid "Croation"
@@ -42,35 +44,35 @@ msgstr ""
 
 #: settings.py:40
 msgid "Danish"
-msgstr ""
+msgstr "Dansk"
 
 #: settings.py:41
 msgid "Dutch"
-msgstr ""
+msgstr "Hollandsk"
 
 #: settings.py:42
 msgid "Estonian"
-msgstr ""
+msgstr "Estisk"
 
 #: settings.py:43
 msgid "Finnish"
-msgstr ""
+msgstr "Finsk"
 
 #: settings.py:44
 msgid "French"
-msgstr ""
+msgstr "Fransk"
 
 #: settings.py:45
 msgid "German"
-msgstr ""
+msgstr "Tysk"
 
 #: settings.py:46
 msgid "Greek"
-msgstr ""
+msgstr "Græsk"
 
 #: settings.py:47
 msgid "Hebrew"
-msgstr ""
+msgstr "Hebraisk"
 
 #: settings.py:48
 msgid "Hinidi"
@@ -78,23 +80,23 @@ msgstr ""
 
 #: settings.py:49
 msgid "Hungarian"
-msgstr ""
+msgstr "Ungarsk"
 
 #: settings.py:50
 msgid "Icelandic"
-msgstr ""
+msgstr "Islandsk"
 
 #: settings.py:51
 msgid "Indonesian"
-msgstr ""
+msgstr "Indonesisk"
 
 #: settings.py:52
 msgid "Italian"
-msgstr ""
+msgstr "Italiensk"
 
 #: settings.py:53
 msgid "Japanese"
-msgstr ""
+msgstr "Japansk"
 
 #: settings.py:54
 msgid "Korean"
@@ -106,27 +108,27 @@ msgstr ""
 
 #: settings.py:56
 msgid "Latvian"
-msgstr ""
+msgstr "Lettisk"
 
 #: settings.py:57
 msgid "Lithuanian"
-msgstr ""
+msgstr "Litauisk"
 
 #: settings.py:58
 msgid "Malay"
-msgstr ""
+msgstr "Malajisk"
 
 #: settings.py:59
 msgid "Norwegian"
-msgstr ""
+msgstr "Norsk"
 
 #: settings.py:60
 msgid "Persian"
-msgstr ""
+msgstr "Persisk"
 
 #: settings.py:61
 msgid "Polish"
-msgstr ""
+msgstr "Polsk"
 
 #: settings.py:62
 msgid "Portuguese (Brazillian)"
@@ -134,79 +136,79 @@ msgstr ""
 
 #: settings.py:63
 msgid "Portuguese (Portugal)"
-msgstr ""
+msgstr "Portugisisk (Portugal)"
 
 #: settings.py:64
 msgid "Romanian"
-msgstr ""
+msgstr "Rumænsk"
 
 #: settings.py:65
 msgid "Russian"
-msgstr ""
+msgstr "Russisk"
 
 #: settings.py:66
 msgid "Serbo-Croatian"
-msgstr ""
+msgstr "Serbokroatisk"
 
 #: settings.py:67
 msgid "Slovak"
-msgstr ""
+msgstr "Slovakisk"
 
 #: settings.py:68
 msgid "Spanish"
-msgstr ""
+msgstr "Spansk"
 
 #: settings.py:69
 msgid "Swedish"
-msgstr ""
+msgstr "Svensk"
 
 #: settings.py:70
 msgid "Thai"
-msgstr ""
+msgstr "Thailandsk"
 
 #: settings.py:71
 msgid "Turkish"
-msgstr ""
+msgstr "Tyrkisk"
 
 #: settings.py:72
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamesisk"
 
 #: guide/tables.py:12
 msgid "New"
-msgstr ""
+msgstr "Ny"
 
 #: guide/tables.py:14
 msgid "Approved"
-msgstr ""
+msgstr "Godkendt"
 
 #: guide/tables.py:16
 msgid "Waiting"
-msgstr ""
+msgstr "Venter"
 
 #: guide/tables.py:18
 msgid "Don't Know"
-msgstr ""
+msgstr "Ved ikke"
 
 #: guide/tables.py:20
 msgid "Rejected"
-msgstr ""
+msgstr "Afvist"
 
 #: guide/tables.py:22
 msgid "Suspended"
-msgstr ""
+msgstr "Suspenderet"
 
 #: guide/tables.py:24
 msgid "Audio"
-msgstr ""
+msgstr "Lyd"
 
 #: guide/tables.py:26
 msgid "Unknown"
-msgstr ""
+msgstr "Ukendt"
 
 #: guide/templateutil.py:181 guide/templates/base.html:52
 msgid "Most Popular"
-msgstr ""
+msgstr "Mest populære"
 
 #: guide/templateutil.py:182
 msgid "Top Rated"
@@ -222,7 +224,7 @@ msgstr ""
 
 #: guide/forms/channels.py:28
 msgid "What is HD?"
-msgstr ""
+msgstr "Hvad er HD?"
 
 #: guide/forms/channels.py:29
 #, python-format
@@ -248,7 +250,7 @@ msgstr ""
 #: guide/forms/channels.py:53
 #, python-format
 msgid "%s is already a channel in the guide"
-msgstr ""
+msgstr "%s er allerede en kanal i guiden"
 
 #: guide/forms/channels.py:58
 msgid "We can't find a video feed at that address, please try again."
@@ -256,7 +258,7 @@ msgstr ""
 
 #: guide/forms/channels.py:75 guide/forms/channels.py:279
 msgid "Channel Name"
-msgstr ""
+msgstr "Kanalnavn"
 
 #: guide/forms/channels.py:76 guide/forms/channels.py:280
 msgid "RSS Feed"
@@ -264,19 +266,19 @@ msgstr ""
 
 #: guide/forms/channels.py:139
 msgid "1st"
-msgstr ""
+msgstr "1."
 
 #: guide/forms/channels.py:139
 msgid "2nd"
-msgstr ""
+msgstr "2."
 
 #: guide/forms/channels.py:139
 msgid "3rd"
-msgstr ""
+msgstr "3."
 
 #: guide/forms/channels.py:161
 msgid "You must at least enter a primary value."
-msgstr ""
+msgstr "Du skal mindst indtaste en primær værdi."
 
 #: guide/forms/channels.py:178
 #, python-format
@@ -297,11 +299,11 @@ msgstr ""
 
 #: guide/forms/channels.py:282 guide/forms/cobranding.py:15
 msgid "Website URL"
-msgstr ""
+msgstr "Webside-URL"
 
 #: guide/forms/channels.py:284
 msgid "Full Description"
-msgstr ""
+msgstr "Fuld beskrivelse"
 
 #: guide/forms/channels.py:285
 msgid "Publisher E-mail"
@@ -309,7 +311,7 @@ msgstr ""
 
 #: guide/forms/channels.py:287 guide/templates/tag-list.html:7
 msgid "Tags"
-msgstr ""
+msgstr "Tags"
 
 #: guide/forms/channels.py:288
 msgid "Keywords that describe this channel.  Separate each tag with a comma."
@@ -317,27 +319,27 @@ msgstr ""
 
 #: guide/forms/channels.py:290 guide/views/categories.py:19
 msgid "Categories"
-msgstr ""
+msgstr "Kategorier"
 
 #: guide/forms/channels.py:291
 msgid "Languages"
-msgstr ""
+msgstr "Sprog"
 
 #: guide/forms/channels.py:292
 msgid "What language are most of these videos in?"
-msgstr ""
+msgstr "Hvad sprog er de fleste af disse videoer i?"
 
 #: guide/forms/channels.py:293
 msgid "Postal Code"
-msgstr ""
+msgstr "Postnummer"
 
 #: guide/forms/channels.py:295
 msgid "High Definition"
-msgstr ""
+msgstr "High Definition"
 
 #: guide/forms/channels.py:297
 msgid "Upload Image"
-msgstr ""
+msgstr "Upload billede"
 
 #: guide/forms/channels.py:298
 msgid ""
@@ -356,19 +358,19 @@ msgstr ""
 
 #: guide/forms/channels.py:461
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
 #: guide/forms/channels.py:462
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: guide/forms/channels.py:463 guide/forms/misc.py:15
 msgid "Body"
-msgstr ""
+msgstr "Brødtekst"
 
 #: guide/forms/cobranding.py:11
 msgid "Title in Miro App"
-msgstr ""
+msgstr "Titel i Miro App"
 
 #: guide/forms/cobranding.py:12
 msgid "This is the title that will appear in the sidebar of Miro."
@@ -376,23 +378,23 @@ msgstr ""
 
 #: guide/forms/cobranding.py:13
 msgid "Page Title"
-msgstr ""
+msgstr "Sidetitel"
 
 #: guide/forms/cobranding.py:14
 msgid "This is the title that will be displayed at the top of the page."
-msgstr ""
+msgstr "Dette er titlen, som vil vises i toppen af siden."
 
 #: guide/forms/cobranding.py:17
 msgid "Icon URL"
-msgstr ""
+msgstr "Ikon-URL"
 
 #: guide/forms/cobranding.py:17
 msgid "Icon should be 175x125 pixels."
-msgstr ""
+msgstr "Ikonet bør være 175-125 pixels."
 
 #: guide/forms/cobranding.py:19
 msgid "Favicon URL"
-msgstr ""
+msgstr "Favicon-URL"
 
 #: guide/forms/cobranding.py:19
 msgid ""
@@ -406,14 +408,15 @@ msgstr ""
 
 #: guide/forms/cobranding.py:22
 msgid "Description"
-msgstr ""
+msgstr "Beskrivelse"
 
 #: guide/forms/cobranding.py:24
 msgid "Link 1 URL"
 msgstr ""
 
 #: guide/forms/cobranding.py:24
-msgid "Or leave this blank to have plain text.  All these links are optional."
+msgid ""
+"Or leave this blank to have plain text.  All these links are optional."
 msgstr ""
 
 #: guide/forms/cobranding.py:26
@@ -443,7 +446,7 @@ msgstr ""
 
 #: guide/forms/misc.py:14
 msgid "title"
-msgstr ""
+msgstr "titel"
 
 #: guide/forms/user.py:18
 msgid "Username already taken"
@@ -459,7 +462,7 @@ msgstr ""
 
 #: guide/forms/user.py:44
 msgid "That username is not valid."
-msgstr ""
+msgstr "Det brugernavn er ikke gyldigt."
 
 #: guide/forms/user.py:58
 msgid "That username or e-mail is not valid."
@@ -467,39 +470,39 @@ msgstr ""
 
 #: guide/forms/user.py:71
 msgid "That password is not valid."
-msgstr ""
+msgstr "Det kodeord er ikke gyldigt."
 
 #: guide/forms/user.py:85
 msgid "Passwords don't match"
-msgstr ""
+msgstr "De to indtastede kodeord passer ikke."
 
 #: guide/forms/user.py:89
 msgid "Username"
-msgstr ""
+msgstr "Brugernavn"
 
 #: guide/forms/user.py:90
 msgid "Email Address"
-msgstr ""
+msgstr "E-mail-adresse"
 
 #: guide/forms/user.py:92
 msgid "Pick a Password"
-msgstr ""
+msgstr "Vælg en adgangskode"
 
 #: guide/forms/user.py:94 guide/forms/user.py:111 guide/forms/user.py:176
 msgid "Confirm Password"
-msgstr ""
+msgstr "Bekræft adgangskode"
 
 #: guide/forms/user.py:109
 msgid "Change Password"
-msgstr ""
+msgstr "Skift adgangskode"
 
 #: guide/forms/user.py:113
 msgid "First Name"
-msgstr ""
+msgstr "Fornavn"
 
 #: guide/forms/user.py:115
 msgid "Last Name"
-msgstr ""
+msgstr "Efternavn"
 
 #: guide/forms/user.py:116
 msgid "Age"
@@ -511,27 +514,27 @@ msgstr ""
 
 #: guide/forms/user.py:122
 msgid "City"
-msgstr ""
+msgstr "By"
 
 #: guide/forms/user.py:124
 msgid "State"
-msgstr ""
+msgstr "Stat"
 
 #: guide/forms/user.py:126
 msgid "Country"
-msgstr ""
+msgstr "Land"
 
 #: guide/forms/user.py:128
 msgid "Zip Code"
-msgstr ""
+msgstr "Postnummer"
 
 #: guide/forms/user.py:130
 msgid "IM Username"
-msgstr ""
+msgstr "IM-brugernavn"
 
 #: guide/forms/user.py:132
 msgid "IM Type"
-msgstr ""
+msgstr "IM-type"
 
 #: guide/forms/user.py:161
 msgid "Channel Owner Emails"
@@ -543,11 +546,11 @@ msgstr ""
 
 #: guide/forms/user.py:166
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #: guide/forms/user.py:167
 msgid "No emails"
-msgstr ""
+msgstr "Ingen e-mails"
 
 #: guide/forms/user.py:168
 msgid "Send all emails"
@@ -971,7 +974,8 @@ msgid "Three things to remember..."
 msgstr ""
 
 #: guide/templates/firsttime.html:38
-msgid "Miro lets you subscribe to channels for free (they go to your sidebar)"
+msgid ""
+"Miro lets you subscribe to channels for free (they go to your sidebar)"
 msgstr ""
 
 #: guide/templates/firsttime.html:39

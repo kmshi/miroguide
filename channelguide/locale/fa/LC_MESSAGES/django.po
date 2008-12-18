@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: miroguide\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2008-08-06 14:32-0400\n"
 "PO-Revision-Date: 2008-03-26 13:34+0000\n"
 "Last-Translator: Artin <Unknown>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2008-04-17 00:16+0000\n"
+"X-Launchpad-Export-Date: 2008-12-09 21:56+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: settings.py:34
@@ -123,23 +123,20 @@ msgid "Norwegian"
 msgstr "نروژی"
 
 #: settings.py:60
-#, fuzzy
 msgid "Persian"
-msgstr "آلمانی"
+msgstr ""
 
 #: settings.py:61
 msgid "Polish"
 msgstr "لهستانی"
 
 #: settings.py:62
-#, fuzzy
 msgid "Portuguese (Brazillian)"
-msgstr "پرتغالی"
+msgstr ""
 
 #: settings.py:63
-#, fuzzy
 msgid "Portuguese (Portugal)"
-msgstr "پرتغالی"
+msgstr ""
 
 #: settings.py:64
 msgid "Romanian"
@@ -418,7 +415,8 @@ msgid "Link 1 URL"
 msgstr ""
 
 #: guide/forms/cobranding.py:24
-msgid "Or leave this blank to have plain text.  All these links are optional."
+msgid ""
+"Or leave this blank to have plain text.  All these links are optional."
 msgstr ""
 
 #: guide/forms/cobranding.py:26
@@ -451,14 +449,12 @@ msgid "title"
 msgstr "عنوان"
 
 #: guide/forms/user.py:18
-#, fuzzy
 msgid "Username already taken"
-msgstr "نام کاربری قبلا گرفته شده"
+msgstr ""
 
 #: guide/forms/user.py:28
-#, fuzzy
 msgid "E-mail already taken"
-msgstr "پست الکترونیک قبلا گرفته شده"
+msgstr ""
 
 #: guide/forms/user.py:35
 msgid "E-mail not found"
@@ -469,9 +465,8 @@ msgid "That username is not valid."
 msgstr "نام کاربری معتبر نمی‌باشد."
 
 #: guide/forms/user.py:58
-#, fuzzy
 msgid "That username or e-mail is not valid."
-msgstr "نام کاربری معتبر نمی‌باشد."
+msgstr ""
 
 #: guide/forms/user.py:71
 msgid "That password is not valid."
@@ -514,9 +509,8 @@ msgid "Age"
 msgstr ""
 
 #: guide/forms/user.py:120
-#, fuzzy
 msgid "Gender"
-msgstr "ارسال‌"
+msgstr ""
 
 #: guide/forms/user.py:122
 msgid "City"
@@ -709,14 +703,12 @@ msgid "New Shows"
 msgstr ""
 
 #: guide/templates/base.html:54
-#, fuzzy
 msgid "Video by Language"
-msgstr "زبان‌ها"
+msgstr ""
 
 #: guide/templates/base.html:55
-#, fuzzy
 msgid "Language"
-msgstr "زبان‌ها"
+msgstr ""
 
 #: guide/templates/base.html:57
 msgid "Account"
@@ -731,23 +723,20 @@ msgid "View/Edit Profile"
 msgstr ""
 
 #: guide/templates/base.html:72
-#, fuzzy
 msgid "Channels I Manage"
-msgstr "نام کانال"
+msgstr ""
 
 #: guide/templates/base.html:74
 msgid "Submit a Channel"
 msgstr ""
 
 #: guide/templates/base.html:78
-#, fuzzy
 msgid "Log Out"
-msgstr "خروج"
+msgstr ""
 
 #: guide/templates/base.html:94
-#, fuzzy
 msgid "Forgot password"
-msgstr "تغییر کلمه عبور"
+msgstr ""
 
 #: guide/templates/base.html:95 guide/templates/login.html:7
 #: guide/templates/login.html.py:13 guide/templates/login.html:18
@@ -755,9 +744,8 @@ msgid "Login"
 msgstr ""
 
 #: guide/templates/base.html:106
-#, fuzzy
 msgid "Register!"
-msgstr "ورود / ثبت‌نام"
+msgstr ""
 
 #: guide/templates/base.html:113
 msgid "Register Now!"
@@ -776,9 +764,8 @@ msgid "Add"
 msgstr "افزودن"
 
 #: guide/templates/button_block.html:6
-#, fuzzy
 msgid "Add channel"
-msgstr "افزودن کانال"
+msgstr ""
 
 #: guide/templates/button_block.html:7
 #, python-format
@@ -842,9 +829,8 @@ msgid "High-Definition Channel"
 msgstr ""
 
 #: guide/templates/channel.html:53
-#, fuzzy
 msgid "Channel Manager"
-msgstr "نام کانال"
+msgstr ""
 
 #: guide/templates/channel.html:60
 msgid "Notes"
@@ -988,7 +974,8 @@ msgid "Three things to remember..."
 msgstr ""
 
 #: guide/templates/firsttime.html:38
-msgid "Miro lets you subscribe to channels for free (they go to your sidebar)"
+msgid ""
+"Miro lets you subscribe to channels for free (they go to your sidebar)"
 msgstr ""
 
 #: guide/templates/firsttime.html:39
@@ -1327,9 +1314,8 @@ msgid "Current image (uploaded)"
 msgstr ""
 
 #: guide/views/frontpage.py:66
-#, fuzzy
 msgid "What is Miro?"
-msgstr "HD چیست؟"
+msgstr ""
 
 #: guide/views/frontpage.py:67
 #, python-format
@@ -1416,24 +1402,3 @@ msgstr ""
 #: templates/500.html:19
 msgid "Make sure to include the error ID at the top of this page."
 msgstr ""
-
-#~ msgid "Home"
-#~ msgstr "خانه"
-
-#~ msgid "Browse"
-#~ msgstr "مرور"
-
-#~ msgid "Popular"
-#~ msgstr "محبوب"
-
-#~ msgid "HD"
-#~ msgstr "HD"
-
-#~ msgid "New Channels"
-#~ msgstr "کانال‌های جدید"
-
-#~ msgid "Popular Channels"
-#~ msgstr "کانال‌های محبوب"
-
-#~ msgid "Website"
-#~ msgstr "وب‌گاه"

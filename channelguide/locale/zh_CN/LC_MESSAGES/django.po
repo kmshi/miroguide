@@ -6,16 +6,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: miroguide\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2008-08-06 14:32-0400\n"
-"PO-Revision-Date: 2008-04-01 10:02+0000\n"
-"Last-Translator: Andrea <Unknown>\n"
+"PO-Revision-Date: 2008-08-24 13:24+0000\n"
+"Last-Translator: luojie-dune <Unknown>\n"
 "Language-Team: Simplified Chinese <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2008-04-17 00:16+0000\n"
+"X-Launchpad-Export-Date: 2008-12-09 21:56+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: settings.py:34
@@ -40,7 +40,7 @@ msgstr "中文"
 
 #: settings.py:39
 msgid "Croation"
-msgstr ""
+msgstr "克罗地亚语"
 
 #: settings.py:40
 msgid "Danish"
@@ -76,7 +76,7 @@ msgstr "希伯来语"
 
 #: settings.py:48
 msgid "Hinidi"
-msgstr ""
+msgstr "印地语"
 
 #: settings.py:49
 msgid "Hungarian"
@@ -123,23 +123,20 @@ msgid "Norwegian"
 msgstr "挪威语"
 
 #: settings.py:60
-#, fuzzy
 msgid "Persian"
-msgstr "德语"
+msgstr "波斯语"
 
 #: settings.py:61
 msgid "Polish"
 msgstr "波兰语"
 
 #: settings.py:62
-#, fuzzy
 msgid "Portuguese (Brazillian)"
-msgstr "葡萄牙语"
+msgstr "葡萄牙语（巴西）"
 
 #: settings.py:63
-#, fuzzy
 msgid "Portuguese (Portugal)"
-msgstr "葡萄牙语"
+msgstr "葡萄牙语（葡萄牙）"
 
 #: settings.py:64
 msgid "Romanian"
@@ -151,7 +148,7 @@ msgstr "俄语"
 
 #: settings.py:66
 msgid "Serbo-Croatian"
-msgstr ""
+msgstr "塞尔维亚-克罗地亚语"
 
 #: settings.py:67
 msgid "Slovak"
@@ -175,66 +172,59 @@ msgstr "土耳其语"
 
 #: settings.py:72
 msgid "Vietnamese"
-msgstr ""
+msgstr "越南语"
 
 #: guide/tables.py:12
 msgid "New"
 msgstr "新建"
 
 #: guide/tables.py:14
-#, fuzzy
 msgid "Approved"
-msgstr "认可的"
+msgstr ""
 
 #: guide/tables.py:16
-#, fuzzy
 msgid "Waiting"
-msgstr "请求 已发出, 等待"
+msgstr ""
 
 #: guide/tables.py:18
 msgid "Don't Know"
-msgstr ""
+msgstr "不知道"
 
 #: guide/tables.py:20
 msgid "Rejected"
-msgstr ""
+msgstr "被拒绝的"
 
 #: guide/tables.py:22
 msgid "Suspended"
-msgstr ""
+msgstr "已挂起"
 
 #: guide/tables.py:24
 msgid "Audio"
-msgstr ""
+msgstr "音频"
 
 #: guide/tables.py:26
-#, fuzzy
 msgid "Unknown"
-msgstr "不明"
+msgstr ""
 
 #: guide/templateutil.py:181 guide/templates/base.html:52
-#, fuzzy
 msgid "Most Popular"
-msgstr "最受欢迎"
+msgstr ""
 
 #: guide/templateutil.py:182
-#, fuzzy
 msgid "Top Rated"
-msgstr "最高点击率"
+msgstr ""
 
 #: guide/templateutil.py:183
-#, fuzzy
 msgid "Most Recent"
-msgstr "最新"
+msgstr ""
 
 #: guide/templateutil.py:184
 msgid "A-Z"
 msgstr "A-Z"
 
 #: guide/forms/channels.py:28
-#, fuzzy
 msgid "What is HD?"
-msgstr "什么是高清晰度视频？"
+msgstr ""
 
 #: guide/forms/channels.py:29
 #, python-format
@@ -260,12 +250,11 @@ msgstr ""
 #: guide/forms/channels.py:53
 #, python-format
 msgid "%s is already a channel in the guide"
-msgstr ""
+msgstr "%s 已经是指南里的一个频道"
 
 #: guide/forms/channels.py:58
-#, fuzzy
 msgid "We can't find a video feed at that address, please try again."
-msgstr "该地址下未找到视频种子，请重试。"
+msgstr ""
 
 #: guide/forms/channels.py:75 guide/forms/channels.py:279
 msgid "Channel Name"
@@ -273,63 +262,60 @@ msgstr "频道名称"
 
 #: guide/forms/channels.py:76 guide/forms/channels.py:280
 msgid "RSS Feed"
-msgstr ""
+msgstr "RSS源"
 
 #: guide/forms/channels.py:139
 msgid "1st"
-msgstr ""
+msgstr "第一"
 
 #: guide/forms/channels.py:139
 msgid "2nd"
-msgstr ""
+msgstr "第二"
 
 #: guide/forms/channels.py:139
 msgid "3rd"
-msgstr ""
+msgstr "第三"
 
 #: guide/forms/channels.py:161
-#, fuzzy
 msgid "You must at least enter a primary value."
-msgstr "您至少需要输入一个初始值。"
+msgstr ""
 
 #: guide/forms/channels.py:178
 #, python-format
 msgid "you can only enter up to %d tags."
-msgstr ""
+msgstr "你最多只能输入 %d 个标签。"
 
 #: guide/forms/channels.py:260
 msgid "This field is required."
-msgstr ""
+msgstr "此字段是必填的。"
 
 #: guide/forms/channels.py:265
 msgid "Not a valid image"
-msgstr ""
+msgstr "不是有效的图形文件"
 
 #: guide/forms/channels.py:269
 msgid "Not an image in a format we support."
-msgstr ""
+msgstr "我们不支援的格式"
 
 #: guide/forms/channels.py:282 guide/forms/cobranding.py:15
-#, fuzzy
 msgid "Website URL"
-msgstr "网站地址"
+msgstr ""
 
 #: guide/forms/channels.py:284
 msgid "Full Description"
-msgstr ""
+msgstr "完整描述"
 
 #: guide/forms/channels.py:285
 msgid "Publisher E-mail"
-msgstr ""
+msgstr "发布者的Email"
 
 #: guide/forms/channels.py:287 guide/templates/tag-list.html:7
 msgid "Tags"
 msgstr "标签"
 
 #: guide/forms/channels.py:288
-#, fuzzy
 msgid "Keywords that describe this channel.  Separate each tag with a comma."
-msgstr "描述该频道的关键词，标签以逗号分隔。"
+msgstr ""
 
 #: guide/forms/channels.py:290 guide/views/categories.py:19
 msgid "Categories"
@@ -340,23 +326,20 @@ msgid "Languages"
 msgstr "语言"
 
 #: guide/forms/channels.py:292
-#, fuzzy
 msgid "What language are most of these videos in?"
-msgstr "大多数视频使用什么语言？"
+msgstr ""
 
 #: guide/forms/channels.py:293
 msgid "Postal Code"
 msgstr "邮政编码"
 
 #: guide/forms/channels.py:295
-#, fuzzy
 msgid "High Definition"
-msgstr "高清晰度"
+msgstr ""
 
 #: guide/forms/channels.py:297
-#, fuzzy
 msgid "Upload Image"
-msgstr "上传图片"
+msgstr ""
 
 #: guide/forms/channels.py:298
 msgid ""
@@ -367,7 +350,7 @@ msgstr ""
 
 #: guide/forms/channels.py:320
 msgid "That streaming site already exists."
-msgstr ""
+msgstr "那个流媒体站点已经存在。"
 
 #: guide/forms/channels.py:390
 msgid "Feed URL already exists"
@@ -379,82 +362,82 @@ msgstr "电子邮件"
 
 #: guide/forms/channels.py:462
 msgid "Title"
-msgstr ""
+msgstr "标题"
 
 #: guide/forms/channels.py:463 guide/forms/misc.py:15
 msgid "Body"
-msgstr ""
+msgstr "内容"
 
 #: guide/forms/cobranding.py:11
 msgid "Title in Miro App"
-msgstr ""
+msgstr "Miro应用程序中的标题"
 
 #: guide/forms/cobranding.py:12
 msgid "This is the title that will appear in the sidebar of Miro."
-msgstr ""
+msgstr "这个标题会显示在Miro的侧边栏"
 
 #: guide/forms/cobranding.py:13
 msgid "Page Title"
-msgstr ""
+msgstr "页面标题"
 
 #: guide/forms/cobranding.py:14
 msgid "This is the title that will be displayed at the top of the page."
-msgstr ""
+msgstr "这个标题会显示在页面的顶端。"
 
 #: guide/forms/cobranding.py:17
-#, fuzzy
 msgid "Icon URL"
-msgstr "图标地址"
+msgstr ""
 
 #: guide/forms/cobranding.py:17
 msgid "Icon should be 175x125 pixels."
-msgstr ""
+msgstr "图标应该是175x125像素。"
 
 #: guide/forms/cobranding.py:19
 msgid "Favicon URL"
-msgstr ""
+msgstr "Favicon的URL地址"
 
 #: guide/forms/cobranding.py:19
 msgid ""
 "This is best as a 20x20 png graphic. It shows up in the sidebar of the Miro "
 "App."
-msgstr ""
+msgstr "这里最好是20x20像素的png图片。它会显示在Miro应用程序的侧边栏。"
 
 #: guide/forms/cobranding.py:21
 msgid "External CSS URL"
-msgstr ""
+msgstr "外部CSS地址"
 
 #: guide/forms/cobranding.py:22
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #: guide/forms/cobranding.py:24
 msgid "Link 1 URL"
-msgstr ""
+msgstr "链接1的网址"
 
 #: guide/forms/cobranding.py:24
-msgid "Or leave this blank to have plain text.  All these links are optional."
-msgstr ""
+msgid ""
+"Or leave this blank to have plain text.  All these links are optional."
+msgstr "或者留空不填以获取没有链接的文字。所有这些链接都是可选的。"
 
 #: guide/forms/cobranding.py:26
 msgid "Link 1 Text"
-msgstr ""
+msgstr "链接1的文本"
 
 #: guide/forms/cobranding.py:28
 msgid "Link 2 URL"
-msgstr ""
+msgstr "链接2的网址"
 
 #: guide/forms/cobranding.py:30
 msgid "Link 2 Text"
-msgstr ""
+msgstr "链接2的文本"
 
 #: guide/forms/cobranding.py:32
 msgid "Link 3 URL"
-msgstr ""
+msgstr "链接3的网址"
 
 #: guide/forms/cobranding.py:34
 msgid "Link 3 Text"
-msgstr ""
+msgstr "链接3的文本"
 
 #: guide/forms/fields.py:21
 #, python-format
@@ -463,7 +446,7 @@ msgstr ""
 
 #: guide/forms/misc.py:14
 msgid "title"
-msgstr ""
+msgstr "标题"
 
 #: guide/forms/user.py:18
 msgid "Username already taken"
@@ -479,7 +462,7 @@ msgstr ""
 
 #: guide/forms/user.py:44
 msgid "That username is not valid."
-msgstr ""
+msgstr "用户名无效"
 
 #: guide/forms/user.py:58
 msgid "That username or e-mail is not valid."
@@ -487,75 +470,75 @@ msgstr ""
 
 #: guide/forms/user.py:71
 msgid "That password is not valid."
-msgstr ""
+msgstr "密码无效"
 
 #: guide/forms/user.py:85
 msgid "Passwords don't match"
-msgstr ""
+msgstr "密码不能匹配"
 
 #: guide/forms/user.py:89
 msgid "Username"
-msgstr ""
+msgstr "用户名"
 
 #: guide/forms/user.py:90
 msgid "Email Address"
-msgstr ""
+msgstr "电子邮箱地址"
 
 #: guide/forms/user.py:92
 msgid "Pick a Password"
-msgstr ""
+msgstr "选择一个密码"
 
 #: guide/forms/user.py:94 guide/forms/user.py:111 guide/forms/user.py:176
 msgid "Confirm Password"
-msgstr ""
+msgstr "密码确认"
 
 #: guide/forms/user.py:109
 msgid "Change Password"
-msgstr ""
+msgstr "修改密码"
 
 #: guide/forms/user.py:113
 msgid "First Name"
-msgstr ""
+msgstr "姓"
 
 #: guide/forms/user.py:115
 msgid "Last Name"
-msgstr ""
+msgstr "名"
 
 #: guide/forms/user.py:116
 msgid "Age"
-msgstr ""
+msgstr "年龄"
 
 #: guide/forms/user.py:120
 msgid "Gender"
-msgstr ""
+msgstr "性别"
 
 #: guide/forms/user.py:122
 msgid "City"
-msgstr ""
+msgstr "城市"
 
 #: guide/forms/user.py:124
 msgid "State"
-msgstr ""
+msgstr "省/直辖市/自治区"
 
 #: guide/forms/user.py:126
 msgid "Country"
-msgstr ""
+msgstr "国家/地区"
 
 #: guide/forms/user.py:128
 msgid "Zip Code"
-msgstr ""
+msgstr "邮政编码"
 
 #: guide/forms/user.py:130
 msgid "IM Username"
-msgstr ""
+msgstr "即时通讯软件用户名"
 
 #: guide/forms/user.py:132
 msgid "IM Type"
-msgstr ""
+msgstr "即时通讯软件类别"
 
 #: guide/forms/user.py:161
 msgid "Channel Owner Emails"
-msgstr ""
+msgstr "频道所有者的电子邮箱"
 
 #: guide/forms/user.py:165
 msgid "Moderator Board Emails"
@@ -563,23 +546,23 @@ msgstr ""
 
 #: guide/forms/user.py:166
 msgid "Normal"
-msgstr ""
+msgstr "正常显示"
 
 #: guide/forms/user.py:167
 msgid "No emails"
-msgstr ""
+msgstr "没有电子邮箱"
 
 #: guide/forms/user.py:168
 msgid "Send all emails"
-msgstr ""
+msgstr "发送所有邮件"
 
 #: guide/forms/user.py:169
 msgid "Channel Status Emails"
-msgstr ""
+msgstr "频道状态电邮"
 
 #: guide/forms/user.py:174
 msgid "Set a new Password"
-msgstr ""
+msgstr "设置新密码"
 
 #: guide/models/channel.py:315
 #, python-format
@@ -597,15 +580,15 @@ msgstr[1] ""
 
 #: guide/templates/add-note.html:9
 msgid "Post"
-msgstr ""
+msgstr "发表"
 
 #: guide/templates/after-submit.html:9
 msgid "Thanks for Submitting Your Channel"
-msgstr ""
+msgstr "感谢你提交的频道"
 
 #: guide/templates/after-submit.html:10
 msgid "Your channel has been submitted!"
-msgstr ""
+msgstr "你的频道已经提交！"
 
 #: guide/templates/after-submit.html:12
 msgid ""
@@ -618,7 +601,7 @@ msgstr ""
 
 #: guide/templates/after-submit.html:19
 msgid "Updating Your Channel Info"
-msgstr ""
+msgstr "更新你的频道信息"
 
 #: guide/templates/after-submit.html:20
 msgid ""
@@ -629,7 +612,7 @@ msgstr ""
 
 #: guide/templates/after-submit.html:25
 msgid "Add a 1-Click Subscribe Button to Your Website"
-msgstr ""
+msgstr "增加一键订阅按钮到你的网站"
 
 #: guide/templates/after-submit.html:28
 msgid ""
@@ -655,7 +638,7 @@ msgstr ""
 #: guide/templates/auth-token-request.html:7
 #: guide/templates/auth-token-request.html:11
 msgid "Forgot Password"
-msgstr ""
+msgstr "忘记密码"
 
 #: guide/templates/auth-token-request.html:12
 msgid ""
@@ -667,34 +650,33 @@ msgstr ""
 
 #: guide/templates/auth-token-request.html:17
 msgid "Send"
-msgstr ""
+msgstr "发送"
 
 #: guide/templates/bad-auth-token.html:7
 #: guide/templates/change-password.html:7
 #: guide/templates/change-password.html:11
 msgid "Create New Password"
-msgstr ""
+msgstr "创建新密码"
 
 #: guide/templates/bad-auth-token.html:10
 msgid "Link invalid"
-msgstr ""
+msgstr "链接无效"
 
 #: guide/templates/bad-auth-token.html:11
 msgid "The link you used to get to this page was not valid."
-msgstr ""
+msgstr "你用来获取该页面的链接无效。"
 
 #: guide/templates/base.html:5 templates/500.html:7
 msgid "Miro Guide"
-msgstr ""
+msgstr "Miro指南"
 
 #: guide/templates/base.html:27
 msgid "Miro"
 msgstr ""
 
 #: guide/templates/base.html:28
-#, fuzzy
 msgid "Video feeds"
-msgstr "视频种子链接"
+msgstr ""
 
 #: guide/templates/base.html:29
 msgid "Streaming shows"
@@ -714,21 +696,19 @@ msgstr ""
 
 #: guide/templates/base.html:51
 msgid "HD Channels"
-msgstr ""
+msgstr "高清频道"
 
 #: guide/templates/base.html:53
 msgid "New Shows"
 msgstr ""
 
 #: guide/templates/base.html:54
-#, fuzzy
 msgid "Video by Language"
-msgstr "语言"
+msgstr ""
 
 #: guide/templates/base.html:55
-#, fuzzy
 msgid "Language"
-msgstr "语言"
+msgstr ""
 
 #: guide/templates/base.html:57
 msgid "Account"
@@ -743,13 +723,12 @@ msgid "View/Edit Profile"
 msgstr ""
 
 #: guide/templates/base.html:72
-#, fuzzy
 msgid "Channels I Manage"
-msgstr "频道名称"
+msgstr ""
 
 #: guide/templates/base.html:74
 msgid "Submit a Channel"
-msgstr ""
+msgstr "提交一个频道"
 
 #: guide/templates/base.html:78
 msgid "Log Out"
@@ -762,7 +741,7 @@ msgstr ""
 #: guide/templates/base.html:95 guide/templates/login.html:7
 #: guide/templates/login.html.py:13 guide/templates/login.html:18
 msgid "Login"
-msgstr ""
+msgstr "登录"
 
 #: guide/templates/base.html:106
 msgid "Register!"
@@ -782,7 +761,7 @@ msgstr ""
 
 #: guide/templates/button_block.html:6
 msgid "Add"
-msgstr ""
+msgstr "添加"
 
 #: guide/templates/button_block.html:6
 msgid "Add channel"
@@ -795,7 +774,7 @@ msgstr ""
 
 #: guide/templates/button_block.html:12
 msgid "Details"
-msgstr ""
+msgstr "详细信息"
 
 #: guide/templates/button_block.html:13
 #, python-format
@@ -804,15 +783,15 @@ msgstr ""
 
 #: guide/templates/change-password.html:14
 msgid "Create"
-msgstr ""
+msgstr "创建"
 
 #: guide/templates/channel-form.html:7
 msgid "Submit Channel"
-msgstr ""
+msgstr "提交频道"
 
 #: guide/templates/channel-form.html:15
 msgid "Channel Thumbnail"
-msgstr ""
+msgstr "频道截图"
 
 #: guide/templates/channel-form.html:16
 msgid ""
@@ -827,33 +806,31 @@ msgstr ""
 msgid ""
 "We have found an image in your feed.  You can either use this image or "
 "upload a different one."
-msgstr ""
+msgstr "我们在你的feed里发现了一个图片。你可以选择使用这一图片或上传一个不同的图片。"
 
 #: guide/templates/channel-notes.html:7
 msgid "Issues"
-msgstr ""
+msgstr "事件"
 
 #: guide/templates/channel-notes.html:7
 msgid "need support? post here."
-msgstr ""
+msgstr "需要支持？在这里提出。"
 
 #: guide/templates/channel-notes.html:14
 msgid "Me"
-msgstr ""
+msgstr "我"
 
 #: guide/templates/channel-notes.html:17
 msgid "Manager"
-msgstr ""
+msgstr "管理器"
 
 #: guide/templates/channel.html:12 guide/templates/channel.html.py:14
-#, fuzzy
 msgid "High-Definition Channel"
-msgstr "高清晰度"
+msgstr ""
 
 #: guide/templates/channel.html:53
-#, fuzzy
 msgid "Channel Manager"
-msgstr "频道名称"
+msgstr ""
 
 #: guide/templates/channel.html:60
 msgid "Notes"
@@ -862,7 +839,7 @@ msgstr ""
 #: guide/templates/cobranding-admin.html:7
 #: guide/templates/cobranding-admin.html:9
 msgid "Administration"
-msgstr ""
+msgstr "管理"
 
 #: guide/templates/cobranding.html:53
 #, python-format
@@ -871,19 +848,19 @@ msgstr ""
 
 #: guide/templates/confirm.html:7
 msgid "Email Sent"
-msgstr ""
+msgstr "邮件已经发送"
 
 #: guide/templates/confirm.html:11
 msgid "Confirmed!"
-msgstr ""
+msgstr "确认成功！"
 
 #: guide/templates/confirm.html:12
 msgid "Thanks for confirming your account!"
-msgstr ""
+msgstr "感谢你对账号做出确认！"
 
 #: guide/templates/confirm.html:15
 msgid "Confirmation sent"
-msgstr ""
+msgstr "确认信已经发出"
 
 #: guide/templates/confirm.html:17
 msgid ""
@@ -893,15 +870,15 @@ msgstr ""
 
 #: guide/templates/confirm.html:25
 msgid "Resend"
-msgstr ""
+msgstr "重新发送"
 
 #: guide/templates/confirm.html:29
 msgid "Incorrect code"
-msgstr ""
+msgstr "无效代码"
 
 #: guide/templates/confirm.html:30
 msgid "I'm sorry, that is not the correct code."
-msgstr ""
+msgstr "很抱歉，代码不正确。"
 
 #: guide/templates/edit-bar.html:9
 msgid "Click to Edit Channel / Assist Manager"
@@ -929,23 +906,23 @@ msgstr ""
 
 #: guide/templates/edit-bar.html:28
 msgid "Edit Your Channel / View Statistics / Get Help"
-msgstr ""
+msgstr "编辑你的频道 / 查看统计 / 获取帮助"
 
 #: guide/templates/edit-bar.html:91
 msgid "Cancel and go back"
-msgstr ""
+msgstr "取消并返回"
 
 #: guide/templates/edit-channel.html:8 guide/templates/edit-channel.html:10
 msgid "Edit Channel"
-msgstr ""
+msgstr "编辑频道"
 
 #: guide/templates/edit-channel.html:12 guide/templates/edit-user.html:30
 msgid "Update"
-msgstr ""
+msgstr "更新"
 
 #: guide/templates/edit-channel.html:15
 msgid "Statistics"
-msgstr ""
+msgstr "统计信息"
 
 #: guide/templates/edit-channel.html:17
 msgid "Subscriptions* Today"
@@ -961,15 +938,15 @@ msgstr ""
 
 #: guide/templates/edit-channel.html:24
 msgid "Popularity Rank Today"
-msgstr ""
+msgstr "今日流行排行"
 
 #: guide/templates/edit-channel.html:28
 msgid "Popularity Rank Month"
-msgstr ""
+msgstr "本月流行排行"
 
 #: guide/templates/edit-channel.html:32
 msgid "Popularity Rank Overall"
-msgstr ""
+msgstr "总流行排行"
 
 #: guide/templates/edit-channel.html:36
 msgid "* unique Miro Guide 'add channel' hits"
@@ -977,11 +954,11 @@ msgstr ""
 
 #: guide/templates/edit-user.html:7
 msgid "Update My Profile"
-msgstr ""
+msgstr "更新我的资料"
 
 #: guide/templates/edit-user.html:11
 msgid "Update My Profile "
-msgstr ""
+msgstr "更新我的资料 "
 
 #: guide/templates/email-channel-owners.html:7
 #: guide/templates/moderate.html:52
@@ -990,51 +967,52 @@ msgstr ""
 
 #: guide/templates/firsttime.html:34
 msgid "WELCOME TO MIRO!"
-msgstr ""
+msgstr "欢迎使用MIRO！"
 
 #: guide/templates/firsttime.html:36
 msgid "Three things to remember..."
-msgstr ""
+msgstr "需要记住的三件事..."
 
 #: guide/templates/firsttime.html:38
-msgid "Miro lets you subscribe to channels for free (they go to your sidebar)"
-msgstr ""
+msgid ""
+"Miro lets you subscribe to channels for free (they go to your sidebar)"
+msgstr "Miro让你自由订阅频道（呈现在你的侧边栏）"
 
 #: guide/templates/firsttime.html:39
 msgid "Miro will automatically download new videos from your channels"
-msgstr ""
+msgstr "Miro从你的频道自动下载新视频"
 
 #: guide/templates/firsttime.html:40
 msgid "A "
-msgstr ""
+msgstr "A "
 
 #: guide/templates/firsttime.html:40
 msgid "green"
-msgstr ""
+msgstr "绿色"
 
 #: guide/templates/firsttime.html:40
 msgid " bubble (in the sidebar) means you've got "
-msgstr ""
+msgstr " 泡泡 (在侧边栏) 意味着你已经得到 "
 
 #: guide/templates/firsttime.html:40
 msgid "new"
-msgstr ""
+msgstr "新建"
 
 #: guide/templates/firsttime.html:40
 msgid " video"
-msgstr ""
+msgstr " 视频"
 
 #: guide/templates/firsttime.html:43
 msgid "We Have Channel Recommendations for You! <u>click here</u>"
-msgstr ""
+msgstr "我们为你推荐了频道！<u>点击这里</u>"
 
 #: guide/templates/firsttime.html:56
 msgid "Share Miro With Your Friends:"
-msgstr ""
+msgstr "和你的朋友分享Miro："
 
 #: guide/templates/firsttime.html:80
 msgid "Get Started"
-msgstr ""
+msgstr "开始"
 
 #: guide/templates/firsttime.html:80
 #, python-format
@@ -1047,23 +1025,23 @@ msgstr ""
 
 #: guide/templates/for-user.html:11
 msgid "My User Info"
-msgstr ""
+msgstr "我的用户信息"
 
 #: guide/templates/for-user.html:13
 msgid "User Info for"
-msgstr ""
+msgstr "用户信息"
 
 #: guide/templates/for-user.html:30
 msgid "Submitted channels: "
-msgstr ""
+msgstr "提交的频道： "
 
 #: guide/templates/form-errors.html:8 templates/500.html:11
 msgid "Sorry!"
-msgstr ""
+msgstr "抱歉！"
 
 #: guide/templates/form-field.html:6
 msgid "Error"
-msgstr ""
+msgstr "错误"
 
 #: guide/templates/group-list.html:7
 #, python-format
@@ -1092,11 +1070,11 @@ msgstr ""
 
 #: guide/templates/login.html:14
 msgid "Got an account? Just log in!"
-msgstr ""
+msgstr "已经有一个账号？直接登录！"
 
 #: guide/templates/login.html:28 guide/templates/login.html.py:32
 msgid "Register"
-msgstr ""
+msgstr "注册"
 
 #: guide/templates/moderate.html:14
 #, python-format
@@ -1148,31 +1126,31 @@ msgstr ""
 
 #: guide/templates/moderate.html:46
 msgid "Search For Users"
-msgstr ""
+msgstr "查找用户"
 
 #: guide/templates/moderate.html:47
 msgid "Moderator list"
-msgstr ""
+msgstr "管理员列表"
 
 #: guide/templates/moderate.html:49
 msgid "Edit Category list"
-msgstr ""
+msgstr "编辑分类列表"
 
 #: guide/templates/moderate.html:50
 msgid "Edit Languages list"
-msgstr ""
+msgstr "编辑语言列表"
 
 #: guide/templates/moderate.html:51
 msgid "Moderator History"
-msgstr ""
+msgstr "管理员历史记录"
 
 #: guide/templates/moderator-board.html:9
 msgid "Moderator Message Board"
-msgstr ""
+msgstr "管理员留言板"
 
 #: guide/templates/pager-old.html:34
 msgid "Next &gt;&gt;"
-msgstr ""
+msgstr "下一个 &gt;&gt;"
 
 #: guide/templates/pager-old.html:38
 #, python-format
@@ -1183,7 +1161,7 @@ msgstr ""
 
 #: guide/templates/personalized-recommendation.html:18
 msgid "Rate!"
-msgstr ""
+msgstr "打分！"
 
 #: guide/templates/personalized-recommendation.html:22
 #, python-format
@@ -1192,7 +1170,7 @@ msgstr ""
 
 #: guide/templates/personalized-recommendation.html:25
 msgid "Because you like"
-msgstr ""
+msgstr "因为你喜欢"
 
 #: guide/templates/recommend.html:8
 msgid "Miro Guide - Channels You'll Love"
@@ -1206,23 +1184,23 @@ msgstr ""
 
 #: guide/templates/recommend.html:17 guide/templates/user_ratings.html:14
 msgid "Channels You'll &hearts;"
-msgstr ""
+msgstr "合你&hearts;的频道"
 
 #: guide/templates/recommend.html:17 guide/templates/user_ratings.html:14
 msgid "Channels You've Rated"
-msgstr ""
+msgstr "你评价过的频道"
 
 #: guide/templates/recommend.html:20
 msgid "To get new recommendations, rate these channels then "
-msgstr ""
+msgstr "要得到新的推荐，评价这些频道然后 "
 
 #: guide/templates/recommend.html:20
 msgid "reload"
-msgstr ""
+msgstr "重新载入"
 
 #: guide/templates/recommend.html:20
 msgid " this page."
-msgstr ""
+msgstr " 这个页面。"
 
 #: guide/templates/recommend.html:31
 msgid ""
@@ -1244,11 +1222,11 @@ msgstr ""
 
 #: guide/views/accounts.py:19
 msgid "List Your Channel in the Miro Guide!"
-msgstr ""
+msgstr "在Miro指南列出你的频道！"
 
 #: guide/views/accounts.py:20
 msgid "All you need is an account..."
-msgstr ""
+msgstr "你所需要的只是一个账号..."
 
 #: guide/views/accounts.py:23
 msgid "Rate Channels, Get Recommendations"
@@ -1274,7 +1252,7 @@ msgstr ""
 
 #: guide/views/accounts.py:50
 msgid "Your Video RSS Feed is a Miro Channel"
-msgstr ""
+msgstr "你的频道RSS地址是一个Miro频道"
 
 #: guide/views/accounts.py:51
 msgid ""
@@ -1284,7 +1262,7 @@ msgstr ""
 
 #: guide/views/accounts.py:63
 msgid "Why Should I Rate Channels?"
-msgstr ""
+msgstr "为什么我要给频道打分？"
 
 #: guide/views/accounts.py:64
 msgid ""
@@ -1296,7 +1274,7 @@ msgstr ""
 
 #: guide/views/accounts.py:65
 msgid "A Completely Open Guide"
-msgstr ""
+msgstr "一个完全开放的指南"
 
 #: guide/views/accounts.py:66
 msgid ""
@@ -1312,15 +1290,15 @@ msgstr ""
 
 #: guide/views/categories.py:27
 msgid "Edit Categories"
-msgstr ""
+msgstr "编辑分类"
 
 #: guide/views/categories.py:28
 msgid "New Category"
-msgstr ""
+msgstr "新建分类"
 
 #: guide/views/channels.py:108
 msgid "Rejection emails need a body"
-msgstr ""
+msgstr "拒绝邮件需要内容"
 
 #: guide/views/channels.py:113
 #, python-format
@@ -1329,16 +1307,15 @@ msgstr ""
 
 #: guide/views/channels.py:390
 msgid "Current image (no change)"
-msgstr ""
+msgstr "当前图像（不变）"
 
 #: guide/views/channels.py:392 guide/views/submit.py:97
 msgid "Current image (uploaded)"
-msgstr ""
+msgstr "当前图像（上传）"
 
 #: guide/views/frontpage.py:66
-#, fuzzy
 msgid "What is Miro?"
-msgstr "什么是高清晰度视频？"
+msgstr ""
 
 #: guide/views/frontpage.py:67
 #, python-format
@@ -1362,15 +1339,15 @@ msgstr ""
 
 #: guide/views/languages.py:34
 msgid "Edit Languages"
-msgstr ""
+msgstr "编辑语言"
 
 #: guide/views/languages.py:35
 msgid "New Language"
-msgstr ""
+msgstr "新建语言"
 
 #: guide/views/moderator.py:49
 msgid "Channels Waiting For Replies"
-msgstr ""
+msgstr "等待回复的频道"
 
 #: guide/views/moderator.py:52
 msgid "Channels Flagged Don't Know By a Moderator"
@@ -1378,7 +1355,7 @@ msgstr ""
 
 #: guide/views/moderator.py:55
 msgid "Rejected Channels"
-msgstr ""
+msgstr "被拒绝的频道"
 
 #: guide/views/moderator.py:58
 msgid "Suspended Channels"
@@ -1390,19 +1367,19 @@ msgstr ""
 
 #: guide/views/moderator.py:65
 msgid "Unreviewed Channels"
-msgstr ""
+msgstr "没有评论的频道"
 
 #: guide/views/submit.py:95
 msgid "Current image (from the feed)"
-msgstr ""
+msgstr "当前图像（从feed得到）"
 
 #: templates/404.html:9
 msgid "Page not found"
-msgstr ""
+msgstr "页面未找到"
 
 #: templates/404.html:10 templates/500.html:22
 msgid "go to front page"
-msgstr ""
+msgstr "到前一页"
 
 #: templates/500.html:12
 msgid ""
@@ -1425,7 +1402,3 @@ msgstr ""
 #: templates/500.html:19
 msgid "Make sure to include the error ID at the top of this page."
 msgstr ""
-
-#, fuzzy
-#~ msgid "(up to 5)"
-#~ msgstr "不超过5"

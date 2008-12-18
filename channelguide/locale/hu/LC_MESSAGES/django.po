@@ -1,228 +1,230 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Hungarian translation for miroguide
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the miroguide package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-06 14:33-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Project-Id-Version: miroguide\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2008-08-06 14:32-0400\n"
+"PO-Revision-Date: 2008-07-15 09:28+0000\n"
+"Last-Translator: Sapurin <sapurin@gmail.com>\n"
+"Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2008-12-09 21:56+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: settings.py:34
 msgid "English"
-msgstr ""
+msgstr "Angol"
 
 #: settings.py:35
 msgid "Arabic"
-msgstr ""
+msgstr "Arab"
 
 #: settings.py:36
 msgid "Bengali"
-msgstr ""
+msgstr "Bengáli"
 
 #: settings.py:37
 msgid "Catalan"
-msgstr ""
+msgstr "Katalán"
 
 #: settings.py:38
 msgid "Chinese"
-msgstr ""
+msgstr "Kínai"
 
 #: settings.py:39
 msgid "Croation"
-msgstr ""
+msgstr "Horvát"
 
 #: settings.py:40
 msgid "Danish"
-msgstr ""
+msgstr "Dán"
 
 #: settings.py:41
 msgid "Dutch"
-msgstr ""
+msgstr "Holland"
 
 #: settings.py:42
 msgid "Estonian"
-msgstr ""
+msgstr "Észt"
 
 #: settings.py:43
 msgid "Finnish"
-msgstr ""
+msgstr "Finn"
 
 #: settings.py:44
 msgid "French"
-msgstr ""
+msgstr "Francia"
 
 #: settings.py:45
 msgid "German"
-msgstr ""
+msgstr "Német"
 
 #: settings.py:46
 msgid "Greek"
-msgstr ""
+msgstr "Görög"
 
 #: settings.py:47
 msgid "Hebrew"
-msgstr ""
+msgstr "Héber"
 
 #: settings.py:48
 msgid "Hinidi"
-msgstr ""
+msgstr "Hindi"
 
 #: settings.py:49
 msgid "Hungarian"
-msgstr ""
+msgstr "Magyar"
 
 #: settings.py:50
 msgid "Icelandic"
-msgstr ""
+msgstr "Izlandi"
 
 #: settings.py:51
 msgid "Indonesian"
-msgstr ""
+msgstr "Indonéz"
 
 #: settings.py:52
 msgid "Italian"
-msgstr ""
+msgstr "Olasz"
 
 #: settings.py:53
 msgid "Japanese"
-msgstr ""
+msgstr "Japán"
 
 #: settings.py:54
 msgid "Korean"
-msgstr ""
+msgstr "Koreai"
 
 #: settings.py:55
 msgid "Kurdish (Sorani)"
-msgstr ""
+msgstr "Kurd"
 
 #: settings.py:56
 msgid "Latvian"
-msgstr ""
+msgstr "Lett"
 
 #: settings.py:57
 msgid "Lithuanian"
-msgstr ""
+msgstr "Litván"
 
 #: settings.py:58
 msgid "Malay"
-msgstr ""
+msgstr "Maláj"
 
 #: settings.py:59
 msgid "Norwegian"
-msgstr ""
+msgstr "Norvég"
 
 #: settings.py:60
 msgid "Persian"
-msgstr ""
+msgstr "Perzsa"
 
 #: settings.py:61
 msgid "Polish"
-msgstr ""
+msgstr "Lengyel"
 
 #: settings.py:62
 msgid "Portuguese (Brazillian)"
-msgstr ""
+msgstr "Portugál (Brazil)"
 
 #: settings.py:63
 msgid "Portuguese (Portugal)"
-msgstr ""
+msgstr "Portugál"
 
 #: settings.py:64
 msgid "Romanian"
-msgstr ""
+msgstr "Román"
 
 #: settings.py:65
 msgid "Russian"
-msgstr ""
+msgstr "Orosz"
 
 #: settings.py:66
 msgid "Serbo-Croatian"
-msgstr ""
+msgstr "Szerbhorvát"
 
 #: settings.py:67
 msgid "Slovak"
-msgstr ""
+msgstr "Szlovák"
 
 #: settings.py:68
 msgid "Spanish"
-msgstr ""
+msgstr "Spanyol"
 
 #: settings.py:69
 msgid "Swedish"
-msgstr ""
+msgstr "Svéd"
 
 #: settings.py:70
 msgid "Thai"
-msgstr ""
+msgstr "Thaiföldi"
 
 #: settings.py:71
 msgid "Turkish"
-msgstr ""
+msgstr "Török"
 
 #: settings.py:72
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnámi"
 
 #: guide/tables.py:12
 msgid "New"
-msgstr ""
+msgstr "Új"
 
 #: guide/tables.py:14
 msgid "Approved"
-msgstr ""
+msgstr "Jóváhagyva"
 
 #: guide/tables.py:16
 msgid "Waiting"
-msgstr ""
+msgstr "Várakozó"
 
 #: guide/tables.py:18
 msgid "Don't Know"
-msgstr ""
+msgstr "Nem tudom"
 
 #: guide/tables.py:20
 msgid "Rejected"
-msgstr ""
+msgstr "Visszautasított"
 
 #: guide/tables.py:22
 msgid "Suspended"
-msgstr ""
+msgstr "Felfüggesztett"
 
 #: guide/tables.py:24
 msgid "Audio"
-msgstr ""
+msgstr "Audio"
 
 #: guide/tables.py:26
 msgid "Unknown"
-msgstr ""
+msgstr "Ismeretlen"
 
 #: guide/templateutil.py:181 guide/templates/base.html:52
 msgid "Most Popular"
-msgstr ""
+msgstr "Legnépszerűbb"
 
 #: guide/templateutil.py:182
 msgid "Top Rated"
-msgstr ""
+msgstr "Elsőosztályú"
 
 #: guide/templateutil.py:183
 msgid "Most Recent"
-msgstr ""
+msgstr "Legmodernebb"
 
 #: guide/templateutil.py:184
 msgid "A-Z"
-msgstr ""
+msgstr "A-Z"
 
 #: guide/forms/channels.py:28
 msgid "What is HD?"
-msgstr ""
+msgstr "Mi az a HD?"
 
 #: guide/forms/channels.py:29
 #, python-format
@@ -256,7 +258,7 @@ msgstr ""
 
 #: guide/forms/channels.py:75 guide/forms/channels.py:279
 msgid "Channel Name"
-msgstr ""
+msgstr "Csatorna neve"
 
 #: guide/forms/channels.py:76 guide/forms/channels.py:280
 msgid "RSS Feed"
@@ -297,11 +299,11 @@ msgstr ""
 
 #: guide/forms/channels.py:282 guide/forms/cobranding.py:15
 msgid "Website URL"
-msgstr ""
+msgstr "Webhely URL"
 
 #: guide/forms/channels.py:284
 msgid "Full Description"
-msgstr ""
+msgstr "Teljes leírás"
 
 #: guide/forms/channels.py:285
 msgid "Publisher E-mail"
@@ -309,7 +311,7 @@ msgstr ""
 
 #: guide/forms/channels.py:287 guide/templates/tag-list.html:7
 msgid "Tags"
-msgstr ""
+msgstr "Címkék"
 
 #: guide/forms/channels.py:288
 msgid "Keywords that describe this channel.  Separate each tag with a comma."
@@ -317,11 +319,11 @@ msgstr ""
 
 #: guide/forms/channels.py:290 guide/views/categories.py:19
 msgid "Categories"
-msgstr ""
+msgstr "Kategóriák"
 
 #: guide/forms/channels.py:291
 msgid "Languages"
-msgstr ""
+msgstr "Nyelvek"
 
 #: guide/forms/channels.py:292
 msgid "What language are most of these videos in?"
@@ -329,15 +331,15 @@ msgstr ""
 
 #: guide/forms/channels.py:293
 msgid "Postal Code"
-msgstr ""
+msgstr "Irányítószám"
 
 #: guide/forms/channels.py:295
 msgid "High Definition"
-msgstr ""
+msgstr "Nagy felbontás"
 
 #: guide/forms/channels.py:297
 msgid "Upload Image"
-msgstr ""
+msgstr "Kép feltöltése"
 
 #: guide/forms/channels.py:298
 msgid ""
@@ -356,15 +358,15 @@ msgstr ""
 
 #: guide/forms/channels.py:461
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
 #: guide/forms/channels.py:462
 msgid "Title"
-msgstr ""
+msgstr "Cím"
 
 #: guide/forms/channels.py:463 guide/forms/misc.py:15
 msgid "Body"
-msgstr ""
+msgstr "Test"
 
 #: guide/forms/cobranding.py:11
 msgid "Title in Miro App"
@@ -376,7 +378,7 @@ msgstr ""
 
 #: guide/forms/cobranding.py:13
 msgid "Page Title"
-msgstr ""
+msgstr "Oldalcím"
 
 #: guide/forms/cobranding.py:14
 msgid "This is the title that will be displayed at the top of the page."
@@ -384,11 +386,11 @@ msgstr ""
 
 #: guide/forms/cobranding.py:17
 msgid "Icon URL"
-msgstr ""
+msgstr "Ikon URL"
 
 #: guide/forms/cobranding.py:17
 msgid "Icon should be 175x125 pixels."
-msgstr ""
+msgstr "Az ikon megengedett mérete 175x125 pixel."
 
 #: guide/forms/cobranding.py:19
 msgid "Favicon URL"
@@ -406,14 +408,15 @@ msgstr ""
 
 #: guide/forms/cobranding.py:22
 msgid "Description"
-msgstr ""
+msgstr "Leírás"
 
 #: guide/forms/cobranding.py:24
 msgid "Link 1 URL"
 msgstr ""
 
 #: guide/forms/cobranding.py:24
-msgid "Or leave this blank to have plain text.  All these links are optional."
+msgid ""
+"Or leave this blank to have plain text.  All these links are optional."
 msgstr ""
 
 #: guide/forms/cobranding.py:26
@@ -459,7 +462,7 @@ msgstr ""
 
 #: guide/forms/user.py:44
 msgid "That username is not valid."
-msgstr ""
+msgstr "A felhasználó név nem helyes."
 
 #: guide/forms/user.py:58
 msgid "That username or e-mail is not valid."
@@ -467,19 +470,19 @@ msgstr ""
 
 #: guide/forms/user.py:71
 msgid "That password is not valid."
-msgstr ""
+msgstr "A jelszó nem megfelelő."
 
 #: guide/forms/user.py:85
 msgid "Passwords don't match"
-msgstr ""
+msgstr "A jelszavak nem egyeznek"
 
 #: guide/forms/user.py:89
 msgid "Username"
-msgstr ""
+msgstr "Felhasználó név"
 
 #: guide/forms/user.py:90
 msgid "Email Address"
-msgstr ""
+msgstr "E-mail cím"
 
 #: guide/forms/user.py:92
 msgid "Pick a Password"
@@ -487,19 +490,19 @@ msgstr ""
 
 #: guide/forms/user.py:94 guide/forms/user.py:111 guide/forms/user.py:176
 msgid "Confirm Password"
-msgstr ""
+msgstr "Jelszó megerõsítése"
 
 #: guide/forms/user.py:109
 msgid "Change Password"
-msgstr ""
+msgstr "Jelszó módosítása"
 
 #: guide/forms/user.py:113
 msgid "First Name"
-msgstr ""
+msgstr "Keresztnév"
 
 #: guide/forms/user.py:115
 msgid "Last Name"
-msgstr ""
+msgstr "Vezetéknév"
 
 #: guide/forms/user.py:116
 msgid "Age"
@@ -511,27 +514,27 @@ msgstr ""
 
 #: guide/forms/user.py:122
 msgid "City"
-msgstr ""
+msgstr "Város"
 
 #: guide/forms/user.py:124
 msgid "State"
-msgstr ""
+msgstr "Állam"
 
 #: guide/forms/user.py:126
 msgid "Country"
-msgstr ""
+msgstr "Ország"
 
 #: guide/forms/user.py:128
 msgid "Zip Code"
-msgstr ""
+msgstr "Irányítószám"
 
 #: guide/forms/user.py:130
 msgid "IM Username"
-msgstr ""
+msgstr "IM Felhasználó név"
 
 #: guide/forms/user.py:132
 msgid "IM Type"
-msgstr ""
+msgstr "IM típusa"
 
 #: guide/forms/user.py:161
 msgid "Channel Owner Emails"
@@ -543,7 +546,7 @@ msgstr ""
 
 #: guide/forms/user.py:166
 msgid "Normal"
-msgstr ""
+msgstr "Normál"
 
 #: guide/forms/user.py:167
 msgid "No emails"
@@ -971,7 +974,8 @@ msgid "Three things to remember..."
 msgstr ""
 
 #: guide/templates/firsttime.html:38
-msgid "Miro lets you subscribe to channels for free (they go to your sidebar)"
+msgid ""
+"Miro lets you subscribe to channels for free (they go to your sidebar)"
 msgstr ""
 
 #: guide/templates/firsttime.html:39

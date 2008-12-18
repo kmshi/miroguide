@@ -1,228 +1,230 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Swedish translation for miroguide
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the miroguide package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: miroguide\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2008-08-06 14:32-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2008-09-27 20:52+0000\n"
+"Last-Translator: Linus C Unneback <linus@folkdatorn.se>\n"
+"Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2008-12-09 21:57+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: settings.py:34
 msgid "English"
-msgstr ""
+msgstr "Engelska"
 
 #: settings.py:35
 msgid "Arabic"
-msgstr ""
+msgstr "Arabiska"
 
 #: settings.py:36
 msgid "Bengali"
-msgstr ""
+msgstr "Bengaliska"
 
 #: settings.py:37
 msgid "Catalan"
-msgstr ""
+msgstr "Katalanska"
 
 #: settings.py:38
 msgid "Chinese"
-msgstr ""
+msgstr "Kinesiska"
 
 #: settings.py:39
 msgid "Croation"
-msgstr ""
+msgstr "Kroatiska"
 
 #: settings.py:40
 msgid "Danish"
-msgstr ""
+msgstr "Danska"
 
 #: settings.py:41
 msgid "Dutch"
-msgstr ""
+msgstr "Holländska"
 
 #: settings.py:42
 msgid "Estonian"
-msgstr ""
+msgstr "Estniska"
 
 #: settings.py:43
 msgid "Finnish"
-msgstr ""
+msgstr "Finska"
 
 #: settings.py:44
 msgid "French"
-msgstr ""
+msgstr "Franska"
 
 #: settings.py:45
 msgid "German"
-msgstr ""
+msgstr "Tyska"
 
 #: settings.py:46
 msgid "Greek"
-msgstr ""
+msgstr "Grekiska"
 
 #: settings.py:47
 msgid "Hebrew"
-msgstr ""
+msgstr "Hebreiska"
 
 #: settings.py:48
 msgid "Hinidi"
-msgstr ""
+msgstr "Hindi"
 
 #: settings.py:49
 msgid "Hungarian"
-msgstr ""
+msgstr "Ungerska"
 
 #: settings.py:50
 msgid "Icelandic"
-msgstr ""
+msgstr "Isländska"
 
 #: settings.py:51
 msgid "Indonesian"
-msgstr ""
+msgstr "Indonesiska"
 
 #: settings.py:52
 msgid "Italian"
-msgstr ""
+msgstr "Italienska"
 
 #: settings.py:53
 msgid "Japanese"
-msgstr ""
+msgstr "Japanska"
 
 #: settings.py:54
 msgid "Korean"
-msgstr ""
+msgstr "Koreanska"
 
 #: settings.py:55
 msgid "Kurdish (Sorani)"
-msgstr ""
+msgstr "Kurdiska"
 
 #: settings.py:56
 msgid "Latvian"
-msgstr ""
+msgstr "Lettiska"
 
 #: settings.py:57
 msgid "Lithuanian"
-msgstr ""
+msgstr "Litauiska"
 
 #: settings.py:58
 msgid "Malay"
-msgstr ""
+msgstr "Malajiska"
 
 #: settings.py:59
 msgid "Norwegian"
-msgstr ""
+msgstr "Norska"
 
 #: settings.py:60
 msgid "Persian"
-msgstr ""
+msgstr "Persiska"
 
 #: settings.py:61
 msgid "Polish"
-msgstr ""
+msgstr "Polska"
 
 #: settings.py:62
 msgid "Portuguese (Brazillian)"
-msgstr ""
+msgstr "Portugisiska (Brasilien)"
 
 #: settings.py:63
 msgid "Portuguese (Portugal)"
-msgstr ""
+msgstr "Portugisiska (Portugal)"
 
 #: settings.py:64
 msgid "Romanian"
-msgstr ""
+msgstr "Rumänska"
 
 #: settings.py:65
 msgid "Russian"
-msgstr ""
+msgstr "Ryska"
 
 #: settings.py:66
 msgid "Serbo-Croatian"
-msgstr ""
+msgstr "Serbokroatiska"
 
 #: settings.py:67
 msgid "Slovak"
-msgstr ""
+msgstr "Slovakiska"
 
 #: settings.py:68
 msgid "Spanish"
-msgstr ""
+msgstr "Spanska"
 
 #: settings.py:69
 msgid "Swedish"
-msgstr ""
+msgstr "Svenska"
 
 #: settings.py:70
 msgid "Thai"
-msgstr ""
+msgstr "Thailändska"
 
 #: settings.py:71
 msgid "Turkish"
-msgstr ""
+msgstr "Turkiska"
 
 #: settings.py:72
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamesiska"
 
 #: guide/tables.py:12
 msgid "New"
-msgstr ""
+msgstr "Nytt"
 
 #: guide/tables.py:14
 msgid "Approved"
-msgstr ""
+msgstr "Godkänd"
 
 #: guide/tables.py:16
 msgid "Waiting"
-msgstr ""
+msgstr "Väntar"
 
 #: guide/tables.py:18
 msgid "Don't Know"
-msgstr ""
+msgstr "Vet inte"
 
 #: guide/tables.py:20
 msgid "Rejected"
-msgstr ""
+msgstr "Avvisad"
 
 #: guide/tables.py:22
 msgid "Suspended"
-msgstr ""
+msgstr "Viloläge"
 
 #: guide/tables.py:24
 msgid "Audio"
-msgstr ""
+msgstr "Ljud"
 
 #: guide/tables.py:26
 msgid "Unknown"
-msgstr ""
+msgstr "Okänd"
 
 #: guide/templateutil.py:181 guide/templates/base.html:52
 msgid "Most Popular"
-msgstr ""
+msgstr "Populäraste"
 
 #: guide/templateutil.py:182
 msgid "Top Rated"
-msgstr ""
+msgstr "Högst klassade"
 
 #: guide/templateutil.py:183
 msgid "Most Recent"
-msgstr ""
+msgstr "Senaste"
 
 #: guide/templateutil.py:184
 msgid "A-Z"
-msgstr ""
+msgstr "A-Ö"
 
 #: guide/forms/channels.py:28
 msgid "What is HD?"
-msgstr ""
+msgstr "Vad är HD?"
 
 #: guide/forms/channels.py:29
 #, python-format
@@ -248,31 +250,31 @@ msgstr ""
 #: guide/forms/channels.py:53
 #, python-format
 msgid "%s is already a channel in the guide"
-msgstr ""
+msgstr "%s finns redan i kanalguiden"
 
 #: guide/forms/channels.py:58
 msgid "We can't find a video feed at that address, please try again."
-msgstr ""
+msgstr "Det finns inget videoflöde på den adressen, försök igen."
 
 #: guide/forms/channels.py:75 guide/forms/channels.py:279
 msgid "Channel Name"
-msgstr ""
+msgstr "Kanalnamn"
 
 #: guide/forms/channels.py:76 guide/forms/channels.py:280
 msgid "RSS Feed"
-msgstr ""
+msgstr "RSS-flöde"
 
 #: guide/forms/channels.py:139
 msgid "1st"
-msgstr ""
+msgstr "1:a"
 
 #: guide/forms/channels.py:139
 msgid "2nd"
-msgstr ""
+msgstr "2:a"
 
 #: guide/forms/channels.py:139
 msgid "3rd"
-msgstr ""
+msgstr "3:e"
 
 #: guide/forms/channels.py:161
 msgid "You must at least enter a primary value."
@@ -281,63 +283,63 @@ msgstr ""
 #: guide/forms/channels.py:178
 #, python-format
 msgid "you can only enter up to %d tags."
-msgstr ""
+msgstr "du kan bara ange upp till %d taggar."
 
 #: guide/forms/channels.py:260
 msgid "This field is required."
-msgstr ""
+msgstr "Det här fältet är obligatoriskt"
 
 #: guide/forms/channels.py:265
 msgid "Not a valid image"
-msgstr ""
+msgstr "Inte en glitig bild"
 
 #: guide/forms/channels.py:269
 msgid "Not an image in a format we support."
-msgstr ""
+msgstr "Bilden är inte i något av de format som vi stödjer"
 
 #: guide/forms/channels.py:282 guide/forms/cobranding.py:15
 msgid "Website URL"
-msgstr ""
+msgstr "URL till webbplats"
 
 #: guide/forms/channels.py:284
 msgid "Full Description"
-msgstr ""
+msgstr "Fullständig beskrivning"
 
 #: guide/forms/channels.py:285
 msgid "Publisher E-mail"
-msgstr ""
+msgstr "Ansvarig utgivares E-post"
 
 #: guide/forms/channels.py:287 guide/templates/tag-list.html:7
 msgid "Tags"
-msgstr ""
+msgstr "Taggar"
 
 #: guide/forms/channels.py:288
 msgid "Keywords that describe this channel.  Separate each tag with a comma."
-msgstr ""
+msgstr "Nyckelord som beskriver kanalen - ange dem med ett komma emellan."
 
 #: guide/forms/channels.py:290 guide/views/categories.py:19
 msgid "Categories"
-msgstr ""
+msgstr "Kategorier"
 
 #: guide/forms/channels.py:291
 msgid "Languages"
-msgstr ""
+msgstr "Språk"
 
 #: guide/forms/channels.py:292
 msgid "What language are most of these videos in?"
-msgstr ""
+msgstr "På vilket språk är flertalet av dessa filmer?"
 
 #: guide/forms/channels.py:293
 msgid "Postal Code"
-msgstr ""
+msgstr "Postnummer"
 
 #: guide/forms/channels.py:295
 msgid "High Definition"
-msgstr ""
+msgstr "Högupplöst"
 
 #: guide/forms/channels.py:297
 msgid "Upload Image"
-msgstr ""
+msgstr "Ladda upp en bild"
 
 #: guide/forms/channels.py:298
 msgid ""
@@ -348,244 +350,250 @@ msgstr ""
 
 #: guide/forms/channels.py:320
 msgid "That streaming site already exists."
-msgstr ""
+msgstr "Någon annan har redan skapat en kanal för denna ström/sida"
 
 #: guide/forms/channels.py:390
 msgid "Feed URL already exists"
 msgstr ""
+"Flödes-URL finns redan (Någon annan har redan skapat en kanal från samma RSS-"
+"flöde)"
 
 #: guide/forms/channels.py:461
 msgid "Email"
-msgstr ""
+msgstr "E-post"
 
 #: guide/forms/channels.py:462
 msgid "Title"
-msgstr ""
+msgstr "Rubrik"
 
 #: guide/forms/channels.py:463 guide/forms/misc.py:15
 msgid "Body"
-msgstr ""
+msgstr "Brödtext"
 
 #: guide/forms/cobranding.py:11
 msgid "Title in Miro App"
-msgstr ""
+msgstr "Rubrik i Miro-programmet"
 
 #: guide/forms/cobranding.py:12
 msgid "This is the title that will appear in the sidebar of Miro."
-msgstr ""
+msgstr "Det här är rubriken såsom den ser ut i sidofältet i Miro."
 
 #: guide/forms/cobranding.py:13
 msgid "Page Title"
-msgstr ""
+msgstr "Sidrubrik"
 
 #: guide/forms/cobranding.py:14
 msgid "This is the title that will be displayed at the top of the page."
-msgstr ""
+msgstr "Det här är rubriken såsom den kommer att se ut längst upp på sidan."
 
 #: guide/forms/cobranding.py:17
 msgid "Icon URL"
-msgstr ""
+msgstr "Ikon URL"
 
 #: guide/forms/cobranding.py:17
 msgid "Icon should be 175x125 pixels."
-msgstr ""
+msgstr "Ikonen skall vara 175x125 pixlar."
 
 #: guide/forms/cobranding.py:19
 msgid "Favicon URL"
-msgstr ""
+msgstr "Favicon URL"
 
 #: guide/forms/cobranding.py:19
 msgid ""
 "This is best as a 20x20 png graphic. It shows up in the sidebar of the Miro "
 "App."
 msgstr ""
+"Det här bör vara en 20x20 png-bild. Den dyker upp i sidfältet i Miro-"
+"programmet"
 
 #: guide/forms/cobranding.py:21
 msgid "External CSS URL"
-msgstr ""
+msgstr "Extern CSS URL"
 
 #: guide/forms/cobranding.py:22
 msgid "Description"
-msgstr ""
+msgstr "Beskrivning"
 
 #: guide/forms/cobranding.py:24
 msgid "Link 1 URL"
-msgstr ""
+msgstr "Länk 1 URL"
 
 #: guide/forms/cobranding.py:24
-msgid "Or leave this blank to have plain text.  All these links are optional."
+msgid ""
+"Or leave this blank to have plain text.  All these links are optional."
 msgstr ""
+"Eller lämna det här fältet tomt för enkel text. Alla dessa länkar är valfria."
 
 #: guide/forms/cobranding.py:26
 msgid "Link 1 Text"
-msgstr ""
+msgstr "Länk 1 text"
 
 #: guide/forms/cobranding.py:28
 msgid "Link 2 URL"
-msgstr ""
+msgstr "Länk 2 URL"
 
 #: guide/forms/cobranding.py:30
 msgid "Link 2 Text"
-msgstr ""
+msgstr "Länk 2 text"
 
 #: guide/forms/cobranding.py:32
 msgid "Link 3 URL"
-msgstr ""
+msgstr "Länk 3 URL"
 
 #: guide/forms/cobranding.py:34
 msgid "Link 3 Text"
-msgstr ""
+msgstr "Länk 3 text"
 
 #: guide/forms/fields.py:21
 #, python-format
 msgid "Ensure this value has at most %(maximum)d bytes (it has %(length)d)."
-msgstr ""
+msgstr "Detta värde får ha högst %(maximum)d tecken (den har %(length)d)."
 
 #: guide/forms/misc.py:14
 msgid "title"
-msgstr ""
+msgstr "rubrik"
 
 #: guide/forms/user.py:18
 msgid "Username already taken"
-msgstr ""
+msgstr "Användarnamnet är upptaget"
 
 #: guide/forms/user.py:28
 msgid "E-mail already taken"
-msgstr ""
+msgstr "Denna e-postadress används redan av en annan användare."
 
 #: guide/forms/user.py:35
 msgid "E-mail not found"
-msgstr ""
+msgstr "Kunde inte hitta den e-postadressen"
 
 #: guide/forms/user.py:44
 msgid "That username is not valid."
-msgstr ""
+msgstr "Det användarnamnet stämmer inte."
 
 #: guide/forms/user.py:58
 msgid "That username or e-mail is not valid."
-msgstr ""
+msgstr "Användarnamnet eller e-postadressen är ogiltiga."
 
 #: guide/forms/user.py:71
 msgid "That password is not valid."
-msgstr ""
+msgstr "Det lösenordet stämmer inte."
 
 #: guide/forms/user.py:85
 msgid "Passwords don't match"
-msgstr ""
+msgstr "Lösenorden stämmer inte."
 
 #: guide/forms/user.py:89
 msgid "Username"
-msgstr ""
+msgstr "Användarnamn"
 
 #: guide/forms/user.py:90
 msgid "Email Address"
-msgstr ""
+msgstr "E-postadress"
 
 #: guide/forms/user.py:92
 msgid "Pick a Password"
-msgstr ""
+msgstr "Välj ett lösenord"
 
 #: guide/forms/user.py:94 guide/forms/user.py:111 guide/forms/user.py:176
 msgid "Confirm Password"
-msgstr ""
+msgstr "Bekräfta lösenord"
 
 #: guide/forms/user.py:109
 msgid "Change Password"
-msgstr ""
+msgstr "Ändra lösenord"
 
 #: guide/forms/user.py:113
 msgid "First Name"
-msgstr ""
+msgstr "Förnamn"
 
 #: guide/forms/user.py:115
 msgid "Last Name"
-msgstr ""
+msgstr "Efternamn"
 
 #: guide/forms/user.py:116
 msgid "Age"
-msgstr ""
+msgstr "Ålder"
 
 #: guide/forms/user.py:120
 msgid "Gender"
-msgstr ""
+msgstr "Kön"
 
 #: guide/forms/user.py:122
 msgid "City"
-msgstr ""
+msgstr "Postort"
 
 #: guide/forms/user.py:124
 msgid "State"
-msgstr ""
+msgstr "Delstate (inte aktuellt i Sverige)"
 
 #: guide/forms/user.py:126
 msgid "Country"
-msgstr ""
+msgstr "Land"
 
 #: guide/forms/user.py:128
 msgid "Zip Code"
-msgstr ""
+msgstr "Postnummer"
 
 #: guide/forms/user.py:130
 msgid "IM Username"
-msgstr ""
+msgstr "IM användarnamn"
 
 #: guide/forms/user.py:132
 msgid "IM Type"
-msgstr ""
+msgstr "IM typ"
 
 #: guide/forms/user.py:161
 msgid "Channel Owner Emails"
-msgstr ""
+msgstr "Kanalägarens e-post"
 
 #: guide/forms/user.py:165
 msgid "Moderator Board Emails"
-msgstr ""
+msgstr "Moderator e-post"
 
 #: guide/forms/user.py:166
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #: guide/forms/user.py:167
 msgid "No emails"
-msgstr ""
+msgstr "Ingen e-post"
 
 #: guide/forms/user.py:168
 msgid "Send all emails"
-msgstr ""
+msgstr "Skicka alla e-postmeddelanden"
 
 #: guide/forms/user.py:169
 msgid "Channel Status Emails"
-msgstr ""
+msgstr "Kanalens status e-post"
 
 #: guide/forms/user.py:174
 msgid "Set a new Password"
-msgstr ""
+msgstr "Välj ett nytt lösenord"
 
 #: guide/models/channel.py:315
 #, python-format
 msgid "%(count)d subscriber"
 msgid_plural "%(count)d subscribers"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "abonnent %(count)d"
+msgstr[1] "%(count)d abonnenter"
 
 #: guide/models/channel.py:322
 #, python-format
 msgid "%(count)d episode"
 msgid_plural "%(count)d episodes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "avsnitt %(count)d"
+msgstr[1] "%(count)d avsnitt"
 
 #: guide/templates/add-note.html:9
 msgid "Post"
-msgstr ""
+msgstr "Posta"
 
 #: guide/templates/after-submit.html:9
 msgid "Thanks for Submitting Your Channel"
-msgstr ""
+msgstr "Tack för att du lade till en kanal"
 
 #: guide/templates/after-submit.html:10
 msgid "Your channel has been submitted!"
-msgstr ""
+msgstr "Din kanal är nu tillagd!"
 
 #: guide/templates/after-submit.html:12
 msgid ""
@@ -595,10 +603,15 @@ msgid ""
 "inappropriate.  Once the channel is approved, it will appear in the\n"
 "'Just Added' section on the front page.\n"
 msgstr ""
+"\n"
+"Våra moderater kommer att granska din kanal inom de närmaste \n"
+"dagarna och kontrollera att den fungerar i Miro och att dess innehåll \n"
+"inte är \"olämpligt\". När kanalen väl är godkänd kommer den att dyka\n"
+" upp i kategorin \"Nya kanaler\" på förstasidan.\n"
 
 #: guide/templates/after-submit.html:19
 msgid "Updating Your Channel Info"
-msgstr ""
+msgstr "Uppdatera din kanalinformation"
 
 #: guide/templates/after-submit.html:20
 msgid ""
@@ -606,16 +619,21 @@ msgid ""
 "You can update the details about your channel at anytime.  Just login\n"
 "to your account and click the 'My Submitted Channels' link.\n"
 msgstr ""
+"\n"
+"Du kan när som helst uppdatera detaljer om din kanal. Logga bara in \n"
+"på ditt konto och tryck på \"Mina uppladdade kanaler\"\n"
 
 #: guide/templates/after-submit.html:25
 msgid "Add a 1-Click Subscribe Button to Your Website"
-msgstr ""
+msgstr "Lägg till en 1-Click Subscribe Button på din webbplats"
 
 #: guide/templates/after-submit.html:28
 msgid ""
 "Visit <a href=\"http://webbalert.com/\">webbalert.com</a> to see a real 1-"
 "click button in action"
 msgstr ""
+"För att se hur en \"enklicksknapp\" fungerar besök <a "
+"href=\"http://webbalert.com/\">webbalert.com</a>."
 
 #: guide/templates/after-submit.html:30
 msgid ""
@@ -635,7 +653,7 @@ msgstr ""
 #: guide/templates/auth-token-request.html:7
 #: guide/templates/auth-token-request.html:11
 msgid "Forgot Password"
-msgstr ""
+msgstr "Glömt lösenord"
 
 #: guide/templates/auth-token-request.html:12
 msgid ""
@@ -647,29 +665,29 @@ msgstr ""
 
 #: guide/templates/auth-token-request.html:17
 msgid "Send"
-msgstr ""
+msgstr "Skicka"
 
 #: guide/templates/bad-auth-token.html:7
 #: guide/templates/change-password.html:7
 #: guide/templates/change-password.html:11
 msgid "Create New Password"
-msgstr ""
+msgstr "Skapa ett nytt lösenord"
 
 #: guide/templates/bad-auth-token.html:10
 msgid "Link invalid"
-msgstr ""
+msgstr "Länken stämmer inte"
 
 #: guide/templates/bad-auth-token.html:11
 msgid "The link you used to get to this page was not valid."
-msgstr ""
+msgstr "Länken som du använde för att komma till den här sidan stämmer inte."
 
 #: guide/templates/base.html:5 templates/500.html:7
 msgid "Miro Guide"
-msgstr ""
+msgstr "Miro guide"
 
 #: guide/templates/base.html:27
 msgid "Miro"
-msgstr ""
+msgstr "Miro"
 
 #: guide/templates/base.html:28
 msgid "Video feeds"
@@ -681,43 +699,43 @@ msgstr ""
 
 #: guide/templates/base.html:30
 msgid "Videos you'll love"
-msgstr ""
+msgstr "Videor du kommer att älska"
 
 #: guide/templates/base.html:36
 msgid "Search"
-msgstr ""
+msgstr "Sök"
 
 #: guide/templates/base.html:50
 msgid "Genres"
-msgstr ""
+msgstr "Genrer"
 
 #: guide/templates/base.html:51
 msgid "HD Channels"
-msgstr ""
+msgstr "HD kanaler"
 
 #: guide/templates/base.html:53
 msgid "New Shows"
-msgstr ""
+msgstr "Nya avsnitt"
 
 #: guide/templates/base.html:54
 msgid "Video by Language"
-msgstr ""
+msgstr "Video sorterat efter språk"
 
 #: guide/templates/base.html:55
 msgid "Language"
-msgstr ""
+msgstr "Språk"
 
 #: guide/templates/base.html:57
 msgid "Account"
-msgstr ""
+msgstr "Konto"
 
 #: guide/templates/base.html:68
 msgid "Moderator's Area"
-msgstr ""
+msgstr "Moderatorernas område"
 
 #: guide/templates/base.html:70
 msgid "View/Edit Profile"
-msgstr ""
+msgstr "Visa/Redigera profil"
 
 #: guide/templates/base.html:72
 msgid "Channels I Manage"
@@ -725,44 +743,44 @@ msgstr ""
 
 #: guide/templates/base.html:74
 msgid "Submit a Channel"
-msgstr ""
+msgstr "Lägg till en kanal"
 
 #: guide/templates/base.html:78
 msgid "Log Out"
-msgstr ""
+msgstr "Logga ut"
 
 #: guide/templates/base.html:94
 msgid "Forgot password"
-msgstr ""
+msgstr "Hjälp, jag har glömt mitt lösenord."
 
 #: guide/templates/base.html:95 guide/templates/login.html:7
 #: guide/templates/login.html.py:13 guide/templates/login.html:18
 msgid "Login"
-msgstr ""
+msgstr "Logga in"
 
 #: guide/templates/base.html:106
 msgid "Register!"
-msgstr ""
+msgstr "Registrera dig som en ny användare"
 
 #: guide/templates/base.html:113
 msgid "Register Now!"
-msgstr ""
+msgstr "REgistrera dig här!"
 
 #: guide/templates/base.html:114
 msgid "Always Free"
-msgstr ""
+msgstr "Alltid gratis"
 
 #: guide/templates/base.html:161
 msgid "Loading..."
-msgstr ""
+msgstr "Läser in..."
 
 #: guide/templates/button_block.html:6
 msgid "Add"
-msgstr ""
+msgstr "Lägg till"
 
 #: guide/templates/button_block.html:6
 msgid "Add channel"
-msgstr ""
+msgstr "Lägg till en kanal"
 
 #: guide/templates/button_block.html:7
 #, python-format
@@ -771,7 +789,7 @@ msgstr ""
 
 #: guide/templates/button_block.html:12
 msgid "Details"
-msgstr ""
+msgstr "Detaljer"
 
 #: guide/templates/button_block.html:13
 #, python-format
@@ -780,15 +798,15 @@ msgstr ""
 
 #: guide/templates/change-password.html:14
 msgid "Create"
-msgstr ""
+msgstr "Skapa"
 
 #: guide/templates/channel-form.html:7
 msgid "Submit Channel"
-msgstr ""
+msgstr "Lägg till kanal"
 
 #: guide/templates/channel-form.html:15
 msgid "Channel Thumbnail"
-msgstr ""
+msgstr "Kanalens tumnagelbild"
 
 #: guide/templates/channel-form.html:16
 msgid ""
@@ -804,60 +822,62 @@ msgid ""
 "We have found an image in your feed.  You can either use this image or "
 "upload a different one."
 msgstr ""
+"Vi har hittat en bild i din feed. Du kan antingen använda dena bild eller "
+"ladda upp en annan."
 
 #: guide/templates/channel-notes.html:7
 msgid "Issues"
-msgstr ""
+msgstr "Uppgifter"
 
 #: guide/templates/channel-notes.html:7
 msgid "need support? post here."
-msgstr ""
+msgstr "behöver du hjälp? du får den här."
 
 #: guide/templates/channel-notes.html:14
 msgid "Me"
-msgstr ""
+msgstr "mig"
 
 #: guide/templates/channel-notes.html:17
 msgid "Manager"
-msgstr ""
+msgstr "Administratör"
 
 #: guide/templates/channel.html:12 guide/templates/channel.html.py:14
 msgid "High-Definition Channel"
-msgstr ""
+msgstr "HD-kanal"
 
 #: guide/templates/channel.html:53
 msgid "Channel Manager"
-msgstr ""
+msgstr "Kanalhanterare"
 
 #: guide/templates/channel.html:60
 msgid "Notes"
-msgstr ""
+msgstr "Anteckningar"
 
 #: guide/templates/cobranding-admin.html:7
 #: guide/templates/cobranding-admin.html:9
 msgid "Administration"
-msgstr ""
+msgstr "Administration"
 
 #: guide/templates/cobranding.html:53
 #, python-format
 msgid "All %(title)s Channels"
-msgstr ""
+msgstr "Alla %(title)s kanaler"
 
 #: guide/templates/confirm.html:7
 msgid "Email Sent"
-msgstr ""
+msgstr "E-postmeddelande skickat"
 
 #: guide/templates/confirm.html:11
 msgid "Confirmed!"
-msgstr ""
+msgstr "Bekräftat!"
 
 #: guide/templates/confirm.html:12
 msgid "Thanks for confirming your account!"
-msgstr ""
+msgstr "Tack för att du bekräftade ditt konto!"
 
 #: guide/templates/confirm.html:15
 msgid "Confirmation sent"
-msgstr ""
+msgstr "Bekräftelsen skickad"
 
 #: guide/templates/confirm.html:17
 msgid ""
@@ -867,83 +887,83 @@ msgstr ""
 
 #: guide/templates/confirm.html:25
 msgid "Resend"
-msgstr ""
+msgstr "Skickad på nytt"
 
 #: guide/templates/confirm.html:29
 msgid "Incorrect code"
-msgstr ""
+msgstr "Koden är fel"
 
 #: guide/templates/confirm.html:30
 msgid "I'm sorry, that is not the correct code."
-msgstr ""
+msgstr "Det var fel kod"
 
 #: guide/templates/edit-bar.html:9
 msgid "Click to Edit Channel / Assist Manager"
-msgstr ""
+msgstr "Klicka här fär att redigera kanalen/hjälpa administratören"
 
 #: guide/templates/edit-bar.html:13
 #, python-format
 msgid "%(state)s by %(mod)s on %(mod_time)s"
-msgstr ""
+msgstr "%(state)s av %(mod)s vid tidpunkten %(mod_time)s"
 
 #: guide/templates/edit-bar.html:16
 #, python-format
 msgid "%(state)s by %(mod)s"
-msgstr ""
+msgstr "%(state)s av %(mod)s"
 
 #: guide/templates/edit-bar.html:18
 #, python-format
 msgid "Channel is %(state)s"
-msgstr ""
+msgstr "Kanalen är %(state)s"
 
 #: guide/templates/edit-bar.html:23
 #, python-format
 msgid "Featured by %(mod)s on %(featured_time)s"
-msgstr ""
+msgstr "Framhållen %(mod)s vid tidpunkten %(featured_time)s"
 
 #: guide/templates/edit-bar.html:28
 msgid "Edit Your Channel / View Statistics / Get Help"
-msgstr ""
+msgstr "Ändra kanalen / Se statistik / Få hjälp"
 
 #: guide/templates/edit-bar.html:91
 msgid "Cancel and go back"
-msgstr ""
+msgstr "Avbryt och gå tillbaka"
 
 #: guide/templates/edit-channel.html:8 guide/templates/edit-channel.html:10
 msgid "Edit Channel"
-msgstr ""
+msgstr "Redigera kanal"
 
 #: guide/templates/edit-channel.html:12 guide/templates/edit-user.html:30
 msgid "Update"
-msgstr ""
+msgstr "Uppdatera"
 
 #: guide/templates/edit-channel.html:15
 msgid "Statistics"
-msgstr ""
+msgstr "Statistik"
 
 #: guide/templates/edit-channel.html:17
 msgid "Subscriptions* Today"
-msgstr ""
+msgstr "Prenumerationer idag"
 
 #: guide/templates/edit-channel.html:19
 msgid "Subscriptions* Month"
-msgstr ""
+msgstr "Prenumerationer månad"
 
 #: guide/templates/edit-channel.html:21
 msgid "Subscriptions* Overall"
-msgstr ""
+msgstr "Prenumerationer totalt"
 
 #: guide/templates/edit-channel.html:24
 msgid "Popularity Rank Today"
-msgstr ""
+msgstr "Popularitetsnivå idag"
 
 #: guide/templates/edit-channel.html:28
 msgid "Popularity Rank Month"
-msgstr ""
+msgstr "Popularitetsnivå månad"
 
 #: guide/templates/edit-channel.html:32
 msgid "Popularity Rank Overall"
-msgstr ""
+msgstr "Popularitetsnivå totalt"
 
 #: guide/templates/edit-channel.html:36
 msgid "* unique Miro Guide 'add channel' hits"
@@ -951,11 +971,11 @@ msgstr ""
 
 #: guide/templates/edit-user.html:7
 msgid "Update My Profile"
-msgstr ""
+msgstr "Uppdatera min profil"
 
 #: guide/templates/edit-user.html:11
 msgid "Update My Profile "
-msgstr ""
+msgstr "Update My Profile "
 
 #: guide/templates/email-channel-owners.html:7
 #: guide/templates/moderate.html:52
@@ -964,27 +984,29 @@ msgstr ""
 
 #: guide/templates/firsttime.html:34
 msgid "WELCOME TO MIRO!"
-msgstr ""
+msgstr "VÄLKOMMEN TILL MIRO!"
 
 #: guide/templates/firsttime.html:36
 msgid "Three things to remember..."
-msgstr ""
+msgstr "Tre saker att komma ihåg..."
 
 #: guide/templates/firsttime.html:38
-msgid "Miro lets you subscribe to channels for free (they go to your sidebar)"
+msgid ""
+"Miro lets you subscribe to channels for free (they go to your sidebar)"
 msgstr ""
+"Miro låter dig prenumerera på kanaler gratis (de hamnar i sidofältet)"
 
 #: guide/templates/firsttime.html:39
 msgid "Miro will automatically download new videos from your channels"
-msgstr ""
+msgstr "Miro kommer automatiskt att ladda ner nya filmer från dina kanaler"
 
 #: guide/templates/firsttime.html:40
 msgid "A "
-msgstr ""
+msgstr "A "
 
 #: guide/templates/firsttime.html:40
 msgid "green"
-msgstr ""
+msgstr "grön"
 
 #: guide/templates/firsttime.html:40
 msgid " bubble (in the sidebar) means you've got "
@@ -992,28 +1014,28 @@ msgstr ""
 
 #: guide/templates/firsttime.html:40
 msgid "new"
-msgstr ""
+msgstr "ny"
 
 #: guide/templates/firsttime.html:40
 msgid " video"
-msgstr ""
+msgstr " film"
 
 #: guide/templates/firsttime.html:43
 msgid "We Have Channel Recommendations for You! <u>click here</u>"
-msgstr ""
+msgstr "Här kommer rekommendationer om kanaler! <u>klicka här</u>"
 
 #: guide/templates/firsttime.html:56
 msgid "Share Miro With Your Friends:"
-msgstr ""
+msgstr "Dela med dig av Miro till goda vänner:"
 
 #: guide/templates/firsttime.html:80
 msgid "Get Started"
-msgstr ""
+msgstr "Börja här"
 
 #: guide/templates/firsttime.html:80
 #, python-format
 msgid "Browse All %(total_channels)s channels"
-msgstr ""
+msgstr "Bläddra bland alla %(total_channels)s kanaler"
 
 #: guide/templates/for-user.html:7
 msgid "Miro Guide - Channels for"
@@ -1021,23 +1043,23 @@ msgstr ""
 
 #: guide/templates/for-user.html:11
 msgid "My User Info"
-msgstr ""
+msgstr "Min användarinformation"
 
 #: guide/templates/for-user.html:13
 msgid "User Info for"
-msgstr ""
+msgstr "Användarinformation för"
 
 #: guide/templates/for-user.html:30
 msgid "Submitted channels: "
-msgstr ""
+msgstr "Föreslagna kalaner: "
 
 #: guide/templates/form-errors.html:8 templates/500.html:11
 msgid "Sorry!"
-msgstr ""
+msgstr "Tyvärr!"
 
 #: guide/templates/form-field.html:6
 msgid "Error"
-msgstr ""
+msgstr "Fel"
 
 #: guide/templates/group-list.html:7
 #, python-format
@@ -1046,7 +1068,7 @@ msgstr ""
 
 #: guide/templates/how-to-moderate.html:7 guide/templates/moderate.html:45
 msgid "How to Moderate"
-msgstr ""
+msgstr "Hur man modererar"
 
 #: guide/templates/index.html:134
 msgid "New Feed Videos"
@@ -1058,19 +1080,19 @@ msgstr ""
 
 #: guide/templates/index.html:156
 msgid "Recommended for you"
-msgstr ""
+msgstr "Rekommenderade för dig"
 
 #: guide/templates/index.html:166
 msgid "View all"
-msgstr ""
+msgstr "Visa alla"
 
 #: guide/templates/login.html:14
 msgid "Got an account? Just log in!"
-msgstr ""
+msgstr "Har du redan ett användarnamn? Logga in!"
 
 #: guide/templates/login.html:28 guide/templates/login.html.py:32
 msgid "Register"
-msgstr ""
+msgstr "Registrera"
 
 #: guide/templates/moderate.html:14
 #, python-format
@@ -1111,6 +1133,9 @@ msgid ""
 "        %(count)s Rejected channels\n"
 "        "
 msgstr ""
+"\n"
+"        %(count)s Avvisade kanaler\n"
+"        "
 
 #: guide/templates/moderate.html:39
 #, python-format
@@ -1122,31 +1147,31 @@ msgstr ""
 
 #: guide/templates/moderate.html:46
 msgid "Search For Users"
-msgstr ""
+msgstr "Sök efter användare"
 
 #: guide/templates/moderate.html:47
 msgid "Moderator list"
-msgstr ""
+msgstr "Lista över moderatorer"
 
 #: guide/templates/moderate.html:49
 msgid "Edit Category list"
-msgstr ""
+msgstr "Redigera kategorilistan"
 
 #: guide/templates/moderate.html:50
 msgid "Edit Languages list"
-msgstr ""
+msgstr "Redigera listan av språk"
 
 #: guide/templates/moderate.html:51
 msgid "Moderator History"
-msgstr ""
+msgstr "Moderatorhistoria"
 
 #: guide/templates/moderator-board.html:9
 msgid "Moderator Message Board"
-msgstr ""
+msgstr "Moderatorernas anslagstavla"
 
 #: guide/templates/pager-old.html:34
 msgid "Next &gt;&gt;"
-msgstr ""
+msgstr "Nästa &gt;&gt;"
 
 #: guide/templates/pager-old.html:38
 #, python-format
@@ -1157,7 +1182,7 @@ msgstr ""
 
 #: guide/templates/personalized-recommendation.html:18
 msgid "Rate!"
-msgstr ""
+msgstr "Klassa!"
 
 #: guide/templates/personalized-recommendation.html:22
 #, python-format
@@ -1166,7 +1191,7 @@ msgstr ""
 
 #: guide/templates/personalized-recommendation.html:25
 msgid "Because you like"
-msgstr ""
+msgstr "Därför att du gillar"
 
 #: guide/templates/recommend.html:8
 msgid "Miro Guide - Channels You'll Love"
@@ -1180,11 +1205,11 @@ msgstr ""
 
 #: guide/templates/recommend.html:17 guide/templates/user_ratings.html:14
 msgid "Channels You'll &hearts;"
-msgstr ""
+msgstr "Kanaler som du tycker om"
 
 #: guide/templates/recommend.html:17 guide/templates/user_ratings.html:14
 msgid "Channels You've Rated"
-msgstr ""
+msgstr "Kanaler som du har klassat"
 
 #: guide/templates/recommend.html:20
 msgid "To get new recommendations, rate these channels then "
@@ -1192,11 +1217,11 @@ msgstr ""
 
 #: guide/templates/recommend.html:20
 msgid "reload"
-msgstr ""
+msgstr "Ladda om"
 
 #: guide/templates/recommend.html:20
 msgid " this page."
-msgstr ""
+msgstr " den här sidan"
 
 #: guide/templates/recommend.html:31
 msgid ""
@@ -1218,11 +1243,11 @@ msgstr ""
 
 #: guide/views/accounts.py:19
 msgid "List Your Channel in the Miro Guide!"
-msgstr ""
+msgstr "Lista din kanal i Miroguiden!"
 
 #: guide/views/accounts.py:20
 msgid "All you need is an account..."
-msgstr ""
+msgstr "Allt du behöver är ett konto..."
 
 #: guide/views/accounts.py:23
 msgid "Rate Channels, Get Recommendations"
@@ -1245,10 +1270,12 @@ msgid ""
 "Your ratings will show up, but won't count towards the average until you "
 "confirm your e-mail."
 msgstr ""
+"Dina bedömningar kommer att visas, men kommer inte att räknas med i "
+"genomsnittet förrän du har bekräftat din e-postadress."
 
 #: guide/views/accounts.py:50
 msgid "Your Video RSS Feed is a Miro Channel"
-msgstr ""
+msgstr "Ditt video RSS-flöde är en Mirokanal"
 
 #: guide/views/accounts.py:51
 msgid ""
@@ -1258,7 +1285,7 @@ msgstr ""
 
 #: guide/views/accounts.py:63
 msgid "Why Should I Rate Channels?"
-msgstr ""
+msgstr "Varför skall jag bedöma kanaler?"
 
 #: guide/views/accounts.py:64
 msgid ""
@@ -1270,7 +1297,7 @@ msgstr ""
 
 #: guide/views/accounts.py:65
 msgid "A Completely Open Guide"
-msgstr ""
+msgstr "En fullkomligt öppen guide"
 
 #: guide/views/accounts.py:66
 msgid ""
@@ -1286,15 +1313,15 @@ msgstr ""
 
 #: guide/views/categories.py:27
 msgid "Edit Categories"
-msgstr ""
+msgstr "Redigera kategorier"
 
 #: guide/views/categories.py:28
 msgid "New Category"
-msgstr ""
+msgstr "Ny kategori"
 
 #: guide/views/channels.py:108
 msgid "Rejection emails need a body"
-msgstr ""
+msgstr "E-postmeddelanden måste innehålla någonting"
 
 #: guide/views/channels.py:113
 #, python-format
@@ -1303,11 +1330,11 @@ msgstr ""
 
 #: guide/views/channels.py:390
 msgid "Current image (no change)"
-msgstr ""
+msgstr "Innevarande bild (ingen förändring)"
 
 #: guide/views/channels.py:392 guide/views/submit.py:97
 msgid "Current image (uploaded)"
-msgstr ""
+msgstr "Befintlig bild (uppladdad)"
 
 #: guide/views/frontpage.py:66
 msgid "What is Miro?"
@@ -1326,24 +1353,24 @@ msgstr ""
 
 #: guide/views/languages.py:17
 msgid "Channels by Language"
-msgstr ""
+msgstr "Kanaler sorterade efter språk"
 
 #: guide/views/languages.py:28
 #, python-format
 msgid "Language: %s"
-msgstr ""
+msgstr "Språk: %s"
 
 #: guide/views/languages.py:34
 msgid "Edit Languages"
-msgstr ""
+msgstr "Redigera språk"
 
 #: guide/views/languages.py:35
 msgid "New Language"
-msgstr ""
+msgstr "Nytt språk"
 
 #: guide/views/moderator.py:49
 msgid "Channels Waiting For Replies"
-msgstr ""
+msgstr "Kanaler som väntar på återkoppling"
 
 #: guide/views/moderator.py:52
 msgid "Channels Flagged Don't Know By a Moderator"
@@ -1351,11 +1378,11 @@ msgstr ""
 
 #: guide/views/moderator.py:55
 msgid "Rejected Channels"
-msgstr ""
+msgstr "Kanaler som fått avslag"
 
 #: guide/views/moderator.py:58
 msgid "Suspended Channels"
-msgstr ""
+msgstr "Avstängda kanaler"
 
 #: guide/views/moderator.py:62
 msgid "Featured Queue"
@@ -1363,19 +1390,19 @@ msgstr ""
 
 #: guide/views/moderator.py:65
 msgid "Unreviewed Channels"
-msgstr ""
+msgstr "Ogranskade kanaler"
 
 #: guide/views/submit.py:95
 msgid "Current image (from the feed)"
-msgstr ""
+msgstr "Befintlig bild (från flödet)"
 
 #: templates/404.html:9
 msgid "Page not found"
-msgstr ""
+msgstr "Sidan hittades inte"
 
 #: templates/404.html:10 templates/500.html:22
 msgid "go to front page"
-msgstr ""
+msgstr "gå till förstasidan"
 
 #: templates/500.html:12
 msgid ""
@@ -1386,7 +1413,7 @@ msgstr ""
 #: templates/500.html:15
 #, python-format
 msgid " Server Error (id: %(id)s )"
-msgstr ""
+msgstr " Serverfel: (id: %(id)s )"
 
 #: templates/500.html:16
 msgid ""
@@ -1394,7 +1421,10 @@ msgid ""
 "developers will fix it as soon as they can.  If this error\n"
 "persists, please contact:"
 msgstr ""
+"Det har uppstått ett fel. Vi har loggat felet och våra utvecklare kommer "
+"fixa det så fort som möjligt. Om problemet kvarstår\n"
+"så kontakta gärna:"
 
 #: templates/500.html:19
 msgid "Make sure to include the error ID at the top of this page."
-msgstr ""
+msgstr "Se till att inkludera felkoden överst på sidan"

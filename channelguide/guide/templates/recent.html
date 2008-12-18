@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% comment %}
+Copyright (c) 2008 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load i18n channels  cg_helpers %}
+{% block title %}{% trans "Miro Guide - Recently Added" %}{%endblock %}
+{% block head-extra %}
+  <link rel="alternate" type="application/rss+xml" title="{% trans "New Channels" %}" href="{{ BASE_URL_FULL }}feeds/new">
+  {% endblock %}
+{% block content %}
+<div class="channel-list-page">
+<div class="recent-channel-list">
+       <div id="fun-feed">
+         <span class="only-in-miro big horizontal">
+           <a class="add" href="http://subscribe.getmiro.com/?url1=https://www.miroguide.com{{ rss_feed }}">
+             <span class="icon"></span>
+             Watch Previews
+           </a>
+         </span>
+         <span class="only-in-browser big horizontal">
+           <a class="add" href="{{ rss_feed }}">
+             <span class="icon"></span>
+             Watch Previews
+           </a>
+         </span>
+         <div>
+           Click here to see the latest videos from each featured channel.  Then 'add' the ones you like.
+         </div>
+       </div>
+<h1>{% trans "Recently Added" %}</h1>
+
+{% for group in channels_by_date %}
+    <h2 class="date">{{ group.date|date:"l, F j"}}</h2>
+    {% twocolumnloop with channel in group.channels %}
+        {% show_channel_in_list channel %}
+    {% endtwocolumnloop %}
+{% endfor %}
+    {% show_pager pager %}
+</div>
+</div>
+{% endblock %}

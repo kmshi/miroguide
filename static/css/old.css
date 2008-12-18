@@ -81,6 +81,11 @@ img {
     display: inline;
 }
 
+a.copyright-claim {
+    font-size: 75%;
+    color: #888;
+}
+
 li.column {
     float: left;
 }
@@ -2480,14 +2485,18 @@ h3 .note-author {
 }
 
 #moderatorguide ol {
-	position: relative;
-	left: 20px;
-	list-style-type: decimal; 	padding:6px 6px 6px 6px
+    position: relative;
+    list-style-type: decimal;
+    left: 20px;
+    padding:6px 6px 6px 6px;
 }
-	 #moderatorguide ol ol { 
-	list-style-type: lower-alpha; 	padding:6px 6px 6px 24px
+#moderatorguide ol ol {
+    list-style-type: lower-alpha;
+    padding:6px 6px 6px 24px
 }
-
+#moderatorguide ol li:before {
+    content: inherit;
+}
 #moderatorguide .last {
 	margin-bottom: 35px;
 }

@@ -1,196 +1,198 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Finnish translation for miroguide
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the miroguide package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-06 14:33-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Project-Id-Version: miroguide\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2008-08-06 14:32-0400\n"
+"PO-Revision-Date: 2008-08-16 23:12+0000\n"
+"Last-Translator: DJHasis <Unknown>\n"
+"Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2008-12-09 21:56+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: settings.py:34
 msgid "English"
-msgstr ""
+msgstr "englantilainen"
 
 #: settings.py:35
 msgid "Arabic"
-msgstr ""
+msgstr "arabialainen"
 
 #: settings.py:36
 msgid "Bengali"
-msgstr ""
+msgstr "bengalilainen"
 
 #: settings.py:37
 msgid "Catalan"
-msgstr ""
+msgstr "katalanilainen"
 
 #: settings.py:38
 msgid "Chinese"
-msgstr ""
+msgstr "kiinalainen"
 
 #: settings.py:39
 msgid "Croation"
-msgstr ""
+msgstr "kroatialainen"
 
 #: settings.py:40
 msgid "Danish"
-msgstr ""
+msgstr "tanskalainen"
 
 #: settings.py:41
 msgid "Dutch"
-msgstr ""
+msgstr "hollantilainen"
 
 #: settings.py:42
 msgid "Estonian"
-msgstr ""
+msgstr "virolainen"
 
 #: settings.py:43
 msgid "Finnish"
-msgstr ""
+msgstr "suomalainen"
 
 #: settings.py:44
 msgid "French"
-msgstr ""
+msgstr "ranskalainen"
 
 #: settings.py:45
 msgid "German"
-msgstr ""
+msgstr "Saksalainen"
 
 #: settings.py:46
 msgid "Greek"
-msgstr ""
+msgstr "kreikkalainen"
 
 #: settings.py:47
 msgid "Hebrew"
-msgstr ""
+msgstr "heprealainen"
 
 #: settings.py:48
 msgid "Hinidi"
-msgstr ""
+msgstr "hindi"
 
 #: settings.py:49
 msgid "Hungarian"
-msgstr ""
+msgstr "unkarilainen"
 
 #: settings.py:50
 msgid "Icelandic"
-msgstr ""
+msgstr "islantilainen"
 
 #: settings.py:51
 msgid "Indonesian"
-msgstr ""
+msgstr "indonesialainen"
 
 #: settings.py:52
 msgid "Italian"
-msgstr ""
+msgstr "italialainen"
 
 #: settings.py:53
 msgid "Japanese"
-msgstr ""
+msgstr "japanilainen"
 
 #: settings.py:54
 msgid "Korean"
-msgstr ""
+msgstr "korealainen"
 
 #: settings.py:55
 msgid "Kurdish (Sorani)"
-msgstr ""
+msgstr "kurdilainen (Sorani)"
 
 #: settings.py:56
 msgid "Latvian"
-msgstr ""
+msgstr "latvialainen"
 
 #: settings.py:57
 msgid "Lithuanian"
-msgstr ""
+msgstr "liettualainen"
 
 #: settings.py:58
 msgid "Malay"
-msgstr ""
+msgstr "malaijilainen"
 
 #: settings.py:59
 msgid "Norwegian"
-msgstr ""
+msgstr "norjalainen"
 
 #: settings.py:60
 msgid "Persian"
-msgstr ""
+msgstr "persialainen"
 
 #: settings.py:61
 msgid "Polish"
-msgstr ""
+msgstr "puolalainen"
 
 #: settings.py:62
 msgid "Portuguese (Brazillian)"
-msgstr ""
+msgstr "portugalilainen (Brazilialainen)"
 
 #: settings.py:63
 msgid "Portuguese (Portugal)"
-msgstr ""
+msgstr "portugalilainen (Portugali)"
 
 #: settings.py:64
 msgid "Romanian"
-msgstr ""
+msgstr "romanialainen"
 
 #: settings.py:65
 msgid "Russian"
-msgstr ""
+msgstr "venäläinen"
 
 #: settings.py:66
 msgid "Serbo-Croatian"
-msgstr ""
+msgstr "serbo-kroatialainen"
 
 #: settings.py:67
 msgid "Slovak"
-msgstr ""
+msgstr "slovakialainen"
 
 #: settings.py:68
 msgid "Spanish"
-msgstr ""
+msgstr "espanjalainen"
 
 #: settings.py:69
 msgid "Swedish"
-msgstr ""
+msgstr "ruotsalainen"
 
 #: settings.py:70
 msgid "Thai"
-msgstr ""
+msgstr "thaimaalainen"
 
 #: settings.py:71
 msgid "Turkish"
-msgstr ""
+msgstr "turkkilainen"
 
 #: settings.py:72
 msgid "Vietnamese"
-msgstr ""
+msgstr "vietnamilainen"
 
 #: guide/tables.py:12
 msgid "New"
-msgstr ""
+msgstr "Uusi"
 
 #: guide/tables.py:14
 msgid "Approved"
-msgstr ""
+msgstr "Hyväksytty"
 
 #: guide/tables.py:16
 msgid "Waiting"
-msgstr ""
+msgstr "Odotetaan"
 
 #: guide/tables.py:18
 msgid "Don't Know"
-msgstr ""
+msgstr "Ei tiedä"
 
 #: guide/tables.py:20
 msgid "Rejected"
-msgstr ""
+msgstr "Hylätty"
 
 #: guide/tables.py:22
 msgid "Suspended"
@@ -198,15 +200,15 @@ msgstr ""
 
 #: guide/tables.py:24
 msgid "Audio"
-msgstr ""
+msgstr "Ääni"
 
 #: guide/tables.py:26
 msgid "Unknown"
-msgstr ""
+msgstr "Tuntematon"
 
 #: guide/templateutil.py:181 guide/templates/base.html:52
 msgid "Most Popular"
-msgstr ""
+msgstr "Suosituimmat"
 
 #: guide/templateutil.py:182
 msgid "Top Rated"
@@ -214,15 +216,15 @@ msgstr ""
 
 #: guide/templateutil.py:183
 msgid "Most Recent"
-msgstr ""
+msgstr "Viimeisimmät"
 
 #: guide/templateutil.py:184
 msgid "A-Z"
-msgstr ""
+msgstr "A-Z"
 
 #: guide/forms/channels.py:28
 msgid "What is HD?"
-msgstr ""
+msgstr "Mikä on HD?"
 
 #: guide/forms/channels.py:29
 #, python-format
@@ -248,7 +250,7 @@ msgstr ""
 #: guide/forms/channels.py:53
 #, python-format
 msgid "%s is already a channel in the guide"
-msgstr ""
+msgstr "%s on jo kanavana oppaassa"
 
 #: guide/forms/channels.py:58
 msgid "We can't find a video feed at that address, please try again."
@@ -256,23 +258,23 @@ msgstr ""
 
 #: guide/forms/channels.py:75 guide/forms/channels.py:279
 msgid "Channel Name"
-msgstr ""
+msgstr "Kanavan nimi"
 
 #: guide/forms/channels.py:76 guide/forms/channels.py:280
 msgid "RSS Feed"
-msgstr ""
+msgstr "RSS-syöte"
 
 #: guide/forms/channels.py:139
 msgid "1st"
-msgstr ""
+msgstr "1."
 
 #: guide/forms/channels.py:139
 msgid "2nd"
-msgstr ""
+msgstr "2."
 
 #: guide/forms/channels.py:139
 msgid "3rd"
-msgstr ""
+msgstr "3."
 
 #: guide/forms/channels.py:161
 msgid "You must at least enter a primary value."
@@ -285,7 +287,7 @@ msgstr ""
 
 #: guide/forms/channels.py:260
 msgid "This field is required."
-msgstr ""
+msgstr "Tämä kenttä vaaditaan."
 
 #: guide/forms/channels.py:265
 msgid "Not a valid image"
@@ -293,19 +295,19 @@ msgstr ""
 
 #: guide/forms/channels.py:269
 msgid "Not an image in a format we support."
-msgstr ""
+msgstr "Kuvamuotoa ei tueta."
 
 #: guide/forms/channels.py:282 guide/forms/cobranding.py:15
 msgid "Website URL"
-msgstr ""
+msgstr "Kotisivun URL"
 
 #: guide/forms/channels.py:284
 msgid "Full Description"
-msgstr ""
+msgstr "Koko kuvaus"
 
 #: guide/forms/channels.py:285
 msgid "Publisher E-mail"
-msgstr ""
+msgstr "Julkaisijan sähköpostiosoite"
 
 #: guide/forms/channels.py:287 guide/templates/tag-list.html:7
 msgid "Tags"
@@ -317,19 +319,19 @@ msgstr ""
 
 #: guide/forms/channels.py:290 guide/views/categories.py:19
 msgid "Categories"
-msgstr ""
+msgstr "Luokat"
 
 #: guide/forms/channels.py:291
 msgid "Languages"
-msgstr ""
+msgstr "Kielet"
 
 #: guide/forms/channels.py:292
 msgid "What language are most of these videos in?"
-msgstr ""
+msgstr "Millä kielellä suurin osa näistä videoista on?"
 
 #: guide/forms/channels.py:293
 msgid "Postal Code"
-msgstr ""
+msgstr "Postinumero"
 
 #: guide/forms/channels.py:295
 msgid "High Definition"
@@ -337,7 +339,7 @@ msgstr ""
 
 #: guide/forms/channels.py:297
 msgid "Upload Image"
-msgstr ""
+msgstr "Lähetä kuva"
 
 #: guide/forms/channels.py:298
 msgid ""
@@ -352,23 +354,23 @@ msgstr ""
 
 #: guide/forms/channels.py:390
 msgid "Feed URL already exists"
-msgstr ""
+msgstr "Syötteen osoite on jo olemassa"
 
 #: guide/forms/channels.py:461
 msgid "Email"
-msgstr ""
+msgstr "Sähköpostiosoite"
 
 #: guide/forms/channels.py:462
 msgid "Title"
-msgstr ""
+msgstr "Otsikko"
 
 #: guide/forms/channels.py:463 guide/forms/misc.py:15
 msgid "Body"
-msgstr ""
+msgstr "Runko"
 
 #: guide/forms/cobranding.py:11
 msgid "Title in Miro App"
-msgstr ""
+msgstr "Otsikko Miro-ohjelmassa"
 
 #: guide/forms/cobranding.py:12
 msgid "This is the title that will appear in the sidebar of Miro."
@@ -376,19 +378,19 @@ msgstr ""
 
 #: guide/forms/cobranding.py:13
 msgid "Page Title"
-msgstr ""
+msgstr "Sivun otsikko"
 
 #: guide/forms/cobranding.py:14
 msgid "This is the title that will be displayed at the top of the page."
-msgstr ""
+msgstr "Tämä on otsikko, joka tulee näkymään sivun yläosassa."
 
 #: guide/forms/cobranding.py:17
 msgid "Icon URL"
-msgstr ""
+msgstr "Kuvakkeen URL"
 
 #: guide/forms/cobranding.py:17
 msgid "Icon should be 175x125 pixels."
-msgstr ""
+msgstr "Ikonin pitää olla 175x125 pikseliä."
 
 #: guide/forms/cobranding.py:19
 msgid "Favicon URL"
@@ -402,39 +404,40 @@ msgstr ""
 
 #: guide/forms/cobranding.py:21
 msgid "External CSS URL"
-msgstr ""
+msgstr "Ulkoinen CSS-osoite"
 
 #: guide/forms/cobranding.py:22
 msgid "Description"
-msgstr ""
+msgstr "Kuvaus"
 
 #: guide/forms/cobranding.py:24
 msgid "Link 1 URL"
-msgstr ""
+msgstr "Linkki 1 osoite"
 
 #: guide/forms/cobranding.py:24
-msgid "Or leave this blank to have plain text.  All these links are optional."
+msgid ""
+"Or leave this blank to have plain text.  All these links are optional."
 msgstr ""
 
 #: guide/forms/cobranding.py:26
 msgid "Link 1 Text"
-msgstr ""
+msgstr "Linkki 1 teksti"
 
 #: guide/forms/cobranding.py:28
 msgid "Link 2 URL"
-msgstr ""
+msgstr "Linkki 2 osoite"
 
 #: guide/forms/cobranding.py:30
 msgid "Link 2 Text"
-msgstr ""
+msgstr "Linkki 2 teksti"
 
 #: guide/forms/cobranding.py:32
 msgid "Link 3 URL"
-msgstr ""
+msgstr "Linkki 3 osoite"
 
 #: guide/forms/cobranding.py:34
 msgid "Link 3 Text"
-msgstr ""
+msgstr "Linkki 3 teksti"
 
 #: guide/forms/fields.py:21
 #, python-format
@@ -443,31 +446,31 @@ msgstr ""
 
 #: guide/forms/misc.py:14
 msgid "title"
-msgstr ""
+msgstr "otsikko"
 
 #: guide/forms/user.py:18
 msgid "Username already taken"
-msgstr ""
+msgstr "Käyttäjänimi on jo käytössä"
 
 #: guide/forms/user.py:28
 msgid "E-mail already taken"
-msgstr ""
+msgstr "Sähköpostiosoite on jo käytössä"
 
 #: guide/forms/user.py:35
 msgid "E-mail not found"
-msgstr ""
+msgstr "Sähköpostiosoitetta ei löytynyt"
 
 #: guide/forms/user.py:44
 msgid "That username is not valid."
-msgstr ""
+msgstr "Käyttäjänimi on virheellinen"
 
 #: guide/forms/user.py:58
 msgid "That username or e-mail is not valid."
-msgstr ""
+msgstr "Käyttäjänimi tai sähköpostiosoite on virheellinen"
 
 #: guide/forms/user.py:71
 msgid "That password is not valid."
-msgstr ""
+msgstr "Salasana on virheellinen."
 
 #: guide/forms/user.py:85
 msgid "Passwords don't match"
@@ -475,55 +478,55 @@ msgstr ""
 
 #: guide/forms/user.py:89
 msgid "Username"
-msgstr ""
+msgstr "Käyttäjänimi"
 
 #: guide/forms/user.py:90
 msgid "Email Address"
-msgstr ""
+msgstr "Sähköpostiosoite"
 
 #: guide/forms/user.py:92
 msgid "Pick a Password"
-msgstr ""
+msgstr "Valitse salasana"
 
 #: guide/forms/user.py:94 guide/forms/user.py:111 guide/forms/user.py:176
 msgid "Confirm Password"
-msgstr ""
+msgstr "Varmista salasana"
 
 #: guide/forms/user.py:109
 msgid "Change Password"
-msgstr ""
+msgstr "Vaihda salasana"
 
 #: guide/forms/user.py:113
 msgid "First Name"
-msgstr ""
+msgstr "Etunimi"
 
 #: guide/forms/user.py:115
 msgid "Last Name"
-msgstr ""
+msgstr "Sukunimi"
 
 #: guide/forms/user.py:116
 msgid "Age"
-msgstr ""
+msgstr "Ikä"
 
 #: guide/forms/user.py:120
 msgid "Gender"
-msgstr ""
+msgstr "Sukupuoli"
 
 #: guide/forms/user.py:122
 msgid "City"
-msgstr ""
+msgstr "Kaupunki"
 
 #: guide/forms/user.py:124
 msgid "State"
-msgstr ""
+msgstr "Osavaltio"
 
 #: guide/forms/user.py:126
 msgid "Country"
-msgstr ""
+msgstr "Maa"
 
 #: guide/forms/user.py:128
 msgid "Zip Code"
-msgstr ""
+msgstr "Postinumero"
 
 #: guide/forms/user.py:130
 msgid "IM Username"
@@ -543,7 +546,7 @@ msgstr ""
 
 #: guide/forms/user.py:166
 msgid "Normal"
-msgstr ""
+msgstr "Tavallinen"
 
 #: guide/forms/user.py:167
 msgid "No emails"
@@ -559,7 +562,7 @@ msgstr ""
 
 #: guide/forms/user.py:174
 msgid "Set a new Password"
-msgstr ""
+msgstr "Aseta uusi salasana"
 
 #: guide/models/channel.py:315
 #, python-format
@@ -647,17 +650,17 @@ msgstr ""
 
 #: guide/templates/auth-token-request.html:17
 msgid "Send"
-msgstr ""
+msgstr "Lähetä"
 
 #: guide/templates/bad-auth-token.html:7
 #: guide/templates/change-password.html:7
 #: guide/templates/change-password.html:11
 msgid "Create New Password"
-msgstr ""
+msgstr "Luo uusi salasana"
 
 #: guide/templates/bad-auth-token.html:10
 msgid "Link invalid"
-msgstr ""
+msgstr "Linkki virheellinen"
 
 #: guide/templates/bad-auth-token.html:11
 msgid "The link you used to get to this page was not valid."
@@ -665,7 +668,7 @@ msgstr ""
 
 #: guide/templates/base.html:5 templates/500.html:7
 msgid "Miro Guide"
-msgstr ""
+msgstr "Miro-opas"
 
 #: guide/templates/base.html:27
 msgid "Miro"
@@ -693,7 +696,7 @@ msgstr ""
 
 #: guide/templates/base.html:51
 msgid "HD Channels"
-msgstr ""
+msgstr "HD-kanavat"
 
 #: guide/templates/base.html:53
 msgid "New Shows"
@@ -738,7 +741,7 @@ msgstr ""
 #: guide/templates/base.html:95 guide/templates/login.html:7
 #: guide/templates/login.html.py:13 guide/templates/login.html:18
 msgid "Login"
-msgstr ""
+msgstr "Kirjaudu"
 
 #: guide/templates/base.html:106
 msgid "Register!"
@@ -758,7 +761,7 @@ msgstr ""
 
 #: guide/templates/button_block.html:6
 msgid "Add"
-msgstr ""
+msgstr "Lisää"
 
 #: guide/templates/button_block.html:6
 msgid "Add channel"
@@ -780,7 +783,7 @@ msgstr ""
 
 #: guide/templates/change-password.html:14
 msgid "Create"
-msgstr ""
+msgstr "Luo"
 
 #: guide/templates/channel-form.html:7
 msgid "Submit Channel"
@@ -815,7 +818,7 @@ msgstr ""
 
 #: guide/templates/channel-notes.html:14
 msgid "Me"
-msgstr ""
+msgstr "Minä"
 
 #: guide/templates/channel-notes.html:17
 msgid "Manager"
@@ -849,7 +852,7 @@ msgstr ""
 
 #: guide/templates/confirm.html:11
 msgid "Confirmed!"
-msgstr ""
+msgstr "Varmistettu!"
 
 #: guide/templates/confirm.html:12
 msgid "Thanks for confirming your account!"
@@ -867,7 +870,7 @@ msgstr ""
 
 #: guide/templates/confirm.html:25
 msgid "Resend"
-msgstr ""
+msgstr "Lähetä uudelleen"
 
 #: guide/templates/confirm.html:29
 msgid "Incorrect code"
@@ -911,15 +914,15 @@ msgstr ""
 
 #: guide/templates/edit-channel.html:8 guide/templates/edit-channel.html:10
 msgid "Edit Channel"
-msgstr ""
+msgstr "Muokkaa kanavaa"
 
 #: guide/templates/edit-channel.html:12 guide/templates/edit-user.html:30
 msgid "Update"
-msgstr ""
+msgstr "Päivitä"
 
 #: guide/templates/edit-channel.html:15
 msgid "Statistics"
-msgstr ""
+msgstr "Tilastot"
 
 #: guide/templates/edit-channel.html:17
 msgid "Subscriptions* Today"
@@ -971,7 +974,8 @@ msgid "Three things to remember..."
 msgstr ""
 
 #: guide/templates/firsttime.html:38
-msgid "Miro lets you subscribe to channels for free (they go to your sidebar)"
+msgid ""
+"Miro lets you subscribe to channels for free (they go to your sidebar)"
 msgstr ""
 
 #: guide/templates/firsttime.html:39
@@ -984,7 +988,7 @@ msgstr ""
 
 #: guide/templates/firsttime.html:40
 msgid "green"
-msgstr ""
+msgstr "vihreä"
 
 #: guide/templates/firsttime.html:40
 msgid " bubble (in the sidebar) means you've got "
@@ -992,11 +996,11 @@ msgstr ""
 
 #: guide/templates/firsttime.html:40
 msgid "new"
-msgstr ""
+msgstr "uusi"
 
 #: guide/templates/firsttime.html:40
 msgid " video"
-msgstr ""
+msgstr " video"
 
 #: guide/templates/firsttime.html:43
 msgid "We Have Channel Recommendations for You! <u>click here</u>"
@@ -1033,11 +1037,11 @@ msgstr ""
 
 #: guide/templates/form-errors.html:8 templates/500.html:11
 msgid "Sorry!"
-msgstr ""
+msgstr "Anteeksi!"
 
 #: guide/templates/form-field.html:6
 msgid "Error"
-msgstr ""
+msgstr "Virhe"
 
 #: guide/templates/group-list.html:7
 #, python-format
@@ -1070,7 +1074,7 @@ msgstr ""
 
 #: guide/templates/login.html:28 guide/templates/login.html.py:32
 msgid "Register"
-msgstr ""
+msgstr "Rekisteröidy"
 
 #: guide/templates/moderate.html:14
 #, python-format
@@ -1157,7 +1161,7 @@ msgstr ""
 
 #: guide/templates/personalized-recommendation.html:18
 msgid "Rate!"
-msgstr ""
+msgstr "Arvostele!"
 
 #: guide/templates/personalized-recommendation.html:22
 #, python-format
@@ -1192,7 +1196,7 @@ msgstr ""
 
 #: guide/templates/recommend.html:20
 msgid "reload"
-msgstr ""
+msgstr "lataa uudelleen"
 
 #: guide/templates/recommend.html:20
 msgid " this page."
@@ -1258,7 +1262,7 @@ msgstr ""
 
 #: guide/views/accounts.py:63
 msgid "Why Should I Rate Channels?"
-msgstr ""
+msgstr "Miksi arvostelisin kanavia?"
 
 #: guide/views/accounts.py:64
 msgid ""
@@ -1286,11 +1290,11 @@ msgstr ""
 
 #: guide/views/categories.py:27
 msgid "Edit Categories"
-msgstr ""
+msgstr "Muokkaa luokkia"
 
 #: guide/views/categories.py:28
 msgid "New Category"
-msgstr ""
+msgstr "Uusi luokka"
 
 #: guide/views/channels.py:108
 msgid "Rejection emails need a body"
@@ -1326,20 +1330,20 @@ msgstr ""
 
 #: guide/views/languages.py:17
 msgid "Channels by Language"
-msgstr ""
+msgstr "Kanavat kielten mukaan"
 
 #: guide/views/languages.py:28
 #, python-format
 msgid "Language: %s"
-msgstr ""
+msgstr "Kieli: %s"
 
 #: guide/views/languages.py:34
 msgid "Edit Languages"
-msgstr ""
+msgstr "Muokkaa kieliä"
 
 #: guide/views/languages.py:35
 msgid "New Language"
-msgstr ""
+msgstr "Uusi kieli"
 
 #: guide/views/moderator.py:49
 msgid "Channels Waiting For Replies"
@@ -1371,7 +1375,7 @@ msgstr ""
 
 #: templates/404.html:9
 msgid "Page not found"
-msgstr ""
+msgstr "Sivua ei löytynyt"
 
 #: templates/404.html:10 templates/500.html:22
 msgid "go to front page"

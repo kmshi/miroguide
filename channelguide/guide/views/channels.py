@@ -3,6 +3,7 @@
 
 from django.conf import settings
 from django.http import Http404, HttpResponseRedirect, HttpResponse
+from django.template import loader
 from django.utils.decorators import decorator_from_middleware
 from django.utils.translation import gettext as _
 
@@ -30,6 +31,106 @@ class ChannelCacheMiddleware(UserCacheMiddleware):
         channelId = request.path.split('/')[-1].encode('utf8')
         self.namespace = ('channel', 'Channel:%s' % channelId)
         return UserCacheMiddleware.get_cache_key_tuple(self, request)
+
+@moderator_required
+def moderator_channel_list(request, state):
+    query = Channel.query().join('owner')
+    if state == 'waiting':
+        query.where(Channel.c.waiting_for_reply_date.is_not(None))
+        query.order_by('waiting_for_reply_date')
+        header = _("Channels Waiting For Replies")
+    elif state == 'dont-know':
+        query.where(state=Channel.DONT_KNOW)
+        header = _("Channels Flagged Don't Know By a Moderator")
+    elif state == 'rejected':
+        query.where(state=Channel.REJECTED)
+        header = _("Rejected Channels")
+    elif state == 'suspended':
+        query.where(state=Channel.SUSPENDED)
+        header = _("Suspended Channels")
+    elif state == 'featured':
+        query.join('featured_queue')
+        query.where(query.joins['featured_queue'].c.state == FeaturedQueue.IN_QUEUE)
+        query.order_by(query.joins['featured_queue'].c.featured_at)
+        header = _("Featured Queue")
+    else:
+        query.where(state=Channel.NEW)
+        header = _("Unreviewed Channels")
+    query.order_by('creation_time', query.joins['owner'].c.username != 'freelance')
+    print query
+    pager =  templateutil.Pager(10, query, request)
+
+    return util.render_to_response(request, 'moderator-channel-list.html', {
+        'pager': pager,
+        'channels': pager.items,
+        'header': header,
+        'subscribe_all_link': util.make_link(
+                util.get_subscription_url(*[channel.url for channel in
+                                            pager.items]),
+                _("Subscribe to all %i channels") % len(pager.items))
+        })
+
+def destroy_submit_url_session(request):
+    if SESSION_KEY in request.session:
+        del request.session[SESSION_KEY]
+
+@login_required
+def submit_feed(request):
+    destroy_submit_url_session(request)
+    if request.method != 'POST':
+        form = forms.FeedURLForm(request.connection)
+    else:
+        form = forms.FeedURLForm(request.connection, request.POST.copy())
+        if form.is_valid():
+            request.session[SESSION_KEY] = form.get_feed_data()
+            return util.redirect("channels/submit/step2")
+    return util.render_to_response(request, 'submit-feed-url.html', 
+            {'form': form})
+
+@login_required
+def submit_channel(request):
+    """
+    Called when the user is submitting a channel.  If the SESSION_KEY
+    cookie isn't set, then we redirect back to the first step.
+    XXX: check for clients that don't support cookies
+
+    If the submisstion used the GET method, we create a form that allows
+    the submitter to describe the feed in more detail (languages, categories,
+    tags, etc.).
+
+    If the submission used the POST method, we check to see if the submitted
+    form is valid; if it is we create the channel and redirect to the
+    post-submission page.  Otherwise, redisplay the form with the errors
+    highlighted.
+    """
+
+    if not SESSION_KEY in request.session:
+        return util.redirect('channels/submit/step1')
+    session_dict = request.session[SESSION_KEY]
+    if request.method != 'POST':
+        form = forms.SubmitChannelForm(request.connection)
+        form.set_defaults(session_dict)
+        session_dict['detected_thumbnail'] = form.set_image_from_feed
+        request.session.modified = True
+    else:
+        form = forms.SubmitChannelForm(request.connection, 
+                util.copy_post_and_files(request))
+        if form.user_uploaded_file():
+            session_dict['detected_thumbnail'] = False
+            request.session.modified = True
+        if form.is_valid():
+            feed_url = request.session[SESSION_KEY]['url']
+            form.save_channel(request.user, feed_url)
+            destroy_submit_url_session(request)
+            return util.redirect(settings.BASE_URL_FULL + "channels/submit/after?%s" % feed_url)
+        else:
+            form.save_submitted_thumbnail()
+    context = form.get_template_data()
+    if session_dict.get('detected_thumbnail'):
+        context['thumbnail_description'] = _("Current image (from the feed)")
+    else:
+        context['thumbnail_description'] = _("Current image (uploaded)")
+    return util.render_to_response(request, 'submit-channel.html', context)
 
 def channel(request, id):
     if request.method == 'GET':
@@ -172,6 +273,11 @@ def show(request, id, featured_form=None):
         'channel': c,
         'items': item_query.execute(request.connection),
         'recommendations': get_recommendations(request, c),
+        'show_edit_button': request.user.can_edit_channel(c),
+        'show_extra_info': request.user.can_edit_channel(c),
+        'link_to_channel': True,
+        'BASE_URL': settings.BASE_URL,
+        'rating_bar': get_show_rating_bar(request, c),
     }
     if request.user.is_supermoderator():
         c.join('owner').execute(request.connection)
@@ -359,6 +465,79 @@ def make_simple_list(request, query, header, order_by=None, rss_feed=None):
         'rss_feed': rss_feed
     })
 
+@cache.aggresively_cache
+def hd(request):
+    query = Channel.query_approved(hi_def=1, user=request.user)
+    templateutil.order_channels_using_request(query, request)
+    pager =  templateutil.Pager(8, query, request)
+    return util.render_to_response(request, 'two-column-list.html', {
+        'header': _('HD Channels'),
+        'pager': pager,
+        'order_select': templateutil.OrderBySelect(request),
+    })
+
+@cache.aggresively_cache
+def features(request):
+    query = Channel.query(user=request.user).join('featured_queue')
+    j = query.joins['featured_queue']
+    j.where(j.c.state!=0)
+    query.order_by(j.c.state).order_by(j.c.featured_at, desc=True)
+    return make_simple_list(request, query, _("Featured Channels"),
+                            rss_feed = 'https://www.miroguide.com/rss/featured')
+
+def get_toprated_query(user):
+    query = Channel.query_approved(user=user)
+    query.join('rating')
+    query.joins['rating'].where(query.joins['rating'].c.count > 3)
+    query.load('item_count', 'subscription_count_today')
+    query.order_by(query.joins['rating'].c.average, desc=True)
+    query.order_by(query.joins['rating'].c.count, desc=True)
+    return query
+
+@cache.cache_for_user
+def toprated(request):
+    query = get_toprated_query(request.user)
+    pager = templateutil.Pager(10, query, request)
+    for channel in pager.items:
+        channel.popular_count = channel.subscription_count_today
+        channel.timeline = 'Today'
+    context = {'pager': pager,
+            'title': 'Top Rated Channels',
+            'rss_feed': 'https://www.miroguide.com/rss/toprated',
+        }
+    return util.render_to_response(request, 'popular.html', context)
+
+def group_channels_by_date(channels):
+    if channels is None:
+        return []
+    current_date = None
+    channels_in_date = []
+    retval = []
+
+    for channel in channels:
+        channel_date = channel.approved_at.date()
+        if channel_date != current_date:
+            if channels_in_date:
+                retval.append({'date': current_date, 
+                    'channels': channels_in_date})
+            current_date = channel_date
+            channels_in_date = [channel]
+        else:
+            channels_in_date.append(channel)
+    if channels_in_date:
+        retval.append({'date': current_date, 'channels': channels_in_date})
+    return retval
+
+@cache.aggresively_cache
+def recent(request):
+    query = Channel.query_new(user=request.user)
+    pager =  templateutil.Pager(8, query, request)
+    return util.render_to_response(request, 'recent.html', {
+        'header': "RECENT CHANNELS",
+        'pager': pager,
+        'channels_by_date': group_channels_by_date(pager.items),
+        'rss_feed': 'https://www.miroguide.com/rss/new',
+    })
 
 def for_user(request, user_name_or_id):
     try:
@@ -497,3 +676,16 @@ def email_owners(request):
             return util.redirect('moderate')
     return util.render_to_response(request, 'email-channel-owners.html', {
         'form': form})
+
+def get_show_rating_bar(request, channel):
+    context = {'channel': channel, 'request':request}
+    return loader.render_to_string('guide/show-channel-rating.html', context)
+
+def latest(request, id):
+    query = Item.query(Item.c.channel_id == id).order_by(Item.c.date,
+                                                  desc=True).limit(1)
+    items = query.execute(request.connection)
+    if not items:
+        raise Http404
+    else:
+        return util.redirect(items[0].url)

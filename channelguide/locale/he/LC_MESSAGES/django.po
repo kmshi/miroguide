@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: miroguide\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2008-08-06 14:32-0400\n"
 "PO-Revision-Date: 2008-04-08 16:03+0000\n"
 "Last-Translator: Mark Krapivner <mark125@gmail.com>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2008-04-17 00:16+0000\n"
+"X-Launchpad-Export-Date: 2008-12-09 21:56+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: settings.py:34
@@ -123,23 +123,20 @@ msgid "Norwegian"
 msgstr "נורווגית"
 
 #: settings.py:60
-#, fuzzy
 msgid "Persian"
-msgstr "גרמנית"
+msgstr ""
 
 #: settings.py:61
 msgid "Polish"
 msgstr "פולנית"
 
 #: settings.py:62
-#, fuzzy
 msgid "Portuguese (Brazillian)"
-msgstr "פורטוגזית"
+msgstr ""
 
 #: settings.py:63
-#, fuzzy
 msgid "Portuguese (Portugal)"
-msgstr "פורטוגזית"
+msgstr ""
 
 #: settings.py:64
 msgid "Romanian"
@@ -418,7 +415,8 @@ msgid "Link 1 URL"
 msgstr ""
 
 #: guide/forms/cobranding.py:24
-msgid "Or leave this blank to have plain text.  All these links are optional."
+msgid ""
+"Or leave this blank to have plain text.  All these links are optional."
 msgstr ""
 
 #: guide/forms/cobranding.py:26
@@ -705,14 +703,12 @@ msgid "New Shows"
 msgstr ""
 
 #: guide/templates/base.html:54
-#, fuzzy
 msgid "Video by Language"
-msgstr "שפות"
+msgstr ""
 
 #: guide/templates/base.html:55
-#, fuzzy
 msgid "Language"
-msgstr "שפות"
+msgstr ""
 
 #: guide/templates/base.html:57
 msgid "Account"
@@ -727,9 +723,8 @@ msgid "View/Edit Profile"
 msgstr ""
 
 #: guide/templates/base.html:72
-#, fuzzy
 msgid "Channels I Manage"
-msgstr "שם ערוץ"
+msgstr ""
 
 #: guide/templates/base.html:74
 msgid "Submit a Channel"
@@ -830,14 +825,12 @@ msgid "Manager"
 msgstr ""
 
 #: guide/templates/channel.html:12 guide/templates/channel.html.py:14
-#, fuzzy
 msgid "High-Definition Channel"
-msgstr "High Definition"
+msgstr ""
 
 #: guide/templates/channel.html:53
-#, fuzzy
 msgid "Channel Manager"
-msgstr "שם ערוץ"
+msgstr ""
 
 #: guide/templates/channel.html:60
 msgid "Notes"
@@ -981,7 +974,8 @@ msgid "Three things to remember..."
 msgstr ""
 
 #: guide/templates/firsttime.html:38
-msgid "Miro lets you subscribe to channels for free (they go to your sidebar)"
+msgid ""
+"Miro lets you subscribe to channels for free (they go to your sidebar)"
 msgstr ""
 
 #: guide/templates/firsttime.html:39
@@ -1320,9 +1314,8 @@ msgid "Current image (uploaded)"
 msgstr ""
 
 #: guide/views/frontpage.py:66
-#, fuzzy
 msgid "What is Miro?"
-msgstr "מה זה HD?"
+msgstr ""
 
 #: guide/views/frontpage.py:67
 #, python-format

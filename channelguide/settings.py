@@ -19,7 +19,7 @@ APPEND_SLASH = False
 
 ADMINS = (
    #('Paul Swartz', 'pswartz@pculture.org'),
-   ('Ben Dean-Kawamura', 'ben@pculture.org'),
+    ('Ben Dean-Kawamura', 'ben@pculture.org'),
     # ('Your Name', 'your_email@domain.com'),
 )
 

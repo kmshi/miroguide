@@ -1,164 +1,167 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Romanian translation for miroguide
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the miroguide package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-06 14:31-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Project-Id-Version: miroguide\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2008-08-06 14:32-0400\n"
+"PO-Revision-Date: 2008-07-05 17:15+0000\n"
+"Last-Translator: Bogdan Toma <bog_tom@yahoo.com>\n"
+"Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
+"== 0) && (n != 0))) ? 2: 1));\n"
+"X-Launchpad-Export-Date: 2008-12-09 21:56+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: settings.py:34
 msgid "English"
-msgstr ""
+msgstr "Engleză"
 
 #: settings.py:35
 msgid "Arabic"
-msgstr ""
+msgstr "Arabă"
 
 #: settings.py:36
 msgid "Bengali"
-msgstr ""
+msgstr "Bengali"
 
 #: settings.py:37
 msgid "Catalan"
-msgstr ""
+msgstr "Catalană"
 
 #: settings.py:38
 msgid "Chinese"
-msgstr ""
+msgstr "Chineză"
 
 #: settings.py:39
 msgid "Croation"
-msgstr ""
+msgstr "Croată"
 
 #: settings.py:40
 msgid "Danish"
-msgstr ""
+msgstr "Daneză"
 
 #: settings.py:41
 msgid "Dutch"
-msgstr ""
+msgstr "Olandeză"
 
 #: settings.py:42
 msgid "Estonian"
-msgstr ""
+msgstr "Estoniană"
 
 #: settings.py:43
 msgid "Finnish"
-msgstr ""
+msgstr "Finlandeză"
 
 #: settings.py:44
 msgid "French"
-msgstr ""
+msgstr "Franceză"
 
 #: settings.py:45
 msgid "German"
-msgstr ""
+msgstr "Germană"
 
 #: settings.py:46
 msgid "Greek"
-msgstr ""
+msgstr "Greacă"
 
 #: settings.py:47
 msgid "Hebrew"
-msgstr ""
+msgstr "Ebraică"
 
 #: settings.py:48
 msgid "Hinidi"
-msgstr ""
+msgstr "Hindu"
 
 #: settings.py:49
 msgid "Hungarian"
-msgstr ""
+msgstr "Maghiară"
 
 #: settings.py:50
 msgid "Icelandic"
-msgstr ""
+msgstr "Islandeză"
 
 #: settings.py:51
 msgid "Indonesian"
-msgstr ""
+msgstr "Indoneziană"
 
 #: settings.py:52
 msgid "Italian"
-msgstr ""
+msgstr "Italiană"
 
 #: settings.py:53
 msgid "Japanese"
-msgstr ""
+msgstr "Japoneză"
 
 #: settings.py:54
 msgid "Korean"
-msgstr ""
+msgstr "Coreană"
 
 #: settings.py:55
 msgid "Kurdish (Sorani)"
-msgstr ""
+msgstr "Kurdish"
 
 #: settings.py:56
 msgid "Latvian"
-msgstr ""
+msgstr "Letonă"
 
 #: settings.py:57
 msgid "Lithuanian"
-msgstr ""
+msgstr "Lituaniană"
 
 #: settings.py:58
 msgid "Malay"
-msgstr ""
+msgstr "Malaeziană"
 
 #: settings.py:59
 msgid "Norwegian"
-msgstr ""
+msgstr "Norvegiană"
 
 #: settings.py:60
 msgid "Persian"
-msgstr ""
+msgstr "Persană"
 
 #: settings.py:61
 msgid "Polish"
-msgstr ""
+msgstr "Poloneză"
 
 #: settings.py:62
 msgid "Portuguese (Brazillian)"
-msgstr ""
+msgstr "Portugheză (Brazilia)"
 
 #: settings.py:63
 msgid "Portuguese (Portugal)"
-msgstr ""
+msgstr "Portugheză (Portugalia)"
 
 #: settings.py:64
 msgid "Romanian"
-msgstr ""
+msgstr "Română"
 
 #: settings.py:65
 msgid "Russian"
-msgstr ""
+msgstr "Rusă"
 
 #: settings.py:66
 msgid "Serbo-Croatian"
-msgstr ""
+msgstr "Sârbo-Croată"
 
 #: settings.py:67
 msgid "Slovak"
-msgstr ""
+msgstr "Slovacă"
 
 #: settings.py:68
 msgid "Spanish"
-msgstr ""
+msgstr "Spaniolă"
 
 #: settings.py:69
 msgid "Swedish"
-msgstr ""
+msgstr "Suedeză"
 
 #: settings.py:70
 msgid "Thai"
@@ -166,63 +169,63 @@ msgstr ""
 
 #: settings.py:71
 msgid "Turkish"
-msgstr ""
+msgstr "Turcă"
 
 #: settings.py:72
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnameză"
 
 #: guide/tables.py:12
 msgid "New"
-msgstr ""
+msgstr "Nou/Nouă"
 
 #: guide/tables.py:14
 msgid "Approved"
-msgstr ""
+msgstr "Aprobat"
 
 #: guide/tables.py:16
 msgid "Waiting"
-msgstr ""
+msgstr "În așteptare"
 
 #: guide/tables.py:18
 msgid "Don't Know"
-msgstr ""
+msgstr "Nu știu"
 
 #: guide/tables.py:20
 msgid "Rejected"
-msgstr ""
+msgstr "Respins"
 
 #: guide/tables.py:22
 msgid "Suspended"
-msgstr ""
+msgstr "Suspendat"
 
 #: guide/tables.py:24
 msgid "Audio"
-msgstr ""
+msgstr "Audio"
 
 #: guide/tables.py:26
 msgid "Unknown"
-msgstr ""
+msgstr "Necunoscut"
 
 #: guide/templateutil.py:181 guide/templates/base.html:52
 msgid "Most Popular"
-msgstr ""
+msgstr "Cel mai popular"
 
 #: guide/templateutil.py:182
 msgid "Top Rated"
-msgstr ""
+msgstr "Cel mai apreciat"
 
 #: guide/templateutil.py:183
 msgid "Most Recent"
-msgstr ""
+msgstr "Cel mai recent"
 
 #: guide/templateutil.py:184
 msgid "A-Z"
-msgstr ""
+msgstr "A-Z"
 
 #: guide/forms/channels.py:28
 msgid "What is HD?"
-msgstr ""
+msgstr "Ce este HD?"
 
 #: guide/forms/channels.py:29
 #, python-format
@@ -256,7 +259,7 @@ msgstr ""
 
 #: guide/forms/channels.py:75 guide/forms/channels.py:279
 msgid "Channel Name"
-msgstr ""
+msgstr "Nume canal"
 
 #: guide/forms/channels.py:76 guide/forms/channels.py:280
 msgid "RSS Feed"
@@ -264,15 +267,15 @@ msgstr ""
 
 #: guide/forms/channels.py:139
 msgid "1st"
-msgstr ""
+msgstr "Primul"
 
 #: guide/forms/channels.py:139
 msgid "2nd"
-msgstr ""
+msgstr "Al doilea"
 
 #: guide/forms/channels.py:139
 msgid "3rd"
-msgstr ""
+msgstr "A treia"
 
 #: guide/forms/channels.py:161
 msgid "You must at least enter a primary value."
@@ -317,11 +320,11 @@ msgstr ""
 
 #: guide/forms/channels.py:290 guide/views/categories.py:19
 msgid "Categories"
-msgstr ""
+msgstr "Categorii"
 
 #: guide/forms/channels.py:291
 msgid "Languages"
-msgstr ""
+msgstr "Limbi"
 
 #: guide/forms/channels.py:292
 msgid "What language are most of these videos in?"
@@ -329,11 +332,11 @@ msgstr ""
 
 #: guide/forms/channels.py:293
 msgid "Postal Code"
-msgstr ""
+msgstr "Cod poştal"
 
 #: guide/forms/channels.py:295
 msgid "High Definition"
-msgstr ""
+msgstr "Înaltă Definiţie"
 
 #: guide/forms/channels.py:297
 msgid "Upload Image"
@@ -356,15 +359,15 @@ msgstr ""
 
 #: guide/forms/channels.py:461
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: guide/forms/channels.py:462
 msgid "Title"
-msgstr ""
+msgstr "Titlu"
 
 #: guide/forms/channels.py:463 guide/forms/misc.py:15
 msgid "Body"
-msgstr ""
+msgstr "Conţinut"
 
 #: guide/forms/cobranding.py:11
 msgid "Title in Miro App"
@@ -376,7 +379,7 @@ msgstr ""
 
 #: guide/forms/cobranding.py:13
 msgid "Page Title"
-msgstr ""
+msgstr "Titlu pagină"
 
 #: guide/forms/cobranding.py:14
 msgid "This is the title that will be displayed at the top of the page."
@@ -413,7 +416,8 @@ msgid "Link 1 URL"
 msgstr ""
 
 #: guide/forms/cobranding.py:24
-msgid "Or leave this blank to have plain text.  All these links are optional."
+msgid ""
+"Or leave this blank to have plain text.  All these links are optional."
 msgstr ""
 
 #: guide/forms/cobranding.py:26
@@ -971,7 +975,8 @@ msgid "Three things to remember..."
 msgstr ""
 
 #: guide/templates/firsttime.html:38
-msgid "Miro lets you subscribe to channels for free (they go to your sidebar)"
+msgid ""
+"Miro lets you subscribe to channels for free (they go to your sidebar)"
 msgstr ""
 
 #: guide/templates/firsttime.html:39

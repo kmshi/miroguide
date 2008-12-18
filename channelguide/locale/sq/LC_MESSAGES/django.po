@@ -1,0 +1,1494 @@
+# Albanian translation for miroguide
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the miroguide package.
+# Besnik Bleta <besnik@programeshqip.org>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: miroguide\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2008-08-06 14:32-0400\n"
+"PO-Revision-Date: 2008-11-14 20:27+0000\n"
+"Last-Translator: Besnik <besnik@programeshqip.org>\n"
+"Language-Team: Albanian <besnik@programeshqip.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2008-12-09 21:57+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: settings.py:34
+msgid "English"
+msgstr "Angleze"
+
+#: settings.py:35
+msgid "Arabic"
+msgstr "Arabe"
+
+#: settings.py:36
+msgid "Bengali"
+msgstr "Bengaleze"
+
+#: settings.py:37
+msgid "Catalan"
+msgstr "Katalane"
+
+#: settings.py:38
+msgid "Chinese"
+msgstr "Kineze"
+
+#: settings.py:39
+msgid "Croation"
+msgstr ""
+
+#: settings.py:40
+msgid "Danish"
+msgstr "Daneze"
+
+#: settings.py:41
+msgid "Dutch"
+msgstr "Holandeze"
+
+#: settings.py:42
+msgid "Estonian"
+msgstr "Estoneze"
+
+#: settings.py:43
+msgid "Finnish"
+msgstr "Finlandeze"
+
+#: settings.py:44
+msgid "French"
+msgstr "Frënge"
+
+#: settings.py:45
+msgid "German"
+msgstr "Gjermane"
+
+#: settings.py:46
+msgid "Greek"
+msgstr "Greke"
+
+#: settings.py:47
+msgid "Hebrew"
+msgstr "Hebraishte"
+
+#: settings.py:48
+msgid "Hinidi"
+msgstr ""
+
+#: settings.py:49
+msgid "Hungarian"
+msgstr "Hungareze"
+
+#: settings.py:50
+msgid "Icelandic"
+msgstr "Islandishte"
+
+#: settings.py:51
+msgid "Indonesian"
+msgstr "Indoneziane"
+
+#: settings.py:52
+msgid "Italian"
+msgstr "Italisht"
+
+#: settings.py:53
+msgid "Japanese"
+msgstr "Japoneze"
+
+#: settings.py:54
+msgid "Korean"
+msgstr "Koreane"
+
+#: settings.py:55
+msgid "Kurdish (Sorani)"
+msgstr "Kurde (Sorani)"
+
+#: settings.py:56
+msgid "Latvian"
+msgstr "Latviane"
+
+#: settings.py:57
+msgid "Lithuanian"
+msgstr "Lituaneze"
+
+#: settings.py:58
+msgid "Malay"
+msgstr "Malaje"
+
+#: settings.py:59
+msgid "Norwegian"
+msgstr "Norvegjeze"
+
+#: settings.py:60
+msgid "Persian"
+msgstr "Persiane"
+
+#: settings.py:61
+msgid "Polish"
+msgstr "Polake"
+
+#: settings.py:62
+msgid "Portuguese (Brazillian)"
+msgstr "Portugeze (Brazil)"
+
+#: settings.py:63
+msgid "Portuguese (Portugal)"
+msgstr "Portugeze (Portugali)"
+
+#: settings.py:64
+msgid "Romanian"
+msgstr "Rumune"
+
+#: settings.py:65
+msgid "Russian"
+msgstr "Ruse"
+
+#: settings.py:66
+msgid "Serbo-Croatian"
+msgstr "Serbo-Kroate"
+
+#: settings.py:67
+msgid "Slovak"
+msgstr "Slovake"
+
+#: settings.py:68
+msgid "Spanish"
+msgstr "Spanjolle"
+
+#: settings.py:69
+msgid "Swedish"
+msgstr "Suedeze"
+
+#: settings.py:70
+msgid "Thai"
+msgstr "Tailandeze"
+
+#: settings.py:71
+msgid "Turkish"
+msgstr "Turke"
+
+#: settings.py:72
+msgid "Vietnamese"
+msgstr "Vietnameze"
+
+#: guide/tables.py:12
+msgid "New"
+msgstr "I ri"
+
+#: guide/tables.py:14
+msgid "Approved"
+msgstr "Miratuar"
+
+#: guide/tables.py:16
+msgid "Waiting"
+msgstr "Po pritet"
+
+#: guide/tables.py:18
+msgid "Don't Know"
+msgstr "Nuk e Di"
+
+#: guide/tables.py:20
+msgid "Rejected"
+msgstr "U hodh poshtë"
+
+#: guide/tables.py:22
+msgid "Suspended"
+msgstr ""
+
+#: guide/tables.py:24
+msgid "Audio"
+msgstr "Audio"
+
+#: guide/tables.py:26
+msgid "Unknown"
+msgstr "E panjohur"
+
+#: guide/templateutil.py:181 guide/templates/base.html:52
+msgid "Most Popular"
+msgstr "Më Populloret"
+
+#: guide/templateutil.py:182
+msgid "Top Rated"
+msgstr "Më të Vlerësuarat"
+
+#: guide/templateutil.py:183
+msgid "Most Recent"
+msgstr "Më të Fundmet"
+
+#: guide/templateutil.py:184
+msgid "A-Z"
+msgstr "A-Z"
+
+#: guide/forms/channels.py:28
+msgid "What is HD?"
+msgstr "Çfarë është HD-ja?"
+
+#: guide/forms/channels.py:29
+#, python-format
+msgid ""
+"Material that is roughly 640x480 non-interlaced, and higher, can\n"
+"        be marked as HD. This basically translates to DVD quality (without "
+"a\n"
+"        lot of ugly compression artifacts) or better. Roughly 80% of the\n"
+"        material on the channel must meet this criteria for it to be "
+"considered\n"
+"        HD.  Note: you are welcome to have an HD and non-HD version of the "
+"same\n"
+"        channel "
+msgstr ""
+
+#: guide/forms/channels.py:35
+msgid ""
+"An RSS feed is what makes a podcast a podcast. It's a special URL that "
+"applications like Miro and iTunes check periodically to know when there is a "
+"new video for a channel. Video RSS feeds are strongly recommended for Miro."
+msgstr ""
+"Ajo që e bën një &quot;podcast&quot; &quot;podcast&quot; është prurja RSS. "
+"Kjo është një URL speciale që zbatimet si Miro dhe iTunes e kontrollojnë "
+"periodikisht për të parë kur ka video të re për një kanal. Prurjet RSS video "
+"janë fort të këshillueshme për Miro-n."
+
+#: guide/forms/channels.py:53
+#, python-format
+msgid "%s is already a channel in the guide"
+msgstr "%s është tashmë kanal në udhërrëfyes"
+
+#: guide/forms/channels.py:58
+msgid "We can't find a video feed at that address, please try again."
+msgstr "Nuk gjejmë dot prurje video te ajo vendndodhje, ju lutem riprovoni."
+
+#: guide/forms/channels.py:75 guide/forms/channels.py:279
+msgid "Channel Name"
+msgstr "Emër Kanali"
+
+#: guide/forms/channels.py:76 guide/forms/channels.py:280
+msgid "RSS Feed"
+msgstr "Prurje RSS"
+
+#: guide/forms/channels.py:139
+msgid "1st"
+msgstr "I"
+
+#: guide/forms/channels.py:139
+msgid "2nd"
+msgstr "II"
+
+#: guide/forms/channels.py:139
+msgid "3rd"
+msgstr "III"
+
+#: guide/forms/channels.py:161
+msgid "You must at least enter a primary value."
+msgstr "Duhet të jepni të paktën një vlerë parësore."
+
+#: guide/forms/channels.py:178
+#, python-format
+msgid "you can only enter up to %d tags."
+msgstr "mund të fusni vetëm deri në %d etiketa."
+
+#: guide/forms/channels.py:260
+msgid "This field is required."
+msgstr "Kjo fushë është e domosdoshme."
+
+#: guide/forms/channels.py:265
+msgid "Not a valid image"
+msgstr "Pamje jo e vlefshme"
+
+#: guide/forms/channels.py:269
+msgid "Not an image in a format we support."
+msgstr "Pamje jo në format që mbulohet prej nesh."
+
+#: guide/forms/channels.py:282 guide/forms/cobranding.py:15
+msgid "Website URL"
+msgstr "URL \"site\"-i Web"
+
+#: guide/forms/channels.py:284
+msgid "Full Description"
+msgstr "Përshkrim i Plotë"
+
+#: guide/forms/channels.py:285
+msgid "Publisher E-mail"
+msgstr "E-mail Botuesi"
+
+#: guide/forms/channels.py:287 guide/templates/tag-list.html:7
+msgid "Tags"
+msgstr "Etiketa"
+
+#: guide/forms/channels.py:288
+msgid "Keywords that describe this channel.  Separate each tag with a comma."
+msgstr "Fjalëkyça që përshkruajnë këtë kanal. Ndajini etiketat me presje."
+
+#: guide/forms/channels.py:290 guide/views/categories.py:19
+msgid "Categories"
+msgstr "Kategori"
+
+#: guide/forms/channels.py:291
+msgid "Languages"
+msgstr "Gjuhë"
+
+#: guide/forms/channels.py:292
+msgid "What language are most of these videos in?"
+msgstr "Në ç&apos;gjuhë janë shumica e këtyre videove?"
+
+#: guide/forms/channels.py:293
+msgid "Postal Code"
+msgstr "Kod Postal"
+
+#: guide/forms/channels.py:295
+msgid "High Definition"
+msgstr "High Definition"
+
+#: guide/forms/channels.py:297
+msgid "Upload Image"
+msgstr "Ngarkoni Pamje"
+
+#: guide/forms/channels.py:298
+msgid ""
+"Remember that creating a good channel thumbnail is one of the most important "
+"ways to attract new viewers.  It's worth making an effort to do something "
+"beautiful.  You can also update the image after you submit your channel."
+msgstr ""
+"Mbani mend që krijimi i një miniature të përshtatshme kanali është një nga "
+"rrugët më të rëndësishme për të tërhequr shikues të rinj. Ia vlen të bëni "
+"një përpjekje për të bërë diçka të bukur. Mundet të përditësoni gjithashtu "
+"pamjen pas parashtrimit të kanalit tuaj."
+
+#: guide/forms/channels.py:320
+msgid "That streaming site already exists."
+msgstr "Ai &quot;site&quot; transmetimesh ekziston tashmë."
+
+#: guide/forms/channels.py:390
+msgid "Feed URL already exists"
+msgstr "URL-ja e prurjes ekziston tashmë"
+
+#: guide/forms/channels.py:461
+msgid "Email"
+msgstr "Email"
+
+#: guide/forms/channels.py:462
+msgid "Title"
+msgstr "Titull"
+
+#: guide/forms/channels.py:463 guide/forms/misc.py:15
+msgid "Body"
+msgstr "Përmbajtje"
+
+#: guide/forms/cobranding.py:11
+msgid "Title in Miro App"
+msgstr "Titull në Miro"
+
+#: guide/forms/cobranding.py:12
+msgid "This is the title that will appear in the sidebar of Miro."
+msgstr "Ky është titulli që do të duket te anështylla e Miro-s."
+
+#: guide/forms/cobranding.py:13
+msgid "Page Title"
+msgstr "Titull Faqeje"
+
+#: guide/forms/cobranding.py:14
+msgid "This is the title that will be displayed at the top of the page."
+msgstr "Ky është titulli që do të shfaqet në krye të faqes."
+
+#: guide/forms/cobranding.py:17
+msgid "Icon URL"
+msgstr "URL ikone"
+
+#: guide/forms/cobranding.py:17
+msgid "Icon should be 175x125 pixels."
+msgstr "Ikona duhet të jetë 175x125 piksela."
+
+#: guide/forms/cobranding.py:19
+msgid "Favicon URL"
+msgstr "URL favikone"
+
+#: guide/forms/cobranding.py:19
+msgid ""
+"This is best as a 20x20 png graphic. It shows up in the sidebar of the Miro "
+"App."
+msgstr ""
+"Më e mira e kësaj është si grafik png 20x20. Shfaqet te anështylla e Miros."
+
+#: guide/forms/cobranding.py:21
+msgid "External CSS URL"
+msgstr "URL CSS-je të Jashtme"
+
+#: guide/forms/cobranding.py:22
+msgid "Description"
+msgstr "Përshkrim"
+
+#: guide/forms/cobranding.py:24
+msgid "Link 1 URL"
+msgstr "URL e Lidhjes 1"
+
+#: guide/forms/cobranding.py:24
+msgid ""
+"Or leave this blank to have plain text.  All these links are optional."
+msgstr ""
+"Ose lëreni bosh për ta pasur si tekst të thjeshtë. Tërë këto lidhje janë "
+"opsionale."
+
+#: guide/forms/cobranding.py:26
+msgid "Link 1 Text"
+msgstr "Tekst i Lidhjes 1"
+
+#: guide/forms/cobranding.py:28
+msgid "Link 2 URL"
+msgstr "URL e Lidhjes 2"
+
+#: guide/forms/cobranding.py:30
+msgid "Link 2 Text"
+msgstr "Tekst i Lidhjes 2"
+
+#: guide/forms/cobranding.py:32
+msgid "Link 3 URL"
+msgstr "URL e Lidhjes 3"
+
+#: guide/forms/cobranding.py:34
+msgid "Link 3 Text"
+msgstr "Tekst i Lidhjes 3"
+
+#: guide/forms/fields.py:21
+#, python-format
+msgid "Ensure this value has at most %(maximum)d bytes (it has %(length)d)."
+msgstr ""
+"Bëni të mundur që kjo vlerë ka e shumta %(maximum)d bajte (është %(length)d)."
+
+#: guide/forms/misc.py:14
+msgid "title"
+msgstr "titull"
+
+#: guide/forms/user.py:18
+msgid "Username already taken"
+msgstr "Emër përdoruesi tashmë i zënë ."
+
+#: guide/forms/user.py:28
+msgid "E-mail already taken"
+msgstr "E-mail tashmë i zënë"
+
+#: guide/forms/user.py:35
+msgid "E-mail not found"
+msgstr "Nuk u gjet e-mail"
+
+#: guide/forms/user.py:44
+msgid "That username is not valid."
+msgstr "Ai emër përdoruesi nuk është i vlefshëm."
+
+#: guide/forms/user.py:58
+msgid "That username or e-mail is not valid."
+msgstr "Ky emër përdoruesi ose e-mail nuk është i vlefshëm"
+
+#: guide/forms/user.py:71
+msgid "That password is not valid."
+msgstr "Fjalëkalimi nuk është i vlefshëm."
+
+#: guide/forms/user.py:85
+msgid "Passwords don't match"
+msgstr "Fjalëkalimet s'përputhen"
+
+#: guide/forms/user.py:89
+msgid "Username"
+msgstr "Emër përdoruesi"
+
+#: guide/forms/user.py:90
+msgid "Email Address"
+msgstr "Vendndodhje Email"
+
+#: guide/forms/user.py:92
+msgid "Pick a Password"
+msgstr "Sillni një Fjalëkalim"
+
+#: guide/forms/user.py:94 guide/forms/user.py:111 guide/forms/user.py:176
+msgid "Confirm Password"
+msgstr "Ripohoni Fjalëkalimin"
+
+#: guide/forms/user.py:109
+msgid "Change Password"
+msgstr "Ndryshoni Fjalëkalimin"
+
+#: guide/forms/user.py:113
+msgid "First Name"
+msgstr "Emër"
+
+#: guide/forms/user.py:115
+msgid "Last Name"
+msgstr "Mbiemër"
+
+#: guide/forms/user.py:116
+msgid "Age"
+msgstr "Moshë"
+
+#: guide/forms/user.py:120
+msgid "Gender"
+msgstr "Gjini"
+
+#: guide/forms/user.py:122
+msgid "City"
+msgstr "Qytet"
+
+#: guide/forms/user.py:124
+msgid "State"
+msgstr "Shtet"
+
+#: guide/forms/user.py:126
+msgid "Country"
+msgstr "Vend"
+
+#: guide/forms/user.py:128
+msgid "Zip Code"
+msgstr "Kod Zip"
+
+#: guide/forms/user.py:130
+msgid "IM Username"
+msgstr "Emër përdoruesi IM"
+
+#: guide/forms/user.py:132
+msgid "IM Type"
+msgstr "Lloj IM-je"
+
+#: guide/forms/user.py:161
+msgid "Channel Owner Emails"
+msgstr "Email-e Pronari Kanali"
+
+#: guide/forms/user.py:165
+msgid "Moderator Board Emails"
+msgstr "Email-e Bordi Moderatorësh"
+
+#: guide/forms/user.py:166
+msgid "Normal"
+msgstr "Normale"
+
+#: guide/forms/user.py:167
+msgid "No emails"
+msgstr "Pa email-e"
+
+#: guide/forms/user.py:168
+msgid "Send all emails"
+msgstr "Dërgo tërë email-et"
+
+#: guide/forms/user.py:169
+msgid "Channel Status Emails"
+msgstr "Email-e Gjendjeje Kanali"
+
+#: guide/forms/user.py:174
+msgid "Set a new Password"
+msgstr "Caktoni një Fjalëkalim të ri"
+
+#: guide/models/channel.py:315
+#, python-format
+msgid "%(count)d subscriber"
+msgid_plural "%(count)d subscribers"
+msgstr[0] ""
+msgstr[1] ""
+
+#: guide/models/channel.py:322
+#, python-format
+msgid "%(count)d episode"
+msgid_plural "%(count)d episodes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: guide/templates/add-note.html:9
+msgid "Post"
+msgstr ""
+
+#: guide/templates/after-submit.html:9
+msgid "Thanks for Submitting Your Channel"
+msgstr "Faleminderit për Parashtrimin e Kanalit Tuak"
+
+#: guide/templates/after-submit.html:10
+msgid "Your channel has been submitted!"
+msgstr "Kanali juaj u parashtrua!"
+
+#: guide/templates/after-submit.html:12
+msgid ""
+"\n"
+"Our moderators will review your channel in the next few days to make\n"
+"sure that it works in Miro and that the content is not\n"
+"inappropriate.  Once the channel is approved, it will appear in the\n"
+"'Just Added' section on the front page.\n"
+msgstr ""
+"\n"
+"Moderatorët tanë do ta shqyrtojnë kanalin në ditët pasuese\n"
+"për t&apos;u siguruar që punon në Miro dhe që lënda nuk është\n"
+"e papërshtatshme.  Pasi kanali të jetë miratuar, do të shfaqet te\n"
+"ndarja 'Të Saposhtuar' në faqen ballore.\n"
+
+#: guide/templates/after-submit.html:19
+msgid "Updating Your Channel Info"
+msgstr "Po përditësohen Të dhënat e Kanalit Tuaj"
+
+#: guide/templates/after-submit.html:20
+msgid ""
+"\n"
+"You can update the details about your channel at anytime.  Just login\n"
+"to your account and click the 'My Submitted Channels' link.\n"
+msgstr ""
+"\n"
+"Mund të përditësoni hollësitë rreth kanalit tuaj kurdo.  Thjesht hyni\n"
+"te llogaria juaj dhe klikoni lidhjen 'Kanalet e Parashtruar nga Unë.\n"
+
+#: guide/templates/after-submit.html:25
+msgid "Add a 1-Click Subscribe Button to Your Website"
+msgstr "Shtoni te &quot;Site&quot;-i Juaj Web një Buton 1-Klik Pajtimesh"
+
+#: guide/templates/after-submit.html:28
+msgid ""
+"Visit <a href=\"http://webbalert.com/\">webbalert.com</a> to see a real 1-"
+"click button in action"
+msgstr ""
+"Për të parë një buton të vërtetë 1-klik në punë e sipër, vizitoni <a "
+"href=\"http://webbalert.com/\">webbalert.com</a>"
+
+#: guide/templates/after-submit.html:30
+msgid ""
+"The buttons below point to the feed you've just submitted-- just\n"
+"paste the HTML into your blog or website. When users click on the\n"
+"button, Miro will open and they will be automatically subscribed to\n"
+"your channel."
+msgstr ""
+"Butonat më poshtë shpien te prurja që sapo parashtruat-- thjesht\n"
+"kopjoni HTML-në te blogu ose &quot;site&quot;-i juaj web. Kur\n"
+"përdoruesit klikojnë mbi një buton, Miro-ja do të hapet dhe ata\n"
+"pajtohen vetvetiu te kanali juaj."
+
+#: guide/templates/after-submit.html:34
+msgid ""
+"1-click buttons are a great way to get your viewers connected to your\n"
+"content on an ongoing basis. If you have any questions about the\n"
+"buttons, email: channels [at] pculture [d] org."
+msgstr ""
+"Butona 1-klik janë një mënyrë e fortë për t&apos;i pasur shikuesit tuaj\n"
+"të lidhur vazhdimisht te lënda juaj. nëse keni ndonjë pyetje rreth butonave\n"
+"dërgoni një email te: channels [at] pculture [d] org."
+
+#: guide/templates/auth-token-request.html:7
+#: guide/templates/auth-token-request.html:11
+msgid "Forgot Password"
+msgstr "U harrua Fjalëkalimi"
+
+#: guide/templates/auth-token-request.html:12
+msgid ""
+"Please enter your email address\n"
+"        below.  A link will be sent to you email that you can use to set a "
+"new\n"
+"        password."
+msgstr ""
+"Ju lutem jepni më poshtë vendndodhjen\n"
+"         tuaj email. Do t&apos;ju dërgohet me email një lidhje që të mund "
+"ta\n"
+"         përdorni për caktimin e një fjalëkalimi të ri."
+
+#: guide/templates/auth-token-request.html:17
+msgid "Send"
+msgstr "Dërgoje"
+
+#: guide/templates/bad-auth-token.html:7
+#: guide/templates/change-password.html:7
+#: guide/templates/change-password.html:11
+msgid "Create New Password"
+msgstr "Krijoni Fjalëkalim të Ri"
+
+#: guide/templates/bad-auth-token.html:10
+msgid "Link invalid"
+msgstr "Lidhje e pavlefshme"
+
+#: guide/templates/bad-auth-token.html:11
+msgid "The link you used to get to this page was not valid."
+msgstr ""
+"Lidhja që përdornit dikur për të pasur këtë faqe nuk është e vlefshme."
+
+#: guide/templates/base.html:5 templates/500.html:7
+msgid "Miro Guide"
+msgstr "Udhërrëfyes i Miro-s"
+
+#: guide/templates/base.html:27
+msgid "Miro"
+msgstr "Miro"
+
+#: guide/templates/base.html:28
+msgid "Video feeds"
+msgstr "Prurje video"
+
+#: guide/templates/base.html:29
+msgid "Streaming shows"
+msgstr ""
+
+#: guide/templates/base.html:30
+msgid "Videos you'll love"
+msgstr "Video që do t&apos;ju përlqejnë"
+
+#: guide/templates/base.html:36
+msgid "Search"
+msgstr "Kërkoni"
+
+#: guide/templates/base.html:50
+msgid "Genres"
+msgstr "Zhanre"
+
+#: guide/templates/base.html:51
+msgid "HD Channels"
+msgstr "Kanale HD"
+
+#: guide/templates/base.html:53
+msgid "New Shows"
+msgstr "Shfaqje të Reja"
+
+#: guide/templates/base.html:54
+msgid "Video by Language"
+msgstr "Video sipas Gjuhësh"
+
+#: guide/templates/base.html:55
+msgid "Language"
+msgstr "Gjuhë"
+
+#: guide/templates/base.html:57
+msgid "Account"
+msgstr "Llogari"
+
+#: guide/templates/base.html:68
+msgid "Moderator's Area"
+msgstr "Zona e Moderatorëve"
+
+#: guide/templates/base.html:70
+msgid "View/Edit Profile"
+msgstr "Shihni/Përpuno Profil"
+
+#: guide/templates/base.html:72
+msgid "Channels I Manage"
+msgstr "Kanale Që i Administroj"
+
+#: guide/templates/base.html:74
+msgid "Submit a Channel"
+msgstr "Parashtroni një Kanal"
+
+#: guide/templates/base.html:78
+msgid "Log Out"
+msgstr "Dilni"
+
+#: guide/templates/base.html:94
+msgid "Forgot password"
+msgstr "U harrua fjalëkalimi"
+
+#: guide/templates/base.html:95 guide/templates/login.html:7
+#: guide/templates/login.html.py:13 guide/templates/login.html:18
+msgid "Login"
+msgstr "Hyni"
+
+#: guide/templates/base.html:106
+msgid "Register!"
+msgstr "Regjistrohuni!"
+
+#: guide/templates/base.html:113
+msgid "Register Now!"
+msgstr "Regjistrohuni Tani!"
+
+#: guide/templates/base.html:114
+msgid "Always Free"
+msgstr "Përherë Falas"
+
+#: guide/templates/base.html:161
+msgid "Loading..."
+msgstr "Po ngarkohet..."
+
+#: guide/templates/button_block.html:6
+msgid "Add"
+msgstr "Shtoni"
+
+#: guide/templates/button_block.html:6
+msgid "Add channel"
+msgstr "Shtoni kanal"
+
+#: guide/templates/button_block.html:7
+#, python-format
+msgid "Add %(name)s to Miro"
+msgstr "Shtoni %(name)s te Miro"
+
+#: guide/templates/button_block.html:12
+msgid "Details"
+msgstr "Hollësi"
+
+#: guide/templates/button_block.html:13
+#, python-format
+msgid "Details about %(name)s"
+msgstr "Hollësi rreth %(name)s"
+
+#: guide/templates/change-password.html:14
+msgid "Create"
+msgstr "Krijo"
+
+#: guide/templates/channel-form.html:7
+msgid "Submit Channel"
+msgstr "Parashtroni Kanal"
+
+#: guide/templates/channel-form.html:15
+msgid "Channel Thumbnail"
+msgstr "Miniaturë Kanali"
+
+#: guide/templates/channel-form.html:16
+msgid ""
+"Remember that creating a good channel thumbnail is one of\n"
+"the most important ways to attract new viewers.  It's worth making an "
+"effort\n"
+"to do something beautiful.  You can also update the image after you submit\n"
+"your channel."
+msgstr ""
+"Mbani mend që krijimi i një miniature të përshtatshme kanali\n"
+"është një nga rrugët më të rëndësishme për të tërhequr shikues të rinj.\n"
+"Ia vlen të bëni një përpjekje për të bërë diçka të bukur.\n"
+"Mundet të përditësoni gjithashtu pamjen pas parashtrimit të kanalit tuaj."
+
+#: guide/templates/channel-form.html:21 guide/templates/submit-channel.html:13
+msgid ""
+"We have found an image in your feed.  You can either use this image or "
+"upload a different one."
+msgstr ""
+"Kemi gjetur një pamje te prurja juaj. Ose përdorni këtë pamje, ose ngarkoni "
+"një tjetër."
+
+#: guide/templates/channel-notes.html:7
+msgid "Issues"
+msgstr "Probleme"
+
+#: guide/templates/channel-notes.html:7
+msgid "need support? post here."
+msgstr "keni nevojë për asistencë? kërkojeni këtu."
+
+#: guide/templates/channel-notes.html:14
+msgid "Me"
+msgstr "Unë"
+
+#: guide/templates/channel-notes.html:17
+msgid "Manager"
+msgstr "Përgjegjës"
+
+#: guide/templates/channel.html:12 guide/templates/channel.html.py:14
+msgid "High-Definition Channel"
+msgstr "Kanale High-Definition"
+
+#: guide/templates/channel.html:53
+msgid "Channel Manager"
+msgstr "Përgjegjës Kanalesh"
+
+#: guide/templates/channel.html:60
+msgid "Notes"
+msgstr "Shënime"
+
+#: guide/templates/cobranding-admin.html:7
+#: guide/templates/cobranding-admin.html:9
+msgid "Administration"
+msgstr "Administratë"
+
+#: guide/templates/cobranding.html:53
+#, python-format
+msgid "All %(title)s Channels"
+msgstr "Tërë Kanalet %(title)s"
+
+#: guide/templates/confirm.html:7
+msgid "Email Sent"
+msgstr "Email-i u Dërgua"
+
+#: guide/templates/confirm.html:11
+msgid "Confirmed!"
+msgstr "U ripohua!"
+
+#: guide/templates/confirm.html:12
+msgid "Thanks for confirming your account!"
+msgstr "Faleminderit për ripohimin e llogarisë suaj!"
+
+#: guide/templates/confirm.html:15
+msgid "Confirmation sent"
+msgstr "Ripohimi u Dërgua"
+
+#: guide/templates/confirm.html:17
+msgid ""
+"If the address below isn't the correct one; change it and we'll send a code "
+"to that address."
+msgstr ""
+"Po qe se vendndodhja më poshtë s'është ajo e sakta; ndryshojeni dhe do t'ju "
+"dërgojmë një kod në atë vendndodhje."
+
+#: guide/templates/confirm.html:25
+msgid "Resend"
+msgstr "Ridërgoje"
+
+#: guide/templates/confirm.html:29
+msgid "Incorrect code"
+msgstr "Kod i pasaktë"
+
+#: guide/templates/confirm.html:30
+msgid "I'm sorry, that is not the correct code."
+msgstr "Më vjen keq, ky nuk është kodi i saktë."
+
+#: guide/templates/edit-bar.html:9
+msgid "Click to Edit Channel / Assist Manager"
+msgstr ""
+
+#: guide/templates/edit-bar.html:13
+#, python-format
+msgid "%(state)s by %(mod)s on %(mod_time)s"
+msgstr ""
+
+#: guide/templates/edit-bar.html:16
+#, python-format
+msgid "%(state)s by %(mod)s"
+msgstr "%(state)s nga %(mod)s"
+
+#: guide/templates/edit-bar.html:18
+#, python-format
+msgid "Channel is %(state)s"
+msgstr "Kanali është %(state)s"
+
+#: guide/templates/edit-bar.html:23
+#, python-format
+msgid "Featured by %(mod)s on %(featured_time)s"
+msgstr ""
+
+#: guide/templates/edit-bar.html:28
+msgid "Edit Your Channel / View Statistics / Get Help"
+msgstr "Përpunoni Kanalin Tuaj / Shihni Statistikat / Kini Ndihmë"
+
+#: guide/templates/edit-bar.html:91
+msgid "Cancel and go back"
+msgstr "Anuloje dhe kthehu mbrapsht"
+
+#: guide/templates/edit-channel.html:8 guide/templates/edit-channel.html:10
+msgid "Edit Channel"
+msgstr "Përpunoni Kanal"
+
+#: guide/templates/edit-channel.html:12 guide/templates/edit-user.html:30
+msgid "Update"
+msgstr "Përditëso"
+
+#: guide/templates/edit-channel.html:15
+msgid "Statistics"
+msgstr "Statistika"
+
+#: guide/templates/edit-channel.html:17
+msgid "Subscriptions* Today"
+msgstr "Pajtime* Sot"
+
+#: guide/templates/edit-channel.html:19
+msgid "Subscriptions* Month"
+msgstr "Pajtime* Muaj"
+
+#: guide/templates/edit-channel.html:21
+msgid "Subscriptions* Overall"
+msgstr "Pajtime* GjithsejOverall"
+
+#: guide/templates/edit-channel.html:24
+msgid "Popularity Rank Today"
+msgstr ""
+
+#: guide/templates/edit-channel.html:28
+msgid "Popularity Rank Month"
+msgstr ""
+
+#: guide/templates/edit-channel.html:32
+msgid "Popularity Rank Overall"
+msgstr ""
+
+#: guide/templates/edit-channel.html:36
+msgid "* unique Miro Guide 'add channel' hits"
+msgstr ""
+
+#: guide/templates/edit-user.html:7
+msgid "Update My Profile"
+msgstr "Përditëso Profilin Tim"
+
+#: guide/templates/edit-user.html:11
+msgid "Update My Profile "
+msgstr "Përditëso Profilin Tim "
+
+#: guide/templates/email-channel-owners.html:7
+#: guide/templates/moderate.html:52
+msgid "Email Channel Managers"
+msgstr ""
+
+#: guide/templates/firsttime.html:34
+msgid "WELCOME TO MIRO!"
+msgstr "MIRËSEVINI TE MIRO!"
+
+#: guide/templates/firsttime.html:36
+msgid "Three things to remember..."
+msgstr "Tre gjëra për t'i mbajtur mend..."
+
+#: guide/templates/firsttime.html:38
+msgid ""
+"Miro lets you subscribe to channels for free (they go to your sidebar)"
+msgstr ""
+"Miro-ja ju lejon të pajtoheni falas në kanale (këta shkojnë te anështylla "
+"juaj)"
+
+#: guide/templates/firsttime.html:39
+msgid "Miro will automatically download new videos from your channels"
+msgstr "Miro-ja do të shkarkojë vetvetiu video të reja prej kanaleve tuaja"
+
+#: guide/templates/firsttime.html:40
+msgid "A "
+msgstr "A "
+
+#: guide/templates/firsttime.html:40
+msgid "green"
+msgstr "e gjelbër"
+
+#: guide/templates/firsttime.html:40
+msgid " bubble (in the sidebar) means you've got "
+msgstr ""
+
+#: guide/templates/firsttime.html:40
+msgid "new"
+msgstr "e re"
+
+#: guide/templates/firsttime.html:40
+msgid " video"
+msgstr " video"
+
+#: guide/templates/firsttime.html:43
+msgid "We Have Channel Recommendations for You! <u>click here</u>"
+msgstr "Kemi Rekomandime Kanalesh për Ju! <u>klikoni këtu</u>"
+
+#: guide/templates/firsttime.html:56
+msgid "Share Miro With Your Friends:"
+msgstr "Ndajeni Miro-n Me Miqtë Tuaj:"
+
+#: guide/templates/firsttime.html:80
+msgid "Get Started"
+msgstr "Nisjani"
+
+#: guide/templates/firsttime.html:80
+#, python-format
+msgid "Browse All %(total_channels)s channels"
+msgstr "Shfletoni Tërë %(total_channels)s kanalet"
+
+#: guide/templates/for-user.html:7
+msgid "Miro Guide - Channels for"
+msgstr "Udhërrëfyes i Miro-s - Kanale për"
+
+#: guide/templates/for-user.html:11
+msgid "My User Info"
+msgstr "Të dhënat e Mia Si Përdorues"
+
+#: guide/templates/for-user.html:13
+msgid "User Info for"
+msgstr "Të dhëna Përdoruesi për"
+
+#: guide/templates/for-user.html:30
+msgid "Submitted channels: "
+msgstr "Kanale të parashtruar: "
+
+#: guide/templates/form-errors.html:8 templates/500.html:11
+msgid "Sorry!"
+msgstr "Më ndjeni!"
+
+#: guide/templates/form-field.html:6
+msgid "Error"
+msgstr "Gabim"
+
+#: guide/templates/group-list.html:7
+#, python-format
+msgid "Miro Guide - %(group_name)s"
+msgstr "Udhërrëfyes i Miro-s - %(group_name)s"
+
+#: guide/templates/how-to-moderate.html:7 guide/templates/moderate.html:45
+msgid "How to Moderate"
+msgstr "Si të Moderohet"
+
+#: guide/templates/index.html:134
+msgid "New Feed Videos"
+msgstr ""
+
+#: guide/templates/index.html:144
+msgid "New Streaming Videos"
+msgstr ""
+
+#: guide/templates/index.html:156
+msgid "Recommended for you"
+msgstr "Rekomanduar për ju"
+
+#: guide/templates/index.html:166
+msgid "View all"
+msgstr "Shihini të Tërë"
+
+#: guide/templates/login.html:14
+msgid "Got an account? Just log in!"
+msgstr "Keni llogari? Thjesht futuni!"
+
+#: guide/templates/login.html:28 guide/templates/login.html.py:32
+msgid "Register"
+msgstr "Regjistrohuni"
+
+#: guide/templates/moderate.html:14
+#, python-format
+msgid ""
+"\n"
+"        %(count)s Unreviewed channels\n"
+"        "
+msgstr ""
+"\n"
+"        %(count)s Kanale të Pashqyrtuar\n"
+"        "
+
+#: guide/templates/moderate.html:19
+#, python-format
+msgid ""
+"\n"
+"        %(count)s Don't know channels\n"
+"        "
+msgstr ""
+"\n"
+"        %(count)s Kanale S'di të them\n"
+"        "
+
+#: guide/templates/moderate.html:24
+#, python-format
+msgid ""
+"\n"
+"        %(count)s Channels waiting for Reply\n"
+"        "
+msgstr ""
+"\n"
+"        %(count)s Kanale në Pritje të Përgjigjesh\n"
+"        "
+
+#: guide/templates/moderate.html:29
+#, python-format
+msgid ""
+"\n"
+"        %(count)s Suspended Channels\n"
+"        "
+msgstr ""
+"\n"
+"        %(count)s Kanale të Pezulluar\n"
+"        "
+
+#: guide/templates/moderate.html:34
+#, python-format
+msgid ""
+"\n"
+"        %(count)s Rejected channels\n"
+"        "
+msgstr ""
+"\n"
+"        %(count)s Kanale të Hedhur Tej\n"
+"        "
+
+#: guide/templates/moderate.html:39
+#, python-format
+msgid ""
+"\n"
+"  %(count)s channels in Featured Queue\n"
+"  "
+msgstr ""
+
+#: guide/templates/moderate.html:46
+msgid "Search For Users"
+msgstr "Kërko për Përdoruesa"
+
+#: guide/templates/moderate.html:47
+msgid "Moderator list"
+msgstr "Listë moderatori"
+
+#: guide/templates/moderate.html:49
+msgid "Edit Category list"
+msgstr "Përpunoni listë Kategorish"
+
+#: guide/templates/moderate.html:50
+msgid "Edit Languages list"
+msgstr "Përpunoni listë Gjuhësh"
+
+#: guide/templates/moderate.html:51
+msgid "Moderator History"
+msgstr "Historik Moderatori"
+
+#: guide/templates/moderator-board.html:9
+msgid "Moderator Message Board"
+msgstr ""
+
+#: guide/templates/pager-old.html:34
+msgid "Next &gt;&gt;"
+msgstr "Pasuese &gt;&gt;"
+
+#: guide/templates/pager-old.html:38
+#, python-format
+msgid ""
+"%(start)s-%(end)s of %(total)s\n"
+"        "
+msgstr ""
+"%(start)s-%(end)s nga %(total)s\n"
+"        "
+
+#: guide/templates/personalized-recommendation.html:18
+msgid "Rate!"
+msgstr "Vlerësoni!"
+
+#: guide/templates/personalized-recommendation.html:22
+#, python-format
+msgid "Our Bet: %(stars)s Stars"
+msgstr "Me Bast: %(stars)s Yje"
+
+#: guide/templates/personalized-recommendation.html:25
+msgid "Because you like"
+msgstr "Ngaq ju pëlqen"
+
+#: guide/templates/recommend.html:8
+msgid "Miro Guide - Channels You'll Love"
+msgstr "Udhërrëfyesi i Miro-s - Kanale Që i Doni"
+
+#: guide/templates/recommend.html:16 guide/views/accounts.py:24
+msgid ""
+"Rating Key | cancel: No Interest; 1 Star: Hate; 2 Stars: Dislike; 3 Stars: "
+"Like; 4 Stars; Like Lots; 5 Stars: Love!"
+msgstr ""
+"Taste Vlerësimesh | cancel: Pa Interes; 1 Yll: Të hap Barkun; 2 Yje: Jo "
+"Kushedi; 3 Yje: Jo keq; 4 Yje; Goxha i Mirë; 5 Yje: Ta Heq Trurin!"
+
+#: guide/templates/recommend.html:17 guide/templates/user_ratings.html:14
+msgid "Channels You'll &hearts;"
+msgstr ""
+
+#: guide/templates/recommend.html:17 guide/templates/user_ratings.html:14
+msgid "Channels You've Rated"
+msgstr "Kanale Që i Keni Vlerësuar"
+
+#: guide/templates/recommend.html:20
+msgid "To get new recommendations, rate these channels then "
+msgstr "Për të pasur rekomandime të reja, vlerësoni këto kanale atëherë "
+
+#: guide/templates/recommend.html:20
+msgid "reload"
+msgstr "ringarkoje"
+
+#: guide/templates/recommend.html:20
+msgid " this page."
+msgstr " këtë faqe."
+
+#: guide/templates/recommend.html:31
+msgid ""
+"\n"
+"You can rate channels by clicking on stars (here or anywhere else in the "
+"guide). Please rate some of these channels and <a href=\"\">come back</a>; "
+"we'll have recommendations for you. The more you rate, the more accurate "
+"we'll be.    \n"
+"    "
+msgstr ""
+"\n"
+"Kanalet mund të vlerësohen duke klikuar mbi yjet (këtu apo kudo gjetkë në "
+"udhërrëfyes). Ju lutem vlerësoni disa prej këtyre kanaleve dhe <a "
+"href=\"\">rikthehuni</a>; do të ketë rekomandime për ju. Sa më tepër që "
+"vlerësoni, aq më në shenjë do të godasin rekomandimet.    \n"
+"    "
+
+#: guide/templates/submit.html:7
+msgid "Miro Guide - Submit Channel"
+msgstr "Udhërrëfyesi i Miro-s Parashtroni Kanal"
+
+#: guide/templates/user_ratings.html:8
+msgid "Miro Guide - Channels You've Rated"
+msgstr "Udhërrëfyesi i Miro-s - Kanale Që i Keni Vlerësuar"
+
+#: guide/views/accounts.py:19
+msgid "List Your Channel in the Miro Guide!"
+msgstr "Vendoseni Kanalin Tuaj te Udhërrëfyesi i Miro-s!"
+
+#: guide/views/accounts.py:20
+msgid "All you need is an account..."
+msgstr "Gjithë ç'ju duhet është një llogari..."
+
+#: guide/views/accounts.py:23
+msgid "Rate Channels, Get Recommendations"
+msgstr "Vlerësoni Kanale, Merrni Rekomandime"
+
+#: guide/views/accounts.py:25
+msgid "Sign in (or create an account)"
+msgstr "Nënshkruani (ose krijoni një llogari)"
+
+#: guide/views/accounts.py:26
+msgid "Give Channels Star Ratings"
+msgstr "Jepuni Kanalve Vlerësime me Yje"
+
+#: guide/views/accounts.py:27
+msgid "We'll Give You Recommendations"
+msgstr "Do T'ju Japim Rekomandime"
+
+#: guide/views/accounts.py:38
+msgid ""
+"Your ratings will show up, but won't count towards the average until you "
+"confirm your e-mail."
+msgstr ""
+"Vlerësimet tuaja do të duken, por nuk do të ndikojnë në mesatare para se të "
+"ripohoni e-mail-in tuaj."
+
+#: guide/views/accounts.py:50
+msgid "Your Video RSS Feed is a Miro Channel"
+msgstr "Prurja Juaj RSS për Video është Kanal Miroje"
+
+#: guide/views/accounts.py:51
+msgid ""
+"It is super easy to submit your channel to the Miro Guide. Just give us the "
+"feed address, answer a few easy questions, and you&apos;re all done."
+msgstr ""
+"Është super e lehtë të parashtroni një kanal te Udhërrëfyesi i Miros. "
+"Thjesht jepni vendndodhjen e prurjes, përgjigjuni ca pyetjeve të lehta, dhe "
+"ja u bë."
+
+#: guide/views/accounts.py:63
+msgid "Why Should I Rate Channels?"
+msgstr "Pse Do të Duhej të Vlerësoja Kanale?"
+
+#: guide/views/accounts.py:64
+msgid ""
+"We are giving personalized recommendations, based on what you do and don't "
+"like. If you've ever used Netflix&reg;, you already know what we're talking "
+"about here. The more you rate, the more accurately we can recommend channels "
+"to you. It&apos;s that simple!"
+msgstr ""
+"Japim rekomandime të personalizuara, bazuar në atë çka ju pëlqen ose jo. Po "
+"qe se e keni përdorur ndonjëherë Netflix&reg;-in, tashmë e dini se për çfarë "
+"e kemi fjalën këtu. Sa më shumë që vlerësoni, aq më saktë mund të "
+"këshillojmë kanale për ju. Më thjeshtë s&apos;bëhet!"
+
+#: guide/views/accounts.py:65
+msgid "A Completely Open Guide"
+msgstr "Udhërrëfyes Plotësisht i Hapur"
+
+#: guide/views/accounts.py:66
+msgid ""
+"Because we accept channels (RSS feeds, aka 'video podcasts') from anyone, "
+"the Miro Guide is constantly expanding. Channel creators can add their feeds "
+"freely. If you know of a great video podcast that isn&apos;t already in the "
+"Guide, please contact the creator and ask them to submit it."
+msgstr ""
+"Ngaqë pranojmë kanale (prurje RSS, të njohur ndryshe edhe si 'video "
+"podcasts') prej cilitdo, Udhërrëfyesi i Miro-s zgjerohet vazhdimisht. "
+"Krijuesit e kanaleve mund t&apos;i shtojnë prurjet e tyre lirshëm. Nëse keni "
+"dijeni për një &quot;podcast&quot; video që s&apos;gjendet tashmë në "
+"Udhërrëfyes, ju lutem lidhuni me krijuesin dhe kërkojini ta parashtrojë."
+
+#: guide/views/api.py:256
+msgid "Invalid verification code."
+msgstr "Kod verifikimi i gabuar."
+
+#: guide/views/categories.py:27
+msgid "Edit Categories"
+msgstr "Përpunoni Kategori"
+
+#: guide/views/categories.py:28
+msgid "New Category"
+msgstr "Kateogri e Re"
+
+#: guide/views/channels.py:108
+msgid "Rejection emails need a body"
+msgstr "Email-et e refuzimit duhet të kenë përmbajtje"
+
+#: guide/views/channels.py:113
+#, python-format
+msgid "%s featured on Miro Guide"
+msgstr ""
+
+#: guide/views/channels.py:390
+msgid "Current image (no change)"
+msgstr "Pamje e tanishme (pa ndryshim)"
+
+#: guide/views/channels.py:392 guide/views/submit.py:97
+msgid "Current image (uploaded)"
+msgstr "Pamja e tanishme (u ngarkua)"
+
+#: guide/views/frontpage.py:66
+msgid "What is Miro?"
+msgstr "Çfarë është Miro?"
+
+#: guide/views/frontpage.py:67
+#, python-format
+msgid ""
+"Miro is an easy way to subscribe and watch all of these shows.  Using it is "
+"100% free."
+msgstr ""
+"Miro-ja është një rrugë e thjeshtë për t&apos;u pajtuar dhe parë tërë këto "
+"shfaqje.  Përdorimi i tij është 100% falas."
+
+#: guide/views/frontpage.py:68
+msgid "Download Miro"
+msgstr "Shkarkojeni Miron-n"
+
+#: guide/views/languages.py:17
+msgid "Channels by Language"
+msgstr "Kanale sipas Gjuhësh"
+
+#: guide/views/languages.py:28
+#, python-format
+msgid "Language: %s"
+msgstr "Gjuhë: %s"
+
+#: guide/views/languages.py:34
+msgid "Edit Languages"
+msgstr "Përpunoni Gjuhët"
+
+#: guide/views/languages.py:35
+msgid "New Language"
+msgstr "Gjuhë e Re"
+
+#: guide/views/moderator.py:49
+msgid "Channels Waiting For Replies"
+msgstr "Kanale Në Pritje Për Përgjigje"
+
+#: guide/views/moderator.py:52
+msgid "Channels Flagged Don't Know By a Moderator"
+msgstr ""
+
+#: guide/views/moderator.py:55
+msgid "Rejected Channels"
+msgstr "Kanale të Hedhur Tej"
+
+#: guide/views/moderator.py:58
+msgid "Suspended Channels"
+msgstr "Kanale të Pezulluar"
+
+#: guide/views/moderator.py:62
+msgid "Featured Queue"
+msgstr ""
+
+#: guide/views/moderator.py:65
+msgid "Unreviewed Channels"
+msgstr "Kanale të Pashqyrtuar"
+
+#: guide/views/submit.py:95
+msgid "Current image (from the feed)"
+msgstr "Pamje e tanishme (prej prurjeje)"
+
+#: templates/404.html:9
+msgid "Page not found"
+msgstr "Nuk u gjet faqja"
+
+#: templates/404.html:10 templates/500.html:22
+msgid "go to front page"
+msgstr "shko te faqja kryesore"
+
+#: templates/500.html:12
+msgid ""
+"Our server is experiencing higher than normal load.\n"
+"Please try again shortly.  Thanks for your patience."
+msgstr ""
+"Shërbyesi ynë po mban mbi supe një ngarkesë më të madhe.\n"
+"se sa normalja. Ju lutem riprovoni pas pak.  Faleminderit për durimin."
+
+#: templates/500.html:15
+#, python-format
+msgid " Server Error (id: %(id)s )"
+msgstr " Gabim Shërbyesi (id: %(id)s )"
+
+#: templates/500.html:16
+msgid ""
+"Sorry!  Your request resulted in an error.  We have logged it and our "
+"developers will fix it as soon as they can.  If this error\n"
+"persists, please contact:"
+msgstr ""
+"Na ndjeni!  Kërkesa juaj solli një gabim.  E kemi regjistruar dhe "
+"zhvilluesit tanë do ta ndreqin sa më shpejt të jetë e mundur.\n"
+"  Nëse ky gabim ia beh sërish, ju lutem lidhuni me:"
+
+#: templates/500.html:19
+msgid "Make sure to include the error ID at the top of this page."
+msgstr "Sigurohuni që përfshini ID-në e gabimit në krye të faqes"

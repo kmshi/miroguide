@@ -1,32 +1,34 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Japanese translation for miroguide
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the miroguide package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: miroguide\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2008-08-06 14:32-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2008-07-27 23:39+0000\n"
+"Last-Translator: José Lou C. <knight4light@gmail.com>\n"
+"Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Launchpad-Export-Date: 2008-12-09 21:56+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: settings.py:34
 msgid "English"
-msgstr ""
+msgstr "英語"
 
 #: settings.py:35
 msgid "Arabic"
-msgstr ""
+msgstr "アラビア語"
 
 #: settings.py:36
 msgid "Bengali"
-msgstr ""
+msgstr "ベンガル語"
 
 #: settings.py:37
 msgid "Catalan"
@@ -34,23 +36,23 @@ msgstr ""
 
 #: settings.py:38
 msgid "Chinese"
-msgstr ""
+msgstr "中国語"
 
 #: settings.py:39
 msgid "Croation"
-msgstr ""
+msgstr "クロアチア語"
 
 #: settings.py:40
 msgid "Danish"
-msgstr ""
+msgstr "デンマーク語"
 
 #: settings.py:41
 msgid "Dutch"
-msgstr ""
+msgstr "オランダ語"
 
 #: settings.py:42
 msgid "Estonian"
-msgstr ""
+msgstr "エストニア語"
 
 #: settings.py:43
 msgid "Finnish"
@@ -58,19 +60,19 @@ msgstr ""
 
 #: settings.py:44
 msgid "French"
-msgstr ""
+msgstr "フランス語"
 
 #: settings.py:45
 msgid "German"
-msgstr ""
+msgstr "ドイツ語"
 
 #: settings.py:46
 msgid "Greek"
-msgstr ""
+msgstr "ギリシャ語"
 
 #: settings.py:47
 msgid "Hebrew"
-msgstr ""
+msgstr "ヘブライ語"
 
 #: settings.py:48
 msgid "Hinidi"
@@ -78,83 +80,83 @@ msgstr ""
 
 #: settings.py:49
 msgid "Hungarian"
-msgstr ""
+msgstr "ハンガリー語"
 
 #: settings.py:50
 msgid "Icelandic"
-msgstr ""
+msgstr "アイスランド語"
 
 #: settings.py:51
 msgid "Indonesian"
-msgstr ""
+msgstr "インドネシア語"
 
 #: settings.py:52
 msgid "Italian"
-msgstr ""
+msgstr "イタリア語"
 
 #: settings.py:53
 msgid "Japanese"
-msgstr ""
+msgstr "日本語"
 
 #: settings.py:54
 msgid "Korean"
-msgstr ""
+msgstr "韓国語"
 
 #: settings.py:55
 msgid "Kurdish (Sorani)"
-msgstr ""
+msgstr "クルド語　（Sorani弁）"
 
 #: settings.py:56
 msgid "Latvian"
-msgstr ""
+msgstr "ラトビア語"
 
 #: settings.py:57
 msgid "Lithuanian"
-msgstr ""
+msgstr "リトアニア語"
 
 #: settings.py:58
 msgid "Malay"
-msgstr ""
+msgstr "マレー語"
 
 #: settings.py:59
 msgid "Norwegian"
-msgstr ""
+msgstr "ノルウェー語"
 
 #: settings.py:60
 msgid "Persian"
-msgstr ""
+msgstr "ペルシア語"
 
 #: settings.py:61
 msgid "Polish"
-msgstr ""
+msgstr "ポーランド語"
 
 #: settings.py:62
 msgid "Portuguese (Brazillian)"
-msgstr ""
+msgstr "ポルトガル語　（ブラジル）"
 
 #: settings.py:63
 msgid "Portuguese (Portugal)"
-msgstr ""
+msgstr "ポルトガル語 (ポルトガル)"
 
 #: settings.py:64
 msgid "Romanian"
-msgstr ""
+msgstr "ルーマニア語"
 
 #: settings.py:65
 msgid "Russian"
-msgstr ""
+msgstr "ロシア語"
 
 #: settings.py:66
 msgid "Serbo-Croatian"
-msgstr ""
+msgstr "セルボクロアチア語"
 
 #: settings.py:67
 msgid "Slovak"
-msgstr ""
+msgstr "スロバキア語"
 
 #: settings.py:68
 msgid "Spanish"
-msgstr ""
+msgstr "スペイン語"
 
 #: settings.py:69
 msgid "Swedish"
@@ -162,15 +164,15 @@ msgstr ""
 
 #: settings.py:70
 msgid "Thai"
-msgstr ""
+msgstr "タイ語"
 
 #: settings.py:71
 msgid "Turkish"
-msgstr ""
+msgstr "トルコ語"
 
 #: settings.py:72
 msgid "Vietnamese"
-msgstr ""
+msgstr "ベトナム語"
 
 #: guide/tables.py:12
 msgid "New"
@@ -186,7 +188,7 @@ msgstr ""
 
 #: guide/tables.py:18
 msgid "Don't Know"
-msgstr ""
+msgstr "分からない"
 
 #: guide/tables.py:20
 msgid "Rejected"
@@ -194,19 +196,19 @@ msgstr ""
 
 #: guide/tables.py:22
 msgid "Suspended"
-msgstr ""
+msgstr "サスペンド中"
 
 #: guide/tables.py:24
 msgid "Audio"
-msgstr ""
+msgstr "音声"
 
 #: guide/tables.py:26
 msgid "Unknown"
-msgstr ""
+msgstr "不明"
 
 #: guide/templateutil.py:181 guide/templates/base.html:52
 msgid "Most Popular"
-msgstr ""
+msgstr "人気"
 
 #: guide/templateutil.py:182
 msgid "Top Rated"
@@ -214,15 +216,15 @@ msgstr ""
 
 #: guide/templateutil.py:183
 msgid "Most Recent"
-msgstr ""
+msgstr "最近使用した物"
 
 #: guide/templateutil.py:184
 msgid "A-Z"
-msgstr ""
+msgstr "A-Z"
 
 #: guide/forms/channels.py:28
 msgid "What is HD?"
-msgstr ""
+msgstr "HD　って何？"
 
 #: guide/forms/channels.py:29
 #, python-format
@@ -248,7 +250,7 @@ msgstr ""
 #: guide/forms/channels.py:53
 #, python-format
 msgid "%s is already a channel in the guide"
-msgstr ""
+msgstr "%s はガイドのチャンネルにあります"
 
 #: guide/forms/channels.py:58
 msgid "We can't find a video feed at that address, please try again."
@@ -256,7 +258,7 @@ msgstr ""
 
 #: guide/forms/channels.py:75 guide/forms/channels.py:279
 msgid "Channel Name"
-msgstr ""
+msgstr "チャンネル名"
 
 #: guide/forms/channels.py:76 guide/forms/channels.py:280
 msgid "RSS Feed"
@@ -297,7 +299,7 @@ msgstr ""
 
 #: guide/forms/channels.py:282 guide/forms/cobranding.py:15
 msgid "Website URL"
-msgstr ""
+msgstr "ウェブサイトの URL"
 
 #: guide/forms/channels.py:284
 msgid "Full Description"
@@ -309,7 +311,7 @@ msgstr ""
 
 #: guide/forms/channels.py:287 guide/templates/tag-list.html:7
 msgid "Tags"
-msgstr ""
+msgstr "タグ"
 
 #: guide/forms/channels.py:288
 msgid "Keywords that describe this channel.  Separate each tag with a comma."
@@ -317,27 +319,27 @@ msgstr ""
 
 #: guide/forms/channels.py:290 guide/views/categories.py:19
 msgid "Categories"
-msgstr ""
+msgstr "カテゴリー"
 
 #: guide/forms/channels.py:291
 msgid "Languages"
-msgstr ""
+msgstr "言語"
 
 #: guide/forms/channels.py:292
 msgid "What language are most of these videos in?"
-msgstr ""
+msgstr "これらのビデオのほとんどはどんな言語ですか？"
 
 #: guide/forms/channels.py:293
 msgid "Postal Code"
-msgstr ""
+msgstr "郵便番号"
 
 #: guide/forms/channels.py:295
 msgid "High Definition"
-msgstr ""
+msgstr "高解像度"
 
 #: guide/forms/channels.py:297
 msgid "Upload Image"
-msgstr ""
+msgstr "イメージ をアップロードする"
 
 #: guide/forms/channels.py:298
 msgid ""
@@ -356,15 +358,15 @@ msgstr ""
 
 #: guide/forms/channels.py:461
 msgid "Email"
-msgstr ""
+msgstr "電子メール"
 
 #: guide/forms/channels.py:462
 msgid "Title"
-msgstr ""
+msgstr "ファイル名"
 
 #: guide/forms/channels.py:463 guide/forms/misc.py:15
 msgid "Body"
-msgstr ""
+msgstr "本体"
 
 #: guide/forms/cobranding.py:11
 msgid "Title in Miro App"
@@ -384,11 +386,11 @@ msgstr ""
 
 #: guide/forms/cobranding.py:17
 msgid "Icon URL"
-msgstr ""
+msgstr "アイコンのURL"
 
 #: guide/forms/cobranding.py:17
 msgid "Icon should be 175x125 pixels."
-msgstr ""
+msgstr "アイコンは175x125 pixels　でなければなりません"
 
 #: guide/forms/cobranding.py:19
 msgid "Favicon URL"
@@ -413,7 +415,8 @@ msgid "Link 1 URL"
 msgstr ""
 
 #: guide/forms/cobranding.py:24
-msgid "Or leave this blank to have plain text.  All these links are optional."
+msgid ""
+"Or leave this blank to have plain text.  All these links are optional."
 msgstr ""
 
 #: guide/forms/cobranding.py:26
@@ -443,7 +446,7 @@ msgstr ""
 
 #: guide/forms/misc.py:14
 msgid "title"
-msgstr ""
+msgstr "タイトル:"
 
 #: guide/forms/user.py:18
 msgid "Username already taken"
@@ -971,7 +974,8 @@ msgid "Three things to remember..."
 msgstr ""
 
 #: guide/templates/firsttime.html:38
-msgid "Miro lets you subscribe to channels for free (they go to your sidebar)"
+msgid ""
+"Miro lets you subscribe to channels for free (they go to your sidebar)"
 msgstr ""
 
 #: guide/templates/firsttime.html:39

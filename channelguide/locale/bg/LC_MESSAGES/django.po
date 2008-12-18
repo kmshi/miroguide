@@ -1,0 +1,1418 @@
+# Bulgarian translation for miroguide
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the miroguide package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: miroguide\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2008-08-06 14:32-0400\n"
+"PO-Revision-Date: 2008-11-19 13:55+0000\n"
+"Last-Translator: Svetoslav Stefanov <svetlisashkov@yahoo.com>\n"
+"Language-Team: Bulgarian <bg@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2008-12-09 21:57+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: settings.py:34
+msgid "English"
+msgstr "Английски"
+
+#: settings.py:35
+msgid "Arabic"
+msgstr "Арабски"
+
+#: settings.py:36
+msgid "Bengali"
+msgstr "Бенгали"
+
+#: settings.py:37
+msgid "Catalan"
+msgstr "Каталонски"
+
+#: settings.py:38
+msgid "Chinese"
+msgstr "Китайски"
+
+#: settings.py:39
+msgid "Croation"
+msgstr "Хърватски"
+
+#: settings.py:40
+msgid "Danish"
+msgstr "Датски"
+
+#: settings.py:41
+msgid "Dutch"
+msgstr "Холандски"
+
+#: settings.py:42
+msgid "Estonian"
+msgstr "Естонски"
+
+#: settings.py:43
+msgid "Finnish"
+msgstr "Финландски"
+
+#: settings.py:44
+msgid "French"
+msgstr "Френски"
+
+#: settings.py:45
+msgid "German"
+msgstr "Германски"
+
+#: settings.py:46
+msgid "Greek"
+msgstr "Гръцки"
+
+#: settings.py:47
+msgid "Hebrew"
+msgstr "Иврит"
+
+#: settings.py:48
+msgid "Hinidi"
+msgstr "Хинди"
+
+#: settings.py:49
+msgid "Hungarian"
+msgstr "Унгарски"
+
+#: settings.py:50
+msgid "Icelandic"
+msgstr "Исландски"
+
+#: settings.py:51
+msgid "Indonesian"
+msgstr "Индонезийски"
+
+#: settings.py:52
+msgid "Italian"
+msgstr "Италиански"
+
+#: settings.py:53
+msgid "Japanese"
+msgstr "Японски"
+
+#: settings.py:54
+msgid "Korean"
+msgstr "Корейски"
+
+#: settings.py:55
+msgid "Kurdish (Sorani)"
+msgstr "Кюрдски (Сорани)"
+
+#: settings.py:56
+msgid "Latvian"
+msgstr "Латвийски"
+
+#: settings.py:57
+msgid "Lithuanian"
+msgstr "Литовски"
+
+#: settings.py:58
+msgid "Malay"
+msgstr "Малайски"
+
+#: settings.py:59
+msgid "Norwegian"
+msgstr "Норвежки"
+
+#: settings.py:60
+msgid "Persian"
+msgstr "Фарси"
+
+#: settings.py:61
+msgid "Polish"
+msgstr "Полски"
+
+#: settings.py:62
+msgid "Portuguese (Brazillian)"
+msgstr "Португалски (Бразилия)"
+
+#: settings.py:63
+msgid "Portuguese (Portugal)"
+msgstr "Португалски (Португалия)"
+
+#: settings.py:64
+msgid "Romanian"
+msgstr "Румънски"
+
+#: settings.py:65
+msgid "Russian"
+msgstr "Руски"
+
+#: settings.py:66
+msgid "Serbo-Croatian"
+msgstr "Сърбо-Хърватски"
+
+#: settings.py:67
+msgid "Slovak"
+msgstr "Словашки"
+
+#: settings.py:68
+msgid "Spanish"
+msgstr "Испански"
+
+#: settings.py:69
+msgid "Swedish"
+msgstr "Шведски"
+
+#: settings.py:70
+msgid "Thai"
+msgstr "Тайландски"
+
+#: settings.py:71
+msgid "Turkish"
+msgstr "Турски"
+
+#: settings.py:72
+msgid "Vietnamese"
+msgstr "Виетнамски"
+
+#: guide/tables.py:12
+msgid "New"
+msgstr ""
+
+#: guide/tables.py:14
+msgid "Approved"
+msgstr ""
+
+#: guide/tables.py:16
+msgid "Waiting"
+msgstr ""
+
+#: guide/tables.py:18
+msgid "Don't Know"
+msgstr "Не знам"
+
+#: guide/tables.py:20
+msgid "Rejected"
+msgstr ""
+
+#: guide/tables.py:22
+msgid "Suspended"
+msgstr ""
+
+#: guide/tables.py:24
+msgid "Audio"
+msgstr "Аудио"
+
+#: guide/tables.py:26
+msgid "Unknown"
+msgstr ""
+
+#: guide/templateutil.py:181 guide/templates/base.html:52
+msgid "Most Popular"
+msgstr "Най-популярни"
+
+#: guide/templateutil.py:182
+msgid "Top Rated"
+msgstr "Най-високо оценени"
+
+#: guide/templateutil.py:183
+msgid "Most Recent"
+msgstr "Скорошни"
+
+#: guide/templateutil.py:184
+msgid "A-Z"
+msgstr "A-Z"
+
+#: guide/forms/channels.py:28
+msgid "What is HD?"
+msgstr "Какво е HD?"
+
+#: guide/forms/channels.py:29
+#, python-format
+msgid ""
+"Material that is roughly 640x480 non-interlaced, and higher, can\n"
+"        be marked as HD. This basically translates to DVD quality (without "
+"a\n"
+"        lot of ugly compression artifacts) or better. Roughly 80% of the\n"
+"        material on the channel must meet this criteria for it to be "
+"considered\n"
+"        HD.  Note: you are welcome to have an HD and non-HD version of the "
+"same\n"
+"        channel "
+msgstr ""
+
+#: guide/forms/channels.py:35
+msgid ""
+"An RSS feed is what makes a podcast a podcast. It's a special URL that "
+"applications like Miro and iTunes check periodically to know when there is a "
+"new video for a channel. Video RSS feeds are strongly recommended for Miro."
+msgstr ""
+
+#: guide/forms/channels.py:53
+#, python-format
+msgid "%s is already a channel in the guide"
+msgstr ""
+
+#: guide/forms/channels.py:58
+msgid "We can't find a video feed at that address, please try again."
+msgstr ""
+"Не можем да открием видео хранилище на този адрес. Моля опитайте отново."
+
+#: guide/forms/channels.py:75 guide/forms/channels.py:279
+msgid "Channel Name"
+msgstr "Име на канала"
+
+#: guide/forms/channels.py:76 guide/forms/channels.py:280
+msgid "RSS Feed"
+msgstr "RSS Хранилище"
+
+#: guide/forms/channels.py:139
+msgid "1st"
+msgstr "1-ви"
+
+#: guide/forms/channels.py:139
+msgid "2nd"
+msgstr "2-ри"
+
+#: guide/forms/channels.py:139
+msgid "3rd"
+msgstr "3-ти"
+
+#: guide/forms/channels.py:161
+msgid "You must at least enter a primary value."
+msgstr ""
+
+#: guide/forms/channels.py:178
+#, python-format
+msgid "you can only enter up to %d tags."
+msgstr ""
+
+#: guide/forms/channels.py:260
+msgid "This field is required."
+msgstr "Това поле е задължително."
+
+#: guide/forms/channels.py:265
+msgid "Not a valid image"
+msgstr "Невалидно изображение"
+
+#: guide/forms/channels.py:269
+msgid "Not an image in a format we support."
+msgstr "Неподдържан формат на изображение."
+
+#: guide/forms/channels.py:282 guide/forms/cobranding.py:15
+msgid "Website URL"
+msgstr "Адрес на уеб сайт"
+
+#: guide/forms/channels.py:284
+msgid "Full Description"
+msgstr "Пълно описание"
+
+#: guide/forms/channels.py:285
+msgid "Publisher E-mail"
+msgstr "Е-поща на издателя"
+
+#: guide/forms/channels.py:287 guide/templates/tag-list.html:7
+msgid "Tags"
+msgstr "Етикети"
+
+#: guide/forms/channels.py:288
+msgid "Keywords that describe this channel.  Separate each tag with a comma."
+msgstr "Ключови, думи описващи този канал. Отделяйте ги със запетая."
+
+#: guide/forms/channels.py:290 guide/views/categories.py:19
+msgid "Categories"
+msgstr "Категории"
+
+#: guide/forms/channels.py:291
+msgid "Languages"
+msgstr "Езици"
+
+#: guide/forms/channels.py:292
+msgid "What language are most of these videos in?"
+msgstr "На какъв език са по-голямата част от тези видео клипове?"
+
+#: guide/forms/channels.py:293
+msgid "Postal Code"
+msgstr "Пощенски код"
+
+#: guide/forms/channels.py:295
+msgid "High Definition"
+msgstr "Висока разделителна способност"
+
+#: guide/forms/channels.py:297
+msgid "Upload Image"
+msgstr "Качване на изображение"
+
+#: guide/forms/channels.py:298
+msgid ""
+"Remember that creating a good channel thumbnail is one of the most important "
+"ways to attract new viewers.  It's worth making an effort to do something "
+"beautiful.  You can also update the image after you submit your channel."
+msgstr ""
+"Запомнете, че създаването на добре изглеждащо мини изображение на канала, е "
+"един от най-важните начини за привличане на нови потребители. Струва си да "
+"се помъчите да създадете нещо красиво. Можете да промените изображението и "
+"след като изпратите канала си."
+
+#: guide/forms/channels.py:320
+msgid "That streaming site already exists."
+msgstr ""
+
+#: guide/forms/channels.py:390
+msgid "Feed URL already exists"
+msgstr "Адресът на хранилището вече съществува"
+
+#: guide/forms/channels.py:461
+msgid "Email"
+msgstr "Е-поща"
+
+#: guide/forms/channels.py:462
+msgid "Title"
+msgstr "Заглавие"
+
+#: guide/forms/channels.py:463 guide/forms/misc.py:15
+msgid "Body"
+msgstr "Тяло"
+
+#: guide/forms/cobranding.py:11
+msgid "Title in Miro App"
+msgstr "Заглавие в Miro"
+
+#: guide/forms/cobranding.py:12
+msgid "This is the title that will appear in the sidebar of Miro."
+msgstr "Това е заглавието, което ще се появи в страничната лента на Miro."
+
+#: guide/forms/cobranding.py:13
+msgid "Page Title"
+msgstr "Заглавие на страницата"
+
+#: guide/forms/cobranding.py:14
+msgid "This is the title that will be displayed at the top of the page."
+msgstr "Това е заглавието, което ще се появи в горната част на страницата."
+
+#: guide/forms/cobranding.py:17
+msgid "Icon URL"
+msgstr "Адрес на иконата"
+
+#: guide/forms/cobranding.py:17
+msgid "Icon should be 175x125 pixels."
+msgstr "Иконата трябва да е 175х125 пиксела"
+
+#: guide/forms/cobranding.py:19
+msgid "Favicon URL"
+msgstr "Адрес на уеб икона"
+
+#: guide/forms/cobranding.py:19
+msgid ""
+"This is best as a 20x20 png graphic. It shows up in the sidebar of the Miro "
+"App."
+msgstr ""
+"Най-добре е това да е png изображение 20х20. То ще се покаже в страничната "
+"лента на Miro."
+
+#: guide/forms/cobranding.py:21
+msgid "External CSS URL"
+msgstr "Адрес на външен CSS"
+
+#: guide/forms/cobranding.py:22
+msgid "Description"
+msgstr "Описание"
+
+#: guide/forms/cobranding.py:24
+msgid "Link 1 URL"
+msgstr "Адрес на връзка 1"
+
+#: guide/forms/cobranding.py:24
+msgid ""
+"Or leave this blank to have plain text.  All these links are optional."
+msgstr ""
+
+#: guide/forms/cobranding.py:26
+msgid "Link 1 Text"
+msgstr "Текст на връзка 1"
+
+#: guide/forms/cobranding.py:28
+msgid "Link 2 URL"
+msgstr "Адрес на връзка 2"
+
+#: guide/forms/cobranding.py:30
+msgid "Link 2 Text"
+msgstr "Текст на връзка 2"
+
+#: guide/forms/cobranding.py:32
+msgid "Link 3 URL"
+msgstr "Адрес на връзка 3"
+
+#: guide/forms/cobranding.py:34
+msgid "Link 3 Text"
+msgstr "Текст на връзка 3"
+
+#: guide/forms/fields.py:21
+#, python-format
+msgid "Ensure this value has at most %(maximum)d bytes (it has %(length)d)."
+msgstr ""
+
+#: guide/forms/misc.py:14
+msgid "title"
+msgstr "заглавие"
+
+#: guide/forms/user.py:18
+msgid "Username already taken"
+msgstr "Потребителското име е заето"
+
+#: guide/forms/user.py:28
+msgid "E-mail already taken"
+msgstr "Е-пощата е заета"
+
+#: guide/forms/user.py:35
+msgid "E-mail not found"
+msgstr "Е-пощата не е открита"
+
+#: guide/forms/user.py:44
+msgid "That username is not valid."
+msgstr "Това потребителско име е невалидно."
+
+#: guide/forms/user.py:58
+msgid "That username or e-mail is not valid."
+msgstr "Невалидно потребителско име"
+
+#: guide/forms/user.py:71
+msgid "That password is not valid."
+msgstr "Невалидна парола"
+
+#: guide/forms/user.py:85
+msgid "Passwords don't match"
+msgstr "Паролите не съвпадат"
+
+#: guide/forms/user.py:89
+msgid "Username"
+msgstr "Потребителско име"
+
+#: guide/forms/user.py:90
+msgid "Email Address"
+msgstr "Е-поща"
+
+#: guide/forms/user.py:92
+msgid "Pick a Password"
+msgstr "Изберете парола"
+
+#: guide/forms/user.py:94 guide/forms/user.py:111 guide/forms/user.py:176
+msgid "Confirm Password"
+msgstr "Потвърдете паролата"
+
+#: guide/forms/user.py:109
+msgid "Change Password"
+msgstr "Промяна на парола"
+
+#: guide/forms/user.py:113
+msgid "First Name"
+msgstr "Име"
+
+#: guide/forms/user.py:115
+msgid "Last Name"
+msgstr "Фамилия"
+
+#: guide/forms/user.py:116
+msgid "Age"
+msgstr "Възраст"
+
+#: guide/forms/user.py:120
+msgid "Gender"
+msgstr "Пол"
+
+#: guide/forms/user.py:122
+msgid "City"
+msgstr "Град"
+
+#: guide/forms/user.py:124
+msgid "State"
+msgstr "Щат/област"
+
+#: guide/forms/user.py:126
+msgid "Country"
+msgstr "Държава"
+
+#: guide/forms/user.py:128
+msgid "Zip Code"
+msgstr "Пощенски код"
+
+#: guide/forms/user.py:130
+msgid "IM Username"
+msgstr ""
+
+#: guide/forms/user.py:132
+msgid "IM Type"
+msgstr ""
+
+#: guide/forms/user.py:161
+msgid "Channel Owner Emails"
+msgstr ""
+
+#: guide/forms/user.py:165
+msgid "Moderator Board Emails"
+msgstr ""
+
+#: guide/forms/user.py:166
+msgid "Normal"
+msgstr ""
+
+#: guide/forms/user.py:167
+msgid "No emails"
+msgstr ""
+
+#: guide/forms/user.py:168
+msgid "Send all emails"
+msgstr ""
+
+#: guide/forms/user.py:169
+msgid "Channel Status Emails"
+msgstr ""
+
+#: guide/forms/user.py:174
+msgid "Set a new Password"
+msgstr "Задайте нова парола"
+
+#: guide/models/channel.py:315
+#, python-format
+msgid "%(count)d subscriber"
+msgid_plural "%(count)d subscribers"
+msgstr[0] "%(count)d абонат"
+msgstr[1] "%(count)d абоната"
+
+#: guide/models/channel.py:322
+#, python-format
+msgid "%(count)d episode"
+msgid_plural "%(count)d episodes"
+msgstr[0] "%(count)d епизод"
+msgstr[1] "%(count)d епизода"
+
+#: guide/templates/add-note.html:9
+msgid "Post"
+msgstr "Публикация"
+
+#: guide/templates/after-submit.html:9
+msgid "Thanks for Submitting Your Channel"
+msgstr "Благодарим ви за изпращането на канала"
+
+#: guide/templates/after-submit.html:10
+msgid "Your channel has been submitted!"
+msgstr "Вашият канал беше изпратен!"
+
+#: guide/templates/after-submit.html:12
+msgid ""
+"\n"
+"Our moderators will review your channel in the next few days to make\n"
+"sure that it works in Miro and that the content is not\n"
+"inappropriate.  Once the channel is approved, it will appear in the\n"
+"'Just Added' section on the front page.\n"
+msgstr ""
+
+#: guide/templates/after-submit.html:19
+msgid "Updating Your Channel Info"
+msgstr ""
+
+#: guide/templates/after-submit.html:20
+msgid ""
+"\n"
+"You can update the details about your channel at anytime.  Just login\n"
+"to your account and click the 'My Submitted Channels' link.\n"
+msgstr ""
+
+#: guide/templates/after-submit.html:25
+msgid "Add a 1-Click Subscribe Button to Your Website"
+msgstr ""
+
+#: guide/templates/after-submit.html:28
+msgid ""
+"Visit <a href=\"http://webbalert.com/\">webbalert.com</a> to see a real 1-"
+"click button in action"
+msgstr ""
+
+#: guide/templates/after-submit.html:30
+msgid ""
+"The buttons below point to the feed you've just submitted-- just\n"
+"paste the HTML into your blog or website. When users click on the\n"
+"button, Miro will open and they will be automatically subscribed to\n"
+"your channel."
+msgstr ""
+
+#: guide/templates/after-submit.html:34
+msgid ""
+"1-click buttons are a great way to get your viewers connected to your\n"
+"content on an ongoing basis. If you have any questions about the\n"
+"buttons, email: channels [at] pculture [d] org."
+msgstr ""
+
+#: guide/templates/auth-token-request.html:7
+#: guide/templates/auth-token-request.html:11
+msgid "Forgot Password"
+msgstr "Забравена парола"
+
+#: guide/templates/auth-token-request.html:12
+msgid ""
+"Please enter your email address\n"
+"        below.  A link will be sent to you email that you can use to set a "
+"new\n"
+"        password."
+msgstr ""
+
+#: guide/templates/auth-token-request.html:17
+msgid "Send"
+msgstr "Изпращане"
+
+#: guide/templates/bad-auth-token.html:7
+#: guide/templates/change-password.html:7
+#: guide/templates/change-password.html:11
+msgid "Create New Password"
+msgstr "Създаване на нова парола"
+
+#: guide/templates/bad-auth-token.html:10
+msgid "Link invalid"
+msgstr "Невалидна връзка"
+
+#: guide/templates/bad-auth-token.html:11
+msgid "The link you used to get to this page was not valid."
+msgstr ""
+
+#: guide/templates/base.html:5 templates/500.html:7
+msgid "Miro Guide"
+msgstr "Програмен портал"
+
+#: guide/templates/base.html:27
+msgid "Miro"
+msgstr "Miro"
+
+#: guide/templates/base.html:28
+msgid "Video feeds"
+msgstr "Видео хранилища"
+
+#: guide/templates/base.html:29
+msgid "Streaming shows"
+msgstr ""
+
+#: guide/templates/base.html:30
+msgid "Videos you'll love"
+msgstr "Любимо видео"
+
+#: guide/templates/base.html:36
+msgid "Search"
+msgstr "Търсене"
+
+#: guide/templates/base.html:50
+msgid "Genres"
+msgstr "Жанрове"
+
+#: guide/templates/base.html:51
+msgid "HD Channels"
+msgstr "HD канали"
+
+#: guide/templates/base.html:53
+msgid "New Shows"
+msgstr "Нови предавания"
+
+#: guide/templates/base.html:54
+msgid "Video by Language"
+msgstr ""
+
+#: guide/templates/base.html:55
+msgid "Language"
+msgstr "Език"
+
+#: guide/templates/base.html:57
+msgid "Account"
+msgstr "Сметка"
+
+#: guide/templates/base.html:68
+msgid "Moderator's Area"
+msgstr ""
+
+#: guide/templates/base.html:70
+msgid "View/Edit Profile"
+msgstr "Преглед/Редактиране на профил"
+
+#: guide/templates/base.html:72
+msgid "Channels I Manage"
+msgstr ""
+
+#: guide/templates/base.html:74
+msgid "Submit a Channel"
+msgstr "Изпращане на канал"
+
+#: guide/templates/base.html:78
+msgid "Log Out"
+msgstr "Излизане"
+
+#: guide/templates/base.html:94
+msgid "Forgot password"
+msgstr "Забравена парола"
+
+#: guide/templates/base.html:95 guide/templates/login.html:7
+#: guide/templates/login.html.py:13 guide/templates/login.html:18
+msgid "Login"
+msgstr "Влизане"
+
+#: guide/templates/base.html:106
+msgid "Register!"
+msgstr "Регистриране!"
+
+#: guide/templates/base.html:113
+msgid "Register Now!"
+msgstr "Регистрирай се сега!"
+
+#: guide/templates/base.html:114
+msgid "Always Free"
+msgstr ""
+
+#: guide/templates/base.html:161
+msgid "Loading..."
+msgstr "Зареждане..."
+
+#: guide/templates/button_block.html:6
+msgid "Add"
+msgstr "Добавяне"
+
+#: guide/templates/button_block.html:6
+msgid "Add channel"
+msgstr "Добавяне на канал"
+
+#: guide/templates/button_block.html:7
+#, python-format
+msgid "Add %(name)s to Miro"
+msgstr ""
+
+#: guide/templates/button_block.html:12
+msgid "Details"
+msgstr "Подробности"
+
+#: guide/templates/button_block.html:13
+#, python-format
+msgid "Details about %(name)s"
+msgstr "Подробности за %(name)s"
+
+#: guide/templates/change-password.html:14
+msgid "Create"
+msgstr "Създаване"
+
+#: guide/templates/channel-form.html:7
+msgid "Submit Channel"
+msgstr "Изпращане на канал"
+
+#: guide/templates/channel-form.html:15
+msgid "Channel Thumbnail"
+msgstr ""
+
+#: guide/templates/channel-form.html:16
+msgid ""
+"Remember that creating a good channel thumbnail is one of\n"
+"the most important ways to attract new viewers.  It's worth making an "
+"effort\n"
+"to do something beautiful.  You can also update the image after you submit\n"
+"your channel."
+msgstr ""
+
+#: guide/templates/channel-form.html:21 guide/templates/submit-channel.html:13
+msgid ""
+"We have found an image in your feed.  You can either use this image or "
+"upload a different one."
+msgstr ""
+
+#: guide/templates/channel-notes.html:7
+msgid "Issues"
+msgstr ""
+
+#: guide/templates/channel-notes.html:7
+msgid "need support? post here."
+msgstr ""
+
+#: guide/templates/channel-notes.html:14
+msgid "Me"
+msgstr "Аз"
+
+#: guide/templates/channel-notes.html:17
+msgid "Manager"
+msgstr "Мениджър"
+
+#: guide/templates/channel.html:12 guide/templates/channel.html.py:14
+msgid "High-Definition Channel"
+msgstr ""
+
+#: guide/templates/channel.html:53
+msgid "Channel Manager"
+msgstr "Мениджър на канали"
+
+#: guide/templates/channel.html:60
+msgid "Notes"
+msgstr "Бележки"
+
+#: guide/templates/cobranding-admin.html:7
+#: guide/templates/cobranding-admin.html:9
+msgid "Administration"
+msgstr "Администриране"
+
+#: guide/templates/cobranding.html:53
+#, python-format
+msgid "All %(title)s Channels"
+msgstr "Всички %(title)s канали"
+
+#: guide/templates/confirm.html:7
+msgid "Email Sent"
+msgstr "Писмото е изпратено"
+
+#: guide/templates/confirm.html:11
+msgid "Confirmed!"
+msgstr ""
+
+#: guide/templates/confirm.html:12
+msgid "Thanks for confirming your account!"
+msgstr ""
+
+#: guide/templates/confirm.html:15
+msgid "Confirmation sent"
+msgstr ""
+
+#: guide/templates/confirm.html:17
+msgid ""
+"If the address below isn't the correct one; change it and we'll send a code "
+"to that address."
+msgstr ""
+
+#: guide/templates/confirm.html:25
+msgid "Resend"
+msgstr "Повторно изпращане"
+
+#: guide/templates/confirm.html:29
+msgid "Incorrect code"
+msgstr ""
+
+#: guide/templates/confirm.html:30
+msgid "I'm sorry, that is not the correct code."
+msgstr ""
+
+#: guide/templates/edit-bar.html:9
+msgid "Click to Edit Channel / Assist Manager"
+msgstr ""
+
+#: guide/templates/edit-bar.html:13
+#, python-format
+msgid "%(state)s by %(mod)s on %(mod_time)s"
+msgstr ""
+
+#: guide/templates/edit-bar.html:16
+#, python-format
+msgid "%(state)s by %(mod)s"
+msgstr ""
+
+#: guide/templates/edit-bar.html:18
+#, python-format
+msgid "Channel is %(state)s"
+msgstr "Каналът е %(state)s"
+
+#: guide/templates/edit-bar.html:23
+#, python-format
+msgid "Featured by %(mod)s on %(featured_time)s"
+msgstr ""
+
+#: guide/templates/edit-bar.html:28
+msgid "Edit Your Channel / View Statistics / Get Help"
+msgstr ""
+
+#: guide/templates/edit-bar.html:91
+msgid "Cancel and go back"
+msgstr "Отмяна и връщане назад"
+
+#: guide/templates/edit-channel.html:8 guide/templates/edit-channel.html:10
+msgid "Edit Channel"
+msgstr "Редактиране на канал"
+
+#: guide/templates/edit-channel.html:12 guide/templates/edit-user.html:30
+msgid "Update"
+msgstr "Обновяване"
+
+#: guide/templates/edit-channel.html:15
+msgid "Statistics"
+msgstr "Статистика"
+
+#: guide/templates/edit-channel.html:17
+msgid "Subscriptions* Today"
+msgstr ""
+
+#: guide/templates/edit-channel.html:19
+msgid "Subscriptions* Month"
+msgstr ""
+
+#: guide/templates/edit-channel.html:21
+msgid "Subscriptions* Overall"
+msgstr ""
+
+#: guide/templates/edit-channel.html:24
+msgid "Popularity Rank Today"
+msgstr ""
+
+#: guide/templates/edit-channel.html:28
+msgid "Popularity Rank Month"
+msgstr ""
+
+#: guide/templates/edit-channel.html:32
+msgid "Popularity Rank Overall"
+msgstr ""
+
+#: guide/templates/edit-channel.html:36
+msgid "* unique Miro Guide 'add channel' hits"
+msgstr ""
+
+#: guide/templates/edit-user.html:7
+msgid "Update My Profile"
+msgstr ""
+
+#: guide/templates/edit-user.html:11
+msgid "Update My Profile "
+msgstr ""
+
+#: guide/templates/email-channel-owners.html:7
+#: guide/templates/moderate.html:52
+msgid "Email Channel Managers"
+msgstr ""
+
+#: guide/templates/firsttime.html:34
+msgid "WELCOME TO MIRO!"
+msgstr "ДОБРЕ ДОШЛИ В MIRO!"
+
+#: guide/templates/firsttime.html:36
+msgid "Three things to remember..."
+msgstr "Запомнете три неща..."
+
+#: guide/templates/firsttime.html:38
+msgid ""
+"Miro lets you subscribe to channels for free (they go to your sidebar)"
+msgstr ""
+"Miro ви позволява да се абонирате за канали безплатно (ще се появят в "
+"страничния панел)"
+
+#: guide/templates/firsttime.html:39
+msgid "Miro will automatically download new videos from your channels"
+msgstr "Miro автоматично ще изтегли новите видеа от каналите ви"
+
+#: guide/templates/firsttime.html:40
+msgid "A "
+msgstr "A "
+
+#: guide/templates/firsttime.html:40
+msgid "green"
+msgstr "зелено"
+
+#: guide/templates/firsttime.html:40
+msgid " bubble (in the sidebar) means you've got "
+msgstr ""
+
+#: guide/templates/firsttime.html:40
+msgid "new"
+msgstr ""
+
+#: guide/templates/firsttime.html:40
+msgid " video"
+msgstr " видео"
+
+#: guide/templates/firsttime.html:43
+msgid "We Have Channel Recommendations for You! <u>click here</u>"
+msgstr ""
+
+#: guide/templates/firsttime.html:56
+msgid "Share Miro With Your Friends:"
+msgstr "Споделете Miro с приятелите си:"
+
+#: guide/templates/firsttime.html:80
+msgid "Get Started"
+msgstr "Начало"
+
+#: guide/templates/firsttime.html:80
+#, python-format
+msgid "Browse All %(total_channels)s channels"
+msgstr ""
+
+#: guide/templates/for-user.html:7
+msgid "Miro Guide - Channels for"
+msgstr ""
+
+#: guide/templates/for-user.html:11
+msgid "My User Info"
+msgstr ""
+
+#: guide/templates/for-user.html:13
+msgid "User Info for"
+msgstr ""
+
+#: guide/templates/for-user.html:30
+msgid "Submitted channels: "
+msgstr ""
+
+#: guide/templates/form-errors.html:8 templates/500.html:11
+msgid "Sorry!"
+msgstr ""
+
+#: guide/templates/form-field.html:6
+msgid "Error"
+msgstr "Грешка"
+
+#: guide/templates/group-list.html:7
+#, python-format
+msgid "Miro Guide - %(group_name)s"
+msgstr ""
+
+#: guide/templates/how-to-moderate.html:7 guide/templates/moderate.html:45
+msgid "How to Moderate"
+msgstr ""
+
+#: guide/templates/index.html:134
+msgid "New Feed Videos"
+msgstr ""
+
+#: guide/templates/index.html:144
+msgid "New Streaming Videos"
+msgstr ""
+
+#: guide/templates/index.html:156
+msgid "Recommended for you"
+msgstr ""
+
+#: guide/templates/index.html:166
+msgid "View all"
+msgstr ""
+
+#: guide/templates/login.html:14
+msgid "Got an account? Just log in!"
+msgstr ""
+
+#: guide/templates/login.html:28 guide/templates/login.html.py:32
+msgid "Register"
+msgstr "Регистриране"
+
+#: guide/templates/moderate.html:14
+#, python-format
+msgid ""
+"\n"
+"        %(count)s Unreviewed channels\n"
+"        "
+msgstr ""
+
+#: guide/templates/moderate.html:19
+#, python-format
+msgid ""
+"\n"
+"        %(count)s Don't know channels\n"
+"        "
+msgstr ""
+
+#: guide/templates/moderate.html:24
+#, python-format
+msgid ""
+"\n"
+"        %(count)s Channels waiting for Reply\n"
+"        "
+msgstr ""
+
+#: guide/templates/moderate.html:29
+#, python-format
+msgid ""
+"\n"
+"        %(count)s Suspended Channels\n"
+"        "
+msgstr ""
+
+#: guide/templates/moderate.html:34
+#, python-format
+msgid ""
+"\n"
+"        %(count)s Rejected channels\n"
+"        "
+msgstr ""
+"\n"
+"        %(count)s Отхвърлени канали\n"
+"        "
+
+#: guide/templates/moderate.html:39
+#, python-format
+msgid ""
+"\n"
+"  %(count)s channels in Featured Queue\n"
+"  "
+msgstr ""
+
+#: guide/templates/moderate.html:46
+msgid "Search For Users"
+msgstr "Търсене на потребители"
+
+#: guide/templates/moderate.html:47
+msgid "Moderator list"
+msgstr ""
+
+#: guide/templates/moderate.html:49
+msgid "Edit Category list"
+msgstr ""
+
+#: guide/templates/moderate.html:50
+msgid "Edit Languages list"
+msgstr "Редактирана на списъка с езици"
+
+#: guide/templates/moderate.html:51
+msgid "Moderator History"
+msgstr ""
+
+#: guide/templates/moderator-board.html:9
+msgid "Moderator Message Board"
+msgstr ""
+
+#: guide/templates/pager-old.html:34
+msgid "Next &gt;&gt;"
+msgstr ""
+
+#: guide/templates/pager-old.html:38
+#, python-format
+msgid ""
+"%(start)s-%(end)s of %(total)s\n"
+"        "
+msgstr ""
+"%(start)s-%(end)s от %(total)s\n"
+"        "
+
+#: guide/templates/personalized-recommendation.html:18
+msgid "Rate!"
+msgstr "Оцени!"
+
+#: guide/templates/personalized-recommendation.html:22
+#, python-format
+msgid "Our Bet: %(stars)s Stars"
+msgstr ""
+
+#: guide/templates/personalized-recommendation.html:25
+msgid "Because you like"
+msgstr ""
+
+#: guide/templates/recommend.html:8
+msgid "Miro Guide - Channels You'll Love"
+msgstr ""
+
+#: guide/templates/recommend.html:16 guide/views/accounts.py:24
+msgid ""
+"Rating Key | cancel: No Interest; 1 Star: Hate; 2 Stars: Dislike; 3 Stars: "
+"Like; 4 Stars; Like Lots; 5 Stars: Love!"
+msgstr ""
+
+#: guide/templates/recommend.html:17 guide/templates/user_ratings.html:14
+msgid "Channels You'll &hearts;"
+msgstr ""
+
+#: guide/templates/recommend.html:17 guide/templates/user_ratings.html:14
+msgid "Channels You've Rated"
+msgstr "Канали, които сте оценили"
+
+#: guide/templates/recommend.html:20
+msgid "To get new recommendations, rate these channels then "
+msgstr ""
+
+#: guide/templates/recommend.html:20
+msgid "reload"
+msgstr "презареждане"
+
+#: guide/templates/recommend.html:20
+msgid " this page."
+msgstr " тази страница."
+
+#: guide/templates/recommend.html:31
+msgid ""
+"\n"
+"You can rate channels by clicking on stars (here or anywhere else in the "
+"guide). Please rate some of these channels and <a href=\"\">come back</a>; "
+"we'll have recommendations for you. The more you rate, the more accurate "
+"we'll be.    \n"
+"    "
+msgstr ""
+
+#: guide/templates/submit.html:7
+msgid "Miro Guide - Submit Channel"
+msgstr ""
+
+#: guide/templates/user_ratings.html:8
+msgid "Miro Guide - Channels You've Rated"
+msgstr ""
+
+#: guide/views/accounts.py:19
+msgid "List Your Channel in the Miro Guide!"
+msgstr ""
+
+#: guide/views/accounts.py:20
+msgid "All you need is an account..."
+msgstr ""
+
+#: guide/views/accounts.py:23
+msgid "Rate Channels, Get Recommendations"
+msgstr ""
+
+#: guide/views/accounts.py:25
+msgid "Sign in (or create an account)"
+msgstr "Вписване (или създаване на сметка)"
+
+#: guide/views/accounts.py:26
+msgid "Give Channels Star Ratings"
+msgstr ""
+
+#: guide/views/accounts.py:27
+msgid "We'll Give You Recommendations"
+msgstr ""
+
+#: guide/views/accounts.py:38
+msgid ""
+"Your ratings will show up, but won't count towards the average until you "
+"confirm your e-mail."
+msgstr ""
+
+#: guide/views/accounts.py:50
+msgid "Your Video RSS Feed is a Miro Channel"
+msgstr ""
+
+#: guide/views/accounts.py:51
+msgid ""
+"It is super easy to submit your channel to the Miro Guide. Just give us the "
+"feed address, answer a few easy questions, and you&apos;re all done."
+msgstr ""
+
+#: guide/views/accounts.py:63
+msgid "Why Should I Rate Channels?"
+msgstr "За трябва да класирам каналите?"
+
+#: guide/views/accounts.py:64
+msgid ""
+"We are giving personalized recommendations, based on what you do and don't "
+"like. If you've ever used Netflix&reg;, you already know what we're talking "
+"about here. The more you rate, the more accurately we can recommend channels "
+"to you. It&apos;s that simple!"
+msgstr ""
+
+#: guide/views/accounts.py:65
+msgid "A Completely Open Guide"
+msgstr ""
+
+#: guide/views/accounts.py:66
+msgid ""
+"Because we accept channels (RSS feeds, aka 'video podcasts') from anyone, "
+"the Miro Guide is constantly expanding. Channel creators can add their feeds "
+"freely. If you know of a great video podcast that isn&apos;t already in the "
+"Guide, please contact the creator and ask them to submit it."
+msgstr ""
+
+#: guide/views/api.py:256
+msgid "Invalid verification code."
+msgstr ""
+
+#: guide/views/categories.py:27
+msgid "Edit Categories"
+msgstr "Редактиране на категориите"
+
+#: guide/views/categories.py:28
+msgid "New Category"
+msgstr "Нова категория"
+
+#: guide/views/channels.py:108
+msgid "Rejection emails need a body"
+msgstr ""
+
+#: guide/views/channels.py:113
+#, python-format
+msgid "%s featured on Miro Guide"
+msgstr ""
+
+#: guide/views/channels.py:390
+msgid "Current image (no change)"
+msgstr "Текущо изображение (без промяна)"
+
+#: guide/views/channels.py:392 guide/views/submit.py:97
+msgid "Current image (uploaded)"
+msgstr "Текущо изображение (качено)"
+
+#: guide/views/frontpage.py:66
+msgid "What is Miro?"
+msgstr "Какво е Miro?"
+
+#: guide/views/frontpage.py:67
+#, python-format
+msgid ""
+"Miro is an easy way to subscribe and watch all of these shows.  Using it is "
+"100% free."
+msgstr ""
+
+#: guide/views/frontpage.py:68
+msgid "Download Miro"
+msgstr "Изтегляне на Miro"
+
+#: guide/views/languages.py:17
+msgid "Channels by Language"
+msgstr "Канали по език"
+
+#: guide/views/languages.py:28
+#, python-format
+msgid "Language: %s"
+msgstr "Език: %s"
+
+#: guide/views/languages.py:34
+msgid "Edit Languages"
+msgstr "Редактиране на езиците"
+
+#: guide/views/languages.py:35
+msgid "New Language"
+msgstr "Нов език"
+
+#: guide/views/moderator.py:49
+msgid "Channels Waiting For Replies"
+msgstr ""
+
+#: guide/views/moderator.py:52
+msgid "Channels Flagged Don't Know By a Moderator"
+msgstr ""
+
+#: guide/views/moderator.py:55
+msgid "Rejected Channels"
+msgstr "Отхвърлени канали"
+
+#: guide/views/moderator.py:58
+msgid "Suspended Channels"
+msgstr ""
+
+#: guide/views/moderator.py:62
+msgid "Featured Queue"
+msgstr ""
+
+#: guide/views/moderator.py:65
+msgid "Unreviewed Channels"
+msgstr ""
+
+#: guide/views/submit.py:95
+msgid "Current image (from the feed)"
+msgstr "Текущо изображение (от хранилището)"
+
+#: templates/404.html:9
+msgid "Page not found"
+msgstr "Страницата не е открита"
+
+#: templates/404.html:10 templates/500.html:22
+msgid "go to front page"
+msgstr ""
+
+#: templates/500.html:12
+msgid ""
+"Our server is experiencing higher than normal load.\n"
+"Please try again shortly.  Thanks for your patience."
+msgstr ""
+
+#: templates/500.html:15
+#, python-format
+msgid " Server Error (id: %(id)s )"
+msgstr ""
+
+#: templates/500.html:16
+msgid ""
+"Sorry!  Your request resulted in an error.  We have logged it and our "
+"developers will fix it as soon as they can.  If this error\n"
+"persists, please contact:"
+msgstr ""
+
+#: templates/500.html:19
+msgid "Make sure to include the error ID at the top of this page."
+msgstr ""

@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: miroguide\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-06 14:31-0400\n"
-"PO-Revision-Date: 2008-03-23 10:52+0000\n"
-"Last-Translator: Dmitriy <neokril@gmail.com>\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2008-08-06 14:32-0400\n"
+"PO-Revision-Date: 2008-12-09 12:56+0000\n"
+"Last-Translator: RussTV <srn.russtv@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2008-04-17 00:16+0000\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Launchpad-Export-Date: 2008-12-09 21:56+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: settings.py:34
@@ -41,31 +41,31 @@ msgstr "Китайский"
 
 #: settings.py:39
 msgid "Croation"
-msgstr ""
+msgstr "хорватский"
 
 #: settings.py:40
 msgid "Danish"
-msgstr "Датский"
+msgstr "датский"
 
 #: settings.py:41
 msgid "Dutch"
-msgstr ""
+msgstr "голландский"
 
 #: settings.py:42
 msgid "Estonian"
-msgstr "Эстонский"
+msgstr "эстонский"
 
 #: settings.py:43
 msgid "Finnish"
-msgstr "Финский"
+msgstr "финский"
 
 #: settings.py:44
 msgid "French"
-msgstr "Французский"
+msgstr "французский"
 
 #: settings.py:45
 msgid "German"
-msgstr "Немецкий"
+msgstr "немецкий"
 
 #: settings.py:46
 msgid "Greek"
@@ -105,11 +105,11 @@ msgstr "Корейский"
 
 #: settings.py:55
 msgid "Kurdish (Sorani)"
-msgstr ""
+msgstr "Курдский (Sorani)"
 
 #: settings.py:56
 msgid "Latvian"
-msgstr ""
+msgstr "Латвийский"
 
 #: settings.py:57
 msgid "Lithuanian"
@@ -117,30 +117,27 @@ msgstr "Литовский"
 
 #: settings.py:58
 msgid "Malay"
-msgstr ""
+msgstr "Малайский"
 
 #: settings.py:59
 msgid "Norwegian"
 msgstr "Норвежский"
 
 #: settings.py:60
-#, fuzzy
 msgid "Persian"
-msgstr "Немецкий"
+msgstr "Персидский"
 
 #: settings.py:61
 msgid "Polish"
 msgstr "Польский"
 
 #: settings.py:62
-#, fuzzy
 msgid "Portuguese (Brazillian)"
-msgstr "Португальский"
+msgstr "Португальский (Бразильский)"
 
 #: settings.py:63
-#, fuzzy
 msgid "Portuguese (Portugal)"
-msgstr "Португальский"
+msgstr "Португальский (Португалия)"
 
 #: settings.py:64
 msgid "Romanian"
@@ -156,30 +153,29 @@ msgstr "Сербо-Хорватский"
 
 #: settings.py:67
 msgid "Slovak"
-msgstr ""
+msgstr "Словацкий"
 
 #: settings.py:68
 msgid "Spanish"
-msgstr ""
+msgstr "Испанский"
 
 #: settings.py:69
 msgid "Swedish"
-msgstr ""
+msgstr "Шведский"
 
 #: settings.py:70
 msgid "Thai"
-msgstr ""
+msgstr "Тайский"
 
 #: settings.py:71
 msgid "Turkish"
-msgstr ""
+msgstr "Турецкий"
 
 #: settings.py:72
 msgid "Vietnamese"
-msgstr ""
+msgstr "Вьетнамский"
 
 #: guide/tables.py:12
-#, fuzzy
 msgid "New"
 msgstr "Новый"
 
@@ -188,7 +184,6 @@ msgid "Approved"
 msgstr "Одобрено"
 
 #: guide/tables.py:16
-#, fuzzy
 msgid "Waiting"
 msgstr "Ожидание"
 
@@ -198,21 +193,19 @@ msgstr "Неизвестно"
 
 #: guide/tables.py:20
 msgid "Rejected"
-msgstr ""
+msgstr "Отказано"
 
 #: guide/tables.py:22
 msgid "Suspended"
-msgstr ""
+msgstr "Приостановлен"
 
 #: guide/tables.py:24
-#, fuzzy
 msgid "Audio"
 msgstr "Звук"
 
 #: guide/tables.py:26
-#, fuzzy
 msgid "Unknown"
-msgstr "Неизвестно"
+msgstr "Неизвестен"
 
 #: guide/templateutil.py:181 guide/templates/base.html:52
 msgid "Most Popular"
@@ -220,21 +213,19 @@ msgstr "Самые Популярные"
 
 #: guide/templateutil.py:182
 msgid "Top Rated"
-msgstr ""
+msgstr "Высшей оценки"
 
 #: guide/templateutil.py:183
-#, fuzzy
 msgid "Most Recent"
 msgstr "Самые свежие"
 
 #: guide/templateutil.py:184
 msgid "A-Z"
-msgstr ""
+msgstr "A-Z"
 
 #: guide/forms/channels.py:28
-#, fuzzy
 msgid "What is HD?"
-msgstr "Что такое HD?"
+msgstr "Что означает HD ?"
 
 #: guide/forms/channels.py:29
 #, python-format
@@ -256,15 +247,20 @@ msgid ""
 "applications like Miro and iTunes check periodically to know when there is a "
 "new video for a channel. Video RSS feeds are strongly recommended for Miro."
 msgstr ""
+"RSS поток - это то, что делает подкаст. Это специальный URL адрес, который "
+"приложения, подобные Miro и iTunes, переодически проверяют, чтобы узнать "
+"когда появится новое видео на канале. Видео RSS потоки рекомендованы для "
+"Miro."
 
 #: guide/forms/channels.py:53
 #, python-format
 msgid "%s is already a channel in the guide"
-msgstr ""
+msgstr "%s уже является каналом в инструкции"
 
 #: guide/forms/channels.py:58
 msgid "We can't find a video feed at that address, please try again."
 msgstr ""
+"Мы не можем найти видеопоток по данному адресу, пожалуйста, попробуйте снова"
 
 #: guide/forms/channels.py:75 guide/forms/channels.py:279
 msgid "Channel Name"
@@ -272,40 +268,40 @@ msgstr "Название канала"
 
 #: guide/forms/channels.py:76 guide/forms/channels.py:280
 msgid "RSS Feed"
-msgstr ""
+msgstr "RSS-фид"
 
 #: guide/forms/channels.py:139
 msgid "1st"
-msgstr ""
+msgstr "1-й(я,е)"
 
 #: guide/forms/channels.py:139
 msgid "2nd"
-msgstr ""
+msgstr "2-й(я,е)"
 
 #: guide/forms/channels.py:139
 msgid "3rd"
-msgstr ""
+msgstr "3-й(я,е)"
 
 #: guide/forms/channels.py:161
 msgid "You must at least enter a primary value."
-msgstr ""
+msgstr "Вы должны по крайней мере вставить предпочтительное значение"
 
 #: guide/forms/channels.py:178
 #, python-format
 msgid "you can only enter up to %d tags."
-msgstr ""
+msgstr "вы можете только вводить %d теги."
 
 #: guide/forms/channels.py:260
 msgid "This field is required."
-msgstr ""
+msgstr "Это поле обязательно."
 
 #: guide/forms/channels.py:265
 msgid "Not a valid image"
-msgstr ""
+msgstr "Недействительный тип изображения"
 
 #: guide/forms/channels.py:269
 msgid "Not an image in a format we support."
-msgstr ""
+msgstr "Формат изображения не поддерживается"
 
 #: guide/forms/channels.py:282 guide/forms/cobranding.py:15
 msgid "Website URL"
@@ -317,7 +313,7 @@ msgstr "Полное описание"
 
 #: guide/forms/channels.py:285
 msgid "Publisher E-mail"
-msgstr ""
+msgstr "Издатель e-mail"
 
 #: guide/forms/channels.py:287 guide/templates/tag-list.html:7
 msgid "Tags"
@@ -325,7 +321,7 @@ msgstr "Метки"
 
 #: guide/forms/channels.py:288
 msgid "Keywords that describe this channel.  Separate each tag with a comma."
-msgstr ""
+msgstr "Ключевые слова, описывающие данный канал. Разделяйте теги запятыми."
 
 #: guide/forms/channels.py:290 guide/views/categories.py:19
 msgid "Categories"
@@ -337,7 +333,7 @@ msgstr "Языки"
 
 #: guide/forms/channels.py:292
 msgid "What language are most of these videos in?"
-msgstr ""
+msgstr "На каком языке большинство этих видеороликов?"
 
 #: guide/forms/channels.py:293
 msgid "Postal Code"
@@ -349,7 +345,7 @@ msgstr "Высокая чёткость"
 
 #: guide/forms/channels.py:297
 msgid "Upload Image"
-msgstr ""
+msgstr "Закачать картинку"
 
 #: guide/forms/channels.py:298
 msgid ""
@@ -357,18 +353,22 @@ msgid ""
 "ways to attract new viewers.  It's worth making an effort to do something "
 "beautiful.  You can also update the image after you submit your channel."
 msgstr ""
+"Запомните, что создание хорошего рисунка-эскиза для канала - один из самых "
+"важных способов привлечь новых зрителей. Трата усилий стоит того, чтобы "
+"создать что-то красивое. Вы также можете апдейтить картинку после того, как "
+"опубликуете канал"
 
 #: guide/forms/channels.py:320
 msgid "That streaming site already exists."
-msgstr ""
+msgstr "Этот сайт таким видеопотоком уже существует"
 
 #: guide/forms/channels.py:390
 msgid "Feed URL already exists"
-msgstr ""
+msgstr "URL уже существует"
 
 #: guide/forms/channels.py:461
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: guide/forms/channels.py:462
 msgid "Title"
@@ -376,31 +376,31 @@ msgstr "Название"
 
 #: guide/forms/channels.py:463 guide/forms/misc.py:15
 msgid "Body"
-msgstr ""
+msgstr "Тело"
 
 #: guide/forms/cobranding.py:11
 msgid "Title in Miro App"
-msgstr ""
+msgstr "Заголовок в приложении Miro"
 
 #: guide/forms/cobranding.py:12
 msgid "This is the title that will appear in the sidebar of Miro."
-msgstr ""
+msgstr "Это заголовок, который будет появляться в боковой панели Миро"
 
 #: guide/forms/cobranding.py:13
 msgid "Page Title"
-msgstr ""
+msgstr "Заголовок Страницы"
 
 #: guide/forms/cobranding.py:14
 msgid "This is the title that will be displayed at the top of the page."
-msgstr ""
+msgstr "Это - заголовок, который будет отображаться наверху страницы."
 
 #: guide/forms/cobranding.py:17
 msgid "Icon URL"
-msgstr ""
+msgstr "URL иконки"
 
 #: guide/forms/cobranding.py:17
 msgid "Icon should be 175x125 pixels."
-msgstr ""
+msgstr "Разрешение иконки должно быть 175*125"
 
 #: guide/forms/cobranding.py:19
 msgid "Favicon URL"
@@ -411,10 +411,12 @@ msgid ""
 "This is best as a 20x20 png graphic. It shows up in the sidebar of the Miro "
 "App."
 msgstr ""
+"Наилучшый формат графики такой, как 20x20 png. Он показывает в боковой "
+"панели Miro App."
 
 #: guide/forms/cobranding.py:21
 msgid "External CSS URL"
-msgstr ""
+msgstr "Внешний CSS URL"
 
 #: guide/forms/cobranding.py:22
 msgid "Description"
@@ -425,7 +427,8 @@ msgid "Link 1 URL"
 msgstr ""
 
 #: guide/forms/cobranding.py:24
-msgid "Or leave this blank to have plain text.  All these links are optional."
+msgid ""
+"Or leave this blank to have plain text.  All these links are optional."
 msgstr ""
 
 #: guide/forms/cobranding.py:26
@@ -459,27 +462,27 @@ msgstr "заголовок"
 
 #: guide/forms/user.py:18
 msgid "Username already taken"
-msgstr ""
+msgstr "Такое имя пользователя уже существует"
 
 #: guide/forms/user.py:28
 msgid "E-mail already taken"
-msgstr ""
+msgstr "Такой е-mail уже используется"
 
 #: guide/forms/user.py:35
 msgid "E-mail not found"
-msgstr ""
+msgstr "E-mail не найден"
 
 #: guide/forms/user.py:44
 msgid "That username is not valid."
-msgstr ""
+msgstr "Это имя пользователя не подходит"
 
 #: guide/forms/user.py:58
 msgid "That username or e-mail is not valid."
-msgstr ""
+msgstr "Имя пользователя или e-mail недействительны"
 
 #: guide/forms/user.py:71
 msgid "That password is not valid."
-msgstr ""
+msgstr "Этот пароль не действителен"
 
 #: guide/forms/user.py:85
 msgid "Passwords don't match"
@@ -491,11 +494,11 @@ msgstr "Имя пользователя"
 
 #: guide/forms/user.py:90
 msgid "Email Address"
-msgstr ""
+msgstr "Адрес электронной почты"
 
 #: guide/forms/user.py:92
 msgid "Pick a Password"
-msgstr ""
+msgstr "Выберите пароль"
 
 #: guide/forms/user.py:94 guide/forms/user.py:111 guide/forms/user.py:176
 msgid "Confirm Password"
@@ -515,11 +518,11 @@ msgstr "Фамилия"
 
 #: guide/forms/user.py:116
 msgid "Age"
-msgstr ""
+msgstr "Возраст"
 
 #: guide/forms/user.py:120
 msgid "Gender"
-msgstr ""
+msgstr "Пол"
 
 #: guide/forms/user.py:122
 msgid "City"
@@ -555,7 +558,7 @@ msgstr ""
 
 #: guide/forms/user.py:166
 msgid "Normal"
-msgstr ""
+msgstr "Обычный"
 
 #: guide/forms/user.py:167
 msgid "No emails"
@@ -571,7 +574,7 @@ msgstr ""
 
 #: guide/forms/user.py:174
 msgid "Set a new Password"
-msgstr ""
+msgstr "Изменить пароль"
 
 #: guide/models/channel.py:315
 #, python-format
@@ -589,7 +592,7 @@ msgstr[1] ""
 
 #: guide/templates/add-note.html:9
 msgid "Post"
-msgstr ""
+msgstr "Ввести"
 
 #: guide/templates/after-submit.html:9
 msgid "Thanks for Submitting Your Channel"
@@ -659,21 +662,21 @@ msgstr ""
 
 #: guide/templates/auth-token-request.html:17
 msgid "Send"
-msgstr ""
+msgstr "Отправить"
 
 #: guide/templates/bad-auth-token.html:7
 #: guide/templates/change-password.html:7
 #: guide/templates/change-password.html:11
 msgid "Create New Password"
-msgstr ""
+msgstr "Создать новый пароль"
 
 #: guide/templates/bad-auth-token.html:10
 msgid "Link invalid"
-msgstr ""
+msgstr "Ссылка недействительна"
 
 #: guide/templates/bad-auth-token.html:11
 msgid "The link you used to get to this page was not valid."
-msgstr ""
+msgstr "Ссылка, по которой вы пытались запросить страницу, недействительна"
 
 #: guide/templates/base.html:5 templates/500.html:7
 msgid "Miro Guide"
@@ -681,11 +684,11 @@ msgstr "Путеводитель по Miro"
 
 #: guide/templates/base.html:27
 msgid "Miro"
-msgstr ""
+msgstr "Miro"
 
 #: guide/templates/base.html:28
 msgid "Video feeds"
-msgstr ""
+msgstr "Видеопотоки"
 
 #: guide/templates/base.html:29
 msgid "Streaming shows"
@@ -693,37 +696,35 @@ msgstr ""
 
 #: guide/templates/base.html:30
 msgid "Videos you'll love"
-msgstr ""
+msgstr "Видео, которые вам понравятся"
 
 #: guide/templates/base.html:36
 msgid "Search"
-msgstr ""
+msgstr "Поиск"
 
 #: guide/templates/base.html:50
 msgid "Genres"
-msgstr ""
+msgstr "Жанры"
 
 #: guide/templates/base.html:51
 msgid "HD Channels"
-msgstr ""
+msgstr "HD каналы"
 
 #: guide/templates/base.html:53
 msgid "New Shows"
-msgstr ""
+msgstr "Новые показы"
 
 #: guide/templates/base.html:54
-#, fuzzy
 msgid "Video by Language"
-msgstr "Языки"
+msgstr "Видео на языках"
 
 #: guide/templates/base.html:55
-#, fuzzy
 msgid "Language"
-msgstr "Языки"
+msgstr "Язык"
 
 #: guide/templates/base.html:57
 msgid "Account"
-msgstr ""
+msgstr "Учётная запись"
 
 #: guide/templates/base.html:68
 msgid "Moderator's Area"
@@ -734,54 +735,49 @@ msgid "View/Edit Profile"
 msgstr ""
 
 #: guide/templates/base.html:72
-#, fuzzy
 msgid "Channels I Manage"
-msgstr "Название канала"
+msgstr ""
 
 #: guide/templates/base.html:74
 msgid "Submit a Channel"
 msgstr ""
 
 #: guide/templates/base.html:78
-#, fuzzy
 msgid "Log Out"
-msgstr "выйти"
+msgstr "Выход"
 
 #: guide/templates/base.html:94
-#, fuzzy
 msgid "Forgot password"
-msgstr "Забыл пароль"
+msgstr ""
 
 #: guide/templates/base.html:95 guide/templates/login.html:7
 #: guide/templates/login.html.py:13 guide/templates/login.html:18
 msgid "Login"
-msgstr ""
+msgstr "Вход"
 
 #: guide/templates/base.html:106
-#, fuzzy
 msgid "Register!"
-msgstr "Войти / Регистрация"
+msgstr "Регистрация!"
 
 #: guide/templates/base.html:113
 msgid "Register Now!"
-msgstr ""
+msgstr "Зарегистрируйтесь сейчас!"
 
 #: guide/templates/base.html:114
 msgid "Always Free"
-msgstr ""
+msgstr "Всегда бесплатно"
 
 #: guide/templates/base.html:161
 msgid "Loading..."
-msgstr ""
+msgstr "Загрузка..."
 
 #: guide/templates/button_block.html:6
 msgid "Add"
-msgstr ""
+msgstr "Добавить"
 
 #: guide/templates/button_block.html:6
-#, fuzzy
 msgid "Add channel"
-msgstr "Новые Каналы"
+msgstr "Добавить канал"
 
 #: guide/templates/button_block.html:7
 #, python-format
@@ -790,7 +786,7 @@ msgstr ""
 
 #: guide/templates/button_block.html:12
 msgid "Details"
-msgstr ""
+msgstr "Подробнее"
 
 #: guide/templates/button_block.html:13
 #, python-format
@@ -799,7 +795,7 @@ msgstr ""
 
 #: guide/templates/change-password.html:14
 msgid "Create"
-msgstr ""
+msgstr "Создать"
 
 #: guide/templates/channel-form.html:7
 msgid "Submit Channel"
@@ -834,30 +830,28 @@ msgstr ""
 
 #: guide/templates/channel-notes.html:14
 msgid "Me"
-msgstr ""
+msgstr "Я"
 
 #: guide/templates/channel-notes.html:17
 msgid "Manager"
-msgstr ""
+msgstr "Менеджер"
 
 #: guide/templates/channel.html:12 guide/templates/channel.html.py:14
-#, fuzzy
 msgid "High-Definition Channel"
-msgstr "Высокая чёткость"
+msgstr ""
 
 #: guide/templates/channel.html:53
-#, fuzzy
 msgid "Channel Manager"
-msgstr "Название канала"
+msgstr ""
 
 #: guide/templates/channel.html:60
 msgid "Notes"
-msgstr ""
+msgstr "Примечания"
 
 #: guide/templates/cobranding-admin.html:7
 #: guide/templates/cobranding-admin.html:9
 msgid "Administration"
-msgstr ""
+msgstr "Управление"
 
 #: guide/templates/cobranding.html:53
 #, python-format
@@ -866,15 +860,15 @@ msgstr ""
 
 #: guide/templates/confirm.html:7
 msgid "Email Sent"
-msgstr ""
+msgstr "Электронное письмо отправлено"
 
 #: guide/templates/confirm.html:11
 msgid "Confirmed!"
-msgstr ""
+msgstr "Учетная запись подтверждена!"
 
 #: guide/templates/confirm.html:12
 msgid "Thanks for confirming your account!"
-msgstr ""
+msgstr "Спасибо за подтверждение вашей учетной записи!"
 
 #: guide/templates/confirm.html:15
 msgid "Confirmation sent"
@@ -888,7 +882,7 @@ msgstr ""
 
 #: guide/templates/confirm.html:25
 msgid "Resend"
-msgstr ""
+msgstr "Переслать"
 
 #: guide/templates/confirm.html:29
 msgid "Incorrect code"
@@ -928,19 +922,19 @@ msgstr ""
 
 #: guide/templates/edit-bar.html:91
 msgid "Cancel and go back"
-msgstr ""
+msgstr "Отменить и вернуться назад"
 
 #: guide/templates/edit-channel.html:8 guide/templates/edit-channel.html:10
 msgid "Edit Channel"
-msgstr ""
+msgstr "Изменить канал"
 
 #: guide/templates/edit-channel.html:12 guide/templates/edit-user.html:30
 msgid "Update"
-msgstr ""
+msgstr "Обновить"
 
 #: guide/templates/edit-channel.html:15
 msgid "Statistics"
-msgstr ""
+msgstr "Статистика"
 
 #: guide/templates/edit-channel.html:17
 msgid "Subscriptions* Today"
@@ -992,7 +986,8 @@ msgid "Three things to remember..."
 msgstr ""
 
 #: guide/templates/firsttime.html:38
-msgid "Miro lets you subscribe to channels for free (they go to your sidebar)"
+msgid ""
+"Miro lets you subscribe to channels for free (they go to your sidebar)"
 msgstr ""
 
 #: guide/templates/firsttime.html:39
@@ -1005,7 +1000,7 @@ msgstr ""
 
 #: guide/templates/firsttime.html:40
 msgid "green"
-msgstr ""
+msgstr "зелёный"
 
 #: guide/templates/firsttime.html:40
 msgid " bubble (in the sidebar) means you've got "
@@ -1013,7 +1008,7 @@ msgstr ""
 
 #: guide/templates/firsttime.html:40
 msgid "new"
-msgstr ""
+msgstr "новый"
 
 #: guide/templates/firsttime.html:40
 msgid " video"
@@ -1054,11 +1049,11 @@ msgstr ""
 
 #: guide/templates/form-errors.html:8 templates/500.html:11
 msgid "Sorry!"
-msgstr ""
+msgstr "Извините!"
 
 #: guide/templates/form-field.html:6
 msgid "Error"
-msgstr ""
+msgstr "Ошибка"
 
 #: guide/templates/group-list.html:7
 #, python-format
@@ -1087,11 +1082,11 @@ msgstr ""
 
 #: guide/templates/login.html:14
 msgid "Got an account? Just log in!"
-msgstr ""
+msgstr "Уже есть учетная запись? Входите!"
 
 #: guide/templates/login.html:28 guide/templates/login.html.py:32
 msgid "Register"
-msgstr ""
+msgstr "Регистрация"
 
 #: guide/templates/moderate.html:14
 #, python-format
@@ -1143,23 +1138,23 @@ msgstr ""
 
 #: guide/templates/moderate.html:46
 msgid "Search For Users"
-msgstr ""
+msgstr "Искать пользователей"
 
 #: guide/templates/moderate.html:47
 msgid "Moderator list"
-msgstr ""
+msgstr "Лист модервторов"
 
 #: guide/templates/moderate.html:49
 msgid "Edit Category list"
-msgstr ""
+msgstr "Править список категорий"
 
 #: guide/templates/moderate.html:50
 msgid "Edit Languages list"
-msgstr ""
+msgstr "Править список языков"
 
 #: guide/templates/moderate.html:51
 msgid "Moderator History"
-msgstr ""
+msgstr "История модераций"
 
 #: guide/templates/moderator-board.html:9
 msgid "Moderator Message Board"
@@ -1178,7 +1173,7 @@ msgstr ""
 
 #: guide/templates/personalized-recommendation.html:18
 msgid "Rate!"
-msgstr ""
+msgstr "Оценить!"
 
 #: guide/templates/personalized-recommendation.html:22
 #, python-format
@@ -1191,7 +1186,7 @@ msgstr ""
 
 #: guide/templates/recommend.html:8
 msgid "Miro Guide - Channels You'll Love"
-msgstr ""
+msgstr "Руководство Miro - каналы, которые Вы полюбите!"
 
 #: guide/templates/recommend.html:16 guide/views/accounts.py:24
 msgid ""
@@ -1243,19 +1238,19 @@ msgstr ""
 
 #: guide/views/accounts.py:20
 msgid "All you need is an account..."
-msgstr ""
+msgstr "Все, что от вас требуется - это учетная запись..."
 
 #: guide/views/accounts.py:23
 msgid "Rate Channels, Get Recommendations"
-msgstr ""
+msgstr "Получайте рекомендации и рекомендуйте других!"
 
 #: guide/views/accounts.py:25
 msgid "Sign in (or create an account)"
-msgstr ""
+msgstr "Войти (или создать учетную запись)"
 
 #: guide/views/accounts.py:26
 msgid "Give Channels Star Ratings"
-msgstr ""
+msgstr "Оценивайте каналы количеством звездочек"
 
 #: guide/views/accounts.py:27
 msgid "We'll Give You Recommendations"
@@ -1279,7 +1274,7 @@ msgstr ""
 
 #: guide/views/accounts.py:63
 msgid "Why Should I Rate Channels?"
-msgstr ""
+msgstr "Почему я должен оценивать каналы?"
 
 #: guide/views/accounts.py:64
 msgid ""
@@ -1331,9 +1326,8 @@ msgid "Current image (uploaded)"
 msgstr ""
 
 #: guide/views/frontpage.py:66
-#, fuzzy
 msgid "What is Miro?"
-msgstr "Что такое HD?"
+msgstr ""
 
 #: guide/views/frontpage.py:67
 #, python-format
@@ -1420,17 +1414,3 @@ msgstr ""
 #: templates/500.html:19
 msgid "Make sure to include the error ID at the top of this page."
 msgstr ""
-
-#, fuzzy
-#~ msgid "What is Adult?"
-#~ msgstr "Что означает Для взрослых?"
-
-#~ msgid "(up to 5)"
-#~ msgstr "(не более 5)"
-
-#~ msgid "profile"
-#~ msgstr "профиль"
-
-#, fuzzy
-#~ msgid "Browse"
-#~ msgstr "Обзор"

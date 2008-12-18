@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: miroguide\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-06 14:31-0400\n"
-"PO-Revision-Date: 2008-04-13 14:50+0000\n"
-"Last-Translator: Zizzfizzix <zizzfizzix@gmail.com>\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2008-08-06 14:32-0400\n"
+"PO-Revision-Date: 2008-12-05 14:26+0000\n"
+"Last-Translator: Andrzej MoST (Marcin Ostajewski) <Unknown>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2008-04-17 00:16+0000\n"
+"X-Launchpad-Export-Date: 2008-12-09 21:57+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: settings.py:34
@@ -105,7 +105,7 @@ msgstr "koreański"
 
 #: settings.py:55
 msgid "Kurdish (Sorani)"
-msgstr ""
+msgstr "Kurdyjski (sorański)"
 
 #: settings.py:56
 msgid "Latvian"
@@ -124,23 +124,20 @@ msgid "Norwegian"
 msgstr "norweski"
 
 #: settings.py:60
-#, fuzzy
 msgid "Persian"
-msgstr "niemiecki"
+msgstr ""
 
 #: settings.py:61
 msgid "Polish"
 msgstr "polski"
 
 #: settings.py:62
-#, fuzzy
 msgid "Portuguese (Brazillian)"
-msgstr "portugalski"
+msgstr "Portugalski (Brazylia)"
 
 #: settings.py:63
-#, fuzzy
 msgid "Portuguese (Portugal)"
-msgstr "portugalski"
+msgstr "Portugalski (Portugalia)"
 
 #: settings.py:64
 msgid "Romanian"
@@ -176,7 +173,7 @@ msgstr "turecki"
 
 #: settings.py:72
 msgid "Vietnamese"
-msgstr ""
+msgstr "Wietnamski"
 
 #: guide/tables.py:12
 msgid "New"
@@ -258,7 +255,7 @@ msgstr "%s jest już kanałem w przewodniku"
 
 #: guide/forms/channels.py:58
 msgid "We can't find a video feed at that address, please try again."
-msgstr ""
+msgstr "Nie można znaleźć kanału wideo pod tym adresem, spróbuj ponownie."
 
 #: guide/forms/channels.py:75 guide/forms/channels.py:279
 msgid "Channel Name"
@@ -282,7 +279,7 @@ msgstr "3-ci"
 
 #: guide/forms/channels.py:161
 msgid "You must at least enter a primary value."
-msgstr ""
+msgstr "Musisz wpisać co najmniej pierwszorzędną wartość"
 
 #: guide/forms/channels.py:178
 #, python-format
@@ -295,11 +292,11 @@ msgstr ""
 
 #: guide/forms/channels.py:265
 msgid "Not a valid image"
-msgstr ""
+msgstr "Niepoprawny obraz"
 
 #: guide/forms/channels.py:269
 msgid "Not an image in a format we support."
-msgstr ""
+msgstr "Obraz w nieobsługiwanym formacie"
 
 #: guide/forms/channels.py:282 guide/forms/cobranding.py:15
 msgid "Website URL"
@@ -311,7 +308,7 @@ msgstr "Pełen opis"
 
 #: guide/forms/channels.py:285
 msgid "Publisher E-mail"
-msgstr ""
+msgstr "e-mail wydawcy"
 
 #: guide/forms/channels.py:287 guide/templates/tag-list.html:7
 msgid "Tags"
@@ -332,7 +329,7 @@ msgstr "Języki"
 
 #: guide/forms/channels.py:292
 msgid "What language are most of these videos in?"
-msgstr ""
+msgstr "W jakim języku jest większość filmów wideo?"
 
 #: guide/forms/channels.py:293
 msgid "Postal Code"
@@ -387,7 +384,7 @@ msgstr "Tytuł strony"
 
 #: guide/forms/cobranding.py:14
 msgid "This is the title that will be displayed at the top of the page."
-msgstr ""
+msgstr "Ten tytuł będzie wyświetlony na górze strony."
 
 #: guide/forms/cobranding.py:17
 msgid "Icon URL"
@@ -420,12 +417,14 @@ msgid "Link 1 URL"
 msgstr "Adres 1"
 
 #: guide/forms/cobranding.py:24
-msgid "Or leave this blank to have plain text.  All these links are optional."
+msgid ""
+"Or leave this blank to have plain text.  All these links are optional."
 msgstr ""
+"Albo zostaw to puste żeby mieć zwykły tekst. Wszystkie linki są dowolne."
 
 #: guide/forms/cobranding.py:26
 msgid "Link 1 Text"
-msgstr ""
+msgstr "Tekst Linka 1"
 
 #: guide/forms/cobranding.py:28
 msgid "Link 2 URL"
@@ -433,7 +432,7 @@ msgstr "Adres 2"
 
 #: guide/forms/cobranding.py:30
 msgid "Link 2 Text"
-msgstr ""
+msgstr "Tekst Linka 2"
 
 #: guide/forms/cobranding.py:32
 msgid "Link 3 URL"
@@ -441,7 +440,7 @@ msgstr "Adres 3"
 
 #: guide/forms/cobranding.py:34
 msgid "Link 3 Text"
-msgstr ""
+msgstr "Tekst Linka 3"
 
 #: guide/forms/fields.py:21
 #, python-format
@@ -453,28 +452,24 @@ msgid "title"
 msgstr "tytuł"
 
 #: guide/forms/user.py:18
-#, fuzzy
 msgid "Username already taken"
-msgstr "nazwa użytkownika jest już zajęta"
+msgstr ""
 
 #: guide/forms/user.py:28
-#, fuzzy
 msgid "E-mail already taken"
-msgstr "adres email jest już zajęty"
+msgstr "E-mail już w urzyciu."
 
 #: guide/forms/user.py:35
-#, fuzzy
 msgid "E-mail not found"
-msgstr "adres email nie znaleziony"
+msgstr ""
 
 #: guide/forms/user.py:44
 msgid "That username is not valid."
 msgstr "Ta nazwa użytkownika jest nieprawidłowa."
 
 #: guide/forms/user.py:58
-#, fuzzy
 msgid "That username or e-mail is not valid."
-msgstr "Ta nazwa użytkownika jest nieprawidłowa."
+msgstr ""
 
 #: guide/forms/user.py:71
 msgid "That password is not valid."
@@ -517,9 +512,8 @@ msgid "Age"
 msgstr ""
 
 #: guide/forms/user.py:120
-#, fuzzy
 msgid "Gender"
-msgstr "Wyślij"
+msgstr ""
 
 #: guide/forms/user.py:122
 msgid "City"
@@ -712,14 +706,12 @@ msgid "New Shows"
 msgstr ""
 
 #: guide/templates/base.html:54
-#, fuzzy
 msgid "Video by Language"
-msgstr "Języki"
+msgstr ""
 
 #: guide/templates/base.html:55
-#, fuzzy
 msgid "Language"
-msgstr "Języki"
+msgstr ""
 
 #: guide/templates/base.html:57
 msgid "Account"
@@ -734,23 +726,20 @@ msgid "View/Edit Profile"
 msgstr ""
 
 #: guide/templates/base.html:72
-#, fuzzy
 msgid "Channels I Manage"
-msgstr "Nazwa kanału"
+msgstr ""
 
 #: guide/templates/base.html:74
 msgid "Submit a Channel"
 msgstr ""
 
 #: guide/templates/base.html:78
-#, fuzzy
 msgid "Log Out"
-msgstr "wyloguj"
+msgstr ""
 
 #: guide/templates/base.html:94
-#, fuzzy
 msgid "Forgot password"
-msgstr "Zapomniałem hasła"
+msgstr ""
 
 #: guide/templates/base.html:95 guide/templates/login.html:7
 #: guide/templates/login.html.py:13 guide/templates/login.html:18
@@ -758,9 +747,8 @@ msgid "Login"
 msgstr ""
 
 #: guide/templates/base.html:106
-#, fuzzy
 msgid "Register!"
-msgstr "Zaloguj / Zarejestruj się"
+msgstr ""
 
 #: guide/templates/base.html:113
 msgid "Register Now!"
@@ -840,14 +828,12 @@ msgid "Manager"
 msgstr ""
 
 #: guide/templates/channel.html:12 guide/templates/channel.html.py:14
-#, fuzzy
 msgid "High-Definition Channel"
-msgstr "High Definition"
+msgstr ""
 
 #: guide/templates/channel.html:53
-#, fuzzy
 msgid "Channel Manager"
-msgstr "Nazwa kanału"
+msgstr ""
 
 #: guide/templates/channel.html:60
 msgid "Notes"
@@ -991,7 +977,8 @@ msgid "Three things to remember..."
 msgstr ""
 
 #: guide/templates/firsttime.html:38
-msgid "Miro lets you subscribe to channels for free (they go to your sidebar)"
+msgid ""
+"Miro lets you subscribe to channels for free (they go to your sidebar)"
 msgstr ""
 
 #: guide/templates/firsttime.html:39
@@ -1330,9 +1317,8 @@ msgid "Current image (uploaded)"
 msgstr ""
 
 #: guide/views/frontpage.py:66
-#, fuzzy
 msgid "What is Miro?"
-msgstr "Co oznacza HD?"
+msgstr ""
 
 #: guide/views/frontpage.py:67
 #, python-format
@@ -1419,24 +1405,3 @@ msgstr ""
 #: templates/500.html:19
 msgid "Make sure to include the error ID at the top of this page."
 msgstr ""
-
-#~ msgid "What is Adult?"
-#~ msgstr "Co oznacza \"dla dorosłych\"?"
-
-#~ msgid "(up to 5)"
-#~ msgstr "do pięciu"
-
-#~ msgid "moderate"
-#~ msgstr "moderuj"
-
-#~ msgid "profile"
-#~ msgstr "profil"
-
-#~ msgid "Email Sent!"
-#~ msgstr "Email wysłany!"
-
-#~ msgid "Browse"
-#~ msgstr "Przeglądaj"
-
-#~ msgid "Popular"
-#~ msgstr "Popularne"

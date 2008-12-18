@@ -1,228 +1,230 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Turkish translation for miroguide
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the miroguide package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-06 14:31-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Project-Id-Version: miroguide\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2008-08-06 14:32-0400\n"
+"PO-Revision-Date: 2008-08-16 21:30+0000\n"
+"Last-Translator: Murat Bişkin <mbiskin@gmail.com>\n"
+"Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Launchpad-Export-Date: 2008-12-09 21:56+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: settings.py:34
 msgid "English"
-msgstr ""
+msgstr "İngilizce"
 
 #: settings.py:35
 msgid "Arabic"
-msgstr ""
+msgstr "Arapça"
 
 #: settings.py:36
 msgid "Bengali"
-msgstr ""
+msgstr "Bengalce"
 
 #: settings.py:37
 msgid "Catalan"
-msgstr ""
+msgstr "Katalanca"
 
 #: settings.py:38
 msgid "Chinese"
-msgstr ""
+msgstr "Çince"
 
 #: settings.py:39
 msgid "Croation"
-msgstr ""
+msgstr "Hırvatça"
 
 #: settings.py:40
 msgid "Danish"
-msgstr ""
+msgstr "Danca"
 
 #: settings.py:41
 msgid "Dutch"
-msgstr ""
+msgstr "Hollandaca"
 
 #: settings.py:42
 msgid "Estonian"
-msgstr ""
+msgstr "Estonca"
 
 #: settings.py:43
 msgid "Finnish"
-msgstr ""
+msgstr "Fince"
 
 #: settings.py:44
 msgid "French"
-msgstr ""
+msgstr "Fransızca"
 
 #: settings.py:45
 msgid "German"
-msgstr ""
+msgstr "Almanca"
 
 #: settings.py:46
 msgid "Greek"
-msgstr ""
+msgstr "Yunanca"
 
 #: settings.py:47
 msgid "Hebrew"
-msgstr ""
+msgstr "İbranice"
 
 #: settings.py:48
 msgid "Hinidi"
-msgstr ""
+msgstr "Hintçe"
 
 #: settings.py:49
 msgid "Hungarian"
-msgstr ""
+msgstr "Macarca"
 
 #: settings.py:50
 msgid "Icelandic"
-msgstr ""
+msgstr "İzlandaca"
 
 #: settings.py:51
 msgid "Indonesian"
-msgstr ""
+msgstr "Endonezya Dili"
 
 #: settings.py:52
 msgid "Italian"
-msgstr ""
+msgstr "İtalyanca"
 
 #: settings.py:53
 msgid "Japanese"
-msgstr ""
+msgstr "Japonca"
 
 #: settings.py:54
 msgid "Korean"
-msgstr ""
+msgstr "Korece"
 
 #: settings.py:55
 msgid "Kurdish (Sorani)"
-msgstr ""
+msgstr "Kürtçe (Sorani)"
 
 #: settings.py:56
 msgid "Latvian"
-msgstr ""
+msgstr "Leton Dili"
 
 #: settings.py:57
 msgid "Lithuanian"
-msgstr ""
+msgstr "Litvanca"
 
 #: settings.py:58
 msgid "Malay"
-msgstr ""
+msgstr "Malayca"
 
 #: settings.py:59
 msgid "Norwegian"
-msgstr ""
+msgstr "Norveççe"
 
 #: settings.py:60
 msgid "Persian"
-msgstr ""
+msgstr "Persçe"
 
 #: settings.py:61
 msgid "Polish"
-msgstr ""
+msgstr "Lehçe"
 
 #: settings.py:62
 msgid "Portuguese (Brazillian)"
-msgstr ""
+msgstr "Portekizce (Brezilya)"
 
 #: settings.py:63
 msgid "Portuguese (Portugal)"
-msgstr ""
+msgstr "Portekizce (Portekiz)"
 
 #: settings.py:64
 msgid "Romanian"
-msgstr ""
+msgstr "Romence"
 
 #: settings.py:65
 msgid "Russian"
-msgstr ""
+msgstr "Rusça"
 
 #: settings.py:66
 msgid "Serbo-Croatian"
-msgstr ""
+msgstr "Sırp-Hırvat Dili"
 
 #: settings.py:67
 msgid "Slovak"
-msgstr ""
+msgstr "Slovakça"
 
 #: settings.py:68
 msgid "Spanish"
-msgstr ""
+msgstr "İspanyolca"
 
 #: settings.py:69
 msgid "Swedish"
-msgstr ""
+msgstr "İsveççe"
 
 #: settings.py:70
 msgid "Thai"
-msgstr ""
+msgstr "Tayland Dili"
 
 #: settings.py:71
 msgid "Turkish"
-msgstr ""
+msgstr "Türkçe"
 
 #: settings.py:72
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamca"
 
 #: guide/tables.py:12
 msgid "New"
-msgstr ""
+msgstr "Yeni"
 
 #: guide/tables.py:14
 msgid "Approved"
-msgstr ""
+msgstr "Onaylandı"
 
 #: guide/tables.py:16
 msgid "Waiting"
-msgstr ""
+msgstr "Bekliyor"
 
 #: guide/tables.py:18
 msgid "Don't Know"
-msgstr ""
+msgstr "Bilinmiyor"
 
 #: guide/tables.py:20
 msgid "Rejected"
-msgstr ""
+msgstr "Reddedildi"
 
 #: guide/tables.py:22
 msgid "Suspended"
-msgstr ""
+msgstr "Askıya Alındı"
 
 #: guide/tables.py:24
 msgid "Audio"
-msgstr ""
+msgstr "Ses"
 
 #: guide/tables.py:26
 msgid "Unknown"
-msgstr ""
+msgstr "Bilinmeyen"
 
 #: guide/templateutil.py:181 guide/templates/base.html:52
 msgid "Most Popular"
-msgstr ""
+msgstr "En Popüler"
 
 #: guide/templateutil.py:182
 msgid "Top Rated"
-msgstr ""
+msgstr "En Çok Oylananlar"
 
 #: guide/templateutil.py:183
 msgid "Most Recent"
-msgstr ""
+msgstr "En Güncel"
 
 #: guide/templateutil.py:184
 msgid "A-Z"
-msgstr ""
+msgstr "A-Z"
 
 #: guide/forms/channels.py:28
 msgid "What is HD?"
-msgstr ""
+msgstr "HD Nedir?"
 
 #: guide/forms/channels.py:29
 #, python-format
@@ -248,40 +250,42 @@ msgstr ""
 #: guide/forms/channels.py:53
 #, python-format
 msgid "%s is already a channel in the guide"
-msgstr ""
+msgstr "%s halihazırda rehberde olan bir kanal"
 
 #: guide/forms/channels.py:58
 msgid "We can't find a video feed at that address, please try again."
 msgstr ""
+"Belirttiğiniz adreste bir video beslemesi bulamıyoruz, lütfen yeniden "
+"deneyin."
 
 #: guide/forms/channels.py:75 guide/forms/channels.py:279
 msgid "Channel Name"
-msgstr ""
+msgstr "Kanal Adı"
 
 #: guide/forms/channels.py:76 guide/forms/channels.py:280
 msgid "RSS Feed"
-msgstr ""
+msgstr "RSS Beslemesi"
 
 #: guide/forms/channels.py:139
 msgid "1st"
-msgstr ""
+msgstr "1'inci"
 
 #: guide/forms/channels.py:139
 msgid "2nd"
-msgstr ""
+msgstr "2'nci"
 
 #: guide/forms/channels.py:139
 msgid "3rd"
-msgstr ""
+msgstr "3'üncü"
 
 #: guide/forms/channels.py:161
 msgid "You must at least enter a primary value."
-msgstr ""
+msgstr "En azından ana bir değer girmeniz gerekli."
 
 #: guide/forms/channels.py:178
 #, python-format
 msgid "you can only enter up to %d tags."
-msgstr ""
+msgstr "%d adede kadar etiket girebilirsiniz."
 
 #: guide/forms/channels.py:260
 msgid "This field is required."
@@ -297,11 +301,11 @@ msgstr ""
 
 #: guide/forms/channels.py:282 guide/forms/cobranding.py:15
 msgid "Website URL"
-msgstr ""
+msgstr "Web sitesi URL'si"
 
 #: guide/forms/channels.py:284
 msgid "Full Description"
-msgstr ""
+msgstr "Tam Açıklama"
 
 #: guide/forms/channels.py:285
 msgid "Publisher E-mail"
@@ -309,35 +313,35 @@ msgstr ""
 
 #: guide/forms/channels.py:287 guide/templates/tag-list.html:7
 msgid "Tags"
-msgstr ""
+msgstr "Etiketler"
 
 #: guide/forms/channels.py:288
 msgid "Keywords that describe this channel.  Separate each tag with a comma."
-msgstr ""
+msgstr "Bu kanalı tanımlayan anahtar kelimeler. Her birini virgülle ayırın."
 
 #: guide/forms/channels.py:290 guide/views/categories.py:19
 msgid "Categories"
-msgstr ""
+msgstr "Kategoriler"
 
 #: guide/forms/channels.py:291
 msgid "Languages"
-msgstr ""
+msgstr "Diller"
 
 #: guide/forms/channels.py:292
 msgid "What language are most of these videos in?"
-msgstr ""
+msgstr "Bu videolarda en çok hangi dil kullanılıyor?"
 
 #: guide/forms/channels.py:293
 msgid "Postal Code"
-msgstr ""
+msgstr "Posta Kodu"
 
 #: guide/forms/channels.py:295
 msgid "High Definition"
-msgstr ""
+msgstr "Yüksek Çözünürlük"
 
 #: guide/forms/channels.py:297
 msgid "Upload Image"
-msgstr ""
+msgstr "Resim Gönder"
 
 #: guide/forms/channels.py:298
 msgid ""
@@ -356,85 +360,89 @@ msgstr ""
 
 #: guide/forms/channels.py:461
 msgid "Email"
-msgstr ""
+msgstr "Eposta"
 
 #: guide/forms/channels.py:462
 msgid "Title"
-msgstr ""
+msgstr "Başlık"
 
 #: guide/forms/channels.py:463 guide/forms/misc.py:15
 msgid "Body"
-msgstr ""
+msgstr "Gövde"
 
 #: guide/forms/cobranding.py:11
 msgid "Title in Miro App"
-msgstr ""
+msgstr "Miro Uygulamasındaki Başlık"
 
 #: guide/forms/cobranding.py:12
 msgid "This is the title that will appear in the sidebar of Miro."
-msgstr ""
+msgstr "Bu, Miro uygulamasındaki yan bar üzerinde görülecek olan başlıktır."
 
 #: guide/forms/cobranding.py:13
 msgid "Page Title"
-msgstr ""
+msgstr "Sayfa Başlığı"
 
 #: guide/forms/cobranding.py:14
 msgid "This is the title that will be displayed at the top of the page."
-msgstr ""
+msgstr "Bu, sayfanın başında görülecek olan başlıktır."
 
 #: guide/forms/cobranding.py:17
 msgid "Icon URL"
-msgstr ""
+msgstr "Simge URL'si"
 
 #: guide/forms/cobranding.py:17
 msgid "Icon should be 175x125 pixels."
-msgstr ""
+msgstr "Simge 175x125 piksel boyutlarında olmalıdır."
 
 #: guide/forms/cobranding.py:19
 msgid "Favicon URL"
-msgstr ""
+msgstr "Favicon URL'si"
 
 #: guide/forms/cobranding.py:19
 msgid ""
 "This is best as a 20x20 png graphic. It shows up in the sidebar of the Miro "
 "App."
 msgstr ""
+"En iyi 20x20 png grafiğinden sonuç alınır. Miro Uygulamasının yan barı "
+"üzerinde görüntülenir."
 
 #: guide/forms/cobranding.py:21
 msgid "External CSS URL"
-msgstr ""
+msgstr "Harici CSS URL'si"
 
 #: guide/forms/cobranding.py:22
 msgid "Description"
-msgstr ""
+msgstr "Açıklama"
 
 #: guide/forms/cobranding.py:24
 msgid "Link 1 URL"
-msgstr ""
+msgstr "Link 1 URL'si"
 
 #: guide/forms/cobranding.py:24
-msgid "Or leave this blank to have plain text.  All these links are optional."
+msgid ""
+"Or leave this blank to have plain text.  All these links are optional."
 msgstr ""
+"Ya da düz metin kullanmak için boş bırakın. Tüm bağlantılar seçime bağlıdır."
 
 #: guide/forms/cobranding.py:26
 msgid "Link 1 Text"
-msgstr ""
+msgstr "Link 1 Metni"
 
 #: guide/forms/cobranding.py:28
 msgid "Link 2 URL"
-msgstr ""
+msgstr "Link 2 URL'si"
 
 #: guide/forms/cobranding.py:30
 msgid "Link 2 Text"
-msgstr ""
+msgstr "Link 2 Metni"
 
 #: guide/forms/cobranding.py:32
 msgid "Link 3 URL"
-msgstr ""
+msgstr "Link 3 URL'si"
 
 #: guide/forms/cobranding.py:34
 msgid "Link 3 Text"
-msgstr ""
+msgstr "Link 3 Metni"
 
 #: guide/forms/fields.py:21
 #, python-format
@@ -443,7 +451,7 @@ msgstr ""
 
 #: guide/forms/misc.py:14
 msgid "title"
-msgstr ""
+msgstr "başlık"
 
 #: guide/forms/user.py:18
 msgid "Username already taken"
@@ -459,7 +467,7 @@ msgstr ""
 
 #: guide/forms/user.py:44
 msgid "That username is not valid."
-msgstr ""
+msgstr "Bu kullanıcı adı geçerli değil."
 
 #: guide/forms/user.py:58
 msgid "That username or e-mail is not valid."
@@ -467,113 +475,111 @@ msgstr ""
 
 #: guide/forms/user.py:71
 msgid "That password is not valid."
-msgstr ""
+msgstr "Bu şifre geçerli değil."
 
 #: guide/forms/user.py:85
 msgid "Passwords don't match"
-msgstr ""
+msgstr "Şifreler birbirini tutmuyor."
 
 #: guide/forms/user.py:89
 msgid "Username"
-msgstr ""
+msgstr "Kullanıcı adı"
 
 #: guide/forms/user.py:90
 msgid "Email Address"
-msgstr ""
+msgstr "Eposta Adresi"
 
 #: guide/forms/user.py:92
 msgid "Pick a Password"
-msgstr ""
+msgstr "Şifre Seçin"
 
 #: guide/forms/user.py:94 guide/forms/user.py:111 guide/forms/user.py:176
 msgid "Confirm Password"
-msgstr ""
+msgstr "Şifeyi Doğrulayın"
 
 #: guide/forms/user.py:109
 msgid "Change Password"
-msgstr ""
+msgstr "Şifreyi Değiştir"
 
 #: guide/forms/user.py:113
 msgid "First Name"
-msgstr ""
+msgstr "Ad"
 
 #: guide/forms/user.py:115
 msgid "Last Name"
-msgstr ""
+msgstr "Soyad"
 
 #: guide/forms/user.py:116
 msgid "Age"
-msgstr ""
+msgstr "Yaş"
 
 #: guide/forms/user.py:120
 msgid "Gender"
-msgstr ""
+msgstr "Cinsiyet"
 
 #: guide/forms/user.py:122
 msgid "City"
-msgstr ""
+msgstr "Şehir"
 
 #: guide/forms/user.py:124
 msgid "State"
-msgstr ""
+msgstr "Bölge"
 
 #: guide/forms/user.py:126
 msgid "Country"
-msgstr ""
+msgstr "Ülke"
 
 #: guide/forms/user.py:128
 msgid "Zip Code"
-msgstr ""
+msgstr "Zip Kodu"
 
 #: guide/forms/user.py:130
 msgid "IM Username"
-msgstr ""
+msgstr "IM Kullanıcı adı"
 
 #: guide/forms/user.py:132
 msgid "IM Type"
-msgstr ""
+msgstr "IM Tipi"
 
 #: guide/forms/user.py:161
 msgid "Channel Owner Emails"
-msgstr ""
+msgstr "Kanal Sahibi Epostaları"
 
 #: guide/forms/user.py:165
 msgid "Moderator Board Emails"
-msgstr ""
+msgstr "Moderatör Forumu Epostaları"
 
 #: guide/forms/user.py:166
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #: guide/forms/user.py:167
 msgid "No emails"
-msgstr ""
+msgstr "Eposta yok"
 
 #: guide/forms/user.py:168
 msgid "Send all emails"
-msgstr ""
+msgstr "Tüm epostaları gönder"
 
 #: guide/forms/user.py:169
 msgid "Channel Status Emails"
-msgstr ""
+msgstr "Kanal Durum Epostaları"
 
 #: guide/forms/user.py:174
 msgid "Set a new Password"
-msgstr ""
+msgstr "Yeni bir şifre belirleyin"
 
 #: guide/models/channel.py:315
 #, python-format
 msgid "%(count)d subscriber"
 msgid_plural "%(count)d subscribers"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(count)d abone"
 
 #: guide/models/channel.py:322
 #, python-format
 msgid "%(count)d episode"
 msgid_plural "%(count)d episodes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(count)d bölüm"
 
 #: guide/templates/add-note.html:9
 msgid "Post"
@@ -581,11 +587,11 @@ msgstr ""
 
 #: guide/templates/after-submit.html:9
 msgid "Thanks for Submitting Your Channel"
-msgstr ""
+msgstr "Kanalınızı Gönderdiğiniz İçin Teşekkürler"
 
 #: guide/templates/after-submit.html:10
 msgid "Your channel has been submitted!"
-msgstr ""
+msgstr "Kanılınız Gönderildi"
 
 #: guide/templates/after-submit.html:12
 msgid ""
@@ -595,10 +601,15 @@ msgid ""
 "inappropriate.  Once the channel is approved, it will appear in the\n"
 "'Just Added' section on the front page.\n"
 msgstr ""
+"\n"
+"Moderatörlerimiz önümüzdeki birkaç gün içerisinde kanalınızın\n"
+"Miro ile uyumlu olup olmadığını ve kanal içeriğinin uygun olup\n"
+"olmadığını inceleyecekler. Kanal onaylandığında, ana sayfadaki\n"
+"'Yeni Eklenenler' bölümünde yer alacak.\n"
 
 #: guide/templates/after-submit.html:19
 msgid "Updating Your Channel Info"
-msgstr ""
+msgstr "Kanal Bilgisi Güncelleniyor"
 
 #: guide/templates/after-submit.html:20
 msgid ""
@@ -606,10 +617,14 @@ msgid ""
 "You can update the details about your channel at anytime.  Just login\n"
 "to your account and click the 'My Submitted Channels' link.\n"
 msgstr ""
+"\n"
+"Kanal bilgilerinizi dilediğiniz zaman güncelleyebilirsiniz. Tek yapmanız\n"
+"gereken hesabınıza giriş yapıp 'Gönderilmiş Kanallarım' bağlantısına "
+"tıklamak.\n"
 
 #: guide/templates/after-submit.html:25
 msgid "Add a 1-Click Subscribe Button to Your Website"
-msgstr ""
+msgstr "Sitenize 1-Tık Abone Ol Düğmesi Ekleyin"
 
 #: guide/templates/after-submit.html:28
 msgid ""
@@ -624,6 +639,10 @@ msgid ""
 "button, Miro will open and they will be automatically subscribed to\n"
 "your channel."
 msgstr ""
+"Aşağıda gördüğünüz düğmeler az önce gönderdiğiniz beslemeyi\n"
+"hedef göstermektedirler-- sadece HTML'yi blogunuza ya da websitenize\n"
+"yapıştırın. Kullanıcılar düğmeye tıkladıklarında Miro açılacak ve onlar\n"
+"kanalınıza abone olacaklardır."
 
 #: guide/templates/after-submit.html:34
 msgid ""
@@ -631,11 +650,15 @@ msgid ""
 "content on an ongoing basis. If you have any questions about the\n"
 "buttons, email: channels [at] pculture [d] org."
 msgstr ""
+"1-tık düğmeleri izleyicilerinizin kanalınıza devamlı olarak bağlı kalmaları "
+"için\n"
+"oldukça kullanışlı bir yoldur. Eğer düğmeler ile ilgili bir sorunuz varsa,\n"
+"channels [at] pculture [dot] org adresine eposta gönderebilirsiniz."
 
 #: guide/templates/auth-token-request.html:7
 #: guide/templates/auth-token-request.html:11
 msgid "Forgot Password"
-msgstr ""
+msgstr "Şifremi unuttum."
 
 #: guide/templates/auth-token-request.html:12
 msgid ""
@@ -644,32 +667,36 @@ msgid ""
 "new\n"
 "        password."
 msgstr ""
+"Lütfen elektronik posta adresinizi girin.\n"
+"        Eposta adresinize bir bağlantı gönderilecek ve siz de yeni şifrenizi "
+"kullanmaya\n"
+"        başlayabileceksiniz."
 
 #: guide/templates/auth-token-request.html:17
 msgid "Send"
-msgstr ""
+msgstr "Gönder"
 
 #: guide/templates/bad-auth-token.html:7
 #: guide/templates/change-password.html:7
 #: guide/templates/change-password.html:11
 msgid "Create New Password"
-msgstr ""
+msgstr "Yeni Şifre Oluştur"
 
 #: guide/templates/bad-auth-token.html:10
 msgid "Link invalid"
-msgstr ""
+msgstr "Geçersiz bağlantı"
 
 #: guide/templates/bad-auth-token.html:11
 msgid "The link you used to get to this page was not valid."
-msgstr ""
+msgstr "Bu sayfaya giriş için kullandığınız bağlantı geçerli değil."
 
 #: guide/templates/base.html:5 templates/500.html:7
 msgid "Miro Guide"
-msgstr ""
+msgstr "Miro Rehberi"
 
 #: guide/templates/base.html:27
 msgid "Miro"
-msgstr ""
+msgstr "Miro"
 
 #: guide/templates/base.html:28
 msgid "Video feeds"
@@ -705,7 +732,7 @@ msgstr ""
 
 #: guide/templates/base.html:55
 msgid "Language"
-msgstr ""
+msgstr "Dil"
 
 #: guide/templates/base.html:57
 msgid "Account"
@@ -758,7 +785,7 @@ msgstr ""
 
 #: guide/templates/button_block.html:6
 msgid "Add"
-msgstr ""
+msgstr "Ekle"
 
 #: guide/templates/button_block.html:6
 msgid "Add channel"
@@ -771,7 +798,7 @@ msgstr ""
 
 #: guide/templates/button_block.html:12
 msgid "Details"
-msgstr ""
+msgstr "Ayrıntılar"
 
 #: guide/templates/button_block.html:13
 #, python-format
@@ -780,15 +807,15 @@ msgstr ""
 
 #: guide/templates/change-password.html:14
 msgid "Create"
-msgstr ""
+msgstr "Oluştur"
 
 #: guide/templates/channel-form.html:7
 msgid "Submit Channel"
-msgstr ""
+msgstr "Kanal Gönder"
 
 #: guide/templates/channel-form.html:15
 msgid "Channel Thumbnail"
-msgstr ""
+msgstr "Kanal Küçük Resmi"
 
 #: guide/templates/channel-form.html:16
 msgid ""
@@ -798,28 +825,34 @@ msgid ""
 "to do something beautiful.  You can also update the image after you submit\n"
 "your channel."
 msgstr ""
+"Kanalınız için iyi bir küçük resim oluşturmak, izleyicilerinizin dikkatini\n"
+"çekmek için en önemli etkenlerden biridir. Güzel bir şey yaratmak için\n"
+"harcayacağınız emeğe değecektir. İmajı kanalınızı gönderdikten sonra da\n"
+"güncellemeniz mümkün."
 
 #: guide/templates/channel-form.html:21 guide/templates/submit-channel.html:13
 msgid ""
 "We have found an image in your feed.  You can either use this image or "
 "upload a different one."
 msgstr ""
+"Beslemenizde bir imaja rastladık. O imajı kullanmayı tercih edebilir, ya da "
+"yeni bir tane gönderebilirsiniz."
 
 #: guide/templates/channel-notes.html:7
 msgid "Issues"
-msgstr ""
+msgstr "Sorunlar"
 
 #: guide/templates/channel-notes.html:7
 msgid "need support? post here."
-msgstr ""
+msgstr "destek mi gerekli? buraya yazın."
 
 #: guide/templates/channel-notes.html:14
 msgid "Me"
-msgstr ""
+msgstr "Ben"
 
 #: guide/templates/channel-notes.html:17
 msgid "Manager"
-msgstr ""
+msgstr "Yönetici"
 
 #: guide/templates/channel.html:12 guide/templates/channel.html.py:14
 msgid "High-Definition Channel"
@@ -845,7 +878,7 @@ msgstr ""
 
 #: guide/templates/confirm.html:7
 msgid "Email Sent"
-msgstr ""
+msgstr "Eposta Gönderildi"
 
 #: guide/templates/confirm.html:11
 msgid "Confirmed!"
@@ -971,7 +1004,8 @@ msgid "Three things to remember..."
 msgstr ""
 
 #: guide/templates/firsttime.html:38
-msgid "Miro lets you subscribe to channels for free (they go to your sidebar)"
+msgid ""
+"Miro lets you subscribe to channels for free (they go to your sidebar)"
 msgstr ""
 
 #: guide/templates/firsttime.html:39
@@ -1157,7 +1191,7 @@ msgstr ""
 
 #: guide/templates/personalized-recommendation.html:18
 msgid "Rate!"
-msgstr ""
+msgstr "Oyla!"
 
 #: guide/templates/personalized-recommendation.html:22
 #, python-format
@@ -1180,7 +1214,7 @@ msgstr ""
 
 #: guide/templates/recommend.html:17 guide/templates/user_ratings.html:14
 msgid "Channels You'll &hearts;"
-msgstr ""
+msgstr "Sizin &hearts; kanallar"
 
 #: guide/templates/recommend.html:17 guide/templates/user_ratings.html:14
 msgid "Channels You've Rated"
@@ -1375,7 +1409,7 @@ msgstr ""
 
 #: templates/404.html:10 templates/500.html:22
 msgid "go to front page"
-msgstr ""
+msgstr "Ön Sayfaya Git"
 
 #: templates/500.html:12
 msgid ""

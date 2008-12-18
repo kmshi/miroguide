@@ -6,16 +6,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: miroguide\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2008-08-06 14:32-0400\n"
-"PO-Revision-Date: 2008-04-06 16:42+0000\n"
-"Last-Translator: Luis Felipe López Acevedo <introspectionstudio@gmail.com>\n"
+"PO-Revision-Date: 2008-11-03 22:48+0000\n"
+"Last-Translator: Luis Felipe López Acevedo <sirgazil@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2008-04-17 00:16+0000\n"
+"X-Launchpad-Export-Date: 2008-12-09 21:57+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: settings.py:34
@@ -56,7 +56,7 @@ msgstr "Estonio"
 
 #: settings.py:43
 msgid "Finnish"
-msgstr "Finés"
+msgstr "Finlandés"
 
 #: settings.py:44
 msgid "French"
@@ -64,7 +64,7 @@ msgstr "Francés"
 
 #: settings.py:45
 msgid "German"
-msgstr "Alemán"
+msgstr "Alemán:"
 
 #: settings.py:46
 msgid "Greek"
@@ -76,7 +76,7 @@ msgstr "Hebreo"
 
 #: settings.py:48
 msgid "Hinidi"
-msgstr ""
+msgstr "Hinidi"
 
 #: settings.py:49
 msgid "Hungarian"
@@ -104,7 +104,7 @@ msgstr "Coreano"
 
 #: settings.py:55
 msgid "Kurdish (Sorani)"
-msgstr ""
+msgstr "Kurdo (Sorani)"
 
 #: settings.py:56
 msgid "Latvian"
@@ -123,23 +123,20 @@ msgid "Norwegian"
 msgstr "Noruego"
 
 #: settings.py:60
-#, fuzzy
 msgid "Persian"
-msgstr "Alemán"
+msgstr "Persa"
 
 #: settings.py:61
 msgid "Polish"
 msgstr "Polaco"
 
 #: settings.py:62
-#, fuzzy
 msgid "Portuguese (Brazillian)"
-msgstr "Portugués"
+msgstr "Portugués (Brasileño)"
 
 #: settings.py:63
-#, fuzzy
 msgid "Portuguese (Portugal)"
-msgstr "Portugués"
+msgstr "Portugués (Portugal)"
 
 #: settings.py:64
 msgid "Romanian"
@@ -175,7 +172,7 @@ msgstr "Turco"
 
 #: settings.py:72
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamita"
 
 #: guide/tables.py:12
 msgid "New"
@@ -187,11 +184,11 @@ msgstr "Aprobado"
 
 #: guide/tables.py:16
 msgid "Waiting"
-msgstr "En espera"
+msgstr "Esperando"
 
 #: guide/tables.py:18
 msgid "Don't Know"
-msgstr "No sabe"
+msgstr "Desconocido"
 
 #: guide/tables.py:20
 msgid "Rejected"
@@ -227,7 +224,7 @@ msgstr "A-Z"
 
 #: guide/forms/channels.py:28
 msgid "What is HD?"
-msgstr "¿ Qué es HD ?"
+msgstr "¿Qué es HD?"
 
 #: guide/forms/channels.py:29
 #, python-format
@@ -242,9 +239,11 @@ msgid ""
 "same\n"
 "        channel "
 msgstr ""
-"El material que sea superior a 640x480 no entrelazado puede\n"
-"        marcarse como HD. Esto, básicamente, significa calidad de DVD (sin\n"
-"        los horribles artefactos de compresión) o mejor. Aproximadamente el "
+"El material que sea aproximadamente a 640x480 no entrelazado, o superior "
+"puede\n"
+"        marcarse como HD. Esto, básicamente, significa calidad de DVD o "
+"mejor (sin\n"
+"        la mayoría de los feos artefactos de compresión). Aproximadamente el "
 "80% del\n"
 "        material del canal debe seguir este criterio para ser considerado\n"
 "        HD. Nota: puede tener una versión HD y otra no HD del mismo\n"
@@ -256,17 +255,21 @@ msgid ""
 "applications like Miro and iTunes check periodically to know when there is a "
 "new video for a channel. Video RSS feeds are strongly recommended for Miro."
 msgstr ""
+"Una fuente RSS es lo que le da sentido a una podcast. Aquella es un URL "
+"especial que puede ser revisado periódicamente por aplicaciones como Miro y "
+"iTunes para saber cuándo hay videos nuevos para un canal. Las fuentes RSS de "
+"video son muy recomendables para Miro."
 
 #: guide/forms/channels.py:53
 #, python-format
 msgid "%s is already a channel in the guide"
-msgstr "%s ya es un canal de la guía"
+msgstr "El canal %s ya está en la guía"
 
 #: guide/forms/channels.py:58
 msgid "We can't find a video feed at that address, please try again."
 msgstr ""
-"No se pudo encontrar un flujo de video en esa dirección, por favor intente "
-"de nuevo."
+"No se pudo encontrar una fuente de video en esa dirección, por favor "
+"intentelo de nuevo."
 
 #: guide/forms/channels.py:75 guide/forms/channels.py:279
 msgid "Channel Name"
@@ -274,7 +277,7 @@ msgstr "Nombre del canal"
 
 #: guide/forms/channels.py:76 guide/forms/channels.py:280
 msgid "RSS Feed"
-msgstr ""
+msgstr "Fuente RSS"
 
 #: guide/forms/channels.py:139
 msgid "1st"
@@ -299,15 +302,15 @@ msgstr "solo puede introducir hasta %d etiquetas."
 
 #: guide/forms/channels.py:260
 msgid "This field is required."
-msgstr ""
+msgstr "Este campo es necesario."
 
 #: guide/forms/channels.py:265
 msgid "Not a valid image"
-msgstr ""
+msgstr "No es una imagen válida"
 
 #: guide/forms/channels.py:269
 msgid "Not an image in a format we support."
-msgstr ""
+msgstr "No es una imagen en un formato que soportemos."
 
 #: guide/forms/channels.py:282 guide/forms/cobranding.py:15
 msgid "Website URL"
@@ -319,7 +322,7 @@ msgstr "Descripción completa"
 
 #: guide/forms/channels.py:285
 msgid "Publisher E-mail"
-msgstr ""
+msgstr "Correo-e del editor"
 
 #: guide/forms/channels.py:287 guide/templates/tag-list.html:7
 msgid "Tags"
@@ -327,7 +330,8 @@ msgstr "Etiquetas"
 
 #: guide/forms/channels.py:288
 msgid "Keywords that describe this channel.  Separate each tag with a comma."
-msgstr "Palabras que describen este canal. Separe cada etiqueta con una coma."
+msgstr ""
+"Palabras clave que describen este canal. Separe las etiquetas mediante comas."
 
 #: guide/forms/channels.py:290 guide/views/categories.py:19
 msgid "Categories"
@@ -354,26 +358,22 @@ msgid "Upload Image"
 msgstr "Subir imagen"
 
 #: guide/forms/channels.py:298
-#, fuzzy
 msgid ""
 "Remember that creating a good channel thumbnail is one of the most important "
 "ways to attract new viewers.  It's worth making an effort to do something "
 "beautiful.  You can also update the image after you submit your channel."
 msgstr ""
-"Recuerde que crear una buena imagen para el canal es una de\n"
-"las formas más importantes de atraer nuevos espectadores. Vale la pena "
-"esforzarse\n"
-"para hacer algo hermoso. Tembién puede actualizar la imagen después de "
-"enviar\n"
-"su canal."
+"Recuerde que crear una buena imagen de portada para el canal es una de las "
+"mejores formas de atraer público.  Vale la pena esforzarse para hacer algo "
+"atractivo.  También puede actualizar la imagen después de presentar el canal."
 
 #: guide/forms/channels.py:320
 msgid "That streaming site already exists."
-msgstr ""
+msgstr "Ese sitio ya existe."
 
 #: guide/forms/channels.py:390
 msgid "Feed URL already exists"
-msgstr ""
+msgstr "Ya existe el URL de la fuente"
 
 #: guide/forms/channels.py:461
 msgid "Email"
@@ -405,7 +405,7 @@ msgstr "Este es el título que se mostrará en la parte superior de la página."
 
 #: guide/forms/cobranding.py:17
 msgid "Icon URL"
-msgstr "URL del ícono"
+msgstr "URL del icono"
 
 #: guide/forms/cobranding.py:17
 msgid "Icon should be 175x125 pixels."
@@ -436,7 +436,8 @@ msgid "Link 1 URL"
 msgstr "URL del enlace 1"
 
 #: guide/forms/cobranding.py:24
-msgid "Or leave this blank to have plain text.  All these links are optional."
+msgid ""
+"Or leave this blank to have plain text.  All these links are optional."
 msgstr ""
 "O deje esto en blanco para tener texto plano. Todos estos enlaces son "
 "opcionales."
@@ -465,36 +466,32 @@ msgstr "Texto del enlace 3"
 #, python-format
 msgid "Ensure this value has at most %(maximum)d bytes (it has %(length)d)."
 msgstr ""
-"Asegúrese de que este valor tenga máximo %(maximum)d bytes (tiene %(length)"
-"d)."
+"Asegúrese de que este valor tenga máximo %(maximum)d bytes (tiene "
+"%(length)d)."
 
 #: guide/forms/misc.py:14
 msgid "title"
 msgstr "título"
 
 #: guide/forms/user.py:18
-#, fuzzy
 msgid "Username already taken"
-msgstr "el nombre de usuario ya existen"
+msgstr "El nombre de usuario está siendo usado actualmente"
 
 #: guide/forms/user.py:28
-#, fuzzy
 msgid "E-mail already taken"
-msgstr "el correo electrónico ya existe"
+msgstr "Ese correo-e ya existe"
 
 #: guide/forms/user.py:35
-#, fuzzy
 msgid "E-mail not found"
-msgstr "no se encontró el correo electrónico"
+msgstr "E-mail no encontrado"
 
 #: guide/forms/user.py:44
 msgid "That username is not valid."
 msgstr "Ese nombre de usuario no es válido."
 
 #: guide/forms/user.py:58
-#, fuzzy
 msgid "That username or e-mail is not valid."
-msgstr "Ese nombre de usuario no es válido."
+msgstr "Este nombre de usuario o e-mail no es válido."
 
 #: guide/forms/user.py:71
 msgid "That password is not valid."
@@ -510,7 +507,7 @@ msgstr "Nombre de usuario"
 
 #: guide/forms/user.py:90
 msgid "Email Address"
-msgstr "Dirección de correo electrónico"
+msgstr "Dirección de correo-e"
 
 #: guide/forms/user.py:92
 msgid "Pick a Password"
@@ -534,12 +531,11 @@ msgstr "Apellidos"
 
 #: guide/forms/user.py:116
 msgid "Age"
-msgstr ""
+msgstr "Edad"
 
 #: guide/forms/user.py:120
-#, fuzzy
 msgid "Gender"
-msgstr "Enviar"
+msgstr "Género"
 
 #: guide/forms/user.py:122
 msgid "City"
@@ -547,7 +543,7 @@ msgstr "Ciudad"
 
 #: guide/forms/user.py:124
 msgid "State"
-msgstr "Estado"
+msgstr "Estado o provincia"
 
 #: guide/forms/user.py:126
 msgid "Country"
@@ -559,7 +555,7 @@ msgstr "Código postal"
 
 #: guide/forms/user.py:130
 msgid "IM Username"
-msgstr "Nombre de Usuario MI"
+msgstr "Nombre de usuario de MI"
 
 #: guide/forms/user.py:132
 msgid "IM Type"
@@ -567,11 +563,11 @@ msgstr "Tipo de MI"
 
 #: guide/forms/user.py:161
 msgid "Channel Owner Emails"
-msgstr "Correos del propietario del canal"
+msgstr "Direcciones del propietario del canal"
 
 #: guide/forms/user.py:165
 msgid "Moderator Board Emails"
-msgstr ""
+msgstr "Tablón de correo del moderador"
 
 #: guide/forms/user.py:166
 msgid "Normal"
@@ -579,7 +575,7 @@ msgstr "Normal"
 
 #: guide/forms/user.py:167
 msgid "No emails"
-msgstr ""
+msgstr "No hay correos"
 
 #: guide/forms/user.py:168
 msgid "Send all emails"
@@ -609,11 +605,11 @@ msgstr[1] "%(count)d episodios"
 
 #: guide/templates/add-note.html:9
 msgid "Post"
-msgstr ""
+msgstr "Entrada"
 
 #: guide/templates/after-submit.html:9
 msgid "Thanks for Submitting Your Channel"
-msgstr "Gracias por enviar su canal"
+msgstr "Gracias por presentar su canal"
 
 #: guide/templates/after-submit.html:10
 msgid "Your channel has been submitted!"
@@ -631,7 +627,7 @@ msgstr ""
 "Nuestros moderadores revisarán su canal en los próximos días para\n"
 "asegurarse de que este funciona en Miro y que el contenido no\n"
 "es inapropiado. Cuando se apruebe el canal, aparecerá en la\n"
-"sección 'Recién agregados' en la página frontal.\n"
+"sección «Recién agregados» en la página frontal.\n"
 
 #: guide/templates/after-submit.html:19
 msgid "Updating Your Channel Info"
@@ -645,21 +641,20 @@ msgid ""
 msgstr ""
 "\n"
 "Puede actualizar los detalles de su canal en cualquier momento. Simplemente "
-"ingrese\n"
-"a su cuenta y haga clic en el enlace 'Mis canales enviados'.\n"
+"entre\n"
+"en su cuenta y haga clic en el enlace «Mis canales enviados».\n"
 
 #: guide/templates/after-submit.html:25
 msgid "Add a 1-Click Subscribe Button to Your Website"
 msgstr "Agregue un botón de Suscripción con 1-Clic a su sitio web"
 
 #: guide/templates/after-submit.html:28
-#, fuzzy
 msgid ""
 "Visit <a href=\"http://webbalert.com/\">webbalert.com</a> to see a real 1-"
 "click button in action"
 msgstr ""
-"Visite <a href=\"http://www.getmiro.com/\">getmiro.com</a> para obtener más "
-"información"
+"Visite <a href=\"http://webbalert.com/\">webbalert.com</a> para ver un botón "
+"de 1-clic en acción"
 
 #: guide/templates/after-submit.html:30
 msgid ""
@@ -668,10 +663,10 @@ msgid ""
 "button, Miro will open and they will be automatically subscribed to\n"
 "your channel."
 msgstr ""
-"Los botones a continuación apuntan a la fuente que acaba de enviar-- "
-"simplemente\n"
-"pegue el HTML en su blog o sitio web. Cuando los usuarios presionen el\n"
-"botón, Miro se abrirá y se suscribirán automáticamente a\n"
+"Los botones de abajo apuntan hacia la fuente que envió. Simplemente\n"
+"pegue el HTML en su blog o en su sitio web. Cuando los usuarios hagan clic "
+"en el\n"
+"botón, Miro se abrirá y ellos quedarán suscritos automáticamente a\n"
 "su canal."
 
 #: guide/templates/after-submit.html:34
@@ -689,7 +684,7 @@ msgstr ""
 #: guide/templates/auth-token-request.html:7
 #: guide/templates/auth-token-request.html:11
 msgid "Forgot Password"
-msgstr "Contraseña olvidada"
+msgstr "Olvidé la contraseña"
 
 #: guide/templates/auth-token-request.html:12
 msgid ""
@@ -698,10 +693,10 @@ msgid ""
 "new\n"
 "        password."
 msgstr ""
-"Introduzca su dirección de correo electrónico\n"
-"        a continuación. Se le enviará un correo con un enlace que puede usar "
-"para crear\n"
-"        una contraseña nueva."
+"Introduzca su dirección de correo-e\n"
+"        abajo.  Se le enviará un correo que puede usar para establecer un "
+"nueva\n"
+"        contraseña."
 
 #: guide/templates/auth-token-request.html:17
 msgid "Send"
@@ -711,7 +706,7 @@ msgstr "Enviar"
 #: guide/templates/change-password.html:7
 #: guide/templates/change-password.html:11
 msgid "Create New Password"
-msgstr "Crear contraseña nueva"
+msgstr "Crear nueva contraseña"
 
 #: guide/templates/bad-auth-token.html:10
 msgid "Link invalid"
@@ -719,37 +714,35 @@ msgstr "Enlace incorrecto"
 
 #: guide/templates/bad-auth-token.html:11
 msgid "The link you used to get to this page was not valid."
-msgstr "El enlace que usó para venir a esta página no era válido."
+msgstr "El enlace que usó para llegar a esa página no era válido."
 
 #: guide/templates/base.html:5 templates/500.html:7
 msgid "Miro Guide"
-msgstr "Guía de Miro"
+msgstr "Guía Miro"
 
 #: guide/templates/base.html:27
-#, fuzzy
 msgid "Miro"
-msgstr "Blog de Miro"
+msgstr "Miro"
 
 #: guide/templates/base.html:28
-#, fuzzy
 msgid "Video feeds"
-msgstr "URL del flujo de video"
+msgstr "Feeds de video"
 
 #: guide/templates/base.html:29
 msgid "Streaming shows"
-msgstr ""
+msgstr "Videos en flujo"
 
 #: guide/templates/base.html:30
 msgid "Videos you'll love"
-msgstr ""
+msgstr "Videos que amará"
 
 #: guide/templates/base.html:36
 msgid "Search"
-msgstr ""
+msgstr "Buscar"
 
 #: guide/templates/base.html:50
 msgid "Genres"
-msgstr ""
+msgstr "Géneros"
 
 #: guide/templates/base.html:51
 msgid "HD Channels"
@@ -757,48 +750,41 @@ msgstr "Canales HD"
 
 #: guide/templates/base.html:53
 msgid "New Shows"
-msgstr ""
+msgstr "Nuevos Shows"
 
 #: guide/templates/base.html:54
-#, fuzzy
 msgid "Video by Language"
-msgstr "Canales por idioma"
+msgstr "Video por Idioma"
 
 #: guide/templates/base.html:55
-#, fuzzy
 msgid "Language"
-msgstr "Idiomas"
+msgstr "Idioma"
 
 #: guide/templates/base.html:57
-#, fuzzy
 msgid "Account"
-msgstr "Acción"
+msgstr "Cuenta"
 
 #: guide/templates/base.html:68
-#, fuzzy
 msgid "Moderator's Area"
-msgstr "Lista de moderadores"
+msgstr "Área de moderadores"
 
 #: guide/templates/base.html:70
 msgid "View/Edit Profile"
-msgstr ""
+msgstr "Ver/Editar Perfil"
 
 #: guide/templates/base.html:72
-#, fuzzy
 msgid "Channels I Manage"
-msgstr "Canales por idioma"
+msgstr "Canales que administro"
 
 #: guide/templates/base.html:74
 msgid "Submit a Channel"
 msgstr "Enviar un Canal"
 
 #: guide/templates/base.html:78
-#, fuzzy
 msgid "Log Out"
-msgstr "salir"
+msgstr "Salir"
 
 #: guide/templates/base.html:94
-#, fuzzy
 msgid "Forgot password"
 msgstr "Contraseña olvidada"
 
@@ -808,36 +794,33 @@ msgid "Login"
 msgstr "Iniciar sesión"
 
 #: guide/templates/base.html:106
-#, fuzzy
 msgid "Register!"
-msgstr "Registrarse"
+msgstr "¡Regístrese!"
 
 #: guide/templates/base.html:113
-#, fuzzy
 msgid "Register Now!"
-msgstr "Registrarse"
+msgstr "Registrar Ahora!"
 
 #: guide/templates/base.html:114
 msgid "Always Free"
-msgstr ""
+msgstr "Siempre Libre"
 
 #: guide/templates/base.html:161
 msgid "Loading..."
-msgstr ""
+msgstr "Cargando..."
 
 #: guide/templates/button_block.html:6
 msgid "Add"
 msgstr "Agregar"
 
 #: guide/templates/button_block.html:6
-#, fuzzy
 msgid "Add channel"
-msgstr "Agregar un Canal"
+msgstr "Añadir canal"
 
 #: guide/templates/button_block.html:7
-#, fuzzy, python-format
+#, python-format
 msgid "Add %(name)s to Miro"
-msgstr "Agregar canal a Miro"
+msgstr "Agregar %(name)s a Miro"
 
 #: guide/templates/button_block.html:12
 msgid "Details"
@@ -846,7 +829,7 @@ msgstr "Detalles"
 #: guide/templates/button_block.html:13
 #, python-format
 msgid "Details about %(name)s"
-msgstr ""
+msgstr "Detalles de %(name)s"
 
 #: guide/templates/change-password.html:14
 msgid "Create"
@@ -885,7 +868,7 @@ msgstr ""
 
 #: guide/templates/channel-notes.html:7
 msgid "Issues"
-msgstr ""
+msgstr "Ediciones"
 
 #: guide/templates/channel-notes.html:7
 msgid "need support? post here."
@@ -900,18 +883,16 @@ msgid "Manager"
 msgstr "Administrador"
 
 #: guide/templates/channel.html:12 guide/templates/channel.html.py:14
-#, fuzzy
 msgid "High-Definition Channel"
-msgstr "Alta definición (HD)"
+msgstr "Canal de Alta Definición"
 
 #: guide/templates/channel.html:53
-#, fuzzy
 msgid "Channel Manager"
-msgstr "Enviar correo-e a Administradores del canal"
+msgstr "Administrador de Canales"
 
 #: guide/templates/channel.html:60
 msgid "Notes"
-msgstr ""
+msgstr "Notas"
 
 #: guide/templates/cobranding-admin.html:7
 #: guide/templates/cobranding-admin.html:9
@@ -921,7 +902,7 @@ msgstr "Administración"
 #: guide/templates/cobranding.html:53
 #, python-format
 msgid "All %(title)s Channels"
-msgstr ""
+msgstr "Todos los canales %(title)s"
 
 #: guide/templates/confirm.html:7
 msgid "Email Sent"
@@ -981,7 +962,7 @@ msgstr "El canal está %(state)s"
 #: guide/templates/edit-bar.html:23
 #, python-format
 msgid "Featured by %(mod)s on %(featured_time)s"
-msgstr "Presnetado por %(mod)s el %(featured_time)s"
+msgstr "Presentado por %(mod)s el %(featured_time)s"
 
 #: guide/templates/edit-bar.html:28
 msgid "Edit Your Channel / View Statistics / Get Help"
@@ -1029,7 +1010,7 @@ msgstr "Rango de popularidad total"
 
 #: guide/templates/edit-channel.html:36
 msgid "* unique Miro Guide 'add channel' hits"
-msgstr ""
+msgstr "* clics en «Agregar canal» exclusivamente en la Guía de Miro"
 
 #: guide/templates/edit-user.html:7
 msgid "Update My Profile"
@@ -1042,7 +1023,7 @@ msgstr "Actualizar mi perfil "
 #: guide/templates/email-channel-owners.html:7
 #: guide/templates/moderate.html:52
 msgid "Email Channel Managers"
-msgstr "Enviar correo-e a Administradores del canal"
+msgstr "Enviar correo-e a administradores del canal"
 
 #: guide/templates/firsttime.html:34
 msgid "WELCOME TO MIRO!"
@@ -1053,7 +1034,8 @@ msgid "Three things to remember..."
 msgstr "Tres cosas para recordar..."
 
 #: guide/templates/firsttime.html:38
-msgid "Miro lets you subscribe to channels for free (they go to your sidebar)"
+msgid ""
+"Miro lets you subscribe to channels for free (they go to your sidebar)"
 msgstr ""
 "Miro le permite suscribirse gratis a los canales (estos se agregan en la "
 "barra lateral)"
@@ -1100,9 +1082,8 @@ msgid "Browse All %(total_channels)s channels"
 msgstr "Examinar todos los %(total_channels)s canales"
 
 #: guide/templates/for-user.html:7
-#, fuzzy
 msgid "Miro Guide - Channels for"
-msgstr "Mis canales enviados"
+msgstr "Guía de Miro - Canales para"
 
 #: guide/templates/for-user.html:11
 msgid "My User Info"
@@ -1127,7 +1108,7 @@ msgstr "Error"
 #: guide/templates/group-list.html:7
 #, python-format
 msgid "Miro Guide - %(group_name)s"
-msgstr ""
+msgstr "Guía de Miro - %(group_name)s"
 
 #: guide/templates/how-to-moderate.html:7 guide/templates/moderate.html:45
 msgid "How to Moderate"
@@ -1135,20 +1116,19 @@ msgstr "Cómo moderar"
 
 #: guide/templates/index.html:134
 msgid "New Feed Videos"
-msgstr ""
+msgstr "New Feed Videos"
 
 #: guide/templates/index.html:144
 msgid "New Streaming Videos"
-msgstr ""
+msgstr "Videos en flujo nuevos"
 
 #: guide/templates/index.html:156
 msgid "Recommended for you"
-msgstr ""
+msgstr "Recomendado para ti"
 
 #: guide/templates/index.html:166
-#, fuzzy
 msgid "View all"
-msgstr "Ver todos los nuevos"
+msgstr "Ver todos"
 
 #: guide/templates/login.html:14
 msgid "Got an account? Just log in!"
@@ -1176,6 +1156,9 @@ msgid ""
 "        %(count)s Don't know channels\n"
 "        "
 msgstr ""
+"\n"
+"        %(count)s canales desconocidos\n"
+"        "
 
 #: guide/templates/moderate.html:24
 #, python-format
@@ -1211,15 +1194,15 @@ msgstr ""
 "        "
 
 #: guide/templates/moderate.html:39
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "  %(count)s channels in Featured Queue\n"
 "  "
 msgstr ""
 "\n"
-"        %(count)s Canales esperando respuesta\n"
-"        "
+"  %(count)s canales en la cola de destacados\n"
+"  "
 
 #: guide/templates/moderate.html:46
 msgid "Search For Users"
@@ -1239,11 +1222,11 @@ msgstr "Editar lista de idiomas"
 
 #: guide/templates/moderate.html:51
 msgid "Moderator History"
-msgstr ""
+msgstr "Historial del moderador"
 
 #: guide/templates/moderator-board.html:9
 msgid "Moderator Message Board"
-msgstr ""
+msgstr "Tablero de mensajes del moderador"
 
 #: guide/templates/pager-old.html:34
 msgid "Next &gt;&gt;"
@@ -1265,21 +1248,24 @@ msgstr "¡Valorar!"
 #: guide/templates/personalized-recommendation.html:22
 #, python-format
 msgid "Our Bet: %(stars)s Stars"
-msgstr ""
+msgstr "Nuestra apuesta: %(stars)s estrellas"
 
 #: guide/templates/personalized-recommendation.html:25
 msgid "Because you like"
-msgstr ""
+msgstr "Porque a usted le gusta"
 
 #: guide/templates/recommend.html:8
 msgid "Miro Guide - Channels You'll Love"
-msgstr ""
+msgstr "Guía de Miro - Canales que amará"
 
 #: guide/templates/recommend.html:16 guide/views/accounts.py:24
 msgid ""
 "Rating Key | cancel: No Interest; 1 Star: Hate; 2 Stars: Dislike; 3 Stars: "
 "Like; 4 Stars; Like Lots; 5 Stars: Love!"
 msgstr ""
+"Valoración | cancelar: no me interesa; 1 estrella: lo odio; 2 estrellas: no "
+"me gusta; 3 estrellas: me gusta; 4 estrellas; me gusta mucho; 5 estrellas: "
+"¡lo amo!"
 
 #: guide/templates/recommend.html:17 guide/templates/user_ratings.html:14
 msgid "Channels You'll &hearts;"
@@ -1302,7 +1288,6 @@ msgid " this page."
 msgstr " esta página."
 
 #: guide/templates/recommend.html:31
-#, fuzzy
 msgid ""
 "\n"
 "You can rate channels by clicking on stars (here or anywhere else in the "
@@ -1312,19 +1297,19 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"    Puede valorar canales haciendo clic en las estrellas. Valore algunos "
-"canales y regrese. Tendremos recomendaciones para usted.\n"
+"Puede valorar canales haciendo clic sobre las estrellas (aquí o en cualquier "
+"otro lugar de la guía). Por favor califique algunos de estos canales y <a "
+"href=\"\">come back</a>; le tendremos algunas recomendaciones. Mientras más "
+"de ellos califique, más exactas serán las recomendaciones.    \n"
 "    "
 
 #: guide/templates/submit.html:7
-#, fuzzy
 msgid "Miro Guide - Submit Channel"
-msgstr "Enviar canal"
+msgstr "Guía de MIro - Enviar Canal"
 
 #: guide/templates/user_ratings.html:8
-#, fuzzy
 msgid "Miro Guide - Channels You've Rated"
-msgstr "Canales que ha valorado"
+msgstr "Guía de Miro - Canales que has calificado"
 
 #: guide/views/accounts.py:19
 msgid "List Your Channel in the Miro Guide!"
@@ -1336,20 +1321,19 @@ msgstr "Lo único que necesita es una cuenta..."
 
 #: guide/views/accounts.py:23
 msgid "Rate Channels, Get Recommendations"
-msgstr ""
+msgstr "Calificar Canales, Recibir Recomendacioes"
 
 #: guide/views/accounts.py:25
 msgid "Sign in (or create an account)"
-msgstr ""
+msgstr "Identificarse (o crear una cuenta)"
 
 #: guide/views/accounts.py:26
-#, fuzzy
 msgid "Give Channels Star Ratings"
-msgstr "Canales que coincidan con %s"
+msgstr "Valorar canales"
 
 #: guide/views/accounts.py:27
 msgid "We'll Give You Recommendations"
-msgstr ""
+msgstr "Le haremos recomendaciones"
 
 #: guide/views/accounts.py:38
 msgid ""
@@ -1376,18 +1360,16 @@ msgid "Why Should I Rate Channels?"
 msgstr "¿Por qué debería valorar canales?"
 
 #: guide/views/accounts.py:64
-#, fuzzy
 msgid ""
 "We are giving personalized recommendations, based on what you do and don't "
 "like. If you've ever used Netflix&reg;, you already know what we're talking "
 "about here. The more you rate, the more accurately we can recommend channels "
 "to you. It&apos;s that simple!"
 msgstr ""
-"En un futuro cercano, estaremos dando recomendaciones personalizadas "
-"basándonos en lo que a usted le gusta. Si alguna vez ha usado Netflix&reg;, "
-"ya sabe de lo que estamos hablando. Mientras más valoraciones haga, más "
-"precisas serán nuestras recomendaciones de canales para usted. ¡Es así de "
-"simple!"
+"Nosotros damos recomendaciones personalizadas, en base a lo que te gusta o "
+"no. Si has usado antes servicios como NETFLIX, entenderás de qué estamos "
+"hablando. Mientras más categorices, más precisas serán nuestras "
+"recomendaciones. ¡Es así de simple!"
 
 #: guide/views/accounts.py:65
 msgid "A Completely Open Guide"
@@ -1400,7 +1382,7 @@ msgid ""
 "freely. If you know of a great video podcast that isn&apos;t already in the "
 "Guide, please contact the creator and ask them to submit it."
 msgstr ""
-"Como aceptamos canales (fuentes RSS, también conocidas 'video podcasts') de "
+"Como aceptamos canales (fuentes RSS, también conocidas «video podcasts») de "
 "cualquier persona, la Guía de Miro se expande constantemente. Los creadores "
 "de canales pueden agregar sus fuentes libremente. Si conoce un podcast de "
 "video excelente que no está en la guía, por favor contacte al autor y pídale "
@@ -1408,7 +1390,7 @@ msgstr ""
 
 #: guide/views/api.py:256
 msgid "Invalid verification code."
-msgstr ""
+msgstr "Código de verificación inválido."
 
 #: guide/views/categories.py:27
 msgid "Edit Categories"
@@ -1425,7 +1407,7 @@ msgstr "Los correos de rechazo necesitan un cuerpo"
 #: guide/views/channels.py:113
 #, python-format
 msgid "%s featured on Miro Guide"
-msgstr ""
+msgstr "%s recomendado en la Guía de Miro"
 
 #: guide/views/channels.py:390
 msgid "Current image (no change)"
@@ -1436,9 +1418,8 @@ msgid "Current image (uploaded)"
 msgstr "Imagen actual (cargada)"
 
 #: guide/views/frontpage.py:66
-#, fuzzy
 msgid "What is Miro?"
-msgstr "¿ Qué es HD ?"
+msgstr "¿Qué es Miro?"
 
 #: guide/views/frontpage.py:67
 #, python-format
@@ -1446,10 +1427,12 @@ msgid ""
 "Miro is an easy way to subscribe and watch all of these shows.  Using it is "
 "100% free."
 msgstr ""
+"Miro es una manera fácil de suscribirse y ver todos estos shows. Su "
+"utilización es 100% gratuita."
 
 #: guide/views/frontpage.py:68
 msgid "Download Miro"
-msgstr ""
+msgstr "Descargar Miro"
 
 #: guide/views/languages.py:17
 msgid "Channels by Language"
@@ -1474,7 +1457,7 @@ msgstr "Canales esperando respuestas"
 
 #: guide/views/moderator.py:52
 msgid "Channels Flagged Don't Know By a Moderator"
-msgstr ""
+msgstr "Canales marcados como «No conocidos» por un moderador"
 
 #: guide/views/moderator.py:55
 msgid "Rejected Channels"
@@ -1486,7 +1469,7 @@ msgstr "Canales suspendidos"
 
 #: guide/views/moderator.py:62
 msgid "Featured Queue"
-msgstr ""
+msgstr "Cola de destacados"
 
 #: guide/views/moderator.py:65
 msgid "Unreviewed Channels"
@@ -1509,6 +1492,8 @@ msgid ""
 "Our server is experiencing higher than normal load.\n"
 "Please try again shortly.  Thanks for your patience."
 msgstr ""
+"Nuestros servidores están experimentando una carga mayor de lo normal.\n"
+"Por favor inténtelo otra vez dentro de poco.  Gracias por su paciencia."
 
 #: templates/500.html:15
 #, python-format
@@ -1530,346 +1515,3 @@ msgid "Make sure to include the error ID at the top of this page."
 msgstr ""
 "Asegúrese de incluir la ID del error ubicada en la parte superior de esta "
 "página."
-
-#~ msgid "What is Adult?"
-#~ msgstr "¿ Qué significa adulto ?"
-
-#~ msgid ""
-#~ "Check the box if this channel's primary purpose is to\n"
-#~ "            sexually arouse or excite viewers. This includes channels "
-#~ "that\n"
-#~ "            contain softcore videos of \"models in panties\", \"hot girls "
-#~ "in\n"
-#~ "            bikinis\", \"cute girls' butts\", etc."
-#~ msgstr ""
-#~ "Marque la casilla si el propósito principal de este canal es\n"
-#~ "            excitar sexualmente al observador. Esto incluye los canales "
-#~ "que\n"
-#~ "            contienen videos suaves de \"modelos en ropa interior\", "
-#~ "\"mujeres atractivas en\n"
-#~ "            prendas de baño\", \"traseros de mujeres lindas\", etc."
-
-#~ msgid "(up to 5)"
-#~ msgstr "(hasta 5)"
-
-#~ msgid "moderate"
-#~ msgstr "moderar"
-
-#~ msgid "profile"
-#~ msgstr "perfil"
-
-#~ msgid "Submit A Channel"
-#~ msgstr "Enviar un canal"
-
-#~ msgid "Login / Register"
-#~ msgstr "Identificarse / Registrarse"
-
-#~ msgid "Email Sent!"
-#~ msgstr "¡Correo enviado!"
-
-#~ msgid ""
-#~ "An email was sent to %(email)s.  You should receive\n"
-#~ "it in a few minutes.  It will contain a link that you can use to set a "
-#~ "new\n"
-#~ "password for your account."
-#~ msgstr ""
-#~ "Se envió un correo a %(email)s. Debería recibirlo\n"
-#~ "en los próximos minutos. Este correo contiene un enlace que puede usar\n"
-#~ "para crear una contraseña nueva para su cuenta."
-
-#~ msgid "HOME"
-#~ msgstr "INICIO"
-
-#~ msgid "Home"
-#~ msgstr "Inicio"
-
-#~ msgid "Browse"
-#~ msgstr "Examinar"
-
-#~ msgid "Popular"
-#~ msgstr "Popular"
-
-#~ msgid "HD"
-#~ msgstr "HD"
-
-#~ msgid "A - Z"
-#~ msgstr "A - Z"
-
-#~ msgid "New Channels"
-#~ msgstr "Canales nuevos"
-
-#~ msgid "Full List (A-Z)"
-#~ msgstr "Lista completa (A-Z)"
-
-#~ msgid "Popular Channels"
-#~ msgstr "Canales populares"
-
-#~ msgid "View All %(category)s"
-#~ msgstr "Ver todos %(category)s"
-
-#~ msgid "archival"
-#~ msgstr "de archivo"
-
-#~ msgid "Website"
-#~ msgstr "Sitio web"
-
-#~ msgid "Manager Email"
-#~ msgstr "Correo de administrador"
-
-#~ msgid "Search for '%(search_query)s'"
-#~ msgstr "Buscar '%(search_query)s'"
-
-#~ msgid "Matching Languages"
-#~ msgstr "Coincidir con idiomas"
-
-#~ msgid "Matching Tags"
-#~ msgstr "Coincidir con etiquetas"
-
-#~ msgid "Matching Categories"
-#~ msgstr "Coincidir con categorías"
-
-#~ msgid "%(results_count)s Channels Match '%(search_query)s'"
-#~ msgstr "%(results_count)s Canales coincidentes '%(search_query)s'"
-
-#~ msgid "Search terms too short"
-#~ msgstr "Términos de búsqueda muy cortos"
-
-#~ msgid ""
-#~ "Words less than 3 characters long aren't used in\n"
-#~ "        the search.  Please try again with longer words"
-#~ msgstr ""
-#~ "Las palabras con menos de 3 caracteres no se usan en\n"
-#~ "        la búsqueda. Por favor inténtelo de nuevo con palabras más largas"
-
-#~ msgid ""
-#~ "%(item_results_count)s Channels Have Videos That Match '%(search_query)s'"
-#~ msgstr ""
-#~ "%(item_results_count)s Canales tienen videos que coinciden con '%"
-#~ "(search_query)s'"
-
-#~ msgid "Please Send a Note to the Channel Manager!"
-#~ msgstr "¡Envíe una nota al Administrador del canal!"
-
-#~ msgid "send e-mail to"
-#~ msgstr "enviar correo-e a"
-
-#~ msgid "Skip the note, just %(type)s"
-#~ msgstr "Evitar la nota, solo %(type)s"
-
-#~ msgid ""
-#~ "* This channel has been added by us. You can hunt for the producer's "
-#~ "email address here:"
-#~ msgstr ""
-#~ "* Este canal lo agregamos nosotros. Puede buscar la dirección de correo-e "
-#~ "del productor aquí:"
-
-#~ msgid "Please create a new password."
-#~ msgstr "Cree una contraseña nueva, por favor."
-
-#~ msgid "Send Email"
-#~ msgstr "Enviar correo"
-
-#~ msgid "Channels in"
-#~ msgstr "Canales en"
-
-#~ msgid "Category: %(category)s"
-#~ msgstr "Categoría: %(category)s"
-
-#~ msgid "View All %(category_name)s"
-#~ msgstr "Ver todo en %(category_name)s"
-
-#~ msgid "Popular Today"
-#~ msgstr "Populares hoy"
-
-#~ msgid "View All Popular"
-#~ msgstr "Ver todos los populares"
-
-#~ msgid "Just Added In"
-#~ msgstr "Recién agregados en"
-
-#~ msgid "Just Added"
-#~ msgstr "Recién agregados"
-
-#~ msgid "Recent News"
-#~ msgstr "Noticias recientes"
-
-#~ msgid "read more"
-#~ msgstr "leer más"
-
-#~ msgid ""
-#~ "The guide is open to everyone.  Do you have an RSS feed?  Do you know of "
-#~ "a great feed that isn't listed in the guide?"
-#~ msgstr ""
-#~ "La guía está abierta a todo el mundo. ¿Tiene una fuente RSS? ¿Conoce una "
-#~ "fuente excelente que no está listada en la guía?"
-
-#~ msgid "Submit a channel to the Guide!"
-#~ msgstr "¡Envíe un canal a la Guía!"
-
-#~ msgid "Want to make your own channel?"
-#~ msgstr "¿Quiere crear su propio canal?"
-
-#~ msgid "Here's How."
-#~ msgstr "Puede hacerlo así."
-
-#~ msgid "Need information on shooting video and creating a channel?"
-#~ msgstr "¿Necesita información sobre cómo grabar videos y crear canales?"
-
-#~ msgid "Tutorials and Resources"
-#~ msgstr "Tutoriales y recursos"
-
-#~ msgid "Get Help"
-#~ msgstr "Obtenga ayuda"
-
-#~ msgid "Do you have any questions about the Guide or Miro?"
-#~ msgstr "¿Tiene alguna pregunta sobre la Guía o sobre Miro?"
-
-#~ msgid "Are you running into problems?"
-#~ msgstr "¿Tiene problemas?"
-
-#~ msgid "Check out our help page."
-#~ msgstr "Revise nuestra página de ayuda."
-
-#~ msgid "The Miro Guide is part of the Miro Internet TV Platform."
-#~ msgstr "La Guía de Miro hace parte de la plataforma Miro Internet TV."
-
-#~ msgid ""
-#~ "Miro is made by the Participatory Culture Foundation, a non-profit "
-#~ "organization."
-#~ msgstr ""
-#~ "Miro es una creación de la Fundación para la Cultura Participativa, una "
-#~ "organización sin ánimo de lucro."
-
-#~ msgid "Channel marked as HD! Does it meet"
-#~ msgstr "¡Canal marcado como HD! ¿Cumple los"
-
-#~ msgid "requirements"
-#~ msgstr "requisitos"
-
-#~ msgid "?"
-#~ msgstr "?"
-
-#~ msgid "User"
-#~ msgstr "Usuario"
-
-#~ msgid "Channel"
-#~ msgstr "Canal"
-
-#~ msgid "Date"
-#~ msgstr "Fecha"
-
-#~ msgid "Password Set"
-#~ msgstr "Configuración de contraseña"
-
-#~ msgid "A new password has been created for your account."
-#~ msgstr "Se ha creado una contraseña nueva para su cuenta."
-
-#~ msgid "Recently Added"
-#~ msgstr "Recién agregados"
-
-#~ msgid "Shared"
-#~ msgstr "Compartido"
-
-#~ msgid "Archival: no episodes since "
-#~ msgstr "Archivo: no hay episodios desde "
-
-#~ msgid "If you like this channel, try:"
-#~ msgstr "Si le gusta este canal, pruebe:"
-
-#~ msgid "Recent Episodes"
-#~ msgstr "Episodios recientes"
-
-#~ msgid "Synopsis"
-#~ msgstr "Sinopsis"
-
-#~ msgid "Step 2: Tell Us About Your Channel"
-#~ msgstr "Paso 2: Cuéntenos sobre su canal"
-
-#~ msgid ""
-#~ "\n"
-#~ "The feed you entered appears to be working correctly.  Now we need some "
-#~ "more\n"
-#~ "details.  If there was info about the channel in the feed, we've entered "
-#~ "that\n"
-#~ "for you below.  Feel free to update or change any of it.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "La fuente que introdujo parece estar funcionando correctamente. Ahora "
-#~ "necesitamos más\n"
-#~ "detalles. Si había información sobre el canal en la fuente, esta "
-#~ "aparecerá abajo\n"
-#~ "automáticamente. Siéntase libre de actualizarla o cambiarla.\n"
-
-#~ msgid "Next Step"
-#~ msgstr "Paso siguiente"
-
-#~ msgid "Submit Your Channel to the Guide"
-#~ msgstr "Envíe su canal a la Guía"
-
-#~ msgid ""
-#~ "Before you submit your channel, please test it in\n"
-#~ "    Miro to make sure it works.  Go to 'Add Channel' in the\n"
-#~ "    'Channels' menu and paste in the URL for your video RSS feed.  If "
-#~ "your\n"
-#~ "    videos download and play, then the channel is working.\n"
-#~ "    "
-#~ msgstr ""
-#~ "Antes de enviar su canal, por favor pruébelo en\n"
-#~ "    Miro para asegurarse de que funciona. Vaya a 'Agregar canal' en el\n"
-#~ "    menú 'Canales' y pegue el URL de la fuente de su video. Si sus\n"
-#~ "    videos descargan y se reproducen, entonces el canal funciona.\n"
-#~ "    "
-
-#~ msgid ""
-#~ "If you have any problems submitting your channel or if\n"
-#~ "    you are trying to update a channel that is already listed in the "
-#~ "Guide,\n"
-#~ "    email us: %(GUIDE_EMAIL)s."
-#~ msgstr ""
-#~ "Si tiene algún problema con el envío de su canal o si\n"
-#~ "    está intentando actualizar un canal que ya está listado en la guía,\n"
-#~ "    escríbanos: %(GUIDE_EMAIL)s."
-
-#~ msgid "Step 1: Enter the Feed URL"
-#~ msgstr "Paso 1: introduzca el URL de la fuente"
-
-#~ msgid ""
-#~ "Enter the address of your video RSS\n"
-#~ "feed.  For example: http://Seed-Magazine.blip.tv/?skin=rss"
-#~ msgstr ""
-#~ "Introduzca la dirección de la fuente RSS de su\n"
-#~ "video. Por ejemplo: http://Seed-Magazine.blip.tv/?skin=rss"
-
-#~ msgid "View:"
-#~ msgstr "Ver:"
-
-#~ msgid "Get an Account and Make Your Opinion Known!"
-#~ msgstr "¡Obtenga una cuenta y dé a conocer su opinión!"
-
-#~ msgid ""
-#~ "You'll need an account to rate channels.  It only takes a second to get "
-#~ "started..."
-#~ msgstr ""
-#~ "Necesitará una cuenta para poder valorar canales. Solo le tomará unos "
-#~ "segundos..."
-
-#~ msgid "<div class=\"info\">%s</div>"
-#~ msgstr "<div class=\"info\">%s</div>"
-
-#~ msgid "Today"
-#~ msgstr "Hoy"
-
-#~ msgid "Month"
-#~ msgstr "Mes"
-
-#~ msgid "All-Time"
-#~ msgstr "Siempre"
-
-#~ msgid "This Month"
-#~ msgstr "Este mes"
-
-#~ msgid "Channels By Name"
-#~ msgstr "Canales por nombre"
-
-#~ msgid "Channels With Videos Matching %s"
-#~ msgstr "Canales con videos que coincidan con %s"

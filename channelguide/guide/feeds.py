@@ -1,6 +1,8 @@
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
+import urlparse
+
 from channelguide import init
 init.init_external_libraries()
 from channelguide import util
@@ -53,7 +55,19 @@ class ChannelsFeed(feeds.Feed):
         if results:
             results.sort(key=attrgetter('date'), reverse=True)
             item.newest = results[0]
-            return util.make_absolute_url('channels/latest/%i' % item.id)
+
+            # We shouldn't produce a redirect-enclosure for anything that
+            # ends in .swf or comes from youtube (since youtube also
+            # sometimes does its own redirects, so just .swf doesn't always
+            # work) because that will make it so that miro doesn't know
+            # that it should do flash scraping (needs to see actual item
+            # url to do flash scraping)
+            split_url = urlparse.urlsplit(item.newest.url)
+            if (split_url[2].endswith('.swf')
+                    or split_url[1] in ('www.youtube.com', 'youtube.com')):
+                return item.newest.url
+            else:
+                return util.make_absolute_url('channels/latest/%i' % item.id)
         else:
             item.newest = None
 

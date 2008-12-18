@@ -1,180 +1,182 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Slovak translation for miroguide
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the miroguide package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-06 14:33-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Project-Id-Version: miroguide\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2008-08-06 14:32-0400\n"
+"PO-Revision-Date: 2008-09-24 09:46+0000\n"
+"Last-Translator: blackmore <Unknown>\n"
+"Language-Team: Slovak <sk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
+"X-Launchpad-Export-Date: 2008-12-09 21:57+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: settings.py:34
 msgid "English"
-msgstr ""
+msgstr "Anglicky"
 
 #: settings.py:35
 msgid "Arabic"
-msgstr ""
+msgstr "Arabsky"
 
 #: settings.py:36
 msgid "Bengali"
-msgstr ""
+msgstr "Bengálsky"
 
 #: settings.py:37
 msgid "Catalan"
-msgstr ""
+msgstr "Katalánsky"
 
 #: settings.py:38
 msgid "Chinese"
-msgstr ""
+msgstr "Čínsky"
 
 #: settings.py:39
 msgid "Croation"
-msgstr ""
+msgstr "Chorvátsky"
 
 #: settings.py:40
 msgid "Danish"
-msgstr ""
+msgstr "Dánsky"
 
 #: settings.py:41
 msgid "Dutch"
-msgstr ""
+msgstr "Holandsky"
 
 #: settings.py:42
 msgid "Estonian"
-msgstr ""
+msgstr "Estónsky"
 
 #: settings.py:43
 msgid "Finnish"
-msgstr ""
+msgstr "Fínsky"
 
 #: settings.py:44
 msgid "French"
-msgstr ""
+msgstr "Francúzsky"
 
 #: settings.py:45
 msgid "German"
-msgstr ""
+msgstr "Nemecky"
 
 #: settings.py:46
 msgid "Greek"
-msgstr ""
+msgstr "Grécky"
 
 #: settings.py:47
 msgid "Hebrew"
-msgstr ""
+msgstr "Hebrejsky"
 
 #: settings.py:48
 msgid "Hinidi"
-msgstr ""
+msgstr "Hindsky"
 
 #: settings.py:49
 msgid "Hungarian"
-msgstr ""
+msgstr "Maďarsky"
 
 #: settings.py:50
 msgid "Icelandic"
-msgstr ""
+msgstr "Islandsky"
 
 #: settings.py:51
 msgid "Indonesian"
-msgstr ""
+msgstr "Indonézsky"
 
 #: settings.py:52
 msgid "Italian"
-msgstr ""
+msgstr "Taliansky"
 
 #: settings.py:53
 msgid "Japanese"
-msgstr ""
+msgstr "Japonsky"
 
 #: settings.py:54
 msgid "Korean"
-msgstr ""
+msgstr "Kórejsky"
 
 #: settings.py:55
 msgid "Kurdish (Sorani)"
-msgstr ""
+msgstr "Kurdsky (Sorani)"
 
 #: settings.py:56
 msgid "Latvian"
-msgstr ""
+msgstr "Lotyšsky"
 
 #: settings.py:57
 msgid "Lithuanian"
-msgstr ""
+msgstr "Litovsky"
 
 #: settings.py:58
 msgid "Malay"
-msgstr ""
+msgstr "Malajsky"
 
 #: settings.py:59
 msgid "Norwegian"
-msgstr ""
+msgstr "Nórsky"
 
 #: settings.py:60
 msgid "Persian"
-msgstr ""
+msgstr "Perzsky"
 
 #: settings.py:61
 msgid "Polish"
-msgstr ""
+msgstr "Poľsky"
 
 #: settings.py:62
 msgid "Portuguese (Brazillian)"
-msgstr ""
+msgstr "Portugalsky (Brazília)"
 
 #: settings.py:63
 msgid "Portuguese (Portugal)"
-msgstr ""
+msgstr "Portugalsky (Portugalsko)"
 
 #: settings.py:64
 msgid "Romanian"
-msgstr ""
+msgstr "Rumunsky"
 
 #: settings.py:65
 msgid "Russian"
-msgstr ""
+msgstr "Rusky"
 
 #: settings.py:66
 msgid "Serbo-Croatian"
-msgstr ""
+msgstr "Srbochorvátsky"
 
 #: settings.py:67
 msgid "Slovak"
-msgstr ""
+msgstr "Slovensky"
 
 #: settings.py:68
 msgid "Spanish"
-msgstr ""
+msgstr "Španielsky"
 
 #: settings.py:69
 msgid "Swedish"
-msgstr ""
+msgstr "Švédsky"
 
 #: settings.py:70
 msgid "Thai"
-msgstr ""
+msgstr "Thaisky"
 
 #: settings.py:71
 msgid "Turkish"
-msgstr ""
+msgstr "Turecky"
 
 #: settings.py:72
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamsky"
 
 #: guide/tables.py:12
 msgid "New"
-msgstr ""
+msgstr "Nový"
 
 #: guide/tables.py:14
 msgid "Approved"
@@ -413,7 +415,8 @@ msgid "Link 1 URL"
 msgstr ""
 
 #: guide/forms/cobranding.py:24
-msgid "Or leave this blank to have plain text.  All these links are optional."
+msgid ""
+"Or leave this blank to have plain text.  All these links are optional."
 msgstr ""
 
 #: guide/forms/cobranding.py:26
@@ -971,7 +974,8 @@ msgid "Three things to remember..."
 msgstr ""
 
 #: guide/templates/firsttime.html:38
-msgid "Miro lets you subscribe to channels for free (they go to your sidebar)"
+msgid ""
+"Miro lets you subscribe to channels for free (they go to your sidebar)"
 msgstr ""
 
 #: guide/templates/firsttime.html:39
