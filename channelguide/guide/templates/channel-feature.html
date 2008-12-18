@@ -3,21 +3,19 @@ Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
 {% load i18n cg_helpers %}
-<li>
-  <div class="featuredItem">
-    {% block screenshot %}
-      <a {% link channel.get_url %}>
-	<img class="hd_tag_large"
-             src="{{ STATIC_BASE_URL }}images/ico_hd_tag_large.png" alt="" />
-        {{ channel.thumb_194_130 }}
-      </a>
-    {% endblock screenshot %}
-  </div>
-  <a {{ channel.subscription_link }} class="large_green_button2">
-    {% trans "ADD TO YOUR SITES" %}
+<div class="featuredItem">
+  {% block screenshot %}
+  <a {% link channel.get_url %}>
+    <img class="hd_tag_large"
+         src="{{ STATIC_BASE_URL }}images/ico_hd_tag_large.png" alt="">
+    {{ channel.thumb_194_130 }}
   </a>
-  <span class="title">
-    {{ channel.name_as_link }}
-  </span>
-  <span class="description">{{ channel.description }}</span>
-</li>
+  {% endblock screenshot %}
+</div>
+<a {{ channel.subscription_link }} class="large_green_button2">
+  {% trans "ADD TO YOUR SITES" %}
+</a>
+<span class="title">
+  {{ channel.name_as_link }}
+</span>
+<span class="description">{{ channel.description }}</span>

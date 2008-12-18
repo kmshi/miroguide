@@ -63,6 +63,73 @@ def get_new_channels(request, type, count):
 def get_categories(connection):
     return Category.query(on_frontpage=True).order_by('name').execute(connection)
 
+def get_category_channels(request, category):
+    category.join('channels').execute(request.connection)
+    query = Channel.query_approved(archived=0, user=request.user)
+    query.join("categories")
+    query.where(Channel.c.id.in_(c.id for c in category.channels))
+    query.load('subscription_count_month')
+    query.order_by('subscription_count_month', desc=True)
+    query.limit(6)
+#    query.cacheable = cache.client
+#    query.cacheable_time = 300
+    popular_channels = []
+    for channel in _filter_categories(query.execute(
+        request.connection), 2):
+        popular_channels.append(channel)
+        yield channel
+
+    query = Channel.query_approved(archived=0, user=request.user)
+    query.join('categories')
+    query.limit(6)
+    query.where(Channel.c.id.in_(c.id for c in category.channels))
+    if popular_channels:
+        query.where(Channel.c.id.not_in(c.id for c in popular_channels))
+    query.order_by('RAND()')
+    random_channels = list(query.execute(request.connection))
+    for channel in _filter_categories(query.execute(request.connection), 2):
+        yield channel
+
+def get_adjecent_category(dir, name, connection):
+    query = Category.query().load('channel_count')
+    if dir == 'after':
+        query.where(Category.c.name > name).order_by('name')
+    else:
+        query.where(Category.c.name < name).order_by('name', desc=True)
+    return query.limit(1).get(connection)
+
+# category peeks are windows into categories that show a few (6) channels.
+def get_peeked_category(connection, get_params):
+    try:
+        dir, name = get_params['category_peek'].split(':')
+    except:
+        query = Category.query().load('channel_count')
+        query.where(Category.c.on_frontpage==True)
+        return util.select_random(connection, query)[0]
+    try:
+        return get_adjecent_category(dir, name, connection)
+    except LookupError:
+        if dir == 'after':
+            query = Category.query().order_by('name')
+        else:
+            query = Category.query().order_by('name', desc=True)
+        return query.limit(1).get(connection)
+
+def make_category_peek(request):
+    try:
+        category = get_peeked_category(request.connection, request.GET)
+    except IndexError: # no categories defined
+        return None
+    name = urllib.quote_plus(category.name)
+    return {
+            'category': category,
+            'channels': get_category_channels(request, category),
+            'prev_url': '?category_peek=before:%s' % name,
+            'next_url': '?category_peek=after:%s' % name,
+            'prev_url_ajax': 'category-peek-fragment?category_peek=before:%s' % name,
+            'next_url_ajax': 'category-peek-fragment?category_peek=after:%s' % name,
+    }
+
 @cache.cache_for_user
 def index(request):
     if not request.user.is_authenticated():
@@ -78,6 +145,7 @@ def index(request):
         'featured_channels': featured_channels[:2],
         'featured_channels_hidden': featured_channels[2:],
         'categories': get_categories(request.connection),
+        'category_peek': make_category_peek(request),
         'recommended': [],
         }
     if request.user.is_authenticated():

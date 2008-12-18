@@ -53,7 +53,7 @@ See LICENSE for details.
 	<div id="innerContent">
 	  <ul>
             {% for channel in featured_channels %}
-              {% show_channel_feature channel %}
+              <li>{% show_channel_feature channel %}</li>
             {% endfor %}
             {% for channel in featured_channels_hidden %}
               <li class="column">
@@ -100,178 +100,119 @@ See LICENSE for details.
   {% if language %}
   <a {% link language.get_url %}>
     <h1>{% trans "Channels in" %} {% trans language.name %}</h1>
-      </a>
-    {% endif %}
-    <div class="column-section">
-      {% threecolumns %}
-      <h2>
-        {% blocktrans with category_peek.category.link as category %}
-          Category: {{ category }}
-        {% endblocktrans %}
-      </h2>
-      <ul class="front-page-list">
-        {% for channel in category_peek.channels %}
-          <li>{% show_channel_in_category channel %}</li>
-        {% endfor %}
-      </ul>
-      <div class="view-all-link">
-        <a href="{{ category_peek.category.get_url }}">
-          {% blocktrans with category_peek.category as category_name %}
-            View All {{ category_name }}
-          {% endblocktrans %} &raquo;</a>
-      </div>
-      {% splitcolumns %}
-      {% if language %}
-        <h2>
-          <a {% link language.get_absolute_url %}>
-            {% trans "Popular Today in" %} {% trans language.name %}
-          </a>
-        </h2>
-      {% else %}
-        <h2>
-          <a {% link "channels/popular" %}>{% trans "Popular Today" %}</a>
-        </h2>
-      {% endif %}
-      <span class="small horizontal">
-        <a class="add"
-           href="http://subscribe.getmiro.com/?url1=https://www.miroguide.com/rss/featured">
-          <span class="icon"></span>
-          <span class="only-in-miro">
-            Add "Popular" Previews Channel
-          </span>
-          <span class="only-in-browser">
-            Subscribe to "Popular" Channel
-          </span>
-        </a>
-      </span>
-      <ul class="front-page-list">
-        {% for channel in popular_channels %}
-          <li>{% show_channel_mini channel "subscribers" %}</li>
-        {% endfor %}
-      </ul>
-      <div class="view-all-link">
-        <a href="{{ BASE_URL }}channels/popular">
-          {% trans "View All Popular" %} &raquo;
-        </a>
-      </div>
-      {% if language %}
-        <div class="view-all-link">
-          <a href="{{ language.get_absolute_url }}?view=date">
-            {% trans "View All Popular in" %} {% trans language.name %} &raquo;</a>
+  </a>
+  {% endif %}
+
+  <div id="container">
+    <div id="contentSmall">
+      <div class="detailsHead3">
+        <h3 class="resultsCount">
+          <span class="heading">{% trans "New Videos" %}</span>
+        </h3>
+        <div class="sortType">
+          <a href="#">{% trans "All" %}</a> {# TODO: add link #}
         </div>
-      {% endif %}
-      {% splitcolumns %}
-      <h2>
-        <a {% link "channels/recent" %}>
-          {% if language %}
-            {% trans "Just Added In" %} {% trans language.name %}
-          {% else %}
-            {% trans "Just Added" %}
-          {% endif %}
-        </a>
-      </h2>
-      <span class="small horizontal">
-        <a class="add"
-           href="http://subscribe.getmiro.com/?url1=https://www.miroguide.com/rss/new">
-          <span class="icon"></span>
-          <span class="only-in-miro">
-            Add "New" Previews Channel
-          </span>
-          <span class="only-in-browser">
-            Subscribe to "New" Channel
-          </span>
-        </a>
-      </span>
-      <ul class="front-page-list">
+      </div>
+      
+      <ul class="newVideos">
         {% for channel in new_channels %}
           <li>{% show_channel_mini channel "episodes" %}</li>
+
+          {% ifequal forloop.counter 3 %}
+            <!-- prevents float when a description is too long. -->
+            <li class="separator"><br clear="all" /></li>
+          {% endifequal %}
         {% endfor %}
       </ul>
-      <div class="view-all-link">
-        <a href="{{ BASE_URL }}channels/recent">
-          {% trans "View All New" %} &raquo;
-        </a>
-      </div>
-      {% if language %}
-        <div class="view-all-link">
-          <a href="{{ language.get_absolute_url }}?view=date">
-            {% trans "View All New in" %} {% trans language.name %} &raquo;
-          </a>
-        </div>
-      {% endif %}
-      {% endthreecolumns %}
-      <div class="clear"></div>
     </div>
+    
+    <div class="box_ad">
+      <a href="#"><img src="{{ STATIC_BASE_URL }}images/ads/300x250.jpg" alt="" /></a>
+      <span class="tag">
+        {% trans "Please support our sponsors" %}
+      </span>
+      <span class="link"><a href="#">{% trans "Become One" %}</a></span>
+    </div><!--box_ad-->
+    
+  </div><!--container-->
+  
+  <div id="channelEpisodes">
+    <div class="page">
+      <div class="pageContent">
+        <div class="detailsHead">
+          <h3 class="resultsCount">
+            <span class="heading">{% trans "Genres" %}</span>
+          </h3>
+          <div class="sortType">
+            <a href="#">{% trans "All" %}</a>
+          </div>
+        </div><!--detailsHead-->
+        
+        <a href="#" class="view_all_videos">View all of <strong>Business</strong></a>
+        
+        <br clear="all" />
 
-    <div class="category-list">
-      <h2>{% trans "Categories" %}</h2>
-      {% fourcolumnloop with category in categories rotated %}
-        <a {% link category.get_url %}>{{ category.name }}</a>
-      {% endfourcolumnloop %}
-    </div>
-
-    <div class="links">
-      {% twocolumns %}
-      <div class="blog-posts">
-        <h2>{% trans "Recent News" %}</h2>
-        <ul>
-          {% for post in blog_posts %}
-            <li class="blog-post">
-                {% autoescape off %}
-                  <h3 class="title">{{ post.title }}</h3>
-                  {{ post.body|truncatewords:15 }}
-                {% endautoescape %}
-              <a href="{{ post.url }}">{% trans "read more" %}</a>
-            </li>
+        <ul class="scrollNav">
+          <li class="button_up"><a href="#">Up</a></li>
+          {% for category in categories %}
+            <li><a {% link category.get_url %}>{{ category.name }}</a></li>
+          {% endfor %}
+          {% comment %}
+            <li><a href="#">Activism</a></li>
+            <li><a href="#">Animals</a></li>
+            <li><a href="#">Animation</a></li>
+            <li><a href="#">Arts</a></li>
+            <li><a href="#">Business</a></li>
+            <li><a href="#">Comedy</a></li>
+            <li><a href="#">Education</a></li>
+            <li><a href="#">Environment</a></li>
+            <li><a href="#">Family</a></li>
+            <li><a href="#">Food</a></li>
+            <li><a href="#">Government</a></li>
+            <li><a href="#">Health</a></li>
+            <li><a href="#">International</a></li>
+            <li><a href="#">Kids</a></li>
+            <li><a href="#">Mac</a></li>
+            <li><a href="#">Movies &amp; TV</a></li>
+            <li><a href="#">Religion</a></li>
+          {% endcomment %}
+          <li class="button_down"><a href="#">Down</a></li>
+        </ul>
+        
+        <ul class="searchResults">
+          {% for channel in category_peek.channels %}
+            <li>{% show_channel_in_category channel %}</li>
           {% endfor %}
         </ul>
-        <h3>
-          <a href="http://www.getmiro.com/news/">
-            {% trans "Miro Blog" %} &raquo;</a>
-        </h3>
       </div>
-      {% splitcolumns %}
-      <div class="help-links">
-        <h2>{% trans "Submit a Channel" %}</h2>
-        <p>{% trans "The guide is open to everyone.  Do you have an RSS feed?  Do you know of a great feed that isn't listed in the guide?" %}
-          <BR>
-          <a {% link "/channels/submit" %}>
-            {% trans "Submit a channel to the Guide!" %}
-          </a>
-        </p>
-        <!--
-        <p>{% trans "Want to make your own channel?" %}
-        <a href="http://www.promotevideofeed.com/" >{% trans "Here's How." %}</a>
-        </p>
-        -->
-        <p>
-          {% trans "Need information on shooting video and creating a channel?" %}
-          <a href="http://www.makevideofeed.com/" >
-            {% trans "Tutorials and Resources" %}
-          </a>
-        </p>
-        <h2>{% trans "Get Help" %}</h2>
-        <p>
-          {% trans "Do you have any questions about the Guide or Miro?" %}
-          <BR>
-          {% trans "Are you running into problems?" %}
-          <a href="http://getdemocracy.com/help">
-            {% trans "Check out our help page." %}
-          </a>
-        </p>
-      </div>
-      {% endtwocolumns %}
-    </div>
+      
+      <div class="pageSideBar">
+        <div id="sideBarSmall">
+          <div class="detailsHead2">
+            <h3 class="resultsCount">
+              <span class="heading">
+                {% trans "Videos You'll Love" %}
+              </span>
+            </h3>
+            <div class="sortType">
+              <a href="#">{% trans "All" %}</a>
+            </div>
+          </div>
+          <div class="widget_small">
+            <ul class="related">
+              {% comment %}
+              {% for channel in love_channels %}
+                <li>
+                  {% show_channel_mini channel "episodes" %}
+                </li>
+              {% endfor %}
+              {% endcomment %}
+            </ul>
+          </div><!--widget-->
 
-    <div class="clear"></div>
+        </div><!--sideBarSmall-->
+      </div><!--pageSideBar-->
+    </div><!--page-->
+  </div><!--channelEpisodes-->
 
-    <div class="about">
-      {% trans "The Miro Guide is part of the Miro Internet TV Platform." %}<BR>
-      {% trans "Miro is made by the Participatory Culture Foundation, a non-profit organization." %}<BR>
-      {% trans 'Visit <a href="http://www.getmiro.com/">getmiro.com</a> for more information' %}<BR>
-      <a class="copyright-claim" href="{{ BASE_URL }}dmca">
-        {% trans "DMCA claims and copyright information" %}
-      </a>
-    </div>
-  </div>
 {% endblock %}

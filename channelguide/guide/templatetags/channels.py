@@ -139,7 +139,12 @@ def show_channel_mini(context, channel, count):
             'request': context['request']
             }
 
-    return { 'channel': channel }
+@register.inclusion_tag('guide/channel-medium.html', takes_context=True)
+def show_channel_medium(context, channel, count):
+    return {'channel': channel, 'count': count, 
+            'STATIC_BASE_URL': settings.STATIC_BASE_URL,
+            'request': context['request']
+            }
 
 @register.inclusion_tag('guide/sort-bar.html', takes_context=True)
 def sort(context):

@@ -3,34 +3,12 @@ Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
 {% load i18n cg_helpers channels %}
-<div class="channel channel-mini">
-    <div class="info">
-        <h3 class="title">{{ channel.name_as_link }}</h3>
-        {% ifequal count "subscribers" %}
-        <div class="count">
-            {% blocktrans with channel.subscription_count_today as count %}
-            {{ count }} subscribes today
-            {% endblocktrans %}
-        </div>
-        {% show_small_rating_stars channel %}
-        {% endifequal %}
-        {% ifequal count "episodes" %}
-        {% if channel.item_count %}
-        <div class="count">
-            {% blocktrans with channel.item_count as count %}
-            {{ count }} shows
-            {% endblocktrans %}
-        </div>
-        {% endif %}
-        {% endifequal %}
-    </div>
-    <div class="screenshot">
-            {% if channel.archived %}
-            <div class="archived">{% trans "archival" %}</div>
-            {% endif %}
-        <a {% link channel.get_url %}>{{ channel.thumb_60_40 }}</a>
-        {% if channel.hi_def %}
-            <img class="hd-icon-small" src="{{ STATIC_BASE_URL }}images/hd-icon-small.png" alt="HD">
-        {% endif %}
-    </div>
+<div class="thumb">
+  <img class="hd_tag_tiny"
+       src="{{ STATIC_BASE_URL }}images/ico_hd_tag_tiny.png" alt="">
+  <a {% link channel.get_url %}>
+    {{ channel.thumb_98_68 }}
+  </a>
 </div>
+<a {% link channel.get_url %} class="add_feed_button">ADD FEED</a>
+<p><a href="{{ channel.get_absolute_url }}">{{ channel.name }}</p>

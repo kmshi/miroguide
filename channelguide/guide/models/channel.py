@@ -51,7 +51,9 @@ class Channel(Record, Thumbnailable):
     THUMBNAIL_SIZES = [
             (60, 40),
             (95, 63),
+            (98, 68),
             (120, 80),
+            (141, 97),
             (165, 110),
             (194, 130),
             (200, 133),
