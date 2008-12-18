@@ -58,6 +58,7 @@ class Channel(Record, Thumbnailable):
             (194, 130),
             (200, 133),
             (245, 164),
+            (247, 162),
             (252, 169),
             (370, 247),
     ]
@@ -504,7 +505,9 @@ class Channel(Record, Thumbnailable):
 
     def _thumb_html(self, width, height):
         thumb_url = self.thumb_url(width, height)
-        return util.mark_safe('<img src="%s" alt="%s">' % (thumb_url, cgi.escape(self.name)))
+        return util.mark_safe(
+            '<img class="hasCorners" src="%s" alt="%s">' %
+            (thumb_url, cgi.escape(self.name)))
 
     def fake_feature_thumb(self):
         thumb_url = self.thumb_url(252, 169)
