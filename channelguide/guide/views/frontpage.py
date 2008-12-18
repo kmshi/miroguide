@@ -134,8 +134,8 @@ def make_category_peek(request):
 def index(request):
     featured_channels = get_featured_channels(request)
     context = {
-        'streaming': get_new_channels(request, False, 4),
-        'new_channels': get_new_channels(request, True, 7),
+        #'streaming': get_new_channels(request, False, 4),
+        'new_channels': get_new_channels(request, True, 6),
         'featured_channels': featured_channels[:2],
         'featured_channels_hidden': featured_channels[2:],
         'categories': get_categories(request.connection),
