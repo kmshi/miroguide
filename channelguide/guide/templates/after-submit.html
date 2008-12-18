@@ -1,49 +1,67 @@
-{% extends 'old.html' %}
+{% extends 'base.html' %}
+
 {% comment %}
 Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
+
 {% load i18n %}
+
 {% block content %}
-<div class="submit-thanks-page">
-<h1>{% trans "Thanks for Submitting Your Channel" %}</h1>
-<p>{% trans "Your channel has been submitted!" %}</p>
-
-<p>{% blocktrans %}
-Our moderators will review your channel in the next few days to make
-sure that it works in Miro and that the content is not
-inappropriate.  Once the channel is approved, it will appear in the
-'Just Added' section on the front page.
-{% endblocktrans %}</p>
-
-<h1>{% trans "Updating Your Channel Info" %}</h1>
-<p>{% blocktrans %}
-You can update the details about your channel at anytime.  Just login
-to your account and click the 'My Submitted Channels' link.
-{% endblocktrans %}</p>
-
-<h1>{% trans "Add a 1-Click Subscribe Button to Your Website" %}</h1>
+  <div class="submit-thanks-page">
+    <h1>{% trans "Thanks for Submitting Your Channel" %}</h1>
+    <p>{% trans "Your channel has been submitted!" %}</p>
+  
+    <p>
+      {% blocktrans %}
+        Our moderators will review your channel in the next few days to make
+        sure that it works in Miro and that the content is not
+        inappropriate.  Once the channel is approved, it will appear in the
+        'Just Added' section on the front page.
+      {% endblocktrans %}
+    </p>
+  
+    <h1>{% trans "Updating Your Channel Info" %}</h1>
+    <p>
+      {% blocktrans %}
+        You can update the details about your channel at anytime.  Just
+        login to your account and click the 'My Submitted Channels'
+        link.
+      {% endblocktrans %}
+    </p>
+  
+    <h1>{% trans "Add a 1-Click Subscribe Button to Your Website" %}</h1>
     <div id="one-click-example">
-        <img src="{{ STATIC_BASE_URL }}images/1click-example.jpg">
-        <span>{% trans 'Visit <a href="http://webbalert.com/">webbalert.com</a> to see a real 1-click button in action' %}</span>
+      <img src="/images/1click-example.jpg">
+      <span>
+        {% blocktrans %}
+          Visit <a href="http://webbalert.com/">webbalert.com</a> to see
+          a real 1-click button in action
+        {% endblocktrans %}
+      </span>
     </div>
-    <p>{% blocktrans %}The buttons below point to the feed you've just submitted-- just
-paste the HTML into your blog or website. When users click on the
-button, Miro will open and they will be automatically subscribed to
-your channel.{% endblocktrans %}</p>
-<p>{% blocktrans %}1-click buttons are a great way to get your viewers connected to your
-content on an ongoing basis. If you have any questions about the
-buttons, email: channels [at] pculture [d] org.{% endblocktrans %}</p>
+  
+    <p>
+      {% blocktrans %}
+        The buttons below point to the feed you've just submitted-- just
+        paste the HTML into your blog or website. When users click on
+        the button, Miro will open and they will be automatically
+        subscribed to your channel.
+      {% endblocktrans %}
+    </p>
+  
+    <p>
+      {% blocktrans %}
+        1-click buttons are a great way to get your viewers connected to
+        your content on an ongoing basis. If you have any questions
+        about the buttons, email: channels [at] pculture [d] org.
+      {% endblocktrans %}
+    </p>
+  
     <div class="one-click-button">
-      <ul>
-        <form name="buttoncode">
-            {% for button in buttons %}
-               <li>{% autoescape off %}{{ button }}{% endautoescape %}
-                 <span>html:<input size="40" name="btn{{ forloop.counter0 }}" value="{% autoescape on %}{{ button }}{% endautoescape %}" onclick="document.buttoncode.btn{{ forloop.counter0 }}.select();" /></span>
-               </li>
-            {% endfor %}
-         </form>
-         <li><h3><a href="{{ subscribe }}">Your 1-Click Subscribe URL</a></h3></li>
-       </ul>
+      {% autoescape off %}
+        {{ html }}
+      {% endautoescape %}
     </div>
-{%endblock%}
+  </div>
+{% endblock %}
