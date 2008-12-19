@@ -29,7 +29,7 @@ function setUpItem() {
 }
 
 function playVideo() {
-    if ($("#channelDetails .thumb .channel_hd").length) {
+    if ($("#channelEpisodes .thumb .channel_hd").length) {
         if (!confirm('Are you sure you want to stream this High-Definition video?'))
             return;
     }
