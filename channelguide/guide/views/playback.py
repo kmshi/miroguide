@@ -56,8 +56,29 @@ def embed_code(item):
 def item(request, id):
     item = util.get_object_or_404(request.connection,
                                   Item.query().join('channel'), id)
+    previousSet = Item.query(Item.c.channel_id == item.channel_id,
+                             Item.c.date < item.date).limit(1).order_by(
+        Item.c.date, desc=True).execute(request.connection)
+    if previousSet:
+        previous = previousSet[0]
+        print previous.date
+    else:
+        previous = None
+
+    print item.date
+
+    nextSet = Item.query(Item.c.channel_id == item.channel_id,
+                         Item.c.date > item.date).limit(1).order_by(
+        Item.c.date, ).execute(request.connection)
+    if nextSet:
+        next = nextSet[0]
+        print next.date
+    else:
+        next = None
     return util.render_to_response(request, 'playback.html',
                                    {'item': item,
+                                    'previous': previous,
+                                    'next': next,
                                     'embed': util.mark_safe(embed_code(item)),
                                     })
 
