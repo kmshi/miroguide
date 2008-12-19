@@ -133,18 +133,17 @@ def make_category_peek(request):
 @cache.cache_for_user
 def index(request):
     featured_channels = get_featured_channels(request)
-    context = {
-        #'streaming': get_new_channels(request, False, 4),
+    recommended = []
+    if request.user.is_authenticated():
+        recommended = api.get_recommendations(
+            request.connection, request.user, length=2)
+
+    return util.render_to_response(request, 'frontpage.html', {
         'new_channels': get_new_channels(request, True, 6),
         'featured_channels': featured_channels[:2],
         'featured_channels_hidden': featured_channels[2:],
+        'recommended': recommended,
         'categories': get_categories(request.connection),
         'category_peek': make_category_peek(request),
-        'recommended': [],
-        }
-    if request.user.is_authenticated():
-        context['recommended'] = api.get_recommendations(request.connection,
-                                                         request.user,
-                                                         length=2)
-
-    return util.render_to_response(request, 'frontpage.html', context)
+        'language' : get_current_language(request),
+    })
