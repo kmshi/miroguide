@@ -1,20 +1,18 @@
 .rating {
     cursor: pointer;
     margin: 0;
-    padding: 0;
     display: block;
     vertical-align: top;
-    height: 16px;
+    width: 150px;
+    height: 0px;
     overflow: hidden;
     float: left;
 }
-ul.rating li.score {font-size: 9px; color: #818181; padding: 3px 0 0 10px;}
-ul.rating li.score strong {color: #191919;}
 
-.rating .score {
-    width: 78px;
+.rating.small {
+    width: 150px;
 }
-.rating li {
+.rating input {
     display: inline;
 }
 
@@ -29,23 +27,34 @@ ul.rating li.score strong {color: #191919;}
 .cancel,
 .star {
     float: left;
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     overflow: hidden;
     text-indent: -999em;
     cursor: pointer;
 }
 
-.rating .saving {
-    display: none;
-    width: 96px; // 6 * 16px;
+.small .cancel, .small .star {
+    width: 15px;
+    height: 15px;
 }
-    
-.cancel a {background: url(images/no-star.png) no-repeat 0 0px;}
+.cancel,
+.cancel a {background: url(/images/big_no-nos.png) no-repeat 0 0px;}
 
-.star.userrating a {background: url(images/user-star.png) no-repeat 0 0px;}
+.small .cancel,
+.small .cancel a { background-image: url(/images/small_no-nos.png);}
 
-.star, .star.averagerating a {background: url(images/avg-star.png) no-repeat 0 0px;}
+.star.userrating,
+.star.userrating a {background: url(/images/big_stars_user.png) no-repeat 0 0px;}
+
+.small .star.userrating,
+.small .star.userrating a {background-image: url(/images/small_stars_user.png);}
+
+.star.averagerating,
+.star.averagerating a {background: url(/images/big_stars.png) no-repeat 0 0px;}
+
+.small .star.averagerating,
+.small .star.averagerating a {background-image: url(/images/small_stars.png);}
 
 .cancel a,
 .star a {
@@ -55,13 +64,22 @@ ul.rating li.score strong {color: #191919;}
     background-position: 0 0px;
 }
 
-.rating .star.on a,
-.rating .cancel.on a {
+div.rating div.on a {
     display: block;
-    background-position: 0 -15px;
+    background-position: 0 -38px;
 }
 
-.rating .hover a {
+div.rating.small div.on a {
+    background-position: 0 -32px;
+}
+
+div.rating div.hover a,
+div.rating div a:hover {
     display: block;
-    background-position: 0 -31px;
+    background-position: 0 -19px;
+}
+
+div.rating.small div.hover a,
+div.rating.small div a:hover {
+    background-position: 0 -16px;
 }
