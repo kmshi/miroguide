@@ -168,7 +168,7 @@ See LICENSE for details.
           
           <ul class="searchResults">
             {% for channel in category_peek.channels %}
-              <li>{% show_channel_in_category channel %}</li>
+              <li>{% include "guide/channel-in-category.html" %}</li>
             {% endfor %}
           </ul>
         </div>

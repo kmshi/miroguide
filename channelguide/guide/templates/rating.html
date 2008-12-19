@@ -10,7 +10,7 @@
       {% else %}
         title="Average Rating: {{ rating.average_rating }}"
       {% endif %}
-      action="/channels/rate/{{ rating.channel_id }}">
+      action="/channels/{{ rating.channel_id }}/rate/">
   <input type="hidden" name="referer" value="{{ referer }}">
   <label for="r1" class="avg">
     {% if rating.average_rating %}

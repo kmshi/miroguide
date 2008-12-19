@@ -1,9 +1,8 @@
-/**
+/*
  * Star Rating - jQuery plugin
  *
  * Copyright (c) 2007 Wil Stuckey
- * Modified by John Resig
- * Modified heavily by Paul Swartz
+ * Modified by John Resig and Paul Swartz
  *
  * Dual licensed under the MIT and GPL licenses:
  *   http://www.opensource.org/licenses/mit-license.php
@@ -11,73 +10,74 @@
  *
  */
 
-/**
- * The original code created a star rating widget out of a form combo box.
- * Paul Swartz reworked the code so that it's based on an unordered list
- * of links, so that it looks like stars even when Javascript isn't available.
- * It also supports displaying different stars for an average rating and for
- * a rating that comes from a user.
+/*
+ * Create a degradeable star rating interface out of a simple form structure.
+ * Returns a modified jQuery object containing the new interface.
+ *   
+ * @example jQuery('form.rating').rating();
+ * @cat plugin
+ * @type jQuery 
+ *
  */
 jQuery.fn.rating = function(){
     return this.each(function(){
-        var ratingValue;
-        var ul = jQuery(this);
-        if (ul.attr('user')) {
-            ratingValue = parseFloat(ul.attr('user'));
-        } else {
-            ratingValue = parseFloat(ul.attr('average'));
-        }
+        var div = jQuery("<div/>").attr({
+            title: this.title,
+            className: this.className
+        });
+        var names = star_names;
 
-        var ratingType = (ul.find('li').hasClass('userrating') ?
-                          'userrating' : 'averagerating');
-        var ratingIndex = parseInt(ratingValue);
+        jQuery(this).find("select option").each(function(){
+            div.append( this.value == "0" ?
+                "<div class='cancel'><a href='#0' title='" + names[this.value] + "'></a></div>" :
+                "<div class='star'><a href='#" + this.value + "' title='" + names[this.value] + "'>" + this.value + "</a></div>" );
+        });
+
+        var ratingType;
+        if (this.title.split(/ /)[0] == "User") {
+            ratingType = "userrating";
+        } else {
+            ratingType = "averagerating";
+        }
+        var ratingValue = this.title.split(/:\s*/)[1],
+            url = this.action,
+            ratingIndex = parseInt(ratingValue);
         var ratingPercent = (parseFloat(ratingValue) - ratingIndex) * 10;
 
         // hover events and focus events added
-        var stars = ul.find("li.star")
+        var stars = div.find("div.star")
             .mouseover(drainFill).focus(drainFill)
             .mouseout(drainReset).blur(drainReset)
-            .click(click).each(setURL);
+            .click(click);
 
         // cancel button events
-        var cancel = ul.find("li.cancel")
+        var cancel = div.find("div.cancel")
             .mouseover(drainAdd).focus(drainAdd)
             .mouseout(resetRemove).blur(resetRemove)
-            .click(click).each(setURL);
+            .click(click);
 
         reset();
 
-        function setURL(elem) {
-            // this moves the link to the li, so that the crazy URL
-            // doesn't show up in the status bar
-            a = jQuery(this).find('a');
-            a.parent().attr('href',a[0].href);
-            a.removeAttr('href');
-        }
-        
+        div.insertAfter(this);
+
         function drainFill(){ drain(); fill(this); }
         function drainReset(){ drain(); reset(); }
-        function resetRemove(){ jQuery(this).removeClass('hover'); reset();}
-        function drainAdd(){ drain(); jQuery(this).addClass('hover'); }
+        function resetRemove(){ jQuery(this).removeClass('on'); reset();}
+        function drainAdd(){ drain(); jQuery(this).addClass('on'); }
 
         function click(){
             ratingValue = ratingIndex = stars.index(this) + 1;
             ratingPercent = 0;
             ratingType = "userrating"
-            url = jQuery(this).attr('href');
-            var request = jQuery.get(url);
-            stars.hide();
-            cancel.hide()
-            ul.find('.saving').show();
+            var request = jQuery.get(url,{
+                rating: jQuery(this).find('a')[0].href.slice(-1)
+            });
             request.onreadystatechange = function() {
-                if (request.readyState == 4) {
-                    ul.find('.saving').hide();
-                    stars.show();
-                    cancel.show();
+                if (request.readyState == 4 && request.status == 302)
+                    document.location = request.getResponseHeader('Location');
+                if (request.readyState == 4 && request.status == 200) {
                     if (request.responseText.indexOf('<div class="login-page">') != -1) {
-                        // user isn't logged in, go go to the URL directly
-                        // and it'll redirect to the login page
-                        document.location = url;
+                        document.location = url+'?rating=' + ratingValue;
                     }
                 }
             };
@@ -86,8 +86,8 @@ jQuery.fn.rating = function(){
 
         // fill to the current mouse position.
         function fill( elem ){
-            stars.slice(0, stars.index(elem) + 1 ).addClass("hover")
-            .find('a').width('100%');
+            stars.find("a").css("width", "100%");
+            stars.slice(0, stars.index(elem) + 1 ).addClass("hover");
         }
     
         // drain all the stars.
@@ -109,7 +109,7 @@ jQuery.fn.rating = function(){
                 cancel.addClass('on');
             }
         }
-    });
+    }).remove();
 };
 
 // fix ie6 background flicker problem.
@@ -117,7 +117,14 @@ if ( jQuery.browser.msie == true )
     document.execCommand('BackgroundImageCache', false, true);
 
 $(document).ready(function () {
-/*    try {*/
-        $("ul.rating").rating();
-/*    } catch (e) {}*/
+    try {
+        $("form.rating").rating('', {maxvalue:5});
+    } catch (e) {}
+    $('.rating').each(function() {
+        var height = 25;
+        // if ($(this).hasClass('small')) {
+        //     height = 13;
+        // }
+        $(this).height(height);
+    })
 });
