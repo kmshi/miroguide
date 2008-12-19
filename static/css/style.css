@@ -2213,6 +2213,7 @@ ul.paginator2 li span {
     height: 24px;
     float: left;
     display: inline;
+    padding: 1px 10px 0;
 }
 
 ul.paginator2 li.selected {
