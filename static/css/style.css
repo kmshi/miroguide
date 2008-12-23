@@ -1320,6 +1320,10 @@ h3.resultsCount .pagination {
     width: 502px;
 }
 
+#channelEpisodes .details .playback {
+    display: none;
+}
+
 #channelEpisodes .details .thumb, #channelEpisodes .detailsLarge .thumb {
     width: 98px;
     float: left;

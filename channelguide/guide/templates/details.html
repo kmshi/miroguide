@@ -2,6 +2,7 @@
 {% load channels rating%}
 {% block head %}
   {% rating_header %}
+  <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/playback.js"></script>
 {% endblock %}
 {% block body %}
         {% edit_bar channel %}
@@ -68,6 +69,9 @@ $("#channelDetails h4").click(function() {
             {% for item in items %}
               {% item item %}
             {% endfor %}
+            <script type="text/javascript">
+                $("#recentlyOnChannel div.details").each(setUpItem);
+            </script>
           </div><!--page-->
 	</div>
         {% endif %}

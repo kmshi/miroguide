@@ -64,6 +64,8 @@ urlpatterns += patterns('channelguide.guide.views.channels',
                         (r'^(feeds|shows)/', cg_include('channels')),
                         )
 
+urlpatterns += patterns('channelguide.guide.views.playback',
+                        (r'^items/(\d+)$', 'item'))
 
 # donation pages
 def donate_render(request, template):

@@ -631,3 +631,9 @@ def latest(request, id):
         raise Http404
     else:
         return util.redirect(items[0].url)
+
+def item(request, id):
+    item = util.get_object_or_404(request.connection,
+                                  Item.query().join('channel'), id)
+    return util.render_to_response(request, 'playback.html',
+                                   {'item': item})
