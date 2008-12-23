@@ -7,7 +7,7 @@
        onmouseout="return hideMenu('hoverMenuLogin', 'account', event)">
     <ul>
       {% if user.is_moderator %}
-        <li id="login">
+        <li>
           <a href="{{ BASE_URL }}moderate/">{% trans "Moderator's Area" %}</a>
         </li>
       {% endif %}
