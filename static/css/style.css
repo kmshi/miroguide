@@ -127,10 +127,6 @@ h1, h2, h3, h4, h5 {
     width: 100%;
 }
 
-#topBar .page {
-    border-right: 1px solid #76181b;
-}
-
 #topBarLower {
     background: url(/images/lower_top_bar_bg.png) 0 0 repeat-x;
     height: 25px;
@@ -2410,6 +2406,7 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
     z-index: 3;
     background: #8d2427 url(/images/search_bg.png) top left no-repeat;
     border-left: 1px solid #510309;
+    border-right: 1px solid #76181b;
 }
 
 #searchSpot input.headSearch {
