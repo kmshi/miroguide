@@ -127,11 +127,6 @@ h1, h2, h3, h4, h5 {
     width: 100%;
 }
 
-#topBar .page {
-    background: url(/images/top_bar_bg.png) 0 0 repeat-x;
-    border-right: 1px solid #76181b;
-}
-
 #topBarLower {
     background: url(/images/lower_top_bar_bg.png) 0 0 repeat-x;
     height: 25px;
@@ -140,7 +135,8 @@ h1, h2, h3, h4, h5 {
 }
 
 #featured {
-    padding: 17px 0;
+    padding: 17px 0 0;
+    margin: 0;
 }
 
 #featured .page {
@@ -317,7 +313,7 @@ h1, h2, h3, h4, h5 {
     float: left;
     display: inline;
     font-size: 25px;
-    margin: 13px 0 0 0;
+    margin: 16px 0 0 2px;
 }
 
 .infoBox h1.lovedVideos {
@@ -334,7 +330,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .infoBar .innerBar {
-    width: 782px;
+    width: 773px;
     margin: 0 auto;
     height: 31px;
     line-height: 31px;
@@ -342,17 +338,15 @@ h1, h2, h3, h4, h5 {
 
 .infoBar .innerBar span.results_tag {
     color: #333;
-    width: 8.6em;
-    float: left;
     display: inline;
     font-size: 12px;
+    padding-right: 5px;
 }
 
 .infoBar .innerBar span.results {
     color: #6e6e6e;
     float: left;
     display: inline;
-    font-size: 11px;
 }
 
 .infoBar .innerBar span.extra {
@@ -774,12 +768,16 @@ ul#channelRate {
 }
 
 #channelInfo h1 {
-    margin: 0 0 0 13px;
+    margin: 1px 0 0 13px;
     padding: 0;
     line-height: 53px;
     font-size: 22px;
     float: left;
     display: inline;
+}
+
+#channelInfo .page a {
+    margin-left: 22px;
 }
 
 #channelInfo h1 img {
@@ -944,7 +942,7 @@ h3.resultsCount .pagination {
 /*Channel rating - Second level bar below title*/
 #channelRating {
     background: #ddd url(/images/channel_rating_bg.png) 0 0 repeat-x;
-    padding: 9px 0 9px 0;
+    padding: 6px 0 10px 0;
     border-top: 1px solid #cfcfcf;
     height: 17px;
 }
@@ -956,7 +954,7 @@ h3.resultsCount .pagination {
 #channelRating .rate {
     float: left;
     display: inline;
-    margin: 0 0 0 13px;
+    margin: 0 0 0 12px;
 }
 
 #channelRating .rate .tag {
@@ -988,37 +986,24 @@ h3.resultsCount .pagination {
     height: 16px;
     background: url(/images/big_no-nos.png) 0 -21px no-repeat;
     text-indent: -9999px;
-    padding: 0 1px 0;
 }
 
 #channelRating .rate .cancel:hover {
-    float: left;
-    display: inline;
-    width: 18px; 
-    height: 16px;
     background: url(/images/big_no-nos.png) 0 -0px no-repeat;
-    text-indent: -9999px;
-    padding: 1px 0;
 }
 
 #channelRating .rate .star {
     float: left;
     display: inline;
-    width: 18px;
+    width: 19px;
     height: 16px;
     cursor: pointer !important;
     background: url(/images/big_stars.png) 0 -0px no-repeat;
     text-indent: -9999px;
-    padding: 0 1px;
 }
 
 #channelRating .rate .star:hover{
-    float: left;
-    display: inline;
-    width: 18px;
-    height: 16px;
     background: url(/images/big_stars.png) 0 -19px no-repeat;
-    text-indent: -9999px;
     padding: 0 1px;
 }
 
@@ -1119,7 +1104,7 @@ h3.resultsCount .pagination {
 
 #channelDetails2 {
     background: #d3d3d3;
-    padding: 10px 0;
+    padding: 8px 0 18px;
     overflow: hidden;
     height: 100%;
     border-bottom: 1px solid #a4a4a4;
@@ -1141,15 +1126,21 @@ h3.resultsCount .pagination {
 
 #channelDetails2 .channelDetailsContent p.description {
     font-size: 13px;
-    margin: 10px 0 10px 13px;
+    margin: 5px 0 10px 13px;
     clear: both;
+    line-height: 1.5em;
 }
 
 #channelDetails2 .channelDetailsContent .tags {
     font-size: 10px;
-    padding: 4px 0 0 13px;
-    margin: 15px 0 0 0;
-    line-height: 14px;
+    padding: 20px 0 0 13px;
+    margin: 0px 0 0 0;
+}
+
+#channelDetails2 .channelDetailsContent .tags p{
+    font-size: 10px;
+    padding: 0px;
+    margin: 0px 0 5px 0;
 }
 
 #channelDetails2 .thumb {
@@ -1486,7 +1477,7 @@ h3.resultsCount .pagination {
     float: left;
     display: inline;
     overflow: hidden;
-    margin: 0 0 0 18px;
+    margin: 0 0 0 20px;
 }
 
 .feedColumn ul.searchResults {
@@ -2221,9 +2212,11 @@ ul.paginator2 li span {
 
 ul.paginator2 li.selected {
     background: url(/images/pagination2_on_left.png) 0 0 no-repeat;
+    height: 30px;
     position: relative;
+    z-index: 1;
+    color: #7badc1;
     bottom: -1px;
-    z-index: 1000;
 }
 
 ul.paginator2 li.selected span {
@@ -2291,13 +2284,11 @@ ul.scrollNav li.button_up a:hover, ul.scrollNav li.button_down a:hover {
  *****************************************************/
 
 ul#mainMenu {
-    background: url(/images/top_bar_menu_bg.png) 0 0 repeat-x;
     float: left;
     display: inline;
-    height: 34px;
+    height: 33px;
     overflow: hidden;
     list-style: none;
-    border-right: 1px solid #76181b;
     margin: 0;
     padding: 0;
     z-index: 4;
@@ -2305,15 +2296,14 @@ ul#mainMenu {
 }
 
 ul#mainMenu li {
-    background: url(/images/top_bar_menu_separator.png) top right no-repeat;
     height: 34px;
     line-height: 34px;
     font-family: "Arial Bold", Arial;
     text-transform: uppercase;
     float: left;
     display: inline;
-    padding: 0 15px;
-
+    padding: 0px;
+    border-right: 1px solid #890911;
 }
 
 ul#mainMenu li a {
@@ -2321,6 +2311,7 @@ ul#mainMenu li a {
     float: left;
     display: inline;
     height: 34px;
+    padding: 0 20px;
 }
 
 ul#mainMenu li a:hover {
@@ -2329,7 +2320,25 @@ ul#mainMenu li a:hover {
 
 ul#mainMenu li#logo {
     width: 89px;
-    padding: 0 2px 0 0;
+    padding: 0 2px 0px 0px;
+}
+
+ul#mainMenu li#logo img {
+    display: none;
+}
+
+ul#mainMenu li#logo a{
+    padding: 0px;
+    height: 33px;
+    width: 89px;
+    background: url(/images/miro.png) 0 0 no-repeat;
+}
+
+ul#mainMenu li#logo a:hover{
+    padding: 0px;
+    height: 33px;
+    width: 89px;
+    background: url(/images/miro.png) 0 -33px no-repeat;
 }
 
 
@@ -2338,7 +2347,7 @@ ul#lowerMenu {
     background: url(/images/lower_top_bar_bg.png) 0 0 repeat-x;
     height: 25px;
     list-style: none;
-    margin: 0;
+    margin: 0 0 0 8px;
     padding: 0;
 }
 
@@ -2388,34 +2397,36 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 }
 
 #searchBG {
-    height: 34px;
-    float: left; display: inline;
-    overflow: hidden;
-    width: 170px;
-    background: url(/images/search_bg.png) top left no-repeat;
+    display: none;
 }
 
 #searchSpot {
+    margin-left: -1px;
     height: 33px;
-    float: right; display: inline;
-    position: relative;
+    width: 329px;
+    float: right;
+    display: inline;
+    position: absolute;
     z-index: 3;
+    background: #8d2427 url(/images/search_bg.png) top left no-repeat;
+    border-left: 1px solid #510309;
+    border-right: 1px solid #76181b;
 }
 
 #searchSpot input.headSearch {
-    background: url(/images/top_bar_search.png) 0 0 no-repeat;
-    width: 130px;
-    padding: 4px 14px 1px 9px;
+    background: url(/images/top_bar_search.png) right 3px no-repeat;
+    width: 178px;
+    padding: 10px 12px 1px 9px;
     border: 0;
     text-align: right;
     float: right;
     display: inline;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 11px;
-    height: 16px;
+    font-size: 12px;
+    height: 26px;
+    margin-right: 14px;
     color: #333;
     overflow: hidden;
-    margin: 5px 8px 0 0;
 }
 
 
@@ -2431,7 +2442,7 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
     overflow: hidden;
     position: absolute;
     margin: -1px 0 0 576px;
-    z-index: 100;
+    z-index: 10000;
 }
 
 #hoverMenu #upButton {
@@ -2687,7 +2698,7 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
     font-size: 8px;
     float: right;
     display: inline;
-    margin: 0 6px 0 0;
+    margin: 0 12px 0 0;
 }
 
 #hoverMenuLogin #register p a:hover span.register_tag {
@@ -2860,6 +2871,23 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
     padding: 3px 0 0 0;
     width: 13em;
 }
+
+#hoverMenuLogin.loggedin ul a{
+    padding: 10px;
+    display: block;
+    border-bottom: 1px solid #ab1717;
+    border-top: 1px solid #c23333;
+    color: #ffa7a7;
+    background: #bb1c1c;
+    text-align: right;
+}
+
+#hoverMenuLogin.loggedin ul a:hover{
+    padding: 10px;
+    display: block;
+    color: #fff;
+}
+
 
 /*Help box*/
 .help-text img {
@@ -3577,7 +3605,7 @@ a.large_button span {
 .hd_tag_large {
     margin-left: auto;
     margin-right: auto;
-    margin-top: -8px;
+    margin-top: -5px;
     z-index: 2;
 }
 
@@ -3686,4 +3714,10 @@ a.large_button span {
     padding: 14px 0 0 0;
     text-decoration: underline;
     color: #878787;
+}
+
+.edit-user-page{
+    width: 775px;
+    margin: 0 auto;
+    padding: 20px;
 }
