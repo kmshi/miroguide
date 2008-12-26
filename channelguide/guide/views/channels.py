@@ -390,21 +390,24 @@ def _calculate_pages(request, current, feed_paginator, show_paginator):
         biggest = show_paginator
 
     page_range = biggest.page_range
-    low = current - 5
-    high = current + 4
-    if low < 0:
-        high -= low
-        low = 0
-    if high > biggest.num_pages and low > 0:
-        low += (biggest.num_pages - high)
+    if biggest.num_pages > 9:
+        low = current - 5
+        high = current + 4
         if low < 0:
+            high -= low
             low = 0
-    middle = page_range[low:high]
-    if middle[:2] != [1, 2]:
-        middle = [1, 2, None] + middle[3:]
-    if middle[-2:] != [biggest.num_pages - 1, biggest.num_pages]:
-        middle = middle[:-3] + [None, biggest.num_pages - 1,
-                                biggest.num_pages]
+        if high > biggest.num_pages and low > 0:
+            low += (biggest.num_pages - high)
+            if low < 0:
+                low = 0
+        middle = page_range[low:high]
+        if middle[:2] != [1, 2]:
+            middle = [1, 2, None] + middle[3:]
+        if middle[-2:] != [biggest.num_pages - 1, biggest.num_pages]:
+            middle = middle[:-3] + [None, biggest.num_pages - 1,
+                                    biggest.num_pages]
+    else:
+        middle = page_range
     path = request.path
     get_data = dict(request.GET)
     for number in middle:
