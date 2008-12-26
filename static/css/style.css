@@ -721,6 +721,7 @@ ul.searchResults li ul.rating li a {
     float: left;
     display: inline;
     margin: 0 1px;
+    text-transform: uppercase;
 }
 
 ul.searchResults li ul.rating li.score {
