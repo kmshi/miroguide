@@ -73,19 +73,19 @@ See LICENSE for details.
             </a>
           </li>
           <li class="video_feeds">
-            <a href="{{ BASE_URL }}feeds/">
+            <a {% navlink "/feeds/" %}>
               <span class="nav_text">{% trans "Video feeds"%}</span>
             </a>
           </li>
           <li class="streaming_shows">
-            <a href="{{ BASE_URL }}streaming/">
+            <a {% navlink "streaming/" %}>
               <span class="nav_text">
                 {% trans "Streaming" %}
               </span>
             </a>
           </li>
           <li class="video_love">
-            <a href="{{ BASE_URL }}recommend/">
+            <a {% navlink "/recommend/" %}>
               <span class="nav_text">{% trans "Videos you'll love" %}</span>
             </a>
           </li>
@@ -110,11 +110,11 @@ See LICENSE for details.
     <div id="topBarLower">
       <div class="page">
         <ul id="lowerMenu">
-          <li><a href="{{ BASE_URL }}#genres">{% trans "Genres" %}</a></li>
-          <li><a href="{{ BASE_URL }}channels/hd">{% trans "HD Channels" %}</a></li>
-          <li><a href="{{ BASE_URL }}channels/popular">{% trans "Most Popular" %}</a></li>
-          <li><a href="{{ BASE_URL }}channels/new">{% trans "New Shows" %}</a></li>
-          <li><a href="{{ BASE_URL }}channels/languages">{% trans "Video by Language" %}</a></li>
+          <li><a {% navlink "/#genres" %}>{% trans "Genres" %}</a></li>
+          <li><a {% navlink "/hd/" %}>{% trans "HD Channels" %}</a></li>
+          <li><a {% navlink "/popular/" %}>{% trans "Most Popular" %}</a></li>
+          <li><a {% navlink "/new/" %}>{% trans "New Shows" %}</a></li>
+          <li><a {% navlink "/languages/" %}>{% trans "Video by Language" %}</a></li>
           <li id="language"
               onmouseover="return showMenu('hoverMenuLanguage', 'language', event)"
               onmouseout="return hideMenu('hoverMenuLanguage', 'language', event)">
