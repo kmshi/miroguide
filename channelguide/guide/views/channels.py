@@ -6,6 +6,7 @@ from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.template import loader
 from django.utils.decorators import decorator_from_middleware
 from django.utils.translation import gettext as _
+from django.core.paginator import Paginator, InvalidPage
 
 from channelguide import util, cache
 from channelguide.cache import client
@@ -348,10 +349,39 @@ def rate(request, id):
         redirect = channel.get_absolute_url()
     return HttpResponseRedirect(redirect)
 
+class ApiObjectList:
+    def __init__(self, connection, filter, value, sort, loads):
+        self.connection = connection
+        self.filter = filter
+        self.value = value
+        self.sort = sort
+        self.loads = loads
+        if 'rating' in sort:
+            self.count_sort = 'ratingcount'
+        else:
+            self.count_sort = 'count'
+
+    def __len__(self):
+        return int(self.call(self.connection, self.filter,
+                             self.value, self.count_sort))
+
+    def __getslice__(self, offset, end):
+        limit = end - offset
+        return tuple(self.call(self.connection, self.filter,
+                         self.value, self.sort, limit,
+                         offset, self.loads))
+
+class FeedObjectList(ApiObjectList):
+    def call(self, *args, **kw):
+        return api.get_feeds(*args, **kw)
+
+class ShowObjectList(ApiObjectList):
+    def call(self, *args, **kw):
+        return api.get_shows(*args, **kw)
+
 @cache.aggresively_cache
 def filtered_listing(request, value=None, filter=None, limit=10,
-                     title='Filtered Listing', header_class='rss',
-                     default_sort=None):
+                     title='Filtered Listing', default_sort=None):
     if not filter:
         raise Http404
     page = request.GET.get('page', 1)
@@ -362,39 +392,31 @@ def filtered_listing(request, value=None, filter=None, limit=10,
     sort = request.GET.get('sort', default_sort)
     if default_sort is None and sort is None:
         sort = '-popular'
-    channels = api.get_channels(request.connection, filter, value, sort,
-                                limit, (page - 1) * limit,
-                                ('subscription_count_month', 'rating',
-                                 'item_count'))
-    if 'rating' in sort:
-        count = api.get_channels(request.connection, filter, value, 'ratingcount')
-    else:
-        count = api.get_channels(request.connection, filter, value, 'count')
-    if default_sort is not None and filter == 'name' and value is None:
-        sort = None # don't show sort on popular channels page
-    if not channels:
-        raise Http404
-    if page == 1:
-        intro = 'First <strong>%i</strong>' % len(channels)
-    else:
-        intro = '<strong>%i</strong> - <strong>%i</strong>' % (
-            page * limit - limit + 1, min(page * limit, count))
-    intro = util.mark_safe(intro)
-    if (page * limit) >= count:
-        next_page = None
-    else:
-        args = request.GET.copy()
-        args['page'] = str(page + 1)
-        next_page = util.make_absolute_url(request.path, args)
+    feed_paginator = Paginator(FeedObjectList(request.connection,
+                                              filter, value, sort,
+                                              ('subscription_count_month',
+                                               'rating',
+                                               'item_count')),
+                               limit)
+    show_paginator = Paginator(ShowObjectList(request.connection,
+                                              filter, value, sort,
+                                              ('subscription_count_month',
+                                               'rating',
+                                               'item_count')),
+                               limit)
+    try:
+        feed_page = feed_paginator.page(page)
+    except InvalidPage:
+        feed_page = None
+    try:
+        show_page = show_paginator.page(page)
+    except InvalidPage:
+        show_page = None
     return util.render_to_response(request, 'listing.html', {
-        'results': channels,
-        'count': count,
         'title': title % {'value': value},
-        'header_class': header_class,
-        'intro': intro,
-        'page': page,
-        'next_page': next_page,
         'sort': sort,
+        'feed_page': feed_page,
+        'show_page': show_page,
         })
 
 def make_simple_list(request, query, header, order_by=None, rss_feed=None):

@@ -53,12 +53,12 @@
 					<span class="heading">Feeds</span>
 				  <span class="button"><a href="#"><img src="images/ico_rss_title.png" alt="" /></a></span>				</h3>
 		  <div class="sortType">
-					<a href="#"><strong>{{ feed_page.paginator.count }}</strong></a>
+					<a href="#"><strong>{{ feed_page.paginator.count|default:"0" }}</strong></a>
 
 				</div>
 			</div><!--detailsHead-->
 			<ul class="searchResults">
-                          {% for channel in feed_page.object_list.%}
+                          {% for channel in feed_page.object_list %}
 				<li>
                                   {% include "guide/channel-in-listing.html" %}
                                 </li>
@@ -73,7 +73,7 @@
 					<span class="heading">Sites</span>
 				  <span class="button"><a href="#"><img src="images/ico_refresh.png" alt="" /></a></span>				</h3>
 		  <div class="sortType">
-					<a href="#"><strong>{{ site_page.paginator.count }}</strong></a>
+					<a href="#"><strong>{{ site_page.paginator.count|default:"0" }}</strong></a>
 				</div>
 			</div><!--detailsHead-->
 

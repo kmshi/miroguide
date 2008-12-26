@@ -26,15 +26,9 @@ def get_channel_by_url(connection, url):
                                        'secondary_languages').get(
         connection)
 
-def get_channels(connection, filter, value, sort=None, limit=None, offset=None,
-                 loads=None):
+def get_channels_query(connection, filter, value, sort=None, loads=None):
     query = Channel.query_approved()
     join = None
-    if loads:
-        joins = [name for name in loads if not getattr(Channel.c, name, False)] 
-        loads = [name for name in loads if getattr(Channel.c, name, False)]
-    else:
-        joins = loads = ()
     if filter == 'category':
         try:
             category_id = Category.query(name=value).get(connection).id
@@ -77,7 +71,7 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None,
         if value:
             query.where(Channel.c.name.like(value + '%'))
     else:
-        return []
+        raise ValueError('unknown filter: %r' % (filter,))
     if sort is not None and sort[0] == '-':
         desc = True
         sort = sort[1:]
@@ -102,19 +96,68 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None,
         return query.count(connection)
     else:
         raise ValueError('unknown sort type: %r' % sort)
+    return query
+
+def _split_loads(loads):
+    if loads:
+        joins = [name for name in loads if not getattr(Channel.c, name, False)]
+        loads = [name for name in loads if getattr(Channel.c, name, False)]
+    else:
+        joins = loads = ()
+    return joins, loads
+
+def _add_limit_and_offset(query, limit, offset):
     if limit is None:
         limit = 20
     if limit > 100:
         limit = 100
     if offset is None or offset < 0:
         offset = 0
-    query.limit(limit).offset(offset).load(*loads)
+    return query.limit(limit).offset(offset)
+
+def get_feeds(connection, filter, value, sort=None, limit=None, offset=None,
+              loads=None):
+    query = get_channels_query(connection, filter, value, sort=sort)
+    if isinstance(query, long):
+        return query
+    _add_limit_and_offset(query, limit, offset)
+    query.where(Channel.c.url.is_not(None))
+    joins, loads = _split_loads(loads)
+    query.load(*loads)
     results = query.execute(connection)
     if results:
         results.join(*joins).execute(connection)
-    if join:
-        for result in results:
-            delattr(result, join)
+    return results
+
+def get_shows(connection, filter, value, sort=None, limit=None, offset=None,
+              loads=None):
+    query = get_channels_query(connection, filter, value, sort=sort)
+    if isinstance(query, long):
+        return query
+    _add_limit_and_offset(query, limit, offset)
+    query.where(Channel.c.url.is_(None))
+    joins, loads = _split_loads(loads)
+    query.load(*loads)
+    results = query.execute(connection)
+    if results:
+        results.join(*joins).execute(connection)
+    return results
+
+def get_channels(connection, filter, value, sort=None, limit=None, offset=None,
+                 loads=None):
+    """
+    The old API method which returns a list of channels.  With the redesign and
+    the inclusion of sites, you should use either get_feeds or get_sites.
+    """
+    query = get_channels_query(connection, filter, value, sort=sort)
+    if isinstance(query, long):
+        return query
+    _add_limit_and_offset(query, limit, offset)
+    joins, loads = _split_loads(loads)
+    query.load(*loads)
+    results = query.execute(connection)
+    if results:
+        results.join(*joins).execute(connection)
     return results
 
 def search(connection, terms):
