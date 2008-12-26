@@ -89,6 +89,12 @@ def data_for_channel(channel):
         for item in channel.items:
             items.append(data_for_item(item))
         data['item'] = tuple(items)
+    if hasattr(channel, 'subscription_count_today'):
+        data['subscription_count_today'] = channel.subscription_count_today
+        data['subscription_count_month'] = channel.subscription_count_month
+        data['subscription_count'] = channel.subscription_count
+    if getattr(channel, 'rating', None):
+        data['average_rating'] = channel.rating.average
     if hasattr(channel, 'score'):
         data['score'] = channel.score
     if hasattr(channel, 'guessed'):
@@ -186,6 +192,11 @@ def get_channel(request):
             except LookupError, e:
                 return error_response(request, 'CHANNEL_NOT_FOUND',
                                       'Channel %s not found' % value)
+    if request.user.is_authenticated():
+        for channel in channels:
+            channel.score = api.get_rating(request.connection,
+                                           request.user,
+                                           channel)
     if len(channels) == 1:
         data = data_for_channel(channels[0])
     else:

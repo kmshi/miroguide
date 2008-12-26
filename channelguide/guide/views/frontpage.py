@@ -68,8 +68,8 @@ def get_category_channels(request, category):
     query = Channel.query_approved(archived=0, user=request.user)
     query.join("categories")
     query.where(Channel.c.id.in_(c.id for c in category.channels))
-    query.load('subscription_count_month')
-    query.order_by('subscription_count_month', desc=True)
+    query.load('subscription_count_today')
+    query.order_by('subscription_count_today', desc=True)
     query.limit(6)
 #    query.cacheable = cache.client
 #    query.cacheable_time = 300
@@ -146,4 +146,5 @@ def index(request):
         'categories': get_categories(request.connection),
         'category_peek': make_category_peek(request),
         'language' : get_current_language(request),
+        'API_KEY': settings.API_KEY
     })

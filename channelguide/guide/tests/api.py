@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
 import simplejson
 
-from channelguide.guide.models import ApiKey, Category, Item, Language, Tag
+from channelguide.guide.models import (ApiKey, Category, Item, Language, Rating,
+                                       Tag)
 from channelguide.testframework import TestCase
 from channelguide import manage, sessions
 from channelguide.guide import api
@@ -12,6 +13,7 @@ class ChannelApiTestBase(TestCase):
     def setUp(self):
         TestCase.setUp(self)
         self.owner = self.make_user('owner')
+        self.owner.approved = True
         self.owner.save(self.connection)
         self.channels = []
         for i in range(2):
@@ -55,10 +57,14 @@ class ChannelApiTestBase(TestCase):
 
         self.channels[1].description = 'This is a different description.'
         self.channels[1].save(self.connection)
+
+        # the order is important because of throttling so we do them in reverse
+        # order
+        self.channels[1].add_subscription(self.connection, '123.123.123.123',
+                                          datetime.now() - timedelta(days=1))
         self.channels[0].add_subscription(self.connection, '123.123.123.123',
                                           datetime.now())
-        self.channels[1].add_subscription(self.connection, '123.123.123.123',
-                                          datetime.now() + timedelta(days=1))
+
 
 
 class ChannelApiViewTest(ChannelApiTestBase):
@@ -127,8 +133,13 @@ class ChannelApiViewTest(ChannelApiTestBase):
         response = self.get_page('/api/test', data={'key': self.key,
                                                     'datatype': 'json',
                                                     'jsoncallback': 'foo'})
+
+        self.assertEquals(response['Content-Type'], 'text/javascript')
+
         content = response.content
-        self.assertTrue(content.startswith('foo('))
+        self.assertTrue(content.startswith('foo('),
+                        'content does not start with function call: %r'%
+                        content)
         self.assertTrue(content.endswith(');'))
         self.assertEquals(simplejson.loads(response.content[4:-2]),
                           {'text': 'Valid API key'})
@@ -161,9 +172,23 @@ class ChannelApiViewTest(ChannelApiTestBase):
         /api/get_channel should return the information for a channel given
         its id.
         """
+        # add a rating
+        self.channels[0].rate(self.connection, self.owner, 3)
+
+        # put the subscription into the stats table
+        self.refresh_connection()
+        manage.refresh_stats_table()
+        self.refresh_connection()
+
         channel = self.channels[0]
         response = self.make_api_request('get_channel', id=channel.id)
         self._verifyChannelResponse(response, channel)
+
+        data = eval(response.content)
+        self.assertEquals(data['average_rating'], 3)
+        self.assertEquals(data['subscription_count_today'], 1)
+        self.assertEquals(data['subscription_count_month'], 1)
+        self.assertEquals(data['subscription_count'], 1)
 
     def test_get_channel_404(self):
         """
@@ -318,6 +343,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(eval(response.content),
                           {'error': 'INVALID_SESSION',
                            'text': 'Invalid session'})
+
         response = self.make_api_request('rate', id=self.channels[0].id,
                                          session=session)
         self.assertEquals(response.status_code, 200)
@@ -424,6 +450,14 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         api.get_channel(conection, id) should return a full channel object, with
         categories, tags, and items.
         """
+        # add a rating
+        self.channels[0].rate(self.connection, self.owner, 3)
+
+        # put the subscription into the stats table
+        self.refresh_connection()
+        manage.refresh_stats_table()
+        self.refresh_connection()
+
         obj = api.get_channel(self.connection, self.channels[0].id)
         self.assertEquals(obj.id, self.channels[0].id)
         self.assertEquals(obj.url, self.channels[0].url)
@@ -431,6 +465,11 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         self.assertEquals(len(obj.categories), 2)
         self.assertEquals(len(obj.tags), 2)
         self.assertEquals(len(obj.items), 2)
+        self.assertEquals(obj.subscription_count, 1)
+        self.assertEquals(obj.subscription_count_month, 1)
+        self.assertEquals(obj.subscription_count_today, 1)
+        self.assertEquals(obj.rating.average, 3)
+
 
     def test_get_channel_by_url(self):
         """
@@ -552,6 +591,9 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         self.assertSameChannels(objs, reversed([new] + self.channels))
 
         objs = api.get_channels(self.connection, 'name', '')
+        self.assertSameChannels(objs, [new] + self.channels)
+
+        objs = api.get_channels(self.connection, 'name', None)
         self.assertSameChannels(objs, [new] + self.channels)
 
     def test_get_channels_sort_id(self):

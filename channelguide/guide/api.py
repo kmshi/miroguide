@@ -14,7 +14,10 @@ def login(connection, id):
 
 def get_channel(connection, id):
     return Channel.get(connection, id, join=['categories', 'tags', 'items',
-        'owner', 'language', 'secondary_languages'])
+        'owner', 'language', 'secondary_languages','rating'],
+                       load=['subscription_count_today',
+                             'subscription_count_month',
+                             'subscription_count'])
 
 def get_channel_by_url(connection, url):
     return Channel.query(url=url).join('categories', 'tags',
@@ -80,6 +83,8 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None,
         sort = sort[1:]
     else:
         desc = False
+    if not sort:
+        sort = 'name' # default to sorting by name
     if sort in ('name', 'id'):
         query.order_by(getattr(Channel.c, sort), desc=desc)
     elif sort == 'age':
@@ -95,8 +100,8 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None,
         query.order_by(query.joins['rating'].c.average, desc=desc)
     elif sort == 'count':
         return query.count(connection)
-    else: # default to name
-        query.order_by(Channel.c.name)
+    else:
+        raise ValueError('unknown sort type: %r' % sort)
     if limit is None:
         limit = 20
     if limit > 100:

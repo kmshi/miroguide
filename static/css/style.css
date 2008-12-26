@@ -733,7 +733,7 @@ ul.searchResults li ul.rating li.available, ul.searchResults li ul.rating li.sub
     font-size: 9px;
     float: right;
     display: inline;
-    padding: 5px 0 0 10px;
+    padding: 5px 0 0 0;
 }
 
 ul.searchResults li ul.rating li_tag {
@@ -2253,7 +2253,7 @@ ul.scrollNav li a {
     line-height: 24px;
 }
 
-ul.scrollNav li a:hover {
+ul.scrollNav li a.selected {
     background: url(/images/list_hover.png) 0 0 no-repeat;
     color: white;
 }
@@ -2262,7 +2262,7 @@ ul.scrollNav li.button_up a {
     margin: 0 0;
     background: url(/images/arrow_up.png) center center no-repeat;
     width: 130px;
-    height: 20px;
+    height: 32px;
     text-indent: -999em;
 }
 
@@ -2270,14 +2270,15 @@ ul.scrollNav li.button_down a {
     margin: 0 0;
     background: url(/images/arrow_down3.png) center center no-repeat;
     width: 130px;
-    height: 20px;
+    height: 32px;
     text-indent: -999em;
 }
 
-ul.scrollNav li.button_up a:hover, ul.scrollNav li.button_down a:hover {
+ul.scrollNav div {
+    height: 384px;
+    width: 142px;
+    overflow: hidden;
 }
-
-
 
 /*****************************************************
  * Menus

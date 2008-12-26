@@ -21,17 +21,22 @@
  */
 jQuery.fn.rating = function(){
     return this.each(function(){
-        var div = jQuery("<div/>").attr({
-            title: this.title,
-            className: this.className
-        });
-        var names = star_names;
+        var div;
+        if (this.tagName == "FORM") {
+            div = jQuery("<div/>").attr({
+                title: this.title,
+                className: this.className
+            });
+            var names = star_names;
 
-        jQuery(this).find("select option").each(function(){
-            div.append( this.value == "0" ?
-                "<div class='cancel'><a href='#0' title='" + names[this.value] + "'></a></div>" :
-                "<div class='star'><a href='#" + this.value + "' title='" + names[this.value] + "'>" + this.value + "</a></div>" );
-        });
+            jQuery(this).find("select option").each(function(){
+                div.append( this.value == "0" ?
+                            "<div class='cancel'><a href='#0' title='" + names[this.value] + "'></a></div>" :
+                            "<div class='star'><a href='#" + this.value + "' title='" + names[this.value] + "'>" + this.value + "</a></div>" );
+            });
+        } else {
+            div = jQuery(this);
+        }
 
         var ratingType;
         if (this.title.split(/ /)[0] == "User") {
@@ -56,9 +61,10 @@ jQuery.fn.rating = function(){
             .mouseout(resetRemove).blur(resetRemove)
             .click(click);
 
-        reset();
+        drainReset();
 
-        div.insertAfter(this);
+        if (this.tagName == "FORM")
+            div.insertAfter(this);
 
         function drainFill(){ drain(); fill(this); }
         function drainReset(){ drain(); reset(); }
@@ -92,7 +98,7 @@ jQuery.fn.rating = function(){
     
         // drain all the stars.
         function drain(){
-            stars.removeClass("on hover");
+            stars.removeClass("on hover").children('a').css('width', '');
             cancel.removeClass("on hover");
         }
 
@@ -109,7 +115,7 @@ jQuery.fn.rating = function(){
                 cancel.addClass('on');
             }
         }
-    }).remove();
+    }).filter('form').remove();
 };
 
 // fix ie6 background flicker problem.
