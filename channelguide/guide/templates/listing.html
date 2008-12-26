@@ -13,19 +13,13 @@
 		<h1>{{ title }}</h1>
 		<ul class="paginator2">
 				<li class="tag">Pages</li>
-				<li><span><a href="#">1</a></span></li>
-                                <li><span><a href="#">2</a></span></li>
+                                {% for number, link in pages %}
+                                {% ifequal number "tag" %}
                                 <li class="tag">...</li>
-
-				<li><span><a href="#">19</a></span></li>
-				<li><span><a href="#">20</a></span></li>
-				<li class="selected"><span><a href="#">21</a></span></li>
-                                <li><span><a href="#">22</a></span></li>
-				<li class="tag">...</li>
-				<li><span><a href="#">98</a></span></li>
-
-				<li><span><a href="#">99</a></span></li>
-				<li><span><a href="#">100</a></span></li>
+                                {% else %}
+				<li {% ifequal number current_page %}class="selected"{% endifequal %}><span><a href="{{ link }}">{{ number }}</a></span></li>
+                                {% endifequal %}
+                                {% endfor %}
 			</ul>
 	</div><!--infoBox-->
 

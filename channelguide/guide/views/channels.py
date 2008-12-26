@@ -379,6 +379,47 @@ class ShowObjectList(ApiObjectList):
     def call(self, *args, **kw):
         return api.get_shows(*args, **kw)
 
+def _calculate_pages(request, current, feed_paginator, show_paginator):
+    if not feed_paginator:
+        biggest = show_paginator
+    elif not show_paginator:
+        biggest = feed_paginator
+    elif feed_paginator.count > show_paginator.count:
+        biggest = feed_paginator
+    else:
+        biggest = show_paginator
+
+    page_range = biggest.page_range
+    low = current - 5
+    high = current + 4
+    if low < 0:
+        high -= low
+        low = 0
+    if high > biggest.num_pages and low > 0:
+        low += (biggest.num_pages - high)
+        if low < 0:
+            low = 0
+    middle = page_range[low:high]
+    if middle[:2] != [1, 2]:
+        middle = [1, 2, None] + middle[3:]
+    if middle[-2:] != [biggest.num_pages - 1, biggest.num_pages]:
+        middle = middle[:-3] + [None, biggest.num_pages - 1,
+                                biggest.num_pages]
+    path = request.path
+    get_data = dict(request.GET)
+    for number in middle:
+        if number is not None:
+            if number > 1:
+                get_data['page'] = str(number)
+            else:
+                try:
+                    del get_data['page']
+                except KeyError:
+                    pass
+            yield (number, util.make_absolute_url(path, get_data))
+        else:
+            yield ('tag', None)
+
 @cache.aggresively_cache
 def filtered_listing(request, value=None, filter=None, limit=10,
                      title='Filtered Listing', default_sort=None):
@@ -415,6 +456,8 @@ def filtered_listing(request, value=None, filter=None, limit=10,
     return util.render_to_response(request, 'listing.html', {
         'title': title % {'value': value},
         'sort': sort,
+        'current_page': page,
+        'pages': _calculate_pages(request, page, feed_paginator, show_paginator),
         'feed_page': feed_page,
         'show_page': show_page,
         })
