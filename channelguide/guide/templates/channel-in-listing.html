@@ -27,12 +27,12 @@ See LICENSE for details.
 
   <ul class="rating">
     <li class="score">
-      <a {{ channel.subscription_link }}" class="add_feed_button2">
+      <a {{ channel.subscription_link }} class="add_feed_button2">
         {% trans "Add Feed" %}
       </a>
     </li>
     {% show_small_rating_stars channel %}
-    <li class="subscribers">{{ channel.subscription_count_month }} Subscribers</li>
-    <li class="available">{{ channel.item_count }} Videos</li>
+    <li class="subscribers">{{ channel.subscription_count_month|default:"0" }} Subscribers</li>
+    <li class="available">{{ channel.item_count|default:"0" }} Videos</li>
   </ul>
 </div>
