@@ -25,11 +25,11 @@
 
 	<div class="infoBar">
 		<div class="innerBar">
-			<span class="results"><span class="results_tag">Search Results</span> 1074 feeds contain videos that match "music"</span>
-
+			<span class="results"><span class="results_tag">Search Results</span> {{ feed_page.paginator.count }} feeds contain videos that match "{{ title|lower }}"</span>
+                        {% comment %}  TODO merge in/enable geoip filtering
 			<a href="#" class="show_channels">show all</a>
 			<span class="extra">Certain channels are not available in your region </span>
-
+                        {% endcomment %}
 		</div><!--innerBar-->
 	</div><!--infoBar-->
 
