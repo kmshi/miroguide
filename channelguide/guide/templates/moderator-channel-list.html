@@ -1,9 +1,23 @@
-{% extends 'listing.html' %}
+{% extends 'base.html' %}
+
 {% comment %}
-Copyright (c) 2008 Participatory Culture Foundation
-See LICENSE for details.
+  Copyright (c) 2008 Participatory Culture Foundation
+  See LICENSE for details.
 {% endcomment %}
-{% load channels %}
-{% block channel-display %}
-  {% channel channel search moderate %}
+
+{% load channels cg_helpers notes i18n %}
+
+{% block content %}
+  <div class="moderator-channel-list">
+    {% show_pager pager %}
+    <h1>{{ header }}</h1>
+      {{ subscribe_all_link }}
+      <ul class="channel-list">
+       {% for channel in channels %}
+         <li>{% include "guide/channel-moderate.html" %}</li>
+       {% endfor %}
+      </ul>
+      {{ subscribe_all_link }}
+    {% show_pager pager %}
+  </div>
 {% endblock %}
