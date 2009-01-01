@@ -165,9 +165,6 @@ item_search_data = Table('cg_item_search_data',
         columns.Int('item_id', fk=item.c.id, primary_key=True),
         columns.String('important_text', 255),
         columns.String('text'))
-secondary_language_map = Table('cg_secondary_language_map',
-        columns.Int('channel_id', fk=channel.c.id, primary_key=True),
-        columns.Int('language_id', fk=language.c.id, primary_key=True))
 category_map = Table('cg_category_map',
         columns.Int('channel_id', fk=channel.c.id, primary_key=True),
         columns.Int('category_id', fk=category.c.id, primary_key=True))
@@ -241,12 +238,8 @@ JOIN cg_tag_map ON cg_tag_map.channel_id=cg_channel.id
 WHERE cg_channel.state='A' AND cg_tag_map.tag_id=#table#.id""")
 
 language.add_subquery_column('channel_count', """
-SELECT COUNT(DISTINCT(cg_channel.id))
-FROM cg_channel
-LEFT JOIN cg_secondary_language_map ON cg_secondary_language_map.channel_id=cg_channel.id
-WHERE cg_channel.STATE='A' AND
-       (cg_channel.primary_language_id=#table#.id OR
-       cg_secondary_language_map.language_id=#table#.id)""")
+SELECT COUNT(DISTINCT(cg_channel.id)) FROM cg_channel
+WHERE cg_channel.STATE='A' AND cg_channel.primary_language_id=#table#.id""")
 
 user.add_subquery_column('moderator_action_count', """\
 SELECT COUNT(DISTINCT(cg_moderator_action.channel_id))
@@ -308,7 +301,6 @@ COALESCE(
 
 # set up relations
 channel.many_to_many('categories', category, category_map, backref='channels')
-channel.many_to_many('secondary_languages', language, secondary_language_map)
 channel.many_to_many('tags', tag, tag_map, backref='channels')
 channel.many_to_one('language', language)
 channel.many_to_one('last_moderated_by', user,

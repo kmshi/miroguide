@@ -96,141 +96,6 @@ class Channel(Record, Thumbnailable):
         query.order_by(query.joins['items'].c.date, desc=True)
         return query
 
-    @classmethod
-    def get_channels(cls, connection, user, sort="name", filter=None,
-            filter_value=None, limit=None, state='A', joins=None):
-        select = cls.table.select()
-        select.columns.append(cls.table.c.id)
-        id_column = cls.table.c.id
-        if state is not None:
-            select.wheres.append(cls.table.c.state==state)
-        if user is not None and user.adult_ok != True: # filter adult channels
-            select.wheres.append(cls.c.adult==False)
-        if sort == 'name':
-            select.order_by.append('name')
-        elif sort == 'rating':
-            table = tables.generated_ratings
-            join = cls.table.join(table, table.c.channel_id==id_column,
-                    'LEFT')
-            select.froms[0] = join
-            select.wheres.append(table.c.count > 3)
-            select.order_by.append('%s DESC' %
-                    table.c.average.fullname())
-            select.order_by.append('%s DESC' %
-                    table.c.count.fullname())
-        elif sort == 'new':
-            select.order_by.append('approved_at DESC')
-        elif sort.startswith('subscription_count'):
-            table = tables.generated_stats
-            join = cls.table.join(table, table.c.channel_id==id_column,
-                    'LEFT')
-            select.froms[0] = join
-            if sort.endswith('today'):
-                select.order_by.append('%s DESC' %
-                        table.c.subscription_count_today.fullname())
-            if not sort.endswith('count'):
-                select.order_by.append('%s DESC' %
-                        table.c.subscription_count_month.fullname())
-            select.order_by.append('%s DESC' %
-                    table.c.subscription_count_total.fullname())
-        elif sort == 'count':
-            wheres = select.wheres
-            select = cls.table.select_count()
-            select.wheres = wheres
-            if joins and 'rating' in joins:
-                # add a filter to remove channels that don't have enough ratings
-                join = select.froms[0].join(tables.generated_ratings,
-                        tables.generated_ratings.c.channel_id==id_column,
-                        'LEFT')
-                select.froms[0] = join
-                select.wheres.append(tables.generated_ratings.c.count > 3)
-        elif sort == 'random':
-            select.order_by.append('RAND()')
-        else:
-            raise ValueError, 'unknown sort: %s' % sort
-        if joins and sort != 'count':
-            if 'subscriptions' in joins:
-                table = tables.generated_stats
-                if not sort.startswith('subscription_count'):
-                    join = select.froms[0].join(table,
-                            table.c.channel_id==id_column, 'LEFT')
-                    select.froms[0] = join
-                select.columns.append(table.c.subscription_count_total)
-                select.columns.append(table.c.subscription_count_month)
-                select.columns.append(table.c.subscription_count_today)
-            if 'rating' in joins:
-                table = tables.generated_ratings
-                if sort != "rating":
-                    join = select.froms[0].join(table,
-                            table.c.channel_id==id_column, 'LEFT')
-                    select.froms[0] = join
-                select.columns.append(table.c.average)
-                select.columns.append(table.c.count)
-                select.columns.append(table.c.total)
-        if filter is not None:
-            if filter == 'category':
-                join = select.froms[0].join(tables.category_map,
-                    tables.category_map.c.channel_id==id_column, 'LEFT')
-                select.froms[0] = join
-                select.wheres.append(
-                        tables.category_map.c.category_id==filter_value)
-            elif filter == 'tag':
-                join = select.froms[0].join(tables.tag_map,
-                        tables.tag_map.c.channel_id==id_column, 'LEFT')
-                select.froms[0] = join
-                select.wheres.append(
-                        tables.tag_map.c.tag_id==filter_value)
-            elif filter == 'owner':
-                select.wheres.append(
-                    cls.table.c.owner_id==filter_value)
-            elif filter == 'language':
-                where1 = cls.table.c.primary_language_id==filter_value
-                join = select.froms[0].join(tables.secondary_language_map,
-                        tables.secondary_language_map.c.channel_id == id_column,
-                        'LEFT')
-                select.froms[0] = join
-                where2 = \
-                        tables.secondary_language_map.c.language_id==filter_value
-                select.wheres.append(where1 | where2)
-                s, a = select.compile()
-            elif filter == 'featured':
-                select.wheres.append(cls.table.c.featured==filter_value)
-            else:
-                raise ValueError, 'unknown filter: %s' % filter
-        if limit:
-            if isinstance(limit, int):
-                select.limit = limit
-            else:
-                select.offset, select.limit = limit
-        rows = select.execute(connection)
-        if sort == 'count':
-            return rows[0][0]
-        ids = [row[0] for row in rows]
-        channels = cls._get_records_from_cache(ids)
-        _cache_key = cls._cache_key # put it in the local namespace
-        missing = [id for id in ids if _cache_key(id) not in channels]
-        if missing:
-            rest = cls._get_records_from_db(connection, missing)
-            channels.update(dict([(_cache_key(c.id), c) for c in rest]))
-        list_of_channels = [channels[_cache_key(id)] for id in ids]
-        if joins:
-            iterator = iter(list_of_channels)
-            for row in rows:
-                channel = iterator.next()
-                if 'subscriptions' in joins:
-                    total, month, today = row[1:4]
-                    channel.subscription_count_total = total
-                    channel.subscription_count_month = month
-                    channel.subscription_count_today = today
-                if 'rating' in joins:
-                    average, count, total = row[-3:]
-                    channel.rating = GeneratedRatings()
-                    channel.rating.channel_id = channel.id
-                    channel.rating.average = average
-                    channel.rating.count = count
-                    channel.rating.total = total
-        return list_of_channels
-
     def get_url(self):
         if self.url:
             head = 'feeds'
@@ -384,7 +249,7 @@ class Channel(Record, Thumbnailable):
 
     def update_search_data(self, connection):
         self.join("search_data", "items", 'tags', 'categories',
-                'secondary_languages', 'language').execute(connection)
+                  'language').execute(connection)
         if self.search_data is None:
             self.search_data = search.ChannelSearchData()
             self.search_data.channel_id = self.id
@@ -399,7 +264,7 @@ class Channel(Record, Thumbnailable):
         simple_attrs = ('description', 'website_url', 'publisher')
         values = [getattr(self, attr) for attr in simple_attrs]
         values.append(self.language.name)
-        for attr in ('tags', 'categories', 'secondary_languages'):
+        for attr in ('tags', 'categories'):
             for obj in getattr(self, attr):
                 values.append(obj.name)
         if self.url:

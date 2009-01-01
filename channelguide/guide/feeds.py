@@ -171,9 +171,8 @@ class LanguagesFeed(FilteredFeed):
     def items(self, obj):
         if obj is None:
             return ''
-        query = Channel.query_new().join('secondary_languages').limit(10)
-        query.where((Channel.c.primary_language_id==obj.id) |
-                Language.secondary_language_exists_where(obj.id))
+        query = Channel.query_new().limit(10)
+        query.where(Channel.c.primary_language_id==obj.id)
         return query.execute(self.request.connection)
 
 

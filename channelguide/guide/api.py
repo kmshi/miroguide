@@ -14,7 +14,7 @@ def login(connection, id):
 
 def get_channel(connection, id):
     return Channel.get(connection, id, join=['categories', 'tags', 'items',
-        'owner', 'language', 'secondary_languages','rating'],
+                                             'owner', 'language','rating'],
                        load=['subscription_count_today',
                              'subscription_count_month',
                              'subscription_count'])
@@ -22,8 +22,7 @@ def get_channel(connection, id):
 def get_channel_by_url(connection, url):
     return Channel.query(url=url).join('categories', 'tags',
                                        'items', 'owner',
-                                       'language',
-                                       'secondary_languages').get(
+                                       'language').get(
         connection)
 
 def get_channels(connection, filter, value, sort=None, limit=None, offset=None,
@@ -56,8 +55,7 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None,
             language_id = Language.query(name=value).get(connection).id
         except LookupError:
             return []
-        query.where((Channel.c.primary_language_id == language_id) |
-                Language.secondary_language_exists_where(language_id))
+        query.where(Channel.c.primary_language_id == language_id)
     elif filter == 'featured':
         if value:
             query.where(Channel.c.featured)

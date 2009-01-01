@@ -510,8 +510,7 @@ def for_user(request, user_name_or_id):
 
 def edit_channel(request, id):
     query = Channel.query()
-    query.join('language', 'secondary_languages', 'categories', 'notes',
-            'notes.user')
+    query.join('language', 'categories', 'notes', 'notes.user')
     query.load('subscription_count_today', 'subscription_count_today_rank')
     query.load('subscription_count_month', 'subscription_count_month_rank')
     query.load('subscription_count', 'subscription_count_rank')

@@ -22,8 +22,7 @@ def view(request, id):
     language = Language.get(request.connection, id)
     order_select = templateutil.OrderBySelect(request)
     query = Channel.query_approved(user=request.user)
-    query.where((Channel.c.primary_language_id==id) |
-            Language.secondary_language_exists_where(id))
+    query.where(Channel.c.primary_language_id==id)
     return templateutil.render_limited_query(request, query,
          _("Language: %s") % language.name, language.get_rss_url())
 

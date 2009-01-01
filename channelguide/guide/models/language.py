@@ -1,3 +1,4 @@
+
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
@@ -19,7 +20,7 @@ class Language(Record):
 
     def get_absolute_url(self):
         return util.make_absolute_url(self.get_url())
-    
+
     def get_url(self):
         return util.make_url('languages/%s' % self.name)
 
@@ -34,11 +35,3 @@ class Language(Record):
 
     def __repr__(self):
         return '%s(%r)' % (self.__class__.__name__, self.name)
-
-    @staticmethod
-    def secondary_language_exists_where(language_id):
-        select = sql.Select('*')
-        select.froms.append('cg_secondary_language_map')
-        select.wheres.append('channel_id=cg_channel.id')
-        select.wheres.append('language_id=%s', language_id)
-        return select.exists()

@@ -45,12 +45,9 @@ class ChannelApiTestBase(TestCase):
             categories.append(cat)
             languages.append(lang)
             items.append(item)
-        self.channels[0].join('categories',
-                'secondary_languages').execute(self.connection)
+        self.channels[0].join('categories').execute(self.connection)
         self.channels[0].categories.add_records(self.connection, categories)
         self.channels[0].primary_language_id = languages[0].id
-        self.channels[0].secondary_languages.add_record(self.connection,
-                languages[1])
         self.channels[0].add_tags(self.connection, self.owner, ['tag0', 'tag1'])
         self.channels[0].save_thumbnail(self.connection,
                 file(test_data_path('thumbnail.jpg')).read())

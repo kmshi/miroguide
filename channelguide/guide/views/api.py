@@ -69,11 +69,7 @@ def data_for_channel(channel):
     if channel.thumbnail_exists():
         data['thumbnail_url'] = channel.thumb_url(370, 247)
     if hasattr(channel, 'language'):
-        language = [channel.language.name]
-        if hasattr(channel, 'secondary_languages'):
-            for lang in channel.secondary_languages:
-                language.append(lang.name)
-        data['language'] = tuple(language)
+        data['language'] = channel.language.name
     if hasattr(channel, 'categories'):
         category = []
         for cat in channel.categories:
