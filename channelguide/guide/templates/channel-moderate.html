@@ -42,9 +42,9 @@ See LICENSE for details.
         {% endif %}
     {% endtwocolumns %}
     {% if user.is_moderator %}
-    {% show_moderate_actions channel %}
+      {% include "guide/moderate-actions.html" %}
     {% endif %}
     {% if can_edit %}
-    {% show_edit_bar channel show_script %}
+      {% show_edit_bar channel show_script %}
     {% endif %}
 </div>

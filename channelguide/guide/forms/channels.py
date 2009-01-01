@@ -320,7 +320,7 @@ class SubmitChannelForm(Form):
             help_text=_('Keywords that describe this channel.  Separate each '
                 'tag with a comma.'))
     categories = TripletField(CategoriesField, label=_("Categories"))
-    languages = TripletField(LanguageField, label=_("Languages"),
+    language = LanguageField(label=_("Language"),
             help_text=_("What language are most of these videos in?"))
     postal_code = WideCharField(max_length=15, label=_("Postal Code"),
             required=False)
@@ -337,7 +337,7 @@ class SubmitChannelForm(Form):
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
         self.set_image_from_feed = False
-        self.fields['languages'].update_choices()
+        self.fields['language'].update_choices()
         self.fields['categories'].update_choices()
 
     def clean_website_url(self):
@@ -395,18 +395,6 @@ class SubmitChannelForm(Form):
         categories = query.execute(self.connection)
         channel.categories.add_records(self.connection, categories)
 
-    def add_languages(self, channel):
-        channel.primary_language_id = self.cleaned_data['languages'][0]
-        channel.join("secondary_languages").execute(self.connection)
-        channel.secondary_languages.clear(self.connection)
-        ids = self.cleaned_data['languages'][1:]
-        ids = [id for id in ids if id != channel.primary_language_id]
-        if not ids:
-            return
-        query = Language.query(Language.c.id.in_(ids))
-        languages = query.execute(self.connection)
-        channel.secondary_languages.add_records(self.connection, languages)
-
     def add_tags(self, channel):
         tags = self.cleaned_data['tags']
         channel.join('tags', 'owner').execute(self.connection)
@@ -431,11 +419,10 @@ class SubmitChannelForm(Form):
         for attr in string_cols:
             setattr(channel, attr, self.cleaned_data[attr].encode('utf-8'))
         channel.hi_def = self.cleaned_data['hi_def']
-        channel.primary_language_id = int(self.cleaned_data['languages'][0])
+        channel.primary_language_id = int(self.cleaned_data['language'])
         channel.save(self.connection)
         self.add_tags(channel)
         self.add_categories(channel)
-        self.add_languages(channel)
         if self.cleaned_data['thumbnail_file']:
             channel.save_thumbnail(self.connection,
                     self.cleaned_data['thumbnail_file'])
@@ -468,8 +455,7 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
         return data
 
     def set_initial_values(self):
-        join = self.channel.join('language', 'secondary_languages',
-                'categories')
+        join = self.channel.join('language', 'categories')
         join.execute(self.connection)
         for key in ('url', 'name', 'hi_def', 'website_url',
                 'description', 'publisher',
@@ -479,8 +465,7 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
         tag_names = [tag.name for tag in tags]
         self.fields['tags'].initial = ', '.join(tag_names)
         self.fields['categories'].initial = [c.id for c in self.channel.categories]
-        self.fields['languages'].initial = [self.channel.primary_language_id] +\
-                [l.id for l in self.channel.secondary_languages]
+        self.fields['language'].initial = self.channel.primary_language_id
 
     def update_channel(self, channel):
         if self.cleaned_data['url'] is not None:

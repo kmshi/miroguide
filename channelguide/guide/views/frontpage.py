@@ -43,8 +43,7 @@ def get_new_channels(request, type, count):
     lang = get_current_language(request)
     if lang is not None:
         query = Channel.query_approved(user=request.user)
-        query.where((Channel.c.primary_language_id==lang.id) |
-                    Language.secondary_language_exists_where(lang.id))
+        query.where(Channel.c.primary_language_id==lang.id)
         query.where(archived=0)
         query.order_by(Channel.c.approved_at, desc=True).limit(count * 3)
         query.load('item_count')

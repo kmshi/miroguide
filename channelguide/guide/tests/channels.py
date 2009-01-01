@@ -387,7 +387,7 @@ class SubmitChannelTest(TestCase):
             'website_url': 'http://foo.com/' + util.random_string(16),
             'description': 'Awesome channel',
             'publisher': 'publisher@foo.com',
-            'languages_0': self.language.id,
+            'language': self.language.id,
             'categories_0': self.cat1.id,
             'categories_1': self.cat2.id,
             'thumbnail_file': open(test_data_path('thumbnail.jpg')),
@@ -407,8 +407,7 @@ class SubmitChannelTest(TestCase):
         self.connection.commit()
         query = Channel.query().order_by('id', desc=True).limit(1)
         channel = query.get(self.connection)
-        join = channel.join('items', 'tags', 'categories', 'owner', 'language',
-                'secondary_languages')
+        join = channel.join('items', 'tags', 'categories', 'owner', 'language')
         join.execute(self.connection)
         return channel
 
@@ -493,7 +492,7 @@ Errors: %s""" % (response.status_code, errors)
         self.assertEquals(form.errors.keys(), ['name'])
         self.submit_url(test_data_url('no-thumbnail.xml'))
         should_complain = ['name', 'website_url',
-                'description', 'languages','categories',
+                'description', 'language','categories',
                 'thumbnail_file']
         response = self.post_data('/submit/step2', {})
         form = response.context[0]['form']
@@ -532,12 +531,9 @@ Errors: %s""" % (response.status_code, errors)
         stored_url = self.get_last_channel().url
         self.assertEquals(stored_url, test_data_url('feed.xml'))
 
-    def check_submitted_languages(self, language, *secondary_languages):
+    def check_submitted_language(self, language):
         channel = self.get_last_channel()
         self.assertEquals(channel.language.id, language.id)
-        channel_language_ids = [l.id for l in channel.secondary_languages]
-        correct_ids = [l.id for l in secondary_languages]
-        self.assertSameSet(channel_language_ids, correct_ids)
 
     def test_languages(self):
         self.login_and_submit_url()
@@ -545,15 +541,14 @@ Errors: %s""" % (response.status_code, errors)
         language2 = Language("fooese")
         language3 = Language("barwegian")
         self.save_to_db(language1, language2, language3)
-        response = self.submit(languages_0=language1.id, languages_1=language2.id)
+        response = self.submit(languages_0=language1.id)
         self.check_submit_worked(response)
-        self.check_submitted_languages(language1, language2)
+        self.check_submitted_language(language1)
         self.delete_last_channel()
         self.login_and_submit_url()
-        response = self.submit(languages_0=language3.id, languages_1=language2.id,
-                languages_2=language3.id)
+        response = self.submit(languages_0=language3.id)
         self.check_submit_worked(response)
-        self.check_submitted_languages(language3, language2)
+        self.check_submitted_language(language3)
 
     def test_remembers_thumbnail(self):
         self.login_and_submit_url()
@@ -905,8 +900,7 @@ class EditChannelTest(ChannelTestBase):
                 'url': self.channel.url,
                 'categories_0': self.categories['arts'].id,
                 'categories_1': self.categories['comedy'].id,
-                'languages_0': self.languages['klingon'].id,
-                'languages_1': self.languages['piglatin'].id,
+                'language': self.languages['klingon'].id,
                 'tags': 'funny, cool, booya',
                 'publisher': 'some guy',
                 'name': 'cool vids',
@@ -917,12 +911,11 @@ class EditChannelTest(ChannelTestBase):
         self.post_to_edit_page(data)
         self.connection.commit()
         updated = self.refresh_record(self.channel, 'language', 'categories',
-                'tags', 'secondary_languages')
+                'tags')
         self.assertEquals(updated.publisher, 'some guy')
         self.assertEquals(updated.language.name, 'klingon')
         self.check_names(updated.categories, 'arts', 'comedy')
         self.check_names(updated.tags, 'funny', 'cool', 'booya')
-        self.check_names(updated.secondary_languages, 'piglatin')
 
     def get_default_values(self):
         data = {}
@@ -932,7 +925,7 @@ class EditChannelTest(ChannelTestBase):
         for i in xrange(len(self.channel.categories)):
             data['categories_%d' % i] = self.channel.categories[i].id
         data['tags'] = ', '.join(self.channel.tags)
-        data['languages_0'] = self.channel.language.id
+        data['language'] = self.channel.language.id
         return data
 
     def test_empty_tags(self):

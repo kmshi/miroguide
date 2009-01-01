@@ -113,7 +113,7 @@ def get_recently_rated(connection, seconds):
     sql = """SELECT DISTINCT channel_id FROM cg_channel_rating JOIN cg_channel ON cg_channel_rating.channel_id = cg_channel.id WHERE (NOW()-timestamp) < %s AND state=%s"""
     args = (seconds, 'A')
     results = connection.execute(sql, args)
-    query = Channel.query().join('categories', 'secondary_languages')
+    query = Channel.query().join('categories')
     query.where(Channel.c.id.in_([e[0] for e in results]))
     return query.execute(connection)
 
@@ -254,11 +254,9 @@ def get_similarity_from_categories(channel, connection, other):
 
 def get_similarity_from_languages(channel, connection, other):
     lang1 = set([channel.primary_language_id])
-    lang1 |= set(lang.id for lang in channel.secondary_languages)
 
-    other_c = Channel.query(id=other).join('secondary_languages').get(connection)
+    other_c = Channel.query(id=other).get(connection)
     lang2 = set([other_c.primary_language_id])
-    lang2 |= set(lang.id for lang in other_c.secondary_languages)
     if not len(lang1 | lang2):
         return 0.0
     return float(len(lang1 & lang2)) / len(lang1 | lang2)

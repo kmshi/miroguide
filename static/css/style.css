@@ -60,6 +60,10 @@ h1, h2, h3, h4, h5 {
     font-weight: normal;
 }
 
+ul {
+    list-style-type: none;
+}
+
 /*****************************************************
  * Structure
  *****************************************************/
@@ -1005,7 +1009,6 @@ h3.resultsCount .pagination {
 
 #channelRating .rate .star:hover{
     background: url(/images/big_stars.png) 0 -19px no-repeat;
-    padding: 0 1px;
 }
 
 #channelRating .rate .on {
@@ -2104,6 +2107,53 @@ h3.resultsCount .pagination {
 
 
 /*********************
+ * Moderation
+ *********************/
+
+.channel .screenshot {
+    position: relative;
+}
+
+.channel-list {
+    margin-top: 25px;
+}
+
+.channel-moderate {
+    margin: 0 -16px 35px;
+    background-color: #ebecf0;
+    border-top: 2px solid #6d6d6d;
+    border-bottom: 2px solid #6d6d6d;
+}
+
+.channel-moderate .add {
+    font-size: 120%;
+    font-weight: bold;
+}
+
+.channel-moderate .website {
+    padding-top: 10px;
+    clear: left;
+}
+
+.channel-moderate .simple-moderate-actions {
+    background-color: #37c03a;
+}
+
+.channel-moderate .edit .simple-moderate-actions {
+    display: none;
+}
+
+.channel-moderate .reject-moderate-actions {
+    background-color: #e04c4c;
+}
+
+.channel-moderate .edit, .channel-moderate .edit-box {
+    margin: 0;
+}
+
+
+
+/*********************
  * Paginators
  *********************/
 
@@ -2415,22 +2465,25 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
     border-right: 1px solid #76181b;
 }
 
-#searchSpot input.headSearch {
+#searchSpot input { /* .headSearch {*/
     background: url(/images/top_bar_search.png) right 3px no-repeat;
-    width: 178px;
+    width: 165px;
     padding: 10px 12px 1px 9px;
     border: 0;
-    text-align: right;
     float: right;
     display: inline;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
     height: 26px;
     margin-right: 14px;
-    color: #333;
     overflow: hidden;
+    color: #000;
 }
 
+#searchSpot input.headSearch { /* when the default text is there */
+    color: #333;
+    text-align: right;
+}
 
 /*Hover Menu*/
 
