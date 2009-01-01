@@ -63,32 +63,19 @@ def channel_list(request, state):
     else:
         query.where(state=Channel.NEW)
         header = _("Unreviewed Channels")
-    count = query.count(request.connection)
-    try:
-        page = int(request.GET.get('page', 1))
-    except ValueError:
-        raise Http404
-    if page * 10 < count:
-        next_page = request.path + '?page=%i' % (page + 1)
-    else:
-        next_page = None
-    channels = query.limit(10).offset((page - 1) * 10).execute(request.connection)
-    print channels
-    if len(channels) == 0:
-        raise Http404
-    if page == 1:
-        intro = 'First %i' % len(channels)
-    else:
-        intro = '%i - %i' % (page * 10 - 11, min(page * 10, count))
+
+    pager = templateutil.Pager(10, query, request)
 
     return util.render_to_response(request, 'moderator-channel-list.html', {
-        'results': channels,
-        'count': count,
-        'title': header,
-        'header_class': '',
-        'intro': intro,
-        'page': page,
-        'next_page': next_page})
+        'request': request,
+        'pager': pager,
+        'channels': pager.items,
+        'header': header,
+#         'subscribe_all_link': util.make_link(
+#                 util.get_subscription_url(*[channel.url for channel in
+#                                             pager.items]),
+#                 _("Subscribe to all %i channels") % len(pager.items))
+        })
 
 @moderator_required
 def shared(request):

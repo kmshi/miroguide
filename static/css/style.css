@@ -60,6 +60,10 @@ h1, h2, h3, h4, h5 {
     font-weight: normal;
 }
 
+ul {
+    list-style-type: none;
+}
+
 /*****************************************************
  * Structure
  *****************************************************/
@@ -1004,7 +1008,6 @@ h3.resultsCount .pagination {
 
 #channelRating .rate .star:hover{
     background: url(/images/big_stars.png) 0 -19px no-repeat;
-    padding: 0 1px;
 }
 
 #channelRating .rate .on {
@@ -2100,6 +2103,53 @@ h3.resultsCount .pagination {
     color: #555;
     line-height: 1.6em;
 }
+
+
+/*********************
+ * Moderation
+ *********************/
+
+.channel .screenshot {
+    position: relative;
+}
+
+.channel-list {
+    margin-top: 25px;
+}
+
+.channel-moderate {
+    margin: 0 -16px 35px;
+    background-color: #ebecf0;
+    border-top: 2px solid #6d6d6d;
+    border-bottom: 2px solid #6d6d6d;
+}
+
+.channel-moderate .add {
+    font-size: 120%;
+    font-weight: bold;
+}
+
+.channel-moderate .website {
+    padding-top: 10px;
+    clear: left;
+}
+
+.channel-moderate .simple-moderate-actions {
+    background-color: #37c03a;
+}
+
+.channel-moderate .edit .simple-moderate-actions {
+    display: none;
+}
+
+.channel-moderate .reject-moderate-actions {
+    background-color: #e04c4c;
+}
+
+.channel-moderate .edit, .channel-moderate .edit-box {
+    margin: 0;
+}
+
 
 
 /*********************
