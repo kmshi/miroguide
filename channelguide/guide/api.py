@@ -68,6 +68,8 @@ def get_channels_query(connection, filter, value, sort=None, loads=None):
     elif filter == 'name':
         if value:
             query.where(Channel.c.name.like(value + '%'))
+    elif filter == 'search':
+        query = search_mod.search_channels(value.split())
     else:
         raise ValueError('unknown filter: %r' % (filter,))
     if sort is not None and sort[0] == '-':
