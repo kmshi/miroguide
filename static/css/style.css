@@ -2464,22 +2464,25 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
     border-right: 1px solid #76181b;
 }
 
-#searchSpot input.headSearch {
+#searchSpot input { /* .headSearch {*/
     background: url(/images/top_bar_search.png) right 3px no-repeat;
-    width: 178px;
+    width: 165px;
     padding: 10px 12px 1px 9px;
     border: 0;
-    text-align: right;
     float: right;
     display: inline;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
     height: 26px;
     margin-right: 14px;
-    color: #333;
     overflow: hidden;
+    color: #000;
 }
 
+#searchSpot input.headSearch { /* when the default text is there */
+    color: #333;
+    text-align: right;
+}
 
 /*Hover Menu*/
 
