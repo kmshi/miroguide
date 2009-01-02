@@ -1249,7 +1249,7 @@ h3.resultsCount .pagination {
     width: 787px;
 }
 
-#channelEpisodes .details, #channelEpisodes .detailsLarge {
+#channelEpisodes .details {
     background: url(/images/channel_content.png) left bottom no-repeat;
     width: 536px;
     margin: 0 0 0 15px;
@@ -1258,7 +1258,7 @@ h3.resultsCount .pagination {
     height: 100%;
 }
 
-#channelEpisodes .detailsLarge {
+#channelEpisodes .detailsTopLarge + .details {
     background: url(/images/channel_content_large.png) left bottom no-repeat;
     width: 758px;
 }
@@ -1328,13 +1328,13 @@ h3.resultsCount .pagination {
     display: none;
 }
 
-#channelEpisodes .details .thumb, #channelEpisodes .detailsLarge .thumb {
+#channelEpisodes .details .thumb {
     width: 98px;
     float: left;
     display: inline;
 }
 
-#channelEpisodes .details .description, #channelEpisodes .detailsLarge .description {
+#channelEpisodes .details .description {
     padding: 0 0 0 10px;
     width: 315px;
     float: left;
@@ -1342,9 +1342,9 @@ h3.resultsCount .pagination {
     margin: 3px 0 0 10px;
 }
 
-#channelEpisodes .detailsLarge .description {width: 500px;}
+#channelEpisodes .detailsTopLarge + .details .description {width: 500px;}
 
-#channelEpisodes .details .description h4, #channelEpisodes .detailsLarge .description h4 {
+#channelEpisodes .details .description h4 {
     color: #1e66f2;
     margin: 0;
     padding: 0;
@@ -1352,7 +1352,7 @@ h3.resultsCount .pagination {
     font-size: 15px;
 }
 
-#channelEpisodes .details .description p, #channelEpisodes .detailsLarge .description p {
+#channelEpisodes .details .description p {
     margin: 3px 0 10px 0;
     padding: 0;
     line-height: 14px;
@@ -1368,7 +1368,7 @@ h3.resultsCount .pagination {
     clear: both;
 }
 
-#channelEpisodes .details .meta, #channelEpisodes .detailsLarge .meta {
+#channelEpisodes .details .meta {
     width: 95px;
     float: right;
     display: inline;
@@ -1377,7 +1377,7 @@ h3.resultsCount .pagination {
     font-size: 11px;
 }
 
-#channelEpisodes .details .meta strong, #channelEpisodes .detailsLarge .meta strong {
+#channelEpisodes .details .meta strong {
     display: block;
     margin: 0 0 10px 0;
 }

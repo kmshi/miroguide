@@ -75,10 +75,12 @@ def item(request, id):
         print next.date
     else:
         next = None
+    item_query = Item.query(channel_id=item.channel_id).join('channel').order_by('date', desc=True).limit(4)
     return util.render_to_response(request, 'playback.html',
                                    {'item': item,
                                     'previous': previous,
                                     'next': next,
                                     'embed': util.mark_safe(embed_code(item)),
+                                    'items': item_query.execute(request.connection),
                                     })
 

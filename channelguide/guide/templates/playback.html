@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block head-extra %}
+  <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/playback.js"></script>
+{% endblock %}
 {% block content %}
 	<div id="videoArea">
 		<div class="page">
@@ -71,93 +74,13 @@
 
 			<br clear="all" />
 
+                        {% for item in items %}
 			<div class="detailsTopLarge"></div>
-			<div class="detailsLarge">
-				<span class="thumb">
-					<a href="#">
-						<img class="hd_tag_small" src="images/ico_hd_tag_small.png" alt="" />
-						<img src="images/channel_episodes_thumb.jpg" alt="" />
-					</a>
-				</span>
-
-				<div class="description">
-					<h4>Episode 11: Cycle Race Scramble!</h4>
-					<p>Watch videos from National Geographic. Watch videos from National Geographic. Watch videos from National Geographic.</p>
-					<a href="#" class="read_more">Read more</a>
-				</div>
-
-				<div class="meta">
-					<strong>March 11th, 2008</strong>
-					<a href="#" class="rollover_button">Preview</a>
-					<a href="#" class="rollover_button">Download</a>
-				</div>
-			</div><!--detailsLarge-->
-
-			<div class="detailsTopLarge"></div>
-			<div class="detailsLarge">
-				<span class="thumb">
-					<a href="#">
-						<img class="hd_tag_small" src="images/ico_hd_tag_small.png" alt="" />
-						<img src="images/channel_episodes_thumb.jpg" alt="" />
-					</a>
-				</span>
-
-				<div class="description">
-					<h4>Episode 11: Cycle Race Scramble!</h4>
-					<p>Watch videos from National Geographic. Watch videos from National Geographic. Watch videos from National Geographic.</p>
-					<a href="#" class="read_more">Read more</a>
-				</div>
-
-				<div class="meta">
-					<strong>March 11th, 2008</strong>
-					<a href="#" class="rollover_button">Preview</a>
-					<a href="#" class="rollover_button">Download</a>
-				</div>
-			</div><!--detailsLarge-->
-
-			<div class="detailsTopLarge"></div>
-			<div class="detailsLarge">
-				<span class="thumb">
-					<a href="#">
-						<img class="hd_tag_small" src="images/ico_hd_tag_small.png" alt="" />
-						<img src="images/channel_episodes_thumb.jpg" alt="" />
-					</a>
-				</span>
-
-				<div class="description">
-					<h4>Episode 11: Cycle Race Scramble!</h4>
-					<p>Watch videos from National Geographic. Watch videos from National Geographic. Watch videos from National Geographic.</p>
-					<a href="#" class="read_more">Read more</a>
-				</div>
-
-				<div class="meta">
-					<strong>March 11th, 2008</strong>
-					<a href="#" class="rollover_button">Preview</a>
-					<a href="#" class="rollover_button">Download</a>
-				</div>
-			</div><!--detailsLarge-->
-
-			<div class="detailsTopLarge"></div>
-			<div class="detailsLarge">
-				<span class="thumb">
-					<a href="#">
-						<img class="hd_tag_small" src="images/ico_hd_tag_small.png" alt="" />
-						<img src="images/channel_episodes_thumb.jpg" alt="" />
-					</a>
-				</span>
-
-				<div class="description">
-					<h4>Episode 11: Cycle Race Scramble!</h4>
-					<p>Watch videos from National Geographic. Watch videos from National Geographic. Watch videos from National Geographic.</p>
-					<a href="#" class="read_more">Read more</a>
-				</div>
-
-				<div class="meta">
-					<strong>March 11th, 2008</strong>
-					<a href="#" class="rollover_button">Preview</a>
-					<a href="#" class="rollover_button">Download</a>
-				</div>
-			</div><!--detailsLarge-->
+                        {% include "guide/item.html" %}
+                        {% endfor %}
+                        <script type="text/javascript">
+                            $("#channelEpisodes div.details").each(setUpItem);
+                        </script>
 
 		</div><!--page-->
 	</div><!--channelEpisodes-->
