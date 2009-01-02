@@ -127,24 +127,21 @@
 	</div><!--detailsHead-->
 
 	<ul class="paginator">
-	  <li class="tag">{% trans "Pages" %}</li>
-	  <li><span><a href="#">1</a></span></li>
-	  <li><span><a href="#">2</a></span></li>
-	  <li><span><a href="#">19</a></span></li>
-	  <li><span><a href="#">20</a></span></li>
-	  <li class="selected"><span><a href="#">21</a></span></li>
-	  <li><span><a href="#">22</a></span></li>
-	  <li class="tag">...</li>
-	  <li><span><a href="#">98</a></span></li>
-	  <li><span><a href="#">99</a></span></li>
-	  <li><span><a href="#">100</a></span></li>
+          <li class="tag">Pages</li>
+          {% for number, link in item_page_links %}
+          {% ifequal number "tag" %}
+          <li class="tag">...</li>
+          {% else %}
+          <li {% ifequal number item_page.number %}class="selected"{% endifequal %}><span><a href="{{ link }}">{{ number }}</a></span></li>
+          {% endifequal %}
+          {% endfor %}
 	</ul>
 
 	<br clear="all" />
 
 	<div class="detailsTop"></div>
 
-        {% for item in items %}
+        {% for item in item_page.object_list %}
             {% include "guide/item.html" %}
         {% endfor %}
       </div>

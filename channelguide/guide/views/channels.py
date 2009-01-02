@@ -25,6 +25,97 @@ from sqlhelper.sql.statement import Select
 from sqlhelper import signals, exceptions
 import re, time
 
+class ItemObjectList:
+    def __init__(self, connection, channel):
+        self.connection = connection
+        self.channel = channel
+
+    def query(self):
+        return Item.query(Item.c.channel_id == self.channel.id).order_by(
+            Item.c.date, desc=True).join('channel')
+
+    def __len__(self):
+        return int(self.query().count(
+                self.connection))
+
+    def __getslice__(self, offset, end):
+        limit = end - offset
+        print offset, limit
+        return tuple(self.query().limit(limit).offset(offset).execute(
+            self.connection))
+
+class ApiObjectList:
+    def __init__(self, connection, filter, value, sort, loads):
+        self.connection = connection
+        self.filter = filter
+        self.value = value
+        self.sort = sort
+        self.loads = loads
+        if 'rating' in sort:
+            self.count_sort = 'ratingcount'
+        else:
+            self.count_sort = 'count'
+
+    def call(self, *args, **kw):
+        """
+        Call the appropriate API function.  We do it this way because assigning
+        a function as an attribute of a class makes it a method, and we don't
+        want the extra `self` argument.
+        """
+        raise NotImplementedError()
+
+    def __len__(self):
+        return int(self.call(self.connection, self.filter,
+                             self.value, self.count_sort))
+
+    def __getslice__(self, offset, end):
+        limit = end - offset
+        return tuple(self.call(self.connection, self.filter,
+                         self.value, self.sort, limit,
+                         offset, self.loads))
+
+class FeedObjectList(ApiObjectList):
+    def call(self, *args, **kw):
+        return api.get_feeds(*args, **kw)
+
+class ShowObjectList(ApiObjectList):
+    def call(self, *args, **kw):
+        return api.get_shows(*args, **kw)
+
+def _calculate_pages(request, page):
+    page_range = page.paginator.page_range
+    if page.paginator.num_pages > 9:
+        low = page.number - 5
+        high = page.number + 4
+        if low < 0:
+            high -= low
+            low = 0
+        if high > page.paginator.num_pages and low > 0:
+            low += (page.paginator.num_pages - high)
+            if low < 0:
+                low = 0
+        middle = page_range[low:high]
+        if middle[:2] != [1, 2]:
+            middle = [1, 2, None] + middle[3:]
+        if middle[-2:] != [page.paginator.num_pages - 1, page.paginator.num_pages]:
+            middle = middle[:-3] + [None, page.paginator.num_pages - 1,
+                                    page.paginator.num_pages]
+    else:
+        middle = page_range
+    path = request.path
+    get_data = dict(request.GET)
+    for number in middle:
+        if number is not None:
+            if number > 1:
+                get_data['page'] = str(number)
+            else:
+                try:
+                    del get_data['page']
+                except KeyError:
+                    pass
+            yield (number, util.make_absolute_url(path, get_data))
+        else:
+            yield ('tag', None)
 
 class ChannelCacheMiddleware(UserCacheMiddleware):
 
@@ -203,7 +294,6 @@ def show(request, id, featured_form=None):
     query.join('categories', 'tags', 'rating')
     if request.user.is_supermoderator():
         query.join('featured_queue', 'featured_queue.featured_by')
-    item_query = Item.query(channel_id=id).join('channel').order_by('date', desc=True).limit(4)
     c = util.get_object_or_404(request.connection, query, id)
     # redirect old URLs to canonical ones
     if request.path != c.get_url():
@@ -212,9 +302,12 @@ def show(request, id, featured_form=None):
         c.rating = GeneratedRatings()
         c.rating.channel_id = c.id
         c.rating.save(request.connection)
+    item_paginator = Paginator(ItemObjectList(request.connection, c), 4)
+    item_page = item_paginator.page(request.GET.get('page', 1))
     context = {
         'channel': c,
-        'items': item_query.execute(request.connection),
+        'item_page': item_page,
+        'item_page_links': _calculate_pages(request, item_page),
         'recommendations': get_recommendations(request, c),
         'show_edit_button': request.user.can_edit_channel(c),
         'show_extra_info': request.user.can_edit_channel(c),
@@ -349,80 +442,6 @@ def rate(request, id):
         redirect = channel.get_absolute_url()
     return HttpResponseRedirect(redirect)
 
-class ApiObjectList:
-    def __init__(self, connection, filter, value, sort, loads):
-        self.connection = connection
-        self.filter = filter
-        self.value = value
-        self.sort = sort
-        self.loads = loads
-        if 'rating' in sort:
-            self.count_sort = 'ratingcount'
-        else:
-            self.count_sort = 'count'
-
-    def __len__(self):
-        return int(self.call(self.connection, self.filter,
-                             self.value, self.count_sort))
-
-    def __getslice__(self, offset, end):
-        limit = end - offset
-        return tuple(self.call(self.connection, self.filter,
-                         self.value, self.sort, limit,
-                         offset, self.loads))
-
-class FeedObjectList(ApiObjectList):
-    def call(self, *args, **kw):
-        return api.get_feeds(*args, **kw)
-
-class ShowObjectList(ApiObjectList):
-    def call(self, *args, **kw):
-        return api.get_shows(*args, **kw)
-
-def _calculate_pages(request, current, feed_paginator, show_paginator):
-    if not feed_paginator:
-        biggest = show_paginator
-    elif not show_paginator:
-        biggest = feed_paginator
-    elif feed_paginator.count > show_paginator.count:
-        biggest = feed_paginator
-    else:
-        biggest = show_paginator
-
-    page_range = biggest.page_range
-    if biggest.num_pages > 9:
-        low = current - 5
-        high = current + 4
-        if low < 0:
-            high -= low
-            low = 0
-        if high > biggest.num_pages and low > 0:
-            low += (biggest.num_pages - high)
-            if low < 0:
-                low = 0
-        middle = page_range[low:high]
-        if middle[:2] != [1, 2]:
-            middle = [1, 2, None] + middle[3:]
-        if middle[-2:] != [biggest.num_pages - 1, biggest.num_pages]:
-            middle = middle[:-3] + [None, biggest.num_pages - 1,
-                                    biggest.num_pages]
-    else:
-        middle = page_range
-    path = request.path
-    get_data = dict(request.GET)
-    for number in middle:
-        if number is not None:
-            if number > 1:
-                get_data['page'] = str(number)
-            else:
-                try:
-                    del get_data['page']
-                except KeyError:
-                    pass
-            yield (number, util.make_absolute_url(path, get_data))
-        else:
-            yield ('tag', None)
-
 @cache.aggresively_cache
 def filtered_listing(request, value=None, filter=None, limit=10,
                      title='Filtered Listing', default_sort=None):
@@ -456,11 +475,22 @@ def filtered_listing(request, value=None, filter=None, limit=10,
         show_page = show_paginator.page(page)
     except InvalidPage:
         show_page = None
+
+    # find the biggest paginator and use that page for calculating the links
+    if not feed_paginator:
+        biggest = show_page
+    elif not show_paginator:
+        biggest = feed_page
+    elif feed_paginator.count > show_paginator.count:
+        biggest = feed_page
+    else:
+        biggest = show_page
+
     return util.render_to_response(request, 'listing.html', {
         'title': title % {'value': value},
         'sort': sort,
         'current_page': page,
-        'pages': _calculate_pages(request, page, feed_paginator, show_paginator),
+        'pages': _calculate_pages(request, biggest),
         'feed_page': feed_page,
         'show_page': show_page,
         })
