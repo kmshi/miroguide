@@ -40,7 +40,6 @@ class ItemObjectList:
 
     def __getslice__(self, offset, end):
         limit = end - offset
-        print offset, limit
         return tuple(self.query().limit(limit).offset(offset).execute(
             self.connection))
 
@@ -82,7 +81,7 @@ class ShowObjectList(ApiObjectList):
     def call(self, *args, **kw):
         return api.get_shows(*args, **kw)
 
-def _calculate_pages(request, page):
+def _calculate_pages(request, page, default_page=1):
     page_range = page.paginator.page_range
     if page.paginator.num_pages > 9:
         low = page.number - 5
@@ -106,7 +105,7 @@ def _calculate_pages(request, page):
     get_data = dict(request.GET)
     for number in middle:
         if number is not None:
-            if number > 1:
+            if number != default_page:
                 get_data['page'] = str(number)
             else:
                 try:
@@ -149,7 +148,6 @@ def moderator_channel_list(request, state):
         query.where(state=Channel.NEW)
         header = _("Unreviewed Channels")
     query.order_by('creation_time', query.joins['owner'].c.username != 'freelance')
-    print query
     pager =  templateutil.Pager(10, query, request)
 
     return util.render_to_response(request, 'moderator-channel-list.html', {

@@ -67,8 +67,6 @@ def item(request, id):
     else:
         previous = None
 
-    print item.date
-
     nextSet = Item.query(Item.c.channel_id == item.channel_id,
                          Item.c.date > item.date).limit(1).order_by(
         Item.c.date, ).execute(request.connection)
@@ -77,14 +75,19 @@ def item(request, id):
         print next.date
     else:
         next = None
+    index = Item.query(Item.c.channel_id == item.channel_id,
+                       Item.c.date > item.date).order_by(
+        Item.c.date).count(request.connection)
+    default_page = (index // 4) + 1
     item_paginator = Paginator(ItemObjectList(request.connection, item.channel), 4)
-    item_page = item_paginator.page(request.GET.get('page', 1))
+    item_page = item_paginator.page(request.GET.get('page', default_page))
     return util.render_to_response(request, 'playback.html',
                                    {'item': item,
                                     'previous': previous,
                                     'next': next,
                                     'embed': util.mark_safe(embed_code(item)),
                                     'item_page': item_page,
-                                    'item_page_links': _calculate_pages(request, item_page)
+                                    'item_page_links': _calculate_pages(request, item_page,
+                                                                        default_page)
                                     })
 
