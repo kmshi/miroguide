@@ -9,8 +9,6 @@ DATABASE_PORT = FILL ME IN
 
 MEMCACHED_SERVERS = []
 
-API_KEY = FILL ME IN
-
 # name to put on outgoing emails
 EMAIL_FROM = FILL ME IN
 

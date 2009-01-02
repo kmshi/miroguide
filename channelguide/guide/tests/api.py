@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 import simplejson
 
-from channelguide.guide.models import (ApiKey, Category, Item, Language, Rating,
+from channelguide.guide.models import (Category, Item, Language, Rating,
                                        Tag)
 from channelguide.testframework import TestCase
 from channelguide import manage, sessions
@@ -61,74 +61,40 @@ class ChannelApiTestBase(TestCase):
                                           datetime.now() - timedelta(days=1))
         self.channels[0].add_subscription(self.connection, '123.123.123.123',
                                           datetime.now())
+        self.refresh_connection()
 
 
 
 class ChannelApiViewTest(ChannelApiTestBase):
 
-    def setUp(self):
-        ChannelApiTestBase.setUp(self)
-        key = ApiKey(self.owner.id, '')
-        key.save(self.connection)
-        self.key = key.api_key
-        self.refresh_connection()
-
     def make_api_request(self, request, **kw):
         url = '/api/' + request
-        kw['key'] = self.key
         return self.get_page(url, data=kw)
 
-    def test_missing_key_401(self):
+    def test_python_response(self):
         """
-        Requesting an API method without a key should return a 400 response.
+        Making a request with no datatype should return a Python object.
         """
-        response = self.get_page('/api/test',
-                data={'id': 0 })
-        self.assertEquals(response.status_code, 400)
-
-    def test_invalid_key_401(self):
-        """
-        Requesting an API method with a key that doesn't exist or isn't active
-        should return a 403 error.
-        """
-        response = self.get_page('/api/test',
-                data={'key': '0'*20})
-        self.assertEquals(response.status_code, 403)
-
-        key = ApiKey(self.owner.id, '')
-        key.active = False
-        key.save(self.connection)
-        self.refresh_connection()
-        response = self.get_page('/api/test',
-                data={'key': key.api_key})
-        self.assertEquals(response.status_code, 403)
-
-    def test_valid_key_200(self):
-        """
-        Making a request with a valid API key should return a 200 response.
-        """
-        response = self.get_page('/api/test', data={'key': self.key})
+        response = self.get_page('/api/test')
         self.assertEquals(response.status_code, 200, response.content)
         self.assertEquals(eval(response.content),
-                {'text': 'Valid API key'})
+                {'text': 'Valid request'})
 
     def test_json_response(self):
         """
         Making a request with datatype=json should return a JSON object instead
         of a Python object.
         """
-        response = self.get_page('/api/test', data={'key': self.key,
-                                                    'datatype': 'json'})
+        response = self.get_page('/api/test', data={'datatype': 'json'})
         self.assertEquals(simplejson.loads(response.content),
-                          {'text': 'Valid API key'})
+                          {'text': 'Valid request'})
 
     def test_json_callback(self):
         """
         A request with datatype=json and jsoncallback=<function name> should
         return a string which calls the given function with the data.
         """
-        response = self.get_page('/api/test', data={'key': self.key,
-                                                    'datatype': 'json',
+        response = self.get_page('/api/test', data = {'datatype': 'json',
                                                     'jsoncallback': 'foo'})
 
         self.assertEquals(response['Content-Type'], 'text/javascript')
@@ -139,7 +105,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
                         content)
         self.assertTrue(content.endswith(');'))
         self.assertEquals(simplejson.loads(response.content[4:-2]),
-                          {'text': 'Valid API key'})
+                          {'text': 'Valid request'})
 
     def _verifyChannelResponse(self, response, channel):
         self.assertEquals(response.status_code, 200)
@@ -150,7 +116,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(data['description'], channel.description)
         self.assertEquals(data['url'], channel.url)
         self.assertEquals(data['website_url'], channel.website_url)
-        self.assertEquals(data['language'], ('language0', 'language1'))
+        self.assertEquals(data['language'], 'language0')
         self.assertEquals(data['category'], ('category0', 'category1'))
         self.assertEquals(data['tag'], ('tag0', 'tag1'))
         self.assert_('thumbnail_url' in data)
@@ -237,8 +203,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
         /api/get_channel should handle mixing url and id lookups.
         """
         response = self.get_page('/api/get_channel', data=
-                                 [('key', self.key),
-                                  ('url', self.channels[0].url),
+                                 [('url', self.channels[0].url),
                                   ('id', self.channels[01].id)])
         self.assertEquals(response.status_code, 200)
         data = eval(response.content)
@@ -264,10 +229,8 @@ class ChannelApiViewTest(ChannelApiTestBase):
     def _do_authentication(self,  response):
         self.assertEquals(response.status_code, 200)
         context = response.context[0]
-        self.assertEquals(context['key'], self.key)
 
-        data = {'key': context['key'],
-              'verification': context['verification']
+        data = {'verification': context['verification']
               }
         if context.get('session'):
             data['session'] = context['session']
@@ -277,14 +240,12 @@ class ChannelApiViewTest(ChannelApiTestBase):
         return self.post_data('/api/authenticate', data, self.owner)
 
     def _get_session(self):
-        response = self.get_page('/api/authenticate', self.owner,
-                                 {'key': self.key})
+        response = self.get_page('/api/authenticate', self.owner)
         response = self._do_authentication(response)
         return response.context[0]['session']
 
     def test_authenticate(self):
         response = self.get_page('/api/authenticate', self.owner, {
-                'key': self.key,
                 'redirect': 'http://test.com/'})
         context = response.context[0]
         self.assertEquals(context['session'], None)
@@ -295,21 +256,18 @@ class ChannelApiViewTest(ChannelApiTestBase):
         session = sessions.util.get_session_from_key(self.connection,
                                                 response['Location'][-32:])
         data = session.get_data()
-        self.assertEquals(data['key'], self.key)
         self.assertEquals(data['apiUser'], self.owner.id)
 
 
     def test_authenticate_without_redirect(self):
-        response = self.get_page('/api/authenticate', self.owner, {
-                'key': self.key})
+        response = self.get_page('/api/authenticate', self.owner)
         response = self._do_authentication(response)
         self.assertEquals(response.context[0]['success'], True)
 
     def test_authenticate_with_session(self):
         sessionID = sessions.util.make_new_session_key(self.connection)
         response = self.get_page('/api/authenticate', self.owner,
-                                 {'key': self.key,
-                                  'redirect': 'http://test.com/',
+                                 {'redirect': 'http://test.com/',
                                   'session': sessionID})
         response = self._do_authentication(response)
         self.assertRedirect(response, 'http://test.com/')
@@ -317,14 +275,9 @@ class ChannelApiViewTest(ChannelApiTestBase):
                             % sessionID)
 
     def test_authenticate_not_verified(self):
-        response = self.post_data('/api/authenticate', {'key': self.key,
-                                  'verification': 'foo'}, self.owner)
+        response = self.post_data('/api/authenticate', {'verification': 'foo'},
+                                  self.owner)
         self.assertNotEquals(response.context[0].get('error'), None)
-
-    def test_authenticate_invalid_key_404(self):
-        response = self.get_page('/api/authenticate', self.owner,
-                                 {'key': 'invalid key'})
-        self.assertEquals(response.status_code, 404)
 
     def test_rate(self):
         session = self._get_session()
@@ -513,11 +466,6 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         objs = api.get_channels(self.connection, 'language', 'language0')
         self.assertEquals(len(objs), 1)
         self.assertEquals(objs[0].id, self.channels[0].id)
-
-        # secondary language
-        objs2 = api.get_channels(self.connection, 'language', 'language1')
-        self.assertEquals(len(objs2), 1)
-        self.assertEquals(objs2[0].id, self.channels[0].id)
 
         objs3 = api.get_channels(self.connection, 'language', 'unknown')
         self.assertEquals(len(objs3), 0)
@@ -756,47 +704,3 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         self.assertEquals(languages[0].id, self.language.id)
         self.assertEquals(languages[1].id, self.languages[0].id)
         self.assertEquals(languages[2].id, self.languages[1].id)
-
-
-class ChannelApiManageTest(TestCase):
-
-    def setUp(self):
-        TestCase.setUp(self)
-        self.admin = self.make_user('admin', role='A')
-
-    def _make_key(self):
-        key = ApiKey(self.admin.id, '')
-        key.save(self.connection)
-        self.refresh_connection()
-        return key
-
-    def test_add(self):
-        """
-        Sending an add request should create an ApiKey with the given owner id
-        and description.
-        """
-        data = {'action': 'add',
-                'owner': 'admin',
-                'description': 'description of the key'}
-        self.post_data('/api/manage', data, self.admin)
-        keys = ApiKey.query().execute(self.connection)
-        self.assertEquals(len(keys), 1)
-        key = keys[0]
-        self.assertEquals(key.owner_id, self.admin.id)
-        self.assertEquals(key.description, data['description'])
-
-    def test_toggle_active(self):
-        """
-        Sending a toggle-active request should toggle the active bit on the
-        key.
-        """
-        key = self._make_key()
-        data = {'action': 'toggle-active',
-                'key': key.api_key}
-        self.post_data('/api/manage', data, self.admin)
-        updated = self.refresh_record(key)
-        self.assertEquals(updated.active, False)
-
-        self.post_data('/api/manage', data, self.admin)
-        updated = self.refresh_record(key)
-        self.assertEquals(updated.active, True)
