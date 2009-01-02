@@ -3713,6 +3713,11 @@ a.large_button span {
     display: inline;
 }
 
+.searchThumb .thumb {
+    width: 98px;
+    height: 68px;
+}
+
 .add_favorite_channel {
     float: right;
     display: inline;
