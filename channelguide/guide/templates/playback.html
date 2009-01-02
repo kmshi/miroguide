@@ -8,7 +8,7 @@
 			<div id="videoBoxTop">
 				<h1>You're Watching a Streaming Video</h1>
 				<span class="returnLink">
-					Back to <a href="{{ item.channel.get_absolute_url }}">{{ item.channel.name }}...</a>
+					Back to <a href="{{ item.channel.get_absolute_url }}{% ifequal page.number 1 %}{% else %}?page={{ page.number }}{% endifequal %}">{{ item.channel.name }}...</a>
 				</span>
 			</div><!--videoBoxTop-->
 			<div id="videoBox">
