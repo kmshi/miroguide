@@ -52,7 +52,7 @@
       <div class="rate">
         {% show_rating_stars channel %}
       </div><!--rate-->
-      
+
       <div class="url">
 	<span class="link">{{ channel.website_link }}</span>
 	<span class="tag">
@@ -72,7 +72,7 @@
           {{ channel.description }}
         </p>
 	<a href="#" class="read_more">{% trans "Show all" %}</a>
-	
+
 	<div class="tags">
 	  <p>
             <strong>{% trans "Categories" %}</strong> -
@@ -90,7 +90,7 @@
           {% endif %}
 	</div>
       </div>
-      
+
       <a href="{{ self.get_subscription_url }}">
         <div class="thumb corners"
              style="background: url({{ channel.thumb_url_245_164 }}); width: 245px; height: 164px;">
@@ -184,7 +184,7 @@
 		  <a href="#">
                     <img src="{{ STATIC_BASE_URL }}images/related_thumb1.jpg" alt="" />
                   </a>
-                </div>	
+                </div>
 	        <a href="#" class="add_feed_button">{% trans "ADD FEED" %}</a>
                 <p>Movies in the public domain</p>
 	      </li>
