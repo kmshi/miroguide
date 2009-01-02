@@ -38,16 +38,13 @@
   <div class="infoBar">
     <div class="innerBar">
       <a href="#" class="show_channels">{% trans "show all" %}</a>
+      {% comment %} TODO enable/merge in geoip filtering
       <span class="extra">
         {% trans "Certain channels are not available in your region" %}
       </span>
+      {% endcomment %}
     </div>
   </div>
-
-  <div class="horizontal_banner_ad">
-    <a href="#"><img src="{{ STATIC_BASE_URL }}images/ads/728x90.jpg" alt="Ad" /></a>
-  </div>
-  <br />
 
   <div class="page">
     <div class="feedColumn">
