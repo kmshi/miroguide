@@ -4,29 +4,11 @@ import sha
 import cgi
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from channelguide.guide.models import ApiKey, User
+from channelguide.guide.models import User
 from channelguide import util
 from channelguide.guide import api, tables
 from channelguide.guide.auth import admin_required, login_required
 from channelguide import sessions
-
-def requires_api_key(func):
-    def wrapper(request, *args, **kw):
-        if 'key' not in request.REQUEST:
-            return error_response(request, 'API_KEY_MISSING',
-                                  'You forgot to send your API key',
-                                  400)
-        try:
-            key = ApiKey.get(request.connection, request.REQUEST['key'])
-        except LookupError:
-            return error_response(request, 'API_KEY_INVALID',
-                                  'Invalid API key', 403)
-        if not key.active:
-            return error_response(request, 'API_KEY_DISABLED',
-                                  'Disabled API key', 403)
-        request.key = key
-        return func(request, *args, **kw)
-    return wrapper
 
 def requires_arguments(*arguments):
     def outer(func):
@@ -52,8 +34,6 @@ def requires_login(func):
         data = session.get_data()
         if 'apiUser' not in data:
             return error
-        if data.get('key') != request.REQUEST['key']:
-            return error
         session.update_expire_date()
         session.save(request.connection)
         request.user = api.login(request.connection,
@@ -61,7 +41,7 @@ def requires_login(func):
 
         return func(request)
     return wrapper
-        
+
 def data_for_channel(channel):
     default_keys = ('id', 'name', 'description', 'url', 'website_url',
             'hi_def', 'publisher', 'postal_code')
@@ -132,42 +112,10 @@ def response_for_data(request, data, code=None):
         response.status_code = code
     return response
 
-@admin_required
-def manage(request):
-    if request.method == 'GET':
-        keys = ApiKey.query()
-        keys.join('owner')
-        keys.order_by(keys.joins['owner'].c.username)
-        return util.render_to_response(request, 'api-key.html',
-                {'keys': keys.execute(request.connection)})
-    else:
-        action = request.POST['action']
-        if action == 'add':
-            owner = request.POST['owner']
-            try:
-                owner = User.query(username = owner).get(request.connection)
-            except LookupError:
-                return HttpResponseNotFound('invalid user name %s' % owner)
-            description = request.POST['description']
-            key = ApiKey(owner.id, description)
-            key.save(request.connection)
-            return util.redirect_to_referrer(request)
-        elif action == 'toggle-active':
-            key = request.POST['key']
-            try:
-                obj = ApiKey.get(request.connection, key)
-            except:
-                return HttpResponse('invalid key %s' % key)
-            obj.active = not obj.active
-            obj.save(request.connection)
-            return util.redirect(request.path)
-
-@requires_api_key
 def test(request):
-    data = {'text': 'Valid API key' }
+    data = {'text': 'Valid request' }
     return response_for_data(request, data)
 
-@requires_api_key
 def get_channel(request):
     if not ('id' in request.GET or 'url' in request.GET):
         return error_response(request, 'MISSING_ARGUMENT',
@@ -199,7 +147,6 @@ def get_channel(request):
         data = map(data_for_channel, channels)
     return response_for_data(request, data)
 
-@requires_api_key
 @requires_arguments('filter', 'filter_value')
 def get_channels(request):
     filter = request.GET['filter']
@@ -216,25 +163,17 @@ def get_channels(request):
     data = map(data_for_channel, channels)
     return response_for_data(request, data)
 
-@requires_api_key
 def get_session(request):
     key = sessions.util.make_new_session_key(request.connection)
     return response_for_data(request, {'session': key})
 
 @login_required
 def authenticate(request):
-    try:
-        key = ApiKey.get(request.connection, request.REQUEST['key'])
-    except (KeyError, LookupError):
-        raise Http404
-    if not key.active:
-        raise Http404
     redirectURL = request.REQUEST.get('redirect')
     sessionID = request.REQUEST.get('session')
-    verification = sha.new(key.api_key + settings.SECRET_KEY +
+    verification = sha.new(settings.SECRET_KEY +
                            str(redirectURL) + str(sessionID)).hexdigest()
     context = {
-        'key': key.api_key,
         'redirect': redirectURL,
         'session': sessionID,
         'verification': verification
@@ -249,7 +188,6 @@ def authenticate(request):
             session = sessions.util.get_session_from_key(request.connection,
                                                           sessionID)
             data = session.get_data()
-            data['key'] = key.api_key
             data['apiUser'] = request.user.id
             session.session_key = sessionID
             session.set_data(data)
@@ -263,7 +201,6 @@ def authenticate(request):
             context['error'] = _("Invalid verification code.")
     return util.render_to_response(request, 'api_authenticate.html',
                                    context)
-@requires_api_key
 @requires_login
 @requires_arguments('id')
 def rate(request):
@@ -279,7 +216,6 @@ def rate(request):
                              {'rating': api.get_rating(request.connection,
                                                        request.user, channel)})
 
-@requires_api_key
 @requires_login
 def get_recommendations(request):
     start = int(request.GET.get('start', 0))
@@ -289,7 +225,6 @@ def get_recommendations(request):
     return response_for_data(request, map(data_for_channel,
                                           channels))
 
-@requires_api_key
 @requires_login
 def get_ratings(request):
     rating = request.GET.get('rating')
@@ -305,8 +240,7 @@ def get_ratings(request):
         for index, channels in izip(count(), channels):
             data[index]['rating'] = ratings[channels]
         return response_for_data(request, data)
-        
-@requires_api_key
+
 def list_labels(request, type):
     labels = api.list_labels(request.connection, type)
     data = [

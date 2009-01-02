@@ -145,5 +145,4 @@ def index(request):
         'categories': get_categories(request.connection),
         'category_peek': make_category_peek(request),
         'language' : get_current_language(request),
-        'API_KEY': settings.API_KEY
     })

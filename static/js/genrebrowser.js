@@ -1,5 +1,4 @@
 var browser = {
-    API_KEY: "",
     scrollTimeout: null,
 
     browseGenre: function(obj) {
@@ -21,7 +20,7 @@ var browser = {
     },
 
     getChannels: function(genreName, sort, callback) {
-        url = '/api/get_channels?key=' + browser.API_KEY + '&datatype=json&jsoncallback=' + escape(callback) +
+        url = '/api/get_channels?datatype=json&jsoncallback=' + escape(callback) +
             '&sort=' + sort + '&limit=2&filter=category&filter_value=' + escape(genreName);
         $.getScript(url);
     },
@@ -55,7 +54,7 @@ var browser = {
         description.text(data['description']);
         add = item.find('a.add_feed_button2').attr('href', url);
 
-        $.getJSON('/api/get_channel?key=' + browser.API_KEY + '&id=' + data['id'] + '&datatype=json&jsoncallback=?',
+        $.getJSON('/api/get_channel?id=' + data['id'] + '&datatype=json&jsoncallback=?',
                    function(data) {
                        item = $("#channelEpisodes .pageContent .searchResults > li").eq(index);
                        item.find('li.subscribers').text(data['subscription_count_today'] + ' Subscribed Today');

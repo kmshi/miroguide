@@ -193,12 +193,6 @@ generated_ratings = Table('cg_channel_generated_ratings',
         columns.Int('average'),
         columns.Int('count'),
         columns.Int('total'))
-api_key = Table('cg_api_key',
-    columns.String('api_key', 40, primary_key=True),
-    columns.Int('owner_id', fk=user.c.id),
-    columns.Int('active'),
-    columns.String('description'),
-    columns.DateTime('created_at', default=datetime.now))
 watched_videos = Table('cg_watched_videos',
                        columns.Int('type', primary_key=True),
                        columns.Int('id', primary_key=True),
@@ -327,7 +321,6 @@ user.one_to_many('channel_subscriptions', added_channel, backref='user')
 user.one_to_one('auth_token', user_auth_token, backref='user')
 moderator_action.many_to_one('user', user, backref='moderator_actions')
 moderator_action.many_to_one('channel', channel, backref='moderator_actions')
-api_key.many_to_one('owner', user)
 channel_rating.many_to_one('user', user, backref='channel_rating')
 channel_rating.many_to_one('channel', channel, backref='channel_rating')
 featured_queue.one_to_one('channel', channel, backref='featured_queue')
