@@ -79,15 +79,15 @@ def item(request, id):
                        Item.c.date > item.date).order_by(
         Item.c.date).count(request.connection)
     default_page = (index // 4) + 1
-    item_paginator = Paginator(ItemObjectList(request.connection, item.channel), 4)
-    item_page = item_paginator.page(request.GET.get('page', default_page))
+    paginator = Paginator(ItemObjectList(request.connection, item.channel), 4)
+    page = paginator.page(request.GET.get('page', default_page))
     return util.render_to_response(request, 'playback.html',
                                    {'item': item,
                                     'previous': previous,
                                     'next': next,
                                     'embed': util.mark_safe(embed_code(item)),
-                                    'item_page': item_page,
-                                    'item_page_links': _calculate_pages(request, item_page,
+                                    'page': page,
+                                    'page_links': _calculate_pages(request, page,
                                                                         default_page)
                                     })
 

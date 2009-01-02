@@ -59,18 +59,18 @@
 			</div><!--detailsHead-->
 
 			<ul class="paginator">
-                          {% for number, link in item_page_links %}
+                          {% for number, link in page_links %}
                           {% ifequal number "tag" %}
                           <li class="tag">...</li>
                           {% else %}
-                          <li {% ifequal number item_page.number %}class="selected"{% endifequal %}><span><a href="{{ link }}">{{ number }}</a></span></li>
+                          <li {% ifequal number page.number %}class="selected"{% endifequal %}><span><a href="{{ link }}">{{ number }}</a></span></li>
                           {% endifequal %}
                           {% endfor %}
 			</ul>
 
 			<br clear="all" />
 
-                        {% for item in item_page.object_list %}
+                        {% for item in page.object_list %}
 			<div class="detailsTopLarge"></div>
                         {% include "guide/item.html" %}
                         {% endfor %}
