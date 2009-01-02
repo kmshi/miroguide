@@ -15,7 +15,7 @@ from channelguide.guide.exceptions import AuthError
 class UserBase(object):
     def check_is_authenticated(self):
         if not self.is_authenticated():
-            raise AuthError("Moderator Access Required")
+            raise AuthError("Authentication Required")
 
     def check_beta_tester(self):
         if not self.is_beta_tester():
