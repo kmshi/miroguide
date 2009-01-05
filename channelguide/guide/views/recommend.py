@@ -27,17 +27,6 @@ class RecommendationsPager(templateutil.ManualPager):
 def index(request):
     recommendations = bool('test' not in request.GET)
     pager = RecommendationsPager(10, request)
-    if not pager.items and recommendations:
-        recommendations = False
-        query = Channel.query_approved(user=request.user)
-        query.join('rating')
-        query.load('subscription_count_month', 'item_count')
-        query.order_by(query.get_column('subscription_count_month'), desc=True)
-        pager = templateutil.Pager(10, query, request)
-        for channel in pager.items:
-                channel.timeline = 'This Month'
-                channel.popular_count = getattr(channel,
-                                                'subscription_count_month')
     context = {'pager': pager,
                'recommendations': recommendations,
                'title': "Channels You'll &hearts;"

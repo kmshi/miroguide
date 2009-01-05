@@ -62,16 +62,18 @@
         </div>
       </div><!--detailsHead-->
       <ul class="searchResults">
+        {% if pager.items %}
         {% for channel in pager.items %}
           <li>
-            {% include "guide/channel-in-popular-list.html" %}
+            {% include "guide/channel-in-listing.html" %}
           </li>
         {% endfor %}
-        
+        {% else %}
         <li class="rate_more">
           <h3>Rate more videos!</h3>
           <p>We're fresh out of recommendations.</p>
         </li>
+        {% endif %}
       </ul>
     </div><!--feedColumn-->
 
