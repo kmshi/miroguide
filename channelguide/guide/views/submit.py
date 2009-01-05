@@ -17,10 +17,13 @@ def destroy_submit_url_session(request):
 def submit_feed(request):
     destroy_submit_url_session(request)
     if request.method != 'POST':
-        form = forms.FeedURLForm(request.connection)
+        form = forms.FeedURLForm(
+            request.connection, url_required=(not request.user.is_moderator()))
     else:
         submit_type = request.POST.get('type', '')
-        form = forms.FeedURLForm(request.connection, request.POST.copy())
+        form = forms.FeedURLForm(
+            request.connection, request.POST.copy(),
+            url_required=(not request.user.is_moderator()))
         if form.is_valid():
             if form.cleaned_data['url']:
                 request.session[SESSION_KEY] = form.get_feed_data()
