@@ -32,7 +32,7 @@ See LICENSE for details.
     {% endif %}
 </div>
 <div class="edit-box" style="display: none;"></div>
-{% if show_script %}
+
 
 <script type="text/javascript">
 function editBoxLoad(){
@@ -43,16 +43,18 @@ function editBoxLoad(){
     editBox.append('<div class="clear"></div>')
     editBox.height(0).css('overflow', 'hidden').show();
     editBox.find("div.form_row:lt(6)").each(function() {
+        console.log(this);
+        console.log($(this).width());
         var label = $(this).children("label");
         var input = $(this).children("input");
         var textarea = $(this).children("textarea");
         var helptext = $(this).children('div.help-text');
-        if (helptext.length) {
+        /*if (helptext.length) {
             // remove more pixels if there's help text
             extra = 14;
-        } else {
+        } else { */
             extra = 0;
-        }
+        /*}*/
 	if (input.length) input.width($(this).width() - label.width() - extra - 20);
         if (textarea.length) textarea.width($(this).width() - 20).height('6em');
     });
@@ -60,7 +62,8 @@ function editBoxLoad(){
 	function(data, textStatus) {
 	    result = $('.big-form', data);
 	    if (!result.length) {
-		document.location = document.location;
+		document.location = document.location.protocol + '//' +
+                    document.location.host + document.location.pathname;
 		return;
 	    }
 	    editBox.empty().append(result);
@@ -90,7 +93,7 @@ function showEmailForm(event) {
     var left = (window.innerWidth - 600) / 2;
     $('body div').fadeTo('slow', 0.7);
     $('body').prepend('<div class="email-form embedded" style="width: 600px; height: 300px; border: 2px solid black; background: white; z-index: 1; top: ' + top +'px; left: ' + left + 'px; position: fixed;"></div>');
-    var url = $(this).parent().attr('action').replace(/channels/, 'channels/email');
+    var url = $(this).parent().attr('action') + '/email';
     $('body div.email-form').load(url + ' div.email-form > *', {type: type},
             function() {
                 var emailForm = $('div.email-form');
@@ -115,5 +118,4 @@ if (location.hash == '#edit') {
     $(".edit h2").each(toggleEditBox);
 }
 </script>
-{% endif %}
 {% endif %}

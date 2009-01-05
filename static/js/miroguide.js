@@ -22,6 +22,8 @@ function MiroVersion() {
 
 function showLoadIndicator(always) {
     indicator = $("#load-indicator");
+    if (!indicator.length)
+        return;
     if ((!indicator.queue().length) && always || navigator.userAgent.indexOf('Miro') != -1) {
 	indicator.animate({bottom: 0}, 'fast');
     }
@@ -86,31 +88,6 @@ function handleSubscriptionLink(channel_guide_url, subscribe_url) {
     }
     request.open('GET', channel_guide_url, true);
     request.send(null);
-}
-
-function channelAdd(url, redirect, name, event) {
-    var xhr = makeXMLHttpRequest();
-    if (!xhr) return true;
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState > 1) {
-            display = $("<div class='added_channel'>" + name + " added to your Miro sidebar!</div>");
-            display.css('position', 'absolute').css('top', event.pageY - 31).css('left', '-10em');
-            $("body").append(display);
-            display.animate({left: 0}, 'slow');
-            setTimeout(function() {
-                d = $('div.added_channel:eq(0)');
-                d.animate({
-                    left: '-20em'
-                }, 'slow',  function() {
-                    d.remove();
-                });
-            }, 2000);
-            window.location = redirect;
-        }
-    };
-    xhr.open('GET', url, true);
-    xhr.send(null);
-    return false;
 }
 
 function channelAdd(url, redirect, name, event) {
@@ -298,3 +275,4 @@ if (isMiro()) {
 }
 
 window.addEventListener('pageshow', searchPageShow, false);
+window.addEventListener('pagehide', hideLoadIndicator, false);

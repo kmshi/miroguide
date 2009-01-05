@@ -447,7 +447,8 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
         # django hack to get fields to work right with subclassing
         #self.base_fields = SubmitChannelForm.base_fields
 
-        super(EditChannelForm, self).__init__(request.connection, data)
+        FeedURLForm.__init__(self, request.connection, data)
+        SubmitChannelForm.__init__(self, request.connection, data)
         self.channel = channel
         self.fields['thumbnail_file'].required = False
         self.set_image_from_channel = False

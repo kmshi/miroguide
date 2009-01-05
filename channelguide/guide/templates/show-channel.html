@@ -8,8 +8,6 @@
 {% load cg_helpers channels i18n notes %}
 
 {% block head-extra %}
-  <script src="{{ STATIC_BASE_URL }}js/rating.js" type="text/javascript"></script>
-  <link rel="StyleSheet" type="text/css" href="{{ STATIC_BASE_URL }}css/rating.css">
   <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/playback.js"></script>
   <style type="text/css">
     div#page {
@@ -29,6 +27,9 @@
 {% block content %}
   {% if error %}
     <div class="error">{{ error }}</div>
+  {% endif %}
+  {% if show_edit_button %}
+  {% include "guide/edit-bar.html" %}
   {% endif %}
   <div id="channelInfo">
     <div class="page">
