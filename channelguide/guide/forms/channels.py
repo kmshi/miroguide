@@ -341,6 +341,9 @@ class SubmitChannelForm(Form):
                     "channel."))
 
     def __init__(self, *args, **kwargs):
+        if kwargs.has_key('url_required'):
+            self.base_fields['url'].required = kwargs['url_required']
+            kwargs.pop('url_required')
         Form.__init__(self, *args, **kwargs)
         self.set_image_from_feed = False
         self.fields['language'].update_choices()

@@ -82,13 +82,17 @@ def submit_channel(request):
     if 'subscribe' in session_dict:
         return util.redirect('/submit')
     if request.method != 'POST':
-        form = forms.SubmitChannelForm(request.connection)
+        form = forms.SubmitChannelForm(
+            request.connection,
+            url_required=(not request.user.is_moderator()))
         form.set_defaults(session_dict)
         session_dict['detected_thumbnail'] = form.set_image_from_feed
         request.session.modified = True
     else:
-        form = forms.SubmitChannelForm(request.connection,
-                util.copy_post_and_files(request))
+        form = forms.SubmitChannelForm(
+            request.connection,
+            util.copy_post_and_files(request),
+            url_required=(not request.user.is_moderator()))
         if session_dict['owner-is-fan']:
             form.fields['publisher'].required = False
         if form.user_uploaded_file():
