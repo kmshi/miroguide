@@ -360,7 +360,7 @@ class SubmitChannelForm(Form):
     def set_defaults(self, saved_data):
         if saved_data['owner-is-fan']:
             self.fields['publisher'].required = False
-        for key in ('name', 'website_url', 'publisher', 'description'):
+        for key in ('name', 'website_url', 'publisher', 'description', 'url'):
             if saved_data.get(key) is not None:
                 self.fields[key].initial = saved_data[key]
         if saved_data.get('thumbnail_url') and 'youtube.com/rss' not in saved_data['url']:
