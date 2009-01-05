@@ -22,19 +22,16 @@
     <h1 class="lovedVideos">{% trans "Videos You'll Love" %}</h1>
     <ul class="paginator2">
       <li class="tag">Pages</li>
-      <li><span><a href="#">1</a></span></li>
-      <li><span><a href="#">2</a></span></li>
-      <li><span><a href="#">19</a></span></li>
-      <li><span><a href="#">20</a></span></li>
-      <li class="selected"><span><a href="#">21</a></span></li>
-      <li><span><a href="#">22</a></span></li>
+      {% for number, link in pages %}
+      {% ifequal number "tag" %}
       <li class="tag">...</li>
-      <li><span><a href="#">98</a></span></li>
-      <li><span><a href="#">99</a></span></li>
-      <li><span><a href="#">100</a></span></li>
+      {% else %}
+      <li {% ifequal number feed_page.number %}class="selected"{% endifequal %}><span><a href="{{ link }}">{{ number }}</a></span></li>
+      {% endifequal %}
+      {% endfor %}
     </ul>
   </div>
-  
+
   <div class="infoBar">
     <div class="innerBar">
       {% comment %} TODO enable/merge in geoip filtering
@@ -58,12 +55,12 @@
           </span>
         </h3>
         <div class="sortType">
-          <a href="#"><strong>{{ pager.total_items }}</strong></a>
+          <a href="#"><strong>{{ feed_page.paginator.count }}</strong></a>
         </div>
       </div><!--detailsHead-->
       <ul class="searchResults">
-        {% if pager.items %}
-        {% for channel in pager.items %}
+        {% if feed_page %}
+        {% for channel in feed_page.object_list %}
           <li>
             {% include "guide/channel-in-listing.html" %}
           </li>
@@ -83,50 +80,27 @@
 	  <span class="heading">Sites</span>
 	  <span class="button">
             <a href="#">
-              <img src="images/ico_refresh.png" alt="" />
+              <img src="{{ STATIC_BASE_URL }}images/ico_refresh.png" alt="" />
             </a>
           </span>
 	</h3>
 	<div class="sortType">
-	  <a href="#"><strong>67</strong></a>
+	  <a href="#"><strong>{{ show_page.paginator.count }}</strong></a>
 	</div>
       </div><!--detailsHead-->
       <ul class="searchResults">
-	<li>
-	  <div class="searchThumb">
-	    <a href="#">
-	      <img class="hd_tag_tiny"
-                   src="{{ STATIC_BASE_URL }}images/ico_hd_tag_tiny.png" alt="" />
-	      <img src="{{ STATIC_BASE_URL }}images/small_thumb.jpg" alt="" />
-            </a>
-	  </div>
-	  
-	  <div class="searchResultContent">
-	    <h4>Episode 11: Cycle Race Scramble!</h4>
-	    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Cras lobortis elementum neque. Etiam pede. Lorem ipsum dolor sit amet, con-</p>
-	  </div>
-	  <br clear="all" />
-	  <div class="searchResultsMeta">
-	    <ul class="rating">
-	      <li class="score"><a href="#" class="add_feed_button2">ADD FEED</a></li>
-	      <li>
-                <div class="small_rate">
-		  <span class="cancel"><a href="#">0</a></span>
-		  <span class="star on"><a href="#">1</a></span>
-		  <span class="star on"><a href="#">2</a></span>
-		  <span class="star on"><a href="#">3</a></span>
-		  <span class="star"><a href="#">4</a></span>
-		  <span class="star"><a href="#">5</a></span>
-	        </div>
-	      </li>
-	      <li class="our_bet">Our Bet <span class="score">100%</span></li>
-	    </ul>
-	  </div>
-	</li>
+        {% if show_page %}
+        {% for channel in show_page.object_list %}
+          <li>
+            {% include "guide/channel-in-listing.html" %}
+          </li>
+        {% endfor %}
+        {% else %}
 	<li class="rate_more">
 	  <h3>Rate more videos!</h3>
 	  <p>We're fresh out of recommendations.</p>
 	</li>
+        {% endif %}
       </ul>
     </div><!--feedColumn-->
   </div><!--page-->
