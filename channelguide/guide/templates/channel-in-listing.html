@@ -1,0 +1,39 @@
+{% comment %}
+Copyright (c) 2008 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+
+{% load i18n cg_helpers channels %}
+
+<div class="searchThumb">
+  <a {% link channel.get_url %}>
+    <div class="thumb corners"
+         style="background: url({{ channel.thumb_url_98_68}});">
+      {% if channel.hi_def %}
+        <img class="hd_tag_tiny2"
+             src="{{ STATIC_BASE_URL }}images/ico_hd_tag_tiny.png"
+             alt="" />
+      {% endif %}
+    </div>
+  </a>
+</div>
+<div class="searchResultContent">
+  <h4>{{ channel.name_as_link }}</h4>
+  <p>{{ channel.description }}</p>
+</div>
+<br clear="all" />
+
+<div class="searchResultsMeta">
+
+  <ul class="rating">
+    <li class="score">
+      <a {{ channel.subscription_link }} class="add_feed_button2">
+        {% trans "Add Feed" %}
+      </a>
+    </li>
+    {% show_small_rating_stars channel %}
+    {% if channel.subscription_count_month %}<li class="subscribers">{{ channel.subscription_count_month }} Subscribers</li>{% endif %}
+    {% if channel.item_count %}<li class="available">{{ channel.item_count }} Videos</li>{% endif %}
+    {% if channel.guessed %}<li class="our_bet">Our Bet: <span class="score">{{ channel.guessed|floatformat }} stars</span></li>{% endif %}
+  </ul>
+</div>

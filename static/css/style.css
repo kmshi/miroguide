@@ -572,9 +572,9 @@ h3.widget_title_bar {
 .widget_small ul.related li .meta span.rating_average {
     display: block;
     padding: 0 0 0 8px;
-    font-size: 10px; 
+    font-size: 10px;
     color: #999;
-    margin: 0 0 5px 0; 
+    margin: 0 0 5px 0;
     overflow: hidden;
 }
 
@@ -692,6 +692,8 @@ ul.searchResults li .searchResultContent {
 ul.searchResults li .searchResultContent p {
     margin: 0px 0 0 0;
     line-height: 1.3em;
+    height: 3.9em; /* 3 lines */
+    overflow: hidden;
 }
 
 ul.searchResults li .searchResultsMeta {
@@ -713,7 +715,7 @@ ul.searchResults li ul.rating, ul.rating {
     width: 360px;
 }
 
-ul.searchResults li ul.rating li {
+ul.searchResults li ul.rating > * {
     float: left;
     display: inline;
     margin: 5px 1px 0 1px;
@@ -725,12 +727,13 @@ ul.searchResults li ul.rating li a {
     float: left;
     display: inline;
     margin: 0 1px;
+    text-transform: uppercase;
 }
 
 ul.searchResults li ul.rating li.score {
     font-size: 9px;
     color: #818181;
-    padding: 0 6px 0 0;  
+    padding: 0 6px 0 0;
 }
 
 ul.searchResults li ul.rating li.available, ul.searchResults li ul.rating li.subscribers {
@@ -923,7 +926,7 @@ h3.resultsCount .pagination {
 }
 
 .sortType {
-    float: right; 
+    float: right;
     display: inline;
     background: url(/images/item_bar_right.png) 0 0px no-repeat;
     height: 34px;
@@ -986,7 +989,7 @@ h3.resultsCount .pagination {
 #channelRating .rate .cancel {
     float: left;
     display: inline;
-    width: 18px; 
+    width: 18px;
     height: 16px;
     background: url(/images/big_no-nos.png) 0 -21px no-repeat;
     text-indent: -9999px;
@@ -1034,7 +1037,7 @@ h3.resultsCount .pagination {
 #channelRating .url .tag {
     text-transform: uppercase;
     font-size: 10px;
-    background: url(/images/arrow_right.png) right 3px no-repeat;	
+    background: url(/images/arrow_right.png) right 3px no-repeat;
     padding: 0 10px 0 10px;
     margin: 1px 0 0 10px;
 }
@@ -1042,7 +1045,7 @@ h3.resultsCount .pagination {
 .small_rate span.cancel a{
     float: left;
     display: inline;
-    width: 15px; 
+    width: 15px;
     height: 16px;
     background: url(/images/small_no-nos.png) 0 -16px no-repeat;
     text-indent: -9999px;
@@ -1248,7 +1251,7 @@ h3.resultsCount .pagination {
     width: 787px;
 }
 
-#channelEpisodes .details, #channelEpisodes .detailsLarge {
+#channelEpisodes .details {
     background: url(/images/channel_content.png) left bottom no-repeat;
     width: 536px;
     margin: 0 0 0 15px;
@@ -1257,7 +1260,7 @@ h3.resultsCount .pagination {
     height: 100%;
 }
 
-#channelEpisodes .detailsLarge {
+#channelEpisodes .detailsTopLarge + .details {
     background: url(/images/channel_content_large.png) left bottom no-repeat;
     width: 758px;
 }
@@ -1327,13 +1330,13 @@ h3.resultsCount .pagination {
     display: none;
 }
 
-#channelEpisodes .details .thumb, #channelEpisodes .detailsLarge .thumb {
+#channelEpisodes .details .thumb {
     width: 98px;
     float: left;
     display: inline;
 }
 
-#channelEpisodes .details .description, #channelEpisodes .detailsLarge .description {
+#channelEpisodes .details .description {
     padding: 0 0 0 10px;
     width: 315px;
     float: left;
@@ -1341,9 +1344,9 @@ h3.resultsCount .pagination {
     margin: 3px 0 0 10px;
 }
 
-#channelEpisodes .detailsLarge .description {width: 500px;}
+#channelEpisodes .detailsTopLarge + .details .description {width: 500px;}
 
-#channelEpisodes .details .description h4, #channelEpisodes .detailsLarge .description h4 {
+#channelEpisodes .details .description h4 {
     color: #1e66f2;
     margin: 0;
     padding: 0;
@@ -1351,7 +1354,7 @@ h3.resultsCount .pagination {
     font-size: 15px;
 }
 
-#channelEpisodes .details .description p, #channelEpisodes .detailsLarge .description p {
+#channelEpisodes .details .description p {
     margin: 3px 0 10px 0;
     padding: 0;
     line-height: 14px;
@@ -1367,7 +1370,7 @@ h3.resultsCount .pagination {
     clear: both;
 }
 
-#channelEpisodes .details .meta, #channelEpisodes .detailsLarge .meta {
+#channelEpisodes .details .meta {
     width: 95px;
     float: right;
     display: inline;
@@ -1376,7 +1379,7 @@ h3.resultsCount .pagination {
     font-size: 11px;
 }
 
-#channelEpisodes .details .meta strong, #channelEpisodes .detailsLarge .meta strong {
+#channelEpisodes .details .meta strong {
     display: block;
     margin: 0 0 10px 0;
 }
@@ -1566,7 +1569,7 @@ h3.resultsCount .pagination {
 .custom_feed h3 span {
     background: url(/images/ico_question2.png) right 0 no-repeat;
     padding: 1px 30px 3px 0;
-    
+
 }
 
 .custom_feed p {
@@ -3061,8 +3064,8 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 }
 
 #hoverMenuSubmit ul li.upper .form_row_center div.preview .overlay {
-    position: absolute; 
-    right: 0; 
+    position: absolute;
+    right: 0;
     z-index: 2;
 }
 
@@ -3930,6 +3933,11 @@ a.large_button span {
 .searchThumb {
     float: left;
     display: inline;
+}
+
+.searchThumb .thumb {
+    width: 98px;
+    height: 68px;
 }
 
 .add_favorite_channel {
