@@ -183,7 +183,7 @@ def get_ratings(connection, user, rating=None):
                 Rating.query(user_id=user.id, rating=rating).join(
                 'channel').execute(connection)]
 
-def get_recommendations(connection, user, start=0, length=10):
+def get_recommendations(connection, user, start=0, length=10, filter=None):
     rating_query = Rating.query(user_id=user.id).order_by(Rating.c.timestamp)
     ratings = rating_query.execute(connection)
     added_query = AddedChannel.query(user_id=user.id).order_by(
@@ -219,11 +219,21 @@ def get_recommendations(connection, user, start=0, length=10):
             client.set(cacheKey, result)
         else:
             estimatedRatings, reasons, ids = result
+        query = Channel.query(Channel.c.id.in_(ids))
+        if filter is not None:
+            if filter == 'feed':
+                query.where(Channel.c.url.is_not(None))
+            elif filter == 'show':
+                query.where(Channel.c.url.is_(None))
+            else:
+                raise ValueError('unknown recommendations filter: %r' % filter)
         if start is None:
-            return len(ids)
+            if not ids:
+                return 0
+            else:
+                return query.count(connection)
         if not ids:
             return []
-        query = Channel.query(Channel.c.id.in_(ids))
         query.join('rating')
         channels = list(query.execute(connection))
         for channel in channels:
