@@ -32,7 +32,8 @@ See LICENSE for details.
       </a>
     </li>
     {% show_small_rating_stars channel %}
-    <li class="subscribers">{{ channel.subscription_count_month|default:"0" }} Subscribers</li>
-    <li class="available">{{ channel.item_count|default:"0" }} Videos</li>
+    {% if channel.subscription_count_month %}<li class="subscribers">{{ channel.subscription_count_month }} Subscribers</li>{% endif %}
+    {% if channel.item_count %}<li class="available">{{ channel.item_count }} Videos</li>{% endif %}
+    {% if channel.guessed %}<li class="our_bet">Our Bet: <span class="score">{{ channel.guessed }} stars</span></li>{% endif %}
   </ul>
 </div>
