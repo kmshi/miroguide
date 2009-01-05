@@ -78,6 +78,12 @@ class FeedURLForm(Form):
     url = RSSFeedField(label=_("RSS Feed"), required=False,
                        help_text=RSS_HELP_TEXT)
 
+    def __init__(self, connection, *args, **kwargs):
+        if kwargs.has_key('url_required'):
+            self.base_fields['url'].required = kwargs['url_required']
+            kwargs.pop('url_required')
+        Form.__init__(self, connection, *args, **kwargs)
+
     def clean_name(self):
         value = self.cleaned_data['name']
         if value == self.fields['name'].initial:
@@ -354,7 +360,7 @@ class SubmitChannelForm(Form):
     def set_defaults(self, saved_data):
         if saved_data['owner-is-fan']:
             self.fields['publisher'].required = False
-        for key in ('name', 'website_url', 'publisher', 'description'):
+        for key in ('name', 'website_url', 'publisher', 'description', 'url'):
             if saved_data.get(key) is not None:
                 self.fields[key].initial = saved_data[key]
         if saved_data.get('thumbnail_url') and 'youtube.com/rss' not in saved_data['url']:
