@@ -692,6 +692,8 @@ ul.searchResults li .searchResultContent {
 ul.searchResults li .searchResultContent p {
     margin: 0px 0 0 0;
     line-height: 1.3em;
+    height: 3.9em; /* 3 lines */
+    overflow: hidden;
 }
 
 ul.searchResults li .searchResultsMeta {
@@ -713,7 +715,7 @@ ul.searchResults li ul.rating, ul.rating {
     width: 360px;
 }
 
-ul.searchResults li ul.rating li {
+ul.searchResults li ul.rating > * {
     float: left;
     display: inline;
     margin: 5px 1px 0 1px;
