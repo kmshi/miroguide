@@ -2,6 +2,7 @@
 # See LICENSE for details.
 
 import datetime
+import urllib
 
 import feedparser
 from django.conf import settings
@@ -9,6 +10,14 @@ from django.http import Http404, HttpResponseRedirect, HttpResponse
 
 from channelguide.guide.models import (Channel, Item)
 from channelguide import util, cache
+
+
+EMAIL_URL = "http://www.videobomb.com/index/democracyemail?url=%s"
+VIDEOBOMB_URL = "http://www.videobomb.com/api/submit_or_bomb"
+DELICIOUS_URL = "http://del.icio.us/post?v=4&noui&jump=close&url=%s&title=%s"
+DIGG_URL = "http://digg.com/submit/?url=%s&media=video"
+REDDIT_URL = "http://reddit.com/submit?url=%s&title=%s"
+
 
 class FakeItem(object):
     def __init__(self, name, url, description, date, thumbnail_url):
@@ -68,6 +77,25 @@ class FakeChannel(object):
         pass
 
 
+def get_feed_links(channel):
+    share_email = EMAIL_URL % (
+        urllib.quote(channel.url))
+    share_delicious = DELICIOUS_URL % (
+        urllib.quote(channel.url), urllib.quote(channel.name))
+    share_digg = DIGG_URL % urllib.quote(channel.url)
+    share_reddit = REDDIT_URL % (
+        urllib.quote(channel.url), urllib.quote(channel.name))
+
+    ## Generate dictionary
+    share_links = {
+        'email': share_email,
+        'delicious': share_delicious,
+        'digg': share_digg,
+        'reddit': share_reddit}
+
+    return share_links
+
+
 def share_feed(request):
     try:
         feed_url = str(request.GET['feed_url'])
@@ -111,8 +139,8 @@ def share_feed(request):
             
             channel = FakeChannel(
                 parsed.feed.get('title'),
-                feed_url,
                 parsed.feed.get('subtitle'),
+                feed_url,
                 parsed.feed.get('link'),
                 thumbnail_url)
 
@@ -129,13 +157,13 @@ def share_feed(request):
             cache.client.set(feed_key, channel)
             cache.client.set(items_key, items)
 
-    share_data = {'lol': 'whut'}
+    share_links = get_feed_links(channel)
 
     return util.render_to_response(
         request, 'show-channel.html',
         {'channel': channel,
          'items': items,
-         'share_data': share_data})
+         'share_links': share_links})
 
 
 def share_item(request):

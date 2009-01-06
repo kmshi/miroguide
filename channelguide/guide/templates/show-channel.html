@@ -30,6 +30,11 @@
   {% if error %}
     <div class="error">{{ error }}</div>
   {% endif %}
+
+  {% if share_links %}
+    {% include "guide/share-links.html" %}
+  {% endif %}
+
   <div id="channelInfo">
     <div class="page">
       <a href="#" class="stream_only">
