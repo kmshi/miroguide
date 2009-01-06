@@ -17,6 +17,8 @@ VIDEOBOMB_URL = "http://www.videobomb.com/api/submit_or_bomb"
 DELICIOUS_URL = "http://del.icio.us/post?v=4&noui&jump=close&url=%s&title=%s"
 DIGG_URL = "http://digg.com/submit/?url=%s&media=video"
 REDDIT_URL = "http://reddit.com/submit?url=%s&title=%s"
+STUMBLEUPON_URL = "http://www.stumbleupon.com/submit?url=%s&title=%s"
+FACEBOOK_URL = "http://www.facebook.com/share.php?u=%s"
 
 
 class FakeItem(object):
@@ -85,13 +87,19 @@ def get_feed_links(channel):
     share_digg = DIGG_URL % urllib.quote(channel.url)
     share_reddit = REDDIT_URL % (
         urllib.quote(channel.url), urllib.quote(channel.name))
+    share_stumbleupon = STUMBLEUPON_URL % (
+        urllib.quote(channel.url), urllib.quote(channel.name))
+    share_facebook = FACEBOOK_URL % (
+        urllib.quote(channel.url))
 
     ## Generate dictionary
     share_links = {
         'email': share_email,
         'delicious': share_delicious,
         'digg': share_digg,
-        'reddit': share_reddit}
+        'reddit': share_reddit,
+        'stumbleupon': share_stumbleupon,
+        'facebook': share_facebook}
 
     return share_links
 
