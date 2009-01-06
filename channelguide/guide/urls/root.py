@@ -28,6 +28,7 @@ urlpatterns = patterns('channelguide.guide.views',
     (r'^recommend/', cg_include('recommend')),
     (r'^ping/', cg_include('ping')),
     (r'^submit/', cg_include('submit')),
+    (r'^share/', cg_include('share')),
     (r'^dmca$', direct_to_template,
      {'template': 'guide/dmca.html'}))
 

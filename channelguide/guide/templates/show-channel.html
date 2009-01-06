@@ -49,9 +49,11 @@
 
   <div id="channelRating">
     <div class="page">
-      <div class="rate">
-        {% show_rating_stars channel %}
-      </div><!--rate-->
+      {% if not channel.fake %}
+        <div class="rate">
+          {% show_rating_stars channel %}
+        </div><!--rate-->
+      {% endif %}
       
       <div class="url">
 	<span class="link">{{ channel.website_link }}</span>
