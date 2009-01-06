@@ -80,22 +80,24 @@
         </p>
 	<a href="#" class="read_more">{% trans "Show all" %}</a>
 	
-	<div class="tags">
-	  <p>
-            <strong>{% trans "Categories" %}</strong> -
-            {% for category in channel.categories %}
-              {{ category.link }}{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-          </p>
-          {% if channel.tags %}
-	    <p>
-              <strong>{% trans "Tags" %}</strong> -
-              {% for tag in channel.tags %}
-                {{ tag.link }}{% if not forloop.last %}, {% endif %}
+        {% if not channel.fake %}
+          <div class="tags">
+            <p>
+              <strong>{% trans "Categories" %}</strong> -
+              {% for category in channel.categories %}
+                {{ category.link }}{% if not forloop.last %}, {% endif %}
               {% endfor %}
             </p>
-          {% endif %}
-	</div>
+            {% if channel.tags %}
+              <p>
+                <strong>{% trans "Tags" %}</strong> -
+                {% for tag in channel.tags %}
+                  {{ tag.link }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+              </p>
+            {% endif %}
+          </div>
+        {% endif %}
       </div>
       
       <a href="{{ self.get_subscription_url }}">
