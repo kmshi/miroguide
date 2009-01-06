@@ -283,8 +283,9 @@ function languageUpdate() {
 }
 
 function add_corners() {
-    $('.corners').corner();
-    $('.top_corners').corner('top');
+    $('.corners').corners();
+    $('.top_corners').corners('top');
+
 }
 
 $(document).ajaxStart(function() {
