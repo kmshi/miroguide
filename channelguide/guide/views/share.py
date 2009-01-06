@@ -32,13 +32,13 @@ class FakeItem(object):
         self.fake = True
 
     def thumb(self):
-        url = self.thumb_url(98, 68)
         return util.mark_safe(
             '<img width="98" height="68" src="%s" alt="%s">' % (
-                url, self.name.replace('"', "'")))
+                self.thumbnail_url, self.name.replace('"', "'")))
 
     def get_url(self):
         pass
+
 
 class FakeChannel(object):
     def __init__(self, name, description, url, website_url, thumbnail_url):
@@ -75,8 +75,7 @@ class FakeChannel(object):
         return util.make_link(self.website_url, url_label)
 
     def thumb_url_245_164(self):
-        # wrap in code that will constrain the width and height here
-        pass
+        return self.thumbnail_url
 
 
 def get_feed_links(channel):
