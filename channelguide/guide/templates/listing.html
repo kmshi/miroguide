@@ -60,12 +60,12 @@
 					<span class="heading">Sites</span>
 				  <span class="button"><a href="#"><img src="images/ico_refresh.png" alt="" /></a></span>				</h3>
 		  <div class="sortType">
-					<a href="#"><strong>{{ site_page.paginator.count|default:"0" }}</strong></a>
+					<a href="#"><strong>{{ show_page.paginator.count|default:"0" }}</strong></a>
 				</div>
 			</div><!--detailsHead-->
 
 			<ul class="searchResults">
-                          {% for channel in site_page.object_list %}
+                          {% for channel in show_page.object_list %}
 				<li>
                                   {% include "guide/channel-in-listing.html" %}
                                 </li>
