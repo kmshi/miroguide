@@ -885,13 +885,13 @@ class EditChannelTest(ChannelTestBase):
     def test_permissions(self):
         mod = self.make_user('jody', role=User.MODERATOR)
         other_user = self.make_user('bob')
-        url = '/channels/edit/%d' % self.channel.id
+        url = '/channels/%d/edit' % self.channel.id
         self.check_page_access(mod, url, True)
         self.check_page_access(self.ralph, url, True)
         self.check_page_access(other_user, url, False)
 
     def post_to_edit_page(self, data):
-        url = '/channels/edit/%d' % self.channel.id
+        url = '/channels/%d/edit' % self.channel.id
         return self.post_data(url, data)
 
     def test_change(self):
@@ -902,7 +902,7 @@ class EditChannelTest(ChannelTestBase):
                 'categories_1': self.categories['comedy'].id,
                 'language': self.languages['klingon'].id,
                 'tags': 'funny, cool, booya',
-                'publisher': 'some guy',
+                'publisher': 'some@guy.com',
                 'name': 'cool vids',
                 'description': 'These are the best.',
                 'website_url': 'http://www.google.com/',
@@ -912,7 +912,7 @@ class EditChannelTest(ChannelTestBase):
         self.connection.commit()
         updated = self.refresh_record(self.channel, 'language', 'categories',
                 'tags')
-        self.assertEquals(updated.publisher, 'some guy')
+        self.assertEquals(updated.publisher, 'some@guy.com')
         self.assertEquals(updated.language.name, 'klingon')
         self.check_names(updated.categories, 'arts', 'comedy')
         self.check_names(updated.tags, 'funny', 'cool', 'booya')
@@ -950,7 +950,7 @@ class EditChannelTest(ChannelTestBase):
         self.login(self.ralph)
         data = self.get_default_values()
         data['url'] = test_data_url('feed2.xml')
-        url = '/channels/edit/%d' % self.channel.id
+        url = '/channels/%d/edit' % self.channel.id
         self.post_to_edit_page(data)
         self.connection.commit()
         updated = self.refresh_record(self.channel)
@@ -1012,13 +1012,12 @@ class ChannelHTMLTest(ChannelTestBase):
         Mock function to return a full HTTP path.
         """
         return settings.BASE_URL_FULL
+
+    path = settings.BASE_URL_FULL
     
     def check_escaping(self):
         templates = [
-            'button_block.html',
-            'button_large.html',
-            'channel.html',
-            'details.html',
+            'show-channel.html',
         ]
 
         context = {'channel': self.channel, 'BASE_URL': settings.BASE_URL,

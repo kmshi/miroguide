@@ -5,12 +5,14 @@ See LICENSE for details.
 {% endcomment %}
 {% load cg_helpers i18n %}
 {% block title %}Miro - {% trans "Tags" %}{%endblock %}
-{% block body %}
+{% block content %}
 <h1 class="group-list-name">Tags</h1>
 <div class="group-list">
-{% threecolumnloop with tag in pager.items rotated %}
+<ul class="paginator">
+{% pagelinks page %}
+</ul>
+{% threecolumnloop with tag in page.object_list rotated %}
   {{ tag.link }} <span class="channel-count">{{ tag.channel_count}} Channels</span>
 {% endthreecolumnloop %}
 </div>
-{% show_pager pager %}
 {% endblock %}

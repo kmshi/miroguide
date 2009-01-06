@@ -212,7 +212,7 @@ class TestCase(unittest.TestCase):
         channel.url = "http://myblog.com/videos/rss/" 
         channel.url += util.random_string(20)
         channel.website_url = "http://myblog.com/"
-        channel.publisher = "TestVision"
+        channel.publisher = "TestVision@TestVision.com"
         channel.description = u"lots of stuff \u3333"
         if not keep_download:
             channel.download_feed = lambda: None # don't try to download feed

@@ -4,13 +4,13 @@ Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
 {% load i18n cg_helpers notes %}
-% block body %}
+{% block content %}
 <div class="moderator-board">
     <h1>{% trans "Moderator Message Board" %}</h1>
-    {% show_post_list posts %}
-
-    {% show_pager pager %}
-
+    <ul class="paginator">
+      {% pagelinks page %}
+    </ul>
+    {% show_post_list page.object_list %}
     <div class="new-post-form">
         <h3>Make New post:</h3>
         <form action="{{ BASE_URL }}notes/new-moderator-post" method="POST" onsubmit="showLoadIndicator();">

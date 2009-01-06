@@ -2,7 +2,7 @@
 Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
-{% load i18n channels %}
+{% load i18n %}
 {% if channel %}
 <div class="edit" editURL="{{ channel.get_edit_url }}">
     {% if user.is_moderator %}
@@ -23,7 +23,7 @@ See LICENSE for details.
     {% blocktrans with channel.featured_queue.featured_at|date:"m/d/Y" as featured_time and channel.featured_queue.featured_by as mod %}Featured by {{ mod }} on {{ featured_time }}{% endblocktrans %}
     {% endif %}
     </h3>
-    {% moderate_actions_simple channel %}
+    {% include "guide/moderate-actions-simple.html" %}
     {% else  %}
         <h2>{% trans "Edit Your Channel / View Statistics / Get Help" %}</h2>
         {% if channel.featured %}

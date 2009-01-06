@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% comment %}
+Copyright (c) 2008 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load cg_helpers i18n %}
+{% block title %}{% trans "Miro - Moderator History" %}{% endblock %}
+{% block content %}
+<div class="moderator-history-page">
+<h1 class="group-list-name">{% trans "Moderator History" %}</h1>
+<ul class="paginator">
+  {% pagelinks page %}
+</ul>
+<table cellpadding=0 cellspacing=0>
+<tr>
+  <th>{% trans "User" %}</th>
+  <th class="channel-cell">{% trans "Channel" %}</th>
+  <th>{% trans "Action" %}</th>
+  <th>{% trans "Date" %}</th>
+</tr>
+{% for action in page.object_list %}
+  <tr>
+    <td>{{ action.user }}</td>
+    <td class="channel-cell"><a {% link action.channel.get_url %}>{{ action.channel.name }}</a></td>
+    <td>{{ action.action_name }}</td>
+    <td>{{ action.timestamp }}</td>
+  </tr>
+{% endfor %}
+</table>
+</div>
+{% endblock %}

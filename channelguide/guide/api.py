@@ -32,7 +32,10 @@ def get_channels_query(connection, filter, value, sort=None, loads=None):
         try:
             category_id = Category.query(name=value).get(connection).id
         except LookupError:
-            return []
+            if sort and 'count' in sort:
+                return 0
+            else:
+                return []
         join = 'categories'
         query.join(join)
         query.joins[join].where(id=category_id)
@@ -40,7 +43,10 @@ def get_channels_query(connection, filter, value, sort=None, loads=None):
         try:
             tag_id = Tag.query(name=value).get(connection).id
         except LookupError:
-            return []
+            if sort and 'count' in sort:
+                return 0
+            else:
+                return []
         join = 'tags'
         query.join(join)
         query.joins[join].where(id=tag_id)
@@ -48,7 +54,10 @@ def get_channels_query(connection, filter, value, sort=None, loads=None):
         try:
             language_id = Language.query(name=value).get(connection).id
         except LookupError:
-            return []
+            if sort and 'count' in sort:
+                return 0
+            else:
+                return []
         query.where(Channel.c.primary_language_id == language_id)
     elif filter == 'featured':
         if value:
@@ -118,7 +127,9 @@ def _add_limit_and_offset(query, limit, offset):
 def get_feeds(connection, filter, value, sort=None, limit=None, offset=None,
               loads=None):
     query = get_channels_query(connection, filter, value, sort=sort)
-    if isinstance(query, long):
+    # int is returned for 0 counts, longs for regular counts and lists for
+    # empty lists
+    if isinstance(query, (int, long, list)):
         return query
     _add_limit_and_offset(query, limit, offset)
     query.where(Channel.c.url.is_not(None))
@@ -132,7 +143,9 @@ def get_feeds(connection, filter, value, sort=None, limit=None, offset=None,
 def get_shows(connection, filter, value, sort=None, limit=None, offset=None,
               loads=None):
     query = get_channels_query(connection, filter, value, sort=sort)
-    if isinstance(query, long):
+    # int is returned for 0 counts, longs for regular counts and lists for
+    # empty lists
+    if isinstance(query, (int, long, list)):
         return query
     _add_limit_and_offset(query, limit, offset)
     query.where(Channel.c.url.is_(None))
@@ -150,7 +163,9 @@ def get_channels(connection, filter, value, sort=None, limit=None, offset=None,
     the inclusion of sites, you should use either get_feeds or get_sites.
     """
     query = get_channels_query(connection, filter, value, sort=sort)
-    if isinstance(query, long):
+    # int is returned for 0 counts, longs for regular counts and lists for
+    # empty lists
+    if isinstance(query, (int, long, list)):
         return query
     _add_limit_and_offset(query, limit, offset)
     joins, loads = _split_loads(loads)

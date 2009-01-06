@@ -306,7 +306,7 @@ class WaitingForReplyTest(NotesPageTestBase):
         self.save_to_db(channel3)
 
         self.login(self.moderator)
-        page = self.get_page('/channels/moderator-list/waiting')
-        page_channel_ids = [c.id for c in page.context[0]['channels']]
+        page = self.get_page('/moderate/waiting')
+        page_channel_ids = [c.id for c in page.context[0]['page'].object_list]
         self.assertEquals(page_channel_ids, 
                 [channel3.id, channel2.id, channel1.id])

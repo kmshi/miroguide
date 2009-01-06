@@ -2,6 +2,7 @@
 # See LICENSE for details.
 
 from django.http import Http404
+from django.core.paginator import Paginator
 from django.utils.translation import gettext as _
 
 from channelguide import util
@@ -64,12 +65,13 @@ def channel_list(request, state):
         query.where(state=Channel.NEW)
         header = _("Unreviewed Channels")
 
-    pager = templateutil.Pager(10, query, request)
+    paginator = Paginator(templateutil.QueryObjectList(request.connection,
+                                                       query), 10)
+    page = paginator.page(request.GET.get('page', 1))
 
     return util.render_to_response(request, 'moderator-channel-list.html', {
         'request': request,
-        'pager': pager,
-        'channels': pager.items,
+        'page': page,
         'header': header,
 #         'subscribe_all_link': util.make_link(
 #                 util.get_subscription_url(*[channel.url for channel in
@@ -81,12 +83,14 @@ def channel_list(request, state):
 def shared(request):
     query = Channel.query(Channel.c.moderator_shared_at.is_not(None))
     query.order_by('moderator_shared_at', desc=True)
-    pager = templateutil.Pager(10, query, request)
-    for channel in pager.items:
+    paginator = Paginator(templateutil.QueryObjectList(request.connection,
+                                                       query), 10)
+    page = paginator.page(request.GET.get('page', 1))
+    for channel in page.object_list:
         channel.update_moderator_shared_by(request.connection)
 
     return util.render_to_response(request, "shared.html", {
-        'pager': pager
+        'page': page
         })
 
 @moderator_required

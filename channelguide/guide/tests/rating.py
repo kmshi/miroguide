@@ -29,7 +29,7 @@ class ChannelRatingsTest(TestCase):
 
     def rate_channel(self, channel, user, rating):
         self.refresh_connection()
-        self.get_page('/channels/rate/%i' % channel.id, login_as=user,
+        self.get_page('/channels/%i/rate' % channel.id, login_as=user,
                 data = {'rating': rating})
         self.refresh_connection()
 
@@ -95,14 +95,21 @@ class ChannelRatingsTest(TestCase):
         self.assertEquals(float(c.rating.count), 5)
 
 
+    def _find_average_in_page(self, page):
+        matches = re.findall('"Average Rating: (\d\.\d*)"', page.content)
+        return float(matches[0])
+
+    def _find_user_in_page(self, page):
+        matches = re.findall('"User Rating: (\d)"', page.content)
+        return int(matches[0])
+
     def test_unauthenticated_details_has_average(self):
         """
         The unauthenticated details page should show the average rating.
         """
         url = self.channel.get_url()[len(settings.BASE_URL)-1:]
         page = self.get_page(url)
-        matches = re.findall('average="(\d\.\d*)"', page.content)
-        self.assertEquals(float(matches[0]), 3)
+        self.assertEquals(self._find_average_in_page(page), 3)
 
     def test_unrated_user_details_has_average(self):
         """
@@ -111,8 +118,7 @@ class ChannelRatingsTest(TestCase):
         """
         url = self.channel.get_url()[len(settings.BASE_URL)-1:]
         page = self.get_page(url, self.owner)
-        matches = re.findall('average="(\d\.\d*)"', page.content)
-        self.assertEquals(float(matches[0]), 3)
+        self.assertEquals(self._find_average_in_page(page), 3)
 
     def test_rated_user_details_has_rating(self):
         """
@@ -124,11 +130,11 @@ class ChannelRatingsTest(TestCase):
             page = self.get_page(url, user)
             rating = Rating.query(Rating.c.user_id==user.id,
                     Rating.c.channel_id==self.channel.id).get(self.connection)
-            matches = re.findall('user="(\d)"', page.content)
+            page_rating = self._find_user_in_page(page)
             if rating.rating is None:
-                self.assertEquals(matches[0], "0")
+                self.assertEquals(page_rating, 0)
             else:
-                self.assertEquals(float(matches[0]), rating.rating)
+                self.assertEquals(page_rating, rating.rating)
 
     def test_rating_needs_login(self):
         """

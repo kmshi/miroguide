@@ -91,10 +91,45 @@ class NavLinkNode(template.Node):
             css_class = None
         return util.make_link_attributes(self.relative_path, css_class)
 
-@register.inclusion_tag('guide/account-bar.html', takes_context=True)
-def show_account_bar(context, user):
-    return {'user': user, 'LANGUAGES': settings.LANGUAGES,
-            'request': context['request']}
+@register.inclusion_tag('guide/page-links.html', takes_context=True)
+def pagelinks(context, page, default_page=1):
+    request = context['request']
+    page_range = page.paginator.page_range
+    if page.paginator.num_pages > 9:
+        low = page.number - 5
+        high = page.number + 4
+        if low < 0:
+            high -= low
+            low = 0
+        if high > page.paginator.num_pages and low > 0:
+            low += (page.paginator.num_pages - high)
+            if low < 0:
+                low = 0
+        middle = page_range[low:high]
+        if middle[:2] != [1, 2]:
+            middle = [1, 2, None] + middle[3:]
+        if middle[-2:] != [page.paginator.num_pages - 1, page.paginator.num_pages]:
+            middle = middle[:-3] + [None, page.paginator.num_pages - 1,
+                                    page.paginator.num_pages]
+    else:
+        middle = page_range
+    path = request.path
+    get_data = dict(request.GET)
+    links = []
+    for number in middle:
+        if number is not None:
+            if number != default_page:
+                get_data['page'] = str(number)
+            else:
+                try:
+                    del get_data['page']
+                except KeyError:
+                    pass
+            links.append((number, util.make_absolute_url(path, get_data)))
+        else:
+            links.append(('tag', None))
+    return {'page': page,
+            'links': links}
 
 @register.inclusion_tag('guide/form.html')
 def show_form(form):

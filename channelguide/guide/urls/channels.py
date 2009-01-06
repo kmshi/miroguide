@@ -20,7 +20,7 @@ urlpatterns = patterns('channelguide.guide.views.channels',
 )
 
 # old URLs
-urlpatterns += patterns('',
+urlpatterns += patterns('channelguide.guide.views.channels',
                         (r'^popular$', redirect_to, {'url': '/popular/'}),
                         (r'^toprated$', redirect_to, {'url': '/toprated/'}),
                         (r'^by-name$', redirect_to, {'url': '/feeds/'}),

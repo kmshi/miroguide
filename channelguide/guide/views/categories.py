@@ -2,11 +2,11 @@
 # See LICENSE for details.
 
 from django.conf import settings
+from django.utils.translation import gettext as _
 
 from channelguide import util, cache
-from channelguide.guide import templateutil
 from channelguide.guide.auth import admin_required
-from channelguide.guide.models import Category, Channel
+from channelguide.guide.models import Category
 
 @cache.aggresively_cache
 def index(request):

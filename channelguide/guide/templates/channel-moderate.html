@@ -44,7 +44,4 @@ See LICENSE for details.
     {% if user.is_moderator %}
       {% include "guide/moderate-actions.html" %}
     {% endif %}
-    {% if can_edit %}
-      {% show_edit_bar channel show_script %}
-    {% endif %}
 </div>

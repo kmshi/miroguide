@@ -218,7 +218,6 @@ class ChannelApiViewTest(ChannelApiTestBase):
         data = eval(response.content)
         self.assert_(isinstance(data, list))
         self.assertEquals(data[0]['id'], self.channels[0].id)
-        self.assertEquals(data[0].get('category'), None)
 
     def test_get_session(self):
         response = self.make_api_request('get_session')

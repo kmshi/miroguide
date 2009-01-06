@@ -1,14 +1,12 @@
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
-from copy import copy
-
 from django.conf import settings
+from django.utils.translation import gettext as _
 
 from channelguide import util, cache
-from channelguide.guide import tables, templateutil 
 from channelguide.guide.auth import admin_required
-from channelguide.guide.models import Language, Channel
+from channelguide.guide.models import Language
 
 @cache.aggresively_cache
 def index(request):
@@ -17,14 +15,6 @@ def index(request):
         'group_name': _('Channels by Language'),
         'groups': query.execute(request.connection),
     })
-
-def view(request, id):
-    language = Language.get(request.connection, id)
-    order_select = templateutil.OrderBySelect(request)
-    query = Channel.query_approved(user=request.user)
-    query.where(Channel.c.primary_language_id==id)
-    return templateutil.render_limited_query(request, query,
-         _("Language: %s") % language.name, language.get_rss_url())
 
 @admin_required
 def moderate(request):

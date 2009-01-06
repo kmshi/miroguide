@@ -1,0 +1,8 @@
+<li class="tag">Pages</li>
+    {% for number, link in links %}
+    {% ifequal number "tag" %}
+ <li class="tag">...</li>
+    {% else %}
+ <li {% ifequal number page.number %}class="selected"{% endifequal %}><span><a href="{{ link }}">{{ number }}</a></span></li>
+    {% endifequal %}
+    {% endfor %}

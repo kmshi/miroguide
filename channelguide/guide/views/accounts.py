@@ -1,18 +1,16 @@
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
-from django.conf import settings
-from django.http import HttpResponseRedirect, Http404
+from django.core.paginator import Paginator
+from django.http import HttpResponseRedirect
 from django.utils.translation import gettext as _
-import django.newforms as forms
 
-from channelguide import cache
 from channelguide import util
 from channelguide.guide.auth import logout, login, moderator_required, login_required
 from channelguide.guide.exceptions import AuthError
 from channelguide.guide.forms import user as user_forms
 from channelguide.guide.models import User, UserAuthToken, Rating, Channel
-from channelguide.guide.templateutil import Pager
+from channelguide.guide.templateutil import QueryObjectList
 
 def get_login_message(next_url):
     if "channels/submit" in next_url:
@@ -205,23 +203,23 @@ def search(request):
         criteria = '%%%s%%' % query
         user_query = User.query(User.c.username.like(criteria) |
                 User.c.email.like(criteria))
-        pager =  Pager(10, user_query, request)
-        results = pager.items
+        paginator = Paginator(QueryObjectList(request.connection,
+                                              user_query), 10)
+        page = paginator.page(request.GET.get('page', 1))
 
     return util.render_to_response(request, 'user-search.html', {
         'query': query,
-        'pager': pager,
-        'results': results,
+        'page': page,
     })
 
 @moderator_required
 def moderators(request):
     query = User.query(User.c.role.in_(User.ALL_MODERATOR_ROLES))
     query.order_by('username')
-    pager =  Pager(15, query, request)
+    paginator = Paginator(QueryObjectList(request.connection, query), 15)
+    page = paginator.page(request.GET.get('page', 1))
     return util.render_to_response(request, 'moderators.html', {
-        'moderators': pager.items,
-        'pager': pager,
+        'page': page,
     })
 
 def forgot_password(request):
