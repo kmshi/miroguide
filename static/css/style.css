@@ -113,6 +113,13 @@ ul {
     margin: 0;
 }
 
+#main #contentSmall {
+    float: left;
+    display: inline;
+    width: 100%;
+    margin: 0;
+}
+
 #sideBar {
     float: right;
     display: inline;
@@ -270,13 +277,15 @@ ul {
     font-size: 14px;
     display: block;
     padding: 8px 10px 2px 10px;
+    height: 1em;
+    overflow: hidden;
 }
 
 #featuredItemsCarousel #innerContent ul li span.description {
     font-size: 11px;
     display: block;
-    padding: 0px 10px;
-    height: 14px;
+    padding: 3px 10px;
+    height: 11px;
     overflow: hidden;
 }
 
@@ -364,18 +373,16 @@ ul {
 
 /*New videos*/
 ul.newVideos {
-    margin: 10px 0;
+    margin: 10px 0 0;
     padding: 0;
     overflow: hidden;
-    height: 100%;
-    padding: 0 0 0 5px;
-    width: 430px;
+    height: 130px;
     list-style: none;
 }
 
 ul.newVideos li {
     float: left;
-    display: inline;
+    display: block;
     margin: 10px 5px 0 5px;
     text-align: center;
     width: 130px;
@@ -392,6 +399,11 @@ ul.newVideos li.separator {
     clear: both;
     height: 0;
     margin: 0;
+}
+
+ul.newVideos li p {
+    height: 1.2em;
+    overflow: hidden;
 }
 
 
@@ -660,12 +672,10 @@ ul.searchResults {
 }
 
 ul.searchResults li {
-    overflow: hidden;
     float: right;
     display: inline;
-    height: 100%;
+    height: 115px;
     width: 360px;
-    padding: 10px 20px 25px 25px;
 }
 
 ul.searchResults li h4 {
@@ -685,13 +695,21 @@ ul.searchResults li .searchResultContent {
 }
 
 .searchResultContent h4{
-    margin: 2px 0 4px 0 !important;
-    padding: 0 !important;
+    margin: 6px 0 0 0;
+    padding: 0;
+    height: 1.2em;
+    overflow: hidden;
+    font-size: 13px;
 }
 
 ul.searchResults li .searchResultContent p {
-    margin: 0px 0 0 0;
-    line-height: 1.3em;
+    margin: 4px 0 11px 0;
+    padding: 0;
+    line-height: 14px;
+    font-size: 11px;
+    color: #777;
+    height: 2.4em;
+    overflow: hidden;
 }
 
 ul.searchResults li .searchResultsMeta {
@@ -725,6 +743,7 @@ ul.searchResults li ul.rating li a {
     float: left;
     display: inline;
     margin: 0 1px;
+    text-transform: uppercase;
 }
 
 ul.searchResults li ul.rating li.score {
@@ -828,8 +847,6 @@ h3.resultsCount {
     float: left;
     display: inline;
     height: 100%;
-    width: 490px;
-    background: url(/images/item_bar_left.png) left bottom no-repeat;
 }
 
 #channelEpisodes .detailsHeadLarge h3.resultsCount, .user_page .detailsHeadLarge h3.resultsCount {
@@ -1123,7 +1140,7 @@ h3.resultsCount .pagination {
 
 #channelDetails2 .channelDetailsContent h4 {
     font-size: 15px;
-    margin: 0 0 0 13px;
+    margin: 5px 0 0 13px;
     font-weight: bold;
 }
 
@@ -1132,15 +1149,22 @@ h3.resultsCount .pagination {
     margin: 5px 0 10px 13px;
     clear: both;
     line-height: 1.5em;
+    height: 4.5em;
+    overflow: hidden;
 }
 
 #channelDetails2 .channelDetailsContent .tags {
     font-size: 10px;
     padding: 20px 0 0 13px;
     margin: 0px 0 0 0;
+    color: #666;
 }
 
-#channelDetails2 .channelDetailsContent .tags p{
+#channelDetails2 .channelDetailsContent .tags a {
+    color: #666;
+}
+
+#channelDetails2 .channelDetailsContent .tags p {
     font-size: 10px;
     padding: 0px;
     margin: 0px 0 5px 0;
@@ -1227,7 +1251,7 @@ h3.resultsCount .pagination {
 }
 
 #channelEpisodes {
-    padding: 0 0 20px 0;
+    padding: 20px 0 18px 0;
 }
 
 #channelEpisodes h3 {
@@ -1236,7 +1260,6 @@ h3.resultsCount .pagination {
 }
 
 #channelEpisodes .detailsTop, #channelEpisodes .detailsTopLarge {
-    background: url(/images/channel_content_top.png) top left no-repeat;
     width: 595px;
     height: 4px;
     margin: 10px 0 0 15px;
@@ -1248,16 +1271,16 @@ h3.resultsCount .pagination {
     width: 787px;
 }
 
-#channelEpisodes .details, #channelEpisodes .detailsLarge {
+#channelEpisodes .details {
     background: url(/images/channel_content.png) left bottom no-repeat;
-    width: 536px;
-    margin: 0 0 0 15px;
-    padding: 13px 13px 8px 16px;
+    width: 565px;
+    margin: 0 0 15px 15px;
     overflow: hidden;
     height: 100%;
+    padding-bottom: 2px;
 }
 
-#channelEpisodes .detailsLarge {
+#channelEpisodes .detailsTopLarge + .details {
     background: url(/images/channel_content_large.png) left bottom no-repeat;
     width: 758px;
 }
@@ -1270,6 +1293,7 @@ h3.resultsCount .pagination {
     height: 100%;
     height: 34px;
     line-height: 34px;
+    background: url(/images/item_bar_left.png) left bottom no-repeat;
 }
 
 #channelEpisodes .detailsHeadLarge, .user_page .detailsHeadLarge {
@@ -1294,14 +1318,16 @@ h3.resultsCount .pagination {
     overflow: hidden;
     height: 100%;
     height: 34px;
+    background: url(/images/item_bar_left.png) left bottom no-repeat;
     line-height: 34px;
 }
 
 #contentSmall .detailsHead3 {
-    width: 430px;
+    width: 100%;
     margin: 0;
     padding: 0;
     overflow: hidden;
+    background: url(/images/item_bar_left.png) left bottom no-repeat;
     height: 100%;
     height: 34px;
     line-height: 34px;
@@ -1309,6 +1335,7 @@ h3.resultsCount .pagination {
 
 .detailsHead4 {
     width: 382px;
+    background: url(/images/item_bar_left.png) left bottom no-repeat;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -1324,61 +1351,76 @@ h3.resultsCount .pagination {
 }
 
 #channelEpisodes .details .playback {
-    display: none;
+    background: url(/images/channel_content_top.png) top left no-repeat;
+    display: block;
+    height: 0;
+    padding: 8px 0 0 0;
+    overflow: hidden;
 }
 
-#channelEpisodes .details .thumb, #channelEpisodes .detailsLarge .thumb {
+#channelEpisodes .details .thumb {
     width: 98px;
+    margin: 6px 0 0 13px;
     float: left;
     display: inline;
 }
 
-#channelEpisodes .details .description, #channelEpisodes .detailsLarge .description {
+#channelEpisodes .details .description {
     padding: 0 0 0 10px;
-    width: 315px;
+    width: 310px;
     float: left;
     display: inline;
-    margin: 3px 0 0 10px;
+    margin: 0px 0 13px 10px;
+    overflow: hidden;
 }
 
-#channelEpisodes .detailsLarge .description {width: 500px;}
+#channelEpisodes .detailsTopLarge + .details .description {
+    width: 500px;
+}
 
-#channelEpisodes .details .description h4, #channelEpisodes .detailsLarge .description h4 {
-    color: #1e66f2;
-    margin: 0;
+#channelEpisodes .details .description h4 {
+    margin: 6px 0 0 0;
     padding: 0;
-    color: #1e66f2;
-    font-size: 15px;
+    height: 1.2em;
+    overflow: hidden;
+    font-size: 13px;
 }
 
-#channelEpisodes .details .description p, #channelEpisodes .detailsLarge .description p {
-    margin: 3px 0 10px 0;
+#channelEpisodes .details .description p {
+    margin: 4px 0 11px 0;
     padding: 0;
     line-height: 14px;
     font-size: 11px;
-    color: #575451;
+    color: #777777;
+    height: 2.4em;
+    overflow: hidden;
 }
 
 #channelEpisodes .read_more {
     font-size: 8px;
     text-transform: uppercase;
-    background: url(/images/arrow_down2.png) right 1px no-repeat;
+    background: url(/images/arrow_down2.png) right 2px no-repeat;
     padding: 0 13px 0 0;
     clear: both;
+    margin-bottom: 4px;
 }
 
-#channelEpisodes .details .meta, #channelEpisodes .detailsLarge .meta {
+#channelEpisodes .details .meta {
     width: 95px;
+    padding: 4px 14px 0 0;
     float: right;
     display: inline;
     overflow: hidden;
     height: 100%;
+    text-align: right;
     font-size: 11px;
 }
 
-#channelEpisodes .details .meta strong, #channelEpisodes .detailsLarge .meta strong {
+#channelEpisodes .details .meta strong {
     display: block;
-    margin: 0 0 10px 0;
+    font-size: 10px;
+    font-weight: normal;
+    margin: 0px 5px 6px 24px;
 }
 
 
@@ -1887,6 +1929,7 @@ h3.resultsCount .pagination {
 
 
 /*Welcome page alert*/
+
 #alert {
     background: url(/images/alert-top.png) 0px 13px no-repeat;
     padding: 13px 0 0 0px;
@@ -1919,7 +1962,7 @@ h3.resultsCount .pagination {
     float: left;
     font-size: 9.5px;
     padding: 0 13px 0 0;
-    margin-left: 10px;
+    margin: 15px 0 0 -60px;
     background: url(/images/alert_close.png) right 1px no-repeat;
 }
 
@@ -1946,9 +1989,21 @@ h3.resultsCount .pagination {
     background: url(/images/address_book.png) 0 1px no-repeat;
 }
 
+.underline{
+    text-decoration: underline;	
+}
+
 .sharebox {
     padding-left: 10px !important;
     width: 694px !important;
+}
+
+.sharebox hr{
+    clear: both;
+    margin: 20px auto;
+    border: none;
+    border-top: 1px solid #ccc;
+    width: 650px;
 }
 
 .direct {
@@ -1974,6 +2029,7 @@ h3.resultsCount .pagination {
 .alertBox .rollover_button {
     float: left;
     clear: none;
+    font-size: 10px;
     margin: -4px 0 0 10px;
 }
 
@@ -2037,17 +2093,34 @@ h3.resultsCount .pagination {
 }
 
 .change_address {
-    font-size: 10px;
-    text-transform: uppercase;
-    padding-left: 7px;
+    margin: 4px 5px 0;
 }
 
 .user_email span {
+    font-size: 10px;
     display: block;
-    width: 68px;
+    color: #999;
+    clear: both;
+    display: block;
+}
+
+.user_email span.label {
+    display: block;
     float: left;
     margin-bottom: 14px;
+    font-size: 12px;
+    padding: 0;
+    width: 69px;
     color: #555;
+}
+
+.user_email div {
+    float: left;
+    width: 160px;
+}
+
+.user_email a {
+    float: left;
 }
 
 .email_box {
@@ -2059,7 +2132,7 @@ h3.resultsCount .pagination {
     width: 170px;
     padding: 0 0 0 10px;
     float: left;
-    height: 70px;
+    height: 100px;
 }
 
 .comment_box textarea {
@@ -2072,6 +2145,11 @@ h3.resultsCount .pagination {
     margin: 0;
     height: 46px;
     color: #777;
+}
+
+.comment_box input{
+    float: right;
+    margin: 12px 0 0;
 }
 
 .recipients {
@@ -2271,7 +2349,7 @@ ul.paginator2 li.selected {
 
 ul.paginator2 li.selected span {
     background: url(/images/pagination2_on_right.png) right 0 no-repeat;
-    padding: 1px 10px 0;
+    padding: 0px 0px 0;
 }
 
 
@@ -3581,7 +3659,7 @@ a.view_all_videos {
     background: url(/images/black_arrow_right.png) right 3px no-repeat;
     font-size: 11px;
     color: black;
-    margin: 10px 15px 0 0;
+    margin: 18px 15px 5px 0;
     padding: 0 12px 0 0;
     float: right;
     display: inline;
@@ -3742,6 +3820,7 @@ a.large_button span {
     padding: 16px 18px;
     width: 726px;
     height: 90px;
+    display: none;
     margin: 15px auto;
 }
 
@@ -3752,7 +3831,7 @@ a.large_button span {
     height: 278px;
     margin: 0 auto;
     float: right;
-    display: inline;
+    display: none;
 }
 
 .box_ad span.tag {
