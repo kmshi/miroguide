@@ -1,10 +1,80 @@
-<div id="share-links">
-  <ul>
-    <li><a href=" {{ share_links.email }}">Email</a></li>
-    <li><a href=" {{ share_links.delicious }}">Delicious</a></li>
-    <li><a href=" {{ share_links.digg }}">Digg</a></li>
-    <li><a href=" {{ share_links.reddit }}">Reddit</a></li>
-    <li><a href=" {{ share_links.stumbleupon }}">Stumbleupon</a></li>
-    <li><a href=" {{ share_links.facebook }}">Facebook</a></li>
-  </ul>
+{% load i18n %}
+
+<div id="alert">
+  <div class="page">
+    <div class="alertBox sharebox">
+      <h2>
+        {% blocktrans %}
+          Share with your buddies, as well as the world. We all love gifts.
+        {% endblocktrans %}
+      </h2>
+
+      <p>
+        <label>{% trans "Direct Link" %}</label>
+        <div class="direct">
+          <a style="text-decoration: underline;" href="#">
+            https://www.miroguide.com/channels/8316
+          </a>
+        </div>
+        <a href="#" class="rollover_button">{% trans "Copy it" %}</a>
+      </p>
+
+      <form>
+        <hr />
+        <label class="email_label">{% trans "Via Email" %}</label> 
+
+        <div class="email_box">
+          <div class="user_email">
+            <span class="label">{% trans "From" %}</span>
+            <div>
+              <input type="text" />
+              <span>{% trans "Your Email" %}</span>
+            </div>
+          </div>
+
+          <div class="recipients">
+            <div>{% trans "Recipients" %}</div>
+            <input type="text" />
+            <a class="address_book" href="#">
+              {% trans "<nobr>Add From Your</nobr><br />Address Book" %}
+            </a>
+            <span>{% trans "Comma Separated Email Addresses" %}</span>
+
+          </div>
+        </div>
+
+        <div class="comment_box">
+          <textarea>{% trans "Leave a Comment (Optional)" %}</textarea>
+          <input class="submit" type="submit" value="Send Email" />                   
+        </div>
+
+        <hr />
+
+      </form>
+
+      <div class="socials">
+        <div>Also Share to</div> 
+        <a class="facebook" href="{{ share_links.facebook }}">
+          {% trans "Facebook" %}
+        </a> 
+        <a class="stumble" href="{{ share_links.stumbleupon }}">
+          {% trans "StumbleUpon" %}
+        </a> 
+        <a class="delicious" href="{{ share_links.delicious }}">
+          {% trans "Del.icio.us" %}
+        </a> 
+        <a class="digg" href="{{ share_links.digg }}">
+          {% trans "Digg" %}
+        </a> 
+        <a class="myspace" href="#">
+          {% trans "MySpace" %}
+        </a>
+        <br class="cleared" /> 
+      </div>                
+
+      <br />
+
+    </div>
+    <a href="#" class="closeAlert">{% trans "Close" %}</a>
+  </div>
 </div>
