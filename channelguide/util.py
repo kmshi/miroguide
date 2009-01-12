@@ -33,6 +33,32 @@ except ImportError:
     mark_safe = lambda x: x
 emailer = None
 
+
+DELICIOUS_URL = "http://del.icio.us/post?v=4&noui&jump=close&url=%s&title=%s"
+DIGG_URL = "http://digg.com/submit/?url=%s&media=video"
+REDDIT_URL = "http://reddit.com/submit?url=%s&title=%s"
+STUMBLEUPON_URL = "http://www.stumbleupon.com/submit?url=%s&title=%s"
+FACEBOOK_URL = "http://www.facebook.com/share.php?u=%s"
+
+
+def get_share_links(url, name):
+    share_delicious = DELICIOUS_URL % (quote(url), quote(name))
+    share_digg = DIGG_URL % quote(url)
+    share_reddit = REDDIT_URL % (quote(url), quote(name))
+    share_stumbleupon = STUMBLEUPON_URL % (quote(url), quote(name))
+    share_facebook = FACEBOOK_URL % (quote(url))
+
+    ## Generate dictionary
+    share_links = {
+        'delicious': share_delicious,
+        'digg': share_digg,
+        'reddit': share_reddit,
+        'stumbleupon': share_stumbleupon,
+        'facebook': share_facebook}
+
+    return share_links
+
+
 def render_to_response(request, template_name, context=None, **kwargs):
     """channel guide version of render_to_response.  It passes the template a
     RequestContext object instead of the standard Context object.  

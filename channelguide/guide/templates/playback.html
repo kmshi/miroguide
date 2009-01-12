@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
+  {% if share_links %}
+    {% include "guide/share-links.html" %}
+  {% endif %}
+
   <div id="videoArea">
     <div class="page">
       <div id="videoBoxTop">

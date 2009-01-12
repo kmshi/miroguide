@@ -10,16 +10,10 @@ import feedparser
 from django.conf import settings
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 
+from channelguide import util, cache
+from channelguide.guide import filetypes
 from channelguide.guide.models import (Channel, Item)
 from channelguide.guide.views import playback
-from channelguide import util, cache
-
-
-DELICIOUS_URL = "http://del.icio.us/post?v=4&noui&jump=close&url=%s&title=%s"
-DIGG_URL = "http://digg.com/submit/?url=%s&media=video"
-REDDIT_URL = "http://reddit.com/submit?url=%s&title=%s"
-STUMBLEUPON_URL = "http://www.stumbleupon.com/submit?url=%s&title=%s"
-FACEBOOK_URL = "http://www.facebook.com/share.php?u=%s"
 
 
 # Custom exceptions for this module
@@ -38,7 +32,7 @@ class FakeItem(object):
 
         self.fake = True
 
-        self.mime_type = mimetypes.guess_type(self.url)
+        self.mime_type = filetypes.guessMimeType(self.url)
 
     def thumb(self):
         return util.mark_safe(
@@ -85,28 +79,6 @@ class FakeChannel(object):
 
     def thumb_url_245_164(self):
         return self.thumbnail_url
-
-
-def get_share_links(url, name):
-    share_delicious = DELICIOUS_URL % (
-        urllib.quote(url), urllib.quote(name))
-    share_digg = DIGG_URL % urllib.quote(url)
-    share_reddit = REDDIT_URL % (
-        urllib.quote(url), urllib.quote(name))
-    share_stumbleupon = STUMBLEUPON_URL % (
-        urllib.quote(url), urllib.quote(name))
-    share_facebook = FACEBOOK_URL % (
-        urllib.quote(url))
-
-    ## Generate dictionary
-    share_links = {
-        'delicious': share_delicious,
-        'digg': share_digg,
-        'reddit': share_reddit,
-        'stumbleupon': share_stumbleupon,
-        'facebook': share_facebook}
-
-    return share_links
 
 
 def get_channels_and_items(feed_url, connection):
@@ -181,7 +153,7 @@ def share_feed(request):
     except FeedFetchingError:
         return HttpResponse("This feed appears to be dead.")
 
-    share_links = get_share_links(channel.url, channel.name)
+    share_links = util.get_share_links(channel.url, channel.name)
 
     return util.render_to_response(
         request, 'show-channel.html',
@@ -279,7 +251,7 @@ def share_item(request):
         item = FakeItem(file_url, item_name)
 
     # get the sharing info
-    share_links = get_share_links(item.url, item.name)
+    share_links = util.get_share_links(item.url, item.name)
 
     # render the page
     return util.render_to_response(
@@ -288,4 +260,5 @@ def share_item(request):
          'channel': channel,
          'previous': previous,
          'next': next,
-         'embed': util.mark_safe(playback.embed_code(item))})
+         'embed': util.mark_safe(playback.embed_code(item)),
+         'share_links': share_links})
