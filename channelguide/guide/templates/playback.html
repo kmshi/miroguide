@@ -7,7 +7,7 @@
   <div id="videoArea">
     <div class="page">
       <div id="videoBoxTop">
-        <h1>You're Watching a Streaming Video</h1>
+        <h1>{{ item.name }}</h1>
         {% if channel and not channel.fake %}
           <span class="returnLink">
             Back to <a href="{{ channel.get_absolute_url }}">
