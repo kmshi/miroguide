@@ -77,6 +77,7 @@ def item(request, id):
         next = None
     return util.render_to_response(request, 'playback.html',
                                    {'item': item,
+                                    'channel': item.channel,
                                     'previous': previous,
                                     'next': next,
                                     'embed': util.mark_safe(embed_code(item)),

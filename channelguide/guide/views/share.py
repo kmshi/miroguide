@@ -2,18 +2,19 @@
 # See LICENSE for details.
 
 import datetime
+import mimetypes
 import urllib
+import urlparse
 
 import feedparser
 from django.conf import settings
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 
 from channelguide.guide.models import (Channel, Item)
+from channelguide.guide.views import playback
 from channelguide import util, cache
 
 
-EMAIL_URL = "http://www.videobomb.com/index/democracyemail?url=%s"
-VIDEOBOMB_URL = "http://www.videobomb.com/api/submit_or_bomb"
 DELICIOUS_URL = "http://del.icio.us/post?v=4&noui&jump=close&url=%s&title=%s"
 DIGG_URL = "http://digg.com/submit/?url=%s&media=video"
 REDDIT_URL = "http://reddit.com/submit?url=%s&title=%s"
@@ -21,15 +22,23 @@ STUMBLEUPON_URL = "http://www.stumbleupon.com/submit?url=%s&title=%s"
 FACEBOOK_URL = "http://www.facebook.com/share.php?u=%s"
 
 
+# Custom exceptions for this module
+class Error(Exception): pass
+class FeedFetchingError(Error): pass
+
+
 class FakeItem(object):
-    def __init__(self, name, url, description, date, thumbnail_url):
-        self.name = name
+    def __init__(self, url, name=None, description=None,
+                 date=None, thumbnail_url=None):
         self.url = url
+        self.name = name
         self.description = description
         self.date = date
         self.thumbnail_url = thumbnail_url
 
         self.fake = True
+
+        self.mime_type = mimetypes.guess_type(self.url)
 
     def thumb(self):
         return util.mark_safe(
@@ -78,22 +87,19 @@ class FakeChannel(object):
         return self.thumbnail_url
 
 
-def get_feed_links(channel):
-    share_email = EMAIL_URL % (
-        urllib.quote(channel.url))
+def get_share_links(url, name):
     share_delicious = DELICIOUS_URL % (
-        urllib.quote(channel.url), urllib.quote(channel.name))
-    share_digg = DIGG_URL % urllib.quote(channel.url)
+        urllib.quote(url), urllib.quote(name))
+    share_digg = DIGG_URL % urllib.quote(url)
     share_reddit = REDDIT_URL % (
-        urllib.quote(channel.url), urllib.quote(channel.name))
+        urllib.quote(url), urllib.quote(name))
     share_stumbleupon = STUMBLEUPON_URL % (
-        urllib.quote(channel.url), urllib.quote(channel.name))
+        urllib.quote(url), urllib.quote(name))
     share_facebook = FACEBOOK_URL % (
-        urllib.quote(channel.url))
+        urllib.quote(url))
 
     ## Generate dictionary
     share_links = {
-        'email': share_email,
         'delicious': share_delicious,
         'digg': share_digg,
         'reddit': share_reddit,
@@ -103,12 +109,7 @@ def get_feed_links(channel):
     return share_links
 
 
-def share_feed(request):
-    try:
-        feed_url = str(request.GET['feed_url'])
-    except:
-        return HttpResponse("you must supply a feed_url")
-
+def get_channels_and_items(feed_url, connection):
     feed_key = 'share_feed-' + feed_url
     items_key = 'share_feed_items-' + feed_url
 
@@ -120,14 +121,14 @@ def share_feed(request):
         items = cached_items
     else:
         # check to see if we have that feed in our database...
-        channels = Channel.query().where(url=feed_url).execute(request.connection)
+        channels = Channel.query().where(url=feed_url).execute(connection)
         if channels:
             channel = channels[0]
             cache.client.set(feed_key, channel)
 
             item_query = Item.query(channel_id=channel.id).join('channel')
             item_query = item_query.order_by('date', desc=True).limit(4)
-            items = item_query.execute(request.connection)
+            items = item_query.execute(connection)
             cache.client.set(items_key, items)
         else:
             ## parse the feed
@@ -135,7 +136,7 @@ def share_feed(request):
 
             #ok, so this doesn't work...
             if hasattr(parsed, 'status') and parsed.status != 200:
-                return HttpResponse("That feed appears to be dead.")
+                raise FeedFetchingError("Got a non-200 status while parsing feed")
 
             ## generate fake channel
             if parsed.feed.has_key('thumbnail'):
@@ -143,7 +144,7 @@ def share_feed(request):
             else:
                 thumbnail_url = \
                     settings.STATIC_BASE_URL + 'images/generic_feed_thumb.png'
-            
+
             channel = FakeChannel(
                 parsed.feed.get('title'),
                 parsed.feed.get('subtitle'),
@@ -152,10 +153,13 @@ def share_feed(request):
                 thumbnail_url)
 
             items = []
-            for entry in parsed.entries[:4]: # do we need to sort by date here?
+            # why not limit the number of items here to 4?
+            # Because we might need to check to see if a particular
+            # item is in this feed if it's being faked...
+            for entry in parsed.entries:
                 item = FakeItem(
-                    entry.title,
                     entry.link,
+                    entry.title,
                     entry.summary,
                     datetime.datetime(*entry.updated_parsed[:7]),
                     thumbnail_url) # just use whatever thumbnail the channel has?
@@ -164,12 +168,25 @@ def share_feed(request):
             cache.client.set(feed_key, channel)
             cache.client.set(items_key, items)
 
-    share_links = get_feed_links(channel)
+    return channel, items
+
+def share_feed(request):
+    try:
+        feed_url = str(request.GET['feed_url'])
+    except KeyError:
+        return HttpResponse("you must supply a feed_url")
+
+    try:
+        channel, items = get_channels_and_items(feed_url, request.connection)
+    except FeedFetchingError:
+        return HttpResponse("This feed appears to be dead.")
+
+    share_links = get_share_links(channel.url, channel.name)
 
     return util.render_to_response(
         request, 'show-channel.html',
         {'channel': channel,
-         'items': items,
+         'items': items[:4],
          'share_links': share_links})
 
 
@@ -180,4 +197,95 @@ def share_item(request):
     # else
     #   let's create a "fake" item to preview
     # render that item preview
-    pass
+    try:
+        file_url = str(request.GET['file_url'])
+    except KeyError:
+        return HttpResponse("you must supply a file_url")
+
+    feed_url = request.GET.get('feed_url')
+    webpage_url = request.GET.get('webpage_url')
+    item_name = request.GET.get('item_name')
+
+    item = None
+    next = None
+    previous = None
+
+    if webpage_url:
+        webpage_url = str(webpage_url)
+
+    if feed_url:
+        feed_url = str(feed_url)
+        try:
+            channel, channel_items = get_channels_and_items(
+                feed_url, request.connection)
+        except FeedFetchingError:
+            return HttpResponse("This feed appears to be dead.")
+
+        # see if we have that item in the feed
+        ## if it's a fake feed check the full list of items
+        if isinstance(channel, FakeChannel):
+            i = 0
+            for this_item in channel_items:
+                if this_item.url == file_url:
+                    item = this_item
+                    break
+                i += 1
+            if item:
+                if i != 0:
+                    previous = channel_items[i - 1]
+                if len(channel_items) != i + 1:
+                    next = channel_items[i + 1]
+
+        ## if it's a real feed do a query
+        else:
+            # do a query for this item
+            item_query = Item.query(channel_id=channel.id, url=file_url)
+            item_query = item_query.join('channel')
+            item_query = item_query.order_by('date', desc=True).limit(1)
+            items = item_query.execute(request.connection)
+            if items:
+                item = items[0]
+
+                ## check for previous
+                previous_set = Item.query(
+                    Item.c.channel_id == item.channel_id,
+                    Item.c.date < item.date)
+                previous_set = previous_set.limit(1)
+                previous_set = previous_set.order_by(Item.c.date, desc=True)
+                previous_set = previous_set.execute(request.connection)
+                if previous_set:
+                    previous = previous_set[0]
+                
+                ## check for next
+                next_set = Item.query(
+                    Item.c.channel_id == item.channel_id,
+                    Item.c.date > item.date)
+                next_set = next_set.limit(1).order_by(Item.c.date)
+                next_set = next_set.execute(request.connection)
+                if next_set:
+                    next = next_set[0]
+
+    ## if we don't have an item at this point, we need to generate
+    ## a fake one.  It won't have much useful info though...
+    if not item:
+        if not item_name:
+            subpath = urlparse.urlsplit(file_url)[3]
+            if subpath:
+                item_name = subpath.split('/')[-1]
+
+            else:
+                item_name = file_url
+
+        item = FakeItem(file_url, item_name)
+
+    # get the sharing info
+    share_links = get_share_links(item.url, item.name)
+
+    # render the page
+    return util.render_to_response(
+        request, 'playback.html',
+        {'item': item,
+         'channel': channel,
+         'previous': previous,
+         'next': next,
+         'embed': util.mark_safe(playback.embed_code(item))})

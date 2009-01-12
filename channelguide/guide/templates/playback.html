@@ -4,10 +4,12 @@
     <div class="page">
       <div id="videoBoxTop">
         <h1>You're Watching a Streaming Video</h1>
-        <span class="returnLink">
-          Back to <a href="{{ item.channel.get_absolute_url }}">
-          {{ item.channel.name }}...</a>
-        </span>
+        {% if channel and not channel.fake %}
+          <span class="returnLink">
+            Back to <a href="{{ channel.get_absolute_url }}">
+            {{ channel.name }}...</a>
+          </span>
+        {% endif %}
       </div><!--videoBoxTop-->
       <div id="videoBox">
         <div id="video">
