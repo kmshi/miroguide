@@ -1,164 +1,227 @@
 {% extends "base.html" %}
 {% block content %}
-	<div id="videoArea">
-		<div class="page">
-			<div id="videoBoxTop">
-				<h1>You're Watching a Streaming Video</h1>
-				<span class="returnLink">
-					Back to <a href="{{ item.channel.get_absolute_url }}">{{ item.channel.name }}...</a>
-				</span>
-			</div><!--videoBoxTop-->
-			<div id="videoBox">
-				<div id="video">
-					{{ embed }}
-				</div><!--video-->
-				
-				<div id="videoDetails">
-					<div class="meta">
-						<p class="synopsis_tag"><strong>Synopsis</strong></p>
-						<p class="synopsis">{{ item.description }}</p>
-						
-						<br clear="all" />
-						<div class="video_buttons_align">
-							<a href="{{ item.url }}" class="large_button download_button"><span><img src="{{ STATIC_BASE_URL }}images/buttons/download_arrow.png" alt="Download" />DOWNLOAD</span></a>				
-							<a href="#" class="rollover_button2"><span>SHARE</span> <span class="img"><img src="{{ STATIC_BASE_URL }}images/buttons/grey_stream.png" alt="" /></span></a>
-						</div>
-						
-						<p class="more"><strong class="tag">Date Posted</strong> <span class="detail">{{ item.date|date:"j.m.Y" }}</span></p>
-						<p class="more"><strong class="tag">Publisher</strong> <span class="detail">{{ item.channel.publisher }}</span></p>
-						<p class="more"><strong class="tag">License</strong> <span class="detail">XXX how to do this</span></p>
-						<p class="more"><strong class="tag">Video Format</strong> <span class="flv_file detail">TODO (.TODO)</span></p>
-					</div><!--meta-->
-					
-					
-					
-					<div class="buttons">
-						<div class="previous_button"><a href="{{ previous.get_url }}">Previous</a></div>
-						<div class="next_button"><a href="{{ next.get_url }}">Next</a></div>
-					</div><!--buttons-->
-				</div><!--videoDetails-->
-			</div><!--videoBox-->
-		</div><!--page-->
-	</div><!--videoArea-->
-	
-	<br />
-	
-	<div id="channelEpisodes">
-		<div class="page">
-			<div class="detailsHeadLarge">
-				<h3 class="resultsCount">
-					<span class="heading">Recently Aired</span>
-					<span class="button"><a href="#"><img src="images/ico_refresh.png" alt="" /></a></span>
-				</h3>
-				<div class="sortType">
-					<a href="#">All</a>
-				</div>
-			</div><!--detailsHead-->
-			
-			<ul class="paginator">
-				<li class="tag">Pages</li>
-				<li><span><a href="#">1</a></span></li>
-				<li><span><a href="#">2</a></span></li>
-				<li><span><a href="#">19</a></span></li>
-				<li><span><a href="#">20</a></span></li>
-				<li class="selected"><span><a href="#">21</a></span></li>
-				<li><span><a href="#">22</a></span></li>
-				<li class="tag">...</li>
-				<li><span><a href="#">98</a></span></li>
-				<li><span><a href="#">99</a></span></li>
-				<li><span><a href="#">100</a></span></li>
-			</ul>
-			
-			<br clear="all" />
-			
-			<div class="detailsTopLarge"></div>
-			<div class="detailsLarge">
-				<span class="thumb">
-					<a href="#">
-						<img class="hd_tag_small" src="images/ico_hd_tag_small.png" alt="" />
-						<img src="images/channel_episodes_thumb.jpg" alt="" />
-					</a>
-				</span>
-				
-				<div class="description">
-					<h4>Episode 11: Cycle Race Scramble!</h4>
-					<p>Watch videos from National Geographic. Watch videos from National Geographic. Watch videos from National Geographic.</p>
-					<a href="#" class="read_more">Read more</a>
-				</div>
-				
-				<div class="meta">
-					<strong>March 11th, 2008</strong>
-					<a href="#" class="rollover_button">Preview</a>
-					<a href="#" class="rollover_button">Download</a>
-				</div>
-			</div><!--detailsLarge-->
-			
-			<div class="detailsTopLarge"></div>
-			<div class="detailsLarge">
-				<span class="thumb">
-					<a href="#">
-						<img class="hd_tag_small" src="images/ico_hd_tag_small.png" alt="" />
-						<img src="images/channel_episodes_thumb.jpg" alt="" />
-					</a>
-				</span>
-				
-				<div class="description">
-					<h4>Episode 11: Cycle Race Scramble!</h4>
-					<p>Watch videos from National Geographic. Watch videos from National Geographic. Watch videos from National Geographic.</p>
-					<a href="#" class="read_more">Read more</a>
-				</div>
-				
-				<div class="meta">
-					<strong>March 11th, 2008</strong>
-					<a href="#" class="rollover_button">Preview</a>
-					<a href="#" class="rollover_button">Download</a>
-				</div>
-			</div><!--detailsLarge-->
-			
-			<div class="detailsTopLarge"></div>
-			<div class="detailsLarge">
-				<span class="thumb">
-					<a href="#">
-						<img class="hd_tag_small" src="images/ico_hd_tag_small.png" alt="" />
-						<img src="images/channel_episodes_thumb.jpg" alt="" />
-					</a>
-				</span>
-				
-				<div class="description">
-					<h4>Episode 11: Cycle Race Scramble!</h4>
-					<p>Watch videos from National Geographic. Watch videos from National Geographic. Watch videos from National Geographic.</p>
-					<a href="#" class="read_more">Read more</a>
-				</div>
-				
-				<div class="meta">
-					<strong>March 11th, 2008</strong>
-					<a href="#" class="rollover_button">Preview</a>
-					<a href="#" class="rollover_button">Download</a>
-				</div>
-			</div><!--detailsLarge-->
-			
-			<div class="detailsTopLarge"></div>
-			<div class="detailsLarge">
-				<span class="thumb">
-					<a href="#">
-						<img class="hd_tag_small" src="images/ico_hd_tag_small.png" alt="" />
-						<img src="images/channel_episodes_thumb.jpg" alt="" />
-					</a>
-				</span>
-				
-				<div class="description">
-					<h4>Episode 11: Cycle Race Scramble!</h4>
-					<p>Watch videos from National Geographic. Watch videos from National Geographic. Watch videos from National Geographic.</p>
-					<a href="#" class="read_more">Read more</a>
-				</div>
-				
-				<div class="meta">
-					<strong>March 11th, 2008</strong>
-					<a href="#" class="rollover_button">Preview</a>
-					<a href="#" class="rollover_button">Download</a>
-				</div>
-			</div><!--detailsLarge-->
-			
-		</div><!--page-->
-	</div><!--channelEpisodes-->
+  <div id="videoArea">
+    <div class="page">
+      <div id="videoBoxTop">
+        <h1>You're Watching a Streaming Video</h1>
+        <span class="returnLink">
+          Back to <a href="{{ item.channel.get_absolute_url }}">
+          {{ item.channel.name }}...</a>
+        </span>
+      </div><!--videoBoxTop-->
+      <div id="videoBox">
+        <div id="video">
+          {{ embed }}
+        </div><!--video-->
+        
+        <div id="videoDetails">
+          <div class="meta">
+            <p class="synopsis_tag">
+              <strong>Synopsis</strong>
+            </p>
+            <p class="synopsis">
+              {{ item.description }}
+            </p>
+            
+            <br clear="all" />
+            <div class="video_buttons_align">
+              <a href="{{ item.url }}"
+                 class="large_button download_button">
+                <span>
+                  <img src="{{ STATIC_BASE_URL }}images/buttons/download_arrow.png"
+                       alt="Download" />
+                  DOWNLOAD
+                </span>
+              </a>                              
+              <a href="#" class="rollover_button2">
+                <span>SHARE</span>
+                <span class="img">
+                  <img src="{{ STATIC_BASE_URL }}images/buttons/grey_stream.png"
+                       alt="" />
+                </span>
+              </a>
+            </div>
+            
+            <p class="more">
+              <strong class="tag">Date Posted</strong>
+              <span class="detail">{{ item.date|date:"j.m.Y" }}</span>
+            </p>
+            <p class="more">
+              <strong class="tag">Publisher</strong>
+              <span class="detail">{{ item.channel.publisher }}</span>
+            </p>
+            <p class="more">
+              <strong class="tag">License</strong>
+              <span class="detail">XXX how to do this</span>
+            </p>
+            <p class="more">
+              <strong class="tag">Video Format</strong>
+              <span class="flv_file detail">TODO (.TODO)</span>
+            </p>
+          </div>
+                                        
+          <div class="buttons">
+            <div class="previous_button">
+              <a href="{{ previous.get_url }}">Previous</a>
+            </div>
+            <div class="next_button">
+              <a href="{{ next.get_url }}">Next</a>
+            </div>
+          </div>
+        </div><!--videoDetails-->
+      </div><!--videoBox-->
+    </div><!--page-->
+  </div><!--videoArea-->
+        
+  <br />
+        
+  <div id="channelEpisodes">
+    <div class="page">
+      <div class="detailsHeadLarge">
+        <h3 class="resultsCount">
+          <span class="heading">Recently Aired</span>
+          <span class="button">
+            <a href="#">
+              <img src="images/ico_refresh.png" alt="" />
+            </a>
+          </span>
+        </h3>
+        <div class="sortType">
+          <a href="#">All</a>
+        </div>
+      </div><!--detailsHead-->
+                        
+      <ul class="paginator">
+        <li class="tag">Pages</li>
+        <li><span><a href="#">1</a></span></li>
+        <li><span><a href="#">2</a></span></li>
+        <li><span><a href="#">19</a></span></li>
+        <li><span><a href="#">20</a></span></li>
+        <li class="selected"><span><a href="#">21</a></span></li>
+        <li><span><a href="#">22</a></span></li>
+        <li class="tag">...</li>
+        <li><span><a href="#">98</a></span></li>
+        <li><span><a href="#">99</a></span></li>
+        <li><span><a href="#">100</a></span></li>
+      </ul>
+      
+      <br clear="all" />
+      
+      <div class="detailsTopLarge"></div>
+
+      <div class="detailsLarge">
+        <span class="thumb">
+          <a href="#">
+            <img class="hd_tag_small"
+                 src="images/ico_hd_tag_small.png"
+                 alt="" />
+            <img src="images/channel_episodes_thumb.jpg" alt="" />
+          </a>
+        </span>
+                                
+        <div class="description">
+          <h4>Episode 11: Cycle Race Scramble!</h4>
+          <p>
+            Watch videos from National Geographic. Watch videos from
+            National Geographic. Watch videos from National
+            Geographic.
+          </p>
+          <a href="#" class="read_more">Read more</a>
+        </div>
+                                
+        <div class="meta">
+          <strong>March 11th, 2008</strong>
+          <a href="#" class="rollover_button">Preview</a>
+          <a href="#" class="rollover_button">Download</a>
+        </div>
+      </div><!--detailsLarge-->
+      
+      <div class="detailsTopLarge"></div>
+      <div class="detailsLarge">
+        <span class="thumb">
+          <a href="#">
+            <img class="hd_tag_small"
+                 src="images/ico_hd_tag_small.png"
+                 alt="" />
+            <img src="images/channel_episodes_thumb.jpg" alt="" />
+          </a>
+        </span>
+                                
+        <div class="description">
+          <h4>Episode 11: Cycle Race Scramble!</h4>
+          <p>
+            Watch videos from National Geographic. Watch videos from
+            National Geographic. Watch videos from National
+            Geographic.
+          </p>
+          <a href="#" class="read_more">Read more</a>
+        </div>
+                                
+        <div class="meta">
+          <strong>March 11th, 2008</strong>
+          <a href="#" class="rollover_button">Preview</a>
+          <a href="#" class="rollover_button">Download</a>
+        </div>
+      </div><!--detailsLarge-->
+
+      
+      <div class="detailsTopLarge"></div>
+      <div class="detailsLarge">
+        <span class="thumb">
+          <a href="#">
+            <img class="hd_tag_small"
+                 src="images/ico_hd_tag_small.png"
+                 alt="" />
+            <img src="images/channel_episodes_thumb.jpg" alt="" />
+          </a>
+        </span>
+                                
+        <div class="description">
+          <h4>Episode 11: Cycle Race Scramble!</h4>
+          <p>
+            Watch videos from National Geographic. Watch videos from
+            National Geographic. Watch videos from National
+            Geographic.
+          </p>
+          <a href="#" class="read_more">Read more</a>
+        </div>
+                                
+        <div class="meta">
+          <strong>March 11th, 2008</strong>
+          <a href="#" class="rollover_button">Preview</a>
+          <a href="#" class="rollover_button">Download</a>
+        </div>
+      </div><!--detailsLarge-->
+
+      
+      <div class="detailsTopLarge"></div>
+      <div class="detailsLarge">
+        <span class="thumb">
+          <a href="#">
+            <img class="hd_tag_small"
+                 src="images/ico_hd_tag_small.png"
+                 alt="" />
+            <img src="images/channel_episodes_thumb.jpg" alt="" />
+          </a>
+        </span>
+                                
+        <div class="description">
+          <h4>Episode 11: Cycle Race Scramble!</h4>
+          <p>
+            Watch videos from National Geographic. Watch videos from
+            National Geographic. Watch videos from National
+            Geographic.
+          </p>
+          <a href="#" class="read_more">Read more</a>
+        </div>
+                                
+        <div class="meta">
+          <strong>March 11th, 2008</strong>
+          <a href="#" class="rollover_button">Preview</a>
+          <a href="#" class="rollover_button">Download</a>
+        </div>
+      </div><!--detailsLarge-->
+
+    </div><!--page-->
+  </div><!--channelEpisodes-->
 {% endblock %}
