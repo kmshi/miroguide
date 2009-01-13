@@ -26,7 +26,7 @@ See LICENSE for details.
   
   <div class="meta">
     <strong>{{ item.date|date:"M j" }}, {{ item.date|date:"Y" }}</strong>
-    <a href="#" class="rollover_button">{% trans "Preview" %}</a>
-    <a href="#" class="rollover_button">{% trans "Download" %}</a>
+    <a href="{{ item.get_url }}" class="rollover_button">{% trans "Preview" %}</a>
+    <a href="{{ item.download_url }}" class="rollover_button">{% trans "Download" %}</a>
   </div>
 </div>

@@ -6,6 +6,7 @@ from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.template import loader
 from django.utils.decorators import decorator_from_middleware
 from django.utils.translation import gettext as _
+from django.core.paginator import Paginator, InvalidPage
 
 from channelguide import util, cache
 from channelguide.cache import client
@@ -25,12 +26,108 @@ from sqlhelper import signals, exceptions
 import re, time
 
 
-class ChannelCacheMiddleware(UserCacheMiddleware):
+class ItemObjectList:
+    def __init__(self, connection, channel):
+        self.connection = connection
+        self.channel = channel
 
+    def query(self):
+        return Item.query(Item.c.channel_id == self.channel.id).order_by(
+            Item.c.date, desc=True).join('channel')
+
+    def __len__(self):
+        return int(self.query().count(
+                self.connection))
+
+    def __getslice__(self, offset, end):
+        limit = end - offset
+        return tuple(self.query().limit(limit).offset(offset).execute(
+            self.connection))
+
+
+class ApiObjectList:
+    def __init__(self, connection, filter, value, sort, loads):
+        self.connection = connection
+        self.filter = filter
+        self.value = value
+        self.sort = sort
+        self.loads = loads
+        if 'rating' in sort:
+            self.count_sort = 'ratingcount'
+        else:
+            self.count_sort = 'count'
+
+    def call(self, *args, **kw):
+        """
+        Call the appropriate API function.  We do it this way because assigning
+        a function as an attribute of a class makes it a method, and we don't
+        want the extra `self` argument.
+        """
+        raise NotImplementedError()
+
+    def __len__(self):
+        return int(self.call(self.connection, self.filter,
+                             self.value, self.count_sort))
+
+    def __getslice__(self, offset, end):
+        limit = end - offset
+        return tuple(self.call(self.connection, self.filter,
+                         self.value, self.sort, limit,
+                         offset, self.loads))
+
+
+class FeedObjectList(ApiObjectList):
+    def call(self, *args, **kw):
+        return api.get_feeds(*args, **kw)
+
+
+class ShowObjectList(ApiObjectList):
+    def call(self, *args, **kw):
+        return api.get_shows(*args, **kw)
+
+
+def _calculate_pages(request, page, default_page=1):
+    page_range = page.paginator.page_range
+    if page.paginator.num_pages > 9:
+        low = page.number - 5
+        high = page.number + 4
+        if low < 0:
+            high -= low
+            low = 0
+        if high > page.paginator.num_pages and low > 0:
+            low += (page.paginator.num_pages - high)
+            if low < 0:
+                low = 0
+        middle = page_range[low:high]
+        if middle[:2] != [1, 2]:
+            middle = [1, 2, None] + middle[3:]
+        if middle[-2:] != [page.paginator.num_pages - 1, page.paginator.num_pages]:
+            middle = middle[:-3] + [None, page.paginator.num_pages - 1,
+                                    page.paginator.num_pages]
+    else:
+        middle = page_range
+    path = request.path
+    get_data = dict(request.GET)
+    for number in middle:
+        if number is not None:
+            if number != default_page:
+                get_data['page'] = str(number)
+            else:
+                try:
+                    del get_data['page']
+                except KeyError:
+                    pass
+            yield (number, util.make_absolute_url(path, get_data))
+        else:
+            yield ('tag', None)
+
+
+class ChannelCacheMiddleware(UserCacheMiddleware):
     def get_cache_key_tuple(self, request):
         channelId = request.path.split('/')[-1].encode('utf8')
         self.namespace = ('channel', 'Channel:%s' % channelId)
         return UserCacheMiddleware.get_cache_key_tuple(self, request)
+
 
 @moderator_required
 def moderator_channel_list(request, state):
@@ -57,7 +154,6 @@ def moderator_channel_list(request, state):
         query.where(state=Channel.NEW)
         header = _("Unreviewed Channels")
     query.order_by('creation_time', query.joins['owner'].c.username != 'freelance')
-    print query
     pager =  templateutil.Pager(10, query, request)
 
     return util.render_to_response(request, 'moderator-channel-list.html', {
@@ -70,9 +166,11 @@ def moderator_channel_list(request, state):
                 _("Subscribe to all %i channels") % len(pager.items))
         })
 
+
 def destroy_submit_url_session(request):
     if SESSION_KEY in request.session:
         del request.session[SESSION_KEY]
+
 
 def channel(request, id):
     if request.method == 'GET':
@@ -202,7 +300,6 @@ def show(request, id, featured_form=None):
     query.join('categories', 'tags', 'rating')
     if request.user.is_supermoderator():
         query.join('featured_queue', 'featured_queue.featured_by')
-    item_query = Item.query(channel_id=id).join('channel').order_by('date', desc=True).limit(4)
     c = util.get_object_or_404(request.connection, query, id)
     # redirect old URLs to canonical ones
     if request.path != c.get_url():
@@ -212,13 +309,17 @@ def show(request, id, featured_form=None):
         c.rating.channel_id = c.id
         c.rating.save(request.connection)
 
+    item_paginator = Paginator(ItemObjectList(request.connection, c), 4)
+    item_page = item_paginator.page(request.GET.get('page', 1))
+
     share_links = None
     if request.GET.get('share') == 'true':
         share_links = util.get_share_links(c.url, c.name)
 
     context = {
         'channel': c,
-        'items': item_query.execute(request.connection),
+        'item_page': item_page,
+        'item_page_links': _calculate_pages(request, item_page),
         'recommendations': get_recommendations(request, c),
         'show_edit_button': request.user.can_edit_channel(c),
         'show_extra_info': request.user.can_edit_channel(c),
@@ -356,8 +457,7 @@ def rate(request, id):
 
 @cache.aggresively_cache
 def filtered_listing(request, value=None, filter=None, limit=10,
-                     title='Filtered Listing', header_class='rss',
-                     default_sort=None):
+                     title='Filtered Listing', default_sort=None):
     if not filter:
         raise Http404
     page = request.GET.get('page', 1)
@@ -368,39 +468,44 @@ def filtered_listing(request, value=None, filter=None, limit=10,
     sort = request.GET.get('sort', default_sort)
     if default_sort is None and sort is None:
         sort = '-popular'
-    channels = api.get_channels(request.connection, filter, value, sort,
-                                limit, (page - 1) * limit,
-                                ('subscription_count_month', 'rating',
-                                 'item_count'))
-    if 'rating' in sort:
-        count = api.get_channels(request.connection, filter, value, 'ratingcount')
+    feed_paginator = Paginator(FeedObjectList(request.connection,
+                                              filter, value, sort,
+                                              ('subscription_count_month',
+                                               'rating',
+                                               'item_count')),
+                               limit)
+    show_paginator = Paginator(ShowObjectList(request.connection,
+                                              filter, value, sort,
+                                              ('subscription_count_month',
+                                               'rating',
+                                               'item_count')),
+                               limit)
+    try:
+        feed_page = feed_paginator.page(page)
+    except InvalidPage:
+        feed_page = None
+    try:
+        show_page = show_paginator.page(page)
+    except InvalidPage:
+        show_page = None
+
+    # find the biggest paginator and use that page for calculating the links
+    if not feed_paginator:
+        biggest = show_page
+    elif not show_paginator:
+        biggest = feed_page
+    elif feed_paginator.count > show_paginator.count:
+        biggest = feed_page
     else:
-        count = api.get_channels(request.connection, filter, value, 'count')
-    if default_sort is not None and filter == 'name' and value is None:
-        sort = None # don't show sort on popular channels page
-    if not channels:
-        raise Http404
-    if page == 1:
-        intro = 'First <strong>%i</strong>' % len(channels)
-    else:
-        intro = '<strong>%i</strong> - <strong>%i</strong>' % (
-            page * limit - limit + 1, min(page * limit, count))
-    intro = util.mark_safe(intro)
-    if (page * limit) >= count:
-        next_page = None
-    else:
-        args = request.GET.copy()
-        args['page'] = str(page + 1)
-        next_page = util.make_absolute_url(request.path, args)
+        biggest = show_page
+
     return util.render_to_response(request, 'listing.html', {
-        'results': channels,
-        'count': count,
         'title': title % {'value': value},
-        'header_class': header_class,
-        'intro': intro,
-        'page': page,
-        'next_page': next_page,
         'sort': sort,
+        'current_page': page,
+        'pages': _calculate_pages(request, biggest),
+        'feed_page': feed_page,
+        'show_page': show_page,
         })
 
 def make_simple_list(request, query, header, order_by=None, rss_feed=None):

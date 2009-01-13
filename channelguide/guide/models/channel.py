@@ -112,7 +112,7 @@ class Channel(Record, Thumbnailable):
     def subscription_link(self):
         cg_link = self.get_subscribe_hit_url()
         subscribe_link = self.get_subscription_url()
-        return util.make_link_attributes(subscribe_link, "large_green_button2",
+        return util.make_link_attributes(subscribe_link,
                 onclick="return handleSubscriptionLink('%s', '%s');" %
                 (cg_link, subscribe_link))
 

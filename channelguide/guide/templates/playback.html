@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block head-extra %}
+  <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/playback.js"></script>
+{% endblock %}
 {% block content %}
   {% if share_links %}
     {% include "guide/share-links.html" %}
@@ -10,8 +13,10 @@
         <h1>{{ item.name }}</h1>
         {% if channel and not channel.fake %}
           <span class="returnLink">
-            Back to <a href="{{ channel.get_absolute_url }}">
-            {{ channel.name }}...</a>
+            Back to
+            <a href="{{ channel.get_absolute_url }}{% ifequal page.number 1 %}{% else %}?page={{ page.number }}{% endifequal %}">
+              {{ channel.name }}...
+            </a>
           </span>
         {% endif %}
       </div><!--videoBoxTop-->
@@ -54,7 +59,7 @@
             </p>
             <p class="more">
               <strong class="tag">Publisher</strong>
-              <span class="detail">{{ item.channel.publisher }}</span>
+              <span class="detail">{{ channel.publisher }}</span>
             </p>
             <p class="more">
               <strong class="tag">License</strong>
@@ -98,135 +103,27 @@
       </div><!--detailsHead-->
                         
       <ul class="paginator">
-        <li class="tag">Pages</li>
-        <li><span><a href="#">1</a></span></li>
-        <li><span><a href="#">2</a></span></li>
-        <li><span><a href="#">19</a></span></li>
-        <li><span><a href="#">20</a></span></li>
-        <li class="selected"><span><a href="#">21</a></span></li>
-        <li><span><a href="#">22</a></span></li>
-        <li class="tag">...</li>
-        <li><span><a href="#">98</a></span></li>
-        <li><span><a href="#">99</a></span></li>
-        <li><span><a href="#">100</a></span></li>
+        {% for number, link in page_links %}
+          {% ifequal number "tag" %}
+            <li class="tag">...</li>
+          {% else %}
+            <li {% ifequal number page.number %}class="selected"{% endifequal %}>
+              <span><a href="{{ link }}">{{ number }}</a></span>
+            </li>
+          {% endifequal %}
+        {% endfor %}
       </ul>
       
       <br clear="all" />
       
-      <div class="detailsTopLarge"></div>
+      {% for item in page.object_list %}
+        <div class="detailsTopLarge"></div>
+        {% include "guide/item.html" %}
+      {% endfor %}
 
-      <div class="detailsLarge">
-        <span class="thumb">
-          <a href="#">
-            <img class="hd_tag_small"
-                 src="images/ico_hd_tag_small.png"
-                 alt="" />
-            <img src="images/channel_episodes_thumb.jpg" alt="" />
-          </a>
-        </span>
-                                
-        <div class="description">
-          <h4>Episode 11: Cycle Race Scramble!</h4>
-          <p>
-            Watch videos from National Geographic. Watch videos from
-            National Geographic. Watch videos from National
-            Geographic.
-          </p>
-          <a href="#" class="read_more">Read more</a>
-        </div>
-                                
-        <div class="meta">
-          <strong>March 11th, 2008</strong>
-          <a href="#" class="rollover_button">Preview</a>
-          <a href="#" class="rollover_button">Download</a>
-        </div>
-      </div><!--detailsLarge-->
-      
-      <div class="detailsTopLarge"></div>
-      <div class="detailsLarge">
-        <span class="thumb">
-          <a href="#">
-            <img class="hd_tag_small"
-                 src="images/ico_hd_tag_small.png"
-                 alt="" />
-            <img src="images/channel_episodes_thumb.jpg" alt="" />
-          </a>
-        </span>
-                                
-        <div class="description">
-          <h4>Episode 11: Cycle Race Scramble!</h4>
-          <p>
-            Watch videos from National Geographic. Watch videos from
-            National Geographic. Watch videos from National
-            Geographic.
-          </p>
-          <a href="#" class="read_more">Read more</a>
-        </div>
-                                
-        <div class="meta">
-          <strong>March 11th, 2008</strong>
-          <a href="#" class="rollover_button">Preview</a>
-          <a href="#" class="rollover_button">Download</a>
-        </div>
-      </div><!--detailsLarge-->
-
-      
-      <div class="detailsTopLarge"></div>
-      <div class="detailsLarge">
-        <span class="thumb">
-          <a href="#">
-            <img class="hd_tag_small"
-                 src="images/ico_hd_tag_small.png"
-                 alt="" />
-            <img src="images/channel_episodes_thumb.jpg" alt="" />
-          </a>
-        </span>
-                                
-        <div class="description">
-          <h4>Episode 11: Cycle Race Scramble!</h4>
-          <p>
-            Watch videos from National Geographic. Watch videos from
-            National Geographic. Watch videos from National
-            Geographic.
-          </p>
-          <a href="#" class="read_more">Read more</a>
-        </div>
-                                
-        <div class="meta">
-          <strong>March 11th, 2008</strong>
-          <a href="#" class="rollover_button">Preview</a>
-          <a href="#" class="rollover_button">Download</a>
-        </div>
-      </div><!--detailsLarge-->
-
-      
-      <div class="detailsTopLarge"></div>
-      <div class="detailsLarge">
-        <span class="thumb">
-          <a href="#">
-            <img class="hd_tag_small"
-                 src="images/ico_hd_tag_small.png"
-                 alt="" />
-            <img src="images/channel_episodes_thumb.jpg" alt="" />
-          </a>
-        </span>
-                                
-        <div class="description">
-          <h4>Episode 11: Cycle Race Scramble!</h4>
-          <p>
-            Watch videos from National Geographic. Watch videos from
-            National Geographic. Watch videos from National
-            Geographic.
-          </p>
-          <a href="#" class="read_more">Read more</a>
-        </div>
-                                
-        <div class="meta">
-          <strong>March 11th, 2008</strong>
-          <a href="#" class="rollover_button">Preview</a>
-          <a href="#" class="rollover_button">Download</a>
-        </div>
-      </div><!--detailsLarge-->
+      <script type="text/javascript">
+        $("#channelEpisodes div.details").each(setUpItem);
+      </script>
 
     </div><!--page-->
   </div><!--channelEpisodes-->
