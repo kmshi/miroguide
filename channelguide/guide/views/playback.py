@@ -1,5 +1,7 @@
+from django.core.paginator import Paginator
 from channelguide import util
 from channelguide.guide.models import Item
+from channelguide.guide.views.channels import ItemObjectList, _calculate_pages
 DEFAULT_WIDTH = 480
 DEFAULT_HEIGHT= 360
 
@@ -65,8 +67,6 @@ def item(request, id):
     else:
         previous = None
 
-    print item.date
-
     nextSet = Item.query(Item.c.channel_id == item.channel_id,
                          Item.c.date > item.date).limit(1).order_by(
         Item.c.date, ).execute(request.connection)
@@ -75,10 +75,19 @@ def item(request, id):
         print next.date
     else:
         next = None
+    index = Item.query(Item.c.channel_id == item.channel_id,
+                       Item.c.date > item.date).order_by(
+        Item.c.date).count(request.connection)
+    default_page = (index // 4) + 1
+    paginator = Paginator(ItemObjectList(request.connection, item.channel), 4)
+    page = paginator.page(request.GET.get('page', default_page))
     return util.render_to_response(request, 'playback.html',
                                    {'item': item,
                                     'previous': previous,
                                     'next': next,
                                     'embed': util.mark_safe(embed_code(item)),
+                                    'page': page,
+                                    'page_links': _calculate_pages(request, page,
+                                                                        default_page)
                                     })
 

@@ -72,7 +72,11 @@ def format_get_data(get_data):
         return ''
     parts = []
     for key, value in get_data.items():
-        parts.append('%s=%s' % (key, quote(value.encode('utf8'))))
+        if isinstance(value, (list, tuple)):
+            for subvalue in value:
+                parts.append('%s=%s' % (key, quote(subvalue.encode('utf8'))))
+        else:
+            parts.append('%s=%s' % (key, quote(value.encode('utf8'))))
     return '?' + '&'.join(parts)
 
 def get_relative_path(request):

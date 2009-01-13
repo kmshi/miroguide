@@ -24,7 +24,7 @@ function setUpItem() {
     download = item.children('a.playback');
     mimetype = download.text();
     if (supportsMimeType(mimetype)) {
-        item.children('.thumb').prepend('<div class="play_vid_overlay"></div>').parent().children('.thumb img').css('cursor', 'pointer').click(playVideo);
+        item.children('.thumb').prepend('<div class="play_vid_overlay"></div>').parent().find('span.thumb').css('cursor', 'pointer').click(playVideo);
     }
 }
 
