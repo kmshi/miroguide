@@ -153,6 +153,9 @@ def share_feed(request):
     except FeedFetchingError:
         return HttpResponse("This feed appears to be dead.")
 
+    if isinstance(channel, Channel):
+        return HttpResponseRedirect('/feeds/%s?share=true' % channel.id)
+
     share_links = util.get_share_links(channel.url, channel.name)
 
     return util.render_to_response(
@@ -218,24 +221,8 @@ def share_item(request):
             if items:
                 item = items[0]
 
-                ## check for previous
-                previous_set = Item.query(
-                    Item.c.channel_id == item.channel_id,
-                    Item.c.date < item.date)
-                previous_set = previous_set.limit(1)
-                previous_set = previous_set.order_by(Item.c.date, desc=True)
-                previous_set = previous_set.execute(request.connection)
-                if previous_set:
-                    previous = previous_set[0]
-                
-                ## check for next
-                next_set = Item.query(
-                    Item.c.channel_id == item.channel_id,
-                    Item.c.date > item.date)
-                next_set = next_set.limit(1).order_by(Item.c.date)
-                next_set = next_set.execute(request.connection)
-                if next_set:
-                    next = next_set[0]
+    if isinstance(item, Item):
+        return HttpResponseRedirect('/items/%s?share=true' % item.id)
 
     ## if we don't have an item at this point, we need to generate
     ## a fake one.  It won't have much useful info though...

@@ -211,6 +211,11 @@ def show(request, id, featured_form=None):
         c.rating = GeneratedRatings()
         c.rating.channel_id = c.id
         c.rating.save(request.connection)
+
+    share_links = None
+    if request.GET.get('share') == 'true':
+        share_links = util.get_share_links(c.url, c.name)
+
     context = {
         'channel': c,
         'items': item_query.execute(request.connection),
@@ -220,7 +225,8 @@ def show(request, id, featured_form=None):
         'link_to_channel': True,
         'BASE_URL': settings.BASE_URL,
         'rating_bar': get_show_rating_bar(request, c),
-    }
+        'share_links': share_links}
+
     if request.user.is_supermoderator():
         c.join('owner').execute(request.connection)
         if c.featured_queue and c.featured_queue.state in (

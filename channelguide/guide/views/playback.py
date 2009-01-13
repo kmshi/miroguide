@@ -75,11 +75,19 @@ def item(request, id):
         print next.date
     else:
         next = None
-    return util.render_to_response(request, 'playback.html',
-                                   {'item': item,
-                                    'channel': item.channel,
-                                    'previous': previous,
-                                    'next': next,
-                                    'embed': util.mark_safe(embed_code(item)),
-                                    })
+
+    
+    share_links = None
+    if request.GET.get('share') == 'true':
+        share_links = util.get_share_links(item.url, item.name)
+
+    return util.render_to_response(
+        request,
+        'playback.html',
+        {'item': item,
+         'channel': item.channel,
+         'previous': previous,
+         'next': next,
+         'embed': util.mark_safe(embed_code(item)),
+         'share_links': share_links})
 
