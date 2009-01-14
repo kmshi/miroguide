@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+
+{% load i18n %}
+
 {% block head-extra %}
   <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/playback.js"></script>
 {% endblock %}
@@ -28,7 +31,7 @@
         <div id="videoDetails">
           <div class="meta">
             <p class="synopsis_tag">
-              <strong>Synopsis</strong>
+              <strong>{% trans "Synopsis" %}</strong>
             </p>
             <p class="synopsis">
               {{ item.description }}
@@ -41,11 +44,11 @@
                 <span>
                   <img src="{{ STATIC_BASE_URL }}images/buttons/download_arrow.png"
                        alt="Download" />
-                  DOWNLOAD
+                  {% trans "DOWNLOAD" %}
                 </span>
               </a>                              
               <a href="#" class="rollover_button2">
-                <span>SHARE</span>
+                <span>{% trans "SHARE" %}</span>
                 <span class="img">
                   <img src="{{ STATIC_BASE_URL }}images/buttons/grey_stream.png"
                        alt="" />
@@ -72,16 +75,20 @@
           </div>
                                         
           <div class="buttons">
-            <div class="previous_button">
-              <a href="{{ previous.get_url }}">
-                {% trans "Previous" %}
-              </a>
-            </div>
-            <div class="next_button">
-              <a href="{{ next.get_url }}">
-                {% trans "Next" %}
-              </a>
-            </div>
+            {% if previous %}
+              <div class="previous_button">
+                <a href="{{ previous.get_url }}">
+                  {% trans "Previous" %}
+                </a>
+              </div>
+            {% endif %}
+            {% if next %}
+              <div class="next_button">
+                <a href="{{ next.get_url }}">
+                  {% trans "Next" %}
+                </a>
+              </div>
+            {% endif %}
           </div>
         </div><!--videoDetails-->
       </div><!--videoBox-->
