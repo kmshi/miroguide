@@ -112,7 +112,7 @@ See LICENSE for details.
       <div id="contentSmall">
         <div class="detailsHead3">
           <h3 class="resultsCount">
-            <span class="heading">{% trans "New Videos" %}</span>
+            <span class="heading">{% trans "New Shows" %}</span>
           </h3>
           <div class="sortType">
             <a href="#">{% trans "All" %}</a> {# TODO: add link #}
@@ -122,11 +122,6 @@ See LICENSE for details.
         <ul class="newVideos">
           {% for channel in new_channels %}
             <li>{% show_channel_mini channel "episodes" %}</li>
-
-            {% ifequal forloop.counter 3 %}
-              <!-- prevents float when a description is too long. -->
-              <li class="separator"><br clear="all" /></li>
-            {% endifequal %}
           {% endfor %}
         </ul>
       </div>
@@ -189,7 +184,7 @@ See LICENSE for details.
             <div class="detailsHead2">
               <h3 class="resultsCount">
                 <span class="heading">
-                  {% trans "Videos You'll Love" %}
+                  {% trans "Popular Shows" %}
                 </span>
               </h3>
               <div class="sortType">
@@ -198,13 +193,11 @@ See LICENSE for details.
             </div>
             <div class="widget_small">
               <ul class="related">
-                {% comment %}
-                {% for channel in love_channels %}
+                {% for channel in popular_channels %}
                   <li>
                     {% show_channel_mini channel "episodes" %}
                   </li>
                 {% endfor %}
-                {% endcomment %}
               </ul>
             </div><!--widget-->
 

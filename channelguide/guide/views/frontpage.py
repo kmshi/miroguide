@@ -35,6 +35,27 @@ def get_current_language(request):
         except NotFoundError:
             pass
 
+def get_popular_channels(request, count, language=None):
+    query = Channel.query_approved(archived=0, user=request.user)
+    lang = get_current_language(request)
+    if lang is not None:
+        query.where((Channel.c.primary_language_id==lang.id) |
+                    Language.secondary_language_exists_where(lang.id))
+    query.join('rating')
+    query.load('subscription_count_today')
+    query.order_by('subscription_count_today', desc=True)
+    query.join('categories')
+    query.limit(count*30)
+    query.cacheable = cache.client
+    query.cacheable_time = 300
+    result = query.execute(request.connection)
+    for r in result:
+        if r.rating is None:
+            r.star_width = 0
+        else:
+            r.star_width = r.rating.average * 20
+    return _filter_categories(result, count)
+
 def get_featured_channels(request):
     query = Channel.query_approved(featured=1, archived=0, user=request.user)
     return query.order_by('RAND()').execute(request.connection)
@@ -132,16 +153,12 @@ def make_category_peek(request):
 @cache.cache_for_user
 def index(request):
     featured_channels = get_featured_channels(request)
-    recommended = []
-    if request.user.is_authenticated():
-        recommended = api.get_recommendations(
-            request.connection, request.user, length=2)
 
     return util.render_to_response(request, 'frontpage.html', {
-        'new_channels': get_new_channels(request, True, 6),
+        'new_channels': get_new_channels(request, True, 5),
+        'popular_channels': get_popular_channels(request, 4),
         'featured_channels': featured_channels[:2],
         'featured_channels_hidden': featured_channels[2:],
-        'recommended': recommended,
         'categories': get_categories(request.connection),
         'category_peek': make_category_peek(request),
         'language' : get_current_language(request),
