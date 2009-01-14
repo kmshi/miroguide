@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load i18n %}
+{% load i18n cg_helpers %}
 
 {% block head-extra %}
   <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/playback.js"></script>
@@ -34,7 +34,7 @@
               <strong>{% trans "Synopsis" %}</strong>
             </p>
             <p class="synopsis">
-              {{ item.description }}
+              {{ item.description|striptags }}
             </p>
             
             <br clear="all" />
