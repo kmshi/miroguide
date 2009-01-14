@@ -4,19 +4,24 @@ Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
 <div class="details">
-  <a class="playback" href="{{ item.get_url }}">{{ item.mime_type }}</a>
   <span class="thumb">
     {% if channel.hi_def %}
       <img class="hd_tag_small"
            src="{{ STATIC_BASE_URL }}images/ico_hd_tag_small.png"
            alt="{% trans "High-Definition Channel" %}" />
     {% endif %}
-      {{ item.thumb }}
+    {{ item.thumb }}
   </span>
 
   <div class="description">
     <h4>
-      {% if item.name %}{{ item.name }}{% else %}{% trans "(no name)" %}{% endif %}
+      <a href="{{ item.get_url }}">
+        {% if item.name %}
+          {{ item.name }}
+        {% else %}
+          {% trans "(no name)" %}
+        {% endif %}
+      </a>
     </h4>
     <p>
       {{ item.description|striptags }}
