@@ -54,29 +54,33 @@
             </div>
             
             <p class="more">
-              <strong class="tag">Date Posted</strong>
+              <strong class="tag">{% trans "Date Posted" %}</strong>
               <span class="detail">{{ item.date|date:"j.m.Y" }}</span>
             </p>
             <p class="more">
-              <strong class="tag">Publisher</strong>
+              <strong class="tag">{% trans "Publisher" %}</strong>
               <span class="detail">{{ channel.publisher }}</span>
             </p>
             <p class="more">
-              <strong class="tag">License</strong>
+              <strong class="tag">{% trans "License" %}</strong>
               <span class="detail">XXX how to do this</span>
             </p>
             <p class="more">
-              <strong class="tag">Video Format</strong>
+              <strong class="tag">{% trans "Video Format" %}</strong>
               <span class="flv_file detail">TODO (.TODO)</span>
             </p>
           </div>
                                         
           <div class="buttons">
             <div class="previous_button">
-              <a href="{{ previous.get_url }}">Previous</a>
+              <a href="{{ previous.get_url }}">
+                {% trans "Previous" %}
+              </a>
             </div>
             <div class="next_button">
-              <a href="{{ next.get_url }}">Next</a>
+              <a href="{{ next.get_url }}">
+                {% trans "Next" %}
+              </a>
             </div>
           </div>
         </div><!--videoDetails-->
@@ -90,7 +94,7 @@
     <div class="page">
       <div class="detailsHeadLarge">
         <h3 class="resultsCount">
-          <span class="heading">Recently Aired</span>
+          <span class="heading">{% trans "Recently Aired" %}</span>
           <span class="button">
             <a href="#">
               <img src="images/ico_refresh.png" alt="" />
