@@ -156,7 +156,7 @@ def index(request):
 
     return util.render_to_response(request, 'frontpage.html', {
         'new_channels': get_new_channels(request, True, 5),
-        'popular_channels': get_popular_channels(request, 3),
+        'popular_channels': get_popular_channels(request, 4),
         'featured_channels': featured_channels[:2],
         'featured_channels_hidden': featured_channels[2:],
         'categories': get_categories(request.connection),
