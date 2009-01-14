@@ -131,7 +131,7 @@ urlpatterns += patterns('',
                         (r'^category-peek-fragment$', redirect_to,
                          {'url': None}),
                         (r'^channels/', cg_include('channels')),
-                        (r'^categories/', cg_include('categories')),
+                        (r'^genres/', cg_include('genres')),
                         (r'^tags/', cg_include('tags')),
                         (r'^cobranding/', cg_include('cobranding')),
                         )
