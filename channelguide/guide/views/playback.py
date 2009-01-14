@@ -98,6 +98,7 @@ def item(request, id):
          'next': next,
          'embed': util.mark_safe(embed_code(item)),
          'page': page,
+         'share_links': share_links,
          'page_links': _calculate_pages(
                 request, page, default_page)})
 
