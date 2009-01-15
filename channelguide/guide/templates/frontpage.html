@@ -109,7 +109,7 @@ See LICENSE for details.
             <span class="heading">{% trans "New Shows" %}</span>
           </h3>
           <div class="sortType">
-            <a href="#">{% trans "All" %}</a> {# TODO: add link #}
+            <a href="/new/">{% trans "All" %}</a>
           </div>
         </div>
         
@@ -137,6 +137,9 @@ See LICENSE for details.
             <h3 class="resultsCount">
               <a name="genres"></a><span class="heading">{% trans "Genres" %}</span>
             </h3>
+            <div class="sortType">
+              <a href="/genres/">{% trans "All" %}</a>
+            </div>
           </div><!--detailsHead-->
           
           <a href="{{ category_peek.category.get_url }}" class="view_all_videos">
@@ -182,7 +185,7 @@ See LICENSE for details.
                 </span>
               </h3>
               <div class="sortType">
-                <a href="#">{% trans "All" %}</a>
+                <a href="/popular/">{% trans "All" %}</a>
               </div>
             </div>
             <div class="widget_small">
