@@ -142,6 +142,7 @@ def get_channels_and_items(feed_url, connection):
 
     return channel, items
 
+
 def share_feed(request):
     try:
         feed_url = str(request.GET['feed_url'])
