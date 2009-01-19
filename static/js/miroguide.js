@@ -112,31 +112,6 @@ function channelAdd(url, redirect, name, event) {
     xhr.send(null);
     return false;
 }
-
-function channelAdd(url, redirect, name, event) {
-    var xhr = makeXMLHttpRequest();
-    if (!xhr) return true;
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState > 1) {
-            display = $("<div class='added_channel'>" + name + " added to your Miro sidebar!</div>");
-            display.css('position', 'absolute').css('top', event.pageY - 31).css('left', '-10em');
-            $("body").append(display);
-            display.animate({left: 0}, 'slow');
-            setTimeout(function() {
-                d = $('div.added_channel:eq(0)');
-                d.animate({
-                    left: '-20em'
-                }, 'slow',  function() {
-                    d.remove();
-                });
-            }, 2000);
-            window.location = redirect;
-        }
-    };
-    xhr.open('GET', url, true);
-    xhr.send(null);
-    return false;
-}
 function _redirectToSubscription(request) {
     window.location.href = request.subscribe_url;
 }
