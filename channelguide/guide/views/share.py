@@ -7,11 +7,15 @@ import urllib
 import urlparse
 
 import feedparser
+from django.core.mail import send_mail
 from django.conf import settings
-from django.http import Http404, HttpResponseRedirect, HttpResponse
+from django.http import (
+    Http404, HttpResponseRedirect, HttpResponse, HttpResponseBadRequest)
+from django.template import loader, Context
 
 from channelguide import util, cache
 from channelguide.guide import filetypes
+from channelguide.guide.forms.share import ShareForm
 from channelguide.guide.models import (Channel, Item)
 from channelguide.guide.views import playback
 
@@ -163,6 +167,8 @@ def share_feed(request):
         request, 'show-channel.html',
         {'channel': channel,
          'items': items[:4],
+         'feed_url': feed_url,
+         'share_type': 'feed',
          'share_links': share_links})
 
 
@@ -249,4 +255,41 @@ def share_item(request):
          'previous': previous,
          'next': next,
          'embed': util.mark_safe(playback.embed_code(item)),
+         'feed_url': feed_url,
+         'webpage_url': webpage_url,
+         'item_name': item_name,
+         'share_type': 'item',
          'share_links': share_links})
+
+
+def email(request):
+    share_form = ShareForm(request.POST)
+
+    if not share_form.is_valid():
+        return util.render_to_response(
+            request, 'share-form.html',
+            {'share_form': share_form,
+             'share_type': share_form.data.get('share_type'),
+             'feed_url': share_form.data.get('feed_url'),
+             'file_url': share_form.data.get('file_url'),
+             'item_url': share_form.data.get('item_url')})
+    
+    # construct the email to send out from a template
+    if share_form.cleaned_data['share_type'] == 'feed':
+        title = _(u'%(from_email)s wants to share a video feed with you') % {
+            'from_email': share_form.cleaned_data['from_email']}
+    else:
+        title = _(u'%(from_email)s wants to share a video with you') % {
+            'from_email': share_form.cleaned_data['from_email']}
+
+    email_template = loader.get_template('guide/share-email.txt')
+    email_body = email_template.render(Context(share_form.cleaned_data))
+
+    send_mail(
+        title, email_body,
+        share_form.cleaned_data['from_email'],
+        share_form.cleaned_data['recipients'],
+        fail_silently=True)
+
+    return util.render_to_response(
+        request, 'share-email-success.html', {})

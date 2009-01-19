@@ -1,0 +1,66 @@
+{% load i18n %}
+
+<form id="share_form" action="{{ BASE_URL }}share/email/" method="POST">
+  <hr />
+  {% if share_form.share_type.errors %}
+    {{ share_form.share_type.errors.as_ul }}
+  {% endif %}
+  <input type="hidden" name="share_type" value="{{ share_type }}">
+
+  {% if share_form.feed_url.errors %}
+    {{ share_form.feed_url.errors.as_ul }}
+  {% endif %}
+  {% if feed_url %}
+    <input type="hidden" name="feed_url" value="{{ feed_url }}">
+  {% endif %}
+
+  {% if share_form.file_url.errors %}
+    {{ share_form.file_url.errors.as_ul }}
+  {% endif %}
+  {% if file_url %}
+    <input type="hidden" name="file_url" value="{{ file_url }}">
+  {% endif %}
+
+  {% if share_form.item_name.errors %}
+    {{ share_form.item_name.errors.as_ul }}
+  {% endif %}
+  {% if feed_url %}
+    <input type="hidden" name="item_name" value="{{ item_name }}">
+  {% endif %}
+
+  <label class="email_label">{% trans "Via Email" %}</label> 
+
+  <div class="email_box">
+    <div class="user_email">
+      {% if share_form.from_email.errors %}
+        {{ share_form.from_email.errors.as_ul }}
+      {% endif %}
+      <span class="label">{% trans "From" %}</span>
+      <div>
+        <input type="text" name="from_email"
+               value="{{ share_form.from_email.data }}" />
+        <span>{% trans "Your Email" %}</span>
+      </div>
+    </div>
+
+    <div class="recipients">
+      {% if share_form.recipients.errors %}
+        {{ share_form.recipients.errors.as_ul }}
+      {% endif %}
+      <div>{% trans "Recipients" %}</div>
+      <input type="text" name="recipients"
+             value="{{ share_form.recipients.data }}" />
+      <span>{% trans "Comma Separated Email Addresses" %}</span>
+
+    </div>
+  </div>
+
+  <div class="comment_box">
+    <span class="label">{% trans "Leave a Comment (Optional)" %}</span>
+    <textarea name="comment">{{ share_form.comment.data }}</textarea>
+    <input class="submit" type="submit" value="Send Email" />
+  </div>
+
+  <hr />
+
+</form>

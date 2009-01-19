@@ -7,4 +7,5 @@ from django.views.generic.simple import redirect_to
 urlpatterns = patterns('channelguide.guide.views.share',
     (r'^feed/?$', 'share_feed'),
     (r'^item/?$', 'share_item'),
+    (r'^email/?$', 'email'),
 )

@@ -19,38 +19,9 @@
         <a href="#" class="rollover_button">{% trans "Copy it" %}</a>
       </p>
 
-      <form>
-        <hr />
-        <label class="email_label">{% trans "Via Email" %}</label> 
-
-        <div class="email_box">
-          <div class="user_email">
-            <span class="label">{% trans "From" %}</span>
-            <div>
-              <input type="text" />
-              <span>{% trans "Your Email" %}</span>
-            </div>
-          </div>
-
-          <div class="recipients">
-            <div>{% trans "Recipients" %}</div>
-            <input type="text" />
-            <a class="address_book" href="#">
-              {% trans "<nobr>Add From Your</nobr><br />Address Book" %}
-            </a>
-            <span>{% trans "Comma Separated Email Addresses" %}</span>
-
-          </div>
-        </div>
-
-        <div class="comment_box">
-          <textarea>{% trans "Leave a Comment (Optional)" %}</textarea>
-          <input class="submit" type="submit" value="Send Email" />                   
-        </div>
-
-        <hr />
-
-      </form>
+      <div id="share_div">
+        {% include "guide/share-form.html" %}
+      </div>
 
       <div class="socials">
         <div>Also Share to</div> 

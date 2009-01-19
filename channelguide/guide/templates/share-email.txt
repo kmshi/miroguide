@@ -1,0 +1,15 @@
+{% load i18n %}{% autoescape off %}{% trans "Hello!" %}
+
+{% ifequal share_type "feed" %}
+{% trans "Your friend wants to share the following video feed with you:" %}
+{% else %}
+{% trans "Your friend wants to share the following video with you:" %}
+{% endifequal %}
+
+{{ share_link }}
+
+{% if comment %}
+{% trans "Your friend has also attached a personal message:" %}
+----------------------------------------------------------------------
+{{ comment }}
+{% endif %}{% endautoescape %}

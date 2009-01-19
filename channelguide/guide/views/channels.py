@@ -326,6 +326,8 @@ def show(request, id, featured_form=None):
         'link_to_channel': True,
         'BASE_URL': settings.BASE_URL,
         'rating_bar': get_show_rating_bar(request, c),
+        'feed_url': c.url,
+        'share_type': 'feed',
         'share_links': share_links}
 
     if request.user.is_supermoderator():

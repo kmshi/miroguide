@@ -98,7 +98,11 @@ def item(request, id):
          'next': next,
          'embed': util.mark_safe(embed_code(item)),
          'page': page,
+         'share_type': 'item',
          'share_links': share_links,
+         'feed_url': item.channel.url,
+         'item_name': item.name,
+         'file_url': item.url,
          'page_links': _calculate_pages(
                 request, page, default_page)})
 
