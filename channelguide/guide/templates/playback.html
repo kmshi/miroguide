@@ -18,12 +18,11 @@
   <div id="videoArea">
     <div class="page">
       <div id="videoBoxTop">
-        <h1>{{ item.name }}</h1>
+        <h1><b>{% trans "Video Title:" %}</b> {{ item.name }}</h1>
         {% if channel and not channel.fake %}
           <span class="returnLink">
-            Back to
             <a href="{{ channel.get_absolute_url }}{% ifequal page.number 1 %}{% else %}?page={{ page.number }}{% endifequal %}">
-              {{ channel.name }}...
+              <b>{% trans "Back to Feed:" %}</b> {{ channel.name }}
             </a>
           </span>
         {% endif %}
@@ -52,13 +51,15 @@
                   {% trans "DOWNLOAD" %}
                 </span>
               </a>                              
-              <a href="#" class="rollover_button2">
-                <span>{% trans "SHARE" %}</span>
-                <span class="img">
-                  <img src="{{ STATIC_BASE_URL }}images/buttons/grey_stream.png"
-                       alt="" />
-                </span>
-              </a>
+              {% if not share_links %}
+                <a href="/items/{{ item.id }}?share=true" class="rollover_button2">
+                  <span>{% trans "SHARE" %}</span>
+                  <span class="img">
+                    <img src="{{ STATIC_BASE_URL }}images/buttons/grey_stream.png"
+                         alt="" />
+                  </span>
+                </a>
+              {% endif %}
             </div>
             
             <p class="more">

@@ -66,7 +66,7 @@ urlpatterns += patterns('channelguide.guide.views.channels',
                         )
 
 urlpatterns += patterns('channelguide.guide.views.playback',
-                        (r'^items/(\d+)$', 'item'))
+                        (r'^items/(\d+)/?$', 'item'))
 
 # donation pages
 def donate_render(request, template):
