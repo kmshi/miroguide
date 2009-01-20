@@ -8,6 +8,11 @@ function submit_share(data, text_status) {
     $('#share_form').ajaxForm(submit_share);
 }
 
-function add_share_callback() {
+function hide_share_box() {
+    $('#share_box').css('display', 'none');
+}
+
+function add_share_callbacks() {
     $('#share_form').ajaxForm(submit_share);
+    $('#share_close').bind('click', hide_share_box);
 }

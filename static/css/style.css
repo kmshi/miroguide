@@ -1270,6 +1270,11 @@ h3.resultsCount .pagination {
     width: 787px;
 }
 
+#channelEpisodes .detailsTop {
+    background: url(/images/channel_content_top.png) top left no-repeat;
+    width: 565px;
+}
+
 #channelEpisodes .details {
     background: url(/images/channel_content.png) left bottom no-repeat;
     width: 565px;
@@ -1281,7 +1286,7 @@ h3.resultsCount .pagination {
 
 #channelEpisodes .detailsTopLarge + .details {
     background: url(/images/channel_content_large.png) left bottom no-repeat;
-    width: 758px;
+    width: 787px;
 }
 
 #channelEpisodes .detailsHead {
@@ -1929,20 +1934,20 @@ h3.resultsCount .pagination {
 
 /*Welcome page alert*/
 
-#alert {
+.alert {
     background: url(/images/alert-top.png) 0px 13px no-repeat;
     padding: 13px 0 0 0px;
     width: 788px;
     margin: 0 auto;
 }
 
-#alert .page {
+.alert .page {
     background: url(/images/alert-bottom.png) bottom left no-repeat;
     margin: 0;
     padding: 5px 0;
 }
 
-#alert .alertBox {
+.alert .alertBox {
     background: #fffded url(/images/gift.png) 13px 8px no-repeat;
     width: 704px;
     float: left;
@@ -1950,12 +1955,12 @@ h3.resultsCount .pagination {
     padding: 10px 10px 10px 0px;
 }
 
-#alert .alertBox p {
+.alert .alertBox p {
     margin: 0 0 0 0px;
     padding: 0px 0px;
 }
 
-#alert .closeAlert {
+.alert .closeAlert {
     text-transform: uppercase;
     color: #555;
     float: left;

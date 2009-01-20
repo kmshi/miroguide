@@ -9,6 +9,7 @@
 
 {% block head-extra %}
   <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/playback.js"></script>
+  <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/share.js"></script>
   <style type="text/css">
     div#page {
         margin-bottom: 0;
@@ -19,6 +20,8 @@
     }
   </style>
 {% endblock %}
+
+{% block onload-extra %}add_share_callbacks();{% endblock %}
 
 {% block title %}{{ channel.name|escape }} - Miro{% endblock %}
 
@@ -148,9 +151,8 @@
 
 	<br clear="all" />
 
-	<div class="detailsTop"></div>
-
         {% for item in item_page.object_list %}
+	    <div class="detailsTop"></div>
             {% include "guide/item.html" %}
         {% endfor %}
       </div>
