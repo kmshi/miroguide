@@ -7,7 +7,6 @@ import urllib
 import urlparse
 
 import feedparser
-from django.core.mail import send_mail
 from django.conf import settings
 from django.http import (
     Http404, HttpResponseRedirect, HttpResponse, HttpResponseBadRequest)
@@ -285,11 +284,11 @@ def email(request):
     email_template = loader.get_template('guide/share-email.txt')
     email_body = email_template.render(Context(share_form.cleaned_data))
 
-    send_mail(
+    util.send_mail(
         title, email_body,
-        share_form.cleaned_data['from_email'],
         share_form.cleaned_data['recipients'],
-        fail_silently=False)
+        #share_form.cleaned_data['from_email'],
+        break_lines=False)
 
     return util.render_to_response(
         request, 'share-email-success.html', {})
