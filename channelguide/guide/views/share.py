@@ -289,7 +289,7 @@ def email(request):
         title, email_body,
         share_form.cleaned_data['from_email'],
         share_form.cleaned_data['recipients'],
-        fail_silently=True)
+        fail_silently=False)
 
     return util.render_to_response(
         request, 'share-email-success.html', {})

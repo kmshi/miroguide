@@ -25,7 +25,7 @@ class ShareForm(forms.Form):
                 raise forms.ValidationError(
                     _(u'"Recipients" field must be a comma '
                       u'separated list of email addresses'))
-            cleaned_recipients = recipient
+            cleaned_recipients.append(recipient)
 
         return cleaned_recipients
     
