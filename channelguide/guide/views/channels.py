@@ -1,6 +1,9 @@
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
+import urlparse
+import re, time
+
 from django.conf import settings
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.template import loader
@@ -23,7 +26,6 @@ from channelguide.guide.notes import get_note_info, make_rejection_note
 from channelguide.guide.emailmessages import EmailMessage
 from sqlhelper.sql.statement import Select
 from sqlhelper import signals, exceptions
-import re, time
 
 
 class ItemObjectList:
@@ -314,7 +316,10 @@ def show(request, id, featured_form=None):
 
     share_links = None
     if request.GET.get('share') == 'true':
-        share_links = util.get_share_links(c.url, c.name)
+        share_url = urlparse.urljoin(
+            settings.BASE_URL_FULL,
+            '/feeds/%s' % id)
+        share_links = util.get_share_links(share_url, c.name)
 
     context = {
         'channel': c,

@@ -160,7 +160,10 @@ def share_feed(request):
     if isinstance(channel, Channel):
         return HttpResponseRedirect('/feeds/%s?share=true' % channel.id)
 
-    share_links = util.get_share_links(channel.url, channel.name)
+    share_url = urlparse.urljoin(
+        settings.BASE_URL_FULL,
+        '/share/feed/?feed_url=%s' % urllib.quote(feed_url))
+    share_links = util.get_share_links(share_url, channel.name)
 
     return util.render_to_response(
         request, 'show-channel.html',
@@ -244,7 +247,18 @@ def share_item(request):
         item = FakeItem(file_url, item_name)
 
     # get the sharing info
-    share_links = util.get_share_links(item.url, item.name)
+    get_params = {'file_url': file_url}
+    if feed_url:
+        get_params['feed_url'] = feed_url
+    if webpage_url:
+        get_params['webpage_url'] = webpage_url
+    if item_name:
+        get_params['item_name'] = feed_url
+
+    share_url = urlparse.urljoin(
+        settings.BASE_URL_FULL,
+        '/share/feed/?%s' % urllib.urlencode(get_params))
+    share_links = util.get_share_links(share_url, item.name)
 
     # render the page
     return util.render_to_response(

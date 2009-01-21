@@ -1,3 +1,6 @@
+import urlparse
+
+from django.conf import settings
 from django.core.paginator import Paginator
 
 from channelguide import util
@@ -87,7 +90,10 @@ def item(request, id):
 
     share_links = None
     if request.GET.get('share') == 'true':
-        share_links = util.get_share_links(item.url, item.name)
+        share_url = urlparse.urljoin(
+            settings.BASE_URL_FULL,
+            '/item/%s' % id)
+        share_links = util.get_share_links(share_url, item.name)
 
     return util.render_to_response(
         request,
