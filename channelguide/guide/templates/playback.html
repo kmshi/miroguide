@@ -34,12 +34,14 @@
         
         <div id="videoDetails">
           <div class="meta">
-            <p class="synopsis_tag">
-              <strong>{% trans "Synopsis" %}</strong>
-            </p>
-            <p class="synopsis">
-              {{ item.description|striptags }}
-            </p>
+            {% if item.description %}
+              <p class="synopsis_tag">
+                <strong>{% trans "Synopsis" %}</strong>
+              </p>
+              <p class="synopsis">
+                {{ item.description|striptags }}
+              </p>
+            {% endif %}
             
             <br clear="all" />
             <div class="video_buttons_align">
@@ -63,8 +65,10 @@
             </div>
             
             <p class="more">
-              <strong class="tag">{% trans "Date Posted" %}</strong>
-              <span class="detail">{{ item.date|date:"j.m.Y" }}</span>
+              {% if item.date %}
+                <strong class="tag">{% trans "Date Posted" %}</strong>
+                <span class="detail">{{ item.date|date:"j.m.Y" }}</span>
+              {% endif %}
             </p>
           </div>
                                         
@@ -91,45 +95,47 @@
         
   <br />
         
-  <div id="channelEpisodes">
-    <div class="page">
-      <div class="detailsHeadLarge">
-        <h3 class="resultsCount">
-          <span class="heading">{% trans "Recently Aired" %}</span>
-          <span class="button">
-            <a href="#">
-              <img src="{{ STATIC_BASE_URL }}images/ico_refresh.png" alt="" />
-            </a>
-          </span>
-        </h3>
-        <div class="sortType">
-          <a href="#">{% trans "All" %}</a>
-        </div>
-      </div><!--detailsHead-->
-                        
-      <ul class="paginator">
-        {% for number, link in page_links %}
-          {% ifequal number "tag" %}
-            <li class="tag">...</li>
-          {% else %}
-            <li {% ifequal number page.number %}class="selected"{% endifequal %}>
-              <span><a href="{{ link }}">{{ number }}</a></span>
-            </li>
-          {% endifequal %}
+  {% if page %}
+    <div id="channelEpisodes">
+      <div class="page">
+        <div class="detailsHeadLarge">
+          <h3 class="resultsCount">
+            <span class="heading">{% trans "Recently Aired" %}</span>
+            <span class="button">
+              <a href="#">
+                <img src="{{ STATIC_BASE_URL }}images/ico_refresh.png" alt="" />
+              </a>
+            </span>
+          </h3>
+          <div class="sortType">
+            <a href="#">{% trans "All" %}</a>
+          </div>
+        </div><!--detailsHead-->
+                          
+        <ul class="paginator">
+          {% for number, link in page_links %}
+            {% ifequal number "tag" %}
+              <li class="tag">...</li>
+            {% else %}
+              <li {% ifequal number page.number %}class="selected"{% endifequal %}>
+                <span><a href="{{ link }}">{{ number }}</a></span>
+              </li>
+            {% endifequal %}
+          {% endfor %}
+        </ul>
+        
+        <br clear="all" />
+        
+        {% for item in page.object_list %}
+          <div class="detailsTopLarge"></div>
+          {% include "guide/item.html" %}
         {% endfor %}
-      </ul>
-      
-      <br clear="all" />
-      
-      {% for item in page.object_list %}
-        <div class="detailsTopLarge"></div>
-        {% include "guide/item.html" %}
-      {% endfor %}
-
-      <script type="text/javascript">
-        $("#channelEpisodes div.details").each(setUpItem);
-      </script>
-
-    </div><!--page-->
-  </div><!--channelEpisodes-->
+  
+        <script type="text/javascript">
+          $("#channelEpisodes div.details").each(setUpItem);
+        </script>
+  
+      </div><!--page-->
+    </div><!--channelEpisodes-->
+  {% endif %}
 {% endblock %}
