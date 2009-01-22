@@ -1,7 +1,6 @@
 {% load i18n %}
 
 <form id="share_form" action="{{ BASE_URL }}share/email/" method="POST">
-  <hr />
   {% if share_form.share_type.errors %}
     {{ share_form.share_type.errors.as_ul }}
   {% endif %}
@@ -65,7 +64,5 @@
     <textarea name="comment">{{ share_form.comment.data }}</textarea>
     <input class="submit" type="submit" value="Send Email" />
   </div>
-
-  <hr />
 
 </form>
