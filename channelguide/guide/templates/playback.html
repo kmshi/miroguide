@@ -21,7 +21,7 @@
         <h1><b>{% trans "Video Title:" %}</b> {{ item.name }}</h1>
         {% if channel and not channel.fake %}
           <span class="returnLink">
-            <a href="{{ channel.get_absolute_url }}{% ifequal page.number 1 %}{% else %}?page={{ page.number }}{% endifequal %}">
+            <a href="{{ channel.get_absolute_url }}{% if page.number %}{% ifequal page.number 1 %}{% else %}?page={{ page.number }}{% endifequal %}{% endif %}">
               <b>{% trans "Back to Feed:" %}</b> {{ channel.name }}
             </a>
           </span>
