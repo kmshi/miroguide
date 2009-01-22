@@ -12,11 +12,10 @@
       <p>
         <label>{% trans "Direct Link" %}</label>
         <div class="direct">
-          <a style="text-decoration: underline;" href="#">
-            https://www.miroguide.com/channels/8316
+          <a style="text-decoration: underline;" href="{{ share_links.url }}">
+            {{ share_url }}
           </a>
         </div>
-        <a href="#" class="rollover_button">{% trans "Copy it" %}</a>
       </p>
 
       <div id="share_div">

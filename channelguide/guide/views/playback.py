@@ -88,7 +88,7 @@ def item(request, id):
     paginator = Paginator(ItemObjectList(request.connection, item.channel), 4)
     page = paginator.page(request.GET.get('page', default_page))
 
-    share_links = None
+    share_links = share_url = None
     if request.GET.get('share') == 'true':
         share_url = urlparse.urljoin(
             settings.BASE_URL_FULL,
@@ -104,6 +104,7 @@ def item(request, id):
          'next': next,
          'embed': util.mark_safe(embed_code(item)),
          'page': page,
+         'share_url': share_url,
          'share_type': 'item',
          'share_links': share_links,
          'feed_url': item.channel.url,

@@ -170,6 +170,7 @@ def share_feed(request):
         {'channel': channel,
          'items': items[:4],
          'feed_url': feed_url,
+         'share_url': share_url,
          'share_type': 'feed',
          'share_links': share_links})
 
@@ -257,7 +258,7 @@ def share_item(request):
 
     share_url = urlparse.urljoin(
         settings.BASE_URL_FULL,
-        '/share/feed/?%s' % urllib.urlencode(get_params))
+        '/share/item/?%s' % urllib.urlencode(get_params))
     share_links = util.get_share_links(share_url, item.name)
 
     # render the page
@@ -271,6 +272,7 @@ def share_item(request):
          'feed_url': feed_url,
          'webpage_url': webpage_url,
          'item_name': item_name,
+         'share_url': share_url,
          'share_type': 'item',
          'share_links': share_links})
 
@@ -285,6 +287,7 @@ def email(request):
              'share_type': share_form.data.get('share_type'),
              'feed_url': share_form.data.get('feed_url'),
              'file_url': share_form.data.get('file_url'),
+             'share_url': share_form.data.get('share_url'),
              'item_url': share_form.data.get('item_url')})
     
     # construct the email to send out from a template

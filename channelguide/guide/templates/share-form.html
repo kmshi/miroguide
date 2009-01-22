@@ -24,9 +24,14 @@
   {% if share_form.item_name.errors %}
     {{ share_form.item_name.errors.as_ul }}
   {% endif %}
-  {% if feed_url %}
+  {% if item_name %}
     <input type="hidden" name="item_name" value="{{ item_name }}">
   {% endif %}
+
+  {% if share_form.share_url.errors %}
+    {{ share_form.share_url.errors.as_ul }}
+  {% endif %}
+  <input type="hidden" name="share_url" value="{{ share_url }}">
 
   <label class="email_label">{% trans "Via Email" %}</label> 
 

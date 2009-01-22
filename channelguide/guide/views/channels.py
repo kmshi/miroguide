@@ -314,7 +314,7 @@ def show(request, id, featured_form=None):
     item_paginator = Paginator(ItemObjectList(request.connection, c), 4)
     item_page = item_paginator.page(request.GET.get('page', 1))
 
-    share_links = None
+    share_links = share_url = None
     if request.GET.get('share') == 'true':
         share_url = urlparse.urljoin(
             settings.BASE_URL_FULL,
@@ -332,6 +332,7 @@ def show(request, id, featured_form=None):
         'BASE_URL': settings.BASE_URL,
         'rating_bar': get_show_rating_bar(request, c),
         'feed_url': c.url,
+        'share_url': share_url,
         'share_type': 'feed',
         'share_links': share_links}
 
