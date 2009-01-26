@@ -64,7 +64,7 @@ See LICENSE for details.
     {% block head-extra %}{% endblock %}
 </head>
 
-<body onload="add_corners(); {% block onload-extra %}{% endblock%}"
+<body onload="add_corners(); setup_login_form();{% block onload-extra %}{% endblock%}"
       onpagehide="hideLoadIndicator();"
       {% block body-attributes %}id="main"{% endblock %}>
   {% block navigation %}

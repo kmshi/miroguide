@@ -219,6 +219,7 @@ function languageUp() {
     languageStop();
     languageTimeout = setTimeout(languageUp, 50);
 }
+
 function languageDown() {
     showMenu('hoverMenuLanguage', 'language');
     ul = $("#hoverMenuLanguage ul");
@@ -257,6 +258,26 @@ function add_corners() {
     $('.corners').corners();
     $('.top_corners').corners('top');
 
+}
+
+function setup_login_form() {
+    $("#hoverMenuLogin #login form").ajaxForm(
+        function(data, textStatus) {
+            result = $('.form-errors ul li', data).addClass('form-errors');
+            if (!result.length) {
+                location.href = location.href;
+                return;
+            } else {
+                $('#hoverMenuLogin .form-errors').replaceWith(result);
+                $('#hoverMenuLogin .form-errors').show();
+            }
+        });
+    $('#hoverMenuLogin #register').click(
+        function() {
+            $('#hoverMenuLogin #login').hide();
+            $('#hoverMenuLogin #registerHidden').show();
+            return false;
+        });
 }
 
 $(document).ajaxStart(function() {

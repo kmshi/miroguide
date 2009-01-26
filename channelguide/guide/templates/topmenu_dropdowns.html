@@ -96,7 +96,9 @@
               <input id="id_newpassword2" name="newpassword2" maxlength="20" type="password">
             </div>
             <div class="form_row">
-              <button class="fr" type="submit"><span>{% trans "Register!" %}</span></button>
+              <button class="fr gray-button" type="submit">
+                <span>{% trans "Register!" %}</span>
+              </button>
             </div>
           </form>
         </li>
@@ -109,28 +111,6 @@
           </a>
         </p>
       </div>
-      <script type="text/javascript">
-        //<![CDATA[
-        $("#hoverMenuLogin #login form").ajaxForm(
-                function(data, textStatus) {
-                        result = $('.form-errors ul li', data)
-                        .addClass('form-errors');
-                        if (!result.length) {
-                                location.href = location.href;
-                                return;
-                        } else {
-                                $('#hoverMenuLogin .form-errors')
-                                .replaceWith(result);
-                                $('#hoverMenuLogin .form-errors').show();
-                        }
-                });
-        $('#hoverMenuLogin #register').click(function() {
-                $('#hoverMenuLogin #login').hide();
-                $('#hoverMenuLogin #registerHidden').show();
-                return false;
-        });
-        //]]>
-      </script>
     </div>
   {% endif %}
   <div id="hoverMenuLanguage"
