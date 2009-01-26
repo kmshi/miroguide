@@ -3872,3 +3872,153 @@ a.large_button span {
     margin: 0 auto;
     padding: 20px;
 }
+
+.login-page .form-errors {
+    padding-bottom: 10px;
+    font-size: 120%;
+    font-weight: bold;
+    background: #fffcd1;
+    color: #cd7662;
+    padding: 12px 15px;
+    margin-bottom: 35px;
+    border: 1px solid #b4b210;
+}
+
+.login-page h1{
+    clear: left;
+    position: relative;
+    right: 15px;
+}
+
+.login-page .register-form h2, .login-page .login-form h2 {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.login-page .register-form .info {
+    color: #888888;
+    font-size: 85%;
+    margin: 10px 50px 15px;
+    text-align: center;
+}
+
+.login-page div.message {
+    position: relative;
+    margin-bottom: 15px;
+    min-height: 132px;
+}
+
+.login-page div.message h1, .login-page .additional h1 {
+    font-weight: normal;
+    margin-bottom: 2px;
+}
+
+.login-page .message img {
+    position: absolute;
+    right: -41px;
+    top: 0;
+}
+
+.login-page .message ol {
+    font-size: 150%;
+    height: 4em;
+}
+
+.login-page div.message {
+    font-size: 120%;
+}
+.login-page .additional div {
+    font-size: 120%;
+    margin-top: 5px;
+}
+
+.login-page .additional h1 {
+    margin-top: 15px;
+}
+
+.login-page .additional div {
+    margin-top: 20px;
+}
+
+.login-page img#registration1 {
+    margin: 0 20px 40px 20px;
+    float: right;
+}
+
+.login-page img#registration2 {
+    margin: 0 20px 20px 20px;
+    float: left;
+}
+
+.login-page .forgot-password {
+    margin-top: 5px;
+    float: right;
+    margin-right: 20px;
+    margin-bottom: 5px;
+}
+
+.login-page .forgot-password a {
+    font-size: 85%;
+    text-decoration: underline;
+    color: #888888;
+}
+
+.login-page .form-inputs .label {
+    display: inline;
+    padding-bottom: 5px;
+}
+
+.login-page .form-errors {
+    text-align: left;
+}
+
+.login-page .form-errors h2 {
+    text-align: center;
+}
+
+.login-page .form-inputs li {
+    text-align: right;
+    margin: 10px 50px 15px 0;
+}
+
+.login-page .submit {
+    margin-right: 50px;
+    margin-left: auto;
+}
+
+.login-page .login-form {
+    padding-top: 10px;
+    text-align: right;
+    width: 300px;
+    min-height: 200px;
+    background: #EFEFEF;
+    float: right;
+}
+
+.login-page .login-form div.instructions {
+    text-align: center;
+    padding: 10px;
+}
+
+.login-page div.register-form, .login-page div.login-form {
+    margin-bottom: 20px;
+}
+
+.login-page .register-form {
+    padding-top: 10px;
+    text-align: right;
+    width: 350px;
+    min-height: 200px;
+    background: #EFEFEF;
+    float: left;
+}
+
+.login-page .divider {
+    display: inline;
+    text-align: center;
+    width: 60px;
+    font-size: 150%;
+    position: relative;
+    top: 100px;
+    float: right;
+}
