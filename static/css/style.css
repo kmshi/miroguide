@@ -2828,6 +2828,7 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
     overflow: hidden;
     height: 100%;
     display: block;
+    outline: none;
 }
 
 #hoverMenuLogin #register p a span.register_tag {
