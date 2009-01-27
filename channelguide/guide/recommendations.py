@@ -3,7 +3,6 @@
 
 from channelguide.guide import tables
 from channelguide.guide.models import Channel, Rating
-import logging
 import math
 
 def get_recommendations_from_ratings(connection, ratings):
@@ -77,11 +76,8 @@ def recalculate_similarity_recent(connection):
     recalculate_similarity(channels, connection)
 
 def recalculate_similarity(channels, connection):
-    logging.info('calculating similarity for %i channels' % len(channels))
     for c1 in channels:
-        logging.info('deleting similar for %s' % c1)
         delete_all_similarities(c1, connection)
-        logging.info('finding similar for %s' % c1)
         similar = find_relevant_similar(c1, connection)
         if similar:
             for c2 in similar:
@@ -90,7 +86,6 @@ def recalculate_similarity(channels, connection):
                 if id1 > id2:
                     id1, id2 = id2, id1
                 k = (id1, id2)
-                logging.info('calculating similarity for %i & %i' % k)
                 gs = get_similarity(c1, connection, c2)
                 if gs:
                     i = tables.channel_recommendations.insert()
@@ -98,7 +93,6 @@ def recalculate_similarity(channels, connection):
                                  channel2_id=id2,
                                  cosine=gs)
                     i.execute(connection)
-        logging.info('commiting')
         connection.commit()
 
 def get_recently_subscribed(connection, seconds):
