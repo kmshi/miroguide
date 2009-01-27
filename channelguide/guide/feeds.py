@@ -61,6 +61,9 @@ class ChannelsFeed(feeds.Feed):
         if results:
             results.sort(key=attrgetter('date'), reverse=True)
             item.newest = results[0]
+            print item.name, item.id
+            print item.newest.id, item.newest.name, item.newest.url
+            print '--' * 20
 
             # We shouldn't produce a redirect-enclosure for anything that
             # ends in .swf or comes from youtube (since youtube also
@@ -108,6 +111,10 @@ class FeaturedChannelsFeed(ChannelsFeed):
         return item.featured_at
 
 
+    def get_date_for_item(self, item):
+        return item.featured_at
+
+
 class NewChannelsFeed(ChannelsFeed):
     title = 'New in Miro Previews'
     link = "/new/"
@@ -116,6 +123,10 @@ class NewChannelsFeed(ChannelsFeed):
     def items(self):
         return api.get_channels(self.request.connection, 'name', None,
                                 sort='-age', limit=20)
+
+
+    def get_date_for_item(self, item):
+        return item.approved_at
 
 
     def get_date_for_item(self, item):
