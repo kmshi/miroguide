@@ -132,11 +132,14 @@ def get_channels_and_items(feed_url, connection):
             # Because we might need to check to see if a particular
             # item is in this feed if it's being faked...
             for entry in parsed.entries:
+                updated_datetime = None
+                if entry.get('updated_parsed'):
+                    updated_datetime = datetime.datetime(*entry.updated_parsed[:7])
                 item = FakeItem(
                     entry.link,
                     entry.title,
                     entry.summary,
-                    datetime.datetime(*entry.updated_parsed[:7]),
+                    updated_datetime,
                     thumbnail_url) # just use whatever thumbnail the channel has?
                 items.append(item)
 
