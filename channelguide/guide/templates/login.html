@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% comment %}
 Copyright (c) 2008 Participatory Culture Foundation
@@ -8,7 +9,6 @@ See LICENSE for details.
 {% block content %}
 <div class="login-page">
 
-    {% if message %}<div class="message">{{ message }}</div>{% endif %}
     <div class="login-form">
         <h2>{% trans "Login" %}</h2>
         <div class="instructions">{% trans "Got an account? Just log in!" %}</div>
@@ -31,13 +31,6 @@ See LICENSE for details.
             {% show_form register_form %}
             <input type="submit" class="submit" value="{% trans "Register" %} &gt;&gt;">
         </form>
-        {{ register_message }}
     </div>
-    <div class="clear"></div>
-    {% if additional %}
-        <div class="additional">{{ additional }}</div>
-    {% else %}
-        <div class="clear"/> 
-    {% endif %}
 </div>
 {% endblock %}
