@@ -5,19 +5,20 @@
   See LICENSE for details.
 {% endcomment %}
 
-{% load channels cg_helpers notes i18n %}
+{% load cg_helpers notes i18n %}
 
 {% block content %}
   <div class="moderator-channel-list">
-    {% show_pager pager %}
+    <ul class="paginator">
+      {% pagelinks page %}
+    </ul>
     <h1>{{ header }}</h1>
       {{ subscribe_all_link }}
       <ul class="channel-list">
-       {% for channel in channels %}
+       {% for channel in page.object_list %}
          <li>{% include "guide/channel-moderate.html" %}</li>
        {% endfor %}
       </ul>
       {{ subscribe_all_link }}
-    {% show_pager pager %}
   </div>
 {% endblock %}

@@ -1,9 +1,9 @@
-{% extends 'old.html' %}
+{% extends 'base.html' %}
 {% comment %}
 Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
-{% load channels cg_helpers notes i18n %}
+{% load cg_helpers notes i18n %}
 {% block content %}
 <div class="moderate-page">
 
@@ -72,7 +72,7 @@ See LICENSE for details.
     {% if channel.get_moderator_shared_by %}
     <div class="shared-by">Shared by {{ channel.get_moderator_shared_by }}:</div>
     {% endif %}
-    {% channel channel small%}
+    {% include "guide/channel-in-listing.html" %}
     {% endfor %}
     <a {% link "/moderate/shared" %}>(See all shared channels)</a>
   </li>

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load channels rating %}
+{% load channels rating cg_helpers %}
 {% block content %}
   {% if terms_too_short %}
   <div id="container">
@@ -12,15 +12,8 @@
 	<div class="infoBox">
 		<h1>{{ title }}</h1>
 		<ul class="paginator2">
-				<li class="tag">Pages</li>
-                                {% for number, link in pages %}
-                                {% ifequal number "tag" %}
-                                <li class="tag">...</li>
-                                {% else %}
-				<li {% ifequal number current_page %}class="selected"{% endifequal %}><span><a href="{{ link }}">{{ number }}</a></span></li>
-                                {% endifequal %}
-                                {% endfor %}
-			</ul>
+                  {% pagelinks feed_page %}
+                </ul>
 	</div><!--infoBox-->
 
 	<div class="infoBar">
@@ -67,12 +60,12 @@
 					<span class="heading">Sites</span>
 				  <span class="button"><a href="#"><img src="images/ico_refresh.png" alt="" /></a></span>				</h3>
 		  <div class="sortType">
-					<a href="#"><strong>{{ site_page.paginator.count|default:"0" }}</strong></a>
+					<a href="#"><strong>{{ show_page.paginator.count|default:"0" }}</strong></a>
 				</div>
 			</div><!--detailsHead-->
 
 			<ul class="searchResults">
-                          {% for channel in site_page.object_list %}
+                          {% for channel in show_page.object_list %}
 				<li>
                                   {% include "guide/channel-in-listing.html" %}
                                 </li>

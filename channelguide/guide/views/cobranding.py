@@ -2,6 +2,7 @@
 # See LICENSE for details.
 
 from django.http import Http404
+from django.core.paginator import Paginator
 from channelguide import util
 from channelguide.guide import templateutil, auth
 from channelguide.guide.models import Channel, Cobranding, User
@@ -43,8 +44,10 @@ def cobranding(request, cobrand_name):
     query.order_by(Channel.c.hi_def, desc=True)
     query.order_by(Channel.c.state) # sort audio last
     query.order_by(Channel.c.name)
-    pager = templateutil.Pager(6, query, request)
+    paginator = Paginator(templateutil.QueryObjectList(request.connection,
+                                                       query), 6)
+    page = paginator.page(request.GET.get('page', 1))
     return util.render_to_response(request, 'cobranding.html', {
         'cobrand': cobrand,
-        'pager': pager
+        'page': page
         })

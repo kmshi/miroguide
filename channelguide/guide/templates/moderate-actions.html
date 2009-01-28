@@ -2,8 +2,8 @@
 Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
-{% load i18n channels %}
-{% show_simple_moderate_actions channel %}
+{% load i18n %}
+{% include "guide/simple-moderate-actions.html" %}
 <ul class="reject-moderate-actions moderate-actions">
     <li class="channel-action">
     <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">

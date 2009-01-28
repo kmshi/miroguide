@@ -2,12 +2,13 @@
 # See LICENSE for details.
 
 from django.conf import settings
+from django.core.paginator import Paginator
 from django.http import Http404
 
 from channelguide import util, cache
 from channelguide.guide.auth import moderator_required, login_required
 from channelguide.guide.models import Channel, ChannelNote, ModeratorPost
-from channelguide.guide.templateutil import Pager
+from channelguide.guide.templateutil import QueryObjectList
 
 @login_required
 def add_note(request):
@@ -28,10 +29,10 @@ def add_note(request):
 def moderator_board(request):
     query = ModeratorPost.query().order_by('created_at', desc=True)
     query.join('user')
-    pager =  Pager(5, query, request)
+    paginator = Paginator(QueryObjectList(request.connection, query), 5)
+    page = paginator.page(request.GET.get('page', 1))
     return util.render_to_response(request, 'moderator-board.html', {
-        'posts': pager.items,
-        'pager': pager,
+        'page': page,
         })
 
 @moderator_required

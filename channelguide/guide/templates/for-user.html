@@ -1,9 +1,9 @@
-{% extends 'old.html' %}
+{% extends 'base.html' %}
 {% comment %}
 Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
-{% load channels cg_helpers i18n %}
+{% load cg_helpers i18n %}
   {% block title %}{% trans "Miro Guide - Channels for" %} {{ for_user.username }}{% endblock %}
 {% block content %}
 <div class="user-info">
@@ -26,20 +26,21 @@ See LICENSE for details.
 </div>
 {% endif %}
 <div class="channels-for-user">
-{% if channels %}
-  <h2>{% trans "Submitted channels: " %}</h2>
-{% show_pager pager %}
+{% if page.object_list %}
+<h2>{% trans "Submitted channelsmod: " %}</h2>
+<ul class="paginator">
+  {% pagelinks page %}
+</ul>
 <ul class="channel-list">
-  {% for channel in channels %}
+  {% for channel in page.object_list %}
     <li>
-        {% channel channel search %}
+      {% include "guide/channel-in-listing.html" %}
         {% if not forloop.last %}
         <div class="divider"></div>
         {% endif %}
     </li>
   {% endfor %}
 </ul>
-{% show_pager pager %}
 {% endif %}
 </div>
 {% endblock %}

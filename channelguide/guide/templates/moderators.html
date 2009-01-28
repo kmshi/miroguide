@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% comment %}
+Copyright (c) 2008 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load cg_helpers user %}
+{% block content %}
+<div class="moderator-page">
+<h1>Moderators </h1>
+<ul class="paginator">
+{% pagelinks page %}
+</ul>
+<ul>
+    {% for mod in page.object_list %}
+    <li>{% show_user mod %}</li>
+    {% endfor %}
+</ul>
+</div>
+{%endblock%}
+

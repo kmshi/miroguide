@@ -1,9 +1,8 @@
-# Copyright (c) 2008 Participatory Culture Foundation
+# Copyright (c) 2008-2009 Participatory Culture Foundation
 # See LICENSE for details.
 
 import re
 
-from django.utils.translation import gettext as _
 from django.http import Http404
 
 from channelguide import util, cache
@@ -18,7 +17,6 @@ def terms_too_short(terms):
 
 @cache.aggresively_cache('search')
 def search(request):
-    context = {}
     try:
         search_query = request.GET['query']
     except KeyError:

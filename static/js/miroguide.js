@@ -22,6 +22,8 @@ function MiroVersion() {
 
 function showLoadIndicator(always) {
     indicator = $("#load-indicator");
+    if (!indicator.length)
+        return;
     if ((!indicator.queue().length) && always || navigator.userAgent.indexOf('Miro') != -1) {
 	indicator.animate({bottom: 0}, 'fast');
     }
@@ -291,3 +293,4 @@ if (isMiro()) {
 }
 
 window.addEventListener('pageshow', searchPageShow, false);
+window.addEventListener('pagehide', hideLoadIndicator, false);

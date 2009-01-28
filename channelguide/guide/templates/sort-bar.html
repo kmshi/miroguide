@@ -1,6 +1,0 @@
-<div id="sort" class="fl">
-  <h4>Sort by:</h4>
-  {% for sort in sorts %}
-  <a class="{{ sort.class }}" href="{{ sort.url }}">{{ sort.title }}</a>{% if not forloop.last %}, {% endif %}
-  {% endfor %}
-</div>

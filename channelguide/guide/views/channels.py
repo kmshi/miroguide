@@ -27,6 +27,93 @@ from channelguide.guide.emailmessages import EmailMessage
 from sqlhelper.sql.statement import Select
 from sqlhelper import signals, exceptions
 
+class ItemObjectList(templateutil.QueryObjectList):
+    def __init__(self, connection, channel):
+        self.connection = connection
+        self.query = Item.query(Item.c.channel_id == channel.id).order_by(
+            Item.c.date, desc=True).join('channel')
+
+    def __len__(self):
+        return int(self.query.count(
+                self.connection))
+
+    def __getslice__(self, offset, end):
+        limit = end - offset
+        return tuple(self.query.limit(limit).offset(offset).execute(
+            self.connection))
+
+class ApiObjectList:
+    def __init__(self, connection, filter, value, sort, loads):
+        self.connection = connection
+        self.filter = filter
+        self.value = value
+        self.sort = sort
+        self.loads = loads
+        if 'rating' in sort:
+            self.count_sort = 'ratingcount'
+        else:
+            self.count_sort = 'count'
+
+    def call(self, *args, **kw):
+        """
+        Call the appropriate API function.  We do it this way because assigning
+        a function as an attribute of a class makes it a method, and we don't
+        want the extra `self` argument.
+        """
+        raise NotImplementedError()
+
+    def __len__(self):
+        return int(self.call(self.connection, self.filter,
+                             self.value, self.count_sort))
+
+    def __getslice__(self, offset, end):
+        limit = end - offset
+        return tuple(self.call(self.connection, self.filter,
+                         self.value, self.sort, limit,
+                         offset, self.loads))
+
+class FeedObjectList(ApiObjectList):
+    def call(self, *args, **kw):
+        return api.get_feeds(*args, **kw)
+
+class ShowObjectList(ApiObjectList):
+    def call(self, *args, **kw):
+        return api.get_shows(*args, **kw)
+
+def _calculate_pages(request, page, default_page=1):
+    page_range = page.paginator.page_range
+    if page.paginator.num_pages > 9:
+        low = page.number - 5
+        high = page.number + 4
+        if low < 0:
+            high -= low
+            low = 0
+        if high > page.paginator.num_pages and low > 0:
+            low += (page.paginator.num_pages - high)
+            if low < 0:
+                low = 0
+        middle = page_range[low:high]
+        if middle[:2] != [1, 2]:
+            middle = [1, 2, None] + middle[3:]
+        if middle[-2:] != [page.paginator.num_pages - 1, page.paginator.num_pages]:
+            middle = middle[:-3] + [None, page.paginator.num_pages - 1,
+                                    page.paginator.num_pages]
+    else:
+        middle = page_range
+    path = request.path
+    get_data = dict(request.GET)
+    for number in middle:
+        if number is not None:
+            if number != default_page:
+                get_data['page'] = str(number)
+            else:
+                try:
+                    del get_data['page']
+                except KeyError:
+                    pass
+            yield (number, util.make_absolute_url(path, get_data))
+        else:
+            yield ('tag', None)
 
 class ItemObjectList:
     def __init__(self, connection, channel):
@@ -299,7 +386,7 @@ def on_channel_record_insert(record):
 @decorator_from_middleware(ChannelCacheMiddleware)
 def show(request, id, featured_form=None):
     query = Channel.query()
-    query.join('categories', 'tags', 'rating')
+    query.join('categories', 'tags', 'rating', 'last_moderated_by')
     if request.user.is_supermoderator():
         query.join('featured_queue', 'featured_queue.featured_by')
     c = util.get_object_or_404(request.connection, query, id)
@@ -516,90 +603,6 @@ def filtered_listing(request, value=None, filter=None, limit=10,
         'show_page': show_page,
         })
 
-def make_simple_list(request, query, header, order_by=None, rss_feed=None):
-    if order_by:
-        query = query.order_by(order_by)
-    pager =  templateutil.Pager(8, query, request)
-    return util.render_to_response(request, 'channel-list.html', {
-        'header': header,
-        'pager': pager,
-        'rss_feed': rss_feed
-    })
-
-@cache.aggresively_cache
-def hd(request):
-    query = Channel.query_approved(hi_def=1, user=request.user)
-    templateutil.order_channels_using_request(query, request)
-    pager =  templateutil.Pager(8, query, request)
-    return util.render_to_response(request, 'channel-list.html', {
-        'header': _('HD Channels'),
-        'pager': pager,
-        'order_select': templateutil.OrderBySelect(request),
-    })
-
-@cache.aggresively_cache
-def features(request):
-    query = Channel.query(user=request.user).join('featured_queue')
-    j = query.joins['featured_queue']
-    j.where(j.c.state!=0)
-    query.order_by(j.c.state).order_by(j.c.featured_at, desc=True)
-    return make_simple_list(request, query, _("Featured Channels"),
-                            rss_feed = 'https://www.miroguide.com/rss/featured')
-
-def get_toprated_query(user):
-    query = Channel.query_approved(user=user)
-    query.join('rating')
-    query.joins['rating'].where(query.joins['rating'].c.count > 3)
-    query.load('item_count', 'subscription_count_today')
-    query.order_by(query.joins['rating'].c.average, desc=True)
-    query.order_by(query.joins['rating'].c.count, desc=True)
-    return query
-
-@cache.cache_for_user
-def toprated(request):
-    query = get_toprated_query(request.user)
-    pager = templateutil.Pager(10, query, request)
-    for channel in pager.items:
-        channel.popular_count = channel.subscription_count_today
-        channel.timeline = 'Today'
-    context = {'pager': pager,
-            'title': 'Top Rated Channels',
-            'rss_feed': 'https://www.miroguide.com/rss/toprated',
-        }
-    return util.render_to_response(request, 'popular.html', context)
-
-def group_channels_by_date(channels):
-    if channels is None:
-        return []
-    current_date = None
-    channels_in_date = []
-    retval = []
-
-    for channel in channels:
-        channel_date = channel.approved_at.date()
-        if channel_date != current_date:
-            if channels_in_date:
-                retval.append({'date': current_date, 
-                    'channels': channels_in_date})
-            current_date = channel_date
-            channels_in_date = [channel]
-        else:
-            channels_in_date.append(channel)
-    if channels_in_date:
-        retval.append({'date': current_date, 'channels': channels_in_date})
-    return retval
-
-@cache.aggresively_cache
-def recent(request):
-    query = Channel.query_new(user=request.user)
-    pager =  templateutil.Pager(8, query, request)
-    return util.render_to_response(request, 'recent.html', {
-        'header': "RECENT CHANNELS",
-        'pager': pager,
-        'channels_by_date': group_channels_by_date(pager.items),
-        'rss_feed': 'https://www.miroguide.com/rss/new',
-    })
-
 def for_user(request, user_name_or_id):
     try:
         user = User.query(username=user_name_or_id).get(request.connection)
@@ -619,14 +622,16 @@ def for_user(request, user_name_or_id):
             cobrand = None
     else:
         cobrand = None
-    pager =  templateutil.Pager(10, query, request)
+    paginator = Paginator(templateutil.QueryObjectList(request.connection,
+                                                       query), 10)
+    page = paginator.page(request.GET.get('page', 1))
     return util.render_to_response(request, 'for-user.html', {
         'for_user': user,
         'cobrand': cobrand,
-        'channels': pager.items,
-        'pager': pager,
+        'page': page,
         })
 
+@login_required
 def edit_channel(request, id):
     query = Channel.query()
     query.join('language', 'categories', 'notes', 'notes.user')
@@ -719,10 +724,11 @@ Currently we're managing your channel -- if you'd like to take control, view sta
 def moderator_history(request):
     query = ModeratorAction.query().join('user', 'channel')
     query.order_by('timestamp', desc=True)
-    pager =  templateutil.Pager(30, query, request)
+    paginator = Paginator(templateutil.QueryObjectList(request.connection,
+                                                       query), 30)
+    page = paginator.page(request.GET.get('page', 1))
     return util.render_to_response(request, 'moderator-history.html', {
-        'pager': pager,
-        'actions': pager.items,
+        'page': page,
         })
 
 @admin_required

@@ -10,7 +10,9 @@ See LICENSE for details.
 {% if not query %}
 <h1>Search Users</h1>
 {% endif %}
-
+<ul class="paginator">
+{% pagelinks page %}
+</ul>
 <form method="GET" action="{{BASE_URL}}accounts/search" onsubmit="showLoadIndicator();">
     <input name="query" value="{{ query }}">
     <input type="submit" value="search">
@@ -21,13 +23,10 @@ See LICENSE for details.
 {% endif %}
 
 <ul>
-    {% for result in results %}
+    {% for result in page.object_list %}
     <li>{% show_user result %}</li>
     {% endfor %}
 </ul>
-
-{% if pager %}{% show_pager pager %}{% endif %}
-
 </div>
 {%endblock%}
 

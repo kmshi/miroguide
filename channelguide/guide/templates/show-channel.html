@@ -36,6 +36,9 @@
     {% include "guide/share-links.html" %}
   {% endif %}
 
+  {% if show_edit_button %}
+    {% include "guide/edit-bar.html" %}
+  {% endif %}
   <div id="channelInfo">
     <div class="page">
       <a href="#" class="stream_only">

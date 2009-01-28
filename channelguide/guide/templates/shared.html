@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% comment %}
+Copyright (c) 2008 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load i18n cg_helpers %}
+{% block title %}Miro - {% trans "Shared" %}{%endblock %}
+{% block content %}
+<div class="channel-list-page">
+<div class="shared-channel-list">
+    <h1>{% trans "Shared by Moderators" %}</h1>
+    <div class="clear"></div>
+    <ul class="paginator">
+      {% pagelinks page %}
+    </ul>
+    <ul class="channel-list">
+    {% for channel in page.object_list %}
+        <li>
+            <div class="position">{{ forloop.counter|add:page.start_index|add:"-1" }}.</div>
+            {% include "guide/channel-in-listing.html" %}
+            {% if channel.get_moderator_shared_by %}
+            <div class="sharer">Shared by {{ channel.get_moderator_shared_by }}</div>
+            {% endif %}
+            <div class="clear"></div>
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+</div>
+{% endblock %}

@@ -1,9 +1,0 @@
-{% extends 'guide/channel-feature.html' %}
-{% comment %}
-Copyright (c) 2008 Participatory Culture Foundation
-See LICENSE for details.
-{% endcomment %}
-{% load cg_helpers %}
-{% block screenshot %}
-    <a {% link channel.get_url %} id="feature-screenshot-{{ position }}">{{ channel.fake_feature_thumb }}</a>
-{% endblock %}
