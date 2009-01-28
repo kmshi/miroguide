@@ -398,7 +398,7 @@ def show(request, id, featured_form=None):
         c.rating.channel_id = c.id
         c.rating.save(request.connection)
 
-    item_paginator = Paginator(ItemObjectList(request.connection, c), 4)
+    item_paginator = Paginator(ItemObjectList(request.connection, c), 10)
     item_page = item_paginator.page(request.GET.get('page', 1))
 
     share_links = share_url = None

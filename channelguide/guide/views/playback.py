@@ -85,7 +85,7 @@ def item(request, id):
                        Item.c.date > item.date).order_by(
         Item.c.date).count(request.connection)
     default_page = (index // 4) + 1
-    paginator = Paginator(ItemObjectList(request.connection, item.channel), 4)
+    paginator = Paginator(ItemObjectList(request.connection, item.channel), 10)
     page = paginator.page(request.GET.get('page', default_page))
 
     share_links = share_url = None
