@@ -116,11 +116,6 @@ See LICENSE for details.
         <ul class="newVideos">
           {% for channel in new_channels %}
             <li>{% include "guide/channel-mini.html" %}</li>
-
-            {% ifequal forloop.counter 3 %}
-              <!-- prevents float when a description is too long. -->
-              <li class="separator"><br clear="all" /></li>
-            {% endifequal %}
           {% endfor %}
         </ul>
       </div>
