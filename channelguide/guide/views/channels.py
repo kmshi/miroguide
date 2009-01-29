@@ -76,9 +76,9 @@ class FeedObjectList(ApiObjectList):
     def call(self, *args, **kw):
         return api.get_feeds(*args, **kw)
 
-class ShowObjectList(ApiObjectList):
+class SiteObjectList(ApiObjectList):
     def call(self, *args, **kw):
-        return api.get_shows(*args, **kw)
+        return api.get_sites(*args, **kw)
 
 def _calculate_pages(request, page, default_page=1):
     page_range = page.paginator.page_range
@@ -170,9 +170,9 @@ class FeedObjectList(ApiObjectList):
         return api.get_feeds(*args, **kw)
 
 
-class ShowObjectList(ApiObjectList):
+class SiteObjectList(ApiObjectList):
     def call(self, *args, **kw):
-        return api.get_shows(*args, **kw)
+        return api.get_sites(*args, **kw)
 
 
 def _calculate_pages(request, page, default_page=1):
@@ -572,7 +572,7 @@ def filtered_listing(request, value=None, filter=None, limit=10,
                                                'rating',
                                                'item_count')),
                                limit)
-    show_paginator = Paginator(ShowObjectList(request.connection,
+    site_paginator = Paginator(SiteObjectList(request.connection,
                                               filter, value, sort,
                                               ('subscription_count_month',
                                                'rating',
@@ -583,19 +583,19 @@ def filtered_listing(request, value=None, filter=None, limit=10,
     except InvalidPage:
         feed_page = None
     try:
-        show_page = show_paginator.page(page)
+        site_page = site_paginator.page(page)
     except InvalidPage:
-        show_page = None
+        site_page = None
 
     # find the biggest paginator and use that page for calculating the links
     if not feed_paginator:
-        biggest = show_page
-    elif not show_paginator:
+        biggest = site_page
+    elif not site_paginator:
         biggest = feed_page
-    elif feed_paginator.count > show_paginator.count:
+    elif feed_paginator.count > site_paginator.count:
         biggest = feed_page
     else:
-        biggest = show_page
+        biggest = site_page
 
     return util.render_to_response(request, 'listing.html', {
         'title': title % {'value': value},
@@ -603,7 +603,7 @@ def filtered_listing(request, value=None, filter=None, limit=10,
         'current_page': page,
         'pages': _calculate_pages(request, biggest),
         'feed_page': feed_page,
-        'show_page': show_page,
+        'site_page': site_page,
         })
 
 def for_user(request, user_name_or_id):

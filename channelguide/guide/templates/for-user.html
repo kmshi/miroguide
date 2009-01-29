@@ -4,7 +4,7 @@ Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
 {% load cg_helpers i18n %}
-  {% block title %}{% trans "Miro Guide - Channels for" %} {{ for_user.username }}{% endblock %}
+  {% block title %}{% trans "Miro Guide - Shows for" %} {{ for_user.username }}{% endblock %}
 {% block content %}
 <div class="user-info">
 {% ifequal user for_user %}
@@ -27,7 +27,7 @@ See LICENSE for details.
 {% endif %}
 <div class="channels-for-user">
 {% if page.object_list %}
-<h2>{% trans "Submitted channelsmod: " %}</h2>
+<h2>{% trans "Submitted shows: " %}</h2>
 <ul class="paginator">
   {% pagelinks page %}
 </ul>

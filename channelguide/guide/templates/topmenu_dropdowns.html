@@ -17,14 +17,14 @@
       {% if user.channels %}
         <li>
           <a href="{{ BASE_URL }}user/{{ user.username }}">
-            {% trans "Channels I Manage" %}
+            {% trans "Shows I Manage" %}
           </a>
         </li>
       {% endif %}
       <li>
         <a href="{{ BASE_URL }}submit/"
            onclick="submitAChannel($(this)); return false;">
-          {% trans "Submit a Channel" %}
+          {% trans "Submit a Show" %}
         </a>
       </li>
     </ul>

@@ -3566,7 +3566,7 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
 
 .large_add_button a {
     float: left; display: inline;
-}
+}
 
 .large_add_button a span.button_text {
     background: url(/images/buttons/button_large.png) 0 0 no-repeat;
@@ -3578,6 +3578,8 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
     padding: 6px 7px 7px 14px;
     margin: 0 0 0 0;
     cursor: pointer;
+    margin-top: 1px;
+    padding: 9px 7px 7px 14px;
 }
 
 .small_add_button {

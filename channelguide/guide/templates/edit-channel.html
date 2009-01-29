@@ -5,7 +5,14 @@ See LICENSE for details.
 {% endcomment %}
 {% load i18n notes %}
 {% block underwriting %}{% endblock %}
-{% block title %}Miro - {% trans "Edit Channel" %}{%endblock %}
+{% block title %}
+  Miro -
+  {% if channel.url %}
+    {% trans "Edit Feed" %}
+  {% else %}
+    {% trans "Edit Site" %}
+  {% endif %}
+{% endblock %}
 {% block heading %}
 <h1>{% trans "Edit Channel" %}</h1>
 {%endblock%}
@@ -33,7 +40,13 @@ See LICENSE for details.
         <dd>{{ channel.subscription_count_rank }}</dd>
         {% endif %}
     </dl>
-    <span>{% trans "* unique Miro Guide 'add channel' hits" %}</span>
+    <span>
+      {% if channel.url %}
+        {% trans "* unique Miro Guide 'add feed' hits" %}
+      {% else %}
+        {% trans "* unique Miro Guide 'add site' hits" %}
+      {% endif %}
+    </span>
 </div>
 {% show_channel_notes notes %}
 {% endblock %}

@@ -35,18 +35,18 @@ $(document).ready(function (){
         <dd class="first">
             <h2>{% trans "Three things to remember..." %}</h2>
             <ul>
-                <li>1) {% trans "Miro lets you subscribe to channels for free (they go to your sidebar)" %}</li>
-                <li>2) {% trans "Miro will automatically download new videos from your channels" %}</li>
+                <li>1) {% trans "Miro lets you subscribe to shows for free (they go to your sidebar)" %}</li>
+                <li>2) {% trans "Miro will automatically download new videos from your feeds" %}</li>
                 <li>3) {% trans "A " %}<em>{% trans "green" %}</em>{% trans " bubble (in the sidebar) means you've got " %}<em>{% trans "new" %}</em>{% trans " video" %}</li>
             </ul>
         </dd>
-        <dt>{% trans "We Have Channel Recommendations for You! <u>click here</u>" %}</dt>
+        <dt>{% trans "We Have Show Recommendations for You! <u>click here</u>" %}</dt>
         <dd id="channellist">
-            <span class="info">Each channel pack gets you started with 5 great channels &mdash; add <img src="{{ STATIC_BASE_URL }}images/mini-add.png" alt=""> as many as you want.</span>
+            <span class="info">Each show pack gets you started with 5 great shows &mdash; add <img src="{{ STATIC_BASE_URL }}images/mini-add.png" alt=""> as many as you want.</span>
             {% fourcolumnloop  with column in channel_columns %}
                 {% for channel in column %}
                     <div class="channel">
-                        <img src="{{ STATIC_BASE_URL }}images/landing-icons/{{ channel.1 }}" alt="Icon for {{ channel.0 }} Channel Pack">
+                        <img src="{{ STATIC_BASE_URL }}images/landing-icons/{{ channel.1 }}" alt="Icon for {{ channel.0 }} Show Pack">
                         <div class="subscribe"><a class="add" href="{{ channel.2 }}"><span class="icon"></span>Add {{ channel.0 }}</a></div>
                     </div>
                 {% endfor %}
@@ -58,12 +58,12 @@ $(document).ready(function (){
             <div class="third-step">
                 <h2>Miro is doing its thing...</h2>
                 <img src="{{ STATIC_BASE_URL}}images/play-downloads.png" alt="Videos downloaded in Miro">
-                Miro is getting the first video from each channel.  You'll see green ovals in your sidebar when videos are ready to watch.
+                Miro is getting the first video from each feed.  You'll see green ovals in your sidebar when videos are ready to watch.
             </div>
             <div class="third-step">
                 <h2>In the mean time,</h2>
                 <img src="{{ STATIC_BASE_URL }}images/guide-preview.jpg" alt="Preview of the Miro Guide">
-                Find thousands of free channels in the Miro Guide, add as many as you want.
+                Find thousands of free shows in the Miro Guide, add as many as you want.
             </div>
             <div id="faqs">
                 <dl>
@@ -77,7 +77,7 @@ $(document).ready(function (){
             {% endcomment %}
     </dl>
     <div id="nothanks">
-        <div class="button"><a {% link "/" %}>{% trans "Get Started"%}<span>{% blocktrans with total_channels as total_channels %}Browse All {{ total_channels }} channels{% endblocktrans %}</span></a></a>
+        <div class="button"><a {% link "/" %}>{% trans "Get Started"%}<span>{% blocktrans with total_channels as total_channels %}Browse All {{ total_channels }} shows{% endblocktrans %}</span></a></a>
     </div>
 </div>
 {% endblock %}
