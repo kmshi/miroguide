@@ -179,11 +179,12 @@ function isWithin(event, obj)  {
 
 function showMenu(el, menu, event) {
     $('#' + el).css('top', 'inherit').show();
-    $('#' + menu).addClass('hover');
+    $('#' + menu + ' a').addClass('hover');
     return false;
 }
 
 function hideMenu(el, menu, event) {
+    console.log('hide ' + menu);
     el_o = $('#' + el);
     menu_o = $('#' + menu);
     if (event) {
@@ -193,7 +194,7 @@ function hideMenu(el, menu, event) {
 
     }
     $('#' + el).hide();
-    $('#' + menu).removeClass('hover');
+    $('#' + menu + ' a').removeClass('hover');
     return false;
 }
 
