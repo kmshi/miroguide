@@ -2,6 +2,7 @@
 # See LICENSE for details.
 
 import urlparse
+from datetime import datetime, timedelta
 
 from channelguide import init
 init.init_external_libraries()
@@ -49,9 +50,14 @@ class ChannelsFeed(feeds.Feed):
         if item.newest:
             return item.newest.guid or item.newest.url
 
+    def item_pubdate(self, item):
+        if item.newest:
+            return item.newest.date
+
     def item_enclosure_url(self, item):
         item.join('items').execute(self.request.connection)
-        results = [i for i in item.items.records[:] if i.date is not None]
+        results = [i for i in item.items.records[:] if i.date is not None
+                   and i.date < self.get_date_for_item(item)]
         if results:
             results.sort(key=attrgetter('date'), reverse=True)
             item.newest = results[0]
@@ -72,12 +78,20 @@ class ChannelsFeed(feeds.Feed):
             item.newest = None
 
     def item_enclosure_length(self, item):
-        if item.newest:
+        if item.newest and item.newest.size:
             return item.newest.size
+        else:
+            return ""
 
     def item_enclosure_mime_type(self, item):
         if item.newest:
             return item.newest.mime_type
+
+    def get_date_for_item(self, item):
+        # default to last Sunday; keeps us from having more than one new show a week
+        now = datetime.now()
+        return (now - timedelta(days=now.isoweekday())).replace(
+            hour=0, minute=0, second=0, microsecond=0)
 
 
 class FeaturedChannelsFeed(ChannelsFeed):
@@ -90,6 +104,10 @@ class FeaturedChannelsFeed(ChannelsFeed):
                                 limit=20)
 
 
+    def get_date_for_item(self, item):
+        return item.featured_at
+
+
 class NewChannelsFeed(ChannelsFeed):
     title = 'New in Miro Previews'
     link = "/new/"
@@ -98,6 +116,10 @@ class NewChannelsFeed(ChannelsFeed):
     def items(self):
         return api.get_channels(self.request.connection, 'name', None,
                                 sort='-age', limit=20)
+
+
+    def get_date_for_item(self, item):
+        return item.approved_at
 
 
 class PopularChannelsFeed(ChannelsFeed):
@@ -153,6 +175,9 @@ class FilteredFeed(ChannelsFeed):
         query = Channel.query_new().join(self.filter).limit(20)
         query.joins[self.filter].where(id=obj.id)
         return query.execute(self.request.connection)
+
+    def get_date_for_item(self, item):
+        return item.approved_at
 
 
 class CategoriesFeed(FilteredFeed):

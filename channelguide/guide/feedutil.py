@@ -6,6 +6,7 @@ ripped out from democracy.
 """
 
 from datetime import datetime
+import re
 
 from sqlhelper.orm import columns
 
@@ -59,7 +60,7 @@ def get_thumbnail_url(entry):
         try:
             return _get(video_enclosure)
         except KeyError:
-            pass 
+            pass
     # Try to get any enclosure thumbnail
     if 'enclosures' in entry:
         for enclosure in entry.enclosures:
@@ -71,7 +72,15 @@ def get_thumbnail_url(entry):
     try:
         return _get(entry)
     except KeyError:
-        return None
+        pass
+
+    if entry['link'].find(u'youtube.com') != -1:
+        match = re.search(r'<img alt="" src="([^"]+)" />',
+                          entry['summary'])
+        if match:
+            return match.group(1)
+
+    return None
 
 def to_utf8(feedparser_string):
     if str is None:
