@@ -149,7 +149,9 @@
             {% ifequal number "tag" %}
               <li class="tag">...</li>
             {% else %}
-              <li {% ifequal number item_page.number %}class="selected"{% endifequal %}>
+              <li {% ifequal number item_page.number %}
+                    class="selected"
+                  {% endifequal %}>
                 <span><a href="{{ link }}">{{ number }}</a></span>
               </li>
             {% endifequal %}
@@ -167,46 +169,29 @@
           $("#channelEpisodes div.details").each(setUpItem);
       </script>
 
-      <div class="pageSideBar">
-        <div id="sideBarSmall">
-	  <div class="detailsHead2">
-	    <h3 class="resultsCount">
-	      <span class="heading">{% trans "Related Videos" %}</span>
-	    </h3>
-	    <div class="sortType">
-	      <a href="#">{% trans "All" %}</a>
-	    </div>
-	  </div><!--detailsHead-->
-	  <div class="widget_small">
-	    <ul class="related">
-	      <li>
-	        <div class="thumb">
-		  <img class="hd_tag_small2"
-                       src="{{ STATIC_BASE_URL }}images/ico_hd_tag_small.png"
-                       alt="" />
-		  <a href="#">
-                    <img src="{{ STATIC_BASE_URL }}images/related_thumb1.jpg" alt="" />
-                  </a>
-                </div>
-	        <a href="#" class="add_feed_button">{% trans "ADD FEED" %}</a>
-                <p>Movies in the public domain</p>
-	      </li>
-	      <li>
-	        <div class="thumb">
-		  <img class="hd_tag_small2"
-                       src="{{ STATIC_BASE_URL }}images/ico_hd_tag_small.png"
-                       alt="" />
-		  <a href="#">
-                    <img src="{{ STATIC_BASE_URL }}images/related_thumb1.jpg" alt="" />
-                  </a>
-                </div>
-	        <a href="#" class="add_feed_button">{% trans "ADD FEED" %}</a>
-                <p>Movies in the public domain</p>
-	      </li>
-	    </ul>
-	  </div>
+      {% if recommendations %}
+        <div class="pageSideBar">
+          <div id="sideBarSmall">
+            <div class="detailsHead2">
+              <h3 class="resultsCount">
+                <span class="heading">{% trans "Related Videos" %}</span>
+              </h3>
+              <div class="sortType">
+                <a href="#">{% trans "All" %}</a>
+              </div>
+            </div><!--detailsHead-->
+            <div class="widget_small">
+              <ul class="related">
+                {% for channel in recommendations %}
+                  <li>
+                    {% include "guide/channel-mini.html" %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
         </div>
-      </div>
+      {% endif %}
     </div>
   </div>
 {% endblock %}
