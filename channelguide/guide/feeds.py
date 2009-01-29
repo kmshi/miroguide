@@ -54,6 +54,10 @@ class ChannelsFeed(feeds.Feed):
         if item.newest:
             return item.newest.date
 
+    def item_pubdate(self, item):
+        if item.newest:
+            return item.newest.date
+
     def item_enclosure_url(self, item):
         item.join('items').execute(self.request.connection)
         results = [i for i in item.items.records[:] if i.date is not None
@@ -61,9 +65,6 @@ class ChannelsFeed(feeds.Feed):
         if results:
             results.sort(key=attrgetter('date'), reverse=True)
             item.newest = results[0]
-            print item.name, item.id
-            print item.newest.id, item.newest.name, item.newest.url
-            print '--' * 20
 
             # We shouldn't produce a redirect-enclosure for anything that
             # ends in .swf or comes from youtube (since youtube also
