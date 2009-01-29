@@ -41,16 +41,29 @@
   {% endif %}
   <div id="channelInfo">
     <div class="page">
+      {% if channel.url %}
+      <a href="#" class="channel_feed_only">
+        <img src="{{ STATIC_BASE_URL }}images/ico_red_feeds.png" alt="" />
+      </a>
+      {% else %}
       <a href="#" class="stream_only">
         <img src="{{ STATIC_BASE_URL }}images/ico_stream.png" alt="" />
       </a>
+      {% endif %}
       <h1>{{ channel.name }}</h1>
       <div class="large_add_button channel_page_button">
         <a href="{{ channel.get_subscription_url }}">
+          {% if channel.url %}
           <span class="button_text">{% trans "Add to your feeds" %}</span>
+          <img class="button_icon"
+               src="{{ STATIC_BASE_URL }}images/buttons/button_large_rss.png"
+               alt="" />
+          {% else %}
+          <span class="button_text">{% trans "Add to your sites" %}</span>
           <img class="button_icon"
                src="{{ STATIC_BASE_URL }}images/buttons/button_large_streaming.png"
                alt="" />
+          {% endif %}
         </a>
       </div>
     </div>
@@ -87,7 +100,7 @@
           {{ channel.description }}
         </p>
 	<a href="#" class="read_more">{% trans "Show all" %}</a>
-        
+
         {% if not channel.fake %}
           <div class="tags">
             <p>
@@ -125,7 +138,7 @@
       <img src="{{ STATIC_BASE_URL }}images/ads/728x90.jpg" alt="Ad" />
     </a>
   </div>
-
+  {% if channel.url %}
   <div id="channelEpisodes">
     <div class="page">
       <div class="pageContent">
@@ -171,7 +184,7 @@
         <div id="sideBarSmall">
 	  <div class="detailsHead2">
 	    <h3 class="resultsCount">
-	      <span class="heading">{% trans "Related Videos" %}</span>
+	      <span class="heading">{% trans "Related Feeds" %}</span>
 	    </h3>
 	    <div class="sortType">
 	      <a href="#">{% trans "All" %}</a>
@@ -209,4 +222,5 @@
       </div>
     </div>
   </div>
+  {% endif %}
 {% endblock %}
