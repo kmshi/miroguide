@@ -274,7 +274,7 @@ function setup_login_form() {
                 $('#hoverMenuLogin .form-errors').show();
             }
         });
-    $('#hoverMenuLogin #register').click(
+    $('#hoverMenuLogin:not(.loggedin) #register').click(
         function() {
             $('#hoverMenuLogin #login').hide();
             $('#hoverMenuLogin #registerHidden').show();
