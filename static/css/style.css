@@ -4297,3 +4297,20 @@ a.large_button span {
 .user .role-info input {
     font-size:81%;
 }
+
+.inline {
+    display: inline;
+}
+
+.edit-categories-page .name {
+    min-width: 100px;
+    float: left;
+}
+
+.edit-categories-page .delete-button {
+    margin-left: 20px;
+}
+
+.edit-categories-page li {
+    padding: 4px;
+}
