@@ -2748,9 +2748,11 @@ ul#lowerMenu li#language a, ul#lowerMenu li#account a {
     overflow: hidden;
 }
 
-ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
+ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover,
+ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     background-color: #c92323;
     color: white;
+    border-right: 1px solid #810000;
 }
 
 #searchBG {
@@ -2862,7 +2864,7 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
     overflow: hidden;
     position: absolute;
     top: -1000px;
-    margin: -1px 0 0 576px;
+    margin: -1px 0 0 575px;
     z-index: 100;
 }
 
@@ -2943,7 +2945,7 @@ ul#lowerMenu li#language a:hover, ul#lowerMenu li#account a:hover {
     width: 337px;
     overflow: hidden;
     position: absolute;
-    margin: -1px 0 0 422px;
+    margin: -1px 0 0 421px;
     z-index: 100;
 }
 
