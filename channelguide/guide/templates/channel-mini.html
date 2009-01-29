@@ -14,5 +14,9 @@ See LICENSE for details.
     </div>
   </a>
 </div>
-<a {% link channel.get_url %} class="add_feed_button">ADD FEED</a>
+{% if channel.url %}
+  <a {% link channel.get_url %} class="add_feed_button">ADD FEED</a>
+{% else %}
+  <a {% link channel.get_url %} class="add_feed_button">ADD SITE</a>
+{% endif %}
 <p><a href="{{ channel.get_absolute_url }}">{{ channel.name }}</p>

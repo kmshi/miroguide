@@ -19,7 +19,11 @@
   {% endblock screenshot %}
 </div>
 <a {{ channel.subscription_link }} class="large_green_button2">
-  {% trans "ADD TO YOUR FEEDS" %}
+  {% if channel.url %}
+    {% trans "ADD TO YOUR FEEDS" %}
+  {% else %}
+    {% trans "ADD TO YOUR SITES" %}
+  {% endif %}
 </a>
 <span class="title">
   {{ channel.name_as_link }}
