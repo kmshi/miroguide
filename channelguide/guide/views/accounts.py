@@ -198,7 +198,7 @@ def search(request):
     query = request.GET.get('query', '')
     if not query:
         results = []
-        pager = None
+        page = None
     else:
         criteria = '%%%s%%' % query
         user_query = User.query(User.c.username.like(criteria) |

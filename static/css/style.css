@@ -4272,3 +4272,28 @@ a.large_button span {
 .moderate-page .posts .shared-by {
     margin-top: 30px;
 }
+
+.user {
+    border:1px solid #CCCCCC;
+    height:23px;
+    padding:5px;
+    width:340px;
+}
+
+.user .role-info {
+    float:right;
+}
+
+.user .role-info .role {
+    float:left;
+    font-weight:bold;
+}
+
+.user .role-info form {
+    float:left;
+    margin-left:5px;
+}
+
+.user .role-info input {
+    font-size:81%;
+}
