@@ -2195,11 +2195,12 @@ h3.resultsCount .pagination {
 }
 
 .channel-list {
+    padding-left: 0;
     margin-top: 25px;
 }
 
 .channel-moderate {
-    margin: 0 -16px 35px;
+    margin-top: 35px;
     background-color: #ebecf0;
     border-top: 2px solid #6d6d6d;
     border-bottom: 2px solid #6d6d6d;
@@ -2213,6 +2214,10 @@ h3.resultsCount .pagination {
 .channel-moderate .website {
     padding-top: 10px;
     clear: left;
+}
+
+.channel-moderate .moderate-actions {
+    margin: 0;
 }
 
 .channel-moderate .simple-moderate-actions {
@@ -4248,4 +4253,64 @@ a.large_button span {
     position: relative;
     top: 100px;
     float: right;
+}
+
+.two-column-list {
+    width: 700px;
+    margin: 0 auto;
+}
+
+.two-column-list .column {
+    width: 340px;
+    float: left;
+}
+
+.two-column-list .second-column {
+    margin-left: 20px;
+}
+
+.moderate-page .posts .shared-by {
+    margin-top: 30px;
+}
+
+.user {
+    border:1px solid #CCCCCC;
+    height:23px;
+    padding:5px;
+    width:340px;
+}
+
+.user .role-info {
+    float:right;
+}
+
+.user .role-info .role {
+    float:left;
+    font-weight:bold;
+}
+
+.user .role-info form {
+    float:left;
+    margin-left:5px;
+}
+
+.user .role-info input {
+    font-size:81%;
+}
+
+.inline {
+    display: inline;
+}
+
+.edit-categories-page .name {
+    min-width: 100px;
+    float: left;
+}
+
+.edit-categories-page .delete-button {
+    margin-left: 20px;
+}
+
+.edit-categories-page li {
+    padding: 4px;
 }

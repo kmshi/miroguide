@@ -2,14 +2,12 @@
 # See LICENSE for details.
 
 import datetime
-import mimetypes
 import urllib
 import urlparse
 
 import feedparser
 from django.conf import settings
-from django.http import (
-    Http404, HttpResponseRedirect, HttpResponse, HttpResponseBadRequest)
+from django.http import HttpResponseRedirect, HttpResponse
 from django.template import loader, Context
 
 from channelguide import util, cache
@@ -113,6 +111,9 @@ def get_channels_and_items(feed_url, connection):
             if hasattr(parsed, 'status') and parsed.status != 200:
                 raise FeedFetchingError("Got a non-200 status while parsing feed")
 
+            if parsed.bozo: # this didn't work either
+                raise FeedFetchingError('Feed is unparsable')
+
             ## generate fake channel
             if parsed.feed.has_key('thumbnail'):
                 thumbnail_url = parsed.feed.thumbnail.href
@@ -175,6 +176,7 @@ def share_feed(request):
          'feed_url': feed_url,
          'share_url': share_url,
          'share_type': 'feed',
+         'google_analytics_ua': None,
          'share_links': share_links})
 
 
@@ -233,6 +235,8 @@ def share_item(request):
             items = item_query.execute(request.connection)
             if items:
                 item = items[0]
+    else:
+        channel = None
 
     if isinstance(item, Item):
         return HttpResponseRedirect('/items/%s?share=true' % item.id)
@@ -277,6 +281,7 @@ def share_item(request):
          'item_name': item_name,
          'share_url': share_url,
          'share_type': 'item',
+         'google_analytics_ua': None,
          'share_links': share_links})
 
 
@@ -292,7 +297,7 @@ def email(request):
              'file_url': share_form.data.get('file_url'),
              'share_url': share_form.data.get('share_url'),
              'item_url': share_form.data.get('item_url')})
-    
+
     # construct the email to send out from a template
     if share_form.cleaned_data['share_type'] == 'feed':
         title = _(u'%(from_email)s wants to share a video feed with you') % {

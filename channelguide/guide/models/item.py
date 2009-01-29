@@ -1,9 +1,10 @@
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
-from datetime import datetime
 import os
 import urllib2
+import re
+from xml.sax import saxutils
 
 from django.conf import settings
 
@@ -84,12 +85,15 @@ class Item(Record, Thumbnailable):
 
     @staticmethod
     def from_feedparser_entry(entry):
+        # XXX Added some hacks to get a decent item out of YouTube after they
+        # stopped having enclosures (2008-1-21).
         enclosure = feedutil.get_first_video_enclosure(entry)
         if enclosure is None:
             if 'link' not in entry:
                 raise exceptions.FeedparserEntryError("No video enclosure and no link")
-            if not filetypes.isAllowedFilename(entry['link']):
-                raise exceptions.EntryMissingDataError('Link is invalid')
+            if entry['link'].find('youtube.com') == -1:
+                if not filetypes.isAllowedFilename(entry['link']):
+                    raise exceptions.EntryMissingDataError('Link is invalid')
         rv = Item()
         try:
             rv.name = feedutil.to_utf8(entry['title'])
@@ -99,13 +103,16 @@ class Item(Record, Thumbnailable):
                 # MIME type
                 rv.mime_type = feedutil.to_utf8(enclosure['type']
                                                 ).split(';', 1)[0]
+            elif entry['link'].find('youtube.com') != -1:
+                rv.url = entry['link']
+                rv.mime_type = 'video/x-flv'
             else:
                 rv.url = entry['link']
                 rv.mime_type = filetypes.guessMimeType(rv.url)
             try:
                 if enclosure is None:
                     raise KeyError
-                rv.desciption = feedutil.to_utf8(enclosure['text'])
+                rv.description = feedutil.to_utf8(enclosure['text'])
             except KeyError:
                 try:
                     rv.description = feedutil.to_utf8(entry.description)
@@ -114,6 +121,13 @@ class Item(Record, Thumbnailable):
                     # entry['description'] and it isn't present a feedparser
                     # raises a TypeError instead of a KeyError
                     raise KeyError('description')
+                else:
+                    if entry['link'].find('youtube.com') != -1:
+                        match = re.search(r'<div><span>(.*?)</span></div>',
+                                                   rv.description, re.S)
+                        if match:
+                            rv.description = feedutil.to_utf8(
+                                saxutils.unescape(match.group(1)))
         except KeyError, e:
             raise exceptions.EntryMissingDataError(e.args[0])
         if enclosure is not None:

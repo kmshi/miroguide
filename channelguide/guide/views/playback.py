@@ -68,7 +68,6 @@ def item(request, id):
         Item.c.date, desc=True).execute(request.connection)
     if previousSet:
         previous = previousSet[0]
-        print previous.date
     else:
         previous = None
 
@@ -77,7 +76,6 @@ def item(request, id):
         Item.c.date, ).execute(request.connection)
     if nextSet:
         next = nextSet[0]
-        print next.date
     else:
         next = None
 
@@ -95,21 +93,22 @@ def item(request, id):
             '/item/%s' % id)
         share_links = util.get_share_links(share_url, item.name)
 
-    return util.render_to_response(
-        request,
-        'playback.html',
-        {'item': item,
-         'channel': item.channel,
-         'previous': previous,
-         'next': next,
-         'embed': util.mark_safe(embed_code(item)),
-         'page': page,
-         'share_url': share_url,
-         'share_type': 'item',
-         'share_links': share_links,
-         'feed_url': item.channel.url,
-         'item_name': item.name,
-         'file_url': item.url,
-         'page_links': _calculate_pages(
-                request, page, default_page)})
+    context = {'item': item,
+               'channel': item.channel,
+               'previous': previous,
+               'next': next,
+               'embed': util.mark_safe(embed_code(item)),
+               'page': page,
+               'share_url': share_url,
+               'share_type': 'item',
+               'share_links': share_links,
+               'feed_url': item.channel.url,
+               'item_name': item.name,
+               'file_url': item.url,
+               'page_links': _calculate_pages(
+            request, page, default_page)}
 
+    if share_url:
+        context['google_analytics_ua'] = None
+
+    return util.render_to_response(request, 'playback.html', context)

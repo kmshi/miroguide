@@ -314,6 +314,10 @@ class Channel(Record, Thumbnailable):
             print "WARNING: ERROR parsing %s" % self.url
             traceback.print_exc()
         else:
+            if parsed.bozo:
+                self.archived = True
+                self.save(connection)
+                return
             items = []
             for entry in parsed.entries:
                 try:

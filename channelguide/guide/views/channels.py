@@ -423,6 +423,9 @@ def show(request, id, featured_form=None):
         'share_type': 'feed',
         'share_links': share_links}
 
+    if share_url:
+        context['google_analytics_ua'] = None
+
     if request.user.is_supermoderator():
         c.join('owner').execute(request.connection)
         if c.featured_queue and c.featured_queue.state in (
