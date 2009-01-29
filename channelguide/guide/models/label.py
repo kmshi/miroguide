@@ -9,7 +9,6 @@ user-created.
 from channelguide import util
 from channelguide.guide import tables
 from sqlhelper.orm import Record
-from sqlhelper.sql import Select
 
 class Label(Record):
     """Label is the base class for both Category and Tag."""
@@ -31,7 +30,7 @@ class Label(Record):
     def get_absolute_url(self):
         return util.make_absolute_url(self.get_url())
 
-    
+
 class Category(Label):
     """Categories are created by the admins and assigned to a channel by that
     channel's submitter.
@@ -39,11 +38,11 @@ class Category(Label):
     table = tables.category
 
     def get_url(self):
-        return util.make_url('categories/%s' % self.name.encode('utf8'))
+        return util.make_url('genres/%s' % self.name.encode('utf8'))
 
     def get_rss_feed(self):
-        return util.make_url('feeds/categories/%s' % self.name)
-    
+        return util.make_url('feeds/genres/%s' % self.name.encode('utf8'))
+
 class Tag(Label):
     """Tags are user created labels.  Any string of text can be a tag and any
     user can tag any channel.
@@ -51,10 +50,10 @@ class Tag(Label):
     table = tables.tag
 
     def get_url(self):
-        return util.make_url('tags/%d' % self.id)
+        return util.make_url('tags/%s' % self.name.encode('utf8'))
 
     def get_rss_feed(self):
-        return util.make_url('feeds/tags/%s' % self.name)
+        return util.make_url('feeds/tags/%s' % self.name.encode('utf8'))
 
 class CategoryMap(Record):
     table = tables.category_map

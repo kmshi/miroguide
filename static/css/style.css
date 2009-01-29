@@ -4095,6 +4095,11 @@ a.large_button span {
     padding: 20px;
 }
 
+.login-page {
+    width: 710px;
+    margin: 20px auto;
+}
+
 .login-page .form-errors {
     padding-bottom: 10px;
     font-size: 120%;

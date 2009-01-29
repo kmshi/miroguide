@@ -263,7 +263,7 @@ function add_corners() {
 }
 
 function setup_login_form() {
-    $("#hoverMenuLogin #login form").ajaxForm(
+    $("#hoverMenuLogin form").ajaxForm(
         function(data, textStatus) {
             result = $('.form-errors ul li', data).addClass('form-errors');
             if (!result.length) {
