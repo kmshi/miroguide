@@ -16,7 +16,7 @@ def index(request):
     query.cacheable_time = 3600
     rows = list(query.execute(request.connection))
     return util.render_to_response(request, 'group-list.html', {
-        'group_name': _('Categories'),
+        'group_name': _('Genres'),
         'groups': rows,
     })
 
@@ -24,9 +24,9 @@ def index(request):
 def moderate(request):
     categories = Category.query().order_by('name').execute(request.connection)
     return util.render_to_response(request, 'edit-categories.html', {
-        'header': _('Edit Categories'),
-        'new_label': _('New Category'),
-        'action_url_prefix': settings.BASE_URL + "categories",
+        'header': _('Edit Genre'),
+        'new_label': _('New Genre'),
+        'action_url_prefix': settings.BASE_URL + "genres",
         'categories': categories,
     })
 
@@ -35,14 +35,14 @@ def add(request):
     if request.method == 'POST':
         new_category = Category(request.POST['name'])
         new_category.save(request.connection)
-    return util.redirect('categories/moderate')
+    return util.redirect('genres/moderate')
 
 @admin_required
 def delete(request):
     if request.method == 'POST':
         category = Category.get(request.connection, request.POST['id'])
         category.delete(request.connection)
-    return util.redirect('categories/moderate')
+    return util.redirect('genres/moderate')
 
 @admin_required
 def change_name(request):
@@ -50,7 +50,7 @@ def change_name(request):
         category = Category.get(request.connection, request.POST['id'])
         category.name = request.POST['name']
         category.save(request.connection)
-    return util.redirect('categories/moderate')
+    return util.redirect('genres/moderate')
 
 @admin_required
 def toggle_frontpage(request):
@@ -58,4 +58,4 @@ def toggle_frontpage(request):
         category = Category.get(request.connection, request.POST['id'])
         category.on_frontpage = not category.on_frontpage
         category.save(request.connection)
-    return util.redirect('categories/moderate')
+    return util.redirect('genres/moderate')
