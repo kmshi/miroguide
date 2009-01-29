@@ -21,6 +21,9 @@ See LICENSE for details.
         {% else %}
           {% if channel.url %}
             {% blocktrans with channel.state_name as state %}Feed is {{ state }}{% endblocktrans %}
+          {% else %}
+            {% blocktrans with channel.state_name as state %}Site is {{ state }}{% endblocktrans %}
+          {% endif %}
         {% endif %}
     {% endif %}
     {% if channel.featured_queue %}
