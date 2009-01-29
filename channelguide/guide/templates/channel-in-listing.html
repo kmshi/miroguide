@@ -28,7 +28,11 @@ See LICENSE for details.
   <ul class="rating">
     <li class="score">
       <a {{ channel.subscription_link }} class="add_feed_button2">
-        {% trans "Add Feed" %}
+        {% if channel.url %}
+          {% trans "Add Feed" %}
+        {% else %}
+          {% trans "Add Site" %}
+        {% endif %}
       </a>
     </li>
     {% show_small_rating_stars channel %}

@@ -28,7 +28,11 @@ See LICENSE for details.
   <ul class="rating">
     <li class="score">
       <a {% link channel.get_url %} class="add_feed_button2">
-        {% trans "ADD FEED" %}
+        {% if channel.url %}
+          {% trans "ADD FEED" %}
+        {% else %}
+          {% trans "ADD SITE" %}
+        {% endif %}
       </a>
     </li>
     <li>
