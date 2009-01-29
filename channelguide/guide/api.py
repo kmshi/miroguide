@@ -140,7 +140,7 @@ def get_feeds(connection, filter, value, sort=None, limit=None, offset=None,
         results.join(*joins).execute(connection)
     return results
 
-def get_shows(connection, filter, value, sort=None, limit=None, offset=None,
+def get_sites(connection, filter, value, sort=None, limit=None, offset=None,
               loads=None):
     query = get_channels_query(connection, filter, value, sort=sort)
     # int is returned for 0 counts, longs for regular counts and lists for

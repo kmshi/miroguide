@@ -4,7 +4,7 @@
 Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
-{% block title %}Miro - {% trans "Submit Channel" %}{%endblock %}
+{% block title %}Miro - {% trans "Submit Feed" %}{%endblock %}
 {% block content %}
 <div class="edit-channel-page">
     {% block heading %}{% endblock %}
@@ -12,11 +12,11 @@ See LICENSE for details.
       <form method="POST" enctype="multipart/form-data" action="{{ request.path }}" onsubmit="showLoadIndicator();">
         {% show_form form %}
         <div class="thumbnail-select">
-          <h2>{% trans "Channel Thumbnail" %}</h2>
-          <p>{% blocktrans %}Remember that creating a good channel thumbnail is one of
+          <h2>{% trans "Feed Thumbnail" %}</h2>
+          <p>{% blocktrans %}Remember that creating a good feed thumbnail is one of
 the most important ways to attract new viewers.  It's worth making an effort
 to do something beautiful.  You can also update the image after you submit
-your channel.{% endblocktrans %}</p>
+your feed.{% endblocktrans %}</p>
           {% if submitted_thumb_url and detected_thumbnail %}
           <h3>{% trans "We have found an image in your feed.  You can either use this image or upload a different one." %}</h3>
           {% endif %}

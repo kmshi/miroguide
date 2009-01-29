@@ -26,7 +26,11 @@ See LICENSE for details.
             <div class="big horizontal">
                 <a {{ channel.subscription_link }}>
                     <span class="icon"></span>
-                    {% trans "Add Channel" %}
+                    {% if channel.url %}
+                      {% trans "Add Feed" %}
+                    {% else %}
+                      {% trans "Add Site" %}
+                    {% endif %}
                 </a>
             </div>
         </div>

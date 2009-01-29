@@ -6,7 +6,11 @@ See LICENSE for details.
 {% if channel %}
 <div class="edit" editURL="{{ channel.get_edit_url }}">
     {% if user.is_moderator %}
-    <h2>{% trans "Click to Edit Channel / Assist Manager" %}</h2>
+    {% if channel.url %}
+      <h2>{% trans "Click to Edit Feed / Assist Manager" %}</h2>
+    {% else %}
+      <h2>{% trans "Click to Edit Site / Assist Manager" %}</h2>
+    {% endif %}
 
     <h3>
     {% if channel.is_approved %}
@@ -15,7 +19,8 @@ See LICENSE for details.
         {% if channel.last_moderated_by %}
         {% blocktrans with channel.state_name as state and channel.last_moderated_by as mod %}{{ state }} by {{ mod }}{% endblocktrans %}
         {% else %}
-        {% blocktrans with channel.state_name as state %}Channel is {{ state }}{% endblocktrans %}
+          {% if channel.url %}
+            {% blocktrans with channel.state_name as state %}Feed is {{ state }}{% endblocktrans %}
         {% endif %}
     {% endif %}
     {% if channel.featured_queue %}
@@ -25,7 +30,13 @@ See LICENSE for details.
     </h3>
     {% include "guide/moderate-actions-simple.html" %}
     {% else  %}
-        <h2>{% trans "Edit Your Channel / View Statistics / Get Help" %}</h2>
+        <h2>
+          {% if channel.url %}
+            {% trans "Edit Your Feed / View Statistics / Get Help" %}
+          {% else %}
+            {% trans "Edit Your Site / View Statistics / Get Help" %}
+          {% endif %}
+        </h2>
         {% if channel.featured %}
         <h3>Last Featured on {{ channel.featured_at|date:"m/d/Y" }}</h3>
         {% endif %}
