@@ -12,7 +12,7 @@ from channelguide.guide.models import Language
 def index(request):
     query = Language.query().load('channel_count').order_by('name')
     return util.render_to_response(request, 'group-list.html', {
-        'group_name': _('Channels by Language'),
+        'group_name': _('Shows by Language'),
         'groups': query.execute(request.connection),
     })
 

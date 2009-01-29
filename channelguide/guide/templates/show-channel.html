@@ -55,14 +55,14 @@
         <a href="{{ channel.get_subscription_url }}">
           {% if channel.url %}
             <span class="button_text">{% trans "Add to your feeds" %}</span>
-          <img class="button_icon"
-               src="{{ STATIC_BASE_URL }}images/buttons/button_large_rss.png"
-               alt="" />
+            <img class="button_icon"
+                 src="{{ STATIC_BASE_URL }}images/buttons/button_large_rss.png"
+                 alt="" />
           {% else %}
-          <span class="button_text">{% trans "Add to your sites" %}</span>
-          <img class="button_icon"
-               src="{{ STATIC_BASE_URL }}images/buttons/button_large_streaming.png"
-               alt="" />
+            <span class="button_text">{% trans "Add to your sites" %}</span>
+            <img class="button_icon"
+                 src="{{ STATIC_BASE_URL }}images/buttons/button_large_streaming.png"
+                 alt="" />
           {% endif %}
         </a>
       </div>
@@ -81,11 +81,7 @@
 	<span class="link">{{ channel.website_link }}</span>
 	<span class="tag">
           <a href="{{ channel.website_url }}">
-            {% if channel.url %}
-              {% trans "Visit Feed's Website" %}
-            {% else %}
-              {% trans "Visit Site's Website" %}
-            {% endif %}
+            {% trans "Visit Show Website" %}
           </a>
         </span>
       </div>
