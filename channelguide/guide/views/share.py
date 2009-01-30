@@ -116,11 +116,8 @@ def get_channels_and_items(feed_url, connection):
                 raise FeedFetchingError('Feed is unparsable')
 
             ## generate fake channel
-            if parsed.feed.has_key('thumbnail'):
-                thumbnail_url = parsed.feed.thumbnail.href
-            else:
-                thumbnail_url = \
-                    settings.STATIC_BASE_URL + 'images/generic_feed_thumb.png'
+            thumbnail_url = (
+                settings.STATIC_BASE_URL + 'images/generic_feed_thumb.png')
 
             channel = FakeChannel(
                 parsed.feed.get('title'),
