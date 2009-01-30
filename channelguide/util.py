@@ -52,6 +52,7 @@ def get_share_links(url, name):
 
     ## Generate dictionary
     share_links = {
+        'url': url,
         'delicious': share_delicious,
         'digg': share_digg,
         'reddit': share_reddit,
