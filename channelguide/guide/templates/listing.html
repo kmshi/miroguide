@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load channels rating cg_helpers i18n %}
-
+{% block head-extra %}
+    <script src="{{ STATIC_BASE_URL }}js/infinitescroll.js"
+            type="text/javascript">
+    </script>
+{% endblock %}
 {% block content %}
   {% if terms_too_short %}
   <div id="container">
@@ -43,7 +47,6 @@
     <br />
 
     <div class="page">
-
       <div class="feedColumn">
         <div class="detailsHead4">
           <h3 class="resultsCount">
@@ -60,7 +63,8 @@
             </a>
           </div>
         </div><!--detailsHead-->
-        <ul class="searchResults">
+        <ul class="searchResults scrolling">
+          <a name="{{ feed_page.number }}"></a>
           {% for channel in feed_page.object_list %}
             <li>
               {% include "guide/channel-in-listing.html" %}

@@ -5,6 +5,7 @@
 {% block head-extra %}
   <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/playback.js"></script>
   <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/share.js"></script>
+  <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/infinitescroll.js"></script>
 {% endblock %}
 
 {% block onload-extra %}add_share_callbacks();{% endblock %}
@@ -31,7 +32,7 @@
         <div id="video">
           {{ embed }}
         </div><!--video-->
-        
+
         <div id="videoDetails">
           <div class="meta">
             {% if item.description %}
@@ -42,7 +43,7 @@
                 {{ item.description|striptags }}
               </p>
             {% endif %}
-            
+
             <br clear="all" />
             <div class="video_buttons_align">
               <a href="{{ item.url }}"
@@ -52,7 +53,7 @@
                        alt="Download" />
                   {% trans "DOWNLOAD" %}
                 </span>
-              </a>                              
+              </a>
               {% if not share_links %}
                 <a href="/items/{{ item.id }}?share=true" class="rollover_button2">
                   <span>{% trans "SHARE" %}</span>
@@ -63,7 +64,7 @@
                 </a>
               {% endif %}
             </div>
-            
+
             <p class="more">
               {% if item.date %}
                 <strong class="tag">{% trans "Date Posted" %}</strong>
@@ -71,7 +72,7 @@
               {% endif %}
             </p>
           </div>
-                                        
+
           <div class="buttons">
             {% if previous %}
               <div class="previous_button">
@@ -92,9 +93,9 @@
       </div><!--videoBox-->
     </div><!--page-->
   </div><!--videoArea-->
-        
+
   <br />
-        
+
   {% if page %}
     <div id="channelEpisodes">
       <div class="page">
@@ -111,7 +112,7 @@
             <a href="#">{% trans "All" %}</a>
           </div>
         </div><!--detailsHead-->
-                          
+
         <ul class="paginator">
           {% for number, link in page_links %}
             {% ifequal number "tag" %}
@@ -123,18 +124,21 @@
             {% endifequal %}
           {% endfor %}
         </ul>
-        
+
         <br clear="all" />
-        
-        {% for item in page.object_list %}
-          <div class="detailsTopLarge"></div>
-          {% include "guide/item.html" %}
+        <ul class="scrolling">
+          <a href="{{ page.number }}"></a>
+          {% for item in page.object_list %}
+          <li>
+            <div class="detailsTopLarge"></div>
+            {% include "guide/item.html" %}
+          </li>
         {% endfor %}
-  
+        </ul>
         <script type="text/javascript">
           $("#channelEpisodes div.details").each(setUpItem);
         </script>
-  
+
       </div><!--page-->
     </div><!--channelEpisodes-->
   {% endif %}

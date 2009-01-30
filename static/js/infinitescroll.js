@@ -1,21 +1,25 @@
 function infiniteCallback(data, textStatus) {
-    content = $('#content', data);
-    results = content.find('#searchResults > li')
-    $('#searchResults').append(results);
-    results.find('ul.rating').rating();
-    nextpage = content.find('#next-page');
-    if (!nextpage.length) {
-        $('#next-page').remove();
-    } else {
-        $('#next-page').attr('href', nextpage.attr('href')).show();
+    results = $('.scrolling', data);
+    // XXX this doesn't handle the case where there are more shows than feeds
+    for (i=0; i < 2; i++) {
+        items = results.eq(i).children('li');
+        items.find('form.rating').rating();
+        items.find('.rating').height(25);
+        if (typeof setUpItem == 'function')
+            items.find('div.details').each(setUpItem);
+        if (i == 0)
+            $('.scrolling').append(results.eq(i).children('a:first'));
+        $('.scrolling').eq(i).append(items);
     }
+    $('ul.paginator, ul.paginator2').replaceWith(
+        $('ul.paginator, ul.paginator2', data));
     checkScroll.loading = false;
     hideLoadIndicator();
 }
 
 function checkScroll() {
-    first = $('ul#searchResults li:first');
-    nextpage = $('#next-page');
+    first = $('ul.scrolling li:first');
+    nextpage = $('ul.paginator li.selected + li, ul.paginator2 li.selected + li');
     if (!nextpage.length) return;
     doc = $(document);
     distance = doc.height() - doc.scrollTop() - $(window).height();
@@ -34,13 +38,12 @@ function checkScroll() {
 }
 
 function infiniteLoad() {
-    nextpage = $('#next-page');
     if (checkScroll.loading)
         return;
+    nextpage = $('ul.paginator2 li.selected + li, ul.paginator li.selected + li');
     checkScroll.loading = true;
-    nextpage.hide();
     showLoadIndicator(true);
-    $.get(nextpage.attr('href'), infiniteCallback);
+    $.get(nextpage.find('a').attr('href'), infiniteCallback);
 }
 
 function checkHash() {

@@ -10,6 +10,7 @@
 {% block head-extra %}
   <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/playback.js"></script>
   <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/share.js"></script>
+  <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/infinitescroll.js"></script>
   <style type="text/css">
     div#page {
         margin-bottom: 0;
@@ -168,11 +169,15 @@
 	</ul>
 
 	<br clear="all" />
-
-        {% for item in item_page.object_list %}
-	    <div class="detailsTop"></div>
+        <ul class="scrolling">
+          <a name="{{ item_page.number }}"></a>
+          {% for item in item_page.object_list %}
+          <li>
+            <div class="detailsTop"></div>
             {% include "guide/item.html" %}
-        {% endfor %}
+          </li>
+          {% endfor %}
+        </ul>
       </div>
       <script type="text/javascript">
           $("#channelEpisodes div.details").each(setUpItem);

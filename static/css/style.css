@@ -4316,3 +4316,8 @@ a.large_button span {
 .edit-categories-page li {
     padding: 4px;
 }
+
+ul.scrolling {
+    padding: 0;
+    margin: 0;
+}

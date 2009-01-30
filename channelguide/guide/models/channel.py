@@ -315,8 +315,7 @@ class Channel(Record, Thumbnailable):
             traceback.print_exc()
         else:
             if parsed.bozo:
-                self.archived = True
-                self.save(connection)
+                self._check_archived(connection)
                 return
             items = []
             for entry in parsed.entries:
