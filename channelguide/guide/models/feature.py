@@ -47,6 +47,7 @@ class FeaturedQueue(Record):
         if fq.state == cls.IN_QUEUE:
             fq.delete(connection)
         elif fq.state == cls.CURRENT:
+            channel.change_featured(None, connection)
             fq.state = cls.PAST
             fq.save(connection)
             cls.shuffle_queue(connection)
