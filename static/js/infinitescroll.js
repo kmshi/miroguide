@@ -5,6 +5,8 @@ function infiniteCallback(data, textStatus) {
         items = results.eq(i).children('li');
         items.find('form.rating').rating();
         items.find('.rating').height(25);
+        if (typeof setUpItem == 'function')
+            items.find('div.details').each(setUpItem);
         if (i == 0)
             $('.scrolling').append(results.eq(i).children('a:first'));
         $('.scrolling').eq(i).append(items);

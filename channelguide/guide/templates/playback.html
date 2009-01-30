@@ -5,6 +5,7 @@
 {% block head-extra %}
   <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/playback.js"></script>
   <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/share.js"></script>
+  <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/infinitescroll.js"></script>
 {% endblock %}
 
 {% block onload-extra %}add_share_callbacks();{% endblock %}
@@ -125,12 +126,15 @@
         </ul>
         
         <br clear="all" />
-        
-        {% for item in page.object_list %}
-          <div class="detailsTopLarge"></div>
-          {% include "guide/item.html" %}
+        <ul class="scrolling">
+          <a href="{{ page.number }}"></a>
+          {% for item in page.object_list %}
+          <li>
+            <div class="detailsTopLarge"></div>
+            {% include "guide/item.html" %}
+          </li>
         {% endfor %}
-  
+        </ul>
         <script type="text/javascript">
           $("#channelEpisodes div.details").each(setUpItem);
         </script>
