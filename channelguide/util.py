@@ -7,6 +7,7 @@
 from datetime import datetime, timedelta
 from itertools import cycle, count, izip
 from urllib import quote, urlopen, unquote_plus
+from xml.sax import saxutils
 import Queue
 import cgi
 import logging
@@ -354,6 +355,7 @@ def url_is_relative(url):
 def make_link_attributes(href, css_class=None, **extra_link_attributes):
     if url_is_relative(href):
         href = make_url(href)
+    href = saxutils.escape(href)
     attributes = []
     attributes.append('href="%s"' % mark_safe(href))
     if 'onclick' not in extra_link_attributes:
@@ -361,7 +363,7 @@ def make_link_attributes(href, css_class=None, **extra_link_attributes):
     if css_class:
         attributes.append('class="%s"' % css_class)
     for name, value in extra_link_attributes.items():
-        attributes.append('%s="%s"' % (name, value))
+        attributes.append('%s="%s"' % (name, saxutils.escape(value)))
     return mark_safe(' '.join(attributes))
 
 def rotate_grid(list, columns):

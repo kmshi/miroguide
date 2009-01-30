@@ -12,14 +12,14 @@
       {% endif %}
       action="/channels/{{ rating.channel_id }}/rate/">
   <input type="hidden" name="referer" value="{{ referer }}">
-  <label for="r1" class="avg">
+  <label for="rating_channel_{{ rating.channel_id }}" class="avg">
     {% if rating.average_rating %}
       Rate Me!
     {% else %}
       Rated: {{ rating.rating }}
     {% endif %}
   </label>
-  <select name="rating" id="r1">
+  <select name="rating" id="rating_channel_{{ rating.channel_id }}">
     <option value="0">0</option>
     <option value="1">1</option>
     <option value="2">2</option>

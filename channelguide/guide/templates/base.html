@@ -25,6 +25,11 @@ See LICENSE for details.
           href="{{ STATIC_BASE_URL }}css/style.css?nonce={{ style_nonce }}">
     <link rel="StyleSheet" type="text/css"
           href="{{ STATIC_BASE_URL }}css/rating.css?nonce={{ style_nonce }}">
+    <!--[if lt IE 7]>
+    <link rel="stylesheet" href="ie_styles.css" type="text/css" media="screen" />
+    <script defer type="text/javascript" src="js/ie_png.js"></script>
+    <![endif]-->
+
     <script type="text/javascript">
         var star_names = [
             "{% trans "Not interested" %}",
@@ -65,7 +70,6 @@ See LICENSE for details.
 </head>
 
 <body onload="add_corners(); setup_login_form();{% block onload-extra %}{% endblock%}"
-      onpagehide="hideLoadIndicator();"
       {% block body-attributes %}id="main"{% endblock %}>
   {% block navigation %}
     <div id="topBar">
@@ -94,13 +98,13 @@ See LICENSE for details.
             </a>
           </li>
         </ul>
-  
+
         <div id="searchBG"></div>
-  
+
         <div id="searchSpot">
           <form method="get" action="{{ BASE_URL }}search">
             <input type="text" class="headSearch" name="query"
-                   id="search_query" value="{% trans "Search" %}" />
+                   id="search_query" value="{% trans "Search" %}">
             <script type="text/javascript">
               //<![CDATA[
                    $("#searchSpot input").focus(searchFocus).blur(searchBlur);
@@ -110,7 +114,7 @@ See LICENSE for details.
         </div>
       </div>
     </div>
-  
+
     <div id="topBarLower">
       <div class="page">
         <ul id="lowerMenu">
@@ -138,9 +142,9 @@ See LICENSE for details.
         </ul>
       </div>
     </div>
-  
+
     {% include "guide/topmenu_dropdowns.html" %}
-  
+
   {% endblock %}
 
   {% block content %}{% endblock %}
@@ -183,7 +187,7 @@ See LICENSE for details.
 
   <div id="load-indicator">
     <img alt="{% trans "Loading..."%}"
-         src="{{ STATIC_BASE_URL }}images/load-indicator.gif" />
+         src="{{ STATIC_BASE_URL }}images/load-indicator.gif">
   </div>
 
 
