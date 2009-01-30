@@ -2632,6 +2632,7 @@ div.scrollNav span.button_down {
 
 div.scrollNav ul {
     padding: 0;
+    float: left;
     height: 384px;
     width: 142px;
     overflow: hidden;
