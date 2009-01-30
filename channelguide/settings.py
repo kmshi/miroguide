@@ -18,8 +18,9 @@ TEMPLATE_DEBUG = DEBUG
 APPEND_SLASH = False
 
 ADMINS = (
-   #('Paul Swartz', 'pswartz@pculture.org'),
-    ('Ben Dean-Kawamura', 'ben@pculture.org'),
+    ('Paul Swartz', 'pswartz@pculture.org'),
+    #('Ben Dean-Kawamura', 'ben@pculture.org'),
+    ('Christopher Allan Webber', 'cwebber@pculture.org'),
     # ('Your Name', 'your_email@domain.com'),
 )
 
