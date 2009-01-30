@@ -1,11 +1,10 @@
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
-from django.conf import settings
 from django.core.paginator import Paginator
 from django.http import Http404
 
-from channelguide import util, cache
+from channelguide import util
 from channelguide.guide.auth import moderator_required, login_required
 from channelguide.guide.models import Channel, ChannelNote, ModeratorPost
 from channelguide.guide.templateutil import QueryObjectList
@@ -38,8 +37,7 @@ def moderator_board(request):
 @moderator_required
 def add_moderator_post(request):
     post = ModeratorPost.create_note_from_request(request)
-    send_checked = (request.POST.get('send-email') and 
-            request.user.is_supermoderator())
+    send_checked = bool(request.POST.get('send-email'))
     post.send_email(request.connection, send_checked)
     post.save(request.connection)
     return util.redirect('notes/moderator-board')

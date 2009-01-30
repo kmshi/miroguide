@@ -121,13 +121,12 @@ Your feed is missing video/audio files.  Make sure you have enclosures in your f
 class ModeratorBoardEmail(EmailMessage):
     def __init__(self, post):
         self.title = '[Miro Guide Moderators] ' + post.title
-        board_url = settings.BASE_URL_FULL + 'notes/moderator-board'
+        board_url = settings.BASE_URL_FULL + 'moderate/'
         self.body = """\
 %s
 
 
-To send messages to other moderators, go to the moderator message board:
-%s """ % (post.body, board_url)
+To post on the moderator message board visit %s""" % (post.body, board_url)
 
 class TroubleshootChannelEmail(EmailMessage):
     def __init__(self, channel, title, body, middle, bottom):
