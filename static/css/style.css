@@ -5,7 +5,7 @@ Color sets
    Dark gray: #191919
 */
 
-html {
+html, ul {
     margin: 0;
     padding: 0;
 }
@@ -2614,7 +2614,7 @@ div.scrollNav li a.selected {
     color: white;
 }
 
-div.scrollNav span.button_up a {
+div.scrollNav span.button_up {
     margin: 0 0;
     background: url(/images/arrow_up.png) center center no-repeat;
     width: 130px;
@@ -2622,7 +2622,7 @@ div.scrollNav span.button_up a {
     text-indent: -999em;
 }
 
-div.scrollNav span.button_down a {
+div.scrollNav span.button_down {
     margin: 0 0;
     background: url(/images/arrow_down3.png) center center no-repeat;
     width: 130px;
@@ -4031,6 +4031,8 @@ a.large_button span {
 .searchThumb {
     float: left;
     display: inline;
+    width: 98px;
+    height: 68px;
 }
 
 .searchThumb .thumb {
