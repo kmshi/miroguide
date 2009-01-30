@@ -184,7 +184,6 @@ function showMenu(el, menu, event) {
 }
 
 function hideMenu(el, menu, event) {
-    console.log('hide ' + menu);
     el_o = $('#' + el);
     menu_o = $('#' + menu);
     if (event) {
