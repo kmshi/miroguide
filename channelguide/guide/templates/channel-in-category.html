@@ -7,14 +7,14 @@ See LICENSE for details.
 
 <div class="searchThumb">
   <a {% link channel.get_url %}>
-    <div class="thumb corners"
+    <span class="thumb corners"
          style="background: url({{ channel.thumb_url_98_68 }}); width: 98px; height: 68px;">
       {% if channel.hi_def %}
         <img class="hd_tag_tiny2"
              src="{{ STATIC_BASE_URL }}images/ico_hd_tag_tiny.png"
-             alt="" />
+             alt="{% trans "High-Definition Channel" %}">
       {% endif %}
-    </div>
+    </span>
   </a>
 </div>
 
@@ -22,16 +22,15 @@ See LICENSE for details.
   <h4>{{ channel.name_as_link }}</h4>
   <p>{{ channel.description }}</p>
 </div>
-<br clear="all" />
+<br clear="all">
 <div class="searchResultsMeta">
-  
   <ul class="rating">
     <li class="score">
       <a {% link channel.get_url %} class="add_feed_button2">
         {% if channel.url %}
-          {% trans "ADD FEED" %}
+        {% trans "ADD FEED" %}
         {% else %}
-          {% trans "ADD SITE" %}
+        {% trans "ADD SITE" %}
         {% endif %}
       </a>
     </li>

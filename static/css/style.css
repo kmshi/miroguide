@@ -95,6 +95,7 @@ ul {
 }
 
 .thumb {
+    display: block;
     margin-left: auto;
     margin-right: auto;
 }
@@ -262,7 +263,7 @@ ul {
     text-align: center;
 }
 
-#featuredItemsCarousel #innerContent ul li div.featuredItem {
+#featuredItemsCarousel #innerContent ul li span.featuredItem {
     background: url(/images/featured_img_bg.png) left bottom no-repeat;
     width: 194px;
     height: 130px;
@@ -1231,7 +1232,7 @@ h3.resultsCount .pagination {
     margin: 0;
 }
 
-#channelRelated ul li div.thumb {
+#channelRelated ul li span.thumb {
     float: left;
     display: inline;
 }
@@ -1757,7 +1758,7 @@ h3.resultsCount .pagination {
     background: none;
 }
 
-.userCarousel .innerContent ul li div.featuredItem {
+.userCarousel .innerContent ul li span.featuredItem {
     width: 92px;
     height: 61px;
     margin: 16px auto 6px auto;
@@ -2585,8 +2586,7 @@ ul.paginator2 li.selected span {
  * Scroller
  **************/
 
-ul.scrollNav {
-    list-style: none;
+div.scrollNav {
     margin: 0 0 0 30px;
     padding: 0;
     float: left;
@@ -2594,14 +2594,14 @@ ul.scrollNav {
     width: 142px;
 }
 
-ul.scrollNav li {
+div.scrollNav li, div.scrollNav span {
     margin: 0;
     padding: 0;
     float: left;
     display: inline;
 }
 
-ul.scrollNav li a {
+div.scrollNav li a, div.scrollNav span a {
     display: block;
     width: 130px;
     padding: 0 0 0 10px;
@@ -2609,12 +2609,12 @@ ul.scrollNav li a {
     line-height: 24px;
 }
 
-ul.scrollNav li a.selected {
+div.scrollNav li a.selected {
     background: url(/images/list_hover.png) 0 0 no-repeat;
     color: white;
 }
 
-ul.scrollNav li.button_up a {
+div.scrollNav span.button_up a {
     margin: 0 0;
     background: url(/images/arrow_up.png) center center no-repeat;
     width: 130px;
@@ -2622,7 +2622,7 @@ ul.scrollNav li.button_up a {
     text-indent: -999em;
 }
 
-ul.scrollNav li.button_down a {
+div.scrollNav span.button_down a {
     margin: 0 0;
     background: url(/images/arrow_down3.png) center center no-repeat;
     width: 130px;
@@ -2630,7 +2630,8 @@ ul.scrollNav li.button_down a {
     text-indent: -999em;
 }
 
-ul.scrollNav div {
+div.scrollNav ul {
+    padding: 0;
     height: 384px;
     width: 142px;
     overflow: hidden;

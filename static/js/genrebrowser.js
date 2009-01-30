@@ -1,6 +1,14 @@
 var browser = {
     scrollTimeout: null,
 
+    init: function() {
+        ul = $('#channelEpisodes div.scrollNav ul');
+        index = ul.find ('li a').index(ul.find('li a.selected'));
+        ul.attr('scrollTop', 24 * (index - 1));
+        $('#channelEpisodes .scrollNav .button_up').hover(browser.scrollUp, browser.scrollStop);
+        $('#channelEpisodes .scrollNav .button_down').hover(browser.scrollDown, browser.scrollStop);
+    },
+
     browseGenre: function(obj) {
         previousName = $(obj).parent().parent().find('a.selected').removeClass('selected').text();
         genreName = $(obj).addClass('selected').text();
@@ -74,17 +82,17 @@ var browser = {
     },
 
     scrollUp: function() {
-        div = $("#channelEpisodes ul.scrollNav div");
-        top = parseInt(div.attr('scrollTop'));
-        div.attr('scrollTop', top - 24);
+        ul = $("#channelEpisodes div.scrollNav ul");
+        top = parseInt(ul.attr('scrollTop'));
+        ul.attr('scrollTop', top - 24);
         browser.scrollStop();
         browser.scrollTimeout = setTimeout(browser.scrollUp, 50)
     },
 
     scrollDown: function() {
-        div = $("#channelEpisodes ul.scrollNav div");
-        top = parseInt(div.attr('scrollTop'));
-        div.attr('scrollTop', top + 24);
+        ul = $("#channelEpisodes div.scrollNav ul");
+        top = parseInt(ul.attr('scrollTop'));
+        ul.attr('scrollTop', top + 24);
         browser.scrollStop();
         browser.scrollTimeout = setTimeout(browser.scrollDown, 50)
     }
