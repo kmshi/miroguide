@@ -29,6 +29,7 @@ urlpatterns = patterns('channelguide.guide.views',
     (r'^ping/', cg_include('ping')),
     (r'^submit/', cg_include('submit')),
     (r'^share/', cg_include('share')),
+    (r'^genres/', cg_include('genres')),
     (r'^dmca$', direct_to_template,
      {'template': 'guide/dmca.html'}))
 
@@ -132,9 +133,8 @@ urlpatterns += patterns('',
                         (r'^category-peek-fragment$', redirect_to,
                          {'url': None}),
                         (r'^channels/', cg_include('channels')),
-                        (r'^genres/', cg_include('genres')),
+                        (r'^categories/', cg_include('genres')),
                         (r'^tags/', cg_include('tags')),
-                        (r'^cobranding/', cg_include('cobranding')),
-                        )
+                        (r'^cobranding/', cg_include('cobranding')))
 
 handler500 = 'channelguide.guide.views.errors.error_500'
