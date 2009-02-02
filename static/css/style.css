@@ -5,7 +5,7 @@ Color sets
    Dark gray: #191919
 */
 
-html {
+html, ul {
     margin: 0;
     padding: 0;
 }
@@ -13,7 +13,6 @@ html {
 body {
     margin: 0;
     padding: 0;
-    background: white;
     font-family: Arial, sans-serif;
     color: #191919;
     /* I don't normally like to set fixed font,
@@ -62,6 +61,10 @@ h1, h2, h3, h4, h5 {
 
 ul {
     list-style-type: none;
+}
+
+br.clear_all {
+    clear: both;
 }
 
 /*****************************************************
@@ -2345,7 +2348,7 @@ h3.resultsCount .pagination {
 .edit-box input[type="text"], .edit-box textarea {
     border: #9d9d9d 1px solid;
     padding: 2px 4px;
-    wdith: 100px;
+    width: 100px;
 }
 
 .edit-box textarea {
@@ -2421,7 +2424,7 @@ h3.resultsCount .pagination {
 }
 
 .edit-box .notes h2 {
-    color: darkRed;
+    color: #8B0000;
     padding-bottom: 5px;
 }
 
@@ -2614,7 +2617,7 @@ div.scrollNav li a.selected {
     color: white;
 }
 
-div.scrollNav span.button_up a {
+div.scrollNav span.button_up {
     margin: 0 0;
     background: url(/images/arrow_up.png) center center no-repeat;
     width: 130px;
@@ -2622,7 +2625,7 @@ div.scrollNav span.button_up a {
     text-indent: -999em;
 }
 
-div.scrollNav span.button_down a {
+div.scrollNav span.button_down {
     margin: 0 0;
     background: url(/images/arrow_down3.png) center center no-repeat;
     width: 130px;
@@ -2632,6 +2635,7 @@ div.scrollNav span.button_down a {
 
 div.scrollNav ul {
     padding: 0;
+    float: left;
     height: 384px;
     width: 142px;
     overflow: hidden;
@@ -4031,6 +4035,8 @@ a.large_button span {
 .searchThumb {
     float: left;
     display: inline;
+    width: 98px;
+    height: 68px;
 }
 
 .searchThumb .thumb {

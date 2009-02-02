@@ -7,13 +7,12 @@ function infiniteCallback(data, textStatus) {
         items.find('.rating').height(25);
         if (typeof setUpItem == 'function')
             items.find('div.details').each(setUpItem);
-        if (i == 0)
-            $('.scrolling').append(results.eq(i).children('a:first'));
         $('.scrolling').eq(i).append(items);
     }
     $('ul.paginator, ul.paginator2').replaceWith(
         $('ul.paginator, ul.paginator2', data));
     checkScroll.loading = false;
+    add_corners();
     hideLoadIndicator();
 }
 
@@ -26,7 +25,7 @@ function checkScroll() {
     if (distance < nextpage.height() + (first.height() * 6) &&
         !checkScroll.loading)
         infiniteLoad();
-    as = $('a[name]');
+    as = $('.scrolling li > a[name]');
     i = 0;
     while (i < as.length && as[i].offsetTop < doc.scrollTop())
         i++;

@@ -11,21 +11,23 @@
         title="Average Rating: {{ rating.average_rating }}"
       {% endif %}
       action="/channels/{{ rating.channel_id }}/rate/">
-  <input type="hidden" name="referer" value="{{ referer }}">
-  <label for="rating_channel_{{ rating.channel_id }}" class="avg">
-    {% if rating.average_rating %}
-      Rate Me!
-    {% else %}
-      Rated: {{ rating.rating }}
-    {% endif %}
-  </label>
-  <select name="rating" id="rating_channel_{{ rating.channel_id }}">
-    <option value="0">0</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-  </select>
-  <input type="submit" value="Go">
+   <div>
+     <input type="hidden" name="referer" value="{{ referer }}">
+       <label for="rating_channel_{{ rating.channel_id }}" class="avg">
+         {% if rating.average_rating %}
+         Rate Me!
+         {% else %}
+         Rated: {{ rating.rating }}
+         {% endif %}
+       </label>
+       <select name="rating" id="rating_channel_{{ rating.channel_id }}">
+         <option value="0">0</option>
+         <option value="1">1</option>
+         <option value="2">2</option>
+         <option value="3">3</option>
+         <option value="4">4</option>
+         <option value="5">5</option>
+       </select>
+       <input type="submit" value="Go">
+  </div>
 </form>

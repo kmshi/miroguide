@@ -2,9 +2,9 @@ var browser = {
     scrollTimeout: null,
 
     init: function() {
-        ul = $('#channelEpisodes div.scrollNav ul');
+        ul = $('#channelEpisodes div.scrollNav ul').eq(0);
         index = ul.find ('li a').index(ul.find('li a.selected'));
-        ul.attr('scrollTop', 24 * (index - 1));
+        ul.scrollTop(24 * (index - 1));
         $('#channelEpisodes .scrollNav .button_up').hover(browser.scrollUp, browser.scrollStop);
         $('#channelEpisodes .scrollNav .button_down').hover(browser.scrollDown, browser.scrollStop);
     },
@@ -82,17 +82,15 @@ var browser = {
     },
 
     scrollUp: function() {
-        ul = $("#channelEpisodes div.scrollNav ul");
-        top = parseInt(ul.attr('scrollTop'));
-        ul.attr('scrollTop', top - 24);
+        ul = $("#channelEpisodes div.scrollNav ul").eq(0);
+        ul.scrollTop(ul.scrollTop() - 24);
         browser.scrollStop();
         browser.scrollTimeout = setTimeout(browser.scrollUp, 50)
     },
 
     scrollDown: function() {
-        ul = $("#channelEpisodes div.scrollNav ul");
-        top = parseInt(ul.attr('scrollTop'));
-        ul.attr('scrollTop', top + 24);
+        ul = $("#channelEpisodes div.scrollNav ul").eq(0);
+        ul.scrollTop(ul.scrollTop() + 24);
         browser.scrollStop();
         browser.scrollTimeout = setTimeout(browser.scrollDown, 50)
     }

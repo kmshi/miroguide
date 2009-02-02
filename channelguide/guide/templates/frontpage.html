@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 {% extends 'base.html' %}
 {% comment %}
 Copyright (c) 2008 Participatory Culture Foundation
@@ -164,16 +163,16 @@ See LICENSE for details.
             {% endblocktrans %}
           </a>
 
-          <br clear="all">
+          <br class="clear_all">
 
           <div class="scrollNav">
-            <span class="button_up"><a href="#">Up</a></span>
+            <span class="button_up">Up</span>
             <ul>{# so we can limit the size of this part #}
             {% for category in categories %}
               <li><a {% ifequal category.id category_peek.category.id %}class="selected" {% endifequal %}onclick="return browser.browseGenre(this);" href="{{ category.get_url|escape }}">{{ category.name }}</a></li>
             {% endfor %}
             </ul>
-            <span class="button_down"><a href="#">Down</a></span>
+            <span class="button_down">Down</span>
           </div>
 
           <ul class="searchResults">
