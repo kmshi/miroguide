@@ -6,7 +6,7 @@ function infiniteCallback(data, textStatus) {
         items.find('form.rating').rating();
         items.find('.rating').height(25);
         if (typeof setUpItem == 'function')
-            items.find('div.details').each(setUpItem);
+            items.find('div.details').each(setUpIteml);
         if (i == 0)
             $('.scrolling').append(results.eq(i).children('a:first'));
         $('.scrolling').eq(i).append(items);
@@ -14,6 +14,7 @@ function infiniteCallback(data, textStatus) {
     $('ul.paginator, ul.paginator2').replaceWith(
         $('ul.paginator, ul.paginator2', data));
     checkScroll.loading = false;
+    add_corners();
     hideLoadIndicator();
 }
 
