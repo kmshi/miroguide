@@ -1578,11 +1578,12 @@ h3.resultsCount .pagination {
     padding: 0 0 0px 50px;
     width: 298px;
     margin-bottom:19px;
+    height: 100%;
 }
 
 .feedColumn ul.searchResults li.feed_tip p {
     color: #868686;
-    margin:0px 0 0 0;
+    margin: 0;
     line-height: 1.4em;
     color: #404040;
 }
@@ -1592,6 +1593,7 @@ h3.resultsCount .pagination {
     padding: 0 0 0px 50px;
     width: 298px;
     margin-bottom:19px;
+    height: 100%;
 }
 
 .feedColumn ul.searchResults li.sites_tip p {
