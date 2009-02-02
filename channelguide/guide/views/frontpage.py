@@ -151,10 +151,11 @@ def make_category_peek(request):
     }
 
 @cache.cache_for_user
-def index(request):
+def index(request, show_welcome=False):
     featured_channels = get_featured_channels(request)
 
     return util.render_to_response(request, 'frontpage.html', {
+        'show_welcome': show_welcome,
         'new_channels': get_new_channels(request, True, 5),
         'popular_channels': get_popular_channels(request, 4),
         'featured_channels': featured_channels[:2],
