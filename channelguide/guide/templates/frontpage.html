@@ -42,6 +42,22 @@ See LICENSE for details.
 
     <div id="featured">
       <div class="page">
+
+        {% if show_welcome %}
+          <div class="welcomeMessage">
+            <p>
+              <strong>Welcome to Miro!</strong>
+                {% blocktrans %}
+                  Click <a href="#" class="add_feed_button_welcome">ADD FEED</a>
+                  to get any show into your sidebar. The first episode
+                  begins downloading automatically and you'll get show
+                  updates as soon as they're available.
+                {% endblocktrans %}
+              <strong>{% trans "It's all free!" %}</strong>
+            </p>
+          </div><!--welcomeMessage-->
+        {% endif %}
+
         <!--Carousel-->
         <div id="featuredItemsCarousel" class="largeCarousel">
           <div id="button_previous">
