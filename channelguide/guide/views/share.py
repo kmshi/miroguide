@@ -9,6 +9,7 @@ import feedparser
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import loader, Context
+from django.utils.translation import gettext as _
 
 from channelguide import util, cache
 from channelguide.guide import filetypes
@@ -115,11 +116,8 @@ def get_channels_and_items(feed_url, connection):
                 raise FeedFetchingError('Feed is unparsable')
 
             ## generate fake channel
-            if parsed.feed.has_key('thumbnail'):
-                thumbnail_url = parsed.feed.thumbnail.href
-            else:
-                thumbnail_url = \
-                    settings.STATIC_BASE_URL + 'images/generic_feed_thumb.png'
+            thumbnail_url = (
+                settings.STATIC_BASE_URL + 'images/generic_feed_thumb.png')
 
             channel = FakeChannel(
                 parsed.feed.get('title'),
@@ -166,8 +164,16 @@ def share_feed(request):
 
     share_url = urlparse.urljoin(
         settings.BASE_URL_FULL,
-        '/share/feed/?feed_url=%s' % urllib.quote(feed_url))
-    share_links = util.get_share_links(share_url, channel.name)
+        '/share/feed/?feed_url=%s&share=false' % urllib.quote(feed_url))
+
+    share_links = None
+    share_button_url = None
+    if request.GET.get('share') == 'false':
+        share_button_url = urlparse.urljoin(
+            settings.BASE_URL_FULL,
+            '/share/feed/?feed_url=%s' % urllib.quote(feed_url))
+    else:
+        share_links = util.get_share_links(share_url, channel.name)
 
     return util.render_to_response(
         request, 'show-channel.html',
@@ -175,6 +181,7 @@ def share_feed(request):
          'items': items[:4],
          'feed_url': feed_url,
          'share_url': share_url,
+         'share_button_url': share_button_url,
          'share_type': 'feed',
          'google_analytics_ua': None,
          'share_links': share_links})
@@ -255,7 +262,7 @@ def share_item(request):
         item = FakeItem(file_url, item_name)
 
     # get the sharing info
-    get_params = {'file_url': file_url}
+    get_params = {'file_url': file_url, 'share': 'false'}
     if feed_url:
         get_params['feed_url'] = feed_url
     if webpage_url:
@@ -266,7 +273,16 @@ def share_item(request):
     share_url = urlparse.urljoin(
         settings.BASE_URL_FULL,
         '/share/item/?%s' % urllib.urlencode(get_params))
-    share_links = util.get_share_links(share_url, item.name)
+
+    share_links = None
+    share_button_url = None
+    if request.GET.get('share') == 'false':
+        get_params.pop('share')
+        share_button_url = urlparse.urljoin(
+            settings.BASE_URL_FULL,
+            '/share/item/?%s' % urllib.urlencode(get_params))
+    else:
+        share_links = util.get_share_links(share_url, item.name)
 
     # render the page
     return util.render_to_response(
@@ -280,6 +296,7 @@ def share_item(request):
          'webpage_url': webpage_url,
          'item_name': item_name,
          'share_url': share_url,
+         'share_button_url': share_button_url,
          'share_type': 'item',
          'google_analytics_ua': None,
          'share_links': share_links})

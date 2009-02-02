@@ -55,7 +55,12 @@
                 </span>
               </a>
               {% if not share_links %}
-                <a href="/items/{{ item.id }}?share=true" class="rollover_button2">
+                <a {% if share_button_url %}
+                     href="{{ share_button_url }}"
+                   {% else %}
+                     href="/items/{{ item.id }}?share=true"
+                   {% endif %}
+                   class="rollover_button2">
                   <span>{% trans "SHARE" %}</span>
                   <span class="img">
                     <img src="{{ STATIC_BASE_URL }}images/buttons/grey_stream.png"
