@@ -1,10 +1,7 @@
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
-from urllib import urlencode
-from channelguide import cache, util, settings
-from channelguide.guide.views import frontpage, channels
-from channelguide.guide.models import Channel, Category
+from channelguide import cache, util
 
 @cache.aggresively_cache
 @cache.cache_page_externally_for(3600)
