@@ -1,83 +1,120 @@
 {% extends 'base.html' %}
+
 {% comment %}
-Copyright (c) 2008 Participatory Culture Foundation
-See LICENSE for details.
+  Copyright (c) 2008 Participatory Culture Foundation
+  See LICENSE for details.
 {% endcomment %}
+
 {% load i18n channels cg_helpers %}
+
 {% block title %}Welcome to Miro{% endblock %}
 {% block underwriting %}{% endblock %}
+
 {% block head %}
-<script type="text/javascript">
-var height = undefined;
-function showPacks() {
-    $(this).toggleClass('selected');
-    $("#channellist").animate({height:height}, 'slow');
-}
+  <script type="text/javascript">
+    var height = undefined;
+    function showPacks() {
+      $(this).toggleClass('selected');
+      $("#channellist").animate({height:height}, 'slow');
+    }
 
-function hidePacks() {
-    $(this).toggleClass('selected');
-    $("#channellist").animate({height:0}, 'slow');
-}
+    function hidePacks() {
+      $(this).toggleClass('selected');
+      $("#channellist").animate({height:0}, 'slow');
+    }
 
-$(document).ready(function (){
-    height = 485;
-    $("#channellist").height(0);
-    $("dt:eq(1)").toggle(showPacks, hidePacks);
-});
-
-
-</script>
+    $(document).ready(function (){
+      height = 485;
+      $("#channellist").height(0);
+      $("dt:eq(1)").toggle(showPacks, hidePacks);
+    });
+  </script>
 {% endblock %}
+
 {% block body %}
-<div class="first-time-page">
+  <div class="first-time-page">
     <dl id="list">
-        <dt class="first">{% trans "WELCOME TO MIRO!" %}</dt>
-        <dd class="first">
-            <h2>{% trans "Three things to remember..." %}</h2>
-            <ul>
-                <li>1) {% trans "Miro lets you subscribe to shows for free (they go to your sidebar)" %}</li>
-                <li>2) {% trans "Miro will automatically download new videos from your feeds" %}</li>
-                <li>3) {% trans "A " %}<em>{% trans "green" %}</em>{% trans " bubble (in the sidebar) means you've got " %}<em>{% trans "new" %}</em>{% trans " video" %}</li>
-            </ul>
-        </dd>
-        <dt>{% trans "We Have Show Recommendations for You! <u>click here</u>" %}</dt>
-        <dd id="channellist">
-            <span class="info">Each show pack gets you started with 5 great shows &mdash; add <img src="{{ STATIC_BASE_URL }}images/mini-add.png" alt=""> as many as you want.</span>
-            {% fourcolumnloop  with column in channel_columns %}
-                {% for channel in column %}
-                    <div class="channel">
-                        <img src="{{ STATIC_BASE_URL }}images/landing-icons/{{ channel.1 }}" alt="Icon for {{ channel.0 }} Show Pack">
-                        <div class="subscribe"><a class="add" href="{{ channel.2 }}"><span class="icon"></span>Add {{ channel.0 }}</a></div>
-                    </div>
-                {% endfor %}
-            {% endfourcolumnloop %}
-        </dd>
-        {% comment %}
+      <dt class="first">{% trans "WELCOME TO MIRO!" %}</dt>
+      <dd class="first">
+        <h2>{% trans "Three things to remember..." %}</h2>
+        <ul>
+          <li>
+            1)
+            {% trans "Miro lets you subscribe to shows for free (they go to your sidebar)" %}
+          </li>
+          <li>
+            2)
+            {% trans "Miro will automatically download new videos from your feeds" %}
+          </li>
+          <li>
+            3)
+            {% trans "A " %}<em>{% trans "green" %}</em>
+            {% trans " bubble (in the sidebar) means you've got " %}
+            <em>{% trans "new" %}</em>{% trans " video" %}
+          </li>
+        </ul>
+      </dd>
+      <dt>{% trans "We Have Show Recommendations for You! <u>click here</u>" %}</dt>
+      <dd id="channellist">
+        <span class="info">
+          Each show pack gets you started with 5 great shows &mdash;
+          add <img src="{{ STATIC_BASE_URL }}images/mini-add.png" alt="">
+          as many as you want.
+        </span>
+        {% fourcolumnloop  with column in channel_columns %}
+          {% for channel in column %}
+            <div class="channel">
+              <img src="{{ STATIC_BASE_URL }}images/landing-icons/{{ channel.1 }}"
+                   alt="Icon for {{ channel.0 }} Show Pack">
+              <div class="subscribe">
+                <a class="add" href="{{ channel.2 }}">
+                  <span class="icon"></span>Add {{ channel.0 }}
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        {% endfourcolumnloop %}
+      </dd>
+      {% comment %}
         <dt class="closed">{% trans "Share Miro With Your Friends:" %}</dt>
         <dd>
-            <div class="third-step">
-                <h2>Miro is doing its thing...</h2>
-                <img src="{{ STATIC_BASE_URL}}images/play-downloads.png" alt="Videos downloaded in Miro">
-                Miro is getting the first video from each feed.  You'll see green ovals in your sidebar when videos are ready to watch.
-            </div>
-            <div class="third-step">
-                <h2>In the mean time,</h2>
-                <img src="{{ STATIC_BASE_URL }}images/guide-preview.jpg" alt="Preview of the Miro Guide">
-                Find thousands of free shows in the Miro Guide, add as many as you want.
-            </div>
-            <div id="faqs">
-                <dl>
-                {% for faq in faqs %}
-                    <dt><a href="#">{{ faq.0 }}</a></dt>
-                    <dd>{{ faq.1 }}</dd>
-                {% endfor %}
-                </dl>
-            </div>
-            </dd>
-            {% endcomment %}
+          <div class="third-step">
+            <h2>Miro is doing its thing...</h2>
+            <img src="{{ STATIC_BASE_URL}}images/play-downloads.png"
+                 alt="Videos downloaded in Miro">
+            Miro is getting the first video from each feed.  You'll
+            see green ovals in your sidebar when videos are ready to
+            watch.
+          </div>
+          <div class="third-step">
+            <h2>In the mean time,</h2>
+            <img src="{{ STATIC_BASE_URL }}images/guide-preview.jpg"
+                 alt="Preview of the Miro Guide">
+            Find thousands of free shows in the Miro Guide, add as
+            many as you want.
+          </div>
+          <div id="faqs">
+            <dl>
+              {% for faq in faqs %}
+                <dt><a href="#">{{ faq.0 }}</a></dt>
+                <dd>{{ faq.1 }}</dd>
+              {% endfor %}
+            </dl>
+          </div>
+        </dd>
+      {% endcomment %}
     </dl>
     <div id="nothanks">
-        <div class="button"><a {% link "/" %}>{% trans "Get Started"%}<span>{% blocktrans with total_channels as total_channels %}Browse All {{ total_channels }} shows{% endblocktrans %}</span></a></a>
+      <div class="button">
+        <a {% link "/" %}>
+          {% trans "Get Started"%}
+          <span>
+            {% blocktrans with total_channels as total_channels %}
+              Browse All {{ total_channels }} shows
+            {% endblocktrans %}
+          </span>
+        </a>
+      </div>
     </div>
-</div>
+  </div>
 {% endblock %}
