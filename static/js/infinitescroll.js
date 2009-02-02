@@ -7,8 +7,6 @@ function infiniteCallback(data, textStatus) {
         items.find('.rating').height(25);
         if (typeof setUpItem == 'function')
             items.find('div.details').each(setUpIteml);
-        if (i == 0)
-            $('.scrolling').append(results.eq(i).children('a:first'));
         $('.scrolling').eq(i).append(items);
     }
     $('ul.paginator, ul.paginator2').replaceWith(

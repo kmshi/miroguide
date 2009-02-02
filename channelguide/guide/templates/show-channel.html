@@ -44,11 +44,11 @@
     <div class="page">
       {% if channel.url %}
         <a href="{{ channel.url }}" class="channel_feed_only">
-          <img src="{{ STATIC_BASE_URL }}images/ico_red_feeds.png" alt="" />
+          <img src="{{ STATIC_BASE_URL }}images/ico_red_feeds.png" alt="RSS">
         </a>
       {% else %}
         <a href="{{ channel.website_url }}" class="stream_only">
-          <img src="{{ STATIC_BASE_URL }}images/ico_stream.png" alt="" />
+          <img src="{{ STATIC_BASE_URL }}images/ico_stream.png" alt="Site">
         </a>
       {% endif %}
       <h1>{{ channel.name }}</h1>
@@ -58,12 +58,12 @@
             <span class="button_text">{% trans "Add to your feeds" %}</span>
             <img class="button_icon"
                  src="{{ STATIC_BASE_URL }}images/buttons/button_large_rss.png"
-                 alt="" />
+                 alt="RSS">
           {% else %}
             <span class="button_text">{% trans "Add to your sites" %}</span>
             <img class="button_icon"
                  src="{{ STATIC_BASE_URL }}images/buttons/button_large_streaming.png"
-                 alt="" />
+                 alt="Site">
           {% endif %}
         </a>
       </div>
@@ -119,20 +119,20 @@
       </div>
 
       <a href="{{ self.get_subscription_url }}">
-        <div class="thumb corners"
+        <span class="thumb corners"
              style="background: url({{ channel.thumb_url_245_164 }}); width: 245px; height: 164px;">
           {% if channel.hi_def %}
           <img class="hd_tag_large channel2_hd"
-               src="{{ STATIC_BASE_URL }}images/ico_hd_tag_large.png" alt="HD" />
+               src="{{ STATIC_BASE_URL }}images/ico_hd_tag_large.png" alt="HD">
           {% endif %}
-        </div>
+        </span>
         </a>
     </div>
   </div>
 
   <div class="horizontal_banner_ad">
     <a href="#">
-      <img src="{{ STATIC_BASE_URL }}images/ads/728x90.jpg" alt="Ad" />
+      <img src="{{ STATIC_BASE_URL }}images/ads/728x90.jpg" alt="Ad">
     </a>
   </div>
   {% if channel.url %}
@@ -144,7 +144,7 @@
 	    <span class="heading">{% trans "Recently Aired" %}</span>
 	    <span class="button">
               <a href="#">
-                <img src="{{ STATIC_BASE_URL }}images/ico_refresh.png" alt="" />
+                <img src="{{ STATIC_BASE_URL }}images/ico_refresh.png" alt="">
               </a>
             </span>
 	  </h3>
@@ -168,11 +168,11 @@
           {% endfor %}
 	</ul>
 
-	<br clear="all" />
+	<br class="clear_all">
         <ul class="scrolling">
-          <a name="{{ item_page.number }}"></a>
           {% for item in item_page.object_list %}
           <li>
+            {% if forloop.first %}<a name="{{ item_page.number }}"></a>{% endif %}
             <div class="detailsTop"></div>
             {% include "guide/item.html" %}
           </li>
