@@ -24,7 +24,7 @@
 
 {% block onload-extra %}add_share_callbacks();{% endblock %}
 
-{% block title %}{{ channel.name|escape }} - Miro{% endblock %}
+{% block title %}{% trans "Miro Guide - " %} {{ channel.name|escape }}{% endblock %}
 
 {% block body-attributes %} {% endblock %}
 
