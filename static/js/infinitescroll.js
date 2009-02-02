@@ -6,7 +6,7 @@ function infiniteCallback(data, textStatus) {
         items.find('form.rating').rating();
         items.find('.rating').height(25);
         if (typeof setUpItem == 'function')
-            items.find('div.details').each(setUpIteml);
+            items.find('div.details').each(setUpItem);
         $('.scrolling').eq(i).append(items);
     }
     $('ul.paginator, ul.paginator2').replaceWith(
@@ -25,7 +25,7 @@ function checkScroll() {
     if (distance < nextpage.height() + (first.height() * 6) &&
         !checkScroll.loading)
         infiniteLoad();
-    as = $('a[name]');
+    as = $('.scrolling li > a[name]');
     i = 0;
     while (i < as.length && as[i].offsetTop < doc.scrollTop())
         i++;
