@@ -3,8 +3,8 @@ Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
 {% load i18n cg_helpers %}
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-          "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+          "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -101,8 +101,9 @@ See LICENSE for details.
 
         <div id="searchBG"></div>
 
-        <div id="searchSpot">
-          <form method="get" action="{{ BASE_URL }}search">
+        <form method="get" action="{{ BASE_URL }}search">
+
+          <div id="searchSpot">
             <input type="text" class="headSearch" name="query"
                    id="search_query" value="{% trans "Search" %}">
             <script type="text/javascript">
@@ -110,8 +111,8 @@ See LICENSE for details.
                    $("#searchSpot input").focus(searchFocus).blur(searchBlur);
               //]]>
             </script>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
 
