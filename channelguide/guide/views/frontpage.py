@@ -39,8 +39,7 @@ def get_popular_channels(request, count, language=None):
     query = Channel.query_approved(archived=0, user=request.user)
     lang = get_current_language(request)
     if lang is not None:
-        query.where((Channel.c.primary_language_id==lang.id) |
-                    Language.secondary_language_exists_where(lang.id))
+        query.where(Channel.c.primary_language_id==lang.id)
     query.join('rating')
     query.load('subscription_count_today')
     query.order_by('subscription_count_today', desc=True)
