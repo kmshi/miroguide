@@ -58,8 +58,6 @@ function editBoxLoad(){
     editBox.append('<div class="clear"><\/div>')
     editBox.height(0).css('overflow', 'hidden').show();
     editBox.find("div.form_row:lt(6)").each(function() {
-        console.log(this);
-        console.log($(this).width());
         var label = $(this).children("label");
         var input = $(this).children("input");
         var textarea = $(this).children("textarea");
