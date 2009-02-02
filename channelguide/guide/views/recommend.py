@@ -51,7 +51,7 @@ def index(request):
     context = {'feed_page': feed_page,
                'show_page': show_page,
                'pages': _calculate_pages(request, biggest),
-               'title': "Channels You'll &hearts;"
+               'title': "Shows You'll Love;"
                }
     return util.render_to_response(request, 'recommend.html', context)
 

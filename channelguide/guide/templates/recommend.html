@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'listing.html' %}
 
 {% comment %}
   Copyright (c) 2008 Participatory Culture Foundation
@@ -7,95 +7,17 @@
 
 {% load i18n channels cg_helpers %}
 
-{% block title %}
-  {% trans "Miro Guide - Shows You'll Love" %}
+{% block infoBox %}
+    <h1 class="lovedVideos">{% trans "Videos You'll Love" %}</h1>
 {% endblock %}
 
-{% block content %}
-  <div class="infoBox">
-    <h1 class="lovedVideos">{% trans "Videos You'll Love" %}</h1>
-    <ul class="paginator2">
-      <li class="tag">Pages</li>
-      {% for number, link in pages %}
-      {% ifequal number "tag" %}
-      <li class="tag">...</li>
-      {% else %}
-      <li {% ifequal number feed_page.number %}class="selected"{% endifequal %}><span><a href="{{ link }}">{{ number }}</a></span></li>
-      {% endifequal %}
-      {% endfor %}
-    </ul>
-  </div>
+{% block infoBar %}
+{% endblock %}
 
-  <div class="infoBar">
-    <div class="innerBar">
-      {% comment %} TODO enable/merge in geoip filtering
-      <a href="#" class="show_channels">{% trans "show all" %}</a>
-      <span class="extra">
-        {% trans "Certain shows are not available in your region" %}
-      </span>
-      {% endcomment %}
+{% block tips %}
+    <div id="videoTips">
+      <p class="title">We suggest you try these out!</p>
+      <p class="tip">Miro takes the video you like, compares them with other viewers' tastes, and then gives you recommendations.</p>
+      <p class="tip">Rate more videos and feeds for more recommendations.</p>
     </div>
-  </div>
-
-  <div class="page">
-    <div class="feedColumn">
-      <div class="detailsHead4">
-        <h3 class="resultsCount">
-          <span class="heading">{% trans "Feeds" %}</span>
-          <span class="button">
-            <a href="#">
-              <img src="{{ STATIC_BASE_URL }}images/ico_rss_title.png" alt="" />
-            </a>
-          </span>
-        </h3>
-        <div class="sortType">
-          <a href="#"><strong>{{ feed_page.paginator.count }}</strong></a>
-        </div>
-      </div><!--detailsHead-->
-      <ul class="searchResults">
-        {% if feed_page %}
-        {% for channel in feed_page.object_list %}
-          <li>
-            {% include "guide/channel-in-listing.html" %}
-          </li>
-        {% endfor %}
-        {% else %}
-        <li class="rate_more">
-          <h3>Rate more videos!</h3>
-          <p>We're fresh out of recommendations.</p>
-        </li>
-        {% endif %}
-      </ul>
-    </div><!--feedColumn-->
-
-    <div class="feedColumn">
-      <div class="detailsHead4">
-	<h3 class="resultsCount">
-	  <span class="heading">Sites</span>
-	  <span class="button">
-            <a href="#">
-              <img src="{{ STATIC_BASE_URL }}images/ico_refresh.png" alt="" />
-            </a>
-          </span>
-	</h3>
-	<div class="sortType">
-	  <a href="#"><strong>{{ show_page.paginator.count }}</strong></a>
-	</div>
-      </div><!--detailsHead-->
-      <ul class="searchResults">
-        {% if show_page %}
-        {% for channel in show_page.object_list %}
-          <li>
-            {% include "guide/channel-in-listing.html" %}
-          </li>
-        {% endfor %}
-        {% else %}
-	<li class="rate_more">
-	  <h3>Rate more videos!</h3>
-	  <p>We're fresh out of recommendations.</p>
-	</li>
-        {% endif %}
-      </ul>
-    </div><!--feedColumn-->
-  </div><!--page-->
 {% endblock %}

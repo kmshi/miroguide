@@ -18,7 +18,9 @@
   </div>
   {% else %}
     <div class="infoBox">
+      {% block infoBox %}
       <h1>{{ title }}</h1>
+      {% endblock %}
       <ul class="paginator2">
         {% pagelinks feed_page %}
       </ul>
@@ -26,6 +28,7 @@
 
     <div class="infoBar">
       <div class="innerBar">
+        {% block infoBar %}
         <span class="results">
           <span class="results_tag">{% trans "Search Results" %}</span>
           {{ feed_page.paginator.count }}
@@ -38,8 +41,12 @@
             Certain shows are not available in your region
           </span>
         {% endcomment %}
+        {% endblock %}
       </div><!--innerBar-->
     </div><!--infoBar-->
+
+    {% block tips %}
+    {% endblock %}
 
     <div class="horizontal_banner_ad">
       <a href="#"><img src="images/ads/728x90.jpg" alt="Ad"></a>
@@ -65,6 +72,9 @@
           </div>
         </div><!--detailsHead-->
         <ul class="searchResults scrolling">
+          <li class="feed_tip tip">
+            <p>{% trans "Video feeds can be downloaded and watched without an internet connection. Many are in full HD." %}</p>
+          </li>
           {% for channel in feed_page.object_list %}
             <li>
               {% if forloop.first %}<a name="{{ feed_page.number }}"></a>{% endif %}
@@ -91,7 +101,10 @@
               </a>
             </div>
           </div><!--detailsHead-->
-          <ul class="searchResults">
+          <ul class="searchResults scrolling">
+            <li class="sites_tip tip">
+              <p>{% trans "Streaming sites require a fast internet connection. You can bookmark them as favorites with Miro." %}</p>
+            </li>
             {% for channel in site_page.object_list %}
               <li>
                 {% include "guide/channel-in-listing.html" %}
