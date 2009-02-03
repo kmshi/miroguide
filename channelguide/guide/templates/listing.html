@@ -56,7 +56,7 @@
 
     <div class="page">
       {% if feed_page.object_list %}
-        <div class="feedColumn">
+        <div class="feedColumn" id="feeds_column">
           <div class="detailsHead4">
             <h3 class="resultsCount">
               <span class="heading">{% trans "Feeds" %}</span>
@@ -87,7 +87,7 @@
       {% endif %}
 
       {% if site_page.object_list %}
-        <div class="feedColumn">
+        <div class="feedColumn" id="sites_column">
           <div class="detailsHead4">
             <h3 class="resultsCount">
               <span class="heading">{% trans "Sites" %}</span>
