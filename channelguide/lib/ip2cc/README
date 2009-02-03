@@ -1,0 +1,46 @@
+		  ip2cc: Lookup country country by IP address
+                  ===========================================
+
+(c) 2002 Denis S. Otkidach
+
+WHAT IS IT
+
+If you want to gather web statistics by countries (not by top-level
+domains) or implement targeting, here is solution: ip2cc.  This module
+allows to resolve country from IP address.
+
+USAGE
+
+update.py                   - build/update database
+ip2cc.py <address>          - print country name for which
+                              <address> is registered
+For example:
+$ ./ip2cc.py python.org
+python.org (194.109.137.226) is located in NETHERLANDS
+$ ./ip2cc.py google.com.ru
+google.com.ru (216.239.33.100) is located in UNITED STATES
+
+Module can be used as CGI.
+
+LICENSE
+
+Python-style
+
+ACKNOWLEDGEMENTS
+
+Jason R. Mastaler
+Fredrik Lundh
+
+CHANGES
+
+0.4	- Added AfriNIC to sources.
+
+0.3	- Due to bug in bsddb module (http://python.org/sf/788421) it's
+	  rewritten to use very simple own database.
+
+0.2	- Adopted to new format of registrars.
+	- Added LACNIC to sources.
+	- Fixed contry code map and added -check option to simplify
+	  maintainance.
+
+0.1	Initial release

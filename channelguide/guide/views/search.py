@@ -14,7 +14,6 @@ def get_search_terms(query):
 def terms_too_short(terms):
     return len([term for term in terms if len(term) >= 3]) == 0
 
-
 @cache.aggresively_cache('search')
 def search(request):
     try:
@@ -36,5 +35,6 @@ def search(request):
             'search_query': search_query,
             'terms_too_short': True,
             })
+
 
     return filtered_listing(request, search_query, 'search', title=search_query)

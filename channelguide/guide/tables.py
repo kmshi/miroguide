@@ -102,7 +102,8 @@ channel = Table('cg_channel',
         columns.Int('last_moderated_by_id', fk=user.c.id),
         columns.String('postal_code', 15),
         columns.Int('adult', default=0),
-        columns.Int('archived', default=0))
+        columns.Int('archived', default=0),
+        columns.String('geoip', 100, default=''))
 added_channel = Table('cg_channel_added',
                       columns.Int('channel_id', fk=channel.c.id,
                                   primary_key=True),

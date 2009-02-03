@@ -34,13 +34,12 @@
           {{ feed_page.paginator.count }}
           feeds contain videos that match "{{ title|lower }}"
         </span>
-        {% comment %}
-          TODO merge in/enable geoip filtering
-          <a href="#" class="show_channels">show all</a>
+        {% if geoip_filtered %}
+          <a href="{{ geoip_filtered }}" class="show_channels">show all</a>
           <span class="extra">
             Certain shows are not available in your region
           </span>
-        {% endcomment %}
+          {% endif %}
         {% endblock %}
       </div><!--innerBar-->
     </div><!--infoBar-->
