@@ -1953,6 +1953,10 @@ h3.resultsCount .pagination {
     padding: 5px 0;
 }
 
+.alertBox {
+    background: #fffded;
+}
+
 #share_box .alertBox {
     background: #fffded url(/images/gift.png) 13px 8px no-repeat;
     width: 704px;
