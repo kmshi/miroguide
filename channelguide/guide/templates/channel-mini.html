@@ -15,8 +15,8 @@ See LICENSE for details.
   </a>
 </div>
 {% if channel.url %}
-  <a {% link channel.get_url %} class="add_feed_button">ADD FEED</a>
+  <a {{ channel.subscription_link }} class="add_feed_button">ADD FEED</a>
 {% else %}
-  <a {% link channel.get_url %} class="add_feed_button">ADD SITE</a>
+  <a {{ channel.subscription_link }} class="add_feed_button">ADD SITE</a>
 {% endif %}
 <p><a href="{{ channel.get_absolute_url }}">{{ channel.name }}</a></p>

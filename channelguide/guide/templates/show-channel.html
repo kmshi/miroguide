@@ -52,7 +52,7 @@
         </a>
       {% endif %}
       <div class="large_add_button channel_page_button">
-        <a href="{{ channel.get_subscription_url }}">
+        <a {{ channel.subscription_link }}>
           {% if channel.url %}
             <span class="button_text">{% trans "Add to your feeds" %}</span>
             <img class="button_icon"
