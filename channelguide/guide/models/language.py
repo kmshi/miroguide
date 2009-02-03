@@ -28,7 +28,7 @@ class Language(Record):
         return util.make_url('feeds/languages/%s' % self.name)
 
     def link(self):
-        return util.make_link(self.get_url(), str(self))
+        return util.make_link(self.get_url(), _(self.name))
 
     def __str__(self):
         return self.name
