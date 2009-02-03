@@ -94,7 +94,7 @@ class Channel(Record, Thumbnailable):
         if self.url:
             head = 'feeds'
         else:
-            head = 'shows'
+            head = 'sites'
         return util.make_url('%s/%i' % (head, self.id))
 
     def get_absolute_url(self):

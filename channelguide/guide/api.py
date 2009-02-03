@@ -25,17 +25,16 @@ def get_channel_by_url(connection, url):
                                        'language').get(
         connection)
 
-def get_channels_query(connection, filter, value, sort=None, loads=None):
+
+def get_channels_query(connection, filter, value, sort=None,
+                       country_code=None):
     query = Channel.query_approved()
     join = None
     if filter == 'category':
         try:
             category_id = Category.query(name=value).get(connection).id
         except LookupError:
-            if sort and 'count' in sort:
-                return 0
-            else:
-                return []
+            return None
         join = 'categories'
         query.join(join)
         query.joins[join].where(id=category_id)
@@ -43,10 +42,7 @@ def get_channels_query(connection, filter, value, sort=None, loads=None):
         try:
             tag_id = Tag.query(name=value).get(connection).id
         except LookupError:
-            if sort and 'count' in sort:
-                return 0
-            else:
-                return []
+            return None
         join = 'tags'
         query.join(join)
         query.joins[join].where(id=tag_id)
@@ -54,10 +50,7 @@ def get_channels_query(connection, filter, value, sort=None, loads=None):
         try:
             language_id = Language.query(name=value).get(connection).id
         except LookupError:
-            if sort and 'count' in sort:
-                return 0
-            else:
-                return []
+            return None
         query.where(Channel.c.primary_language_id == language_id)
     elif filter == 'featured':
         if value:
@@ -81,6 +74,9 @@ def get_channels_query(connection, filter, value, sort=None, loads=None):
         query = search_mod.search_channels(value.split())
     else:
         raise ValueError('unknown filter: %r' % (filter,))
+    if country_code:
+        query.where((Channel.c.geoip == "") |
+                    Channel.c.geoip.like(country_code))
     if sort is not None and sort[0] == '-':
         desc = True
         sort = sort[1:]
@@ -95,14 +91,10 @@ def get_channels_query(connection, filter, value, sort=None, loads=None):
     elif sort == 'popular':
         query.load('subscription_count_month')
         query.order_by('subscription_count_month', desc=desc)
-    elif sort.startswith('rating'):
+    elif sort == 'rating':
         query.join('rating')
         query.where(query.joins['rating'].c.count > 3)
-        if sort == 'ratingcount':
-            return query.count(connection)
         query.order_by(query.joins['rating'].c.average, desc=desc)
-    elif sort == 'count':
-        return query.count(connection)
     else:
         raise ValueError('unknown sort type: %r' % sort)
     return query
@@ -115,6 +107,18 @@ def _split_loads(loads):
         joins = loads = ()
     return joins, loads
 
+def _use_sort(sort):
+    """
+    For sorts that actually returns counts (count, ratingcount), this returns
+    the sort that we should actually use.
+    """
+    if sort == 'count':
+        return 'name'
+    elif sort == 'ratingcount':
+        return 'rating'
+    else:
+        return sort
+
 def _add_limit_and_offset(query, limit, offset):
     if limit is None:
         limit = 20
@@ -125,14 +129,20 @@ def _add_limit_and_offset(query, limit, offset):
     return query.limit(limit).offset(offset)
 
 def get_feeds(connection, filter, value, sort=None, limit=None, offset=None,
-              loads=None):
-    query = get_channels_query(connection, filter, value, sort=sort)
-    # int is returned for 0 counts, longs for regular counts and lists for
-    # empty lists
-    if isinstance(query, (int, long, list)):
-        return query
+              loads=None, country_code=None):
+    use_sort = _use_sort(sort)
+    query = get_channels_query(connection, filter, value, use_sort,
+                               country_code)
+    if query:
+        query.where(Channel.c.url.is_not(None))
+    if sort != use_sort:
+        if query:
+            return query.count(connection)
+        else:
+            return 0
+    if not query:
+        return []
     _add_limit_and_offset(query, limit, offset)
-    query.where(Channel.c.url.is_not(None))
     joins, loads = _split_loads(loads)
     query.load(*loads)
     results = query.execute(connection)
@@ -141,14 +151,20 @@ def get_feeds(connection, filter, value, sort=None, limit=None, offset=None,
     return results
 
 def get_sites(connection, filter, value, sort=None, limit=None, offset=None,
-              loads=None):
-    query = get_channels_query(connection, filter, value, sort=sort)
-    # int is returned for 0 counts, longs for regular counts and lists for
-    # empty lists
-    if isinstance(query, (int, long, list)):
-        return query
+              loads=None, country_code=None):
+    use_sort = _use_sort(sort)
+    query = get_channels_query(connection, filter, value, use_sort,
+                               country_code)
+    if query:
+        query.where(Channel.c.url.is_(None))
+    if sort != use_sort:
+        if query:
+            return query.count(connection)
+        else:
+            return 0
+    if not query:
+        return []
     _add_limit_and_offset(query, limit, offset)
-    query.where(Channel.c.url.is_(None))
     joins, loads = _split_loads(loads)
     query.load(*loads)
     results = query.execute(connection)

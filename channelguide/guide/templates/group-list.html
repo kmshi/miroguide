@@ -16,7 +16,7 @@ See LICENSE for details.
 <ul class="group-list">
 {% for group in groups %}
   {% if group.channel_count %}
-  <li>{{ group.link }} <span class="channel-count">{{ group.channel_count}} Shows</span></li>
+  <li>{{ group.link }} <span class="channel-count">{% blocktrans with  group.channel_count as count %}{{ count }} Shows{% endblocktrans %}</span></li>
   {% endif %}
 {% endfor %}
 </ul>

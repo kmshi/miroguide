@@ -17,6 +17,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 import django.newforms as forms
 import feedparser
+import ip2cc
 
 from channelguide.guide.feedutil import to_utf8
 from channelguide.guide.models import Language, Category, Channel
@@ -332,6 +333,10 @@ class SubmitChannelForm(Form):
             required=False)
     hi_def = forms.BooleanField(label=_('High Definition'),
             help_text=HD_HELP_TEXT, required=False)
+    geoip = WideCharField(max_length=100, label=_("Geographic restrictions"),
+                          help_text="A comma-separated list of country codes "
+                          "to which this site is limited.",
+                          required=False)
     thumbnail_file = ChannelThumbnailField(
         label=_('Upload Image'),
         help_text=_("Remember that creating a good channel thumbnail is one of "
@@ -360,10 +365,21 @@ class SubmitChannelForm(Form):
                 _('That streaming site already exists.'))
         return value
 
+    def clean_geoip(self):
+        value = self.cleaned_data['geoip'].upper()
+        codes = [code.strip() for code in value.split(',')]
+        filtered = [code for code in codes if code not in ip2cc.cc2name]
+        if filtered:
+            raise forms.ValidationError(
+                _('The following country codes are invalid: %s') %
+                ', '.join(filtered))
+        return ','.join(codes)
+
     def set_defaults(self, saved_data):
         if saved_data['owner-is-fan']:
             self.fields['publisher'].required = False
-        for key in ('name', 'website_url', 'publisher', 'description', 'url'):
+        for key in ('name', 'website_url', 'publisher', 'description', 'url',
+                    'geoip'):
             if saved_data.get(key) is not None:
                 self.fields[key].initial = saved_data[key]
         if saved_data.get('thumbnail_url') and 'youtube.com/rss' not in saved_data['url']:
@@ -424,7 +440,7 @@ class SubmitChannelForm(Form):
 
     def update_channel(self, channel):
         string_cols = ('name', 'website_url',
-                'description', 'publisher', 'postal_code')
+                'description', 'publisher', 'postal_code', 'geoip')
         for attr in string_cols:
             setattr(channel, attr, self.cleaned_data[attr].encode('utf-8'))
         channel.hi_def = self.cleaned_data['hi_def']
@@ -469,7 +485,7 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
         join.execute(self.connection)
         for key in ('url', 'name', 'hi_def', 'website_url',
                 'description', 'publisher',
-                'postal_code'):
+                'postal_code', 'geoip'):
             self.fields[key].initial = getattr(self.channel, key)
         tags = self.channel.get_tags_for_owner(self.connection)
         tag_names = [tag.name for tag in tags]

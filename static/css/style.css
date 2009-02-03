@@ -1953,7 +1953,11 @@ h3.resultsCount .pagination {
     padding: 5px 0;
 }
 
-.alert .alertBox {
+.alertBox {
+    background: #fffded;
+}
+
+#share_box .alertBox {
     background: #fffded url(/images/gift.png) 13px 8px no-repeat;
     width: 704px;
     float: left;
@@ -1980,7 +1984,7 @@ h3.resultsCount .pagination {
     clear: both;
 }
 
-.sharebox h2 {
+.alertBox h2 {
     margin: 0;
     padding: 0;
     line-height: 3em;

@@ -17,6 +17,7 @@ from channelguide.cache.middleware import UserCacheMiddleware
 from channelguide.guide import api, forms, templateutil
 from channelguide.guide.auth import (admin_required, moderator_required,
                                      login_required)
+from channelguide.guide.country import country_code
 from channelguide.guide.exceptions import AuthError
 from channelguide.guide.models import (Channel, Item, User, FeaturedEmail,
                                        ModeratorAction, ChannelNote, Rating,
@@ -43,12 +44,13 @@ class ItemObjectList(templateutil.QueryObjectList):
             self.connection))
 
 class ApiObjectList:
-    def __init__(self, connection, filter, value, sort, loads):
+    def __init__(self, connection, filter, value, sort, loads, country_code):
         self.connection = connection
         self.filter = filter
         self.value = value
         self.sort = sort
         self.loads = loads
+        self.country_code = country_code
         if 'rating' in sort:
             self.count_sort = 'ratingcount'
         else:
@@ -62,15 +64,23 @@ class ApiObjectList:
         """
         raise NotImplementedError()
 
-    def __len__(self):
+    def count_all(self):
+        """
+        Return the count of items, not filtering by country.
+        """
         return int(self.call(self.connection, self.filter,
                              self.value, self.count_sort))
 
+    def __len__(self):
+        return int(self.call(self.connection, self.filter,
+                             self.value, self.count_sort,
+                             country_code = self.country_code))
+
     def __getslice__(self, offset, end):
         limit = end - offset
-        return tuple(self.call(self.connection, self.filter,
-                         self.value, self.sort, limit,
-                         offset, self.loads))
+        return tuple(self.call(self.connection, self.filter, self.value,
+                               self.sort, limit, offset, self.loads,
+                               self.country_code))
 
 class FeedObjectList(ApiObjectList):
     def call(self, *args, **kw):
@@ -114,102 +124,6 @@ def _calculate_pages(request, page, default_page=1):
             yield (number, util.make_absolute_url(path, get_data))
         else:
             yield ('tag', None)
-
-class ItemObjectList:
-    def __init__(self, connection, channel):
-        self.connection = connection
-        self.channel = channel
-
-    def query(self):
-        return Item.query(Item.c.channel_id == self.channel.id).order_by(
-            Item.c.date, desc=True).join('channel')
-
-    def __len__(self):
-        return int(self.query().count(
-                self.connection))
-
-    def __getslice__(self, offset, end):
-        limit = end - offset
-        return tuple(self.query().limit(limit).offset(offset).execute(
-            self.connection))
-
-
-class ApiObjectList:
-    def __init__(self, connection, filter, value, sort, loads):
-        self.connection = connection
-        self.filter = filter
-        self.value = value
-        self.sort = sort
-        self.loads = loads
-        if 'rating' in sort:
-            self.count_sort = 'ratingcount'
-        else:
-            self.count_sort = 'count'
-
-    def call(self, *args, **kw):
-        """
-        Call the appropriate API function.  We do it this way because assigning
-        a function as an attribute of a class makes it a method, and we don't
-        want the extra `self` argument.
-        """
-        raise NotImplementedError()
-
-    def __len__(self):
-        return int(self.call(self.connection, self.filter,
-                             self.value, self.count_sort))
-
-    def __getslice__(self, offset, end):
-        limit = end - offset
-        return tuple(self.call(self.connection, self.filter,
-                         self.value, self.sort, limit,
-                         offset, self.loads))
-
-
-class FeedObjectList(ApiObjectList):
-    def call(self, *args, **kw):
-        return api.get_feeds(*args, **kw)
-
-
-class SiteObjectList(ApiObjectList):
-    def call(self, *args, **kw):
-        return api.get_sites(*args, **kw)
-
-
-def _calculate_pages(request, page, default_page=1):
-    page_range = page.paginator.page_range
-    if page.paginator.num_pages > 9:
-        low = page.number - 5
-        high = page.number + 4
-        if low < 0:
-            high -= low
-            low = 0
-        if high > page.paginator.num_pages and low > 0:
-            low += (page.paginator.num_pages - high)
-            if low < 0:
-                low = 0
-        middle = page_range[low:high]
-        if middle[:2] != [1, 2]:
-            middle = [1, 2, None] + middle[3:]
-        if middle[-2:] != [page.paginator.num_pages - 1, page.paginator.num_pages]:
-            middle = middle[:-3] + [None, page.paginator.num_pages - 1,
-                                    page.paginator.num_pages]
-    else:
-        middle = page_range
-    path = request.path
-    get_data = dict(request.GET)
-    for number in middle:
-        if number is not None:
-            if number != default_page:
-                get_data['page'] = str(number)
-            else:
-                try:
-                    del get_data['page']
-                except KeyError:
-                    pass
-            yield (number, util.make_absolute_url(path, get_data))
-        else:
-            yield ('tag', None)
-
 
 class ChannelCacheMiddleware(UserCacheMiddleware):
     def get_cache_key_tuple(self, request):
@@ -254,11 +168,6 @@ def moderator_channel_list(request, state):
                                             pager.items]),
                 _("Subscribe to all %i channels") % len(pager.items))
         })
-
-
-def destroy_submit_url_session(request):
-    if SESSION_KEY in request.session:
-        del request.session[SESSION_KEY]
 
 
 def channel(request, id):
@@ -408,6 +317,7 @@ def show(request, id, featured_form=None):
             '/feeds/%s' % id)
         share_links = util.get_share_links(share_url, c.name)
 
+    country = country_code(request)
     context = {
         'channel': c,
         'item_page': item_page,
@@ -421,7 +331,10 @@ def show(request, id, featured_form=None):
         'feed_url': c.url,
         'share_url': share_url,
         'share_type': 'feed',
-        'share_links': share_links}
+        'share_links': share_links,
+        'country': country,
+        'geoip_restricted': (country and c.geoip and \
+                             country not in c.geoip.split(','))}
 
     if share_url:
         context['google_analytics_ua'] = None
@@ -566,18 +479,23 @@ def filtered_listing(request, value=None, filter=None, limit=10,
     sort = request.GET.get('sort', default_sort)
     if default_sort is None and sort is None:
         sort = '-popular'
-    feed_paginator = Paginator(FeedObjectList(request.connection,
-                                              filter, value, sort,
-                                              ('subscription_count_month',
-                                               'rating',
-                                               'item_count')),
-                               limit)
-    site_paginator = Paginator(SiteObjectList(request.connection,
-                                              filter, value, sort,
-                                              ('subscription_count_month',
-                                               'rating',
-                                               'item_count')),
-                               limit)
+    geoip = request.GET.get('geoip', None)
+    if geoip != 'off':
+        geoip = country_code(request)
+    else:
+        geoip = None
+    feed_object_list = FeedObjectList(request.connection,
+                                      filter, value, sort,
+                                      ('subscription_count_month',
+                                       'rating',
+                                       'item_count'), geoip)
+    feed_paginator = Paginator(feed_object_list, limit)
+    site_object_list = SiteObjectList(request.connection,
+                                      filter, value, sort,
+                                      ('subscription_count_month',
+                                       'rating',
+                                       'item_count'), geoip)
+    site_paginator = Paginator(site_object_list, limit)
     try:
         feed_page = feed_paginator.page(page)
     except InvalidPage:
@@ -597,6 +515,13 @@ def filtered_listing(request, value=None, filter=None, limit=10,
     else:
         biggest = site_page
 
+    geoip_filtered = False
+    if geoip:
+        if feed_object_list.count_all() != feed_paginator.count or \
+                site_object_list.count_all() != site_paginator.count:
+            args = request.GET.copy()
+            args['geoip'] = 'off'
+            geoip_filtered = util.make_absolute_url(request.path, args)
     return util.render_to_response(request, 'listing.html', {
         'title': title % {'value': value},
         'sort': sort,
@@ -604,6 +529,7 @@ def filtered_listing(request, value=None, filter=None, limit=10,
         'pages': _calculate_pages(request, biggest),
         'feed_page': feed_page,
         'site_page': site_page,
+        'geoip_filtered': geoip_filtered,
         })
 
 def for_user(request, user_name_or_id):
