@@ -48,40 +48,42 @@
     {% endblock %}
 
     <div class="horizontal_banner_ad">
-      <a href="#"><img src="images/ads/728x90.jpg" alt="Ad"></a>
+      <a href="#"><img src="{{ STATIC_BASE_URL }}images/ads/728x90.jpg" alt="Ad"></a>
     </div>
 
     <div><br></div>
 
     <div class="page">
-      <div class="feedColumn">
-        <div class="detailsHead4">
-          <h3 class="resultsCount">
-            <span class="heading">{% trans "Feeds" %}</span>
-            <span class="button">
+      {% if feed_page.object_list %}
+        <div class="feedColumn">
+          <div class="detailsHead4">
+            <h3 class="resultsCount">
+              <span class="heading">{% trans "Feeds" %}</span>
+              <span class="button">
+                <a href="#">
+                  <img src="{{ STATIC_BASE_URL }}images/ico_rss_title.png" alt="">
+                </a>
+              </span>
+            </h3>
+            <div class="sortType">
               <a href="#">
-                <img src="images/ico_rss_title.png" alt="">
+                <strong>{{ feed_page.paginator.count|default:"0" }}</strong>
               </a>
-            </span>
-          </h3>
-          <div class="sortType">
-            <a href="#">
-              <strong>{{ feed_page.paginator.count|default:"0" }}</strong>
-            </a>
-          </div>
-        </div><!--detailsHead-->
-        <ul class="searchResults scrolling">
-          <li class="feed_tip tip">
-            <p>{% trans "Video feeds can be downloaded and watched without an internet connection. Many are in full HD." %}</p>
-          </li>
-          {% for channel in feed_page.object_list %}
-            <li>
-              {% if forloop.first %}<a name="{{ feed_page.number }}"></a>{% endif %}
-              {% include "guide/channel-in-listing.html" %}
+            </div>
+          </div><!--detailsHead-->
+          <ul class="searchResults scrolling">
+            <li class="feed_tip tip">
+              <p>{% trans "Video feeds can be downloaded and watched without an internet connection. Many are in full HD." %}</p>
             </li>
-          {% endfor %}
-        </ul>
-      </div><!--feedColumn-->
+            {% for channel in feed_page.object_list %}
+              <li>
+                {% if forloop.first %}<a name="{{ feed_page.number }}"></a>{% endif %}
+                {% include "guide/channel-in-listing.html" %}
+              </li>
+            {% endfor %}
+          </ul>
+        </div><!--feedColumn-->
+      {% endif %}
 
       {% if site_page.object_list %}
         <div class="feedColumn">
@@ -90,7 +92,7 @@
               <span class="heading">{% trans "Sites" %}</span>
               <span class="button">
                 <a href="#">
-                  <img src="images/ico_refresh.png" alt="">
+                  <img src="{{ STATIC_BASE_URL }}images/ico_refresh.png" alt="">
                 </a>
               </span>
             </h3>

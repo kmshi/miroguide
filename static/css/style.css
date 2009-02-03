@@ -798,8 +798,8 @@ ul#channelRate {
     padding: 0;
     line-height: 53px;
     font-size: 22px;
-    float: left;
     display: inline;
+    overflow: hidden;
 }
 
 #channelInfo .page a {
@@ -1589,7 +1589,7 @@ h3.resultsCount .pagination {
 }
 
 .feedColumn ul.searchResults li.sites_tip {
-    background: url(/images/ico_blue_stream.png) 0 center no-repeat;
+    background: url(/images/ico_stream.png) 0 center no-repeat;
     padding: 0 0 0px 50px;
     width: 298px;
     margin-bottom:19px;

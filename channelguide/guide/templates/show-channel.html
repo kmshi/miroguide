@@ -24,7 +24,7 @@
 
 {% block onload-extra %}add_share_callbacks();{% endblock %}
 
-{% block title %}{{ channel.name|escape }} - Miro{% endblock %}
+{% block title %}{% trans "Miro Guide - " %} {{ channel.name|escape }}{% endblock %}
 
 {% block body-attributes %} {% endblock %}
 
@@ -66,7 +66,6 @@
           <img src="{{ STATIC_BASE_URL }}images/ico_stream.png" alt="Site">
         </a>
       {% endif %}
-      <h1>{{ channel.name }}</h1>
       <div class="large_add_button channel_page_button">
         <a href="{{ channel.get_subscription_url }}">
           {% if channel.url %}
@@ -82,6 +81,7 @@
           {% endif %}
         </a>
       </div>
+      <h1>{{ channel.name }}</h1>
     </div>
   </div>
 
