@@ -49,7 +49,7 @@
     {% endblock %}
 
     <div class="horizontal_banner_ad">
-      <a href="#"><img src="images/ads/728x90.jpg" alt="Ad"></a>
+      <a href="#"><img src="{{ STATIC_BASE_URL }}images/ads/728x90.jpg" alt="Ad"></a>
     </div>
 
     <div><br></div>
@@ -62,7 +62,7 @@
               <span class="heading">{% trans "Feeds" %}</span>
               <span class="button">
                 <a href="#">
-                  <img src="images/ico_rss_title.png" alt="">
+                  <img src="{{ STATIC_BASE_URL }}images/ico_rss_title.png" alt="">
                 </a>
               </span>
             </h3>
@@ -93,7 +93,7 @@
               <span class="heading">{% trans "Sites" %}</span>
               <span class="button">
                 <a href="#">
-                  <img src="images/ico_refresh.png" alt="">
+                  <img src="{{ STATIC_BASE_URL }}images/ico_refresh.png" alt="">
                 </a>
               </span>
             </h3>
