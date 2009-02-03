@@ -19,7 +19,7 @@ class Item(Record, Thumbnailable):
 
     THUMBNAIL_DIR = 'item-thumbnails'
     THUMBNAIL_SIZES = [
-            (98, 68),
+            (98, 65),
             (200, 133),
     ]
 
@@ -36,7 +36,7 @@ class Item(Record, Thumbnailable):
         return self.channel.thumb_url(width, height)
 
     def thumb(self):
-        url = self.thumb_url(98, 68)
+        url = self.thumb_url(98, 65)
         return util.mark_safe(
             '<img width="98" height="68" src="%s" alt="%s">' % (
                 url, self.name.replace('"', "'")))
