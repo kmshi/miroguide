@@ -47,10 +47,10 @@ urlpatterns += patterns('channelguide.guide.views.channels',
                     'filter': 'feed',
                     'value': True,
                     'title': 'Feeds'}),
-                        (r'^streaming/?$', 'filtered_listing', {
+                        (r'^sites/?$', 'filtered_listing', {
                      'filter': 'feed',
                      'value':  False,
-                     'title': 'Shows'}),
+                     'title': 'Sites'}),
                         (r'^new/?$', 'filtered_listing', {
                     'filter': 'name',
                     'default_sort': '-age',
@@ -63,7 +63,7 @@ urlpatterns += patterns('channelguide.guide.views.channels',
                     'filter': 'hd',
                     'value': True,
                     'title': 'High-Definition Shows'}),
-                        (r'^(feeds|shows)/', cg_include('channels')),
+                        (r'^(feeds|sites)/', cg_include('channels')),
                         )
 
 urlpatterns += patterns('channelguide.guide.views.playback',
