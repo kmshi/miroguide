@@ -798,8 +798,8 @@ ul#channelRate {
     padding: 0;
     line-height: 53px;
     font-size: 22px;
-    float: left;
     display: inline;
+    overflow: hidden;
 }
 
 #channelInfo .page a {
