@@ -17,16 +17,13 @@ except ValueError:
     pass
 os.environ['DJANGO_SETTINGS_MODULE'] = 'channelguide.settings'
 
-import itertools
 import time
 import logging
-import re
 import shutil
 import socket
 import threading
 import traceback
 import Queue
-from glob import glob
 
 from django.conf.urls.defaults import patterns
 from django.core import management
@@ -172,7 +169,6 @@ download_thumbnails.args = '[--redownload]'
 
 def update_search_data(args=None):
     "Update the search data for each channel."
-    from channelguide.guide import tables
     from channelguide import db
     from channelguide.cache import client
     connection = db.connect()
@@ -313,7 +309,6 @@ def optimize_templates(args):
     Currently this means removing a bunch of whitepace.
     """
     from django.conf import settings
-    from channelguide import util
     source_dir = settings.NORMAL_TEMPLATE_DIR
     dest_dir = settings.OPTIMIZED_TEMPLATE_DIR
     if os.path.exists(dest_dir):
