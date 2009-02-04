@@ -1,8 +1,8 @@
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
-from django.http import Http404
-from django.core.paginator import Paginator
+from django.http import HttpResponseRedirect
+from django.core.paginator import Paginator, InvalidPage
 from django.utils.translation import gettext as _
 
 from channelguide import util
@@ -33,7 +33,7 @@ def index(request):
     context['rejected_count'] = count_for_state(request.connection,
             Channel.REJECTED)
     context['featured_count'] = FeaturedQueue.query(FeaturedQueue.c.state==0).count(request.connection)
-    
+
     query = ModeratorPost.query().order_by('created_at', desc=True)
     query.join('user')
     context['latest_posts'] = query.limit(5).execute(request.connection)
@@ -67,7 +67,10 @@ def channel_list(request, state):
 
     paginator = Paginator(templateutil.QueryObjectList(request.connection,
                                                        query), 10)
-    page = paginator.page(request.GET.get('page', 1))
+    try:
+        page = paginator.page(request.GET.get('page', 1))
+    except InvalidPage:
+        return HttpResponseRedirect(request.path)
 
     return util.render_to_response(request, 'moderator-channel-list.html', {
         'request': request,
