@@ -38,7 +38,7 @@ class UserMiddleware(object):
                     req.add_notification('Confirm', """Confirm your e-mail to make your ratings count towards the average.  <a href="/accounts/confirm/%i/resend">Didn't get the e-mail?</a>""" % req.user.id)
 
                 req.connection.commit()
-                if req.user.language:
+                if req.user.is_authenticated() and req.user.language:
                     req.session['django_language'] = req.user.language
         else:
             req.user = AnonymousUser()
@@ -48,7 +48,7 @@ class UserMiddleware(object):
             return util.send_to_login_page(request)
 
     def process_response(self, request, response):
-        if hasattr(request, 'connection'):
+        if hasattr(request, 'connection') and request.user.is_authenticated():
             if request.user.language != request.session['django_language']:
                 request.user.language = request.session['django_language']
                 request.user.save(request.connection)
