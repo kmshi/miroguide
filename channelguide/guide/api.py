@@ -98,7 +98,8 @@ def get_channels_query(request, filter, value, sort=None,
         query.order_by(query.joins['rating'].c.average, desc=desc)
     else:
         raise ValueError('unknown sort type: %r' % sort)
-    if filter != 'language' and request.user.filter_languages:
+    if filter != 'language' and request.user.is_authenticated() and \
+            request.user.filter_languages:
         request.user.join('shown_languages').execute(connection)
         query.join('language')
         query.where(query.joins['language'].c.id.in_([
