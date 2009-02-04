@@ -30,8 +30,8 @@
       {% blocktrans %}
         You appear to be using Linux (or some other non-Windows or OSX
         operating system).  Unfortunately, Flash and Linux don't get
-        along well, and many of these sites use flash.  Thus they very
-        well may crash Miro.  So subscribe at your own risk!
+        along well, and many of these sites use flash, so we've
+        disabled plugins on Linux.  So be warned!
       {% endblocktrans %}
     </div>
   </div>
@@ -40,19 +40,18 @@
   <div id="oldmiro_warning" class="alert hidden">
     <div class="page">
       <div class="alertBox">
-          <p>
-            {% blocktrans %}
-              You appear to be using an older version of Miro.
-              Unfortunately, you cannot subscribe to sites using
-              versions of Miro prior to 2.0. (So consider upgrading!)
-            {% endblocktrans %}
-          </p>
+        <p>
+          {% blocktrans %}
+            You appear to be using an older version of Miro.
+            Unfortunately, you cannot subscribe to sites using
+            versions of Miro prior to 2.0. (So consider upgrading!)
+          {% endblocktrans %}
+        </p>
 
-          <p>
-            {% trans "We've hidden sites on this page." %} <br />
-            <a href="#">{% trans "Enable them anyway" %}</a>.
-          </p>
-        {% endblocktrans %}
+        <p>
+          {% trans "We've hidden sites on this page." %} <br />
+          <strong><a href="#">{% trans "Enable them anyway" %}</a></strong>
+        </p>
       </div>
       <a href="#" class="closeAlert">{% trans "Close" %}</a>
     </div>
