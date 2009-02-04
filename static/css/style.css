@@ -137,13 +137,13 @@ br.clear_all {
 }
 
 #topBar {
-    background: url(/images/top_bar_menu_bg.png) 0 0 repeat-x;
+    background: url(../images/top_bar_menu_bg.png) 0 0 repeat-x;
     height: 34px;
     width: 100%;
 }
 
 #topBarLower {
-    background: url(/images/lower_top_bar_bg.png) 0 0 repeat-x;
+    background: url(../images/lower_top_bar_bg.png) 0 0 repeat-x;
     height: 25px;
     width: 100%;
     border-bottom: 1px solid #414141;
@@ -170,7 +170,7 @@ br.clear_all {
 
 .gray-button {
 	text-align: center;
-	background: url(/images/buttons/button_input_right.png) no-repeat right;
+	background: url(../images/buttons/button_input_right.png) no-repeat right;
 	border: 0;
 	margin: 0;
 	cursor: pointer;
@@ -185,7 +185,7 @@ br.clear_all {
 	height: 20px;
 	color: #373737;
 	font: 11px/20px Arial, Helvetica, sans-serif;
-	background: url(/images/buttons/button_input_left.png) no-repeat left top;
+	background: url(../images/buttons/button_input_left.png) no-repeat left top;
 	padding: 0 5px 0 14px;
 }
 
@@ -204,7 +204,7 @@ br.clear_all {
     bottom: -4px;
     margin: 0 auto;
     padding: 4px;
-    background: url(images/load-indicator-bg.png);
+    background: url(../images/load-indicator-bg.png);
 }
 
 /*Welcome message*/
@@ -231,7 +231,7 @@ br.clear_all {
 }
 
 #featuredItemsCarousel #innerContent {
-    background: url(/images/featured_bg.png) 0 0 repeat-x;
+    background: url(../images/featured_bg.png) 0 0 repeat-x;
     overflow: hidden;
     height: 271px;
     float: left;
@@ -259,7 +259,7 @@ br.clear_all {
     height: 271px;
     width: 223px;
     padding: 0 10px;
-    background: url(/images/featured_separator.png) right center no-repeat;
+    background: url(../images/featured_separator.png) right center no-repeat;
     float: left;
     overflow: hidden;
     display: inline;
@@ -267,7 +267,7 @@ br.clear_all {
 }
 
 #featuredItemsCarousel #innerContent ul li span.featuredItem {
-    background: url(/images/featured_img_bg.png) left bottom no-repeat;
+    background: url(../images/featured_img_bg.png) left bottom no-repeat;
     width: 194px;
     height: 130px;
     margin-top: 20px;
@@ -297,7 +297,7 @@ br.clear_all {
 #featuredItemsCarousel #button_previous {
     height: 271px;
     width: 32px;
-    background: url(/images/buttons/featured_left_button.png) 0 0 no-repeat;
+    background: url(../images/buttons/featured_left_button.png) 0 0 no-repeat;
     cursor: pointer;
     position: relative;
     z-index: 2;
@@ -308,7 +308,7 @@ br.clear_all {
 #featuredItemsCarousel #button_next {
     height: 271px;
     width: 32px;
-    background: url(/images/buttons/featured_right_button.png) 0 0 no-repeat;
+    background: url(../images/buttons/featured_right_button.png) 0 0 no-repeat;
     cursor: pointer;
     position: relative;
     z-index: 2;
@@ -333,7 +333,7 @@ br.clear_all {
 }
 
 .infoBox h1.lovedVideos {
-    background: url(/images/ico_heart.png) 0 5px no-repeat;
+    background: url(../images/ico_heart.png) 0 5px no-repeat;
     padding: 3px 0 0 50px;
 }
 
@@ -342,7 +342,7 @@ br.clear_all {
     border-top: 1px solid #a5cbd9;
     margin: 0 0 22px 0;
     overflow: hidden;
-    background: url(/images/pagination_bar.png) 0 0 repeat-x;
+    background: url(../images/pagination_bar.png) 0 0 repeat-x;
 }
 
 .infoBar .innerBar {
@@ -437,7 +437,7 @@ ul.videoFeed li span.title {
 /*Title bar headers and widget boxes*/
 h3.title_bar, h3.search_result {
     width: 469px;
-    background: url(/images/title_bar.png) 0 0 no-repeat;
+    background: url(../images/title_bar.png) 0 0 no-repeat;
     height: 33px;
     line-height: 33px;
     color: #c01723;
@@ -452,7 +452,7 @@ h3.search_result {
 
 h3.widget_title_bar {
     width: 229px;
-    background: url(/images/small_title_bar.png) 0 0 no-repeat;
+    background: url(../images/small_title_bar.png) 0 0 no-repeat;
     height: 31px;
     line-height: 31px;
     font-size: 14px;
@@ -504,7 +504,7 @@ h3.widget_title_bar {
 
 .widget_close {
     width: 229px;
-    background: url(/images/small_title_bar_bottom.png) 0 0 no-repeat;
+    background: url(../images/small_title_bar_bottom.png) 0 0 no-repeat;
     height: 31px;
     line-height: 31px;
     font-size: 11px;
@@ -514,7 +514,7 @@ h3.widget_title_bar {
 }
 
 .widget_close a {
-    background: url(/images/arrow_1.png) right 3px no-repeat;
+    background: url(../images/arrow_1.png) right 3px no-repeat;
     padding: 0 13px 0 0;
 }
 
@@ -525,7 +525,7 @@ h3.widget_title_bar {
 
 #channelEpisodes h3.widget_title_bar_small {
     width: 169px;
-    background: url(/images/channel_sidebar_top.png) 0 0 no-repeat;
+    background: url(../images/channel_sidebar_top.png) 0 0 no-repeat;
     height: 34px;
     line-height: 34px;
     font-size: 14px;
@@ -599,7 +599,7 @@ h3.widget_title_bar {
 
 .widget_close_small {
     width: 169px;
-    background: url(/images/channel_sidebar_bottom.png) 0 0 no-repeat;
+    background: url(../images/channel_sidebar_bottom.png) 0 0 no-repeat;
     height: 34px;
     line-height: 34px;
     font-size: 11px;
@@ -609,7 +609,7 @@ h3.widget_title_bar {
 }
 
 .widget_close_small a {
-    background: url(/images/arrow_1.png) right 3px no-repeat;
+    background: url(../images/arrow_1.png) right 3px no-repeat;
     padding: 0 13px 0 0;
 }
 
@@ -619,22 +619,22 @@ h3.widget_title_bar {
 }
 
 span.rss {
-    background: url(/images/ico_rss_title.png) right 11px no-repeat;
+    background: url(../images/ico_rss_title.png) right 11px no-repeat;
     display: block;
 }
 
 span.streaming {
-    background: url(/images/ico_streaming_title.png) right 8px no-repeat;
+    background: url(../images/ico_streaming_title.png) right 8px no-repeat;
     display: block;
 }
 
 span.channel {
-    background: url(/images/ico_tv.png) right 8px no-repeat;
+    background: url(../images/ico_tv.png) right 8px no-repeat;
     display: block;
 }
 
 span.favorite {
-    background: url(/images/ico_heart.png) right 10px no-repeat;
+    background: url(../images/ico_heart.png) right 10px no-repeat;
     display: block;
 }
 
@@ -668,7 +668,7 @@ ul.searchResults {
     margin: 10px 0;
     padding: 0 0 0 10px;
     list-style: none;
-    background: url(/images/line.png) 0 0 no-repeat;
+    background: url(../images/line.png) 0 0 no-repeat;
     float: right;
     display: inline;
     width: 405px;
@@ -789,7 +789,7 @@ ul#channelRate {
 
 /*Channel info*/
 #channelInfo {
-    background: url(/images/channel_info_bg.png) 0 0 repeat-x;
+    background: url(../images/channel_info_bg.png) 0 0 repeat-x;
     height: 53px;
 }
 
@@ -812,7 +812,7 @@ ul#channelRate {
 }
 
 #channelWebsite {
-    background: url(/images/channel_website_bg.png) 0 0 repeat-x;
+    background: url(../images/channel_website_bg.png) 0 0 repeat-x;
     height: 31px;
 }
 
@@ -826,7 +826,7 @@ h4.inactive {
 h4.inactive a {
     color: white;
     font-size: 15px;
-    background: url(/images/channel_arrow_right_white.png) 0 3px no-repeat;
+    background: url(../images/channel_arrow_right_white.png) 0 3px no-repeat;
     padding: 0 0 0 18px;
     margin: 0;
 }
@@ -840,7 +840,7 @@ h4.active {
 
 h4.active a {
     font-size: 15px;
-    background: url(/images/channel_arrow_down_black.png) 0 3px no-repeat;
+    background: url(../images/channel_arrow_down_black.png) 0 3px no-repeat;
     padding: 0 0 0 18px;
     margin: 0;
 }
@@ -859,7 +859,7 @@ h3.resultsCount {
     height: 100%;
     width: 724px;
     margin: 0;
-    background: url(/images/item_bar_left.png) left bottom no-repeat;
+    background: url(../images/item_bar_left.png) left bottom no-repeat;
 }
 
 .user_page .detailsHeadLarge h3.resultsCount {
@@ -875,7 +875,7 @@ h3.resultsCount {
     width: 319px;
     margin: 0;
     padding: 0 0 0 15px;
-    background: url(/images/item_bar_left.png) left bottom no-repeat;
+    background: url(../images/item_bar_left.png) left bottom no-repeat;
 }
 
 h3.resultsCount .heading {
@@ -945,7 +945,7 @@ h3.resultsCount .pagination {
 .sortType {
     float: right;
     display: inline;
-    background: url(/images/item_bar_right.png) 0 0px no-repeat;
+    background: url(../images/item_bar_right.png) 0 0px no-repeat;
     height: 34px;
     line-height: 34px;
     width: 48px;
@@ -965,7 +965,7 @@ h3.resultsCount .pagination {
 
 /*Channel rating - Second level bar below title*/
 #channelRating {
-    background: #ddd url(/images/channel_rating_bg.png) 0 0 repeat-x;
+    background: #ddd url(../images/channel_rating_bg.png) 0 0 repeat-x;
     padding: 6px 0 10px 0;
     border-top: 1px solid #cfcfcf;
     height: 17px;
@@ -1008,12 +1008,12 @@ h3.resultsCount .pagination {
     display: inline;
     width: 18px;
     height: 16px;
-    background: url(/images/big_no-nos.png) 0 -21px no-repeat;
+    background: url(../images/big_no-nos.png) 0 -21px no-repeat;
     text-indent: -9999px;
 }
 
 #channelRating .rate .cancel:hover {
-    background: url(/images/big_no-nos.png) 0 -0px no-repeat;
+    background: url(../images/big_no-nos.png) 0 -0px no-repeat;
 }
 
 #channelRating .rate .star {
@@ -1022,12 +1022,12 @@ h3.resultsCount .pagination {
     width: 19px;
     height: 16px;
     cursor: pointer !important;
-    background: url(/images/big_stars.png) 0 -0px no-repeat;
+    background: url(../images/big_stars.png) 0 -0px no-repeat;
     text-indent: -9999px;
 }
 
 #channelRating .rate .star:hover{
-    background: url(/images/big_stars.png) 0 -19px no-repeat;
+    background: url(../images/big_stars.png) 0 -19px no-repeat;
 }
 
 #channelRating .rate .on {
@@ -1054,7 +1054,7 @@ h3.resultsCount .pagination {
 #channelRating .url .tag {
     text-transform: uppercase;
     font-size: 10px;
-    background: url(/images/arrow_right.png) right 3px no-repeat;
+    background: url(../images/arrow_right.png) right 3px no-repeat;
     padding: 0 10px 0 10px;
     margin: 1px 0 0 10px;
 }
@@ -1064,13 +1064,13 @@ h3.resultsCount .pagination {
     display: inline;
     width: 15px;
     height: 16px;
-    background: url(/images/small_no-nos.png) 0 -16px no-repeat;
+    background: url(../images/small_no-nos.png) 0 -16px no-repeat;
     text-indent: -9999px;
     margin: 1px 1px 0;
 }
 
 .small_rate span.cancel a:hover {
-    background: url(/images/small_no-nos.png) 0 -0px no-repeat;
+    background: url(../images/small_no-nos.png) 0 -0px no-repeat;
 }
 
 .small_rate span.star a{
@@ -1078,17 +1078,17 @@ h3.resultsCount .pagination {
     display: inline;
     width: 14px;
     height: 16px;
-    background: url(/images/small_stars.png) 0 -0px no-repeat;
+    background: url(../images/small_stars.png) 0 -0px no-repeat;
     text-indent: -9999px;
     margin: 0 1px;
 }
 
 .small_rate span.star a:hover{
-    background: url(/images/small_stars.png) 0 -16px no-repeat;
+    background: url(../images/small_stars.png) 0 -16px no-repeat;
 }
 
 .small_rate span.on a{
-    background: url(/images/small_stars.png) 0 -32px no-repeat;
+    background: url(../images/small_stars.png) 0 -32px no-repeat;
 }
 
 
@@ -1120,7 +1120,7 @@ h3.resultsCount .pagination {
     display: inline;
     width: 222px;
     height: 156px;
-    background: url(/images/channel_thumb_bg.png) 0 0 no-repeat;
+    background: url(../images/channel_thumb_bg.png) 0 0 no-repeat;
     padding: 3px;
     margin: 10px 13px 0 0;
 }
@@ -1182,7 +1182,7 @@ h3.resultsCount .pagination {
 .read_more {
     font-size: 8px;
     text-transform: uppercase;
-    background: url(/images/clear_arrow_down.png) right 2px no-repeat;
+    background: url(../images/clear_arrow_down.png) right 2px no-repeat;
     padding: 0 10px 0 0;
     margin: 0 0 0 0px;
     clear: both;
@@ -1195,7 +1195,7 @@ h3.resultsCount .pagination {
 .read_more_video {
     font-size: 8px;
     text-transform: uppercase;
-    background: url(/images/clear_arrow_down.png) right 6px no-repeat;
+    background: url(../images/clear_arrow_down.png) right 6px no-repeat;
     padding: 0 0px 0 0;
     margin: 10px 0 0 0px;
     clear: both;
@@ -1270,17 +1270,17 @@ h3.resultsCount .pagination {
 }
 
 #channelEpisodes .detailsTopLarge {
-    background: url(/images/channel_content_top_large.png) top left no-repeat;
+    background: url(../images/channel_content_top_large.png) top left no-repeat;
     width: 787px;
 }
 
 #channelEpisodes .detailsTop {
-    background: url(/images/channel_content_top.png) top left no-repeat;
+    background: url(../images/channel_content_top.png) top left no-repeat;
     width: 565px;
 }
 
 #channelEpisodes .details {
-    background: url(/images/channel_content.png) left bottom no-repeat;
+    background: url(../images/channel_content.png) left bottom no-repeat;
     width: 565px;
     margin: 0 0 15px 15px;
     overflow: hidden;
@@ -1289,7 +1289,7 @@ h3.resultsCount .pagination {
 }
 
 #channelEpisodes .detailsTopLarge + .details {
-    background: url(/images/channel_content_large.png) left bottom no-repeat;
+    background: url(../images/channel_content_large.png) left bottom no-repeat;
     width: 787px;
 }
 
@@ -1301,7 +1301,7 @@ h3.resultsCount .pagination {
     height: 100%;
     height: 34px;
     line-height: 34px;
-    background: url(/images/item_bar_left.png) left bottom no-repeat;
+    background: url(../images/item_bar_left.png) left bottom no-repeat;
 }
 
 #channelEpisodes .detailsHeadLarge, .user_page .detailsHeadLarge {
@@ -1326,7 +1326,7 @@ h3.resultsCount .pagination {
     overflow: hidden;
     height: 100%;
     height: 34px;
-    background: url(/images/item_bar_left.png) left bottom no-repeat;
+    background: url(../images/item_bar_left.png) left bottom no-repeat;
     line-height: 34px;
 }
 
@@ -1335,7 +1335,7 @@ h3.resultsCount .pagination {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background: url(/images/item_bar_left.png) left bottom no-repeat;
+    background: url(../images/item_bar_left.png) left bottom no-repeat;
     height: 100%;
     height: 34px;
     line-height: 34px;
@@ -1343,7 +1343,7 @@ h3.resultsCount .pagination {
 
 .detailsHead4 {
     width: 382px;
-    background: url(/images/item_bar_left.png) left bottom no-repeat;
+    background: url(../images/item_bar_left.png) left bottom no-repeat;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -1359,7 +1359,7 @@ h3.resultsCount .pagination {
 }
 
 #channelEpisodes .details .playback {
-    background: url(/images/channel_content_top.png) top left no-repeat;
+    background: url(../images/channel_content_top.png) top left no-repeat;
     display: block;
     height: 0;
     padding: 8px 0 0 0;
@@ -1408,7 +1408,7 @@ h3.resultsCount .pagination {
 #channelEpisodes .read_more {
     font-size: 8px;
     text-transform: uppercase;
-    background: url(/images/arrow_down2.png) right 2px no-repeat;
+    background: url(../images/arrow_down2.png) right 2px no-repeat;
     padding: 0 13px 0 0;
     clear: both;
     margin-bottom: 4px;
@@ -1443,7 +1443,7 @@ h3.resultsCount .pagination {
 }
 
 #recentlyOnChannel .detailsTop {
-    background: url(/images/channel_details_box_top.png) top left no-repeat;
+    background: url(../images/channel_details_box_top.png) top left no-repeat;
     width: 749px;
     height: 7px;
     margin: 10px 0 0 15px;
@@ -1451,7 +1451,7 @@ h3.resultsCount .pagination {
 }
 
 #recentlyOnChannel .details {
-    background: url(/images/channel_details_box.png) left bottom no-repeat;
+    background: url(../images/channel_details_box.png) left bottom no-repeat;
     width: 727px;
     margin: 0 0 0 15px;
     padding: 4px 11px 11px 11px;
@@ -1490,7 +1490,7 @@ h3.resultsCount .pagination {
 }
 
 #recentlyOnChannel .details .on {
-    background: url(/images/ico_blue_dot.png) 0 2px no-repeat;
+    background: url(../images/ico_blue_dot.png) 0 2px no-repeat;
 }
 
 #recentlyOnChannel .details .meta {
@@ -1557,7 +1557,7 @@ h3.resultsCount .pagination {
 }
 
 .feedColumn ul.searchResults li.rate_more {
-    background: url(/images/ico_heart_and_stars.png) 0 0 no-repeat;
+    background: url(../images/ico_heart_and_stars.png) 0 0 no-repeat;
     padding: 0 0 10px 100px;
     width: 248px;
 }
@@ -1574,7 +1574,7 @@ h3.resultsCount .pagination {
 }
 
 .feedColumn ul.searchResults li.feed_tip {
-    background: url(/images/ico_red_feeds.png) 0 center no-repeat;
+    background: url(../images/ico_red_feeds.png) 0 center no-repeat;
     padding: 0 0 0px 50px;
     width: 298px;
     margin-bottom:19px;
@@ -1589,7 +1589,7 @@ h3.resultsCount .pagination {
 }
 
 .feedColumn ul.searchResults li.sites_tip {
-    background: url(/images/ico_stream.png) 0 center no-repeat;
+    background: url(../images/ico_stream.png) 0 center no-repeat;
     padding: 0 0 0px 50px;
     width: 298px;
     margin-bottom:19px;
@@ -1604,7 +1604,7 @@ h3.resultsCount .pagination {
 }
 
 .custom_feed {
-    background: url(/images/ico_make_feeds.png) 0 0 no-repeat;
+    background: url(../images/ico_make_feeds.png) 0 0 no-repeat;
     margin: 20px 0;
     padding: 0 0 0 110px;
 }
@@ -1617,7 +1617,7 @@ h3.resultsCount .pagination {
 }
 
 .custom_feed h3 span {
-    background: url(/images/ico_question2.png) right 0 no-repeat;
+    background: url(../images/ico_question2.png) right 0 no-repeat;
     padding: 1px 30px 3px 0;
 }
 
@@ -1634,14 +1634,14 @@ h3.resultsCount .pagination {
 /*User page*/
 .userInfo {
     width: 520px;
-    background: url(/images/user_profile_line.png) right 0 no-repeat;
+    background: url(../images/user_profile_line.png) right 0 no-repeat;
     float: left;
     display: inline;
     margin: 25px 0 0 0;
 }
 
 .userInfo .avatar {
-    background: url(/images/user_avatar_bg.png) 0 0 no-repeat;
+    background: url(../images/user_avatar_bg.png) 0 0 no-repeat;
     padding: 9px;
     width: 199px;
     height: 199px;
@@ -1698,7 +1698,7 @@ h3.resultsCount .pagination {
 
 /*User carousel*/
 .userCarouselBox {
-    background: url(/images/user_carousel_bg.png) 0 0 no-repeat;
+    background: url(../images/user_carousel_bg.png) 0 0 no-repeat;
     width: 770px;
     height: 131px;
     padding: 6px;
@@ -1731,7 +1731,7 @@ h3.resultsCount .pagination {
 }
 
 .userCarousel .innerContent {
-    background: url(/images/user_carousel_inner_bg.png) 0 0 repeat-x;
+    background: url(../images/user_carousel_inner_bg.png) 0 0 repeat-x;
     overflow: hidden;
     height: 129px;
     float: left;
@@ -1752,7 +1752,7 @@ h3.resultsCount .pagination {
     height: 129px;
     width: 114px;
     padding: 0 10px;
-    background: url(/images/featured_separator.png) right center no-repeat;
+    background: url(../images/featured_separator.png) right center no-repeat;
     float: left;
     overflow: hidden;
     display: inline;
@@ -1787,7 +1787,7 @@ h3.resultsCount .pagination {
 .userCarousel .button_previous {
     height: 131px;
     width: 32px;
-    background: url(/images/buttons/user_carousel_button_left.png) 0 0 no-repeat;
+    background: url(../images/buttons/user_carousel_button_left.png) 0 0 no-repeat;
     cursor: pointer;
     position: relative;
     z-index: 2;
@@ -1798,7 +1798,7 @@ h3.resultsCount .pagination {
 .userCarousel .button_next{
     height: 131px;
     width: 32px;
-    background: url(/images/buttons/user_carousel_button_right.png) 0 0 no-repeat;
+    background: url(../images/buttons/user_carousel_button_right.png) 0 0 no-repeat;
     cursor: pointer;
     position: relative;
     z-index: 2;
@@ -1812,7 +1812,7 @@ h3.resultsCount .pagination {
     width: 782px;
     margin: 0 auto;
     height: 123px;
-    background: url(/images/video_tips.jpg) 0 0 no-repeat;
+    background: url(../images/video_tips.jpg) 0 0 no-repeat;
     overflow: hidden;
 }
 
@@ -1841,7 +1841,7 @@ h3.resultsCount .pagination {
     width: 790px;
     height: 11px;
     margin: 0 auto;
-    background: url(/images/video_box_bottom.png) 0 0 no-repeat;
+    background: url(../images/video_box_bottom.png) 0 0 no-repeat;
 }
 
 #videoBoxTop h1 {
@@ -1860,7 +1860,7 @@ h3.resultsCount .pagination {
     display: inline;
     margin: 0 13px 0 0;
     line-height: 43px;
-    background: url(/images/arrow_left2.png) left 18px no-repeat;
+    background: url(../images/arrow_left2.png) left 18px no-repeat;
     padding: 0 0 0 20px;
     width: 210px;
 }
@@ -1884,7 +1884,7 @@ h3.resultsCount .pagination {
     display: inline;
     padding: 0 0 0 20px;
     margin: 13px 13px 0 0px;
-    background: url(/images/video_page_line.png) 0 0 no-repeat;
+    background: url(../images/video_page_line.png) 0 0 no-repeat;
 }
 
 #videoBox #videoDetails .meta strong.tag {
@@ -1920,7 +1920,7 @@ h3.resultsCount .pagination {
 #videoBox #videoDetails p.synopsis {
     margin: 10px 0 5px 14px;
     border: 1px solid #fff;
-    background: url(/images/buttons/clear.png);
+    background: url(../images/buttons/clear.png);
     padding: 15px 15px 8px 15px;
 }
 
@@ -1941,14 +1941,14 @@ h3.resultsCount .pagination {
 /*Welcome page alert*/
 
 .alert {
-    background: url(/images/alert-top.png) 0px 13px no-repeat;
+    background: url(../images/alert-top.png) 0px 13px no-repeat;
     padding: 13px 0 0 0px;
     width: 788px;
     margin: 0 auto;
 }
 
 .alert .page {
-    background: url(/images/alert-bottom.png) bottom left no-repeat;
+    background: url(../images/alert-bottom.png) bottom left no-repeat;
     margin: 0;
     padding: 5px 0;
 }
@@ -1958,7 +1958,7 @@ h3.resultsCount .pagination {
 }
 
 #share_box .alertBox {
-    background: #fffded url(/images/gift.png) 13px 8px no-repeat;
+    background: #fffded url(../images/gift.png) 13px 8px no-repeat;
     width: 704px;
     float: left;
     display: inline;
@@ -1977,7 +1977,7 @@ h3.resultsCount .pagination {
     font-size: 9.5px;
     padding: 0 13px 0 0;
     margin: 15px 0 0 -60px;
-    background: url(/images/alert_close.png) right 1px no-repeat;
+    background: url(../images/alert_close.png) right 1px no-repeat;
 }
 
 .alertBox p {
@@ -2000,7 +2000,7 @@ h3.resultsCount .pagination {
     display: block;
     float: left;
     margin-left: 10px;
-    background: url(/images/address_book.png) 0 1px no-repeat;
+    background: url(../images/address_book.png) 0 1px no-repeat;
 }
 
 .underline{
@@ -2059,7 +2059,7 @@ h3.resultsCount .pagination {
     float: left;
     height: 0;
     line-height: 1.4em;
-    background: url(/images/facebook.png) no-repeat;
+    background: url(../images/facebook.png) no-repeat;
 }
 
 .stumble {
@@ -2070,7 +2070,7 @@ h3.resultsCount .pagination {
     float: left;
     height: 0;
     line-height: 1.4em;
-    background: url(/images/stumble.png) no-repeat;
+    background: url(../images/stumble.png) no-repeat;
 }
 
 .delicious {
@@ -2081,7 +2081,7 @@ h3.resultsCount .pagination {
     float: left;
     height: 0;
     line-height: 1.4em;
-    background: url(/images/delicious.png) no-repeat;
+    background: url(../images/delicious.png) no-repeat;
 }
 
 .digg {
@@ -2092,7 +2092,7 @@ h3.resultsCount .pagination {
     float: left;
     height: 0;
     line-height: 1.4em;
-    background: url(/images/digg.png) no-repeat;
+    background: url(../images/digg.png) no-repeat;
 }
 
 .myspace {
@@ -2103,7 +2103,7 @@ h3.resultsCount .pagination {
     float: left;
     height: 0;
     line-height: 1.4em;
-    background: url(/images/myspace.png) no-repeat;
+    background: url(../images/myspace.png) no-repeat;
 }
 
 .change_address {
@@ -2256,7 +2256,7 @@ h3.resultsCount .pagination {
 }
 
 #hover_align + .edit h2 {
-    background:transparent url(images/arrow-right.png) no-repeat scroll left center;
+    background:transparent url(../images/arrow-right.png) no-repeat scroll left center;
     cursor:pointer;
     float:left;
     margin-top: 0;
@@ -2265,7 +2265,7 @@ h3.resultsCount .pagination {
 }
 
 #hover_align + .edit.open h2 {
-    background-image: url(images/arrow-down.png);
+    background-image: url(../images/arrow-down.png);
 }
 
 #hover_align + .edit.loading h2 {
@@ -2484,7 +2484,7 @@ ul.paginator {
 ul.paginator li {
     float: left;
     display: inline;
-    background: url(/images/pagination_off_left.png) 0 0 no-repeat;
+    background: url(../images/pagination_off_left.png) 0 0 no-repeat;
     height: 24px;
     padding: 0 0 0 10px;
     font-size: 11px;
@@ -2494,11 +2494,11 @@ ul.paginator li {
 }
 
 ul.paginator li:hover {
-    background: url(/images/pagination_off_left.png) 0 -24px no-repeat;
+    background: url(../images/pagination_off_left.png) 0 -24px no-repeat;
 }
 
 ul.paginator li:hover span{
-    background: url(/images/pagination_off_right.png) right -24px no-repeat;
+    background: url(../images/pagination_off_right.png) right -24px no-repeat;
 }
 
 ul.paginator li a {
@@ -2512,7 +2512,7 @@ ul.paginator li.tag {
 }
 
 ul.paginator li span {
-    background: url(/images/pagination_off_right.png) right 0 no-repeat;
+    background: url(../images/pagination_off_right.png) right 0 no-repeat;
     display: block;
     height: 24px;
     padding: 0 10px 0 0;
@@ -2521,12 +2521,12 @@ ul.paginator li span {
 }
 
 ul.paginator li.selected {
-    background: url(/images/pagination_on_left.png) 0 0 no-repeat;
+    background: url(../images/pagination_on_left.png) 0 0 no-repeat;
     border-top: 1px solid #f6f6f6;
 }
 
 ul.paginator li.selected span {
-    background: url(/images/pagination_on_right.png) right 0 no-repeat;
+    background: url(../images/pagination_on_right.png) right 0 no-repeat;
 }
 
 /*-----*/
@@ -2540,7 +2540,7 @@ ul.paginator2 {
 
 ul.paginator2 li {
     float: left;
-    background: url(/images/pagination2_off_left.png) 0 0 no-repeat;
+    background: url(../images/pagination2_off_left.png) 0 0 no-repeat;
     height: 24px; padding: 0 0 0 0px;
     font-size: 11px;
     display: block;
@@ -2549,11 +2549,11 @@ ul.paginator2 li {
 }
 
 ul.paginator2 li:hover {
-        background: url(/images/pagination2_off_left.png) 0 -24px no-repeat;
+        background: url(../images/pagination2_off_left.png) 0 -24px no-repeat;
 }
 
 ul.paginator2 li:hover span {
-        background: url(/images/pagination2_off_right.png) right -24px no-repeat;
+        background: url(../images/pagination2_off_right.png) right -24px no-repeat;
 }
 
 ul.paginator2 li a {
@@ -2569,7 +2569,7 @@ ul.paginator2 li.tag {
 }
 
 ul.paginator2 li span {
-    background: url(/images/pagination2_off_right.png) right 0 no-repeat;
+    background: url(../images/pagination2_off_right.png) right 0 no-repeat;
     display: block;
     height: 24px;
     float: left;
@@ -2577,7 +2577,7 @@ ul.paginator2 li span {
 }
 
 ul.paginator2 li.selected {
-    background: url(/images/pagination2_on_left.png) 0 0 no-repeat;
+    background: url(../images/pagination2_on_left.png) 0 0 no-repeat;
     height: 30px;
     position: relative;
     z-index: 1;
@@ -2586,7 +2586,7 @@ ul.paginator2 li.selected {
 }
 
 ul.paginator2 li.selected span {
-    background: url(/images/pagination2_on_right.png) right 0 no-repeat;
+    background: url(../images/pagination2_on_right.png) right 0 no-repeat;
     padding: 0px 0px 0;
 }
 
@@ -2619,13 +2619,13 @@ div.scrollNav li a, div.scrollNav span a {
 }
 
 div.scrollNav li a.selected {
-    background: url(/images/list_hover.png) 0 0 no-repeat;
+    background: url(../images/list_hover.png) 0 0 no-repeat;
     color: white;
 }
 
 div.scrollNav span.button_up {
     margin: 0 0;
-    background: url(/images/arrow_up.png) center center no-repeat;
+    background: url(../images/arrow_up.png) center center no-repeat;
     width: 130px;
     height: 32px;
     text-indent: -999em;
@@ -2633,7 +2633,7 @@ div.scrollNav span.button_up {
 
 div.scrollNav span.button_down {
     margin: 0 0;
-    background: url(/images/arrow_down3.png) center center no-repeat;
+    background: url(../images/arrow_down3.png) center center no-repeat;
     width: 130px;
     height: 32px;
     text-indent: -999em;
@@ -2699,20 +2699,20 @@ ul#mainMenu li#logo a{
     padding: 0px;
     height: 33px;
     width: 89px;
-    background: url(/images/miro.png) 0 0 no-repeat;
+    background: url(../images/miro.png) 0 0 no-repeat;
 }
 
 ul#mainMenu li#logo a:hover{
     padding: 0px;
     height: 33px;
     width: 89px;
-    background: url(/images/miro.png) 0 -33px no-repeat;
+    background: url(../images/miro.png) 0 -33px no-repeat;
 }
 
 
 /*Second Menu*/
 ul#lowerMenu {
-    background: url(/images/lower_top_bar_bg.png) 0 0 repeat-x;
+    background: url(../images/lower_top_bar_bg.png) 0 0 repeat-x;
     height: 25px;
     list-style: none;
     margin: 0 0 0 8px;
@@ -2743,14 +2743,14 @@ ul#lowerMenu li#account {
     padding: 0;
     float: right;
     display: inline;
-    background: url(/images/lower_top_bar_separator.png) 0 0 no-repeat;
+    background: url(../images/lower_top_bar_separator.png) 0 0 no-repeat;
 }
 
 ul#lowerMenu li#language {
     padding: 0;
     float: right;
     display: inline;
-    background: url(/images/lower_top_bar_separator.png) 0 0 no-repeat;
+    background: url(../images/lower_top_bar_separator.png) 0 0 no-repeat;
 }
 
 ul#lowerMenu li#language a, ul#lowerMenu li#account a {
@@ -2778,13 +2778,13 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     display: inline;
     position: absolute;
     z-index: 3;
-    background: #8d2427 url(/images/search_bg.png) top left no-repeat;
+    background: #8d2427 url(../images/search_bg.png) top left no-repeat;
     border-left: 1px solid #510309;
     border-right: 1px solid #76181b;
 }
 
 #searchSpot input { /* .headSearch {*/
-    background: url(/images/top_bar_search.png) right 3px no-repeat;
+    background: url(../images/top_bar_search.png) right 3px no-repeat;
     width: 165px;
     padding: 10px 12px 1px 9px;
     border: 0;
@@ -2821,14 +2821,14 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 #hoverMenu #upButton {
     width: 274px;
     height: 27px;
-    background: url(/images/hover_menu_top.png) 0 0 no-repeat;
+    background: url(../images/hover_menu_top.png) 0 0 no-repeat;
     cursor: pointer;
 }
 
 #hoverMenu #downButton {
     width: 274px;
     height: 56px;
-    background: url(/images/hover_menu_bottom.png) 0 0 no-repeat;
+    background: url(../images/hover_menu_bottom.png) 0 0 no-repeat;
     cursor: pointer;
 }
 
@@ -2837,7 +2837,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     margin: 0;
     padding: 0 30px;
     height: 100%;
-    background: url(/images/hover_menu.png) 0 0 repeat-y;
+    background: url(../images/hover_menu.png) 0 0 repeat-y;
 }
 
 #hoverMenu ul li {
@@ -2852,13 +2852,13 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     display: block;
     height: 30px;
     width: 214px;
-    background: url(/images/hover_menu_bg.png) 0 0 repeat-x;
+    background: url(../images/hover_menu_bg.png) 0 0 repeat-x;
     color: white;
     font-weight: bold;
 }
 
 #hoverMenu ul li a:hover {
-    background: url(/images/hover_menu_bg.png) bottom left repeat-x;
+    background: url(../images/hover_menu_bg.png) bottom left repeat-x;
 }
 
 #hoverMenu ul li a span {
@@ -2867,7 +2867,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 }
 
 #hoverMenu ul li a:hover span {
-    background: url(/images/menu_check.png) 190px 10px no-repeat;
+    background: url(../images/menu_check.png) 190px 10px no-repeat;
 }
 
 #hoverMenuLanguage {
@@ -2882,23 +2882,23 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 #hoverMenuLanguage #upButton {
     width: 274px;
     height: 26px;
-    background: url(/images/hover_menu_top.png) 0 0 no-repeat;
+    background: url(../images/hover_menu_top.png) 0 0 no-repeat;
 }
 
 #hoverMenuLanguage #upButton:hover {
-    background: url(/images/hover_menu_top-hover.png) 0 0 no-repeat;
+    background: url(../images/hover_menu_top-hover.png) 0 0 no-repeat;
 }
 
 #hoverMenuLanguage #downButton {
     width: 274px;
     height: 56px;
-    background: url(/images/hover_menu_bottom.png) 0 0 no-repeat;
+    background: url(../images/hover_menu_bottom.png) 0 0 no-repeat;
 }
 
 #hoverMenuLanguage #downButton:hover {
     width: 274px;
     height: 56px;
-    background: url(/images/hover_menu_bottom-hover.png) 0 0 no-repeat;
+    background: url(../images/hover_menu_bottom-hover.png) 0 0 no-repeat;
 }
 
 #hoverMenuLanguage ul {
@@ -2907,7 +2907,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     padding: 0 30px;
     height: 300px;
     overflow: hidden;
-    background: url(/images/hover_menu.png) 0 0 repeat-y;
+    background: url(../images/hover_menu.png) 0 0 repeat-y;
 }
 
 #hoverMenuLanguage ul button {
@@ -2935,7 +2935,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 #hoverMenuLanguage ul li.current button {
     border-bottom: 1px solid #520404;
     border-top: 1px solid #690404;
-    background: url(/images/hover_menu_bg.png) bottom left repeat-x
+    background: url(../images/hover_menu_bg.png) bottom left repeat-x
 }
 
 #hoverMenuLanguage ul button span {
@@ -2944,7 +2944,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 }
 
 #hoverMenuLanguage ul li.current button span {
-    background: url(/images/menu_check.png) 180px 3px no-repeat;
+    background: url(../images/menu_check.png) 180px 3px no-repeat;
 }
 
 #hoverMenuLanguage ul button:hover span {
@@ -2965,11 +2965,11 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     margin: 0;
     padding: 0 25px 0 31px;
     height: 100%;
-    background: url(/images/hover_menu2_bg.png) 0 0 repeat-y;
+    background: url(../images/hover_menu2_bg.png) 0 0 repeat-y;
 }
 
 #hoverMenuLogin ul li#login {
-    background: #b11f1f url(/images/hover_menu2_inner_bg.png) 0 0 repeat-x;
+    background: #b11f1f url(../images/hover_menu2_inner_bg.png) 0 0 repeat-x;
     width: 235px;
     padding: 20px 23px 14px 23px;
     margin: 0;
@@ -2979,7 +2979,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 }
 
 #hoverMenuLogin ul li#registerHidden {
-    background: #b11f1f url(/images/hover_menu2_inner_bg.png) 0 0 repeat-x;
+    background: #b11f1f url(../images/hover_menu2_inner_bg.png) 0 0 repeat-x;
     width: 235px;
     padding: 20px 23px 14px 23px;
     margin: 0;
@@ -3003,7 +3003,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 }
 
 #hoverMenuLogin ul li input.login_text_box {
-    background: url(/images/login_text_bg.png) 0 0 no-repeat;
+    background: url(../images/login_text_bg.png) 0 0 no-repeat;
     width: 130px;
     padding: 4px 14px 1px 9px;
     border: 0;
@@ -3018,7 +3018,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 }
 
 #hover_align ul li input[type=text], #hover_align ul li input[type=password] {
-    background: url(/images/login_text_bg.png) 0 0 no-repeat;
+    background: url(../images/login_text_bg.png) 0 0 no-repeat;
     width: 130px;
     padding: 4px 14px 1px 9px;
     border: 0;
@@ -3033,7 +3033,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 }
 
 #hoverMenuLogin ul li#login a.forgot_password {
-    background: url(/images/ico_forgot_password.png) 0 0 no-repeat;
+    background: url(../images/ico_forgot_password.png) 0 0 no-repeat;
     padding: 0 0 0 22px;
     color: white;
     float: left;
@@ -3049,7 +3049,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 #hoverMenuLogin #register {
     width: 337px;
     height: 66px;
-    background: url(/images/hover_menu2_bottom.png) 0 0 no-repeat;
+    background: url(../images/hover_menu2_bottom.png) 0 0 no-repeat;
 }
 
 #hoverMenuLogin #register p {
@@ -3105,11 +3105,11 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     margin: 0;
     padding: 0 24px 0 31px;
     height: 100%;
-    background: url(/images/popup_bg.png) 0 0 repeat-y;
+    background: url(../images/popup_bg.png) 0 0 repeat-y;
 }
 
 #hoverMenuSubmit .top {
-    background: url(/images/popup_top.png) 0 0 repeat-x;
+    background: url(../images/popup_top.png) 0 0 repeat-x;
     width: 349px;
     margin: 0;
     padding: 30px 30px 0 30px;
@@ -3132,7 +3132,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     float: right;
     font-size: 8px;
     color: #eb6f6f;
-    background: url(/images/ico_close.png) right 0 no-repeat;
+    background: url(../images/ico_close.png) right 0 no-repeat;
     padding: 2px 23px 0 0;
     text-transform: uppercase;
     display: inline;
@@ -3192,12 +3192,12 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 }
 
 #hoverMenuSubmit ul li.upper label.question span {
-    background: url(/images/ico_question.png) right 1px no-repeat;
+    background: url(../images/ico_question.png) right 1px no-repeat;
     padding: 0 17px 0 0;
 }
 
 #hoverMenuSubmit ul li.upper textarea {
-    background: url(/images/popup_textarea_bg.png) 0 0 no-repeat;
+    background: url(../images/popup_textarea_bg.png) 0 0 no-repeat;
     width: 306px;
     padding: 4px 14px 1px 9px;
     border: 0;
@@ -3219,7 +3219,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 #hoverMenuSubmit .bottom {
     width: 409px;
     height: 66px;
-    background: url(/images/popup_bottom.png) 0 0 no-repeat;
+    background: url(../images/popup_bottom.png) 0 0 no-repeat;
 }
 
 #hoverMenuSubmit .bottom p {
@@ -3285,7 +3285,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 .help_box_top {
     width: 238px;
     height: 30px;
-    background: url(/images/help_box_top.png) 0 0 no-repeat;
+    background: url(../images/help_box_top.png) 0 0 no-repeat;
     font-size: 14px;
     font-weight: bold;
     padding: 10px 0 0 0;
@@ -3306,7 +3306,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     color: #3b3b3b;
     width: 188px;
     padding: 0 18px 4px 22px;
-    background: url(/images/help_box.png) top left repeat-y;
+    background: url(../images/help_box.png) top left repeat-y;
     margin: 0 0 0 12px;
     font-size: 1px;
     overflow: hidden;
@@ -3334,13 +3334,13 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 .help_box_bottom {
     width: 226px;
     height: 11px;
-    background: url(/images/help_box_bottom.png) 0 0 no-repeat;
+    background: url(../images/help_box_bottom.png) 0 0 no-repeat;
     margin: 0 0 0 12px;
     font-size: 1px;
 }
 
 #login_button {
-    background: url(/images/buttons/login_button.png) !important;
+    background: url(../images/buttons/login_button.png) !important;
     text-align: center;
     width: 59px;
     height: 22px;
@@ -3353,7 +3353,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 }
 
 #login_button:hover {
-    background: url(/images/buttons/login_button.png) 0 -22px !important;
+    background: url(../images/buttons/login_button.png) 0 -22px !important;
 }
 
 
@@ -3371,11 +3371,11 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     margin: 0;
     padding: 0 24px 0 31px;
     height: 100%;
-    background: url(/images/popup_bg.png) 0 0 repeat-y;
+    background: url(../images/popup_bg.png) 0 0 repeat-y;
 }
 
 .popupBox .top {
-    background: url(/images/popup_top.png) 0 0 repeat-x;
+    background: url(../images/popup_top.png) 0 0 repeat-x;
     width: 349px;
     margin: 0;
     padding: 30px 30px 0 30px;
@@ -3398,14 +3398,14 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     float: right;
     font-size: 8px;
     color: #eb6f6f;
-    background: url(/images/ico_close.png) right 0 no-repeat;
+    background: url(../images/ico_close.png) right 0 no-repeat;
     padding: 2px 23px 0 0;
     text-transform: uppercase;
     display: inline;
 }
 
 .popupBox ul li.upper {
-    background: #b41f1f url(/images/popup_inner_bg.png) 0 0 repeat-x;
+    background: #b41f1f url(../images/popup_inner_bg.png) 0 0 repeat-x;
     width: 329px;
     padding: 20px 12px 14px 12px;
     margin: 0;
@@ -3437,12 +3437,12 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 }
 
 .popupBox ul li.upper label.question span {
-    background: url(/images/ico_question.png) right 1px no-repeat;
+    background: url(../images/ico_question.png) right 1px no-repeat;
     padding: 0 17px 0 0;
 }
 
 .popupBox ul li.upper input.popup_text_box {
-    background: url(/images/popup_text_bg.png) 0 0 no-repeat;
+    background: url(../images/popup_text_bg.png) 0 0 no-repeat;
     width: 193px;
     padding: 4px 14px 1px 9px;
     border: 0;
@@ -3457,7 +3457,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 }
 
 .popupBox ul li.upper textarea.popup_text_area {
-    background: url(/images/popup_textarea_bg.png) 0 0 no-repeat;
+    background: url(../images/popup_textarea_bg.png) 0 0 no-repeat;
     width: 306px;
     padding: 4px 14px 1px 9px;
     border: 0;
@@ -3474,7 +3474,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 .popupBox .bottom {
     width: 409px;
     height: 66px;
-    background: url(/images/popup_bottom.png) 0 0 no-repeat;
+    background: url(../images/popup_bottom.png) 0 0 no-repeat;
 }
 
 .popupBox .bottom p {
@@ -3515,7 +3515,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 .help_box_top {
     width: 238px;
     height: 30px;
-    background: url(/images/help_box_top.png) 0 0 no-repeat;
+    background: url(../images/help_box_top.png) 0 0 no-repeat;
     font-size: 14px;
     font-weight: bold;
     padding: 10px 0 0 0;
@@ -3535,7 +3535,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     color: #3b3b3b;
     width: 188px;
     padding: 0 18px 4px 22px;
-    background: url(/images/help_box.png) top left repeat-y;
+    background: url(../images/help_box.png) top left repeat-y;
     margin: 0 0 0 12px;
     font-size: 1px;
     overflow: hidden;
@@ -3563,7 +3563,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 .help_box_bottom {
     width: 226px;
     height: 11px;
-    background: url(/images/help_box_bottom.png) 0 0 no-repeat;
+    background: url(../images/help_box_bottom.png) 0 0 no-repeat;
     margin: 0 0 0 12px;
     font-size: 1px;
 }
@@ -3587,7 +3587,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 }
 
 .large_add_button a span.button_text {
-    background: url(/images/buttons/button_large.png) 0 0 no-repeat;
+    background: url(../images/buttons/button_large.png) 0 0 no-repeat;
     float: left;
     display: inline;
     font-size: 12px;
@@ -3610,7 +3610,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 .small_add_button a {float: left; display: inline;}
 
 .small_add_button a span.button_text {
-    background: url(/images/buttons/button_small.png) 0 0 no-repeat;
+    background: url(../images/buttons/button_small.png) 0 0 no-repeat;
     float: left;
     display: inline;
     font-size: 10px;
@@ -3632,7 +3632,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 }
 
 .tiny_add_button a span.button_text {
-    background: url(/images/buttons/button_small.png) 0 0 no-repeat;
+    background: url(../images/buttons/button_small.png) 0 0 no-repeat;
     float: left;
     display: inline;
     font-size: 9px;
@@ -3649,7 +3649,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 }
 
 .green_button {
-    background: url(/images/buttons/green_button_right.png) right 0 no-repeat;
+    background: url(../images/buttons/green_button_right.png) right 0 no-repeat;
 }
 
 .details_button a, .streaming_button a, .rss_button a, .info_button a,
@@ -3664,7 +3664,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 
 .details_button a span.button_text, .streaming_button a span.button_text,
 .rss_button a span.button_text, .green_button a span.button_text {
-    background: url(/images/buttons/button_details.png) top left no-repeat;
+    background: url(../images/buttons/button_details.png) top left no-repeat;
     float: left;
     display: inline;
     font-size: 10px;
@@ -3675,15 +3675,15 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 }
 
 .streaming_button a span.button_text {
-    background: url(/images/buttons/button_streaming.png) top left no-repeat;
+    background: url(../images/buttons/button_streaming.png) top left no-repeat;
 }
 
 .rss_button a span.button_text {
-    background: url(/images/buttons/button_rss.png) top left no-repeat;
+    background: url(../images/buttons/button_rss.png) top left no-repeat;
 }
 
 .green_button a span.button_text {
-    background: url(/images/buttons/green_button_left.png) top left no-repeat;
+    background: url(../images/buttons/green_button_left.png) top left no-repeat;
     padding: 4px 3px 6px 12px;
     font-size: 11px;
 }
@@ -3716,7 +3716,7 @@ del {
 }
 
 a.add_feed_button {
-    background: url(/images/buttons/button_add_feed.png) 0 0 no-repeat;
+    background: url(../images/buttons/button_add_feed.png) 0 0 no-repeat;
     color: white;
     clear: both;
     margin: 5px 0 0 0;
@@ -3724,27 +3724,27 @@ a.add_feed_button {
     font-size: 11px;
 }
 a.add_feed_button_welcome {
-    background: url(/images/buttons/button_add_feed_welcome.png) 0 0 no-repeat;
+    background: url(../images/buttons/button_add_feed_welcome.png) 0 0 no-repeat;
     color: white;
     padding: 4px 39px 4px 15px;
     font-size: 11px;
 }
 a.add_feed_button2 {
-    background: url(/images/buttons/button_add_feed2.png) 0 0 no-repeat;
+    background: url(../images/buttons/button_add_feed2.png) 0 0 no-repeat;
     color: white;
     padding: 4px 34px 4px 12px;
     font-size: 11px;
 }
 
 a.large_green_button {
-    background: url(/images/buttons/green_button_large.png) 0 0 no-repeat;
+    background: url(../images/buttons/green_button_large.png) 0 0 no-repeat;
     color: white;
     padding: 6px 30px 6px 10px;
     font-size: 14px;
 }
 
 a.large_green_button2 {
-    background: url(/images/buttons/green_button_large2.png) 0 0 no-repeat;
+    background: url(../images/buttons/green_button_large2.png) 0 0 no-repeat;
     color: white;
     line-height: 25px;
     font-size: 12px;
@@ -3761,7 +3761,7 @@ a.large_green_button2 {
 
 .previous_button a, .next_button a {
     margin: 23px 0 0 0;
-    background: url(/images/buttons/previous.png) 0 0 no-repeat;
+    background: url(../images/buttons/previous.png) 0 0 no-repeat;
     height: 31px;
     width: 84px;
     padding: 0 15px 0 0;
@@ -3773,7 +3773,7 @@ a.large_green_button2 {
 }
 
 .next_button a {
-    background: url(/images/buttons/next.png) 0 0 no-repeat;
+    background: url(../images/buttons/next.png) 0 0 no-repeat;
     text-align: left;
     padding: 0 0 0 15px;
     float: right;
@@ -3811,7 +3811,7 @@ button span {
 
 a.user_share {
     margin: 44px 0 0 0;
-    background: url(/images/buttons/button_user_share.png) 0 0 no-repeat;
+    background: url(../images/buttons/button_user_share.png) 0 0 no-repeat;
     height: 33px;
     width: 145px;
     padding: 0 0 0 20px;
@@ -3825,7 +3825,7 @@ a.user_share {
 
 a.user_view_site {
     margin: 25px 0 0 0;
-    background: url(/images/buttons/button_user_view_site.png) 0 0 no-repeat;
+    background: url(../images/buttons/button_user_view_site.png) 0 0 no-repeat;
     height: 33px;
     width: 175px;
     padding: 0 0 0 20px;
@@ -3840,7 +3840,7 @@ a.user_view_site {
 
 /*Link buttons*/
 .rollover_button {
-    background: url(/images/buttons/rollover_button.png) 0 0 no-repeat;
+    background: url(../images/buttons/rollover_button.png) 0 0 no-repeat;
     height: 21px;
     width: 84px;
     float: right;
@@ -3852,12 +3852,12 @@ a.user_view_site {
 }
 
 .rollover_button:hover {
-    background: url(/images/buttons/rollover_button.png) left bottom no-repeat;
+    background: url(../images/buttons/rollover_button.png) left bottom no-repeat;
     color: white;
 }
 
 .rollover_button2 {
-    background: url(/images/buttons/rollover_button.png) 0 0 no-repeat;
+    background: url(../images/buttons/rollover_button.png) 0 0 no-repeat;
     height: 21px;
     width: 84px;
     float: left;
@@ -3879,7 +3879,7 @@ a.user_view_site {
 }
 
 .show_channels {
-    background: url(/images/buttons/button_transparent.png) 0 0 no-repeat;
+    background: url(../images/buttons/button_transparent.png) 0 0 no-repeat;
     height: 19px;
     width: 80px;
     float: right;
@@ -3895,7 +3895,7 @@ a.user_view_site {
     width: 200px;
     height: 26px;
     display: block;
-    background: url(/images/buttons/guest_transparent.png) 0 0 no-repeat;
+    background: url(../images/buttons/guest_transparent.png) 0 0 no-repeat;
     line-height: 26px;
     margin: 10px 0 0 0;
     padding: 0 0 0 16px;
@@ -3909,7 +3909,7 @@ a.user_view_site {
 }
 
 a.view_all_videos {
-    background: url(/images/black_arrow_right.png) right 3px no-repeat;
+    background: url(../images/black_arrow_right.png) right 3px no-repeat;
     font-size: 11px;
     color: black;
     margin: 18px 15px 5px 0;
@@ -3921,7 +3921,7 @@ a.view_all_videos {
 
 a.large_button {
     text-align: center;
-    background: url(/images/buttons/button_large_right.png) no-repeat right;
+    background: url(../images/buttons/button_large_right.png) no-repeat right;
     border: 0;
     margin: 0;
     cursor: pointer;
@@ -3937,7 +3937,7 @@ a.large_button span {
     height: 25px;
     color: white;
     font: bold 12px/26px Arial, Helvetica, sans-serif;
-    background: url(/images/buttons/button_large.png) no-repeat left top;
+    background: url(../images/buttons/button_large.png) no-repeat left top;
     padding: 0 5px 0 14px;
 }
 
@@ -4069,14 +4069,14 @@ a.large_button span {
 }
 
 .flv_file {
-    background: url(/images/ico_flv.png) 0 0 no-repeat;
+    background: url(../images/ico_flv.png) 0 0 no-repeat;
     padding: 1px 0 2px 20px;
 }
 
 
 /*Ads*/
 .horizontal_banner_ad {
-    background: url(/images/ads/728x90_bg.png) 0 0 no-repeat;
+    background: url(../images/ads/728x90_bg.png) 0 0 no-repeat;
     padding: 16px 18px;
     width: 726px;
     height: 90px;
@@ -4085,7 +4085,7 @@ a.large_button span {
 }
 
 .box_ad {
-    background: url(/images/ads/300x250_bg.png) 0 0 no-repeat;
+    background: url(../images/ads/300x250_bg.png) 0 0 no-repeat;
     padding: 17px 18px;
     width: 298px;
     height: 278px;
