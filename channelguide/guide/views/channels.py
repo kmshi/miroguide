@@ -490,20 +490,28 @@ def filtered_listing(request, value=None, filter=None, limit=10,
                                        'rating',
                                        'item_count'), geoip)
     feed_paginator = Paginator(feed_object_list, limit)
-    site_object_list = SiteObjectList(request.connection,
-                                      filter, value, sort,
-                                      ('subscription_count_month',
-                                       'rating',
-                                       'item_count'), geoip)
-    site_paginator = Paginator(site_object_list, limit)
     try:
         feed_page = feed_paginator.page(page)
     except InvalidPage:
         feed_page = None
-    try:
-        site_page = site_paginator.page(page)
-    except InvalidPage:
-        site_page = None
+
+    site_page = None
+    site_paginator = None
+    # only generate a site object list if this isn't linux, because
+    # unfortunately most 'sites' are flash-based, and
+    # linux + flash == teh suck :\
+    if not ('Miro' in request.META['HTTP_USER_AGENT']
+            and 'X11' in request.META['HTTP_USER_AGENT']):
+        site_object_list = SiteObjectList(
+            request.connection, filter, value, sort,
+            ('subscription_count_month', 'rating', 'item_count'),
+            geoip)
+        site_paginator = Paginator(site_object_list, limit)
+
+        try:
+            site_page = site_paginator.page(page)
+        except InvalidPage:
+            site_page = None
 
     # find the biggest paginator and use that page for calculating the links
     if not feed_paginator:
