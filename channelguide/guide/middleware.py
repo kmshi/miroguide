@@ -1,17 +1,14 @@
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
-import locale
 import logging
 import traceback
-import cStringIO
 
 from channelguide import util
 from exceptions import AuthError
-from models import Channel, User
+from models import User
 from models.user import AnonymousUser
 from auth import SESSION_KEY
-import hotshot.stats, tempfile, sys
 
 class UserMiddleware(object):
     """Add a User object to each request.
@@ -41,6 +38,8 @@ class UserMiddleware(object):
                     req.add_notification('Confirm', """Confirm your e-mail to make your ratings count towards the average.  <a href="/accounts/confirm/%i/resend">Didn't get the e-mail?</a>""" % req.user.id)
 
                 req.connection.commit()
+                if req.user.language:
+                    req.session['django_language'] = req.user.language
         else:
             req.user = AnonymousUser()
 
@@ -48,11 +47,12 @@ class UserMiddleware(object):
         if isinstance(exception, AuthError):
             return util.send_to_login_page(request)
 
-class ChannelCountMiddleware(object):
-    def process_request(self, request):
-        channel_count = Channel.query_approved().count(request.connection)
-        request.connection.commit()
-        request.total_channels = locale.format('%d', channel_count, True)
+    def process_response(self, request, response):
+        if hasattr(request, 'connection'):
+            if request.user.language != request.session['django_language']:
+                request.user.language = request.session['django_language']
+                request.user.save(request.connection)
+        return response
 
 class NotificationMiddleware(object):
     """

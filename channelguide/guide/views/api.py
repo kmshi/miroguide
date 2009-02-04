@@ -3,11 +3,10 @@ from itertools import izip, count
 import sha
 import cgi
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseNotFound, Http404
-from channelguide.guide.models import User
+from django.http import HttpResponse
 from channelguide import util
-from channelguide.guide import api, tables
-from channelguide.guide.auth import admin_required, login_required
+from channelguide.guide import api
+from channelguide.guide.auth import login_required
 from channelguide import sessions
 
 def requires_arguments(*arguments):
@@ -158,7 +157,7 @@ def get_channels(request):
     offset = request.GET.get('offset')
     if offset is not None:
         offset = int(offset)
-    channels = api.get_channels(request.connection, filter, value, sort,
+    channels = api.get_channels(request, filter, value, sort,
             limit, offset)
     data = map(data_for_channel, channels)
     return response_for_data(request, data)

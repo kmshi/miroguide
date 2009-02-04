@@ -6,8 +6,7 @@ import urllib
 from django.conf import settings
 
 from channelguide import util, cache
-from channelguide.guide import api
-from channelguide.guide.models import Channel, Category, Language, PCFBlogPost
+from channelguide.guide.models import Channel, Category, Language
 from sqlhelper.exceptions import NotFoundError
 
 def _filter_categories(result, count):

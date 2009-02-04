@@ -44,8 +44,8 @@ class ItemObjectList(templateutil.QueryObjectList):
             self.connection))
 
 class ApiObjectList:
-    def __init__(self, connection, filter, value, sort, loads, country_code):
-        self.connection = connection
+    def __init__(self, request, filter, value, sort, loads, country_code):
+        self.request = request
         self.filter = filter
         self.value = value
         self.sort = sort
@@ -68,17 +68,17 @@ class ApiObjectList:
         """
         Return the count of items, not filtering by country.
         """
-        return int(self.call(self.connection, self.filter,
+        return int(self.call(self.request, self.filter,
                              self.value, self.count_sort))
 
     def __len__(self):
-        return int(self.call(self.connection, self.filter,
+        return int(self.call(self.request, self.filter,
                              self.value, self.count_sort,
                              country_code = self.country_code))
 
     def __getslice__(self, offset, end):
         limit = end - offset
-        return tuple(self.call(self.connection, self.filter, self.value,
+        return tuple(self.call(self.request, self.filter, self.value,
                                self.sort, limit, offset, self.loads,
                                self.country_code))
 
@@ -484,13 +484,13 @@ def filtered_listing(request, value=None, filter=None, limit=10,
         geoip = country_code(request)
     else:
         geoip = None
-    feed_object_list = FeedObjectList(request.connection,
+    feed_object_list = FeedObjectList(request,
                                       filter, value, sort,
                                       ('subscription_count_month',
                                        'rating',
                                        'item_count'), geoip)
     feed_paginator = Paginator(feed_object_list, limit)
-    site_object_list = SiteObjectList(request.connection,
+    site_object_list = SiteObjectList(request,
                                       filter, value, sort,
                                       ('subscription_count_month',
                                        'rating',
