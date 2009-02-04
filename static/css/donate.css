@@ -9,7 +9,7 @@ html {
 }
 
 body {
-	background: #71b7ff url(images/donate/sky-bg.jpg) no-repeat top center;
+	background: #71b7ff url(../images/donate/sky-bg.jpg) no-repeat top center;
 	padding: 0;
 	margin: 0;
 	min-height: 100%;
@@ -20,13 +20,13 @@ img {
 }	
 
 #outer {
-    background: url(images/donate/content-bg.png) repeat-y;
+    background: url(../images/donate/content-bg.png) repeat-y;
     width: 764px;
     margin: 0 auto;
 }
 
 #cap {
-    background: url(images/donate/content-cap.png) no-repeat;
+    background: url(../images/donate/content-cap.png) no-repeat;
     width: 764px;
     height: 25px;
     margin-top: 95px;
@@ -99,7 +99,7 @@ h2 {
     height: 160px;
     position: absolute;
     left: -5px;
-    background: url(images/donate/donate-bg.png);
+    background: url(../images/donate/donate-bg.png);
 }
 
 /* hack for IE6 */
@@ -117,12 +117,12 @@ h2 {
     cursor:pointer;
 }
 
-#donate .amounts .g20 {background: url(images/donate/give20.png);}
-#donate .amounts .g50 {background: url(images/donate/give50.png);}
-#donate .amounts .g100 {background: url(images/donate/give100.png);}
-#donate .amounts .g200 {background: url(images/donate/give200.png);}
+#donate .amounts .g20 {background: url(../images/donate/give20.png);}
+#donate .amounts .g50 {background: url(../images/donate/give50.png);}
+#donate .amounts .g100 {background: url(../images/donate/give100.png);}
+#donate .amounts .g200 {background: url(../images/donate/give200.png);}
 #donate .amounts .other {
-    background: url(images/donate/give-x.png);
+    background: url(../images/donate/give-x.png);
     width: 122px;
     position: relative;
     margin-left: 0;
@@ -131,7 +131,7 @@ h2 {
 
 .amounts input {
     border: 2px solid #7f8d9f;
-    background: url(images/donate/give-bg.png) no-repeat;
+    background: url(../images/donate/give-bg.png) no-repeat;
     padding-left: 12px;
     position: absolute;
     top: 10px;
@@ -145,7 +145,7 @@ h2 {
 
 #donate .close {
     display: block;
-    background: url(images/donate/x.png) no-repeat;
+    background: url(../images/donate/x.png) no-repeat;
     width: 15px;
     height: 15px;
     position: absolute;
@@ -178,7 +178,7 @@ h2 {
 }
 
 #video .download {
-background:transparent url(images/details/download.png) no-repeat scroll 0% 0%;
+background:transparent url(../images/donate/download.png) no-repeat scroll 0% 0%;
 color:white;
 float:right;
 font-weight:bold;
