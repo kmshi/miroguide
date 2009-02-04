@@ -50,11 +50,11 @@ var browser = {
         thumb = item.find('.searchThumb a');
         url = '/feeds/' + data['id'];
         STATIC_BASE_URL = /(.*)media\/thumbnails\//.exec(data['thumbnail_url'])[1];
-        thumb_url = data['thumbnail_url'].replace('370x247', '98x68');
+        thumb_url = data['thumbnail_url'].replace('370x247', '98x65');
         thumb.attr('href', url);
-        thumb.children('div').css('background-image', 'url(' + thumb_url + ')').children('img.hd_tag_tiny2').remove();
+        thumb.children('span').css('background-image', 'url(' + thumb_url + ')').children('img.hd_tag_tiny2').remove();
         if (data['hi_def']) {
-            thumb.children('div').html('<img class="hd_tag_tiny2" src="' + STATIC_BASE_URL + 'images/ico_hd_tag_tiny.png" alt="" />');
+            thumb.children('span').html('<img class="hd_tag_tiny2" src="' + STATIC_BASE_URL + 'images/ico_hd_tag_tiny.png" alt="" />');
         }
         title = item.find('h4 a');
         title.attr('href', url).text(data['name']);
