@@ -507,6 +507,7 @@ def filtered_listing(request, value=None, filter=None, limit=10,
 
     site_page = None
     site_paginator = None
+    site_object_list = None
     # There are two cases where we don't generate a site object list:
     #  - If it's pre-miro 2.0 (doesn't support site object lists)
     #  - If it's Miro on Linux... because unfortunately most 'sites'
