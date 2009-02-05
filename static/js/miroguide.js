@@ -178,8 +178,9 @@ function isWithin(event, obj)  {
 }
 
 function showMenu(el, menu, event) {
-    $('#' + el).css('top', 'inherit').show();
     $('#' + menu + ' a').addClass('hover');
+    m = $('#' + menu)[0];
+    $('#' + el).css('top', m.offsetTop + m.offsetHeight).show();
     return false;
 }
 
@@ -216,8 +217,7 @@ var languageTimeout = null;
 function languageUp() {
     showMenu('hoverMenuLanguage', 'language');
     ul = $("#hoverMenuLanguage ul");
-    top = parseInt(ul.attr('scrollTop')) - 30;
-    ul.attr('scrollTop', top)
+    ul.scrollTop(ul.scrollTop() - 30);
     languageStop();
     languageTimeout = setTimeout(languageUp, 50);
 }
@@ -225,8 +225,7 @@ function languageUp() {
 function languageDown() {
     showMenu('hoverMenuLanguage', 'language');
     ul = $("#hoverMenuLanguage ul");
-    top = parseInt(ul.attr('scrollTop')) + 30;
-    ul.attr('scrollTop', top);
+    ul.scrollTop(ul.scrollTop() + 30);
     languageStop();
     languageTimeout = setTimeout(languageDown, 50);
 }
@@ -292,5 +291,7 @@ if (isMiro()) {
     document.write('<style type="text/css">.only-in-miro {  display: inherit !important;}.only-in-browser {  display: none !important;}</style>');
 }
 
-window.addEventListener('pageshow', searchPageShow, false);
-window.addEventListener('pagehide', hideLoadIndicator, false);
+if (window.addEventListener) {
+    window.addEventListener('pageshow', searchPageShow, false);
+    window.addEventListener('pagehide', hideLoadIndicator, false);
+}
