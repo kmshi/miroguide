@@ -4,9 +4,6 @@
     <script src="{{ STATIC_BASE_URL }}js/infinitescroll.js"
             type="text/javascript">
     </script>
-    <script src="{{ STATIC_BASE_URL }}js/hide_sites.js"
-            type="text/javascript">
-    </script>
 {% endblock %}
 
 {% block onload-extra %}possibly_hide_sites();{% endblock %}
@@ -24,26 +21,24 @@
   </div>
   {% else %}
 
-  <!-- warning to old miro users users -->
-  <div id="oldmiro_warning" class="alert hidden">
-    <div class="page">
-      <div class="alertBox">
-        <p>
-          {% blocktrans %}
-            You appear to be using an older version of Miro.
-            Unfortunately, you cannot subscribe to sites using
-            versions of Miro prior to 2.0. (So consider upgrading!)
-          {% endblocktrans %}
-        </p>
-
-        <p>
-          {% trans "We've hidden sites on this page." %} <br />
-          <strong><a href="#">{% trans "Enable them anyway" %}</a></strong>
-        </p>
+    {% if miro_version_pre_sites %}
+      <!-- warning to old miro users users -->
+      <div id="oldmiro_warning" class="alert">
+        <div class="page">
+          <div class="alertBox">
+            <p>
+              {% blocktrans %}
+                You appear to be using an older version of Miro.
+                We've hidden site listings from this page since,
+                unfortunately, you cannot subscribe to sites using
+                versions of Miro prior to 2.0.  (So consider
+                upgrading... it's free!)
+              {% endblocktrans %}
+            </p>
+          </div>
+        </div>
       </div>
-      <a href="#" class="closeAlert">{% trans "Close" %}</a>
-    </div>
-  </div>
+    {% endif %}
 
     <div class="infoBox">
       {% block infoBox %}
