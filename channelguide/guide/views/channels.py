@@ -503,7 +503,7 @@ def filtered_listing(request, value=None, filter=None, limit=10,
     if not ('Miro' in request.META['HTTP_USER_AGENT']
             and 'X11' in request.META['HTTP_USER_AGENT']):
         site_object_list = SiteObjectList(
-            request.connection, filter, value, sort,
+            request, filter, value, sort,
             ('subscription_count_month', 'rating', 'item_count'),
             geoip)
         site_paginator = Paginator(site_object_list, limit)

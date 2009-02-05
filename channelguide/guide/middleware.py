@@ -49,7 +49,8 @@ class UserMiddleware(object):
 
     def process_response(self, request, response):
         if hasattr(request, 'connection') and request.user.is_authenticated():
-            if request.user.language != request.session['django_language']:
+            if (request.session.get('django_language')
+                   and request.user.language != request.session['django_language']):
                 request.user.language = request.session['django_language']
                 request.user.save(request.connection)
         return response

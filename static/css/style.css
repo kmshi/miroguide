@@ -136,6 +136,10 @@ br.clear_all {
     width: 202px;
 }
 
+#sideBarSmall .small_add_button{
+    margin-left: 39px;
+}
+
 #topBar {
     background: url(../images/top_bar_menu_bg.png) 0 0 repeat-x;
     height: 34px;
@@ -278,6 +282,7 @@ br.clear_all {
 #featuredItemsCarousel #innerContent ul li span.title {
     font-weight: bold;
     font-size: 14px;
+    clear: both;
     display: block;
     padding: 8px 10px 2px 10px;
     height: 1em;
@@ -386,7 +391,7 @@ ul.newVideos {
 ul.newVideos li {
     float: left;
     display: block;
-    margin: 10px 5px 0 5px;
+    margin: 14px 14px 0;
     text-align: center;
     width: 130px;
 }
@@ -406,6 +411,7 @@ ul.newVideos li.separator {
 
 ul.newVideos li p {
     height: 1.2em;
+    clear: both;
     overflow: hidden;
 }
 
@@ -624,7 +630,7 @@ span.rss {
 }
 
 span.streaming {
-    background: url(../images/ico_streaming_title.png) right 8px no-repeat;
+    background: url(../images/site_med.png) right 8px no-repeat;
     display: block;
 }
 
@@ -666,7 +672,7 @@ h2.searchResults span.comprehensive_results a {
 
 ul.searchResults {
     margin: 10px 0;
-    padding: 0 0 0 10px;
+    padding: 0 0 0 5px;
     list-style: none;
     background: url(../images/line.png) 0 0 no-repeat;
     float: right;
@@ -679,12 +685,13 @@ ul.searchResults li {
     display: inline;
     height: 115px;
     width: 360px;
+    margin: 0;
 }
 
 ul.searchResults li h4 {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
-    margin: 0 0 8px 0;
+    margin: 0 0 3px 0;
     color: #333;
     padding: 0;
 }
@@ -706,7 +713,7 @@ ul.searchResults li .searchResultContent {
 }
 
 ul.searchResults li .searchResultContent p {
-    margin: 4px 0 11px 0;
+    margin: 4px 0 1px 0;
     padding: 0;
     line-height: 1.3em;
     font-size: 11px;
@@ -718,16 +725,18 @@ ul.searchResults li .searchResultContent p {
 ul.searchResults li .searchResultsMeta {
     clear: both;
     overflow: hidden;
-    margin: -10px 0 0 0;
-    height: 100%;
+    margin: 0;
     width: 400px;
 }
 
+ul.searchResults li .searchResultsMeta .small_add_button{
+    margin-right: 10px;
+}
 
 /*Ratings*/
 ul.searchResults li ul.rating, ul.rating {
     list-style: none;
-    margin: 0;
+    margin: 0 0 0 0;
     padding: 0;
     overflow: hidden;
     height: 100%;
@@ -794,12 +803,13 @@ ul#channelRate {
 }
 
 #channelInfo h1 {
-    margin: 1px 0 0 13px;
+    margin: 1px 0 0 22px;
     padding: 0;
     line-height: 53px;
     font-size: 22px;
     display: inline;
     overflow: hidden;
+    float: left;
 }
 
 #channelInfo .page a {
@@ -814,6 +824,7 @@ ul#channelRate {
 #channelWebsite {
     background: url(../images/channel_website_bg.png) 0 0 repeat-x;
     height: 31px;
+    border: 1px solid;
 }
 
 h4.inactive {
@@ -857,13 +868,11 @@ h3.resultsCount {
     float: left;
     display: inline;
     height: 100%;
-    width: 724px;
     margin: 0;
     background: url(../images/item_bar_left.png) left bottom no-repeat;
 }
 
 .user_page .detailsHeadLarge h3.resultsCount {
-    width: 721px;
     padding: 0 0 0 13px;
 }
 
@@ -872,10 +881,8 @@ h3.resultsCount {
     float: left;
     display: inline;
     height: 100%;
-    width: 319px;
     margin: 0;
     padding: 0 0 0 15px;
-    background: url(../images/item_bar_left.png) left bottom no-repeat;
 }
 
 h3.resultsCount .heading {
@@ -903,7 +910,6 @@ h3.resultsCount .button a {
     float: left;
     display: inline;
     height: 100%;
-    width: 154px;
     padding: 0;
     margin: 0;
     text-indent: 13px;
@@ -929,7 +935,6 @@ h3.resultsCount .button a {
     float: left;
     display: inline;
     height: 100%;
-    width: 382px;
     padding: 0;
     margin: 0;
     text-indent: 13px;
@@ -945,11 +950,9 @@ h3.resultsCount .pagination {
 .sortType {
     float: right;
     display: inline;
-    background: url(../images/item_bar_right.png) 0 0px no-repeat;
     height: 34px;
     line-height: 34px;
-    width: 48px;
-    padding: 1px 0 0 0;
+    padding: 1px 13px 0 0;
     text-align: center;
     font-size: 12px;
 }
@@ -964,24 +967,15 @@ h3.resultsCount .pagination {
 
 
 /*Channel rating - Second level bar below title*/
-#channelRating {
-    background: #ddd url(../images/channel_rating_bg.png) 0 0 repeat-x;
-    padding: 6px 0 10px 0;
-    border-top: 1px solid #cfcfcf;
-    height: 17px;
-}
 
-#channelRating a, #channelRating span, #channelRating .rate{
-    cursor: pointer !important;
-}
-
-#channelRating .rate {
-    float: left;
+div.rate {
+    float: right;
     display: inline;
-    margin: 0 0 0 12px;
+    margin: 17px 0 0 12px;
+    width: 136px;
 }
 
-#channelRating .rate .tag {
+div.rate .tag {
     text-transform: uppercase;
     color: #747474;
     font-size: 12px;
@@ -991,7 +985,7 @@ h3.resultsCount .pagination {
     padding: 2px 5px 0 0;
 }
 
-#channelRating .rate .rating_average, #channelRating .rate .rating {
+div.rate .rating_average, div.rate .rating {
     color: #747474;
     font-size: 10px;
     float: left;
@@ -999,11 +993,11 @@ h3.resultsCount .pagination {
     padding: 2px 0px 0 12px;
 }
 
-#channelRating .rate .rating {
+div.rate .rating {
     color: black;
 }
 
-#channelRating .rate .cancel {
+div.rate .cancel {
     float: left;
     display: inline;
     width: 18px;
@@ -1012,11 +1006,11 @@ h3.resultsCount .pagination {
     text-indent: -9999px;
 }
 
-#channelRating .rate .cancel:hover {
+div.rate .cancel:hover {
     background: url(../images/big_no-nos.png) 0 -0px no-repeat;
 }
 
-#channelRating .rate .star {
+div.rate .star {
     float: left;
     display: inline;
     width: 19px;
@@ -1026,35 +1020,37 @@ h3.resultsCount .pagination {
     text-indent: -9999px;
 }
 
-#channelRating .rate .star:hover{
+div.rate .star:hover{
     background: url(../images/big_stars.png) 0 -19px no-repeat;
 }
 
-#channelRating .rate .on {
+div.rate .on {
     background-position: left bottom;
 }
 
-#channelRating .rate .star a, #channelRating .rate .cancel a {
+div.rate .star a, #channelRating .rate .cancel a {
     display: block;
     width: 18px;
     height: 16px;
 }
 
-#channelRating .url {
+.url {
     float: right;
-    display: inline;
-    margin: 2px 10px 0 0;
+    display: block;
+    text-align: right;
+    padding: 4px 14px 4px 4px;    
+    background: url(/images/arrow_right.png) right center 3px no-repeat;
 }
 
-#channelRating .url .link a {
+.url span {
     font-size: 10px;
     color: #888;
+    display: block;
 }
 
-#channelRating .url .tag {
+.url .tag {
     text-transform: uppercase;
     font-size: 10px;
-    background: url(../images/arrow_right.png) right 3px no-repeat;
     padding: 0 10px 0 10px;
     margin: 1px 0 0 10px;
 }
@@ -1098,7 +1094,7 @@ h3.resultsCount .pagination {
     padding: 10px 0;
     overflow: hidden;
     height: 100%;
-    border-bottom: 1px solid #bababa;
+    border: 1px solid #bababa;
 }
 
 #channelDetails .channelDetailsContent {
@@ -1144,12 +1140,14 @@ h3.resultsCount .pagination {
 #channelDetails2 .channelDetailsContent h4 {
     font-size: 15px;
     margin: 5px 0 0 13px;
+    clear: both;
+    padding-top: 15px;
     font-weight: bold;
 }
 
 #channelDetails2 .channelDetailsContent p.description {
     font-size: 13px;
-    margin: 5px 0 10px 13px;
+    margin: 5px 0 5px 13px;
     clear: both;
     line-height: 1.5em;
     height: 4.5em;
@@ -1301,7 +1299,7 @@ h3.resultsCount .pagination {
     height: 100%;
     height: 34px;
     line-height: 34px;
-    background: url(../images/item_bar_left.png) left bottom no-repeat;
+    background: url(../images/item_bar_left_large.png) left bottom no-repeat;
 }
 
 #channelEpisodes .detailsHeadLarge, .user_page .detailsHeadLarge {
@@ -1326,7 +1324,7 @@ h3.resultsCount .pagination {
     overflow: hidden;
     height: 100%;
     height: 34px;
-    background: url(../images/item_bar_left.png) left bottom no-repeat;
+    background: url(../images/item_bar_left_small.png) left bottom no-repeat;
     line-height: 34px;
 }
 
@@ -1335,7 +1333,7 @@ h3.resultsCount .pagination {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background: url(../images/item_bar_left.png) left bottom no-repeat;
+    background: url(../images/item_bar_left_xl.png) left bottom no-repeat;
     height: 100%;
     height: 34px;
     line-height: 34px;
@@ -1343,7 +1341,7 @@ h3.resultsCount .pagination {
 
 .detailsHead4 {
     width: 382px;
-    background: url(../images/item_bar_left.png) left bottom no-repeat;
+    background: url(../images/item_bar_left_med.png) left bottom no-repeat;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -1355,7 +1353,6 @@ h3.resultsCount .pagination {
 
 #channelEpisodes .detailsHead h3.resultsCount {
     margin: 0;
-    width: 502px;
 }
 
 #channelEpisodes .details .playback {
@@ -1368,7 +1365,7 @@ h3.resultsCount .pagination {
 
 #channelEpisodes .details .thumb {
     width: 98px;
-    margin: 6px 0 0 13px;
+    margin: 8px 0 0px 12px;
     float: left;
     display: inline;
 }
@@ -1378,7 +1375,7 @@ h3.resultsCount .pagination {
     width: 310px;
     float: left;
     display: inline;
-    margin: 0px 0 13px 10px;
+    margin: 0px 0 11px 10px;
     overflow: hidden;
 }
 
@@ -1387,7 +1384,7 @@ h3.resultsCount .pagination {
 }
 
 #channelEpisodes .details .description h4 {
-    margin: 6px 0 0 0;
+    margin: 12px 0 0 0;
     color: #1e66f2;
     padding: 0;
     height: 1.2em;
@@ -1396,13 +1393,75 @@ h3.resultsCount .pagination {
 }
 
 #channelEpisodes .details .description p {
-    margin: 4px 0 11px 0;
+    margin: 4px 0 0px 0;
     padding: 0;
     line-height: 14px;
     font-size: 11px;
     color: #777777;
-    height: 2.4em;
+    height: 16px;
     overflow: hidden;
+}
+
+.rollover_button {
+    background: url(../images/misc_button_med_cap.png) right 0 no-repeat;
+    float: right;
+    display: inline;
+    clear: both;
+    line-height: 23px;
+    margin: 0px 0 7px 0;
+    padding: 0 12px 0px 0;
+    font-family: "Lucida Grande", Tahoma, Verdana, sans-serif;
+    font-size: 10px;
+}
+
+.rollover_button span{
+    background: url(../images/misc_button_med.png) left 0 no-repeat;
+    display: block;
+    padding: 0 3px 0px 15px;
+}
+
+.rollover_button:hover {
+    background-position: right -23px;
+    color: #333;
+}
+
+.rollover_button:hover span{
+    background-position: left -23px;
+}
+
+.download{
+    margin: 5px 0 0px -4px;
+    float: left;
+}
+
+.download span{
+    padding-right: 4px;
+}
+
+.download img{
+    margin-right: 4px;
+}
+
+.preview{
+    margin: 8px 0 0px 0px;
+}
+
+.rollover_button2 {
+    background: url(../images/rollover_button.png) 0 0 no-repeat;
+    height: 21px;
+    width: 84px;
+    float: left;
+    display: inline;
+    clear: both;
+    color: #585858;
+    font-size: 11px;
+    text-align: center;
+    line-height: 21px;
+    margin: 14px 0 7px 0;
+}
+
+.rollover_button2:hover {
+    color: #787878;
 }
 
 #channelEpisodes .read_more {
@@ -1411,12 +1470,12 @@ h3.resultsCount .pagination {
     background: url(../images/arrow_down2.png) right 2px no-repeat;
     padding: 0 13px 0 0;
     clear: both;
-    margin-bottom: 4px;
+    margin: 0 5px 4px 0;
 }
 
 #channelEpisodes .details .meta {
     width: 95px;
-    padding: 4px 14px 0 0;
+    padding: 12px 15px 0 0;
     float: right;
     display: inline;
     overflow: hidden;
@@ -1577,7 +1636,7 @@ h3.resultsCount .pagination {
     background: url(../images/ico_red_feeds.png) 0 center no-repeat;
     padding: 0 0 0px 50px;
     width: 298px;
-    margin-bottom:19px;
+    margin: 0 0 19px 20px;
     height: 100%;
 }
 
@@ -1589,10 +1648,10 @@ h3.resultsCount .pagination {
 }
 
 .feedColumn ul.searchResults li.sites_tip {
-    background: url(../images/ico_stream.png) 0 center no-repeat;
+    background: url(../images/site_med.png) 0 center no-repeat;
     padding: 0 0 0px 50px;
     width: 298px;
-    margin-bottom:19px;
+    margin: 0 0 19px 20px;
     height: 100%;
 }
 
@@ -1922,6 +1981,7 @@ h3.resultsCount .pagination {
     border: 1px solid #fff;
     background: url(../images/buttons/clear.png);
     padding: 15px 15px 8px 15px;
+    min-height: 185px;
 }
 
 #videoBox #videoDetails p.synopsis_tag {
@@ -2005,6 +2065,18 @@ h3.resultsCount .pagination {
 
 .underline{
     text-decoration: underline;	
+}
+
+.share{
+    float: left;
+}
+
+.share img{
+    padding: 0 4px 0 0px;
+}
+
+.share span{
+    padding: 0 4px 0 20px;
 }
 
 .sharebox {
@@ -2269,7 +2341,7 @@ h3.resultsCount .pagination {
 }
 
 #hover_align + .edit.loading h2 {
-    background-image: url(../images/load-indicator.gif);
+    background-image: url(/images/load-indicator.gif);
 }
 
 #hover_align + .edit h3 {
@@ -2680,10 +2752,12 @@ ul#mainMenu li a {
     display: inline;
     height: 34px;
     padding: 0 20px;
+    text-align: center;
 }
 
 ul#mainMenu li a:hover {
     color: #eed9db;
+    background: url(/images/mm_hover.gif) 0 0;
 }
 
 ul#mainMenu li#logo {
@@ -2709,6 +2783,17 @@ ul#mainMenu li#logo a:hover{
     background: url(../images/miro.png) 0 -33px no-repeat;
 }
 
+.video_feeds a {
+    width: 70px;
+}
+
+.streaming_shows a {
+    width: 70px;
+}
+
+.video_love a {
+    width: 170px;
+}
 
 /*Second Menu*/
 ul#lowerMenu {
@@ -2773,7 +2858,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 #searchSpot {
     margin-left: -1px;
     height: 33px;
-    width: 329px;
+    width: 292px;
     float: right;
     display: inline;
     position: absolute;
@@ -2793,7 +2878,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
     height: 26px;
-    margin-right: 14px;
+    margin-right: 4px;
     overflow: hidden;
     color: #000;
 }
@@ -2956,7 +3041,8 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     width: 337px;
     overflow: hidden;
     position: absolute;
-    margin: -1px 0 0 421px;
+    _margin: -1px 0 0 421px;
+    margin: -1px 0 0 424px;
     z-index: 100;
 }
 
@@ -3573,7 +3659,9 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
  * Buttons, images, etc.
  *****************************************************/
 
-.centered_button {margin: 0 auto;}
+.centered_button {
+    margin: 0 auto;
+}
 
 .large_add_button {
     color: white;
@@ -3582,42 +3670,80 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     display: inline;
 }
 
-.large_add_button a {
-    float: left; display: inline;
-}
-
-.large_add_button a span.button_text {
-    background: url(../images/buttons/button_large.png) 0 0 no-repeat;
+.large_add_button span {
+    background: url(../images/buttons/large_add.png) 0 0 no-repeat;
     float: left;
-    display: inline;
+    display: block;
     font-size: 12px;
     text-transform: uppercase;
     color: white;
-    padding: 6px 7px 7px 14px;
+    padding: 0 10px 0 18px;
+    line-height: 32px;
     margin: 0 0 0 0;
-    cursor: pointer;
-    margin-top: 1px;
-    padding: 9px 7px 7px 14px;
+}
+
+.large_add_button:hover span {
+    background-position: 0 -33px;
+}
+
+.large_add_button.feed {
+    padding-right: 25px;
+    background: url(/images/large_add_feed.png) right 0 no-repeat;
+}
+
+
+.large_add_button.site {
+    padding-right: 25px;
+    background: url(/images/large_add_site.png) right 0 no-repeat;
+}
+
+.large_add_button.feed:hover, .large_add_button.site:hover {
+    background-position: right -33px;
+}
+
+#featuredItemsCarousel .large_add_button {
+    margin: 10px 0 0 22px;
+}
+
+ul.newVideos .small_add_button {
+    margin: 0 0 5px 17px;
 }
 
 .small_add_button {
     color: white;
     float: left;
+    text-transform:uppercase;
     display: inline;
-    /*display: table-cell;*/
 }
 
-.small_add_button a {float: left; display: inline;}
-
-.small_add_button a span.button_text {
-    background: url(../images/buttons/button_small.png) 0 0 no-repeat;
+.small_add_button span {
+    background: url(../images/small_add_button.png) 0 0 no-repeat;
     float: left;
-    display: inline;
-    font-size: 10px;
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
     color: white;
-    padding: 3px 5px 5px 7px;
-    margin: 0;
-    cursor: pointer;
+    padding: 0 5px 0 13px;
+    line-height: 21px;
+    margin: 0 0 0 0;
+}
+
+.small_add_button:hover span {
+    background-position: 0 -21px;
+}
+
+.small_add_button.feed {
+    padding-right: 20px;
+    background: url(/images/small_add_feed.png) right 0 no-repeat;
+}
+
+.small_add_button.site {
+    padding-right: 20px;
+    background: url(/images/small_add_site.png) right 0 no-repeat;
+}
+
+.small_add_button.feed:hover, .small_add_button.site:hover {
+    background-position: right -21px;
 }
 
 .tiny_add_button {
@@ -3723,12 +3849,14 @@ a.add_feed_button {
     padding: 4px 34px 4px 12px;
     font-size: 11px;
 }
+
 a.add_feed_button_welcome {
     background: url(../images/buttons/button_add_feed_welcome.png) 0 0 no-repeat;
     color: white;
     padding: 4px 39px 4px 15px;
     font-size: 11px;
 }
+
 a.add_feed_button2 {
     background: url(../images/buttons/button_add_feed2.png) 0 0 no-repeat;
     color: white;
@@ -3839,40 +3967,6 @@ a.user_view_site {
 
 
 /*Link buttons*/
-.rollover_button {
-    background: url(../images/buttons/rollover_button.png) 0 0 no-repeat;
-    height: 21px;
-    width: 84px;
-    float: right;
-    display: inline;
-    clear: both;
-    text-align: center;
-    line-height: 21px;
-    margin: 0 0 7px 0;
-}
-
-.rollover_button:hover {
-    background: url(../images/buttons/rollover_button.png) left bottom no-repeat;
-    color: white;
-}
-
-.rollover_button2 {
-    background: url(../images/buttons/rollover_button.png) 0 0 no-repeat;
-    height: 21px;
-    width: 84px;
-    float: left;
-    display: inline;
-    clear: both;
-    color: #585858;
-    font-size: 11px;
-    text-align: center;
-    line-height: 21px;
-    margin: 14px 0 7px 0;
-}
-
-.rollover_button2:hover {
-    color: #787878;
-}
 
 .share_align {
     margin: 18px 0 0 30px;
@@ -3912,7 +4006,7 @@ a.view_all_videos {
     background: url(../images/black_arrow_right.png) right 3px no-repeat;
     font-size: 11px;
     color: black;
-    margin: 18px 15px 5px 0;
+    margin: 18px 30px 5px 0;
     padding: 0 12px 0 0;
     float: right;
     display: inline;
@@ -3947,20 +4041,21 @@ a.large_button span {
     padding: 0 0 0 13px;
 }
 
-.video_buttons_align .download_button{
+.video_buttons_align .download {
     float: left !important;
-    display: block !important;
     margin: 0px !important;
-
 }
 
-.video_buttons_align .rollover_button2{
+.video_buttons_align .share {
     float: right !important;
     display: block !important;
     margin: 2px 0 0 0!important;
     clear: none;
 }
 
+.video_buttons_align .share img{
+    display: inline !important;
+}
 
 /*Extras*/
 .fl {
@@ -4333,4 +4428,53 @@ a.large_button span {
 ul.scrolling {
     padding: 0;
     margin: 0;
+}
+
+.center{
+    text-align: center;
+}
+
+
+/*////////////////////////////////////////
+
+Genre Browser
+
+////////////////////////////////////////*/
+
+#channelEpisodes .searchResults {
+    padding: 10px 0 0 25px;
+    width: 390px;
+}
+
+ul.searchResults li {
+    float: left;
+}
+
+ul.searchResults li p {
+    float: left;
+}
+
+.clear_all {
+    border: 1px solid;
+    height: 20px;
+}
+
+.group-list-name {
+    text-align: center;
+    padding: 10px 0
+}
+
+.group-list {
+    padding: 0 0 0 120px;
+}
+
+.group-list li {
+    float: left;
+    padding: 10px;
+    font-size: 15px;
+    width: 300px;
+}
+
+.group-list li a {
+    font-weight: bold;
 }
