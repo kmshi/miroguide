@@ -27,7 +27,8 @@ See LICENSE for details.
 
   <ul style="height: 25px;" class="rating">
     <li class="score">
-      <a {{ channel.subscription_link }} class="small_add_button feed">
+      <a {{ channel.subscription_link }}
+         class="small_add_button {% if channel.url %}feed{% else %}site{% endif %}">
         <span>
           {% if channel.url %}
             {% trans "Add Feed" %}
