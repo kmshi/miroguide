@@ -37,7 +37,7 @@ LANGUAGES = (
     ('bn', _("Bengali")),
     ('ca', _("Catalan")),
     ('zh-cn', _("Chinese")), # TODO What to do about Cantonese/Mandarin?
-    ('hr', _("Croation")),
+    ('hr', _("Croatian")),
     ('da', _("Danish")),
     ('nl', _("Dutch")),
     ('et', _("Estonian")),
@@ -46,7 +46,7 @@ LANGUAGES = (
     ('de', _("German")),
     ('el', _("Greek")),
     ('he', _("Hebrew")),
-    ('hi', _("Hinidi")),
+    ('hi', _("Hindi")),
     ('hu', _("Hungarian")),
     ('is', _("Icelandic")),
     ('id', _("Indonesian")),
