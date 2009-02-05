@@ -869,7 +869,6 @@ h3.resultsCount {
     display: inline;
     height: 100%;
     margin: 0;
-    background: url(../images/item_bar_left.png) left bottom no-repeat;
 }
 
 .user_page .detailsHeadLarge h3.resultsCount {
@@ -1303,7 +1302,8 @@ div.rate .star a, #channelRating .rate .cancel a {
 }
 
 #channelEpisodes .detailsHeadLarge, .user_page .detailsHeadLarge {
-    width: 787px;
+    background: transparent url(../images/item_bar_left_xl.png) no-repeat scroll left bottom;
+    width: 790px;
     margin: 0 0 0 15px;
     padding: 0;
     overflow: hidden;
