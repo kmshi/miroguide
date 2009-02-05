@@ -3671,7 +3671,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 }
 
 .large_add_button span {
-    background: url(../images/buttons/large_add.png) 0 0 no-repeat;
+    background: url(../images/large_add.png) 0 0 no-repeat;
     float: left;
     display: block;
     font-size: 12px;
