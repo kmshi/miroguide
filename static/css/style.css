@@ -2835,6 +2835,7 @@ ul#lowerMenu li#language {
     padding: 0;
     float: right;
     display: inline;
+    width: 83px;
     background: url(../images/lower_top_bar_separator.png) 0 0 no-repeat;
 }
 
@@ -2984,6 +2985,10 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     width: 274px;
     height: 56px;
     background: url(../images/hover_menu_bottom-hover.png) 0 0 no-repeat;
+}
+
+#hoverMenuLanguage form {
+    margin: 0;
 }
 
 #hoverMenuLanguage ul {
