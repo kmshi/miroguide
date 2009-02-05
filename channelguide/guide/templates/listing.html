@@ -75,9 +75,12 @@
     {% block tips %}
     {% endblock %}
 
-    <div class="horizontal_banner_ad">
-      <a href="#"><img src="{{ STATIC_BASE_URL }}images/ads/728x90.jpg" alt="Ad"></a>
-    </div>
+    {% comment %}
+      {# We're presently not doing any ad stuff, so... #}
+      <div class="horizontal_banner_ad">
+        <a href="#"><img src="{{ STATIC_BASE_URL }}images/ads/728x90.jpg" alt="Ad"></a>
+      </div>
+    {% endcomment %}
 
     <div><br></div>
 
