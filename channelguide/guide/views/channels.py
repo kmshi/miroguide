@@ -537,8 +537,9 @@ def filtered_listing(request, value=None, filter=None, limit=10,
 
     geoip_filtered = False
     if geoip:
-        if feed_object_list.count_all() != feed_paginator.count or \
-                site_object_list.count_all() != site_paginator.count:
+        if (feed_object_list.count_all() != feed_paginator.count
+            or (site_object_list
+                and site_object_list.count_all() != site_paginator.count)):
             args = request.GET.copy()
             args['geoip'] = 'off'
             geoip_filtered = util.make_absolute_url(request.path, args)
