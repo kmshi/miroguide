@@ -869,7 +869,6 @@ h3.resultsCount {
     display: inline;
     height: 100%;
     margin: 0;
-    background: url(../images/item_bar_left.png) left bottom no-repeat;
 }
 
 .user_page .detailsHeadLarge h3.resultsCount {
@@ -1303,7 +1302,8 @@ div.rate .star a, #channelRating .rate .cancel a {
 }
 
 #channelEpisodes .detailsHeadLarge, .user_page .detailsHeadLarge {
-    width: 787px;
+    background: transparent url(../images/item_bar_left_xl.png) no-repeat scroll left bottom;
+    width: 790px;
     margin: 0 0 0 15px;
     padding: 0;
     overflow: hidden;
@@ -3701,7 +3701,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 }
 
 .large_add_button span {
-    background: url(../images/buttons/large_add.png) 0 0 no-repeat;
+    background: url(../images/large_add.png) 0 0 no-repeat;
     float: left;
     display: block;
     font-size: 12px;

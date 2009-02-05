@@ -75,9 +75,12 @@
     {% block tips %}
     {% endblock %}
 
-    <div class="horizontal_banner_ad">
-      <a href="#"><img src="{{ STATIC_BASE_URL }}images/ads/728x90.jpg" alt="Ad"></a>
-    </div>
+    {% comment %}
+      {# We're presently not doing any ad stuff, so... #}
+      <div class="horizontal_banner_ad">
+        <a href="#"><img src="{{ STATIC_BASE_URL }}images/ads/728x90.jpg" alt="Ad"></a>
+      </div>
+    {% endcomment %}
 
     <div><br></div>
 
@@ -87,11 +90,6 @@
           <div class="detailsHead4">
             <h3 class="resultsCount">
               <span class="heading">{% trans "Feeds" %}</span>
-              <span class="button">
-                <a href="#">
-                  <img src="{{ STATIC_BASE_URL }}images/ico_rss_title.png" alt="">
-                </a>
-              </span>
             </h3>
             <div class="sortType">
               <a href="#">
@@ -118,11 +116,6 @@
           <div class="detailsHead4">
             <h3 class="resultsCount">
               <span class="heading">{% trans "Sites" %}</span>
-              <span class="button">
-                <a href="#">
-                  <img src="{{ STATIC_BASE_URL }}images/ico_streaming_title.png" alt="">
-                </a>
-              </span>
             </h3>
             <div class="sortType">
               <a href="#">
