@@ -133,6 +133,10 @@
       </ul>
     </form>
     {% endif %}
+    {% if not user.is_authenticated %}
+    <h3><span>{% trans "Create an account to filter" %}</span></h3>
+    <h3><span>{% trans "channels by language" %}</span></h3>
+    {% endif %}
     <div id="upButton"></div>
     {% if language_options %}<h3><span>{% trans "My Language:" %}</span></h3>{% endif %}
     <form action="{{ BASE_URL }}i18n/setlang/" method="POST">
