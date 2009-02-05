@@ -216,7 +216,7 @@ var languageTimeout = null;
 
 function languageUp() {
     showMenu('hoverMenuLanguage', 'language');
-    ul = $("#hoverMenuLanguage ul");
+    ul = $("#hoverMenuLanguage ul:last");
     ul.scrollTop(ul.scrollTop() - 30);
     languageStop();
     languageTimeout = setTimeout(languageUp, 50);
@@ -224,7 +224,7 @@ function languageUp() {
 
 function languageDown() {
     showMenu('hoverMenuLanguage', 'language');
-    ul = $("#hoverMenuLanguage ul");
+    ul = $("#hoverMenuLanguage ul:last");
     ul.scrollTop(ul.scrollTop() + 30);
     languageStop();
     languageTimeout = setTimeout(languageDown, 50);
@@ -238,7 +238,7 @@ function languageStop() {
 }
 function languageUpdate() {
     return;
-    li = $("#hoverMenuLanguage li");
+    li = $("#hoverMenuLanguage ul:last li");
     top = parseInt(li.css('top'));
     count = li.length;
     up = $("#hoverMenuLanguage #upButton");

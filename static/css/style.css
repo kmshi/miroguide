@@ -2965,6 +2965,27 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     z-index: 100;
 }
 
+#hoverMenuLanguage h3 {
+    width: 214px;
+    height: 30px;
+    padding: 0 30px;
+    margin: 0;
+    background: url(../images/hover_menu.png) 0 0 repeat-y;
+    font-size: 11px;
+    font-weight: bold;
+    color: #fff !important;
+}
+
+#hoverMenuLanguage h3 span {
+    position: relative;
+    display: block;
+    white-space: nowrap;
+    height: 25px;
+    color: white;
+    font: 12px/26px Arial, Helvetica, sans-serif;
+    padding: 0 5px 0 14px;
+}
+
 #hoverMenuLanguage #upButton {
     width: 274px;
     height: 26px;
@@ -3000,6 +3021,10 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     background: url(../images/hover_menu.png) 0 0 repeat-y;
 }
 
+#hoverMenuLanguage ul.default {
+    height: 60px;
+}
+
 #hoverMenuLanguage ul button {
     text-align: left;
     width: 214px;
@@ -3028,7 +3053,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     background: url(../images/hover_menu_bg.png) bottom left repeat-x
 }
 
-#hoverMenuLanguage ul button span {
+#hoverMenuLanguage ul button span, #hoverMenuLanguage h3 span {
     padding: 0 0 0 10px;
     display: block;
 }
