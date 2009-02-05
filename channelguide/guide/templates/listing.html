@@ -23,19 +23,20 @@
 
     {% if miro_version_pre_sites %}
       <!-- warning to old miro users users -->
-      <div id="oldmiro_warning" class="alert">
-        <div class="page">
-          <div class="alertBox">
-            <p>
-              {% blocktrans %}
-                You appear to be using an older version of Miro.
-                We've hidden site listings from this page since,
-                unfortunately, you cannot subscribe to sites using
-                versions of Miro prior to 2.0.  (So consider
-                upgrading... it's free!)
-              {% endblocktrans %}
-            </p>
-          </div>
+      <div class="page">
+        <div class="welcomeMessage">
+          <p>
+            <strong>
+              {% trans "Site listing disabled for old Miro versions" %}
+            </strong>
+            <br>
+            {% blocktrans %}
+              You appear to be using an older version of Miro.  We've
+              hidden site listings from this page since, unfortunately,
+              you cannot subscribe to sites using versions of Miro prior
+              to 2.0.  (So consider upgrading... it's free!)
+            {% endblocktrans %}
+          </p>
         </div>
       </div>
     {% endif %}
