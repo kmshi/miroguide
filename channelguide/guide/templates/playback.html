@@ -47,7 +47,7 @@
             <br clear="all" />
             <div class="video_buttons_align">
               <a href="{{ item.url }}"
-                 class="large_button download_button">
+                 class="rollover_button download">
                 <span>
                   <img src="{{ STATIC_BASE_URL }}images/buttons/download_arrow.png"
                        alt="Download" />
@@ -60,9 +60,9 @@
                    {% else %}
                      href="/items/{{ item.id }}?share=true"
                    {% endif %}
-                   class="rollover_button2">
-                  <span>{% trans "SHARE" %}</span>
-                  <span class="img">
+                   class="rollover_button share">
+                  <span>
+                    {% trans "SHARE" %}
                     <img src="{{ STATIC_BASE_URL }}images/buttons/grey_stream.png"
                          alt="" />
                   </span>
