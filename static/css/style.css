@@ -21,7 +21,7 @@ body {
 }
 
 body#main {
-    background: url(/images/hills.jpg) center 59px repeat-x;
+    background: url(../images/hills.jpg) center 59px repeat-x;
 }
 
 .hidden {
@@ -29,7 +29,7 @@ body#main {
 }
 
 .tips_on{
-    background: url(/images/tips.png) repeat-x;
+    background: url(../images/tips.png) repeat-x;
     float: right;
     padding-top: 20px;
     overflow: hidden;
@@ -38,7 +38,7 @@ body#main {
 }
 
 .tips_on:hover{
-    background: url(/images/tips.png) 0 -19px repeat-x;
+    background: url(../images/tips.png) 0 -19px repeat-x;
 }
 
 a {
@@ -1039,7 +1039,7 @@ div.rate .star a, #channelRating .rate .cancel a {
     display: block;
     text-align: right;
     padding: 4px 14px 4px 4px;    
-    background: url(/images/arrow_right.png) right center 3px no-repeat;
+    background: url(../images/arrow_right.png) right center 3px no-repeat;
 }
 
 .url span {
@@ -2341,7 +2341,7 @@ div.rate .star a, #channelRating .rate .cancel a {
 }
 
 #hover_align + .edit.loading h2 {
-    background-image: url(/images/load-indicator.gif);
+    background-image: url(../images/load-indicator.gif);
 }
 
 #hover_align + .edit h3 {
@@ -2757,7 +2757,7 @@ ul#mainMenu li a {
 
 ul#mainMenu li a:hover {
     color: #eed9db;
-    background: url(/images/mm_hover.gif) 0 0;
+    background: url(../images/mm_hover.gif) 0 0;
 }
 
 ul#mainMenu li#logo {
@@ -3688,13 +3688,13 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
 
 .large_add_button.feed {
     padding-right: 25px;
-    background: url(/images/large_add_feed.png) right 0 no-repeat;
+    background: url(../images/large_add_feed.png) right 0 no-repeat;
 }
 
 
 .large_add_button.site {
     padding-right: 25px;
-    background: url(/images/large_add_site.png) right 0 no-repeat;
+    background: url(../images/large_add_site.png) right 0 no-repeat;
 }
 
 .large_add_button.feed:hover, .large_add_button.site:hover {
@@ -3734,12 +3734,12 @@ ul.newVideos .small_add_button {
 
 .small_add_button.feed {
     padding-right: 20px;
-    background: url(/images/small_add_feed.png) right 0 no-repeat;
+    background: url(../images/small_add_feed.png) right 0 no-repeat;
 }
 
 .small_add_button.site {
     padding-right: 20px;
-    background: url(/images/small_add_site.png) right 0 no-repeat;
+    background: url(../images/small_add_site.png) right 0 no-repeat;
 }
 
 .small_add_button.feed:hover, .small_add_button.site:hover {
