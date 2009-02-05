@@ -90,7 +90,7 @@ def item(request, id):
     if request.GET.get('share') == 'true':
         share_url = urlparse.urljoin(
             settings.BASE_URL_FULL,
-            '/item/%s' % id)
+            '/items/%s' % id)
         share_links = util.get_share_links(share_url, item.name)
 
     context = {'item': item,
