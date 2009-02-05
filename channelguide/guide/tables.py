@@ -4,7 +4,6 @@
 from datetime import datetime
 
 from django.utils.translation import gettext as _
-from sqlhelper.sql import Select, Literal
 from sqlhelper.orm import Table, columns
 
 def name_for_state_code(state):
@@ -58,10 +57,15 @@ user = Table('user',
         columns.Boolean('email_updates', default=False),
         columns.Boolean('channel_owner_emails', default=True),
         columns.Int('age'),
-        columns.String('gender', 1))
+        columns.String('gender', 1),
+        columns.String('language', 5),
+        columns.Boolean('filter_languages', default=False))
 language = Table('cg_channel_language',
         columns.Int('id', primary_key=True, auto_increment=True),
         columns.String('name', 40))
+user_shown_languages = Table('user_shown_languages',
+        columns.Int('user_id', fk=user.c.id, primary_key=True),
+        columns.Int('language_id', fk=language.c.id, primary_key=True))
 pcf_blog_post = Table('cg_pcf_blog_post',
         columns.Int('id', primary_key=True, auto_increment=True),
         columns.String('title', 255),
@@ -319,6 +323,7 @@ user.one_to_many('channels', channel, backref='owner',
 user.one_to_many('moderator_posts', moderator_post, backref='user')
 user.one_to_many('notes', channel_note, backref='user')
 user.one_to_many('channel_subscriptions', added_channel, backref='user')
+user.many_to_many('shown_languages', language, user_shown_languages)
 user.one_to_one('auth_token', user_auth_token, backref='user')
 moderator_action.many_to_one('user', user, backref='moderator_actions')
 moderator_action.many_to_one('channel', channel, backref='moderator_actions')

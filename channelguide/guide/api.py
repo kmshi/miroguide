@@ -26,8 +26,9 @@ def get_channel_by_url(connection, url):
         connection)
 
 
-def get_channels_query(connection, filter, value, sort=None,
+def get_channels_query(request, filter, value, sort=None,
                        country_code=None):
+    connection = request.connection
     query = Channel.query_approved()
     join = None
     if filter == 'category':
@@ -97,6 +98,12 @@ def get_channels_query(connection, filter, value, sort=None,
         query.order_by(query.joins['rating'].c.average, desc=desc)
     else:
         raise ValueError('unknown sort type: %r' % sort)
+    if filter != 'language' and request.user.is_authenticated() and \
+            request.user.filter_languages:
+        request.user.join('shown_languages').execute(connection)
+        query.join('language')
+        query.where(query.joins['language'].c.id.in_([
+                    language.id for language in request.user.shown_languages]))
     return query
 
 def _split_loads(loads):
@@ -128,16 +135,16 @@ def _add_limit_and_offset(query, limit, offset):
         offset = 0
     return query.limit(limit).offset(offset)
 
-def get_feeds(connection, filter, value, sort=None, limit=None, offset=None,
+def get_feeds(request, filter, value, sort=None, limit=None, offset=None,
               loads=None, country_code=None):
     use_sort = _use_sort(sort)
-    query = get_channels_query(connection, filter, value, use_sort,
+    query = get_channels_query(request, filter, value, use_sort,
                                country_code)
     if query:
         query.where(Channel.c.url.is_not(None))
     if sort != use_sort:
         if query:
-            return query.count(connection)
+            return query.count(request.connection)
         else:
             return 0
     if not query:
@@ -145,21 +152,21 @@ def get_feeds(connection, filter, value, sort=None, limit=None, offset=None,
     _add_limit_and_offset(query, limit, offset)
     joins, loads = _split_loads(loads)
     query.load(*loads)
-    results = query.execute(connection)
+    results = query.execute(request.connection)
     if results:
-        results.join(*joins).execute(connection)
+        results.join(*joins).execute(request.connection)
     return results
 
-def get_sites(connection, filter, value, sort=None, limit=None, offset=None,
+def get_sites(request, filter, value, sort=None, limit=None, offset=None,
               loads=None, country_code=None):
     use_sort = _use_sort(sort)
-    query = get_channels_query(connection, filter, value, use_sort,
+    query = get_channels_query(request, filter, value, use_sort,
                                country_code)
     if query:
         query.where(Channel.c.url.is_(None))
     if sort != use_sort:
         if query:
-            return query.count(connection)
+            return query.count(request.connection)
         else:
             return 0
     if not query:
@@ -167,28 +174,32 @@ def get_sites(connection, filter, value, sort=None, limit=None, offset=None,
     _add_limit_and_offset(query, limit, offset)
     joins, loads = _split_loads(loads)
     query.load(*loads)
-    results = query.execute(connection)
+    results = query.execute(request.connection)
     if results:
-        results.join(*joins).execute(connection)
+        results.join(*joins).execute(request.connection)
     return results
 
-def get_channels(connection, filter, value, sort=None, limit=None, offset=None,
+def get_channels(request, filter, value, sort=None, limit=None, offset=None,
                  loads=None):
     """
     The old API method which returns a list of channels.  With the redesign and
     the inclusion of sites, you should use either get_feeds or get_sites.
     """
-    query = get_channels_query(connection, filter, value, sort=sort)
-    # int is returned for 0 counts, longs for regular counts and lists for
-    # empty lists
-    if isinstance(query, (int, long, list)):
-        return query
+    use_sort = _use_sort(sort)
+    query = get_channels_query(request, filter, value, sort=use_sort)
+    if sort != use_sort:
+        if query:
+            return query.count(request.connection)
+        else:
+            return 0
+    if not query:
+        return []
     _add_limit_and_offset(query, limit, offset)
     joins, loads = _split_loads(loads)
     query.load(*loads)
-    results = query.execute(connection)
+    results = query.execute(request.connection)
     if results:
-        results.join(*joins).execute(connection)
+        results.join(*joins).execute(request.connection)
     return results
 
 def search(connection, terms):

@@ -96,7 +96,6 @@ MIDDLEWARE_CLASSES = (
     'channelguide.cache.middleware.CacheMiddleware',
     'channelguide.guide.middleware.NotificationMiddleware',
     'channelguide.guide.middleware.UserMiddleware',
-    'channelguide.guide.middleware.ChannelCountMiddleware',
 )
 
 ROOT_URLCONF = 'channelguide.guide.urls.root'

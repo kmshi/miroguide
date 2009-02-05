@@ -183,8 +183,9 @@ def edit_user_form(request, user):
     if request.method == 'POST':
         form = FormClass(request.connection, user, request.POST)
         if form.is_valid():
-            form.update_user()
+            form.update_user(request)
             if user is request.user:
+                request.user = user
                 login(request, user) # needed to handle password changes
             return util.redirect(user.get_absolute_url())
     else:

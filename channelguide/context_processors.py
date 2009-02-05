@@ -2,9 +2,7 @@
 # See LICENSE for details.
 
 from django.conf import settings
-from channelguide import util
 from channelguide.guide.forms import LoginForm, RegisterForm
-import sha, os
 
 def guide(request):
     """Channelguide context processor.  These attributes get added to every
@@ -19,7 +17,6 @@ def guide(request):
         'google_analytics_ua': settings.GOOGLE_ANALYTICS_UA,
         'request': request,
         'user': request.user,
-        'total_channels': request.total_channels,
         }
     if not request.user.is_authenticated():
         context['login'] = LoginForm(request)

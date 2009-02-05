@@ -1,11 +1,11 @@
-{% extends 'index.html' %}
+{% extends 'base.html' %}
 {% comment %}
 Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
 {% load i18n %}
 {% block title %}{% trans "Miro Guide" %}{%endblock %}
-{% block body %}
+{% block content %}
 <div class="error-500">
   {% if database_error %}
   <h1>{% trans "Sorry!" %}</h1>

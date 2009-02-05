@@ -3,8 +3,9 @@
 
 from django import newforms as forms
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 
-from channelguide.guide.models import User
+from channelguide.guide.models import User, Language
 from form import Form
 from fields import WideCharField, WideEmailField, WideChoiceField
 
@@ -18,7 +19,7 @@ class NewUserField(forms.CharField):
             raise forms.ValidationError(_("Username already taken"))
         return rv
 
-class NewEmailField(forms.EmailField):
+class NewEmailField(WideEmailField):
     def clean(self, value):
         value = super(NewEmailField, self).clean(value)
         if value == self.initial:
@@ -28,7 +29,7 @@ class NewEmailField(forms.EmailField):
             raise forms.ValidationError(_("E-mail already taken"))
         return value
 
-class ExistingEmailField(forms.EmailField):
+class ExistingEmailField(WideEmailField):
     def clean(self, value):
         value = super(ExistingEmailField, self).clean(value)
         if User.query(email=value).count(self.connection) == 0:
@@ -57,6 +58,45 @@ class UsernameOrEmailField(UsernameField):
             raise forms.ValidationError(
                 _("That username or e-mail is not valid."))
 
+class ShownLanguagesWidget(forms.MultiWidget):
+    def __init__(self):
+        super(ShownLanguagesWidget, self).__init__((forms.RadioSelect, forms.SelectMultiple))
+
+    def decompress(self, value):
+        if not value:
+            return ['False', []]
+        return value
+
+class ShownLanguagesField(forms.MultiValueField):
+    def __init__(self, *args, **kw):
+        kw['widget'] = ShownLanguagesWidget()
+        kw['required'] = False
+        kw['label'] = ''
+        args = ((
+                forms.ChoiceField(choices=((False, _("Display shows in all languages")),
+                                           (True, _("Only display shows in these languages:"))),
+                                  initial=''),
+                forms.MultipleChoiceField(
+                    help_text=_("Hold CTRL to select multiple languages"))),) + args
+        super(ShownLanguagesField, self).__init__(*args, **kw)
+
+    def compress(self, values):
+        return values
+
+    def clean(self, value):
+        if value[0] == 'False':
+            filter_languages = False
+        else:
+            filter_languages = True
+        languages = [Language.get(self.connection, lang_id) for lang_id in value[1]]
+        return filter_languages, languages
+
+    def update_choices(self):
+        languages = Language.query().order_by('name').execute(self.connection)
+        self.fields[1].choices = [(language.id, _(language.name))
+                                  for language in languages]
+        for field, widget in zip(self.fields, self.widget.widgets):
+            widget.choices = field.choices
 
 class LoginForm(Form):
     username = UsernameOrEmailField(max_length=20, required=False)
@@ -114,10 +154,11 @@ class EditUserForm(PasswordComparingForm):
     lname = WideCharField(max_length=45, required=False,
             label=_("Last Name"))
     age = forms.IntegerField(required=False, label=_("Age"))
-    gender = WideChoiceField(choices = [(None, 'Not Specified'),
+    gender = WideChoiceField(choices = [('', 'Not Specified'),
                                         ('F', 'Female'),
                                         ('M', 'Male')],
-                             label=_("Gender"))
+                             label=_("Gender"),
+                             required=False)
     city = WideCharField(max_length=45, required=False,
             label=_("City"))
     state = WideCharField(max_length=20, required=False,
@@ -130,6 +171,10 @@ class EditUserForm(PasswordComparingForm):
             label=_("IM Username"))
     im_type = WideCharField(max_length=25, required=False,
             label=_("IM Type"))
+    language = WideChoiceField(choices=settings.LANGUAGES,
+                               initial=settings.LANGUAGE_CODE,
+                               label=_("Show interface in"))
+    shown_languages = ShownLanguagesField()
 
     password_key = 'change_password'
     password_check_key = 'change_password2'
@@ -137,24 +182,40 @@ class EditUserForm(PasswordComparingForm):
     def __init__(self, connection, user, data=None):
         super(EditUserForm, self).__init__(connection, data)
         self.user = user
+        user.join('shown_languages').execute(connection)
         self.set_defaults()
 
     def simple_fields(self):
         for name, field in self.fields.items():
-            if name not in ('change_password', 'change_password2'):
+            if name not in ('change_password', 'change_password2',
+                            'shown_languages'):
                 yield name, field
 
     def set_defaults(self):
+        self.fields['shown_languages'].initial = (
+            self.user.filter_languages,
+            [language.id for language in self.user.shown_languages])
+        self.fields['shown_languages'].update_choices()
         for name, field in self.simple_fields():
             field.initial = getattr(self.user, name)
 
-    def update_user(self):
+    def update_user(self, request):
         for name, field in self.simple_fields():
             if self.cleaned_data.get(name) is not None:
                 value = self.cleaned_data[name]
                 setattr(self.user, name, self.cleaned_data[name])
+        self.user.filter_languages = self.cleaned_data['shown_languages'][0]
+        if self.user.shown_languages:
+            self.user.shown_languages.clear(self.connection)
+        if self.cleaned_data['shown_languages'][1]:
+            self.user.shown_languages.add_records(
+                self.connection,
+                self.cleaned_data['shown_languages'][1])
         if self.cleaned_data.get('change_password'):
             self.user.set_password(self.cleaned_data['change_password'])
+        # update language setting
+        if self.user is request.user:
+            request.session['django_language'] = self.cleaned_data['language']
         self.user.save(self.connection)
 
 class EditChannelOwnerForm(EditUserForm):

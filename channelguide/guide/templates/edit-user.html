@@ -5,7 +5,23 @@ See LICENSE for details.
 {% endcomment %}
 {% load i18n cg_helpers %}
 {% block title %}{% trans "Miro Guide - Update My Profile" %}{% endblock %}
-{% block body %}
+{% block head-extra %}
+  <script type="text/javascript">
+ function checkShownLanguages(ignored) {
+     if ($("#id_shown_languages_0_0").attr('checked')) {
+         $("#id_shown_languages_1").attr('disabled', 'disabled');
+     } else {
+         $("#id_shown_languages_1").attr('disabled', '');
+     }
+ }
+
+$(document).ready(function() {
+    checkShownLanguages();
+    $("#id_shown_languages_0_0, #id_shown_languages_0_1").click(checkShownLanguages);
+});
+  </script>
+{% endblock %}
+{% block content %}
 <div class="edit-user-page">
     <div class="big-form">
         <h2>{% trans "Update My Profile " %}</h2>

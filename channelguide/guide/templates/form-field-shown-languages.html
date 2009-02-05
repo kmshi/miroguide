@@ -1,0 +1,12 @@
+{% comment %}
+Copyright (c) 2008 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+<ul class="form-input-triplet">
+    {% for widget in rendered_widgets %}
+    <li>
+      {% if forloop.first %}*{% else %}&nbsp;&nbsp;{% endif %}
+      {{ widget }}
+    </li>
+    {% endfor %}
+</ul>
