@@ -180,7 +180,7 @@ function isWithin(event, obj)  {
 function showMenu(el, menu, event) {
     $('#' + menu + ' a').addClass('hover');
     m = $('#' + menu)[0];
-    $('#' + el).css('top', m.offsetTop + m.offsetHeight).show();
+    $('#' + el).css('top', m.clientHeight + 34).show();
     return false;
 }
 
