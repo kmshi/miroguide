@@ -124,7 +124,10 @@ def redirect(url, get_data=None):
 
 def redirect_to_referrer(request):
     try:
-        return redirect(request.META['HTTP_REFERER'])
+        referrer = request.META['HTTP_REFERER']
+        if '/accounts/login' in referrer:
+            raise KeyError
+        return redirect(referrer)
     except KeyError:
         return redirect(settings.BASE_URL)
 

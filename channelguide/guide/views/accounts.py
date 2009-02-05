@@ -275,21 +275,20 @@ def password_changed(request):
 
 @login_required
 def set_language_view(request):
-    if request.method == 'POST':
-        value = request.POST.get('filter', None)
-        request.user.join('shown_languages').execute(request.connection)
-        if value == '0':
-            request.user.filter_languages = False
-            request.user.shown_languages.clear(request.connection)
-            request.user.save(request.connection)
-        elif value == '1' and request.user.language:
-            languageName = settings.LANGUAGE_MAP.get(request.user.language)
-            if languageName:
-                dbLanguages = Language.query(name=languageName).execute(request.connection)
-                if dbLanguages:
-                    request.user.filter_languages = True
-                    request.user.shown_languages.clear(request.connection)
-                    request.user.shown_languages.add_record(request.connection,
-                        dbLanguages[0])
-                    request.user.save(request.connection)
+    value = request.REQUEST.get('filter', None)
+    request.user.join('shown_languages').execute(request.connection)
+    if value == '0':
+        request.user.filter_languages = False
+        request.user.shown_languages.clear(request.connection)
+        request.user.save(request.connection)
+    elif value == '1' and request.user.language:
+        languageName = settings.LANGUAGE_MAP.get(request.user.language)
+        if languageName:
+            dbLanguages = Language.query(name=languageName).execute(request.connection)
+            if dbLanguages:
+                request.user.filter_languages = True
+                request.user.shown_languages.clear(request.connection)
+                request.user.shown_languages.add_record(request.connection,
+                    dbLanguages[0])
+                request.user.save(request.connection)
     return util.redirect_to_referrer(request)

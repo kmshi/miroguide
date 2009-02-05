@@ -118,7 +118,7 @@
        onmouseout="return hideMenu('hoverMenuLanguage', 'language', event)">
     {% if language_options %}
     <h3><span>{% trans "Display Shows:" %}</span></h3>
-    <form action="{{ BASE_URL }}accounts/set_language_view" method="POST">
+    <form action="{{ BASE_URL }}accounts/set_language_view" method="GET">
       <ul class="default">
         <li{% if not user.filter_languages %} class="current"{% endif %}>
           <button type="submit" name="filter" value="0">

@@ -23,6 +23,7 @@ def guide(request):
     if not request.user.is_authenticated():
         context['login'] = LoginForm(request)
         context['register'] = RegisterForm(request)
+        context['language_options'] = True
     else:
         # figure out language options
         if request.user.language:
