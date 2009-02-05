@@ -256,9 +256,10 @@ function languageUpdate() {
 }
 
 function add_corners() {
-    $('.corners').corners();
-    $('.top_corners').corners('top');
-
+    if (window.navigator.userAgent.indexOf('MSIE') == -1) {
+        $('.corners').corners();
+        $('.top_corners').corners('top');
+    }
 }
 
 function setup_login_form() {
