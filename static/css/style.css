@@ -3033,6 +3033,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     margin: 0;
     padding: 0 30px;
     height: 300px;
+    overflow: hidden;
     *height: 100%;
     background: url(../images/hover_menu.png) 0 0 repeat-y;
 }
