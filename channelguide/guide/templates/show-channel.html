@@ -165,20 +165,22 @@
 	  </div>
 	</div><!--detailsHead-->
 
-	<ul class="paginator">
-          <li class="tag">Pages</li>
-          {% for number, link in item_page_links %}
-            {% ifequal number "tag" %}
-              <li class="tag">...</li>
-            {% else %}
-              <li {% ifequal number item_page.number %}
-                    class="selected"
-                  {% endifequal %}>
-                <span><a href="{{ link }}">{{ number }}</a></span>
-              </li>
-            {% endifequal %}
-          {% endfor %}
-	</ul>
+        {% if item_page.object_list %}
+          <ul class="paginator">
+            <li class="tag">Pages</li>
+            {% for number, link in item_page_links %}
+              {% ifequal number "tag" %}
+                <li class="tag">...</li>
+              {% else %}
+                <li {% ifequal number item_page.number %}
+                      class="selected"
+                    {% endifequal %}>
+                  <span><a href="{{ link }}">{{ number }}</a></span>
+                </li>
+              {% endifequal %}
+            {% endfor %}
+          </ul>
+        {% endif %}
 
 	<br class="clear_all">
         <ul class="scrolling">
