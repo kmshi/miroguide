@@ -222,6 +222,15 @@ br.clear_all {
     margin: 5px 0 20px 0;
 }
 
+.warningMessage {
+    font-size:102%;
+    line-height:24px;
+    text-align:left;
+}
+
+.warningMessage p {
+    margin:5px 0 0;
+}
 
 /*Featured items carousel widget*/
 #featuredItemsCarousel {
