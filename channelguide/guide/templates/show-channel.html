@@ -147,25 +147,27 @@
       </a>
     </div>
   {% endcomment %}
+        {% if item_page.object_list %}
+
   {% if channel.url %}
   <div id="channelEpisodes">
     <div class="page">
-      <div class="pageContent">
-	<div class="detailsHead">
-	  <h3 class="resultsCount">
-	    <span class="heading">{% trans "Recently Aired" %}</span>
-	    <span class="button">
-              <a href="#">
-                <img src="{{ STATIC_BASE_URL }}images/ico_refresh.png" alt="">
-              </a>
-            </span>
-	  </h3>
-	  <div class="sortType">
-	    <a href="#">{% trans "All" %}</a>
-	  </div>
-	</div><!--detailsHead-->
-
-        {% if item_page.object_list %}
+      {% if item_page.object_list %}
+        <div class="pageContent">
+          <div class="detailsHead">
+            <h3 class="resultsCount">
+              <span class="heading">{% trans "Recently Aired" %}</span>
+              <span class="button">
+                <a href="#">
+                  <img src="{{ STATIC_BASE_URL }}images/ico_refresh.png" alt="">
+                </a>
+              </span>
+            </h3>
+            <div class="sortType">
+              <a href="#">{% trans "All" %}</a>
+            </div>
+          </div><!--detailsHead-->
+  
           <ul class="paginator">
             <li class="tag">Pages</li>
             {% for number, link in item_page_links %}
@@ -180,19 +182,19 @@
               {% endifequal %}
             {% endfor %}
           </ul>
-        {% endif %}
-
-	<br class="clear_all">
-        <ul class="scrolling">
-          {% for item in item_page.object_list %}
-          <li>
-            {% if forloop.first %}<a name="{{ item_page.number }}"></a>{% endif %}
-            <div class="detailsTop"></div>
-            {% include "guide/item.html" %}
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
+  
+          <br class="clear_all">
+          <ul class="scrolling">
+            {% for item in item_page.object_list %}
+            <li>
+              {% if forloop.first %}<a name="{{ item_page.number }}"></a>{% endif %}
+              <div class="detailsTop"></div>
+              {% include "guide/item.html" %}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
       <script type="text/javascript">
           $("#channelEpisodes div.details").each(setUpItem);
       </script>
