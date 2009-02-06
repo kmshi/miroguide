@@ -203,7 +203,7 @@
           <div id="sideBarSmall">
             <div class="detailsHead2">
               <h3 class="resultsCount">
-                <span class="heading">{% trans "Related Videos" %}</span>
+                <span class="heading">{% if channel.url %}{% trans "Related Feeds" %}{% else %}{% trans "Related Shows" %}{% endif %}</span>
               </h3>
               <div class="sortType">
                 <a href="#">{% trans "All" %}</a>
