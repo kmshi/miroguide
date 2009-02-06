@@ -59,13 +59,9 @@
   <div id="channelInfo">
     <div class="page">
       {% if channel.url %}
-        <a href="{{ channel.url }}" class="channel_feed_only">
-          <img src="{{ STATIC_BASE_URL }}images/ico_red_feeds.png" alt="RSS">
-        </a>
+        <img src="{{ STATIC_BASE_URL }}images/ico_red_feeds.png" alt="RSS">
       {% else %}
-        <a href="{{ channel.website_url }}" class="stream_only">
-          <img src="{{ STATIC_BASE_URL }}images/ico_stream.png" alt="Site">
-        </a>
+        <img src="{{ STATIC_BASE_URL }}images/ico_stream.png" alt="Site">
       {% endif %}
       <h1>{{ channel.name }}</h1>
       {% if not channel.fake %}
