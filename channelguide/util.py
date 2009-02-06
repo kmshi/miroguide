@@ -13,6 +13,7 @@ import cgi
 import logging
 import md5
 import os
+import re
 import random
 import string
 import subprocess
@@ -35,12 +36,23 @@ except ImportError:
 emailer = None
 
 
+# sharing urls 
 DELICIOUS_URL = "http://del.icio.us/post?v=4&noui&jump=close&url=%s&title=%s"
 DIGG_URL = "http://digg.com/submit/?url=%s&media=video"
 REDDIT_URL = "http://reddit.com/submit?url=%s&title=%s"
 STUMBLEUPON_URL = "http://www.stumbleupon.com/submit?url=%s&title=%s"
 FACEBOOK_URL = "http://www.facebook.com/share.php?u=%s"
 
+# common regexps
+MIRO_VERSION_RE = re.compile('^.*Miro\/(?P<miro_version>(?:\d+\.)*\d).*$')
+
+
+def get_miro_version(http_user_agent):
+    version_match = MIRO_VERSION_RE.match(http_user_agent)
+    if version_match:
+        return version_match.group('miro_version')
+    else:
+        return None
 
 def get_share_links(url, name):
     share_delicious = DELICIOUS_URL % (quote(url),

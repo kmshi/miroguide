@@ -6,7 +6,6 @@ import itertools, os
 from django import template
 from django.conf import settings
 from channelguide import util
-from channelguide.guide import templateutil
 
 def quoted_attribute(attr):
     try:

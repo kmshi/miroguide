@@ -28,7 +28,6 @@ from channelguide.guide.emailmessages import EmailMessage
 from sqlhelper.sql.statement import Select
 from sqlhelper import signals, exceptions
 
-MIRO_VERSION_RE = re.compile('^.*Miro\/(?P<miro_version>(?:\d+\.)*\d).*$')
 
 class ItemObjectList(templateutil.QueryObjectList):
     def __init__(self, connection, channel):
@@ -498,11 +497,10 @@ def filtered_listing(request, value=None, filter=None, limit=10,
         feed_page = None
 
     miro_version_pre_sites = False
-    miro_version_match = MIRO_VERSION_RE.match(request.META['HTTP_USER_AGENT'])
+    miro_version = util.get_miro_version(request.META['HTTP_USER_AGENT'])
 
-    if miro_version_match:
-        miro_version = miro_version_match.group('miro_version')
-        if not miro_version.split('.')[0] < 2:
+    if miro_version:
+        if int(miro_version.split('.')[0]) < 2:
             miro_version_pre_sites = True
 
     site_page = None
