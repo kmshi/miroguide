@@ -10,7 +10,7 @@ See LICENSE for details.
 {% endblock %}
 
 {% block content %}
-<h1>{% trans "Shows You've Rated" %}<span class="view-select"><a {% link "/recommend/" %}>{% trans "Shows You'll &hearts;" %}</a></span></h1>
+<h1>{% trans "Shows You've Rated" %}</h1>
 <table id="user_ratings">
     {% for rating in ratings %}
     <tr>

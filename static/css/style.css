@@ -705,6 +705,10 @@ ul.searchResults li .searchResultContent {
     color: #939393;
 }
 
+.big ul.searchResults li .searchResultContent {
+    width: 612px;
+}
+
 .searchResultContent h4{
     margin: 6px 0 0 0;
     padding: 0;
@@ -730,12 +734,15 @@ ul.searchResults li .searchResultsMeta {
     width: 400px;
 }
 
+.big ul.searchResults li .searchResultsMeta {
+    width: 800px;
+}
 ul.searchResults li .searchResultsMeta .small_add_button{
     margin-right: 10px;
 }
 
 /*Ratings*/
-ul.searchResults li ul.rating, ul.rating {
+ul.rating {
     list-style: none;
     margin: 0 0 0 0;
     padding: 0;
@@ -744,6 +751,9 @@ ul.searchResults li ul.rating, ul.rating {
     width: 360px;
 }
 
+.big ul.rating {
+    width: 720px;
+}
 ul.searchResults li ul.rating > * {
     float: left;
     display: inline;
@@ -1608,6 +1618,10 @@ div.rate .star a, #channelRating .rate .cancel a {
     margin: 0 0 0 20px;
 }
 
+.feedColumn.big {
+    width: 764px;
+}
+
 .feedColumn ul.searchResults {
     background: none;
     float: none;
@@ -1620,12 +1634,20 @@ div.rate .star a, #channelRating .rate .cancel a {
     list-style: none;
 }
 
-.feedColumn ul.searchResults li {
+.feedColumn.big ul.searchResults {
+    width: 764px;
+}
+
+.feedColumn ul.searchResults > li {
     padding: 0;
     width: 362px;
     margin: 10px 10px 15px 0;
 }
 
+.feedColumn.big ul.searchResults > li {
+    min-height: 32px;
+    width: 724px
+}
 .feedColumn ul.searchResults li.ad {
     margin: 27px 25px 42px 0;
 }
@@ -1668,6 +1690,11 @@ div.rate .star a, #channelRating .rate .cancel a {
     width: 298px;
     margin: 0 0 19px 20px;
     height: 100%;
+}
+
+.feedColumn.big ul.searchResults li.sites_tip,
+.feedColumn.big ul.searchResults li.feed_tip {
+    width: 596px;
 }
 
 .feedColumn ul.searchResults li.sites_tip p {
@@ -3033,6 +3060,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     margin: 0;
     padding: 0 30px;
     height: 300px;
+    overflow: hidden;
     *height: 100%;
     background: url(../images/hover_menu.png) 0 0 repeat-y;
 }

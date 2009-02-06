@@ -309,7 +309,9 @@ class Channel(Record, Thumbnailable):
             traceback.print_exc()
         else:
             if parsed.bozo:
-                self._check_archived(connection)
+                self.archived = True
+                self.state = Channel.NEW
+                self.save(connection)
                 return
             items = []
             for entry in parsed.entries:
@@ -323,6 +325,10 @@ class Channel(Record, Thumbnailable):
             self._replace_items(connection, items)
         if self.items:
             self._check_archived(connection)
+        else:
+            self.archived = True
+            self.state = Channel.NEW
+            self.save(connection)
 
     def _check_archived(self, connection):
         latest = None

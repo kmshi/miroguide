@@ -20,11 +20,11 @@ function supportsMimeType(mimetype) {
 }
 
 function setUpItem() {
-    item = $(this);
-    download = item.children('a.playback');
+    videoItem = $(this);
+    download = videoItem.children('a.playback');
     mimetype = download.text();
     if (supportsMimeType(mimetype)) {
-        item.children('.thumb').prepend('<div class="play_vid_overlay"></div>').parent().find('span.thumb').css('cursor', 'pointer').click(playVideo);
+        videoItem.children('.thumb').prepend('<div class="play_vid_overlay"></div>').parent().find('span.thumb').css('cursor', 'pointer').click(playVideo);
     }
 }
 
@@ -33,7 +33,7 @@ function playVideo() {
         if (!confirm('Are you sure you want to stream this High-Definition video?'))
             return;
     }
-    item = $(this).parent('.details');
-    download = item.children('a.playback');
+    videoItem = $(this).parent('.details');
+    download = videoItem.children('a.playback');
     location.href = download.attr('href');
 }

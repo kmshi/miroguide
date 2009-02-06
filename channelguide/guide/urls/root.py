@@ -10,6 +10,7 @@ def cg_include(module):
 
 urlpatterns = patterns('channelguide.guide.views',
     (r'^$', 'frontpage.index'),
+    (r'^favicon.ico$', redirect_to, {'url': '/images/favicon.ico'}),
     (r'^frontpage$', 'frontpage.index'),
     (r'^firsttime$', 'firsttime.index'),
     (r'^moderate$', 'moderator.index'),
