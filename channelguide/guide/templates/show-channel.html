@@ -40,19 +40,20 @@
   {% if share_links %}
     {% include "guide/share-links.html" %}
   {% else %}
-  {% if geoip_restricted %}
-<div class="alert">
-  <div class="page">
-    <div class="alertBox ">
-      <h2>
-        {% blocktrans %}
-        This show may not be available to you, as it is restricted to certain countries.
-        {% endblocktrans %}
-      </h2>
-    </div>
-  </div>
-</div>
-  {% endif %}
+    {% if geoip_restricted %}
+      <div class="alert">
+        <div class="page">
+          <div class="alertBox ">
+            <h2>
+              {% blocktrans %}
+                This show may not be available to you, as it is
+                restricted to certain countries.
+              {% endblocktrans %}
+            </h2>
+          </div>
+        </div>
+      </div>
+    {% endif %}
   {% endif %}
 
   <div id="channelInfo">
@@ -96,7 +97,12 @@
 
 	<h4>{% trans "Details" %}</h4>
         {% showall channel.description 45 "description" %}
-        {% ifshowall channel.description 45 %}<a href="#" class="read_more" onclick="p=$('#channelDetails2 .channelDetailsContent p.description').toggleClass('on'); return false;">{% trans "Show all" %}</a>{% endifshowall %}
+        {% ifshowall channel.description 45 %}
+          <a href="#" class="read_more"
+             onclick="p=$('#channelDetails2 .channelDetailsContent p.description').toggleClass('on'); return false;">
+            {% trans "Show all" %}
+          </a>
+        {% endifshowall %}
 
         {% if not channel.fake %}
           <div class="tags">

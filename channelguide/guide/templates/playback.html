@@ -10,8 +10,27 @@
 
 {% block onload-extra %}add_share_callbacks();{% endblock %}
 
-
 {% block content %}
+
+  {% if channel.hi_def %}
+    <!-- warning to old miro users users -->
+    <div class="page">
+      <div class="welcomeMessage">
+        <p>
+          <strong>
+            {% trans "This is HD!" %}
+          </strong>
+          {% blocktrans with item.url as download_url and channel.subscription_link as subscription_link %}
+            High-definition videos are often slow to preview. You may
+            want to use Miro to <a href="{{ download_url }}">download</a>
+            the video or <a {{ subscription_link }}>subscribe</a>
+            to the feed. It's free and easy!
+          {% endblocktrans %}
+        </p>
+      </div>
+    </div>
+  {% endif %}
+
   {% if share_links %}
     {% include "guide/share-links.html" %}
   {% endif %}
