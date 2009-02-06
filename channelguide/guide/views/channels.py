@@ -311,6 +311,8 @@ def show(request, id, featured_form=None):
     item_paginator = Paginator(ItemObjectList(request.connection, c), 10)
     item_page = item_paginator.page(request.GET.get('page', 1))
 
+    is_miro = bool(util.get_miro_version(request.META['HTTP_USER_AGENT']))
+
     share_links = share_url = None
     if request.GET.get('share') == 'true':
         share_url = urlparse.urljoin(
@@ -322,6 +324,7 @@ def show(request, id, featured_form=None):
     context = {
         'channel': c,
         'item_page': item_page,
+        'is_miro': is_miro,
         'item_page_links': _calculate_pages(request, item_page),
         'recommendations': get_recommendations(request, c),
         'show_edit_button': request.user.can_edit_channel(c),

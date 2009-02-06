@@ -102,8 +102,8 @@
           </a>
         {% endifshowall %}
 
-        {% if not channel.fake %}
-          <div class="tags">
+        <div class="tags">
+          {% if not channel.fake %}
             <p>
               <strong>{% trans "Categories" %}</strong> -
               {% for category in channel.categories %}
@@ -118,8 +118,14 @@
                 {% endfor %}
               </p>
             {% endif %}
-          </div>
-        {% endif %}
+          {% endif %}
+          {% if not is_miro %}
+            <p>
+              <strong>{% trans "Feed" %}</strong> -
+              <a href="{{ channel.url }}">{{ channel.url }}</a>
+            </p>
+          {% endif %}
+        </div>
       </div>
 
       <a href="{{ self.get_subscription_url }}">
@@ -130,7 +136,7 @@
                src="{{ STATIC_BASE_URL }}images/ico_hd_tag_large.png" alt="HD">
           {% endif %}
         </span>
-        </a>
+      </a>
     </div>
   </div>
 
@@ -141,50 +147,53 @@
       </a>
     </div>
   {% endcomment %}
+
   {% if channel.url %}
   <div id="channelEpisodes">
     <div class="page">
-      <div class="pageContent">
-	<div class="detailsHead">
-	  <h3 class="resultsCount">
-	    <span class="heading">{% trans "Recently Aired" %}</span>
-	    <span class="button">
-              <a href="#">
-                <img src="{{ STATIC_BASE_URL }}images/ico_refresh.png" alt="">
-              </a>
-            </span>
-	  </h3>
-	  <div class="sortType">
-	    <a href="#">{% trans "All" %}</a>
-	  </div>
-	</div><!--detailsHead-->
-
-	<ul class="paginator">
-          <li class="tag">Pages</li>
-          {% for number, link in item_page_links %}
-            {% ifequal number "tag" %}
-              <li class="tag">...</li>
-            {% else %}
-              <li {% ifequal number item_page.number %}
-                    class="selected"
-                  {% endifequal %}>
-                <span><a href="{{ link }}">{{ number }}</a></span>
-              </li>
-            {% endifequal %}
-          {% endfor %}
-	</ul>
-
-	<br class="clear_all">
-        <ul class="scrolling">
-          {% for item in item_page.object_list %}
-          <li>
-            {% if forloop.first %}<a name="{{ item_page.number }}"></a>{% endif %}
-            <div class="detailsTop"></div>
-            {% include "guide/item.html" %}
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
+      {% if item_page.object_list %}
+        <div class="pageContent">
+          <div class="detailsHead">
+            <h3 class="resultsCount">
+              <span class="heading">{% trans "Recently Aired" %}</span>
+              <span class="button">
+                <a href="#">
+                  <img src="{{ STATIC_BASE_URL }}images/ico_refresh.png" alt="">
+                </a>
+              </span>
+            </h3>
+            <div class="sortType">
+              <a href="#">{% trans "All" %}</a>
+            </div>
+          </div><!--detailsHead-->
+  
+          <ul class="paginator">
+            <li class="tag">Pages</li>
+            {% for number, link in item_page_links %}
+              {% ifequal number "tag" %}
+                <li class="tag">...</li>
+              {% else %}
+                <li {% ifequal number item_page.number %}
+                      class="selected"
+                    {% endifequal %}>
+                  <span><a href="{{ link }}">{{ number }}</a></span>
+                </li>
+              {% endifequal %}
+            {% endfor %}
+          </ul>
+  
+          <br class="clear_all">
+          <ul class="scrolling">
+            {% for item in item_page.object_list %}
+            <li>
+              {% if forloop.first %}<a name="{{ item_page.number }}"></a>{% endif %}
+              <div class="detailsTop"></div>
+              {% include "guide/item.html" %}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
       <script type="text/javascript">
           $("#channelEpisodes div.details").each(setUpItem);
       </script>
