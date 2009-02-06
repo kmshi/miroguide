@@ -1,0 +1,6 @@
+<p class="on{% if css_class %} {{ css_class }}{% endif %}">
+  {% if show_all %}{{ text|truncatewords_html:length }}{% else %}{{ text }}{% endif %}
+</p>
+{% if show_all %}<p class="full{% if css_class %} {{ css_class }}{% endif %}">
+  {{ text }}
+</p>{% endif %}

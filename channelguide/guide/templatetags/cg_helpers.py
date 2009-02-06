@@ -131,6 +131,40 @@ def pagelinks(context, page, default_page=1):
     return {'page': page,
             'links': links}
 
+@register.inclusion_tag('guide/show-all.html')
+def showall(text, length, css_class=None):
+    if len(text.split()) > length:
+        show_all = True
+    else:
+        show_all = False
+    return {'text': text,
+            'length': length,
+            'show_all': show_all,
+            'css_class': css_class
+            }
+
+@register.tag(name='ifshowall')
+def ifshowall(parser, token):
+    body = parser.parse(('endifshowall',))
+    parser.delete_first_token()
+    tokens = token.split_contents()
+    node = make_text_or_variable_node(parser, tokens[1])
+    length = int(tokens[2])
+    return IfShowAllNode(body, node, length)
+
+class IfShowAllNode(template.Node):
+    def __init__(self, body, node, length):
+        self.body = body
+        self.node = node
+        self.length = length
+
+    def render(self, context):
+        text = self.node.render(context)
+        if len(text.split()) <= self.length:
+            return ''
+        else:
+            return self.body.render(context)
+
 @register.inclusion_tag('guide/form.html')
 def show_form(form):
     return {'form': form, 'BASE_URL': settings.BASE_URL,

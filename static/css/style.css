@@ -1152,6 +1152,15 @@ div.rate .star a, #channelRating .rate .cancel a {
     line-height: 1.5em;
     height: 4.5em;
     overflow: hidden;
+    display: none;
+}
+
+#channelDetails2 .channelDetailsContent p.description.on {
+    display: block;
+}
+
+#channelDetails2 .channelDetailsContent p.description.full {
+    height: 100%;
 }
 
 #channelDetails2 .channelDetailsContent .tags {
@@ -1401,6 +1410,15 @@ div.rate .star a, #channelRating .rate .cancel a {
     color: #777777;
     height: 16px;
     overflow: hidden;
+    display: none;
+}
+
+#channelEpisodes .details .description p.on {
+    display: block;
+}
+
+#channelEpisodes .details .description p.full {
+    height: 100%;
 }
 
 .rollover_button {
