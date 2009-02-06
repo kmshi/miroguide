@@ -56,7 +56,11 @@
       </div><!--videoBoxTop-->
       <div id="videoBox">
         <div id="video">
+          {% if bittorrent %}
+          <img src="{{ STATIC_BASE_URL }}images/bt-logo.png">
+          {% else %}
           {{ embed }}
+          {% endif %}
         </div><!--video-->
 
         <div id="videoDetails">
