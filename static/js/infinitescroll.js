@@ -2,7 +2,7 @@ function infiniteCallback(data, textStatus) {
     results = $('.scrolling', data);
     // XXX this doesn't handle the case where there are more shows than feeds
     for (i=0; i < 2; i++) {
-        items = results.eq(i).children('li:gt(1)');
+        items = results.eq(i).children('li:gt(0)');
         items.find('form.rating').rating();
         items.find('.rating').height(25);
         if (typeof setUpItem == 'function')
@@ -27,8 +27,8 @@ function checkScroll() {
         infiniteLoad();
     as = $('.scrolling li > a[name]');
     i = 0;
-    while (i < as.length && as[i].offsetTop < doc.scrollTop())
-        i++;
+    while (i < as.length && as[i].offsetTop < $(window).scrollTop()) {
+        i++;}
     if (i > 1) {
         location.href = '#pg' + as.eq(i - 1).attr('name');
     } else if (location.hash) {
@@ -48,11 +48,8 @@ function infiniteLoad() {
 function checkHash() {
     if (!location.hash) return;
     hash = location.hash.substring(3);
-    try {
-        parseInt(hash)
-    } catch (e) {
+    if (isNaN(parseInt(hash)))
         return;
-    }
     if (!$('a[name=' + hash + ']').length) {
         args = location.search;
         if (!args) {
