@@ -102,8 +102,8 @@
           </a>
         {% endifshowall %}
 
-        {% if not channel.fake %}
-          <div class="tags">
+        <div class="tags">
+          {% if not channel.fake %}
             <p>
               <strong>{% trans "Categories" %}</strong> -
               {% for category in channel.categories %}
@@ -118,8 +118,14 @@
                 {% endfor %}
               </p>
             {% endif %}
-          </div>
-        {% endif %}
+          {% endif %}
+          {% if not is_miro %}
+            <p>
+              <strong>{% trans "Feed" %}</strong> -
+              <a href="{{ channel.url }}">{{ channel.url }}</a>
+            </p>
+          {% endif %}
+        </div>
       </div>
 
       <a href="{{ self.get_subscription_url }}">
@@ -130,7 +136,7 @@
                src="{{ STATIC_BASE_URL }}images/ico_hd_tag_large.png" alt="HD">
           {% endif %}
         </span>
-        </a>
+      </a>
     </div>
   </div>
 
