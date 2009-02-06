@@ -18,10 +18,13 @@
       <div class="welcomeMessage">
         <p>
           <strong>
-            {% trans "This video is part of a high-definition feed" %}
+            {% trans "This is HD!" %}
           </strong>
-          {% blocktrans %}
-            Playback may cause slower computers to become sluggish.
+          {% blocktrans with item.url as download_url and channel.subscription_link as subscription_link %}
+            High-definition videos are often slow to preview. You may
+            want to use Miro to <a href="{{ download_url }}">download</a>
+            the video or <a {{ subscription_link }}>subscribe</a>
+            to the feed. It's free and easy!
           {% endblocktrans %}
         </p>
       </div>
