@@ -40,19 +40,20 @@
   {% if share_links %}
     {% include "guide/share-links.html" %}
   {% else %}
-  {% if geoip_restricted %}
-<div class="alert">
-  <div class="page">
-    <div class="alertBox ">
-      <h2>
-        {% blocktrans %}
-        This show may not be available to you, as it is restricted to certain countries.
-        {% endblocktrans %}
-      </h2>
-    </div>
-  </div>
-</div>
-  {% endif %}
+    {% if geoip_restricted %}
+      <div class="alert">
+        <div class="page">
+          <div class="alertBox ">
+            <h2>
+              {% blocktrans %}
+                This show may not be available to you, as it is
+                restricted to certain countries.
+              {% endblocktrans %}
+            </h2>
+          </div>
+        </div>
+      </div>
+    {% endif %}
   {% endif %}
 
   <div id="channelInfo">
