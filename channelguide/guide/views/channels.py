@@ -28,6 +28,8 @@ from channelguide.guide.emailmessages import EmailMessage
 from sqlhelper.sql.statement import Select
 from sqlhelper import signals, exceptions
 
+MIRO_VERSION_RE = re.compile('^.*Miro\/(?P<miro_version>(?:\d+\.)*\d).*$')
+
 class ItemObjectList(templateutil.QueryObjectList):
     def __init__(self, connection, channel):
         self.connection = connection
@@ -495,13 +497,24 @@ def filtered_listing(request, value=None, filter=None, limit=10,
     except InvalidPage:
         feed_page = None
 
+    miro_version_pre_sites = False
+    miro_version_match = MIRO_VERSION_RE.match(request.META['HTTP_USER_AGENT'])
+
+    if miro_version_match:
+        miro_version = miro_version_match.group('miro_version')
+        if not miro_version.split('.')[0] < 2:
+            miro_version_pre_sites = True
+
     site_page = None
     site_paginator = None
-    # only generate a site object list if this isn't linux, because
-    # unfortunately most 'sites' are flash-based, and
-    # linux + flash == teh suck :\
-    if not ('Miro' in request.META['HTTP_USER_AGENT']
-            and 'X11' in request.META['HTTP_USER_AGENT']):
+    site_object_list = None
+    # There are two cases where we don't generate a site object list:
+    #  - If it's pre-miro 2.0 (doesn't support site object lists)
+    #  - If it's Miro on Linux... because unfortunately most 'sites'
+    #    are flash-based, and linux + flash == teh suck :\
+    if not (miro_version_pre_sites
+            or ('Miro' in request.META['HTTP_USER_AGENT']
+                and 'X11' in request.META['HTTP_USER_AGENT'])):
         site_object_list = SiteObjectList(
             request, filter, value, sort,
             ('subscription_count_month', 'rating', 'item_count'),
@@ -525,8 +538,9 @@ def filtered_listing(request, value=None, filter=None, limit=10,
 
     geoip_filtered = False
     if geoip:
-        if feed_object_list.count_all() != feed_paginator.count or \
-                site_object_list.count_all() != site_paginator.count:
+        if (feed_object_list.count_all() != feed_paginator.count
+            or (site_object_list
+                and site_object_list.count_all() != site_paginator.count)):
             args = request.GET.copy()
             args['geoip'] = 'off'
             geoip_filtered = util.make_absolute_url(request.path, args)
@@ -538,6 +552,7 @@ def filtered_listing(request, value=None, filter=None, limit=10,
         'feed_page': feed_page,
         'site_page': site_page,
         'geoip_filtered': geoip_filtered,
+        'miro_version_pre_sites': miro_version_pre_sites,
         })
 
 def for_user(request, user_name_or_id):
