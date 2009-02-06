@@ -95,6 +95,7 @@ def item(request, id):
 
     context = {'item': item,
                'channel': item.channel,
+               'bittorrent': item.mime_type == 'application/x-bittorrent',
                'previous': previous,
                'next': next,
                'embed': util.mark_safe(embed_code(item)),

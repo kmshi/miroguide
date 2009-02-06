@@ -12,11 +12,17 @@
 
 {% block content %}
 
-  {% if channel.hi_def %}
+  {% if channel.hi_def or bittorrent%}
     <!-- warning to old miro users users -->
     <div class="page">
       <div class="welcomeMessage">
         <p>
+          {% if bittorrent %}
+          <strong>{% trans "BitTorrent Video" %}:</strong>
+          {% blocktrans with channel.subscription_link as subscription_link %}
+          BitTorrent videos cannot be streamed. The easiest way to watch is <a {{ subscription_link }}>using Miro</a>.
+          {% endblocktrans %}
+          {% else %}
           <strong>
             {% trans "This is HD!" %}
           </strong>
@@ -26,6 +32,7 @@
             the video or <a {{ subscription_link }}>subscribe</a>
             to the feed. It's free and easy!
           {% endblocktrans %}
+          {% endif %}
         </p>
       </div>
     </div>
@@ -49,7 +56,11 @@
       </div><!--videoBoxTop-->
       <div id="videoBox">
         <div id="video">
+          {% if bittorrent %}
+          <img src="{{ STATIC_BASE_URL }}images/bt-logo.png">
+          {% else %}
           {{ embed }}
+          {% endif %}
         </div><!--video-->
 
         <div id="videoDetails">
