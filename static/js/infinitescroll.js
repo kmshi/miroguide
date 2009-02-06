@@ -2,7 +2,7 @@ function infiniteCallback(data, textStatus) {
     results = $('.scrolling', data);
     // XXX this doesn't handle the case where there are more shows than feeds
     for (i=0; i < 2; i++) {
-        items = results.eq(i).children('li');
+        items = results.eq(i).children('li:gt(1)');
         items.find('form.rating').rating();
         items.find('.rating').height(25);
         if (typeof setUpItem == 'function')
@@ -68,5 +68,5 @@ function checkHash() {
 }
 checkScroll.loading = false;
 
-$(document).scroll(checkScroll);
+$(window).scroll(checkScroll);
 checkHash();
