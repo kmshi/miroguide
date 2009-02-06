@@ -46,8 +46,8 @@ var browser = {
     },
 
     updateChannel: function(index, data) {
-        item = $("#channelEpisodes .pageContent .searchResults > li").eq(index);
-        thumb = item.find('.searchThumb a');
+        show = $("#channelEpisodes .pageContent .searchResults > li").eq(index);
+        thumb = show.find('.searchThumb a');
         url = '/feeds/' + data['id'];
         STATIC_BASE_URL = /(.*)media\/thumbnails\//.exec(data['thumbnail_url'])[1];
         thumb_url = data['thumbnail_url'].replace('370x247', '98x65');
@@ -56,20 +56,18 @@ var browser = {
         if (data['hi_def']) {
             thumb.children('span').html('<img class="hd_tag_tiny2" src="' + STATIC_BASE_URL + 'images/ico_hd_tag_tiny.png" alt="" />');
         }
-        title = item.find('h4 a');
-        title.attr('href', url).text(data['name']);
-        description = item.find('.searchResultContent p');
-        description.text(data['description']);
-        add = item.find('a.add_feed_button2').attr('href', url);
+        show.find('h4 a').attr('href', url).text(data['name']);
+        show.find('.searchResultContent p').text(data['description']);
+        add = show.find('a.add_feed_button2').attr('href', url);
 
         $.getJSON('/api/get_channel?id=' + data['id'] + '&datatype=json&jsoncallback=?',
                    function(data) {
-                       item = $("#channelEpisodes .pageContent .searchResults > li").eq(index);
-                       item.find('li.subscribers').text(data['subscription_count_today'] + ' Subscribed Today');
+                       show = $("#channelEpisodes .pageContent .searchResults > li").eq(index);
+                       show.find('li.subscribers').text((data['subscription_count_today'] || '0') + ' Subscribed Today');
                        if (data['score']) {
-                           item.find('div.rating').attr('title', 'User Rating: ' + data['score']).rating();
+                           show.find('div.rating').attr('title', 'User Rating: ' + data['score']).rating();
                        } else {
-                           item.find('div.rating').attr('title', 'Average Rating: ' + data['average_rating']).rating();
+                           show.find('div.rating').attr('title', 'Average Rating: ' + data['average_rating']).rating();
                        }
                    });
     },

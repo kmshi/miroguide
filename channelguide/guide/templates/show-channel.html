@@ -96,10 +96,8 @@
         </a>
 
 	<h4>{% trans "Details" %}</h4>
-	<p class="description">
-          {{ channel.description }}
-        </p>
-	<a href="#" class="read_more">{% trans "Show all" %}</a>
+        {% showall channel.description 45 "description" %}
+        {% ifshowall channel.description 45 %}<a href="#" class="read_more" onclick="p=$('#channelDetails2 .channelDetailsContent p.description').toggleClass('on'); return false;">{% trans "Show all" %}</a>{% endifshowall %}
 
         {% if not channel.fake %}
           <div class="tags">

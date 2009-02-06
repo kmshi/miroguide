@@ -180,7 +180,7 @@ function isWithin(event, obj)  {
 function showMenu(el, menu, event) {
     $('#' + menu + ' a').addClass('hover');
     m = $('#' + menu)[0];
-    $('#' + el).css('top', m.offsetTop + m.offsetHeight).show();
+    $('#' + el).css('top', m.clientHeight + 34).show();
     return false;
 }
 
@@ -216,7 +216,7 @@ var languageTimeout = null;
 
 function languageUp() {
     showMenu('hoverMenuLanguage', 'language');
-    ul = $("#hoverMenuLanguage ul");
+    ul = $("#hoverMenuLanguage ul:last");
     ul.scrollTop(ul.scrollTop() - 30);
     languageStop();
     languageTimeout = setTimeout(languageUp, 50);
@@ -224,7 +224,7 @@ function languageUp() {
 
 function languageDown() {
     showMenu('hoverMenuLanguage', 'language');
-    ul = $("#hoverMenuLanguage ul");
+    ul = $("#hoverMenuLanguage ul:last");
     ul.scrollTop(ul.scrollTop() + 30);
     languageStop();
     languageTimeout = setTimeout(languageDown, 50);
@@ -238,7 +238,7 @@ function languageStop() {
 }
 function languageUpdate() {
     return;
-    li = $("#hoverMenuLanguage li");
+    li = $("#hoverMenuLanguage ul:last li");
     top = parseInt(li.css('top'));
     count = li.length;
     up = $("#hoverMenuLanguage #upButton");
@@ -256,9 +256,10 @@ function languageUpdate() {
 }
 
 function add_corners() {
-    $('.corners').corners();
-    $('.top_corners').corners('top');
-
+    if (window.navigator.userAgent.indexOf('MSIE') == -1) {
+        $('.corners').corners();
+        $('.top_corners').corners('top');
+    }
 }
 
 function setup_login_form() {

@@ -277,6 +277,11 @@ def get_recommendations(connection, user, start=0, length=10, filter=None):
         if not ids:
             return []
         query.join('rating')
+        if user.filter_languages:
+            user.join('shown_languages').execute(connection)
+            query.where(Channel.c.primary_language_id.in_(
+                    [language.id for language in
+                     user.shown_languages]))
         channels = list(query.execute(connection))
         for channel in channels:
             channel.guessed = estimatedRatings[channel.id]

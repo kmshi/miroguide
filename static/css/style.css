@@ -385,6 +385,7 @@ ul.newVideos {
     padding: 0;
     overflow: hidden;
     height: 130px;
+    *height: 150px; /* IE7 */
     list-style: none;
 }
 
@@ -567,7 +568,7 @@ h3.widget_title_bar {
 .widget_small ul.related li .thumb {
     display: block;
     width: 141px;
-    margin: 0 0 12px 17px;
+    margin: 0 auto 12px;
 }
 
 .widget_small ul.related li .meta {
@@ -1151,6 +1152,15 @@ div.rate .star a, #channelRating .rate .cancel a {
     line-height: 1.5em;
     height: 4.5em;
     overflow: hidden;
+    display: none;
+}
+
+#channelDetails2 .channelDetailsContent p.description.on {
+    display: block;
+}
+
+#channelDetails2 .channelDetailsContent p.description.full {
+    height: 100%;
 }
 
 #channelDetails2 .channelDetailsContent .tags {
@@ -1323,7 +1333,7 @@ div.rate .star a, #channelRating .rate .cancel a {
     padding: 0;
     overflow: hidden;
     height: 100%;
-    height: 34px;
+    height: 35px;
     background: url(../images/item_bar_left_small.png) left bottom no-repeat;
     line-height: 34px;
 }
@@ -1335,7 +1345,7 @@ div.rate .star a, #channelRating .rate .cancel a {
     overflow: hidden;
     background: url(../images/item_bar_left_xl.png) left bottom no-repeat;
     height: 100%;
-    height: 34px;
+    height: 35px;
     line-height: 34px;
 }
 
@@ -1400,6 +1410,15 @@ div.rate .star a, #channelRating .rate .cancel a {
     color: #777777;
     height: 16px;
     overflow: hidden;
+    display: none;
+}
+
+#channelEpisodes .details .description p.on {
+    display: block;
+}
+
+#channelEpisodes .details .description p.full {
+    height: 100%;
 }
 
 .rollover_button {
@@ -2960,15 +2979,37 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     width: 274px;
     overflow: hidden;
     position: absolute;
-    top: -1000px;
+    top: -10000px;
     margin: -1px 0 0 575px;
     z-index: 100;
+}
+
+#hoverMenuLanguage h3 {
+    width: 214px;
+    height: 30px;
+    padding: 0 30px;
+    margin: 0;
+    background: url(../images/hover_menu.png) 0 0 repeat-y;
+    font-size: 11px;
+    font-weight: bold;
+    color: #fff !important;
+}
+
+#hoverMenuLanguage h3 span {
+    position: relative;
+    display: block;
+    white-space: nowrap;
+    height: 25px;
+    color: white;
+    font: 12px/26px Arial, Helvetica, sans-serif;
+    padding: 0 5px 0 14px;
 }
 
 #hoverMenuLanguage #upButton {
     width: 274px;
     height: 26px;
     background: url(../images/hover_menu_top.png) 0 0 no-repeat;
+    *display: none;
 }
 
 #hoverMenuLanguage #upButton:hover {
@@ -2996,8 +3037,12 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     margin: 0;
     padding: 0 30px;
     height: 300px;
-    overflow: hidden;
+    *height: 100%;
     background: url(../images/hover_menu.png) 0 0 repeat-y;
+}
+
+#hoverMenuLanguage ul.default {
+    height: 60px;
 }
 
 #hoverMenuLanguage ul button {
@@ -3028,7 +3073,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     background: url(../images/hover_menu_bg.png) bottom left repeat-x
 }
 
-#hoverMenuLanguage ul button span {
+#hoverMenuLanguage ul button span, #hoverMenuLanguage h3 span {
     padding: 0 0 0 10px;
     display: block;
 }

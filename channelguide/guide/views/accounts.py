@@ -1,6 +1,7 @@
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
+from django.conf import settings
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.utils.translation import gettext as _
@@ -9,7 +10,7 @@ from channelguide import util
 from channelguide.guide.auth import logout, login, moderator_required, login_required
 from channelguide.guide.exceptions import AuthError
 from channelguide.guide.forms import user as user_forms
-from channelguide.guide.models import User, UserAuthToken, Rating, Channel
+from channelguide.guide.models import User, UserAuthToken, Rating, Channel, Language
 from channelguide.guide.templateutil import QueryObjectList
 
 def get_login_message(next_url):
@@ -271,3 +272,23 @@ def change_password_submit(request, id):
 
 def password_changed(request):
     return util.render_to_response(request, 'password-changed.html')
+
+@login_required
+def set_language_view(request):
+    value = request.REQUEST.get('filter', None)
+    request.user.join('shown_languages').execute(request.connection)
+    if value == '0':
+        request.user.filter_languages = False
+        request.user.shown_languages.clear(request.connection)
+        request.user.save(request.connection)
+    elif value == '1' and request.user.language:
+        languageName = settings.LANGUAGE_MAP.get(request.user.language)
+        if languageName:
+            dbLanguages = Language.query(name=languageName).execute(request.connection)
+            if dbLanguages:
+                request.user.filter_languages = True
+                request.user.shown_languages.clear(request.connection)
+                request.user.shown_languages.add_record(request.connection,
+                    dbLanguages[0])
+                request.user.save(request.connection)
+    return util.redirect_to_referrer(request)

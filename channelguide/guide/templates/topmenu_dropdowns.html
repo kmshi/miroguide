@@ -116,7 +116,25 @@
   <div id="hoverMenuLanguage"
        onmouseover="return showMenu('hoverMenuLanguage', 'language', event)"
        onmouseout="return hideMenu('hoverMenuLanguage', 'language', event)">
+    {% if language_options %}
+    <h3><span>{% trans "Display Shows:" %}</span></h3>
+    <form action="{{ BASE_URL }}accounts/set_language_view" method="GET">
+      <ul class="default">
+        <li{% if not user.filter_languages %} class="current"{% endif %}>
+          <button type="submit" name="filter" value="0">
+            <span>{% trans "In all languages" %}</span>
+          </button>
+        </li>
+        <li{% if user.filter_languages %} class="current"{% endif %}>
+          <button type="submit" name="filter" value="1">
+            <span>{% trans "In my language" %}</span>
+          </button>
+        </li>
+      </ul>
+    </form>
+    {% endif %}
     <div id="upButton"></div>
+    {% if language_options %}<h3><span>{% trans "My Language:" %}</span></h3>{% endif %}
     <form action="{{ BASE_URL }}i18n/setlang/" method="POST">
       <ul>
         {% get_available_languages as LANGUAGES %}
