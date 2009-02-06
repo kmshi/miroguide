@@ -55,8 +55,21 @@
         {% block infoBar %}
         <span class="results">
           <span class="results_tag">{% trans "Search Results" %}</span>
-          {{ feed_page.paginator.count }}
-          feeds contain videos that match "{{ title|lower }}"
+          {% if feed_page.paginator.count %}
+          {% blocktrans count feed_page.paginator.count as feed_count and title|lower as t %}
+          1 feed matches "{{ t }}"
+          {% plural %}
+          {{ feed_count }} feeds match "{{ t }}"
+          {% endblocktrans %}
+          {% endif %}
+          {% if feed_page.paginator.count and site_page.paginator.count %}, {% endif %}
+          {% if site_page.paginator.count %}
+          {% blocktrans count site_page.paginator.count as site_count and title|lower as t%}
+          1 site matches "{{ t }}"
+          {% plural %}
+          {{ site_count }} sites match "{{ t }}"
+          {% endblocktrans %}
+          {% endif %}
         </span>
         {% if geoip_filtered %}
           <a href="{{ geoip_filtered }}" class="show_channels">show all</a>
