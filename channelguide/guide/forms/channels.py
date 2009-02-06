@@ -367,6 +367,8 @@ class SubmitChannelForm(Form):
 
     def clean_geoip(self):
         value = self.cleaned_data['geoip'].upper()
+        if not value:
+            return value
         codes = [code.strip() for code in value.split(',')]
         filtered = [code for code in codes if code not in ip2cc.cc2name]
         if filtered:
