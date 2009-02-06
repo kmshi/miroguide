@@ -49,7 +49,7 @@ class Channel(Record, Thumbnailable):
 
     THUMBNAIL_DIR = 'thumbnails'
     THUMBNAIL_SIZES = [
-            (98, 65),
+            (97, 65),
             (165, 110),
             (194, 130),
             (200, 133),

@@ -398,7 +398,7 @@ ul.newVideos li {
 }
 
 ul.newVideos li .thumb {
-    width: 98px;
+    width: 97px;
     height: 65px;
     margin: 0 auto 10px auto;
 }
@@ -1380,7 +1380,7 @@ div.rate .star a, #channelRating .rate .cancel a {
 }
 
 #channelEpisodes .details .thumb {
-    width: 98px;
+    width: 97px;
     margin: 8px 0 0px 12px;
     float: left;
     display: inline;
@@ -4210,12 +4210,12 @@ a.large_button span {
 .searchThumb {
     float: left;
     display: inline;
-    width: 98px;
+    width: 97px;
     height: 68px;
 }
 
 .searchThumb .thumb {
-    width: 98px;
+    width: 97px;
     height: 65px;
 }
 
