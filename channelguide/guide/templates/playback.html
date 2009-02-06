@@ -10,8 +10,24 @@
 
 {% block onload-extra %}add_share_callbacks();{% endblock %}
 
-
 {% block content %}
+
+  {% if channel.hi_def %}
+    <!-- warning to old miro users users -->
+    <div class="page">
+      <div class="welcomeMessage">
+        <p>
+          <strong>
+            {% trans "This video is part of a high-definition feed" %}
+          </strong>
+          {% blocktrans %}
+            Playback may cause slower computers to become sluggish.
+          {% endblocktrans %}
+        </p>
+      </div>
+    </div>
+  {% endif %}
+
   {% if share_links %}
     {% include "guide/share-links.html" %}
   {% endif %}
