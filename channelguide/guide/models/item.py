@@ -153,3 +153,8 @@ class Item(Record, Thumbnailable):
 
     def __str__(self):
         return self.name
+
+for width, height in Item.THUMBNAIL_SIZES:
+    def thumb_url(self, width=width, height=height):
+        return self.thumb_url(width, height)
+    setattr(Item, 'thumb_url_%i_%i' % (width, height), thumb_url)
