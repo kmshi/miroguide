@@ -2961,7 +2961,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     width: 274px;
     overflow: hidden;
     position: absolute;
-    top: -1000px;
+    top: -10000px;
     margin: -1px 0 0 575px;
     z-index: 100;
 }
@@ -2991,6 +2991,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     width: 274px;
     height: 26px;
     background: url(../images/hover_menu_top.png) 0 0 no-repeat;
+    *display: none;
 }
 
 #hoverMenuLanguage #upButton:hover {
@@ -3018,7 +3019,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     margin: 0;
     padding: 0 30px;
     height: 300px;
-    overflow: hidden;
+    *height: 100%;
     background: url(../images/hover_menu.png) 0 0 repeat-y;
 }
 
