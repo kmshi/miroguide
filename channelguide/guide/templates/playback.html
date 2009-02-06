@@ -57,7 +57,11 @@
       <div id="videoBox">
         <div id="video">
           {% if bittorrent %}
-          <img src="{{ STATIC_BASE_URL }}images/bt-logo.png">
+          <div id="bt-no-stream">
+          {% blocktrans with channel.subscription_link as subscription_link %}
+          BitTorrent videos cannot be streamed. The easiest way to watch is <a {{ subscription_link }}>using Miro</a>.
+          {% endblocktrans %}
+          </div>
           {% else %}
           {{ embed }}
           {% endif %}

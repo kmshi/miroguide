@@ -232,6 +232,15 @@ br.clear_all {
     margin:5px 0 0;
 }
 
+#bt-no-stream{
+    background: #fff url(../images/bt-logo.png) center 150px no-repeat;
+    border: 1px solid #333;
+    width: 440px;
+    height: 370px;
+    padding: 20px;
+    text-align: center;
+}
+
 /*Featured items carousel widget*/
 #featuredItemsCarousel {
     height: 271px;
