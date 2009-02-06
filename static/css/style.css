@@ -813,10 +813,6 @@ ul#channelRate {
     float: left;
 }
 
-#channelInfo .page a {
-    margin-left: 22px;
-}
-
 #channelInfo h1 img {
     margin-left: 10px;
     display: inline;
@@ -4201,7 +4197,8 @@ a.large_button span {
     margin: 10px 10px 0 0;
 }
 
-.channel_feed_only {
+.channel_icon_only {
+    margin-left: 22px;
     float: left;
     display: inline;
     margin: 17px 0 0 10px;
