@@ -234,7 +234,7 @@ def share_item(request):
                     next = channel_items[i + 1]
 
         ## if it's a real feed do a query
-        else:
+        elif channel is not None:
             # do a query for this item
             item_query = Item.query(channel_id=channel.id, url=file_url)
             item_query = item_query.join('channel')
