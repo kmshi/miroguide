@@ -216,7 +216,7 @@ def share_item(request):
             channel, channel_items = get_channels_and_items(
                 feed_url, request.connection)
         except FeedFetchingError:
-            return HttpResponse("This feed appears to be dead.")
+            channel = None
 
         # see if we have that item in the feed
         ## if it's a fake feed check the full list of items
