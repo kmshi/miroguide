@@ -82,7 +82,7 @@ def item(request, id):
     index = Item.query(Item.c.channel_id == item.channel_id,
                        Item.c.date > item.date).order_by(
         Item.c.date).count(request.connection)
-    default_page = (index // 4) + 1
+    default_page = (index // 10) + 1
     paginator = Paginator(ItemObjectList(request.connection, item.channel), 10)
     page = paginator.page(request.GET.get('page', default_page))
 
