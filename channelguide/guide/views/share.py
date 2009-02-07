@@ -325,7 +325,7 @@ def email(request):
         title = _(u'%(from_email)s wants to share a video with you') % {
             'from_email': share_form.cleaned_data['from_email']}
 
-    email_template = loader.get_template('guide/share-email.txt')
+    email_template = loader.get_template('share-email.txt')
     email_body = email_template.render(Context(share_form.cleaned_data))
 
     util.send_mail(
