@@ -439,7 +439,8 @@ def get_recommendations(request, channel):
         else:
             categories2 = set(chan.categories)
             if chan.state == Channel.APPROVED and not chan.archived and \
-                   (channel.rating.average - chan.rating.average) <= 0.5:
+                   (channel.rating.average - chan.rating.average) <= 0.5 and \
+                   bool(chan.url) == bool(channel.url):
                 channels.append(chan)
     return channels
 
