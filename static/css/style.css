@@ -117,7 +117,7 @@ div.sortType.feed{
     width: 790px;
     overflow: hidden;
     margin: 0 auto;
-    padding: 17px 0;
+    padding: 17px 0 0;
 }
 
 #contentSmall {
@@ -613,7 +613,7 @@ h3.widget_title_bar {
 }
 
 .widget_small ul.related li p {
-    padding: 10px 0;
+    padding: 0;
     margin: 0 0 5px 0;
     text-align: center;
     clear: both;
@@ -1060,7 +1060,7 @@ div.rate .star a, #channelRating .rate .cancel a {
     float: right;
     display: block;
     text-align: right;
-    padding: 4px 14px 4px 4px;    
+    padding: 4px 14px 18px 4px;
     background: url(../images/arrow_right.png) right center 3px no-repeat;
 }
 
@@ -1297,7 +1297,7 @@ margin: 5px 15px 0 0;
 }
 
 #channelEpisodes {
-    padding: 20px 0 18px 0;
+    padding: 0 0 18px;
 }
 
 #channelEpisodes h3 {
@@ -2043,8 +2043,8 @@ margin-top: -15px;
 }
 
 #videoBox #videoDetails p {
-    margin: 0;
-padding: 0 ;
+    margin: 10px 0 0;
+    padding: 0;
 }
 
 #videoBox #videoDetails p.synopsis, #videoBox #videoDetails p.more {
@@ -3786,6 +3786,7 @@ text-align: right !important;
     float: left;
     text-transform:uppercase;
     display: inline;
+    margin: 0 0 0 12px;
 }
 
 .large_add_button span {
@@ -4024,7 +4025,7 @@ a.large_green_button2 {
 .next_button a {
     background: url(../images/buttons/next.png) 0 0 no-repeat;
     text-align: left;
-    padding: 0 0 0 15px;
+    padding: 12px 0 0;
     float: right;
 }
 
@@ -4278,7 +4279,7 @@ a.large_button span {
 .channel_icon_only {
     float: left;
     display: inline;
-    margin: 11px 0 0 20px;
+    margin: 13px 0 0 10px;
 }
 
 .stream_only {

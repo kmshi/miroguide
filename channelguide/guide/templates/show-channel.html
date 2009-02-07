@@ -81,9 +81,9 @@
            {{ channel.subscription_link }}>
           <span>
             {% if channel.url %}
-              {% trans "Add to your feeds" %}
+              {% trans "Add Feed to Your Sidebar" %}
             {% else %}
-              {% trans "Add to your sites" %}
+              {% trans "Add Site to Your Sidebar" %}
             {% endif %}
           </span>
         </a>
@@ -93,7 +93,6 @@
           <span>{{ channel.website_url }}</span>
         </a>
 
-	<h4>{% trans "Details" %}</h4>
         {% showall channel.description 45 "description" %}
         {% ifshowall channel.description 45 %}
           <a href="#" class="read_more"

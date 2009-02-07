@@ -11,13 +11,13 @@ DEFAULT_WIDTH = 480
 DEFAULT_HEIGHT= 360
 
 def quicktime_embed(item):
-    return """<object id="video" classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" width="%i" height="%i" bgcolor="ffffff" codebase="http://www.apple.com/qtactivex/qtplugin.cab">
+    return """<object id="video" classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" width="%i" height="%i" codebase="http://www.apple.com/qtactivex/qtplugin.cab">
 <param name="src" value="%s">
 <param name="scale" value="aspect">
 <param name="id" value="video">
 <param name="autoplay" value="true">
 <param name="controller" value="true">
-<embed src="%s" bgcolor="ffffff" name="movieobject" scale="aspect" width="%i" height="%i" id="video" autoplay="true" controller="true" pluginspage="http://www.apple.com/quicktime/download/">
+<embed src="%s" name="movieobject" scale="aspect" width="%i" height="%i" id="video" autoplay="true" controller="true" pluginspage="http://www.apple.com/quicktime/download/">
 </embed>
 </object>
 """ % (DEFAULT_WIDTH, DEFAULT_HEIGHT + 15, item.url, item.url, DEFAULT_WIDTH,
