@@ -111,10 +111,10 @@ class Channel(Record, Thumbnailable):
                 (cg_link, subscribe_link))
 
     def get_subscribe_hit_url(self):
-        return self.get_url() + '/subscribe-hit'
+        return self.get_absolute_url() + '/subscribe-hit'
 
     def get_user_add_url(self):
-        return self.get_url() + '/add'
+        return self.get_absolute_url() + '/add'
 
     def get_subscription_url(self):
         if self.url:
