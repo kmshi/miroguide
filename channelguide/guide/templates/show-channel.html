@@ -152,8 +152,14 @@
   <div id="channelEpisodes">
     <div class="page">
       {% if item_page.object_list %}
-        <div class="pageContent">
-          <div class="detailsHead">
+        <div {% if recommendations %}
+               class="pageContent"
+             {% endif %}>
+          <div {% if recommendations %}
+                 class="detailsHead"
+               {% else %}
+                 class="detailsHeadLarge"
+               {% endif %}>
             <h3 class="resultsCount">
               <span class="heading">{% trans "Recently Aired" %}</span>
               <span class="button">
@@ -184,7 +190,11 @@
             {% for item in item_page.object_list %}
             <li>
               {% if forloop.first %}<a name="{{ item_page.number }}"></a>{% endif %}
-              <div class="detailsTop"></div>
+              {% if recommendations %}
+                <div class="detailsTop"></div>
+              {% else %}
+                <div class="detailsTopLarge"></div>
+              {% endif %}
               {% include "guide/item.html" %}
             </li>
             {% endfor %}
