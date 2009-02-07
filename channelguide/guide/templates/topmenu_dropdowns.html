@@ -43,7 +43,8 @@
       <ul>
         <li class="form-errors"></li>
         <li id="login">
-          <form method="post" action="{{ BASE_URL }}accounts/login">
+          <form class="accountform"
+                method="post" action="{{ BASE_URL }}accounts/login">
             <div>
               <input type="hidden" name="which-form" value="login">
             </div>
@@ -55,7 +56,7 @@
               <label for="id_password">{% trans "Password" %}</label>
               <input id="id_password" name="password" maxlength="20" type="password">
             </div>
-            <div class="form_row">
+            <div class="form_row accountsubmit">
               <a class="forgot_password"
                  href="{{ BASE_URL }}accounts/forgot-password">
                 {% trans "Forgot password" %}
@@ -67,7 +68,8 @@
           </form>
         </li>
         <li id="registerHidden">
-          <form method="post" action="{{ BASE_URL }}accounts/login">
+          <form class="accountform"
+                method="post" action="{{ BASE_URL }}accounts/login">
             <div>
               <input type="hidden" name="which-form" value="register">
             </div>
@@ -95,7 +97,7 @@
               </label>
               <input id="id_newpassword2" name="newpassword2" maxlength="20" type="password">
             </div>
-            <div class="form_row">
+            <div class="form_row accountsubmit">
               <button class="fr gray-button" type="submit">
                 <span>{% trans "Register!" %}</span>
               </button>

@@ -2933,6 +2933,14 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     border-right: 1px solid #810000;
 }
 
+.accountform {
+    margin-right: 40px;
+}
+
+.accountsubmit {
+    margin-top: 10px;
+}
+
 #searchBG {
     display: none;
 }
@@ -4427,7 +4435,8 @@ a.large_button span {
 .login-page .forgot-password a {
     font-size: 85%;
     text-decoration: underline;
-    color: #888888;
+    color: #FFFFFF;
+    margin-right: 20px;
 }
 
 .login-page .form-inputs .label {
@@ -4458,7 +4467,6 @@ a.large_button span {
     text-align: right;
     width: 300px;
     min-height: 200px;
-    background: #EFEFEF;
     float: right;
 }
 
