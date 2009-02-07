@@ -67,6 +67,16 @@ br.clear_all {
     clear: both;
 }
 
+div.sortType.feed{
+        background: url(/images/feed_small.png) left center no-repeat;
+        padding-left: 25px;
+    }
+
+div.sortType.feed{
+        background: url(/images/site_small_gray.png) left center no-repeat;
+        padding-left: 25px;
+    }
+
 /*****************************************************
  * Structure
  *****************************************************/
@@ -832,7 +842,7 @@ ul#channelRate {
 }
 
 #channelInfo h1 {
-    margin: 1px 0 0 22px;
+    margin: 1px 0 0 13px;
     padding: 0;
     line-height: 53px;
     font-size: 22px;
@@ -976,9 +986,9 @@ h3.resultsCount .pagination {
     display: inline;
     height: 34px;
     line-height: 34px;
-    padding: 1px 13px 0 0;
+    padding: 0px 13px 0 0;
     text-align: center;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .sortType a {
@@ -1021,18 +1031,6 @@ div.rate .rating {
     color: black;
 }
 
-div.rate .cancel {
-    float: left;
-    display: inline;
-    width: 18px;
-    height: 16px;
-    background: url(../images/big_no-nos.png) 0 -21px no-repeat;
-    text-indent: -9999px;
-}
-
-div.rate .cancel:hover {
-    background: url(../images/big_no-nos.png) 0 -0px no-repeat;
-}
 
 div.rate .star {
     float: left;
@@ -1135,6 +1133,11 @@ div.rate .star a, #channelRating .rate .cancel a {
     clear: left;
 }
 
+
+#featuredItemsCarousel .large_add_button {
+    margin: 10px 0 0 22px;
+}
+
 #channelDetails .thumb {
     float: right;
     display: inline;
@@ -1166,18 +1169,26 @@ div.rate .star a, #channelRating .rate .cancel a {
     margin: 5px 0 0 13px;
     clear: both;
     padding-top: 15px;
+display: none;
     font-weight: bold;
 }
 
 #channelDetails2 .channelDetailsContent p.description {
-    font-size: 13px;
-    margin: 5px 0 5px 13px;
-    clear: both;
+    font-size: 12px;
+    margin: 0px 0 5px 13px;
+    clear: both !important;
     line-height: 1.5em;
     height: 4.5em;
     overflow: hidden;
+padding: 10px 0 0 0;
     display: none;
 }
+
+
+#channelDetails2 .large_add_button{
+margin-left: 10px;
+}
+
 
 #channelDetails2 .channelDetailsContent p.description.on {
     display: block;
@@ -1189,8 +1200,8 @@ div.rate .star a, #channelRating .rate .cancel a {
 
 #channelDetails2 .channelDetailsContent .tags {
     font-size: 10px;
-    padding: 20px 0 0 13px;
-    margin: 0px 0 0 0;
+    padding: 10px 0 0 13px;
+    margin: 0px;
     color: #666;
 }
 
@@ -1201,7 +1212,7 @@ div.rate .star a, #channelRating .rate .cancel a {
 #channelDetails2 .channelDetailsContent .tags p {
     font-size: 10px;
     padding: 0px;
-    margin: 0px 0 5px 0;
+    margin: 0px 0 3px 0;
 }
 
 #channelDetails2 .thumb {
@@ -1220,7 +1231,8 @@ div.rate .star a, #channelRating .rate .cancel a {
 }
 
 .channelDetailsContent .read_more{
-    margin: 0 0 0 14px;
+float: right;
+margin: 5px 15px 0 0;
 }
 
 .read_more_video {
@@ -1358,7 +1370,7 @@ div.rate .star a, #channelRating .rate .cancel a {
     overflow: hidden;
     height: 100%;
     height: 35px;
-    background: url(../images/item_bar_left_small.png) left bottom no-repeat;
+    background: url(../images/item_bar_left_small.png) left top no-repeat;
     line-height: 34px;
 }
 
@@ -1367,7 +1379,7 @@ div.rate .star a, #channelRating .rate .cancel a {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background: url(../images/item_bar_left_xl.png) left bottom no-repeat;
+    background: url(../images/item_bar_left_xl.png) left top no-repeat;
     height: 100%;
     height: 35px;
     line-height: 34px;
@@ -1399,7 +1411,7 @@ div.rate .star a, #channelRating .rate .cancel a {
 
 #channelEpisodes .details .thumb {
     width: 97px;
-    margin: 8px 0 0px 12px;
+    margin: 10px 0 0px 14px;
     float: left;
     display: inline;
 }
@@ -1950,7 +1962,7 @@ div.rate .star a, #channelRating .rate .cancel a {
 
 /*Video screen*/
 #videoBoxTop {
-    width: 790px;
+    width: 772px;
     height: 43px;
     overflow: hidden;
     margin: 0 auto;
@@ -1974,36 +1986,43 @@ div.rate .star a, #channelRating .rate .cancel a {
 }
 
 #videoBoxTop span.returnLink {
-    color: #383838;
     float: right;
     display: inline;
-    margin: 0 13px 0 0;
+    margin: 0;
+    width: 258px;
+}
+
+#videoBoxTop span.returnLink a{
+    color: #383838;
+    float: right;
+    display: block;
+    margin: 0;
     line-height: 43px;
-    background: url(../images/arrow_left2.png) left 18px no-repeat;
-    padding: 0 0 0 20px;
-    width: 210px;
+    background: url(../images/arrow_right.png) right 19px no-repeat;
+
 }
 
 #videoBox {
-    width: 810px;
+    width: 800px;
     overflow: hidden;
     height: 100%;
     margin: 0 auto;
-    padding: 0 0 5px 0;
+    padding: 20px 0 0 17px;
 }
 
-#videoBox #video {
+#videoBox div#video {
     float: left;
-    display: inline;
-    margin: 15px 0 0 8px;
+    display: block;
+border: 1px solid #666;
 }
 
-#videoBox #videoDetails {float: right;
-    width: 255px;
+#videoBox #videoDetails {
+float: right;
+    width: 268px;
     display: inline;
-    padding: 0 0 0 20px;
-    margin: 13px 13px 0 0px;
-    background: url(../images/video_page_line.png) 0 0 no-repeat;
+    padding: 0 0 0px 20px;
+    margin: 0px 13px 0 0px;
+    background: url(../images/video_page_line.png) 0 bottom no-repeat;
 }
 
 #videoBox #videoDetails .meta strong.tag {
@@ -2019,38 +2038,40 @@ div.rate .star a, #channelRating .rate .cancel a {
 
 #videoBox #videoDetails .buttons {
     width: 250px;
-    padding: 0 15px;
+    padding: 0px;
+margin-top: -15px;
 }
 
 #videoBox #videoDetails p {
-    margin: 0 0 10px 0;
+    margin: 0;
+padding: 0 ;
 }
 
 #videoBox #videoDetails p.synopsis, #videoBox #videoDetails p.more {
     color: #292929;
     font-size: 11px;
     line-height: 16px;
-    padding: 0 15px;
+    padding: 0 px;
     margin: 5px 0;
     overflow: hidden;
     height: 100%;
 }
 
 #videoBox #videoDetails p.synopsis {
-    margin: 10px 0 5px 14px;
+    margin: 10px 0 0 0;
     border: 1px solid #fff;
     background: url(../images/buttons/clear.png);
     padding: 15px 15px 8px 15px;
-    min-height: 185px;
+    min-height: 175px;
 }
 
 #videoBox #videoDetails p.synopsis_tag {
     margin: 0 0 5px 0;
-    padding: 0 0 0 15px;
+    padding: 0 0 0 px;
 }
 
 #videoBox #videoDetails p.synopsis strong, #videoBox #videoDetails p.more strong {
-    color: black;
+    color: black;1
 }
 
 #videoBox #videoDetails p.more {
@@ -2132,11 +2153,11 @@ div.rate .star a, #channelRating .rate .cancel a {
 }
 
 .share img{
-    padding: 0 4px 0 0px;
+    padding: 0 0 0 5px;
 }
 
 .share span{
-    padding: 0 4px 0 20px;
+    padding: 0 2px 0 18px;
 }
 
 .sharebox {
@@ -2929,7 +2950,7 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     border-right: 1px solid #76181b;
 }
 
-#searchSpot input { /* .headSearch {*/
+#search_query { /* .headSearch {*/
     background: url(../images/top_bar_search.png) right 3px no-repeat;
     width: 165px;
     padding: 10px 12px 1px 9px;
@@ -2940,10 +2961,15 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     font-size: 12px;
     height: 26px;
     margin-right: 4px;
+text-align: right !important;
     overflow: hidden;
     color: #000;
 }
 
+
+#search_query.focus{
+text-align: right !important;
+}
 #searchSpot input.headSearch { /* when the default text is there */
     color: #333;
     text-align: right;
@@ -3797,6 +3823,9 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     margin: 10px 0 0 22px;
 }
 
+
+
+
 ul.newVideos .small_add_button {
     margin: 0 0 5px 17px;
 }
@@ -4130,7 +4159,7 @@ a.large_button span {
 .video_buttons_align {
     overflow: hidden;
     height: 50px;
-    padding: 0 0 0 13px;
+    padding: 0 0 0 0px;
 }
 
 .video_buttons_align .download {
@@ -4148,6 +4177,9 @@ a.large_button span {
 .video_buttons_align .share img{
     display: inline !important;
 }
+
+
+
 
 /*Extras*/
 .fl {
@@ -4244,10 +4276,9 @@ a.large_button span {
 }
 
 .channel_icon_only {
-    margin-left: 22px;
     float: left;
     display: inline;
-    margin: 17px 0 0 10px;
+    margin: 11px 0 0 20px;
 }
 
 .stream_only {
