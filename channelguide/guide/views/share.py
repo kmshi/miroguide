@@ -217,6 +217,7 @@ def share_item(request):
                 feed_url, request.connection)
         except FeedFetchingError:
             channel = None
+            feed_url = None
 
         # see if we have that item in the feed
         ## if it's a fake feed check the full list of items
@@ -295,6 +296,7 @@ def share_item(request):
          'feed_url': feed_url,
          'webpage_url': webpage_url,
          'item_name': item_name,
+         'file_url': file_url,
          'share_url': share_url,
          'share_button_url': share_button_url,
          'share_type': 'item',
