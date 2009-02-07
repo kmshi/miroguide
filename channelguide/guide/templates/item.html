@@ -25,7 +25,9 @@ See LICENSE for details.
         {% endif %}
       </a>
     </h4>
-    {% showall item.description 10 %}
+    {% with item.description|striptags as description %}
+    {% showall description 10 %}
+    {% endwith %}
     <a href="{{ item.download_url }}" class="rollover_button download">
       <span>{% trans "Download" %}</span>
     </a>
