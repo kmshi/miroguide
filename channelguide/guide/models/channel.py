@@ -312,6 +312,7 @@ class Channel(Record, Thumbnailable):
                 self.archived = True
                 self.state = Channel.NEW
                 self.save(connection)
+                self._check_archived(connection)
                 return
             items = []
             for entry in parsed.entries:
