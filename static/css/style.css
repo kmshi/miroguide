@@ -177,6 +177,10 @@ div.sortType.feed{
     padding: 17px 0;
 }
 
+#feedbackwidget{
+    position: absolute;
+    top: 150px;
+}
 
 /*****************************************************
  * Content
