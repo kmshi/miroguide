@@ -261,6 +261,8 @@ def get_recommendations(connection, user, start=0, length=10, filter=None):
             client.set(cacheKey, result)
         else:
             estimatedRatings, reasons, ids = result
+        if not ids:
+            return []
         query = Channel.query(Channel.c.id.in_(ids))
         if filter is not None:
             if filter == 'feed':
@@ -274,8 +276,6 @@ def get_recommendations(connection, user, start=0, length=10, filter=None):
                 return 0
             else:
                 return query.count(connection)
-        if not ids:
-            return []
         query.join('rating')
         if user.filter_languages:
             user.join('shown_languages').execute(connection)
