@@ -182,7 +182,11 @@ class AggressiveCacheMiddleware(CacheMiddlewareBase):
             self.namespace = namespace
 
     def get_cache_key_tuple(self, request):
-        return CacheMiddlewareBase.get_cache_key_tuple(self, request) + (request.path, request.META['QUERY_STRING'])
+        if request.user.is_authenticated():
+            user = request.user.username
+        else:
+            user = None
+        return CacheMiddlewareBase.get_cache_key_tuple(self, request) + (request.path, request.META['QUERY_STRING'], user)
 
     """def response_from_cache_object(self, request, cached_response):
         t = loader.get_template("guide/account-bar.html")
