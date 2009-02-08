@@ -13,6 +13,7 @@ def guide(request):
     context = {
         'DEBUG': settings.DEBUG,
         'BASE_URL': settings.BASE_URL,
+        'BASE_URL_FULL': settings.BASE_URL_FULL,
         'STATIC_BASE_URL': settings.STATIC_BASE_URL,
         'GUIDE_EMAIL': settings.EMAIL_FROM,
         'google_analytics_ua': settings.GOOGLE_ANALYTICS_UA,
