@@ -2933,14 +2933,6 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     border-right: 1px solid #810000;
 }
 
-.accountform {
-    margin-right: 40px;
-}
-
-.accountsubmit {
-    margin-top: 10px;
-}
-
 #searchBG {
     display: none;
 }
@@ -4348,6 +4340,10 @@ a.large_button span {
     margin: 20px auto;
 }
 
+.login-page > div input[type=submit]  {
+    margin-top: 10px;
+}
+
 .login-page .form-errors {
     padding-bottom: 10px;
     font-size: 120%;
@@ -4428,7 +4424,6 @@ a.large_button span {
 .login-page .forgot-password {
     margin-top: 5px;
     float: right;
-    margin-right: 20px;
     margin-bottom: 5px;
 }
 
@@ -4436,7 +4431,6 @@ a.large_button span {
     font-size: 85%;
     text-decoration: underline;
     color: #FFFFFF;
-    margin-right: 20px;
 }
 
 .login-page .form-inputs .label {
@@ -4458,7 +4452,6 @@ a.large_button span {
 }
 
 .login-page .submit {
-    margin-right: 50px;
     margin-left: auto;
 }
 
@@ -4482,9 +4475,8 @@ a.large_button span {
 .login-page .register-form {
     padding-top: 10px;
     text-align: right;
-    width: 350px;
+    width: 300px;
     min-height: 200px;
-    background: #EFEFEF;
     float: left;
 }
 
