@@ -29,7 +29,7 @@ def search(request):
     search_query = search_query.strip()
     terms = get_search_terms(search_query)
     if terms_too_short(terms):
-        return util.render_to_response(request, 'channel-search.html', {
+        return util.render_to_response(request, 'listing.html', {
             #'results_count': 0,
             'search_terms': terms,
             'search_query': search_query,
