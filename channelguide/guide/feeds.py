@@ -104,7 +104,7 @@ class FeaturedChannelsFeed(ChannelsFeed):
     description = "Featured channels on the Miro Guide."
 
     def items(self):
-        return api.get_channels(self.request.connection, 'featured', True,
+        return api.get_channels(self.request, 'featured', True,
                                 limit=20)
 
 
@@ -122,7 +122,7 @@ class NewChannelsFeed(ChannelsFeed):
     description = "The newest channels on the Miro Guide."
 
     def items(self):
-        return api.get_channels(self.request.connection, 'name', None,
+        return api.get_channels(self.request, 'name', None,
                                 sort='-age', limit=20)
 
 
@@ -140,7 +140,7 @@ class PopularChannelsFeed(ChannelsFeed):
     description = "The most popular channels on the Miro Guide."
 
     def items(self):
-        return api.get_channels(self.request.connection, 'name', None,
+        return api.get_channels(self.request, 'name', None,
                                 sort='-popular', limit=20)
 
 
@@ -150,7 +150,7 @@ class TopRatedChannelsFeed(ChannelsFeed):
     description = "The highest rated channels on the Miro Guide."
 
     def items(self):
-        return api.get_channels(self.request.connection, 'name', None,
+        return api.get_channels(self.request, 'name', None,
                                 sort='-rating', limit=20)
 
 

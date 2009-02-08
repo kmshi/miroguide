@@ -161,7 +161,6 @@ class UserCacheMiddleware(CacheMiddlewareBase):
             user = None
         return CacheMiddlewareBase.get_cache_key_tuple(self, request) + (request.path, request.META['QUERY_STRING'], user)
 
-
 class AggressiveCacheMiddleware(CacheMiddlewareBase):
     """Aggresively Caches a page.  This should only be used for pages that
      * Don't use any session data, or any cookie data
@@ -185,7 +184,7 @@ class AggressiveCacheMiddleware(CacheMiddlewareBase):
     def get_cache_key_tuple(self, request):
         return CacheMiddlewareBase.get_cache_key_tuple(self, request) + (request.path, request.META['QUERY_STRING'])
 
-    def response_from_cache_object(self, request, cached_response):
+    """def response_from_cache_object(self, request, cached_response):
         t = loader.get_template("guide/account-bar.html")
         # sometimes new_account_bar is of type
         # django.utils.safestring.SafeString
@@ -199,4 +198,4 @@ class AggressiveCacheMiddleware(CacheMiddlewareBase):
         cached_response.content = head
         cached_response.content += new_account_bar
         cached_response.content += tail
-        return cached_response
+        return cached_response"""

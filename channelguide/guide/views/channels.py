@@ -399,7 +399,7 @@ def subscribe_hit(request, id):
         channel = util.get_object_or_404(request.connection, Channel, id)
         referer = request.META.get('HTTP_REFERER', '')
         match = re.match(
-            settings.BASE_URL_FULL + '(?(channels|feeds|shows)/(\d+)?',
+            settings.BASE_URL_FULL + '(?:channels|feeds|shows)/(\d+)?',
             referer)
         if match and match.groups()[0] != id:
             ignore_for_recommendations = True
