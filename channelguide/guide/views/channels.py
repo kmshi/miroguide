@@ -314,7 +314,7 @@ def show(request, id, featured_form=None):
     except InvalidPage:
         raise Http404
 
-    is_miro = bool(util.get_miro_version(request.META['HTTP_USER_AGENT']))
+    is_miro = bool(util.get_miro_version(request.META.get('HTTP_USER_AGENT')))
 
     share_links = share_url = None
     if request.GET.get('share') == 'true':

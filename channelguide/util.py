@@ -48,6 +48,8 @@ MIRO_VERSION_RE = re.compile('^.*Miro\/(?P<miro_version>(?:\d+\.)*\d).*$')
 
 
 def get_miro_version(http_user_agent):
+    if not http_user_agent:
+        return None
     version_match = MIRO_VERSION_RE.match(http_user_agent)
     if version_match:
         return version_match.group('miro_version')
