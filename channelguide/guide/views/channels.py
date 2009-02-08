@@ -309,7 +309,10 @@ def show(request, id, featured_form=None):
         c.rating.save(request.connection)
 
     item_paginator = Paginator(ItemObjectList(request.connection, c), 10)
-    item_page = item_paginator.page(request.GET.get('page', 1))
+    try:
+        item_page = item_paginator.page(request.GET.get('page', 1))
+    except InvalidPage:
+        raise Http404
 
     is_miro = bool(util.get_miro_version(request.META['HTTP_USER_AGENT']))
 
