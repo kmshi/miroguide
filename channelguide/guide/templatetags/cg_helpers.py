@@ -93,8 +93,8 @@ class NavLinkNode(template.Node):
 @register.inclusion_tag('guide/page-links.html', takes_context=True)
 def pagelinks(context, page, default_page=1):
     request = context['request']
-    page_range = page.paginator.page_range
-    if page.paginator.num_pages > 9:
+    page_range = page and page.paginator.page_range or []
+    if len(page_range) > 9:
         low = page.number - 5
         high = page.number + 4
         if low < 0:
