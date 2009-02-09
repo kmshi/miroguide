@@ -54,10 +54,6 @@ class ChannelsFeed(feeds.Feed):
         if item.newest:
             return item.newest.date
 
-    def item_pubdate(self, item):
-        if item.newest:
-            return item.newest.date
-
     def item_enclosure_url(self, item):
         item.join('items').execute(self.request.connection)
         results = [i for i in item.items.records[:] if i.date is not None
@@ -77,7 +73,7 @@ class ChannelsFeed(feeds.Feed):
                     or split_url[1] in ('www.youtube.com', 'youtube.com')):
                 return item.newest.url
             else:
-                return util.make_absolute_url('channels/latest/%i' % item.id)
+                return item.get_absolute_url() + '/latest'
         else:
             item.newest = None
 
