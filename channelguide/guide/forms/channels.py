@@ -342,7 +342,7 @@ class SubmitChannelForm(Form):
                           "to which this site is limited.",
                           required=False)
     thumbnail_file = ChannelThumbnailField(
-        label=_('Upload Image'),
+        label=_('Upload Image (optimal size: 400x267)'),
         help_text=_("Remember that creating a good channel thumbnail is one of "
                     "the most important ways to attract new viewers.  It's "
                     "worth making an effort to do something beautiful.  "
