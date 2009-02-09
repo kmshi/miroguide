@@ -2951,7 +2951,6 @@ ul#lowerMenu li#language a.hover, ul#lowerMenu li#account a.hover {
     width: 292px;
     float: right;
     display: inline;
-    position: absolute;
     z-index: 3;
     background: #8d2427 url(../images/search_bg.png) top left no-repeat;
     border-left: 1px solid #510309;
