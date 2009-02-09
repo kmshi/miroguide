@@ -4029,7 +4029,7 @@ a.large_green_button2 {
 .next_button a {
     background: url(../images/buttons/next.png) 0 0 no-repeat;
     text-align: left;
-    padding: 12px 0 0;
+    padding: 0 12px 0 0;
     float: right;
 }
 
