@@ -1,0 +1,15 @@
+#hoverMenuLanguage ul {
+    *height: 100%;
+}
+
+#hoverMenuLanguage #upButton {
+    display: none !ie;
+}
+
+#hoverMenuLogin {
+    _margin: -1px 0 0 421px;
+}
+
+ul.newVideos {
+    height: 150px !ie;
+}

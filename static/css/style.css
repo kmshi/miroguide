@@ -417,8 +417,7 @@ ul.newVideos {
     padding: 0;
     overflow: hidden;
     height: 130px;
-    *height: 150px; /* IE7 */
-    list-style: none;
+    list-style-type: none;
 }
 
 ul.newVideos li {
@@ -1066,7 +1065,7 @@ div.rate .star a, #channelRating .rate .cancel a {
     display: block;
     text-align: right;
     padding: 4px 14px 18px 4px;
-    background: url(../images/arrow_right.png) right center 3px no-repeat;
+    background: url(../images/arrow_right.png) no-repeat right center;
 }
 
 .url span {
@@ -2060,7 +2059,7 @@ margin-top: -15px;
     color: #292929;
     font-size: 11px;
     line-height: 16px;
-    padding: 0 px;
+    padding: 0;
     margin: 5px 0;
     overflow: hidden;
     height: 100%;
@@ -2076,11 +2075,11 @@ margin-top: -15px;
 
 #videoBox #videoDetails p.synopsis_tag {
     margin: 0 0 5px 0;
-    padding: 0 0 0 px;
+    padding: 0px;
 }
 
 #videoBox #videoDetails p.synopsis strong, #videoBox #videoDetails p.more strong {
-    color: black;1
+    color: black;
 }
 
 #videoBox #videoDetails p.more {
@@ -3085,7 +3084,6 @@ text-align: right !important;
     width: 274px;
     height: 26px;
     background: url(../images/hover_menu_top.png) 0 0 no-repeat;
-    *display: none;
 }
 
 #hoverMenuLanguage #upButton:hover {
@@ -3114,7 +3112,6 @@ text-align: right !important;
     padding: 0 30px;
     height: 300px;
     overflow: hidden;
-    *height: 100%;
     background: url(../images/hover_menu.png) 0 0 repeat-y;
 }
 
@@ -3168,7 +3165,6 @@ text-align: right !important;
     width: 337px;
     overflow: hidden;
     position: absolute;
-    _margin: -1px 0 0 421px;
     margin: -1px 0 0 424px;
     z-index: 100;
 }
@@ -4314,12 +4310,6 @@ a.large_button span {
 }
 
 .box_ad {
-    background: url(../images/ads/300x250_bg.png) 0 0 no-repeat;
-    padding: 17px 18px;
-    width: 298px;
-    height: 278px;
-    margin: 0 auto;
-    float: right;
     display: none;
 }
 

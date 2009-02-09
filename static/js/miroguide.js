@@ -125,15 +125,15 @@ function handleFormLink(url) {
 }
 
 function searchFocus() {
-    input = $(this);
-    if (input.hasClass('headSearch'))
-        input.removeClass('headSearch').val('');
+    searchInput = $(this);
+    if (searchInput.hasClass('headSearch'))
+        searchInput.removeClass('headSearch').val('');
 }
 
 function searchBlur() {
-    input = $(this);
-    if (!input.val()) {
-        input.addClass('headSearch').val('Search');
+    searchInput = $(this);
+    if (!searchInput.val()) {
+        searchInput.addClass('headSearch').val('Search');
     }
 }
 

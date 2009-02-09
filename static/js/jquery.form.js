@@ -430,9 +430,9 @@ $.fn.formToArray = function(semantic) {
         // input type=='image' are not found in elements array! handle them here
         var inputs = form.getElementsByTagName("input");
         for(var i=0, max=inputs.length; i < max; i++) {
-            var input = inputs[i];
+            var formInput = inputs[i];
             var n = input.name;
-            if(n && !input.disabled && input.type == "image" && form.clk == input)
+            if(n && !formInput.disabled && formInput.type == "image" && form.clk == formInput)
                 a.push({name: n+'.x', value: form.clk_x}, {name: n+'.y', value: form.clk_y});
         }
     }
