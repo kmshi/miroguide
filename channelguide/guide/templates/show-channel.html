@@ -95,7 +95,7 @@
         <div class="tags">
           {% if not channel.fake %}
             <p>
-              <strong>{% trans "Categories" %}</strong> -
+              <strong>{% trans "Genres" %}</strong> -
               {% for category in channel.categories %}
                 {{ category.link }}{% if not forloop.last %}, {% endif %}
               {% endfor %}

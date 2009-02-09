@@ -330,7 +330,7 @@ class SubmitChannelForm(Form):
             label=_('Tags'),
             help_text=_('Keywords that describe this channel.  Separate each '
                 'tag with a comma.'))
-    categories = TripletField(CategoriesField, label=_("Categories"))
+    categories = TripletField(CategoriesField, label=_("Genres"))
     language = LanguageField(label=_("Language"),
             help_text=_("What language are most of these videos in?"))
     postal_code = WideCharField(max_length=15, label=_("Postal Code"),
