@@ -107,7 +107,8 @@ See LICENSE for details.
                    id="search_query" value="{% trans "Search" %}">
             <script type="text/javascript">
               //<![CDATA[
-                   $("#searchSpot input").focus(searchFocus).blur(searchBlur);
+$(document).ready(function() {
+    $("#searchSpot input").focus(searchFocus).blur(searchBlur);});
               //]]>
             </script>
           </div>
