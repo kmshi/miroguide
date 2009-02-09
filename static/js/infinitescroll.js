@@ -17,12 +17,12 @@ function infiniteCallback(data, textStatus) {
 }
 
 function checkScroll() {
-    first = $('ul.scrolling li:first');
+    first = $('ul.scrolling li:last');
     nextpage = $('ul.paginator li.selected + li, ul.paginator2 li.selected + li');
     if (!nextpage.length) return;
     doc = $(document);
     distance = doc.height() - doc.scrollTop() - $(window).height();
-    if (distance < nextpage.height() + (first.height() * 6) &&
+    if (distance < nextpage.height() + (first.height() * 5) &&
         !checkScroll.loading)
         infiniteLoad();
     as = $('.scrolling li > a[name]');
