@@ -296,6 +296,8 @@ class Channel(Record, Thumbnailable):
         return parsed
 
     def update_items(self, connection, feedparser_input=None):
+        if self.url is None:
+            return # sites don't have items
         try:
             if feedparser_input is None:
                 parsed = self.download_feed()
