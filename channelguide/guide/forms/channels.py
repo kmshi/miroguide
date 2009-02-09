@@ -21,7 +21,6 @@ import ip2cc
 
 from channelguide.guide.feedutil import to_utf8
 from channelguide.guide.models import Language, Category, Channel
-from channelguide.resources import ip2cc
 from channelguide import util
 from fields import WideCharField, WideURLField, WideChoiceField
 from form import Form
@@ -154,6 +153,11 @@ class TripletWidget(forms.MultiWidget):
         if value is None:
             return [None, None, None]
         return value
+
+    def render(self, name, value, attrs=None):
+        if len(value) < 3:
+            self.widgets = self.widgets[:2] # don't display the 3rd option
+        return super(TripletWidget, self).render(name, value, attrs)
 
     def format_output(self, rendered_widgets):
         names = (_("1st"), _("2nd"), _("3rd"))
