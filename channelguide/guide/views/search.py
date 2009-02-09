@@ -37,4 +37,4 @@ def search(request):
             })
 
 
-    return filtered_listing(request, search_query, 'search', title=search_query)
+    return filtered_listing(request, search_query, 'search', title='%(value)s')
