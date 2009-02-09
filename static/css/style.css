@@ -4344,42 +4344,88 @@ a.large_button span {
     padding: 20px;
 }
 
+
 .login-page {
-    width: 710px;
-    margin: 20px auto;
+    width: 770px;
+
+    margin: 30px auto 0;
 }
 
-.login-page > div input[type=submit]  {
-    margin-top: 10px;
+.login-page img{
+position: absolute;
+margin: 4px 0 0 -20px;
 }
 
-.login-page .form-errors {
-    padding-bottom: 10px;
-    font-size: 120%;
-    font-weight: bold;
-    background: #fffcd1;
-    color: #cd7662;
-    padding: 12px 15px;
-    margin-bottom: 35px;
-    border: 1px solid #b4b210;
+
+
+.login-page .form_row{
+height: 30px;
+padding-right: 18px;
+clear: both;
 }
+
+
+
+.login-page label{
+display: block;
+width: 130px;
+text-align: left;
+padding-left: 1.5em;
+float: left;
+line-height: 1.8em;
+}
+
+
+
+.login-page input{
+    background: url(../images/top_bar_search.png) -1px -2px no-repeat;
+border: none;
+padding: 4px 0 5px 10px;
+width: 170px;
+}
+
+.login-page input.submit{
+border-right: 1px solid #999;
+border-top: 1px solid #ccc;
+border-left: 1px solid #ccc;
+border-bottom: 1px solid #666;
+width: inherit;
+padding: 5px 10px;
+margin: 0 20px 20px 0;
+color: #444;
+background: #efefef;
+}
+
+.login-page input.submit:hover{
+border: 1px solid #333;
+width: inherit;
+margin: 0 20px 20px 0;
+background: #fff;
+cursor: pointer;
+color: #000;
+}
+
 
 .login-page h1{
     clear: left;
     position: relative;
     right: 15px;
+
 }
 
 .login-page .register-form h2, .login-page .login-form h2 {
-    text-align: center;
-    margin-bottom: 8px;
+    text-align: left;
+    margin: 0px;
+padding: 0 0 5px .9em;
+line-height: 2.8em;
+text-align: left;
 }
 
 .login-page .register-form .info {
     color: #888888;
     font-size: 85%;
     margin: 10px 50px 15px;
-    text-align: center;
+
 }
 
 .login-page div.message {
@@ -4406,6 +4452,7 @@ a.large_button span {
 
 .login-page div.message {
     font-size: 120%;
+
 }
 .login-page .additional div {
     font-size: 120%;
@@ -4418,6 +4465,7 @@ a.large_button span {
 
 .login-page .additional div {
     margin-top: 20px;
+
 }
 
 .login-page img#registration1 {
@@ -4426,33 +4474,67 @@ a.large_button span {
 }
 
 .login-page img#registration2 {
+
     margin: 0 20px 20px 20px;
     float: left;
 }
 
-.login-page .forgot-password {
+.login-page .forgot-password a{
     margin-top: 5px;
-    float: right;
-    margin-bottom: 5px;
+color: #000 !important;
+font-size: 12px;
+   float: left;
+    margin-left: 20px;
+    margin-bottom: 15px;
 }
 
 .login-page .forgot-password a {
     font-size: 85%;
     text-decoration: underline;
     color: #FFFFFF;
+    margin-right: 20px;
 }
 
 .login-page .form-inputs .label {
     display: inline;
     padding-bottom: 5px;
+border: 1px solid;
 }
 
+
 .login-page .form-errors {
+    padding-bottom: 10px;
+    background: #fffcd1;
+    color: #cd7662;
+    padding: 12px 0px 12px 1.4em;
+    margin-bottom: 35px;
+    border-top: 1px solid #b4b210;
+    border-bottom: 1px solid #b4b210;
     text-align: left;
+padding-top: 0;
 }
 
 .login-page .form-errors h2 {
-    text-align: center;
+    text-align: left;
+padding: 0;
+}
+
+.login-page .form-errors ul{
+ padding-bottom: 5px;
+}
+
+
+
+.login-page .form-errors ul li {
+  line-height: 1.6em;
+list-style-type: circle;
+margin-left: 16px;
+color: #333;
+}
+
+
+.login-page .form-errors ul li span{
+font-weight: bold;
 }
 
 .login-page .form-inputs li {
@@ -4461,20 +4543,24 @@ a.large_button span {
 }
 
 .login-page .submit {
+    margin-right: 50px;
     margin-left: auto;
 }
 
 .login-page .login-form {
-    padding-top: 10px;
     text-align: right;
-    width: 300px;
+    width: 350px;
     min-height: 200px;
+    background: url(../images/buttons/clear.png);
     float: right;
+border: 1px solid #ccc;
 }
 
 .login-page .login-form div.instructions {
-    text-align: center;
+    text-align: left;
     padding: 10px;
+position: absolute;
+margin: -45px 0px 0 170px;
 }
 
 .login-page div.register-form, .login-page div.login-form {
@@ -4482,11 +4568,14 @@ a.large_button span {
 }
 
 .login-page .register-form {
-    padding-top: 10px;
+
     text-align: right;
-    width: 300px;
+    width: 350px;
     min-height: 200px;
+    background: url(../images/buttons/clear.png);
     float: left;
+
+border: 1px solid #ccc;
 }
 
 .login-page .divider {
