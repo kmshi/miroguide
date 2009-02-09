@@ -39,7 +39,7 @@ See LICENSE for details.
       </a>
     </li>
     <li>{% show_small_rating_stars channel %}</li>
-    {% if channel.subscription_count_today %}<li class="subscribers">{% blocktrans count channel.subscription_count_month as count %}Added: 1 time today{% plural %}Added: {{ count }} times today{% endblocktrans %}</li>{% endif %}
+    {% if channel.subscription_count_today %}<li class="subscribers">{% blocktrans count channel.subscription_count_today as count %}Added: once today{% plural %}Added: {{ count }} times today{% endblocktrans %}</li>{% endif %}
     {% if channel.guessed %}<li class="our_bet">Our Bet: <span class="score">{{ channel.guessed|floatformat }} stars</span></li>{% endif %}
   </ul>
 </div>
