@@ -90,8 +90,8 @@ def get_channels_query(request, filter, value, sort=None,
     elif sort == 'age':
         query.order_by(Channel.c.approved_at, desc=desc)
     elif sort == 'popular':
-        query.load('subscription_count_month')
-        query.order_by('subscription_count_month', desc=desc)
+        query.load('subscription_count_today')
+        query.order_by('subscription_count_today', desc=desc)
     elif sort == 'rating':
         query.join('rating')
         query.where(query.joins['rating'].c.count > 3)

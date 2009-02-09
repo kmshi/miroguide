@@ -2,7 +2,7 @@
 # See LICENSE for details.
 
 from django.http import Http404
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, InvalidPage
 from channelguide import util
 from channelguide.guide import templateutil, auth
 from channelguide.guide.models import Channel, Cobranding, User
@@ -46,7 +46,10 @@ def cobranding(request, cobrand_name):
     query.order_by(Channel.c.name)
     paginator = Paginator(templateutil.QueryObjectList(request.connection,
                                                        query), 6)
-    page = paginator.page(request.GET.get('page', 1))
+    try:
+        page = paginator.page(request.GET.get('page', 1))
+    except InvalidPage:
+        raise Http404
     return util.render_to_response(request, 'cobranding.html', {
         'cobrand': cobrand,
         'page': page

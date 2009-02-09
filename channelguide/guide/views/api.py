@@ -66,7 +66,9 @@ def data_for_channel(channel):
         data['item'] = tuple(items)
     if hasattr(channel, 'subscription_count_today'):
         data['subscription_count_today'] = channel.subscription_count_today
+    if hasattr(channel, 'subscription_count_month'):
         data['subscription_count_month'] = channel.subscription_count_month
+    if hasattr(channel, 'subscription_count'):
         data['subscription_count'] = channel.subscription_count
     if getattr(channel, 'rating', None):
         data['average_rating'] = channel.rating.average
