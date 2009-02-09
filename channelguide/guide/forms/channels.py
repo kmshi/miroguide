@@ -155,7 +155,7 @@ class TripletWidget(forms.MultiWidget):
         return value
 
     def render(self, name, value, attrs=None):
-        if len(value) < 3:
+        if not value or len(value) < 3:
             self.widgets = self.widgets[:2] # don't display the 3rd option
         return super(TripletWidget, self).render(name, value, attrs)
 
