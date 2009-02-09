@@ -2,6 +2,11 @@ var browser = {
     scrollTimeout: null,
 
     init: function() {
+        if (navigator.userAgent.indexOf('Safari/4') != -1) {
+            $("#channelEpisodes .scrollNav ul").css('height', '100%');
+            $("#channelEpisodes .scrollNav .button_down,  #channelEpisodes .scrollNav .button_up").hide();
+            return;
+        }
         ul = $('#channelEpisodes div.scrollNav ul').eq(0);
         index = ul.find ('li a').index(ul.find('li a.selected'));
         ul.scrollTop(24 * (index - 1));
@@ -92,4 +97,5 @@ var browser = {
         browser.scrollStop();
         browser.scrollTimeout = setTimeout(browser.scrollDown, 50)
     }
+
 }
