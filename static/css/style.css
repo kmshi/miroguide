@@ -1064,7 +1064,7 @@ div.rate .star a, #channelRating .rate .cancel a {
     float: right;
     display: block;
     text-align: right;
-    padding: 4px 14px 18px 4px;
+    padding: 4px 14px 0 4px;
     background: url(../images/arrow_right.png) no-repeat right center;
 }
 
@@ -1382,7 +1382,7 @@ margin: 5px 15px 0 0;
     line-height: 34px;
 }
 
-#contentSmall .detailsHead3 {
+.detailsHead3, .feedColumn.big .detailsHead4 {
     width: 100%;
     margin: 0;
     padding: 0;
@@ -1657,7 +1657,7 @@ margin: 5px 15px 0 0;
 }
 
 .feedColumn.big {
-    width: 764px;
+    width: 790px;
 }
 
 .feedColumn ul.searchResults {
@@ -4284,7 +4284,7 @@ a.large_button span {
 .channel_icon_only {
     float: left;
     display: inline;
-    margin: 13px 0 0 10px;
+    margin: 12px 0 0 10px;
 }
 
 .stream_only {
