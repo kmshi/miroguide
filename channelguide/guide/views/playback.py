@@ -14,10 +14,9 @@ def quicktime_embed(item):
     return """<object id="video" classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" width="%i" height="%i" codebase="http://www.apple.com/qtactivex/qtplugin.cab">
 <param name="src" value="%s">
 <param name="scale" value="aspect">
-<param name="id" value="video">
 <param name="autoplay" value="true">
 <param name="controller" value="true">
-<embed src="%s" name="movieobject" scale="aspect" width="%i" height="%i" id="video" autoplay="true" controller="true" pluginspage="http://www.apple.com/quicktime/download/">
+<embed src="%s" name="movieobject" scale="aspect" width="%i" height="%i" autoplay="true" controller="true" pluginspage="http://www.apple.com/quicktime/download/">
 </embed>
 </object>
 """ % (DEFAULT_WIDTH, DEFAULT_HEIGHT + 15, item.url, item.url, DEFAULT_WIDTH,
@@ -30,8 +29,7 @@ def flash_embed(item):
 <param value="high" name="quality"/>
 <param value="autoplay=1" name="FlashVars"/>
 <param value="transparent" name="wmode"/>
-<param value="video" name="id"/>
-<embed id="video" width="%i" height="%i" allowfullscreen="true" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" wmode="transparent" quality="high" enablehref="false" flashvars="autoplay=1" src="%s\"/>
+<embed width="%i" height="%i" allowfullscreen="true" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" wmode="transparent" quality="high" enablehref="false" flashvars="autoplay=1" src="%s\"/>
 </object>""" % (DEFAULT_WIDTH, DEFAULT_HEIGHT + 36, item.url,
                 DEFAULT_WIDTH, DEFAULT_HEIGHT + 36, item.url)
 
