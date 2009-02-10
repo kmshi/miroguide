@@ -181,7 +181,7 @@ def share_feed(request):
     return util.render_to_response(
         request, 'show-channel.html',
         {'channel': channel,
-         'items': items[:4],
+         'items': items,
          'feed_url': feed_url,
          'share_url': share_url,
          'share_button_url': share_button_url,
