@@ -175,6 +175,9 @@ def share_feed(request):
     else:
         share_links = util.get_share_links(share_url, channel.name)
 
+    if items is not None and len(feed_url) >= 4:
+        items = items[:4]
+
     return util.render_to_response(
         request, 'show-channel.html',
         {'channel': channel,
