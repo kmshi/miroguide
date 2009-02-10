@@ -2,6 +2,7 @@
 # See LICENSE for details.
 
 import datetime
+import sha
 import urllib
 import urlparse
 
@@ -84,8 +85,9 @@ class FakeChannel(object):
 
 
 def get_channels_and_items(feed_url, connection):
-    feed_key = 'share_feed-' + feed_url
-    items_key = 'share_feed_items-' + feed_url
+    feed_sha1 = sha.sha(feed_url).hexdigest()
+    feed_key = 'share_feed-' + feed_sha1
+    items_key = 'share_feed_items-' + feed_sha1
 
     # check the cache.  If not...
     cached_channel = cache.client.get(feed_key)
