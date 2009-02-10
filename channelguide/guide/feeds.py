@@ -6,9 +6,8 @@ from datetime import datetime, timedelta
 
 from channelguide import init
 init.init_external_libraries()
-from channelguide import util
 from channelguide.guide import api
-from channelguide.guide.models import Channel, Category, Tag, Language, User
+from channelguide.guide.models import User
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.syndication import feeds
@@ -74,6 +73,7 @@ class ChannelsFeed(feeds.Feed):
                 return item.newest.url
             else:
                 return item.get_absolute_url() + '/latest'
+
         else:
             item.newest = None
 
@@ -100,12 +100,8 @@ class FeaturedChannelsFeed(ChannelsFeed):
     description = "Featured channels on the Miro Guide."
 
     def items(self):
-        return api.get_channels(self.request, 'featured', True,
+        return api.get_feeds(self.request, 'featured', True,
                                 limit=20)
-
-
-    def get_date_for_item(self, item):
-        return item.featured_at
 
 
     def get_date_for_item(self, item):
@@ -118,12 +114,8 @@ class NewChannelsFeed(ChannelsFeed):
     description = "The newest channels on the Miro Guide."
 
     def items(self):
-        return api.get_channels(self.request, 'name', None,
+        return api.get_feeds(self.request, 'name', None,
                                 sort='-age', limit=20)
-
-
-    def get_date_for_item(self, item):
-        return item.approved_at
 
 
     def get_date_for_item(self, item):
@@ -136,7 +128,7 @@ class PopularChannelsFeed(ChannelsFeed):
     description = "The most popular channels on the Miro Guide."
 
     def items(self):
-        return api.get_channels(self.request, 'name', None,
+        return api.get_feeds(self.request, 'name', None,
                                 sort='-popular', limit=20)
 
 
@@ -146,7 +138,7 @@ class TopRatedChannelsFeed(ChannelsFeed):
     description = "The highest rated channels on the Miro Guide."
 
     def items(self):
-        return api.get_channels(self.request, 'name', None,
+        return api.get_feeds(self.request, 'name', None,
                                 sort='-rating', limit=20)
 
 
@@ -157,56 +149,44 @@ class FilteredFeed(ChannelsFeed):
     def get_object(self, bits):
         if len(bits) != 1:
             raise ObjectDoesNotExist
-        try:
-            obj = util.get_object_or_404_by_name(self.request.connection,
-                    self.model, bits[0])
-        except Http404:
-            raise ObjectDoesNotExist
-        return obj
+        return bits[0]
 
     def title(self, obj):
-        return 'Newest %s Channel Previews from Miro' % obj.name.encode('utf8')
+        return 'Newest %s Channel Previews from Miro' % obj.encode('utf8')
 
     def link(self, obj):
         if obj is None:
             raise Http404
-        return obj.get_url()
+        return self.base + obj
 
     def description(self, obj):
         if obj is None:
             return ''
-        return 'The newest %s channels in the Miro Guide' % obj.name.encode('utf8')
+        return 'The newest %s channels in the Miro Guide' % obj.encode('utf8')
 
     def items(self, obj):
         if obj is None:
             return ''
-        query = Channel.query_new().join(self.filter).limit(20)
-        query.joins[self.filter].where(id=obj.id)
-        return query.execute(self.request.connection)
+        return api.get_feeds(self.request, self.filter, obj,
+                             sort='-age', limit=20)
 
     def get_date_for_item(self, item):
         return item.approved_at
 
 
 class CategoriesFeed(FilteredFeed):
-    model = Category
-    filter = 'categories'
+    base = '/genres/'
+    filter = 'category'
 
 
 class TagsFeed(FilteredFeed):
-    model = Tag
-    filter = 'tags'
+    base = '/tags/'
+    filter = 'tag'
 
 
 class LanguagesFeed(FilteredFeed):
-    model = Language
-
-    def items(self, obj):
-        if obj is None:
-            return ''
-        query = Channel.query_new().limit(10)
-        query.where(Channel.c.primary_language_id==obj.id)
-        return query.execute(self.request.connection)
+    base = '/languages/'
+    filter = 'language'
 
 
 class SearchFeed(ChannelsFeed):
