@@ -501,9 +501,7 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
 
     def update_channel(self, channel):
         if self.cleaned_data['url'] is not None:
-            channel.url = self.cleaned_data['url']
-        else:
-            channel.url = None
+            channel.url = self.cleaned_data['url'].url
         super(EditChannelForm, self).update_channel(channel)
 
 class FeaturedEmailForm(Form):
