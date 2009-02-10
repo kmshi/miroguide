@@ -49,7 +49,7 @@ class RSSFeedField(WideCharField):
         if url.startswith('feed:'):
             url = url.replace('feed:', 'http:', 1)
         if self.initial is not None and url == self.initial:
-            return None
+            return url
 
         if Channel.query(url=url).count(self.connection) > 0:
             msg = _("%s is already a channel in the guide") % url
