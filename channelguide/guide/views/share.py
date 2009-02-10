@@ -226,11 +226,12 @@ def share_item(request):
         ## if it's a fake feed check the full list of items
         if isinstance(channel, FakeChannel):
             i = 0
-            for this_item in channel_items:
-                if this_item.url == file_url:
-                    item = this_item
-                    break
-                i += 1
+            if channel_items:
+                for this_item in channel_items:
+                    if this_item.url == file_url:
+                        item = this_item
+                        break
+                    i += 1
             if item:
                 if i != 0:
                     previous = channel_items[i - 1]
