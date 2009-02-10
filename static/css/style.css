@@ -3145,6 +3145,10 @@ text-align: right !important;
     color: #fff !important;
 }
 
+#hoverMenuLanguage ul button span.code {
+    display: none;
+}
+
 #hoverMenuLanguage ul li.current button {
     border-bottom: 1px solid #520404;
     border-top: 1px solid #690404;
