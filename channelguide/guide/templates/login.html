@@ -12,6 +12,9 @@ See LICENSE for details.
 
 {% block content %}
 <div class="login-page">
+  {% autoescape off %}
+    {{ additional }}
+  {% endautoescape %}
 
     <div class="login-form">
         <h2>{% trans "Login" %}</h2>

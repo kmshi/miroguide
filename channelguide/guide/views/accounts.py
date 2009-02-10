@@ -5,6 +5,7 @@ from django.conf import settings
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.utils.translation import gettext as _
+from django.template import loader, Context
 
 from channelguide import util
 from channelguide.guide.auth import logout, login, moderator_required, login_required
@@ -46,6 +47,9 @@ def get_login_additional(next_url):
 <div class="clear"></div>""" % (
     _("Your Video RSS Feed is a Miro Channel"),
     _("It is super easy to submit your channel to the Miro Guide. Just give us the feed address, answer a few easy questions, and you&apos;re all done."))
+    elif "accounts/set_language_view" in next_url:
+        email_template = loader.get_template('login-message-language.html')
+        return email_template.render(Context({}))
     else:
         return """<div>
 <h1>%s</h1>
