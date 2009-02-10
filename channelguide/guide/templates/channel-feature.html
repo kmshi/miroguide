@@ -18,12 +18,15 @@
   </a>
   {% endblock screenshot %}
 </div>
-<a {{ channel.subscription_link }} class="large_green_button2">
-  {% if channel.url %}
-    {% trans "ADD FEED TO SIDEBAR" %}
-  {% else %}
-    {% trans "ADD SITE TO SIDEBAR" %}
-  {% endif %}
+<a {{ channel.subscription_link }}
+   class="large_add_button {% if channel.url %}feed{% else %}site{% endif %}">
+  <span>
+    {% if channel.url %}
+      {% trans "ADD FEED TO SIDEBAR" %}
+    {% else %}
+      {% trans "ADD SITE TO SIDEBAR" %}
+    {% endif %}
+  </span>
 </a>
 <span class="title">
   {{ channel.name_as_link }}
