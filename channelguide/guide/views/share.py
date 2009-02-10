@@ -120,10 +120,10 @@ def get_channels_and_items(feed_url, connection):
                 settings.STATIC_BASE_URL + 'images/generic_feed_thumb.png')
 
             channel = FakeChannel(
-                parsed.feed.get('title'),
-                parsed.feed.get('subtitle'),
+                parsed.feed.get('title', ''),
+                parsed.feed.get('subtitle', ''),
                 feed_url,
-                parsed.feed.get('link'),
+                parsed.feed.get('link', ''),
                 thumbnail_url)
 
             items = []
@@ -137,7 +137,7 @@ def get_channels_and_items(feed_url, connection):
                 item = FakeItem(
                     entry.link,
                     entry.title,
-                    entry.summary,
+                    entry.get('summary', entry.get('description', '')),
                     updated_datetime,
                     thumbnail_url) # just use whatever thumbnail the channel has?
                 items.append(item)
