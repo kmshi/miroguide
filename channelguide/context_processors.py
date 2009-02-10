@@ -27,7 +27,7 @@ def guide(request):
         context['language_options'] = True
     else:
         # figure out language options
-        if request.user.language:
+        if hasattr(request, 'connection') and request.user.language:
             languageName = settings.LANGUAGE_MAP.get(request.user.language)
             if languageName:
                 dbLanguages = Language.query(name=languageName).execute(request.connection)
