@@ -3118,6 +3118,11 @@ text-align: right !important;
     height: 60px;
 }
 
+#hoverMenuLanguage ul li {
+    width: 214px;
+    overflow: hidden;
+}
+
 #hoverMenuLanguage ul button {
     text-align: left;
     width: 214px;
@@ -3553,6 +3558,7 @@ text-align: right !important;
     width: 59px;
     height: 22px;
     color: #373737;
+    padding: 0;
 }
 
 #login_button span {
