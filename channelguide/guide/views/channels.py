@@ -556,6 +556,7 @@ def filtered_listing(request, value=None, filter=None, limit=10,
         'pages': _calculate_pages(request, biggest),
         'feed_page': feed_page,
         'site_page': site_page,
+        'biggest': biggest,
         'geoip_filtered': geoip_filtered,
         'miro_version_pre_sites': miro_version_pre_sites,
         })
