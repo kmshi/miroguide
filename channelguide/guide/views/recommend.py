@@ -50,6 +50,7 @@ def index(request):
         biggest = show_page
     context = {'feed_page': feed_page,
                'show_page': show_page,
+               'biggest': biggest,
                'pages': _calculate_pages(request, biggest),
                'title': "Shows You'll Love;"
                }
