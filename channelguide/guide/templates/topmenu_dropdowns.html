@@ -142,6 +142,7 @@
         {% for language in LANGUAGES %}
           <li{% ifequal language.0 LANGUAGE_CODE %} class="current"{% endifequal %}>
             <button type="submit" name="language" value="{{ language.0 }}">
+              <span class="code">{{ language.0 }}</span>
               <span>{{ language.1 }}</span>
             </button>
           </li>
