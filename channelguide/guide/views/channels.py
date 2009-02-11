@@ -504,7 +504,7 @@ def filtered_listing(request, value=None, filter=None, limit=10,
         feed_page = None
 
     miro_version_pre_sites = False
-    miro_version = util.get_miro_version(request.META['HTTP_USER_AGENT'])
+    miro_version = util.get_miro_version(request.META.get('HTTP_USER_AGENT'))
 
     if miro_version:
         if int(miro_version.split('.')[0]) < 2:
@@ -518,8 +518,8 @@ def filtered_listing(request, value=None, filter=None, limit=10,
     #  - If it's Miro on Linux... because unfortunately most 'sites'
     #    are flash-based, and linux + flash == teh suck :\
     if not (miro_version_pre_sites
-            or ('Miro' in request.META['HTTP_USER_AGENT']
-                and 'X11' in request.META['HTTP_USER_AGENT'])):
+            or ('Miro' in request.META.get('HTTP_USER_AGENT', '')
+                and 'X11' in request.META.get('HTTP_USER_AGENT', ''))):
         site_object_list = SiteObjectList(
             request, filter, value, sort,
             ('subscription_count_month', 'rating', 'item_count'),
