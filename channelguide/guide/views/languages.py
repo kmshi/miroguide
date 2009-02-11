@@ -11,6 +11,8 @@ from channelguide.guide.models import Language
 @cache.aggresively_cache
 def index(request):
     query = Language.query().load('channel_count').order_by('name')
+    query.cacheable = cache.client
+    query.cacheable_time = 3600
     return util.render_to_response(request, 'group-list.html', {
         'group_name': _('Shows by Language'),
         'groups': query.execute(request.connection),
