@@ -2,11 +2,8 @@
 # See LICENSE for details.
 
 from Cookie import SimpleCookie
-import time, md5, logging
+import time
 from django.conf import settings
-from django.http import HttpResponseNotModified
-from django.core.handlers.wsgi import WSGIRequest
-from django.template import Context, loader
 
 import client
 
