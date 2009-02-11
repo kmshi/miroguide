@@ -262,7 +262,10 @@ def get_recommendations(connection, user, start=0, length=10, filter=None):
         else:
             estimatedRatings, reasons, ids = result
         if not ids:
-            return []
+            if not start:
+                return 0
+            else:
+                return []
         query = Channel.query(Channel.c.id.in_(ids))
         if filter is not None:
             if filter == 'feed':
