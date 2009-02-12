@@ -300,13 +300,13 @@ def show(request, id, featured_form=None):
     if request.user.is_supermoderator():
         query.join('featured_queue', 'featured_queue.featured_by')
     c = util.get_object_or_404(request.connection, query, id)
-    # redirect old URLs to canonical ones
-    if request.path != c.get_url():
-        return util.redirect(c.get_absolute_url(), request.GET)
     if c.rating is None:
         c.rating = GeneratedRatings()
         c.rating.channel_id = c.id
         c.rating.save(request.connection)
+    # redirect old URLs to canonical ones
+    if request.path != c.get_url():
+        return util.redirect(c.get_absolute_url(), request.GET)
 
     item_paginator = Paginator(ItemObjectList(request.connection, c), 10)
     try:
