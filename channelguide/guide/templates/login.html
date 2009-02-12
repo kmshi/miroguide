@@ -12,7 +12,14 @@ See LICENSE for details.
 
 {% block content %}
 <div class="login-page">
-    <div class="login-form">
+  {% ifequal next "recommend/" %}
+    <div id="videoTips">
+      <p class="title">{% trans "Time to sign up for an account!" %}</p>
+      <p class="tip">{% trans "Miro takes the video you like, compares them with other viewers' tastes, and then gives you recommendations." %}</p>
+      <p class="tip">{% trans "Rate more videos and feeds for more recommendations." %}</p>
+    </div>
+  {% endifequal %}
+     <div class="login-form">
         <h2>{% trans "Login" %}</h2>
         <div class="instructions">{% trans "Got an account? Just log in!" %}</div>
         <form method="POST" action="{{ BASE_URL }}accounts/login{% if next %}?next={{ next|urlencode }}{% endif %}" onsubmit="showLoadIndicator();">

@@ -1955,6 +1955,10 @@ margin: 5px 15px 0 0;
     overflow: hidden;
 }
 
+.login-page #videoTips {
+    margin:112px auto 30px;
+}
+
 #videoTips p.title {
     margin: 25px 0 10px 30px;
     font-weight: bold;
