@@ -4,8 +4,6 @@
 from django.conf import settings
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
-from django.utils.translation import gettext as _
-from django.template import loader, Context
 
 from channelguide import util
 from channelguide.guide.auth import logout, login, moderator_required, login_required
@@ -14,58 +12,6 @@ from channelguide.guide.forms import user as user_forms
 from channelguide.guide.models import User, UserAuthToken, Rating, Channel, Language
 from channelguide.guide.templateutil import QueryObjectList
 
-def get_login_message(next_url):
-    if "channels/submit" in next_url:
-        header = _("List Your Channel in the Miro Guide!")
-        body = _("All you need is an account...")
-        return '<h1>%s</h1>%s' % (header, body)
-    else:
-        title = _("Rate Channels, Get Recommendations")
-        line1 = _("Sign in (or create an account)")
-        line2 = _("Give Channels Star Ratings")
-        line3 = _("We'll Give You Recommendations")
-        return """<h1>%s</h1>
-<ol>
-<li>%s</li>
-<li>%s</li>
-<li>%s</li>
-</ol>""" % (title, line1, line2, line3)
-
-def get_register_message(next_url):
-    if "channels/submit" not in next_url:
-        return """<div class="info">%s</div>""" % _("Your ratings will show up, but won't count towards the average until you confirm your e-mail.")
-    else:
-        return ""
-
-def get_login_additional(next_url):
-    if "channels/submit" in next_url:
-        return """<div>
-<h1>%s</h1>
-<img id="registration2" src="/images/registration2.jpg" />
-%s
-</div>
-<div class="clear"></div>""" % (
-    _("Your Video RSS Feed is a Miro Channel"),
-    _("It is super easy to submit your channel to the Miro Guide. Just give us the feed address, answer a few easy questions, and you&apos;re all done."))
-    elif "accounts/set_language_view" in next_url:
-        email_template = loader.get_template('login-message-language.html')
-        return email_template.render(Context({}))
-    else:
-        return """<div>
-<h1>%s</h1>
-<img id="registration1" src="/images/registration1.jpg" />
-%s
-</div>
-<div>
-<h1>%s</h1>
-<img id="registration2" src="/images/registration2.jpg" />
-%s
-</div>""" % (
-        _("Why Should I Rate Channels?"),
-        _("We are giving personalized recommendations, based on what you do and don't like. If you've ever used Netflix&reg;, you already know what we're talking about here. The more you rate, the more accurately we can recommend channels to you. It&apos;s that simple!"),
-        _("A Completely Open Guide"),
-        _("Because we accept channels (RSS feeds, aka 'video podcasts') from anyone, the Miro Guide is constantly expanding. Channel creators can add their feeds freely. If you know of a great video podcast that isn&apos;t already in the Guide, please contact the creator and ask them to submit it.")
-        )
 def login_view(request):
     next = request.GET.get('next')
     if next is None:
@@ -75,15 +21,10 @@ def login_view(request):
     if next is None:
         next = ''
     login_data = register_data = None
-    message = '' # only show messages before the user submits a form
     if request.POST.get('which-form') == 'login':
         login_data = request.POST
     elif request.POST.get('which-form') == 'register':
         register_data = request.POST
-    else:
-        message = util.mark_safe(get_login_message(next))
-    register_message = util.mark_safe(get_register_message(next))
-    additional = util.mark_safe(get_login_additional(next))
     login_form = user_forms.LoginForm(request.connection, login_data)
     register_form = user_forms.RegisterForm(request.connection, register_data)
     if login_form.is_valid():
@@ -102,9 +43,6 @@ def login_view(request):
         'next' : next,
         'login_form': login_form,
         'register_form': register_form,
-        'register_message': register_message,
-        'message': message,
-        'additional': additional,
     })
 
 def logout_view(request):
