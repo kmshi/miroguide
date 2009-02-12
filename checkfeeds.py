@@ -6,7 +6,7 @@ from channelguide.guide.models.user import User, ModeratorAction
 from channelguide.guide.models.channel import Channel
 from channelguide.guide.models.note import ChannelNote
 from channelguide.guide import emailmessages
-from django.newforms import ValidationError
+from django.forms import ValidationError
 from datetime import datetime, timedelta
 database = db.connect()
 user = User.query(User.c.username=="miroguide").get(database)

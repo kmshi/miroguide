@@ -3,7 +3,7 @@
 
 """Helper utilities that change the django's behaviour."""
 
-from django import newforms as forms
+from django import forms
 from django.utils.translation import gettext as _
 
 class WideMixin(object):

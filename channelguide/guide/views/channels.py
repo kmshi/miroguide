@@ -605,6 +605,8 @@ def edit_channel(request, id):
                 util.copy_post_and_files(request))
         if form.is_valid():
             form.update_channel(channel)
+            if request.FILES.get('thumbnail_file'):
+                request.FILES['thumbnail_file'].close()
             return util.redirect_to_referrer(request)
         else:
             form.save_submitted_thumbnail()
@@ -615,7 +617,10 @@ def edit_channel(request, id):
         context['thumbnail_description'] = _("Current image (no change)")
     else:
         context['thumbnail_description'] = _("Current image (uploaded)")
-    return util.render_to_response(request, 'edit-channel.html', context)
+    response = util.render_to_response(request, 'edit-channel.html', context)
+    if request.FILES.get('thumbnail_file'):
+        request.FILES['thumbnail_file'].close()
+    return response
 
 @moderator_required
 def email(request, id):

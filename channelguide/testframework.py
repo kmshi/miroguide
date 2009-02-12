@@ -84,12 +84,7 @@ class TestCase(unittest.TestCase):
                 shutil.rmtree(settings.IMAGE_DOWNLOAD_CACHE_DIR)
             for name, oldvalue in self.changed_settings:
                 setattr(settings, name, oldvalue)
-            try:
-                signals.request_finished.send(None)
-            except AttributeError:
-                # this is for backwards-compatibility with pre-Django 1.0
-                from django.dispatch import dispatcher
-                dispatcher.send(signals.request_finished)
+            signals.request_finished.send(None)
             # The above line should close any open request connections
             for connection in db.pool.free:
                 connection.close_raw_connection()

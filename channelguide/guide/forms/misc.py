@@ -1,7 +1,7 @@
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
-from django import newforms as forms
+from django import forms
 from django.utils.translation import gettext as _
 
 from fields import WideCharField

@@ -884,6 +884,7 @@ class EditChannelTest(ChannelTestBase):
 
     def test_change(self):
         self.login(self.ralph)
+        self.assertFalse(self.channel.thumbnail_exists())
         data = {
                 'url': self.channel.url,
                 'categories_0': self.categories['arts'].id,
@@ -894,6 +895,7 @@ class EditChannelTest(ChannelTestBase):
                 'name': 'cool vids',
                 'description': 'These are the best.',
                 'website_url': 'http://www.google.com/',
+                'thumbnail_file': open(test_data_path('thumbnail.jpg'))
         }
 
         self.post_to_edit_page(data)
@@ -904,6 +906,7 @@ class EditChannelTest(ChannelTestBase):
         self.assertEquals(updated.language.name, 'klingon')
         self.check_names(updated.categories, 'arts', 'comedy')
         self.check_names(updated.tags, 'funny', 'cool', 'booya')
+        self.assertTrue(updated.thumbnail_exists())
 
     def get_default_values(self):
         data = {}
@@ -965,6 +968,32 @@ class EditChannelTest(ChannelTestBase):
         response = self.post_to_edit_page(data)
         self.assertEquals(response.status_code, 200)
         self.assert_(response.context[0]['form'].errors)
+
+    def test_edit_thumbnail(self):
+        self.login(self.ralph)
+        data = self.get_default_values()
+        data['thumbnail_file'] = open(test_data_path('thumbnail.jpg'))
+        self.post_to_edit_page(data)
+        self.connection.commit()
+        updated = self.refresh_record(self.channel)
+        self.assertTrue(updated.thumbnail_exists())
+
+    def test_remembers_thumbnail(self):
+        self.login(self.ralph)
+        data = self.get_default_values()
+        data['thumbnail_file'] = open(test_data_path('thumbnail.jpg'))
+        del data['name']
+        response = self.post_to_edit_page(data)
+        self.connection.commit()
+        updated = self.refresh_record(self.channel)
+        self.assertFalse(updated.thumbnail_exists())
+
+        data = self.get_default_values()
+        data['thumbnail_file_submitted_path'] = response.context[0]['form'].fields['thumbnail_file'].widget.submitted_thumb_path
+        self.post_to_edit_page(data)
+        self.connection.commit()
+        updated = self.refresh_record(self.channel)
+        self.assertTrue(updated.thumbnail_exists())
 
 class EmailChannelOwnersTest(TestCase):
     def test_permissions(self):

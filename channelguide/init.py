@@ -6,17 +6,14 @@ startup, before any real work starts.
 """
 
 import locale
-import logging
 import logging.handlers
 import random
 import os
 import socket
 import sys
-import traceback
 
 from django.conf import settings
 from django.core import signals
-from django.dispatch import dispatcher
 import django.db
 
 def init_logging():
@@ -41,11 +38,6 @@ def initialize():
 
     # hack for the fact that django tries to rollback its non-existant
     # connection when requests finish.
-    try:
-        signals.got_request_exception.disconnect(
-            django.db._rollback_on_exception)
-    except AttributeError:
-        # this is for backwards-compatibility with pre-Django 1.0
-        dispatcher.disconnect(django.db._rollback_on_exception,
-                              signal=signals.got_request_exception)
+    signals.got_request_exception.disconnect(
+        django.db._rollback_on_exception)
 

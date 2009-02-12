@@ -1,8 +1,8 @@
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
-from django import newforms as forms
-from django.newforms.forms import NON_FIELD_ERRORS, BoundField
+from django import forms
+from django.forms.forms import NON_FIELD_ERRORS, BoundField
 
 class Form(forms.Form):
     def __init__(self, connection, *args, **kwargs):

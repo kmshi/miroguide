@@ -103,6 +103,8 @@ def submit_channel(request):
             channel = form.save_channel(request.user, feed_url)
             session_dict['subscribe'] = channel.get_subscription_url()
             request.session.modified = True
+            if request.FILES.get('thumbnail_file'):
+                request.FILES['thumbnail_file'].close()
             return HttpResponse('SUBMIT SUCCESS')
         else:
             form.save_submitted_thumbnail()
@@ -111,7 +113,10 @@ def submit_channel(request):
         context['thumbnail_description'] = _("Current image (from the feed)")
     else:
         context['thumbnail_description'] = _("Current image (uploaded)")
-    return util.render_to_response(request, 'submit-channel.html', context)
+    response = util.render_to_response(request, 'submit-channel.html', context)
+    if request.FILES.get('thumbnail_file'):
+        request.FILES['thumbnail_file'].close()
+    return response
 
 @login_required
 @check_session_key
