@@ -106,7 +106,7 @@ function showEmailForm(event) {
     var left = (window.innerWidth - 600) / 2;
     $('body div').fadeTo('slow', 0.7);
     $('body').prepend('<div class="email-form embedded" style="width: 600px; height: 300px; border: 2px solid black; background: white; z-index: 1; top: ' + top +'px; left: ' + left + 'px; position: fixed;"><\/div>');
-    var url = $(this).parent().attr('action') + '/email';
+    var url = $(this).parent().parent().attr('action') + '/email';
     $('body div.email-form').load(url + ' div.email-form > *', {type: type},
             function() {
                 var emailForm = $('div.email-form');
