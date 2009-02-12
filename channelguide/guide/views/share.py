@@ -133,6 +133,8 @@ def get_channels_and_items(feed_url, connection):
             # Because we might need to check to see if a particular
             # item is in this feed if it's being faked...
             for entry in parsed.entries:
+                if not entry.get('link'):
+                    continue
                 updated_datetime = None
                 if entry.get('updated_parsed'):
                     updated_datetime = datetime.datetime(*entry.updated_parsed[:7])
