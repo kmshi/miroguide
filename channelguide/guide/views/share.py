@@ -8,12 +8,13 @@ import urlparse
 
 import feedparser
 from django.conf import settings
+from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import loader, Context
 from django.utils.translation import gettext as _
 
 from channelguide import util, cache
-from channelguide.guide import filetypes
+from channelguide.guide import filetypes, feedutil
 from channelguide.guide.forms.share import ShareForm
 from channelguide.guide.models import (Channel, Item)
 from channelguide.guide.views import playback
@@ -37,10 +38,8 @@ class FakeItem(object):
 
         self.mime_type = filetypes.guessMimeType(self.url)
 
-    def thumb(self):
-        return util.mark_safe(
-            '<img width="98" height="68" src="%s" alt="%s">' % (
-                self.thumbnail_url, self.name.replace('"', "'")))
+    def thumb_url_97_65(self):
+        return self.thumbnail_url
 
     def get_url(self):
         pass
@@ -133,13 +132,18 @@ def get_channels_and_items(feed_url, connection):
             # Because we might need to check to see if a particular
             # item is in this feed if it's being faked...
             for entry in parsed.entries:
-                if not entry.get('link'):
-                    continue
+                enclosure = feedutil.get_first_video_enclosure(entry)
+                if not enclosure:
+                    if not entry.get('link'):
+                        continue
+                    link = entry.link
+                else:
+                    link = enclosure['href']
                 updated_datetime = None
                 if entry.get('updated_parsed'):
                     updated_datetime = datetime.datetime(*entry.updated_parsed[:7])
                 item = FakeItem(
-                    entry.link,
+                    link,
                     entry.title,
                     entry.get('summary', entry.get('description', '')),
                     updated_datetime,
@@ -179,13 +183,15 @@ def share_feed(request):
     else:
         share_links = util.get_share_links(share_url, channel.name)
 
-    if items is not None and len(feed_url) >= 4:
-        items = items[:4]
-
+    if items:
+        item_paginator = Paginator(items[:10], 10)
+        item_page = item_paginator.page(1)
+    else:
+        item_page = None
     return util.render_to_response(
         request, 'show-channel.html',
         {'channel': channel,
-         'items': items,
+         'item_page': item_page,
          'feed_url': feed_url,
          'share_url': share_url,
          'share_button_url': share_button_url,
