@@ -113,6 +113,16 @@ div.sortType.feed{
     margin-right: auto;
 }
 
+span.thumb.corners {
+    border: 1px solid #111;
+}
+
+span.thumb.top_corners {
+    border-top: 1px solid #111;
+    border-left: 1px solid #111;
+    border-right: 1px solid #111;
+}
+
 #container {
     width: 790px;
     overflow: hidden;
