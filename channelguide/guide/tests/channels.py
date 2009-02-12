@@ -2,7 +2,6 @@
 # See LICENSE for details.
 
 from datetime import datetime, timedelta
-import cgi
 import os
 import time
 
@@ -10,8 +9,7 @@ from django.conf import settings
 from django.template import loader
 
 from channelguide import util, manage, cache
-from channelguide.guide import search
-from channelguide.guide.models import (Channel, Category, Tag, Item, User, 
+from channelguide.guide.models import (Channel, Category, Tag, Item, User,
         Language, TagMap, AddedChannel)
 from channelguide.testframework import TestCase
 
@@ -98,20 +96,12 @@ class ChannelModelTest(ChannelTestBase):
     def check_thumb_exists(self, subdir):
         self.assert_(os.path.exists(self.get_thumb_path(subdir)))
 
-    def check_thumb_size(self, subdir, width, height):
-        i = Image.open(self.get_thumb_path(subdir))
-        self.assertEquals(i.size, (width, height))
-
     def test_thumbnail(self):
         image_data = util.read_file(test_data_path('thumbnail.jpg'))
         self.channel.save_thumbnail(self.connection, image_data)
         self.check_thumb_exists('original')
-        self.check_thumb_exists('85x57')
-        self.check_thumb_exists('98x66')
-        self.check_thumb_exists('109x73')
-        self.check_thumb_exists('132x88')
-        self.check_thumb_exists('142x96')
-        self.check_thumb_exists('222x146')
+        for width, height in Channel.THUMBNAIL_SIZES:
+            self.check_thumb_exists('%ix%i' % (width, height))
         self.assertEquals(image_data,
                 util.read_file(self.get_thumb_path('original')))
 
@@ -129,7 +119,7 @@ class ChannelModelTest(ChannelTestBase):
         self.channel.change_state(self.ralph, Channel.APPROVED,
                 self.connection)
         self.assertEquals(len(self.emails), 1)
-        self.assertEquals(self.emails[0]['recipient_list'], 
+        self.assertEquals(self.emails[0]['recipient_list'],
                 [self.channel.owner.email])
 
     def test_approval_queue(self):
@@ -171,7 +161,7 @@ class ChannelModelTest(ChannelTestBase):
         c.publisher = "TestVision"
         c.description = "lots of stuff"
         self.assertRaises(ValueError, c.save_thumbnail,
-                self.connection, 
+                self.connection,
                 util.read_file(test_data_path('thumbnail.jpg')))
 
     def check_subscription_counts(self, total, month, today):
@@ -292,12 +282,12 @@ class ChannelItemTest(ChannelTestBase):
         self.assertEquals(date.day, 13)
         self.assertEquals(date.hour, 13)
         self.assertEquals(date.minute, 44)
-        self.assertEquals(self.channel.items[0].guid, 
+        self.assertEquals(self.channel.items[0].guid,
                 'http://www.rocketboom.com'
                 '/vlog/archives/2006/12/rb_06_dec_13.html')
 
     def test_duplicates_not_replaced(self):
-        """Test that when we update a feed, we only replace thumbnails if 
+        """Test that when we update a feed, we only replace thumbnails if
         the enclosure URL is different and the GUID is different.
         """
         def get_item_ids():
@@ -384,6 +374,7 @@ class SubmitChannelTest(TestCase):
     def make_submit_data(self, dont_send=None, **extra_data):
         data = {
             'name': 'foo',
+            'url': test_data_url('feed.xml'),
             'website_url': 'http://foo.com/' + util.random_string(16),
             'description': 'Awesome channel',
             'publisher': 'publisher@foo.com',
@@ -443,7 +434,7 @@ class SubmitChannelTest(TestCase):
         Check that submitting the channel did not cause an error, and that
         it correctly redirected the user to the after submit page.
         """
-        if response.status_code != 302:
+        if response.status_code != 200:
             try:
                 errors = response.context[0]['form'].errors.items()
             except:
@@ -453,10 +444,7 @@ Submit failed!
 Status code: %s
 Errors: %s""" % (response.status_code, errors)
             raise AssertionError(msg)
-        if url is None:
-            url = test_data_url('feed.xml')
-        test_url = settings.BASE_URL_FULL + 'submit/after'
-        self.assertEquals(response['Location'], test_url)
+        self.assertEquals(response.content, 'SUBMIT SUCCESS')
         self.check_last_channel_thumbnail(thumb_name)
         return response
 
@@ -489,9 +477,9 @@ Errors: %s""" % (response.status_code, errors)
         self.login()
         response = self.post_data('/submit/step1', {})
         form = response.context[0]['form']
-        self.assertEquals(form.errors.keys(), ['name'])
+        self.assertEquals(form.errors.keys(), ['url', 'name'])
         self.submit_url(test_data_url('no-thumbnail.xml'))
-        should_complain = ['name', 'website_url',
+        should_complain = ['name', 'url', 'website_url',
                 'description', 'language','categories',
                 'thumbnail_file']
         response = self.post_data('/submit/step2', {})
@@ -541,12 +529,12 @@ Errors: %s""" % (response.status_code, errors)
         language2 = Language("fooese")
         language3 = Language("barwegian")
         self.save_to_db(language1, language2, language3)
-        response = self.submit(languages_0=language1.id)
+        response = self.submit(language=language1.id)
         self.check_submit_worked(response)
         self.check_submitted_language(language1)
         self.delete_last_channel()
         self.login_and_submit_url()
-        response = self.submit(languages_0=language3.id)
+        response = self.submit(language=language3.id)
         self.check_submit_worked(response)
         self.check_submitted_language(language3)
 
@@ -686,9 +674,9 @@ class ModerateChannelTest(ChannelTestBase):
         self.login('joe')
         def check_state(action, state):
             self.channel.state = Channel.NEW
-            self.channel.url = ''
+            self.channel.url = None
             self.save_to_db(self.channel)
-            url = '/channels/%d' % self.channel.id
+            url = self.channel.get_url()
             self.post_data(url, {'action': 'change-state', 'submit': action})
             self.connection.commit()
             updated = self.refresh_record(self.channel)
@@ -699,10 +687,10 @@ class ModerateChannelTest(ChannelTestBase):
     def test_approve_without_owner_email(self):
         self.channel.owner.email = None
         self.save_to_db(self.channel.owner)
-        self.channel.url = ''
+        self.channel.url = None
         self.save_to_db(self.channel)
         self.login('joe')
-        url = '/channels/%d' % self.channel.id
+        url = self.channel.get_url()
         self.pause_logging()
         page = self.post_data(url, {'action': 'change-state', 'submit':
             'Approve'})
@@ -718,7 +706,7 @@ class ModerateChannelTest(ChannelTestBase):
             self.connection.commit()
             starting_email_count = len(self.emails)
             before = self.refresh_record(self.channel, 'notes')
-            url = '/channels/%d' % self.channel.id
+            url = self.channel.get_url()
             self.post_data(url, {'action': 'standard-reject', 'submit': action})
             after = self.refresh_record(self.channel, 'notes')
             self.assertEquals(after.state, Channel.REJECTED)
@@ -732,7 +720,7 @@ class ModerateChannelTest(ChannelTestBase):
     def test_custom_reject(self):
         self.login('joe')
         body = 'CUSTOM BODY'
-        url = '/channels/%d' % self.channel.id
+        url = self.channel.get_url()
         self.post_data(url, {'action': 'reject', 'body':
             body})
         updated = self.refresh_record(self.channel, 'notes')
@@ -743,17 +731,17 @@ class ModerateChannelTest(ChannelTestBase):
 
     def test_custom_reject_needs_body(self):
         self.login('joe')
-        url = '/channels/%d' % self.channel.id
+        url = self.channel.get_url()
         self.post_data(url, {'action': 'reject', 'body':
             ''})
         updated = self.refresh_record(self.channel, 'notes')
         self.assertEquals(updated.state, Channel.NEW)
 
     def test_approve_and_feature_email(self):
-        self.channel.url = ''
+        self.channel.url = None
         self.save_to_db(self.channel)
         self.login('supermod')
-        url = '/channels/%d' % self.channel.id
+        url = self.channel.get_url()
         self.post_data(url, {'action': 'email', 'type':'Approve & Feature',
             'body': 'body', 'email':'email@address.com'})
         updated = self.refresh_record(self.channel, 'featured_queue')
@@ -764,7 +752,7 @@ class ModerateChannelTest(ChannelTestBase):
 
     def test_feature_email(self):
         self.login('supermod')
-        url = '/channels/%d' % self.channel.id
+        url = self.channel.get_url()
         self.post_data(url, {'action': 'email', 'type':'Feature',
             'body': 'body', 'email':'email@address.com'})
         updated = self.refresh_record(self.channel, 'featured_queue')
@@ -885,13 +873,13 @@ class EditChannelTest(ChannelTestBase):
     def test_permissions(self):
         mod = self.make_user('jody', role=User.MODERATOR)
         other_user = self.make_user('bob')
-        url = '/channels/%d/edit' % self.channel.id
+        url = '%s/edit' % self.channel.get_url()
         self.check_page_access(mod, url, True)
         self.check_page_access(self.ralph, url, True)
         self.check_page_access(other_user, url, False)
 
     def post_to_edit_page(self, data):
-        url = '/channels/%d/edit' % self.channel.id
+        url = '%s/edit' % self.channel.get_url()
         return self.post_data(url, data)
 
     def test_change(self):
@@ -950,7 +938,7 @@ class EditChannelTest(ChannelTestBase):
         self.login(self.ralph)
         data = self.get_default_values()
         data['url'] = test_data_url('feed2.xml')
-        url = '/channels/%d/edit' % self.channel.id
+        url = '%s/edit' % self.channel.get_url()
         self.post_to_edit_page(data)
         self.connection.commit()
         updated = self.refresh_record(self.channel)
@@ -1014,7 +1002,7 @@ class ChannelHTMLTest(ChannelTestBase):
         return settings.BASE_URL_FULL
 
     path = settings.BASE_URL_FULL
-    
+
     def check_escaping(self):
         templates = [
             'show-channel.html',
@@ -1101,7 +1089,7 @@ class ChannelCacheTest(ChannelTestBase):
         new_user = self.make_user('new')
         new_user.approved = 1
         self.save_to_db(new_user)
-        self.get_page('/channels/rate/%i' % self.channel.id,
+        self.get_page('%s/rate' % self.channel.get_url(),
                 login_as=new_user, data={'rating': 5 })
         self.refresh_connection()
         (regular_rated, mod_rated, super_rated,
@@ -1119,7 +1107,7 @@ class ChannelCacheTest(ChannelTestBase):
         If the user has rated a channel, it should give the user
         rating.  Otherwise, it should give the average rating.
         """
-        self.get_page('/channels/rate/%i' % self.channel.id,
+        self.get_page('%s/rate' % self.channel.get_url(),
                 login_as=self.regular,
                 data = {'rating': 5})
         self.refresh_connection()
@@ -1210,10 +1198,10 @@ class ChannelArchivalTest(ChannelTestBase):
         self.channel.update_items(self.connection, newer)
         self.assertEquals(self.channel.archived, False)
 
-class AddedChannelTestCase(ChannelTestBase):
+class AddedChannelTest(ChannelTestBase):
 
     def test_user_add(self):
-        url = self.channel.get_user_add_url()
+        url = '%s/add' % self.channel.get_url()
         page = self.get_page(url, login_as=self.ralph)
         self.assertEquals(page.status_code, 200)
         self.refresh_connection()
@@ -1221,7 +1209,7 @@ class AddedChannelTestCase(ChannelTestBase):
                                               self.ralph.id))
 
     def test_nonuser_add(self):
-        url = self.channel.get_user_add_url()
+        url = '%s/add' % self.channel.get_url()
         page = self.get_page(url, login_as=None)
         self.assertEquals(page.status_code, 200)
 

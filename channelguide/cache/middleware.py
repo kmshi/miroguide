@@ -17,6 +17,8 @@ def date_time_string(timestamp=None):
 
 class CacheTimingMiddleware(object):
     def process_request(self, request):
+        if settings.DISABLE_CACHE:
+            return
         request.start_time = time.time()
 
     def process_response(self, request, response):

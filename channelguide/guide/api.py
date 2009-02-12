@@ -73,6 +73,8 @@ def get_channels_query(request, filter, value, sort=None,
             query.where(Channel.c.name.like(value + '%'))
     elif filter == 'search':
         query = search_mod.search_channels(value.split())
+        if not request.user.is_moderator():
+            query.where(state=Channel.APPROVED)
     else:
         raise ValueError('unknown filter: %r' % (filter,))
     if country_code:

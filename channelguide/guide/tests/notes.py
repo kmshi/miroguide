@@ -244,7 +244,7 @@ class ModeratorPostTest(TestCase):
     def test_email(self):
         self.check_email_auth(None, False)
         self.check_email_auth(self.user, False)
-        self.check_email_auth(self.mod, False)
+        self.check_email_auth(self.mod, True)
         self.check_email_auth(self.supermod, True)
 
     def test_to_lines(self):

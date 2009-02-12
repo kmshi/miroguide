@@ -9,9 +9,8 @@ from django.http import HttpRequest, HttpResponse
 from channelguide import util
 from channelguide import cache as cg_cache
 # importing it as cache breaks the unit test suite for some reason.
-from channelguide.guide.models import Channel
 from channelguide.sessions.models import Session
-import time, pickle
+import time
 from channelguide.testframework import TestCase
 from sqlhelper.orm import Table, columns
 

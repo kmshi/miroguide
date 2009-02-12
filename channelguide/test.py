@@ -12,9 +12,10 @@ from unittest import TestLoader, TextTestRunner, TestSuite, TestCase
 from optparse import OptionParser
 import logging
 
-from django.conf import settings
 from channelguide import init
 init.init_external_libraries()
+
+options = parsed_args = None
 
 class TestLogHandler(logging.Handler):
     def emit(self, record):

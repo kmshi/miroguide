@@ -197,7 +197,7 @@ class ModerateUserTest(TestCase):
 
     def check_search(self, query, *correct_results):
         response = self.get_page("/accounts/search", data={'query': query})
-        returned_names = [u.username for u in response.context[0]['results']]
+        returned_names = [u.username for u in response.context[0]['page'].object_list]
         correct_names = [u.username for u in correct_results]
         self.assertSameSet(returned_names, correct_names)
 

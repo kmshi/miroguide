@@ -58,7 +58,7 @@ user = Table('user',
         columns.Boolean('channel_owner_emails', default=True),
         columns.Int('age'),
         columns.String('gender', 1),
-        columns.String('language', 5),
+        columns.String('language', 5, default=''),
         columns.Boolean('filter_languages', default=False))
 language = Table('cg_channel_language',
         columns.Int('id', primary_key=True, auto_increment=True),

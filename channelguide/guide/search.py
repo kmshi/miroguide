@@ -66,14 +66,3 @@ def search_feeds(terms):
 def search_shows(terms):
     query = search_channels(terms)
     return query.where(Channel.c.url.is_(None))
-
-def search_items(terms):
-    terms = util.ensure_list(terms)
-#    terms = [t.encode('utf-8') for t in terms]
-    item_search_select = ChannelItemSearchSelect(terms)
-    query = Channel.query()
-    query.add_raw_join(item_search_select.label('search_data'),
-            'cg_channel.id=search_data.channel_id')
-    query.order_by(Channel.c.archived)
-    query.order_by('search_data.score', desc=True)
-    return query

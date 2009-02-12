@@ -115,14 +115,14 @@ class TestCase(unittest.TestCase):
         self.assertEqual(location_path, util.make_absolute_url(redirect_url))
 
     def assertLoginRedirect(self, response_or_url, login_as=None):
-        if type(response_or_url) is str:
+        if isinstance(response_or_url, basestring):
             response = self.get_page(response_or_url, login_as)
         else:
             response = response_or_url
         self.assertRedirect(response, 'accounts/login')
 
     def assertCanAccess(self, response_or_url, login_as=None):
-        if type(response_or_url) is str:
+        if isinstance(response_or_url, basestring):
             response = self.get_page(response_or_url, login_as)
         else:
             response = response_or_url
