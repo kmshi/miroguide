@@ -522,7 +522,7 @@ def filtered_listing(request, value=None, filter=None, limit=10,
                 and 'X11' in request.META.get('HTTP_USER_AGENT', ''))):
         site_object_list = SiteObjectList(
             request, filter, value, sort,
-            ('subscription_count_month', 'rating', 'item_count'),
+            ('subscription_count_month', 'rating'),
             geoip)
         site_paginator = Paginator(site_object_list, limit)
 
