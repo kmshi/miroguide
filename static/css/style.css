@@ -2275,6 +2275,17 @@ margin-top: -15px;
     background: url(../images/myspace.png) no-repeat;
 }
 
+.twitter {
+    padding: 37px 0 0 0;
+    display: block;
+    width: 129px;
+    overflow: hidden;
+    float: left;
+    height: 0;
+    line-height: 1.4em;
+    background: url(../images/twitter.png) no-repeat;
+}
+
 .change_address {
     margin: 4px 5px 0;
 }
