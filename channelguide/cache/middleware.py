@@ -160,7 +160,7 @@ class UserCacheMiddleware(CacheMiddlewareBase):
             user = None
         return CacheMiddlewareBase.get_cache_key_tuple(self, request) + (request.path, request.META['QUERY_STRING'], user)
 
-class AggressiveCacheMiddleware(CacheMiddlewareBase):
+class AggressiveCacheMiddleware(UserCacheMiddleware)
     """Aggresively Caches a page.  This should only be used for pages that
      * Don't use any session data, or any cookie data
      * Are displayed the same for each user (except the account bar)
@@ -176,10 +176,10 @@ class AggressiveCacheMiddleware(CacheMiddlewareBase):
     account_bar_end = '<!-- END ACCOUNT BAR -->'
 
     def __init__(self, namespace=None):
-        CacheMiddlewareBase.__init__(self)
+        UserCacheMiddleware.__init__(self)
         if namespace:
             self.namespace = namespace
-
+    """
     def get_cache_key_tuple(self, request):
         if request.user.is_authenticated():
             user = request.user.username
@@ -187,7 +187,7 @@ class AggressiveCacheMiddleware(CacheMiddlewareBase):
             user = None
         return CacheMiddlewareBase.get_cache_key_tuple(self, request) + (request.path, request.META['QUERY_STRING'], user)
 
-    """def response_from_cache_object(self, request, cached_response):
+    def response_from_cache_object(self, request, cached_response):
         t = loader.get_template("guide/account-bar.html")
         # sometimes new_account_bar is of type
         # django.utils.safestring.SafeString
