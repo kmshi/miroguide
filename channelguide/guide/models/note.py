@@ -42,7 +42,7 @@ class ModeratorPost(NoteBase):
         query.where(User.c.email.is_not(None))
         for mod in query.execute(connection):
             message = emailmessages.ModeratorBoardEmail(self)
-            message.send_email(mod.email)
+            message.send_email(mod.email, getattr(self.user, 'email', '') or None)
 
 class ChannelNote(NoteBase):
     table = tables.channel_note

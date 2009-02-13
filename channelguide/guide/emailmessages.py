@@ -125,8 +125,10 @@ class ModeratorBoardEmail(EmailMessage):
         self.body = """\
 %s
 
+--
+Sent by: %s
+To post on the moderator message board visit %s""" % (post.body, post.user.username, board_url)
 
-To post on the moderator message board visit %s""" % (post.body, board_url)
 
 class TroubleshootChannelEmail(EmailMessage):
     def __init__(self, channel, title, body, middle, bottom):
