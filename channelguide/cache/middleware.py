@@ -160,7 +160,7 @@ class UserCacheMiddleware(CacheMiddlewareBase):
             user = None
         return CacheMiddlewareBase.get_cache_key_tuple(self, request) + (request.path, request.META['QUERY_STRING'], user)
 
-class AggressiveCacheMiddleware(UserCacheMiddleware)
+class AggressiveCacheMiddleware(UserCacheMiddleware):
     """Aggresively Caches a page.  This should only be used for pages that
      * Don't use any session data, or any cookie data
      * Are displayed the same for each user (except the account bar)
