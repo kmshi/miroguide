@@ -2426,6 +2426,11 @@ margin-top: -15px;
     margin: 0;
 }
 
+.moderator-channel-list {
+    width: 820px;
+    margin: 0 auto;
+}
+
 #hover_align + .edit, .edit-box {
     width: 794px;
     background:#FFF49E none repeat scroll 0 0;

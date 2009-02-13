@@ -76,10 +76,10 @@ def channel_list(request, state):
         'request': request,
         'page': page,
         'header': header,
-#         'subscribe_all_link': util.make_link(
-#                 util.get_subscription_url(*[channel.url for channel in
-#                                             pager.items]),
-#                 _("Subscribe to all %i channels") % len(pager.items))
+         'subscribe_all_link': util.make_link(
+                 util.get_subscription_url(*[channel.url for channel in
+                                             page.object_list]),
+                 _("Subscribe to all %i channels on this page") % len(page.object_list))
         })
 
 @moderator_required
