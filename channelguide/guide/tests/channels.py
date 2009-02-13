@@ -778,39 +778,20 @@ class ChannelSearchTest(ChannelTestBase):
             c = self.make_channel(state=Channel.APPROVED)
             c.update_search_data(self.connection)
 
-    def channel_search(self, query):
+    def feed_search(self, query):
         page = self.get_page('/search', data={'query': query})
-        return page.context[0]['results']
+        return page.context[0]['feed_page'].object_list
 
-    def search_items(self, query):
+    def feed_search_count(self, query):
         page = self.get_page('/search', data={'query': query})
-        return page.context[0]['item_results']
+        return page.context[0]['feed_page'].paginator.count
 
-    def channel_search_count(self, query):
-        page = self.get_page('/search', data={'query': query})
-        return page.context[0]['results_count']
-
-    def search_items_count(self, query):
-        page = self.get_page('/search', data={'query': query})
-        return page.context[0]['item_results_count']
-
-    def check_search_redirects_to_channel(self, query, channel):
-        page = self.get_page('/search', data={'query': query})
-        self.assertRedirect(page, 'channels/%d' % channel.id)
-
-    def test_channel_search(self):
-        results = [c.id for c in self.channel_search("Rocketboom")]
+    def test_feed_search(self):
+        results = [c.id for c in self.feed_search("Rocketboom")]
         self.assertEquals(results, [self.channel.id])
-        self.assertEquals(self.channel_search_count("Rocketboom"), 1)
-        self.assertSameSet(self.channel_search("Sprocketboom"), [])
-        self.assertEquals(self.channel_search_count("Sprocketboom"), 0)
-
-    def test_item_search(self):
-        results = [c.id for c in self.search_items("rb_06_dec_13")]
-        self.assertEquals(results, [self.channel.id])
-        self.assertEquals(self.search_items_count("rb_06_dec_13"), 1)
-        self.assertSameSet(self.search_items("ze frank"), [])
-        self.assertEquals(self.search_items_count("ze frank"), 0)
+        self.assertEquals(self.feed_search_count("Rocketboom"), 1)
+        self.assertSameSet(self.feed_search("Sprocketboom"), [])
+        self.assertEquals(self.feed_search_count("Sprocketboom"), 0)
 
     def test_ordering(self):
         channel2 = self.make_channel(state=Channel.APPROVED)
@@ -819,7 +800,7 @@ class ChannelSearchTest(ChannelTestBase):
         channel2.update_search_data(self.connection)
         self.connection.commit()
         # Having "Colan" in the title should trump "Colan" in the description
-        results = self.channel_search("Colan")
+        results = self.feed_search("Colan")
         self.assertEquals(len(results), 2)
         self.assertEquals(results[0].name, channel2.name)
         self.assertEquals(results[1].name, self.channel.name)
@@ -833,12 +814,12 @@ class ChannelSearchTest(ChannelTestBase):
 
     def test_unapproved_hidden(self):
         self.make_unaprroved_channel()
-        self.assertEquals(self.channel_search_count('Unapproved'), 0)
+        self.assertEquals(self.feed_search_count('Unapproved'), 0)
 
     def test_mods_see_unapproved(self):
         unapproved = self.make_unaprroved_channel()
         self.login(self.make_user('reggie', role=User.MODERATOR))
-        self.check_search_redirects_to_channel('Unapproved', unapproved)
+        self.assertEquals(self.feed_search_count('Unapproved'), 1)
 
 class EditChannelTest(ChannelTestBase):
     def setUp(self):

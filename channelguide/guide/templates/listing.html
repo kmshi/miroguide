@@ -19,9 +19,6 @@
   </div>
   {% else %}
 
-    {% comment %}
-      {# Commenting this out for pre-2.0 launch. #}
-      {# On day of 2.0 launch we should uncomment this. #}
     {% if miro_version_pre_sites %}
       <!-- warning to old miro users -->
       <div class="page">
@@ -38,8 +35,24 @@
           </p>
         </div>
       </div>
+    {% else %}
+    {% if miro_on_linux and not feed_page.object_list %}
+      <!-- warning to linux miro users -->
+      <div class="page">
+        <div class="welcomeMessage">
+          <p>
+            <strong>
+              {% trans "Sorry!" %}
+            </strong>
+            {% blocktrans %}
+              Sites aren't supported on Linux due to an incompatibility with the Flash plugin.
+            {% endblocktrans %}
+          </p>
+        </div>
+      </div>
+
     {% endif %}
-    {% endcomment %}
+    {% endif %}
 
     <div class="infoBox">
       {% block infoBox %}

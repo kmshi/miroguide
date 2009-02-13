@@ -503,7 +503,7 @@ def filtered_listing(request, value=None, filter=None, limit=10,
     except InvalidPage:
         feed_page = None
 
-    miro_version_pre_sites = False
+    miro_version_pre_sites = miro_on_linux = False
     miro_version = util.get_miro_version(request.META.get('HTTP_USER_AGENT'))
 
     if miro_version:
@@ -530,6 +530,8 @@ def filtered_listing(request, value=None, filter=None, limit=10,
             site_page = site_paginator.page(page)
         except InvalidPage:
             site_page = None
+    else:
+        miro_on_linux = True
 
     # find the biggest paginator and use that page for calculating the links
     if not feed_paginator:
@@ -559,6 +561,7 @@ def filtered_listing(request, value=None, filter=None, limit=10,
         'biggest': biggest,
         'geoip_filtered': geoip_filtered,
         'miro_version_pre_sites': miro_version_pre_sites,
+        'miro_on_linux': miro_on_linux,
         })
 
 def for_user(request, user_name_or_id):
