@@ -23,14 +23,15 @@ See LICENSE for details.
         </h1>
         <div class="description">{{ channel.description|escape }}</div>
         <div class="actions">
-            <div class="big horizontal">
-                <a {{ channel.subscription_link }}>
-                    <span class="icon"></span>
+            <div>
+                <a {{ channel.subscription_link }} class="large_add_button {% if channel.url %}feed{% else %}site{% endif %}">
+                  <span>
                     {% if channel.url %}
-                      {% trans "Add Feed" %}
+                      {% trans "Add Feed To Your Sidebar" %}
                     {% else %}
-                      {% trans "Add Site" %}
+                      {% trans "Add Site to Your Sidebar" %}
                     {% endif %}
+                  </span>
                 </a>
             </div>
         </div>
@@ -38,6 +39,12 @@ See LICENSE for details.
             <h3>{% trans "Website" %}</h3>
             {{ channel.website_link }}
         </div>
+        {% if channel.url %}
+        <div class="website">
+          <h3>{% trans "Feed" %}</h3>
+          <a {% link channel.url %}>{{ channel.url }}</a>
+        </div>
+        {% endif %}
         {% if can_edit %}
         <div class="extra-info">
             <h3>{% trans "Manager Email" %}</h3>

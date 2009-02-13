@@ -264,7 +264,7 @@ def get_recommendations(connection, user, start=0, length=10, filter=None):
         else:
             estimatedRatings, reasons, ids = result
         if not ids:
-            if not start:
+            if start is None:
                 return 0
             else:
                 return []

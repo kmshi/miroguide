@@ -66,7 +66,7 @@ def channel_list(request, state):
         header = _("Unreviewed Channels")
 
     paginator = Paginator(templateutil.QueryObjectList(request.connection,
-                                                       query), 10)
+                                                       query), 20)
     try:
         page = paginator.page(request.GET.get('page', 1))
     except InvalidPage:
@@ -76,10 +76,10 @@ def channel_list(request, state):
         'request': request,
         'page': page,
         'header': header,
-#         'subscribe_all_link': util.make_link(
-#                 util.get_subscription_url(*[channel.url for channel in
-#                                             pager.items]),
-#                 _("Subscribe to all %i channels") % len(pager.items))
+         'subscribe_all_link': util.make_link(
+                 util.get_subscription_url(*[channel.url for channel in
+                                             page.object_list]),
+                 _("Subscribe to all %i channels on this page") % len(page.object_list))
         })
 
 @moderator_required

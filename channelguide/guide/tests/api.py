@@ -60,6 +60,12 @@ class ChannelApiTestBase(TestCase):
                                           datetime.now() - timedelta(days=1))
         self.channels[0].add_subscription(self.connection, '123.123.123.123',
                                           datetime.now())
+        for i in range(5):
+            user = self.make_user('foo%i' % i)
+            user.approved = True
+            user.save(self.connection)
+            for channel in self.channels:
+                channel.rate(self.connection, user, i+1)
         self.refresh_connection()
 
 
@@ -350,6 +356,8 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(eval(response.content),
                           {'error': 'INVALID_SESSION',
                            'text': 'Invalid session'})
+        self.owner.approved = True
+        self.owner.save(self.connection)
         self.channels[0].rate(self.connection, self.owner, 5)
         self.refresh_connection()
         manage.refresh_stats_table()
@@ -364,7 +372,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(data[0]['guessed'], 5.0)
         self.assertEquals(len(data[0]['reasons']), 1)
         self.assertEquals(data[0]['reasons'][0]['id'], self.channels[0].id)
-        self.assertEquals(data[0]['reasons'][0]['score'], 0.625)
+        self.assertTrue(data[0]['reasons'][0]['score'] > 0.5)
 
     def test_list_categories(self):
         response = self.make_api_request('list_categories')
@@ -723,7 +731,7 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         self.assertEquals(channels[0].guessed, 5.0)
         self.assertEquals(len(channels[0].reasons), 1)
         self.assertEquals(channels[0].reasons[0].id, self.channels[0].id)
-        self.assertEquals(channels[0].reasons[0].score, 0.625)
+        self.assertTrue(channels[0].reasons[0].score > 0.5)
 
 
     def test_list_categories(self):

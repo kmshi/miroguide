@@ -77,7 +77,7 @@ def get_share_links(url, name):
     share_stumbleupon = STUMBLEUPON_URL % (quote(url),
                                            quote(name.encode('utf8')))
     share_facebook = FACEBOOK_URL % (quote(url))
-    share_twitter = TWITTER_URL % (_('Watching %s') % bitly_shorten(url)).replace(' ', '+')
+    share_twitter = TWITTER_URL % (_('Watching in Miro: %s') % bitly_shorten(url)).replace(' ', '+')
 
     ## Generate dictionary
     share_links = {
