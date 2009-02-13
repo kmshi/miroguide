@@ -43,6 +43,8 @@ def submit_feed(request):
                     'is already a channel in the guide' in
                     unicode(error['message'])):
                     url = form.data['url'].strip()
+                    if url.startswith('feed:'):
+                        url = 'http:' + url[5:]
                     try:
                         channel = Channel.query(url=url).get(request.connection)
                     except LookupError:
