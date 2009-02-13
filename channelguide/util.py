@@ -6,7 +6,7 @@
 
 from datetime import datetime, timedelta
 from itertools import cycle, count, izip
-from urllib import quote, urlopen, unquote_plus
+from urllib import quote, quote_plus, urlopen, unquote_plus
 from xml.sax import saxutils
 import Queue
 import cgi
@@ -15,6 +15,7 @@ import md5
 import os
 import re
 import random
+import simplejson
 import string
 import subprocess
 import sys
@@ -27,6 +28,7 @@ from django.template.context import RequestContext
 from django.core.mail import send_mail as django_send_mail
 from django.conf import settings
 from django.utils.http import urlquote
+from django.utils.translation import ugettext as _
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 try:
     from django.utils.safestring import mark_safe
@@ -36,12 +38,13 @@ except ImportError:
 emailer = None
 
 
-# sharing urls 
+# sharing urls
 DELICIOUS_URL = "http://del.icio.us/post?v=4&noui&jump=close&url=%s&title=%s"
 DIGG_URL = "http://digg.com/submit/?url=%s&media=video"
 REDDIT_URL = "http://reddit.com/submit?url=%s&title=%s"
 STUMBLEUPON_URL = "http://www.stumbleupon.com/submit?url=%s&title=%s"
 FACEBOOK_URL = "http://www.facebook.com/share.php?u=%s"
+TWITTER_URL = "http://www.twitter.com/home?status=%s"
 
 # common regexps
 MIRO_VERSION_RE = re.compile('^.*Miro\/(?P<miro_version>(?:\d+\.)*\d).*$')
@@ -56,6 +59,16 @@ def get_miro_version(http_user_agent):
     else:
         return None
 
+def bitly_shorten(url):
+    if not settings.BITLY_USERNAME or not settings.BITLY_API_KEY:
+        return url
+    key = 'bitly_shorten:%s' % md5.new(url).hexdigest()
+    json = urlopen('http://api.bit.ly/shorten?version=2.0.1&longUrl=%s&login=%s&apiKey=%s' % (
+            quote(url), settings.BITLY_USERNAME, settings.BITLY_API_KEY)).read()
+    parsed = simplejson.loads(json)
+    url = parsed['results'][url]['shortUrl']
+    return url
+
 def get_share_links(url, name):
     share_delicious = DELICIOUS_URL % (quote(url),
                                        quote(name.encode('utf8')))
@@ -64,6 +77,7 @@ def get_share_links(url, name):
     share_stumbleupon = STUMBLEUPON_URL % (quote(url),
                                            quote(name.encode('utf8')))
     share_facebook = FACEBOOK_URL % (quote(url))
+    share_twitter = TWITTER_URL % (_('Watching %s') % bitly_shorten(url)).replace(' ', '+')
 
     ## Generate dictionary
     share_links = {
@@ -72,7 +86,8 @@ def get_share_links(url, name):
         'digg': share_digg,
         'reddit': share_reddit,
         'stumbleupon': share_stumbleupon,
-        'facebook': share_facebook}
+        'facebook': share_facebook,
+        'twitter': share_twitter}
 
     return share_links
 
