@@ -4,8 +4,8 @@
 from middleware import AggressiveCacheMiddleware, UserCacheMiddleware
 from django.utils.decorators import decorator_from_middleware
 
-aggresively_cache = decorator_from_middleware(AggressiveCacheMiddleware)
-cache_for_user = decorator_from_middleware(UserCacheMiddleware)
+#aggresively_cache = decorator_from_middleware(AggressiveCacheMiddleware)
+aggresively_cache = cache_for_user = decorator_from_middleware(UserCacheMiddleware)
 
 def cache_page_externally_for(seconds):
     def decorator(func):
