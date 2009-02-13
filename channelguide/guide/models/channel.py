@@ -312,7 +312,7 @@ class Channel(Record, Thumbnailable):
         else:
             if parsed.bozo:
                 self.archived = True
-                self.state = Channel.NEW
+                self.state = Channel.SUSPENDED
                 self.save(connection)
                 self._check_archived(connection)
                 return
@@ -330,7 +330,7 @@ class Channel(Record, Thumbnailable):
             self._check_archived(connection)
         else:
             self.archived = True
-            self.state = Channel.NEW
+            self.state = Channel.SUSPENDED
             self.save(connection)
 
     def _check_archived(self, connection):
