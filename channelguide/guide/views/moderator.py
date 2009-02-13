@@ -66,7 +66,7 @@ def channel_list(request, state):
         header = _("Unreviewed Channels")
 
     paginator = Paginator(templateutil.QueryObjectList(request.connection,
-                                                       query), 10)
+                                                       query), 20)
     try:
         page = paginator.page(request.GET.get('page', 1))
     except InvalidPage:
