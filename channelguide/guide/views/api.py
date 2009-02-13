@@ -220,9 +220,9 @@ def rate(request):
 @requires_login
 def get_recommendations(request):
     start = int(request.GET.get('start', 0))
-    count = int(request.GET.get('count', 50))
+    length = int(request.GET.get('count', 50))
     channels = api.get_recommendations(request.connection,
-                                       request.user, start, count)
+                                       request.user, start, length)
     return response_for_data(request, map(data_for_channel,
                                           channels))
 

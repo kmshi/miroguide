@@ -190,7 +190,6 @@ def get_similarity(channel, connection, other):
     from_rat = get_similarity_from_ratings(channel, connection, other)
     from_lang = get_similarity_from_languages(channel, connection, other)
     from_cat = get_similarity_from_categories(channel, connection, other)
-
     return sum((from_rat * 6, from_lang * 3, from_cat)) / 10
 
 def get_similarity_from_subscriptions(channel, connection, other):
