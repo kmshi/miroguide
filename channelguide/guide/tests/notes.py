@@ -238,6 +238,7 @@ class ModeratorPostTest(TestCase):
         if can_email:
             self.assertEqual(len(self.emails), start_count +
                     self.moderater_count())
+            self.assertEquals(self.emails[-1]['email_from'], user.email)
         else:
             self.assertEqual(len(self.emails), start_count)
 
@@ -246,6 +247,15 @@ class ModeratorPostTest(TestCase):
         self.check_email_auth(self.user, False)
         self.check_email_auth(self.mod, True)
         self.check_email_auth(self.supermod, True)
+
+    def test_email_without_email(self):
+        self.supermod.email = None
+        self.supermod.save(self.connection)
+        self.refresh_connection()
+        start_count = len(self.emails)
+        self.post_data('/notes/new-moderator-post',
+                       self.new_post_data_email, login_as=self.supermod)
+        self.assertEquals(self.emails[-1]['email_from'], settings.EMAIL_FROM)
 
     def test_to_lines(self):
         self.post_data('/notes/new-moderator-post',
