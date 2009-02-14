@@ -103,8 +103,9 @@ def get_channels_query(request, filter, value, sort=None,
     if filter != 'language' and request.user.is_authenticated() and \
             request.user.filter_languages:
         request.user.join('shown_languages').execute(connection)
-        query.join('language')
-        query.where(query.joins['language'].c.id.in_([
+        if request.user.shown_languages:
+            query.join('language')
+            query.where(query.joins['language'].c.id.in_([
                     language.id for language in request.user.shown_languages]))
     return query
 
