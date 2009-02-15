@@ -73,14 +73,16 @@ def channel_list(request, state):
         return HttpResponseRedirect(request.path)
 
     return util.render_to_response(request, 'moderator-channel-list.html', {
-        'request': request,
-        'page': page,
-        'header': header,
-         'subscribe_all_link': util.make_link(
-                 util.get_subscription_url(*[channel.url for channel in
-                                             page.object_list]),
-                 _("Subscribe to all %i channels on this page") % len(page.object_list))
-        })
+            'request': request,
+            'page': page,
+            'header': header,
+            'subscribe_all_link': util.make_link(
+                util.get_subscription_url(*[channel.url for channel in
+                                            page.object_list
+                                            if channel.url is not None]),
+                _("Subscribe to all %i channels on this page") % len(
+                    page.object_list))
+            })
 
 @moderator_required
 def shared(request):
