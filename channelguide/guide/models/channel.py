@@ -277,7 +277,8 @@ class Channel(Record, Thumbnailable):
                 item.save(connection)
 
     def download_feed(self):
-        if self.feed_modified:
+        if self.feed_modified and self.state not in (Channel.SUSPENDED,
+                                                     Channel.BROKEN):
             modified = self.feed_modified.timetuple()
         else:
             modified = None
@@ -311,10 +312,10 @@ class Channel(Record, Thumbnailable):
             traceback.print_exc()
         else:
             if parsed.bozo:
+                miroguide = User.query(username='miroguide').get(connection)
                 self.archived = True
-                self.state = Channel.SUSPENDED
+                self.change_state(miroguide, Channel.SUSPENDED, connection)
                 self.save(connection)
-                self._check_archived(connection)
                 return
             items = []
             for entry in parsed.entries:
@@ -329,8 +330,10 @@ class Channel(Record, Thumbnailable):
         if self.items:
             self._check_archived(connection)
         else:
+            miroguide = User.query(username='miroguide').get(connection)
             self.archived = True
-            self.state = Channel.SUSPENDED
+            
+            self.change_state(miroguide, Channel.SUSPENDED, connection)
             self.save(connection)
 
     def _check_archived(self, connection):
@@ -338,6 +341,8 @@ class Channel(Record, Thumbnailable):
         items = [item for item in self.items if item.date is not None]
         if not items:
             return
+        if self.state == Channel.SUSPENDED:
+            self.state = Channel.APPROVED
         items.sort(key=lambda x: x.date)
         latest = items[-1].date
         if (datetime.now() - latest).days > 90:
@@ -408,6 +413,8 @@ class Channel(Record, Thumbnailable):
             self.update_items(connection)
         else:
             self.approved_at = None
+            if newstate == self.SUSPENDED:
+                self.feed_etag = self.feed_modified = None
         self.last_moderated_by_id = user.id
         self.save(connection)
         ModeratorAction(user, self, newstate).save(connection)
