@@ -30,6 +30,9 @@ class CacheTimingMiddleware(object):
             type = 'C'
         else:
             type = 'R'
+        if hasattr(request, 'user'):
+            if request.user.is_authenticated():
+                type = type + 'A'
         line = '%s!%s!%i!%s!%s!%f\n' % (time.asctime(),type, response.status_code, request.path, request.META.get('QUERY_STRING', ''), total)
         f.write(line.encode('utf8'))
         f.close()
