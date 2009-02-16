@@ -1,7 +1,8 @@
 import urlparse
 
 from django.conf import settings
-from django.core.paginator import Paginator
+from django.http import Http404
+from django.core.paginator import Paginator, InvalidPage
 
 from channelguide import util
 from channelguide.guide.models import Item
@@ -82,7 +83,10 @@ def item(request, id):
         Item.c.date).count(request.connection)
     default_page = (index // 10) + 1
     paginator = Paginator(ItemObjectList(request.connection, item.channel), 10)
-    page = paginator.page(request.GET.get('page', default_page))
+    try:
+        page = paginator.page(request.GET.get('page', default_page))
+    except InvalidPage:
+        raise Http404
 
     share_links = share_url = None
     if request.GET.get('share') == 'true':
