@@ -6,7 +6,7 @@
 
 from datetime import datetime, timedelta
 from itertools import cycle, count, izip
-from urllib import quote, quote_plus, urlopen, unquote_plus
+from urllib import quote, urlopen, unquote_plus
 from xml.sax import saxutils
 import Queue
 import cgi
@@ -30,6 +30,7 @@ from django.conf import settings
 from django.utils.http import urlquote
 from django.utils.translation import ugettext as _
 from django.http import HttpResponse, HttpResponseRedirect, Http404
+
 try:
     from django.utils.safestring import mark_safe
     mark_safe = mark_safe # fix pyflakes error
@@ -60,14 +61,25 @@ def get_miro_version(http_user_agent):
         return None
 
 def bitly_shorten(url):
+    from channelguide import cache
     if not settings.BITLY_USERNAME or not settings.BITLY_API_KEY:
         return url
     key = 'bitly_shorten:%s' % md5.new(url).hexdigest()
-    json = urlopen('http://api.bit.ly/shorten?version=2.0.1&longUrl=%s&login=%s&apiKey=%s' % (
-            quote(url), settings.BITLY_USERNAME, settings.BITLY_API_KEY)).read()
-    parsed = simplejson.loads(json)
-    url = parsed['results'][url]['shortUrl']
-    return url
+    shortURL = cache.client.get(key)
+    if shortURL is not None:
+        return shortURL
+    for i in range(5):
+        try:
+            json = urlopen('http://api.bit.ly/shorten?version=2.0.1&longUrl=%s&login=%s&apiKey=%s' % (
+                    quote(url), settings.BITLY_USERNAME, settings.BITLY_API_KEY)).read()
+        except ValueError:
+            continue
+        else:
+            parsed = simplejson.loads(json)
+            shortURL = parsed['results'][url]['shortUrl']
+            cache.client.set(key, shortURL)
+            return shortURL
+    return make_absolute_url(url)
 
 def get_share_links(url, name):
     share_delicious = DELICIOUS_URL % (quote(url),
@@ -94,7 +106,7 @@ def get_share_links(url, name):
 
 def render_to_response(request, template_name, context=None, **kwargs):
     """channel guide version of render_to_response.  It passes the template a
-    RequestContext object instead of the standard Context object.  
+    RequestContext object instead of the standard Context object.
     """
     template_name = 'guide/' + template_name
     kwargs['context_instance'] = RequestContext(request)
@@ -215,16 +227,16 @@ def push_media_to_s3(subpath, content_type):
                 raise
         else:
             return
-        
+
 
 def make_thumbnail(source_path, dest_path, width, height):
     # From the "Pad Out Image" recipe at
     # http://www.imagemagick.org/Usage/thumbnails/
     border_width = max(width, height) / 2
-    try: 
-        call_command("convert",  source_path, 
+    try:
+        call_command("convert",  source_path,
                      "-strip",
-                     "-resize", "%dx%d>" % (width, height), 
+                     "-resize", "%dx%d>" % (width, height),
                      "-gravity", "center", "-bordercolor", "black",
                      "-border", "%s" % border_width,
                      "-crop", "%dx%d+0+0" % (width, height),
@@ -376,7 +388,7 @@ def call_command(*args, **kwargs):
     finally:
         subprocess_lock.release()
     if returncode != 0:
-        raise OSError("Error running %r: %s\n(return code %s)" % 
+        raise OSError("Error running %r: %s\n(return code %s)" %
                 (args, stderr, returncode))
     else:
         return stdout
