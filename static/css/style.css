@@ -849,14 +849,14 @@ ul#channelRate {
 }
 
 #channelInfo h1 {
-    margin: 1px 0 0 13px;
     padding: 0;
-    line-height: 53px;
     font-size: 22px;
     display: inline;
     width: 600px;
     overflow: hidden;
     float: left;
+    line-height:27px;
+    margin:15px 0 13px 13px;
 }
 
 #channelInfo h1 img {
