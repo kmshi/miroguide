@@ -8,7 +8,8 @@ from client import set
 
 def handle_change(statement):
     # reset the table key, so cached pages will not find the old caches
-    if statement.table_name not in ('cg_session', 'cg_channel_subscription'):
+    if statement.table_name not in ('cg_session', 'cg_channel_subscription',
+                                    'cg_channel_subscription_holding'):
         set('namespace', time.time())
 #    set('Table:' + statement.table_name, time.time())
 
