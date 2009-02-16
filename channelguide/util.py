@@ -41,7 +41,7 @@ emailer = None
 
 # sharing urls
 DELICIOUS_URL = "http://del.icio.us/post?v=4&noui&jump=close&url=%s&title=%s"
-DIGG_URL = "http://digg.com/submit/?url=%s&media=video"
+DIGG_URL = "http://digg.com/submit/?url=%s&title=%s&media=video"
 REDDIT_URL = "http://reddit.com/submit?url=%s&title=%s"
 STUMBLEUPON_URL = "http://www.stumbleupon.com/submit?url=%s&title=%s"
 FACEBOOK_URL = "http://www.facebook.com/share.php?u=%s"
@@ -84,7 +84,7 @@ def bitly_shorten(url):
 def get_share_links(url, name):
     share_delicious = DELICIOUS_URL % (quote(url),
                                        quote(name.encode('utf8')))
-    share_digg = DIGG_URL % quote(url)
+    share_digg = DIGG_URL % (quote(url, ''), quote(name, ''))
     share_reddit = REDDIT_URL % (quote(url), quote(name.encode('utf8')))
     share_stumbleupon = STUMBLEUPON_URL % (quote(url),
                                            quote(name.encode('utf8')))
