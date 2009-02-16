@@ -845,8 +845,7 @@ ul#channelRate {
 
 /*Channel info*/
 #channelInfo {
-    background: url(../images/channel_info_bg.png) 0 0 repeat-x;
-    height: 53px;
+    background: #ebebeb url(../images/channel_info_bg.png) 0 0 repeat-x;
 }
 
 #channelInfo h1 {
