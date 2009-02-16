@@ -84,7 +84,7 @@ def bitly_shorten(url):
 def get_share_links(url, name):
     share_delicious = DELICIOUS_URL % (quote(url),
                                        quote(name.encode('utf8')))
-    share_digg = DIGG_URL % (quote(url, ''), quote(name, ''))
+    share_digg = DIGG_URL % (quote(url, ''), quote(name.encode('utf8'), ''))
     share_reddit = REDDIT_URL % (quote(url), quote(name.encode('utf8')))
     share_stumbleupon = STUMBLEUPON_URL % (quote(url),
                                            quote(name.encode('utf8')))
