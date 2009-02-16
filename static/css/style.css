@@ -855,6 +855,7 @@ ul#channelRate {
     line-height: 53px;
     font-size: 22px;
     display: inline;
+    width: 600px;
     overflow: hidden;
     float: left;
 }
@@ -1996,6 +1997,7 @@ margin: 5px 15px 0 0;
     padding: 0;
     float: left;
     display: inline;
+    width: 500px;
     font-size: 20px;
     font-weight: normal;
     line-height: 43px;
