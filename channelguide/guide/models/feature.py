@@ -78,8 +78,8 @@ class FeaturedQueue(Record):
             last_user = cls.query().load('last_time').where(
                 cls.c.featured_by_id.in_(cls.users_in_queue())).group_by(
                 cls.c.featured_by_id).order_by(
-                'last_time').limit(1).get(
-                connection).featured_by_id
+                    'last_time').order_by('featured_at').limit(1).get(
+                    connection).featured_by_id
         except NotFoundError:
             return None
         return cls.query().where(cls.c.state==cls.IN_QUEUE,

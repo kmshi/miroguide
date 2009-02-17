@@ -3,7 +3,6 @@
 
 import time, datetime
 
-from django.conf import settings
 from channelguide.testframework import TestCase
 from channelguide.guide.models import FeaturedQueue
 
