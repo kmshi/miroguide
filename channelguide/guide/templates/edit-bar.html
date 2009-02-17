@@ -125,10 +125,12 @@ function showEmailForm(event) {
     return false;
 }
 
-$(".edit h2").click(toggleEditBox);
-$('input.email-form').click(showEmailForm);
-if (location.hash == '#edit') {
-    $(".edit h2").each(toggleEditBox);
-}
+$(document).ready(function() {
+    $(".edit h2").click(toggleEditBox);
+    $('input.email-form').click(showEmailForm);
+    if (location.hash == '#edit') {
+        $(".edit h2").each(toggleEditBox);
+    }
+});
 </script>
 {% endif %}
