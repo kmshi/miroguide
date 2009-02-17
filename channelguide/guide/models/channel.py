@@ -6,7 +6,6 @@ from glob import glob
 import cgi
 import feedparser
 import logging
-import traceback
 import time
 
 from django.utils.translation import ngettext
@@ -308,8 +307,7 @@ class Channel(Record, Thumbnailable):
             else:
                 parsed = feedparser.parse(feedparser_input)
         except:
-            print "WARNING: ERROR parsing %s" % self.url
-            traceback.print_exc()
+            logging.exception("ERROR parsing %s" % self.url)
         else:
             if parsed.bozo:
                 miroguide = User.query(username='miroguide').get(connection)
@@ -504,3 +502,6 @@ class AddedChannel(Record):
     def __init__(self, channel_id, user_id):
         self.channel_id = channel_id
         self.user_id = user_id
+
+class GeneratedStats(Record):
+    table = tables.generated_stats

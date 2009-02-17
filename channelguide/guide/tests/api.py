@@ -430,9 +430,9 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         self.assertEquals(len(obj.categories), 2)
         self.assertEquals(len(obj.tags), 2)
         self.assertEquals(len(obj.items), 2)
-        self.assertEquals(obj.subscription_count, 1)
-        self.assertEquals(obj.subscription_count_month, 1)
-        self.assertEquals(obj.subscription_count_today, 1)
+        self.assertEquals(obj.stats.subscription_count_today, 1)
+        self.assertEquals(obj.stats.subscription_count_month, 1)
+        self.assertEquals(obj.stats.subscription_count_today, 1)
         self.assertEquals(obj.rating.average, 3)
 
 

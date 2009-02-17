@@ -494,9 +494,7 @@ def filtered_listing(request, value=None, filter=None, limit=10,
         geoip = None
     feed_object_list = FeedObjectList(request,
                                       filter, value, sort,
-                                      ('subscription_count_month',
-                                       'rating',
-                                       'item_count'), geoip)
+                                      ('stats', 'rating'), geoip)
     feed_paginator = Paginator(feed_object_list, limit)
     try:
         feed_page = feed_paginator.page(page)
@@ -522,7 +520,7 @@ def filtered_listing(request, value=None, filter=None, limit=10,
                 and 'X11' in request.META.get('HTTP_USER_AGENT', ''))):
         site_object_list = SiteObjectList(
             request, filter, value, sort,
-            ('subscription_count_month', 'rating'),
+            ('stats', 'rating'),
             geoip)
         site_paginator = Paginator(site_object_list, limit)
 
@@ -595,10 +593,10 @@ def for_user(request, user_name_or_id):
 @login_required
 def edit_channel(request, id):
     query = Channel.query()
-    query.join('language', 'categories', 'notes', 'notes.user')
-    query.load('subscription_count_today', 'subscription_count_today_rank')
-    query.load('subscription_count_month', 'subscription_count_month_rank')
-    query.load('subscription_count', 'subscription_count_rank')
+    query.join('language', 'categories', 'notes', 'notes.user', 'stats')
+    query.joins['stats'].load('subscription_count_today_rank')
+    query.joins['stats'].load('subscription_count_month_rank')
+    query.joins['stats'].load('subscription_count_rank')
     channel = util.get_object_or_404(request.connection, query, id)
     request.user.check_can_edit(channel)
     if request.method != 'POST':
