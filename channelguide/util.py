@@ -72,10 +72,10 @@ def bitly_shorten(url):
         try:
             json = urlopen('http://api.bit.ly/shorten?version=2.0.1&longUrl=%s&login=%s&apiKey=%s' % (
                     quote(url), settings.BITLY_USERNAME, settings.BITLY_API_KEY)).read()
+            parsed = simplejson.loads(json)
         except ValueError:
             continue
         else:
-            parsed = simplejson.loads(json)
             shortURL = parsed['results'][url]['shortUrl']
             cache.client.set(key, shortURL)
             return shortURL
