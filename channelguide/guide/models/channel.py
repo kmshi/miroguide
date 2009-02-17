@@ -332,7 +332,6 @@ class Channel(Record, Thumbnailable):
         else:
             miroguide = User.query(username='miroguide').get(connection)
             self.archived = True
-            
             self.change_state(miroguide, Channel.SUSPENDED, connection)
             self.save(connection)
 
@@ -341,7 +340,7 @@ class Channel(Record, Thumbnailable):
         items = [item for item in self.items if item.date is not None]
         if not items:
             return
-        if self.state == Channel.SUSPENDED:
+        if self.state == Channel.SUSPENDED and self.approved_at:
             self.state = Channel.APPROVED
         items.sort(key=lambda x: x.date)
         latest = items[-1].date
