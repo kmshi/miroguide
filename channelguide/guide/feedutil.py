@@ -74,7 +74,7 @@ def get_thumbnail_url(entry):
     except KeyError:
         pass
 
-    if entry['link'].find(u'youtube.com') != -1:
+    if entry.get('link', '').find(u'youtube.com') != -1:
         match = re.search(r'<img alt="" src="([^"]+)" />',
                           entry['summary'])
         if match:
