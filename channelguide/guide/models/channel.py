@@ -412,9 +412,10 @@ class Channel(Record, Thumbnailable):
             self.join('items').execute(connection)
             self.update_items(connection)
         else:
-            self.approved_at = None
             if newstate == self.SUSPENDED:
                 self.feed_etag = self.feed_modified = None
+            else:
+                self.approved_at = None
         self.last_moderated_by_id = user.id
         self.save(connection)
         ModeratorAction(user, self, newstate).save(connection)
