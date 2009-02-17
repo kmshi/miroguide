@@ -122,7 +122,7 @@ class Item(Record, Thumbnailable):
                     # raises a TypeError instead of a KeyError
                     raise KeyError('description')
                 else:
-                    if entry['link'].find('youtube.com') != -1:
+                    if entry.get('link', '').find('youtube.com') != -1:
                         match = re.search(r'<div><span>(.*?)</span></div>',
                                                    rv.description, re.S)
                         if match:
