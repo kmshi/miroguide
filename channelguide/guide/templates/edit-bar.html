@@ -120,7 +120,15 @@ function showEmailForm(event) {
                     event.stopPropagation();
                     return false;
                     });
-                }
+                form.submit(function() {
+                    if (!$(this).find('input[name=email]')[0].value) {
+                        alert('Please enter an e-mail address.');
+                        return false;
+                    } else {
+                        return true;
+                    }
+                });
+            }
         );
     return false;
 }

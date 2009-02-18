@@ -29,7 +29,7 @@ See LICENSE for details.
             {% else %}
             <input type="text" name="email" value="{{ channel.owner.email }}">
             {% endifequal %}
-            <input type="submit" value="{% trans "Send" %}">
+            <input class="submit" type="submit" value="{% trans "Send" %}">
         </div>
     </form>
     {% if skipable %}
