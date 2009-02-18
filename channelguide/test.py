@@ -20,6 +20,8 @@ options = parsed_args = None
 class TestLogHandler(logging.Handler):
     def emit(self, record):
         if record.levelno >= logging.WARN:
+            if record.exc_info:
+                raise record.exc_info[1]
             raise ValueError("got %s log record during tests (%s)" %
                     (record.levelname, record.getMessage()))
 

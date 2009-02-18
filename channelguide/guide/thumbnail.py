@@ -5,9 +5,8 @@
 for Channel and Item objects.
 """
 
-from StringIO import StringIO
 from urlparse import urljoin
-import os
+import os.path
 
 from django.conf import settings
 
@@ -17,24 +16,26 @@ class Thumbnailable(object):
     """Mixin class that gives thumbnail capabilities.
 
     This class create multiple thumbnails from a given full-sized image.
-    
+
     Classes using this mixin must define THUMBNAIL_DIR and THUMBNAIL_SIZES as
     class attributes.  The should also have a thumbnail_extension attribute
     that gets saved to the DB.
     """
 
-    def get_filename(self):
+    def get_filename(self, subdir=None):
         if not self.exists_in_db():
             raise ValueError("Must be saved first")
-        else:
+        elif subdir == 'original':
             return "%d.%s" % (self.id, self.thumbnail_extension)
+        else:
+            return '%d.jpeg' % self.id
 
     def thumb_path(self, subdir):
-        thumb_dir = os.path.join(settings.MEDIA_ROOT, self.THUMBNAIL_DIR, 
+        thumb_dir = os.path.join(settings.MEDIA_ROOT, self.THUMBNAIL_DIR,
                 subdir)
         if not os.path.exists(thumb_dir):
             os.makedirs(thumb_dir)
-        return os.path.join(thumb_dir, self.get_filename())
+        return os.path.join(thumb_dir, self.get_filename(subdir))
 
     def get_missing_image_url(self, width, heigt):
         return settings.IMAGES_URL + 'missing.png'
@@ -42,14 +43,14 @@ class Thumbnailable(object):
     def thumb_url(self, width, height):
         if not self.thumbnail_exists():
             return self.get_missing_image_url(width, height)
-        return urljoin(settings.MEDIA_URL, '%s/%dx%d/%s' % 
+        return urljoin(settings.MEDIA_URL, '%s/%dx%d/%s' %
                 (self.THUMBNAIL_DIR, width, height, self.get_filename()))
 
     def _save_to_s3(self, path):
         if not settings.USE_S3:
             return
         subpath = self.THUMBNAIL_DIR + '/' + path + '/' + self.get_filename()
-        content_type = 'image/' + self.thumbnail_extension
+        content_type = 'image/' + os.path.splitext(subpath)[1][1:]
         util.push_media_to_s3(subpath, content_type)
 
     def _save_original_thumbnail(self, image_data):

@@ -561,6 +561,20 @@ Errors: %s""" % (response.status_code, errors)
         response = self.submit(response, dont_send='thumbnail_file')
         self.check_submit_worked(response, thumb_name='thumbnail_square.png')
 
+    def test_thumbnails_converted_to_jpeg(self):
+        self.login_and_submit_url()
+        response = self.submit(thumbnail_file=
+                               open(test_data_path('thumbnail_square.png')))
+        channel = self.get_last_channel()
+        self.assertTrue(channel.thumbnail_exists())
+        for size in channel.THUMBNAIL_SIZES:
+            path = channel.thumb_path('%dx%d' % size)
+            self.assertTrue(os.path.exists(path))
+            self.assertEquals(os.path.splitext(path)[1], '.jpeg')
+            self.assertEquals(util.get_image_extension(
+                    file(path).read()), 'jpeg')
+
+
     def test_submit_destroys_feed(self):
         self.login_and_submit_url()
         response = self.submit()
