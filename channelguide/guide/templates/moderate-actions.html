@@ -9,8 +9,8 @@ See LICENSE for details.
     <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">
       <div>
         <input type="hidden" name="action" value="standard-reject">
-        <input type="submit" name="submit" value="Broken">
-        <input type="submit" name="submit" value="Copyrighted">
+        {% if channel.url %}<input type="submit" name="submit" value="Broken">
+        {% endif %}<input type="submit" name="submit" value="Copyrighted">
         <input type="submit" name="submit" value="Explicit">
         <input type="submit" name="submit" value="No Media">
         <input class="email-form" type="submit" name="submit" value="Custom">

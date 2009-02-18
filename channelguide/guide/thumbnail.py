@@ -49,7 +49,10 @@ class Thumbnailable(object):
     def _save_to_s3(self, path):
         if not settings.USE_S3:
             return
-        subpath = self.THUMBNAIL_DIR + '/' + path + '/' + self.get_filename()
+        if 'original' in path:
+            subpath = self.THUMBNAIL_DIR + '/' + path + '/' + self.get_filename('original')
+        else:
+            subpath = self.THUMBNAIL_DIR + '/' + path + '/' + self.get_filename()
         content_type = 'image/' + os.path.splitext(subpath)[1][1:]
         util.push_media_to_s3(subpath, content_type)
 
