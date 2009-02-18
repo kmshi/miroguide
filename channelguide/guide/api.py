@@ -14,10 +14,7 @@ def login(connection, id):
 
 def get_channel(connection, id):
     return Channel.get(connection, id, join=['categories', 'tags', 'items',
-                                             'owner', 'language','rating'],
-                       load=['subscription_count_today',
-                             'subscription_count_month',
-                             'subscription_count'])
+                                             'owner', 'language','rating', 'stats'])
 
 def get_channel_by_url(connection, url):
     return Channel.query(url=url).join('categories', 'tags',
@@ -92,8 +89,8 @@ def get_channels_query(request, filter, value, sort=None,
     elif sort == 'age':
         query.order_by(Channel.c.approved_at, desc=desc)
     elif sort == 'popular':
-        query.load('subscription_count_today')
-        query.order_by('subscription_count_today', desc=desc)
+        query.join('stats')
+        query.order_by(query.joins['stats'].c.subscription_count_today, desc=desc)
     elif sort == 'rating':
         query.join('rating')
         query.where(query.joins['rating'].c.count > 3)

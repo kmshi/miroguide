@@ -210,11 +210,10 @@ class ChannelModelTest(ChannelTestBase):
         manage.refresh_stats_table()
         self.refresh_connection()
         q = self.channel.query()
-        chan = q.load('subscription_count_today','subscription_count_month',
-                'subscription_count').get(self.connection, self.channel.id)
-        self.assertEquals(chan.subscription_count, 3)
-        self.assertEquals(chan.subscription_count_month, 2)
-        self.assertEquals(chan.subscription_count_today, 1)
+        chan = q.join('stats').get(self.connection, self.channel.id)
+        self.assertEquals(chan.stats.subscription_count_total, 3)
+        self.assertEquals(chan.stats.subscription_count_month, 2)
+        self.assertEquals(chan.stats.subscription_count_today, 1)
 
     def check_tag_map_count(self, correct_count):
         tag_count = TagMap.query().count(self.connection)

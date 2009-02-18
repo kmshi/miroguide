@@ -21,22 +21,22 @@ See LICENSE for details.
     <h2>{% trans "Statistics" %}</h2>
     <dl>
         <dt>{% trans "Subscriptions* Today" %}:</dt>
-        <dd>{{ channel.subscription_count_today }}</dd>
+        <dd>{{ channel.stats.subscription_count_today }}</dd>
         <dt>{% trans "Subscriptions* Month" %}:</dt>
-        <dd>{{ channel.subscription_count_month }}</dd>
+        <dd>{{ channel.stats.subscription_count_month }}</dd>
         <dt>{% trans "Subscriptions* Overall" %}:</dt>
-        <dd>{{ channel.subscription_count }}</dd>
-        {% if channel.subscription_count_today %}
+        <dd>{{ channel.stats.subscription_count_total }}</dd>
+        {% if channel.stats.subscription_count_today %}
         <dt class="ranking">{% trans "Popularity Rank Today" %}:</dt>
-        <dd>{{ channel.subscription_count_today_rank }}</dd>
+        <dd>{{ channel.stats.subscription_count_today_rank }}</dd>
         {% endif %}
-        {% if channel.subscription_count_month %}
+        {% if channel.stats.subscription_count_month %}
         <dt>{% trans "Popularity Rank Month" %}:</dt>
-        <dd>{{ channel.subscription_count_month_rank }}</dd>
+        <dd>{{ channel.stats.subscription_count_month_rank }}</dd>
         {% endif %}
-        {% if channel.subscription_count %}
+        {% if channel.stats.subscription_count_total %}
         <dt>{% trans "Popularity Rank Overall" %}:</dt>
-        <dd>{{ channel.subscription_count_rank }}</dd>
+        <dd>{{ channel.stats.subscription_count_rank }}</dd>
         {% endif %}
     </dl>
     <span>

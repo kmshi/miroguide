@@ -4,6 +4,7 @@ import sha
 import cgi
 from django.conf import settings
 from django.http import HttpResponse
+from django.utils.translation import ugettext as _
 from channelguide import util
 from channelguide.guide import api
 from channelguide.guide.auth import login_required
@@ -64,12 +65,10 @@ def data_for_channel(channel):
         for item in channel.items:
             items.append(data_for_item(item))
         data['item'] = tuple(items)
-    if hasattr(channel, 'subscription_count_today'):
-        data['subscription_count_today'] = channel.subscription_count_today
-    if hasattr(channel, 'subscription_count_month'):
-        data['subscription_count_month'] = channel.subscription_count_month
-    if hasattr(channel, 'subscription_count'):
-        data['subscription_count'] = channel.subscription_count
+    if getattr(channel, 'stats', None):
+        data['subscription_count_today'] = channel.stats.subscription_count_today
+        data['subscription_count_month'] = channel.stats.subscription_count_month
+        data['subscription_count'] = channel.stats.subscription_count_total
     if getattr(channel, 'rating', None):
         data['average_rating'] = channel.rating.average
     if hasattr(channel, 'score'):

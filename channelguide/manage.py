@@ -395,10 +395,10 @@ def refresh_popular_cache(args=None):
             cache.client.set(key, value, time)
     connection = db.connect()
     queries = [
-            (Channel.query_approved().load('subscription_count_today').order_by('subscription_count_today', desc=True).limit(7), 300),
+            (Channel.query_approved().join('stats').order_by('r_stats.subscription_count_today', desc=True).limit(7), 300),
            ]
     for cat in Category.query().execute(connection):
-        query = Channel.query_approved().load('subscription_count_month').join('categories').order_by('subscription_count_month', desc=True).limit(2)
+        query = Channel.query_approved().join('stats').join('categories').order_by('r_stats.subscription_count_month', desc=True).limit(2)
         query.joins['categories'].where(id=cat.id)
         queries.append((query, 300))
 

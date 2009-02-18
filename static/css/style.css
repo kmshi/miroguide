@@ -2424,7 +2424,7 @@ margin-top: -15px;
 }
 
 .channel-moderate .edit, .channel-moderate .edit-box {
-    margin: 0;
+    display: none;
 }
 
 .moderator-channel-list {

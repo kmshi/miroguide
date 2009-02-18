@@ -193,6 +193,11 @@ featured_email = Table('cg_channel_featured_email',
         columns.String('title', 100),
         columns.String('body'),
         columns.DateTime('timestamp', primary_key=True, default=datetime.now))
+generated_stats = Table('cg_channel_generated_stats',
+                        columns.Int('channel_id', fk=channel.c.id, primary_key=True),
+                        columns.Int('subscription_count_today'),
+                        columns.Int('subscription_count_month'),
+                        columns.Int('subscription_count_total'))
 generated_ratings = Table('cg_channel_generated_ratings',
         columns.Int('channel_id', fk=channel.c.id, primary_key=True),
         columns.Int('average'),
@@ -249,17 +254,7 @@ channel.add_subquery_column('item_count', """\
 SELECT COUNT(*)
 FROM cg_channel_item
 WHERE cg_channel_item.channel_id=#table#.id""")
-'''
-channel.add_subquery_column('count_rating', """\
-SELECT COUNT(rating)
-FROM cg_channel_rating JOIN user ON user.id=cg_channel_rating.user_id
-WHERE cg_channel_rating.channel_id=#table#.id AND user.approved=1""")
 
-channel.add_subquery_column('average_rating', """\
-SELECT IFNULL(ROUND(AVG(rating), 1), 0)
-FROM cg_channel_rating JOIN user ON user.id=cg_channel_rating.user_id
-WHERE cg_channel_rating.channel_id=#table#.id AND user.approved=1""")
-'''
 def make_subscription_count(name, timeline=None):
     if timeline is None:
         column = 'subscription_count_total'
@@ -267,26 +262,15 @@ def make_subscription_count(name, timeline=None):
         column = 'subscription_count_today'
     else:
         column = 'subscription_count_month'
-    sql = """SELECT %s FROM cg_channel_generated_stats WHERE
-channel_id=#table#.id""" % column
-#    if 1:#else:
-#        sql = """\
-        #SELECT COUNT(*)
-#FROM cg_channel_subscription
-#WHERE cg_channel_subscription.channel_id=#table#.id"""
-#        if timeline is not None:
-#            interval = "DATE_SUB(NOW(), INTERVAL 1 %s)" % timeline
-#            sql += " AND cg_channel_subscription.timestamp > %s" % interval
-    channel.add_subquery_column(name, sql)
     rank_names = ['subscription_count_total']
     if timeline != None:
         rank_names.append('subscription_count_month')
     if timeline == 'DAY':
         rank_names.append('subscription_count_today')
     rank_names.reverse()
-    rank_where = ' AND '.join(["%s > (SELECT %s FROM cg_channel_generated_stats WHERE channel_id=#table#.id)" % (n, n) for n in rank_names])
+    rank_where = ' AND '.join(["%s > (SELECT %s FROM cg_channel_generated_stats WHERE channel_id=#table#.channel_id)" % (n, n) for n in rank_names])
     rank_sql = "SELECT CONCAT(1+COUNT(*),'/',(SELECT COUNT(*) FROM cg_channel_generated_stats)) FROM cg_channel_generated_stats WHERE %s" % rank_where
-    channel.add_subquery_column(name+"_rank", rank_sql)
+    generated_stats.add_subquery_column(name+"_rank", rank_sql)
 
 make_subscription_count('subscription_count')
 make_subscription_count('subscription_count_today', 'DAY')
@@ -310,6 +294,7 @@ channel.one_to_many('user_subscriptions', added_channel, backref='channel')
 channel.one_to_many('items', item, backref='channel')
 channel.one_to_many('notes', channel_note, backref='channel')
 channel.one_to_one('search_data', channel_search_data, backref='channel')
+channel.one_to_one('stats', generated_stats, backref='channel')
 channel.one_to_one('rating', generated_ratings, backref='channel')
 item.one_to_one('search_data', item_search_data, backref='item')
 item.many_to_one('channel', channel, backref='item')

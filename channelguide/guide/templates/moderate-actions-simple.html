@@ -70,7 +70,7 @@ See LICENSE for details.
     {% endif %}
 {% else %}
 <li class="channel-action">
-    <form method="POST" action="{{ channel.get_url }} " onsubmit="showLoadIndicator();">
+    <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">
       <div>
         <input type="hidden" name="action" value="change-state">
         <input type="submit" name="submit" value="Approve">

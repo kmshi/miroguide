@@ -39,11 +39,10 @@ def get_popular_channels(request, count, language=None):
     lang = get_current_language(request)
     if lang is not None:
         query.where(Channel.c.primary_language_id==lang.id)
-    query.join('rating')
-    query.load('subscription_count_today')
-    query.order_by('subscription_count_today', desc=True)
+    query.join('rating', 'stats')
+    query.order_by(query.joins['stats'].c.subscription_count_today, desc=True)
     query.join('categories')
-    query.limit(count*30)
+    query.limit(count*3)
     query.cacheable = cache.client
     query.cacheable_time = 300
     result = query.execute(request.connection)
@@ -65,10 +64,8 @@ def get_new_channels(request, type, count):
         query.where(Channel.c.primary_language_id==lang.id)
         query.where(archived=0)
         query.order_by(Channel.c.approved_at, desc=True).limit(count * 3)
-        query.load('item_count')
     else:
-        query = Channel.query_new(archived=0, user=request.user).load(
-                'item_count').limit(count *3)
+        query = Channel.query_new(archived=0, user=request.user).limit(count *3)
     if type:
         query.where(Channel.c.url.is_not(None))
     else:
@@ -84,10 +81,9 @@ def get_categories(connection):
 def get_category_channels(request, category):
     category.join('channels').execute(request.connection)
     query = Channel.query_approved(archived=0, user=request.user)
-    query.join("categories")
+    query.join("categories", 'stats')
     query.where(Channel.c.id.in_(c.id for c in category.channels))
-    query.load('subscription_count_today')
-    query.order_by('subscription_count_today', desc=True)
+    query.order_by(query.joins['stats'].c.subscription_count_today, desc=True)
     query.limit(6)
 #    query.cacheable = cache.client
 #    query.cacheable_time = 300

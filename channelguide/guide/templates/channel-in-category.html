@@ -40,6 +40,6 @@ See LICENSE for details.
     <li>
       {% show_small_rating_stars channel %}
     </li>
-    <li class="subscribers">{{ channel.subscription_count_today|default:"0" }} Subscribed Today</li>
+    <li class="subscribers">{{ channel.stats.subscription_count_today|default:"0" }} Subscribed Today</li>
   </ul>
 </div>
