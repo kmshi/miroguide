@@ -669,7 +669,7 @@ Modify your channel and get stats here: %s#edit
 Currently we're managing your channel -- if you'd like to take control, view stats, and be able to change the images and details associated with it, please contact us at: support@pculture.org
 
 %s""" % (common_body, common_middle, common_footer)
-    if email_type == 'Feature':
+    if email_type in ('Feature', 'Refeature'):
         action = 'feature'
     elif email_type == 'Approve & Feature':
         action = 'change-state'
