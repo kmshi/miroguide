@@ -12,7 +12,7 @@ See LICENSE for details.
           <div>
             <input type="hidden" name="action" value="unfeature">
               {% ifequal channel.featured_queue.state channel.featured_queue.PAST %}
-              <input type="submit" value="Refeature">
+              <input class="email-form" type="submit" value="Refeature">
               {% else %}
               <input type="submit" value="Unfeature">
               {% endifequal %}
