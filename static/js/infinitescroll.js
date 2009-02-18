@@ -1,5 +1,7 @@
 function infiniteCallback(data, textStatus) {
-    results = $('.scrolling', data);
+    newBody = $("<div/>").append(
+        RegExp("<body[^\>]*>([\\s\\w\\W]*)\<\/body\>", "g").exec(data)[1]);
+    results = $('.scrolling', newBody);
     // XXX this doesn't handle the case where there are more shows than feeds
     for (i=0; i < 2; i++) {
         items = results.eq(i).children('li:gt(0)');
@@ -10,7 +12,7 @@ function infiniteCallback(data, textStatus) {
         $('.scrolling').eq(i).append(items);
     }
     $('ul.paginator, ul.paginator2').replaceWith(
-        $('ul.paginator, ul.paginator2', data));
+        $('ul.paginator, ul.paginator2', newBody));
     checkScroll.loading = false;
     add_corners();
     hideLoadIndicator();
