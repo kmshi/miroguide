@@ -196,7 +196,7 @@ class User(UserBase, Record):
         return ', '.join(locs)
 
     def has_im(self):
-        return self.im_username or True
+        return self.im_username or False
 
     def get_im(self):
         if not self.has_im():

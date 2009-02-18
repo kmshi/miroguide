@@ -45,7 +45,7 @@ class ItemObjectList(templateutil.QueryObjectList):
             self.connection))
 
 class ApiObjectList:
-    def __init__(self, request, filter, value, sort, loads, country_code):
+    def __init__(self, request, filter, value, sort, loads, country_code=None):
         self.request = request
         self.filter = filter
         self.value = value
@@ -571,9 +571,6 @@ def for_user(request, user_name_or_id):
     expected_path = '/user/%s' % user.username
     if request.path != expected_path:
         return util.redirect(expected_path)
-    query = Channel.query(owner_id=user.id, user=request.user)
-    query.join('owner', 'last_moderated_by', 'featured_queue', 'featured_queue.featured_by')
-    query.order_by(Channel.c.name)
     if request.user.is_admin() or request.user.id == user.id:
         try:
             cobrand = Cobranding.get(request.connection, user.username)
@@ -581,13 +578,42 @@ def for_user(request, user_name_or_id):
             cobrand = None
     else:
         cobrand = None
-    paginator = Paginator(templateutil.QueryObjectList(request.connection,
-                                                       query), 10)
-    page = paginator.page(request.GET.get('page', 1))
+
+    page = request.GET.get('page', 1)
+
+    feed_object_list = FeedObjectList(request, 'user', user.username, 'name',
+                                      ('stats', 'rating'))
+    feed_paginator = Paginator(feed_object_list, 10)
+    try:
+        feed_page = feed_paginator.page(page)
+    except InvalidPage:
+        feed_page = None
+
+    site_object_list = SiteObjectList(request, 'user', user.username, 'name',
+                                      ('stats', 'rating'))
+    site_paginator = Paginator(site_object_list, 10)
+    try:
+        site_page = site_paginator.page(page)
+    except InvalidPage:
+        site_page = None
+
+    # find the biggest paginator and use that page for calculating the links
+    if not feed_paginator:
+        biggest = site_page
+    elif not site_paginator:
+        biggest = feed_page
+    elif feed_paginator.count > site_paginator.count:
+        biggest = feed_page
+    else:
+        biggest = site_page
+
     return util.render_to_response(request, 'for-user.html', {
         'for_user': user,
+        'title': _("Shows for %s") % user.username,
         'cobrand': cobrand,
-        'page': page,
+        'biggest': biggest,
+        'feed_page': feed_page,
+        'site_page': site_page,
         })
 
 @login_required

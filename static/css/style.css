@@ -4368,6 +4368,10 @@ a.large_button span {
     padding: 20px;
 }
 
+.user-info {
+    width: 775px;
+    margin: 0 auto;
+}
 
 .login-page {
     width: 770px;
