@@ -126,7 +126,6 @@
             {% for channel in feed_page.object_list %}
               <li>
                 {% if forloop.first %}<a name="{{ feed_page.number }}"></a>{% endif %}
-                {% ifequal feed_page.paginator.object_list.sort "-popular" %}<span class="popular-index">{{ forloop.counter0|add:feed_page.start_index }}.</span>{% endifequal %}
                 {% include "guide/channel-in-listing.html" %}
               </li>
             {% endfor %}

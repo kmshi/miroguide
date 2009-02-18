@@ -65,6 +65,12 @@ def get_channels_query(request, filter, value, sort=None,
             query.where(Channel.c.url.is_not(None))
         else:
             query.where(Channel.c.url.is_(None))
+    elif filter == 'user':
+        try:
+            user_id = User.query(username=value).get(connection).id
+        except LookupError:
+            return None
+        query.where(owner_id=user_id)
     elif filter == 'name':
         if value:
             query.where(Channel.c.name.like(value + '%'))
