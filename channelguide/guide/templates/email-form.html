@@ -24,11 +24,7 @@ See LICENSE for details.
         <textarea cols=70 rows=8 name="body">{{ body }}</textarea>
         <div>
             <label for="email">{% trans "send e-mail to" %}</label>
-            {% ifequal channel.owner.email "Dean@NottheMessiah.net" %}
-            <input type="text" name="email" value="">
-            {% else %}
-            <input type="text" name="email" value="{{ channel.owner.email }}">
-            {% endifequal %}
+            <input type="text" name="email" value="{{ email }}">
             <input class="submit" type="submit" value="{% trans "Send" %}">
         </div>
     </form>
@@ -40,9 +36,9 @@ See LICENSE for details.
     </form>
     {% endif %}
     <span>
-    {% ifequal channel.owner.email "Dean@NottheMessiah.net" %}
+    {% if not email %}
     {% trans "* This show has been added by us. You can hunt for the producer's email address here:" %} <a target="_blank" {% link channel.website_url %}>{{ channel.website_url }}</a>
-    {% endifequal %}
+    {% endif %}
     </span>
 </div>
 {% endblock %}
