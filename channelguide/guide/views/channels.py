@@ -706,9 +706,17 @@ Currently we're managing your channel -- if you'd like to take control, view sta
         skipable = False
     else:
         raise Http404
+    if action != 'reject' and channel.owner.email != 'Dean@NottheMessiah.net':
+        email = channel.owner.email
+    else:
+        email = ''
     return util.render_to_response(request, 'email-form.html',
-            {'channel': channel, 'type': email_type,
-                'action': action, 'body': body, 'skipable': skipable})
+                                   {'channel': channel,
+                                    'type': email_type,
+                                    'action': action,
+                                    'body': body,
+                                    'email': email,
+                                    'skipable': skipable})
 
 @admin_required
 def moderator_history(request):
