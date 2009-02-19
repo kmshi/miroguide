@@ -4,6 +4,7 @@ See LICENSE for details.
 {% endcomment %}
 {% load cg_helpers channels i18n %}
 <div class="channel channel-moderate">
+    {% include "guide/edit-bar.html" %}
     {% twocolumns %}
         <div class="screenshot">
             <a href="{{ channel.get_url }}">
@@ -52,8 +53,5 @@ See LICENSE for details.
         </div>
         {% endif %}
     {% endtwocolumns %}
-    {% if user.is_moderator %}
-      {% include "guide/edit-bar.html" %}
-      {% include "guide/moderate-actions.html" %}
-    {% endif %}
+    {% include "guide/moderate-actions.html" %}
 </div>
