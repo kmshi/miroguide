@@ -474,7 +474,7 @@ def rate(request, id):
         redirect = channel.get_absolute_url()
     return HttpResponseRedirect(redirect)
 
-@cache.aggresively_cache
+@cache.cache_with_sites
 def filtered_listing(request, value=None, filter=None, limit=10,
                      title='Filtered Listing', default_sort=None):
     if not filter:

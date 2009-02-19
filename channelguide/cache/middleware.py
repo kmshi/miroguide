@@ -7,6 +7,8 @@ from django.conf import settings
 
 import client
 
+from channelguide import util
+
 def date_time_string(timestamp=None):
     """return the current date and time formatted for a message header."""
     if timestamp is None:
@@ -205,3 +207,22 @@ class AggressiveCacheMiddleware(UserCacheMiddleware):
         cached_response.content += new_account_bar
         cached_response.content += tail
         return cached_response"""
+
+
+class SiteHidingCacheMiddleware(AggressiveCacheMiddleware):
+    """
+    This middleware caches pages which might hide sites from old Miro users or
+    Miro users on Linux.
+    """
+    def get_cache_key_tuple(self, request):
+        # XXX to a certain extent, this is copied from
+        # XXX channelguide/guide/views/channels.py:filtered_listing
+        miro_version_pre_sites = miro_linux = False
+        miro_version = util.get_miro_version(request.META.get('HTTP_USER_AGENT'))
+        if miro_version and int(miro_version.split('.')[0]) < 2:
+            miro_version_pre_sites = True
+        if miro_version and 'X11' in request.META.get('HTTP_USER_AGENT', ''):
+            miro_linux = True
+
+        return UserCacheMiddleware.get_cache_key_tuple(self, request) + (
+            miro_version_pre_sites, miro_linux)
