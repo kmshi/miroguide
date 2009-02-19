@@ -2387,7 +2387,7 @@ margin-top: -15px;
 
 .channel-list {
     padding-left: 0;
-    margin-top: 25px;
+    margin-top: -36px;
 }
 
 .channel-moderate {
@@ -2423,16 +2423,12 @@ margin-top: -15px;
     background-color: #e04c4c;
 }
 
-.channel-moderate .edit, .channel-moderate .edit-box {
-    display: none;
-}
-
 .moderator-channel-list {
     width: 820px;
     margin: 0 auto;
 }
 
-#hover_align + .edit, .edit-box {
+.edit, .edit-box {
     width: 794px;
     background:#FFF49E none repeat scroll 0 0;
     color:#6D6D6D;
@@ -2441,7 +2437,7 @@ margin-top: -15px;
     padding:5px 10px 2px;
 }
 
-#hover_align + .edit h2 {
+.edit h2 {
     background:transparent url(../images/arrow-right.png) no-repeat scroll left center;
     cursor:pointer;
     float:left;
@@ -2450,15 +2446,15 @@ margin-top: -15px;
     padding-left:20px;
 }
 
-#hover_align + .edit.open h2 {
+.edit.open h2 {
     background-image: url(../images/arrow-down.png);
 }
 
-#hover_align + .edit.loading h2 {
+.edit.loading h2 {
     background-image: url(../images/load-indicator.gif);
 }
 
-#hover_align + .edit h3 {
+.edit h3 {
     font-size: 90%;
     font-weight: normal;
     float: right;
@@ -2672,7 +2668,6 @@ ul.paginator li {
     display: inline;
     background: url(../images/pagination_off_left.png) 0 0 no-repeat;
     height: 24px;
-    padding: 0 0 0 10px;
     font-size: 11px;
     line-height: 24px;
     margin: 0 2px;
@@ -2689,6 +2684,7 @@ ul.paginator li:hover span{
 
 ul.paginator li a {
     color: #818181;
+    padding: 7px 10px 4px;
 }
 
 ul.paginator li.tag {
@@ -2701,7 +2697,6 @@ ul.paginator li span {
     background: url(../images/pagination_off_right.png) right 0 no-repeat;
     display: block;
     height: 24px;
-    padding: 0 10px 0 0;
     float: left;
     display: inline;
 }

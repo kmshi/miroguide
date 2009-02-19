@@ -9,7 +9,7 @@
 
 {% block content %}
   <div class="moderator-channel-list">
-    <ul class="paginator">
+    <ul class="paginator2">
       {% pagelinks page %}
     </ul>
     <h1>{{ header }}</h1>
@@ -19,6 +19,10 @@
          <li>{% include "guide/channel-moderate.html" %}</li>
        {% endfor %}
       </ul>
+    <ul class="paginator">
+      {% pagelinks page %}
+    </ul>
+
       {{ subscribe_all_link }}
   </div>
 {% endblock %}
