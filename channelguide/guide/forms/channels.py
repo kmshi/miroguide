@@ -353,7 +353,7 @@ class SubmitChannelForm(Form):
             return value
         if value == self.fields['website_url'].initial:
             return value
-        if Channel.query(website_url=value).count(self.connection) > 0:
+        if Channel.query(website_url=value, url=None).count(self.connection) > 0:
             raise forms.ValidationError(
                 _('That streaming site already exists.'))
         return value
