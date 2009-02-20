@@ -339,7 +339,8 @@ class Channel(Record, Thumbnailable):
         if not items:
             return
         if self.state == Channel.SUSPENDED and self.approved_at:
-            self.state = Channel.APPROVED
+            miroguide = User.query(username='miroguide').get(connection)
+            self.change_state(miroguide, Channel.APPROVED, connection)
         items.sort(key=lambda x: x.date)
         latest = items[-1].date
         if (datetime.now() - latest).days > 90:
