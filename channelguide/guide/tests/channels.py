@@ -657,10 +657,32 @@ Errors: %s""" % (response.status_code, errors)
 
     def test_url_unique(self):
         channel = self.make_channel(self.joe)
-        self.login()
+        self.login_and_submit_url()
         response = self.submit_url(channel.url)
         channel2 = response.context[0]['channel']
         self.assertEquals(channel.id, channel2.id)
+
+    def test_website_url_not_unique_for_feed(self):
+        channel = self.make_channel(self.joe)
+        self.login_and_submit_url()
+        response = self.submit(website_url=channel.website_url)
+        self.check_submit_worked(response)
+
+    def test_website_url_unique_for_site(self):
+        channel = self.make_channel(self.joe)
+        channel.url = None
+        self.save_to_db(channel)
+        mod = self.make_user('moderator', role=User.MODERATOR)
+        TestCase.login(self, mod)
+        self.post_data('/submit/step1', {'name': 'New Site'})
+        response = self.submit(dont_send='url', website_url=channel.website_url)
+        self.assertEquals(response.context[0]['form'].errors.keys(),
+                          ['website_url'])
+        # should work if the other channel is a feed
+        channel.url = 'http://www.myblog.com/'
+        self.save_to_db(channel)
+        response = self.submit(dont_send='url', website_url=channel.website_url)
+        self.check_submit_worked(response)
 
 class ModerateChannelTest(ChannelTestBase):
     """Test the moderate channel web page."""
