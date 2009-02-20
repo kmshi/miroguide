@@ -55,7 +55,7 @@ var browser = {
         thumb = show.find('.searchThumb a');
         url = '/feeds/' + data['id'];
         STATIC_BASE_URL = /(.*)media\/thumbnails\//.exec(data['thumbnail_url'])[1];
-        thumb_url = data['thumbnail_url'].replace('370x247', '98x65');
+        thumb_url = data['thumbnail_url'].replace('370x247', '97x65');
         thumb.attr('href', url);
         thumb.children('span').css('background-image', 'url(' + thumb_url + ')').children('img.hd_tag_tiny2').remove();
         if (data['hi_def']) {
