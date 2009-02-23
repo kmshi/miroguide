@@ -272,6 +272,8 @@ class ChannelItemTest(ChannelTestBase):
 
     def update_channel(self):
         """
+        Refresh the default channel and rejoin the items.  Useful for
+        refreshing before update_items().
         """
         self.channel = self.refresh_record(self.channel)
         self.channel.join('items').execute(self.connection)
@@ -359,6 +361,7 @@ class ChannelItemTest(ChannelTestBase):
 
     def test_suspending_invalid_feed(self):
         """
+        Invalid feeds should be marked as suspended when updated.
         """
         self.channel.update_items(self.connection,
                                   feedparser_input=open(test_data_path('badfeed.html')))
@@ -367,6 +370,7 @@ class ChannelItemTest(ChannelTestBase):
 
     def test_suspending_empty_feed(self):
         """
+        Empty feeds (no items) should be marked as suspended when updated.
         """
         self.channel.update_items(self.connection,
                                   feedparser_input=open(test_data_path('emptyfeed.xml')))
@@ -375,6 +379,8 @@ class ChannelItemTest(ChannelTestBase):
 
     def test_unsuspending_feed(self):
         """
+        If a formerly suspended feed is updated and works, it should return to
+        its old state.
         """
         self.assertEquals(self.channel.state, Channel.NEW)
         self.channel.update_items(self.connection,
@@ -387,6 +393,8 @@ class ChannelItemTest(ChannelTestBase):
 
     def test_unsuspending_approved_feed(self):
         """
+        If a suspended feed was previously approved, it should be approved
+        again after suspension.
         """
         self.channel.change_state(self.ralph, Channel.APPROVED, self.connection)
         self.update_channel()
@@ -408,6 +416,7 @@ class ChannelItemTest(ChannelTestBase):
 
     def test_suspend_is_logged_invalid_feed(self):
         """
+        Suspending an invalid feed should be logged as a moderator action.
         """
         self.channel.update_items(self.connection,
                                   feedparser_input=open(test_data_path('badfeed.html')))
@@ -417,6 +426,7 @@ class ChannelItemTest(ChannelTestBase):
 
     def test_suspend_is_logged_empty(self):
         """
+        Suspending an empty feed should be logged as a moderator action.
         """
         self.channel.update_items(self.connection,
                                   feedparser_input=open(test_data_path('emptyfeed.xml')))
@@ -426,6 +436,8 @@ class ChannelItemTest(ChannelTestBase):
 
     def test_suspend_only_once(self):
         """
+        A second update_items() call (say, the next evening) should not result
+        in a second moderator action.
         """
         self.channel.update_items(self.connection,
                                   feedparser_input=open(test_data_path('badfeed.html')))
@@ -437,6 +449,9 @@ class ChannelItemTest(ChannelTestBase):
         self.assertEquals(self.channel.moderator_actions[-1].action, Channel.SUSPENDED)
 
     def test_good_feeds_not_suspended(self):
+        """
+        Test that some known-good feeds aren't marked as suspended.
+        """
         self.channel.change_state(self.ralph, Channel.APPROVED, self.connection)
         self.update_channel()
         names = ['casthduk.xml', 'tagesschau.xml', 'feedMOV480.xml', 'thisrevolution.xml',
@@ -450,6 +465,9 @@ class ChannelItemTest(ChannelTestBase):
                               'suspended %r by mistake' % name)
 
     def test_bad_feeds_are_suspended(self):
+        """
+        Test that some known-bad feeds are marked as suspended.
+        """
         names = ['24x7_podcasts.xml']
         for name in names:
             self.channel.change_state(self.ralph, Channel.APPROVED, self.connection)
