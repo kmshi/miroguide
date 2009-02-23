@@ -24,7 +24,8 @@ def get_first_video_enclosure(entry):
     for enclosure in enclosures:
         if has_video_type(enclosure):
             return enclosure
-        if filetypes.isAllowedFilename(enclosure['href']):
+        if 'href' in enclosure and filetypes.isAllowedFilename(
+            enclosure['href']):
             return enclosure
     return None
 
