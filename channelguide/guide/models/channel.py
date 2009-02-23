@@ -300,7 +300,7 @@ class Channel(Record, Thumbnailable):
         try:
             if feedparser_input is None:
                 parsed = self.download_feed()
-                if parsed is None:
+                if parsed is None and self.state != Channel.SUSPENDED:
                     self._check_archived(connection)
                     return
             else:
