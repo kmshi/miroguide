@@ -309,12 +309,6 @@ class Channel(Record, Thumbnailable):
         except:
             logging.exception("ERROR parsing %s" % self.url)
         else:
-            if parsed.bozo:
-                miroguide = User.query(username='miroguide').get(connection)
-                self.archived = True
-                self.change_state(miroguide, Channel.SUSPENDED, connection)
-                self.save(connection)
-                return
             items = []
             for entry in parsed.entries:
                 try:
@@ -328,19 +322,30 @@ class Channel(Record, Thumbnailable):
         if self.items:
             self._check_archived(connection)
         else:
-            miroguide = User.query(username='miroguide').get(connection)
             self.archived = True
+            miroguide = User.query(username='miroguide').get(connection)
             self.change_state(miroguide, Channel.SUSPENDED, connection)
-            self.save(connection)
 
     def _check_archived(self, connection):
         latest = None
+        if self.state == Channel.SUSPENDED:
+            # we can unsuspend, since we've got items
+            self.join('moderator_actions', 'moderator_actions.user').execute(connection)
+            if len(self.moderator_actions) == 1: # was a NEW feed
+                self.state = Channel.NEW
+                self.last_moderated_by_id = None
+            else:
+                last_action = self.moderator_actions[-2]
+                self.state = last_action.action
+                self.last_moderated_by_id = last_action.user_id
+                if self.state == Channel.APPROVED:
+                    self.approved_at = last_action.timestamp
+                ModeratorAction(last_action.user, self,
+                                last_action.action).save(connection)
+            self.save(connection)
         items = [item for item in self.items if item.date is not None]
         if not items:
             return
-        if self.state == Channel.SUSPENDED and self.approved_at:
-            miroguide = User.query(username='miroguide').get(connection)
-            self.change_state(miroguide, Channel.APPROVED, connection)
         items.sort(key=lambda x: x.date)
         latest = items[-1].date
         if (datetime.now() - latest).days > 90:
@@ -397,6 +402,9 @@ class Channel(Record, Thumbnailable):
         return util.make_link(self.website_url, url_label)
 
     def change_state(self, user, newstate, connection):
+        if self.state == newstate and self.last_moderated_by_id == user.id:
+            self.save(connection)
+            return
         self.state = newstate
         if newstate == self.APPROVED:
             self.approved_at = datetime.now()
@@ -410,10 +418,7 @@ class Channel(Record, Thumbnailable):
             self.join('items').execute(connection)
             self.update_items(connection)
         else:
-            if newstate == self.SUSPENDED:
-                self.feed_etag = self.feed_modified = None
-            else:
-                self.approved_at = None
+            self.approved_at = None
         self.last_moderated_by_id = user.id
         self.save(connection)
         ModeratorAction(user, self, newstate).save(connection)
