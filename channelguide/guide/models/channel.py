@@ -276,8 +276,7 @@ class Channel(Record, Thumbnailable):
                 item.save(connection)
 
     def download_feed(self):
-        if self.feed_modified and self.state not in (Channel.SUSPENDED,
-                                                     Channel.BROKEN):
+        if self.feed_modified:
             modified = self.feed_modified.timetuple()
         else:
             modified = None
