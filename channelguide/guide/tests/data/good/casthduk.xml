@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
+  <channel>
+    <title>ScienceXplorer HD / English</title>
+    <link>http://www.sciencexplorer.org</link>
+    <description>Xplore the world of physics and astronomy by joining the researchers in their quest to discover the mysterious Universe, missions to Mars, in the arctic cold in Greenland, and in the world’s largest particle accelerator in CERN. Produced by the Niels Bohr Institute, ScienceXplorer.org</description>
+    <generator>Feeder 1.5.7(628) http://reinventedsoftware.com/feeder/</generator>
+    <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+    <language>en</language>
+    <copyright>Niels Bohr Institute - University of Copenhagen - All Rights Reserved</copyright>
+    <managingEditor>nbicast@nbi.dk (Niels Bohr Institute)</managingEditor>
+    <webMaster>nbicast@nbi.dk (Niels Bohr Institute)</webMaster>
+    <pubDate>Wed, 10 Dec 2008 23:32:18 +0100</pubDate>
+    <lastBuildDate>Wed, 10 Dec 2008 23:32:18 +0100</lastBuildDate>
+    <image>
+      <url>http://cast.nbi.ku.dk/images/hduk/channellogo144.jpg</url>
+      <title>ScienceXplorer HD / English</title>
+      <link>http://www.sciencexplorer.org</link>
+      <width>144</width>
+      <height>144</height>
+      <description>Xplore the world of physics and astronomy by joining the researchers in their quest to discover the mysterious Universe, missions to Mars, in the arctic cold in Greenland, and in the world’s largest particle accelerator in CERN. Produced by the Niels Bohr Institute, ScienceXplorer.org</description>
+    </image>
+    <atom:link href="http://cast.nbi.ku.dk/casthduk.xml" rel="self" type="application/rss+xml"/>
+    <itunes:author>Niels Bohr Institute (nbicast@nbi.dk)</itunes:author>
+    <itunes:summary>Xplore the world of physics and astronomy with scientists from the Niels Bohr Institute, University of Copenhagen. Join the researchers in the arctic cold in Greenland, in their quest to discover the mysterious Universe, missions to Mars and in the world’s largest particle accelerator in CERN.</itunes:summary>
+    <itunes:keywords>niels, bohr, nbi, physics, science, hd, copenhagen, denmark, xplorer, universe, cern</itunes:keywords>
+    <itunes:explicit>clean</itunes:explicit>
+    <itunes:image href="http://cast.nbi.ku.dk/images/hduk/channellogo.jpg"/>
+    <itunes:owner>
+      <itunes:name>Niels Bohr Institute</itunes:name>
+      <itunes:email>nbicast@nbi.dk</itunes:email>
+    </itunes:owner>
+    <itunes:new-feed-url>http://cast.nbi.ku.dk/casthduk.xml</itunes:new-feed-url>
+    <itunes:block>no</itunes:block>
+    <itunes:category text="Science &amp; Medicine">
+      <itunes:category text="Natural Sciences"/>
+    </itunes:category>
+    <itunes:category text="Education">
+      <itunes:category text="Higher Education"/>
+    </itunes:category>
+    <item>
+      <title>NBI NEWS: GOLDEN SPIKE IN ICE CORE</title>
+      <link>http://www.nbi.ku.dk/english/sciencexplorer/golden_spike_in_ice_core/</link>
+      <description><![CDATA[<p>The Ice and Climate research team at Niels Bohr Institute at the University of Copenhagen has led the NordGRIP project, which drilled a column of ice core all the way from the top of the inland ice through more than 3 kilometers of ice – down to the bottom.</p>
+
+<p>The ice contains information about past climates, something that has gained an entirely new significance – in the determination of the geological ages of the Earth.</p>
+
+<p>For the ice can answer a geological question that nobody else has been able to answer before – that is to establish the precise time that the last glacial period ended and the warmer present-day climate began.</p>
+
+<p><a href="http://sciencexplorer.org" title="The Niels Bohr Institute - ScienceXplorer.org">The Niels Bohr Institute - ScienceXplorer.org</a></p>
+
+<p><img src="http://cast.nbi.ku.dk/video/news/golden_spike_in_ice_core.jpg" alt="GOLDEN SPIKE IN ICE CORE" title="GOLDEN SPIKE IN ICE CORE" height="284" width="505" align="left" /></p>]]></description>
+      <pubDate>Wed, 10 Dec 2008 16:25:36 +0100</pubDate>
+      <enclosure url="http://cast.nbi.ku.dk/video/news/golden_spike_in_ice_core_720p.mp4" length="285758172" type="video/mp4"/>
+      <guid isPermaLink="false">nbi-news-golden-spike-in-ice-core</guid>
+      <itunes:author>Niels Bohr Institute (nbicast@nbi.dk)</itunes:author>
+      <itunes:summary>The Ice and Climate research team at Niels Bohr Institute at the University of Copenhagen has led the NordGRIP project, which drilled a column of ice core all the way from the top of the inland ice through more than 3 kilometers of ice – down to the bottom.
+
+The ice contains information about past climates, something that has gained an entirely new significance – in the determination of the geological ages of the Earth.
+
+For the ice can answer a geological question that nobody else has been able to answer before – that is to establish the precise time that the last glacial period ended and the warmer present-day climate began.</itunes:summary>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:duration>7:23</itunes:duration>
+      <media:thumbnail url="http://cast.nbi.ku.dk/images/golden_spike_in_ice_core_505.jpg"/>
+    </item>
+    <item>
+      <title>EDUCATION: FIRST CLASS PHYSICS</title>
+      <link>http://www.nbi.ku.dk/english/sciencexplorer/first_class_physics/</link>
+      <description><![CDATA[<p>The physics students at the Niels Bohr Institute are now being taught in a whole new way, which has given fantastically good results. The traditional form of teaching with lectures in large auditoriums is being supplemented with physics experiments, where the students themselves work with the experiments. This has resulted in a very high pass rate.   </p>
+
+<p>Produced by: <a href="http://sciencexplorer.org" title="The Niels Bohr Institute / ScienceXplorer.org">The Niels Bohr Institute / ScienceXplorer.org</a> </p>
+
+<p>Duration: 11 minutes 59 seconds 
+<br />Language: English 
+<br />Format: 720p HD</p>
+
+<p><img src="http://cast.nbi.ku.dk/images/hduk/first_class_physics.jpg" alt="FIRST CLASS PHYSICS" /></p>]]></description>
+      <pubDate>Tue, 21 Oct 2008 10:42:39 +0200</pubDate>
+      <enclosure url="http://cast.nbi.ku.dk/video/hduk/first_class_physics_720p.mp4" length="344444573" type="video/mp4"/>
+      <guid isPermaLink="false">education-first-class-physics</guid>
+      <itunes:author>Niels Bohr Institute (nbicast@nbi.dk)</itunes:author>
+      <itunes:summary>The physics students at the Niels Bohr Institute are now being taught in a whole new way, which has given fantastically good results. The traditional form of teaching with lectures in large auditoriums is being supplemented with physics experiments, where the students themselves work with the experiments. This has resulted in a very high pass rate.   </itunes:summary>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:duration>11:59</itunes:duration>
+      <media:thumbnail url="http://cast.nbi.ku.dk/images/hduk/first_class_physics.jpg"/>
+    </item>
+    <item>
+      <title>ATOMIC PHYSICS: The ALICE Detector - Part 2</title>
+      <link>http://www.nbi.ku.dk/english/sciencexplorer/the_alice_detector_2/</link>
+      <description><![CDATA[<p>Follow the researchers from the Niels Bohr Institute in their work at CERN installing the extremely sensitive detector that will catch particles at millionths of a nanometre to solve the mysteriums of our gigantic Universe.</p>
+
+<p>Produced by: <a href="http://www.nbi.ku.dk/english/sciencexplorer/" title="The Niels Bohr Institute">The Niels Bohr Institute  / ScienceXplorer.org
+<br />
+</a>
+<br />Duration: 13 minutes 20 seconds 
+<br />Language: English 
+<br />Format: 720p HD</p>
+
+<p><img src="http://cast.nbi.ku.dk/images/hduk/thealicedetector2.jpg" alt="The ALICE Detector Part 2" /></p>]]></description>
+      <pubDate>Fri, 08 Aug 2008 14:13:26 +0200</pubDate>
+      <enclosure url="http://cast.nbi.ku.dk/video/hduk/111-alice2-720p.mp4" length="362645502" type="video/mp4"/>
+      <guid isPermaLink="false">atomic-physics-the-alice-detector-part-2</guid>
+      <itunes:author>Niels Bohr Institute (nbicast@nbi.dk)</itunes:author>
+      <itunes:summary>Follow the researchers from the Niels Bohr Institute in their work at CERN installing the extremely sensitive detector that will catch particles at millionths of a nanometre to solve the mysteriums of our gigantic Universe.
+
+Produced by: The Niels Bohr Institute  / ScienceXplorer.org
+
+Duration: 13 minutes 20 seconds 
+Language: English 
+Format: 720p HD
+</itunes:summary>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:duration>13:20</itunes:duration>
+      <media:thumbnail url="http://cast.nbi.ku.dk/images/hduk/thealicedetector2.jpg"/>
+    </item>
+    <item>
+      <title>ATOMIC PHYSICS: The ALICE Detector - Part 1</title>
+      <link>http://www.nbi.ku.dk/english/sciencexplorer/the_alice_detector_1/</link>
+      <description><![CDATA[<p>For the last four years, high energy nuclear physicists from the Niels Bohr Institute have been designing and building a detector that will resolve some of the mystery about the origin of the Universe – the creation of matter and the fundamental forces of physics.</p>
+
+<p>Produced by: <a href="http://www.nbi.ku.dk/english/" title="The Niels Bohr Institute">The Niels Bohr Institute  / ScienceXplorer.org
+<br />
+</a>
+<br />Duration: 10 minutes 20 seconds 
+<br />Language: English 
+<br />Format: 720p HD</p>
+
+<p><img src="http://cast.nbi.ku.dk/images/hduk/alicedetector1_miro.jpg" alt="The Alice Detector - Part One" /></p>]]></description>
+      <pubDate>Fri, 08 Aug 2008 13:20:33 +0200</pubDate>
+      <enclosure url="http://cast.nbi.ku.dk/video/hduk/109-alice1-720p.mp4" length="203880567" type="video/mp4"/>
+      <guid isPermaLink="false">atomic-world-the-alice-detector-part-one-1</guid>
+      <itunes:author>Niels Bohr Institute (nbicast@nbi.dk)</itunes:author>
+      <itunes:summary>For the last four years, high energy nuclear physicists from the Niels Bohr Institute have been designing and building a detector that will resolve some of the mystery about the origin of the Universe – the creation of matter and the fundamental forces of physics.
+
+Produced by: The Niels Bohr Institute / ScienceXplorer.org
+Duration: 10 minutes 20 seconds 
+Language: English 
+Format: 720p HD</itunes:summary>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:duration>10:22</itunes:duration>
+      <media:thumbnail url="http://cast.nbi.ku.dk/images/hduk/alicedetector1_miro.jpg"/>
+    </item>
+    <item>
+      <title>SPACE WATCH: OUR COSMIC ROOTS</title>
+      <link>http://www.nbi.ku.dk/english/sciencexplorer/our_cosmic_roots/</link>
+      <description><![CDATA[<p>By scrutinizing images from the Hubble Ultra Deep Field – the deepest images of the sky ever made – researchers have gained fascinating new insights into the distant universe. Knowledge about our cosmic roots.</p>
+
+<p>Produced by: <a href="http://www.nbi.ku.dk/english/" title="The Niels Bohr Institute">The Niels Bohr Institute  / ScienceXplorer.org
+<br />
+</a>
+<br />Duration: 7 minutes 20 seconds 
+<br />Language: English 
+<br />Format: 720p HD</p>
+
+<p><img src="http://cast.nbi.ku.dk/images/hduk/ourcosmicroots_miro.jpg" alt="Our Cosmic Roots" /></p>]]></description>
+      <pubDate>Fri, 08 Aug 2008 13:17:26 +0200</pubDate>
+      <enclosure url="http://cast.nbi.ku.dk/video/hduk/108-cosmic-720p.mp4" length="106211248" type="video/mp4"/>
+      <guid isPermaLink="false">space-watch-our-cosmic-roots-1</guid>
+      <itunes:author>Niels Bohr Institute (nbicast@nbi.dk)</itunes:author>
+      <itunes:summary>By scrutinizing images from the Hubble Ultra Deep Field – the deepest images of the sky ever made – researchers have gained fascinating new insights into the distant universe. Knowledge about our cosmic roots.
+
+Produced by: The Niels Bohr Institute / ScienceXplorer.org
+Duration: 7 minutes 20 seconds 
+Language: English 
+Format: 720p HD</itunes:summary>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:duration>7:20</itunes:duration>
+      <media:thumbnail url="http://cast.nbi.ku.dk/images/hduk/ourcosmicroots_miro.jpg"/>
+    </item>
+  </channel>
+</rss>

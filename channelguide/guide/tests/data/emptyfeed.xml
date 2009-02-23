@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+<channel>
+<title>Rocketboom RSS 2.0 Main Index</title>
+<link>http://www.rocketboom.com/vlog/</link>
+<description>Daily with Joanne Colan</description>
+<copyright>Copyright 2006</copyright>
+<lastBuildDate>Wed, 13 Dec 2006 08:44:56 -0500</lastBuildDate>
+<generator>http://www.movabletype.org/?v=3.33</generator>
+        <image> 
+      <url>http://www.getmiro.com/images/img_logo.gif</url>
+      <title>Rocketboom, yea!</title> 
+      <link>http://www.rocketboom.com</link> 
+    </image> 
+</channel>
+</rss>
