@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="http://streaming.tagesschau.de/tagesschau/videopodcast.xsl" type="text/xsl"?>
+<rss version="2.0"
+xmlns:content="http://purl.org/rss/1.0/modules/content/"
+xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+<channel>
+<title>Tagesschau Video-Podcast</title>
+<link>http://www.tagesschau.de</link>
+<description>Deutschlands erfolgreichste Nachrichtensendung als Video-Podcast.</description>
+<language>de</language>
+<copyright>Copyright 2007, tagesschau.de, ARD-aktuell</copyright>
+<pubDate>Mon, 23 Feb 2009 20:30:51 +0100</pubDate>
+<lastBuildDate>Mon, 23 Feb 2009 20:30:51 +0100</lastBuildDate>
+<image>
+<url>http://www.tagesschau.de/image/podcast/ts-140.jpg</url>
+<title>tagesschau.de</title>
+<link>http://www.tagesschau.de</link>
+</image>
+<itunes:image href="http://www.tagesschau.de/image/podcast/ts-140.jpg" />
+<managingEditor>redaktion@tagesschau.de</managingEditor>
+<webMaster>webmaster@tagesschau.de</webMaster>
+<generator>manual</generator>
+<ttl>360</ttl>
+<category>News</category>
+<itunes:owner>
+<itunes:name>Redaktion tagesschau.de</itunes:name>
+<itunes:email>redaktion@tagesschau.de</itunes:email>
+</itunes:owner>
+<itunes:category text="News &amp; Politics" />
+<itunes:author>ARD-aktuell</itunes:author>
+<itunes:explicit>No</itunes:explicit>
+<itunes:keywords>Nachrichten, Inland, Ausland, Wirtschaft, Kultur, Reportagen, Berichte, News, Tagesthemen, Tageschau, Aktuelles, Neues, Neuigkeiten, Hintergrund, Hintergrundinformationen, Inneres, Politik, Innenpolitik, Aussenpolitik, Videos</itunes:keywords>
+<itunes:subtitle>Deutschlands erfolgreichste Nachrichtensendung als Video-Podcast.</itunes:subtitle>
+<item>
+<title>tagesschau 20:00 Uhr, 22.02.2009</title>
+<description>Themen der Sendung: G20-Vorbereitungstreffen, Opel, Airbus, Kurzarbeit, Erinnerungszentrum, Explosion in Kairo, Regierung-Israel, Grenzöffnung Rafah, Myanmar, Grubenunglück China, Fußball Bundesliga, Wintersport, Karnevalssonntag, Das Wetter</description>
+<pubDate>Mon, 23 Feb 2009 13:18:31 +0100</pubDate>
+<enclosure url="http://195.185.185.75/tagesschau/mp3/podcast/TV-20090222-2039-0101.h264.mp4" length="23288846" type="video/mp4" />
+<guid isPermaLink="false">TV-20090222-2039-0101-V</guid>
+</item>
+<item>
+<title>tagesschau 20:00 Uhr, 21.02.2009</title>
+<description>Themen der Sendung: Staatshilfe für Opel, Clinton in China, Guantánamo, Verbrechen im Irak, Schröder in Teheran, Mißfelder-Reaktion, ICE-Achsen, Chemieunfall China, Busunglück Slowakei, Der Sport, Die Lottozahlen, Das Wetter</description>
+<pubDate>Sat, 21 Feb 2009 20:45:09 +0100</pubDate>
+<enclosure url="http://195.185.185.75/tagesschau/mp3/podcast/TV-20090221-2024-3401.h264.mp4" length="19908742" type="video/mp4" />
+<guid isPermaLink="false">TV-20090221-2024-3401-V</guid>
+</item>
+<item>
+<title>tagesschau 20:00 Uhr, 20.02.2009</title>
+<description>Themen der Sendung: Konjunkturpaket II, Opel - Saab, Wahl in Israel, Gewalt Sri Lanka, Kritik an Mißfelder, Antarktis-Station eröffnet, WM-Erfolg, WM-Ticketverkauf, Das Wetter</description>
+<pubDate>Fri, 20 Feb 2009 21:22:25 +0100</pubDate>
+<enclosure url="http://195.185.185.75/tagesschau/mp3/podcast/TV-20090220-2058-1901.h264.mp4" length="23107686" type="video/mp4" />
+<guid isPermaLink="false">TV-20090220-2058-1901-V</guid>
+</item>
+<item>
+<title>tagesschau 20:00 Uhr, 19.02.2009</title>
+<description>Themen der Sendung: Sanierungsplan Opel, Hypo Real Estate, NATO-Tagung in Krakau, Bundeswehr Afghanistan, EU-Reformvertrag, Politkowskaja-Prozess, Biomesse Nürnberg, Musik-Downloads, Weiberfastnacht, Biathlon-WM, Das Wetter</description>
+<pubDate>Thu, 19 Feb 2009 21:08:50 +0100</pubDate>
+<enclosure url="http://195.185.185.75/tagesschau/mp3/podcast/TV-20090219-2044-2701.h264.mp4" length="23493941" type="video/mp4" />
+<guid isPermaLink="false">TV-20090219-2044-2701-V</guid>
+</item>
+<item>
+<title>tagesschau 20:00 Uhr, 18.02.2009</title>
+<description>Themen der Sendung: Bankenrettungsgesetz, Hypo Real Estate, GM und Opel, US-Finanzkrise, Afghanistaneinsatz USA, Steinmeier im Irak, Facebook-Daten, Qimonda-Demo Dresden, Ölteppich vor Wales, Biathlon-WM, UEFA-Cup, Die Lottozahlen, Das Wetter</description>
+<pubDate>Wed, 18 Feb 2009 21:05:40 +0100</pubDate>
+<enclosure url="http://195.185.185.75/tagesschau/mp3/podcast/TV-20090218-2042-1801.h264.mp4" length="22139504" type="video/mp4" />
+<guid isPermaLink="false">TV-20090218-2042-1801-V</guid>
+</item>
+<item>
+<title>tagesschau 20:00 Uhr, 17.02.2009</title>
+<description>Themen der Sendung: Zukunft von Opel, Bilanz bei Daimler, Beratungen über HRE, HSH Nordbank, Aufarbeitung Heimkinder, Althaus Gesund, Steinmeier im Irak, Prozess Rote Khmer, Schnee in Bayern, Das Wetter</description>
+<pubDate>Tue, 17 Feb 2009 20:57:39 +0100</pubDate>
+<enclosure url="http://195.185.185.75/tagesschau/mp3/podcast/TV-20090217-2031-3501.h264.mp4" length="24588288" type="video/mp4" />
+<guid isPermaLink="false">TV-20090217-2031-3501-V</guid>
+</item>
+</channel>
+</rss>
+

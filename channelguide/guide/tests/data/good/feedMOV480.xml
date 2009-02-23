@@ -1,0 +1,2426 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+<channel>
+<title>Lab Rats - QuickTime 720x480</title>
+<language>en-us</language>
+<copyright>&#x2117; &amp; &#xA9; 2008 ButterScotch.com: a division of Tucows Corporation</copyright>
+<webMaster>mike@labrats.tv (Mike Britton)</webMaster>
+<description>A fun and educational video cast by Andy Walker and Sean Carruthers about how to use technology you already own. Covers PCs, Macs, all kinds of gadgets and the latest HDTV technology. Includes a healthy dose of humor, a few antics and lots of tech education. Includes cameos of lab cats Biff and Boo.</description> 
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Technology made simple, and slight funny.</itunes:subtitle>
+<itunes:summary>A video podcast by Andy Walker and Sean Carruthers about how to use your computers and gadgets and how they work.</itunes:summary>
+<itunes:owner>
+    <itunes:name>Andy Walker</itunes:name>
+    <itunes:email>andy@cyberwalker.com</itunes:email>
+</itunes:owner> 
+<link>http://www.labrats.tv</link>
+<itunes:image href="http://www.labrats.tv/images/labratslogo.jpg" />
+<!-- iTunes Browse Podcasts Category -->
+<itunes:category text="Technology">
+    <!-- iTunes Browse Podcasts Subcategory -->
+    <itunes:category text="Gadgets"/>
+</itunes:category>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-159.mov</guid>
+<title>Episode 159: Notebooks? No! Netbooks!</title>
+<description>In episode 159, Andy and Sean take a closeup look at the tiny new phenomenon known as netbooks, explain what they are, and talk about the pros and cons of these ultra-portable devices that are not-quite-notebooks.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 159: Notebooks? No! Netbooks!</itunes:subtitle>
+<itunes:summary>In episode 159, Andy and Sean take a closeup look at the tiny new phenomenon known as netbooks, explain what they are, and talk about the pros and cons of these ultra-portable devices that are not-quite-notebooks.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep159.html</link>
+<pubDate>Mon, 16 Feb 2009 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-159.mov" length="182016181" type="video/x-m4v"/>
+<itunes:duration>22:07</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-158.mov</guid>
+<title>Episode 158: The 411 on Windows 7</title>
+<description>In episode 158, Andy and Sean downloaded the beta of Microsoft's next operating system, Windows 7, and give you a tour of some of the new features, as well as some commentary on whether or not it's going to be worth the wait!</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 158: The 411 on Windows 7</itunes:subtitle>
+<itunes:summary>In episode 158, Andy and Sean downloaded the beta of Microsoft's next operating system, Windows 7, and give you a tour of some of the new features, as well as some commentary on whether or not it's going to be worth the wait!</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep158.html</link>
+<pubDate>Mon, 9 Feb 2009 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-158.mov" length="184968806" type="video/x-m4v"/>
+<itunes:duration>21:23</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-157.mov</guid>
+<title>Episode 157: Soccer Mom's Tech Toolbox</title>
+<description>In episode 157, Andy and Sean take a look at some of the techie things every soccer  
+mom--or any mom or dad, for that matter!--should have at their  
+disposal in order to manage their day to day life with kids.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 157: Soccer Mom's Tech Toolbox</itunes:subtitle>
+<itunes:summary>In episode 157, Andy and Sean take a look at some of the techie things every soccer  
+mom--or any mom or dad, for that matter!--should have at their  
+disposal in order to manage their day to day life with kids.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep157.html</link>
+<pubDate>Mon, 2 Feb 2009 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-157.mov" length="407289127" type="video/x-m4v"/>
+<itunes:duration>21:08</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-156.mov</guid>
+<title>Episode 156: What IS Windows, anyhow?</title>
+<description>In episode 156, Andy and Sean look more closely at Microsoft's Windows operating  
+system, explain a bit of its history, and take a quick peek at what's  
+coming in the near future with Windows 7.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 156: What IS Windows, anyhow?</itunes:subtitle>
+<itunes:summary>In episode 156, Andy and Sean look more closely at Microsoft's Windows operating  
+system, explain a bit of its history, and take a quick peek at what's  
+coming in the near future with Windows 7.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep156.html</link>
+<pubDate>Mon, 26 Jan 2009 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-156.mov" length="167216202" type="video/x-m4v"/>
+<itunes:duration>23:17</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-155.mov</guid>
+<title>Episode 155: Weirdest of CES 2009</title>
+<description>In episode 155, Andy and Sean take a look at some of the weirdest items they found at this year's Consumer Electronics Show.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 155: Weirdest of CES 2009</itunes:subtitle>
+<itunes:summary>In episode 155, Andy and Sean take a look at some of the weirdest items they found at this year's Consumer Electronics Show.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep155.html</link>
+<pubDate>Mon, 19 Jan 2009 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-155.mov" length="326244588" type="video/x-m4v"/>
+<itunes:duration>19:46</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-154.mov</guid>
+<title>Episode 154: Best of CES 2009</title>
+<description>In episode 154, Andy and Sean show off some of their favourites from the 2009 Consumer Electronics Show.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 154: Best of CES 2009</itunes:subtitle>
+<itunes:summary>In episode 154, Andy and Sean show off some of their favourites from the 2009 Consumer Electronics Show.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep154.html</link>
+<pubDate>Tue, 13 Jan 2009 16:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-154.mov" length="363722447" type="video/x-m4v"/>
+<itunes:duration>22:31</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-ces-teaser.mov</guid>
+<title>Episode 153: CES 2009 Special Update!</title>
+<description>Andy and Sean hit the road to visit the Consumer Electronics Show 2009. Brought to you from the back of a limo, speeding down the Las Vegas strip, they guys introduce the Lab Rats plans for CES domination and also announce the latest butterscotch show called @ (at).</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 153: CES 2009 Special Update!</itunes:subtitle>
+<itunes:summary>Andy and Sean hit the road to visit the Consumer Electronics Show 2009. Brought to you from the back of a limo, speeding down the Las Vegas strip, they guys introduce the Lab Rats plans for CES domination and also announce the latest butterscotch show called @ (at).</itunes:summary>
+<link>http://www.labrats.tv/episodes/ces2009specialupdate.html</link>
+<pubDate>Mon, 5 Jan 2009 22:45:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-153-specialupdate.mov" length="19722231" type="video/x-m4v"/>
+<itunes:duration>1:45</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-152.mov</guid>
+<title>Episode 152: You got a new PC...what next?</title>
+<description>In episode 152, Got a brand new computer? Andy and Sean take a look at what you should do first, to make sure you stay safe and don't run into troubles down the road.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 152: You got a new PC...what next?</itunes:subtitle>
+<itunes:summary>In episode 152, Got a brand new computer? Andy and Sean take a look at what you should do first, to make sure you stay safe and don't run into troubles down the road.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep152.html</link>
+<pubDate>Mon, 22 Dec 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-152.mov" length="171426247" type="video/x-m4v"/>
+<itunes:duration>22:19</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-151.mov</guid>
+<title>Episode 151: Mailbag #6</title>
+<description>In episode 151, Andy and Sean answer more of your viewer mail, and Cheryl shows off a program that will help you keep all your drivers up to date.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 151: Mailbag #6</itunes:subtitle>
+<itunes:summary>In episode 151, Andy and Sean answer more of your viewer mail, and Cheryl shows off a program that will help you keep all your drivers up to date.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep151.html</link>
+<pubDate>Mon, 15 Dec 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-151.mov" length="192200894" type="video/x-m4v"/>
+<itunes:duration>22:16</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-150.mov</guid>
+<title>Episode 150: RAW Rah Rah: Why shoot your photos in RAW mode?</title>
+<description>In episode 150, Sean and Andy explain what it means to shoot pictures in RAW mode when you're using your digital camera, and go through some of the pros and the cons.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 150: RAW Rah Rah: Why shoot your photos in RAW mode?</itunes:subtitle>
+<itunes:summary>In episode 150, Sean and Andy explain what it means to shoot pictures in RAW mode when you're using your digital camera, and go through some of the pros and the cons.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep150.html</link>
+<pubDate>Mon, 8 Dec 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-150.mov" length="160819288" type="video/x-m4v"/>
+<itunes:duration>18:40</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-149.mov</guid>
+<title>Episode 149: Turn Your Radio On: What is RF?</title>
+<description>In episode 149, Andy and Sean explain what "radio" is, and how it's used not only in radio and television, but in cell phones, routers and Bluetooth headsets. Cheryl makes a beanie to protect her head from the radio waves all around her.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 149: Turn Your Radio On: What is RF?</itunes:subtitle>
+<itunes:summary>In episode 149, Andy and Sean explain what "radio" is, and how it's used not only in radio and television, but in cell phones, routers and Bluetooth headsets. Cheryl makes a beanie to protect her head from the radio waves all around her.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep149.html</link>
+<pubDate>Mon, 1 Dec 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-149.mov" length="313293610" type="video/x-m4v"/>
+<itunes:duration>23:34</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-148.mov</guid>
+<title>Episode 148: Catch the WAV: Audio Files Explained</title>
+<description>In episode 148, Andy and Sean take a look at the different types of digital audio formats out there, explain how they differ, and take a quick look at the difference between lossless and lossy compression. Meanwhile, Cheryl digs into some of Audacity's many features.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 148: Catch the WAV: Audio Files Explained</itunes:subtitle>
+<itunes:summary>In episode 148, Andy and Sean take a look at the different types of digital audio formats out there, explain how they differ, and take a quick look at the difference between lossless and lossy compression. Meanwhile, Cheryl digs into some of Audacity's many features.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep148.html</link>
+<pubDate>Mon, 24 Nov 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-148.mov" length="271874788" type="video/x-m4v"/>
+<itunes:duration>25:06</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-147.mov</guid>
+<title>Episode 147: Aaaaaaannnd...ACTION! Video Editing 101</title>
+<description>In episode 147, Andy and Sean take a look at what video editing is, and show off a few video editing programs. Cheryl takes a look at a DVD authoring package.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 147: Aaaaaaannnd...ACTION! Video Editing 101</itunes:subtitle>
+<itunes:summary>In episode 147, Andy and Sean take a look at what video editing is, and show off a few video editing programs. Cheryl takes a look at a DVD authoring package.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep147.html</link>
+<pubDate>Mon, 17 Nov 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-147.mov" length="230515477" type="video/x-m4v"/>
+<itunes:duration>22:57</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-146.mov</guid>
+<title>Episode 146: Protect Your Kids Online</title>
+<description>In episode 146, the Internet can be a scary place, so Andy and Sean show off some ways to help protect your kids while they're online. Cheryl also shows off parental control software.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 146: Protect Your Kids Online</itunes:subtitle>
+<itunes:summary>In episode 146, the Internet can be a scary place, so Andy and Sean show off some ways to help protect your kids while they're online. Cheryl also shows off parental control software.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep146.html</link>
+<pubDate>Mon, 10 Nov 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-146.mov" length="198181002" type="video/x-m4v"/>
+<itunes:duration>21:30</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-145.mov</guid>
+<title>Episode 145: Why's My Computer So Slooooooooowwwww?</title>
+<description>In episode 145, Andy and Sean look at the reasons that computers get slower over time, and show some quick and easy fixes that'll pep up your PC. To help even further, Cheryl shows off SpeedUpMyPC 2009.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 145: Why's My Computer So Slooooooooowwwww?</itunes:subtitle>
+<itunes:summary>In episode 145, Andy and Sean look at the reasons that computers get slower over time, and show some quick and easy fixes that'll pep up your PC. To help even further, Cheryl shows off SpeedUpMyPC 2009.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep145.html</link>
+<pubDate>Mon, 3 Nov 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-145.mov" length="213560470" type="video/x-m4v"/>
+<itunes:duration>22:30</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-144.mov</guid>
+<title>Episode 144: Sit Up Straight! Computer Ergonomics 101</title>
+<description>In episode 144, Andy and Sean are both on the ball as they share tips about how to keep your body healthy while you're using your computer. Meanwhile, Cheryl shows off a program to help you prevent Repetitive Stress Injury.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 144: Sit Up Straight! Computer Ergonomics 101</itunes:subtitle>
+<itunes:summary>In episode 144, Andy and Sean are both on the ball as they share tips about how to keep your body healthy while you're using your computer. Meanwhile, Cheryl shows off a program to help you prevent Repetitive Stress Injury.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep144.html</link>
+<pubDate>Mon, 27 Oct 2008 22:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-144.mov" length="258419819" type="video/x-m4v"/>
+<itunes:duration>20:42</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-143.m4v</guid>
+<title>Episode 143: Demystifying DPI</title>
+<description>In episode 143, Andy and Sean explain Dots Per Inch with the assistance of a giant green eyeball, and talk about why that's different from image resolution. Cheryl shows off an application that will help you save ink while printing.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 143: Demystifying DPI</itunes:subtitle>
+<itunes:summary>In episode 143, Andy and Sean explain Dots Per Inch with the assistance of a giant green eyeball, and talk about why that's different from image resolution. Cheryl shows off an application that will help you save ink while printing.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep143.html</link>
+<pubDate>Mon, 20 Oct 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-143.m4v" length="148826890" type="video/x-m4v"/>
+<itunes:duration>17:36</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-142.m4v</guid>
+<title>Episode 142: Protect Your Identity</title>
+<description>In episode 142, Andy and Sean look at how to prevent identity theft, both online and offline.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 142: Protect Your Identity</itunes:subtitle>
+<itunes:summary>In episode 142, Andy and Sean look at how to prevent identity theft, both online and offline.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep142.html</link>
+<pubDate>Mon, 13 Oct 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-142.m4v" length="222120794" type="video/x-m4v"/>
+<itunes:duration>26:07</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-141.mov</guid>
+<title>Episode 141: The Power of PowerLine Networking</title>
+<description>In episode 141, Andy and Sean show off a technology that allows you to use your house's electrical wiring for networking your gadgets, and Cheryl helps tame Windows Vista's annoying authorization requests with Tweak UAC.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 141: The Power of PowerLine Networking</itunes:subtitle>
+<itunes:summary>In episode 141, Andy and Sean show off a technology that allows you to use your house's electrical wiring for networking your gadgets, and Cheryl helps tame Windows Vista's annoying authorization requests with Tweak UAC.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep141.html</link>
+<pubDate>Mon, 6 Oct 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-141.mov" length="279564970" type="video/quicktime" />
+<itunes:duration>21:55</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-140.mov</guid>
+<title>Episode 140: Mailbag #5</title>
+<description>In episode 140, Andy and Sean answer another batch of viewer questions, and Cheryl takes a look at an audio ripping and conversion program.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 140: Mailbag #5</itunes:subtitle>
+<itunes:summary>In episode 140, Andy and Sean answer another batch of viewer questions, and Cheryl takes a look at an audio ripping and conversion program.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep140.html</link>
+<pubDate>Mon, 29 Sep 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-140.mov" length="311122297" type="video/quicktime" />
+<itunes:duration>26:14</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-139.mov</guid>
+<title>Episode 139: How to Mount a Flat Panel TV</title>
+<description>In episode 139, Andy and Sean learn tips and tricks on hanging a flat panel television.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 139: How to Mount a Flat Panel TV</itunes:subtitle>
+<itunes:summary>In episode 139, Andy and Sean learn tips and tricks on hanging a flat panel television.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep139.html</link>
+<pubDate>Mon, 22 Sep 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-139.mov" length="439353344" type="video/quicktime" />
+<itunes:duration>24:45</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-138.mov</guid>
+<title>Episode 138: What is Resolution?</title>
+<description>In episode 138, Andy and Sean explain how to measure the quality of a digital photo.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 138: What is Resolution?</itunes:subtitle>
+<itunes:summary>In episode 138, Andy and Sean explain how to measure the quality of a digital photo.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep138.html</link>
+<pubDate>Mon, 15 Sep 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-138.mov" length="243308124" type="video/quicktime" />
+<itunes:duration>20:33</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-137.mov</guid>
+<title>Episode 137: Do These Ones Go To 11?</title>
+<description>In episode 137, Andy and Sean look at the pros and cons of various types of headphones.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 137: Do These Ones Go To 11?</itunes:subtitle>
+<itunes:summary>In episode 137, Andy and Sean look at the pros and cons of various types of headphones.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep137.html</link>
+<pubDate>Mon, 8 Sep 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-137.mov" length="291180866" type="video/quicktime" />
+<itunes:duration>21:02</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-136.mov</guid>
+<title>Episode 136: Fonts Demystified</title>
+<description>In episode 136, Andy and Sean explore the world of fonts.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 136: Fonts Demystified</itunes:subtitle>
+<itunes:summary>In episode 136, Andy and Sean explore the world of fonts.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep136.html</link>
+<pubDate>Mon, 1 Sep 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-136.mov" length="118924768" type="video/quicktime" />
+<itunes:duration>15:41</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-135.mov</guid>
+<title>Episode 135: iPhone 3G Demystified</title>
+<description>In episode 135, Andy and Sean weigh in on innovations of the iPhone 3G.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 135: iPhone 3G Demystified</itunes:subtitle>
+<itunes:summary>In episode 135, Andy and Sean weigh in on innovations of the iPhone 3G.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep135.html</link>
+<pubDate>Mon, 25 Aug 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-135.mov" length="194731488" type="video/quicktime" />
+<itunes:duration>24:23</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-134.mov</guid>
+<title>Episode 134: Surround Sound Demystified</title>
+<description>In episode 134, Andy and Sean responds to a viewer email about surround sound.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 134: Surround Sound Demystified</itunes:subtitle>
+<itunes:summary>In episode 134, Andy and Sean responds to a viewer email about surround sound.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep134.html</link>
+<pubDate>Mon, 18 Aug 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-134.mov" length="149583871" type="video/quicktime" />
+<itunes:duration>23:21</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-133.mov</guid>
+<title>Episode 133: Mailbag #4</title>
+<description>In episode 133, Andy and Sean answer email about the PDF's, video card issues, virus/spyware infections, and more.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 133: Mailbag #4</itunes:subtitle>
+<itunes:summary>In episode 133, Andy and Sean answer email about the PDF's, video card issues, virus/spyware infections, and more.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep133.html</link>
+<pubDate>Mon, 11 Aug 2008 14:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-133.mov" length="134699154" type="video/quicktime" />
+<itunes:duration>24:07</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-132.mov</guid>
+<title>Episode 132: What is Centrino?</title>
+<description>In episode 132, Andy and Sean  look at Intel’s laptop chipset technology.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 132: What is Centrino?</itunes:subtitle>
+<itunes:summary>In episode 132, Andy and Sean  look at Intel’s laptop chipset technology.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep132.html</link>
+<pubDate>Mon, 4 Aug 2008 14:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-132.mov" length="111770980" type="video/quicktime" />
+<itunes:duration>26:22</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-131.mov</guid>
+<title>Episode 131: PDF Demystified</title>
+<description>In episode 131, Andy and Sean explain at Adobe’s handy Portable Document Format.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 131: PDF Demystified</itunes:subtitle>
+<itunes:summary>In episode 131, Andy and Sean explain at Adobe’s handy Portable Document Format.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep131.html</link>
+<pubDate>Mon, 28 Jul 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-131.mov" length="93223085" type="video/quicktime" />
+<itunes:duration>19:33</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-130.mov</guid>
+<title>Episode 130: Intro to Satellite Radio</title>
+<description>In episode 130, Andy and Sean take a look at digital satellite radio such as XM and Sirius.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 130: Intro to Satellite Radio</itunes:subtitle>
+<itunes:summary>In episode 130, Andy and Sean take a look at digital satellite radio such as XM and Sirius.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep130.html</link>
+<pubDate>Mon, 21 Jul 2008 07:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-130.mov" length="106347643" type="video/quicktime" />
+<itunes:duration>26:04</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-129.mov</guid>
+<title>Episode 129: FTP Demystified</title>
+<description>In episode 129, Andy and Sean explain file transfer protocol and how you can use it.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 129: FTP Demystified</itunes:subtitle>
+<itunes:summary>In episode 129, Andy and Sean explain file transfer protocol and how you can use it.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep129.html</link>
+<pubDate>Mon, 14 Jul 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-129.mov" length="102001219" type="video/quicktime" />
+<itunes:duration>26:27</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-128.mov</guid>
+<title>Episode 128: Touch Your Tech</title>
+<description>In episode 128, Andy and Sean look at current and future technology that can be controlled by touch.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 128: Touch Your Tech</itunes:subtitle>
+<itunes:summary>In episode 128, Andy and Sean look at current and future technology that can be controlled by touch.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep128.html</link>
+<pubDate>Mon, 7 Jul 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-128.mov" length="110816747" type="video/quicktime" />
+<itunes:duration>23:05</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-127.mov</guid>
+<title>Episode 127: How a NAT Router works</title>
+<description>In episode 127, Andy and Sean use tiny potatoes to explain how home network routers protect against inbound malware.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 127: How a NAT Router works</itunes:subtitle>
+<itunes:summary>In episode 127, Andy and Sean use tiny potatoes to explain how home network routers protect against inbound malware.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep127.html</link>
+<pubDate>Mon, 30 Jun 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-127.mov" length="111654150" type="video/quicktime" />
+<itunes:duration>24:49</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-126.mov</guid>
+<title>Episode 126: Storage on your Network</title>
+<description>In episode 126, Andy and Sean demystify network attached storage devices.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 126: Storage on your Network</itunes:subtitle>
+<itunes:summary>In episode 126, Andy and Sean demystify network attached storage devices.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep126.html</link>
+<pubDate>Mon, 23 Jun 2008 20:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-126.mov" length="112697134" type="video/quicktime" />
+<itunes:duration>24:59</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-125.mov</guid>
+<title>Episode 125: Mailbag #3</title>
+<description>In episode 125, Andy and Sean answer email about PVRs, NAT firewalls, and the
+annoying pop-up sound on the show titles.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 125: Mailbag #3</itunes:subtitle>
+<itunes:summary>In episode 125, Andy and Sean answer email about PVRs, NAT firewalls, and the
+annoying pop-up sound on the show titles.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep125.html</link>
+<pubDate>Mon, 16 Jun 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-125.mov" length="108569153" type="video/quicktime" />
+<itunes:duration>28:19</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-124.mov</guid>
+<title>Episode 124: Power Protection</title>
+<description>In episode 124, Andy and Sean demystify power bars, UPSes and more.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 124: Power Protection</itunes:subtitle>
+<itunes:summary>In episode 124, Andy and Sean demystify power bars, UPSes and more.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep124.html</link>
+<pubDate>Mon, 9 Jun 2008 16:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-124.mov" length="106461916" type="video/quicktime" />
+<itunes:duration>26:36</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-123.mov</guid>
+<title>Episode 123: Intro to HijackThis</title>
+<description>In episode 123, Andy and Sean show how to get rid of browser hijackers
+with a free tool.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 123: Intro to HijackThis</itunes:subtitle>
+<itunes:summary>In episode 123, Andy and Sean show how to get rid of browser hijackers
+with a free tool.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep123.html</link>
+<pubDate>Mon, 2 Jun 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-123.mov" length="106087893" type="video/quicktime" />
+<itunes:duration>24:39</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-122.mov</guid>
+<title>Episode 122: High-Def DVD Survival Guide</title>
+<description>In episode 122, Andy and Sean help you figure out what to do
+now the HD DVD/Blu-ray war is over.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 122: High-Def DVD Survival Guide</itunes:subtitle>
+<itunes:summary>In episode 122, Andy and Sean help you figure out what to do
+now the HD DVD/Blu-ray war is over.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep122.html</link>
+<pubDate>Mon, 26 May 2008 11:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-122.mov" length="121579703" type="video/quicktime" />
+<itunes:duration>23:56</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-121.mov</guid>
+<title>Episode 121: PVRs Demystified</title>
+<description>In episode 121, Andy and Sean explain at personal video recorders, like
+TiVo and Windows Media Center.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 121: PVRs Demystified</itunes:subtitle>
+<itunes:summary>In episode 121, Andy and Sean explain at personal video recorders, like
+TiVo and Windows Media Center.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep121.html</link>
+<pubDate>Mon, 19 May 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-121.mov" length="128974848" type="video/quicktime" />
+<itunes:duration>30:03</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-120.mov</guid>
+<title>Episode 120: Undelete Your Files</title>
+<description>In episode 120, Andy and Sean show you how to recover your deleted data
+(and your marriage!) using oranges.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 120: Undelete Your Files</itunes:subtitle>
+<itunes:summary>In episode 120, Andy and Sean show you how to recover your deleted data
+(and your marriage!) using oranges.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep120.html</link>
+<pubDate>Mon, 12 May 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-120.mov" length="72881949" type="video/quicktime" />
+<itunes:duration>15:30</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-119.mov</guid>
+<title>Episode 119: Mailbag #2</title>
+<description>In episode 119, Andy and Sean answer viewer mail including fun stuff like file
+sharing, proxies, anonymizers and static IPs.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 119: Mailbag #2</itunes:subtitle>
+<itunes:summary>In episode 119, Andy and Sean answer viewer mail including fun stuff like file
+sharing, proxies, anonymizers and static IPs.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep119.html</link>
+<pubDate>Mon, 5 May 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-119.mov" length="122693751" type="video/quicktime" />
+<itunes:duration>29:13</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-118.mov</guid>
+<title>Episode 118: Should You Care About the Mac Book Air?</title>
+<description>In episode 118, Andy and Sean look at Apple’s new ultra thin, envelope friendly laptop.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 118: Should You Care About the Mac Book Air?</itunes:subtitle>
+<itunes:summary>In episode 118, Andy and Sean look at Apple’s new ultra thin, envelope friendly laptop.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep118.html</link>
+<pubDate>Mon, 28 Apr 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-118.mov" length="100442189" type="video/quicktime" />
+<itunes:duration>20:36</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-117.mov</guid>
+<title>Episode 117: Camera Settings Demystified</title>
+<description>In episode 117, Andy and Sean explain the weird settings on
+your SLR camera.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 117: Camera Settings Demystified</itunes:subtitle>
+<itunes:summary>In episode 117, Andy and Sean explain the weird settings on
+your SLR camera.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep117.html</link>
+<pubDate>Mon, 21 Apr 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-117.mov" length="137426198" type="video/quicktime" />
+<itunes:duration>25:52</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-116.mov</guid>
+<title>Episode 116: Next Generation Flash Drives</title>
+<description>In episode 116, Andy and Sean look at how flash memory could
+be a replacement for magnetic hard drives.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 116: Next Generation Flash Drives</itunes:subtitle>
+<itunes:summary>In episode 116, Andy and Sean look at how flash memory could
+be a replacement for magnetic hard drives.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep116.html</link>
+<pubDate>Mon, 14 Apr 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-116.mov" length="73437277" type="video/quicktime" />
+<itunes:duration>17:16</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-115.mov</guid>
+<title>Episode 115: Next Generation E-Books</title>
+<description>In episode 115, Andy and Sean look at new electronic book devices
+including the Amazon Kindle and Sony Reader.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 115: Next Generation E-Books</itunes:subtitle>
+<itunes:summary>In episode 115, Andy and Sean look at new electronic book devices
+including the Amazon Kindle and Sony Reader.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep115.html</link>
+<pubDate>Mon, 7 Apr 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-115.mov" length="172680903" type="video/quicktime" />
+<itunes:duration>22:29</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-114.mov</guid>
+<title>Episode 114: Dunk your Digicam!</title>
+<description>In episode 114, Andy and Sean explain waterproof ratings on gadgets.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 114: Dunk your Digicam!</itunes:subtitle>
+<itunes:summary>In episode 114, Andy and Sean explain waterproof ratings on gadgets.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep114.html</link>
+<pubDate>Mon, 31 Mar 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-114.mov" length="135569539" type="video/quicktime" />
+<itunes:duration>18:42</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-113.mov</guid>
+<title>Episode 113: Lab Rats Mailbag</title>
+<description>In episode 113, Andy and Sean respond to viewer questions about podcast production, external hard drives and frost-bite in a can.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 113: Lab Rats Mailbag</itunes:subtitle>
+<itunes:summary>In episode 113, Andy and Sean respond to viewer questions about podcast production, external hard drives and frost-bite in a can.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep113.html</link>
+<pubDate>Mon, 17 Mar 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-113.mov" length="90345703" type="video/quicktime" />
+<itunes:duration>22:45</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-112.mov</guid>
+<title>Episode 112: What's Old Is MP3s Again</title>
+<description>In episode 112, Andy and Sean get jiggy on how to rip tunes to MP3
+from a record player.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 112: What's Old Is MP3s Again</itunes:subtitle>
+<itunes:summary>In episode 112, Andy and Sean get jiggy on how to rip tunes to MP3
+from a record player.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep112.html</link>
+<pubDate>Mon, 10 Mar 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-112.mov" length="94865632" type="video/quicktime" />
+<itunes:duration>16:23</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-111-480.mov</guid>
+<title>Episode 111: Do Adjust Your Set</title>
+<description>In episode 111, Andy and Sean explain aspect ratios using cheese and
+chocolate.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 111: Do Adjust Your Set</itunes:subtitle>
+<itunes:summary>In episode 111, Andy and Sean explain aspect ratios using cheese and
+chocolate.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep111.html</link>
+<pubDate>Mon, 3 Mar 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-111-480.mov" length="67108864" type="video/quicktime" />
+<itunes:duration>17:01</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-110-480.mov</guid>
+<title>Episode 110: Browser Security</title>
+<description>In episode 110, Andy and Sean explore which browser to use for best system security.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 110: Browser Security</itunes:subtitle>
+<itunes:summary>In episode 110, Andy and Sean explore which browser to use for best system security.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep110.html</link>
+<pubDate>Mon, 25 Feb 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-110-480.mov" length="67493538" type="video/quicktime" />
+<itunes:duration>18:43</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-109-480.mov</guid>
+<title>Episode 109: How To Buy An LCD Monitor</title>
+<description>In episode 109, Andy and Sean discuss how to choose a flat panel display for your computer.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 109: How To Buy An LCD Monitor</itunes:subtitle>
+<itunes:summary>In episode 109, Andy and Sean discuss how to choose a flat panel display for your computer.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep109.html</link>
+<pubDate>Mon, 18 Feb 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-109-480.mov" length="77175194" type="video/quicktime" />
+<itunes:duration>21:37</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-108-480.mov</guid>
+<title>Episode 108: iPod Hacking</title>
+<description>In episode 108, Andy and Sean hack the iPod Touch to make it more useful.
+Plus, a little cat crack!</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 108: iPod Hacking</itunes:subtitle>
+<itunes:summary>In episode 108, Andy and Sean hack the iPod Touch to make it more useful.
+Plus, a little cat crack!</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep108.html</link>
+<pubDate>Mon, 11 Feb 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-108-480.mov" length="117589099" type="video/quicktime" />
+<itunes:duration>23:34</itunes:duration>
+</item>
+
+<item>
+<guid>http://media.libsyn.com/media/labratstv/labrats-107-480.mov</guid>
+<title>Episode 107: EULAs Demystified</title>
+<description>In episode 107, Andy and Sean looks at the legalese on software
+installations.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 107: EULAs Demystified</itunes:subtitle>
+<itunes:summary>In episode 107, Andy and Sean looks at the legalese on software
+installations.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep107.html</link>
+<pubDate>Mon, 4 Feb 2008 17:00:00 EST</pubDate>
+<enclosure url="http://media.libsyn.com/media/labratstv/labrats-107-480.mov" length="156324514" type="video/quicktime" />
+<itunes:duration>19:25</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-106-480.mov</guid>
+<title>Episode 106: Macworld 2008</title>
+<description>In episode 106, Andy and Sean weren't there, but they still have a lot to say
+about the products launched at the Apple conference this year.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 106: Macworld 2008</itunes:subtitle>
+<itunes:summary>In episode 106, Andy and Sean weren't there, but they still have a lot to say
+about the products launched at the Apple conference this year.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep106.html</link>
+<pubDate>Mon, 28 Jan 2008 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-106-480.mov" length="90910628" type="video/quicktime" />
+<itunes:duration>24:52</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-105-480.mov</guid>
+<title>Episode 105: CES 2008 Bonus Footage</title>
+<description>In episode 105, Andy and Sean wrap up their coverage of CES in Las Vegas. Iincludes interviews with Linksys, Green Plug, Microsoft (check out Andy’s naughty Zune interview!), Samsung, and LG. And product previews from Crucial, Art Lebedev Studios, WowWee, Yujin, Roboware, Hagisonic, Hanulkid, iRobot, Kyodo America, Meccano, and Robotis.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 105: CES 2008 Bonus Footage</itunes:subtitle>
+<itunes:summary>In episode 105, Andy and Sean wrap up their coverage of CES in Las Vegas. Iincludes interviews with Linksys, Green Plug, Microsoft (check out Andy’s naughty Zune interview!), Samsung, and LG. And product previews from Crucial, Art Lebedev Studios, WowWee, Yujin, Roboware, Hagisonic, Hanulkid, iRobot, Kyodo America, Meccano, and Robotis.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep105.html</link>
+<pubDate>Mon, 21 Jan 2008 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-105-480.mov" length="210171154" type="video/quicktime" />
+<itunes:duration>25:24</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-104d-480.mov</guid>
+<title>Episode 104.4: CES 2008 Day 4</title>
+<description>In episode 104.4, Andy and Sean are live in Las Vegas at CES. Today's episode includes a special introduction by Patrick Norton and Roger Chang.  Our interviews include Microsoft, SCOTTeVEST, Mio Technology, Skype, and LG.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 104.4: CES 2008 Day 4</itunes:subtitle>
+<itunes:summary>In episode 104.4, Andy and Sean are live in Las Vegas at CES. Today's episode includes a special introduction by Patrick Norton and Roger Chang.  Our interviews include Microsoft, SCOTTeVEST, Mio Technology, Skype, and LG.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep104.4.html</link>
+<pubDate>Sat, 12 Jan 2008 09:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-104d-480.mov" length="240993550" type="video/quicktime" />
+<itunes:duration>26:13</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/awalker/labrats-104c-480.mov</guid>
+<title>Episode 104.3: CES 2008 Day 3</title>
+<description>In episode 104.3, Andy and Sean are live in Las Vegas at CES. Today's episode includes a special introduction by Dick Debartolo and interviews with Bits Ltd, Horizon Fuel Cell, FreePlay, Sony, Texas Instruments, Samsung, Griffin Technology, and Tangent Audio.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 104.3: CES 2008 Day 3</itunes:subtitle>
+<itunes:summary>In episode 104.3, Andy and Sean are live in Las Vegas at CES. Today's episode includes a special introduction by Dick Debartolo and interviews with Bits Ltd, Horizon Fuel Cell, FreePlay, Sony, Texas Instruments, Samsung, Griffin Technology, and Tangent Audio.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep104.3.html</link>
+<pubDate>Sat, 12 Jan 2008 09:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/1/labrats-104c-480.mov" length="298292269" type="video/quicktime" />
+<itunes:duration>22:13</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-104b-480.mov</guid>
+<title>Episode 104.2: CES 2008 Day 2</title>
+<description>In episode 104.2, Andy and Sean are live in Las Vegas at CES. Today's episode includes a special introduction by Justine Ezarik and interviews with Sony, Sling Media, Belkin, Plantronics, Beceem Communications, Seagate, Data Evolution, Jawbone, XtremeMac, and Tonium.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 104.2: CES 2008 Day 2</itunes:subtitle>
+<itunes:summary>In episode 104.2, Andy and Sean are live in Las Vegas at CES. Today's episode includes a special introduction by Justine Ezarik and interviews with Sony, Sling Media, Belkin, Plantronics, Beceem Communications, Seagate, Data Evolution, Jawbone, XtremeMac, and Tonium.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep104.2.html</link>
+<pubDate>Sat, 12 Jan 2008 09:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-104b-480.mov" length="357564101" type="video/quicktime" />
+<itunes:duration>24:56</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-104a-480.mov</guid>
+<title>Episode 104.1: CES 2008 Day 1</title>
+<description>In episode 104.1, Andy and Sean are live in Las Vegas at CES. Today's episode includes a special introduction by Veronica Belmont and interviews with Interactive Toy Concepts, Iqua Ltd, Human Touch, Logitech, WiQuest, Pinnacle Systems, Celestron, Moletech, and OmniMount.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 104.1: CES 2008 Day 1</itunes:subtitle>
+<itunes:summary>In episode 104.1, Andy and Sean are live in Las Vegas at CES. Today's episode includes a special introduction by Veronica Belmont and interviews with Interactive Toy Concepts, Iqua Ltd, Human Touch, Logitech, WiQuest, Pinnacle Systems, Celestron, Moletech, and OmniMount.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep104.1.html</link>
+<pubDate>Sat, 12 Jan 2008 09:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-104a-480.mov" length="308328838" type="video/quicktime" />
+<itunes:duration>20:29</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-103-480.mov</guid>
+<title>Episode 103: Whatware?</title>
+<description>In episode 103, Andy and Sean reviews software, freeware and other types of
+"ware".</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 103: Whatware?</itunes:subtitle>
+<itunes:summary>In episode 103, Andy and Sean reviews software, freeware and other types of
+"ware".</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep103.html</link>
+<pubDate>Mon, 17 Dec 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-103-480.mov" length="72351744" type="video/quicktime" />
+<itunes:duration>19:26</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-102-480.mov</guid>
+<title>Episode 102: Intro to Mac OS X Leopard</title>
+<description>In episode 102, Andy and Sean look at why the new Mac operating
+system is a bit spotty.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 102: Intro to Mac OS X Leopard</itunes:subtitle>
+<itunes:summary>In episode 102, Andy and Sean look at why the new Mac operating
+system is a bit spotty.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep102.html</link>
+<pubDate>Mon, 10 Dec 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-102-480.mov" length="106954752" type="video/quicktime" />
+<itunes:duration>23:51</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-101-480.mov</guid>
+<title>Episode 101: 2007 Gift Guide</title>
+<description>In episode 101, Andy and Sean (and Elmo TMX) share their geek gift picks for the 2007 holiday season.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 101: 2007 Gift Guide</itunes:subtitle>
+<itunes:summary>In episode 101, Andy and Sean (and Elmo TMX) share their geek gift picks for the 2007 holiday season.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep101.html</link>
+<pubDate>Mon, 3 Dec 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-101-480.mov" length="103794974" type="video/quicktime" />
+<itunes:duration>23:20</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-100-480.mov</guid>
+<title>Episode 100: A Very Special Lab Rats</title>
+<description>In episode 100, Andy and Sean celebrate their 100th episode, and
+Sean stops Andy from taking off his pants again.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 100: A Very Special Lab Rats</itunes:subtitle>
+<itunes:summary>In episode 100, Andy and Sean celebrate their 100th episode, and
+Sean stops Andy from taking off his pants again.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep100.html</link>
+<pubDate>Mon, 26 Nov 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-100-480.mov" length="225765040" type="video/quicktime" />
+<itunes:duration>47:55</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-99-480.mov</guid>
+<title>Episode 99: How to Hide your Data</title>
+<description>In episode 99, Andy and Sean show you how to conceal your secrets
+from the bad guys.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 99: How to Hide your Data</itunes:subtitle>
+<itunes:summary>In episode 99, Andy and Sean show you how to conceal your secrets
+from the bad guys.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep99.html</link>
+<pubDate>Mon, 19 Nov 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-99-480.mov" length="67108532" type="video/quicktime" />
+<itunes:duration>16:32</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-98-480.mov</guid>
+<title>Episode 98: Vista to XP Networking</title>
+<description>In episode 98, Andy and Sean show how to share files between
+Windows computers.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 98: Vista to XP Networking</itunes:subtitle>
+<itunes:summary>In episode 98, Andy and Sean show how to share files between
+Windows computers.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep98.html</link>
+<pubDate>Mon, 12 Nov 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-98-480.mov" length="113554911" type="video/quicktime" />
+<itunes:duration>26:56</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-97-480.mov</guid>
+<title>Episode 97: Multi-Monitor Setups</title>
+<description>In episode 97, Andy and Sean show how to enable you computer to use
+two or more screens.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 97: Multi-Monitor Setups</itunes:subtitle>
+<itunes:summary>In episode 97, Andy and Sean show how to enable you computer to use
+two or more screens.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep97.html</link>
+<pubDate>Mon, 5 Nov 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-97-480.mov" length="210488735" type="video/quicktime" />
+<itunes:duration>20:25</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-96-480.mov</guid>
+<title>Episode 96: Hotspot Safety</title>
+<description>In episode 96, Andy and Sean look at issues around public Wi-Fi access
+points.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 96: Hotspot Safety</itunes:subtitle>
+<itunes:summary>In episode 96, Andy and Sean look at issues around public Wi-Fi access
+points.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep96.html</link>
+<pubDate>Mon, 29 Oct 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-96-480.mov" length="84949434" type="video/quicktime" />
+<itunes:duration>20:45</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-95-480.mov</guid>
+<title>Episode 95: Trojan Horses Demystified</title>
+<description>In episode 95, Andy and Sean show how Trojan horses work using
+watermelons in a food demo.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 95: Trojan Horses Demystified</itunes:subtitle>
+<itunes:summary>In episode 95, Andy and Sean show how Trojan horses work using
+watermelons in a food demo.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep95.html</link>
+<pubDate>Mon, 22 Oct 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-95-480.mov" length="81545194" type="video/quicktime" />
+<itunes:duration>15:21</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-94-480.mov</guid>
+<title>Episode 94: User Accounts Demystified</title>
+<description>In episode 94, Andy and Sean show what the big deal is about
+user accounts on your Mac and PC.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 94: User Accounts Demystified</itunes:subtitle>
+<itunes:summary>In episode 94, Andy and Sean show what the big deal is about
+user accounts on your Mac and PC.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep94.html</link>
+<pubDate>Mon, 15 Oct 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-94-480.mov" length="91518128" type="video/quicktime" />
+<itunes:duration>17:26</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-93-480.mov</guid>
+<title>Episode 93: LabRats at New Media Expo 2007 Part 2</title>
+<description>In episode 93, Andy and Sean attend the New Media Expo and interview individuals from Goodnight Burbank, Revision3, Midwest Teen Sex Show, iJustine.tv, and the author Podcasting For Profit.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 93: LabRats at New Media Expo 2007 Part 2</itunes:subtitle>
+<itunes:summary>In episode 93, Andy and Sean attend the New Media Expo and interview individuals from Goodnight Burbank, Revision3, Midwest Teen Sex Show, iJustine.tv, and the author Podcasting For Profit.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep93.html</link>
+<pubDate>Tue, 9 Oct 2007 09:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-93-480.mov" length="210488735" type="video/quicktime" />
+<itunes:duration>27:15</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-92-480.mov</guid>
+<title>Episode 92: LabRats at New Media Expo 2007</title>
+<description>In episode 92, Andy and Sean attend the New Media Expo and interview the producers and hosts of MacMost, This Week in Science, Torrent TV, NosillaCast, and PixelCorps.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 92: LabRats at New Media Expo 2007</itunes:subtitle>
+<itunes:summary>In episode 92, Andy and Sean attend the New Media Expo and interview the producers and hosts of MacMost, This Week in Science, Torrent TV, NosillaCast, and PixelCorps.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep92.html</link>
+<pubDate>Wed, 3 Oct 2007 10:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-92-480.mov" length="274726912" type="video/quicktime" />
+<itunes:duration>28:23</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-91-480.mov</guid>
+<title>Episode 91: Update your PC for Performance</title>
+<description>In episode 91, Andy and Sean talk about hardware upgrades
+for your computer.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 91: Update your PC for Performance</itunes:subtitle>
+<itunes:summary>In episode 91, Andy and Sean talk about hardware upgrades
+for your computer.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep91.html</link>
+<pubDate>Mon, 24 Sep 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-91-480.mov" length="97152141" type="video/quicktime" />
+<itunes:duration>21:24</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-90-480.mov</guid>
+<title>Episode 90: How to Fix an iPod</title>
+<description>In episode 90, Andy and Sean show you how to repair and refurbish your
+Apple music player.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 90: How to Fix an iPod</itunes:subtitle>
+<itunes:summary>In episode 90, Andy and Sean show you how to repair and refurbish your
+Apple music player.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep90.html</link>
+<pubDate>Mon, 17 Sep 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-90-480.mov" length="112955181" type="video/quicktime" />
+<itunes:duration>18:54</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-89-480.mov</guid>
+<title>Episode 89: Troubleshoot an Ailing Network</title>
+<description>In episode 89, Andy and Sean show how to use ping and traceroute on a Mac and PC.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 89: Troubleshoot an Ailing Network</itunes:subtitle>
+<itunes:summary>In episode 89, Andy and Sean show how to use ping and traceroute on a Mac and PC.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep89.html</link>
+<pubDate>Mon, 10 Sep 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-89-480.mov" length="66601825" type="video/quicktime" />
+<itunes:duration>14:29</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-88-480.mov</guid>
+<title>Episode 88: Decoding Computer Ads</title>
+<description>In episode 88, Andy and Sean help you translate the geek speak when you buy a computer.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 88: Decoding Computer Ads</itunes:subtitle>
+<itunes:summary>In episode 88, Andy and Sean help you translate the geek speak when you buy a computer.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep88.html</link>
+<pubDate>Mon, 3 Sep 2007 16:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-88-480.mov" length="109159057" type="video/quicktime" />
+<itunes:duration>26:23</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-87-480.mov</guid>
+<title>Episode 87: A2DP is Not a Droid</title>
+<description>In episode 87, Andy and Sean demystify stereo Bluetooth technology.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 87: A2DP is Not a Droid</itunes:subtitle>
+<itunes:summary>In episode 87, Andy and Sean demystify stereo Bluetooth technology.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep87.html</link>
+<pubDate>Mon, 27 Aug 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-87-480.mov" length="90959331" type="video/quicktime" />
+<itunes:duration>19:20</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-86-480.mov</guid>
+<title>Episode 86: Vampire Power Demystified</title>
+<description>In episode 86, Andy and Sean show much power gadgets use when
+they are off.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 86: Vampire Power Demystified</itunes:subtitle>
+<itunes:summary>In episode 86, Andy and Sean show much power gadgets use when
+they are off.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep86.html</link>
+<pubDate>Mon, 20 Aug 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-86-480.mov" length="85404532" type="video/quicktime" />
+<itunes:duration>17:54</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-85-480.mov</guid>
+<title>Episode 85: Software Troubleshooting in Vista</title>
+<description>In episode 85, Andy and Sean show you how to make older
+programs work in Vista.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 85: Software Troubleshooting in Vista</itunes:subtitle>
+<itunes:summary>In episode 85, Andy and Sean show you how to make older
+programs work in Vista.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep85.html</link>
+<pubDate>Mon, 13 Aug 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-85-480.mov" length="112046746" type="video/quicktime" />
+<itunes:duration>19:38</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-84-480.mov</guid>
+<title>Episode 84: iPhone Any Good?</title>
+<description>In episode 84, Andy and Sean weigh in on Apple's new smart phone, with
+special guest Ben Freedman.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 84: iPhone Any Good?</itunes:subtitle>
+<itunes:summary>In episode 84, Andy and Sean weigh in on Apple's new smart phone, with
+special guest Ben Freedman.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep84.html</link>
+<pubDate>Mon, 6 Aug 2007 16:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-84-480.mov" length="129806615" type="video/quicktime" />
+<itunes:duration>25:19</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-83-480.mov</guid>
+<title>Episode 83: How LCD and Plasma TV Work</title>
+<description>In episode 83, Andy and Sean break out the props to show how flat panel TV technology works.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 83: How LCD and Plasma TV Work</itunes:subtitle>
+<itunes:summary>In episode 83, Andy and Sean break out the props to show how flat panel TV technology works.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep83.html</link>
+<pubDate>Mon, 30 Jul 2007 16:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-83-480.mov" length="114549954" type="video/quicktime" />
+<itunes:duration>26:14</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-82-480.mov</guid>
+<title>Episode 82: Perpendicular Storage Demystified</title>
+<description>In episode 82, Andy and Sean use cheese to demo new hard drive tech.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 82: Perpendicular Storage Demystified</itunes:subtitle>
+<itunes:summary>In episode 82, Andy and Sean use cheese to demo new hard drive tech.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep82.html</link>
+<pubDate>Mon, 23 Jul 2007 16:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-82-480.mov" length="79579168" type="video/quicktime" />
+<itunes:duration>15:19</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-81-480.mov</guid>
+<title>Episode 81: Intro to Apple TV</title>
+<description>In episode 81, Andy and Sean take a closer look at the new set top box
+from Apple that links your computer to your TV.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 81: Intro to Apple TV</itunes:subtitle>
+<itunes:summary>In episode 81, Andy and Sean take a closer look at the new set top box
+from Apple that links your computer to your TV.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep81.html</link>
+<pubDate>Mon, 16 Jul 2007 16:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-81-480.mov" length="91314537" type="video/quicktime" />
+<itunes:duration>24:35</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-80-480.mov</guid>
+<title>Episode 80: Get Ready For High Definition DVDs</title>
+<description>In episode 80, Andy and Sean cover what gear you need
+to enjoy HD DVD or Blu-ray.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 80: Get Ready For High Definition DVDs</itunes:subtitle>
+<itunes:summary>In episode 80, Andy and Sean cover what gear you need
+to enjoy HD DVD or Blu-ray.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep80.html</link>
+<pubDate>Mon, 9 Jul 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-80-480.mov" length="91145885" type="video/quicktime" />
+<itunes:duration>24:54</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-79-480.mov</guid>
+<title>Episode 79: Software Surgery</title>
+<description>In episode 79, Andy and Sean show how to manually remove a program from Windows.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 79: Software Surgery</itunes:subtitle>
+<itunes:summary>In episode 79, Andy and Sean show how to manually remove a program from Windows.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep79.html</link>
+<pubDate>Mon, 2 Jul 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-79-480.mov" length="77689544" type="video/quicktime" />
+<itunes:duration>26:09</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-78-480.mov</guid>
+<title>Episode 78: Understanding USB</title>
+<description>In episode 78, Andy and Sean explain the fundamentals of Universal
+Serial Bus plus some troubleshooting tips.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 78: Understanding USB</itunes:subtitle>
+<itunes:summary>In episode 78, Andy and Sean explain the fundamentals of Universal
+Serial Bus plus some troubleshooting tips.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep78.html</link>
+<pubDate>Mon, 25 Jun 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-78-480.mov" length="74764084" type="video/quicktime" />
+<itunes:duration>24:26</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-77-480.mov</guid>
+<title>Episode 77: Transform XP into Vista</title>
+<description>In episode 77, Andy and Sean retrofit a Windows XP machine to look
+and work like Vista.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 77: Transform XP into Vista</itunes:subtitle>
+<itunes:summary>In episode 77, Andy and Sean retrofit a Windows XP machine to look
+and work like Vista.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep77.html</link>
+<pubDate>Mon, 18 Jun 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-77-480.mov" length="50331648" type="video/quicktime" />
+<itunes:duration>17:28</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-76-480.mov</guid>
+<title>Episode 76: How to Video Podcast</title>
+<description>In episode 76, Andy and Sean turn the camera around and show you how
+they make Lab Rats.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 76: How to Video Podcast</itunes:subtitle>
+<itunes:summary>In episode 76, Andy and Sean turn the camera around and show you how
+they make Lab Rats.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep76.html</link>
+<pubDate>Mon, 11 Jun 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-76-480.mov" length="119537664" type="video/quicktime" />
+<itunes:duration>27:03</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-75-480.mov</guid>
+<title>Episode 75: What is WIMAX?</title>
+<description>In episode 75, Andy and Sean discuss the hot new wireless broadband
+technology.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 75: What is WIMAX?</itunes:subtitle>
+<itunes:summary>In episode 75, Andy and Sean discuss the hot new wireless broadband
+technology.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep75.html</link>
+<pubDate>Mon, 4 Jun 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-75-480.mov" length="58720256" type="video/quicktime" />
+<itunes:duration>19:10</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-74-480.mov</guid>
+<title>Episode 74: Disk Utility Demystified</title>
+<description>In episode 74, Andy and Sean demo fun features of Disk Utility
+in Mac OS X.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 74: Disk Utility Demystified</itunes:subtitle>
+<itunes:summary>In episode 74, Andy and Sean demo fun features of Disk Utility
+in Mac OS X.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep74.html</link>
+<pubDate>Mon, 28 May 2007 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-74-480.mov" length="65011712" type="video/quicktime" />
+<itunes:duration>21:20</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-73-480.mov</guid>
+<title>Episode 73: Backup 101</title>
+<description>In episode 73, Andy and Sean take a look at backup technologies in Vista and on the Mac.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 73: Backup 101</itunes:subtitle>
+<itunes:summary>In episode 73, Andy and Sean take a look at backup technologies in Vista and on the Mac.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep73.html</link>
+<pubDate>Mon, 21 May 2007 16:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-73-480.mov" length="75497472" type="video/quicktime" />
+<itunes:duration>24:29</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-72-480.mov</guid>
+<title>Episode 72: Smart Phones 101</title>
+<description>In episode 72, Andy and Sean discuss handheld computers that are also
+mobile phones.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 72: Smart Phones 101</itunes:subtitle>
+<itunes:summary>In episode 72, Andy and Sean discuss handheld computers that are also
+mobile phones.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep72.html</link>
+<pubDate>Mon, 14 May 2007 16:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-72-480.mov" length="100663296" type="video/quicktime" />
+<itunes:duration>23:48</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-71-480.mov</guid>
+<title>Episode 71: How Flash Memory Works</title>
+<description>In episode 71, Andy and Sean show how flash memory works using
+Brussel sprouts.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 71: How Flash Memory Works</itunes:subtitle>
+<itunes:summary>In episode 71, Andy and Sean show how flash memory works using
+Brussel sprouts.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep71.html</link>
+<pubDate>Mon, 7 May 2007 16:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-71-480.mov" length="50331648" type="video/quicktime" />
+<itunes:duration>13:19</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv2/labrats-70-480.mov</guid>
+<title>Episode 70: Home Network Security 101</title>
+<description>In episode 70, Andy and Sean show you how to secure your
+wireless router.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 70: Home Network Security 101</itunes:subtitle>
+<itunes:summary>In episode 70, Andy and Sean show you how to secure your
+wireless router.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep70.html</link>
+<pubDate>Mon, 23 Apr 2007 16:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/9/labrats-70-480.mov" length="140509184" type="video/quicktime" />
+<itunes:duration>32:30</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-69-480.mov</guid>
+<title>Episode 69: Mac vs. PC</title>
+<description>In episode 69, Andy and Sean battle it out on the merits of the two platforms.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 69: Mac vs. PC</itunes:subtitle>
+<itunes:summary>In episode 69, Andy and Sean battle it out on the merits of the two platforms.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep69.html</link>
+<pubDate>Mon, 16 Apr 2007 16:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-69-480.mov" length="104857600" type="video/quicktime" />
+<itunes:duration>25:16</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-68-480.mov</guid>
+<title>Episode 68: UAC Hacks</title>
+<description>In episode 68, Andy and Sean show how to tweak Windows Vista security.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 68: UAC Hacks</itunes:subtitle>
+<itunes:summary>In episode 68, Andy and Sean show how to tweak Windows Vista security.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep68.html</link>
+<pubDate>Mon, 9 Apr 2007 16:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-68-480.mov" length="104857600" type="video/quicktime" />
+<itunes:duration>22:05</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-67-480.mov</guid>
+<title>Episode 67: Cars for Geeks</title>
+<description>In episode 67, while Sean's away, Andy checks in with Maurice Cacho who's
+been to the Toronto Auto Show.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 67: Cars for Geeks</itunes:subtitle>
+<itunes:summary>In episode 67, while Sean's away, Andy checks in with Maurice Cacho who's
+been to the Toronto Auto Show.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep67.html</link>
+<pubDate>Mon, 2 Apr 2007 16:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-67-480.mov" length="90177536" type="video/quicktime" />
+<itunes:duration>14:07</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-66-480.mov</guid>
+<title>Episode 66: Hot Windows Vista Features</title>
+<description>In episode 66, Andy and Sean show you hot Windows Vista tricks
+including how to use your USB key to boost system performance.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 66: Hot Windows Vista Features</itunes:subtitle>
+<itunes:summary>In episode 66, Andy and Sean show you hot Windows Vista tricks
+including how to use your USB key to boost system performance.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep66.html</link>
+<pubDate>Mon, 26 Mar 2007 16:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-66-480.mov" length="87031808" type="video/quicktime" />
+<itunes:duration>15:30</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-65-480.mov</guid>
+<title>Episode 65: Home Network Basics</title>
+<description>In episode 65, Andy and Sean explain home network routers and Wi-Fi.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 65: Home Network Basics</itunes:subtitle>
+<itunes:summary>In episode 65, Andy and Sean explain home network routers and Wi-Fi.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep65.html</link>
+<pubDate>Mon, 19 Mar 2007 16:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-65-480.mov" length="91226112" type="video/quicktime" />
+<itunes:duration>17:05</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-64-480.mov</guid>
+<title>Episode 64: Vista Performance Tools</title>
+<description>In episode 64, Andy and Sean unveil how to monitor and tweak
+Windows Vista performance.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 64: Vista Performance Tools</itunes:subtitle>
+<itunes:summary>In episode 64, Andy and Sean unveil how to monitor and tweak
+Windows Vista performance.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep64.html</link>
+<pubDate>Mon, 12 Mar 2007 16:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-64-480.mov" length="89128960" type="video/quicktime" />
+<itunes:duration>15:59</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-63-480.mov</guid>
+<title>Episode 63: Run Windows on a Mac</title>
+<description>In episode 63, Andy and Sean show you how to run Windows (or Linux!)
+on your Apple computer.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 63: Run Windows on a Mac</itunes:subtitle>
+<itunes:summary>In episode 63, Andy and Sean show you how to run Windows (or Linux!)
+on your Apple computer.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep63.html</link>
+<pubDate>Mon, 5 Mar 2007 16:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-63-480.mov" length="92274688" type="video/quicktime" />
+<itunes:duration>21:26</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-62-480.mov</guid>
+<title>Episode 62: How To Choose An MP3 Player</title>
+<description>In episode 62, Andy and Sean look at the pros and cons of
+flash vs. hard-drive storage on digital music players.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 62: How To Choose An MP3 Player</itunes:subtitle>
+<itunes:summary>In episode 62, Andy and Sean look at the pros and cons of
+flash vs. hard-drive storage on digital music players.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep62.html</link>
+<pubDate>Mon, 26 Feb 2007 16:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-62-480.mov" length="91226112" type="video/quicktime" />
+<itunes:duration>17:54</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-61-480.mov</guid>
+<title>Episode 61: Windows Security 101</title>
+<description>In episode 61, Andy and Sean show you how to tighten security on
+Windows XP and Vista PCs.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 61: Windows Security 101</itunes:subtitle>
+<itunes:summary>In episode 61, Andy and Sean show you how to tighten security on
+Windows XP and Vista PCs.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep61.html</link>
+<pubDate>Mon, 19 Feb 2007 16:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-61-480.mov" length="113246208" type="video/quicktime" />
+<itunes:duration>19:44</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-60-480.mov</guid>
+<title>Episode 60: Remote Control Your Mom's PC</title>
+<description>In episode 60, Andy and Sean demonstrate how you can solve
+tech problems at a distance and for free!</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 60: Remote Control Your Mom's PC</itunes:subtitle>
+<itunes:summary>In episode 60, Andy and Sean demonstrate how you can solve
+tech problems at a distance and for free!</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep60.html</link>
+<pubDate>Mon, 12 Feb 2007 16:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-60-480.mov" length="88080384" type="video/quicktime" />
+<itunes:duration>17:19</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-59-480.mov</guid>
+<title>Episode 59: Intro to Windows Vista</title>
+<description>In episode 59, Andy and Sean take a tour of Windows Vista, the
+newly released operating system from Microsoft.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 59: Intro to Windows Vista</itunes:subtitle>
+<itunes:summary>In episode 59, Andy and Sean take a tour of Windows Vista, the
+newly released operating system from Microsoft.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep59.html</link>
+<pubDate>Mon, 5 Feb 2007 16:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-59-480.mov" length="90177536" type="video/quicktime" />
+<itunes:duration>21:22</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-58-480.mov</guid>
+<title>Episode 58: CES Robots!</title>
+<description>In episode 58, Andy and Sean show off bonus footage from CES 2007 including lots of robot footage.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 58: CES Robots!</itunes:subtitle>
+<itunes:summary>In episode 58, Andy and Sean show off bonus footage from CES 2007 including lots of robot footage.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep58.html</link>
+<pubDate>Mon, 29 Jan 2007 16:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-58-480.mov" length="131072000" type="video/quicktime" />
+<itunes:duration>15:57</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-57-480.mov</guid>
+<title>Episode 57: Printers 101</title>
+<description>In episode 57, Andy and Sean take a look at the difference between laser,
+inkjet and multifunction printers.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 57: Printers 101</itunes:subtitle>
+<itunes:summary>In episode 57, Andy and Sean take a look at the difference between laser,
+inkjet and multifunction printers.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep57.html</link>
+<pubDate>Mon, 22 Jan 2007 16:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-57-480.mov" length="115343360" type="video/quicktime" />
+<itunes:duration>16:47</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-56d-480.mov</guid>
+<title>Episode 56.4: CES 2007 Day 4</title>
+<description>In episode 56.4, Andy and Sean conclude their CES coverage with a look at some excellent gadgets.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 56.4: CES 2007 Day 3</itunes:subtitle>
+<itunes:summary>In episode 56.4, Andy and Sean conclude their CES coverage with a look at some excellent gadgets.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep56.4.html</link>
+<pubDate>Thu, 11 Jan 2007 22:40:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-56d-480.mov" length="120586240" type="video/quicktime" />
+<itunes:duration>17:20</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-56c-480.mov</guid>
+<title>Episode 56.3: CES 2007 Day 3</title>
+<description>In episode 56.3, Andy and Sean show off various gadgets and interviews from Viewsonic, Griffin, Linksys, EPOS, and Australian Simulation Control Systems.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 56.3: CES 2007 Day 3</itunes:subtitle>
+<itunes:summary>In episode 56.3, Andy and Sean show off various gadgets and interviews from Viewsonic, Griffin, Linksys, EPOS, and Australian Simulation Control Systems.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep56.3.html</link>
+<pubDate>Tue, 9 Jan 2007 16:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-56c-480.mov" length="165675008" type="video/quicktime" />
+<itunes:duration>16:47</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-56b-480.mov</guid>
+<title>Episode 56.2: CES 2007 Day 2</title>
+<description>In episode 56.2, Andy and Sean show off some cool new gadgets, including interviews with LG, Sling Media, Energizer, and Belkin.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 56.2: CES 2007 Day 2</itunes:subtitle>
+<itunes:summary>In episode 56.2, Andy and Sean show off some cool new gadgets, including interviews with LG, Sling Media, Energizer, and Belkin.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep56.2.html</link>
+<pubDate>Mon, 8 Jan 2007 16:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-56b-480.mov" length="140509184" type="video/quicktime" />
+<itunes:duration>17:40</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-56-480.mov</guid>
+<title>Episode 56.1: CES 2007 Day 1</title>
+<description>In episode 56.1, Andy and Sean are live in Las Vegas at CES.  Today's episode includes interviews with TDVision Systems, Samsung, Gennum, and Logitech.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 56.1: CES 2007 Day 1</itunes:subtitle>
+<itunes:summary>In episode 56.1, Andy and Sean are live in Las Vegas at CES.  Today's episode includes interviews with TDVision Systems, Samsung, Gennum, and Logitech.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep56.1.html</link>
+<pubDate>Sun, 7 Jan 2007 18:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-56-480.mov" length="135266304" type="video/quicktime" />
+<itunes:duration>18:14</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-55-480.mov</guid>
+<title>Episode 55: Intro to Linux</title>
+<description>In episode 55, Andy and Sean take a look at Ubuntu, a popular version of
+the Linux operating system.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 55: Intro to Linux</itunes:subtitle>
+<itunes:summary>In episode 55, Andy and Sean take a look at Ubuntu, a popular version of
+the Linux operating system.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep55.html</link>
+<pubDate>Mon, 18 Dec 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-55-480.mov" length="114294784" type="video/quicktime" />
+<itunes:duration>21:56</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-54-480.mov</guid>
+<title>Episode 54: Defrag Demystified</title>
+<description>In episode 54, Andy and Sean show how disk defragmentation works using
+eggplant and zucchini.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 54: Defrag Demystified</itunes:subtitle>
+<itunes:summary>In episode 54, Andy and Sean show how disk defragmentation works using
+eggplant and zucchini.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep54.html</link>
+<pubDate>Mon, 11 Dec 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-54-480.mov" length="92274688" type="video/quicktime" />
+<itunes:duration>14:25</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-53-480.mov</guid>
+<title>Episode 53: Vista Business Launch</title>
+<description>In episode 53, Andy and Sean attend the unveiling of Windows Vista Enterprise in Toronto.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 53: Vista Business Launch</itunes:subtitle>
+<itunes:summary>In episode 53, Andy and Sean attend the unveiling of Windows Vista Enterprise in Toronto.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep53.html</link>
+<pubDate>Mon, 4 Dec 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-53-480.mov" length="112197632" type="video/quicktime" />
+<itunes:duration>22:53</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-52-480.mov</guid>
+<title>Episode 52: Super-Charge Skype</title>
+<description>In episode 52, Andy and Sean show you extreme router secrets that improve the quality of Skype phone calls.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 52: Super-Charge Skype</itunes:subtitle>
+<itunes:summary>In episode 52, Andy and Sean show you extreme router secrets that improve the quality of Skype phone calls.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep52.html</link>
+<pubDate>Mon, 27 Nov 2006 18:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-52-480.mov" length="82837504" type="video/quicktime" />
+<itunes:duration>17:49</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-51-480.mov</guid>
+<title>Episode 51: Mac Maintenance</title>
+<description>In episode 51, Andy and Sean show you how to tweak your Mac.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 51: Mac Maintenance</itunes:subtitle>
+<itunes:summary>In episode 51, Andy and Sean show you how to tweak your Mac.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep51.html</link>
+<pubDate>Mon, 20 Nov 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-51-480.mov" length="104857600" type="video/quicktime" />
+<itunes:duration>17:25</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-50-480.mov</guid>
+<title>Episode 50: Intro to Digital SLR</title>
+<description>In episode 50, Andy and Sean demystify pro-am digital cameras.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 50: Intro to Digital SLR</itunes:subtitle>
+<itunes:summary>In episode 50, Andy and Sean demystify pro-am digital cameras.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep50.html</link>
+<pubDate>Mon, 13 Nov 2006 18:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-50-480.mov" length="156237824" type="video/quicktime" />
+<itunes:duration>18:27</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/awalker/labrats-49-480.mov</guid>
+<title>Episode 49: Core 2 Demystifed</title>
+<description>In episode 49, Andy and Sean discuss Intel's new family of microprocessors.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 49: Core 2 Demystifed</itunes:subtitle>
+<itunes:summary>In episode 49, Andy and Sean discuss Intel's new family of microprocessors.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep49.html</link>
+<pubDate>Mon, 6 Nov 2006 18:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/1/labrats-49-480.mov" length="78643200" type="video/quicktime" />
+<itunes:duration>16:00</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/awalker/labrats-48-480.mov</guid>
+<title>Episode 48: GPS Demystified</title>
+<description>In episode 48, Andy and Sean show how the global positioning system helps
+you navigate using a melon and tomatoes.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 48: GPS Demystified</itunes:subtitle>
+<itunes:summary>In episode 48, Andy and Sean show how the global positioning system helps
+you navigate using a melon and tomatoes.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep48.html</link>
+<pubDate>Mon, 30 Oct 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/1/labrats-48-480.mov" length="106954752" type="video/quicktime" />
+<itunes:duration>17:55</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/awalker/labrats-47-480.mov</guid>
+<title>Episode 47: Upgrade Your Video Card</title>
+<description>In episode 47, Andy and Sean show you how to upgrade your video
+adapter so you can supercharge your system's graphics.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 47: Upgrade Your Video Card</itunes:subtitle>
+<itunes:summary>In episode 47, Andy and Sean show you how to upgrade your video
+adapter so you can supercharge your system's graphics.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep47.html</link>
+<pubDate>Mon, 23 Oct 2006 18:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/1/labrats-47-480.mov" length="104857600" type="video/quicktime" />
+<itunes:duration>19:54</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-46-480.mov</guid>
+<title>Episode 46: LabRats at Podcast Expo 2006 (Part 2)</title>
+<description>In episode 46, Andy and Sean interview more of the who's who of podcasting
+at the Podcast Expo, including Calli Lewis of GeekBrief.tv, Matt Harris of
+G4techtv's Torrent and more! Andy also makes a bit of a splash.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 46: LabRats at Podcast Expo 2006 (Part 2)</itunes:subtitle>
+<itunes:summary>In episode 46, Andy and Sean interview more of the who's who of podcasting
+at the Podcast Expo, including Calli Lewis of GeekBrief.tv, Matt Harris of
+G4techtv's Torrent and more! Andy also makes a bit of a splash.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep46.html</link>
+<pubDate>Mon, 16 Oct 2006 18:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-46-480.mov" length="170917888" type="video/quicktime" />
+<itunes:duration>23:22</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-45-480.mov</guid>
+<title>Episode 45: LabRats at Podcast Expo 2006 (Part 1)</title>
+<description>In episode 45, Andy and Sean attend the Podcast
+Expo and interview the who's who of podcasting including former Microsoft
+blogger Robert Scoble and RocktBoom's Andrew Baron.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 45: LabRats at Podcast Expo 2006 (Part 1)</itunes:subtitle>
+<itunes:summary>In episode 45, Andy and Sean attend the Podcast
+Expo and interview the who's who of podcasting including former Microsoft
+blogger Robert Scoble and RocktBoom's Andrew Baron.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep45.html</link>
+<pubDate>Tue, 10 Oct 2006 10:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-45-480.mov" length="156237824" type="video/quicktime" />
+<itunes:duration>20:05</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-44-480.mov</guid>
+<title>Episode 44: DSL vs Cable Internet</title>
+<description>In episode 44, Andy and Sean discuss buying a broadband connection.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 44: DSL vs Cable Internet</itunes:subtitle>
+<itunes:summary>In episode 44, Andy and Sean discuss buying a broadband connection.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep44.html</link>
+<pubDate>Mon, 2 Oct 2006 18:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-44-480.mov" length="125829120" type="video/quicktime" />
+<itunes:duration>21:02</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-43-480.mov</guid>
+<title>Episode 43: Upgrade Your Power Supply</title>
+<description>In episode 43, Andy and Sean show you how more power in your
+system solves ornery problems.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 43: Upgrade Your Power Supply</itunes:subtitle>
+<itunes:summary>In episode 43, Andy and Sean show you how more power in your
+system solves ornery problems.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep43.html</link>
+<pubDate>Mon, 25 Sep 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-43-480.mov" length="208666624" type="video/quicktime" />
+<itunes:duration>20:13</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-42-480.mov</guid>
+<title>Episode 42: Mobile Phone Travel</title>
+<description>In episode 42, Andy and Sean offer tips for roaming overseas with
+your cellular phone.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 42: Mobile Phone Travel</itunes:subtitle>
+<itunes:summary>In episode 42, Andy and Sean offer tips for roaming overseas with
+your cellular phone.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep42.html</link>
+<pubDate>Mon, 18 Sep 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-42-480.mov" length="88080384" type="video/quicktime" />
+<itunes:duration>18:03</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-41-480.mov</guid>
+<title>Episode 41: High-definition DVD Primer</title>
+<description>In episode 41, Andy and Sean look at first generation players
+that play Blu ray and HD DVD discs.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 41: High-definition DVD Primer</itunes:subtitle>
+<itunes:summary>In episode 41, Andy and Sean look at first generation players
+that play Blu ray and HD DVD discs.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep41.html</link>
+<pubDate>Mon, 11 Sep 2006 18:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-41-480.mov" length="79691776" type="video/quicktime" />
+<itunes:duration>23:17</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-40-480.mov</guid>
+<title>Episode 40: CODEC 101</title>
+<description>In episode 40, Andy and Sean take a look at what audio and video codecs do, and show you how to troubleshoot your codec headaches.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 40: CODEC 101</itunes:subtitle>
+<itunes:summary>In episode 40, Andy and Sean take a look at what audio and video codecs do, and show you how to troubleshoot your codec headaches.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep40.html</link>
+<pubDate>Mon, 04 Sep 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-40-480.mov" length="72351744" type="video/quicktime" />
+<itunes:duration>21:12</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-39-480.mov</guid>
+<title>Episode 39: New Gadgets From Creative</title>
+<description>In episode 39, Andy and Sean look at hot new audio and video gadgets from Creative.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 39: New Gadgets From Creative</itunes:subtitle>
+<itunes:summary>In episode 39, Andy and Sean look at hot new audio and video gadgets from Creative.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep39.html</link>
+<pubDate>Mon, 28 Aug 2006 18:30:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-39-480.mov" length="45088768" type="video/quicktime" />
+<itunes:duration>14:22</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-38-480.mov</guid>
+<title>Episode 38: Flash Your BIOS</title>
+<description>In episode 38, Andy and Sean show you how to fix weird blue screens by updating your BIOS.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 38: Flash Your BIOS</itunes:subtitle>
+<itunes:summary>In episode 38, Andy and Sean show you how to fix weird blue screens by updating your BIOS.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep38.html</link>
+<pubDate>Mon, 21 Aug 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-38-480.mov" length="99614720" type="video/quicktime" />
+<itunes:duration>21:37</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-37-480.mov</guid>
+<title>Episode 37: Apple Worldwide Developers Conference</title>
+<description>In episode 37, Sean goes on location to the Apple Developers Conference, while Andy stays
+at home and moves house.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 37: Apple Worldwide Developers Conference</itunes:subtitle>
+<itunes:summary>In episode 37, Sean goes on location to the Apple Developers Conference, while Andy stays
+at home and moves house.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep37.html</link>
+<pubDate>Mon, 14 Aug 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-37-480.mov" length="75497472" type="video/quicktime" />
+<itunes:duration>18:50</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-36-480.mov</guid>
+<title>Episode 36: BIOS Basics</title>
+<description>In episode 36, Andy and Sean dig into the system BIOS to show you what the
+heck it does.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 36: BIOS Basics</itunes:subtitle>
+<itunes:summary>In episode 36, Andy and Sean dig into the system BIOS to show you what the
+heck it does.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep36.html</link>
+<pubDate>Tue, 1 Aug 2006 08:35:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-36-480.mov" length="70254592" type="video/quicktime" />
+<itunes:duration>20:02</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-35-480.mov</guid>
+<title>Episode 35: Registry 101</title>
+<description>In episode 35, Andy and Sean teach the basics of the Windows registry and
+show you how to clean it up!</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 35: Registry 101</itunes:subtitle>
+<itunes:summary>In episode 35, Andy and Sean teach the basics of the Windows registry and
+show you how to clean it up!</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep35.html</link>
+<pubDate>Mon, 24 Jul 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-35-480.mov" length="50331648" type="video/quicktime" />
+<itunes:duration>14:08</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-34-480.mov</guid>
+<title>Episode 34: Instant Notebook Upgrades</title>
+<description>In episode 34, Andy and Sean show you how to upgrade your
+notebook in 7 minutes!</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 34: Instant Notebook Upgrades</itunes:subtitle>
+<itunes:summary>In episode 34, Andy and Sean show you how to upgrade your
+notebook in 7 minutes!</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep34.html</link>
+<pubDate>Mon, 17 Jul 2006 19:15:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-34-480.mov" length="108003328" type="video/quicktime" />
+<itunes:duration>16:21</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-33-480.mov</guid>
+<title>Episode 33: TV to Computer Technology</title>
+<description>In episode 33, Andy and Sean look at the Slingbox and other living room multimedia technologies.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 33: TV to Computer Technology</itunes:subtitle>
+<itunes:summary>In episode 33, Andy and Sean look at the Slingbox and other living room multimedia technologies.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep33.html</link>
+<pubDate>Mon, 10 Jul 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-33-480.mov" length="94371840" type="video/quicktime" />
+<itunes:duration>14:29</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-32-480.mov</guid>
+<title>Episode 32: Build or Buy a PC</title>
+<description>In episode 32, Andy and Sean debate where you should design your own or
+buy a pre-built computer.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 32: Build or Buy a PC</itunes:subtitle>
+<itunes:summary>In episode 32, Andy and Sean debate where you should design your own or
+buy a pre-built computer.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep32.html</link>
+<pubDate>Mon, 3 Jul 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-32-480.mov" length="122683392" type="video/quicktime" />
+<itunes:duration>17:46</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-31-480.mov</guid>
+<title>Episode 31: How To Be A Geek Musician</title>
+<description>In episode 31, Andy and Sean check in with Dee Long on how use
+technology to write songs.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 31: How To Be A Geek Musician</itunes:subtitle>
+<itunes:summary>In episode 31, Andy and Sean check in with Dee Long on how use
+technology to write songs.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep31.html</link>
+<pubDate>Mon, 26 Jun 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-31-480.mov" length="91226112" type="video/quicktime" />
+<itunes:duration>19:55</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-30-480.mov</guid>
+<title>Episode 30: How to Buy a Mac</title>
+<description>In episode 30, Andy and Sean talk about what to look for when shopping
+for a Mac.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 30: How to Buy a Mac</itunes:subtitle>
+<itunes:summary>In episode 30, Andy and Sean talk about what to look for when shopping
+for a Mac.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep30.html</link>
+<pubDate>Mon, 19 Jun 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-30-480.mov" length="94371840" type="video/quicktime" />
+<itunes:duration>18:49</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-29-480.mov</guid>
+<title>Episode 29: Windows Vista Preview</title>
+<description>In episode 29, Andy and Sean take a look at
+the beta 2 version of Microsoft's new operating system.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 29: Windows Vista Preview</itunes:subtitle>
+<itunes:summary>In episode 29, Andy and Sean take a look at
+the beta 2 version of Microsoft's new operating system.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep29.html</link>
+<pubDate>Mon, 12 Jun 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-29-480.mov" length="84934656" type="video/quicktime" />
+<itunes:duration>16:41</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-28-480.mov</guid>
+<title>Episode 28: Reinstall and Reformat</title>
+<description>In episode 28, Andy and Sean show you how to wipe the hard drive
+clean and install a fresh copy of Windows.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 28: Reinstall and Reformat</itunes:subtitle>
+<itunes:summary>In episode 28, Andy and Sean show you how to wipe the hard drive
+clean and install a fresh copy of Windows.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep28.html</link>
+<pubDate>Mon, 29 May 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-28-480.mov" length="170917888" type="video/quicktime" />
+<itunes:duration>16:41</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-27-480.mov</guid>
+<title>Episode 27: Keep Your PC Cool</title>
+<description>In episode 27, Andy and Sean show you how to groom the inside of your PC to optimize airflow.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 27: Keep Your PC Cool</itunes:subtitle>
+<itunes:summary>In episode 27, Andy and Sean show you how to groom the inside of your PC to optimize airflow.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep27.html</link>
+<pubDate>Mon, 22 May 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-27-480.mov" length="149946368" type="video/quicktime" />
+<itunes:duration>14:08</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-26-480.mov</guid>
+<title>Episode 26: How to Add a Second Hard Drive</title>
+<description>In episode 26, Andy and Sean show you how to easy add a second hard drive to your Mac or PC.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 26: How to Add a Second Hard Drive</itunes:subtitle>
+<itunes:summary>In episode 26, Andy and Sean show you how to easy add a second hard drive to your Mac or PC.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep26.html</link>
+<pubDate>Mon, 15 May 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-26-480.mov" length="140509184" type="video/quicktime" />
+<itunes:duration>19:25</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-25-480.mov</guid>
+<title>Episode 25: Multi-Core Processors Demystified</title>
+<description>In episode 25, Andy and Sean break out pudding and blenders to explain how the latest
+generation of processors double up their work.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 25: Multi-Core Processors Demystified</itunes:subtitle>
+<itunes:summary>In episode 25, Andy and Sean break out pudding and blenders to explain how the latest
+generation of processors double up their work.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep25.html</link>
+<pubDate>Mon, 8 May 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-25-480.mov" length="112197632" type="video/quicktime" />
+<itunes:duration>10:50</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-24-480.mov</guid>
+<title>Episode 24: VOIP Demystified</title>
+<description>In episode 24, Andy and Sean give you the scoop on voice over IP using gadgets and a few
+flying eggs.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 24: VOIP Demystified</itunes:subtitle>
+<itunes:summary>In episode 24, Andy and Sean give you the scoop on voice over IP using gadgets and a few flying eggs.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep24.html</link>
+<pubDate>Mon, 1 May 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-24-480.mov" length="126877696" type="video/quicktime" />
+<itunes:duration>13:40</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-23-480.mov</guid>
+<title>Episode 23: Clean Your Computer</title>
+<description>In episode 23, Andy and Sean gives you the dirt on a little spring cleaning for your
+computer.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 23: Clean Your Computer</itunes:subtitle>
+<itunes:summary>In episode 23, Andy and Sean gives you the dirt on a little spring cleaning for your
+computer.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep23.html</link>
+<pubDate>Mon, 24 Apr 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-23-480.mov" length="158334976" type="video/quicktime" />
+<itunes:duration>13:59</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-22-480.mov</guid>
+<title>Episode 22: Understanding Drivers</title>
+<description>In episode 22, Andy and Sean talk about the importance of drivers, what they are, and how
+updates can keep your computer running smoothly.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 22: Understanding Drivers</itunes:subtitle>
+<itunes:summary>In episode 22, Andy and Sean talk about the importance of drivers, what they are, and how updates can keep your computer running smoothly.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep22.html</link>
+<pubDate>Mon, 17 Apr 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-22-480.mov" length="160432128" type="video/quicktime" />
+<itunes:duration>15:30</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-21-480.mov</guid>
+<title>Episode 21: RAM Upgrades Demystified</title>
+<description>In episode 21, Andy and Sean discuss how memory upgrades help improve your computer's
+performance and the pitfalls you should avoid.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 21: RAM Upgrades Demystified</itunes:subtitle>
+<itunes:summary>In episode 21, Andy and Sean discuss how memory upgrades help improve your computer's
+performance and the pitfalls you should avoid.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep21.html</link>
+<pubDate>Mon, 10 Apr 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-21-480.mov" length="119537664" type="video/quicktime" />
+<itunes:duration>13:34</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-20-480.mov</guid>
+<title>Episode 20: Digital Cameras Demystified </title>
+<description>In episode 20, Andy and Sean check in with Panasonic to discover the critical components of a digital cameras and tips on how to buy the right one.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 20: Digital Cameras Demystified </itunes:subtitle>
+<itunes:summary>In episode 20, Andy and Sean check in with Panasonic to discover the critical components of a digital cameras and tips on how to buy the right one.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep20.html</link>
+<pubDate>Mon, 3 Apr 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-20-480.mov" length="67108864" type="video/quicktime" />
+<itunes:duration>13:34</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-19-480.mov</guid>
+<title>Episode 19: Hot New Panasonic Gadgets</title>
+<description>In episode 19, the Lab Rats go on location to get a insider look at new Panasonic gadgets including a high-tech massage chair, a stove that boils water in 45 seconds
+and a new exercise gadget that looks like a mechanical bull for the home.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 19: Hot New Panasonic Gadgets</itunes:subtitle>
+<itunes:summary>In episode 19, the Lab Rats go on location to get a insider look at new Panasonic gadgets including a high-tech massage chair, a stove that boils water in 45 seconds
+and a new exercise gadget that looks like a mechanical bull for the home.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep19.html</link>
+<pubDate>Mon, 27 Mar 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-19-480.mov" length="88080384" type="video/quicktime" />
+<itunes:duration>13:13</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-18-480.mov</guid>
+<title>Episode 18: TV Technology Demystified</title>
+<description>In episode 18, the Lab Rats take you to the HP Digital Living Room where they look at the pros and cons for LCD, plasma and projection TVs.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 18: TV Technology Demystified</itunes:subtitle>
+<itunes:summary>In episode 18, the Lab Rats take you to the HP Digital Living Room where they look at the pros and cons for LCD, plasma and projection TVs.
+</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep18.html</link>
+<pubDate>Mon, 13 Mar 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-18-480.mov" length="103809024" type="video/quicktime" />
+<itunes:duration>13:00</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-17-480.mov</guid>
+<title>Episode 17: HDTV and More!</title>
+<description>In episode 17, the Lab Rats take a look at high-definition television and
+demystify all its strange specifications with TV guru John Kelly of Hewlett
+Packard.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 17: HDTV and More!</itunes:subtitle>
+<itunes:summary>In episode 17, the Lab Rats take a look at high-definition television and
+demystify all its strange specifications with TV guru John Kelly of Hewlett
+Packard. 
+</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep17.html</link>
+<pubDate>Mon, 6 Mar 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-17-480.mov" length="92274688" type="video/quicktime" />
+<itunes:duration>14:14</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-16-480.mov</guid>
+<title>Episode 16: A Trip To The DMZ</title>
+<description>In episode 16, the Lab Rats use marshmallows and a fake brick wall to explain how a DMZ works and how to use it to bypass your router's firewall for gaming, a home server and more. </description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 16: A Trip To The DMZ</itunes:subtitle>
+<itunes:summary>In episode 16, the Lab Rats use marshmallows and a fake brick wall to explain how a DMZ works and how to use it to bypass your router's firewall for gaming, a home server and more. 
+</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep16.html</link>
+<pubDate>Mon, 27 Feb 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-16-480.mov" length="94371840" type="video/quicktime" />
+<itunes:duration>14:46</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-15-480.mov</guid>
+<title>Episode 15: Optical Media Explained</title>
+<description>In episode 15, the Lab Rats grab a bag of marshmallows and fire up their
+blow torch and show you how optical discs work. Includes coverage of CDs,
+DVDs and blu-ray and HD DVD.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 15: Optical Media Explained</itunes:subtitle>
+<itunes:summary>In episode 15, the Lab Rats grab a bag of marshmallows and fire up their
+blow torch and show you how optical discs work. Includes coverage of CDs,
+DVDs and blu-ray and HD DVD.
+</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep15.html</link>
+<pubDate>Mon, 20 Feb 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-15-480.mov" length="104857600" type="video/quicktime" />
+<itunes:duration>15:25</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-14-480.mov</guid>
+<title>Episode 14: MAC Address Filtering</title>
+<description>In episode 14, we explain MAC address filtering and show you how it can be
+used to make your home network more secure.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 14: MAC Address Filtering</itunes:subtitle>
+<itunes:summary>In episode 14, we explain MAC address filtering and show you how it can be
+used to make your home network more secure.
+</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep14.html</link>
+<pubDate>Mon, 13 Feb 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-14-480.mov" length="71303168" type="video/quicktime" />
+<itunes:duration>12:45</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-13-480.mov</guid>
+<title>Episode 13 - Motherboard Anatomy</title>
+<description>In episode 13, we explain the anatomy of a motherboard.  Includes a brief overview of components, such as RAM, processors, graphics cards and more! </description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 13 - Motherboard Anatomy</itunes:subtitle>
+<itunes:summary>In episode 13, we explain the anatomy of a motherboard.  Includes a brief overview of components, such as RAM, processors, graphics cards and more! 
+</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep13.html</link>
+<pubDate>Mon, 6 Feb 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-13-480.mov" length="154140672" type="video/quicktime" />
+<itunes:duration>17:31</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-12-480.mov</guid>
+<title>Episode 12 - CES and Macworld Wrap Up</title>
+<description> In episode 12, we wrap up our coverage of Macworld and the Consumer Electronics Show, including a look at Windows Vista,the HD DVD vs Blu Ray debate and electric fabric.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 12 - CES &amp; Macworld Wrap Up</itunes:subtitle>
+<itunes:summary> In episode 12, we wrap up our coverage of Macworld and the Consumer Electronics Show, including a look at Windows Vista,the HD DVD vs Blu Ray debate and electric fabric.
+</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep12.html</link>
+<pubDate>Mon, 23 Jan 2006 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-12-480.mov" length="88080384" type="video/quicktime" />
+<itunes:duration>14:22</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-11.2-480.mov</guid>
+<title>Episode 11.2 - Macworld Expo 2006 Day 2</title>
+<description>In episode 11.2, MacWorld coverage brought to you live from San Francisco with today's tech trends and the future of Apple products.  Also including interviews with Leo Laporte, Amber MacArthur, and Patrick Norton.
+</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 11.2 - Macworld Expo 2006 Day 2</itunes:subtitle>
+<itunes:summary>In episode 11.2, MacWorld coverage brought to you live from San Francisco with today's tech trends and the future of Apple products.  Also including interviews with Leo Laporte, Amber MacArthur, and Patrick Norton.
+</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep11.2.html</link>
+<pubDate>Thu, 12 Jan 2006 13:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-11.2-480.mov" length="130023424" type="video/quicktime" />
+<itunes:duration>16:22</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-11.1-480.mov</guid>
+<title>Episode 11.1 - Macworld Expo 2006 Day 1</title>
+<description>In episode 11.1, MacWorld coverage brought to you live from San Francisco with today's tech trends and the future of Apple products.  Also including interviews with your favorite Apple geeks.
+</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 11.1 - Macworld Expo 2006 Day 1</itunes:subtitle>
+<itunes:summary>In episode 11.1, MacWorld coverage brought to you live from San Francisco with today's tech trends and the future of Apple products.  Also including interviews with your favorite Apple geeks.
+</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep11.1.html</link>
+<pubDate>Wed, 11 Jan 2006 20:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-11.1-480.mov" length="137363456" type="video/quicktime" />
+<itunes:duration>15:34</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-10.4-480.mov</guid>
+<title>Episode 10.4 - CES 2006 Day 4</title>
+<description> In episode 10.4 (09:49), we took you to Las Vegas to bring the frontlines of CES to your doorstep. Including interviews with Intel, Flexity, Mio, and Maxtor who are designing today's cutting edge gadgets.
+</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 10.4 - CES 2006 Day 4</itunes:subtitle>
+<itunes:summary> In episode 10.4 (09:49), we took you to Las Vegas to bring the frontlines of CES to your doorstep. Including interviews with Intel, Flexity, Mio, and Maxtor who are designing today's cutting edge gadgets.
+</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep10.4.html</link>
+<pubDate>Tue, 10 Jan 2006 14:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-10.4-480.mov" length="102760448" type="video/quicktime" />
+<itunes:duration>09:49</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-10.3-480.mov</guid>
+<title>Episode 10.3 - CES 2006 Day 3</title>
+<description> In episode 10.3 (10:27), we took you to Las Vegas to bring the frontlines of CES to your doorstep. Including interviews with Intel, D-Link, Creative, and HP who are designing today's cutting edge gadgets.
+</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 10.3 - CES 2006 Day 3</itunes:subtitle>
+<itunes:summary> In episode 10.3 (10:27), we took you to Las Vegas to bring the frontlines of CES to your doorstep. Including interviews with Intel, D-Link, Creative, and HP who are designing today's cutting edge gadgets.
+</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep10.3.html</link>
+<pubDate>Mon, 9 Jan 2006 15:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-10.3-480.mov" length="105906176" type="video/quicktime" />
+<itunes:duration>10:27</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-10.2-480.mov</guid>
+<title>Episode 10.2 - CES 2006 Day 2</title>
+<description>In episode 10.2 (09:13), we are taking you to Las Vegas to bring the frontlines of CES to your doorstep including interviews with Sony Ericsson, Toshiba, and Jadoo which are designing tomorrows technology today.
+</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 10.2 - CES 2006 Day 2</itunes:subtitle>
+<itunes:summary>In episode 10.2 (09:13), we are taking you to Las Vegas to bring the frontlines of CES to your doorstep including interviews with Sony Ericsson, Toshiba, and Jadoo which are designing tomorrows technology today.
+</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep10.2.html</link>
+<pubDate>Sat, 7 Jan 2006 16:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-10.2-480.mov" length="89128960" type="video/quicktime" />
+<itunes:duration>09:13</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-10.1-480.mov</guid>
+<title>Episode 10.1 - CES 2006 Day 1</title>
+<description>In episode 10.1 (07:22), we took you to Las Vegas to bring the frontlines of CES to your doorstep. Including interviews with companies designing today's cutting edge gadgets.
+</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 10.1: CES 2006 Day 1</itunes:subtitle>
+<itunes:summary>In episode 10.1 (07:22), we took you to Las Vegas to bring the frontlines of CES to your doorstep. Including interviews with companies designing today's cutting edge gadgets.
+</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep10.1.html</link>
+<pubDate>Fri, 6 Jan 2006 12:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-10.1-480.mov" length="90177536" type="video/quicktime" />
+<itunes:duration>07:22</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-9-480.mov</guid>
+<title>Episode 9 - Network File Sharing</title>
+<description>In episode 9 (18:03), we explain how to share files and folder on a home network for both Windows and Mac. Plus Boo makes a surprise appearance. There's also a special guest appearance by a famous tech geek. Download to find out who it is.
+</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 9: Network File Sharing</itunes:subtitle>
+<itunes:summary>In episode 9 (18:03), we explain how to share files and folder on a home network for both Windows and Mac. Plus Boo makes a surprise appearance. There's also a special guest appearance by a famous tech geek. Download to find out who it is.
+</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep9.html</link>
+<pubDate>Mon, 19 Dec 2005 21:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-9-480.mov" length="179306496" type="video/quicktime" />
+<itunes:duration>18:03</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-8-480.mov</guid>
+<title>Episode 8 - RAID Explained</title>
+<description>In episode 8 (20:16), we explain exactly what RAID is, how it works, and the differences in RAID using simple sandwiches to explain the more complex ideas of RAID.
+</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 8: RAID Explained</itunes:subtitle>
+<itunes:summary>In episode 8 (20:16), we explain exactly what RAID is, how it works, and the differences in RAID using simple sandwiches to explain the more complex ideas of RAID.
+</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep8.html</link>
+<pubDate>Mon, 12 Dec 2005 21:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-8-480.mov" length="197132288" type="video/quicktime" />
+<itunes:duration>20:16</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-7-480.mov</guid>
+<title>Episode 7 - Setup a Wireless Home Network</title>
+<description>In episode 7 (15:12), we show you how to setup your own wireless home network. Also discuss the speed and range of the differnet wireless techonologies.
+</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 7: Setup a Wireless Home Network</itunes:subtitle>
+<itunes:summary>In episode 7 (15:12), we show you how to setup your own wireless home network. Also discuss the speed and range of the different wireless techonologies.
+</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep7.html</link>
+<pubDate>Mon, 5 Dec 2005 21:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-7-480.mov" length="150994944" type="video/quicktime" />
+<itunes:duration>15:12</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-6-480.mov</guid>
+<title>Episode 6 - Home network primer</title>
+<description>In episode 6 (14:41), we demystify the set-up of a home network and discuss DSL and cable Internet connections. Plus Biff takes a header off the set in a rather humorous outtake.
+</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 6: Home network primer</itunes:subtitle>
+<itunes:summary>In episode 6 (14:41), we demystify the set-up of a home network and discuss DSL and cable Internet connections. Plus Biff takes a header off the set in a rather humorous outtake.
+</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep6.html</link>
+<pubDate>Mon, 28 Nov 2005 21:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-6-480.mov" length="168820736" type="video/quicktime" />
+<itunes:duration>14:41</itunes:duration>
+</item>
+
+<item>
+<guid>http://www.labrats.tv/episodes/low-rez/labrats-5-480.mov</guid>
+<title>Episode 5 - Hard drive upgrades made easy</title>
+<description>In episode 5 (15:12), we show you how to add a hard drive to a PC. Discussion about Serial ATA vs IDE/EIDE and external USB vs Firewire. We suffer a power outage, get interrupted by our pizza guy and enjoy the company of a studio audience that helps out with lighting.
+</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 5: Easy hard drive upgrades</itunes:subtitle>
+<itunes:summary>In episode 5, we show you how to add a hard drive to a PC. Discussion about Serial ATA vs IDE/EIDE and external USB vs Firewire. We suffer a power outage, get interrupted by our pizza guy and enjoy the company of a studio audience that helps out with lighting. </itunes:summary>
+<link>http://www.labrats.tv/episodes/ep5.html</link>
+<pubDate>Mon, 21 Nov 2005 17:00:00 EST</pubDate>
+<enclosure url="http://www.labrats.tv/episodes/low-rez/labrats-5-480.mov" length="105906176" type="video/quicktime" />
+<itunes:duration>15:12</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-4-480.mov</guid>
+<title>Episode 4 - Super charge your Windows startup</title>
+<description>In episode 4 (14:54 mins), we show you how to use the hidden "msconfig" program in Windows XP to cut your Windows boot time in half. Plus also use it to remove unwanted programs including spyware from the registry. Biff makes an appearance and messes with the audio. And winter is here in Toronto, so we pull out the tuques.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 4: Super-charge Windows startup</itunes:subtitle>
+<itunes:summary>In episode 4 (14:54 mins), we show you how to use the hidden "msconfig" program in Windows XP to cut your Windows boot time in half. Plus also use it to remove unwanted programs including spyware from the registry. Biff makes an appearance and messes with the audio. And winter is here in Toronto, so we pull out the tuques. </itunes:summary>
+<link>http://www.labrats.tv/episodes/ep4.html</link>
+<pubDate>Mon, 14 Nov 2005 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-4-480.mov" length="156237824" type="video/quicktime" />
+<itunes:duration>14:54</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-3-480.mov</guid>
+<title>Episode 3 - New camcorder features</title>
+<description>In episode 3 (14:56 mins), it camcorder time! But not just any old camcorder. Sean and Andy talk about new camcorder features using cheese and crackers. And, well, the usual mayhem ensues as you would expect with anything that includes cheese. Includes coverage of image stabilization (how it works and which type is better), tape vs. solid state memory cards and CCD (is 1 chip really better than 3?). We even tell you what CCD means. And Danish Havarti is featured. Mmmm.</description>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 3: New camcorder features</itunes:subtitle>
+<itunes:summary>In episode 3, it's camcorder time! But not just any old camcorder. Sean and Andy talk about new camcorder features using cheese and crackers. And the usual mayhem ensues, as you would expect with anything that includes cheese. Includes coverage of image stabilization (how it works and which type is better), tape vs. solid state memory cards and CCD (are 3 chip really better than 1?). We even tell you what CCD means. And Danish havarti is featured. Mmmm. </itunes:summary>
+<link>http://www.labrats.tv/episodes/ep3.html</link>
+<pubDate>Mon, 7 Nov 2005 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-3-480.mov" length="158334976" type="video/quicktime" />
+<itunes:duration>14:56</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-2-480.mov</guid>
+<title>Episode 2 - TV connectors demystified</title>
+<description>Andy and Sean turn the TV around and show you what the heck all those weird connectors are for. Includes coverage of coax, component, composite, HDMI, optical, DVI and S-Video! Plus Andy insults cable makers and Sean tries to apologies for him. Biff hangs out. Boo show up for the credits. </description>
+<itunes:author>Andy Walker and Sean Carruthers, Produced by Matt Harris</itunes:author>
+<itunes:subtitle>Episode 2: TV cables demystified</itunes:subtitle>
+<itunes:summary>Andy and Sean turn the TV around and show you what the heck all those weird connectors are for. Includes coverage of coax, component, composite, HDMI, optical, DVI and S-Video! Plus Andy insults cable makers and Sean tries to apologies for him. Biff hangs out. Boo show up for the credits. </itunes:summary>
+<link>http://www.labrats.tv/episodes/ep2.html</link>
+<pubDate>Mon, 31 Oct 2005 17:00:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-2-480.mov" length="158334976" type="video/quicktime" />
+<itunes:duration>13:50</itunes:duration>
+</item>
+
+<item>
+<guid>http://libsyn.org/media/labratstv/labrats-1-480.mov</guid>
+<title>Episode 1 - Wireless router security</title>
+<description>Andy and Sean show you how to keep the bad guys and broadband bandits off your wireless network by enabling security features on your router. Includes show and tell on WEP and WPA secuirty technology. Biff the cat makes an appearance. Sean reveals hair gel secrets. And Andy shows off his inner wienerness.</description>
+<itunes:author>Andy Walker and Sean Carruthers, Produced by Matt Harris </itunes:author>
+<itunes:subtitle>Episode 1: How to enable wireless network security</itunes:subtitle>
+<itunes:summary>Andy and Sean show you how to keep the bad guys and broadband bandits off your wireless network by enabling security features on your router. Includes show and tell on WEP and WPA secuirty technology. Biff the cat makes an appearance. Sean reveals hair gel secrets. And Andy shows off his inner wienerness.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep1.html</link>
+<pubDate>Wed, 26 Oct 2005 13:52:00 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-1-480.mov" length="92274688" type="video/quicktime" />
+<itunes:duration>14:50</itunes:duration>
+</item>
+
+<item>
+<title>Episode 0 - Testing 1-2-3</title>
+<itunes:author>Andy Walker and Sean Carruthers</itunes:author>
+<itunes:subtitle>Episode 0: An introduction to Lab Rats</itunes:subtitle>
+<guid>http://www.labrats.tv/episodes/bonus/labrats-0-480.mov</guid>
+<description>Andy and Sean release their short 4:33 min test show. Includes intro of hosts, show info and Biff and Boo.</description>
+<itunes:summary>A little bit about what Lab Rats is, who the hosts are and what we plan to do with the show! Also meet the lab cats: Biff and Boo.</itunes:summary>
+<link>http://www.labrats.tv/episodes/ep0.html</link>
+<pubDate>Thu, 13 Oct 2005 19:10:30 EST</pubDate>
+<enclosure url="http://labrats.tv/fetch/2/labrats-0-480.mov" length="32505856" type="video/quicktime" />
+<itunes:duration>4:30</itunes:duration>
+</item>
+
+<itunes:explicit>no</itunes:explicit>
+</channel>
+</rss>

@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+<channel>
+  <title>Angeklickt</title>
+  <link>http://www.wdr.de/tv/aks/angeklickt/info.jhtml</link>
+  <description>Angeklickt: Der Computer-Service</description>
+  <language>de</language>
+  <generator>wdr-podcast</generator>
+  <copyright>Copyright 2009, WDR</copyright>
+  <image>
+    <url>http://www.wdr.de/themen/_config_/podcast/img/vodcast_angeklickt.jpg</url>
+    <title>Angeklickt</title>
+    <link>http://www.wdr.de/tv/aks/angeklickt/info.jhtml</link>
+  </image>
+  <ttl>360</ttl>
+  <category>Public Radio</category>
+  <lastBuildDate>Fri, 20 Feb 2009 19:31:03 +0100</lastBuildDate>
+  <pubDate>Fri, 20 Feb 2009 19:31:03 +0100</pubDate>
+  <managingEditor>redaktion@wdr.de</managingEditor>
+  <webMaster>webmaster@wdr.de</webMaster>
+
+  <itunes:summary>
+Angeklickt: Der Computer-Service  </itunes:summary>
+  <itunes:keywords></itunes:keywords>
+  <itunes:author>Westdeutscher Rundfunk</itunes:author>
+  
+  <itunes:category text="Public Radio" />
+ 
+  <itunes:image href="http://www.wdr.de/themen/_config_/podcast/img/itunes_angeklickt.jpg" />
+  <itunes:owner>
+    <itunes:name>Westdeutscher Rundfunk</itunes:name>
+    <itunes:email>redaktion@wdr.de</itunes:email>
+  </itunes:owner>
+  <itunes:explicit>no</itunes:explicit>
+  
+<item>
+  <title>angeklickt: 20.02.2009, Physikspiel</title>
+  <link>http://medien.wdr.de/m/1235153100/angeklickt/wdr_fernsehen_angeklickt_20090220.mp4</link>
+  <pubDate>Fri, 20 Feb 2009 19:05:00 +0100</pubDate>
+  <description>Computerspiele versuchen normalerweise, die Realität verblüffend perfekt nachzubilden. Das ist bei Spielen wie &quot;Crayon Physics&quot; oder &quot;Jelly Cars&quot; genau nicht der Fall. Trotzdem sind das pfiffige Spiele, die jeden Vergleich stand halten. Eine ganz neue Art von Spielspaß - und zwar kostenlos.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20090220.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1235153100/angeklickt/wdr_fernsehen_angeklickt_20090220.mp4" length="10950877" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 13.02.2009, Kostenlose Fotobearbeitung</title>
+  <link>http://medien.wdr.de/m/1234548000/angeklickt/wdr_fernsehen_angeklickt_20090213.mp4</link>
+  <pubDate>Fri, 13 Feb 2009 19:00:00 +0100</pubDate>
+  <description>Um Digitalfotos zu bearbeiten, zu ordnen oder zu brennen gibt es Spezial-Software. Aber es muss nicht immer Kauf-Software sein. Jörg Schieb stellt kostenlose Bildbearbeitungs-Programme vor, die eine Menge können.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20090213.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1234548000/angeklickt/wdr_fernsehen_angeklickt_20090213.mp4" length="11181635" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 06.02.2009, Mein persönlicher PC</title>
+  <link>http://medien.wdr.de/m/1233943500/angeklickt/wdr_fernsehen_angeklickt_20090206.mp4</link>
+  <pubDate>Fri, 06 Feb 2009 19:05:00 +0100</pubDate>
+  <description>Google ist der meistgenutzte Suchdienst im Internet. Doch Google kann mehr, als Webseiten anzuzeigen. Mit iGoogle lässt sich Google perfekt auf die eigenen Bedürfnisse anpassen - und in eine persönliche Infozentrale verwandeln.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20090206.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1233943500/angeklickt/wdr_fernsehen_angeklickt_20090206.mp4" length="9901393" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 30.01.2009, Videos und Talentwettbewerbe</title>
+  <link>http://medien.wdr.de/m/1233338400/angeklickt/wdr_fernsehen_angeklickt_20090130.mp4</link>
+  <pubDate>Fri, 30 Jan 2009 19:00:00 +0100</pubDate>
+  <description>Auch im Internet gibt es mittlerweile Talentwettbewerbe. Immer mehr Menschen stellen ihre Videos ins Internet und lassen die Netzgemeinde abstimmen, was gefällt und was nicht. Aber nicht alles, was man da in Videos sehen kann, ist unbedenklich. Jörg Schieb über Talentvideos im Web.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20090130.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1233338400/angeklickt/wdr_fernsehen_angeklickt_20090130.mp4" length="11314936" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 23.01.2009, Windows 7</title>
+  <link>http://medien.wdr.de/m/1232733600/angeklickt/wdr_fernsehen_angeklickt_20090123.mp4</link>
+  <pubDate>Fri, 23 Jan 2009 19:00:00 +0100</pubDate>
+  <description>Microsoft hat eine Betaversion von Windows 7 veröffentlicht, dem Nachfolger des wenig geliebten Windows Vista. Jörg Schieb berichtet, was sich unter Windows 7 für ganz normale PC-Benutzer ändert - und wo andere Betriebssysteme wie Mac OS X und Linux besser oder überlegen sind.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20090123.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1232733600/angeklickt/wdr_fernsehen_angeklickt_20090123.mp4" length="10328030" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 16.01.2009, Twitter</title>
+  <link>http://medien.wdr.de/m/1232128800/angeklickt/wdr_fernsehen_angeklickt_20090116.mp4</link>
+  <pubDate>Fri, 16 Jan 2009 19:00:00 +0100</pubDate>
+  <description>Flugzeugabsturz in New York, Notlandung auf dem Hudson River. Es hat nur wenige Sekunden gedauert, da waren die ersten Bilder zu sehen. Nicht im Fernsehen, sondern im Internet. Der Benutzer einer Fähre, die zum Unfallort gefahren ist, hat ein Foto gemacht und es per Twitter online gestellt. So ist die Nachricht um die Welt gegangen - und eine neue Technologie hat sich ihre Sporen verdient.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20090116.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1232128800/angeklickt/wdr_fernsehen_angeklickt_20090116.mp4" length="9234512" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 02.01.2009, Open Source Filme</title>
+  <link>http://medien.wdr.de/m/1230919260/angeklickt/wdr_fernsehen_angeklickt_20090102.mp4</link>
+  <pubDate>Fri, 02 Jan 2009 19:01:00 +0100</pubDate>
+  <description>Die einen machen den Dreh, die anderen kümmern sich um den Ton, wieder andere um die Spezialeffekte. Immer mehr Filmemacher schließen sich im Internet zusammen und am Ende entstehen richtig gute Filme im Netz. Das Tolle: Bei Open Source Filmen kann jeder mitmachen und gratis gucken.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20090102.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1230919260/angeklickt/wdr_fernsehen_angeklickt_20090102.mp4" length="10899933" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 26.12.2008, Jahresrückblick 2008</title>
+  <link>http://medien.wdr.de/m/1230315300/angeklickt/wdr_fernsehen_angeklickt_20081226.mp4</link>
+  <pubDate>Fri, 26 Dec 2008 19:15:00 +0100</pubDate>
+  <description>Zwischen den Jahren wirft man gerne einen Blick zurück. Das machen wir nicht anders und lassen 52 Wochen IT-Geschichte Revue passieren. Die wichtigsten Neuerungen, die interessantesten Trends und die spannendsten Webseiten des Jahres 2008 sehen Sie in Angeklickt.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20081226.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1230315300/angeklickt/wdr_fernsehen_angeklickt_20081226.mp4" length="10464808" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 19.12.2008, Geschenke auf den letzten Drücker</title>
+  <link>http://medien.wdr.de/m/1229709600/angeklickt/wdr_fernsehen_angeklickt_20081219.mp4</link>
+  <pubDate>Fri, 19 Dec 2008 19:00:00 +0100</pubDate>
+  <description>Rechtzeitig vor Weihnachten ist ein neues Abenteuer mit der wohl berühmtesten Archäologin der Welt herausgekommen: Lara Croft. Tomb Raider Underworld heißt der Spaß - und ist vor allem grafisch ein Leckerbissen. Welche Spiele sich sonst noch als Last-Minute-Geschenk für den Gabentisch eignen, erfahren Sie von Jörg Schieb.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20081219.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1229709600/angeklickt/wdr_fernsehen_angeklickt_20081219.mp4" length="10621980" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 12.12.2008, Hightech-Spielereien</title>
+  <link>http://medien.wdr.de/m/1229104800/angeklickt/wdr_fernsehen_angeklickt_20081212.mp4</link>
+  <pubDate>Fri, 12 Dec 2008 19:00:00 +0100</pubDate>
+  <description>Auch dieses Jahr liegt wieder eine Menge Hightech unterm Tannenbaum. Aber was ist wirklich angesagt, was taugt etwas und was ist originell? Jörg Schieb stellt ein paar tolle Geschenkideen nicht nur für Technikfreaks vor.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20081212.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1229104800/angeklickt/wdr_fernsehen_angeklickt_20081212.mp4" length="10834143" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 05.12.2008, Einkaufen für Weihnachten</title>
+  <link>http://medien.wdr.de/m/1228500000/angeklickt/wdr_fernsehen_angeklickt_20081205.mp4</link>
+  <pubDate>Fri, 05 Dec 2008 19:00:00 +0100</pubDate>
+  <description>Weihnachten rückt näher und die Geschenkeliste ist lang. Da wäre es doch praktisch, das ein oder andere Geschenk online zu bestellen. Das geht schnell und man muss auch nicht so viel schleppen. Worauf sollte man achten, wenn man im Internet Weihnachtsgeschenke kauft?; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20081205.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1228500000/angeklickt/wdr_fernsehen_angeklickt_20081205.mp4" length="10981217" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 28.11.2008, PC aufräumen</title>
+  <link>http://medien.wdr.de/m/1227895200/angeklickt/wdr_fernsehen_angeklickt_20081128.mp4</link>
+  <pubDate>Fri, 28 Nov 2008 19:00:00 +0100</pubDate>
+  <description>Ein neuer Computer arbeitet schnell und zügig, die Festplatte ist kaum zu hören. Doch mit der Zeit werden PCs immer träger. Jörg Schieb weiß, wie man seinen PC wieder flott bekommt - und stellt gute Aufräum-Programme vor.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20081128.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1227895200/angeklickt/wdr_fernsehen_angeklickt_20081128.mp4" length="10933579" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 14.11.2008, Das sichere Passwort</title>
+  <link>http://medien.wdr.de/m/1226685600/angeklickt/wdr_fernsehen_angeklickt_20081114.mp4</link>
+  <pubDate>Fri, 14 Nov 2008 19:00:00 +0100</pubDate>
+  <description>Die meisten Computernutzer sind nicht besonders einfallsreich, wenn es darum geht, ein Passwort auszuwählen. Dabei ist so ein Passwort heute in vielen Fällen wertvoller als ein Haustürschlüssel, besonders wenn es um die Sicherung sensibler Daten geht. Jörg Schieb kennt das Problem - und erklärt, worauf man beim Auswählen eines Passworts achten sollte.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20081114.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1226685600/angeklickt/wdr_fernsehen_angeklickt_20081114.mp4" length="10532542" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 07.11.2008, Was weiß das Netz?</title>
+  <link>http://medien.wdr.de/m/1226080800/angeklickt/wdr_fernsehen_angeklickt_20081107.mp4</link>
+  <pubDate>Fri, 07 Nov 2008 19:00:00 +0100</pubDate>
+  <description>Manchmal könnte man den Eindruck bekommen, das Netz weiß alles über uns. Egal ob Daten, Fotos oder Videos - alles, was irgendwann einmal online gestellt wurde, ist abrufbar. Da wird manch einem mulmig. Viele fragen sich: Was weiß das Netz tatsächlich über mich? Und: Was können andere über mich im Web herausfinden?; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20081107.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1226080800/angeklickt/wdr_fernsehen_angeklickt_20081107.mp4" length="9043750" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 31.10.2008, Spaßfotos und -videos</title>
+  <link>http://medien.wdr.de/m/1225476000/angeklickt/wdr_fernsehen_angeklickt_20081031.mp4</link>
+  <pubDate>Fri, 31 Oct 2008 19:00:00 +0100</pubDate>
+  <description>Bildmanipulationen, früher eine komplizierte Angelegenheit, lassen sich heute ganz einfach machen. Jörg Schieb hat ein paar Webseiten entdeckt, mit denen man ohne viel Aufwand witzige Fotos und Videos herstellen kann. ; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20081031.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1225476000/angeklickt/wdr_fernsehen_angeklickt_20081031.mp4" length="10692733" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 24.10.2008, US-Wahlkampf im Netz</title>
+  <link>http://medien.wdr.de/m/1224864000/angeklickt/wdr_fernsehen_angeklickt_20081024.mp4</link>
+  <pubDate>Fri, 24 Oct 2008 18:00:00 +0200</pubDate>
+  <description>Am 4. November gehen die Amerikaner an die Wahlurne und wählen ihren nächsten Präsidenten. Ob es Barack Obama oder John McCain wird, kann niemand wissen. Ein Sieger steht trotzdem schon fest: Das Internet. Noch nie hat das Web eine derart große Rolle in einem Präsidentschaftswahlkampf gespielt.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20081024.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1224864000/angeklickt/wdr_fernsehen_angeklickt_20081024.mp4" length="11196216" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 17.10.2008, Buchmesse</title>
+  <link>http://medien.wdr.de/m/1224259200/angeklickt/wdr_fernsehen_angeklickt_20081017.mp4</link>
+  <pubDate>Fri, 17 Oct 2008 18:00:00 +0200</pubDate>
+  <description>Auf der Frankfurter Buchmesse gibt es nicht nur neue Bücher zu sehen, es wird auch über die Zukunft des Buches diskutiert. Kommt das elektronische Buch? Außerdem wurden auch dieses Jahr wieder die besten Lern- und Computerspiele für Kinder und Jugendliche mit der Giga-Maus prämiert.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20081017.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1224259200/angeklickt/wdr_fernsehen_angeklickt_20081017.mp4" length="11390073" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 03.10.2008, Tipps für die Internetsuche</title>
+  <link>http://medien.wdr.de/m/1223049600/angeklickt/wdr_fernsehen_angeklickt_20081003.mp4</link>
+  <pubDate>Fri, 03 Oct 2008 18:00:00 +0200</pubDate>
+  <description>Viele Surfer schimpfen über die nicht immer optimalen Trefferlisten, die Suchmaschinen anzeigen. Dabei können ganz einfache Tricks helfen, deutlich bessere Ergebnisse zu erzielen. Jörg Schieb zeigt, wie man effektiver im Internet sucht.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20081003.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1223049600/angeklickt/wdr_fernsehen_angeklickt_20081003.mp4" length="10249093" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 26.09.2008, Bilder verkleinern</title>
+  <link>http://medien.wdr.de/m/1222444800/angeklickt/wdr_fernsehen_angeklickt_20080926.mp4</link>
+  <pubDate>Fri, 26 Sep 2008 18:00:00 +0200</pubDate>
+  <description>Verkleinert man Bilder, schneidet man entweder etwas ab oder reduziert die Größe. Dabei gehen wichtige Details verloren. Nicht so mit Seam Carving. Bei dieser Methode werden bestimmte Pixel eines Bildes entfernt, ohne die Proportionen zu verändern. Jörg Schieb zeigt, wie die Technik funktioniert.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080926.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1222444800/angeklickt/wdr_fernsehen_angeklickt_20080926.mp4" length="10012602" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 19.09.2008, Es muss nicht immer Microsoft sein</title>
+  <link>http://medien.wdr.de/m/1221840000/angeklickt/wdr_fernsehen_angeklickt_20080919.mp4</link>
+  <pubDate>Fri, 19 Sep 2008 18:00:00 +0200</pubDate>
+  <description>OpenOffice ist die bekannteste und populärste Alternative zu Word und Co. Mit dem kostenlosen Programmpaket lassen sich Word, Excel und Powerpoint ganz gut ersetzten. Jörg Schieb stellt die neue Version 3 vor und zeigt, welche Stärken und Schwächen das Programm hat. ; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080919.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1221840000/angeklickt/wdr_fernsehen_angeklickt_20080919.mp4" length="10251592" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 12.09.2008, Spore</title>
+  <link>http://medien.wdr.de/m/1221235200/angeklickt/wdr_fernsehen_angeklickt_20080912.mp4</link>
+  <pubDate>Fri, 12 Sep 2008 18:00:00 +0200</pubDate>
+  <description>Mit Spore hat Electronic Arts ein Computerspiel auf den Markt gebracht, bei dem man die Evolution nachspielen kann - vom Einzeller zum intelligenten Wesen. Das Spielprinzip ist innovativ und gelungen, allerdings ärgern sich viele Kunden über den restriktiven Kopierschutz.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080912.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1221235200/angeklickt/wdr_fernsehen_angeklickt_20080912.mp4" length="10299548" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 05.09.2008, Google Chrome</title>
+  <link>http://medien.wdr.de/m/1220630400/angeklickt/wdr_fernsehen_angeklickt_20080905.mp4</link>
+  <pubDate>Fri, 05 Sep 2008 18:00:00 +0200</pubDate>
+  <description>Diese Woche hat Google einen eigenen Browser auf den Markt gebracht, Google Chrome. Die Reaktionen sind geteilt: Die einen sind begeistert, weil das Surfbrett so schlank und blitzschnell ist. Die anderen sind besorgt, weil Google noch mehr Daten sammeln könnte.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080905.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1220630400/angeklickt/wdr_fernsehen_angeklickt_20080905.mp4" length="9767732" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 29.08.2008, IFA 2008</title>
+  <link>http://medien.wdr.de/m/1220025600/angeklickt/wdr_fernsehen_angeklickt_20080829.mp4</link>
+  <pubDate>Fri, 29 Aug 2008 18:00:00 +0200</pubDate>
+  <description>Auf der Internationalen Funkausstellung sind wieder viele Flachbildschirme mit HD-Auflösung zu sehen. Auch Blu-ray-Geräte gibt es jede Menge, nachdem sich der DVD-Nachfolger nun endgültig durchgesetzt hat. Aber lohnt die Anschaffung überhaupt? Und welche Möglichkeiten und Fallstricke haben Videos aus dem Netz?; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080829.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1220025600/angeklickt/wdr_fernsehen_angeklickt_20080829.mp4" length="10782282" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 22.08.2008, Photosynth - NRW in 3D</title>
+  <link>http://medien.wdr.de/m/1219420800/angeklickt/wdr_fernsehen_angeklickt_20080822.mp4</link>
+  <pubDate>Fri, 22 Aug 2008 18:00:00 +0200</pubDate>
+  <description>Einmal virtuell um den Kölner Dom wandern, die Spitze des Space Shuttle erklimmen oder durch Vendig spazieren: Mit einer völlig neuen Technik setzt Microsoft Photosynth vorhandene Fotos so geschickt zusammen, dass im Rechner 3D-Modelle entstehen. Jörg Schieb zeigt, wie es funktioniert.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080822.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1219420800/angeklickt/wdr_fernsehen_angeklickt_20080822.mp4" length="10268360" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 15.08.2008, Das Internet als Pranger</title>
+  <link>http://medien.wdr.de/m/1218816000/angeklickt/wdr_fernsehen_angeklickt_20080815.mp4</link>
+  <pubDate>Fri, 15 Aug 2008 18:00:00 +0200</pubDate>
+  <description>Immer öfter wird das Internet missbraucht, um andere an den Pranger zu stellen. Treffen kann es jeden: Ein Fehltritt und man landet vielleicht in irgend einem Forum. Jörg Schieb stellt die bekanntesten Fälle vor und erklärt, warum man sich kaum dagegen wehren kann.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080815.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1218816000/angeklickt/wdr_fernsehen_angeklickt_20080815.mp4" length="11280868" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 01.08.2008, Fotos und Videos im Urlaub</title>
+  <link>http://medien.wdr.de/m/1217606400/angeklickt/wdr_fernsehen_angeklickt_20080801.mp4</link>
+  <pubDate>Fri, 01 Aug 2008 18:00:00 +0200</pubDate>
+  <description>Wer seinen Lieben Fotos oder Videos aus dem Urlaub schicken will, kann das per SMS tun. Das ist zwar der bequemste Weg, aber ganz sicher nicht der beste, meint Jörg Schieb. Er hat ganz andere Methoden im Sinn, wie Freunde und Verwandte mit Urlaubsfotos versorgt werden können.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080801.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1217606400/angeklickt/wdr_fernsehen_angeklickt_20080801.mp4" length="11669718" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 25.07.2008, Navigieren mit dem Handy</title>
+  <link>http://medien.wdr.de/m/1218211200/angeklickt/wdr_fernsehen_angeklickt_20080808.mp4</link>
+  <pubDate>Fri, 08 Aug 2008 18:00:00 +0200</pubDate>
+  <description>Wo bin ich? Wo komme ich her? Wo will ich hin? Derart philosophische Fragen lassen sich heute per Handy ganz leicht klären. Jörg Schieb zeigt, wie man Mobilfunkgeräte mit und ohne GPS zur Navigation und Orientierung nutzen kann.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080808.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1218211200/angeklickt/wdr_fernsehen_angeklickt_20080808.mp4" length="10940073" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 04.07.2008, Twitter - Zwitschern im Web</title>
+  <link>http://medien.wdr.de/m/1215187200/angeklickt/wdr_fernsehen_angeklickt_20080704.mp4</link>
+  <pubDate>Fri, 04 Jul 2008 18:00:00 +0200</pubDate>
+  <description>Im Web wird immer mehr und immer lauter gezwitschert. Twittern sagen Internetfans dazu. Wer twittert, schickt kurze Nachrichten von maximal 140 Zeichen via Internet an die ganze Welt. Wie der neue Trend funktioniert, erklärt Jörg Schieb.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080704.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1215187200/angeklickt/wdr_fernsehen_angeklickt_20080704.mp4" length="11447604" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 27.06.2008, Browser</title>
+  <link>http://medien.wdr.de/m/1214582400/angeklickt/wdr_fernsehen_angeklickt_20080627.mp4</link>
+  <pubDate>Fri, 27 Jun 2008 18:00:00 +0200</pubDate>
+  <description>Das wichtigste Programm für Internetnutzer ist der Browser. Diese Woche ist mit dem Firefox 3 eine neue Version des beliebten Surfbretts herausgekommen. Was der neue Browser taugt und welche weiteren guten Alternativen es zum Internet Explorer gibt, weiß Jörg Schieb.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080627.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1214582400/angeklickt/wdr_fernsehen_angeklickt_20080627.mp4" length="11815422" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 20.06.2008, Social Bookmarks</title>
+  <link>http://medien.wdr.de/m/1213977600/angeklickt/wdr_fernsehen_angeklickt_20080620.mp4</link>
+  <pubDate>Fri, 20 Jun 2008 18:00:00 +0200</pubDate>
+  <description>Wer schlau ist, merkt sich seine Lieblingsseiten heute online im Internet. Dann kann man jederzeit und mit jedem Rechner darauf zugreifen. Dank Social Bookmarks lässt sich sogar einsehen, was andere gut finden und deren Favoriten ansteuern.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080620.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1213977600/angeklickt/wdr_fernsehen_angeklickt_20080620.mp4" length="10027144" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 13.06.2008, Der gläserne Datensurfer</title>
+  <link>http://medien.wdr.de/m/1213372800/angeklickt/wdr_fernsehen_angeklickt_20080613.mp4</link>
+  <pubDate>Fri, 13 Jun 2008 18:00:00 +0200</pubDate>
+  <description>Wer im Internet unterwegs ist, hinterlässt Spuren. Welche Spuren das konkret sind, wer welche Daten sammelt, welche Rückschlüsse möglich sind und was man selbst dagegen unternehmen kann, erfahren Sie heute in Angeklickt.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080613.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1213372800/angeklickt/wdr_fernsehen_angeklickt_20080613.mp4" length="11450889" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 06.06.2008, Gigapixel Bilder</title>
+  <link>http://medien.wdr.de/m/1212768000/angeklickt/wdr_fernsehen_angeklickt_20080606.mp4</link>
+  <pubDate>Fri, 06 Jun 2008 18:00:00 +0200</pubDate>
+  <description>Moderne Fotoapparate speichern die Aufnahmen mit zehn, 12 oder auch schon mal 16 Megapixel. Aber das ist noch gar nichts: Im Internet kursieren sogar Fotos mit einer Auflösung von einem Gigapixel und mehr. In solche Aufnahmen kann man hineinfliegen und sich an sämtliche Details heranzoomen. Wir zeigen, was es gibt - und welche Möglichkeiten sich damit auftun.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080606.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1212768000/angeklickt/wdr_fernsehen_angeklickt_20080606.mp4" length="11189651" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 23.05.2008, Soaps im Web</title>
+  <link>http://medien.wdr.de/m/1211558400/angeklickt/wdr_fernsehen_angeklickt_20080523.mp4</link>
+  <pubDate>Fri, 23 May 2008 18:00:00 +0200</pubDate>
+  <description>Seit dieser Woche gibt es auf MySpace eine Online-Soap mit zwei Folgen pro Woche: &quot;They call us Candy Girls&quot;. Es geht um Beziehungskisten, Liebe, Arbeit, Stress... Alltag eben. Das Besondere daran: MySpace-Benutzer können mit den Figuren in der Soap Kontakt aufnehmen. Allerdings enttäuscht das Format - obwohl MySpace selbst ein großer Erfolg ist.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080523.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1211558400/angeklickt/wdr_fernsehen_angeklickt_20080523.mp4" length="11134141" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 16.05.2008, Handydaten</title>
+  <link>http://medien.wdr.de/m/1210953600/angeklickt/wdr_fernsehen_angeklickt_20080516.mp4</link>
+  <pubDate>Fri, 16 May 2008 18:00:00 +0200</pubDate>
+  <description>Wer sich ein neues Handy zulegt, steht vor der Frage: Wie kommen meine Telefonnummern und Kontakte vom alten auf das neue Handy? Jörg Schieb hat mehr als eine Lösung, um die kleine Herausforderung des Hightech-Alltags zu lösen.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080516.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1210953600/angeklickt/wdr_fernsehen_angeklickt_20080516.mp4" length="11648088" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 09.05.2008, Neue Games</title>
+  <link>http://medien.wdr.de/m/1210348800/angeklickt/wdr_fernsehen_angeklickt_20080509.mp4</link>
+  <pubDate>Fri, 09 May 2008 18:00:00 +0200</pubDate>
+  <description>Mit einem schlichten weißen Hightech-Brett, das sich an die Wii anschließen lässt, hat Nintendo einen großen Coup gelandet: Die Spielekonsole wird damit zum Fitnessgerät und begeistert Jung und Alt. Ebenfalls neu ist das Spielkonzept von &quot;Experience 112&quot;. Der Spieler steuert nicht die Hauptfigur, sondern die Umgebung.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080509.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1210348800/angeklickt/wdr_fernsehen_angeklickt_20080509.mp4" length="11016098" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 02.05.2008, Daten verstecken</title>
+  <link>http://medien.wdr.de/m/1209744000/angeklickt/wdr_fernsehen_angeklickt_20080502.mp4</link>
+  <pubDate>Fri, 02 May 2008 18:00:00 +0200</pubDate>
+  <description>Die Diskussion um den Bundestrojaner wirft die Frage auf, wie sicher auf der Festplatte gespeicherte Daten eigentlich sind. Eine berechtigte Frage, denn nicht nur der Bundestrojaner, sondern jeder Trojaner kann auf die Daten zugreifen - und sie verraten. Deshalb sollte man sensible oder vertrauliche Daten verschlüsseln. Wir haben ein paar Tricks und Infos zusammengestellt.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080502.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1209744000/angeklickt/wdr_fernsehen_angeklickt_20080502.mp4" length="10088407" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 25.04.2008, Dating mit dem Handy</title>
+  <link>http://medien.wdr.de/m/1209139200/angeklickt/wdr_fernsehen_angeklickt_20080425.mp4</link>
+  <pubDate>Fri, 25 Apr 2008 18:00:00 +0200</pubDate>
+  <description>Das Handy ist längst nicht mehr nur zum Telefonieren da. Web, E-Mail, SMS - geht alles auch unterwegs. Doch jetzt kommt eine neue Welle von Kommunikationsdiensten, die Aka-Aki oder Queep heißen und der Kontaktaufnahme dienen. Kontakte zu Freunden halten oder neue Kontakte zu Fremden knüpfen, ist mit dieser Methode zwar ganz einfach, aber nicht immer ganz kostenlos.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080425.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1209139200/angeklickt/wdr_fernsehen_angeklickt_20080425.mp4" length="10635938" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 18.04.2008, Ausgeschnüffelte PC</title>
+  <link>http://medien.wdr.de/m/1208534400/angeklickt/wdr_fernsehen_angeklickt_20080418.mp4</link>
+  <pubDate>Fri, 18 Apr 2008 18:00:00 +0200</pubDate>
+  <description>Nachdem immer mehr Details der Überwachungspraktiken bei Lidl und Co. ans Tageslicht kommen, fragt sich so mancher, ob er nicht auch an seinem Arbeitsplatz überwacht wird. Am PC zum Beispiel, die meisten von uns arbeiten schließlich mit dem Computer. Die schlechte Nachricht: Auch wenn es rechtlich nicht erlaubt ist, technisch ist so gut wie alles möglich - vom Mitlesen der E-Mails bis zum Speichern abgerufener Webseiten.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080418.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1208534400/angeklickt/wdr_fernsehen_angeklickt_20080418.mp4" length="10700433" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 11.04.2008, Jugendmedienschutz</title>
+  <link>http://medien.wdr.de/m/1207929600/angeklickt/wdr_fernsehen_angeklickt_20080411.mp4</link>
+  <pubDate>Fri, 11 Apr 2008 18:00:00 +0200</pubDate>
+  <description>Kinder und Jugendliche nutzen die neuen Medien - also Computer, Internet, Spielekonsole und Handy - ganz selbstverständlich. Allerdings sind nicht alle Angebote für sie geeignet. Jörg Schieb geht der Frage nach, wie man Kinder und Jugendliche vor unangemessenen Inhalten schützen kann. ; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080411.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1207929600/angeklickt/wdr_fernsehen_angeklickt_20080411.mp4" length="12215008" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 04.04.2008, Spyware abwehren</title>
+  <link>http://medien.wdr.de/m/1207324800/angeklickt/wdr_fernsehen_angeklickt_20080404.mp4</link>
+  <pubDate>Fri, 04 Apr 2008 18:00:00 +0200</pubDate>
+  <description>Es gibt Wörter, die hört man erst, seitdem es Computer gibt. Identitätsdiebstahl gehört eindeutig dazu. So genannte biometrische Daten, wie Fingerabdruck oder Gesichtsform, sollen den Identitätsdiebstahl eigentlich erschweren. Aber ist das wirklich so? Jörg Schieb erklärt, wie wir uns vor Identitätsdiebstahl am Computer schützen können - und warum wir es sollten.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080404.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1207324800/angeklickt/wdr_fernsehen_angeklickt_20080404.mp4" length="10912481" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 28.03.2008, Energie sparen</title>
+  <link>http://medien.wdr.de/m/1206727200/angeklickt/wdr_fernsehen_angeklickt_20080328.mp4</link>
+  <pubDate>Fri, 28 Mar 2008 19:00:00 +0100</pubDate>
+  <description>Computer verbrauchen eine Menge Energie - und zwar nicht nur die PCs zu Hause und im Büro. Jede Suchanfrage im Internet schlägt mit mehreren Watt zu Buche. Wie Computerbenutzer Strom sparen können, ohne auf Komfort zu verzichten - und worauf man achten sollte, wenn man neue Geräte kauft, erklärt Jörg Schieb in Angeklickt.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080328.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1206727200/angeklickt/wdr_fernsehen_angeklickt_20080328.mp4" length="11649110" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 21.03.2008, Ausflugsziele</title>
+  <link>http://medien.wdr.de/m/1206122400/angeklickt/wdr_fernsehen_angeklickt_20080321.mp4</link>
+  <pubDate>Fri, 21 Mar 2008 19:00:00 +0100</pubDate>
+  <description>Wer über Ostern noch nach Ausflugszielen sucht, wird im Internet fündig. Dort gibt es jede Menge Tipps, wo man etwas unternehmen kann, wie das Wetter wird oder auf welchen Autobahnen Staus zu erwarten sind. Besonders praktisch: Natürlich kann man diese Infos auch unterwegs mit Handy, Organizer oder Notebook abrufen. Dabei sollte man allerdings - vor allem im Ausland - die Kosten nicht aus den Augen verlieren.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080321.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1206122400/angeklickt/wdr_fernsehen_angeklickt_20080321.mp4" length="12157285" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 14.03.2008, Daten rekonstruieren</title>
+  <link>http://medien.wdr.de/m/1205517600/angeklickt/wdr_fernsehen_angeklickt_20080314.mp4</link>
+  <pubDate>Fri, 14 Mar 2008 19:00:00 +0100</pubDate>
+  <description>Wer seinen alten Rechner verkauft oder verschenkt, sollte sich im Klaren sein, dass sich sämtliche Daten - auch die gelöschten - wiederherstellen lassen. Wie man Daten endgültig löscht oder gelöschte Daten rekonstruiert, erklärt Jörg Schieb in Angeklickt. ; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080314.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1205517600/angeklickt/wdr_fernsehen_angeklickt_20080314.mp4" length="10175496" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 07.03.2008, CeBIT 2008</title>
+  <link>http://medien.wdr.de/m/1204912800/angeklickt/wdr_fernsehen_angeklickt_20080307.mp4</link>
+  <pubDate>Fri, 07 Mar 2008 19:00:00 +0100</pubDate>
+  <description>In diesem Jahr ist die CeBIT eine Messe der vielen, kleinen Trends: Ganz weit oben auf dem Trendbarometer steht Green IT. Aber auch Subnotebooks wie der Eee-PC von Asus locken die Messebesucher. Und in einem nicht öffentlichen Hinterzimmer hat unser Trendscout Jörg Schieb auch noch einen Couchtisch-Computer entdeckt.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080307.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1204912800/angeklickt/wdr_fernsehen_angeklickt_20080307.mp4" length="11577720" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 29.02.2008, Anonymität im Netz</title>
+  <link>http://medien.wdr.de/m/1204308000/angeklickt/wdr_fernsehen_angeklickt_20080229.mp4</link>
+  <pubDate>Fri, 29 Feb 2008 19:00:00 +0100</pubDate>
+  <description>Diese Woche hat das Bundesverfassungsgericht klar gestellt, dass der Staat nicht einfach so auf unseren Festplatten herumschnüffeln darf. Viele fragen sich im Zuge dessen: Welche Spuren hinterlasse ich eigentlich im Internet? Und: Welche Möglichkeiten gibt es, anonym zu surfen? ; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080229.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1204308000/angeklickt/wdr_fernsehen_angeklickt_20080229.mp4" length="7438979" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 22.02.2008, Browser</title>
+  <link>http://medien.wdr.de/m/1203703200/angeklickt/wdr_fernsehen_angeklickt_20080222.mp4</link>
+  <pubDate>Fri, 22 Feb 2008 19:00:00 +0100</pubDate>
+  <description>Das wichtigste Programm für Internetbenutzer ist - ganz klar - der Browser. Diese Woche ist ein neuer Browser herausgekommen: Der Firefox 3. Internetkenner werden aufhorchen, denn damit surft man besonders schnell und sicher, heißt es. Was der neue Browser taugt, auch im Vergleich zu den anderen, weiß unser Brausenfachmann Jörg Schieb. ; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080222.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1203703200/angeklickt/wdr_fernsehen_angeklickt_20080222.mp4" length="11981602" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 15.02.2008, Eee-PC</title>
+  <link>http://medien.wdr.de/m/1203098400/angeklickt/wdr_fernsehen_angeklickt_20080215.mp4</link>
+  <pubDate>Fri, 15 Feb 2008 19:00:00 +0100</pubDate>
+  <description>Mit dem Eee-PC hat Asus ein kleines, kompaktes Mini-Notebook auf den Markt gebracht. Es bringt gerade einmal 900 Gramm auf die Waage und kostet 300 Euro. Trotzdem: Die wichtigsten Funktionen sind an Bord.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080215.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1203098400/angeklickt/wdr_fernsehen_angeklickt_20080215.mp4" length="10975883" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 08.02.2008, Musik</title>
+  <link>http://medien.wdr.de/m/1202493600/angeklickt/wdr_fernsehen_angeklickt_20080208.mp4</link>
+  <pubDate>Fri, 08 Feb 2008 19:00:00 +0100</pubDate>
+  <description>Musik hört man heute vor allem auf MP3-Playern. Die Songs besorgt man sich im Internet. Die alles entscheidende Frage lautet: Gelingt es der Musikbranche, den Abwärtstrend bei den Musikumsätzen zu stoppen? Und wenn ja: Wie? Die Antwort lautet: Mit kostenlos erhältlicher Musik! Das ist jedenfalls einer der Trends, die Jörg Schieb ausgemacht hat. ; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080208.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1202493600/angeklickt/wdr_fernsehen_angeklickt_20080208.mp4" length="11631704" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 01.02.2008, Karten und Satellitenbilder im Web</title>
+  <link>http://medien.wdr.de/m/1201888800/angeklickt/wdr_fernsehen_angeklickt_20080201.mp4</link>
+  <pubDate>Fri, 01 Feb 2008 19:00:00 +0100</pubDate>
+  <description>Ob Bochum, Beverly Hills oder Bombay - im Internet ist alles nur einen Mausklick weit weg. Das Kartenmaterial von Google Earth und Co. wird immer besser und die zusätzlichen Angebote lassen kaum noch einen Wunsch offen.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080201.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1201888800/angeklickt/wdr_fernsehen_angeklickt_20080201.mp4" length="11456659" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 25.01.2008, Promis bloggen</title>
+  <link>http://medien.wdr.de/m/1201284000/angeklickt/wdr_fernsehen_angeklickt_20080125.mp4</link>
+  <pubDate>Fri, 25 Jan 2008 19:00:00 +0100</pubDate>
+  <description>Immer mehr Prominente sind im Netz vertreten. Sie nutzen das Web, um sich gegen die immer aufdringlicheren Paparazzi zur Wehr zu setzen und veröffentlichen lieber selbst Infos und Fotos. Jörg Schieb hat sich mal umgesehen, was im Web so los ist.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080125.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1201284000/angeklickt/wdr_fernsehen_angeklickt_20080125.mp4" length="10793880" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 18.01.2008, Datenspeicherung</title>
+  <link>http://medien.wdr.de/m/1200679200/angeklickt/wdr_fernsehen_angeklickt_20080118.mp4</link>
+  <pubDate>Fri, 18 Jan 2008 19:00:00 +0100</pubDate>
+  <description>Seit Anfang des Jahres ist das Gesetz zur Vorratsdatenspeicherung in Kraft. Demnach müssen Mobilfunkanbieter und Provider ein halbes Jahr lang alle möglichen Verbindungsdaten speichern. Was das konkret für den Einzelnen bedeutet und wie man im Zweifel trotzdem anonym durchs Netz surfen kann, erklärt Jörg Schieb.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080118.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1200679200/angeklickt/wdr_fernsehen_angeklickt_20080118.mp4" length="10826258" type="video/mp4" />
+</item>
+
+<item>
+  <title>angeklickt: 11.01.2008, Dem PC Beine machen</title>
+  <link>http://medien.wdr.de/m/1200074400/angeklickt/wdr_fernsehen_angeklickt_20080111.mp4</link>
+  <pubDate>Fri, 11 Jan 2008 19:00:00 +0100</pubDate>
+  <description>Warum ist das eigentlich so? Ein neuer Computer arbeitet schnell und zügig - die Festplatte ist kaum zu hören. Doch mit der Zeit werden PCs immer langsamer, um nicht zu sagen träge und man scheint nichts dagegen unternehmen zu können. Oder doch? Jörg Schieb weiß, wie man seinen PC wieder flott bekommt. Auch als Nicht-Profi.; © WDR VideoPodcast</description>
+  <guid isPermaLink="false">/wdr_fernsehen_angeklickt_20080111.mp4</guid>
+  <enclosure url="http://medien.wdr.de/m/1200074400/angeklickt/wdr_fernsehen_angeklickt_20080111.mp4" length="10260383" type="video/mp4" />
+</item>
+
+
+</channel>
+</rss>
+
