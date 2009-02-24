@@ -1,4 +1,7 @@
 function infiniteCallback(data, textStatus) {
+    // clean out scripts
+    data = data.replace(/<script(.|\s)*?\/script>/g, "");
+    // just get the body
     newBody = $("<div/>").append(
         RegExp("<body[^\>]*>([\\s\\w\\W]*)\<\/body\>", "g").exec(data)[1]);
     results = $('.scrolling', newBody);
