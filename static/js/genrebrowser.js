@@ -53,7 +53,14 @@ var browser = {
     updateChannel: function(index, data) {
         show = $("#channelEpisodes .pageContent .searchResults > li").eq(index);
         thumb = show.find('.searchThumb a');
-        url = '/feeds/' + data['id'];
+        if (data['url']) {
+            url = location.protocol + '//' + location.host + "/feeds/" + data['id'];
+            subscribe_url = 'http://subscribe.getmiro.com/?url1=' + escape(data['url']) + '&trackback1=' + escape(url) + '/subscribe-hit';
+        } else {
+            url = location.protocol + '//' + location.host + "/sites/" + data['id'];
+            subscribe_url = 'http://subscribe.getmiro.com/site?url1=' + escape(data['website_url']) + '&trackback1=' + escape(url) + '/subscribe-hit';
+        }
+        url = '/channels/' + data['id'];
         STATIC_BASE_URL = /(.*)media\/thumbnails\//.exec(data['thumbnail_url'])[1];
         thumb_url = data['thumbnail_url'].replace('370x247', '97x65');
         thumb.attr('href', url);
@@ -63,7 +70,17 @@ var browser = {
         }
         show.find('h4 a').attr('href', url).text(data['name']);
         show.find('.searchResultContent p').text(data['description']);
-        add = show.find('a.add_feed_button2').attr('href', url);
+        add = show.find('a.small_add_button');
+        new_add = $('<a/>').addClass('small_add_button').attr('href', subscribe_url).click(function () {
+            return handleSubscriptionLink(url + '/subscribe-hit', subscribe_url);
+        }).append(add.children());
+        if (data['url']) {
+            new_add.addClass('feed');
+        } else {
+            new_add.addClass('show');
+        }
+        // XXX this doesn't update the text correctly for switching feeds <-> sites
+        add.replaceWith(new_add);
 
         $.getJSON('/api/get_channel?id=' + data['id'] + '&datatype=json&jsoncallback=?',
                    function(data) {
