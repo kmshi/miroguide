@@ -10,6 +10,7 @@ from channelguide import util
 from channelguide import cache as cg_cache
 # importing it as cache breaks the unit test suite for some reason.
 from channelguide.sessions.models import Session
+from channelguide.guide.models.user import AnonymousUser
 import time
 from channelguide.testframework import TestCase
 from sqlhelper.orm import Table, columns
@@ -30,6 +31,8 @@ class CacheTestBase(TestCase):
         request = HttpRequest()
         request.method = "GET"
         request.path = path
+        request.user = AnonymousUser()
+        request.LANGUAGE_CODE = settings.LANGUAGE_CODE
         request.META['QUERY_STRING'] = query
         return request
 
@@ -43,7 +46,6 @@ class CacheTestBase(TestCase):
 
     def is_request_cached(self, path, query=None):
         request = self.make_request(path, query)
-        request.LANGUAGE_CODE = settings.LANGUAGE_CODE
         if self.middleware.process_request(request) is None:
             self.middleware.process_response(request, self.make_response())
             return False
@@ -65,6 +67,7 @@ class CacheTest(CacheTestBase):
         # hack because we may have called memcached.flush_all recently.
         # Because memcached has a resolution of 1 second, we need this to make
         # sure flush_all goes through.
+
     def test_default_cache_control(self):
         path = self.rand_path()
         request = self.process_request(request=self.make_request(path))
@@ -92,6 +95,7 @@ class CacheMiddlewareTest(CacheTestBase):
     def tearDown(self):
         cg_cache.clear_cache()
         TestCase.tearDown(self)
+
     def test_cache(self):
         path = self.rand_path()
         self.assert_(not self.is_request_cached(path))
@@ -147,139 +151,52 @@ class CacheMiddlewareTest(CacheTestBase):
         self.assert_('userkelly' not in bobby_page.content)
         self.assert_('userkelly' not in anon_page.content)
 
-'''
-class CachedRecordTest(TestCase):
+
+class SiteHidingCacheMiddlewareTest(CacheTestBase):
     def setUp(self):
-        TestCase.setUp(self)
-        self.connection.execute("""CREATE TABLE test_table (
-                id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                name VARCHAR(200) DEFAULT NULL) ENGINE=InnoDB""")
-        self.change_setting_for_test("DISABLE_CACHE", False)
-        cg_cache.client.clear_cache()
+        CacheTestBase.setUp(self)
+        self.middleware = cg_cache.middleware.SiteHidingCacheMiddleware()
         time.sleep(1)
-        self.record = MockCachedRecord()
-        self.record.id = -1
-        self.record.name = "Mock Record"
+        # hack because we may have called memcached.flush_all recently.
+        # Because memcached has a resolution of 1 second, we need this to make
+        # sure flush_all goes through.
 
-    def test_save_to_cache(self):
-        """
-        Test that the save_to_cache() method saves the object into the cache.
-        """
-        self.record.save_to_cache()
-        dictionary = cg_cache.client.get('MockCachedRecord:-1:object')
-        self.assertEquals(dictionary['id'], -1)
-        self.assertEquals(dictionary['name'], 'Channel Name')
-        self.assertEquals(dictionary['description'],
-                "Channel Description\nHas a new line")
+    def tearDown(self):
+        cg_cache.clear_cache()
+        TestCase.tearDown(self)
 
-    def test_load_from_cache(self):
-        """
-        CachedRecord.load_from_cache should load the object from the cache.
-        """
-        self.record.save_to_cache()
-        time.sleep(1)
-        new_record = MockCachedRecord.load_from_cache(-1)
-        self.assertEquals(self.record, new_record)
+    def make_request_with_userauth(self, path, query=None, user_agent=None):
+        request = self.make_request(path, query)
+        if user_agent:
+            request.META['HTTP_USER_AGENT'] = user_agent
+        return request
 
-    def test_load_from_cache_list(self):
-        """
-        CachedRecord.load_from_cache should load the object from the cache when
-        the primary key(s) are passed in as a list.
-        """
-        self.record.save_to_cache()
-        new_record = MockCachedRecord.load_from_cache([-1])
-        self.assertEquals(self.record, new_record)
+    def test_old_miro(self):
+        request = self.make_request_with_userauth('/',
+                                                  user_agent='Miro/1.2.8')
+        self.assertTrue(self.middleware.process_request(request) is None)
+        self.middleware.process_response(request, self.make_response())
+        request = self.make_request_with_userauth('/',
+                                                  user_agent='Miro/1.0')
+        self.assertFalse(self.middleware.process_request(request) is None)
+        request = self.make_request_with_userauth('/',
+                                                  user_agent='Miro/2.0.2')
+        self.assertTrue(self.middleware.process_request(request) is None)
 
-    def test_load_from_cache_extra(self):
-        """
-        CacheRecord.load_from_cache optionally takes a list of extra keys to
-        try and load.  These represent joins or loads which are added to the
-        object.  They are stored in separate keys, and loaded at the same
-        time as the object.
-        """
-        self.record.save_to_cache()
-        cg_cache.client.set(self.record.cache_prefix([-1])+'testload',
-                'hello world')
-        new_record = MockCachedRecord.load_from_cache(-1, ['testload'])
-        self.assertEquals(new_record.testload, 'hello world')
+    def test_linux_miro(self):
+        request = self.make_request_with_userauth('/',
+                                                  user_agent='Miro/2.0 (X11; Ubuntu Linux)')
+        self.assertTrue(self.middleware.process_request(request) is None)
+        self.middleware.process_response(request, self.make_response())
+        request = self.make_request_with_userauth('/',
+                                                  user_agent='Miro/2.0 (X11; Ubuntu Linux)')
+        self.assertFalse(self.middleware.process_request(request) is None)
+        request = self.make_request_with_userauth('/',
+                                                  user_agent='Miro/2.0.2')
+        self.assertTrue(self.middleware.process_request(request) is None)
 
-    def test_load_from_cache_extra_failure(self):
-        """
-        CacheRecord.load_from_cache optionally takes a list of extra keys to
-        try and load.  These represent joins or loads which are added to the
-        object.  They are stored in separate keys, and loaded at the same
-        time as the object.  If the extra keys can't be loaded, then
-        the load should fail.
-        """
-        self.record.save_to_cache()
-        new_record = MockCachedRecord.load_from_cache(-1, ['testload'])
-        self.assert_(new_record is None)
 
-    def test_insert_adds_to_cache(self):
-        """
-        CachedRecord.insert() should add the object to the cache.
-        """
-        del self.record.id # it'll get set
-        self.record.insert(self.connection)
-        new_record = MockCachedRecord.load_from_cache(self.record.id)
-        self.assertEquals(self.record, new_record)
-
-    def test_update_adds_to_cache(self):
-        """
-        CachedRecord.update() should add the object to the cache.
-        """
-        del self.record.id # it'll get set
-        self.record.insert(self.connection)
-        self.record.name = "New Channel Name"
-        self.record.update(self.connection)
-        new_record = MockCachedRecord.load_from_cache(self.record.id)
-        self.assertEquals(self.record, new_record)
-
-    def test_get_goes_to_database(self):
-        """
-        CachedRecord.get should go to the database if the object is
-        not found in the cache.
-        """
-        new_record = MockCachedRecord.get(self.connection,
-                self.channel.primary_key_values())
-        self.assertEquals(new_record.id, self.channel.id)
-        self.assertEquals(new_record.name, self.channel.name)
-
-    def test_get_inserts_into_cache(self):
-        """
-        CachedRecord.get should add the object to the cache if it's not found
-        there.
-        """
-        new_record = MockCachedRecord.get(self.connection,
-                self.channel.primary_key_values())
-        self.assert_(
-                cg_cache.client.get(
-                    'MockCachedRecord:%i:object' % self.channel.id)
-                is not None)
-
-    def test_get_gets_from_cache(self):
-        """
-        CachedRecord.get should prefer an object out of the cache.
-        """
-        self.record.save_to_cache()
-        new_record = MockCachedRecord.get(None, -1)
-        self.assertEquals(self.record, new_record)
-        self.assertEquals(new_record.rowid, self.record.rowid)
-
-    def test_get_with_join(self):
-        """
-        CachedRecord.get with a join should get the object out of the
-        cache but perform the join normally.
-        """
-        self.record.name = "Foobar"
-        self.record.save_to_cache()
-        new_record = MockCachedRecord.get(self.connection, -1, join=['owner'])
-        self.assertEquals(new_record.owner.id, self.user.id)
-        self.assertEquals(new_record.name, "Foobar")
-
-'''
-
-if settings.DISABLE_CACHE or not settings.MEMCACHED_SERVERS:
+if not settings.MEMCACHED_SERVERS:
     del CacheTest
     del CacheMiddlewareTest
     del CacheTestBase
