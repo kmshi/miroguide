@@ -1,411 +1,411 @@
 # Norwegian Nynorsk translation for miroguide
 # Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
 # This file is distributed under the same license as the miroguide package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
+# Karl Ove Hufthammer <karl@huftis.org>, 2008, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: miroguide\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2008-08-06 14:32-0400\n"
-"PO-Revision-Date: 2008-07-23 21:54+0000\n"
-"Last-Translator: JoNNeMaNN <jonstodle@gmail.com>\n"
-"Language-Team: Norwegian Nynorsk <nn@li.org>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-02-12 11:12-0500\n"
+"PO-Revision-Date: 2009-01-22 18:30+0000\n"
+"Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
+"Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2008-12-09 21:56+0000\n"
+"X-Launchpad-Export-Date: 2009-02-25 19:04+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: settings.py:34
+#: settings.py:36
 msgid "English"
 msgstr "Engelsk"
 
-#: settings.py:35
+#: settings.py:37
 msgid "Arabic"
 msgstr "Arabisk"
 
-#: settings.py:36
-msgid "Bengali"
-msgstr "Bengalsk"
-
-#: settings.py:37
-msgid "Catalan"
-msgstr "Catalansk"
-
 #: settings.py:38
+msgid "Bengali"
+msgstr "Bengali"
+
+#: settings.py:39
+msgid "Catalan"
+msgstr "Katalansk"
+
+#: settings.py:40
 msgid "Chinese"
 msgstr "Kinesisk"
 
-#: settings.py:39
-msgid "Croation"
-msgstr "Kroatisk"
+#: settings.py:41
+msgid "Croatian"
+msgstr ""
 
-#: settings.py:40
+#: settings.py:42
 msgid "Danish"
 msgstr "Dansk"
 
-#: settings.py:41
+#: settings.py:43
 msgid "Dutch"
 msgstr "Nederlandsk"
 
-#: settings.py:42
+#: settings.py:44
 msgid "Estonian"
 msgstr "Estisk"
 
-#: settings.py:43
+#: settings.py:45
 msgid "Finnish"
 msgstr "Finsk"
 
-#: settings.py:44
+#: settings.py:46
 msgid "French"
 msgstr "Fransk"
 
-#: settings.py:45
+#: settings.py:47
 msgid "German"
 msgstr "Tysk"
 
-#: settings.py:46
+#: settings.py:48
 msgid "Greek"
 msgstr "Gresk"
 
-#: settings.py:47
+#: settings.py:49
 msgid "Hebrew"
 msgstr "Hebraisk"
 
-#: settings.py:48
-msgid "Hinidi"
-msgstr "Hinidisk"
+#: settings.py:50
+msgid "Hindi"
+msgstr ""
 
-#: settings.py:49
+#: settings.py:51
 msgid "Hungarian"
 msgstr "Ungarsk"
 
-#: settings.py:50
+#: settings.py:52
 msgid "Icelandic"
 msgstr "Islandsk"
 
-#: settings.py:51
+#: settings.py:53
 msgid "Indonesian"
 msgstr "Indonesisk"
 
-#: settings.py:52
+#: settings.py:54
 msgid "Italian"
 msgstr "Italiensk"
 
-#: settings.py:53
+#: settings.py:55
 msgid "Japanese"
 msgstr "Japansk"
 
-#: settings.py:54
+#: settings.py:56
 msgid "Korean"
 msgstr "Koreansk"
 
-#: settings.py:55
+#: settings.py:57
 msgid "Kurdish (Sorani)"
-msgstr "Kurdisk (Soranisk)"
+msgstr "Kurdisk"
 
-#: settings.py:56
+#: settings.py:58
 msgid "Latvian"
 msgstr "Latvisk"
 
-#: settings.py:57
-msgid "Lithuanian"
-msgstr "Litausk"
-
-#: settings.py:58
-msgid "Malay"
-msgstr "Malaysisk"
-
 #: settings.py:59
+msgid "Lithuanian"
+msgstr "Litauisk"
+
+#: settings.py:60
+msgid "Malay"
+msgstr "Malayisk"
+
+#: settings.py:61
 msgid "Norwegian"
 msgstr "Norsk"
 
-#: settings.py:60
+#: settings.py:62
 msgid "Persian"
 msgstr "Persisk"
 
-#: settings.py:61
+#: settings.py:63
 msgid "Polish"
 msgstr "Polsk"
 
-#: settings.py:62
+#: settings.py:64
 msgid "Portuguese (Brazillian)"
-msgstr "Portugisisk (Brasilsk)"
+msgstr "Portugisisk (Brasil)"
 
-#: settings.py:63
+#: settings.py:65
 msgid "Portuguese (Portugal)"
 msgstr "Portugisisk (Portugal)"
 
-#: settings.py:64
+#: settings.py:66
 msgid "Romanian"
-msgstr "Romansk"
+msgstr "Rumensk"
 
-#: settings.py:65
+#: settings.py:67
 msgid "Russian"
 msgstr "Russisk"
 
-#: settings.py:66
+#: settings.py:68
 msgid "Serbo-Croatian"
-msgstr "Serbisk-Kroatisk"
+msgstr "Serbokroatisk"
 
-#: settings.py:67
+#: settings.py:69
 msgid "Slovak"
 msgstr "Slovakisk"
 
-#: settings.py:68
+#: settings.py:70
 msgid "Spanish"
 msgstr "Spansk"
 
-#: settings.py:69
+#: settings.py:71
 msgid "Swedish"
 msgstr "Svensk"
 
-#: settings.py:70
+#: settings.py:72
 msgid "Thai"
 msgstr "Thai"
 
-#: settings.py:71
+#: settings.py:73
 msgid "Turkish"
 msgstr "Tyrkisk"
 
-#: settings.py:72
+#: settings.py:74
 msgid "Vietnamese"
-msgstr "Viatnemesisk"
+msgstr "Vietnamesisk"
 
-#: guide/tables.py:12
+#: guide/tables.py:11
 msgid "New"
 msgstr "Ny"
 
-#: guide/tables.py:14
+#: guide/tables.py:13
 msgid "Approved"
 msgstr "Godkjend"
 
-#: guide/tables.py:16
+#: guide/tables.py:15
 msgid "Waiting"
 msgstr "Ventar"
 
-#: guide/tables.py:18
+#: guide/tables.py:17
 msgid "Don't Know"
 msgstr "Veit ikkje"
 
-#: guide/tables.py:20
+#: guide/tables.py:19
 msgid "Rejected"
-msgstr "Avslådd"
+msgstr "Avslått"
 
-#: guide/tables.py:22
+#: guide/tables.py:21
 msgid "Suspended"
 msgstr "Suspendert"
 
-#: guide/tables.py:24
+#: guide/tables.py:23
 msgid "Audio"
-msgstr "Audio"
+msgstr "Lyd"
 
-#: guide/tables.py:26
+#: guide/tables.py:25
 msgid "Unknown"
 msgstr "Ukjend"
-
-#: guide/templateutil.py:181 guide/templates/base.html:52
-msgid "Most Popular"
-msgstr "Mest populære"
-
-#: guide/templateutil.py:182
-msgid "Top Rated"
-msgstr "Mest likte"
-
-#: guide/templateutil.py:183
-msgid "Most Recent"
-msgstr "Siste"
-
-#: guide/templateutil.py:184
-msgid "A-Z"
-msgstr "A-Z"
-
-#: guide/forms/channels.py:28
-msgid "What is HD?"
-msgstr "Kva er HD?"
 
 #: guide/forms/channels.py:29
 #, python-format
 msgid ""
-"Material that is roughly 640x480 non-interlaced, and higher, can\n"
-"        be marked as HD. This basically translates to DVD quality (without "
-"a\n"
-"        lot of ugly compression artifacts) or better. Roughly 80% of the\n"
-"        material on the channel must meet this criteria for it to be "
-"considered\n"
-"        HD.  Note: you are welcome to have an HD and non-HD version of the "
-"same\n"
-"        channel "
+"Material that is roughly 1080x720, and higher, can be marked as HD. Please "
+"make sure it has a sufficiently high video bitrate to avoid messy "
+"artifacting. Roughly 95% of the material on the channel must meet this "
+"criteria for it to be considered HD. Note: you are welcome to have an HD and "
+"non-HD version of the same channel."
 msgstr ""
 
-#: guide/forms/channels.py:35
+#: guide/forms/channels.py:34
 msgid ""
 "An RSS feed is what makes a podcast a podcast. It's a special URL that "
 "applications like Miro and iTunes check periodically to know when there is a "
 "new video for a channel. Video RSS feeds are strongly recommended for Miro."
 msgstr ""
+"Ei RSS-kjelde er det som gjer ein podkast til ein podkast. Det er ei "
+"spesiell adressa som program som Miro og iTunes regelmessig sjekkar for å "
+"sjå om det har komme nye videoar i kanalen. Du bør bruka video-RSS-kjelder i "
+"Miro."
 
-#: guide/forms/channels.py:53
+#: guide/forms/channels.py:55
 #, python-format
 msgid "%s is already a channel in the guide"
-msgstr "%s er allereie ein kanal i guiden"
+msgstr "%s er allereie ein kanal i gaiden"
 
-#: guide/forms/channels.py:58
+#: guide/forms/channels.py:60
 msgid "We can't find a video feed at that address, please try again."
-msgstr "Me finn ikkje nokon videostraum på adressa, prøv om att."
+msgstr "Me finn ikkje nokon videokjelde på adressa. Prøv på nytt."
 
-#: guide/forms/channels.py:75 guide/forms/channels.py:279
+#: guide/forms/channels.py:77 guide/forms/channels.py:320
 msgid "Channel Name"
 msgstr "Kanalnamn"
 
-#: guide/forms/channels.py:76 guide/forms/channels.py:280
+#: guide/forms/channels.py:78 guide/forms/channels.py:321
 msgid "RSS Feed"
-msgstr ""
+msgstr "RSS-kjelde"
 
-#: guide/forms/channels.py:139
+#: guide/forms/channels.py:163
 msgid "1st"
 msgstr "1."
 
-#: guide/forms/channels.py:139
+#: guide/forms/channels.py:163
 msgid "2nd"
 msgstr "2."
 
-#: guide/forms/channels.py:139
+#: guide/forms/channels.py:163
 msgid "3rd"
 msgstr "3."
 
-#: guide/forms/channels.py:161
+#: guide/forms/channels.py:185
 msgid "You must at least enter a primary value."
-msgstr "Du må ha minst ein primær verdi."
+msgstr "Du må minst velja ein hovudverdi."
 
-#: guide/forms/channels.py:178
+#: guide/forms/channels.py:202
 #, python-format
 msgid "you can only enter up to %d tags."
-msgstr "du kan kun ha opp til %d taggar."
+msgstr "Du kan ikkje har fleire enn %d nøkkelord."
 
-#: guide/forms/channels.py:260
+#: guide/forms/channels.py:301
 msgid "This field is required."
-msgstr ""
+msgstr "Dette feltet er obligatorisk."
 
-#: guide/forms/channels.py:265
+#: guide/forms/channels.py:306
 msgid "Not a valid image"
-msgstr ""
+msgstr "Ikkje eit gyldig bilete"
 
-#: guide/forms/channels.py:269
+#: guide/forms/channels.py:310
 msgid "Not an image in a format we support."
-msgstr ""
+msgstr "Ikkje eit bilete i eit format me støttar."
 
-#: guide/forms/channels.py:282 guide/forms/cobranding.py:15
+#: guide/forms/channels.py:323 guide/forms/cobranding.py:15
 msgid "Website URL"
-msgstr "Vevstad-URL"
+msgstr "Adresse til heimesida"
 
-#: guide/forms/channels.py:284
+#: guide/forms/channels.py:325
 msgid "Full Description"
 msgstr "Full skildring"
 
-#: guide/forms/channels.py:285
+#: guide/forms/channels.py:327
 msgid "Publisher E-mail"
-msgstr ""
+msgstr "E-postadresse til utgjevar"
 
-#: guide/forms/channels.py:287 guide/templates/tag-list.html:7
+#: guide/forms/channels.py:330 guide/templates/show-channel.html:105
+#: templates-optimized/guide/show-channel.html:126
 msgid "Tags"
-msgstr "Taggar"
+msgstr "Nøkkelord"
 
-#: guide/forms/channels.py:288
+#: guide/forms/channels.py:331
 msgid "Keywords that describe this channel.  Separate each tag with a comma."
-msgstr "Nøkkelord som skildrer denne kanalen. Del kvar tagg med eit komma."
+msgstr ""
+"Nøkkelord som skildrer denne kanalen. Bruk komma til å skilja nøkkelorda."
 
-#: guide/forms/channels.py:290 guide/views/categories.py:19
-msgid "Categories"
-msgstr "Kategoriar"
+#: guide/forms/channels.py:333 guide/templates/base.html:122
+#: guide/templates/show-channel.html:98 guide/views/categories.py:19
+#: templates-optimized/guide/base.html:118
+#: templates-optimized/guide/frontpage.html:153
+msgid "Genres"
+msgstr "Sjangrar"
 
-#: guide/forms/channels.py:291
-msgid "Languages"
+#: guide/forms/channels.py:334 guide/templates/base.html:131
+#: templates-optimized/guide/base.html:126
+msgid "Language"
 msgstr "Språk"
 
-#: guide/forms/channels.py:292
+#: guide/forms/channels.py:335
 msgid "What language are most of these videos in?"
 msgstr "Kva språk er mesteparten av videoane i?"
 
-#: guide/forms/channels.py:293
+#: guide/forms/channels.py:336
 msgid "Postal Code"
 msgstr "Postnummer"
 
-#: guide/forms/channels.py:295
+#: guide/forms/channels.py:338
 msgid "High Definition"
-msgstr "Høgoppløysning"
+msgstr "Høg oppløysing"
 
-#: guide/forms/channels.py:297
-msgid "Upload Image"
-msgstr "Last opp bilete"
+#: guide/forms/channels.py:340
+msgid "Geographic restrictions"
+msgstr ""
 
-#: guide/forms/channels.py:298
+#: guide/forms/channels.py:345
+msgid "Upload Image (optimal size: 400x267)"
+msgstr ""
+
+#: guide/forms/channels.py:346
 msgid ""
 "Remember that creating a good channel thumbnail is one of the most important "
 "ways to attract new viewers.  It's worth making an effort to do something "
 "beautiful.  You can also update the image after you submit your channel."
 msgstr ""
+"Hugs at eit godt kanalbilete er noko av det viktigaste når det gjeld å "
+"trekkja til seg nye sjåarar. Det er vel verdt tida og arbeidet det tek å "
+"laga eit godt bilete. Du kan òg oppdatera biletet etter at du har sendt inn "
+"kanalen."
 
-#: guide/forms/channels.py:320
+#: guide/forms/channels.py:369
 msgid "That streaming site already exists."
+msgstr "Den straumnettsida finst alt."
+
+#: guide/forms/channels.py:380
+#, python-format
+msgid "The following country codes are invalid: %s"
 msgstr ""
 
-#: guide/forms/channels.py:390
+#: guide/forms/channels.py:440
 msgid "Feed URL already exists"
-msgstr ""
+msgstr "Adressa finst alt"
 
-#: guide/forms/channels.py:461
+#: guide/forms/channels.py:509
 msgid "Email"
-msgstr "E-post"
+msgstr "E-postadresse"
 
-#: guide/forms/channels.py:462
+#: guide/forms/channels.py:510
 msgid "Title"
-msgstr "Tittel"
+msgstr "Namn"
 
-#: guide/forms/channels.py:463 guide/forms/misc.py:15
+#: guide/forms/channels.py:511 guide/forms/misc.py:15
 msgid "Body"
-msgstr "Tekst"
+msgstr "Innhald"
 
 #: guide/forms/cobranding.py:11
 msgid "Title in Miro App"
-msgstr "Tittel i Miro"
+msgstr "Namn i Miro"
 
 #: guide/forms/cobranding.py:12
 msgid "This is the title that will appear in the sidebar of Miro."
-msgstr "Dette er tittelen som vil synast i sidepanelet til Miro."
+msgstr "Dette er namnet som vert vist i sidestolpen i Miro."
 
 #: guide/forms/cobranding.py:13
 msgid "Page Title"
-msgstr "Sidetittel"
+msgstr "Sidenamn"
 
 #: guide/forms/cobranding.py:14
 msgid "This is the title that will be displayed at the top of the page."
-msgstr "Dette er tittelen som vil synast på toppen av sida."
+msgstr "Dette er namnet som vert vist på toppen av sida."
 
 #: guide/forms/cobranding.py:17
 msgid "Icon URL"
-msgstr "Ikon-URL"
+msgstr "Adresse til ikon"
 
 #: guide/forms/cobranding.py:17
 msgid "Icon should be 175x125 pixels."
-msgstr "Ikonet bør vere 175x125 pixlar."
+msgstr "Ikonet bør vere 175 × 125 pikslar."
 
 #: guide/forms/cobranding.py:19
 msgid "Favicon URL"
-msgstr "Favikon-URL"
+msgstr "Adresse til «favicon»"
 
 #: guide/forms/cobranding.py:19
 msgid ""
 "This is best as a 20x20 png graphic. It shows up in the sidebar of the Miro "
 "App."
 msgstr ""
-"Dette bør vere eit 20x20 png-bilete. Det synast i sidepanelet til Miro."
+"Dette bør vere eit PNG-bilete på 20 × 20 pikslar. Det vert vist i "
+"sidestolpen i Miro."
 
 #: guide/forms/cobranding.py:21
 msgid "External CSS URL"
-msgstr "Ekstern CSS-URL"
+msgstr "Adresse til eksternt stilsett"
 
 #: guide/forms/cobranding.py:22
 msgid "Description"
@@ -413,246 +413,287 @@ msgstr "Skildring"
 
 #: guide/forms/cobranding.py:24
 msgid "Link 1 URL"
-msgstr "Lenke 1-URL"
+msgstr "Lenkje 1-adresse"
 
 #: guide/forms/cobranding.py:24
 msgid ""
 "Or leave this blank to have plain text.  All these links are optional."
-msgstr "Eller la denne vere blank for rein tekst. Alle lenkane er valfrie."
+msgstr "Eller la feltet stå tomt for rein tekst. Alle lenkjene er valfrie."
 
 #: guide/forms/cobranding.py:26
 msgid "Link 1 Text"
-msgstr "Lenke 1-tekst"
+msgstr "Lenkje 1-tekst"
 
 #: guide/forms/cobranding.py:28
 msgid "Link 2 URL"
-msgstr "Lenke 2-URL"
+msgstr "Lenkje 2-adresse"
 
 #: guide/forms/cobranding.py:30
 msgid "Link 2 Text"
-msgstr "Lenke 2-tekst"
+msgstr "Lenkje 2-tekst"
 
 #: guide/forms/cobranding.py:32
 msgid "Link 3 URL"
-msgstr "Lenke 3-URL"
+msgstr "Lenkje 3-adresse"
 
 #: guide/forms/cobranding.py:34
 msgid "Link 3 Text"
-msgstr "Lenke 3-tekst"
+msgstr "Lenkje 3-tekst"
 
 #: guide/forms/fields.py:21
 #, python-format
 msgid "Ensure this value has at most %(maximum)d bytes (it has %(length)d)."
-msgstr "Sjå til at verdien har maks %(maximum)d bytes (han har %(length)d)."
+msgstr ""
+"Sjå til at verdien ikkje er på med meir enn %(maximum)d byte (han har "
+"%(length)d)."
 
 #: guide/forms/misc.py:14
 msgid "title"
-msgstr "tittel"
+msgstr "namn"
 
-#: guide/forms/user.py:18
+#: guide/forms/share.py:52
+msgid ""
+"\"Recipients\" field must be a comma separated list of email addresses"
+msgstr ""
+
+#: guide/forms/share.py:64
+msgid "feed_url not provided despite share_type being set to 'feed'"
+msgstr ""
+
+#: guide/forms/share.py:75
+msgid "file_url not provided despite share_type being set to 'item'"
+msgstr ""
+
+#: guide/forms/user.py:19
 msgid "Username already taken"
-msgstr ""
+msgstr "Brukarnamnet er alt i bruk"
 
-#: guide/forms/user.py:28
+#: guide/forms/user.py:29
 msgid "E-mail already taken"
-msgstr ""
+msgstr "E-postadressa er alt i bruk"
 
-#: guide/forms/user.py:35
+#: guide/forms/user.py:36
 msgid "E-mail not found"
-msgstr ""
+msgstr "Fann ikkje e-postadressa"
 
-#: guide/forms/user.py:44
+#: guide/forms/user.py:45
 msgid "That username is not valid."
-msgstr "Brukarnamnet er ugyldig"
+msgstr "Brukarnamnet er ikkje gyldig."
 
-#: guide/forms/user.py:58
+#: guide/forms/user.py:59
 msgid "That username or e-mail is not valid."
+msgstr "Brukarnamnet eller e-postadressa er ikkje gyldig."
+
+#: guide/forms/user.py:76
+msgid "Display shows in all languages"
 msgstr ""
 
-#: guide/forms/user.py:71
+#: guide/forms/user.py:77
+msgid "Only display shows in these languages:"
+msgstr ""
+
+#: guide/forms/user.py:80
+msgid "Hold CTRL to select multiple languages"
+msgstr ""
+
+#: guide/forms/user.py:111
 msgid "That password is not valid."
-msgstr "Passordet er ugyldig"
+msgstr "Passordet er ikkje gyldig."
 
-#: guide/forms/user.py:85
+#: guide/forms/user.py:125
 msgid "Passwords don't match"
-msgstr "Passorda er ulike"
+msgstr "Passorda er ikkje like"
 
-#: guide/forms/user.py:89
+#: guide/forms/user.py:129 guide/templates/topmenu_dropdowns.html:51
+#: guide/templates/topmenu_dropdowns.html:76
+#: templates-optimized/guide/topmenu_dropdowns.html:51
+#: templates-optimized/guide/topmenu_dropdowns.html:76
 msgid "Username"
 msgstr "Brukarnamn"
 
-#: guide/forms/user.py:90
+#: guide/forms/user.py:130 guide/templates/topmenu_dropdowns.html:82
+#: templates-optimized/guide/topmenu_dropdowns.html:82
 msgid "Email Address"
 msgstr "E-postadresse"
 
-#: guide/forms/user.py:92
+#: guide/forms/user.py:132 guide/templates/topmenu_dropdowns.html:88
+#: templates-optimized/guide/topmenu_dropdowns.html:88
 msgid "Pick a Password"
 msgstr "Vel eit passord"
 
-#: guide/forms/user.py:94 guide/forms/user.py:111 guide/forms/user.py:176
+#: guide/forms/user.py:134 guide/forms/user.py:151 guide/forms/user.py:237
+#: guide/templates/topmenu_dropdowns.html:94
+#: templates-optimized/guide/topmenu_dropdowns.html:94
 msgid "Confirm Password"
-msgstr "Godkjenn passord"
+msgstr "Stadfest passord"
 
-#: guide/forms/user.py:109
+#: guide/forms/user.py:149
 msgid "Change Password"
 msgstr "Byt passord"
 
-#: guide/forms/user.py:113
+#: guide/forms/user.py:153
 msgid "First Name"
 msgstr "Fornamn"
 
-#: guide/forms/user.py:115
+#: guide/forms/user.py:155
 msgid "Last Name"
 msgstr "Etternamn"
 
-#: guide/forms/user.py:116
+#: guide/forms/user.py:156
 msgid "Age"
-msgstr ""
+msgstr "Alder"
 
-#: guide/forms/user.py:120
+#: guide/forms/user.py:160
 msgid "Gender"
-msgstr ""
+msgstr "Kjønn"
 
-#: guide/forms/user.py:122
+#: guide/forms/user.py:163
 msgid "City"
-msgstr "By"
+msgstr "Poststad"
 
-#: guide/forms/user.py:124
+#: guide/forms/user.py:165
 msgid "State"
-msgstr "Fylke"
+msgstr "Delstat/region"
 
-#: guide/forms/user.py:126
+#: guide/forms/user.py:167
 msgid "Country"
 msgstr "Land"
 
-#: guide/forms/user.py:128
+#: guide/forms/user.py:169
 msgid "Zip Code"
-msgstr "Postnr"
+msgstr "Postnummer"
 
-#: guide/forms/user.py:130
+#: guide/forms/user.py:171
 msgid "IM Username"
-msgstr "IM-brukarnamn"
+msgstr "Brukarnamn for lynmeldingar"
 
-#: guide/forms/user.py:132
+#: guide/forms/user.py:173
 msgid "IM Type"
-msgstr "IM-type"
+msgstr "Lynmeldingstype"
 
-#: guide/forms/user.py:161
+#: guide/forms/user.py:176
+msgid "Show interface in"
+msgstr ""
+
+#: guide/forms/user.py:222
 msgid "Channel Owner Emails"
 msgstr "E-postar til kanaleigar"
 
-#: guide/forms/user.py:165
+#: guide/forms/user.py:226
 msgid "Moderator Board Emails"
 msgstr "E-postar til moderatorpanel"
 
-#: guide/forms/user.py:166
+#: guide/forms/user.py:227
 msgid "Normal"
-msgstr "Normal"
+msgstr "Vanleg"
 
-#: guide/forms/user.py:167
+#: guide/forms/user.py:228
 msgid "No emails"
 msgstr "Ingen e-postar"
 
-#: guide/forms/user.py:168
+#: guide/forms/user.py:229
 msgid "Send all emails"
 msgstr "Send alle e-postar"
 
-#: guide/forms/user.py:169
+#: guide/forms/user.py:230
 msgid "Channel Status Emails"
 msgstr "E-postar for kanalstatus"
 
-#: guide/forms/user.py:174
+#: guide/forms/user.py:235
 msgid "Set a new Password"
 msgstr "Vel eit nytt passord"
 
-#: guide/models/channel.py:315
+#: guide/models/channel.py:180
 #, python-format
 msgid "%(count)d subscriber"
 msgid_plural "%(count)d subscribers"
 msgstr[0] "%(count)d abonnent"
 msgstr[1] "%(count)d abonnentar"
 
-#: guide/models/channel.py:322
+#: guide/models/channel.py:187
 #, python-format
 msgid "%(count)d episode"
 msgid_plural "%(count)d episodes"
 msgstr[0] "%(count)d episode"
 msgstr[1] "%(count)d episodar"
 
-#: guide/templates/add-note.html:9
+#: guide/templates/add-note.html:9 templates-optimized/guide/add-note.html:9
 msgid "Post"
-msgstr "Post"
-
-#: guide/templates/after-submit.html:9
-msgid "Thanks for Submitting Your Channel"
-msgstr "Takk for at du posta kanalen din"
-
-#: guide/templates/after-submit.html:10
-msgid "Your channel has been submitted!"
-msgstr "Kanalen din har blitt posta!"
+msgstr "Send inn"
 
 #: guide/templates/after-submit.html:12
+#: templates-optimized/guide/after-submit.html:12
+msgid "Thanks for Submitting Your Feed"
+msgstr ""
+
+#: guide/templates/after-submit.html:13
+#: templates-optimized/guide/after-submit.html:13
+msgid "Your feed has been submitted!"
+msgstr ""
+
+#: guide/templates/after-submit.html:16
 msgid ""
 "\n"
-"Our moderators will review your channel in the next few days to make\n"
-"sure that it works in Miro and that the content is not\n"
-"inappropriate.  Once the channel is approved, it will appear in the\n"
-"'Just Added' section on the front page.\n"
+"        Our moderators will review your feed in the next few days to make\n"
+"        sure that it works in Miro and that the content is not\n"
+"        inappropriate.  Once the feed is approved, it will appear in the\n"
+"        'Just Added' section on the front page.\n"
+"      "
 msgstr ""
-"\n"
-"Moderatorane våre vil sjå gjennom kanalen din i løpet av dei neste\n"
-"dagane for å sikre at han verker i Miro og at innhaldet ikkje er\n"
-"upasseleg. Når kanalen har vorte godkjend, vil han synast i\n"
-"'Nyleg lagt til'-seksjonen på framsida.\n"
 
-#: guide/templates/after-submit.html:19
-msgid "Updating Your Channel Info"
-msgstr "Oppdaterer kanalinfoen din"
+#: guide/templates/after-submit.html:24
+#: templates-optimized/guide/after-submit.html:24
+msgid "Updating Your Feed Info"
+msgstr ""
 
-#: guide/templates/after-submit.html:20
+#: guide/templates/after-submit.html:26
 msgid ""
 "\n"
-"You can update the details about your channel at anytime.  Just login\n"
-"to your account and click the 'My Submitted Channels' link.\n"
+"        You can update the details about your feed at anytime.  Just\n"
+"        login to your account and click the 'My Submitted Feeds'\n"
+"        link.\n"
+"      "
 msgstr ""
-"\n"
-"Du kan oppdatere detaljane om kanalen når du vil. Berre logg inn på\n"
-"kontoen din og klikk på 'Mine posta kanalar'.\n"
 
-#: guide/templates/after-submit.html:25
+#: guide/templates/after-submit.html:33
+#: templates-optimized/guide/after-submit.html:33
 msgid "Add a 1-Click Subscribe Button to Your Website"
-msgstr "Legg til ein 1-klikksabonneringknapp på vevsida di"
+msgstr "Legg til abonneringsknapp på nettsida di"
 
-#: guide/templates/after-submit.html:28
+#: guide/templates/after-submit.html:37
 msgid ""
-"Visit <a href=\"http://webbalert.com/\">webbalert.com</a> to see a real 1-"
-"click button in action"
+"\n"
+"          Visit <a href=\"http://webbalert.com/\">webbalert.com</a> to see\n"
+"          a real 1-click button in action\n"
+"        "
 msgstr ""
 
-#: guide/templates/after-submit.html:30
+#: guide/templates/after-submit.html:45
 msgid ""
-"The buttons below point to the feed you've just submitted-- just\n"
-"paste the HTML into your blog or website. When users click on the\n"
-"button, Miro will open and they will be automatically subscribed to\n"
-"your channel."
+"\n"
+"        The buttons below point to the feed you've just submitted-- just\n"
+"        paste the HTML into your blog or website. When users click on\n"
+"        the button, Miro will open and they will be automatically\n"
+"        subscribed to your feed.\n"
+"      "
 msgstr ""
-"Knappane nedanfor fører til straumen du nett posta -- berre\n"
-"lim inn HTML-en på bloggen eller vevsida di. Når brukarar klikker\n"
-"på knappen, vil Miro opnast og dei vil automatisk abonnera på\n"
-"kanalen din."
 
-#: guide/templates/after-submit.html:34
+#: guide/templates/after-submit.html:54
 msgid ""
-"1-click buttons are a great way to get your viewers connected to your\n"
-"content on an ongoing basis. If you have any questions about the\n"
-"buttons, email: channels [at] pculture [d] org."
+"\n"
+"        1-click buttons are a great way to get your viewers connected to\n"
+"        your content on an ongoing basis. If you have any questions\n"
+"        about the buttons, email: channels [at] pculture [d] org.\n"
+"      "
 msgstr ""
-"1-klikksabonneringknappar er ein god måte å få sjåarane dine kopla til\n"
-"innhaldet ditt på ein pågåande basis. Om du har nokon spørsmål om\n"
-"knappane, skriv til: channels [at] pculture [d] org."
 
 #: guide/templates/auth-token-request.html:7
+#: templates-optimized/guide/auth-token-request.html:7
+msgid "Miro Guide - Forgot Password"
+msgstr ""
+
 #: guide/templates/auth-token-request.html:11
+#: templates-optimized/guide/auth-token-request.html:11
 msgid "Forgot Password"
 msgstr "Gløymt passord"
 
@@ -664,789 +705,1263 @@ msgid ""
 "        password."
 msgstr ""
 "Skriv inn e-postadressa di under.\n"
-"        Ei lenke vil verte sendt til e-posten din som du kan bruke til å "
-"velje\n"
-"        nytt passord."
+"        Du får så tilsendt ei lenkje du kan bruka til å velja eit nytt "
+"passord."
 
 #: guide/templates/auth-token-request.html:17
+#: guide/templates/email-form.html:32
+#: templates-optimized/guide/auth-token-request.html:17
+#: templates-optimized/guide/email-form.html:32
 msgid "Send"
 msgstr "Send"
 
+#: guide/templates/auth-token-sent.html:7
+msgid "Email Sent"
+msgstr "E-post send"
+
+#: guide/templates/auth-token-sent.html:10
+msgid "Email Sent!"
+msgstr "E-post sendt!"
+
+#: guide/templates/auth-token-sent.html:11
+#, python-format
+msgid ""
+"An email was sent to %(email)s.  You should receive\n"
+"it in a few minutes.  It will contain a link that you can use to set a new\n"
+"password for your account."
+msgstr ""
+"Ein e-post vart sendt til %(email)s. Du bør motta han\n"
+"om eit par minutt. Han vil innehalde ei lenke som du kan bruke til å\n"
+"velje eit nytt passord."
+
 #: guide/templates/bad-auth-token.html:7
 #: guide/templates/change-password.html:7
-#: guide/templates/change-password.html:11
-msgid "Create New Password"
-msgstr "Lag eit nytt passord"
+#: templates-optimized/guide/bad-auth-token.html:7
+#: templates-optimized/guide/change-password.html:7
+msgid "Miro Guide - Create New Password"
+msgstr ""
 
 #: guide/templates/bad-auth-token.html:10
+#: templates-optimized/guide/bad-auth-token.html:10
 msgid "Link invalid"
-msgstr "Lenke ugyldig"
+msgstr "Ugyldig lenkje"
 
 #: guide/templates/bad-auth-token.html:11
+#: templates-optimized/guide/bad-auth-token.html:11
 msgid "The link you used to get to this page was not valid."
-msgstr "Lenka du brukte for å kome hit er ikkje gyldig."
+msgstr "Lenkja du brukte for å komma her er ugyldig."
 
-#: guide/templates/base.html:5 templates/500.html:7
-msgid "Miro Guide"
-msgstr "Miroguide"
-
-#: guide/templates/base.html:27
-msgid "Miro"
+#: guide/templates/base.html:11 templates-optimized/guide/base.html:11
+msgid "Miro Guide - Video Podcast Directory"
 msgstr ""
 
-#: guide/templates/base.html:28
-msgid "Video feeds"
+#: guide/templates/base.html:33 templates-optimized/guide/base.html:31
+msgid "Not interested"
 msgstr ""
 
-#: guide/templates/base.html:29
-msgid "Streaming shows"
+#: guide/templates/base.html:34 templates-optimized/guide/base.html:32
+msgid "I hate this show"
 msgstr ""
 
-#: guide/templates/base.html:30
-msgid "Videos you'll love"
+#: guide/templates/base.html:35 templates-optimized/guide/base.html:33
+msgid "I dislike this show"
 msgstr ""
 
-#: guide/templates/base.html:36
-msgid "Search"
+#: guide/templates/base.html:36 templates-optimized/guide/base.html:34
+msgid "I like this show"
 msgstr ""
 
-#: guide/templates/base.html:50
-msgid "Genres"
+#: guide/templates/base.html:37 templates-optimized/guide/base.html:35
+msgid "I really like this show"
 msgstr ""
 
-#: guide/templates/base.html:51
-msgid "HD Channels"
-msgstr "HD-kanalar"
-
-#: guide/templates/base.html:53
-msgid "New Shows"
-msgstr ""
-
-#: guide/templates/base.html:54
-msgid "Video by Language"
-msgstr ""
-
-#: guide/templates/base.html:55
-msgid "Language"
-msgstr ""
-
-#: guide/templates/base.html:57
-msgid "Account"
-msgstr ""
-
-#: guide/templates/base.html:68
-msgid "Moderator's Area"
-msgstr ""
-
-#: guide/templates/base.html:70
-msgid "View/Edit Profile"
+#: guide/templates/base.html:38 templates-optimized/guide/base.html:36
+msgid "I love this show!"
 msgstr ""
 
 #: guide/templates/base.html:72
-msgid "Channels I Manage"
+msgid "FEEDBACK"
 msgstr ""
 
-#: guide/templates/base.html:74
-msgid "Submit a Channel"
-msgstr "Post ein kanal"
+#: guide/templates/base.html:79 templates-optimized/guide/base.html:76
+msgid "Miro"
+msgstr "Miro"
 
-#: guide/templates/base.html:78
-msgid "Log Out"
+#: guide/templates/base.html:84 guide/templates/listing.html:101
+#: templates-optimized/guide/listing.html:61
+msgid "Feeds"
 msgstr ""
 
-#: guide/templates/base.html:94
-msgid "Forgot password"
+#: guide/templates/base.html:90 guide/templates/listing.html:128
+#: templates-optimized/guide/base.html:87
+#: templates-optimized/guide/listing.html:92
+msgid "Sites"
 msgstr ""
 
-#: guide/templates/base.html:95 guide/templates/login.html:7
-#: guide/templates/login.html.py:13 guide/templates/login.html:18
-msgid "Login"
-msgstr "Logg inn"
+#: guide/templates/base.html:96 templates-optimized/guide/base.html:93
+msgid "Videos you'll love"
+msgstr "Videoar du vil elska"
 
-#: guide/templates/base.html:106
-msgid "Register!"
+#: guide/templates/base.html:107 templates-optimized/guide/base.html:104
+msgid "Search"
+msgstr "Søk"
+
+#: guide/templates/base.html:123 templates-optimized/guide/base.html:119
+msgid "HD Shows"
 msgstr ""
 
-#: guide/templates/base.html:113
-msgid "Register Now!"
-msgstr ""
+#: guide/templates/base.html:124 templates-optimized/guide/base.html:120
+msgid "Most Popular"
+msgstr "Mest populære"
 
-#: guide/templates/base.html:114
-msgid "Always Free"
-msgstr ""
+#: guide/templates/base.html:125
+msgid "Top Rated"
+msgstr "Flest stjerner"
 
-#: guide/templates/base.html:161
+#: guide/templates/base.html:126 guide/templates/frontpage.html:124
+#: templates-optimized/guide/base.html:121
+#: templates-optimized/guide/frontpage.html:124
+msgid "New Shows"
+msgstr "Nye program"
+
+#: guide/templates/base.html:127 templates-optimized/guide/base.html:122
+msgid "Video by Language"
+msgstr "Videoar etter språk"
+
+#: guide/templates/base.html:140 templates-optimized/guide/base.html:135
+msgid "Account"
+msgstr "Konto"
+
+#: guide/templates/base.html:162 templates-optimized/guide/base.html:186
 msgid "Loading..."
-msgstr ""
+msgstr "Lastar …"
 
-#: guide/templates/button_block.html:6
-msgid "Add"
-msgstr "Legg til"
-
-#: guide/templates/button_block.html:6
-msgid "Add channel"
-msgstr ""
-
-#: guide/templates/button_block.html:7
-#, python-format
-msgid "Add %(name)s to Miro"
-msgstr ""
-
-#: guide/templates/button_block.html:12
-msgid "Details"
-msgstr "Detaljar"
-
-#: guide/templates/button_block.html:13
-#, python-format
-msgid "Details about %(name)s"
-msgstr ""
+#: guide/templates/change-password.html:11
+#: templates-optimized/guide/change-password.html:11
+msgid "Create New Password"
+msgstr "Lag eit nytt passord"
 
 #: guide/templates/change-password.html:14
+#: templates-optimized/guide/change-password.html:14
 msgid "Create"
 msgstr "Lag"
 
+#: guide/templates/channel-feature.html:14
+#: guide/templates/channel-in-category.html:15
+#: guide/templates/channel-in-listing.html:15
+#: templates-optimized/guide/channel-feature.html:14
+#: templates-optimized/guide/channel-in-category.html:15
+#: templates-optimized/guide/channel-in-listing.html:15
+msgid "High-Definition Channel"
+msgstr "Kanal i høg oppløysing"
+
+#: guide/templates/channel-feature.html:25
+msgid "ADD FEED TO SIDEBAR"
+msgstr ""
+
+#: guide/templates/channel-feature.html:27
+msgid "ADD SITE TO SIDEBAR"
+msgstr ""
+
 #: guide/templates/channel-form.html:7
-msgid "Submit Channel"
-msgstr "Post kanal"
+#: templates-optimized/guide/channel-form.html:7
+msgid "Miro Guide - Submit Feed"
+msgstr ""
 
 #: guide/templates/channel-form.html:15
-msgid "Channel Thumbnail"
-msgstr "Miniatyrbilete"
+#: templates-optimized/guide/channel-form.html:15
+msgid "Feed Thumbnail"
+msgstr ""
 
 #: guide/templates/channel-form.html:16
+#: templates-optimized/guide/channel-form.html:16
 msgid ""
-"Remember that creating a good channel thumbnail is one of\n"
+"Remember that creating a good feed thumbnail is one of\n"
 "the most important ways to attract new viewers.  It's worth making an "
 "effort\n"
 "to do something beautiful.  You can also update the image after you submit\n"
-"your channel."
+"your feed."
 msgstr ""
-"Hugs at det å lage eit godt miniatyrbilete er ein av dei\n"
-"viktigaste måtane å tiltrekke seg nye sjåarar. Det er verdt det, om ein\n"
-"lagar noko vakkert. Du kan òg oppdatere biletet etter at du har posta\n"
-"kanalen din."
 
-#: guide/templates/channel-form.html:21 guide/templates/submit-channel.html:13
+#: guide/templates/channel-form.html:21 guide/templates/submit-channel.html:17
+#: templates-optimized/guide/channel-form.html:21
+#: templates-optimized/guide/submit-channel.html:17
 msgid ""
 "We have found an image in your feed.  You can either use this image or "
 "upload a different one."
 msgstr ""
-"Me har funne eit bilete i straumen din. Du kan anten bruke dette biletet "
-"eller laste opp eit anna."
+"Me fann eit bilete i kjelda di. Du kan anten bruka dette biletet eller lasta "
+"opp eit anna."
+
+#: guide/templates/channel-in-category.html:33
+#: guide/templates/channel-in-listing.html:34
+#: guide/templates/channel-moderate.html:30
+#: templates-optimized/guide/channel-in-listing.html:32
+#: templates-optimized/guide/channel-moderate.html:30
+msgid "Add Feed"
+msgstr ""
+
+#: guide/templates/channel-in-category.html:35
+#: guide/templates/channel-in-listing.html:36
+#: guide/templates/channel-moderate.html:32
+#: templates-optimized/guide/channel-in-listing.html:34
+#: templates-optimized/guide/channel-moderate.html:32
+msgid "Add Site"
+msgstr ""
+
+#: guide/templates/channel-in-listing.html:42
+#, python-format
+msgid "Added: once today"
+msgid_plural "Added: %(count)s times today"
+msgstr[0] ""
+msgstr[1] ""
+
+#: guide/templates/channel-moderate.html:38
+#: templates-optimized/guide/channel-moderate.html:38
+msgid "Website"
+msgstr "Vevside"
+
+#: guide/templates/channel-moderate.html:43
+#: templates-optimized/guide/channel-moderate.html:43
+msgid "Manager Email"
+msgstr "E-post til styrar"
 
 #: guide/templates/channel-notes.html:7
+#: templates-optimized/guide/channel-notes.html:7
 msgid "Issues"
 msgstr "Problem"
 
 #: guide/templates/channel-notes.html:7
+#: templates-optimized/guide/channel-notes.html:7
 msgid "need support? post here."
-msgstr "treng du hjelo? post her."
+msgstr "Treng du hjelp? Sjå her."
 
 #: guide/templates/channel-notes.html:14
+#: templates-optimized/guide/channel-notes.html:14
 msgid "Me"
 msgstr "Meg"
 
 #: guide/templates/channel-notes.html:17
+#: templates-optimized/guide/channel-notes.html:17
 msgid "Manager"
 msgstr "Styrar"
 
-#: guide/templates/channel.html:12 guide/templates/channel.html.py:14
-msgid "High-Definition Channel"
-msgstr ""
-
-#: guide/templates/channel.html:53
-msgid "Channel Manager"
-msgstr ""
-
-#: guide/templates/channel.html:60
-msgid "Notes"
-msgstr ""
-
 #: guide/templates/cobranding-admin.html:7
 #: guide/templates/cobranding-admin.html:9
+#: templates-optimized/guide/cobranding-admin.html:7
+#: templates-optimized/guide/cobranding-admin.html:9
 msgid "Administration"
-msgstr "Administrasjon"
+msgstr "Administrering"
 
-#: guide/templates/cobranding.html:53
+#: guide/templates/cobranding.html:146
+#: templates-optimized/guide/cobranding.html:146
 #, python-format
 msgid "All %(title)s Channels"
-msgstr "Alle %(title)s kanalar"
+msgstr "Alle %(title)s-kanalar"
 
-#: guide/templates/confirm.html:7
-msgid "Email Sent"
-msgstr "E-post sendt"
+#: guide/templates/cobranding.html:154
+#: templates-optimized/guide/cobranding.html:154
+msgid "archival"
+msgstr "arkivert"
 
-#: guide/templates/confirm.html:11
+#: guide/templates/cobranding.html:169
+#: templates-optimized/guide/cobranding.html:169
+msgid "Add"
+msgstr "Legg til"
+
+#: guide/templates/cobranding.html:172
+#: templates-optimized/guide/cobranding.html:172
+msgid "Subscribe"
+msgstr ""
+
+#: guide/templates/cobranding.html:177
+#: templates-optimized/guide/cobranding.html:177
+msgid "Details"
+msgstr "Detaljar"
+
+#: guide/templates/cobranding.html:197 guide/templates/playback.html:132
+#: templates-optimized/guide/cobranding.html:197
+#: templates-optimized/guide/playback.html:92
+msgid "Next"
+msgstr ""
+
+#: guide/templates/confirm.html:7 templates-optimized/guide/confirm.html:7
+msgid "Miro Guide - Email Sent"
+msgstr ""
+
+#: guide/templates/confirm.html:11 templates-optimized/guide/confirm.html:11
 msgid "Confirmed!"
-msgstr "Bekrefta!"
+msgstr "Stadfesta!"
 
-#: guide/templates/confirm.html:12
+#: guide/templates/confirm.html:12 templates-optimized/guide/confirm.html:12
 msgid "Thanks for confirming your account!"
-msgstr "Takk for at du bekrefta kontoen din!"
+msgstr "Takk for at du stadfesta kontoen din!"
 
-#: guide/templates/confirm.html:15
+#: guide/templates/confirm.html:15 templates-optimized/guide/confirm.html:15
 msgid "Confirmation sent"
-msgstr "Bekrefting sendt"
+msgstr "Stadfesting send"
 
-#: guide/templates/confirm.html:17
+#: guide/templates/confirm.html:17 templates-optimized/guide/confirm.html:17
 msgid ""
 "If the address below isn't the correct one; change it and we'll send a code "
 "to that address."
 msgstr ""
-"Om adressa nedanfor er feil; endre ho og me vil sende ei kode til den "
-"adressa."
+"Dersom adressa nedanfor er feil, kan du no retta ho. Me vil så senda ein "
+"kode til den nye adressa."
 
-#: guide/templates/confirm.html:25
+#: guide/templates/confirm.html:25 templates-optimized/guide/confirm.html:25
 msgid "Resend"
-msgstr "Send igjen"
+msgstr "Send på nytt"
 
-#: guide/templates/confirm.html:29
+#: guide/templates/confirm.html:29 templates-optimized/guide/confirm.html:29
 msgid "Incorrect code"
 msgstr "Feil kode"
 
-#: guide/templates/confirm.html:30
+#: guide/templates/confirm.html:30 templates-optimized/guide/confirm.html:30
 msgid "I'm sorry, that is not the correct code."
-msgstr "Eg beklagar, med et er feil kode."
+msgstr "Dette er ikkje rett kode."
 
-#: guide/templates/edit-bar.html:9
-msgid "Click to Edit Channel / Assist Manager"
-msgstr "Klikk for å endre kanal / hjelp styrar"
+#: guide/templates/dmca.html:5 templates-optimized/guide/dmca.html:5
+msgid "Miro Guide - Copyright Infringement Notification"
+msgstr ""
 
-#: guide/templates/edit-bar.html:13
+#: guide/templates/edit-bar.html:11 templates-optimized/guide/edit-bar.html:11
+msgid "Click to Edit Feed / Assist Manager"
+msgstr ""
+
+#: guide/templates/edit-bar.html:13 templates-optimized/guide/edit-bar.html:13
+msgid "Click to Edit Site / Assist Manager"
+msgstr ""
+
+#: guide/templates/edit-bar.html:18 templates-optimized/guide/edit-bar.html:18
 #, python-format
 msgid "%(state)s by %(mod)s on %(mod_time)s"
 msgstr "%(state)s av %(mod)s på %(mod_time)s"
 
-#: guide/templates/edit-bar.html:16
+#: guide/templates/edit-bar.html:21 templates-optimized/guide/edit-bar.html:21
 #, python-format
 msgid "%(state)s by %(mod)s"
 msgstr "%(state)s av %(mod)s"
 
-#: guide/templates/edit-bar.html:18
+#: guide/templates/edit-bar.html:24 templates-optimized/guide/edit-bar.html:24
 #, python-format
-msgid "Channel is %(state)s"
-msgstr "Kanalen er %(state)s"
+msgid "Feed is %(state)s"
+msgstr ""
 
-#: guide/templates/edit-bar.html:23
+#: guide/templates/edit-bar.html:26 templates-optimized/guide/edit-bar.html:26
+#, python-format
+msgid "Site is %(state)s"
+msgstr ""
+
+#: guide/templates/edit-bar.html:32 templates-optimized/guide/edit-bar.html:32
 #, python-format
 msgid "Featured by %(mod)s on %(featured_time)s"
 msgstr "Sponsa av %(mod)s på %(featured_time)s"
 
-#: guide/templates/edit-bar.html:28
-msgid "Edit Your Channel / View Statistics / Get Help"
-msgstr "Endre kanalen din / syn statistikkar / få hjelp"
+#: guide/templates/edit-bar.html:39 templates-optimized/guide/edit-bar.html:39
+msgid "Edit Your Feed / View Statistics / Get Help"
+msgstr ""
 
-#: guide/templates/edit-bar.html:91
+#: guide/templates/edit-bar.html:41 templates-optimized/guide/edit-bar.html:41
+msgid "Edit Your Site / View Statistics / Get Help"
+msgstr ""
+
+#: guide/templates/edit-bar.html:113
+#: templates-optimized/guide/edit-bar.html:113
 msgid "Cancel and go back"
 msgstr "Avbryt og gå tilbake"
 
-#: guide/templates/edit-channel.html:8 guide/templates/edit-channel.html:10
+#: guide/templates/edit-channel.html:10
+#: templates-optimized/guide/edit-channel.html:10
+msgid "Miro Guide - Edit Feed"
+msgstr ""
+
+#: guide/templates/edit-channel.html:12
+#: templates-optimized/guide/edit-channel.html:12
+msgid "Miro Guide - Edit Site"
+msgstr ""
+
+#: guide/templates/edit-channel.html:16
+#: templates-optimized/guide/edit-channel.html:16
 msgid "Edit Channel"
 msgstr "Endre kanal"
 
-#: guide/templates/edit-channel.html:12 guide/templates/edit-user.html:30
+#: guide/templates/edit-channel.html:18 guide/templates/edit-user.html:46
+#: templates-optimized/guide/edit-channel.html:18
+#: templates-optimized/guide/edit-user.html:46
 msgid "Update"
 msgstr "Oppdater"
 
-#: guide/templates/edit-channel.html:15
+#: guide/templates/edit-channel.html:21
+#: templates-optimized/guide/edit-channel.html:21
 msgid "Statistics"
 msgstr "Statistikk"
 
-#: guide/templates/edit-channel.html:17
+#: guide/templates/edit-channel.html:23
+#: templates-optimized/guide/edit-channel.html:23
 msgid "Subscriptions* Today"
 msgstr "Abonnentar* I dag"
 
-#: guide/templates/edit-channel.html:19
+#: guide/templates/edit-channel.html:25
+#: templates-optimized/guide/edit-channel.html:25
 msgid "Subscriptions* Month"
 msgstr "Abonnentar* Månad"
 
-#: guide/templates/edit-channel.html:21
+#: guide/templates/edit-channel.html:27
+#: templates-optimized/guide/edit-channel.html:27
 msgid "Subscriptions* Overall"
 msgstr "Abonnentar* Totalt"
 
-#: guide/templates/edit-channel.html:24
+#: guide/templates/edit-channel.html:30
+#: templates-optimized/guide/edit-channel.html:30
 msgid "Popularity Rank Today"
 msgstr "Popularitetsreank i dag"
 
-#: guide/templates/edit-channel.html:28
+#: guide/templates/edit-channel.html:34
+#: templates-optimized/guide/edit-channel.html:34
 msgid "Popularity Rank Month"
 msgstr "Popularitetsrank månad"
 
-#: guide/templates/edit-channel.html:32
+#: guide/templates/edit-channel.html:38
+#: templates-optimized/guide/edit-channel.html:38
 msgid "Popularity Rank Overall"
 msgstr "Popularitetsrank totalt"
 
-#: guide/templates/edit-channel.html:36
-msgid "* unique Miro Guide 'add channel' hits"
-msgstr "* unike Miroguide 'legg til kanal'-treff"
+#: guide/templates/edit-channel.html:44
+#: templates-optimized/guide/edit-channel.html:44
+msgid "* unique Miro Guide 'add feed' hits"
+msgstr ""
 
-#: guide/templates/edit-user.html:7
-msgid "Update My Profile"
-msgstr "Oppdater profilen min"
+#: guide/templates/edit-channel.html:46
+#: templates-optimized/guide/edit-channel.html:46
+msgid "* unique Miro Guide 'add site' hits"
+msgstr ""
 
-#: guide/templates/edit-user.html:11
+#: guide/templates/edit-user.html:7 templates-optimized/guide/edit-user.html:7
+msgid "Miro Guide - Update My Profile"
+msgstr ""
+
+#: guide/templates/edit-user.html:27
+#: templates-optimized/guide/edit-user.html:27
 msgid "Update My Profile "
 msgstr "Oppdater profilen min "
 
 #: guide/templates/email-channel-owners.html:7
-#: guide/templates/moderate.html:52
-msgid "Email Channel Managers"
-msgstr "Skriv til kanalstyrarane"
-
-#: guide/templates/firsttime.html:34
-msgid "WELCOME TO MIRO!"
-msgstr "VELKOMEN TIL MIRO!"
-
-#: guide/templates/firsttime.html:36
-msgid "Three things to remember..."
-msgstr "Tre ting å hugse..."
-
-#: guide/templates/firsttime.html:38
-msgid ""
-"Miro lets you subscribe to channels for free (they go to your sidebar)"
+#: templates-optimized/guide/email-channel-owners.html:7
+msgid "Miro Guide - Email Show Managers"
 msgstr ""
-"Miro let deg abonnere på kanalar graits (dei vert lagd til i sidepanelet)"
 
-#: guide/templates/firsttime.html:39
-msgid "Miro will automatically download new videos from your channels"
-msgstr "Miro vil automatisk laste ned nye videoar frå kanalane dine"
+#: guide/templates/email-form.html:12
+#: templates-optimized/guide/email-form.html:12
+msgid "Please Send a Note to the Feed Manager!"
+msgstr ""
 
-#: guide/templates/firsttime.html:40
-msgid "A "
-msgstr "Ei "
+#: guide/templates/email-form.html:14
+#: templates-optimized/guide/email-form.html:14
+msgid "Please Send a Note to the Site Manager!"
+msgstr ""
 
-#: guide/templates/firsttime.html:40
-msgid "green"
-msgstr "grøn"
+#: guide/templates/email-form.html:26
+#: templates-optimized/guide/email-form.html:26
+msgid "send e-mail to"
+msgstr "send e-post til"
 
-#: guide/templates/firsttime.html:40
-msgid " bubble (in the sidebar) means you've got "
-msgstr " bobble (i sidepanelet) tyder at du har "
-
-#: guide/templates/firsttime.html:40
-msgid "new"
-msgstr "nye"
-
-#: guide/templates/firsttime.html:40
-msgid " video"
-msgstr " videoar"
-
-#: guide/templates/firsttime.html:43
-msgid "We Have Channel Recommendations for You! <u>click here</u>"
-msgstr "Me har nokon kanaltilrådingar for deg! <u>klikk her</u>"
-
-#: guide/templates/firsttime.html:56
-msgid "Share Miro With Your Friends:"
-msgstr "Del Miro med venene dine:"
-
-#: guide/templates/firsttime.html:80
-msgid "Get Started"
-msgstr "Kom i gang"
-
-#: guide/templates/firsttime.html:80
+#: guide/templates/email-form.html:39
+#: templates-optimized/guide/email-form.html:39
 #, python-format
-msgid "Browse All %(total_channels)s channels"
-msgstr "Bla gjennom alle %(total_channels)s kanalane"
+msgid "Skip the note, just %(type)s"
+msgstr "dropp meldinga, berre %(type)s"
 
-#: guide/templates/for-user.html:7
-msgid "Miro Guide - Channels for"
+#: guide/templates/email-form.html:44
+#: templates-optimized/guide/email-form.html:44
+msgid ""
+"* This show has been added by us. You can hunt for the producer's email "
+"address here:"
 msgstr ""
 
-#: guide/templates/for-user.html:11
+#: guide/templates/for-user.html:9
+#, python-format
+msgid ""
+"\n"
+"    Miro Guide - Shows for %(username)s\n"
+"  "
+msgstr ""
+
+#: guide/templates/for-user.html:17 templates-optimized/guide/for-user.html:17
 msgid "My User Info"
 msgstr "Min brukarinfo"
 
-#: guide/templates/for-user.html:13
+#: guide/templates/for-user.html:19 templates-optimized/guide/for-user.html:19
 msgid "User Info for"
 msgstr "Brukarinfo for"
 
-#: guide/templates/for-user.html:30
-msgid "Submitted channels: "
-msgstr "Posta kanalar: "
+#: guide/templates/for-user.html:36 templates-optimized/guide/for-user.html:36
+msgid "Submitted shows: "
+msgstr ""
 
 #: guide/templates/form-errors.html:8 templates/500.html:11
+#: templates-optimized/500.html:11
+#: templates-optimized/guide/form-errors.html:8
 msgid "Sorry!"
 msgstr "Beklagar!"
 
-#: guide/templates/form-field.html:6
+#: guide/templates/form-field.html:10
+#: templates-optimized/guide/form-field.html:10
 msgid "Error"
 msgstr "Feil"
 
-#: guide/templates/group-list.html:7
+#: guide/templates/frontpage.html:49
+msgid ""
+"\n"
+"                  Click <a href=\"#\" class=\"add_feed_button_welcome\">ADD "
+"FEED</a>\n"
+"                  to get any show into your sidebar. The first episode\n"
+"                  begins downloading automatically and you'll get show\n"
+"                  updates as soon as they're available.\n"
+"                "
+msgstr ""
+
+#: guide/templates/frontpage.html:55
+#: templates-optimized/guide/frontpage.html:55
+msgid "It's all free!"
+msgstr ""
+
+#: guide/templates/frontpage.html:116
+#: templates-optimized/guide/frontpage.html:116
+msgid "Shows in"
+msgstr ""
+
+#: guide/templates/frontpage.html:127 guide/templates/frontpage.html.py:194
+msgid "View All"
+msgstr ""
+
+#: guide/templates/frontpage.html:141
+#: templates-optimized/guide/frontpage.html:141
+msgid "Please support our sponsors"
+msgstr ""
+
+#: guide/templates/frontpage.html:143
+#: templates-optimized/guide/frontpage.html:143
+msgid "Become One"
+msgstr ""
+
+#: guide/templates/frontpage.html:153
+msgid "Genre Browser"
+msgstr ""
+
+#: guide/templates/frontpage.html:156
+msgid "View All Genres"
+msgstr ""
+
+#: guide/templates/frontpage.html:161
 #, python-format
-msgid "Miro Guide - %(group_name)s"
+msgid ""
+"\n"
+"              View all shows in <strong>%(category)s</strong>\n"
+"            "
 msgstr ""
 
-#: guide/templates/how-to-moderate.html:7 guide/templates/moderate.html:45
-msgid "How to Moderate"
-msgstr "Korleis moderere"
-
-#: guide/templates/index.html:134
-msgid "New Feed Videos"
+#: guide/templates/frontpage.html:190
+#: templates-optimized/guide/frontpage.html:190
+msgid "Popular Shows"
 msgstr ""
 
-#: guide/templates/index.html:144
-msgid "New Streaming Videos"
+#: guide/templates/group-list.html:9
+#, python-format
+msgid ""
+"\n"
+"    Miro Guide - %(group_name)s\n"
+"  "
 msgstr ""
 
-#: guide/templates/index.html:156
-msgid "Recommended for you"
+#: guide/templates/group-list.html:23
+#, python-format
+msgid ""
+"\n"
+"                %(count)s Shows\n"
+"              "
 msgstr ""
 
-#: guide/templates/index.html:166
-msgid "View all"
+#: guide/templates/how-to-moderate.html:9
+#: templates-optimized/guide/how-to-moderate.html:9
+msgid "Miro Guide - How to Moderate"
 msgstr ""
 
-#: guide/templates/login.html:14
+#: guide/templates/item.html:24 templates-optimized/guide/item.html:22
+msgid "(no name)"
+msgstr ""
+
+#: guide/templates/item.html:35 templates-optimized/guide/item.html:35
+msgid "Download"
+msgstr ""
+
+#: guide/templates/item.html:43 templates-optimized/guide/item.html:29
+msgid "Read more"
+msgstr ""
+
+#: guide/templates/item.html:46 templates-optimized/guide/item.html:34
+msgid "Preview"
+msgstr ""
+
+#: guide/templates/listing.html:13 templates-optimized/guide/listing.html:12
+msgid "Terms too short"
+msgstr ""
+
+#: guide/templates/listing.html:14
+msgid ""
+"\n"
+"        I'm sorry, your search term was too short; it must be at least\n"
+"        3 characters.\n"
+"      "
+msgstr ""
+
+#: guide/templates/listing.html:31
+msgid "Time to Upgrade!"
+msgstr ""
+
+#: guide/templates/listing.html:33
+msgid ""
+"\n"
+"              You're not seeing all the Miro Guide content -- adding\n"
+"              sites to your sidebar only works in Miro 2.0, so it's\n"
+"              time to <a href=\"http://getmiro.com\">upgrade</a>.\n"
+"            "
+msgstr ""
+
+#: guide/templates/listing.html:57 templates-optimized/guide/listing.html:33
+msgid "Search Results"
+msgstr ""
+
+#: guide/templates/listing.html:59
+#, python-format
+msgid ""
+"\n"
+"          1 feed matches \"%(t)s\"\n"
+"          "
+msgid_plural ""
+"\n"
+"          %(feed_count)s feeds match \"%(t)s\"\n"
+"          "
+msgstr[0] ""
+msgstr[1] ""
+
+#: guide/templates/listing.html:67
+#, python-format
+msgid ""
+"\n"
+"          1 site matches \"%(t)s\"\n"
+"          "
+msgid_plural ""
+"\n"
+"          %(site_count)s sites match \"%(t)s\"\n"
+"          "
+msgstr[0] ""
+msgstr[1] ""
+
+#: guide/templates/listing.html:111
+msgid ""
+"Video feeds are downloaded first, and can be watched online or offline. Many "
+"are in full HD."
+msgstr ""
+
+#: guide/templates/listing.html:138
+msgid ""
+"Most sites require a fast internet connection for streaming video. Bookmark "
+"your favorites with Miro."
+msgstr ""
+
+#: guide/templates/login-message-language.html:3
+msgid "You need an account to change language settings"
+msgstr ""
+
+#: guide/templates/login-message-language.html:5
+msgid ""
+"\n"
+"      We need you to login or register to change your language settings.\n"
+"    "
+msgstr ""
+
+#: guide/templates/login.html:10 templates-optimized/guide/login.html:10
+msgid "Miro Guide - Login"
+msgstr ""
+
+#: guide/templates/login.html:17
+msgid "Time to sign up for an account!"
+msgstr ""
+
+#: guide/templates/login.html:18
+msgid ""
+"Miro takes the video you like, compares them with other viewers' tastes, and "
+"then gives you recommendations."
+msgstr ""
+
+#: guide/templates/login.html:19
+msgid "Rate more videos and feeds for more recommendations."
+msgstr ""
+
+#: guide/templates/login.html:23 guide/templates/login.html.py:28
+#: guide/templates/topmenu_dropdowns.html:64
+#: templates-optimized/guide/login.html:17
+#: templates-optimized/guide/login.html:22
+#: templates-optimized/guide/topmenu_dropdowns.html:64
+msgid "Login"
+msgstr "Logg inn"
+
+#: guide/templates/login.html:24 templates-optimized/guide/login.html:18
 msgid "Got an account? Just log in!"
 msgstr "Har du konto? Berre logg inn!"
 
-#: guide/templates/login.html:28 guide/templates/login.html.py:32
+#: guide/templates/login.html:38 guide/templates/login.html.py:42
+#: templates-optimized/guide/login.html:32
+#: templates-optimized/guide/login.html:36
 msgid "Register"
 msgstr "Registrer"
+
+#: guide/templates/moderate-actions.html:20
+#: templates-optimized/guide/moderate-actions.html:20
+msgid "Show marked as HD! Does it meet"
+msgstr ""
+
+#: guide/templates/moderate-actions.html:20
+#: templates-optimized/guide/moderate-actions.html:20
+msgid "requirements"
+msgstr "krava"
+
+#: guide/templates/moderate-actions.html:20
+#: templates-optimized/guide/moderate-actions.html:20
+msgid "?"
+msgstr "?"
 
 #: guide/templates/moderate.html:14
 #, python-format
 msgid ""
 "\n"
-"        %(count)s Unreviewed channels\n"
+"        %(count)s Unreviewed shows\n"
 "        "
 msgstr ""
-"\n"
-"        %(count)s Ugjennomsette kanalar\n"
-"        "
 
 #: guide/templates/moderate.html:19
 #, python-format
 msgid ""
 "\n"
-"        %(count)s Don't know channels\n"
+"        %(count)s Don't know shows\n"
 "        "
 msgstr ""
-"\n"
-"        %(count)s Veit ikkje kanalar\n"
-"        "
 
 #: guide/templates/moderate.html:24
 #, python-format
 msgid ""
 "\n"
-"        %(count)s Channels waiting for Reply\n"
+"        %(count)s Shows waiting for Reply\n"
 "        "
 msgstr ""
-"\n"
-"        %(count)s Kanalar ventar på svar\n"
-"        "
 
 #: guide/templates/moderate.html:29
 #, python-format
 msgid ""
 "\n"
-"        %(count)s Suspended Channels\n"
+"        %(count)s Suspended Shows\n"
 "        "
 msgstr ""
-"\n"
-"        %(count)s Suspenderte kanalar\n"
-"        "
 
 #: guide/templates/moderate.html:34
 #, python-format
 msgid ""
 "\n"
-"        %(count)s Rejected channels\n"
+"        %(count)s Rejected shows\n"
 "        "
 msgstr ""
-"\n"
-"        %(count)s Avslåtte kanalar\n"
-"        "
 
 #: guide/templates/moderate.html:39
 #, python-format
 msgid ""
 "\n"
-"  %(count)s channels in Featured Queue\n"
+"  %(count)s shows in Featured Queue\n"
 "  "
 msgstr ""
 
-#: guide/templates/moderate.html:46
+#: guide/templates/moderate.html:45 templates-optimized/guide/moderate.html:45
+msgid "How to Moderate"
+msgstr "Korleis moderere"
+
+#: guide/templates/moderate.html:46 templates-optimized/guide/moderate.html:46
 msgid "Search For Users"
 msgstr "Søk etter brukarar"
 
-#: guide/templates/moderate.html:47
+#: guide/templates/moderate.html:47 templates-optimized/guide/moderate.html:47
 msgid "Moderator list"
 msgstr "Moderatorliste"
 
-#: guide/templates/moderate.html:49
-msgid "Edit Category list"
-msgstr "Endre kategoriliste"
+#: guide/templates/moderate.html:49 templates-optimized/guide/moderate.html:49
+msgid "Edit Genres list"
+msgstr ""
 
-#: guide/templates/moderate.html:50
+#: guide/templates/moderate.html:50 templates-optimized/guide/moderate.html:50
 msgid "Edit Languages list"
 msgstr "Endre språkliste"
 
-#: guide/templates/moderate.html:51
+#: guide/templates/moderate.html:51 guide/templates/moderator-history.html:12
+#: templates-optimized/guide/moderate.html:51
+#: templates-optimized/guide/moderator-history.html:12
 msgid "Moderator History"
 msgstr "Moderatorhistorie"
 
+#: guide/templates/moderate.html:52 templates-optimized/guide/moderate.html:52
+msgid "Email Show Managers"
+msgstr ""
+
 #: guide/templates/moderator-board.html:9
+#: templates-optimized/guide/moderator-board.html:9
 msgid "Moderator Message Board"
 msgstr "Moderatorbeskjedtavle"
 
-#: guide/templates/pager-old.html:34
-msgid "Next &gt;&gt;"
-msgstr "Neste &gt;&gt;"
+#: guide/templates/moderator-history.html:8
+#: templates-optimized/guide/moderator-history.html:8
+msgid "Miro Guide - Moderator History"
+msgstr ""
 
-#: guide/templates/pager-old.html:38
+#: guide/templates/moderator-history.html:18
+#: templates-optimized/guide/moderator-history.html:18
+msgid "User"
+msgstr "Brukar"
+
+#: guide/templates/moderator-history.html:19
+#: templates-optimized/guide/moderator-history.html:19
+msgid "Show"
+msgstr ""
+
+#: guide/templates/moderator-history.html:20
+#: templates-optimized/guide/moderator-history.html:20
+msgid "Action"
+msgstr "Handling"
+
+#: guide/templates/moderator-history.html:21
+#: templates-optimized/guide/moderator-history.html:21
+msgid "Date"
+msgstr "Dato"
+
+#: guide/templates/password-changed.html:7
+#: guide/templates/password-changed.html:10
+msgid "Password Set"
+msgstr "Passord endra"
+
+#: guide/templates/password-changed.html:11
+msgid "A new password has been created for your account."
+msgstr "Eit nytt passord har vorte laga for kontoen din."
+
+#: guide/templates/playback.html:21
+msgid "BitTorrent Video"
+msgstr ""
+
+#: guide/templates/playback.html:22 guide/templates/playback.html.py:61
 #, python-format
-msgid ""
-"%(start)s-%(end)s of %(total)s\n"
-"        "
-msgstr ""
-"%(start)s-%(end)s av %(total)s\n"
-"        "
-
-#: guide/templates/personalized-recommendation.html:18
-msgid "Rate!"
-msgstr "Gje karakter!"
-
-#: guide/templates/personalized-recommendation.html:22
-#, python-format
-msgid "Our Bet: %(stars)s Stars"
-msgstr "Me trur: %(stars)s stjerner"
-
-#: guide/templates/personalized-recommendation.html:25
-msgid "Because you like"
-msgstr "Fordi du liker"
-
-#: guide/templates/recommend.html:8
-msgid "Miro Guide - Channels You'll Love"
-msgstr ""
-
-#: guide/templates/recommend.html:16 guide/views/accounts.py:24
-msgid ""
-"Rating Key | cancel: No Interest; 1 Star: Hate; 2 Stars: Dislike; 3 Stars: "
-"Like; 4 Stars; Like Lots; 5 Stars: Love!"
-msgstr ""
-
-#: guide/templates/recommend.html:17 guide/templates/user_ratings.html:14
-msgid "Channels You'll &hearts;"
-msgstr "Kanalar du vil &hearts;"
-
-#: guide/templates/recommend.html:17 guide/templates/user_ratings.html:14
-msgid "Channels You've Rated"
-msgstr "Kanalar du har gjeve karakter"
-
-#: guide/templates/recommend.html:20
-msgid "To get new recommendations, rate these channels then "
-msgstr "For å få tilrådingar, gje karakter til desse kanalane og "
-
-#: guide/templates/recommend.html:20
-msgid "reload"
-msgstr "last"
-
-#: guide/templates/recommend.html:20
-msgid " this page."
-msgstr " sida."
-
-#: guide/templates/recommend.html:31
 msgid ""
 "\n"
-"You can rate channels by clicking on stars (here or anywhere else in the "
-"guide). Please rate some of these channels and <a href=\"\">come back</a>; "
-"we'll have recommendations for you. The more you rate, the more accurate "
-"we'll be.    \n"
+"          BitTorrent videos cannot be streamed. The easiest way to watch is "
+"<a %(subscription_link)s>using Miro</a>.\n"
+"          "
+msgstr ""
+
+#: guide/templates/playback.html:27
+msgid "This is HD!"
+msgstr ""
+
+#: guide/templates/playback.html:29
+#, python-format
+msgid ""
+"\n"
+"            High-definition videos are often slow to preview. You may\n"
+"            want to use Miro to <a href=\"%(download_url)s\">download</a>\n"
+"            the video or <a %(subscription_link)s>subscribe</a>\n"
+"            to the feed. It's free and easy!\n"
+"          "
+msgstr ""
+
+#: guide/templates/playback.html:48 templates-optimized/guide/playback.html:22
+msgid "Video Title:"
+msgstr ""
+
+#: guide/templates/playback.html:52 templates-optimized/guide/playback.html:26
+msgid "Back to Feed:"
+msgstr ""
+
+#: guide/templates/playback.html:74 templates-optimized/guide/playback.html:40
+msgid "Synopsis"
+msgstr "Oversyn"
+
+#: guide/templates/playback.html:88 templates-optimized/guide/playback.html:54
+msgid "DOWNLOAD"
+msgstr ""
+
+#: guide/templates/playback.html:99 templates-optimized/guide/playback.html:64
+msgid "SHARE"
+msgstr ""
+
+#: guide/templates/playback.html:109
+#: templates-optimized/guide/playback.html:75
+msgid "Date Posted"
+msgstr ""
+
+#: guide/templates/playback.html:125
+#: templates-optimized/guide/playback.html:85
+msgid "Previous"
+msgstr ""
+
+#: guide/templates/playback.html:150 guide/templates/show-channel.html:154
+#: templates-optimized/guide/playback.html:109
+#: templates-optimized/guide/show-channel.html:159
+msgid "Recently Aired"
+msgstr ""
+
+#: guide/templates/popular.html:10
+#, python-format
+msgid ""
+"\n"
+"      Miro Guide - %(title)s\n"
 "    "
 msgstr ""
 
-#: guide/templates/submit.html:7
-msgid "Miro Guide - Submit Channel"
+#: guide/templates/popular.html:14 templates-optimized/guide/popular.html:14
+msgid "Miro Guide - Most Popular "
 msgstr ""
 
-#: guide/templates/user_ratings.html:8
-msgid "Miro Guide - Channels You've Rated"
-msgstr ""
-
-#: guide/views/accounts.py:19
-msgid "List Your Channel in the Miro Guide!"
-msgstr "Syn kanalen din i Miroguiden!"
-
-#: guide/views/accounts.py:20
-msgid "All you need is an account..."
-msgstr "Alt du treng er ein konto..."
-
-#: guide/views/accounts.py:23
-msgid "Rate Channels, Get Recommendations"
-msgstr ""
-
-#: guide/views/accounts.py:25
-msgid "Sign in (or create an account)"
-msgstr ""
-
-#: guide/views/accounts.py:26
-msgid "Give Channels Star Ratings"
-msgstr ""
-
-#: guide/views/accounts.py:27
-msgid "We'll Give You Recommendations"
-msgstr ""
-
-#: guide/views/accounts.py:38
+#: guide/templates/popular.html:49
+#, python-format
 msgid ""
-"Your ratings will show up, but won't count towards the average until you "
-"confirm your e-mail."
+"\n"
+"        Most Popular %(view)s\n"
+"        "
 msgstr ""
-"Karakterane din vil vise, men vil ikkje gjelde før du bekrefter e-"
-"postadressa di."
+"\n"
+"        Mest populære %(view)s\n"
+"        "
 
-#: guide/views/accounts.py:50
-msgid "Your Video RSS Feed is a Miro Channel"
-msgstr "Video-RSS-en din er in Mirokanal"
+#: guide/templates/recommend.html:11
+#: templates-optimized/guide/recommend.html:11
+msgid "Videos You'll Love"
+msgstr ""
 
-#: guide/views/accounts.py:51
+#: guide/templates/recommend.html:15
+msgid "Things I've rated"
+msgstr ""
+
+#: guide/templates/share-form.html:35
+#: templates-optimized/guide/share-form.html:35
+msgid "Via Email"
+msgstr ""
+
+#: guide/templates/share-form.html:42
+#: templates-optimized/guide/share-form.html:42
+msgid "From"
+msgstr ""
+
+#: guide/templates/share-form.html:46
+#: templates-optimized/guide/share-form.html:46
+msgid "Your Email"
+msgstr ""
+
+#: guide/templates/share-form.html:54
+#: templates-optimized/guide/share-form.html:54
+msgid "Recipients"
+msgstr ""
+
+#: guide/templates/share-form.html:57
+#: templates-optimized/guide/share-form.html:57
+msgid "Comma Separated Email Addresses"
+msgstr ""
+
+#: guide/templates/share-form.html:63
+#: templates-optimized/guide/share-form.html:63
+msgid "Leave a Comment (Optional)"
+msgstr ""
+
+#: guide/templates/share-links.html:7
 msgid ""
-"It is super easy to submit your channel to the Miro Guide. Just give us the "
-"feed address, answer a few easy questions, and you&apos;re all done."
+"\n"
+"          Share with your buddies, as well as the world. We all love gifts.\n"
+"        "
 msgstr ""
-"Det er kjempelett å poste kanalen din til Miroguiden. Berre gje oss "
-"straumadressa, svar på nokre spørsmål og du er ferdig."
 
-#: guide/views/accounts.py:63
-msgid "Why Should I Rate Channels?"
-msgstr "Kvifor skal eg gje karakter?"
+#: guide/templates/share-links.html:13
+#: templates-optimized/guide/share-links.html:13
+msgid "Direct Link"
+msgstr ""
 
-#: guide/views/accounts.py:64
+#: guide/templates/share-links.html:16
+#: templates-optimized/guide/share-links.html:16
+msgid "Right click and copy link location"
+msgstr ""
+
+#: guide/templates/share-links.html:32
+#: templates-optimized/guide/share-links.html:32
+msgid "Facebook"
+msgstr ""
+
+#: guide/templates/share-links.html:35
+#: templates-optimized/guide/share-links.html:35
+msgid "StumbleUpon"
+msgstr ""
+
+#: guide/templates/share-links.html:38
+#: templates-optimized/guide/share-links.html:38
+msgid "Del.icio.us"
+msgstr ""
+
+#: guide/templates/share-links.html:41
+#: templates-optimized/guide/share-links.html:41
+msgid "Digg"
+msgstr ""
+
+#: guide/templates/share-links.html:49
+#: templates-optimized/guide/share-links.html:49
+msgid "Close"
+msgstr ""
+
+#: guide/templates/shared.html:7 templates-optimized/guide/shared.html:7
+msgid "Miro - Shared"
+msgstr ""
+
+#: guide/templates/shared.html:11 templates-optimized/guide/shared.html:11
+msgid "Shared by Moderators"
+msgstr "Delt av moderatorar"
+
+#: guide/templates/show-channel.html:18
+#: templates-optimized/guide/show-channel.html:27
+msgid "Miro Guide - "
+msgstr ""
+
+#: guide/templates/show-channel.html:39
 msgid ""
-"We are giving personalized recommendations, based on what you do and don't "
-"like. If you've ever used Netflix&reg;, you already know what we're talking "
-"about here. The more you rate, the more accurately we can recommend channels "
-"to you. It&apos;s that simple!"
+"\n"
+"                This show may not be available to you, as it is\n"
+"                restricted to certain countries.\n"
+"              "
 msgstr ""
 
-#: guide/views/accounts.py:65
-msgid "A Completely Open Guide"
-msgstr "Ein heilt open guide"
-
-#: guide/views/accounts.py:66
-msgid ""
-"Because we accept channels (RSS feeds, aka 'video podcasts') from anyone, "
-"the Miro Guide is constantly expanding. Channel creators can add their feeds "
-"freely. If you know of a great video podcast that isn&apos;t already in the "
-"Guide, please contact the creator and ask them to submit it."
+#: guide/templates/show-channel.html:75
+msgid "Add Feed to Your Sidebar"
 msgstr ""
-"Sidan med godtek kanalar (RSS-straumar eller 'videopodcastar' frå kven som "
-"helst, vert Miroguiden heile tida utvida. Kanalskaparar legg til straumane "
-"deira fritt. Om du veit om ein bra videopodcast som ikkje er i Miroguiden "
-"allreie, ta kontakt med skaparen og spør om dei kan poste han."
 
-#: guide/views/api.py:256
+#: guide/templates/show-channel.html:77
+msgid "Add Site to Your Sidebar"
+msgstr ""
+
+#: guide/templates/show-channel.html:83
+#: templates-optimized/guide/show-channel.html:100
+msgid "Visit Show Website"
+msgstr ""
+
+#: guide/templates/show-channel.html:91
+#: templates-optimized/guide/show-channel.html:114
+msgid "Show all"
+msgstr ""
+
+#: guide/templates/show-channel.html:114
+msgid "Feed"
+msgstr ""
+
+#: guide/templates/show-channel.html:203
+msgid "Related Feeds"
+msgstr ""
+
+#: guide/templates/show-channel.html:203
+msgid "Related Sites"
+msgstr ""
+
+#: guide/templates/tag-list.html:7 templates-optimized/guide/tag-list.html:7
+msgid "Miro - Tags"
+msgstr ""
+
+#: guide/templates/topmenu_dropdowns.html:11
+#: templates-optimized/guide/topmenu_dropdowns.html:11
+msgid "Moderator's Area"
+msgstr "Moderatorområde"
+
+#: guide/templates/topmenu_dropdowns.html:15
+#: templates-optimized/guide/topmenu_dropdowns.html:15
+msgid "View/Edit Profile"
+msgstr "Vis/rediger profil"
+
+#: guide/templates/topmenu_dropdowns.html:20
+#: templates-optimized/guide/topmenu_dropdowns.html:20
+msgid "Shows I Manage"
+msgstr ""
+
+#: guide/templates/topmenu_dropdowns.html:27
+#: templates-optimized/guide/topmenu_dropdowns.html:27
+msgid "Submit a Show"
+msgstr ""
+
+#: guide/templates/topmenu_dropdowns.html:34
+#: templates-optimized/guide/topmenu_dropdowns.html:34
+msgid "Log Out"
+msgstr "Logg ut"
+
+#: guide/templates/topmenu_dropdowns.html:55
+#: templates-optimized/guide/topmenu_dropdowns.html:55
+msgid "Password"
+msgstr ""
+
+#: guide/templates/topmenu_dropdowns.html:61
+#: templates-optimized/guide/topmenu_dropdowns.html:61
+msgid "Forgot password"
+msgstr "Gløymt passord"
+
+#: guide/templates/topmenu_dropdowns.html:100
+#: templates-optimized/guide/topmenu_dropdowns.html:100
+msgid "Register!"
+msgstr "Registrer!"
+
+#: guide/templates/topmenu_dropdowns.html:109
+#: templates-optimized/guide/topmenu_dropdowns.html:109
+msgid "Register Now!"
+msgstr "Registrer deg!"
+
+#: guide/templates/topmenu_dropdowns.html:110
+#: templates-optimized/guide/topmenu_dropdowns.html:110
+msgid "Always Free"
+msgstr "Alltid gratis"
+
+#: guide/templates/topmenu_dropdowns.html:120
+msgid "Display Shows:"
+msgstr ""
+
+#: guide/templates/topmenu_dropdowns.html:125
+msgid "In all languages"
+msgstr ""
+
+#: guide/templates/topmenu_dropdowns.html:130
+msgid "In my language"
+msgstr ""
+
+#: guide/templates/topmenu_dropdowns.html:137
+msgid "My Language:"
+msgstr ""
+
+#: guide/templates/user_ratings.html:9
+#: templates-optimized/guide/user_ratings.html:9
+msgid "Miro Guide - Shows You've Rated"
+msgstr ""
+
+#: guide/templates/user_ratings.html:13
+#: templates-optimized/guide/user_ratings.html:13
+msgid "Shows You've Rated"
+msgstr ""
+
+#: guide/views/api.py:202
 msgid "Invalid verification code."
-msgstr ""
+msgstr "Ugyldig stadfestingskode."
 
 #: guide/views/categories.py:27
-msgid "Edit Categories"
-msgstr "Endre kategoriar"
+msgid "Edit Genre"
+msgstr ""
 
 #: guide/views/categories.py:28
-msgid "New Category"
-msgstr "Ny kategori"
+msgid "New Genre"
+msgstr ""
 
-#: guide/views/channels.py:108
+#: guide/views/channels.py:142 guide/views/moderator.py:50
+msgid "Channels Waiting For Replies"
+msgstr "Kanalar som ventar på svar"
+
+#: guide/views/channels.py:145 guide/views/moderator.py:53
+msgid "Channels Flagged Don't Know By a Moderator"
+msgstr "Kanalar flagga Veit ikkje av ein moderator"
+
+#: guide/views/channels.py:148 guide/views/moderator.py:56
+msgid "Rejected Channels"
+msgstr "Avslådde kanalar"
+
+#: guide/views/channels.py:151 guide/views/moderator.py:59
+msgid "Suspended Channels"
+msgstr "Suspenderte kanalar"
+
+#: guide/views/channels.py:156 guide/views/moderator.py:63
+msgid "Featured Queue"
+msgstr "Omtalekø"
+
+#: guide/views/channels.py:159 guide/views/moderator.py:66
+msgid "Unreviewed Channels"
+msgstr "Ugjennomsedde kanalar"
+
+#: guide/views/channels.py:170
+#, python-format
+msgid "Subscribe to all %i channels"
+msgstr "Abonner på alle %i kanalane"
+
+#: guide/views/channels.py:249
 msgid "Rejection emails need a body"
 msgstr "Desse e-postane treng tekst"
 
-#: guide/views/channels.py:113
+#: guide/views/channels.py:254
 #, python-format
 msgid "%s featured on Miro Guide"
 msgstr "%s sponsa av Miroguiden"
 
-#: guide/views/channels.py:390
+#: guide/views/channels.py:377
+#, python-format
+msgid "Subscriptions for %s"
+msgstr ""
+
+#: guide/views/channels.py:615
 msgid "Current image (no change)"
 msgstr "Gjeldane bilete (inga endring)"
 
-#: guide/views/channels.py:392 guide/views/submit.py:97
+#: guide/views/channels.py:617 guide/views/submit.py:113
 msgid "Current image (uploaded)"
 msgstr "Gjeldane bilete (opplasta)"
 
-#: guide/views/frontpage.py:66
-msgid "What is Miro?"
-msgstr ""
-
-#: guide/views/frontpage.py:67
-#, python-format
-msgid ""
-"Miro is an easy way to subscribe and watch all of these shows.  Using it is "
-"100% free."
-msgstr ""
-
-#: guide/views/frontpage.py:68
-msgid "Download Miro"
-msgstr ""
-
 #: guide/views/languages.py:17
-msgid "Channels by Language"
-msgstr "Kanalar etter språk"
+msgid "Shows by Language"
+msgstr ""
 
-#: guide/views/languages.py:28
-#, python-format
-msgid "Language: %s"
-msgstr "Språk: %s"
-
-#: guide/views/languages.py:34
+#: guide/views/languages.py:25
 msgid "Edit Languages"
 msgstr "Endre språk"
 
-#: guide/views/languages.py:35
+#: guide/views/languages.py:26
 msgid "New Language"
 msgstr "Nytt språk"
 
-#: guide/views/moderator.py:49
-msgid "Channels Waiting For Replies"
-msgstr "Kanalar som ventar på svar"
-
-#: guide/views/moderator.py:52
-msgid "Channels Flagged Don't Know By a Moderator"
-msgstr "Kanalar flagga Veit ikkje av ein moderator"
-
-#: guide/views/moderator.py:55
-msgid "Rejected Channels"
-msgstr "Avslådde kanalar"
-
-#: guide/views/moderator.py:58
-msgid "Suspended Channels"
-msgstr "Suspenderte kanalar"
-
-#: guide/views/moderator.py:62
-msgid "Featured Queue"
+#: guide/views/share.py:328
+#, python-format
+msgid "%(from_email)s wants to share a video feed with you"
 msgstr ""
 
-#: guide/views/moderator.py:65
-msgid "Unreviewed Channels"
-msgstr "Ugjennomsedde kanalar"
+#: guide/views/share.py:331
+#, python-format
+msgid "%(from_email)s wants to share a video with you"
+msgstr ""
 
-#: guide/views/submit.py:95
+#: guide/views/submit.py:111
 msgid "Current image (from the feed)"
 msgstr "Gjeldane bilete (frå straumen)"
 
-#: templates/404.html:9
+#: templates/404.html:9 templates-optimized/404.html:9
 msgid "Page not found"
 msgstr "Side ikkje funne"
 
-#: templates/404.html:10 templates/500.html:22
+#: templates/404.html:10 templates/500.html:22 templates-optimized/404.html:10
+#: templates-optimized/500.html:22
 msgid "go to front page"
 msgstr "gå til heimesida"
 
-#: templates/500.html:12
+#: templates/500.html:7 templates-optimized/500.html:7
+msgid "Miro Guide"
+msgstr "Miro-gaid"
+
+#: templates/500.html:12 templates-optimized/500.html:12
 msgid ""
 "Our server is experiencing higher than normal load.\n"
 "Please try again shortly.  Thanks for your patience."
 msgstr ""
 
-#: templates/500.html:15
+#: templates/500.html:15 templates-optimized/500.html:15
 #, python-format
 msgid " Server Error (id: %(id)s )"
 msgstr " Tenarfeil (id: %(id)s )"
 
-#: templates/500.html:16
+#: templates/500.html:16 templates-optimized/500.html:16
 msgid ""
 "Sorry!  Your request resulted in an error.  We have logged it and our "
 "developers will fix it as soon as they can.  If this error\n"
@@ -1456,6 +1971,234 @@ msgstr ""
 "utviklarane vøre vil fikse han så fort dei kan. Om feilen\n"
 "held fram. kontakt:"
 
-#: templates/500.html:19
+#: templates/500.html:19 templates-optimized/500.html:19
 msgid "Make sure to include the error ID at the top of this page."
 msgstr "Pass på å inkludere feil-ID-en på toppen av denne sida:"
+
+#: templates-optimized/guide/after-submit.html:16
+msgid ""
+"\n"
+"Our moderators will review your feed in the next few days to make\n"
+"sure that it works in Miro and that the content is not\n"
+"inappropriate.  Once the feed is approved, it will appear in the\n"
+"'Just Added' section on the front page.\n"
+msgstr ""
+
+#: templates-optimized/guide/after-submit.html:26
+msgid ""
+"\n"
+"You can update the details about your feed at anytime.  Just\n"
+"login to your account and click the 'My Submitted Feeds'\n"
+"link.\n"
+msgstr ""
+
+#: templates-optimized/guide/after-submit.html:37
+msgid ""
+"\n"
+"Visit <a href=\"http://webbalert.com/\">webbalert.com</a> to see\n"
+"a real 1-click button in action\n"
+msgstr ""
+
+#: templates-optimized/guide/after-submit.html:45
+msgid ""
+"\n"
+"The buttons below point to the feed you've just submitted-- just\n"
+"paste the HTML into your blog or website. When users click on\n"
+"the button, Miro will open and they will be automatically\n"
+"subscribed to your feed.\n"
+msgstr ""
+
+#: templates-optimized/guide/after-submit.html:54
+msgid ""
+"\n"
+"1-click buttons are a great way to get your viewers connected to\n"
+"your content on an ongoing basis. If you have any questions\n"
+"about the buttons, email: channels [at] pculture [d] org.\n"
+msgstr ""
+
+#: templates-optimized/guide/auth-token-request.html:12
+msgid ""
+"Please enter your email address\n"
+"below.  A link will be sent to you email that you can use to set a new\n"
+"password."
+msgstr ""
+
+#: templates-optimized/guide/base.html:81
+msgid "Video feeds"
+msgstr ""
+
+#: templates-optimized/guide/channel-feature.html:23
+msgid "ADD TO YOUR FEEDS"
+msgstr ""
+
+#: templates-optimized/guide/channel-feature.html:25
+msgid "ADD TO YOUR SITES"
+msgstr ""
+
+#: templates-optimized/guide/channel-in-category.html:31
+msgid "ADD FEED"
+msgstr ""
+
+#: templates-optimized/guide/channel-in-category.html:33
+msgid "ADD SITE"
+msgstr ""
+
+#: templates-optimized/guide/for-user.html:9
+#, python-format
+msgid ""
+"\n"
+"Miro Guide - Shows for %(username)s\n"
+msgstr ""
+
+#: templates-optimized/guide/frontpage.html:49
+msgid ""
+"\n"
+"Click <a href=\"#\" class=\"add_feed_button_welcome\">ADD FEED</a>\n"
+"to get any show into your sidebar. The first episode\n"
+"begins downloading automatically and you'll get show\n"
+"updates as soon as they're available.\n"
+msgstr ""
+
+#: templates-optimized/guide/frontpage.html:127
+#: templates-optimized/guide/frontpage.html:156
+#: templates-optimized/guide/frontpage.html:194
+#: templates-optimized/guide/playback.html:117
+#: templates-optimized/guide/show-channel.html:167
+#: templates-optimized/guide/show-channel.html:209
+msgid "All"
+msgstr ""
+
+#: templates-optimized/guide/frontpage.html:161
+#, python-format
+msgid ""
+"\n"
+"View all of <strong>%(category)s</strong>\n"
+msgstr ""
+
+#: templates-optimized/guide/group-list.html:9
+#, python-format
+msgid ""
+"\n"
+"Miro Guide - %(group_name)s\n"
+msgstr ""
+
+#: templates-optimized/guide/group-list.html:19
+#, python-format
+msgid "%(count)s Shows"
+msgstr ""
+
+#: templates-optimized/guide/item.html:11
+msgid "High-Definition Show"
+msgstr ""
+
+#: templates-optimized/guide/listing.html:13
+msgid ""
+"\n"
+"I'm sorry, your search term was too short; it must be at least\n"
+"3 characters.\n"
+msgstr ""
+
+#: templates-optimized/guide/listing.html:76
+msgid ""
+"Video feeds can be downloaded and watched without an internet connection. "
+"Many are in full HD."
+msgstr ""
+
+#: templates-optimized/guide/listing.html:107
+msgid ""
+"Streaming sites require a fast internet connection. You can bookmark them as "
+"favorites with Miro."
+msgstr ""
+
+#: templates-optimized/guide/moderate.html:14
+#, python-format
+msgid ""
+"\n"
+"%(count)s Unreviewed shows\n"
+msgstr ""
+
+#: templates-optimized/guide/moderate.html:19
+#, python-format
+msgid ""
+"\n"
+"%(count)s Don't know shows\n"
+msgstr ""
+
+#: templates-optimized/guide/moderate.html:24
+#, python-format
+msgid ""
+"\n"
+"%(count)s Shows waiting for Reply\n"
+msgstr ""
+
+#: templates-optimized/guide/moderate.html:29
+#, python-format
+msgid ""
+"\n"
+"%(count)s Suspended Shows\n"
+msgstr ""
+
+#: templates-optimized/guide/moderate.html:34
+#, python-format
+msgid ""
+"\n"
+"%(count)s Rejected shows\n"
+msgstr ""
+
+#: templates-optimized/guide/moderate.html:39
+#, python-format
+msgid ""
+"\n"
+"%(count)s shows in Featured Queue\n"
+msgstr ""
+
+#: templates-optimized/guide/popular.html:10
+#, python-format
+msgid ""
+"\n"
+"Miro Guide - %(title)s\n"
+msgstr ""
+
+#: templates-optimized/guide/popular.html:49
+#, python-format
+msgid ""
+"\n"
+"Most Popular %(view)s\n"
+msgstr ""
+
+#: templates-optimized/guide/share-links.html:7
+msgid ""
+"\n"
+"Share with your buddies, as well as the world. We all love gifts.\n"
+msgstr ""
+
+#: templates-optimized/guide/show-channel.html:48
+msgid ""
+"\n"
+"This show may not be available to you, as it is restricted to certain "
+"countries.\n"
+msgstr ""
+
+#: templates-optimized/guide/show-channel.html:72
+msgid "Add to your feeds"
+msgstr ""
+
+#: templates-optimized/guide/show-channel.html:77
+msgid "Add to your sites"
+msgstr ""
+
+#: templates-optimized/guide/show-channel.html:110
+msgid "Site Details"
+msgstr ""
+
+#: templates-optimized/guide/show-channel.html:119
+msgid "Categories"
+msgstr "Kategoriar"
+
+#: templates-optimized/guide/show-channel.html:206
+msgid "Related Videos"
+msgstr ""
+
+#: templates-optimized/guide/user_ratings.html:13
+msgid "Shows You'll &hearts;"
+msgstr ""

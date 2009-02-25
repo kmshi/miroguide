@@ -1,16 +1,16 @@
-# Kurdish (Sorani) translation for miroguide
-# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# Telugu translation for miroguide
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the miroguide package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: miroguide\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-02-12 11:12-0500\n"
-"PO-Revision-Date: 2008-03-22 21:09+0000\n"
-"Last-Translator: Ara Bextiyar <arastein@gmail.com>\n"
-"Language-Team: Kurdish (Sorani) <ckb@li.org>\n"
+"PO-Revision-Date: 2009-02-11 16:29+0000\n"
+"Last-Translator: వీవెన్ (Veeven) <Unknown>\n"
+"Language-Team: Telugu <te@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,23 +20,23 @@ msgstr ""
 
 #: settings.py:36
 msgid "English"
-msgstr "ئینگلیزی"
+msgstr "ఆంగ్లం"
 
 #: settings.py:37
 msgid "Arabic"
-msgstr "عه‌ره‌بی"
+msgstr "అరబిక్"
 
 #: settings.py:38
 msgid "Bengali"
-msgstr "به‌نگالی"
+msgstr "బెంగాలీ"
 
 #: settings.py:39
 msgid "Catalan"
-msgstr ""
+msgstr "కాటలాన్"
 
 #: settings.py:40
 msgid "Chinese"
-msgstr "چینی"
+msgstr "చైనీస్"
 
 #: settings.py:41
 msgid "Croatian"
@@ -44,35 +44,35 @@ msgstr ""
 
 #: settings.py:42
 msgid "Danish"
-msgstr ""
+msgstr "డానిష్"
 
 #: settings.py:43
 msgid "Dutch"
-msgstr "ئه‌ڵمانی"
+msgstr "డచ్"
 
 #: settings.py:44
 msgid "Estonian"
-msgstr ""
+msgstr "ఎస్టొనియన్"
 
 #: settings.py:45
 msgid "Finnish"
-msgstr ""
+msgstr "ఫిన్నిష్"
 
 #: settings.py:46
 msgid "French"
-msgstr "فه‌ڕه‌نسی"
+msgstr "ఫ్రెంచ్"
 
 #: settings.py:47
 msgid "German"
-msgstr "ئه‌ڵمانی"
+msgstr "జర్మన్"
 
 #: settings.py:48
 msgid "Greek"
-msgstr ""
+msgstr "గ్రీకు"
 
 #: settings.py:49
 msgid "Hebrew"
-msgstr ""
+msgstr "హెబ్రూ"
 
 #: settings.py:50
 msgid "Hindi"
@@ -80,27 +80,27 @@ msgstr ""
 
 #: settings.py:51
 msgid "Hungarian"
-msgstr "هه‌نگاری"
+msgstr "హంగేరియన్"
 
 #: settings.py:52
 msgid "Icelandic"
-msgstr ""
+msgstr "ఐలాండిక్"
 
 #: settings.py:53
 msgid "Indonesian"
-msgstr "ئه‌نده‌نوزی"
+msgstr "ఇండోనేషియన్"
 
 #: settings.py:54
 msgid "Italian"
-msgstr "ئیتاڵی"
+msgstr "ఇటాలియన్"
 
 #: settings.py:55
 msgid "Japanese"
-msgstr "ژاپۆنی"
+msgstr "జపానీస్"
 
 #: settings.py:56
 msgid "Korean"
-msgstr "كۆری"
+msgstr "కొరియన్"
 
 #: settings.py:57
 msgid "Kurdish (Sorani)"
@@ -108,19 +108,19 @@ msgstr ""
 
 #: settings.py:58
 msgid "Latvian"
-msgstr ""
+msgstr "లాట్వియన్"
 
 #: settings.py:59
 msgid "Lithuanian"
-msgstr ""
+msgstr "లిథుయేనియన్"
 
 #: settings.py:60
 msgid "Malay"
-msgstr ""
+msgstr "మలయ్"
 
 #: settings.py:61
 msgid "Norwegian"
-msgstr ""
+msgstr "నార్వేజియన్"
 
 #: settings.py:62
 msgid "Persian"
@@ -128,7 +128,7 @@ msgstr ""
 
 #: settings.py:63
 msgid "Polish"
-msgstr ""
+msgstr "పోలిష్"
 
 #: settings.py:64
 msgid "Portuguese (Brazillian)"
@@ -136,51 +136,51 @@ msgstr ""
 
 #: settings.py:65
 msgid "Portuguese (Portugal)"
-msgstr ""
+msgstr "పోర్చుగీస్(పోర్చుగల్ )"
 
 #: settings.py:66
 msgid "Romanian"
-msgstr "ڕۆمانی"
+msgstr "రొమానియన్"
 
 #: settings.py:67
 msgid "Russian"
-msgstr "ڕوسی"
+msgstr "రష్యన్"
 
 #: settings.py:68
 msgid "Serbo-Croatian"
-msgstr ""
+msgstr "సెర్బో-క్రోయోషియన్"
 
 #: settings.py:69
 msgid "Slovak"
-msgstr ""
+msgstr "స్లోవాక్"
 
 #: settings.py:70
 msgid "Spanish"
-msgstr "ئیسپانی"
+msgstr "స్పానిష్"
 
 #: settings.py:71
 msgid "Swedish"
-msgstr "سویدی"
+msgstr "స్వీడిష్"
 
 #: settings.py:72
 msgid "Thai"
-msgstr ""
+msgstr "థాయి"
 
 #: settings.py:73
 msgid "Turkish"
-msgstr "توركی"
+msgstr "టర్కిష్"
 
 #: settings.py:74
 msgid "Vietnamese"
-msgstr ""
+msgstr "వియత్నామీస్"
 
 #: guide/tables.py:11
 msgid "New"
-msgstr "نوێ"
+msgstr ""
 
 #: guide/tables.py:13
 msgid "Approved"
-msgstr "په‌سه‌ندكراو"
+msgstr ""
 
 #: guide/tables.py:15
 msgid "Waiting"
@@ -188,7 +188,7 @@ msgstr ""
 
 #: guide/tables.py:17
 msgid "Don't Know"
-msgstr ""
+msgstr "తెలియదు"
 
 #: guide/tables.py:19
 msgid "Rejected"
@@ -200,11 +200,11 @@ msgstr ""
 
 #: guide/tables.py:23
 msgid "Audio"
-msgstr "ده‌نگ"
+msgstr ""
 
 #: guide/tables.py:25
 msgid "Unknown"
-msgstr "نه‌زانراو"
+msgstr ""
 
 #: guide/forms/channels.py:29
 #, python-format
@@ -226,40 +226,41 @@ msgstr ""
 #: guide/forms/channels.py:55
 #, python-format
 msgid "%s is already a channel in the guide"
-msgstr ""
+msgstr "%s అనే ఛానెల్ ఇప్పటికే గైడులో ఉంది"
 
 #: guide/forms/channels.py:60
 msgid "We can't find a video feed at that address, please try again."
 msgstr ""
+"ఆ చిరునామా వద్ద మాకు వీడియో ఫీడు కనబడలేదు, దయచేసి మళ్ళీ ప్రయత్నించండి."
 
 #: guide/forms/channels.py:77 guide/forms/channels.py:320
 msgid "Channel Name"
-msgstr "ناوی كه‌ناڵ"
+msgstr "ఛానెల్ పేరు"
 
 #: guide/forms/channels.py:78 guide/forms/channels.py:321
 msgid "RSS Feed"
-msgstr ""
+msgstr "RSS ఫీడు"
 
 #: guide/forms/channels.py:163
 msgid "1st"
-msgstr "1ه‌م"
+msgstr "1వ"
 
 #: guide/forms/channels.py:163
 msgid "2nd"
-msgstr "2ه‌م"
+msgstr "2వ"
 
 #: guide/forms/channels.py:163
 msgid "3rd"
-msgstr "3یه‌م"
+msgstr "3వ"
 
 #: guide/forms/channels.py:185
 msgid "You must at least enter a primary value."
-msgstr ""
+msgstr "మీరు కనీసం ఏదో ఒక ప్రాధమిక విలువని ఇవ్వాలి."
 
 #: guide/forms/channels.py:202
 #, python-format
 msgid "you can only enter up to %d tags."
-msgstr "ئه‌توانی ته‌نها %d كه‌ناڵ بنووسیت."
+msgstr ""
 
 #: guide/forms/channels.py:301
 msgid "This field is required."
@@ -275,20 +276,20 @@ msgstr ""
 
 #: guide/forms/channels.py:323 guide/forms/cobranding.py:15
 msgid "Website URL"
-msgstr "ئه‌درێسی ماڵپه‌ڕ"
+msgstr "వెబ్ సైటు URL"
 
 #: guide/forms/channels.py:325
 msgid "Full Description"
-msgstr "په‌سنی ته‌واو"
+msgstr "పూర్తి వివరణ"
 
 #: guide/forms/channels.py:327
 msgid "Publisher E-mail"
-msgstr ""
+msgstr "ప్రచురదారు ఈమెయిలు"
 
 #: guide/forms/channels.py:330 guide/templates/show-channel.html:105
 #: templates-optimized/guide/show-channel.html:126
 msgid "Tags"
-msgstr "تاگه‌كان"
+msgstr ""
 
 #: guide/forms/channels.py:331
 msgid "Keywords that describe this channel.  Separate each tag with a comma."
@@ -304,15 +305,15 @@ msgstr ""
 #: guide/forms/channels.py:334 guide/templates/base.html:131
 #: templates-optimized/guide/base.html:126
 msgid "Language"
-msgstr ""
+msgstr "భాష"
 
 #: guide/forms/channels.py:335
 msgid "What language are most of these videos in?"
-msgstr ""
+msgstr "వీడియోలు ఎక్కువగా ఏ భాషలో ఉంటాయి?"
 
 #: guide/forms/channels.py:336
 msgid "Postal Code"
-msgstr ""
+msgstr "పోస్టల్ కోడ్"
 
 #: guide/forms/channels.py:338
 msgid "High Definition"
@@ -344,91 +345,91 @@ msgstr ""
 
 #: guide/forms/channels.py:440
 msgid "Feed URL already exists"
-msgstr ""
+msgstr "ఫీడు URL ఇప్పటికే ఉంది"
 
 #: guide/forms/channels.py:509
 msgid "Email"
-msgstr "ئیمه‌یل"
+msgstr "ఈమెయిల్"
 
 #: guide/forms/channels.py:510
 msgid "Title"
-msgstr "ناونیشان"
+msgstr "శీర్షిక"
 
 #: guide/forms/channels.py:511 guide/forms/misc.py:15
 msgid "Body"
-msgstr ""
+msgstr "వివరణ"
 
 #: guide/forms/cobranding.py:11
 msgid "Title in Miro App"
-msgstr ""
+msgstr "మీరో ఉపకరణంలో శీర్షిక"
 
 #: guide/forms/cobranding.py:12
 msgid "This is the title that will appear in the sidebar of Miro."
-msgstr "ئه‌مه‌ ئه‌و ناونیشانه‌یه‌ كه‌ ده‌رئه‌كه‌وێن له‌ سایدباڕی میرۆ."
+msgstr "ఈ శీర్షిక మీరో యొక్క ప్రక్కపట్టీలో కనిపిస్తుంది."
 
 #: guide/forms/cobranding.py:13
 msgid "Page Title"
-msgstr "ناونیشانی په‌ڕه‌"
+msgstr "పేజీ శీర్షిక"
 
 #: guide/forms/cobranding.py:14
 msgid "This is the title that will be displayed at the top of the page."
-msgstr ""
-"ئه‌مه‌ ئه‌و ناونیشانه‌یه‌ كه‌ ده‌رئه‌كه‌وێت له‌ سه‌رووی په‌ڕه‌كه‌وه‌."
+msgstr "ఈ శీర్షిక పేజీ యొక్క పైభాగాన కనిపిస్తుంది."
 
 #: guide/forms/cobranding.py:17
 msgid "Icon URL"
-msgstr ""
+msgstr "ప్రతీకపు URL"
 
 #: guide/forms/cobranding.py:17
 msgid "Icon should be 175x125 pixels."
-msgstr "پێوسته‌ ئایكۆن 175x125 پیكسڵ بێت."
+msgstr "ప్రతీకం175x125 పిక్సెళ్ళలో ఉండాలి."
 
 #: guide/forms/cobranding.py:19
 msgid "Favicon URL"
-msgstr ""
+msgstr "ఫావికాన్ URL"
 
 #: guide/forms/cobranding.py:19
 msgid ""
 "This is best as a 20x20 png graphic. It shows up in the sidebar of the Miro "
 "App."
-msgstr ""
+msgstr "దీనికి 20x20 png బొమ్మ ఉత్తమం. మీరోలో ప్రక్కపట్టీలో కనిపిస్తుంది."
 
 #: guide/forms/cobranding.py:21
 msgid "External CSS URL"
-msgstr ""
+msgstr "బయటి CSS URL"
 
 #: guide/forms/cobranding.py:22
 msgid "Description"
-msgstr "په‌سن"
+msgstr "వివరణ"
 
 #: guide/forms/cobranding.py:24
 msgid "Link 1 URL"
-msgstr ""
+msgstr "1వ లింకు URL"
 
 #: guide/forms/cobranding.py:24
 msgid ""
 "Or leave this blank to have plain text.  All these links are optional."
 msgstr ""
+"లేదా సాదా పాఠ్యం కోసం దీన్ని ఖాళీగా వదిలేయండి. ఈ అన్ని లింకులూ ఐచ్చికం."
 
 #: guide/forms/cobranding.py:26
 msgid "Link 1 Text"
-msgstr ""
+msgstr "1వ లింకు పాఠ్యం"
 
 #: guide/forms/cobranding.py:28
 msgid "Link 2 URL"
-msgstr ""
+msgstr "2వ లింకు URL"
 
 #: guide/forms/cobranding.py:30
 msgid "Link 2 Text"
-msgstr ""
+msgstr "2వ లింకు పాఠ్యం"
 
 #: guide/forms/cobranding.py:32
 msgid "Link 3 URL"
-msgstr ""
+msgstr "3వ లింకు URL"
 
 #: guide/forms/cobranding.py:34
 msgid "Link 3 Text"
-msgstr ""
+msgstr "3వ లింకు పాఠ్యం"
 
 #: guide/forms/fields.py:21
 #, python-format
@@ -437,7 +438,7 @@ msgstr ""
 
 #: guide/forms/misc.py:14
 msgid "title"
-msgstr "ناونیشان"
+msgstr "శీర్షిక"
 
 #: guide/forms/share.py:52
 msgid ""
@@ -454,23 +455,23 @@ msgstr ""
 
 #: guide/forms/user.py:19
 msgid "Username already taken"
-msgstr ""
+msgstr "వాడుకరిపేరు ఇదివరకే తీసుకున్నారు"
 
 #: guide/forms/user.py:29
 msgid "E-mail already taken"
-msgstr ""
+msgstr "ఈ-మెయిలుని ఇప్పటికే తీసేసుకున్నారు"
 
 #: guide/forms/user.py:36
 msgid "E-mail not found"
-msgstr ""
+msgstr "ఈ-మెయిలు దొరకలేదు"
 
 #: guide/forms/user.py:45
 msgid "That username is not valid."
-msgstr "ناوی به‌كارهێنه‌ر گونجاو نییه‌."
+msgstr "ఆ వాడుకరిపేరు సరైనది కాదు."
 
 #: guide/forms/user.py:59
 msgid "That username or e-mail is not valid."
-msgstr ""
+msgstr "ఆ వాడుకరిపేరు లేదా ఈ-మెయిలు సరైనది కాదు."
 
 #: guide/forms/user.py:76
 msgid "Display shows in all languages"
@@ -486,78 +487,78 @@ msgstr ""
 
 #: guide/forms/user.py:111
 msgid "That password is not valid."
-msgstr "وشه‌ی نهێنی گونجاو نییه‌"
+msgstr "ఆ సంకేతపదం సరైనది కాదు."
 
 #: guide/forms/user.py:125
 msgid "Passwords don't match"
-msgstr ""
+msgstr "సంకేతపదాలు సరిపోలలేదు"
 
 #: guide/forms/user.py:129 guide/templates/topmenu_dropdowns.html:51
 #: guide/templates/topmenu_dropdowns.html:76
 #: templates-optimized/guide/topmenu_dropdowns.html:51
 #: templates-optimized/guide/topmenu_dropdowns.html:76
 msgid "Username"
-msgstr "ناوی به‌كارهێنه‌ر"
+msgstr "వాడుకరి పేరు"
 
 #: guide/forms/user.py:130 guide/templates/topmenu_dropdowns.html:82
 #: templates-optimized/guide/topmenu_dropdowns.html:82
 msgid "Email Address"
-msgstr "ناونیشانی ئیمه‌یل"
+msgstr "ఈమెయిల్ చిరునామా"
 
 #: guide/forms/user.py:132 guide/templates/topmenu_dropdowns.html:88
 #: templates-optimized/guide/topmenu_dropdowns.html:88
 msgid "Pick a Password"
-msgstr "وشه‌یه‌كی نهێنی هه‌ڵبگره‌"
+msgstr "ఓ సంకేతపదం ఎంచుకోండి"
 
 #: guide/forms/user.py:134 guide/forms/user.py:151 guide/forms/user.py:237
 #: guide/templates/topmenu_dropdowns.html:94
 #: templates-optimized/guide/topmenu_dropdowns.html:94
 msgid "Confirm Password"
-msgstr "چه‌سپاندنی وشه‌ی نهێنی"
+msgstr "సంకేతపదాన్ని నిర్ధారించండి"
 
 #: guide/forms/user.py:149
 msgid "Change Password"
-msgstr "گۆڕینی وشه‌ی نهێنی"
+msgstr ""
 
 #: guide/forms/user.py:153
 msgid "First Name"
-msgstr "ناوی یه‌كه‌م"
+msgstr "మొదటి పేరు"
 
 #: guide/forms/user.py:155
 msgid "Last Name"
-msgstr "ناوی دوایه‌مین"
+msgstr "ఇంటిపేరు"
 
 #: guide/forms/user.py:156
 msgid "Age"
-msgstr ""
+msgstr "వయసు"
 
 #: guide/forms/user.py:160
 msgid "Gender"
-msgstr ""
+msgstr "లింగము"
 
 #: guide/forms/user.py:163
 msgid "City"
-msgstr "شار"
+msgstr "నగరం"
 
 #: guide/forms/user.py:165
 msgid "State"
-msgstr "وڵات"
+msgstr "రాష్ట్రం"
 
 #: guide/forms/user.py:167
 msgid "Country"
-msgstr "وڵات"
+msgstr "దేశం"
 
 #: guide/forms/user.py:169
 msgid "Zip Code"
-msgstr "كۆدی وڵات"
+msgstr "జిప్ కోడ్"
 
 #: guide/forms/user.py:171
 msgid "IM Username"
-msgstr "ناوی به‌كارهێنه‌ری IM"
+msgstr "IM వాడుకరిపేరు"
 
 #: guide/forms/user.py:173
 msgid "IM Type"
-msgstr "جۆری IM"
+msgstr "IM రకం"
 
 #: guide/forms/user.py:176
 msgid "Show interface in"
@@ -565,7 +566,7 @@ msgstr ""
 
 #: guide/forms/user.py:222
 msgid "Channel Owner Emails"
-msgstr "ئیمه‌یله‌كانی خاوه‌نی كه‌ناڵ"
+msgstr ""
 
 #: guide/forms/user.py:226
 msgid "Moderator Board Emails"
@@ -573,15 +574,15 @@ msgstr ""
 
 #: guide/forms/user.py:227
 msgid "Normal"
-msgstr "ئاسایی"
+msgstr ""
 
 #: guide/forms/user.py:228
 msgid "No emails"
-msgstr "هیچ ئیمه‌یلێك نییه‌"
+msgstr ""
 
 #: guide/forms/user.py:229
 msgid "Send all emails"
-msgstr "هه‌موو ئیمه‌یله‌كان بنێره‌"
+msgstr ""
 
 #: guide/forms/user.py:230
 msgid "Channel Status Emails"
@@ -589,7 +590,7 @@ msgstr ""
 
 #: guide/forms/user.py:235
 msgid "Set a new Password"
-msgstr "وشه‌ی نهێنی نوێ دابنێ"
+msgstr ""
 
 #: guide/models/channel.py:180
 #, python-format
@@ -698,15 +699,15 @@ msgstr ""
 #: templates-optimized/guide/auth-token-request.html:17
 #: templates-optimized/guide/email-form.html:32
 msgid "Send"
-msgstr "ناردن"
+msgstr ""
 
 #: guide/templates/auth-token-sent.html:7
 msgid "Email Sent"
-msgstr "ئیمه‌یل نێردرا"
+msgstr ""
 
 #: guide/templates/auth-token-sent.html:10
 msgid "Email Sent!"
-msgstr "ئیمه‌یل نێردرا!"
+msgstr ""
 
 #: guide/templates/auth-token-sent.html:11
 #, python-format
@@ -726,7 +727,7 @@ msgstr ""
 #: guide/templates/bad-auth-token.html:10
 #: templates-optimized/guide/bad-auth-token.html:10
 msgid "Link invalid"
-msgstr "به‌سته‌ر نه‌گونجاوه‌"
+msgstr ""
 
 #: guide/templates/bad-auth-token.html:11
 #: templates-optimized/guide/bad-auth-token.html:11
@@ -821,7 +822,7 @@ msgstr ""
 #: guide/templates/change-password.html:11
 #: templates-optimized/guide/change-password.html:11
 msgid "Create New Password"
-msgstr "وشه‌ی نهێنی نوێ دروستبكه‌"
+msgstr ""
 
 #: guide/templates/change-password.html:14
 #: templates-optimized/guide/change-password.html:14
@@ -1825,7 +1826,7 @@ msgstr ""
 
 #: guide/views/api.py:202
 msgid "Invalid verification code."
-msgstr ""
+msgstr "తప్పుడు నిర్ధారణ కోడ్."
 
 #: guide/views/categories.py:27
 msgid "Edit Genre"
@@ -1837,7 +1838,7 @@ msgstr ""
 
 #: guide/views/channels.py:142 guide/views/moderator.py:50
 msgid "Channels Waiting For Replies"
-msgstr ""
+msgstr "స్పందనల కోసం చూస్తున్న ఛానెళ్లు"
 
 #: guide/views/channels.py:145 guide/views/moderator.py:53
 msgid "Channels Flagged Don't Know By a Moderator"
@@ -1845,11 +1846,11 @@ msgstr ""
 
 #: guide/views/channels.py:148 guide/views/moderator.py:56
 msgid "Rejected Channels"
-msgstr ""
+msgstr "తిరస్కరించిన ఛానెళ్ళు"
 
 #: guide/views/channels.py:151 guide/views/moderator.py:59
 msgid "Suspended Channels"
-msgstr ""
+msgstr "నిలిపివేసిన ఛానెళ్ళు"
 
 #: guide/views/channels.py:156 guide/views/moderator.py:63
 msgid "Featured Queue"
@@ -1857,7 +1858,7 @@ msgstr ""
 
 #: guide/views/channels.py:159 guide/views/moderator.py:66
 msgid "Unreviewed Channels"
-msgstr ""
+msgstr "సమీక్షించని ఛానెళ్ళు"
 
 #: guide/views/channels.py:170
 #, python-format
@@ -1866,7 +1867,7 @@ msgstr ""
 
 #: guide/views/channels.py:249
 msgid "Rejection emails need a body"
-msgstr ""
+msgstr "తిరస్కరణ ఈమెయిల్ళకి వివరణ కావాలి"
 
 #: guide/views/channels.py:254
 #, python-format
@@ -1880,11 +1881,11 @@ msgstr ""
 
 #: guide/views/channels.py:615
 msgid "Current image (no change)"
-msgstr ""
+msgstr "ప్రస్తుత చిత్రం (మార్పులేదు)"
 
 #: guide/views/channels.py:617 guide/views/submit.py:113
 msgid "Current image (uploaded)"
-msgstr ""
+msgstr "ప్రస్తుత చిత్రం (ఎగుమతి చేసినది)"
 
 #: guide/views/languages.py:17
 msgid "Shows by Language"
@@ -1910,7 +1911,7 @@ msgstr ""
 
 #: guide/views/submit.py:111
 msgid "Current image (from the feed)"
-msgstr ""
+msgstr "ప్రస్తుత చిత్రం (ఫీడు నుండి)"
 
 #: templates/404.html:9 templates-optimized/404.html:9
 msgid "Page not found"
@@ -1923,7 +1924,7 @@ msgstr ""
 
 #: templates/500.html:7 templates-optimized/500.html:7
 msgid "Miro Guide"
-msgstr "ڕێبه‌ریی ڤیدیۆ"
+msgstr ""
 
 #: templates/500.html:12 templates-optimized/500.html:12
 msgid ""
@@ -2165,7 +2166,7 @@ msgstr ""
 
 #: templates-optimized/guide/show-channel.html:119
 msgid "Categories"
-msgstr "به‌شه‌كان"
+msgstr "వర్గాలు"
 
 #: templates-optimized/guide/show-channel.html:206
 msgid "Related Videos"

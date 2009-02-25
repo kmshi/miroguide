@@ -10,9 +10,10 @@
 # Variables:
   tempfile="./po.temp"
   base_name="miro-guide"
-  staging="/data/miroguide/channelguide/locale/staging"
+  locale_dir=`dirname $0`
+  php_dir_base="$locale_dir/.."
+  staging="$locale_dir/staging"
   po_name="django"
-  php_dir_base="/data/miroguide/channelguide"
 
 # Initialize:
   mkdir $staging
