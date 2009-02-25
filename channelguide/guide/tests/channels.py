@@ -329,6 +329,19 @@ class ChannelItemTest(ChannelTestBase):
         # Maybe we should test the behaviour here, but the main thing is the
         # guide shouldn't crash
 
+    def test_do_not_require_enclosure_type(self):
+        """
+        Enclosures should not require a 'type' attribute.
+        """
+        entry = {'title': 'title',
+                 'description': 'description',
+                 'enclosures': [{'href': 'http://www.getmiro.com/video.flv'}]}
+        i = Item.from_feedparser_entry(entry)
+        self.assertEquals(i.name, 'title')
+        self.assertEquals(i.description, 'description')
+        self.assertEquals(i.url, 'http://www.getmiro.com/video.flv')
+        self.assertEquals(i.mime_type, 'video/unknown')
+
     def test_thumbnails(self):
         width, height = Item.THUMBNAIL_SIZES[0]
         dir = '%dx%d' % (width, height)

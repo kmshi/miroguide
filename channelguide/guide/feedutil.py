@@ -18,7 +18,7 @@ def get_first_video_enclosure(entry):
     """
 
     try:
-        enclosures = entry.enclosures
+        enclosures = entry['enclosures']
     except (KeyError, AttributeError):
         return None
     for enclosure in enclosures:
@@ -64,7 +64,7 @@ def get_thumbnail_url(entry):
             pass
     # Try to get any enclosure thumbnail
     if 'enclosures' in entry:
-        for enclosure in entry.enclosures:
+        for enclosure in entry['enclosures']:
             try:
                 return _get(enclosure)
             except KeyError:
