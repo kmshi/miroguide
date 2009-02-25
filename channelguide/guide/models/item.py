@@ -101,8 +101,11 @@ class Item(Record, Thumbnailable):
                 rv.url = feedutil.to_utf8(enclosure['href'])
                 # split off the front if there's additional data in the
                 # MIME type
-                rv.mime_type = feedutil.to_utf8(enclosure['type']
-                                                ).split(';', 1)[0]
+                if 'type' in enclosure:
+                    rv.mime_type = feedutil.to_utf8(enclosure['type']
+                                                    ).split(';', 1)[0]
+                else:
+                    rv.mime_type = 'video/unknown'
             elif entry['link'].find('youtube.com') != -1:
                 rv.url = entry['link']
                 rv.mime_type = 'video/x-flv'
@@ -115,7 +118,7 @@ class Item(Record, Thumbnailable):
                 rv.description = feedutil.to_utf8(enclosure['text'])
             except KeyError:
                 try:
-                    rv.description = feedutil.to_utf8(entry.description)
+                    rv.description = feedutil.to_utf8(entry['description'])
                 except AttributeError:
                     # this is a weird hack, for some reason if we use
                     # entry['description'] and it isn't present a feedparser
