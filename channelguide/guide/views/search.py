@@ -14,7 +14,7 @@ def get_search_terms(query):
 def terms_too_short(terms):
     return len([term for term in terms if len(term) >= 3]) == 0
 
-@cache.aggresively_cache('search')
+@cache.cache_with_sites('search')
 def search(request):
     try:
         search_query = request.GET['query']
