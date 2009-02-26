@@ -128,8 +128,8 @@ def make_absolute_url(relative_url, get_data=None):
         relative_url = relative_url[1:]
     return settings.BASE_URL_FULL + relative_url + format_get_data(get_data)
 
-def make_url(relative_url, get_data=None):
-    if '?' in relative_url: # a query
+def make_url(relative_url, get_data=None, ignore_qmark=False):
+    if (not ignore_qmark) and '?' in relative_url: # a query
         relative_url, query = relative_url.split('?', 1)
         get_data_list = [f.split('=', 1) for f in query.split('&')]
         get_data = dict((k, unquote_plus(v).decode('utf8')) for (k, v) in

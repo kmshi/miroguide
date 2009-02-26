@@ -64,6 +64,14 @@ class LabelTestBase(TestCase):
         self.get_page(self.label_url + '/')
         self.get_page(m.get_url())
 
+    def test_handles_qmark(self):
+        m = self.model(u'Hello ? World')
+        self.save_to_db(m)
+        self.get_page(self.label_url + '/')
+        self.get_page(m.get_url())
+        self.get_page(m.get_rss_url())
+
+
 class LanguageTestCase(LabelModerationTestBase, LabelTestBase):
     label_url = '/languages'
     model = Language
