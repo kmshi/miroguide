@@ -22,10 +22,12 @@ class Language(Record):
         return util.make_absolute_url(self.get_url())
 
     def get_url(self):
-        return util.make_url('languages/%s' % self.name)
+        return util.make_url('languages/%s' % self.name,
+                             ignore_qmark=True)
 
     def get_rss_url(self):
-        return util.make_url('feeds/languages/%s' % self.name)
+        return util.make_url('feeds/languages/%s' % self.name,
+                             ignore_qmark=True)
 
     def link(self):
         return util.make_link(self.get_url(), _(self.name))

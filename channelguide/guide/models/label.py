@@ -38,10 +38,12 @@ class Category(Label):
     table = tables.category
 
     def get_url(self):
-        return util.make_url('genres/%s' % self.name.encode('utf8'))
+        return util.make_url('genres/%s' % self.name.encode('utf8'),
+                             ignore_qmark=True)
 
-    def get_rss_feed(self):
-        return util.make_url('feeds/genres/%s' % self.name.encode('utf8'))
+    def get_rss_url(self):
+        return util.make_url('feeds/genres/%s' % self.name.encode('utf8'),
+                             ignore_qmark=True)
 
 class Tag(Label):
     """Tags are user created labels.  Any string of text can be a tag and any
@@ -50,10 +52,12 @@ class Tag(Label):
     table = tables.tag
 
     def get_url(self):
-        return util.make_url('tags/%s' % self.name.encode('utf8'))
+        return util.make_url('tags/%s' % self.name.encode('utf8'),
+                             ignore_qmark=True)
 
-    def get_rss_feed(self):
-        return util.make_url('feeds/tags/%s' % self.name.encode('utf8'))
+    def get_rss_url(self):
+        return util.make_url('feeds/tags/%s' % self.name.encode('utf8'),
+                             ignore_qmark=True)
 
 class CategoryMap(Record):
     table = tables.category_map
