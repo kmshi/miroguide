@@ -199,4 +199,5 @@ class SiteHidingCacheMiddlewareTest(CacheTestBase):
 if not settings.MEMCACHED_SERVERS:
     del CacheTest
     del CacheMiddlewareTest
+    del SiteHidingCacheMiddlewareTest
     del CacheTestBase

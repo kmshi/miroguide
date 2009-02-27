@@ -224,7 +224,7 @@ def set_language_view(request):
         request.user.shown_languages.clear(request.connection)
         request.user.save(request.connection)
     elif value == '1' and request.user.language:
-        languageName = settings.LANGUAGE_MAP.get(request.user.language)
+        languageName = settings.ENGLISH_LANGUAGE_MAP.get(request.user.language)
         if languageName:
             dbLanguages = Language.query(name=languageName).execute(request.connection)
             if dbLanguages:
