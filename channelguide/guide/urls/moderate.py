@@ -6,4 +6,6 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns('channelguide.guide.views.moderator',
         (r'^$', 'index'),
         (r'^shared$', 'shared'),
+        (r'^stats$', 'stats'),
         (r'^([\w-]+)/?$', 'channel_list'))
+

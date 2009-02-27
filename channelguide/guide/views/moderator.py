@@ -5,10 +5,12 @@ from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator, InvalidPage
 from django.utils.translation import gettext as _
 
-from channelguide import util
+from channelguide import util, cache
 from channelguide.guide import templateutil
-from channelguide.guide.auth import moderator_required
+from channelguide.guide.auth import moderator_required, supermoderator_required
 from channelguide.guide.models import Channel, ModeratorPost, FeaturedQueue
+
+from datetime import date, timedelta
 
 def count_for_state(connection, state):
     return Channel.query(state=state).count(connection)
@@ -101,3 +103,34 @@ def shared(request):
 @moderator_required
 def how_to_moderate(request):
     return util.render_to_response(request, 'how-to-moderate.html')
+
+
+@supermoderator_required
+def stats(request):
+    todays = [int(request.connection.execute('SELECT SUM(subscription_count_today) FROM cg_channel_generated_stats')[0][0])]
+    months = [int(request.connection.execute('SELECT SUM(subscription_count_month) FROM cg_channel_generated_stats')[0][0])]
+
+    for i in range(1, 100):
+        key = 'stats:day:%i:%i:%i' % (date.today() - timedelta(days=1)).timetuple()[:3]
+        val = cache.client.get(key)
+        if val is None:
+            val = request.connection.execute('SELECT COUNT(*) FROM cg_channel_subscription WHERE timestamp > DATE_SUB(NOW(), INTERVAL %s DAY) AND timestamp < DATE_SUB(NOW(), INTERVAL %s DAY)', (i+1, i))[0][0]
+            cache.client.set(key, val)
+        todays.append(val)
+
+    for i in range(1, 12):
+        key = 'stats:month:%i:%i' % (date.today() - timedelta(days=31)).timetuple()[:2]
+        val = cache.client.get(key)
+        if val is None:
+            val = request.connection.execute('SELECT COUNT(*) FROM cg_channel_subscription WHERE timestamp > DATE_SUB(NOW(), INTERVAL %s MONTH) AND timestamp < DATE_SUB(NOW(), INTERVAL %s MONTH)', (i+1, i))[0][0]
+            cache.client.set(key, val)
+        months.append(val)
+
+    return util.render_to_response(request, 'stats.html', {
+            'todays': todays,
+            'min_today': min(todays),
+            'max_today': max(todays),
+            'months': months,
+            'min_month': min(months),
+            'max_month': max(months)})
+

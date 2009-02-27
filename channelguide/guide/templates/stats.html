@@ -1,0 +1,24 @@
+<html>
+  <head></head>
+  <body>
+    <div style="float: left;">
+      Stats for the past 100 days.
+      <img src="http://chart.apis.google.com/chart?chs=200x125&cht=ls&chco=0077CC&chd=t:{% for today in todays %}{{ today}}{% if not forloop.last %},{% endif %}{% endfor %}&chds={{ min_today }},{{ max_today }}">
+      <ul>
+        {% for today in todays %}
+        <li>{{ today }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div style="float: right;">
+      Stats for the past 12 months
+      <img src="http://chart.apis.google.com/chart?chs=200x125&cht=ls&chco=0077CC&chd=t:{% for month in months %}{{ month }}{% if not forloop.last %},{% endif %}{% endfor %}&chds={{ min_month }},{{ max_month }}">
+
+      <ul>
+        {% for month in months %}
+        <li>{{ month }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </body>
+</html>
