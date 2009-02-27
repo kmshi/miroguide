@@ -154,6 +154,14 @@ class Item(Record, Thumbnailable):
         rv.thumbnail_url = feedutil.get_thumbnail_url(entry)
         return rv
 
+    def update_from_item(self, connection, other):
+        """
+        Update our information from another item, presumed to be the same as
+        this one.
+        """
+        self.__dict__.update(other.__dict__)
+        self.save(connection)
+
     def __str__(self):
         return self.name
 

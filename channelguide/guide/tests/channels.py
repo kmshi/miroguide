@@ -318,6 +318,19 @@ class ChannelItemTest(ChannelTestBase):
         self.assert_(old_ids[-2] not in new_ids)
         self.assertEquals(new_ids[2:], old_ids[0:-2])
 
+    def test_date_is_updated(self):
+        """
+        If the date is updated in a feed item, the date should be updated in
+        our database as well.
+        """
+        self.channel.update_items(self.connection,
+                feedparser_input=open(test_data_path('feed-future.xml')))
+        old_item = Item.query(name='rb_06_dec_12').get(self.connection)
+        self.channel.update_items(self.connection,
+                feedparser_input=open(test_data_path('feed-future-corner-cases.xml')))
+        new_item = self.refresh_record(old_item)
+        self.assertNotEquals(old_item.date, new_item.date)
+
     def test_future_corner_cases(self):
         """Test some corner cases when we update a feed, duplicate URLS,
         duplicate GUIDs, items missing GUIDs and URLS.

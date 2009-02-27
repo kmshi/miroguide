@@ -371,9 +371,11 @@ class Channel(Record, Thumbnailable):
             if i.get_guid() in items_by_guid:
                 to_delete.discard(items_by_guid[i.get_guid()])
                 to_add.discard(i)
+                items_by_guid[i.get_guid()].update_from_item(connection, i)
             elif i.url in items_by_url:
                 to_delete.discard(items_by_url[i.url])
                 to_add.discard(i)
+                items_by_url[i.url].update_from_item(connection, i)
         for i in to_delete:
             self.items.remove_record(connection, i)
         for i in new_items:
