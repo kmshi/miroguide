@@ -4403,7 +4403,7 @@ line-height: 1.8em;
 .login-page input{
     background: url(../images/top_bar_search.png) -1px -2px no-repeat;
 border: none;
-padding: 4px 0 5px 10px;
+padding: 4px 0 10px 10px;
 width: 170px;
 }
 
