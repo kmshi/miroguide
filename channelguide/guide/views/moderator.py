@@ -111,7 +111,7 @@ def stats(request):
     months = [int(request.connection.execute('SELECT SUM(subscription_count_month) FROM cg_channel_generated_stats')[0][0])]
 
     for i in range(1, 100):
-        key = 'stats:day:%i:%i:%i' % (date.today() - timedelta(days=1)).timetuple()[:3]
+        key = 'stats:day:%i:%i:%i' % (date.today() - timedelta(days=i)).timetuple()[:3]
         val = cache.client.get(key)
         if val is None:
             val = request.connection.execute('SELECT COUNT(*) FROM cg_channel_subscription WHERE timestamp > DATE_SUB(NOW(), INTERVAL %s DAY) AND timestamp < DATE_SUB(NOW(), INTERVAL %s DAY)', (i+1, i))[0][0]
@@ -119,7 +119,7 @@ def stats(request):
         todays.append(val)
 
     for i in range(1, 12):
-        key = 'stats:month:%i:%i' % (date.today() - timedelta(days=31)).timetuple()[:2]
+        key = 'stats:month:%i:%i' % (date.today() - timedelta(days=31*i)).timetuple()[:2]
         val = cache.client.get(key)
         if val is None:
             val = request.connection.execute('SELECT COUNT(*) FROM cg_channel_subscription WHERE timestamp > DATE_SUB(NOW(), INTERVAL %s MONTH) AND timestamp < DATE_SUB(NOW(), INTERVAL %s MONTH)', (i+1, i))[0][0]
