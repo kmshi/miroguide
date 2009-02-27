@@ -16,6 +16,7 @@ def guide(request):
         'BASE_URL_FULL': settings.BASE_URL_FULL,
         'STATIC_BASE_URL': settings.STATIC_BASE_URL,
         'GUIDE_EMAIL': settings.EMAIL_FROM,
+        'LANGUAGES': settings.LANGUAGES,
         'google_analytics_ua': settings.GOOGLE_ANALYTICS_UA,
         'request': request,
         'user': request.user,
@@ -28,7 +29,7 @@ def guide(request):
     else:
         # figure out language options
         if hasattr(request, 'connection') and request.user.language:
-            languageName = settings.LANGUAGE_MAP.get(request.user.language)
+            languageName = settings.ENGLISH_LANGUAGE_MAP.get(request.user.language)
             if languageName:
                 dbLanguages = Language.query(name=languageName).execute(request.connection)
                 if dbLanguages:

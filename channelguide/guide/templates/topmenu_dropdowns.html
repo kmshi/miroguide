@@ -137,7 +137,6 @@
     {% if language_options %}<h3><span>{% trans "My Language:" %}</span></h3>{% endif %}
     <form action="{{ BASE_URL }}i18n/setlang/" method="POST">
       <ul>
-        {% get_available_languages as LANGUAGES %}
         {% get_current_language as LANGUAGE_CODE %}
         {% for language in LANGUAGES %}
           <li{% ifequal language.0 LANGUAGE_CODE %} class="current"{% endifequal %}>
