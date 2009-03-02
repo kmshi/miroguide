@@ -1040,43 +1040,6 @@ div.rate .tag {
     padding: 2px 5px 0 0;
 }
 
-div.rate .rating_average, div.rate .rating {
-    color: #747474;
-    font-size: 10px;
-    float: left;
-    display: inline;
-    padding: 2px 0px 0 12px;
-}
-
-div.rate .rating {
-    color: black;
-}
-
-
-div.rate .star {
-    float: left;
-    display: inline;
-    width: 19px;
-    height: 16px;
-    cursor: pointer !important;
-    background: url(../images/big_stars.png) 0 -0px no-repeat;
-    text-indent: -9999px;
-}
-
-div.rate .star:hover{
-    background: url(../images/big_stars.png) 0 -19px no-repeat;
-}
-
-div.rate .on {
-    background-position: left bottom;
-}
-
-div.rate .star a, #channelRating .rate .cancel a {
-    display: block;
-    width: 18px;
-    height: 16px;
-}
-
 .url {
     float: right;
     display: block;
