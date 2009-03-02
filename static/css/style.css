@@ -810,12 +810,18 @@ ul.searchResults li ul.rating li.score {
     padding: 0 6px 0 0;
 }
 
+
 ul.searchResults li ul.rating li.available, ul.searchResults li ul.rating li.subscribers {
     font-size: 9px;
     float: right;
     display: inline;
     padding: 5px 10px 0;
     color: #777;
+}
+
+ul.searchResults li ul.rating li span.count {
+    font-size: 9px;
+    color: #999;
 }
 
 ul.searchResults li ul.rating li_tag {
@@ -862,6 +868,13 @@ ul#channelRate {
 #channelInfo h1 img {
     margin-left: 10px;
     display: inline;
+}
+
+#channelInfo .rate .count {
+    color:#777777;
+    font-size:10px;
+    padding-bottom:5px;
+    padding-left:12px;
 }
 
 #channelWebsite {
