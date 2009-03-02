@@ -27,6 +27,7 @@ def get_channels_query(request, filter, value, sort=None,
                        country_code=None):
     connection = request.connection
     query = Channel.query_approved()
+    query.order_by(Channel.c.archived)
     join = None
     if filter == 'category':
         try:
