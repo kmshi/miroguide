@@ -2014,6 +2014,7 @@ margin: 5px 15px 0 0;
     float: right;
     display: block;
     margin: 0;
+    padding-right:8px;
     line-height: 43px;
     background: url(../images/arrow_right.png) right 19px no-repeat;
 
