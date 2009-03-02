@@ -870,6 +870,13 @@ ul#channelRate {
     display: inline;
 }
 
+#channelInfo .rate .count {
+    color:#777777;
+    font-size:10px;
+    padding-bottom:5px;
+    padding-left:12px;
+}
+
 #channelWebsite {
     background: url(../images/channel_website_bg.png) 0 0 repeat-x;
     height: 31px;

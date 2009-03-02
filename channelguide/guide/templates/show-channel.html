@@ -60,6 +60,7 @@
       {% if not channel.fake %}
         <div class="rate">
           {% show_rating_stars channel %}
+          {% if channel.rating.count %}<div class="count">{% blocktrans count channel.rating.count as count and channel.rating.average|floatformat as average%}Avg. {{ average}} with  1 rating{% plural %}Avg. {{ average }} with {{ count }} ratings{% endblocktrans %}</div>{% endif %} 
         </div><!--rate-->
       {% endif %}
     </div>
