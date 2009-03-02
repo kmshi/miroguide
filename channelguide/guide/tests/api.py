@@ -674,6 +674,22 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         self.assertEquals(len(objs), 1)
         self.assertEquals(objs[0].id, self.channels[1].id)
 
+    def test_get_channels_archived_sorted_last(self):
+        """
+        Regardless of any sorting options, archived channels should be sorted
+        after all non-archived channels.
+        """
+        new = self.make_channel(self.owner, state='A')
+        new.name = 'AAA'
+        new.archived = True
+        new.save(self.connection)
+
+        objs = api.get_channels(self.make_request(), 'name', '', sort='name')
+        self.assertSameChannels(objs, self.channels + [new])
+
+        objs = api.get_channels(self.make_request(), 'name', '', sort='-name')
+        self.assertSameChannels(objs, list(reversed(self.channels)) + [new])
+
     def test_search(self):
         """
         api.search(connection, 'query') should return a list of Channels

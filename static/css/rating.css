@@ -27,10 +27,11 @@
 .cancel,
 .star {
     float: left;
-    width: 18px;
-    height: 18px;
+    width: 19px;
+    height: 16px;
     overflow: hidden;
-    text-indent: -999em;
+    display: inline;
+    text-indent: -9999em;
     cursor: pointer;
 }
 
