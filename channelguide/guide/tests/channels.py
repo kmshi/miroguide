@@ -481,7 +481,7 @@ class ChannelItemTest(ChannelTestBase):
         self.channel.change_state(self.ralph, Channel.APPROVED, self.connection)
         self.update_channel()
         names = ['casthduk.xml', 'tagesschau.xml', 'feedMOV480.xml', 'thisrevolution.xml',
-                 'angeklickt.xml']
+                 'angeklickt.xml', 'animax.xml']
         for name in names:
             feed_file = open(test_data_path(os.path.join('good', name)))
             self.channel.update_items(self.connection,

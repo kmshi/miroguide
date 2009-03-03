@@ -1,0 +1,771 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" media="screen" href="/~d/styles/rss2enclosuresfull.xsl"?><?xml-stylesheet type="text/css" media="screen" href="http://feeds2.feedburner.com/~d/styles/itemcontent.css"?><rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:creativeCommons="http://backend.userland.com/creativeCommonsRssModule" xmlns:media="http://search.yahoo.com/mrss/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0" version="2.0">
+    <channel>
+        <lastBuildDate>Tue, 03 Mar 2009 22:27:23 +0100</lastBuildDate>
+        <generator>feedbeat.com_ver_1.00.11</generator>
+        <pubDate>Tue, 03 Mar 2009 22:27:23 +0100</pubDate>
+        <language>en-us</language>
+        <title>AniMax (last in - first out)</title>
+        <description>
+Animax brings you funny and interesting cartoons and animation to your computer. Updated once a week.</description>
+        <link>http://mixmaxtv.feedbeat.com/AniMax/</link>
+        
+        <image>
+            <url>http://mixmaxtv.feedbeat.com/</url>
+            <title>AniMax (last in - first out)</title>
+            <link>http://www.feedbeat.com</link>
+            <width>100</width>
+            <height>100</height>
+        </image>
+        <media:category scheme="http://www.itunes.com/dtds/podcast-1.0.dtd">Comedy</media:category><itunes:explicit>no</itunes:explicit><itunes:subtitle>Animax brings you funny and interesting cartoons and animation to your computer. Updated once a week.</itunes:subtitle><itunes:category text="Comedy" /><atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="self" href="http://feeds2.feedburner.com/Animaxmm" type="application/rss+xml" /><item>
+            <title>YouTube - PEDIGREE&amp;Acirc;&amp;reg; Super Bowl Commerci</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/_3c4LXLWWBw/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/089/clip_89731.jpg"&gt;&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/_3c4LXLWWBw" height="1" width="1"/&gt;</description>
+            <pubDate>Wed, 25 Feb 2009 09:19:16 +0100</pubDate>
+            <guid isPermaLink="false">2b4d62695dcf789a30121fafc23a5302</guid>
+            
+            <media:title>YouTube - PEDIGREE&amp;Acirc;&amp;reg; Super Bowl Commerci</media:title>
+            <media:content duration="31" expression="full" fileSize="1190738" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/m8fk4ku5J7o/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/089/clip_89731.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>mixmaxtv,</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> </itunes:subtitle><itunes:summary> </itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=297195</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/m8fk4ku5J7o/" length="1190738" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4NSZzaWc9bzBvRHlFcmhObzdObiUyQmlFVDUyeFlyc1ZpeHMlM0QmaWQ9ODk3MzEmY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>YouTube - Pepsi Max - I\'m Good - Super Bowl 200</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/bWxBufcY1-Y/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/089/clip_89585.jpg"&gt;&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/bWxBufcY1-Y" height="1" width="1"/&gt;</description>
+            <pubDate>Mon, 23 Feb 2009 08:39:52 +0100</pubDate>
+            <guid isPermaLink="false">a81991a0a92cc0c4d0915203b05e63d4</guid>
+            
+            <media:title>YouTube - Pepsi Max - I\'m Good - Super Bowl 200</media:title>
+            <media:content duration="32" expression="full" fileSize="1324203" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/G25hlLve0eU/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/089/clip_89585.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category />
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> </itunes:subtitle><itunes:summary> </itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=295063</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/G25hlLve0eU/" length="1324203" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4NSZzaWc9M1Rxb1RKOXZLZ0ZIU01GM2J4cHFobHR3Z2VvJTNEJmlkPTg5NTg1JmNoYW5uZWw9Njgx.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Walking on water Chris Angel</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/zextXoJG0NI/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/089/clip_89174.jpg"&gt;  Walking on water Chris Angel&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/zextXoJG0NI" height="1" width="1"/&gt;</description>
+            <pubDate>Tue, 17 Feb 2009 09:00:01 +0100</pubDate>
+            <guid isPermaLink="false">174d66b119302ba1c3077e36a9c2f259</guid>
+            
+            <media:title>Walking on water Chris Angel</media:title>
+            <media:content duration="121" expression="full" fileSize="7572284" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/fyfF-bcymVQ/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/089/clip_89174.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of DIRECT</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category />
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> Walking on water Chris Angel</itunes:subtitle><itunes:summary> Walking on water Chris Angel</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=288541</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/fyfF-bcymVQ/" length="7572284" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4NSZzaWc9V25xell5WVhic1hBOG56ZzJJYXhJMTF4VGRnJTNEJmlkPTg5MTc0JmNoYW5uZWw9Njgx.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>YouTube - The Wrong Trousers: Cracking Toast!</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/XuPPnGBcknk/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/089/clip_89172.jpg"&gt;&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/XuPPnGBcknk" height="1" width="1"/&gt;</description>
+            <pubDate>Tue, 17 Feb 2009 08:33:31 +0100</pubDate>
+            <guid isPermaLink="false">cc0870b57f4444e83dda3836950325a4</guid>
+            
+            <media:title>YouTube - The Wrong Trousers: Cracking Toast!</media:title>
+            <media:content duration="106" expression="full" fileSize="4332283" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/oC0aGUe8LB4/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/089/clip_89172.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category />
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> </itunes:subtitle><itunes:summary> </itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=288539</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/oC0aGUe8LB4/" length="4332283" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4NSZzaWc9WG5DNjhLdzI1c0tNYlRiYkRLR3lCT1hkNkd3JTNEJmlkPTg5MTcyJmNoYW5uZWw9Njgx.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Bad idea</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/tlTm1EPoha0/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/089/clip_89114.jpg"&gt;  Bad idea&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/tlTm1EPoha0" height="1" width="1"/&gt;</description>
+            <pubDate>Mon, 16 Feb 2009 09:31:24 +0100</pubDate>
+            <guid isPermaLink="false">a231e662e4cdff5647e685adfbf9d093</guid>
+            
+            <media:title>Bad idea</media:title>
+            <media:content duration="8" expression="full" fileSize="287917" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/mykmMZC6z88/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/089/clip_89114.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of DIRECT</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category />
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> Bad idea</itunes:subtitle><itunes:summary> Bad idea</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=287475</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/mykmMZC6z88/" length="287917" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4NSZzaWc9dFhKY1RyNE0wU0JWV2I1QkJpNmY3Slpzdmx3JTNEJmlkPTg5MTE0JmNoYW5uZWw9Njgx.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>YouTube - Surreal Sports - Extreme skills</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/_7yaaMLLUxY/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/089/clip_89112.jpg"&gt;&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/_7yaaMLLUxY" height="1" width="1"/&gt;</description>
+            <pubDate>Mon, 16 Feb 2009 08:50:58 +0100</pubDate>
+            <guid isPermaLink="false">e9d33537a326d632364309e94b087030</guid>
+            
+            <media:title>YouTube - Surreal Sports - Extreme skills</media:title>
+            <media:content duration="108" expression="full" fileSize="4318435" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/pu7JIEvqrCA/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/089/clip_89112.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category />
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> </itunes:subtitle><itunes:summary> </itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=287473</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/pu7JIEvqrCA/" length="4318435" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4NSZzaWc9eWxCZHcwSHl0VGpXbm9kRlJ2bXR0TjRBMExvJTNEJmlkPTg5MTEyJmNoYW5uZWw9Njgx.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>YouTube - Dynastar Ski Freeride Absolute Winter 1</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/iu42vqtTdis/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/089/clip_89111.jpg"&gt;&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/iu42vqtTdis" height="1" width="1"/&gt;</description>
+            <pubDate>Mon, 16 Feb 2009 08:43:40 +0100</pubDate>
+            <guid isPermaLink="false">20f4616c2fd11b2cf232b927f9238485</guid>
+            
+            <media:title>YouTube - Dynastar Ski Freeride Absolute Winter 1</media:title>
+            <media:content duration="418" expression="full" fileSize="16816611" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/58XYbzylJkk/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/089/clip_89111.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>megamix, free skiing, extreme, sport</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> </itunes:subtitle><itunes:summary> </itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=287472</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/58XYbzylJkk/" length="16816611" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4NSZzaWc9UTh3MUtIQlhvaWslMkZIVFF3b1hZODVjT29RdkElM0QmaWQ9ODkxMTEmY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>No legs, no arms, no limits</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/moI5wvwT7ss/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/089/clip_89077.jpg"&gt;  The amazing story of Nick Vujicic&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/moI5wvwT7ss" height="1" width="1"/&gt;</description>
+            <pubDate>Sun, 15 Feb 2009 12:03:43 +0100</pubDate>
+            <guid isPermaLink="false">d3a719c186a6aea6c416c271dd28237c</guid>
+            
+            <media:title>No legs, no arms, no limits</media:title>
+            <media:content duration="585" expression="full" fileSize="25326791" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/yfAr5sDhxEU/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/089/clip_89077.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category />
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> The amazing story of Nick Vujicic</itunes:subtitle><itunes:summary> The amazing story of Nick Vujicic</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=286423</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/yfAr5sDhxEU/" length="25326791" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4NSZzaWc9WXl0c3NmZzdRQkIlMkJucEpGJTJGWTMlMkJ2R3dNUUxvJTNEJmlkPTg5MDc3JmNoYW5uZWw9Njgx.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Fanboy</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/tYg7UYnfPvg/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88902.jpg"&gt;  Fanboy&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/tYg7UYnfPvg" height="1" width="1"/&gt;</description>
+            <pubDate>Fri, 13 Feb 2009 14:58:59 +0100</pubDate>
+            <guid isPermaLink="false">ab3f2710f8e2872d6c72e9e82c987be9</guid>
+            
+            <media:title>Fanboy</media:title>
+            <media:content duration="138" expression="full" fileSize="12350631" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/hulQvyZmZlU/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88902.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of DIRECT</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>funny, humor, video, fanboy, star wars</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> Fanboy</itunes:subtitle><itunes:summary> Fanboy</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=284128</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/hulQvyZmZlU/" length="12350631" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4NSZzaWc9U01mREk1OCUyQnNJN0Q5d3l3WW8yalJrbVNsNzQlM0QmaWQ9ODg5MDImY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>confession of a shopaholic</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/R1hxWvL-6zM/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88901.jpg"&gt;  confession of a shopaholic&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/R1hxWvL-6zM" height="1" width="1"/&gt;</description>
+            <pubDate>Fri, 13 Feb 2009 14:50:17 +0100</pubDate>
+            <guid isPermaLink="false">d0cc376ac7bf5a4b2446ebaf0efaf8e6</guid>
+            
+            <media:title>confession of a shopaholic</media:title>
+            <media:content duration="152" expression="full" fileSize="13782957" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/J1evixzI2lc/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88901.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of DIRECT</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>video, trailer</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> confession of a shopaholic</itunes:subtitle><itunes:summary> confession of a shopaholic</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=284127</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/J1evixzI2lc/" length="13782957" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4NiZzaWc9bldhZVklMkZYNzM3WktRWTdESkFiejFNWnFRQnMlM0QmaWQ9ODg5MDEmY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Transformers 2</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/_xj9VDfyV6M/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88900.jpg"&gt;  Transformers 2&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/_xj9VDfyV6M" height="1" width="1"/&gt;</description>
+            <pubDate>Fri, 13 Feb 2009 08:24:14 +0100</pubDate>
+            <guid isPermaLink="false">89a33dc2f1ce7b75b3094e32ca1b9d4d</guid>
+            
+            <media:title>Transformers 2</media:title>
+            <media:content duration="31" expression="full" fileSize="24025874" isDefault="true" type="video/mp4" url="http://feedproxy.google.com/~r/Animaxmm/~5/lH4KtgxBp9o/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88900.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of DIRECT</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>video, trailer</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> Transformers 2</itunes:subtitle><itunes:summary> Transformers 2</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=284126</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/lH4KtgxBp9o/" length="24025874" type="video/mp4" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4NyZzaWc9NFRYWTVRUkF0MXduWTNnSUNJUXJrRDFYVXVRJTNEJmlkPTg4OTAwJmNoYW5uZWw9Njgx.mp4</feedburner:origEnclosureLink></item>
+        <item>
+            <title>YouTube - Red Vs. Blue Episode 18</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/bl0V07rbVp8/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88832.jpg"&gt;&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/bl0V07rbVp8" height="1" width="1"/&gt;</description>
+            <pubDate>Thu, 12 Feb 2009 08:29:43 +0100</pubDate>
+            <guid isPermaLink="false">715d4aea6eef167d00dde779d1843e6e</guid>
+            
+            <media:title>YouTube - Red Vs. Blue Episode 18</media:title>
+            <media:content duration="258" expression="full" fileSize="5416574" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/eSP43T7_IyM/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88832.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>humor, funny, video,</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> </itunes:subtitle><itunes:summary> </itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=283069</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/eSP43T7_IyM/" length="5416574" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4NyZzaWc9ZDQyVnpQNExxeXZ2d3ptS3R2YkUlMkZYSXo5SWMlM0QmaWQ9ODg4MzImY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>YouTube - Chad Vader #8</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/aQ6n2mfR3kg/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88831.jpg"&gt;&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/aQ6n2mfR3kg" height="1" width="1"/&gt;</description>
+            <pubDate>Thu, 12 Feb 2009 08:27:33 +0100</pubDate>
+            <guid isPermaLink="false">5f924746e07c5d44af5f2b357669ef6e</guid>
+            
+            <media:title>YouTube - Chad Vader #8</media:title>
+            <media:content duration="334" expression="full" fileSize="15214255" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/STBxSEKcC6E/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88831.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>humor, funny, video,</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> </itunes:subtitle><itunes:summary> </itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=283068</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/STBxSEKcC6E/" length="15214255" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4NyZzaWc9ckNWbGtlNUFDbDR1em0wc2VGOTdMbkMxcDEwJTNEJmlkPTg4ODMxJmNoYW5uZWw9Njgx.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>YouTube - The Parrot Sketch</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/p_no7PwDfnI/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88830.jpg"&gt;&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/p_no7PwDfnI" height="1" width="1"/&gt;</description>
+            <pubDate>Thu, 12 Feb 2009 08:25:40 +0100</pubDate>
+            <guid isPermaLink="false">dd04e89bb13785c3233a5193204686de</guid>
+            
+            <media:title>YouTube - The Parrot Sketch</media:title>
+            <media:content duration="328" expression="full" fileSize="13424984" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/KUGf5-ZXkAk/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88830.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>humor, funny, video,</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> </itunes:subtitle><itunes:summary> </itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=283067</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/KUGf5-ZXkAk/" length="13424984" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4NyZzaWc9VHNkJTJCeTZKek1MMWVDbmJZc1M5TGRSa1Y4S0ElM0QmaWQ9ODg4MzAmY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>YouTube - cat-fish,ice pool</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/ceWb__EbmRk/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88602.jpg"&gt;&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/ceWb__EbmRk" height="1" width="1"/&gt;</description>
+            <pubDate>Sun, 08 Feb 2009 10:07:43 +0100</pubDate>
+            <guid isPermaLink="false">74ba4b1214e1e36881903e33999a224f</guid>
+            
+            <media:title>YouTube - cat-fish,ice pool</media:title>
+            <media:content duration="23" expression="full" fileSize="776846" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/iBuM_CCLtII/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88602.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>mixmaxtv, adventure, video, comedy, funny, humor, cat, fish, ice, animal</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> </itunes:subtitle><itunes:summary> </itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=278860</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/iBuM_CCLtII/" length="776846" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4NyZzaWc9JTJCdE5KMk1nWE10alRNbnJkN0FJQm9RdTVvVm8lM0QmaWQ9ODg2MDImY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Superbowl 2009 Commercial Doritos (Glass Ball)</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/VRY3B5bVZtQ/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88531.jpg"&gt;  Doritos Glass Ball Superbowl 2009 Commercial. PLease visit www.jarradb.com for more videos and info about me.&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/VRY3B5bVZtQ" height="1" width="1"/&gt;</description>
+            <pubDate>Sat, 07 Feb 2009 12:45:03 +0100</pubDate>
+            <guid isPermaLink="false">febc98da67a825c666851a5a369bff8b</guid>
+            
+            <media:title>Superbowl 2009 Commercial Doritos (Glass Ball)</media:title>
+            <media:content duration="31" expression="full" fileSize="1298757" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/3u5lPBnsYs8/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88531.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>mixmaxtv, Super bowl 2009, Superbowl, 43, Glass ball, snow globe, doritos, funny, free doritos, promotion, commercials, commercial, ad, add, superbowl, top, quality, HD</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> Doritos Glass Ball Superbowl 2009 Commercial. PLease visit www.jarradb.com for more videos and info about me.</itunes:subtitle><itunes:summary> Doritos Glass Ball Superbowl 2009 Commercial. PLease visit www.jarradb.com for more videos and info about me.</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=277627</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/3u5lPBnsYs8/" length="1298757" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4NyZzaWc9S1VNb2lRZ21aM1NJeFRuT3ZvUHRRJTJCd1Z5eVUlM0QmaWQ9ODg1MzEmY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>YouTube - Pepsi - PepSuber</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/cu1l8sOmhdI/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88337.jpg"&gt;&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/cu1l8sOmhdI" height="1" width="1"/&gt;</description>
+            <pubDate>Wed, 04 Feb 2009 20:15:20 +0100</pubDate>
+            <guid isPermaLink="false">1e6c44aedca0e0dc8d389b285dce9012</guid>
+            
+            <media:title>YouTube - Pepsi - PepSuber</media:title>
+            <media:content duration="61" expression="full" fileSize="2492068" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/BxJiIg6o98w/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88337.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>comedy, commercial, video, funny, humor, superbowl, super, bowl, 2009</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> </itunes:subtitle><itunes:summary> </itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=274413</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/BxJiIg6o98w/" length="2492068" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4NyZzaWc9QnMxYlF6S0xNVUE0M0FUeHV1eXhETDE4WGxZJTNEJmlkPTg4MzM3JmNoYW5uZWw9Njgx.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>YouTube - funny banned beer commercial</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/XJIh6XABaOo/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88336.jpg"&gt;&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/XJIh6XABaOo" height="1" width="1"/&gt;</description>
+            <pubDate>Wed, 04 Feb 2009 20:03:20 +0100</pubDate>
+            <guid isPermaLink="false">68f5eabfadd2008dec93d56b801d3e24</guid>
+            
+            <media:title>YouTube - funny banned beer commercial</media:title>
+            <media:content duration="67" expression="full" fileSize="2612941" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/y_GbK7NzFmM/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88336.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>comedy, commercial, humor, funny, video,</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> </itunes:subtitle><itunes:summary> </itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=274412</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/y_GbK7NzFmM/" length="2612941" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4NyZzaWc9TDBGS0h3aTNUcTY0aFp1aE0lMkZRa2pocEczVXclM0QmaWQ9ODgzMzYmY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>YouTube - Cubicle Karl - Funny Animation</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/MBazDTKvHJY/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88282.jpg"&gt;&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/MBazDTKvHJY" height="1" width="1"/&gt;</description>
+            <pubDate>Tue, 03 Feb 2009 12:44:06 +0100</pubDate>
+            <guid isPermaLink="false">906a7ff62a0f6aae3116dcf9c0baeeed</guid>
+            
+            <media:title>YouTube - Cubicle Karl - Funny Animation</media:title>
+            <media:content duration="165" expression="full" fileSize="6265371" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/3QYXs8Slttw/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88282.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>short, video, animation, comedy, humor, funny, mixmaxtv,</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> </itunes:subtitle><itunes:summary> </itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=273353</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/3QYXs8Slttw/" length="6265371" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4NyZzaWc9bms3RDN6STIlMkZTeTVDM0Z6d2h6QjFLY2ltYmslM0QmaWQ9ODgyODImY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>lifewave4you.com  - The incredible Lifewave Patche</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/otvVW-PfhgM/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88226.jpg"&gt;  This incredible technology is making waves everywhere, changing peoples lives and improving quality of life.  And you can even become a distributor and make ...&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/otvVW-PfhgM" height="1" width="1"/&gt;</description>
+            <pubDate>Mon, 02 Feb 2009 15:04:14 +0100</pubDate>
+            <guid isPermaLink="false">14d5dcce2b7e762cc5f9fe741c09dcb4</guid>
+            
+            <media:title>lifewave4you.com  - The incredible Lifewave Patche</media:title>
+            <media:content duration="560" expression="full" fileSize="21187363" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/OxKkNvYMJE4/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88226.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>mixmaxtv, lifewave, patches, health, income, opportunity, energy, enhanchement, performance, sports, extra, cash</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> This incredible technology is making waves everywhere, changing peoples lives and improving quality of life. And you can even become a distributor and make ...</itunes:subtitle><itunes:summary> This incredible technology is making waves everywhere, changing peoples lives and improving quality of life. And you can even become a distributor and make ...</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=272280</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/OxKkNvYMJE4/" length="21187363" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4OCZzaWc9NDMxdHdrVzY5UlZmaENXVTFsQTc4ejVrMEVNJTNEJmlkPTg4MjI2JmNoYW5uZWw9Njgx.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Very Funny Animals</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/_HARtKfKC04/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88183.jpg"&gt;  Pictures of funny animalsI can have cheezburger rules!--http://icanhascheezburger.com&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/_HARtKfKC04" height="1" width="1"/&gt;</description>
+            <pubDate>Sun, 01 Feb 2009 12:52:03 +0100</pubDate>
+            <guid isPermaLink="false">d79003346dca381291856eb89462eac8</guid>
+            
+            <media:title>Very Funny Animals</media:title>
+            <media:content duration="168" expression="full" fileSize="4774150" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/ovEdcPMNDvg/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88183.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>animation, comedy, humor, funny, animals, hilarious, animal, cute, pet, bear, dog, scottish, fold, cat, frog, dolphin, pig, yourfriendy, kitten, fun, tube, katze, perro, hund, hond, kat, poesje, laugh, lol, rofl, lmao, lolcats, caturday, video</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> Pictures of funny animalsI can have cheezburger rules!--http://icanhascheezburger.com</itunes:subtitle><itunes:summary> Pictures of funny animalsI can have cheezburger rules!--http://icanhascheezburger.com</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=271218</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/ovEdcPMNDvg/" length="4774150" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4OSZzaWc9UDdlTjRQY1BlcDBMa2xvTldMQng3WXJ6WUtNJTNEJmlkPTg4MTgzJmNoYW5uZWw9Njgx.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Red vs. Blue Episode 16</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/Pzohjg95IJE/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88182.jpg"&gt;  A Slightly Crueler Cruller&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/Pzohjg95IJE" height="1" width="1"/&gt;</description>
+            <pubDate>Sun, 01 Feb 2009 12:35:28 +0100</pubDate>
+            <guid isPermaLink="false">bb8dbab82baf9e207b3cf19f8f78568d</guid>
+            
+            <media:title>Red vs. Blue Episode 16</media:title>
+            <media:content duration="294" expression="full" fileSize="7604171" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/eg24iQmRK2w/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88182.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>video, animation, comedy, humor, funny, mixmaxtv, red, vs, blue, rvb, halo, machinima, xbox</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> A Slightly Crueler Cruller</itunes:subtitle><itunes:summary> A Slightly Crueler Cruller</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=271217</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/eg24iQmRK2w/" length="7604171" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4OSZzaWc9STAwQSUyQjAyWVIxcmNxM2ZIRGp0SDlKTTRrSk0lM0QmaWQ9ODgxODImY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Korn Guitarist Quits Band - Now Born Again Christi</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/kEKUhQWsDzo/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88179.jpg"&gt;  Former Korn guitarist Brian ,&amp;amp;amp;,quot;Head,&amp;amp;amp;,quot; Welch was baptized Saturday in the Jordan River, just weeks after quitting his band, drug habits and rock-and-ro...&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/kEKUhQWsDzo" height="1" width="1"/&gt;</description>
+            <pubDate>Sun, 01 Feb 2009 00:58:26 +0100</pubDate>
+            <guid isPermaLink="false">a7eaac93cc5e9882adaacd053bb30625</guid>
+            
+            <media:title>Korn Guitarist Quits Band - Now Born Again Christi</media:title>
+            <media:content duration="390" expression="full" fileSize="15639918" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/SLG6YIY5Px0/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88179.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>jesus, christian, video, music, mixmaxtv, Rock, Metal, Music, Fame, Fortune, Guitar, Grammys, Drugs, Party, Drinking, Sex, MTV, Rehab, Single, Father, Lonely, Dead, Jesus, Bible</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> Former Korn guitarist Brian ,&amp;amp;amp;,quot;Head,&amp;amp;amp;,quot; Welch was baptized Saturday in the Jordan River, just weeks after quitting his band, drug habits and rock-and-ro...</itunes:subtitle><itunes:summary> Former Korn guitarist Brian ,&amp;amp;amp;,quot;Head,&amp;amp;amp;,quot; Welch was baptized Saturday in the Jordan River, just weeks after quitting his band, drug habits and rock-and-ro...</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=271214</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/SLG6YIY5Px0/" length="15639918" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4OSZzaWc9ZDdhVjlNUXNxeEk0SHZtJTJCaHNPMFVYdW1Pem8lM0QmaWQ9ODgxNzkmY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>THE THIN LINE: Life on the Edge - HD Trailer</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/9CHvXNbXIng/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88030.jpg"&gt;  THE THIN LINE: Life on the Edge - HD Trailer&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/9CHvXNbXIng" height="1" width="1"/&gt;</description>
+            <pubDate>Fri, 30 Jan 2009 21:35:22 +0100</pubDate>
+            <guid isPermaLink="false">ae4ff2b254129a81e8d1af31c6e7b73f</guid>
+            
+            <media:title>THE THIN LINE: Life on the Edge - HD Trailer</media:title>
+            <media:content duration="180" expression="full" fileSize="37784977" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/dUsfnw-uNKo/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88030.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of DIRECT</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>adventure, video, mixmaxtv, extreme, sport, skiing, hd</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> THE THIN LINE: Life on the Edge - HD Trailer</itunes:subtitle><itunes:summary> THE THIN LINE: Life on the Edge - HD Trailer</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=268865</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/dUsfnw-uNKo/" length="37784977" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4OSZzaWc9OFA2dzI0UmlCUHRtMUlFd0FtZjNjYnJ1U3YwJTNEJmlkPTg4MDMwJmNoYW5uZWw9Njgx.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Final fantasy 13 HD</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/kPWThk-U-K0/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88027.jpg"&gt;  Final fantasy 13 HD&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/kPWThk-U-K0" height="1" width="1"/&gt;</description>
+            <pubDate>Fri, 30 Jan 2009 12:34:00 +0100</pubDate>
+            <guid isPermaLink="false">d88bf3a1ce8e0c15be2ebe852ad5d2d7</guid>
+            
+            <media:title>Final fantasy 13 HD</media:title>
+            <media:content duration="170" expression="full" fileSize="71689729" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/hwdwGxO22TQ/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88027.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of DIRECT</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>animation, video, mixmaxtv, final, fantasy, 13, game, trailer, hd, hq, xbox, ps3</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> Final fantasy 13 HD</itunes:subtitle><itunes:summary> Final fantasy 13 HD</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=268862</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/hwdwGxO22TQ/" length="71689729" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4OSZzaWc9TmJMZ3ZNMENCYTc0WmVta1BwdVFrTE4zTHdVJTNEJmlkPTg4MDI3JmNoYW5uZWw9Njgx.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>YouTube - vERY fUNNY cATS 11</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/1-Yn_BQkieU/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88023.jpg"&gt;&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/1-Yn_BQkieU" height="1" width="1"/&gt;</description>
+            <pubDate>Fri, 30 Jan 2009 10:26:04 +0100</pubDate>
+            <guid isPermaLink="false">2da5ed22b611e153155ed1c5ac7ccaa8</guid>
+            
+            <media:title>YouTube - vERY fUNNY cATS 11</media:title>
+            <media:content duration="263" expression="full" fileSize="10711385" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/3Ced51V94Q0/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/088/clip_88023.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>animation, funny, humor, video, mixmaxtv, cat, animals</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> </itunes:subtitle><itunes:summary> </itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=268858</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/3Ced51V94Q0/" length="10711385" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4OSZzaWc9eG1LTjJPRkRPVTBYZFp3azBlTXIzUmgyWFQ4JTNEJmlkPTg4MDIzJmNoYW5uZWw9Njgx.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>YouTube - Internet Time Traveler</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/2uIuA1zDlsE/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/087/clip_87948.jpg"&gt;&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/2uIuA1zDlsE" height="1" width="1"/&gt;</description>
+            <pubDate>Thu, 29 Jan 2009 08:29:22 +0100</pubDate>
+            <guid isPermaLink="false">2f078028f948b87164b84257678c859f</guid>
+            
+            <media:title>YouTube - Internet Time Traveler</media:title>
+            <media:content duration="261" expression="full" fileSize="10703907" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/CiljylrdRiQ/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/087/clip_87948.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>comedy, video, humor, funny, mixmaxtv, those  aren\\'t  arent  muskets  internet  time  travel  traveler  funny  sketch  comedy  two  girls  one  cup  star  wars  kid</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> </itunes:subtitle><itunes:summary> </itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=267783</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/CiljylrdRiQ/" length="10703907" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4OSZzaWc9RVhvdzdVcHclMkZoQUFwU1JPb3BlaDBIbiUyRnZ0RSUzRCZpZD04Nzk0OCZjaGFubmVsPTY4MQ%3D%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>YouTube - Is It Future Yet?: Hydrogen Cars</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/VMQSUpgB22c/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/087/clip_87837.jpg"&gt;&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/VMQSUpgB22c" height="1" width="1"/&gt;</description>
+            <pubDate>Wed, 28 Jan 2009 08:50:09 +0100</pubDate>
+            <guid isPermaLink="false">ce4dee6c20b66d091c7a1f01e94eb2d2</guid>
+            
+            <media:title>YouTube - Is It Future Yet?: Hydrogen Cars</media:title>
+            <media:content duration="212" expression="full" fileSize="7990022" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/fZNcKOPxRDw/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/087/clip_87837.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>mixmaxtv, news, interesting, tech, discovery</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> </itunes:subtitle><itunes:summary> </itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=266502</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/fZNcKOPxRDw/" length="7990022" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4OSZzaWc9S3NFY2dHMHVmV3RJV2hpdnMyajZDUUFVSlFBJTNEJmlkPTg3ODM3JmNoYW5uZWw9Njgx.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>YouTube - Red vs. Blue Episode 16</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/Htx6Vrdlc00/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/087/clip_87834.jpg"&gt;&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/Htx6Vrdlc00" height="1" width="1"/&gt;</description>
+            <pubDate>Wed, 28 Jan 2009 08:40:22 +0100</pubDate>
+            <guid isPermaLink="false">313ecaa42a10e157dd6bed1478d7334a</guid>
+            
+            <media:title>YouTube - Red vs. Blue Episode 16</media:title>
+            <media:content duration="294" expression="full" fileSize="7604171" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/I5xOeAQjq0s/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/087/clip_87834.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>cartoon, animation, comedy, video, humor, funny, mixmaxtv,</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> </itunes:subtitle><itunes:summary> </itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=266499</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/I5xOeAQjq0s/" length="7604171" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI4OSZzaWc9VWJUUHdWZHBabDdKWXVmJTJCd2VSMWhpWTNVNEElM0QmaWQ9ODc4MzQmY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Inkheart Movie Review: Beyond The Trailer</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/Yvvtqdzz99c/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/087/clip_87687.jpg"&gt;  Inkheart Movie Review. Is Brendan Fraser the hero of his own movie career, or does Inkheart represent a dark chapter in his biography? Go Beyond The Trailer to  ...&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/Yvvtqdzz99c" height="1" width="1"/&gt;</description>
+            <pubDate>Sun, 25 Jan 2009 09:57:01 +0100</pubDate>
+            <guid isPermaLink="false">a46bc87210233e0a7364d74d37ead7d1</guid>
+            
+            <media:title>Inkheart Movie Review: Beyond The Trailer</media:title>
+            <media:content duration="265" expression="full" fileSize="17884308" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/1iM0TrxAxIs/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/087/clip_87687.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of blip</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>adventure, video, mixmaxtv, trailer, review, inkheart</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> Inkheart Movie Review. Is Brendan Fraser the hero of his own movie career, or does Inkheart represent a dark chapter in his biography? Go Beyond The Trailer to ...</itunes:subtitle><itunes:summary> Inkheart Movie Review. Is Brendan Fraser the hero of his own movie career, or does Inkheart represent a dark chapter in his biography? Go Beyond The Trailer to ...</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=263213</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/1iM0TrxAxIs/" length="17884308" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI5MCZzaWc9RFhvcUN3ZHpNR3ZzJTJGZnFKdjFSVXlzZEh2bkUlM0QmaWQ9ODc2ODcmY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Worlds Funniest Commercials</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/V6E5fQdbJJE/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/087/clip_87584.jpg"&gt;  Worlds Funniest Commercials&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/V6E5fQdbJJE" height="1" width="1"/&gt;</description>
+            <pubDate>Fri, 23 Jan 2009 08:22:07 +0100</pubDate>
+            <guid isPermaLink="false">62eebf59bf8c45fdd8eb8562b008da1b</guid>
+            
+            <media:title>Worlds Funniest Commercials</media:title>
+            <media:content duration="40" expression="full" fileSize="1634897" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/UNhJi-OBhZM/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/087/clip_87584.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>comedy, commercial, humor, funny, mixmaxtv, Worlds, Funniest, Commercials</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> Worlds Funniest Commercials</itunes:subtitle><itunes:summary> Worlds Funniest Commercials</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=261021</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/UNhJi-OBhZM/" length="1634897" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI5MSZzaWc9cnNNQXI4ZHplbnZJZ2hRZzZPejdBekhhajRzJTNEJmlkPTg3NTg0JmNoYW5uZWw9Njgx.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Funny commercial: astronaut job available</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/llCq8EPEEUI/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/087/clip_87155.jpg"&gt;  Funny commercial of how to find a job... If you like this video; watch my other movies!&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/llCq8EPEEUI" height="1" width="1"/&gt;</description>
+            <pubDate>Mon, 19 Jan 2009 10:11:55 +0100</pubDate>
+            <guid isPermaLink="false">5ea1400b43a5fe07faab6b6a5c71cdba</guid>
+            
+            <media:title>Funny commercial: astronaut job available</media:title>
+            <media:content duration="32" expression="full" fileSize="1121487" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/8LhLVqVWG_s/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/087/clip_87155.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>comedy, humor, funny, mixmaxtv, Funny, awesome, commercial, astronaut, space, job, available, man, dead, death, alien, nasa, forgot, key</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> Funny commercial of how to find a job... If you like this video; watch my other movies!</itunes:subtitle><itunes:summary> Funny commercial of how to find a job... If you like this video; watch my other movies!</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=256530</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/8LhLVqVWG_s/" length="1121487" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI5MSZzaWc9djB2dmxrdzltRElHNlZpY3J1dDFVN0l3N0NvJTNEJmlkPTg3MTU1JmNoYW5uZWw9Njgx.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Man Raised From The Dead On Operating Table - Part</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/A7ST29vnnP4/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/087/clip_87098.jpg"&gt;  Part 2 of 2 of the totally amazing story of a man who was raised from the dead, while lying on the operating table in the emergency room of a hospital.http:/...&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/A7ST29vnnP4" height="1" width="1"/&gt;</description>
+            <pubDate>Sun, 18 Jan 2009 11:06:57 +0100</pubDate>
+            <guid isPermaLink="false">0daf7c623cefa5b2d29e031eee205107</guid>
+            
+            <media:title>Man Raised From The Dead On Operating Table - Part</media:title>
+            <media:content duration="481" expression="full" fileSize="18168129" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/2DCALCq3Q8g/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/087/clip_87098.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>mixmaxtv, raised, from, the, dead, miracle, miracles, holy, spirit, speaking, in, tongues, god, jesus, christian</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> Part 2 of 2 of the totally amazing story of a man who was raised from the dead, while lying on the operating table in the emergency room of a hospital.http:/...</itunes:subtitle><itunes:summary> Part 2 of 2 of the totally amazing story of a man who was raised from the dead, while lying on the operating table in the emergency room of a hospital.http:/...</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=255462</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/2DCALCq3Q8g/" length="18168129" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI5MSZzaWc9RXAwSm82QkhOJTJGWWlpc3hiTjV2SE1rVmI2SmslM0QmaWQ9ODcwOTgmY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Man Raised From the Dead on Operating Table!!! - P</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/TlShMgIS5S0/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/087/clip_87097.jpg"&gt;  See the most amazing story of how the Holy Spirit spoke to a cardiologist, in the operating room, and told him to pray for the man who had died on the operat...&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/TlShMgIS5S0" height="1" width="1"/&gt;</description>
+            <pubDate>Sun, 18 Jan 2009 11:06:32 +0100</pubDate>
+            <guid isPermaLink="false">64ee91330945c80d369511c737b2685a</guid>
+            
+            <media:title>Man Raised From the Dead on Operating Table!!! - P</media:title>
+            <media:content duration="455" expression="full" fileSize="17197829" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/KCbVGryDTZ4/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/087/clip_87097.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>raised, from, the, dead, miracle, miracles, baptism, in, holy, spirit, god, christian, jesus</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> See the most amazing story of how the Holy Spirit spoke to a cardiologist, in the operating room, and told him to pray for the man who had died on the operat...</itunes:subtitle><itunes:summary> See the most amazing story of how the Holy Spirit spoke to a cardiologist, in the operating room, and told him to pray for the man who had died on the operat...</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=255461</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/KCbVGryDTZ4/" length="17197829" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI5MSZzaWc9ZFlJMlJSUzNOVk1JaTlLQ29OOWl2ciUyRnFmV2slM0QmaWQ9ODcwOTcmY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>The Great Office War HD</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/ClNZV5Z_G8w/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/087/clip_87009.jpg"&gt;  Witness the biggest and greatest office confrontation ever!  Now in HD!&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/ClNZV5Z_G8w" height="1" width="1"/&gt;</description>
+            <pubDate>Fri, 16 Jan 2009 17:41:58 +0100</pubDate>
+            <guid isPermaLink="false">e3fb9bf655fe5755d9ed8eef9f032a44</guid>
+            
+            <media:title>The Great Office War HD</media:title>
+            <media:content duration="290" expression="full" fileSize="11887980" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/4UPVq_yfcac/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/087/clip_87009.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>video, humor, mixmaxtv, runawaybox, comedy, series, daily, funny, elevatorshow, zilchzone, woody, tondorf, andrew, zilch, nerf, blasters, office, rivalry, it, sales, HD, fun</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> Witness the biggest and greatest office confrontation ever! Now in HD!</itunes:subtitle><itunes:summary> Witness the biggest and greatest office confrontation ever! Now in HD!</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=253339</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/4UPVq_yfcac/" length="11887980" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI5MSZzaWc9bXBDQkRVNXpzYUdEQkJtYk5tV2NzTGxaOU9ZJTNEJmlkPTg3MDA5JmNoYW5uZWw9Njgx.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Asteroid Impact (HD)</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/VLnojchxkpA/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/087/clip_87008.jpg"&gt;  cgi asteroid impact to the music of pink floyd\'s the great gig in the sky (dark side of the moon)&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/VLnojchxkpA" height="1" width="1"/&gt;</description>
+            <pubDate>Fri, 16 Jan 2009 17:38:06 +0100</pubDate>
+            <guid isPermaLink="false">9e5b6b2418bc90caa4ea4ac59824f2b0</guid>
+            
+            <media:title>Asteroid Impact (HD)</media:title>
+            <media:content duration="286" expression="full" fileSize="11739219" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/tYfiFzcuBD4/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/087/clip_87008.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>animation, video, mixmaxtv, discovery, channel, miracle, planet, asteroid, impact, music, pink, floyd, dark, side, of, the, moon, great, gig, in, sky, hd, 720p</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> cgi asteroid impact to the music of pink floyd\'s the great gig in the sky (dark side of the moon)</itunes:subtitle><itunes:summary> cgi asteroid impact to the music of pink floyd\'s the great gig in the sky (dark side of the moon)</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=253338</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/tYfiFzcuBD4/" length="11739219" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI5MSZzaWc9RWpVMzdvcjAwVFdGaFM1MmtGVlNGJTJGcTYwUVklM0QmaWQ9ODcwMDgmY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>MixMaxTV Videomag - Issue 1</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/BQNPKrH3rMo/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/086/clip_86859.jpg"&gt;  Mixing the best bits of the internet for you.  Funny videos, pictures, jokes and cool stuff in one videomagasin&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/BQNPKrH3rMo" height="1" width="1"/&gt;</description>
+            <pubDate>Wed, 14 Jan 2009 22:42:04 +0100</pubDate>
+            <guid isPermaLink="false">192a0db3d5c1af95ff12a2130e95703a</guid>
+            
+            <media:title>MixMaxTV Videomag - Issue 1</media:title>
+            <media:content duration="357" expression="full" fileSize="13398821" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/bNPV9th2VkM/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/086/clip_86859.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>funny, video, humor, fun, jokes, pictures, cool, stuff, gizmo, gadget, mixmaxtv, tech, entertainment</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> Mixing the best bits of the internet for you. Funny videos, pictures, jokes and cool stuff in one videomagasin</itunes:subtitle><itunes:summary> Mixing the best bits of the internet for you. Funny videos, pictures, jokes and cool stuff in one videomagasin</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=251044</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/bNPV9th2VkM/" length="13398821" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI5MSZzaWc9bDZpJTJCbzducWs4ZE9TSWVEUGt1d0ZmT0Zza0klM0QmaWQ9ODY4NTkmY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>American Idol - Blind High Five</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/OPSQTTzCLnc/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/086/clip_86854.jpg"&gt;  HAHAHAHAHA Ryan Seacrest tried to high five a contestant who is visually impaired .... What a dork!&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/OPSQTTzCLnc" height="1" width="1"/&gt;</description>
+            <pubDate>Wed, 14 Jan 2009 12:21:16 +0100</pubDate>
+            <guid isPermaLink="false">f2b304382d1430f6a1822d1d2aa06458</guid>
+            
+            <media:title>American Idol - Blind High Five</media:title>
+            <media:content duration="20" expression="full" fileSize="822977" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/TZ02iufSppA/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/086/clip_86854.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>video, humor, funny, comedy, american, blind, five, high, idol, ryan, seacrest</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> HAHAHAHAHA Ryan Seacrest tried to high five a contestant who is visually impaired .... What a dork!</itunes:subtitle><itunes:summary> HAHAHAHAHA Ryan Seacrest tried to high five a contestant who is visually impaired .... What a dork!</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=251039</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/TZ02iufSppA/" length="822977" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI5MSZzaWc9UWxrdUZSYTBMVHMxTjdSQUtlTW1rMTAxTE9rJTNEJmlkPTg2ODU0JmNoYW5uZWw9Njgx.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>DC Universe Online part 1</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/NOHbbdz9PP8/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/086/clip_86800.jpg"&gt;  DC Universe Online part 1&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/NOHbbdz9PP8" height="1" width="1"/&gt;</description>
+            <pubDate>Tue, 13 Jan 2009 08:54:12 +0100</pubDate>
+            <guid isPermaLink="false">3b8585c61944c0d9ce03013490207a83</guid>
+            
+            <media:title>DC Universe Online part 1</media:title>
+            <media:content duration="270" expression="full" fileSize="93550924" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/tKrou1frapM/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/086/clip_86800.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of DIRECT</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>cd, universe, online, pc, xbox, ps3, games, trailer</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> DC Universe Online part 1</itunes:subtitle><itunes:summary> DC Universe Online part 1</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=249971</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/tKrou1frapM/" length="93550924" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI5MSZzaWc9eUYlMkJvT3hheTMlMkJVRTZSUWliU3JVUGdPVlBzZyUzRCZpZD04NjgwMCZjaGFubmVsPTY4MQ%3D%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>World s Most Amazing Trick Shot</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/kzZXzoakpZA/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/086/clip_86799.jpg"&gt;  I just don\'t understand...&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/kzZXzoakpZA" height="1" width="1"/&gt;</description>
+            <pubDate>Tue, 13 Jan 2009 08:24:40 +0100</pubDate>
+            <guid isPermaLink="false">5d90a02298685b8e2787b68863c8ae2a</guid>
+            
+            <media:title>World s Most Amazing Trick Shot</media:title>
+            <media:content duration="67" expression="full" fileSize="2535309" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/Gi0HJy2LyVM/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/086/clip_86799.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>mixmaxtv, World, s, Most, Amazing, Trick, Shot</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> I just don\'t understand...</itunes:subtitle><itunes:summary> I just don\'t understand...</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=249970</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/Gi0HJy2LyVM/" length="2535309" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI5MiZzaWc9eXBPYU5NUFcyR2VGQUhpVlFuc0x2azdjbExJJTNEJmlkPTg2Nzk5JmNoYW5uZWw9Njgx.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>FunnyPong</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/AwNihjeuMmA/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/086/clip_86580.jpg"&gt;  Funny video about Pong.  This is not just a game&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/AwNihjeuMmA" height="1" width="1"/&gt;</description>
+            <pubDate>Fri, 09 Jan 2009 13:43:54 +0100</pubDate>
+            <guid isPermaLink="false">15fe0366f522bcff978ac40aa59b92ed</guid>
+            
+            <media:title>FunnyPong</media:title>
+            <media:content duration="113" expression="full" fileSize="2966844" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/TUtQgN5nHJ0/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/086/clip_86580.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>funny, humor, silly, animation, cartoon, pong, video, games, mixmaxtv, joke, parody</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> Funny video about Pong. This is not just a game</itunes:subtitle><itunes:summary> Funny video about Pong. This is not just a game</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=245729</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/TUtQgN5nHJ0/" length="2966844" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI5MyZzaWc9Z2ZITEJFM2wlMkJKVW1TQlNPZGVlMnU2WVRSS28lM0QmaWQ9ODY1ODAmY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Burn-e</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/uFAau_YRYaI/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/086/clip_86578.jpg"&gt;  A Pixar short film about a robot called Burn-E based on the movie Wall-E.&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/uFAau_YRYaI" height="1" width="1"/&gt;</description>
+            <pubDate>Fri, 09 Jan 2009 08:34:11 +0100</pubDate>
+            <guid isPermaLink="false">d8171a46f275ec38a5451aad55812962</guid>
+            
+            <media:title>Burn-e</media:title>
+            <media:content duration="456" expression="full" fileSize="18612387" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/k38DxwH1ocQ/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/086/clip_86578.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>video, animation, comedy, funny, humor, mixmaxtv, Burn-e</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> A Pixar short film about a robot called Burn-E based on the movie Wall-E.</itunes:subtitle><itunes:summary> A Pixar short film about a robot called Burn-E based on the movie Wall-E.</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=245727</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/k38DxwH1ocQ/" length="18612387" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI5MyZzaWc9S0t6UDVVOGs3dENqYlFRaGFkJTJCSzRaaU93M00lM0QmaWQ9ODY1NzgmY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Funny Bud Light beer commercial - Good Dog</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/wcm0CT5P4Qk/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/086/clip_86351.jpg"&gt;  Funny Bud Light beer commercial - Good Dog&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/wcm0CT5P4Qk" height="1" width="1"/&gt;</description>
+            <pubDate>Tue, 06 Jan 2009 08:35:47 +0100</pubDate>
+            <guid isPermaLink="false">2404c19883027dc4378b7057227bcf13</guid>
+            
+            <media:title>Funny Bud Light beer commercial - Good Dog</media:title>
+            <media:content duration="31" expression="full" fileSize="1205536" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/mXCdMkleiP0/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/086/clip_86351.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>humor, bud, budweiser, beer, commercial, funny, good, dog, tv, ad</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> Funny Bud Light beer commercial - Good Dog</itunes:subtitle><itunes:summary> Funny Bud Light beer commercial - Good Dog</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=242380</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/mXCdMkleiP0/" length="1205536" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI5MyZzaWc9THBXdWh4aXAzZklPRkRoWXZMNUxwUEVlZHJvJTNEJmlkPTg2MzUxJmNoYW5uZWw9Njgx.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Can You Speak Any English?</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/yjHFBMSJ4ic/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/086/clip_86260.jpg"&gt;  The guy who played Shaun in Shaun of the Dead acts like he can\'t speak english while talking in english to some woman... fairly entertaining!&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/yjHFBMSJ4ic" height="1" width="1"/&gt;</description>
+            <pubDate>Sun, 04 Jan 2009 12:16:36 +0100</pubDate>
+            <guid isPermaLink="false">bfdd5bf8432b8ec6f7e674a9aacf0570</guid>
+            
+            <media:title>Can You Speak Any English?</media:title>
+            <media:content duration="83" expression="full" fileSize="2986244" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/dEc9tWiUCa0/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/086/clip_86260.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>humor, mixmaxtv, Shaun, of, the, Dead, english, funny, comedy</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> The guy who played Shaun in Shaun of the Dead acts like he can\'t speak english while talking in english to some woman... fairly entertaining!</itunes:subtitle><itunes:summary> The guy who played Shaun in Shaun of the Dead acts like he can\'t speak english while talking in english to some woman... fairly entertaining!</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=240266</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/dEc9tWiUCa0/" length="2986244" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI5MyZzaWc9dDhtZzFRJTJGdmtpS0loVjFiN2dNb2FPa3VCYVElM0QmaWQ9ODYyNjAmY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Chad Vader #7 ,&amp;amp;,quot;The Plan,&amp;amp;,quot;</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/qwFs1skrUdI/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/085/clip_85987.jpg"&gt;  CHAD VADER DVDS ARE BACK IN STOCK! Go to http://www.blamesociety.net/dvd.php and get yours before they\'re gone again.Chad and Commander Wickstrom hatch a pla...&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/qwFs1skrUdI" height="1" width="1"/&gt;</description>
+            <pubDate>Wed, 31 Dec 2008 12:11:13 +0100</pubDate>
+            <guid isPermaLink="false">9dc5395d569dfc2680cb52c14c3e3925</guid>
+            
+            <media:title>Chad Vader #7 ,&amp;amp;,quot;The Plan,&amp;amp;,quot;</media:title>
+            <media:content duration="389" expression="full" fileSize="16188517" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/6IvckyX1K7I/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/085/clip_85987.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>short, mixmaxtv, video, humor, chad, vader, star, wars, blame, society, light, saber, comedy, funny, darth, aaron, yonda, matt, sloan, parody, seven, force, unleashed, worse, day, shift, manager, ever, george, lucas, fan, film, award, yoda, spoof, epic, w</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> CHAD VADER DVDS ARE BACK IN STOCK! Go to http://www.blamesociety.net/dvd.php and get yours before they\'re gone again.Chad and Commander Wickstrom hatch a pla...</itunes:subtitle><itunes:summary> CHAD VADER DVDS ARE BACK IN STOCK! Go to http://www.blamesociety.net/dvd.php and get yours before they\'re gone again.Chad and Commander Wickstrom hatch a pla...</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=235808</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/6IvckyX1K7I/" length="16188517" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI5MyZzaWc9b3h5RnglMkJSRTlsWHpTdlZ5TWFabVh5ZFVkdlElM0QmaWQ9ODU5ODcmY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Red vs. Blue Episode 15</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/BWP23fMtQ4Q/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/085/clip_85986.jpg"&gt;  How the Other Half Lives&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/BWP23fMtQ4Q" height="1" width="1"/&gt;</description>
+            <pubDate>Wed, 31 Dec 2008 12:09:38 +0100</pubDate>
+            <guid isPermaLink="false">df2b33ff8cd6487ca6c60303b21a7f85</guid>
+            
+            <media:title>Red vs. Blue Episode 15</media:title>
+            <media:content duration="279" expression="full" fileSize="6747087" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/fqZpKcUuvKk/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/085/clip_85986.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>video, animation, comedy, humor, funny, mixmaxtv, red, vs, blue, rvb, halo, machinima, xbox</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> How the Other Half Lives</itunes:subtitle><itunes:summary> How the Other Half Lives</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=235807</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/fqZpKcUuvKk/" length="6747087" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI5MyZzaWc9MFNPQjdwbTZHRkJTeVdOaXlNaiUyQms5akRiYzAlM0QmaWQ9ODU5ODYmY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>There is a better way...</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/gM3-OG0qn7g/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/085/clip_85902.jpg"&gt;  to cut costs&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/gM3-OG0qn7g" height="1" width="1"/&gt;</description>
+            <pubDate>Mon, 29 Dec 2008 09:10:50 +0100</pubDate>
+            <guid isPermaLink="false">a0e436fbf6607c05dc4deba50eb6fea1</guid>
+            
+            <media:title>There is a better way...</media:title>
+            <media:content duration="18" expression="full" fileSize="670562" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/VlBR68nqn0w/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/085/clip_85902.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>comedy, video, mixmaxtv, vodafone, funny, videos, humor, silly, work, cost, commercial</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> to cut costs</itunes:subtitle><itunes:summary> to cut costs</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=233674</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/VlBR68nqn0w/" length="670562" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI5MyZzaWc9ZHFTOU5NZDJ6VnZER0VxRXg0QW9Sc0ZhRWxRJTNEJmlkPTg1OTAyJmNoYW5uZWw9Njgx.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Awesome God - Hillsong + Michael W. Smith</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/EcdXChnJTiU/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/085/clip_85839.jpg"&gt;  Awesome God - Hillsong + Michael W. Smith&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/EcdXChnJTiU" height="1" width="1"/&gt;</description>
+            <pubDate>Sun, 28 Dec 2008 11:58:41 +0100</pubDate>
+            <guid isPermaLink="false">7c3d6f549b7bd79ed12cf3ba407fd586</guid>
+            
+            <media:title>Awesome God - Hillsong + Michael W. Smith</media:title>
+            <media:content duration="360" expression="full" fileSize="14511223" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/JbnBN7Pit9k/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/085/clip_85839.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>mixmaxtv, music, video, jesus, christian, hillsong, united, darlene, michael, smith</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> Awesome God - Hillsong + Michael W. Smith</itunes:subtitle><itunes:summary> Awesome God - Hillsong + Michael W. Smith</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=232451</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/JbnBN7Pit9k/" length="14511223" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI5MyZzaWc9WWZqMFBEVU51ODlsZWh5VE4lMkZqTDV4bHduejQlM0QmaWQ9ODU4MzkmY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>CES 2009 on ComputerTV - ZCam 2008</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/13aacLu1MY0/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/085/clip_85837.jpg"&gt;  Get ready for CES 2009 with an unreleased clip from 2008 with hostess Nikki Stanzione and the ZCam.  Nikki fights for her honor with no strings attached!  Wa...&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/13aacLu1MY0" height="1" width="1"/&gt;</description>
+            <pubDate>Sun, 28 Dec 2008 11:29:31 +0100</pubDate>
+            <guid isPermaLink="false">7ae5b40a44ee66a433f056b51b55d97c</guid>
+            
+            <media:title>CES 2009 on ComputerTV - ZCam 2008</media:title>
+            <media:content duration="194" expression="full" fileSize="7980634" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/LK1Qr1gJm40/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/085/clip_85837.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>mixmaxtv, ces, 2009, nikki, stanzione, computertv, compusa, tigerdirect, las, vegas</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> Get ready for CES 2009 with an unreleased clip from 2008 with hostess Nikki Stanzione and the ZCam. Nikki fights for her honor with no strings attached! Wa...</itunes:subtitle><itunes:summary> Get ready for CES 2009 with an unreleased clip from 2008 with hostess Nikki Stanzione and the ZCam. Nikki fights for her honor with no strings attached! Wa...</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=232449</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/LK1Qr1gJm40/" length="7980634" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI5MyZzaWc9S01uaW5BJTJGVGNjY0hjSFVFSFBDSEhkWmdwdjglM0QmaWQ9ODU4MzcmY2hhbm5lbD02ODE%3D.flv</feedburner:origEnclosureLink></item>
+        <item>
+            <title>Winter bloopers - Funny!</title>
+            <category>video</category>
+            <link>http://feedproxy.google.com/~r/Animaxmm/~3/hRsH1Pb6vA4/</link>
+            <description>&lt;img src="http://mixmaxtv.feedbeat.com/files/generated/000/000/085/clip_85725.jpg"&gt;  winter fun&lt;img src="http://feeds2.feedburner.com/~r/Animaxmm/~4/hRsH1Pb6vA4" height="1" width="1"/&gt;</description>
+            <pubDate>Fri, 26 Dec 2008 13:20:09 +0100</pubDate>
+            <guid isPermaLink="false">e865b4691fb090ed7ce06d6bfb4ea75c</guid>
+            
+            <media:title>Winter bloopers - Funny!</media:title>
+            <media:content duration="197" expression="full" fileSize="7878012" isDefault="true" type="video/flv" url="http://feedproxy.google.com/~r/Animaxmm/~5/E6J1-0x9YJM/" />
+            <media:thumbnail time="00:00:00.000" url="http://mixmaxtv.feedbeat.com/files/generated/000/000/085/clip_85725.jpg" />
+            <media:text end="00:00:06.000" lang="en" start="00:00:01.000" type="plain">courtesy of youtube</media:text>
+            <media:player url="http://mixmaxtv.feedbeat.com/AniMax/tv/" />
+            <media:category>mixmaxtv, funny, winter, accidents, bloopers, wintersport, skiing, snowboarding, figureskating, blooper</media:category>
+        <itunes:explicit>no</itunes:explicit><itunes:subtitle> winter fun</itunes:subtitle><itunes:summary> winter fun</itunes:summary><itunes:keywords>video</itunes:keywords><feedburner:origLink>http://mixmaxtv.feedbeat.com/AniMax/tv/?id=230325</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/Animaxmm/~5/E6J1-0x9YJM/" length="7878012" type="video/flv" /><feedburner:origEnclosureLink>http://mixmaxtv.feedbeat.com/getvideo/?file=a2V5aWQ9NDc1NTIwMmY5MzViMiZleHA9MjQ4MjIzMTI5NCZzaWc9UUxFM0trcFRFZ0wlMkJiUEtCRHE0a2tVNTUlMkZyYyUzRCZpZD04NTcyNSZjaGFubmVsPTY4MQ%3D%3D.flv</feedburner:origEnclosureLink></item>
+    <media:rating>nonadult</media:rating></channel>
+</rss>
