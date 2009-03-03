@@ -4701,3 +4701,8 @@ ul.searchResults li p {
 .group-list li a {
     font-weight: bold;
 }
+
+.user-search-page {
+    margin: 1px auto;
+    width:700px;
+}
