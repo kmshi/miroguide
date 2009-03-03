@@ -815,7 +815,7 @@ ul.searchResults li ul.rating li.available, ul.searchResults li ul.rating li.sub
     font-size: 9px;
     float: right;
     display: inline;
-    padding: 5px 10px 0;
+    padding: 5px 0 0;
     color: #777;
 }
 

@@ -66,10 +66,10 @@ jQuery.fn.rating = function(){
         if (this.tagName == "FORM")
             div.insertAfter(this);
 
-        function drainFill(){ drain(); fill(this); }
+        function drainFill(){ drain(); fill(this); updateCount(this);}
         function drainReset(){ drain(); reset(); }
         function resetRemove(){ jQuery(this).removeClass('on'); reset();}
-        function drainAdd(){ drain(); jQuery(this).addClass('on'); }
+        function drainAdd(){ drain(); jQuery(this).addClass('on'); updateCount(this);}
 
         function click(){
             ratingValue = ratingIndex = stars.index(this) + 1;
@@ -102,6 +102,13 @@ jQuery.fn.rating = function(){
             cancel.removeClass("on hover");
         }
 
+        function updateCount(elem) {
+            star = jQuery(elem)
+            countDiv = star.parent().parent().children('.count');
+            countDiv.attr('oldHTML', countDiv.html());
+            countDiv.html(star.children('a').attr('title'));
+        }
+
         // Reset the stars to the default index.
         function reset(){
             stars.removeClass("userrating").removeClass("averagerating");
@@ -114,6 +121,9 @@ jQuery.fn.rating = function(){
             if (ratingType == 'userrating' && ratingValue=='0') {
                 cancel.addClass('on');
             }
+            countDiv = stars.parent().parent().children('.count');
+            if (countDiv.attr('oldHTML'))
+                countDiv.html(countDiv.attr('oldHTML'));
         }
     }).filter('form').remove();
 };
