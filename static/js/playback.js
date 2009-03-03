@@ -19,6 +19,17 @@ function supportsMimeType(mimetype) {
     return false;
 }
 
+function playVideo() {
+    if ($("#channelEpisodes .thumb .hd_tag_small").length) {
+        if (!confirm('Are you sure you want to stream this High-Definition video?')) {
+            return;
+        }
+    }
+    videoItem = $(this).parent('.details');
+    download = videoItem.children('a.playback');
+    location.href = download.attr('href');
+}
+
 function setUpItem() {
     videoItem = $(this);
     download = videoItem.children('a.playback');
@@ -26,14 +37,4 @@ function setUpItem() {
     if (supportsMimeType(mimetype)) {
         videoItem.children('.thumb').prepend('<div class="play_vid_overlay"></div>').parent().find('span.thumb').css('cursor', 'pointer').click(playVideo);
     }
-}
-
-function playVideo() {
-    if ($("#channelEpisodes .thumb .hd_tag_small").length) {
-        if (!confirm('Are you sure you want to stream this High-Definition video?'))
-            return;
-    }
-    videoItem = $(this).parent('.details');
-    download = videoItem.children('a.playback');
-    location.href = download.attr('href');
 }

@@ -1,17 +1,20 @@
+/*global infiniteCallback, checkScroll, infiniteLoad */
+
 function infiniteCallback(data, textStatus) {
     // clean out scripts
     data = data.replace(/<script(.|\s)*?\/script>/g, "");
     // just get the body
     newBody = $("<div/>").append(
-        RegExp("<body[^\>]*>([\\s\\w\\W]*)\<\/body\>", "g").exec(data)[1]);
+        (/<body[^>]*>([\\s\\w\\W]*)<\/body>/g).exec(data)[1]);
     results = $('.scrolling', newBody);
     // XXX this doesn't handle the case where there are more shows than feeds
     for (i=0; i < 2; i++) {
         items = results.eq(i).children('li:gt(0)');
         items.find('form.rating').rating();
         items.find('.rating').height(25);
-        if (typeof setUpItem == 'function')
+        if (typeof setUpItem == 'function') {
             items.find('div.details').each(setUpItem);
+        }
         $('.scrolling').eq(i).append(items);
     }
     $('ul.paginator, ul.paginator2').replaceWith(
@@ -24,12 +27,15 @@ function infiniteCallback(data, textStatus) {
 function checkScroll() {
     first = $('ul.scrolling li:last');
     nextpage = $('ul.paginator li.selected + li, ul.paginator2 li.selected + li');
-    if (!nextpage.length) return;
+    if (!nextpage.length) {
+        return;
+    }
     doc = $(document);
     distance = doc.height() - doc.scrollTop() - $(window).height();
     if (distance < nextpage.height() + (first.height() * 5) &&
-        !checkScroll.loading)
+        !checkScroll.loading) {
         infiniteLoad();
+    }
     as = $('.scrolling li > a[name]');
     i = 0;
     while (i < as.length && as[i].offsetTop < $(window).scrollTop()) {
@@ -42,8 +48,9 @@ function checkScroll() {
 }
 
 function infiniteLoad() {
-    if (checkScroll.loading)
+    if (checkScroll.loading) {
         return;
+    }
     nextpage = $('ul.paginator2 li.selected + li, ul.paginator li.selected + li');
     checkScroll.loading = true;
     showLoadIndicator(true);
@@ -51,10 +58,13 @@ function infiniteLoad() {
 }
 
 function checkHash() {
-    if (!location.hash) return;
-    hash = location.hash.substring(3);
-    if (isNaN(parseInt(hash)))
+    if (!location.hash) {
         return;
+    }
+    hash = location.hash.substring(3);
+    if (isNaN(parseInt(hash, 10))) {
+        return;
+    }
     if (!$('a[name=' + hash + ']').length) {
         args = location.search;
         if (!args) {
