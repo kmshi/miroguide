@@ -5,7 +5,7 @@ function infiniteCallback(data, textStatus) {
     data = data.replace(/<script(.|\s)*?\/script>/g, "");
     // just get the body
     newBody = $("<div/>").append(
-        (/<body[^>]*>([\\s\\w\\W]*)<\/body>/g).exec(data)[1]);
+        RegExp("<body[^>]*>([\\s\\w\\W]*)<\/body>", "g").exec(data)[1]);
     results = $('.scrolling', newBody);
     // XXX this doesn't handle the case where there are more shows than feeds
     for (i=0; i < 2; i++) {
