@@ -1,5 +1,6 @@
+/*jslint evil: true */
 /* channelguide.js
- * 
+ *
  * Shared functions used in channel guide
  */
 
@@ -11,7 +12,7 @@ function isMiro() {
 
 function MiroVersion() {
     if (navigator.userAgent.indexOf('Miro') != -1) {
-	return /Miro\/([\d.]+)/.exec(navigator.userAgent)[1];
+	return (/Miro\/([\d.]+)/).exec(navigator.userAgent)[1];
     } else if (top.frames.length == 2 &&
 	       top.frames[1].name == 'miro_guide_frame') {
 	return "1.2";
@@ -22,8 +23,9 @@ function MiroVersion() {
 
 function showLoadIndicator(always) {
     indicator = $("#load-indicator");
-    if (!indicator.length)
+    if (!indicator.length) {
         return;
+    }
     if ((!indicator.queue().length) && always || navigator.userAgent.indexOf('Miro') != -1) {
 	indicator.animate({bottom: 0}, 'fast');
     }
@@ -42,33 +44,39 @@ function makeXMLHttpRequest() {
         } catch (e) {}
         try {
             return new ActiveXObject("Microsoft.XMLHTTP");
-        } catch (e) {}
+        } catch (e2) {}
     }
     return null;
 }
 
 function doAjaxCall(url, callback) {
     var request = makeXMLHttpRequest();
-    if (!request) return false;
+    if (!request) {
+        return false;
+    }
     request.onreadystatechange = function() {
          if (request.readyState == 4) {
             if (request.status == 200) {
                 callback(request);
             }
          }
-    }; 
+    };
     request.open('GET', url, true);
     request.send(null);
     return true;
 }
 
 function ajaxLink(url, id) {
-    var elt = document.getElementById(id);
-    if (!elt) return true;
     function callback(request) {
         elt.innerHTML = request.responseText;
     }
-    if (!doAjaxCall(url, callback)) return true;
+    var elt = document.getElementById(id);
+    if (!elt) {
+        return true;
+    }
+    if (!doAjaxCall(url, callback)) {
+        return true;
+    }
     return false;
 }
 
@@ -78,21 +86,28 @@ function ajaxLink(url, id) {
  * channelguide URL redirects te the subscribe_url.
  */
 function handleSubscriptionLink(channel_guide_url, subscribe_url) {
-    if (isMiro() && MiroVersion() >= "1.5") return true;
+    if (isMiro() && MiroVersion() >= "1.5") {
+        return true;
+    }
     request = makeXMLHttpRequest();
-    if (!request) return true;
+    if (!request) {
+        return true;
+    }
     request.subscribe_url = subscribe_url;
     request.onreadystatechange = function () {
-        if (request.readyState == 2)
-            _redirectToSubscription(request);
-    }
+        if (request.readyState == 2) {
+            window.location.href = request.subscribe_url;
+        }
+    };
     request.open('GET', channel_guide_url, true);
     request.send(null);
 }
 
 function channelAdd(url, redirect, name, event) {
     var xhr = makeXMLHttpRequest();
-    if (!xhr) return true;
+    if (!xhr) {
+        return true;
+    }
     xhr.onreadystatechange = function() {
         if (xhr.readyState > 1) {
             display = $("<div class='added_channel'>" + name + " added to your Miro sidebar!</div>");
@@ -114,9 +129,6 @@ function channelAdd(url, redirect, name, event) {
     xhr.send(null);
     return false;
 }
-function _redirectToSubscription(request) {
-    window.location.href = request.subscribe_url;
-}
 
 function handleFormLink(url) {
     showLoadIndicator();
@@ -126,8 +138,9 @@ function handleFormLink(url) {
 
 function searchFocus() {
     searchInput = $(this);
-    if (searchInput.hasClass('headSearch'))
+    if (searchInput.hasClass('headSearch')) {
         searchInput.removeClass('headSearch').val('');
+    }
 }
 
 function searchBlur() {
@@ -157,6 +170,20 @@ function showHelpText(help, event) {
     $("body").append(display);
 }
 
+function showNewSubmitForm(data, textStatus) {
+    /* form_data here refers to the new html code that we should *
+       insert into the hovering box */
+    form_data = $('div.top, form[method=post]', data);
+    if (data == "SUBMIT SUCCESS") {
+        /* this is basically a redirect */
+        window.location.href = '/submit/after';
+        return false;
+    }
+    /* form_data.find('h2').remove(); */
+    $('#hoverMenuSubmit').empty().append(form_data);
+    $('#hoverMenuSubmit form').ajaxForm(showNewSubmitForm);
+}
+
 function submitAChannel(submitLink) {
     url = submitLink.attr('href');
     hoverMenuSubmit = $('<div id="hoverMenuSubmit"></div>');
@@ -174,7 +201,7 @@ function inBounds(val, min, length) {
 
 function isWithin(event, obj)  {
     return (inBounds(event.clientX, obj.offsetLeft, obj.offsetWidth) &&
-            inBounds(event.clientY, obj.offsetTop, obj.offsetHeight))
+            inBounds(event.clientY, obj.offsetTop, obj.offsetHeight));
 }
 
 function showMenu(el, menu, event) {
@@ -198,21 +225,15 @@ function hideMenu(el, menu, event) {
     return false;
 }
 
-function showNewSubmitForm(data, textStatus) {
-    /* form_data here refers to the new html code that we should *
-       insert into the hovering box */
-    form_data = $('div.top, form[method=post]', data)
-    if (data == "SUBMIT SUCCESS") {
-        /* this is basically a redirect */
-        window.location.href = '/submit/after';
-        return false;
-    }
-    /* form_data.find('h2').remove(); */
-    $('#hoverMenuSubmit').empty().append(form_data);
-    $('#hoverMenuSubmit form').ajaxForm(showNewSubmitForm);
-}
-
 var languageTimeout = null;
+
+function languageStop() {
+    if (!languageTimeout) {
+        return;
+    }
+    clearTimeout(languageTimeout);
+    languageTimeout = null;
+}
 
 function languageUp() {
     showMenu('hoverMenuLanguage', 'language');
@@ -228,31 +249,6 @@ function languageDown() {
     ul.scrollTop(ul.scrollTop() + 30);
     languageStop();
     languageTimeout = setTimeout(languageDown, 50);
-}
-
-function languageStop() {
-    if (!languageTimeout)
-        return;
-    clearTimeout(languageTimeout);
-    languageTimeout = null;
-}
-function languageUpdate() {
-    return;
-    li = $("#hoverMenuLanguage ul:last li");
-    top = parseInt(li.css('top'));
-    count = li.length;
-    up = $("#hoverMenuLanguage #upButton");
-    down = $("#hoverMenuLanguage #downButton");
-    if (top < 0) {
-        up.css('cursor', 'pointer');
-    } else {
-        up.css('cursor', 'inherit');
-    }
-    if (count * -30 + 300 < top) {
-        down.css('cursor', 'pointer');
-    } else {
-        down.css('cursor', 'inherit');
-    }
 }
 
 function add_corners() {
