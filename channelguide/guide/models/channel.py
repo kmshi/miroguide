@@ -7,6 +7,7 @@ import cgi
 import feedparser
 import logging
 import time
+import operator
 
 from django.utils.translation import ngettext
 
@@ -300,12 +301,14 @@ class Channel(Record, Thumbnailable):
         try:
             if feedparser_input is None:
                 parsed = self.download_feed()
-                if parsed is None and self.state != Channel.SUSPENDED:
-                    self._check_archived(connection)
-                return
+                if parsed is None:
+                    if self.state != Channel.SUSPENDED:
+                        self._check_archived(connection)
+                    return
             else:
                 parsed = feedparser.parse(feedparser_input)
         except:
+            raise
             logging.exception("ERROR parsing %s" % self.url)
         else:
             items = []
@@ -334,13 +337,21 @@ class Channel(Record, Thumbnailable):
                 self.state = Channel.NEW
                 self.last_moderated_by_id = None
             else:
-                last_action = self.moderator_actions[-2]
-                self.state = last_action.action
-                self.last_moderated_by_id = last_action.user_id
-                if self.state == Channel.APPROVED:
-                    self.approved_at = last_action.timestamp
-                ModeratorAction(last_action.user, self,
-                                last_action.action).save(connection)
+                moderator_actions = sorted(self.moderator_actions, key=operator.attrgetter('timestamp'),
+                                           reverse=True)
+                for last_action in moderator_actions:
+                    if last_action.action != Channel.SUSPENDED:
+                        break
+                    else:
+                        self.moderator_actions.remove_record(connection, last_action)
+                if last_action.action != Channel.SUSPENDED:
+                    self.state = last_action.action
+                    self.last_moderated_by_id = last_action.user_id
+                    if self.state == Channel.APPROVED:
+                        self.approved_at = last_action.timestamp
+                else:
+                    self.state = Channel.NEW
+                    self.last_moderated_by_id = None
             self.save(connection)
         items = [item for item in self.items if item.date is not None]
         if not items:

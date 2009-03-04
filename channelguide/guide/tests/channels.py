@@ -10,7 +10,7 @@ from django.template import loader
 
 from channelguide import util, manage, cache
 from channelguide.guide.models import (Channel, Category, Tag, Item, User,
-        Language, TagMap, AddedChannel)
+        Language, TagMap, AddedChannel, ModeratorAction)
 from channelguide.testframework import TestCase
 
 def test_data_path(filename):
@@ -294,6 +294,24 @@ class ChannelItemTest(ChannelTestBase):
                 '/vlog/archives/2006/12/rb_06_dec_13.html')
         self.assertEquals(self.channel.state, 'N')
 
+    def test_parse_url(self):
+        self.channel = self.make_channel(keep_download=True)
+        self.channel.url = test_data_path('feed.xml') # feedparser doesn't care
+                                                      # it's not a URL
+        self.channel.update_items(self.connection)
+        self.check_item_titles('rb_06_dec_13', 'rb_06_dec_12', 'rb_06_dec_11',
+                'rb_06_dec_08', 'rb_06_dec_07')
+        date = self.channel.items[0].date
+        self.assertEquals(date.year, 2006)
+        self.assertEquals(date.month, 12)
+        self.assertEquals(date.day, 13)
+        self.assertEquals(date.hour, 13)
+        self.assertEquals(date.minute, 44)
+        self.assertEquals(self.channel.items[0].guid,
+                'http://www.rocketboom.com'
+                '/vlog/archives/2006/12/rb_06_dec_13.html')
+        self.assertEquals(self.channel.state, 'N')
+
     def test_duplicates_not_replaced(self):
         """Test that when we update a feed, we only replace thumbnails if
         the enclosure URL is different and the GUID is different.
@@ -425,6 +443,7 @@ class ChannelItemTest(ChannelTestBase):
         self.channel.change_state(self.ralph, Channel.APPROVED, self.connection)
         self.update_channel()
         old_approved_at = self.channel.approved_at
+        time.sleep(1)
         self.channel.update_items(self.connection,
                                   feedparser_input=open(test_data_path('badfeed.html')))
         self.update_channel()
@@ -473,6 +492,63 @@ class ChannelItemTest(ChannelTestBase):
         self.channel.join('moderator_actions').execute(self.connection)
         self.assertEquals(len(self.channel.moderator_actions), 1)
         self.assertEquals(self.channel.moderator_actions[-1].action, Channel.SUSPENDED)
+
+    def test_suspend_only_once_when_download_returns_None(self):
+        """
+        A second update_items() call (say, the next evening) should not result
+        in a second moderator action, even when download_feed() returns None
+        """
+        self.channel.update_items(self.connection,
+                                  feedparser_input=open(test_data_path('badfeed.html')))
+        download_feed = self.channel.download_feed
+        self.channel.update_items(self.connection)
+        self.channel = self.refresh_record(self.channel)
+        self.channel.join('moderator_actions').execute(self.connection)
+        self.assertEquals(len(self.channel.moderator_actions), 1)
+        self.assertEquals(self.channel.moderator_actions[-1].action, Channel.SUSPENDED)
+
+    def test_clean_out_old_suspensions_new(self):
+        """
+        If, due to a bug, there's a long line of suspensions on a good feed,
+        they shouldn't be counted when going back to the previous state.
+        """
+        miroguide = User.query(username='miroguide').get(self.connection)
+        for i in range(5):
+            ModeratorAction(miroguide, self.channel, 'S').save(self.connection)
+        self.update_channel()
+        self.channel.update_items(self.connection,
+                                  feedparser_input=open(test_data_path('badfeed.html')))
+        self.channel.update_items(self.connection,
+                                  feedparser_input=open(test_data_path('feed.xml')))
+        self.update_channel()
+        self.channel.join('moderator_actions').execute(self.connection)
+        self.assertEquals(self.channel.state, 'N')
+        self.assertEquals(self.channel.last_moderated_by_id, None)
+        self.assertEquals(len(self.channel.moderator_actions), 0)
+
+
+    def test_clean_out_old_suspensions_approved(self):
+        """
+        If, due to a bug, there's a long line of suspensions on a good feed,
+        they shouldn't be counted when going back to the previous state.
+        """
+        self.channel.change_state(self.ralph, Channel.DONT_KNOW, self.connection)
+        time.sleep(1)
+        self.channel.change_state(self.ralph, Channel.APPROVED, self.connection)
+        time.sleep(1) # so that the suspensions have a different timestamp
+        miroguide = User.query(username='miroguide').get(self.connection)
+        for i in range(5):
+            ModeratorAction(miroguide, self.channel, 'S').save(self.connection)
+        self.update_channel()
+        self.channel.update_items(self.connection,
+                                  feedparser_input=open(test_data_path('badfeed.html')))
+        self.channel.update_items(self.connection,
+                                  feedparser_input=open(test_data_path('feed.xml')))
+        self.update_channel()
+        self.channel.join('moderator_actions').execute(self.connection)
+        self.assertEquals(self.channel.state, 'A')
+        self.assertEquals(self.channel.last_moderated_by_id, self.ralph.id)
+        self.assertEquals(len(self.channel.moderator_actions), 2)
 
     def test_good_feeds_not_suspended(self):
         """
