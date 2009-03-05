@@ -63,7 +63,10 @@ class NotificationMiddleware(object):
     """
 
     def process_request(self, request):
-        request.notifications = []
+        if hasattr(request, 'session') and 'notifications' in request.session:
+            request.notifications = request.session.pop('notifications')
+        else:
+            request.notifications = []
         request.add_notification = (
                 lambda t, l: request.notifications.append((t, l)))
 

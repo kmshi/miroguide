@@ -312,8 +312,8 @@ class SubmitChannelForm(Form):
     website_url = WideURLField(label=_('Website URL'), max_length=200)
     description = WideCharField(widget=forms.Textarea,
             label=_("Full Description"))
-    publisher = forms.EmailField(
-        label=_("Publisher E-mail"), max_length=100,
+    publisher = forms.CharField(
+        label=_("Publisher"), max_length=100,
         required=False)
     tags = TagField(tag_limit=75, required=False,
             label=_('Tags'),

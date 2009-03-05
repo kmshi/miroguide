@@ -80,8 +80,14 @@ class CGSessionWrapper(object):
         return self._session.get(key, default)
 
     def pop(self, key, *args):
+        self.modified = True
         return self._session.pop(key, *args)
 
+    def add_notification(self, title, body):
+        if 'notifications' not in self:
+            self['notifications'] = []
+        self['notifications'].append((title, body))
+        self.modified = True
 
 class SessionMiddleware(object):
     """Adds a session object to each request."""
