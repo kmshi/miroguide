@@ -374,6 +374,17 @@ class ChannelItemTest(ChannelTestBase):
         self.assertEquals(i.url, 'http://www.getmiro.com/video.flv')
         self.assertEquals(i.mime_type, 'video/unknown')
 
+    def test_media_description(self):
+        """
+        'media_description' should be tried as a fallback if 'description'
+        isn't available.
+        """
+        entry = { 'title': 'title',
+                  'media_description': 'description',
+                  'enclosures': [{'href': 'http://www.getmiro.com/video.flv'}]}
+        i = Item.from_feedparser_entry(entry)
+        self.assertEquals(i.description, 'description')
+
     def test_thumbnails(self):
         width, height = Item.THUMBNAIL_SIZES[0]
         dir = '%dx%d' % (width, height)

@@ -112,26 +112,20 @@ class Item(Record, Thumbnailable):
             else:
                 rv.url = entry['link']
                 rv.mime_type = filetypes.guessMimeType(rv.url)
-            try:
-                if enclosure is None:
-                    raise KeyError
+            if enclosure is not None and 'text' in enclosure:
                 rv.description = feedutil.to_utf8(enclosure['text'])
-            except KeyError:
-                try:
-                    rv.description = feedutil.to_utf8(entry['description'])
-                except AttributeError:
-                    # this is a weird hack, for some reason if we use
-                    # entry['description'] and it isn't present a feedparser
-                    # raises a TypeError instead of a KeyError
-                    raise KeyError('description')
-                else:
-                    if entry.get('link', '').find('youtube.com') != -1:
-                        match = re.search(r'<div><span>(.*?)</span></div>',
-                                                   rv.description, re.S)
-                        if match:
-                            rv.description = feedutil.to_utf8(
-                                saxutils.unescape(match.group(1)))
-        except KeyError, e:
+            elif 'description' in entry:
+                rv.description = feedutil.to_utf8(entry['description'])
+            elif 'media_description' in entry:
+                rv.description = feedutil.to_utf8(entry['media_description'])
+            elif entry.get('link', '').find('youtube.com') != -1:
+                match = re.search(r'<div><span>(.*?)</span></div>',
+                                  rv.description, re.S)
+                if match:
+                    rv.description = feedutil.to_utf8(
+                        saxutils.unescape(match.group(1)))
+            rv.description # this will raise an AttributeError if it wasn't set
+        except (AttributeError, KeyError), e:
             raise exceptions.EntryMissingDataError(e.args[0])
         if enclosure is not None:
             try:
