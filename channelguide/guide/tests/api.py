@@ -638,8 +638,8 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         their rating.
         """
         new = self.make_channel(self.owner, state='A')
-        for i in range(3):
-            # make some fake ratings so that all the channels have 3 ratings
+        for i in range(5):
+            # make some fake ratings so that all the channels have 5 ratings
             fake = self.make_user('fake%i' % i)
             fake.approved = True
             fake.save(self.connection)
