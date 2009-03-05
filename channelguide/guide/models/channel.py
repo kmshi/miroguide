@@ -2,6 +2,7 @@
 # See LICENSE for details.
 
 from datetime import datetime, timedelta
+from urllib2 import URLError
 from glob import glob
 import cgi
 import feedparser
@@ -302,15 +303,18 @@ class Channel(Record, Thumbnailable):
             if feedparser_input is None:
                 parsed = self.download_feed()
                 if parsed is None:
-                    if self.state != Channel.SUSPENDED:
+                    if self.items or self.state != Channel.SUSPENDED:
                         self._check_archived(connection)
                     return
             else:
                 parsed = feedparser.parse(feedparser_input)
         except:
-            raise
             logging.exception("ERROR parsing %s" % self.url)
         else:
+            if parsed.bozo and isinstance(parsed.bozo_exception, URLError):
+                # don't do anything for URLErrors
+                # XXX maybe try again?
+                return
             items = []
             for entry in parsed.entries:
                 try:
@@ -337,7 +341,7 @@ class Channel(Record, Thumbnailable):
                 self.state = Channel.NEW
                 self.last_moderated_by_id = None
             else:
-                moderator_actions = sorted(self.moderator_actions, key=operator.attrgetter('timestamp'),
+                moderator_actions = sorted(self.moderator_actions, key=operator.attrgetter('id'),
                                            reverse=True)
                 for last_action in moderator_actions:
                     if last_action.action != Channel.SUSPENDED:
