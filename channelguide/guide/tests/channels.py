@@ -4,6 +4,7 @@
 from datetime import datetime, timedelta
 import os
 import time
+from urllib2 import URLError
 
 from django.conf import settings
 from django.template import loader
@@ -443,7 +444,6 @@ class ChannelItemTest(ChannelTestBase):
         self.channel.change_state(self.ralph, Channel.APPROVED, self.connection)
         self.update_channel()
         old_approved_at = self.channel.approved_at
-        time.sleep(1)
         self.channel.update_items(self.connection,
                                   feedparser_input=open(test_data_path('badfeed.html')))
         self.update_channel()
@@ -533,9 +533,7 @@ class ChannelItemTest(ChannelTestBase):
         they shouldn't be counted when going back to the previous state.
         """
         self.channel.change_state(self.ralph, Channel.DONT_KNOW, self.connection)
-        time.sleep(1)
         self.channel.change_state(self.ralph, Channel.APPROVED, self.connection)
-        time.sleep(1) # so that the suspensions have a different timestamp
         miroguide = User.query(username='miroguide').get(self.connection)
         for i in range(5):
             ModeratorAction(miroguide, self.channel, 'S').save(self.connection)
@@ -549,6 +547,31 @@ class ChannelItemTest(ChannelTestBase):
         self.assertEquals(self.channel.state, 'A')
         self.assertEquals(self.channel.last_moderated_by_id, self.ralph.id)
         self.assertEquals(len(self.channel.moderator_actions), 2)
+
+    def test_unmodified_suspended_with_items_are_unsuspended(self):
+        """
+        """
+        self.channel.change_state(self.ralph, Channel.APPROVED, self.connection)
+        self.channel.update_items(self.connection,
+                                  feedparser_input=open(test_data_path('feed.xml')))
+        self.update_channel()
+        self.channel.change_state(self.ralph, Channel.SUSPENDED, self.connection)
+        self.channel.download_feed = lambda: None
+        self.channel.update_items(self.connection)
+        self.assertEquals(self.channel.state, Channel.APPROVED)
+
+    def test_URLError_does_not_cause_suspension(self):
+        """
+        An error on the Miroguide end (a URLError) shouldn't cause the channel
+        to be suspended.
+        """
+        class MockFile:
+            def read(self):
+                raise URLError('error opening URL')
+
+        self.channel.update_items(self.connection,
+                                  feedparser_input=MockFile())
+        self.assertEquals(self.channel.state, Channel.NEW)
 
     def test_good_feeds_not_suspended(self):
         """
