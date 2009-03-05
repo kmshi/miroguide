@@ -271,14 +271,6 @@ class ChannelItemTest(ChannelTestBase):
         for i in range(len(correct_titles)):
             self.assertEquals(self.channel.items[i].name, correct_titles[i])
 
-    def update_channel(self):
-        """
-        Refresh the default channel and rejoin the items.  Useful for
-        refreshing before update_items().
-        """
-        self.channel = self.refresh_record(self.channel)
-        self.channel.join('items').execute(self.connection)
-
     def test_parse(self):
         self.channel.update_items(self.connection,
                 feedparser_input=open(test_data_path('feed.xml')))
@@ -414,6 +406,18 @@ class ChannelItemTest(ChannelTestBase):
         self.channel.update_items(self.connection,
                 feedparser_input=open(test_data_path('feed.xml')))
         check_count(5)
+
+
+class ChannelSuspensionTest(ChannelTestBase):
+
+    def update_channel(self):
+        """
+        Refresh the default channel and rejoin the items.  Useful for
+        refreshing before update_items().
+        """
+        self.channel = self.refresh_record(self.channel)
+        self.channel.join('items').execute(self.connection)
+
 
     def test_suspending_invalid_feed(self):
         """
