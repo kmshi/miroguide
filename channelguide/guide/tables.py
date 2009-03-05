@@ -255,6 +255,11 @@ SELECT COUNT(*)
 FROM cg_channel_item
 WHERE cg_channel_item.channel_id=#table#.id""")
 
+generated_ratings.add_subquery_column('bayes', """\
+((count * average) +
+(5 * (SELECT AVG(average) FROM cg_channel_generated_ratings))) /
+(count + 5)""")
+
 def make_subscription_count(name, timeline=None):
     if timeline is None:
         column = 'subscription_count_total'

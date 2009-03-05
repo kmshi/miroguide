@@ -100,8 +100,9 @@ def get_channels_query(request, filter, value, sort=None,
         query.order_by(query.joins['stats'].c.subscription_count_today, desc=desc)
     elif sort == 'rating':
         query.join('rating')
-        query.where(query.joins['rating'].c.count > 3)
-        query.order_by(query.joins['rating'].c.average, desc=desc)
+        query.joins['rating'].load('bayes')
+        query.where(query.joins['rating'].c.count > 5)
+        query.order_by(query.joins['rating'].c.bayes, desc=desc)
     else:
         raise ValueError('unknown sort type: %r' % sort)
     if filter != 'language' and request.user.is_authenticated() and \
