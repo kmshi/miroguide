@@ -1,8 +1,9 @@
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
-import re 
+import re
 
+from django.core import mail
 from django.conf import settings
 
 from channelguide import util
@@ -73,17 +74,17 @@ class AccountTest(TestCase):
         data = {'email': user.email}
         response = self.post_data("/accounts/forgot-password", data)
         regex = re.compile(r'/accounts/change-password\?token=(\w+)')
-        token = regex.search(self.emails[0]['body']).group(1)
+        token = regex.search(mail.outbox[0].body).group(1)
         data = {'token': token}
         page =  self.get_page('/accounts/change-password', data=data)
 
         data = {'password': 'newpass', 'password2': 'badmatch'}
-        page = self.post_data('/accounts/change-password/%d' % user.id, 
+        page = self.post_data('/accounts/change-password/%d' % user.id,
                 data=data)
         data = {'password': 'newpass', 'password2': 'newpass'}
         self.post_data('/accounts/change-password/%d' % user.id, data=data)
         user_check = User.get(self.connection, user.id)
-        self.assertEquals(user_check.hashed_password, 
+        self.assertEquals(user_check.hashed_password,
                 util.hash_string('newpass'))
 
     def test_user_starts_unapproved(self):
@@ -103,9 +104,9 @@ class AccountTest(TestCase):
         self.check_confirmation_email(user)
 
     def check_confirmation_email(self, user):
-        email = self.emails[-1]
-        self.assertEquals(email['title'], 'Approve your Miro Guide account')
-        self.assertEquals(email['recipient_list'], ['mike@mike.com'])
+        email = mail.outbox[-1]
+        self.assertEquals(email.subject, 'Approve your Miro Guide account')
+        self.assertEquals(email.recipients(), ['mike@mike.com'])
         m = re.match("""
 You have requested a new user account on Miro Guide and you specified
 this address \((.*?)\) as your e-mail address.
@@ -119,8 +120,8 @@ Your ratings will show up, but won't count towards the average until
 you use this confirmation link.
 
 Thanks,
-The Miro Guide""", email['body'])
-        self.assert_(m, 'Email does not match:\n%s' % email['body'])
+The Miro Guide""", email.body)
+        self.assert_(m, 'Email does not match:\n%s' % email.body)
         self.assertEquals(m.groups()[0], 'mike@mike.com')
         self.assertEquals(m.groups()[1],
                 '%saccounts/confirm/%s/%s' % (settings.BASE_URL_FULL,
@@ -159,7 +160,7 @@ The Miro Guide""", email['body'])
         user = response.context[0]['request'].user
         parts = user.generate_confirmation_url()[len(settings.BASE_URL_FULL)-1:].split('/')
         url = '/'.join(parts[:-1]) + '/resend'
-        self.emails = []
+        mail.outbox = []
         response = self.get_page(url)
         self.check_confirmation_email(user)
 
@@ -188,10 +189,10 @@ class ModerateUserTest(TestCase):
         self.login(self.adrian)
         response = self.get_page("/accounts/search", data={'query': 'yahoo'})
         self.assertLoginRedirect(response)
-        response = self.post_data("/accounts/%d" % self.bob.id, 
+        response = self.post_data("/accounts/%d" % self.bob.id,
                 {'action': 'promote'})
         self.assertLoginRedirect(response)
-        response = self.post_data("/accounts/%d" % self.bob.id, 
+        response = self.post_data("/accounts/%d" % self.bob.id,
                 {'action': 'demote'})
         self.assertLoginRedirect(response)
 

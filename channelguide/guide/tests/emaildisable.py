@@ -1,6 +1,7 @@
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
+from django.core import mail
 from channelguide.guide.models import User, ModeratorPost
 from channelguide.testframework import TestCase
 
@@ -27,6 +28,6 @@ class EmailDisableTest(TestCase):
         note = ModeratorPost(self.bob, 'hi', 'body')
         note.send_email(self.connection, True)
         self.check_email_list(self.bob, self.brian)
-        self.emails = []
+        mail.outbox = []
         note.send_email(self.connection, False)
         self.check_email_list(self.brian)

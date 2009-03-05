@@ -6,6 +6,7 @@ import os
 import time
 from urllib2 import URLError
 
+from django.core import mail
 from django.conf import settings
 from django.template import loader
 
@@ -119,8 +120,8 @@ class ChannelModelTest(ChannelTestBase):
     def test_approve_email(self):
         self.channel.change_state(self.ralph, Channel.APPROVED,
                 self.connection)
-        self.assertEquals(len(self.emails), 1)
-        self.assertEquals(self.emails[0]['recipient_list'],
+        self.assertEquals(len(mail.outbox), 1)
+        self.assertEquals(mail.outbox[0].recipients(),
                 [self.channel.owner.email])
 
     def test_approval_queue(self):
@@ -472,7 +473,7 @@ class ChannelSuspensionTest(ChannelTestBase):
         self.channel.join('moderator_actions').execute(self.connection)
         self.assertEquals(self.channel.moderator_actions[-1].user_id, self.ralph.id)
         self.assertEquals(self.channel.moderator_actions[-1].action, Channel.APPROVED)
-        self.assertEquals(len(self.emails), 1) # one for the first approval
+        self.assertEquals(len(mail.outbox), 1) # one for the first approval
 
     def test_suspend_is_logged_invalid_feed(self):
         """
@@ -1000,7 +1001,7 @@ class ModerateChannelTest():
             'Approve'})
         self.check_logging(warnings=1)
         self.resume_logging()
-        self.assertEquals(len(self.emails), 0)
+        self.assertEquals(len(mail.outbox), 0)
 
     def test_reject(self):
         self.login('joe')
@@ -1008,14 +1009,14 @@ class ModerateChannelTest():
             self.channel.state = Channel.NEW
             self.save_to_db(self.channel)
             self.connection.commit()
-            starting_email_count = len(self.emails)
+            starting_email_count = len(mail.outbox)
             before = self.refresh_record(self.channel, 'notes')
             url = self.channel.get_url()
             self.post_data(url, {'action': 'standard-reject', 'submit': action})
             after = self.refresh_record(self.channel, 'notes')
             self.assertEquals(after.state, Channel.REJECTED)
             self.assertEquals(len(after.notes), len(before.notes) + 1)
-            self.assertEquals(len(self.emails), starting_email_count + 1)
+            self.assertEquals(len(mail.outbox), starting_email_count + 1)
         check_rejection_button('Broken')
         check_rejection_button('Copyrighted')
         check_rejection_button('Explicit')
@@ -1031,7 +1032,7 @@ class ModerateChannelTest():
         self.assertEquals(updated.state, Channel.REJECTED)
         self.assertEquals(len(updated.notes), 1)
         self.assertEquals(updated.notes[0].body, body)
-        self.assertEquals(len(self.emails), 1)
+        self.assertEquals(len(mail.outbox), 1)
 
     def test_custom_reject_needs_body(self):
         self.login('joe')
@@ -1052,7 +1053,7 @@ class ModerateChannelTest():
         self.assertEquals(updated.state, Channel.APPROVED)
         self.assertEquals(updated.featured_queue.state,
                 updated.featured_queue.IN_QUEUE)
-        self.assertEquals(len(self.emails), 2)
+        self.assertEquals(len(mail.outbox), 2)
 
     def test_feature_email(self):
         self.login('supermod')
@@ -1063,7 +1064,7 @@ class ModerateChannelTest():
         self.assertEquals(updated.state, Channel.NEW)
         self.assertEquals(updated.featured_queue.state,
                 updated.featured_queue.IN_QUEUE)
-        self.assertEquals(len(self.emails), 1)
+        self.assertEquals(len(mail.outbox), 1)
 
 class ChannelSearchTest(ChannelTestBase):
     def setUp(self):
