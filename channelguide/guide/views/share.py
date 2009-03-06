@@ -12,7 +12,7 @@ import feedparser
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.core.paginator import Paginator
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponse
 from django.template import loader, Context
 from django.utils.translation import gettext as _
 
@@ -162,6 +162,49 @@ def get_channels_and_items(feed_url, connection):
 
     return channel, items
 
+def get_item(connection, file_url, channel, channel_items, item_name):
+    item = next = previous = None
+    # see if we have that item in the feed
+    ## if it's a fake feed check the full list of items
+    if isinstance(channel, FakeChannel):
+        i = 0
+        if channel_items:
+            for this_item in channel_items:
+                if this_item.url == file_url:
+                    item = this_item
+                    break
+                i += 1
+        if item:
+            if i != 0:
+                previous = channel_items[i - 1]
+            if len(channel_items) != i + 1:
+                next = channel_items[i + 1]
+
+    ## if it's a real feed do a query
+    elif channel is not None:
+        # do a query for this item
+        item_query = Item.query(channel_id=channel.id, url=file_url)
+        item_query = item_query.join('channel')
+        item_query = item_query.order_by('date', desc=True).limit(1)
+        items = item_query.execute(connection)
+        if items:
+            item = items[0]
+
+    ## if we don't have an item at this point, we need to generate
+    ## a fake one.  It won't have much useful info though...
+    if item is None:
+        if not item_name:
+            subpath = urlparse.urlsplit(file_url)[3]
+            if subpath:
+                item_name = subpath.split('/')[-1]
+
+            else:
+                item_name = file_url
+
+        item = FakeItem(file_url, item_name)
+
+    return previous, item, next
+
 def share_feed(request):
     try:
         feed_url = str(request.GET['feed_url'])
@@ -174,7 +217,7 @@ def share_feed(request):
         return HttpResponse("This feed appears to be dead.")
 
     if isinstance(channel, Channel):
-        return HttpResponseRedirect('/feeds/%s?share=true' % channel.id)
+        return util.redirect(channel.get_absolute_url(), {'share': 'true'})
 
     share_url = urlparse.urljoin(
         settings.BASE_URL_FULL,
@@ -222,6 +265,7 @@ def share_item(request):
     webpage_url = request.GET.get('webpage_url')
     item_name = request.GET.get('item_name')
 
+    channel = None
     item = None
     next = None
     previous = None
@@ -237,50 +281,14 @@ def share_item(request):
         except FeedFetchingError:
             channel = None
             feed_url = None
+    if channel is None:
+        channel_items = []
 
-        # see if we have that item in the feed
-        ## if it's a fake feed check the full list of items
-        if isinstance(channel, FakeChannel):
-            i = 0
-            if channel_items:
-                for this_item in channel_items:
-                    if this_item.url == file_url:
-                        item = this_item
-                        break
-                    i += 1
-            if item:
-                if i != 0:
-                    previous = channel_items[i - 1]
-                if len(channel_items) != i + 1:
-                    next = channel_items[i + 1]
-
-        ## if it's a real feed do a query
-        elif channel is not None:
-            # do a query for this item
-            item_query = Item.query(channel_id=channel.id, url=file_url)
-            item_query = item_query.join('channel')
-            item_query = item_query.order_by('date', desc=True).limit(1)
-            items = item_query.execute(request.connection)
-            if items:
-                item = items[0]
-    else:
-        channel = None
+    previous, item, next = get_item(request.connection, file_url, channel,
+                                    channel_items, item_name)
 
     if isinstance(item, Item):
-        return HttpResponseRedirect('/items/%s?share=true' % item.id)
-
-    ## if we don't have an item at this point, we need to generate
-    ## a fake one.  It won't have much useful info though...
-    if not item:
-        if not item_name:
-            subpath = urlparse.urlsplit(file_url)[3]
-            if subpath:
-                item_name = subpath.split('/')[-1]
-
-            else:
-                item_name = file_url
-
-        item = FakeItem(file_url, item_name)
+        return util.redirect(item.get_absolute_url(), {'share': 'true'})
 
     # get the sharing info
     get_params = {'file_url': file_url, 'share': 'false'}
@@ -341,27 +349,45 @@ def email(request):
 
     # construct the email to send out from a template
     if share_form.cleaned_data['share_type'] == 'feed':
-        title = _(u'%(from_email)s wants to share a video feed with you') % {
+        subject = _(u'%(from_email)s wants to share a video feed with you') % {
             'from_email': share_form.cleaned_data['from_email']}
+        try:
+            channel, channel_items = get_channels_and_items(share_form.cleaned_data['feed_url'], request.connection)
+        except FeedFetchingError:
+            title = description = None
+        else:
+            title = channel.name
+            description = channel.description
     else:
-        title = _(u'%(from_email)s wants to share a video with you') % {
+        subject = _(u'%(from_email)s wants to share a video with you') % {
             'from_email': share_form.cleaned_data['from_email']}
+        if share_form.cleaned_data['feed_url']:
+            try:
+                channel, channel_items = get_channels_and_items(share_form.cleaned_data['feed_url'], request.connection)
+            except FeedFetchingError:
+                channel = channel_items = None
+        else:
+            channel = channel_items = None
+        previous, item, next = get_item(request.connection, share_form.cleaned_data['file_url'],
+                                            channel, channel_items, share_form.cleaned_data['file_url'])
+        title = item.name
+        description = item.description
 
     context = share_form.cleaned_data
-    
+    context.update({'title': title,
+                    'description': description})
+
     email_template = loader.get_template('share-email.txt')
-    email_body = email_template.render(Context(share_form.cleaned_data))
+    email_body = email_template.render(Context(context))
 
-    message = EmailMultiAlternatives(
-        title, email_body, recipients=share_form.cleaned_data['recipients'])
+    #html_template = loader.get_template('share-email.html')
+    #html_body = html_template.render(Context(share_form.cleaned_data))
 
-    html_template = loader.get_template('share-email.html')
-    message.attach_alternative(html_template.render(
-            Context(share_form.cleaned_data)), 'text/html')
-    message.attach(_image('miro_sheeps.jpg'))
-    message.attach(
-
-    message.send()
+    for recipient in share_form.cleaned_data['recipients']:
+        message = EmailMultiAlternatives(
+            subject, email_body, to=[recipient])
+        #message.attach_alternative(html_body, 'text/html')
+        message.send()
 
     return util.render_to_response(
         request, 'share-email-success.html', {})

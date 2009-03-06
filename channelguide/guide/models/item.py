@@ -26,6 +26,9 @@ class Item(Record, Thumbnailable):
     def get_url(self):
         return '/items/%i' % self.id
 
+    def get_absolute_url(self):
+        return util.make_absolute_url(self.get_url())
+
     def get_guid(self):
         try:
             return self.guid

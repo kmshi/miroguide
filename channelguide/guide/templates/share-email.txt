@@ -1,17 +1,15 @@
 {% load i18n %}{% autoescape off %}{% trans "Hello!" %}
 {% trans "A friend thinks you should see this!" %}
 
-{% ifequal share_type "feed" %}{% trans "Feed URL:" %}{% else %}{% trans "Video URL:" %}{% endifequal %} {{ share_url }
+{% ifequal share_type "feed" %}{% trans "Feed URL:" %}{% else %}{% trans "Video URL:" %}{% endifequal %} {{ share_url }}
 
 {% if comment %}{% trans "*A Note from the Sender*" %}
-I thought you would really love this video, it's super funny!!
+{{ comment }}
 
---Joe
+{% endif %}{% if title %}{% trans "*Title*" %} {{ title }}
 
-{% endif %}{% trans "*Title*" %} {{ title }}
-
-{% if description %}*Description*
+{% endif %}{% if description %}*Description*
 {{ description }}
 
-{% endif %}{% ifequal share_type "feed" %}{% trans "This video podcast was shared via the Miro Guide: https://miroguide.com" %}{% else %}{% trans "This video podcast was shared via the Miro Guide: https://miroguide.com" %}{% endifequal %}
+{% endif %}{% ifequal share_type "feed" %}{% trans "This video podcast was shared via the Miro Guide: https://miroguide.com" %}{% else %}{% trans "This video was shared via the Miro Guide: https://miroguide.com" %}{% endifequal %}
 {% endautoescape %}

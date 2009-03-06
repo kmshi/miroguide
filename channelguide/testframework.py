@@ -46,7 +46,7 @@ class TestCase(unittest.TestCase):
         self.save_to_db(self.language)
         settings.DISABLE_CACHE = True
         settings.USE_S3 = False
-        settings.BASE_URL_FULL = 'http://testserver/'
+        settings.BASE_URL_FULL = 'http://localhost/'
         self.client = Client()
         self.changed_settings = []
 
