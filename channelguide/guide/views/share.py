@@ -4,10 +4,12 @@
 import logging
 import datetime
 import sha
+import os.path
 import urllib
 import urlparse
 
 import feedparser
+from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, HttpResponse
@@ -159,7 +161,6 @@ def get_channels_and_items(feed_url, connection):
             cache.client.set(items_key, items)
 
     return channel, items
-
 
 def share_feed(request):
     try:
@@ -322,6 +323,8 @@ def share_item(request):
          'google_analytics_ua': None,
          'share_links': share_links})
 
+def _image(name):
+    return os.path.join(settings.STATIC_DIR, 'images', name)
 
 def email(request):
     share_form = ShareForm(request.POST)
@@ -344,14 +347,21 @@ def email(request):
         title = _(u'%(from_email)s wants to share a video with you') % {
             'from_email': share_form.cleaned_data['from_email']}
 
+    context = share_form.cleaned_data
+    
     email_template = loader.get_template('share-email.txt')
     email_body = email_template.render(Context(share_form.cleaned_data))
 
-    util.send_mail(
-        title, email_body,
-        share_form.cleaned_data['recipients'],
-        #share_form.cleaned_data['from_email'],
-        break_lines=False)
+    message = EmailMultiAlternatives(
+        title, email_body, recipients=share_form.cleaned_data['recipients'])
+
+    html_template = loader.get_template('share-email.html')
+    message.attach_alternative(html_template.render(
+            Context(share_form.cleaned_data)), 'text/html')
+    message.attach(_image('miro_sheeps.jpg'))
+    message.attach(
+
+    message.send()
 
     return util.render_to_response(
         request, 'share-email-success.html', {})
