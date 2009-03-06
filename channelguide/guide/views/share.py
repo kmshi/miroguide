@@ -194,8 +194,8 @@ def get_item(connection, file_url, channel, channel_items, item_name):
     ## a fake one.  It won't have much useful info though...
     if item is None:
         if not item_name:
-            subpath = urlparse.urlsplit(file_url)[3]
-            if subpath:
+            subpath = urlparse.urlsplit(file_url)[2]
+            if len(subpath) > 1:
                 item_name = subpath.split('/')[-1]
 
             else:
@@ -369,7 +369,7 @@ def email(request):
         else:
             channel = channel_items = None
         previous, item, next = get_item(request.connection, share_form.cleaned_data['file_url'],
-                                            channel, channel_items, share_form.cleaned_data['file_url'])
+                                            channel, channel_items, None)
         title = item.name
         description = item.description
 

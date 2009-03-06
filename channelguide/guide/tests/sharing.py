@@ -62,7 +62,7 @@ class SharingViewTestCase(TestCase):
         self.assertFalse(item.thumbnail_url is None)
 
     def test_item_url_not_in_feed_or_database(self):
-        response = self.get_item(test_data_path('feed.xml'), 'file_url')
+        response = self.get_item(test_data_path('feed.xml'), 'http://google.com/')
 
         channel = response.context[0]['channel']
         self.assertEquals(channel.fake, True)
@@ -70,7 +70,7 @@ class SharingViewTestCase(TestCase):
 
         item = response.context[0]['item']
         self.assertEquals(item.fake, True)
-        self.assertEquals(item.name, 'file_url')
+        self.assertEquals(item.name, 'http://google.com/')
         self.assertTrue(item.thumbnail_url is None)
 
     def test_item_url_in_database(self):
@@ -114,28 +114,17 @@ class SharingEmailTestCase(TestCase):
         self.assertEquals(form.errors.keys(),
                           ['share_url', 'recipients', 'share_type', 'from_email'])
 
-    def test_send_feed_email_not_in_database(self):
-        data = {
+    def _feed_data(self):
+        return {
             'feed_url': test_data_path('feed.xml'),
             'share_url': util.make_absolute_url('/share/feed/?feed_url=foo'),
             'share_type': 'feed',
             'from_email': 'test@test.com',
             'comment': 'this is my comment',
             'recipients': 'test2@test.com, test3@test.com'}
-        response = self.post_data('/share/email/', data)
-        self.assertFalse('share_form' in response.context)
-        self.assertEquals(len(mail.outbox), 2)
-        message = mail.outbox[0]
-        self.assertEquals(message.from_email, settings.EMAIL_FROM)
-        self.assertEquals(message.subject,
-                          'test@test.com wants to share a video feed with you')
-        self.assertTrue(data['comment'] in message.body)
-        self.assertTrue(data['share_url'] in message.body)
-        self.assertTrue('Rocketboom RSS 2.0 Main Index' in message.body)
-        self.assertTrue('Daily with Joanne Colan' in message.body)
 
-    def test_send_item_email_not_in_database(self):
-        data = {
+    def _item_data(self):
+        return {
             'feed_url': test_data_path('feed.xml'),
             'file_url': 'http://www.rocketboom.net/video/rb_06_dec_13.mov',
             'share_url': util.make_absolute_url(
@@ -144,14 +133,69 @@ class SharingEmailTestCase(TestCase):
             'from_email': 'test@test.com',
             'comment': 'this is my comment',
             'recipients': 'test2@test.com, test3@test.com'}
-        response = self.post_data('/share/email/', data)
-        self.assertFalse('share_form' in response.context)
+
+    def _basic_mail_tests(self, data):
         self.assertEquals(len(mail.outbox), 2)
         message = mail.outbox[0]
         self.assertEquals(message.from_email, settings.EMAIL_FROM)
-        self.assertEquals(message.subject,
-                          'test@test.com wants to share a video with you')
         self.assertTrue(data['comment'] in message.body)
         self.assertTrue(data['share_url'] in message.body)
+        return message
+
+    def test_send_feed_email_not_in_database(self):
+        data = self._feed_data()
+        response = self.post_data('/share/email/', data)
+        message = self._basic_mail_tests(data)
+        self.assertEquals(message.subject,
+                          'test@test.com wants to share a video feed with you')
+        self.assertTrue('Rocketboom RSS 2.0 Main Index' in message.body)
+        self.assertTrue('Daily with Joanne Colan' in message.body)
+
+    def test_send_item_email_in_feed_not_in_database(self):
+        data = self._item_data()
+        response = self.post_data('/share/email/', data)
+        message = self._basic_mail_tests(data)
+        self.assertEquals(message.subject,
+                          'test@test.com wants to share a video with you')
+        self.assertTrue('rb_06_dec_13' in message.body)
+        self.assertTrue('wii have a problem' in message.body)
+
+    def test_send_item_email_not_in_feed_or_database(self):
+        data = self._item_data()
+        data['file_url'] = 'http://google.com/foo_bar'
+        response = self.post_data('/share/email/', data)
+        message = self._basic_mail_tests(data)
+        self.assertEquals(message.subject,
+                          'test@test.com wants to share a video with you')
+        self.assertFalse(data['file_url'] in message.body)
+        self.assertTrue('foo_bar' in message.body)
+
+    def test_send_feed_email_in_database(self):
+        self.channel.url = test_data_path('feed.xml')
+        self.save_to_db(self.channel)
+        self.refresh_connection()
+
+        data = self._feed_data()
+        response = self.post_data('/share/email/', data)
+        message = self._basic_mail_tests(data)
+        self.assertEquals(message.subject,
+                          'test@test.com wants to share a video feed with you')
+        self.assertTrue(self.channel.name in message.body)
+        self.assertTrue(self.channel.description in message.body)
+
+
+    def test_send_item_email_in_database(self):
+        self.channel.url = test_data_path('feed.xml')
+        self.save_to_db(self.channel)
+        self.channel.join('items').execute(self.connection)
+        self.channel.update_items(self.connection,
+                          feedparser_input=open(self.channel.url))
+        self.refresh_connection()
+
+        data = self._item_data()
+        response = self.post_data('/share/email/', data)
+        message = self._basic_mail_tests(data)
+        self.assertEquals(message.subject,
+                          'test@test.com wants to share a video with you')
         self.assertTrue('rb_06_dec_13' in message.body)
         self.assertTrue('wii have a problem' in message.body)
