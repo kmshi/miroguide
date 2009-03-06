@@ -18,3 +18,4 @@ from api import *
 from watched import *
 from flagging import *
 from notifications import *
+from sharing import *
