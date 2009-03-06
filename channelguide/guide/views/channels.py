@@ -357,7 +357,7 @@ def show(request, id, featured_form=None):
 
     if country and c.geoip and country not in c.geoip.split(','):
         # restricted channel
-        request.add_notification(_('This show may not be available to you, '
+        request.add_notification(None, _('This show may not be available to you, '
                                    'as it is restricted to certain countries.'))
 
     if request.user.is_supermoderator():
