@@ -17,9 +17,16 @@ See LICENSE for details.
       </div>
     </form>
     </li>
-    {% if channel.hi_def %}
-    <li class="question">
-    {% trans "Show marked as HD! Does it meet" %} <a href="{{ BASE_URL }}how-to-moderate#hd">{% trans "requirements"%}</a>{% trans "?" %}
+    {% if channel.flags %}
+    <li>
+      <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">
+        <div>
+          {% trans "HD" %}:
+          <input type="hidden" name="action" value="set-hd">
+          <input type="submit" name="value" value="On" {% if channel.hi_def %}style="border: 2px solid green;" {% endif %}>
+          <input type="submit" name="value" value="Off"{% if not channel.hi_def %}style="border: 2px solid green;" {% endif %}>
+        </div>
+      </form>
     </li>
     {% endif %}
 </ul>

@@ -22,7 +22,7 @@ from channelguide.guide.exceptions import AuthError
 from channelguide.guide.models import (Channel, Item, User, FeaturedEmail,
                                        ModeratorAction, ChannelNote, Rating,
                                        FeaturedQueue, GeneratedRatings,
-                                       Cobranding, AddedChannel)
+                                       Cobranding, AddedChannel, Flag)
 from channelguide.guide.notes import get_note_info, make_rejection_note
 from channelguide.guide.emailmessages import EmailMessage
 from sqlhelper.sql.statement import Select
@@ -183,6 +183,17 @@ def channel(request, id):
         elif action == 'toggle-hd':
             request.user.check_is_moderator()
             channel.hi_def = not channel.hi_def
+            if channel.hi_def:
+                Flag.bulk_delete(channel_id=channel.id,
+                                 flag=Flag.NOT_HD).execute(request.connection)
+        elif action == 'set-hd':
+            value = request.POST.get('value', 'off').lower()
+            if value == 'on':
+                channel.hi_def = True
+            else:
+                channel.hi_def = False
+            Flag.bulk_delete(channel_id=channel.id,
+                             flag=Flag.NOT_HD).execute(request.connection)
         elif action == 'feature':
             request.user.check_is_supermoderator()
             FeaturedQueue.feature_channel(channel, request.user,
@@ -339,12 +350,15 @@ def show(request, id, featured_form=None):
         'share_url': share_url,
         'share_type': 'feed',
         'share_links': share_links,
-        'country': country,
-        'geoip_restricted': (country and c.geoip and \
-                             country not in c.geoip.split(','))}
-
+        'country': country}
+    
     if share_url:
         context['google_analytics_ua'] = None
+
+    if country and c.geoip and country not in c.geoip.split(','):
+        # restricted channel
+        request.add_notification(_('This show may not be available to you, '
+                                   'as it is restricted to certain countries.'))
 
     if request.user.is_supermoderator():
         c.join('owner').execute(request.connection)
@@ -391,6 +405,18 @@ def user_add(request, id):
             pass
     return HttpResponse("Added!")
 
+def flag(request, id):
+    if 'flag' not in request.REQUEST:
+        raise Http404
+    try:
+        flag = int(request.REQUEST['flag'])
+    except ValueError:
+        raise Http404
+    request.session.add_notification(_('Thanks!'),
+                                     _('Your flag has been recorded and will be reviewed by a moderator.'))
+    channel = util.get_object_or_404(request.connection, Channel, id)
+    channel.add_flag(request.connection, request.user, flag)
+    return HttpResponseRedirect(channel.get_url())
 
 def subscribe_hit(request, id):
     """Used by our ajax call handleSubscriptionLink.  It will get a security

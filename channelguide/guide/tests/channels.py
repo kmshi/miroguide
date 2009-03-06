@@ -12,7 +12,7 @@ from django.template import loader
 
 from channelguide import util, manage, cache
 from channelguide.guide.models import (Channel, Category, Tag, Item, User,
-        Language, TagMap, AddedChannel, ModeratorAction)
+        Language, TagMap, AddedChannel, ModeratorAction, Flag)
 from channelguide.testframework import TestCase
 
 def test_data_path(filename):
@@ -954,7 +954,7 @@ Errors: %s""" % (response.status_code, errors)
         response = self.submit(dont_send='url', website_url=channel.website_url)
         self.check_submit_worked(response)
 
-class ModerateChannelTest():
+class ModerateChannelTest(ChannelTestBase):
     """Test the moderate channel web page."""
 
     def setUp(self):
@@ -1002,6 +1002,59 @@ class ModerateChannelTest():
         self.check_logging(warnings=1)
         self.resume_logging()
         self.assertEquals(len(mail.outbox), 0)
+
+    def _add_flags(self):
+        self.channel.add_flag(self.connection, self.joe, Flag.NOT_HD)
+        self.channel.add_flag(self.connection, self.joe, 999)
+        self.refresh_connection()
+
+    def test_toggle_hd(self):
+        """
+        The 'toggle-hd' action should flip the hi_def bit on the channel.
+        Additionally, when toggling HD on the HD flags should be cleared.
+        """
+        self._add_flags()
+        self.assertEquals(self.channel.hi_def, False)
+        url = self.channel.get_url()
+        self.post_data(url, {'action': 'toggle-hd'}, self.joe)
+        new_channel = self.refresh_record(self.channel, 'flags')
+        self.assertEquals(new_channel.hi_def, True)
+        self.assertEquals(len(new_channel.flags), 1)
+
+        self._add_flags()
+        self.post_data(url, {'action': 'toggle-hd'}, self.joe)
+        new_channel = self.refresh_record(self.channel, 'flags')
+        self.assertEquals(new_channel.hi_def, False)
+        self.assertEquals(len(new_channel.flags), 2)
+
+    def test_toggle_hd_requires_moderator(self):
+        """
+        Toggling the HD flag should require a moderator.
+        """
+        self.assertEquals(self.channel.hi_def, False)
+        url = self.channel.get_url()
+        self.post_data(url, {'action': 'toggle-hd'})
+        self.assertEquals(self.refresh_record(self.channel).hi_def, False)
+
+
+    def test_set_hd(self):
+        """
+        The 'set-id' action should turn HD on if 'value' is 'on', and off
+        otherwise.  It should also clear the flags.
+        """
+        self._add_flags()
+        self.assertEquals(self.channel.hi_def, False)
+        url = self.channel.get_url()
+        self.post_data(url, {'action': 'set-hd', 'value': 'On'}, self.joe)
+        new_channel = self.refresh_record(self.channel, 'flags')
+        self.assertEquals(new_channel.hi_def, True)
+        self.assertEquals(len(new_channel.flags), 1)
+
+        self._add_flags()
+        self.post_data(url, {'action': 'set-hd', 'value': 'off'}, self.joe)
+        new_channel = self.refresh_record(self.channel, 'flags')
+        self.assertEquals(new_channel.hi_def, False)
+        self.assertEquals(len(new_channel.flags), 1)
 
     def test_reject(self):
         self.login('joe')

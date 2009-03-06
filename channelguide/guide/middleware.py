@@ -72,21 +72,21 @@ class NotificationMiddleware(object):
 
     def process_response(self, request, response):
         if hasattr(request, 'notifications') and request.notifications:
-            notification_bar = """<div id="notification-bar">
-    <div id="notification-bar-inner">
+            notification_bar = """      <div class="alert">
+        <div class="page">
+          <div class="alertBox ">
         <ul>"""
             for (title, line) in request.notifications:
                 if title is not None:
                     notification_bar += """
-            <li><strong>%s:</strong> %s</li>""" % (title.encode('utf8'),
+            <li><h2>%s</h2> %s</li>""" % (title.encode('utf8'),
                                                    line.encode('utf8'))
                 else:
                     notification_bar += """
             <li>%s</li>""" % line.encode('utf8')
-            notification_bar += """
-        </ul>
-    </div>
-</div>"""
+            notification_bar += """          </div>
+        </div>
+      </div>"""
         else:
             notification_bar = ""
         response.content = response.content.replace(

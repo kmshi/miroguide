@@ -47,6 +47,19 @@ See LICENSE for details.
       </div>
     </form>
     </li>
+    <li class="channel-action">
+    <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">
+      <div>
+        <input type="hidden" name="action" value="toggle-hd">
+        {% if channel.hi_def %}
+        <input type="submit" name="submit" value="Not HD?">
+        {% else %}
+        <input type="submit" name="submit" value="HD?">
+        {% endif %}
+      </div>
+    </form>
+
+    </li>
     {% if user.is_admin %}
     <li class="channel-action">
     <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">
@@ -90,8 +103,8 @@ See LICENSE for details.
         <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">
           <div>
             <input type="hidden" name="action" value="change-owner">
-            <label for="owner"><a {% link channel.owner.get_absolute_url %}>Show Manager</a>:</label>
-            <input type="text" id="owner" name="owner" value="{{ channel.owner }}">
+            <label><a {% link channel.owner.get_absolute_url %}>Show Manager</a>:</label>
+            <input type="text" name="owner" value="{{ channel.owner }}">
             <input type="submit" value="change">
           </div>
         </form>

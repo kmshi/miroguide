@@ -2089,6 +2089,7 @@ margin-top: -15px;
 }
 
 .alertBox {
+    width: 700px;
     background: #fffded;
 }
 
@@ -2120,6 +2121,7 @@ margin-top: -15px;
 }
 
 .alertBox h2 {
+    display: inline;
     margin: 0;
     padding: 0;
     line-height: 3em;
@@ -4590,6 +4592,7 @@ border: 1px solid #ccc;
 }
 
 .two-column-list {
+    clear: both;
     width: 700px;
     margin: 0 auto;
 }

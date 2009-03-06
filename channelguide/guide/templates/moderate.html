@@ -35,6 +35,11 @@ See LICENSE for details.
         {{ count }} Rejected shows
         {% endblocktrans %}</a>
 </h2>
+<h2><a {% link "moderate/hd-flagged" %}>
+        {% blocktrans with hd_flagged_count as count %}
+        {{ count }} Flagged HD shows
+        {% endblocktrans %}</a>
+</h2>
 <h2><a {% link "moderate/featured" %}>
   {% blocktrans with featured_count as count %}
   {{ count }} shows in Featured Queue

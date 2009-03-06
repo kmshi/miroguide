@@ -192,7 +192,7 @@ class TestCase(unittest.TestCase):
         channel.language = self.language
         channel.owner = owner
         channel.name = u"My Channel \u1111"
-        channel.url = "http://myblog.com/videos/rss/" 
+        channel.url = "http://myblog.com/videos/rss/"
         channel.url += util.random_string(20)
         channel.website_url = "http://myblog.com/"
         channel.publisher = "TestVision@TestVision.com"
@@ -262,7 +262,7 @@ class TestCase(unittest.TestCase):
             mod = util.import_last_component(mod_name)
             objects.append(getattr(mod, class_name)())
         return objects
-    
+
     def process_request(self, cookies_from=None, request=None):
         if request is None:
             request = HttpRequest()
