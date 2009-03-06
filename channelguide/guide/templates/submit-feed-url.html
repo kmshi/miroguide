@@ -4,17 +4,17 @@ Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
 {% load i18n cg_helpers %}
-{% block top %}Add a Feed to Miro{% endblock %}
+{% block top %}{% trans "Add a Feed to Miro" %}{% endblock %}
 {% block url %}{{ BASE_URL }}submit/step1{% endblock %}
 {% block upper %}
     {% show_form form %}
 {% endblock %}
 {% block bottom %}
 <button class="gray-button fr" type="submit" name="type" value="Creator">
-  <span>I am the Creator</span>
+  <span>{% trans "I am the Creator" %}</span>
 </button>
 <span class="fr">  or  </span>
 <button class="gray-button fr" type="submit" name="type" value="Fan">
-  <span>I'm a Fan</span>
+  <span>{% trans "I'm a Fan" %}</span>
 </button>
 {%endblock%}

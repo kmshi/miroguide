@@ -61,33 +61,33 @@ See LICENSE for details.
 <ul class="two-column-list"
     <li class="column first-column">
     <div class="new-post-form">
-        <h3>Make New post:</h3>
+        <h3>{% trans "Make New post:" %}</h3>
         <form action="{{ BASE_URL }}notes/new-moderator-post" method="POST" onsubmit="showLoadIndicator();">
             <table border=0 cellpadding=0 cellspacing=2>
-                <tr><td>Title:</td><td><input size=30 name="title"></td></tr>
-                <tr><td>Body:</td><td><textarea cols=34 rows=8 name="body"></textarea></td></tr>
+                <tr><td>{% trans "Title:" %}</td><td><input size=30 name="title"></td></tr>
+                <tr><td>{% trans "Body:" %}</td><td><textarea cols=34 rows=8 name="body"></textarea></td></tr>
                 {% if user.is_supermoderator %}
-                <tr><td>Email Moderators:</td><td><input type="checkbox" checked="checked" name="send-email"></td></tr>
+                <tr><td>{% trans "Email Moderators:" %}</td><td><input type="checkbox" checked="checked" name="send-email"></td></tr>
                 {% endif %}
                 <tr><td></td><td><input type="submit" value="create post"></td></tr>
             </table>
         </form>
     </div>
-    <h2 class="check-out">Latest Posts 
-    <a {% link "notes/moderator-board" %}>(See all {{ post_count }} posts)</a>
+    <h2 class="check-out">{% trans "Latest Posts" %}
+    <a {% link "notes/moderator-board" %}>{% blocktrans with post_count as post_count %}(See all {{ post_count }} posts){% endblocktrans %}</a>
     </h2>
     {% show_note_list latest_posts %}
-    <a {% link "notes/moderator-board" %}>(See all {{ post_count }} posts)</a>
+    <a {% link "notes/moderator-board" %}>{% blocktrans with post_count as post_count %}(See all {{ post_count }} posts){% endblocktrans %}</a>
     </li>
     <li class="column second-column">
-    <h2 class="check-out">Shared by Moderators</h2>
+    <h2 class="check-out">{% trans "Shared by Moderators" %}</h2>
     {% for channel in shared_channels %}
     {% if channel.get_moderator_shared_by %}
-    <div class="shared-by">Shared by {{ channel.get_moderator_shared_by }}:</div>
+    <div class="shared-by">{% blocktrans with channel.get_moderator_shared_by as moderator %}Shared by {{ moderator }}:{% endblocktrans %}</div>
     {% endif %}
     {% include "guide/channel-in-listing.html" %}
     {% endfor %}
-    <a {% link "/moderate/shared" %}>(See all shared shows)</a>
+    <a {% link "/moderate/shared" %}>{% trans "(See all shared shows)" %}</a>
   </li>
 </ul>
 </div>

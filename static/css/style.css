@@ -4559,8 +4559,9 @@ border: 1px solid #ccc;
 .login-page .login-form div.instructions {
     text-align: left;
     padding: 10px;
-position: absolute;
-margin: -45px 0px 0 170px;
+    position: absolute;
+    margin: -45px 0px 0 170px;
+    width: 150px;
 }
 
 .login-page div.register-form, .login-page div.login-form {
