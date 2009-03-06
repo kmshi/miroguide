@@ -13,3 +13,4 @@ from rating import Rating, GeneratedRatings
 from feature import FeaturedQueue
 from cobranding import Cobranding
 from watched import WatchedVideos
+from flag import Flag

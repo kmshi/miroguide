@@ -3,10 +3,10 @@
 
 from datetime import datetime, timedelta
 
+from django.core import mail
 from django.conf import settings
-from django.test.client import Client
 
-from channelguide.guide.models import User, Channel, ChannelNote, ModeratorPost
+from channelguide.guide.models import User, ChannelNote, ModeratorPost
 from channelguide.testframework import TestCase
 from channelguide.guide.notes import get_note_info
 
@@ -98,12 +98,12 @@ class NotesPageTest(NotesPageTestBase):
         self.channel = self.refresh_record(self.channel, 'notes')
         self.assertEquals(len(self.channel.notes), 1)
         self.assertEquals(self.channel.notes[-1].body, post_data['body'])
-        self.assertEquals(len(self.emails), 0)
+        self.assertEquals(len(mail.outbox), 0)
         self.login(self.moderator)
         page = self.post_data("/notes/new", post_data)
         self.channel = self.refresh_record(self.channel, 'notes')
         self.assertEquals(len(self.channel.notes), 2)
-        self.assertEquals(len(self.emails), 1)
+        self.assertEquals(len(mail.outbox), 1)
 
     def add_note_to_channel(self):
         start_count = self.get_note_count()
@@ -139,24 +139,25 @@ class NotesPageTest(NotesPageTestBase):
         self.check_can_add(self.supermod, True)
 
     def check_can_email(self, user, can_email):
-        start_count = len(self.emails)
+        start_count = len(mail.outbox)
         if user is not None:
             self.login(user)
         page = self.post_data("/notes/new", self.make_note_post_data())
         if can_email:
-            self.assertEquals(len(self.emails), start_count + 1)
+            self.assertEquals(len(mail.outbox), start_count + 1)
         else:
-            self.assertEquals(len(self.emails), start_count)
+            self.assertEquals(len(mail.outbox), start_count)
 
     def test_email_from(self):
         self.login(self.moderator)
         page = self.post_data("/notes/new", self.make_note_post_data())
-        self.assertEquals(self.emails[0]['email_from'], settings.EMAIL_FROM)
+        self.assertEquals(mail.outbox[0].from_email, settings.EMAIL_FROM)
 
     def test_channel_link(self):
         self.login(self.moderator)
         page = self.post_data("/notes/new", self.make_note_post_data())
-        self.assert_(self.channel.get_absolute_url() in self.emails[0]['body'])
+        self.assert_(self.channel.get_absolute_url() in
+                     mail.outbox[0].body)
 
     def test_email_auth(self):
         self.check_can_email(None, False)
@@ -180,7 +181,7 @@ class ModeratorPostTest(TestCase):
 
     def add_post(self):
         ModeratorPost(self.mod, 'test', 'test').save(self.connection)
-        
+
     def get_post_count(self):
         self.refresh_connection()
         return ModeratorPost.query().count(self.connection)
@@ -210,7 +211,7 @@ class ModeratorPostTest(TestCase):
     def check_delete_auth(self, user, can_delete):
         start_count = self.get_post_count()
         post = ModeratorPost.query().limit(1).get(self.connection)
-        page = self.post_data('/notes/post-%d' % post.id, 
+        page = self.post_data('/notes/post-%d' % post.id,
                 {'action' : 'delete'}, login_as=user)
         if can_delete:
             self.assertEqual(self.get_post_count(), start_count - 1)
@@ -232,15 +233,15 @@ class ModeratorPostTest(TestCase):
         return query.count(self.connection)
 
     def check_email_auth(self, user, can_email):
-        start_count = len(self.emails)
+        start_count = len(mail.outbox)
         page = self.post_data('/notes/new-moderator-post',
                 self.new_post_data_email, login_as=user)
         if can_email:
-            self.assertEqual(len(self.emails), start_count +
+            self.assertEqual(len(mail.outbox), start_count +
                     self.moderater_count())
-            self.assertEquals(self.emails[-1]['email_from'], user.email)
+            self.assertEquals(mail.outbox[-1].from_email, user.email)
         else:
-            self.assertEqual(len(self.emails), start_count)
+            self.assertEqual(len(mail.outbox), start_count)
 
     def test_email(self):
         self.check_email_auth(None, False)
@@ -252,18 +253,18 @@ class ModeratorPostTest(TestCase):
         self.supermod.email = None
         self.supermod.save(self.connection)
         self.refresh_connection()
-        start_count = len(self.emails)
+        start_count = len(mail.outbox)
         self.post_data('/notes/new-moderator-post',
                        self.new_post_data_email, login_as=self.supermod)
-        self.assertEquals(self.emails[-1]['email_from'], settings.EMAIL_FROM)
+        self.assertEquals(mail.outbox[-1].from_email, settings.EMAIL_FROM)
 
     def test_to_lines(self):
         self.post_data('/notes/new-moderator-post',
                 self.new_post_data_email, login_as=self.supermod)
 
         sent_emails = set()
-        for e in self.emails:
-            for recipient in e['recipient_list']:
+        for e in mail.outbox:
+            for recipient in e.recipients():
                 if recipient in sent_emails:
                     raise AssertionError("Duplicate to")
                 sent_emails.add(recipient)
@@ -318,5 +319,5 @@ class WaitingForReplyTest(NotesPageTestBase):
         self.login(self.moderator)
         page = self.get_page('/moderate/waiting')
         page_channel_ids = [c.id for c in page.context[0]['page'].object_list]
-        self.assertEquals(page_channel_ids, 
+        self.assertEquals(page_channel_ids,
                 [channel3.id, channel2.id, channel1.id])

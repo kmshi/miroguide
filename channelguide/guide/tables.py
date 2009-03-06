@@ -86,7 +86,7 @@ channel = Table('cg_channel',
         columns.String('website_url', 255),
         columns.String("thumbnail_extension", 8),
         columns.String('description'),
-        columns.Boolean('hi_def', default='0'),
+        columns.Boolean('hi_def', default=False),
         columns.Int('primary_language_id', fk=language.c.id),
         columns.String('publisher', 255),
         columns.String('state', 1, default='N'),
@@ -177,6 +177,10 @@ tag_map = Table('cg_tag_map',
         columns.Int('channel_id', fk=channel.c.id, primary_key=True),
         columns.Int('user_id', fk=user.c.id, primary_key=True),
         columns.Int('tag_id', fk=tag.c.id, primary_key=True))
+flags = Table('cg_channel_flags',
+        columns.Int('channel_id', fk=channel.c.id, primary_key=True),
+        columns.Int('user_id', fk=user.c.id, primary_key=True),
+        columns.Int('flag', fk=tag.c.id, primary_key=True))
 user_auth_token = Table('cg_user_auth_token',
         columns.Int('user_id', fk=user.c.id, primary_key=True),
         columns.String('token', 255),
@@ -255,6 +259,11 @@ SELECT COUNT(*)
 FROM cg_channel_item
 WHERE cg_channel_item.channel_id=#table#.id""")
 
+channel.add_subquery_column('flag_count', """\
+SELECT COUNT(*)
+FROM cg_channel_flags
+WHERE cg_channel_flags.channel_id=#table#.id""")
+
 generated_ratings.add_subquery_column('bayes', """\
 ((count * average) +
 (5 * (SELECT AVG(average) FROM cg_channel_generated_ratings))) /
@@ -297,6 +306,7 @@ channel.many_to_one('featured_by', user,
         join_column=channel.c.featured_by_id)
 channel.one_to_many('user_subscriptions', added_channel, backref='channel')
 channel.one_to_many('items', item, backref='channel')
+channel.one_to_many('flags', flags, backref='channel')
 channel.one_to_many('notes', channel_note, backref='channel')
 channel.one_to_one('search_data', channel_search_data, backref='channel')
 channel.one_to_one('stats', generated_stats, backref='channel')

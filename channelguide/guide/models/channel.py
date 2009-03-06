@@ -23,6 +23,7 @@ from user import ModeratorAction, User
 from item import Item
 from label import Tag, TagMap
 from rating import Rating, GeneratedRatings
+from flag import Flag
 import search
 
 class Channel(Record, Thumbnailable):
@@ -126,6 +127,9 @@ class Channel(Record, Thumbnailable):
                                              type='site',
                                              trackback=self.get_subscribe_hit_url())
 
+    def get_flag_url(self):
+        return self.get_absolute_url() + '/flag'
+
     def is_approved(self):
         return self.state == self.APPROVED
 
@@ -138,6 +142,15 @@ class Channel(Record, Thumbnailable):
         elif self.waiting_for_reply_date is not None:
             self.waiting_for_reply_date = None
             self.save(connection)
+
+    def add_flag(self, connection, user, flag):
+        """
+        Flag this channel in some way.
+        """
+        if user is None or not Flag.query(channel_id=self.id,
+                                          user_id=user.id,
+                                          flag=flag).count(connection):
+            Flag(self, user, flag).save(connection)
 
     def add_tag(self, connection, user, tag_name):
         """Add a tag to this channel."""

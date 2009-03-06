@@ -31,22 +31,8 @@
   {% if share_links %}
     {% include "guide/share-links.html" %}
   {% else %}
-    {% if geoip_restricted %}
-      <div class="alert">
-        <div class="page">
-          <div class="alertBox ">
-            <h2>
-              {% blocktrans %}
-                This show may not be available to you, as it is
-                restricted to certain countries.
-              {% endblocktrans %}
-            </h2>
-          </div>
-        </div>
-      </div>
-    {% endif %}
+  <!-- NOTIFICATION BAR -->
   {% endif %}
-
   <div id="channelInfo">
     <div class="page">
       {% if channel.url %}
@@ -110,12 +96,16 @@
               </p>
             {% endif %}
           {% endif %}
-          {% if not is_miro %}
             <p>
               <strong>{% trans "Feed" %}</strong> -
               <a href="{{ channel.url }}">{{ channel.url }}</a>
             </p>
-          {% endif %}
+            {% if channel.hi_def %}
+            <p>
+              <strong>{% trans "Not HD?" %}</strong> -
+              <a href="{{ channel.get_flag_url }}?flag=0" onclick='return confirm("{% trans "High-Definition video means having a resolution of 1080x720 or more pixels.  If you suspect this may be lower resolution, please press OK."%}")'>{% trans "Flag it" %}</a>
+            </p>
+            {% endif %}
         </div>
       </div>
 

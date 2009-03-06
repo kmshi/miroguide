@@ -1,12 +1,10 @@
 # Copyright (c) 2008 Participatory Culture Foundation
 # See LICENSE for details.
 
-import os
-
+from django.core import mail
 from django.conf import settings
-from django.http import HttpRequest
 
-from channelguide import db, util
+from channelguide import util
 from channelguide.guide import tables
 from channelguide.guide.auth import login, logout, SESSION_KEY
 from channelguide.guide.models import (Channel, UserAuthToken, User,
@@ -34,7 +32,7 @@ class AuthTest(TestCase):
         request = self.process_request(cookies_from=response.cookies)
         self.assert_(not request.user.is_authenticated())
         self.process_response(request)
-        
+
     def test_corrupt_cookie(self):
         request = self.process_request(cookies_from={SESSION_KEY:'corrupt'})
         self.assert_(not request.user.is_authenticated())
@@ -54,12 +52,12 @@ class AuthTest(TestCase):
                     load='moderator_action_count')
             current_count = user.moderator_action_count
             self.assertEquals(current_count, correct_count)
-        ModeratorAction(self.user, channel, 
+        ModeratorAction(self.user, channel,
                 Channel.APPROVED).save(self.connection)
         check_count(1)
         ModeratorAction(self.user, channel, Channel.NEW).save(self.connection)
         check_count(1)
-        ModeratorAction(self.user, channel2, 
+        ModeratorAction(self.user, channel2,
                 Channel.APPROVED).save(self.connection)
         check_count(2)
 
@@ -120,13 +118,13 @@ class AuthTokenWebTest(TestCase):
 
     def test_send_email(self):
         self.request_auth_token()
-        self.assertEquals(len(self.emails), 1)
-        self.assertEquals(self.emails[0]['recipient_list'], [self.user.email])
+        self.assertEquals(len(mail.outbox), 1)
+        self.assertEquals(mail.outbox[0].recipients(), [self.user.email])
         self.user = self.refresh_record(self.user)
         self.user.join('auth_token').execute(self.connection)
         url = util.make_absolute_url('accounts/change-password?token=' +
                 self.user.auth_token.token)
-        self.assert_(url in self.emails[0]['body'])
+        self.assert_(url in mail.outbox[0].body)
 
     def page_has_password_form(self, token):
         url = '/accounts/change-password'
@@ -145,7 +143,7 @@ class AuthTokenWebTest(TestCase):
     def test_password_form_page(self):
         self.assert_(not self.page_has_password_form(token=None))
         self.assert_(not self.page_has_password_form(token='abcdef'))
-        self.get_page('/accounts/forgot-password', 
+        self.get_page('/accounts/forgot-password',
                 data={'email': self.user.email})
         self.request_auth_token()
         token = self.user.auth_token.token

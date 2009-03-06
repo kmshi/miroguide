@@ -8,7 +8,8 @@ from django.utils.translation import gettext as _
 from channelguide import util, cache
 from channelguide.guide import templateutil
 from channelguide.guide.auth import moderator_required, supermoderator_required
-from channelguide.guide.models import Channel, ModeratorPost, FeaturedQueue
+from channelguide.guide.models import (Channel, ModeratorPost, FeaturedQueue,
+                                       Flag)
 
 from datetime import date, timedelta
 
@@ -34,6 +35,10 @@ def index(request):
             Channel.SUSPENDED)
     context['rejected_count'] = count_for_state(request.connection,
             Channel.REJECTED)
+    hd_flagged_query = Flag.query(flag=Flag.NOT_HD).join('channel')
+    hd_flagged_query.where(hd_flagged_query.joins['channel'].c.hi_def == True)
+    hd_flagged_query.group_by(Flag.c.channel_id)
+    context['hd_flagged_count'] = len(hd_flagged_query.execute(request.connection))
     context['featured_count'] = FeaturedQueue.query(FeaturedQueue.c.state==0).count(request.connection)
 
     query = ModeratorPost.query().order_by('created_at', desc=True)
@@ -63,6 +68,14 @@ def channel_list(request, state):
         query.join('featured_queue')
         query.where(query.joins['featured_queue'].c.state == FeaturedQueue.IN_QUEUE)
         header = _("Featured Queue")
+    elif state == 'hd-flagged':
+        query = Channel.query().join('owner')
+        query.join('flags')
+        query.load('flag_count')
+        query.order_by('flag_count', desc=True)
+        query.where(hi_def=True)
+        query.where(query.joins['flags'].c.flag == Flag.NOT_HD)
+        header = _('Flagged HD Channels')
     else:
         query.where(state=Channel.NEW)
         header = _("Unreviewed Channels")

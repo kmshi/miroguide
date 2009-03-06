@@ -16,4 +16,5 @@ from cobranding import *
 from blogtrack import *
 from api import *
 from watched import *
+from flagging import *
 from notifications import *

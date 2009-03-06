@@ -36,7 +36,6 @@ try:
     mark_safe = mark_safe # fix pyflakes error
 except ImportError:
     mark_safe = lambda x: x
-emailer = None
 
 
 # sharing urls
@@ -287,20 +286,13 @@ def get_object_or_404_by_name(connection, record_or_query, name):
         raise Http404
 
 def send_mail(title, body, recipient_list, email_from=None, break_lines=True):
-    global emailer
     if break_lines:
         body = '\n'.join(textwrap.fill(p) for p in body.split('\n'))
-    if emailer is None:
-        if not settings.EMAIL_FROM:
-            return
-        email_func = django_send_mail
-    else:
-        email_func = emailer
     if email_from is None:
         email_from = settings.EMAIL_FROM
     for email_to in ensure_list(recipient_list):
         try:
-            email_func(title, body, email_from, [email_to])
+            django_send_mail(title, body, email_from, [email_to])
         except socket.error:
             pass
 

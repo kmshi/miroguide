@@ -8,7 +8,7 @@ import unittest
 import traceback
 
 from django.conf import settings
-from django.core import signals
+from django.core import signals, mail
 from django.http import HttpRequest, HttpResponse
 from django.test.client import Client
 
@@ -44,8 +44,6 @@ class TestCase(unittest.TestCase):
         self.log_filter = TestLogFilter()
         self.language = Language("booyarish")
         self.save_to_db(self.language)
-        util.emailer = self.catch_email
-        self.emails = []
         settings.DISABLE_CACHE = True
         settings.USE_S3 = False
         settings.BASE_URL_FULL = 'http://testserver/'
@@ -56,21 +54,11 @@ class TestCase(unittest.TestCase):
         self.changed_settings.append((name, getattr(settings, name)))
         setattr(settings, name, value)
 
-    def catch_email(self, title, body, email_from, recipient_list):
-        self.emails.append({'title': title, 'body': body, 
-            'email_from': email_from, 'recipient_list': recipient_list})
-        self.sanity_check_email(self.emails[-1])
-
     def email_recipients(self):
         recipients = []
-        for email in self.emails:
-            recipients.extend(email['recipient_list'])
+        for email in mail.outbox:
+            recipients.extend(email.recipients())
         return recipients
-
-    def sanity_check_email(self, email):
-        self.assert_(isinstance(email['email_from'], (str, unicode)),
-                '%r is not a string' % (email['email_from'],))
-        self.assertEquals(type(email['recipient_list']), list)
 
     def tearDown(self):
         try:
@@ -204,7 +192,7 @@ class TestCase(unittest.TestCase):
         channel.language = self.language
         channel.owner = owner
         channel.name = u"My Channel \u1111"
-        channel.url = "http://myblog.com/videos/rss/" 
+        channel.url = "http://myblog.com/videos/rss/"
         channel.url += util.random_string(20)
         channel.website_url = "http://myblog.com/"
         channel.publisher = "TestVision@TestVision.com"
@@ -274,7 +262,7 @@ class TestCase(unittest.TestCase):
             mod = util.import_last_component(mod_name)
             objects.append(getattr(mod, class_name)())
         return objects
-    
+
     def process_request(self, cookies_from=None, request=None):
         if request is None:
             request = HttpRequest()
@@ -332,4 +320,3 @@ def teardown_test_environment():
     django.test.utils.teardown_test_environment()
     db.dbinfo.drop_database()
     settings.DATABASE_NAME = settings.OLD_DATABASE_NAME
-

@@ -138,6 +138,9 @@ function handleFormLink(url) {
 
 function searchFocus() {
     searchInput = $(this);
+    if (searchInput.attr('baseValue') === undefined) {
+        searchInput.attr('baseValue', searchInput.val());
+    }
     if (searchInput.hasClass('headSearch')) {
         searchInput.removeClass('headSearch').val('');
     }
@@ -146,12 +149,13 @@ function searchFocus() {
 function searchBlur() {
     searchInput = $(this);
     if (!searchInput.val()) {
-        searchInput.addClass('headSearch').val('Search');
+        searchInput.addClass('headSearch').val(searchInput.attr('baseValue'));
     }
 }
 
 function searchPageShow(e) {
-    $("#searchSpot input").val('Search');
+    searchInput = $("#searchSpot input");
+    searchInput.val(searchInput.attr('baseValue'));
 }
 
 function showHelpText(help, event) {

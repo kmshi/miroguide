@@ -164,6 +164,28 @@ class IfShowAllNode(template.Node):
         else:
             return self.body.render(context)
 
+@register.tag(name='wrap_translation')
+def wrap_translation(parser, token):
+    body = parser.parse(('endwrap',))
+    parser.delete_first_token()
+    tokens = token.split_contents()
+    length = int(tokens[1])
+    return WrapTranslationNode(body, length)
+
+class WrapTranslationNode(template.Node):
+    def __init__(self, body, length):
+        self.body = body
+        self.length = length
+
+    def render(self, context):
+        rendered_body = self.body.render(context).strip()
+        if len(rendered_body) > self.length:
+            title = rendered_body;
+            cropped = rendered_body[:(self.length-3)] + '...'
+            return '<span title="%s">%s</span>' % (title, cropped)
+        else:
+            return '<span>%s</span>' % rendered_body
+
 @register.inclusion_tag('guide/form.html')
 def show_form(form):
     return {'form': form, 'BASE_URL': settings.BASE_URL,
@@ -328,22 +350,3 @@ class ColumnLoopNode(template.Node):
             output.append('</li>\n')
         output.append('</ul><div class="clear"></div>')
         return ''.join(output)
-def parse_column_loop(parser, token, deliminator):
-    tokens = token.split_contents()
-    syntax_msg = "syntax is twocolumnloop with <varname> in <list> [rotated]"
-    if tokens[1] != 'with' or tokens[3] != 'in':
-        raise template.TemplateSyntaxError(syntax_msg)
-    if len(tokens) == 6:
-        if tokens[5] == 'rotated':
-            rotated = True
-        else:
-            raise template.TemplateSyntaxError(syntax_msg)
-    elif len(tokens) == 5:
-        rotated = False
-    else:
-        raise template.TemplateSyntaxError(syntax_msg)
-    item_name = tokens[2]
-    list_name = tokens[4]
-    nodelist = parser.parse((deliminator,))
-    parser.delete_first_token()
-    return nodelist, list_name, item_name, rotated
