@@ -55,15 +55,15 @@
   <div id="channelDetails2">
     <div class="page">
       <div class="channelDetailsContent">
-        <a class="large_add_button {% if channel.url %}feed{% else %}site {% endif %}"
-           {{ channel.subscription_link }}>
-          <span>
+        <a class="large_add_button {% if channel.url %}feed{% else %}site{% endif %}"
+          {{ channel.subscription_link }}>
+          {% wrap_translation 25 %}
             {% if channel.url %}
               {% trans "Add Feed to Your Sidebar" %}
             {% else %}
               {% trans "Add Site to Your Sidebar" %}
             {% endif %}
-          </span>
+          {% endwrap %}
         </a>
 
         <a class="url" href="{{ channel.website_url }}">
