@@ -7,6 +7,7 @@ import sha
 import os.path
 import urllib
 import urlparse
+import re
 
 import feedparser
 from django.core.mail import EmailMultiAlternatives
@@ -27,6 +28,9 @@ from channelguide.guide.views import playback
 class Error(Exception): pass
 class FeedFetchingError(Error): pass
 
+
+def strip_tags(description):
+    return re.sub(r'<[^>]+?>', '', description)
 
 class FakeItem(object):
     def __init__(self, url, name=None, description=None,
@@ -354,10 +358,14 @@ def email(request):
         try:
             channel, channel_items = get_channels_and_items(share_form.cleaned_data['feed_url'], request.connection)
         except FeedFetchingError:
-            title = description = None
+            title = description = thumbnail =None
         else:
             title = channel.name
             description = channel.description
+            if hasattr(channel, 'thumbnail_url'):
+                thumbnail = channel.thumbnail_url
+            else:
+                thumbnail = channel.thumb_url_200_133()
     else:
         subject = _(u'%(from_email)s wants to share a video with you') % {
             'from_email': share_form.cleaned_data['from_email']}
@@ -372,21 +380,40 @@ def email(request):
                                             channel, channel_items, None)
         title = item.name
         description = item.description
+        if item:
+            if hasattr(item, 'thumbnail_url'):
+                thumbnail = item.thumbnail_url
+            else:
+                thumbnail = item.thumb_200_133()
+        elif channel:
+            if hasattr(channel, 'thumbnail_url'):
+                thumbnail = channel.thumbnail_url
+            else:
+                thumbnail = channel.thumb_url_200_133()
+        else:
+            thumbnail = None
+
+    if description:
+        description = strip_tags(description)
+        if len(description) > 170:
+            description = description[:167] + '...'
 
     context = share_form.cleaned_data
     context.update({'title': title,
                     'description': description})
+    if thumbnail:
+        context['thumbnail'] = util.make_absolute_url(thumbnail)
 
     email_template = loader.get_template('share-email.txt')
     email_body = email_template.render(Context(context))
 
-    #html_template = loader.get_template('share-email.html')
-    #html_body = html_template.render(Context(share_form.cleaned_data))
+    html_template = loader.get_template('share-email.html')
+    html_body = html_template.render(Context(context))
 
     for recipient in share_form.cleaned_data['recipients']:
         message = EmailMultiAlternatives(
             subject, email_body, to=[recipient])
-        #message.attach_alternative(html_body, 'text/html')
+        message.attach_alternative(html_body, 'text/html')
         message.send()
 
     return util.render_to_response(

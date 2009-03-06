@@ -6,10 +6,10 @@
 {% if comment %}{% trans "*A Note from the Sender*" %}
 {{ comment }}
 
-{% endif %}{% if title %}{% trans "*Title*" %} {{ title }}
+{% endif %}{% if title %}*{% trans "Title" %}* {{ title }}
 
-{% endif %}{% if description %}*Description*
-{{ description }}
+{% endif %}{% if description %}*{% trans "Description" %}*
+{{ description|striptags }}
 
-{% endif %}{% ifequal share_type "feed" %}{% trans "This video podcast was shared via the Miro Guide: https://miroguide.com" %}{% else %}{% trans "This video was shared via the Miro Guide: https://miroguide.com" %}{% endifequal %}
+{% endif %}{% ifequal share_type "feed" %}{% trans "This video podcast was shared via the Miro Guide" %}{% else %}{% trans "This video was shared via the Miro Guide" %}{% endifequal %}: https://miroguide.com" %}
 {% endautoescape %}

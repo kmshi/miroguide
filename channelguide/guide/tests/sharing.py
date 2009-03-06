@@ -199,3 +199,15 @@ class SharingEmailTestCase(TestCase):
                           'test@test.com wants to share a video with you')
         self.assertTrue('rb_06_dec_13' in message.body)
         self.assertTrue('wii have a problem' in message.body)
+
+    def test_description_capped_at_170_characters(self):
+        self.channel.url = test_data_path('feed.xml')
+        self.channel.description = 'a' * 200
+        self.save_to_db(self.channel)
+        self.refresh_connection()
+
+        data = self._feed_data()
+        response = self.post_data('/share/email/', data)
+        message = self._basic_mail_tests(data)
+        self.assertFalse(self.channel.description in message.body)
+        self.assertTrue(('a' * 167 + '...') in message.body)
