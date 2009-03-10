@@ -186,6 +186,14 @@ span.thumb.corners {
     top: 150px;
 }
 
+#footer {
+    text-align: center;
+    font-size: 80%;
+}
+
+#footer a {
+    color: #aaa;
+}
 /*****************************************************
  * Content
  *****************************************************/
