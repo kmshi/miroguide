@@ -2939,6 +2939,9 @@ ul#lowerMenu li#language a, ul#lowerMenu li#account a {
     padding: 0 15px;
     display: block;
     overflow: hidden;
+}
+
+ul#lowerMenu li#language a {
     width: 100%
 }
 
