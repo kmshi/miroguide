@@ -1,3 +1,6 @@
+# Copyright (c) 2009 Participatory Culture Foundation
+# See LICENSE for details.
+
 from sqlhelper.orm import Record
 from channelguide.guide import tables
 

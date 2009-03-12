@@ -1,3 +1,6 @@
+# Copyright (c) 2009 Participatory Culture Foundation
+# See LICENSE for details.
+
 from django.conf import settings
 from channelguide.testframework import TestCase
 

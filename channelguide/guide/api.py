@@ -1,3 +1,6 @@
+# Copyright (c) 2009 Participatory Culture Foundation
+# See LICENSE for details.
+
 from channelguide.guide.models import (Category, Channel, Language, Tag, Rating,
                                        User, AddedChannel)
 from channelguide.guide import recommendations
