@@ -1,6 +1,7 @@
-# Copyright (c) 2008 Participatory Culture Foundation
+# Copyright (c) 2008-2009 Participatory Culture Foundation
 # See LICENSE for details.
 
+import logging
 import datetime
 import sha
 import urllib
@@ -107,7 +108,11 @@ def get_channels_and_items(feed_url, connection):
             cache.client.set(items_key, items)
         else:
             ## parse the feed
-            parsed = feedparser.parse(feed_url)
+            try:
+                parsed = feedparser.parse(feed_url)
+            except Exception:
+                logging.exeception('error parsing %s' % feed_url)
+                raise FeedFetchingError('feedparser error while parsing')
 
             #ok, so this doesn't work...
             if hasattr(parsed, 'status') and parsed.status != 200:
