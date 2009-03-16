@@ -20,9 +20,9 @@ See LICENSE for details.
         </div>
     {% splitcolumns %}
         <h1 class="title">
-          {% if channel.flags %}
+          {% if channel.flag_count %}
           <span style="color: red;">
-            ({% blocktrans count channel.flags|length as count %}1 flag{% plural %}{{ count }} flags{% endblocktrans %})
+            ({% blocktrans count channel.flag_count as count %}1 flag{% plural %}{{ count }} flags{% endblocktrans %})
           </span>
           {% endif %}
             <a href="{{ channel.get_url }}">{{ channel.name|escape }}</a>
