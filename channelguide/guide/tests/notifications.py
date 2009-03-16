@@ -1,3 +1,6 @@
+# Copyright (c) 2009 Participatory Culture Foundation
+# See LICENSE for details.
+
 from django.http import HttpResponse
 
 from channelguide.testframework import TestCase

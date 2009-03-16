@@ -1,4 +1,4 @@
-# Copyright (c) 2008 Participatory Culture Foundation
+# Copyright (c) 2008-2009 Participatory Culture Foundation
 # See LICENSE for details.
 
 """emails.py has the classes that contain the text of the emails we send out.

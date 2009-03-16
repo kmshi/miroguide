@@ -1,4 +1,4 @@
-# Copyright (c) 2008 Participatory Culture Foundation
+# Copyright (c) 2008-2009 Participatory Culture Foundation
 # See LICENSE for details.
 
 from django.http import HttpResponseRedirect
@@ -70,11 +70,9 @@ def channel_list(request, state):
         header = _("Featured Queue")
     elif state == 'hd-flagged':
         query = Channel.query().join('owner')
-        query.join('flags')
         query.load('flag_count')
         query.order_by('flag_count', desc=True)
         query.where(hi_def=True)
-        query.where(query.joins['flags'].c.flag == Flag.NOT_HD)
         header = _('Flagged HD Channels')
     else:
         query.where(state=Channel.NEW)

@@ -1,3 +1,6 @@
+# Copyright (c) 2009 Participatory Culture Foundation
+# See LICENSE for details.
+
 from django.views.i18n import set_language as django_set_language
 
 START = '<span class="code">'
