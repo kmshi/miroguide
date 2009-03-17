@@ -187,6 +187,7 @@ span.thumb.corners {
 }
 
 #footer {
+    clear: both;
     text-align: center;
     font-size: 80%;
 }
