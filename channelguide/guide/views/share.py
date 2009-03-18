@@ -111,7 +111,7 @@ def get_channels_and_items(feed_url, connection):
             try:
                 parsed = feedparser.parse(feed_url)
             except Exception:
-                logging.exeception('error parsing %s' % feed_url)
+                logging.exception('error parsing %s' % feed_url)
                 raise FeedFetchingError('feedparser error while parsing')
 
             #ok, so this doesn't work...
