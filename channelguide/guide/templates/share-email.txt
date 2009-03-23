@@ -1,12 +1,15 @@
 {% load i18n %}{% autoescape off %}{% trans "Hello!" %}
-{% ifequal share_type "feed" %}
-{% trans "Your friend wants to share the following video feed with you:" %}
-{% else %}
-{% trans "Your friend wants to share the following video with you:" %}
-{% endifequal %}
-{{ share_url }}
-{% if comment %}
-{% trans "Your friend has also attached a personal message:" %}
-----------------------------------------------------------------------
+{% trans "A friend thinks you should see this!" %}
+
+{% ifequal share_type "feed" %}{% trans "Feed URL:" %}{% else %}{% trans "Video URL:" %}{% endifequal %} {{ share_url }}
+
+{% if comment %}{% trans "*A Note from the Sender*" %}
 {{ comment }}
-{% endif %}{% endautoescape %}
+
+{% endif %}{% if title %}*{% trans "Title" %}* {{ title }}
+
+{% endif %}{% if description %}*{% trans "Description" %}*
+{{ description|striptags }}
+
+{% endif %}{% ifequal share_type "feed" %}{% trans "This video podcast was shared via the Miro Guide" %}{% else %}{% trans "This video was shared via the Miro Guide" %}{% endifequal %}: https://miroguide.com" %}
+{% endautoescape %}

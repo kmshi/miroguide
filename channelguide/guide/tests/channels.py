@@ -16,10 +16,11 @@ from channelguide.guide.models import (Channel, Category, Tag, Item, User,
 from channelguide.testframework import TestCase
 
 def test_data_path(filename):
-    return os.path.join(os.path.dirname(__file__), 'data', filename)
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), 'data',
+                                        filename))
 
 def test_data_url(filename):
-    return 'file://' + os.path.abspath(test_data_path(filename))
+    return 'file://' + test_data_path(filename)
 
 class ChannelTestBase(TestCase):
     def setUp(self):
