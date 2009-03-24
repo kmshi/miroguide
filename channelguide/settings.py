@@ -32,7 +32,6 @@ MANAGERS = ADMINS
 # http://blogs.law.harvard.edu/tech/stories/storyReader$15
 LANGUAGE_CODE = 'en'
 
-_ = lambda x: x
 ENGLISH_LANGUAGES = (
     ('en', "English"),
     ('ar', "Arabic"),
