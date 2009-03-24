@@ -125,13 +125,13 @@ class CacheMiddleware(CacheMiddlewareBase):
     def get_cache_key_tuple(self, request):
         parent = CacheMiddlewareBase.get_cache_key_tuple(self, request)
         cookie = request.META.get('HTTP_COOKIE')
+        head = (request.path, request.META['QUERY_STRING'])
         if type(cookie) is SimpleCookie:
             # Maybe this is the test browser, which sends the HTTP_COOKIE
             # value as an python Cookie object
-            return parent + (request.path, request.META['QUERY_STRING'],
-                    cookie.output())
+            return parent + head + (cookie.output(),)
         else:
-            return parent + (request.path, request.META['QUERY_STRING'], cookie)
+            return parent + head + (cookie,)
 
 class TableDependentCacheMiddleware(CacheMiddlewareBase):
 
@@ -168,6 +168,8 @@ class UserCacheMiddleware(CacheMiddlewareBase):
                     [lang.name for lang in request.user.shown_languages])
         else:
             user = None
+            if request.session.get('filter_languages'):
+                filter_languages = request.LANGUAGE_CODE
         return CacheMiddlewareBase.get_cache_key_tuple(self, request) + (
             request.path, request.META['QUERY_STRING'], user, filter_languages)
 

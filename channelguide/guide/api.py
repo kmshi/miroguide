@@ -1,6 +1,7 @@
 # Copyright (c) 2009 Participatory Culture Foundation
 # See LICENSE for details.
 
+from django.conf import settings
 from channelguide.guide.models import (Category, Channel, Language, Tag, Rating,
                                        User, AddedChannel)
 from channelguide.guide import recommendations
@@ -108,13 +109,22 @@ def get_channels_query(request, filter, value, sort=None,
         query.order_by(query.joins['rating'].c.bayes, desc=desc)
     else:
         raise ValueError('unknown sort type: %r' % sort)
-    if filter != 'language' and request.user.is_authenticated() and \
-            request.user.filter_languages:
-        request.user.join('shown_languages').execute(connection)
-        if request.user.shown_languages:
-            query.join('language')
-            query.where(query.joins['language'].c.id.in_([
-                    language.id for language in request.user.shown_languages]))
+    if filter != 'language':
+        if request.user.is_authenticated() and \
+                request.user.filter_languages:
+            request.user.join('shown_languages').execute(connection)
+            if request.user.shown_languages:
+                query.join('language')
+                query.where(query.joins['language'].c.id.in_([
+                            language.id for language in request.user.shown_languages]))
+        elif request.session.get('filter_languages'):
+            languageName = settings.ENGLISH_LANGUAGE_MAP.get(request.LANGUAGE_CODE)
+            if languageName:
+                dbLanguages = Language.query(name=languageName).execute(request.connection)
+                if dbLanguages:
+                    query.join('language')
+                    query.where(query.joins['language'].c.id.in_([
+                                language.id for language in dbLanguages]))
     return query
 
 def _split_loads(loads):
