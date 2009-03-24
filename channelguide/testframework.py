@@ -47,7 +47,7 @@ class TestCase(unittest.TestCase):
         settings.DISABLE_CACHE = True
         settings.USE_S3 = False
         settings.BASE_URL_FULL = 'http://localhost/'
-        self.client = Client()
+        self.client = Client(SERVER_NAME='localhost')
         self.changed_settings = []
 
     def change_setting_for_test(self, name, value):
