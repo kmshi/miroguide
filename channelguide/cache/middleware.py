@@ -159,11 +159,17 @@ class UserCacheMiddleware(CacheMiddlewareBase):
     that have ratings.
     """
     def get_cache_key_tuple(self, request):
+        filter_languages = ''
         if request.user.is_authenticated():
             user = request.user.username
+            if request.user.filter_languages:
+                request.user.join('shown_languages').execute(request.connection)
+                filter_languages = ''.join(
+                    [lang.name for lang in request.user.shown_languages])
         else:
             user = None
-        return CacheMiddlewareBase.get_cache_key_tuple(self, request) + (request.path, request.META['QUERY_STRING'], user)
+        return CacheMiddlewareBase.get_cache_key_tuple(self, request) + (
+            request.path, request.META['QUERY_STRING'], user, filter_languages)
 
 class AggressiveCacheMiddleware(UserCacheMiddleware):
     """Aggresively Caches a page.  This should only be used for pages that
