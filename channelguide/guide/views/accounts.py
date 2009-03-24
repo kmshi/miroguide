@@ -215,22 +215,28 @@ def change_password_submit(request, id):
 def password_changed(request):
     return util.render_to_response(request, 'password-changed.html')
 
-@login_required
 def set_language_view(request):
     value = request.REQUEST.get('filter', None)
-    request.user.join('shown_languages').execute(request.connection)
-    if value == '0':
-        request.user.filter_languages = False
-        request.user.shown_languages.clear(request.connection)
-        request.user.save(request.connection)
-    elif value == '1' and request.user.language:
-        languageName = settings.ENGLISH_LANGUAGE_MAP.get(request.user.language)
-        if languageName:
-            dbLanguages = Language.query(name=languageName).execute(request.connection)
-            if dbLanguages:
-                request.user.filter_languages = True
-                request.user.shown_languages.clear(request.connection)
-                request.user.shown_languages.add_record(request.connection,
-                    dbLanguages[0])
-                request.user.save(request.connection)
+    if request.user.is_authenticated():
+        request.user.join('shown_languages').execute(request.connection)
+        if value == '0':
+            request.user.filter_languages = False
+            request.user.shown_languages.clear(request.connection)
+            request.user.save(request.connection)
+        elif value == '1' and request.user.language:
+            languageName = settings.ENGLISH_LANGUAGE_MAP.get(request.user.language)
+            if languageName:
+                dbLanguages = Language.query(name=languageName).execute(request.connection)
+                if dbLanguages:
+                    request.user.filter_languages = True
+                    request.user.shown_languages.clear(request.connection)
+                    request.user.shown_languages.add_record(request.connection,
+                        dbLanguages[0])
+                    request.user.save(request.connection)
+    else:
+        if value == '0':
+            request.session['filter_languages'] = False
+        elif value == '1':
+            request.session['filter_languages'] = True
+        request.session.change_session_key()
     return util.redirect_to_referrer(request)

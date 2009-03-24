@@ -125,13 +125,13 @@ class CacheMiddleware(CacheMiddlewareBase):
     def get_cache_key_tuple(self, request):
         parent = CacheMiddlewareBase.get_cache_key_tuple(self, request)
         cookie = request.META.get('HTTP_COOKIE')
+        head = (request.path, request.META['QUERY_STRING'])
         if type(cookie) is SimpleCookie:
             # Maybe this is the test browser, which sends the HTTP_COOKIE
             # value as an python Cookie object
-            return parent + (request.path, request.META['QUERY_STRING'],
-                    cookie.output())
+            return parent + head + (cookie.output(),)
         else:
-            return parent + (request.path, request.META['QUERY_STRING'], cookie)
+            return parent + head + (cookie,)
 
 class TableDependentCacheMiddleware(CacheMiddlewareBase):
 
@@ -159,11 +159,19 @@ class UserCacheMiddleware(CacheMiddlewareBase):
     that have ratings.
     """
     def get_cache_key_tuple(self, request):
+        filter_languages = ''
         if request.user.is_authenticated():
             user = request.user.username
+            if request.user.filter_languages:
+                request.user.join('shown_languages').execute(request.connection)
+                filter_languages = ''.join(
+                    [lang.name for lang in request.user.shown_languages])
         else:
             user = None
-        return CacheMiddlewareBase.get_cache_key_tuple(self, request) + (request.path, request.META['QUERY_STRING'], user)
+            if request.session.get('filter_languages'):
+                filter_languages = request.LANGUAGE_CODE
+        return CacheMiddlewareBase.get_cache_key_tuple(self, request) + (
+            request.path, request.META['QUERY_STRING'], user, filter_languages)
 
 class AggressiveCacheMiddleware(UserCacheMiddleware):
     """Aggresively Caches a page.  This should only be used for pages that

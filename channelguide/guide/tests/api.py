@@ -404,6 +404,7 @@ class MockRequest(object):
     def __init__(self, test):
         self.connection = test.connection
         self.user = test.owner
+        self.session = {}
 
 class ChannelApiFunctionTest(ChannelApiTestBase):
 

@@ -1180,6 +1180,22 @@ class ChannelSearchTest(ChannelTestBase):
         self.login(self.make_user('reggie', role=User.MODERATOR))
         self.assertEquals(self.feed_search_count('Unapproved'), 1)
 
+    def test_short_word_search(self):
+        self.channel.name = "foobar y barfoo"
+        self.channel.save(self.connection)
+        self.channel.update_search_data(self.connection)
+        self.refresh_connection()
+
+        def _check(query):
+            results = self.feed_search(query)
+            self.assertEquals(len(results), 1)
+            self.assertEquals(results[0].id, self.channel.id)
+
+        _check("foobar barfoo")
+        _check("foobar y barfoo")
+
+
+
 class EditChannelTest(ChannelTestBase):
     def setUp(self):
         ChannelTestBase.setUp(self)
