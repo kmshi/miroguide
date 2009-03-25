@@ -7,14 +7,50 @@ See LICENSE for details.
 {% block top %}{% trans "Add a Feed to Miro" %}{% endblock %}
 {% block url %}{{ BASE_URL }}submit/step1{% endblock %}
 {% block upper %}
-    {% show_form form %}
+  {{ form.errors }}
+  <ul>
+    {% for field in form %}
+    <li id="li_{{ field.name }}" class="form_row">
+      <div>
+        <span class="label">
+          {{ field.label_tag }}
+          {% if field.field.required %}
+          <span class="required">*</span>
+          {% endif %}
+        </span>
+        {{ field }}
+      </div>
+      <div class="help">
+        {% if field.help_text %}
+        <span>{% autoescape off %}{{ field.help_text }}{% endautoescape %}</span>
+        {% endif %}
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
 {% endblock %}
 {% block bottom %}
 <button class="gray-button fr" type="submit" name="type" value="Creator">
   <span>{% trans "I am the Creator" %}</span>
 </button>
+<span class="help"><span>{% trans "Click here if you're the person responsible for creating the video and/or RSS feed in this show." %}</span></span>
 <span class="fr">  or  </span>
 <button class="gray-button fr" type="submit" name="type" value="Fan">
   <span>{% trans "I'm a Fan" %}</span>
 </button>
+<span class="help"><span>{% trans "Anyone can submit a new show to the Miro Guide — they will be the manager of the show, unless the publisher or creator claims the show." %}</span></span>
+<script type="text/javascript">
+if (navigator.userAgent.indexOf('Safari') != -1) {
+    // Safari doesn't correctly support combinging :hover with adjacent sibling
+    // selectors
+    function toggle() {
+        obj = $(this).toggleClass('hover').next()[0];
+        // Safari also doesn't redraw based on the classname change above, so
+        // we force it
+        obj.parentNode.replaceChild(obj.cloneNode(true), obj)
+    }
+
+    $('.bottom button').hover(toggle, toggle);
+}
+</script>
 {%endblock%}

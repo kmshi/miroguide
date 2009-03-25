@@ -13,3 +13,7 @@
 ul.newVideos {
     height: 150px;
 }
+
+#submit .top {
+    margin-bottom: -19px;
+}

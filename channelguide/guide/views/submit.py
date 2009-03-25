@@ -85,7 +85,7 @@ def submit_channel(request):
     """
     session_dict = request.session[SESSION_KEY]
     if 'subscribe' in session_dict:
-        return util.redirect('/submit')
+        return util.redirect('/submit/')
     if request.method != 'POST':
         form = forms.SubmitChannelForm(
             request.connection,
