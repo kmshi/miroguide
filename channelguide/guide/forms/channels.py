@@ -40,7 +40,8 @@ UPLOAD_HELP_TEXT = _("This is the single most important part of submitting "
                      "will need to have the name of your show in it. You can "
                      "update this image at any time.")
 
-YOUTUBE_TITLE_RE = re.compile('YouTube :: (?P<realtitle>.+)')
+YOUTUBE_USER_URL_RE = re.compile(r'http://www.youtube.com/rss/user/([^/]+)/videos.rss')
+YOUTUBE_TITLE_RE = re.compile(r'YouTube :: (?P<realtitle>.+)')
 
 
 class RSSFeedField(WideCharField):
@@ -107,6 +108,9 @@ class FeedURLForm(Form):
                 return None
         data['name'] = self.cleaned_data['name']
         data['website_url'] = try_to_get('link')
+        match = YOUTUBE_USER_URL_RE.match(data['website_url'])
+        if match:
+            data['website_url'] = 'http://www.youtube.com/user/%s' % match.groups()[0]
         data['publisher'] = try_to_get('publisher')
         data['description'] = try_to_get('description')
         try:

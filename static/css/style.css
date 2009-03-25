@@ -4582,7 +4582,7 @@ border: 1px solid;
 }
 
 
-.login-page .form-errors {
+.form-errors {
     padding-bottom: 10px;
     background: #fffcd1;
     color: #cd7662;
@@ -4594,18 +4594,18 @@ border: 1px solid;
 padding-top: 0;
 }
 
-.login-page .form-errors h2 {
+.form-errors h2 {
     text-align: left;
 padding: 0;
 }
 
-.login-page .form-errors ul{
+.form-errors ul{
  padding-bottom: 5px;
 }
 
 
 
-.login-page .form-errors ul li {
+.form-errors ul li {
   line-height: 1.6em;
 list-style-type: circle;
 margin-left: 16px;
@@ -4613,7 +4613,7 @@ color: #333;
 }
 
 
-.login-page .form-errors ul li span{
+.form-errors ul li span{
 font-weight: bold;
 }
 

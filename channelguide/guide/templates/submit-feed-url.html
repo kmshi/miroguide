@@ -7,7 +7,7 @@ See LICENSE for details.
 {% block top %}{% trans "Add a Feed to Miro" %}{% endblock %}
 {% block url %}{{ BASE_URL }}submit/step1{% endblock %}
 {% block upper %}
-  {{ form.errors }}
+  {% include "guide/form-errors.html" %}
   <ul>
     {% for field in form %}
     <li id="li_{{ field.name }}" class="form_row">

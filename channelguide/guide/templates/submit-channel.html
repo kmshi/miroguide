@@ -11,7 +11,7 @@
 {% block url %}{{ BASE_URL}}submit/step2{% endblock %}
 
 {% block upper %}
-  {{ form.errors }}
+  {% include "guide/form-errors.html" %}
   <ul>
     {% for field in form %}
     <li class="form_row">
