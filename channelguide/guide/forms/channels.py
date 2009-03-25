@@ -26,16 +26,19 @@ from fields import WideCharField, WideURLField, WideChoiceField
 from form import Form
 
 HD_HELP_TEXT =  _(
-    "Material that is roughly 1080x720, and higher, can "
-    "be marked as HD. Please make sure it has a sufficiently high video "
-    "bitrate to avoid messy artifacting. Roughly 95% of the material on the "
-    "channel must meet this criteria for it to be considered HD. Note: you "
-    "are welcome to have an HD and non-HD version of the same channel.")
-RSS_HELP_TEXT = _("An RSS feed is what makes a podcast a "
-"podcast. It's a special URL that applications like "
-"Miro and iTunes check periodically to know when there "
-"is a new video for a channel. Video RSS feeds are "
-"strongly recommended for Miro.")
+    "Only mark your channel as HD if you the video resolution is 1080x720 "
+    "or higher. Roughly 95% of the material on the channel should meet this "
+    "criteria for it to be considered HD.")
+RSS_HELP_TEXT = _('Our <a href="http://getmiro.com/publish/">Publishers '
+                  'Guide</a> has details on finding your RSS feed. Chances '
+                  'are, you already have one (YouTube, blip.tv, Vimeo, etc. '
+                  'all have them).')
+UPLOAD_HELP_TEXT = _("This is the single most important part of submitting "
+                     "a channel &mdash; a good channel thumbnail is proven to "
+                     "attract more viewers. It's worth making an effort to "
+                     "do something beautiful. If your channel is featured, it "
+                     "will need to have the name of your show in it. You can "
+                     "update this image at any time.")
 
 YOUTUBE_TITLE_RE = re.compile('YouTube :: (?P<realtitle>.+)')
 
@@ -74,7 +77,7 @@ class RSSFeedField(WideCharField):
         return parsed
 
 class FeedURLForm(Form):
-    name = WideCharField(max_length=200, label=_("Channel Name"))
+    name = WideCharField(max_length=200, label=_("Show Name"))
     url = RSSFeedField(label=_("RSS Feed"), required=False,
                        help_text=RSS_HELP_TEXT)
 
@@ -102,7 +105,7 @@ class FeedURLForm(Form):
                 return to_utf8(parsed['feed'][feed_key])
             except (KeyError, TypeError):
                 return None
-        data['name'] = try_to_get('title')
+        data['name'] = self.cleaned_data['name']
         data['website_url'] = try_to_get('link')
         data['publisher'] = try_to_get('publisher')
         data['description'] = try_to_get('description')
@@ -187,7 +190,7 @@ class TripletField(forms.MultiValueField):
 
 class TagField(WideCharField):
     def __init__(self, tag_limit, *args, **kwargs):
-        WideCharField.__init__(self, args, **kwargs)
+        WideCharField.__init__(self, *args, **kwargs)
         self.tag_limit = tag_limit
 
     def clean(self, value):
@@ -306,37 +309,40 @@ def try_to_download_thumb(url):
         return None
 
 class SubmitChannelForm(Form):
-    name = WideCharField(max_length=200, label=_("Channel Name"))
+    name = WideCharField(max_length=200, label=_("Show Name"))
     url = RSSFeedField(label=_("RSS Feed"), max_length=200,
                       help_text=RSS_HELP_TEXT, required=False)
-    website_url = WideURLField(label=_('Website URL'), max_length=200)
+    website_url = WideURLField(label=_('Website URL'), max_length=200,
+                               help_text=_("Don't forget to add a website URL "
+                                           "for the show."))
     description = WideCharField(widget=forms.Textarea,
             label=_("Full Description"))
-    publisher = forms.CharField(
-        label=_("Publisher"), max_length=100,
-        required=False)
+    publisher = forms.CharField(label=_("Publisher"), max_length=100,
+                                required=False,
+                                help_text=_("The person or company "
+                                            "responsible for publishing this "
+                                            "show."))
     tags = TagField(tag_limit=75, required=False,
-            label=_('Tags'),
-            help_text=_('Keywords that describe this channel.  Separate each '
-                'tag with a comma.'))
-    categories = TripletField(CategoriesField, label=_("Genres"))
+                    label=_('Tags'),
+                    help_text=_('Separate each tag with a comma.'))
+    geoip = WideCharField(max_length=100, label=_("Geo restrictions"),
+                          help_text=_("Use commas to separate two letter "
+                                      "country codes. Countries listed here "
+                                      "are the ONLY ones that will see this "
+                                      "site or show."),
+                          required=False)
+    categories = TripletField(CategoriesField, label=_("Genres"),
+                              help_text=_("Pick at least one genre."))
     language = LanguageField(label=_("Language"),
-            help_text=_("What language are most of these videos in?"))
-    postal_code = WideCharField(max_length=15, label=_("Postal Code"),
-            required=False)
+                             help_text=_("Users can filter their searches by "
+                                         "language."))
+    #postal_code = WideCharField(max_length=15, label=_("Postal Code"),
+    #        required=False)
     hi_def = forms.BooleanField(label=_('High Definition'),
             help_text=HD_HELP_TEXT, required=False)
-    geoip = WideCharField(max_length=100, label=_("Geographic restrictions"),
-                          help_text="A comma-separated list of country codes "
-                          "to which this site is limited.",
-                          required=False)
     thumbnail_file = ChannelThumbnailField(
         label=_('Upload Image (optimal size: 400x267)'),
-        help_text=_("Remember that creating a good channel thumbnail is one of "
-                    "the most important ways to attract new viewers.  It's "
-                    "worth making an effort to do something beautiful.  "
-                    "You can also update the image after you submit your "
-                    "channel."))
+        help_text=UPLOAD_HELP_TEXT)
 
     def __init__(self, *args, **kwargs):
         if kwargs.has_key('url_required'):
@@ -437,7 +443,7 @@ class SubmitChannelForm(Form):
 
     def update_channel(self, channel):
         string_cols = ('name', 'website_url',
-                'description', 'publisher', 'postal_code', 'geoip')
+                'description', 'publisher', 'geoip')
         for attr in string_cols:
             setattr(channel, attr, self.cleaned_data[attr].encode('utf-8'))
         channel.hi_def = self.cleaned_data['hi_def']
@@ -481,8 +487,7 @@ class EditChannelForm(FeedURLForm, SubmitChannelForm):
         join = self.channel.join('language', 'categories')
         join.execute(self.connection)
         for key in ('url', 'name', 'hi_def', 'website_url',
-                'description', 'publisher',
-                'postal_code', 'geoip'):
+                'description', 'publisher', 'geoip'):
             self.fields[key].initial = getattr(self.channel, key)
         tags = self.channel.get_tags_for_owner(self.connection)
         tag_names = [tag.name for tag in tags]
