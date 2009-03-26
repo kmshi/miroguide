@@ -20,7 +20,7 @@ See LICENSE for details.
 
 <div class="searchResultContent">
   <h4>{{ channel.name_as_link }}</h4>
-  <p>{{ channel.description }}</p>
+  <p>{% autoescape off %}{{ channel.description|striptags }}{% endautoescape %}</p>
 </div>
 <br class="clear_all">
 <div class="searchResultsMeta">
