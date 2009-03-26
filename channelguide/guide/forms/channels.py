@@ -132,11 +132,12 @@ class FeedURLForm(Form):
 
 
 class DBChoiceField(WideChoiceField):
-    def update_choices(self):
+    def update_choices(self, skip=()):
         query = self.db_class.query().order_by('name')
         db_objects = query.execute(self.connection)
         choices = [('', '<none>')]
-        choices.extend((obj.id, obj.name) for obj in db_objects)
+        choices.extend((obj.id, obj.name) for obj in db_objects
+                       if obj.name not in skip)
         self.choices = choices
 
     def clean(self, value):
@@ -180,10 +181,10 @@ class TripletField(forms.MultiValueField):
         args = ((field(), field(), field()),) + args
         super(TripletField, self).__init__(*args, **kw)
 
-    def update_choices(self):
+    def update_choices(self, skip=()):
         for field, widget in zip(self.fields, self.widget.widgets):
             field.connection = self.connection
-            field.update_choices()
+            field.update_choices(skip=skip)
             widget.choices = field.choices
 
     def compress(self, values):
@@ -349,13 +350,19 @@ class SubmitChannelForm(Form):
         help_text=UPLOAD_HELP_TEXT)
 
     def __init__(self, *args, **kwargs):
-        if kwargs.has_key('url_required'):
-            self.base_fields['url'].required = kwargs['url_required']
-            kwargs.pop('url_required')
+        if 'url_required' in kwargs:
+            url_required = kwargs.pop('url_required')
+        else:
+            url_required = False
         Form.__init__(self, *args, **kwargs)
         self.set_image_from_feed = False
         self.fields['language'].update_choices()
-        self.fields['categories'].update_choices()
+
+        if url_required:
+            self.base_fields['url'].required = url_required
+            self.fields['categories'].update_choices(skip=('Courseware',))
+        else:
+            self.fields['categories'].update_choices()
 
     def clean_website_url(self):
         value = self.cleaned_data['website_url']
