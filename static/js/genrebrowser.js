@@ -50,6 +50,10 @@ var browser = {
         add_corners();
     },
 
+    stripTags: function(text) {
+        return text.replace(/<[^>]+>/g, '');
+    },
+
     updateChannel: function(index, data) {
         show = $("#channelEpisodes .pageContent .searchResults > li").eq(index);
         thumb = show.find('.searchThumb a');
@@ -69,7 +73,7 @@ var browser = {
             thumb.children('span').html('<img class="hd_tag_tiny2" src="' + STATIC_BASE_URL + 'images/ico_hd_tag_tiny.png" alt="" />');
         }
         show.find('h4 a').attr('href', url).text(data.name);
-        show.find('.searchResultContent p').text(data.description);
+        show.find('.searchResultContent p').html(browser.stripTags(data.description));
         add = show.find('a.small_add_button');
         new_add = $('<a/>').addClass('small_add_button').attr('href', subscribe_url).click(function () {
             return handleSubscriptionLink(url + '/subscribe-hit', subscribe_url);
