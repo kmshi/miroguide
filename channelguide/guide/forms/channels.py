@@ -247,8 +247,9 @@ class ChannelThumbnailWidget(forms.Widget):
         if self.submitted_thumb_path is None:
             return None
         else:
-            return urljoin(settings.MEDIA_URL,
-                'tmp/%s' % self.submitted_thumb_path_resized())
+            return urljoin(settings.BASE_URL,
+                           'media/tmp/%s' %
+                           self.submitted_thumb_path_resized())
 
     def save_submitted_thumbnail(self, data, name):
         hidden_name = self.get_hidden_name(name)
