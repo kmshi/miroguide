@@ -9,8 +9,8 @@ See LICENSE for details.
       Stats for the past 100 days.
       <img src="http://chart.apis.google.com/chart?chs=200x125&cht=ls&chco=0077CC&chd=t:{% for today in todays %}{{ today }}{% if not forloop.last %},{% endif %}{% endfor %}&chds={{ min_today }},{{ max_today }}&chxt=y&chxr=0,{{ min_today }},{{ max_today }}">
       <ul>
-        {% for today in todays %}
-        <li>{{ today }}</li>
+        {% for today in today_keys %}
+        <li>{{ today.0 }}: {{ today.1 }}</li>
         {% endfor %}
       </ul>
     </div>
@@ -19,8 +19,8 @@ See LICENSE for details.
       <img src="http://chart.apis.google.com/chart?chs=200x125&cht=ls&chco=0077CC&chd=t:{% for month in months %}{{ month }}{% if not forloop.last %},{% endif %}{% endfor %}&chds={{ min_month }},{{ max_month }}&chxt=y&chxr=0,{{ min_month }},{{ max_month }}">
 
       <ul>
-        {% for month in months %}
-        <li>{{ month }}</li>
+        {% for month in month_keys %}
+        <li>{{ month.0 }}: {{ month.1 }}</li>
         {% endfor %}
       </ul>
     </div>
