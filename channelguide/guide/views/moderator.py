@@ -143,11 +143,11 @@ def stats(request):
 
     return util.render_to_response(request, 'stats.html', {
             'today_keys': today_keys,
-            'todays': todays,
+            'todays': reversed(todays),
             'min_today': min(todays),
             'max_today': max(todays),
             'month_keys': month_keys,
-            'months': months,
+            'months': reversed(months),
             'min_month': min(months),
             'max_month': max(months)})
 
