@@ -107,7 +107,7 @@ class LoginForm(Form):
         user = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
         if user is not None and password is not None:
-            if not user.check_password(password):
+            if not user.check_password(password) or user.blocked:
                 raise forms.ValidationError(_("That password is not valid."))
         return password
 
