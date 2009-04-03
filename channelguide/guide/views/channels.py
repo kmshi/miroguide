@@ -594,6 +594,8 @@ def for_user(request, user_name_or_id):
     except LookupError:
         user = util.get_object_or_404(request.connection, User,
                                       user_name_or_id)
+    if user.blocked:
+        raise Http404
     expected_path = '/user/%s' % user.username
     if request.path != expected_path:
         return util.redirect(expected_path)
