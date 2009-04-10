@@ -6,7 +6,7 @@ from itertools import izip, count
 import sha
 import cgi
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.utils.translation import ugettext as _
 from channelguide import util
 from channelguide.guide import api
@@ -109,6 +109,8 @@ def response_for_data(request, data, code=None):
         if 'jsoncallback' in request.REQUEST:
             stringData = '%s(%s);' % (request.REQUEST['jsoncallback'],
                                       stringData)
+    else:
+        raise Http404
     response = HttpResponse(stringData,
                             content_type=contentType)
     if code:

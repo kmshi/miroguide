@@ -36,9 +36,6 @@ def submit_feed(request):
                 request.session[SESSION_KEY]['owner-is-fan'] = True
             else:
                 request.session[SESSION_KEY]['owner-is-fan'] = False
-                if request.session[SESSION_KEY].get('publisher') is None:
-                    request.session[SESSION_KEY]['publisher'] = \
-                                                              request.user.email
             return util.redirect("submit/step2")
         else:
             for error in form.error_list():
