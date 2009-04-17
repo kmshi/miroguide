@@ -124,7 +124,7 @@ def pagelinks(context, page, default_page=1):
                     del get_data['page']
                 except KeyError:
                     pass
-            links.append((number, util.make_absolute_url(path, get_data)))
+            links.append((number, path + util.format_get_data(get_data)))
         else:
             links.append(('tag', None))
     return {'page': page,
