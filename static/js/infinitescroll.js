@@ -54,7 +54,11 @@ function infiniteLoad() {
     nextpage = $('ul.paginator2 li.selected + li, ul.paginator li.selected + li');
     checkScroll.loading = true;
     showLoadIndicator(true);
-    $.get(nextpage.find('a').attr('href'), infiniteCallback);
+    href = nextpage.find('a').attr('href');
+    if (pageTracker) { // Google Analytics
+        pageTracker._trackPageview(href);
+    }
+    $.get(href, infiniteCallback);
 }
 
 function checkHash() {

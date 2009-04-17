@@ -86,6 +86,11 @@ function ajaxLink(url, id) {
  * channelguide URL redirects te the subscribe_url.
  */
 function handleSubscriptionLink(channel_guide_url, subscribe_url) {
+    if (pageTracker) { // Google Analytics
+        showID = /(\d+)\/subscribe-hit/.exec(channel_guide_url);
+        pageTracker._trackEvent('Subscriptions', 'Shows', showID);
+    }
+
     if (isMiro() && MiroVersion() >= "1.5") {
         return true;
     }
