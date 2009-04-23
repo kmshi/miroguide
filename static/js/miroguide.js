@@ -87,7 +87,7 @@ function ajaxLink(url, id) {
  */
 function handleSubscriptionLink(channel_guide_url, subscribe_url) {
     if (pageTracker) { // Google Analytics
-        showID = /(\d+)\/subscribe-hit/.exec(channel_guide_url);
+        showID = /(\d+)\/subscribe-hit/.exec(channel_guide_url)[1];
         pageTracker._trackEvent('Subscriptions', 'Shows', showID);
     }
 
