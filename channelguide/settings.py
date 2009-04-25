@@ -155,6 +155,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 INSTALLED_APPS = (
+    'channelguide.aether',
     'channelguide.guide',
     'channelguide.db',
     'channelguide.sessions',

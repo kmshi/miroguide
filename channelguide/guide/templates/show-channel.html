@@ -55,6 +55,18 @@
   <div id="channelDetails2">
     <div class="page">
       <div class="channelDetailsContent">
+        {% if channel.url %}
+        <a id="2" class="large_add_button {% if channel.url %}feed{% else %}site{% endif %}"
+              {% if subscribed %}
+                  href="/aether/remove/{{ channel.id }}">
+                  {% wrap_translation 25 %}{% trans "Unsubscribe" %}{% endwrap %}
+              {% else %}
+                  href="/aether/add/{{ channel.id }}">
+                  {% wrap_translation 25 %}{% trans "Subscribe" %}{% endwrap %}
+              {% endif %}
+        </a>
+        {% endif %}
+
         <a class="large_add_button {% if channel.url %}feed{% else %}site{% endif %}"
           {{ channel.subscription_link }}>
           {% wrap_translation 25 %}

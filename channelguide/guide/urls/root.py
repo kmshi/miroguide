@@ -138,4 +138,8 @@ urlpatterns += patterns('',
                         (r'^tags/', cg_include('tags')),
                         (r'^cobranding/', cg_include('cobranding')))
 
+urlpatterns += patterns (
+    '',
+    (r'^aether/', include('channelguide.aether.urls'))
+)
 handler500 = 'channelguide.guide.views.errors.error_500'

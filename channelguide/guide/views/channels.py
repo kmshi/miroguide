@@ -29,20 +29,39 @@ from sqlhelper.sql.statement import Select
 from sqlhelper import signals, exceptions
 
 
+# Just to get things working...
+from channelguide.aether.models import ChannelSubscription, DownloadRequest
+from channelguide.aether import tables
+
 class ItemObjectList(templateutil.QueryObjectList):
-    def __init__(self, connection, channel):
+    def __init__(self, connection, channel, user_id=None):
         self.connection = connection
         self.query = Item.query(Item.c.channel_id == channel.id).order_by(
             Item.c.date, desc=True).join('channel')
+            
+ #       if user_id:
+ #           self.query.join ('download_requests')
+ #           self.query.joins['download_requests'].where (user_id=user_id)
 
+ #          print self.query
+            
     def __len__(self):
         return int(self.query.count(
                 self.connection))
 
     def __getslice__(self, offset, end):
         limit = end - offset
-        return tuple(self.query.limit(limit).offset(offset).execute(
-            self.connection))
+
+        all_items = self.query.limit(limit).offset(offset).execute(self.connection)
+        download_requests = DownloadRequest.query ().where (DownloadRequest.c.item_id.in_ ((i.id for i in all_items))).execute (self.connection)
+        # This filthy hack could be avoided if...
+        # Django templates provided something akin to {% if id in ids %}...{% endif %}
+        for item in all_items:
+            if item.id in [i.item_id for i in download_requests]:
+                setattr (item, 'download_queued', True)
+            else:
+                setattr (item, 'download_queued', False)
+        return all_items
 
 class ApiObjectList:
     def __init__(self, request, filter, value, sort, loads, country_code=None):
@@ -131,7 +150,6 @@ class ChannelCacheMiddleware(UserCacheMiddleware):
         channelId = request.path.split('/')[-1].encode('utf8')
         self.namespace = ('channel', 'Channel:%s' % channelId)
         return UserCacheMiddleware.get_cache_key_tuple(self, request)
-
 
 @moderator_required
 def moderator_channel_list(request, state):
@@ -308,6 +326,7 @@ def on_channel_record_insert(record):
 def show(request, id, featured_form=None):
     query = Channel.query()
     query.join('categories', 'tags', 'rating', 'last_moderated_by')
+
     if request.user.is_supermoderator():
         query.join('featured_queue', 'featured_queue.featured_by')
     c = util.get_object_or_404(request.connection, query, id)
@@ -315,11 +334,15 @@ def show(request, id, featured_form=None):
         c.rating = GeneratedRatings()
         c.rating.channel_id = c.id
         c.rating.save(request.connection)
+
     # redirect old URLs to canonical ones
     if request.path != c.get_url():
         return util.redirect(c.get_absolute_url(), request.GET)
 
-    item_paginator = Paginator(ItemObjectList(request.connection, c), 10)
+    item_paginator = Paginator(
+        ItemObjectList(request.connection, c, user_id=request.user.id), 10
+    )
+    
     try:
         item_page = item_paginator.page(request.GET.get('page', 1))
     except InvalidPage:
@@ -335,6 +358,7 @@ def show(request, id, featured_form=None):
         share_links = util.get_share_links(share_url, c.name)
 
     country = country_code(request)
+
     context = {
         'channel': c,
         'item_page': item_page,
@@ -351,6 +375,20 @@ def show(request, id, featured_form=None):
         'share_type': 'feed',
         'share_links': share_links,
         'country': country}
+
+    # Just to get things working...  aether...
+
+    try:
+        if ChannelSubscription.query (user_id=request.user.id, channel_id=c.id).count (request.connection):
+            context['subscribed'] = True
+        query = DownloadRequest.query (user_id=request.user.id).join ('item')
+        query.where (query.joins['item'].c.channel_id == id)
+        ids = query.execute (request.connection)
+
+        ids = [i.item_id for i in ids]
+        if len (ids):
+            context['queued_item_ids'] = ids
+    except: pass
     
     if share_url:
         context['google_analytics_ua'] = None

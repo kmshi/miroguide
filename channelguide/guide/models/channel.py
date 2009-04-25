@@ -26,6 +26,9 @@ from rating import Rating, GeneratedRatings
 from flag import Flag
 import search
 
+from channelguide.aether.models import ChannelItemDelta, MOD_TYPE_REMOVED
+
+
 class Channel(Record, Thumbnailable):
     """An RSS feed containing videos for use in Miro."""
     table = tables.channel
@@ -390,6 +393,7 @@ class Channel(Record, Thumbnailable):
 
         items_by_url = {}
         items_by_guid = {}
+
         for i in self.items:
             if i.url is not None:
                 items_by_url[i.url] = i
@@ -404,11 +408,18 @@ class Channel(Record, Thumbnailable):
                 to_delete.discard(items_by_url[i.url])
                 to_add.discard(i)
                 items_by_url[i.url].update_from_item(connection, i)
+
         for i in to_delete:
             self.items.remove_record(connection, i)
+            ChannelItemDelta.insert (
+                ChannelItemDelta(item=i, mod_type=MOD_TYPE_REMOVED),
+                connection
+            )
+
         for i in new_items:
             if i in to_add:
                 self.items.add_record(connection, i)
+                ChannelItemDelta.insert (ChannelItemDelta(item=i), connection)
 
     def _thumb_html(self, width, height):
         thumb_url = self.thumb_url(width, height)

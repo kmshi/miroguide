@@ -28,13 +28,24 @@ See LICENSE for details.
     {% with item.description|striptags as description %}
     {% showall description 10 %}
     {% endwith %}
-    <a href="{{ item.url }}" class="rollover_button download">
+
+    {% if item.download_queued %}
+    <a href="/aether/dequeue/{{ item.id }}" class="rollover_button download">
       <span>
         <img src="{{ STATIC_BASE_URL }}images/dl_arrow.png"
-             alt="Download">
-        {% trans "Download" %}
+             alt="Cancel">
+        {% trans "Cancel" %}
       </span>
     </a>
+    {% else %}
+    <a href="/aether/queue/{{ item.id }}" class="rollover_button download">
+      <span>
+        <img src="{{ STATIC_BASE_URL }}images/dl_arrow.png"
+             alt="Queue Download">
+        {% trans "Queue Download" %}
+      </span>
+    </a>
+    {% endif %}
   </div>
 
   <div class="meta">
