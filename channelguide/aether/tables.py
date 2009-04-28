@@ -7,26 +7,20 @@ from django.utils.translation import gettext as _
 from sqlhelper.orm import Table, columns
 from channelguide.guide.tables import channel, item, user
 
-def name_for_mod_type (mod_type):
-    if mod_type == 1:
-        return _('Added')
-    else:
-        return _('Removed')
-
 channel_item_delta = Table (
   'aether_channel_item_delta',
   columns.Int ('id', primary_key=True, auto_increment=True),
   columns.Int ('channel_id', fk=channel.c.id),
   columns.Int ('item_id', fk=item.c.id),
   columns.Int ('mod_type', 1, default=1),
-  columns.DateTime ('created_at', default=datetime.utcnow)
+  columns.DateTime ('created_at', default=datetime.now)
 )
 
 channel_subscription = Table (
   'aether_channel_subscription',
   columns.Int ('user_id', fk=user.c.id, primary_key=True),
   columns.Int ('channel_id', fk=channel.c.id, primary_key=True),
-  columns.DateTime ('created_at', default=datetime.utcnow)
+  columns.DateTime ('created_at', default=datetime.now)
 )
 
 channel_subscription_delta = Table (
@@ -35,14 +29,14 @@ channel_subscription_delta = Table (
   columns.Int ('user_id', fk=user.c.id),
   columns.Int ('channel_id', fk=channel.c.id),
   columns.Int ('mod_type', 1, default=1),
-  columns.DateTime ('created_at', default=datetime.utcnow)
+  columns.DateTime ('created_at', default=datetime.now)
 )
 
 download_request = Table (
   'aether_download_request',
   columns.Int ('user_id', fk=user.c.id, primary_key=True),
   columns.Int ('item_id', fk=item.c.id, primary_key=True),
-  columns.DateTime ('created_at', default=datetime.utcnow),
+  columns.DateTime ('created_at', default=datetime.now),
   columns.DateTime ('imparted_on', default=None)
 )
 
@@ -52,7 +46,18 @@ download_request_delta = Table (
   columns.Int ('user_id', fk=user.c.id),
   columns.Int ('item_id', fk=item.c.id),
   columns.Int ('mod_type', 1, default=1),
-  columns.DateTime ('created_at', default=datetime.utcnow)
+  columns.DateTime ('created_at', default=datetime.now)
+)
+
+client = Table (
+  'aether_client',
+  columns.Int ('user_id', fk=user.c.id, primary_key=True),
+  columns.Int ('client_id', primary_key=True),
+  columns.String ('name', default=''),
+  columns.DateTime ('last_updated', default=datetime (1970, 01, 01)),
+  columns.Int ('last_updated_ip', default=0),
+  columns.DateTime ('registered_at', default=datetime.now),
+  columns.Int ('registration_ip', default=0)
 )
 
 channel_item_delta.many_to_one (
@@ -92,3 +97,14 @@ download_request_delta.many_to_one (
 download_request_delta.many_to_one (
   'item', item, join_column=download_request_delta.c.item_id
 )
+
+client.many_to_one (
+  'user', user, backref='clients',
+  join_column=client.c.user_id
+)
+
+def name_for_mod_type (mod_type):
+    if mod_type == 1:
+        return _('Added')
+    else:
+        return _('Removed')

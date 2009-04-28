@@ -88,3 +88,6 @@ class DownloadRequestDelta (Record):
 
         if mod_type is not None:
             self.mod_type = mod_type
+
+class Client (Record):
+    table = tables.client
