@@ -8,6 +8,7 @@ from django.conf import settings
 import client
 
 from channelguide import util
+from channelguide.guide.country import country_code
 
 def date_time_string(timestamp=None):
     """return the current date and time formatted for a message header."""
@@ -232,5 +233,12 @@ class SiteHidingCacheMiddleware(AggressiveCacheMiddleware):
         if miro_version and 'X11' in request.META.get('HTTP_USER_AGENT', ''):
             miro_linux = True
 
+        geoip = request.GET.get('geoip', None)
+        if geoip != 'off':
+            geoip = country_code(request)
+        else:
+            geoip = None
+
+
         return UserCacheMiddleware.get_cache_key_tuple(self, request) + (
-            miro_version_pre_sites, miro_linux)
+            miro_version_pre_sites, miro_linux, geoip)
