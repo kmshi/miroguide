@@ -1,0 +1,1828 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-05-05 13:05-0400\n"
+"PO-Revision-Date: 2009-04-01 09:12+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Launchpad-Export-Date: 2009-06-29 19:36+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: tables.py:11
+msgid "New"
+msgstr ""
+
+#: tables.py:13
+msgid "Approved"
+msgstr ""
+
+#: tables.py:15
+msgid "Waiting"
+msgstr ""
+
+#: tables.py:17
+msgid "Don't Know"
+msgstr ""
+
+#: tables.py:19
+msgid "Rejected"
+msgstr ""
+
+#: tables.py:21
+msgid "Suspended"
+msgstr ""
+
+#: tables.py:23 templates/base.html:91
+msgid "Audio"
+msgstr ""
+
+#: tables.py:25
+msgid "Unknown"
+msgstr ""
+
+#: forms/channels.py:29
+#, python-format
+msgid ""
+"Only mark your channel as HD if you the video resolution is 1080x720 or "
+"higher. Roughly 95% of the material on the channel should meet this criteria "
+"for it to be considered HD."
+msgstr ""
+
+#: forms/channels.py:32
+msgid ""
+"Our <a href=\"http://getmiro.com/publish/\">Publishers Guide</a> has details "
+"on finding your RSS feed. Chances are, you already have one (YouTube, "
+"blip.tv, Vimeo, etc. all have them)."
+msgstr ""
+
+#: forms/channels.py:36
+msgid ""
+"This is the single most important part of submitting a channel &mdash; a "
+"good channel thumbnail is proven to attract more viewers. It's worth making "
+"an effort to do something beautiful. If your channel is featured, it will "
+"need to have the name of your show in it. You can update this image at any "
+"time."
+msgstr ""
+
+#: forms/channels.py:59
+#, python-format
+msgid "%s is already a channel in the guide"
+msgstr ""
+
+#: forms/channels.py:64
+msgid "We can't find a video feed at that address, please try again."
+msgstr ""
+
+#: forms/channels.py:81 forms/channels.py:318
+msgid "Show Name"
+msgstr ""
+
+#: forms/channels.py:82 forms/channels.py:319 templates/playback.html:21
+msgid "RSS Feed"
+msgstr ""
+
+#: forms/channels.py:171
+msgid "1st"
+msgstr ""
+
+#: forms/channels.py:171
+msgid "2nd"
+msgstr ""
+
+#: forms/channels.py:171
+msgid "3rd"
+msgstr ""
+
+#: forms/channels.py:193
+msgid "You must at least enter a primary value."
+msgstr ""
+
+#: forms/channels.py:210
+#, python-format
+msgid "you can only enter up to %d tags."
+msgstr ""
+
+#: forms/channels.py:299
+msgid "This field is required."
+msgstr ""
+
+#: forms/channels.py:304
+msgid "Not a valid image"
+msgstr ""
+
+#: forms/channels.py:308
+msgid "Not an image in a format we support."
+msgstr ""
+
+#: forms/channels.py:321 forms/cobranding.py:15
+msgid "Website URL"
+msgstr ""
+
+#: forms/channels.py:322
+msgid "Don't forget to add a website URL for the show."
+msgstr ""
+
+#: forms/channels.py:325
+msgid "Full Description"
+msgstr ""
+
+#: forms/channels.py:326
+msgid "Publisher"
+msgstr ""
+
+#: forms/channels.py:328
+msgid "The person or company responsible for publishing this show."
+msgstr ""
+
+#: forms/channels.py:332 templates/show-channel.html:96
+msgid "Tags"
+msgstr ""
+
+#: forms/channels.py:333
+msgid "Separate each tag with a comma."
+msgstr ""
+
+#: forms/channels.py:334
+msgid "Geo restrictions"
+msgstr ""
+
+#: forms/channels.py:335
+msgid ""
+"Use commas to separate two letter country codes. Countries listed here are "
+"the ONLY ones that will see this site or show."
+msgstr ""
+
+#: forms/channels.py:340 templates/base.html:123 templates/frontpage.html:185
+#: templates/show-channel.html:89 views/categories.py:24
+msgid "Genres"
+msgstr ""
+
+#: forms/channels.py:341
+msgid "Pick at least one genre."
+msgstr ""
+
+#: forms/channels.py:342 templates/base.html:132
+msgid "Language"
+msgstr ""
+
+#: forms/channels.py:343
+msgid "Users can filter their searches by language."
+msgstr ""
+
+#: forms/channels.py:347
+msgid "High Definition"
+msgstr ""
+
+#: forms/channels.py:350
+msgid "Upload Image (optimal size: 400x267)"
+msgstr ""
+
+#: forms/channels.py:376
+msgid "That streaming site already exists."
+msgstr ""
+
+#: forms/channels.py:387
+#, python-format
+msgid "The following country codes are invalid: %s"
+msgstr ""
+
+#: forms/channels.py:449
+msgid "Feed URL already exists"
+msgstr ""
+
+#: forms/channels.py:517
+msgid "Email"
+msgstr ""
+
+#: forms/channels.py:518 templates/share-email.html:25
+msgid "Title"
+msgstr ""
+
+#: forms/channels.py:519 forms/misc.py:15
+msgid "Body"
+msgstr ""
+
+#: forms/cobranding.py:11
+msgid "Title in Miro App"
+msgstr ""
+
+#: forms/cobranding.py:12
+msgid "This is the title that will appear in the sidebar of Miro."
+msgstr ""
+
+#: forms/cobranding.py:13
+msgid "Page Title"
+msgstr ""
+
+#: forms/cobranding.py:14
+msgid "This is the title that will be displayed at the top of the page."
+msgstr ""
+
+#: forms/cobranding.py:17
+msgid "Icon URL"
+msgstr ""
+
+#: forms/cobranding.py:17
+msgid "Icon should be 175x125 pixels."
+msgstr ""
+
+#: forms/cobranding.py:19
+msgid "Favicon URL"
+msgstr ""
+
+#: forms/cobranding.py:19
+msgid ""
+"This is best as a 20x20 png graphic. It shows up in the sidebar of the Miro "
+"App."
+msgstr ""
+
+#: forms/cobranding.py:21
+msgid "External CSS URL"
+msgstr ""
+
+#: forms/cobranding.py:22 templates/share-email.html:26
+msgid "Description"
+msgstr ""
+
+#: forms/cobranding.py:24
+msgid "Link 1 URL"
+msgstr ""
+
+#: forms/cobranding.py:24
+msgid ""
+"Or leave this blank to have plain text.  All these links are optional."
+msgstr ""
+
+#: forms/cobranding.py:26
+msgid "Link 1 Text"
+msgstr ""
+
+#: forms/cobranding.py:28
+msgid "Link 2 URL"
+msgstr ""
+
+#: forms/cobranding.py:30
+msgid "Link 2 Text"
+msgstr ""
+
+#: forms/cobranding.py:32
+msgid "Link 3 URL"
+msgstr ""
+
+#: forms/cobranding.py:34
+msgid "Link 3 Text"
+msgstr ""
+
+#: forms/fields.py:21
+#, python-format
+msgid "Ensure this value has at most %(maximum)d bytes (it has %(length)d)."
+msgstr ""
+
+#: forms/misc.py:14
+msgid "title"
+msgstr ""
+
+#: forms/share.py:52
+msgid ""
+"\"Recipients\" field must be a comma separated list of email addresses"
+msgstr ""
+
+#: forms/share.py:64
+msgid "feed_url not provided despite share_type being set to 'feed'"
+msgstr ""
+
+#: forms/share.py:75
+msgid "file_url not provided despite share_type being set to 'item'"
+msgstr ""
+
+#: forms/user.py:19
+msgid "Username already taken"
+msgstr ""
+
+#: forms/user.py:29
+msgid "E-mail already taken"
+msgstr ""
+
+#: forms/user.py:36
+msgid "E-mail not found"
+msgstr ""
+
+#: forms/user.py:45
+msgid "That username is not valid."
+msgstr ""
+
+#: forms/user.py:59
+msgid "That username or e-mail is not valid."
+msgstr ""
+
+#: forms/user.py:76
+msgid "Display shows in all languages"
+msgstr ""
+
+#: forms/user.py:77
+msgid "Only display shows in these languages:"
+msgstr ""
+
+#: forms/user.py:80
+msgid "Hold CTRL to select multiple languages"
+msgstr ""
+
+#: forms/user.py:111
+msgid "That password is not valid."
+msgstr ""
+
+#: forms/user.py:125
+msgid "Passwords don't match"
+msgstr ""
+
+#: forms/user.py:129 templates/topmenu_dropdowns.html:54
+#: templates/topmenu_dropdowns.html:79
+msgid "Username"
+msgstr ""
+
+#: forms/user.py:130 templates/topmenu_dropdowns.html:85
+msgid "Email Address"
+msgstr ""
+
+#: forms/user.py:132 templates/topmenu_dropdowns.html:91
+msgid "Pick a Password"
+msgstr ""
+
+#: forms/user.py:134 forms/user.py:151 forms/user.py:237
+#: templates/topmenu_dropdowns.html:97
+msgid "Confirm Password"
+msgstr ""
+
+#: forms/user.py:149
+msgid "Change Password"
+msgstr ""
+
+#: forms/user.py:153
+msgid "First Name"
+msgstr ""
+
+#: forms/user.py:155
+msgid "Last Name"
+msgstr ""
+
+#: forms/user.py:156
+msgid "Age"
+msgstr ""
+
+#: forms/user.py:160
+msgid "Gender"
+msgstr ""
+
+#: forms/user.py:163
+msgid "City"
+msgstr ""
+
+#: forms/user.py:165
+msgid "State"
+msgstr ""
+
+#: forms/user.py:167
+msgid "Country"
+msgstr ""
+
+#: forms/user.py:169
+msgid "Zip Code"
+msgstr ""
+
+#: forms/user.py:171
+msgid "IM Username"
+msgstr ""
+
+#: forms/user.py:173
+msgid "IM Type"
+msgstr ""
+
+#: forms/user.py:176
+msgid "Show interface in"
+msgstr ""
+
+#: forms/user.py:222
+msgid "Channel Owner Emails"
+msgstr ""
+
+#: forms/user.py:226
+msgid "Moderator Board Emails"
+msgstr ""
+
+#: forms/user.py:227
+msgid "Normal"
+msgstr ""
+
+#: forms/user.py:228
+msgid "No emails"
+msgstr ""
+
+#: forms/user.py:229
+msgid "Send all emails"
+msgstr ""
+
+#: forms/user.py:230
+msgid "Channel Status Emails"
+msgstr ""
+
+#: forms/user.py:235
+msgid "Set a new Password"
+msgstr ""
+
+#: models/channel.py:205
+#, python-format
+msgid "%(count)d subscriber"
+msgid_plural "%(count)d subscribers"
+msgstr[0] ""
+msgstr[1] ""
+
+#: models/channel.py:212
+#, python-format
+msgid "%(count)d episode"
+msgid_plural "%(count)d episodes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/add-note.html:9
+msgid "Post"
+msgstr ""
+
+#: templates/after-submit.html:12
+msgid "Thanks for Submitting Your Feed"
+msgstr ""
+
+#: templates/after-submit.html:13
+msgid "Your feed has been submitted!"
+msgstr ""
+
+#: templates/after-submit.html:16
+msgid ""
+"\n"
+"        Our moderators will review your feed in the next few days to make\n"
+"        sure that it works in Miro and that the content is not\n"
+"        inappropriate.  Once the feed is approved, it will appear in the\n"
+"        'Just Added' section on the front page.\n"
+"      "
+msgstr ""
+
+#: templates/after-submit.html:24
+msgid "Updating Your Feed Info"
+msgstr ""
+
+#: templates/after-submit.html:26
+msgid ""
+"\n"
+"        You can update the details about your feed at anytime.  Just\n"
+"        login to your account and click the 'My Submitted Feeds'\n"
+"        link.\n"
+"      "
+msgstr ""
+
+#: templates/after-submit.html:33
+msgid "Add a 1-Click Subscribe Button to Your Website"
+msgstr ""
+
+#: templates/after-submit.html:37
+msgid ""
+"\n"
+"          Visit <a href=\"http://webbalert.com/\">webbalert.com</a> to see\n"
+"          a real 1-click button in action\n"
+"        "
+msgstr ""
+
+#: templates/after-submit.html:45
+msgid ""
+"\n"
+"        The buttons below point to the feed you've just submitted-- just\n"
+"        paste the HTML into your blog or website. When users click on\n"
+"        the button, Miro will open and they will be automatically\n"
+"        subscribed to your feed.\n"
+"      "
+msgstr ""
+
+#: templates/after-submit.html:54
+msgid ""
+"\n"
+"        1-click buttons are a great way to get your viewers connected to\n"
+"        your content on an ongoing basis. If you have any questions\n"
+"        about the buttons, email: channels [at] pculture [d] org.\n"
+"      "
+msgstr ""
+
+#: templates/auth-token-request.html:7
+msgid "Miro Guide - Forgot Password"
+msgstr ""
+
+#: templates/auth-token-request.html:11
+msgid "Forgot Password"
+msgstr ""
+
+#: templates/auth-token-request.html:12
+msgid ""
+"Please enter your email address\n"
+"        below.  A link will be sent to you email that you can use to set a "
+"new\n"
+"        password."
+msgstr ""
+
+#: templates/auth-token-request.html:17 templates/email-form.html:32
+msgid "Send"
+msgstr ""
+
+#: templates/auth-token-sent.html:7
+msgid "Email Sent"
+msgstr ""
+
+#: templates/auth-token-sent.html:10
+msgid "Email Sent!"
+msgstr ""
+
+#: templates/auth-token-sent.html:11
+#, python-format
+msgid ""
+"An email was sent to %(email)s.  You should receive\n"
+"it in a few minutes.  It will contain a link that you can use to set a new\n"
+"password for your account."
+msgstr ""
+
+#: templates/bad-auth-token.html:7 templates/change-password.html:7
+msgid "Miro Guide - Create New Password"
+msgstr ""
+
+#: templates/bad-auth-token.html:10
+msgid "Link invalid"
+msgstr ""
+
+#: templates/bad-auth-token.html:11
+msgid "The link you used to get to this page was not valid."
+msgstr ""
+
+#: templates/base.html:11
+msgid "Miro Guide - Podcast Directory"
+msgstr ""
+
+#: templates/base.html:11
+msgid "Miro Guide - Video Podcast Directory"
+msgstr ""
+
+#: templates/base.html:34
+msgid "Not interested"
+msgstr ""
+
+#: templates/base.html:35
+msgid "I hate this show"
+msgstr ""
+
+#: templates/base.html:36
+msgid "I dislike this show"
+msgstr ""
+
+#: templates/base.html:37
+msgid "I like this show"
+msgstr ""
+
+#: templates/base.html:38
+msgid "I really like this show"
+msgstr ""
+
+#: templates/base.html:39
+msgid "I love this show!"
+msgstr ""
+
+#: templates/base.html:73
+msgid "FEEDBACK"
+msgstr ""
+
+#: templates/base.html:80
+msgid "Miro"
+msgstr ""
+
+#: templates/base.html:85
+msgid "Video"
+msgstr ""
+
+#: templates/base.html:97
+msgid "Videos you'll love"
+msgstr ""
+
+#: templates/base.html:108
+msgid "Search"
+msgstr ""
+
+#: templates/base.html:124
+msgid "HD Shows"
+msgstr ""
+
+#: templates/base.html:125 templates/frontpage.html:182
+msgid "Most Popular"
+msgstr ""
+
+#: templates/base.html:126
+msgid "Top Rated"
+msgstr ""
+
+#: templates/base.html:127 templates/frontpage.html:181
+msgid "New Shows"
+msgstr ""
+
+#: templates/base.html:128
+msgid "Audio By Language"
+msgstr ""
+
+#: templates/base.html:128
+msgid "Video by Language"
+msgstr ""
+
+#: templates/base.html:141
+msgid "Account"
+msgstr ""
+
+#: templates/base.html:155
+msgid "Get Miro!"
+msgstr ""
+
+#: templates/base.html:155
+msgid "DMCA Information"
+msgstr ""
+
+#: templates/base.html:155
+msgid "Submit a Feed"
+msgstr ""
+
+#: templates/base.html:164
+msgid "Loading..."
+msgstr ""
+
+#: templates/change-password.html:11
+msgid "Create New Password"
+msgstr ""
+
+#: templates/change-password.html:14
+msgid "Create"
+msgstr ""
+
+#: templates/channel-feature.html:14 templates/channel-in-category.html:15
+#: templates/channel-in-listing.html:15
+msgid "High-Definition Channel"
+msgstr ""
+
+#: templates/channel-feature.html:17
+msgid "Moderator Pick"
+msgstr ""
+
+#: templates/channel-feature.html:25
+msgid "ADD FEED TO SIDEBAR"
+msgstr ""
+
+#: templates/channel-feature.html:27
+msgid "ADD SITE TO SIDEBAR"
+msgstr ""
+
+#: templates/channel-form.html:11
+msgid "Miro Guide - Submit Feed"
+msgstr ""
+
+#: templates/channel-form.html:19
+msgid "Feed Thumbnail"
+msgstr ""
+
+#: templates/channel-form.html:20
+msgid ""
+"Remember that creating a good feed thumbnail is one of\n"
+"the most important ways to attract new viewers.  It's worth making an "
+"effort\n"
+"to do something beautiful.  You can also update the image after you submit\n"
+"your feed."
+msgstr ""
+
+#: templates/channel-form.html:25 templates/submit-channel.html:37
+msgid ""
+"We have found an image in your feed.  You can either use this image or "
+"upload a different one."
+msgstr ""
+
+#: templates/channel-in-category.html:33 templates/channel-in-listing.html:34
+msgid "Add Feed"
+msgstr ""
+
+#: templates/channel-in-category.html:35 templates/channel-in-listing.html:36
+msgid "Add Site"
+msgstr ""
+
+#: templates/channel-in-listing.html:43
+#, python-format
+msgid "1 Rating"
+msgid_plural "%(count)s Ratings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/channel-in-listing.html:45
+msgid "Subscriptions Today"
+msgstr ""
+
+#: templates/channel-in-listing.html:45
+#, python-format
+msgid "1 Today"
+msgid_plural "%(count)s Today"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/channel-moderate.html:25
+#, python-format
+msgid "1 flag"
+msgid_plural "%(count)s flags"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/channel-moderate.html:36
+msgid "Add Feed To Your Sidebar"
+msgstr ""
+
+#: templates/channel-moderate.html:38 templates/show-channel.html:64
+msgid "Add Site to Your Sidebar"
+msgstr ""
+
+#: templates/channel-moderate.html:45
+msgid "Website"
+msgstr ""
+
+#: templates/channel-moderate.html:50 templates/show-channel.html:104
+msgid "Feed"
+msgstr ""
+
+#: templates/channel-moderate.html:56
+msgid "Manager Email"
+msgstr ""
+
+#: templates/channel-notes.html:7
+msgid "Issues"
+msgstr ""
+
+#: templates/channel-notes.html:7
+msgid "need support? post here."
+msgstr ""
+
+#: templates/channel-notes.html:14
+msgid "Me"
+msgstr ""
+
+#: templates/channel-notes.html:17
+msgid "Manager"
+msgstr ""
+
+#: templates/cobranding-admin.html:7 templates/cobranding-admin.html.py:9
+msgid "Administration"
+msgstr ""
+
+#: templates/cobranding.html:146
+#, python-format
+msgid "All %(title)s Channels"
+msgstr ""
+
+#: templates/cobranding.html:154
+msgid "archival"
+msgstr ""
+
+#: templates/cobranding.html:169
+msgid "Add"
+msgstr ""
+
+#: templates/cobranding.html:172
+msgid "Subscribe"
+msgstr ""
+
+#: templates/cobranding.html:177
+msgid "Details"
+msgstr ""
+
+#: templates/cobranding.html:197 templates/playback.html:147
+msgid "Next"
+msgstr ""
+
+#: templates/confirm.html:7
+msgid "Miro Guide - Email Sent"
+msgstr ""
+
+#: templates/confirm.html:11
+msgid "Confirmed!"
+msgstr ""
+
+#: templates/confirm.html:12
+msgid "Thanks for confirming your account!"
+msgstr ""
+
+#: templates/confirm.html:15
+msgid "Confirmation sent"
+msgstr ""
+
+#: templates/confirm.html:17
+msgid ""
+"If the address below isn't the correct one; change it and we'll send a code "
+"to that address."
+msgstr ""
+
+#: templates/confirm.html:25
+msgid "Resend"
+msgstr ""
+
+#: templates/confirm.html:29
+msgid "Incorrect code"
+msgstr ""
+
+#: templates/confirm.html:30
+msgid "I'm sorry, that is not the correct code."
+msgstr ""
+
+#: templates/dmca.html:9
+msgid "Miro Guide - Copyright Infringement Notification"
+msgstr ""
+
+#: templates/edit-bar.html:13
+msgid "Click to Edit Feed / Assist Manager"
+msgstr ""
+
+#: templates/edit-bar.html:15
+msgid "Click to Edit Site / Assist Manager"
+msgstr ""
+
+#: templates/edit-bar.html:21
+#, python-format
+msgid "%(state)s by %(mod)s on %(mod_time)s"
+msgstr ""
+
+#: templates/edit-bar.html:24
+#, python-format
+msgid "%(state)s by %(mod)s"
+msgstr ""
+
+#: templates/edit-bar.html:27
+#, python-format
+msgid "Feed is %(state)s"
+msgstr ""
+
+#: templates/edit-bar.html:29
+#, python-format
+msgid "Site is %(state)s"
+msgstr ""
+
+#: templates/edit-bar.html:35
+#, python-format
+msgid "Featured by %(mod)s on %(featured_time)s"
+msgstr ""
+
+#: templates/edit-bar.html:42
+msgid "Edit Your Feed / View Statistics / Get Help"
+msgstr ""
+
+#: templates/edit-bar.html:44
+msgid "Edit Your Site / View Statistics / Get Help"
+msgstr ""
+
+#: templates/edit-bar.html:116
+msgid "Cancel and go back"
+msgstr ""
+
+#: templates/edit-channel.html:10
+msgid "Miro Guide - Edit Feed"
+msgstr ""
+
+#: templates/edit-channel.html:12
+msgid "Miro Guide - Edit Site"
+msgstr ""
+
+#: templates/edit-channel.html:16
+msgid "Edit Channel"
+msgstr ""
+
+#: templates/edit-channel.html:18 templates/edit-user.html:46
+msgid "Update"
+msgstr ""
+
+#: templates/edit-channel.html:21
+msgid "Statistics"
+msgstr ""
+
+#: templates/edit-channel.html:23
+msgid "Subscriptions* Today"
+msgstr ""
+
+#: templates/edit-channel.html:25
+msgid "Subscriptions* Month"
+msgstr ""
+
+#: templates/edit-channel.html:27
+msgid "Subscriptions* Overall"
+msgstr ""
+
+#: templates/edit-channel.html:30
+msgid "Popularity Rank Today"
+msgstr ""
+
+#: templates/edit-channel.html:34
+msgid "Popularity Rank Month"
+msgstr ""
+
+#: templates/edit-channel.html:38
+msgid "Popularity Rank Overall"
+msgstr ""
+
+#: templates/edit-channel.html:44
+msgid "* unique Miro Guide 'add feed' hits"
+msgstr ""
+
+#: templates/edit-channel.html:46
+msgid "* unique Miro Guide 'add site' hits"
+msgstr ""
+
+#: templates/edit-user.html:7
+msgid "Miro Guide - Update My Profile"
+msgstr ""
+
+#: templates/edit-user.html:27
+msgid "Update My Profile "
+msgstr ""
+
+#: templates/email-channel-owners.html:7
+msgid "Miro Guide - Email Show Managers"
+msgstr ""
+
+#: templates/email-form.html:16
+msgid "Please Send a Note to the Feed Manager!"
+msgstr ""
+
+#: templates/email-form.html:18
+msgid "Please Send a Note to the Site Manager!"
+msgstr ""
+
+#: templates/email-form.html:30
+msgid "send e-mail to"
+msgstr ""
+
+#: templates/email-form.html:39
+#, python-format
+msgid "Skip the note, just %(type)s"
+msgstr ""
+
+#: templates/email-form.html:44
+msgid ""
+"* This show has been added by us. You can hunt for the producer's email "
+"address here:"
+msgstr ""
+
+#: templates/for-user.html:9
+#, python-format
+msgid ""
+"\n"
+"    Miro Guide - Shows for %(username)s\n"
+"  "
+msgstr ""
+
+#: templates/for-user.html:31
+msgid "Submitted shows: "
+msgstr ""
+
+#: templates/form-errors.html:8 templates/listing.html:69
+msgid "Sorry!"
+msgstr ""
+
+#: templates/form-field.html:10
+msgid "Error"
+msgstr ""
+
+#: templates/frontpage.html:49
+msgid "Welcome to the Miro Guide!"
+msgstr ""
+
+#: templates/frontpage.html:50
+msgid ""
+"Miro Guide has thousands of video shows and podcasts — you can browse and "
+"watch most of them right here."
+msgstr ""
+
+#: templates/frontpage.html:51
+#, python-format
+msgid "Make this message disappear by <a href=\"%(link)s\">logging in</a>."
+msgstr ""
+
+#: templates/frontpage.html:54
+msgid ""
+"We also make Miro, a free internet TV application. Miro makes subscribing, "
+"managing, and watching programs easy, and it works extra well with all the "
+"HD programming you'll find here in the guide."
+msgstr ""
+
+#: templates/frontpage.html:55
+msgid "Try it now"
+msgstr ""
+
+#: templates/frontpage.html:57
+msgid "Download Miro"
+msgstr ""
+
+#: templates/frontpage.html:96
+msgid ""
+"\n"
+"            Click <a href=\"#\" class=\"add_feed_button_welcome\">ADD "
+"FEED</a>\n"
+"            to get any show into your sidebar. The first episode\n"
+"            begins downloading automatically and you'll get show\n"
+"            updates as soon as they're available.\n"
+"            "
+msgstr ""
+
+#: templates/frontpage.html:102
+msgid "It's all free!"
+msgstr ""
+
+#: templates/frontpage.html:162
+msgid "Find shows about your favorite topic here."
+msgstr ""
+
+#: templates/frontpage.html:172
+msgid "Shows in"
+msgstr ""
+
+#: templates/frontpage.html:183
+msgid "HD Favorites"
+msgstr ""
+
+#: templates/frontpage.html:191 templates/frontpage.html.py:220
+msgid "View All"
+msgstr ""
+
+#: templates/group-list.html:9
+#, python-format
+msgid ""
+"\n"
+"    Miro Guide - %(group_name)s\n"
+"  "
+msgstr ""
+
+#: templates/group-list.html:28
+#, python-format
+msgid ""
+"\n"
+"                1 Podcast\n"
+"              "
+msgid_plural ""
+"\n"
+"                %(count)s Podcasts\n"
+"              "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/group-list.html:34
+#, python-format
+msgid ""
+"\n"
+"                1 Show\n"
+"              "
+msgid_plural ""
+"\n"
+"                %(count)s Shows\n"
+"              "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/how-to-moderate.html:9
+msgid "Miro Guide - How to Moderate"
+msgstr ""
+
+#: templates/item.html:28
+msgid "(no name)"
+msgstr ""
+
+#: templates/item.html:39
+msgid "Download"
+msgstr ""
+
+#: templates/item.html:47
+msgid "Read more"
+msgstr ""
+
+#: templates/item.html:50
+msgid "Watch"
+msgstr ""
+
+#: templates/listing.html:37
+msgid "Terms too short"
+msgstr ""
+
+#: templates/listing.html:38
+msgid ""
+"\n"
+"        I'm sorry, your search term was too short; it must be at least\n"
+"        3 characters.\n"
+"      "
+msgstr ""
+
+#: templates/listing.html:52
+msgid "Time to Upgrade!"
+msgstr ""
+
+#: templates/listing.html:54
+msgid ""
+"\n"
+"              You're not seeing all the Miro Guide content -- adding\n"
+"              sites to your sidebar only works in Miro 2.0, so it's\n"
+"              time to <a href=\"http://getmiro.com\">upgrade</a>.\n"
+"            "
+msgstr ""
+
+#: templates/listing.html:71
+msgid ""
+"\n"
+"              Sites aren't supported on Linux due to an incompatibility with "
+"the Flash plugin.\n"
+"            "
+msgstr ""
+
+#: templates/listing.html:94
+msgid "Search Results"
+msgstr ""
+
+#: templates/listing.html:97
+#, python-format
+msgid ""
+"\n"
+"          1 podcast matches \"%(t)s\"\n"
+"          "
+msgid_plural ""
+"\n"
+"          %(feed_count)s podcasts match \"%(t)s\"\n"
+"          "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/listing.html:103
+#, python-format
+msgid ""
+"\n"
+"          1 feed matches \"%(t)s\"\n"
+"          "
+msgid_plural ""
+"\n"
+"          %(feed_count)s feeds match \"%(t)s\"\n"
+"          "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/listing.html:112
+#, python-format
+msgid ""
+"\n"
+"          1 site matches \"%(t)s\"\n"
+"          "
+msgid_plural ""
+"\n"
+"          %(site_count)s sites match \"%(t)s\"\n"
+"          "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/listing.html:146
+msgid "Podcasts"
+msgstr ""
+
+#: templates/listing.html:146
+msgid "Feeds"
+msgstr ""
+
+#: templates/listing.html:158
+msgid ""
+"Video feeds are downloaded first, and can be watched online or offline. Many "
+"are in full HD."
+msgstr ""
+
+#: templates/listing.html:176
+msgid "Sites"
+msgstr ""
+
+#: templates/listing.html:186
+msgid ""
+"Most sites require a fast internet connection for streaming video. Bookmark "
+"your favorites with Miro."
+msgstr ""
+
+#: templates/login-message-language.html:7
+msgid "You need an account to change language settings"
+msgstr ""
+
+#: templates/login-message-language.html:9
+msgid ""
+"\n"
+"      We need you to login or register to change your language settings.\n"
+"    "
+msgstr ""
+
+#: templates/login.html:9
+msgid "Miro Guide - Login"
+msgstr ""
+
+#: templates/login.html:15
+msgid "Time to sign up for an account!"
+msgstr ""
+
+#: templates/login.html:16
+msgid ""
+"Miro takes the videos you have rated, compares them with other viewers' "
+"tastes, and then gives you recommendations."
+msgstr ""
+
+#: templates/login.html:17
+msgid "Rate more videos and feeds for more recommendations."
+msgstr ""
+
+#: templates/login.html:20 templates/login.html.py:25
+#: templates/topmenu_dropdowns.html:67
+msgid "Login"
+msgstr ""
+
+#: templates/login.html:21
+msgid "Got an account? Just log in!"
+msgstr ""
+
+#: templates/login.html:35 templates/login.html.py:39
+msgid "Register"
+msgstr ""
+
+#: templates/moderate-actions.html:24
+msgid "HD"
+msgstr ""
+
+#: templates/moderate.html:14
+#, python-format
+msgid ""
+"\n"
+"        %(count)s Unreviewed shows\n"
+"        "
+msgstr ""
+
+#: templates/moderate.html:19
+#, python-format
+msgid ""
+"\n"
+"        %(count)s Don't know shows\n"
+"        "
+msgstr ""
+
+#: templates/moderate.html:24
+#, python-format
+msgid ""
+"\n"
+"        %(count)s Shows waiting for Reply\n"
+"        "
+msgstr ""
+
+#: templates/moderate.html:29
+#, python-format
+msgid ""
+"\n"
+"        %(count)s Suspended Shows\n"
+"        "
+msgstr ""
+
+#: templates/moderate.html:34
+#, python-format
+msgid ""
+"\n"
+"        %(count)s Rejected shows\n"
+"        "
+msgstr ""
+
+#: templates/moderate.html:39
+#, python-format
+msgid ""
+"\n"
+"        %(count)s Flagged HD shows\n"
+"        "
+msgstr ""
+
+#: templates/moderate.html:44
+#, python-format
+msgid ""
+"\n"
+"  %(count)s shows in Featured Queue\n"
+"  "
+msgstr ""
+
+#: templates/moderate.html:50
+msgid "How to Moderate"
+msgstr ""
+
+#: templates/moderate.html:51
+msgid "Search For Users"
+msgstr ""
+
+#: templates/moderate.html:52
+msgid "Moderator list"
+msgstr ""
+
+#: templates/moderate.html:54
+msgid "Edit Genres list"
+msgstr ""
+
+#: templates/moderate.html:55
+msgid "Edit Languages list"
+msgstr ""
+
+#: templates/moderate.html:56 templates/moderator-history.html:12
+msgid "Moderator History"
+msgstr ""
+
+#: templates/moderate.html:57
+msgid "Email Show Managers"
+msgstr ""
+
+#: templates/moderate.html:69
+msgid "Make New post:"
+msgstr ""
+
+#: templates/moderate.html:72
+msgid "Title:"
+msgstr ""
+
+#: templates/moderate.html:73
+msgid "Body:"
+msgstr ""
+
+#: templates/moderate.html:75
+msgid "Email Moderators:"
+msgstr ""
+
+#: templates/moderate.html:81
+msgid "Latest Posts"
+msgstr ""
+
+#: templates/moderate.html:82 templates/moderate.html.py:85
+#, python-format
+msgid "(See all %(post_count)s posts)"
+msgstr ""
+
+#: templates/moderate.html:88 templates/shared.html:11
+msgid "Shared by Moderators"
+msgstr ""
+
+#: templates/moderate.html:91
+#, python-format
+msgid "Shared by %(moderator)s:"
+msgstr ""
+
+#: templates/moderate.html:95
+msgid "(See all shared shows)"
+msgstr ""
+
+#: templates/moderator-board.html:9
+msgid "Moderator Message Board"
+msgstr ""
+
+#: templates/moderator-history.html:8
+msgid "Miro Guide - Moderator History"
+msgstr ""
+
+#: templates/moderator-history.html:18
+msgid "User"
+msgstr ""
+
+#: templates/moderator-history.html:19
+msgid "Show"
+msgstr ""
+
+#: templates/moderator-history.html:20
+msgid "Action"
+msgstr ""
+
+#: templates/moderator-history.html:21
+msgid "Date"
+msgstr ""
+
+#: templates/password-changed.html:7 templates/password-changed.html.py:10
+msgid "Password Set"
+msgstr ""
+
+#: templates/password-changed.html:11
+msgid "A new password has been created for your account."
+msgstr ""
+
+#: templates/playback.html:26 templates/show-channel.html:62
+msgid "Add Feed to Your Sidebar"
+msgstr ""
+
+#: templates/playback.html:37
+msgid "BitTorrent Video"
+msgstr ""
+
+#: templates/playback.html:38 templates/playback.html.py:76
+#, python-format
+msgid ""
+"\n"
+"          BitTorrent videos cannot be streamed. The easiest way to watch is "
+"<a %(subscription_link)s>using Miro</a>.\n"
+"          "
+msgstr ""
+
+#: templates/playback.html:43
+msgid "This is HD! High-definition videos are often slow to preview."
+msgstr ""
+
+#: templates/playback.html:45
+#, python-format
+msgid ""
+"\n"
+"            You may want to use Miro to <a "
+"href=\"%(download_url)s\">download</a>\n"
+"            the video or <a %(subscription_link)s>subscribe</a>\n"
+"            to the feed. It's free and easy!\n"
+"          "
+msgstr ""
+
+#: templates/playback.html:63
+msgid "Video Title:"
+msgstr ""
+
+#: templates/playback.html:67
+msgid "Back to Feed:"
+msgstr ""
+
+#: templates/playback.html:89
+msgid "Synopsis"
+msgstr ""
+
+#: templates/playback.html:103
+msgid "DOWNLOAD"
+msgstr ""
+
+#: templates/playback.html:114
+msgid "SHARE"
+msgstr ""
+
+#: templates/playback.html:124
+msgid "Date Posted"
+msgstr ""
+
+#: templates/playback.html:140
+msgid "Previous"
+msgstr ""
+
+#: templates/playback.html:165 templates/show-channel.html:149
+msgid "Recently Aired"
+msgstr ""
+
+#: templates/recommend.html:11
+msgid "Videos You'll Love"
+msgstr ""
+
+#: templates/recommend.html:15
+msgid "Things I've rated"
+msgstr ""
+
+#: templates/share-email.html:12
+msgid "This video podcast was shared via the Miro Guide"
+msgstr ""
+
+#: templates/share-email.html:12
+msgid "This video was shared via the Miro Guide"
+msgstr ""
+
+#: templates/share-email.html:14
+msgid "I thought you would like this video podcast!"
+msgstr ""
+
+#: templates/share-email.html:14
+msgid "I thought you would like this video!"
+msgstr ""
+
+#: templates/share-form.html:39
+msgid "Via Email"
+msgstr ""
+
+#: templates/share-form.html:46
+msgid "From"
+msgstr ""
+
+#: templates/share-form.html:50
+msgid "Your Email"
+msgstr ""
+
+#: templates/share-form.html:58
+msgid "Recipients"
+msgstr ""
+
+#: templates/share-form.html:61
+msgid "Comma Separated Email Addresses"
+msgstr ""
+
+#: templates/share-form.html:67
+msgid "Leave a Comment (Optional)"
+msgstr ""
+
+#: templates/share-links.html:11
+msgid ""
+"\n"
+"          Share with your buddies, as well as the world. We all love gifts.\n"
+"        "
+msgstr ""
+
+#: templates/share-links.html:17
+msgid "Direct Link"
+msgstr ""
+
+#: templates/share-links.html:20
+msgid "Right click and copy link location"
+msgstr ""
+
+#: templates/share-links.html:36
+msgid "Facebook"
+msgstr ""
+
+#: templates/share-links.html:39
+msgid "StumbleUpon"
+msgstr ""
+
+#: templates/share-links.html:42
+msgid "Del.icio.us"
+msgstr ""
+
+#: templates/share-links.html:45
+msgid "Digg"
+msgstr ""
+
+#: templates/share-links.html:48
+msgid "Twitter"
+msgstr ""
+
+#: templates/share-links.html:56
+msgid "Close"
+msgstr ""
+
+#: templates/shared.html:7
+msgid "Miro - Shared"
+msgstr ""
+
+#: templates/show-channel.html:19
+msgid "Miro Guide - "
+msgstr ""
+
+#: templates/show-channel.html:49
+#, python-format
+msgid "Avg. %(average)s with  1 rating"
+msgid_plural "Avg. %(average)s with %(count)s ratings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/show-channel.html:73
+msgid "Visit Show Website"
+msgstr ""
+
+#: templates/show-channel.html:82
+msgid "Show all"
+msgstr ""
+
+#: templates/show-channel.html:109
+msgid "Not HD?"
+msgstr ""
+
+#: templates/show-channel.html:110
+msgid ""
+"High-Definition video means having a resolution of 1080x720 or more pixels.  "
+"If you suspect this may be lower resolution, please press OK."
+msgstr ""
+
+#: templates/show-channel.html:110
+msgid "Flag it"
+msgstr ""
+
+#: templates/show-channel.html:188
+msgid "Related Feeds"
+msgstr ""
+
+#: templates/show-channel.html:188
+msgid "Related Sites"
+msgstr ""
+
+#: templates/submit-feed-url.html:7
+msgid "Add a Feed to Miro"
+msgstr ""
+
+#: templates/submit-feed-url.html:34
+msgid "I am the Creator"
+msgstr ""
+
+#: templates/submit-feed-url.html:36
+msgid ""
+"Click here if you're the person responsible for creating the video and/or "
+"RSS feed in this show."
+msgstr ""
+
+#: templates/submit-feed-url.html:39
+msgid "I'm a Fan"
+msgstr ""
+
+#: templates/submit-feed-url.html:41
+msgid ""
+"Anyone can submit a new show to the Miro Guide — they will be the manager of "
+"the show, unless the publisher or creator claims the show."
+msgstr ""
+
+#: templates/tag-list.html:7
+msgid "Miro - Tags"
+msgstr ""
+
+#: templates/topmenu_dropdowns.html:15
+msgid "Moderator's Area"
+msgstr ""
+
+#: templates/topmenu_dropdowns.html:19
+msgid "View/Edit Profile"
+msgstr ""
+
+#: templates/topmenu_dropdowns.html:24
+msgid "Shows I Manage"
+msgstr ""
+
+#: templates/topmenu_dropdowns.html:30
+msgid "Submit a Show"
+msgstr ""
+
+#: templates/topmenu_dropdowns.html:37
+msgid "Log Out"
+msgstr ""
+
+#: templates/topmenu_dropdowns.html:58
+msgid "Password"
+msgstr ""
+
+#: templates/topmenu_dropdowns.html:64
+msgid "Forgot password"
+msgstr ""
+
+#: templates/topmenu_dropdowns.html:103
+msgid "Register!"
+msgstr ""
+
+#: templates/topmenu_dropdowns.html:112
+msgid "Register Now!"
+msgstr ""
+
+#: templates/topmenu_dropdowns.html:113
+msgid "Always Free"
+msgstr ""
+
+#: templates/topmenu_dropdowns.html:123
+msgid "Display Shows:"
+msgstr ""
+
+#: templates/topmenu_dropdowns.html:128
+msgid "In all languages"
+msgstr ""
+
+#: templates/topmenu_dropdowns.html:133
+msgid "In my language"
+msgstr ""
+
+#: templates/topmenu_dropdowns.html:140
+msgid "My Language:"
+msgstr ""
+
+#: templates/user_ratings.html:13
+msgid "Miro Guide - Shows You've Rated"
+msgstr ""
+
+#: templates/user_ratings.html:17
+msgid "Shows You've Rated"
+msgstr ""
+
+#: tests/accounts.py:40 views/accounts.py:42
+msgid "Thanks for registering!"
+msgstr ""
+
+#: views/accounts.py:43
+msgid "We've sent a confirmation e-mail to the address you provided."
+msgstr ""
+
+#: views/api.py:209
+msgid "Invalid verification code."
+msgstr ""
+
+#: views/categories.py:33
+msgid "Edit Genre"
+msgstr ""
+
+#: views/categories.py:34
+msgid "New Genre"
+msgstr ""
+
+#: views/channels.py:142 views/moderator.py:57
+msgid "Channels Waiting For Replies"
+msgstr ""
+
+#: views/channels.py:145 views/moderator.py:60
+msgid "Channels Flagged Don't Know By a Moderator"
+msgstr ""
+
+#: views/channels.py:148 views/moderator.py:63
+msgid "Rejected Channels"
+msgstr ""
+
+#: views/channels.py:151 views/moderator.py:66
+msgid "Suspended Channels"
+msgstr ""
+
+#: views/channels.py:156 views/moderator.py:70
+msgid "Featured Queue"
+msgstr ""
+
+#: views/channels.py:159 views/moderator.py:79
+msgid "Unreviewed Channels"
+msgstr ""
+
+#: views/channels.py:170
+#, python-format
+msgid "Subscribe to all %i channels"
+msgstr ""
+
+#: views/channels.py:260
+msgid "Rejection emails need a body"
+msgstr ""
+
+#: views/channels.py:265
+#, python-format
+msgid "%s featured on Miro Guide"
+msgstr ""
+
+#: views/channels.py:361
+msgid ""
+"This show may not be available to you, as it is restricted to certain "
+"countries."
+msgstr ""
+
+#: views/channels.py:392
+#, python-format
+msgid "Subscriptions for %s"
+msgstr ""
+
+#: views/channels.py:416
+msgid "Thanks!"
+msgstr ""
+
+#: views/channels.py:417
+msgid "Your flag has been recorded and will be reviewed by a moderator."
+msgstr ""
+
+#: views/channels.py:648
+#, python-format
+msgid "Shows for %s"
+msgstr ""
+
+#: views/channels.py:680
+msgid "Current image (no change)"
+msgstr ""
+
+#: views/channels.py:682 views/submit.py:117
+msgid "Current image (uploaded)"
+msgstr ""
+
+#: views/languages.py:21
+msgid "Shows by Language"
+msgstr ""
+
+#: views/languages.py:30
+msgid "Edit Languages"
+msgstr ""
+
+#: views/languages.py:31
+msgid "New Language"
+msgstr ""
+
+#: views/moderator.py:76
+msgid "Flagged HD Channels"
+msgstr ""
+
+#: views/moderator.py:96
+#, python-format
+msgid "Subscribe to all %i channels on this page"
+msgstr ""
+
+#: views/share.py:356
+#, python-format
+msgid "%(from_email)s wants to share a video feed with you"
+msgstr ""
+
+#: views/share.py:370
+#, python-format
+msgid "%(from_email)s wants to share a video with you"
+msgstr ""
+
+#: views/submit.py:115
+msgid "Current image (from the feed)"
+msgstr ""

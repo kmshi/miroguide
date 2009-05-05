@@ -1,0 +1,64 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-03-19 17:09-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: js/genrebrowser.js:89
+#, perl-format
+msgid "%s Subscribed Today"
+msgstr ""
+
+#: js/hover.js:48
+msgid "Add to Sidebar"
+msgstr ""
+
+#: js/hover.js:50
+msgid "More Details"
+msgstr ""
+
+#: js/hover.js:52
+#, perl-format
+msgid "Average of 1 Rating:"
+msgid_plural "Average of %s Ratings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: js/hover.js:63
+msgid "Genres"
+msgstr ""
+
+#: js/hover.js:74
+msgid "Tags"
+msgstr ""
+
+#: js/hover.js:85
+msgid "Feed"
+msgstr ""
+
+#: js/hover.js:88
+msgid "Not HD?"
+msgstr ""
+
+#: js/hover.js:88
+msgid ""
+"High-Definition video means having a resolution of 1080x720 or more pixels.  "
+"If you suspect this may be lower resolution, please press OK."
+msgstr ""
+
+#: js/hover.js:88
+msgid "Flag it"
+msgstr ""

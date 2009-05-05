@@ -1,0 +1,57 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Karl Ove Hufthammer <karl@huftis.org>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: po_javascript_javascript-nn\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-05-05 13:08-0400\n"
+"PO-Revision-Date: 2009-06-17 13:09+0000\n"
+"Last-Translator: Marius <Unknown>\n"
+"Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2009-06-29 19:37+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: js/genrebrowser.js:93
+#, perl-format
+msgid "%s Subscribed Today"
+msgstr "%s abonnement i dag"
+
+#: js/hover.js:86
+msgid "Add to Sidebar"
+msgstr "Legg til sidestolpe"
+
+#: js/hover.js:90
+msgid "Watch"
+msgstr "Sjå"
+
+#: js/hover.js:95
+msgid "More Details"
+msgstr "Meir informasjon"
+
+#: js/hover.js:104
+#, perl-format
+msgid "Avg. of %s Rating:"
+msgid_plural "Avg. of %s Ratings:"
+msgstr[0] "Snittet av %s karakter:"
+msgstr[1] "Snittet av %s karakterar:"
+
+#: js/hover.js:104
+#, perl-format
+msgid "1 Star"
+msgid_plural "%s Stars"
+msgstr[0] "1 stjerne"
+msgstr[1] "%s stjerner"
+
+#: js/hover.js:116
+msgid "Genres"
+msgstr "Sjangrar"
+
+#: js/hover.js:127
+msgid "Tags"
+msgstr "Nøkkelord"
