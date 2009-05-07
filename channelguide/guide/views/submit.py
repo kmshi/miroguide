@@ -22,6 +22,8 @@ def submit_feed(request):
     if request.method != 'POST':
         form = forms.FeedURLForm(
             request.connection, url_required=(not request.user.is_moderator()))
+        form.fields['url'].initial = request.GET.get('url', '')
+        form.fields['name'].initial = request.GET.get('name', '')
     else:
         submit_type = request.POST.get('type', '')
         form = forms.FeedURLForm(
