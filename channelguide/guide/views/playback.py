@@ -2,6 +2,7 @@
 # See LICENSE for details.
 
 import urlparse
+import re
 
 from django.conf import settings
 from django.http import Http404
@@ -12,7 +13,9 @@ from channelguide.guide.models import Item
 from channelguide.guide.views.channels import ItemObjectList, _calculate_pages
 
 DEFAULT_WIDTH = 480
-DEFAULT_HEIGHT= 360
+DEFAULT_HEIGHT = 360
+
+YOUTUBE_VIDEO_RE = re.compile(r'http://(www.)?youtube.com/watch\?v=(?P<id>.+)')
 
 def quicktime_embed(item):
     return """<object id="video" classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" width="%i" height="%i" codebase="http://www.apple.com/qtactivex/qtplugin.cab">
@@ -27,6 +30,11 @@ def quicktime_embed(item):
        DEFAULT_HEIGHT + 15)
 
 def flash_embed(item):
+    match = YOUTUBE_VIDEO_RE.match(item.url)
+    if match:
+        url = 'http://www.youtube.com/v/%s&hl=en&fs=1' % match.group('id')
+    else:
+        url = item.url
     return """<object width="%i" height="%i" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
 <param value="%s" name="movie"/>
 <param value="true" name="allowfullscreen"/>
@@ -34,8 +42,8 @@ def flash_embed(item):
 <param value="autoplay=1" name="FlashVars"/>
 <param value="transparent" name="wmode"/>
 <embed width="%i" height="%i" allowfullscreen="true" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" wmode="transparent" quality="high" enablehref="false" flashvars="autoplay=1" src="%s\"/>
-</object>""" % (DEFAULT_WIDTH, DEFAULT_HEIGHT + 36, item.url,
-                DEFAULT_WIDTH, DEFAULT_HEIGHT + 36, item.url)
+</object>""" % (DEFAULT_WIDTH, DEFAULT_HEIGHT + 36, url,
+                DEFAULT_WIDTH, DEFAULT_HEIGHT + 36, url)
 
 def default_embed(item):
     return """<embed width="%i" height="%i" src="%s"></embed>""" % (
