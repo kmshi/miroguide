@@ -53,14 +53,16 @@ class Category(Label):
             from channelguide.guide.models import Channel
             query = Channel.query_approved(archived=0)
             query.join("categories", 'stats')
-            query.where(query.c.id.in_(c.id for c in self.channels))
+            query.where(query.joins['categories'].c.id==self.id)
+            query.order_by(query.joins['stats'].c.subscription_count_today, desc=True)
             if filter_by_rating:
                 query.join('rating')
                 query.where(query.joins['rating'].c.average > 4)
                 query.where(query.joins['rating'].c.count > 4)
-            query.order_by(query.joins['stats'].c.subscription_count_today, desc=True)
-            query.cacheable = cache.client
-            query.cacheable_time = 3600
+                query.order_by(query.joins['rating'].c.average, desc=True)
+            query.limit(20)
+            #query.cacheable = cache.client
+            #query.cacheable_time = 3600
             channels = query.execute(connection)
             if filter_front_page:
                 return [channel for channel in channels
