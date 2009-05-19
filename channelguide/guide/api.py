@@ -8,6 +8,7 @@ from channelguide.guide import recommendations
 from channelguide.guide import search as search_mod
 from channelguide.cache import client
 import operator
+import time
 
 def login(connection, id):
     try:
@@ -17,8 +18,18 @@ def login(connection, id):
     return user
 
 def get_channel(connection, id):
-    return Channel.get(connection, id, join=['categories', 'tags', 'items',
-                                             'owner', 'language','rating', 'stats'])
+    channelKey = 'Channel:%s' % id
+    timestamp = client.get(channelKey)
+    if timestamp is None:
+        timestamp = time.time()
+        client.set(channelKey, timestamp)
+    apiKey = 'get_channel:%s:%s' % (id, timestamp)
+    channel = client.get(apiKey)
+    if channel is None:
+        channel = Channel.get(connection, id, join=['categories', 'tags', 'items',
+                                                    'owner', 'language','rating', 'stats'])
+        client.set(apiKey, channel)
+    return channel
 
 def get_channel_by_url(connection, url):
     return Channel.query(url=url).join('categories', 'tags',

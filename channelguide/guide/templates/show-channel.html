@@ -18,7 +18,7 @@
 
 {% block title %}{% trans "Miro Guide - " %} {{ channel.name|escape }}{% endblock %}
 
-{% block body-attributes %} {% endblock %}
+{% block body-attributes %}id="details_page"{% endblock %}
 
 {% block content %}
   {% if error %}
@@ -32,7 +32,6 @@
   {% if share_links %}
     {% include "guide/share-links.html" %}
   {% else %}
-  <!-- NOTIFICATION BAR -->
   {% endif %}
   <div id="channelInfo">
     <div class="page">
@@ -66,11 +65,15 @@
             {% endif %}
           {% endwrap %}
         </a>
-
-        <a class="url" href="{{ channel.website_url }}">
-          {% trans "Visit Show Website" %}
-          <span>{{ channel.website_url }}</span>
-        </a>
+        {% if channel.url %}
+        <a class="rss" href="{{ channel.url }}">RSS</a>
+        {% endif %}
+        <span class="url">
+          <a href="{{ channel.website_url }}">
+            {% trans "Visit Show Website" %}
+          </a>
+          <span>{{ channel.website_url|urlizetrunc:35 }}</span>
+        </span>
 
         {% showall channel.description 45 "description" %}
         {% ifshowall channel.description 45 %}

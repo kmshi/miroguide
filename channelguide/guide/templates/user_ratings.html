@@ -14,13 +14,15 @@ See LICENSE for details.
 {% endblock %}
 
 {% block content %}
-<h1>{% trans "Shows You've Rated" %}</h1>
-<table id="user_ratings">
+<div class="page bg">
+  <h1>{% trans "Shows You've Rated" %}</h1>
+  <table id="user_ratings" class="bg">
     {% for rating in ratings %}
     <tr>
-        <td>{{rating.channel.name_as_link}}</td>
-        <td>{% show_rating_stars rating.channel %}</td>
+      <td>{{rating.channel.name_as_link}}</td>
+      <td>{% show_rating_stars rating.channel %}</td>
     </tr>
-{% endfor %}
-</table>
+        {% endfor %}
+  </table>
+</div>
 {% endblock %}

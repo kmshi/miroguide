@@ -360,7 +360,7 @@ class SubmitChannelForm(Form):
         self.fields['language'].update_choices()
 
         if url_required:
-            self.base_fields['url'].required = url_required
+            self.fields['url'].required = url_required
             self.fields['categories'].update_choices(skip=('Courseware',))
         else:
             self.fields['categories'].update_choices()

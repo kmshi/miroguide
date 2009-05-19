@@ -216,8 +216,8 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(response.status_code, 200)
         data = eval(response.content)
         self.assertEquals(len(data), 2)
-        self.assertEquals(data[0]['id'], self.channels[0].id)
-        self.assertEquals(data[1]['url'], self.channels[1].url)
+        self.assertEquals(data[0]['url'], self.channels[1].url)
+        self.assertEquals(data[1]['id'], self.channels[0].id)
 
     def test_get_channels(self):
         response = self.make_api_request('get_channels', filter='category',

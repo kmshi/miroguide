@@ -14,10 +14,13 @@ def index(request):
     query.order_by('channel_count', desc=True)
     query.cacheable = cache.client
     query.cacheable_time = 3600
-    rows = list(query.execute(request.connection))
-    return util.render_to_response(request, 'group-list.html', {
+    categories = list(query.execute(request.connection))
+    for category in categories:
+        channels = category.get_list_channels(request.connection)
+        category.popular_channels = channels
+    return util.render_to_response(request, 'genres-list.html', {
         'group_name': _('Genres'),
-        'groups': rows,
+        'categories': categories,
     })
 
 @admin_required

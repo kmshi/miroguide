@@ -12,5 +12,5 @@ urlpatterns = patterns('channelguide.guide.views.categories',
     (r'^toggle_frontpage$', 'toggle_frontpage'),
     (r'^(.+)$', filtered_listing, {
     'filter': 'category',
-    'title': 'Category: %(value)s'})
+    'title': 'Genre: %(value)s'})
 )

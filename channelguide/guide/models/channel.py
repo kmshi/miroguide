@@ -522,6 +522,12 @@ class Channel(Record, Thumbnailable):
         rating.save(connection)
         return rating
 
+    def can_appear_on_frontpage(self):
+        for category in self.categories:
+            if category.on_frontpage == False:
+                return False
+        return True
+
 for width, height in Channel.THUMBNAIL_SIZES:
     def thumb(self, width=width, height=height):
         return self._thumb_html(width, height)

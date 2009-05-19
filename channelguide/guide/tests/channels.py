@@ -704,7 +704,7 @@ class SubmitChannelTest(TestCase):
         Check that submitting the channel did not cause an error, and that
         it correctly redirected the user to the after submit page.
         """
-        if response.status_code != 200:
+        if response.status_code != 302:
             try:
                 errors = response.context[0]['form'].errors.items()
             except:
@@ -714,7 +714,7 @@ Submit failed!
 Status code: %s
 Errors: %s""" % (response.status_code, errors)
             raise AssertionError(msg)
-        self.assertEquals(response.content, 'SUBMIT SUCCESS')
+        self.assertEquals(response['Location'], 'http://localhost/submit/after')
         self.check_last_channel_thumbnail(thumb_name)
         return response
 
@@ -774,9 +774,8 @@ Errors: %s""" % (response.status_code, errors)
         form = response.context[0]['form']
         def check_default(key, test_value):
             self.assertEquals(form.fields[key].initial, test_value)
-        check_default('name', 'Rocketboom RSS 2.0 Main Index')
+        check_default('name', 'foo')
         check_default('website_url', 'http://www.rocketboom.com/vlog/')
-        check_default('publisher', self.joe.email)
         thumb_widget = form.fields['thumbnail_file'].widget
         self.assert_(thumb_widget.submitted_thumb_path is not None)
         self.assert_(os.path.exists(os.path.join(settings.MEDIA_ROOT, 'tmp',
