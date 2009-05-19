@@ -32,7 +32,7 @@ See LICENSE for details.
     {% with item.description|striptags as description %}
     {% showall description 10 %}
     {% endwith %}
-    <a href="{{ item.url }}" class="rollover_button download">
+    <a href="{{ item.download_url }}" class="rollover_button download">
       <span>
         <img src="{{ STATIC_BASE_URL }}images/dl_arrow.png"
              alt="Download">
@@ -47,7 +47,7 @@ See LICENSE for details.
     <a href="#" class="read_more" onclick="$(this).parent().parent().find('div.description p').toggleClass('on'); return false;">{% trans "Read more" %}</a>
     {% endifshowall %}
     <a href="{{ item.get_url }}" class="rollover_button preview">
-      <span>{% trans "Preview" %}</span>
+      <span>{% trans "Watch" %}</span>
     </a>
   </div>
 </div>

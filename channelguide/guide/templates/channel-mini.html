@@ -3,7 +3,7 @@ Copyright (c) 2008-2009 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
 {% load i18n cg_helpers %}
-<div class="thumb">
+<div class="thumb show_hover hover_{{ channel.id }}">
   <a {% link channel.get_url %}>
     <span class="thumb corners"
          style="background: url({{ channel.thumb_url_97_65 }}); width: 97px; height: 65px;">

@@ -1,0 +1,14 @@
+<div class="genres_popup">
+  <div>
+    <div>
+      {% for slice in categories_loop %}
+      <ul class="index_{{ forloop.counter }}">
+        {% for category in categories|slice:slice %}
+        <li>{{ category.link }}</li>
+        {% endfor %}
+      </ul>
+      {% endfor %}
+    </div>
+    <br style="clear: both;">
+  </div>
+</div>

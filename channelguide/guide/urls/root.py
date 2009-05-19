@@ -138,4 +138,13 @@ urlpatterns += patterns('',
                         (r'^tags/', cg_include('tags')),
                         (r'^cobranding/', cg_include('cobranding')))
 
+js_info_dict = {
+    'packages': ('channelguide.guide',),
+}
+
+urlpatterns += patterns('',
+    (r'^jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict),
+)
+
+
 handler500 = 'channelguide.guide.views.errors.error_500'

@@ -6,25 +6,73 @@ See LICENSE for details.
 {% load cg_helpers i18n %}
 
 {% block head-extra %}
+  <script src="{{ STATIC_BASE_URL }}js/jquery.preload-min.js"
+          type="text/javascript">
+  </script>
+  <script type="text/javascript">
+      $.preload(['buttons/play_right', 'buttons/play_left', 'popup/bottom',
+                 'popup/right_arrow', 'popup/border', 'popup/top',
+                 'popup/left_arrow', 'popup/right_shadow',
+                 'misc_button_med_cap', 'misc_button_med',
+                 'big_no-nos', 'big_stars'],
+                {base: '{{ STATIC_BASE_URL }}images/',
+                 ext: '.png'});
+  </script>
   <script src="{{ STATIC_BASE_URL }}js/feature_rotate.js"
+          type="text/javascript" defer></script>
+  <script src="{{ STATIC_BASE_URL }}js/hover.js"
           type="text/javascript"></script>
-  <script src="{{ STATIC_BASE_URL }}js/genrebrowser.js"
-          type="text/javascript"></script>
+  <script type="text/javascript">
+      hover.load(
+          [
+              {% for channel in new_channels %}{{ channel.id }},{% endfor %}
+              {% for channel in popular_channels %}{{ channel.id }},{% endfor %}
+              {% for channel in popular_hd_channels %}{{ channel.id }},{% endfor %}
+              {% for category in categories %}{% for channel in category.popular_channels %}{{ channel.id }},{% endfor %}{% endfor %}
+          ]);
+      </script>
   <link rel="alternate" type="application/rss+xml" title="Featured Shows"
         href="https://www.miroguide.com/rss/featured">
   <link rel="alternate" type="application/rss+xml" title="New Shows"
         href="https://www.miroguide.com/rss/new">
 {% endblock %}
 
-{% block onload-extra %}carouselOnLoad(); browser.init();{% endblock %}
+{% block onload-extra %}carouselOnLoad();{% endblock %}
 {% block underwriting %}{% endblock %}
 
 {% block content %}
-  <div id="content" class="page">
-    <div class="front-page">
-      {% comment %}
+{% if not request.user.is_authenticated %}
+<div id="welcome">
+  <div class="inner">
+    <div class="inner2">
+      <div class="message">
+        <h2>{% trans "Welcome to the Miro Guide!" %}</h2>
+        <p>{% trans "Miro Guide has thousands of video shows and podcasts — you can browse and watch most of them right here." %}</p>
+        <p>{% blocktrans with "/accounts/login" as link %}Make this message disappear by <a href="{{ link }}">logging in</a>.{% endblocktrans %}
+      </div>
+      <div class="miro_message">
+        <p>{% trans "We also make Miro, a free internet TV application. Miro makes subscribing, managing, and watching programs easy, and it works extra well with all the HD programming you'll find here in the guide." %}</p>
+        <span>{% trans "Try it now" %}</span>
+        <a class="large_add_button" href="http://www.getmiro.com/download/">
+          <span>{% trans "Download Miro" %}</span>
+        </a>
+      </div>
+      <br style="clear: both;">
+    </div>
+  </div>
+</div>
+ <script type="text/javascript">
+     if (!isMiro()) {
+         document.getElementById('welcome').style.display = 'block';
+     }
+ </script>
+{% endif %}
+
+<div id="content" class="page">
+  <div class="front-page">
+    {% comment %}
         {# store stuff #}
-        <div id="store">
+           <div id="store">
           <a href="http://www.getmiro.com/store/">
             <img src="{{ STATIC_BASE_URL }}images/visit-the-store.png">
           </a>
@@ -37,24 +85,23 @@ See LICENSE for details.
             <img id="rainbow" src="{{ STATIC_BASE_URL }}images/rainbowoverlay.png" alt="Donation Thermometer at $50k with rainbow out the end">
           </div>
         </div>
-      {% endcomment %}
+    {% endcomment %}
 
     <div id="featured">
       <div class="page">
-
         {% if show_welcome %}
-          <div class="welcomeMessage">
-            <p>
-              <strong>Welcome to Miro!</strong>
-                {% blocktrans %}
-                  Click <a href="#" class="add_feed_button_welcome">ADD FEED</a>
-                  to get any show into your sidebar. The first episode
-                  begins downloading automatically and you'll get show
-                  updates as soon as they're available.
-                {% endblocktrans %}
-              <strong>{% trans "It's all free!" %}</strong>
-            </p>
-          </div><!--welcomeMessage-->
+        <div class="welcomeMessage">
+          <p>
+            <strong>Welcome to Miro!</strong>
+            {% blocktrans %}
+            Click <a href="#" class="add_feed_button_welcome">ADD FEED</a>
+            to get any show into your sidebar. The first episode
+            begins downloading automatically and you'll get show
+            updates as soon as they're available.
+            {% endblocktrans %}
+            <strong>{% trans "It's all free!" %}</strong>
+          </p>
+        </div><!--welcomeMessage-->
         {% endif %}
 
         <!--Carousel-->
@@ -64,19 +111,19 @@ See LICENSE for details.
               previous features
             </span>
           </div>
-  	<div id="innerContent">
-  	  <ul id="featured-list">
+          <div id="innerContent">
+            <ul id="featured-list">
               {% for channel in featured_channels %}
-                <li>{% include "guide/channel-feature.html" %}</li>
+              <li>{% include "guide/channel-feature.html" %}</li>
               {% endfor %}
               {% for channel in featured_channels_hidden %}
-                <li class="column">
-                  {% include "guide/channel-feature.html" %}
-                </li>
+              <li class="column">
+                {% include "guide/channel-feature.html" %}
+              </li>
               {% endfor %}
             </ul>
           </div>
-  	<div id="button_next"></div>
+          <div id="button_next"></div>
         </div>
       </div>
     </div>
@@ -111,96 +158,135 @@ See LICENSE for details.
     </div>
     {% endcomment %}
 
+    <div class="big_search">
+      <p>{% trans "Find shows about your favorite topic here." %}</p>
+      <form method="GET" action="{{ BASE_URL }}search">
+        <div>
+          <input type="text" class="field" name="query">
+        </div>
+      </form>
+    </div>
+
     {% if language %}
     <a {% link language.get_url %}>
       <h1>{% trans "Shows in" %} {% trans language.name %}</h1>
     </a>
     {% endif %}
 
+
     <div id="container">
       <div id="contentSmall">
         <div class="detailsHead3">
-          <h3 class="resultsCount">
-            <span class="heading">{% trans "New Shows" %}</span>
-          </h3>
+          <div class="resultsCount">
+            <a class="heading selected" {% link "new/" %}>{% trans "New Shows" %}</a>
+            <a class="heading" {% link "popular/" %}>{% trans "Most Popular" %}</a>
+            <a class="heading" {% link "hd/" %}>{% trans "HD Favorites" %}</a>
+            <div class="heading">
+              <a {% link "genres/" %}>{% trans "Genres" %}</a>
+              {% include "guide/genres_popup.html" %}
+            </div>
+          </div>
+
           <div class="sortType">
-            <a href="/new/">{% trans "View All" %}</a>
+            <a {% link "new/" %}>{% trans "View All" %}</a>
           </div>
         </div>
 
-        <ul class="newVideos">
+        <ul class="newVideos" style="display: block;">
           {% for channel in new_channels %}
             <li>{% include "guide/channel-mini.html" %}</li>
           {% endfor %}
         </ul>
-      </div>
 
-    </div><!--container-->
+        <ul class="newVideos">
+          {% for channel in popular_channels %}
+            <li>{% include "guide/channel-mini.html" %}</li>
+          {% endfor %}
+        </ul>
 
-    <div id="channelEpisodes">
-      <div class="page">
-        <div class="pageContent">
-          <div class="detailsHead">
-            <h3 class="resultsCount">
-              <a name="genres"></a><span class="heading">{% trans "Genre Browser" %}</span>
+        <ul class="newVideos">
+          {% for channel in popular_hd_channels %}
+            <li>{% include "guide/channel-mini.html" %}</li>
+          {% endfor %}
+        </ul>
+
+        <ul id="genreVideos" class="newVideos" style="display: none;">
+          {% for category in categories %}
+          <li class="{% cycle "left" "right" %}">
+            <h3>
+              {{ category.link }}
+              <span class="dash"></span>
+              <a {% link category.get_url %}>{% trans "View All" %}</a>
             </h3>
-            <div class="sortType">
-              <a href="/genres/">{% trans "View All Genres" %}</a>
-            </div>
-          </div><!--detailsHead-->
-
-          <a href="{{ category_peek.category.get_url }}" class="view_all_videos">
-            {% blocktrans with category_peek.category.name as category %}
-              View all shows in <strong>{{ category }}</strong>
-            {% endblocktrans %}
-          </a>
-
-          <br class="clear_all">
-
-          <div class="scrollNav">
-            <span class="button_up">Up</span>
-            <ul>{# so we can limit the size of this part #}
-            {% for category in categories %}
-              <li><a {% ifequal category.id category_peek.category.id %}class="selected" {% endifequal %}onclick="return browser.browseGenre(this);" href="{{ category.get_url|escape }}">{{ category.name }}</a></li>
-            {% endfor %}
+            <ul>
+              {% for channel in category.popular_channels %}
+              <li>{% include "guide/channel-mini.html" %}</li>
+              {% endfor %}
             </ul>
-            <span class="button_down">Down</span>
-          </div>
-
-          <ul class="searchResults">
-            {% for channel in category_peek.channels %}
-              <li>{% include "guide/channel-in-category.html" %}</li>
             {% endfor %}
-          </ul>
-        </div>
+          </li>
+        </ul>
+        <script type="text/javascript">
 
-        <div class="pageSideBar">
-          <div id="sideBarSmall">
-            <div class="detailsHead2">
-              <h3 class="resultsCount">
-                <span class="heading">
-                  {% trans "Popular Shows" %}
-                </span>
-              </h3>
-              <div class="sortType">
-                <a href="/popular/">{% trans "View All" %}</a>
-              </div>
-            </div>
-            <div class="widget_small">
-              <ul class="related">
-                {% for channel in popular_channels %}
-                  <li>
-                    {% include "guide/channel-mini.html" %}
-                  </li>
-                {% endfor %}
-              </ul>
-            </div><!--widget-->
+tabs = $('.resultsCount .heading');
 
-          </div><!--sideBarSmall-->
-        </div><!--pageSideBar-->
-      </div><!--page-->
-    </div><!--channelEpisodes-->
+function selectTab(link) {
+    tabs.removeClass('selected');
+    link.addClass('selected');
+    if (link[0].nodeName === 'A') {
+        href = link.attr('href');
+    } else {
+        href = link.find('a:first').attr('href');
+    }
+    $('div.sortType a').attr('href', href);
+};
 
+tabs.eq(0).click(function() {
+    scrollTop = $(document).scrollTop();
+    selectTab($(this));
+    $('#genreVideos').hide();
+    $('.newVideos').hide().eq(0).show();
+    location.hash = "";
+    $(document).scrollTop(scrollTop);
+    return false;
+});
+tabs.eq(1).click(function() {
+    scrollTop = $(document).scrollTop();
+    selectTab($(this));
+    $('#genreVideos').hide();
+    $('.newVideos').hide().eq(1).show();
+    location.hash = "#popular";
+    $(document).scrollTop(scrollTop);
+    return false;
+});
+tabs.eq(2).click(function() {
+    scrollTop = $(document).scrollTop();
+    selectTab($(this));
+    $('#genreVideos').hide();
+    $('.newVideos').hide().eq(2).show();
+    location.hash = "#hd";
+    $(document).scrollTop(scrollTop);
+    return false;
+});
+tabs.eq(3).children('a').click(function() {
+    scrollTop = $(document).scrollTop();
+    selectTab($(this));
+    $('.newVideos').hide();
+    $('#genreVideos').show();
+    $(document).scrollTop(scrollTop);
+    return false;
+});
+
+if (location.hash === '#popular') {
+    tabs.eq(1).click();
+} else if (location.hash === "#hd") {
+    tabs.eq(2).click();
+} else if (location.hash === '#genres') {
+    tabs.eq(3).children('a').click();
+}
+        </script>
+      </div><!--container-->
+    </div>
   </div>
 </div>
 {% endblock %}

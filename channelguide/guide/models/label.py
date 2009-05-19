@@ -6,6 +6,8 @@ categories which are defined by the moderaters and tags which are
 user-created.
 """
 
+import random
+
 from channelguide import util
 from channelguide.guide import tables
 from sqlhelper.orm import Record
@@ -44,6 +46,31 @@ class Category(Label):
     def get_rss_url(self):
         return util.make_url('feeds/genres/%s' % self.name.encode('utf8'),
                              ignore_qmark=True)
+
+    def get_list_channels(self, connection, filter_front_page=False):
+        self.join('channels').execute(connection)
+        def _q(filter_by_rating):
+            query = self.channels[0].query_approved(archived=0)
+            query.join("categories", 'stats')
+            query.where(query.c.id.in_(c.id for c in self.channels))
+            if filter_by_rating:
+                query.join('rating')
+                query.where(query.joins['rating'].c.average > 4)
+                query.where(query.joins['rating'].c.count > 4)
+            query.order_by(query.joins['stats'].c.subscription_count_today, desc=True)
+            #query.cacheable = cache.client
+            #query.cacheable_time = 3600
+            channels = query.execute(connection)
+            if filter_front_page:
+                return [channel for channel in channels
+                        if channel.can_appear_on_frontpage()]
+            else:
+                return channels
+
+        most_popular = _q(True)
+        if len(most_popular) < 2:
+            most_popular = _q(False)
+        return most_popular[0], random.choice(most_popular[1:])
 
 class Tag(Label):
     """Tags are user created labels.  Any string of text can be a tag and any

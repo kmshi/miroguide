@@ -5,7 +5,7 @@ See LICENSE for details.
 
 {% load i18n cg_helpers channels %}
 
-<div class="searchThumb">
+<div class="searchThumb show_hover hover_{{ channel.id }}">
   <a {% link channel.get_url %}>
     <span class="thumb corners"
          style="background: url({{ channel.thumb_url_97_65}});">
@@ -40,9 +40,9 @@ See LICENSE for details.
     </li>
     <li>
         {% show_small_rating_stars channel %}
-        {% if channel.rating.count %}<span class="count">{% blocktrans count channel.rating.count as count %}1 rating{% plural %}{{ count }} ratings{% endblocktrans %}</span>{% endif %} 
+        {% if channel.rating.count %}<span class="count">{% blocktrans count channel.rating.count as count %}1 Rating{% plural %}{{ count }} Ratings{% endblocktrans %}</span>{% endif %} 
     </li>
-    {% if channel.stats.subscription_count_today %}<li class="subscribers">{% blocktrans count channel.stats.subscription_count_today as count %}+1 today{% plural %}+{{ count }} times today{% endblocktrans %}</li>{% endif %}
+    {% if channel.stats.subscription_count_today %}<li class="subscribers"><img src="{{ STATIC_BASE_URL }}images/added.png" alt="{% trans "Subscriptions Today" %}"/> {% blocktrans count channel.stats.subscription_count_today as count %}1 Today{% plural %}{{ count }} Today{% endblocktrans %} </li>{% endif %}
     {% if channel.guessed %}<li class="our_bet">Our Bet: <span class="score">{{ channel.guessed|floatformat }} stars</span></li>{% endif %}
   </ul>
 </div>

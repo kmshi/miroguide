@@ -28,6 +28,7 @@ See LICENSE for details.
     <!--[if lte IE 7]>
     <link rel="stylesheet" href="{{ STATIC_BASE_URL }}css/ie7_styles.css" type="text/css" media="screen">
     <![endif]-->
+    <script type="text/javascript" src="{{ BASE_URL }}jsi18n/"></script>
     <script type="text/javascript">
         var star_names = [
             "{% trans "Not interested" %}",
@@ -119,7 +120,10 @@ $(document).ready(function() {
     <div id="topBarLower">
       <div class="page">
         <ul id="lowerMenu">
-          <li><a {% navlink "/genres/" %}>{% wrap_translation 12 %}{% trans "Genres" %}{% endwrap %}</a></li>
+          <li>
+            <a {% navlink "/genres/" %}>{% wrap_translation 12 %}{% trans "Genres" %}{% endwrap %}</a>
+            {% with categories_list as categories %}{% include "genres_popup.html" %}{% endwith %}
+          </li>
           <li><a {% navlink "/hd/" %}>{% wrap_translation 12 %}{% trans "HD Shows" %}{% endwrap %}</a></li>
           <li><a {% navlink "/popular/" %}>{% wrap_translation 15 %}{% trans "Most Popular" %}{% endwrap %}</a></li>
           <li><a {% navlink "/toprated/" %}>{% wrap_translation 12 %}{% trans "Top Rated" %}{% endwrap %}</a></li>
@@ -148,7 +152,7 @@ $(document).ready(function() {
     {% include "guide/topmenu_dropdowns.html" %}
 
   {% endblock %}
-
+  <!-- NOTIFICATION BAR -->
   {% block content %}{% endblock %}
 
   <div id="footer"><a href="http://www.getmiro.com">{% trans "Get Miro!" %}</a> - <a {% link "/dmca" %}>{% trans "DMCA Information" %}</a> - <a {% link "/submit/" %}>{% trans "Submit a Feed" %}</a></div>

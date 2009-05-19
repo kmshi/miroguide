@@ -4,6 +4,7 @@
 from django.conf import settings
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
+from django.utils.translation import gettext as _
 
 from channelguide import util
 from channelguide.guide.auth import logout, login, moderator_required, login_required
@@ -38,8 +39,12 @@ def login_view(request):
             register_form.full_clean()
         else:
             login(request, user)
+            request.session['notifications'] = [(_('Thanks for registering!'),
+                                                 _("We've sent a confirmation "
+                                                   "e-mail to the address you "
+                                                   "provided."))]
             return util.redirect(next)
-    return util.render_to_response(request, 'login.html', { 
+    return util.render_to_response(request, 'login.html', {
         'next' : next,
         'login_form': login_form,
         'register_form': register_form,

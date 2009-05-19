@@ -17,7 +17,10 @@ class CountryByIP:
         offset = 0
         fp = self.fp
         for part in ip.split('.'):
-            start = offset+int(part)*4
+            try:
+                start = offset+int(part)*4
+            except ValueError:
+                raise KeyError(ip)
             fp.seek(start)
             value = fp.read(4)
             assert len(value)==4

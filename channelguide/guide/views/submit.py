@@ -109,7 +109,7 @@ def submit_channel(request):
             request.session.modified = True
             if request.FILES.get('thumbnail_file'):
                 request.FILES['thumbnail_file'].close()
-            return HttpResponse('SUBMIT SUCCESS')
+            return util.redirect('submit/after')
         else:
             form.save_submitted_thumbnail()
     context = form.get_template_data()

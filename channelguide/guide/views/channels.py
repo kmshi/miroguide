@@ -578,6 +578,7 @@ def filtered_listing(request, value=None, filter=None, limit=10,
     return util.render_to_response(request, 'listing.html', {
         'title': title % {'value': value},
         'sort': sort,
+        'filter': filter,
         'current_page': page,
         'pages': _calculate_pages(request, biggest),
         'feed_page': feed_page,

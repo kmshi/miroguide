@@ -10,10 +10,59 @@
     margin: -1px 0 0 421px;
 }
 
-ul.newVideos {
-    height: 150px;
-}
-
 #submit .top {
     margin-bottom: -19px;
+}
+
+.know_more .arrow {
+    border-bottom: 1px solid white;
+}
+
+.know_more .inner {
+    border-top: 1px solid white;
+}
+
+#submit .help span {
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+}
+
+#submit li.form_row:hover .help span,
+#submit li.form_row input:focus + .help span {
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: alpha(opacity=100);
+}
+
+#submit button.hover + .help * {
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: alpha(opacity=100);
+}
+
+#featuredItemsCarousel .featured_bg {
+    margin-left: 0;
+}
+
+.know_more.dir_left {
+    margin-top: -120px;
+    margin-left: 43px;
+}
+
+.know_more.dir_right {
+    margin-left: -410px;
+    margin-top: -120px;
+}
+
+.genres_popup {
+    background: white repeat;
+    margin: 20px 0 0 -48px;
+    padding: 0;
+    border: 1px solid grey;
+}
+
+.heading .genres_popup {
+    margin-top: 21px;
+    margin-left: -55px;
+}
+.genres_popup > div {
+    background: white;
 }
