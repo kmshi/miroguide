@@ -12,10 +12,13 @@ def guide(request):
     """Channelguide context processor.  These attributes get added to every
     template context.
     """
-    categories = Category.query().order_by('name').execute(request.connection)
-    category_column_length = math.ceil(len(categories) / 4.0)
-    categories_loop = ['%i:%i' % (i*category_column_length, (i + 1) *
+    if getattr(request, 'connection', None) is not None:
+        categories = Category.query().order_by('name').execute(request.connection)
+        category_column_length = math.ceil(len(categories) / 4.0)
+        categories_loop = ['%i:%i' % (i*category_column_length, (i + 1) *
                                   category_column_length) for i in range(4)]
+    else:
+        categories_loop = categories = []
     context = {
         'DEBUG': settings.DEBUG,
         'BASE_URL': settings.BASE_URL,
