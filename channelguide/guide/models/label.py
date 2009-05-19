@@ -9,6 +9,7 @@ user-created.
 import random
 
 from channelguide import util
+from channelguide import cache
 from channelguide.guide import tables
 from sqlhelper.orm import Record
 
@@ -48,9 +49,9 @@ class Category(Label):
                              ignore_qmark=True)
 
     def get_list_channels(self, connection, filter_front_page=False):
-        self.join('channels').execute(connection)
         def _q(filter_by_rating):
-            query = self.channels[0].query_approved(archived=0)
+            from channelguide.guide.models import Channel
+            query = Channel.query_approved(archived=0)
             query.join("categories", 'stats')
             query.where(query.c.id.in_(c.id for c in self.channels))
             if filter_by_rating:
@@ -58,8 +59,8 @@ class Category(Label):
                 query.where(query.joins['rating'].c.average > 4)
                 query.where(query.joins['rating'].c.count > 4)
             query.order_by(query.joins['stats'].c.subscription_count_today, desc=True)
-            #query.cacheable = cache.client
-            #query.cacheable_time = 3600
+            query.cacheable = cache.client
+            query.cacheable_time = 3600
             channels = query.execute(connection)
             if filter_front_page:
                 return [channel for channel in channels
