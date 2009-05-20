@@ -27,7 +27,6 @@ class UserMiddleware(object):
                 req.user = AnonymousUser()
                 return
             query = User.query(username=username, hashed_password=password)
-            query.join("channels")
             try:
                 req.user = query.get(req.connection)
             except LookupError:
