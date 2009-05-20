@@ -41,7 +41,7 @@ hover = {
             function() {
                 return hoverDiv.parent().children('.hover_' + showID).length;
             }).hide();
-        $('.show_hover .know_more').not('.hover_' + showID + ' .know_more').hide();
+        $('.show_hover + .know_more').not('.hover_' + showID + ' + .know_more').hide();
         existingDiv = hoverDiv.parent().find('.know_more');
         if (existingDiv.find('.inner').length) {
             existingDiv.show();
@@ -58,7 +58,7 @@ hover = {
             div.addClass('dir_left');
         }
         div.hide();
-        hoverDiv.parent().append(div);
+        hoverDiv.after(div);
         if (hover.cachedData[showID]) {
             hover.JSONcallback(hoverDiv, hover.cachedData[showID]);
             return;

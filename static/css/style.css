@@ -5091,13 +5091,13 @@ width: 369px;
 }
 
 .know_more.dir_left {
-margin: -104px 0 0 108px;
+margin: -78px 0 0 108px;
 background: url(../images/popup/top.png) 10px top no-repeat;
 }
 
 .searchResults .know_more.dir_left {
     margin-left:90px;
-    margin-top:-95px;
+    margin-top:-2px;
 }
 
 .know_more.dir_left .extra_for_left{
@@ -5126,13 +5126,13 @@ padding: 0;
 }
 
 .know_more.dir_right {
-margin:-104px 0 0 -343px;
+margin:-78px 0 0 -343px;
 background: url(../images/popup/top.png) 3px top no-repeat;
 }
 
 .searchResults .know_more.dir_right {
     margin-left: -360px;
-    margin-top: -95px;
+    margin-top: -2px;
 }
 
 .know_more.dir_right .extra_for_left{
