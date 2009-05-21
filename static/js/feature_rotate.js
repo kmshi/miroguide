@@ -3,7 +3,7 @@
  * Does the feature rotate animation.
  */
 
-var FEATURED_CHANNEL_WIDTH = 243;
+var FEATURED_CHANNEL_WIDTH = 244;
 var FEATURE_ROTATE_TIMEOUT = 20; // rotate timeout in seconds
 var featureList = null;
 var featureTimeout = null;
