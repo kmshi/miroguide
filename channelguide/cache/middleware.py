@@ -10,14 +10,6 @@ import client
 from channelguide import util
 from channelguide.guide.country import country_code
 
-def date_time_string(timestamp=None):
-    """return the current date and time formatted for a message header."""
-    if timestamp is None:
-        timestamp = time.time()
-    timetuple = time.gmtime(timestamp)
-    s = time.strftime("%a, %02d %3b %4Y %02H:%02M:%02S gmt", timetuple)
-    return s
-
 class CacheTimingMiddleware(object):
     def process_request(self, request):
         if settings.DISABLE_CACHE:

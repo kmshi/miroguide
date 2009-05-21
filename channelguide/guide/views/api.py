@@ -5,8 +5,9 @@ import simplejson
 from itertools import izip, count
 import sha
 from django.conf import settings
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, HttpResponseNotModified, Http404
 from django.utils.translation import ugettext as _
+from django.utils.http import http_date
 from channelguide import util
 from channelguide.guide import api
 from channelguide.guide.auth import login_required
@@ -82,6 +83,8 @@ def data_for_channel(channel):
     if hasattr(channel, 'guessed'):
         data['guessed'] = channel.guessed
         data['reasons'] = map(data_for_channel, channel.reasons)
+    if hasattr(channel, 'timestamp'):
+        data['timestamp'] = channel.timestamp
     return data
 
 def data_for_item(item):
@@ -102,23 +105,47 @@ def error_response(request, error, text, code=None):
         code = 404
     return response_for_data(request, data, code)
 
-def response_for_data(request, data, code=None):
-    datatype = request.REQUEST.get('datatype', 'python')
-    if datatype == 'python':
-        contentType = 'text/x-python'
-        stringData = repr(data)
-    elif datatype == 'json':
-        contentType = 'text/javascript'
-        stringData = simplejson.dumps(data)
-        if 'jsoncallback' in request.REQUEST:
-            stringData = '%s(%s);' % (request.REQUEST['jsoncallback'],
-                                      stringData)
+def timestamp_for_data(data):
+    if isinstance(data, dict):
+        if 'timestamp' in data:
+            return http_date(data['timestamp'])
+        else:
+            return None
     else:
-        raise Http404
-    response = HttpResponse(stringData,
-                            content_type=contentType)
-    if code:
-        response.status_code = code
+        timestamps = [channel['timestamp'] for channel in data
+                      if 'timestamp' in channel]
+        if not timestamps:
+            return None
+        else:
+            return http_date(max(timestamps))
+
+def response_for_data(request, data, code=None):
+    response = timestamp = None
+    if code is None and not request.user.is_authenticated():
+        timestamp = timestamp_for_data(data)
+        if timestamp is not None:
+            if_modified_since = request.META.get('HTTP_IF_MODIFIED_SINCE')
+            if timestamp == if_modified_since:
+                response = HttpResponseNotModified()
+    if response is None:
+        datatype = request.REQUEST.get('datatype', 'python')
+        if datatype == 'python':
+            contentType = 'text/x-python'
+            stringData = repr(data)
+        elif datatype == 'json':
+            contentType = 'text/javascript'
+            stringData = simplejson.dumps(data)
+            if 'jsoncallback' in request.REQUEST:
+                stringData = '%s(%s);' % (request.REQUEST['jsoncallback'],
+                                          stringData)
+        else:
+            raise Http404
+        response = HttpResponse(stringData,
+                                content_type=contentType)
+        if code:
+            response.status_code = code
+    if timestamp is not None:
+        response['Last-Modified'] = timestamp
     return response
 
 def test(request):

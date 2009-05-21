@@ -29,6 +29,7 @@ def get_channel(connection, id):
         channel = Channel.get(connection, id, join=['categories', 'tags', 'items',
                                                     'owner', 'language','rating', 'stats'])
         client.set(apiKey, channel)
+    channel.timestamp = timestamp
     return channel
 
 def get_channel_by_url(connection, url):
