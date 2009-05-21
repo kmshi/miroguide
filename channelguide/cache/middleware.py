@@ -234,3 +234,16 @@ class SiteHidingCacheMiddleware(AggressiveCacheMiddleware):
 
         return UserCacheMiddleware.get_cache_key_tuple(self, request) + (
             miro_version_pre_sites, miro_linux, geoip)
+
+
+class APICacheMiddleware(CacheMiddlewareBase):
+
+    def get_cache_key_tuple(self, request):
+        if request.user.is_authenticated():
+            user = request.user.id
+        else:
+            user = None
+        # since we're not doing any translating in the API, we can ignore the
+        # LANGUAGE_CODE
+        return CacheMiddlewareBase.get_cache_key_tuple(self, request)[:-1] + \
+            (request.path, request.META['QUERY_STRING'], user)

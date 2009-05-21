@@ -8,6 +8,7 @@ from django.conf import settings
 from django.http import HttpResponse, Http404
 from django.utils.translation import ugettext as _
 from channelguide import util
+from channelguide.cache import api_cache
 from channelguide.guide import api
 from channelguide.guide.auth import login_required
 from channelguide import sessions
@@ -125,6 +126,7 @@ def test(request):
     data = {'text': 'Valid request' }
     return response_for_data(request, data)
 
+@api_cache
 def get_channel(request):
     if not ('id' in request.GET or 'url' in request.GET):
         return error_response(request, 'MISSING_ARGUMENT',
@@ -155,6 +157,7 @@ def get_channel(request):
         data = map(data_for_channel, channels)
     return response_for_data(request, data)
 
+@api_cache
 @requires_arguments('filter', 'filter_value')
 def get_channels(request):
     filter = request.GET['filter']
@@ -209,6 +212,8 @@ def authenticate(request):
             context['error'] = _("Invalid verification code.")
     return util.render_to_response(request, 'api_authenticate.html',
                                    context)
+
+@api_cache
 @requires_login
 @requires_arguments('id')
 def rate(request):
@@ -233,6 +238,7 @@ def get_recommendations(request):
     return response_for_data(request, map(data_for_channel,
                                           channels))
 
+@api_cache
 @requires_login
 def get_ratings(request):
     rating = request.GET.get('rating')
@@ -249,6 +255,7 @@ def get_ratings(request):
             data[index]['rating'] = ratings[channels]
         return response_for_data(request, data)
 
+@api_cache
 def list_labels(request, type):
     labels = api.list_labels(request.connection, type)
     data = [
