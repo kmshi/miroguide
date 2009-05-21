@@ -64,7 +64,7 @@ hover = {
             return;
         }
 
-        url = '/api/get_channel?datatype=json&jsoncallback=?&id=' + showID;
+        url = '/api/get_channel?datatype=json&id=' + showID;
         $.getJSON(url, function(data) {
             hover.cachedData[data.id] = data;
             hover.JSONcallback(hoverDiv, data);
