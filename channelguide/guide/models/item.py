@@ -21,6 +21,7 @@ class Item(Record, Thumbnailable):
     THUMBNAIL_SIZES = [
             (97, 65),
             (200, 133),
+            (200, 134),
     ]
 
     def get_url(self):

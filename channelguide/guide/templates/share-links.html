@@ -4,7 +4,7 @@ See LICENSE for details.
 {% endcomment %}
 {% load i18n %}
 
-<div id="share_box" class="alert">
+<div id="share_box" class="alert" {% if hide_share %}style="display: none;"{% endif %}>
   <div class="page">
     <div class="alertBox sharebox">
       <h2>

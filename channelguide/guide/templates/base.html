@@ -104,14 +104,24 @@ See LICENSE for details.
         <form method="get" action="{{ BASE_URL }}search">
 
           <div id="searchSpot">
+
+              <input type="text" class="headSearch" name="query"
+                   id="search_query" />
+
+          <!--
             <input type="text" class="headSearch" name="query"
-                   id="search_query" value="{% trans "Search" %}">
-            <script type="text/javascript">
+                   id="search_query"  value="{% trans "Search" %}">
+           -->
+
+           <script type="text/javascript">
               //<![CDATA[
 $(document).ready(function() {
     $("#searchSpot input").focus(searchFocus).blur(searchBlur);});
               //]]>
             </script>
+
+            <button value="Search" name="submit" class="submit_search_small">Search</button>
+
           </div>
         </form>
       </div>
