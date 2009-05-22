@@ -397,7 +397,9 @@ class SubmitChannelForm(Form):
                 self.fields[key].initial = saved_data[key]
         if not saved_data.get('url'):
             self.fields['geoip'].initial = 'US'
-        if saved_data.get('thumbnail_url') and 'youtube.com/rss' not in saved_data['url']:
+        if saved_data.get('thumbnail_url') and \
+                'youtube.com/rss' not in saved_data['url'] and \
+                'videobomb.com/rss' not in saved_data['url']:
             content = try_to_download_thumb(saved_data['thumbnail_url'])
             if content:
                 widget = self.fields['thumbnail_file'].widget
