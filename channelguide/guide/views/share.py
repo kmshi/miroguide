@@ -365,7 +365,7 @@ def email(request):
             if hasattr(channel, 'thumbnail_url'):
                 thumbnail = channel.thumbnail_url
             else:
-                thumbnail = channel.thumb_url_200_133()
+                thumbnail = channel.thumb_url_200_134()
     else:
         subject = _(u'%(from_email)s wants to share a video with you') % {
             'from_email': share_form.cleaned_data['from_email']}
@@ -384,12 +384,12 @@ def email(request):
             if hasattr(item, 'thumbnail_url'):
                 thumbnail = item.thumbnail_url
             else:
-                thumbnail = item.thumb_200_133()
+                thumbnail = item.thumb_200_134()
         elif channel:
             if hasattr(channel, 'thumbnail_url'):
                 thumbnail = channel.thumbnail_url
             else:
-                thumbnail = channel.thumb_url_200_133()
+                thumbnail = channel.thumb_url_200_134()
         else:
             thumbnail = None
 

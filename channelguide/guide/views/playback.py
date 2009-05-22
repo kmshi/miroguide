@@ -99,12 +99,10 @@ def item(request, id):
     except InvalidPage:
         raise Http404
 
-    share_links = share_url = None
-    if request.GET.get('share') == 'true':
-        share_url = urlparse.urljoin(
-            settings.BASE_URL_FULL,
-            '/items/%s' % id)
-        share_links = util.get_share_links(share_url, item.name)
+    share_url = urlparse.urljoin(
+        settings.BASE_URL_FULL,
+        '/items/%s' % id)
+    share_links = util.get_share_links(share_url, item.name)
 
     context = {'item': item,
                'channel': item.channel,
@@ -114,6 +112,7 @@ def item(request, id):
                'embed': util.mark_safe(embed_code(item)),
                'page': page,
                'share_url': share_url,
+               'hide_share': request.GET.get('share') != 'true',
                'share_type': 'item',
                'share_links': share_links,
                'feed_url': item.channel.url,

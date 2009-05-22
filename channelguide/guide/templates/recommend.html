@@ -6,7 +6,7 @@
 {% endcomment %}
 
 {% load i18n channels cg_helpers %}
-
+{% block body-attributes %}{{ block.super }} class="video_love"{% endblock %}
 {% block infoBox %}
     <h1 class="lovedVideos">{% trans "Videos You'll Love" %}</h1>
 {% endblock %}

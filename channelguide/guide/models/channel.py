@@ -1,3 +1,4 @@
+
 # Copyright (c) 2008-2009 Participatory Culture Foundation
 # See LICENSE for details.
 
@@ -54,7 +55,9 @@ class Channel(Record, Thumbnailable):
             (97, 65),
             (165, 110),
             (194, 130),
+            (195, 130),
             (200, 133),
+            (200, 134),
             (245, 164),
     ]
 

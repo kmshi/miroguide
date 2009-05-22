@@ -57,6 +57,7 @@
       <div class="channelDetailsContent">
         <a class="large_add_button {% if channel.url %}feed{% else %}site{% endif %}"
           {{ channel.subscription_link }}>
+          <span class="only-in-miro">
           {% wrap_translation 25 %}
             {% if channel.url %}
               {% trans "Add Feed to Your Sidebar" %}
@@ -64,9 +65,19 @@
               {% trans "Add Site to Your Sidebar" %}
             {% endif %}
           {% endwrap %}
+          </span>
+          <span class="only-in-browser">
+          {% wrap_translation 25 %}
+            {% if channel.url %}
+              {% trans "Add Feed to Miro" %}
+            {% else %}
+              {% trans "Add Site to Miro" %}
+            {% endif %}
+          {% endwrap %}
+          </span>
         </a>
         {% if channel.url %}
-        <a class="rss" href="{{ channel.url }}">RSS</a>
+        <a class="rss only-in-browser" href="{{ channel.url }}">RSS</a>
         {% endif %}
         <span class="url">
           <a href="{{ channel.website_url }}">

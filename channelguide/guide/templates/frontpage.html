@@ -160,10 +160,10 @@ See LICENSE for details.
     {% endcomment %}
 
     <div class="big_search">
-      <p>{% trans "Find shows about your favorite topic here." %}</p>
-      <form method="GET" action="{{ BASE_URL }}search">
+      <p>{% trans "Search for Shows" %}</p>
+      <form method="GET" action="{{ BASE_URL }}{% if audio %}audio/{% endif %}search">
         <div>
-          <input type="text" class="field" name="query">
+          <input type="text" class="field" name="query"><button value="Search" name="submit" class="submit_search">Search</button>
         </div>
       </form>
     </div>
@@ -179,18 +179,15 @@ See LICENSE for details.
       <div id="contentSmall">
         <div class="detailsHead3">
           <div class="resultsCount">
-            <a class="heading selected" {% link "new/" %}>{% trans "New Shows" %}</a>
-            <a class="heading" {% link "popular/" %}>{% trans "Most Popular" %}</a>
-            <a class="heading" {% link "hd/" %}>{% trans "HD Favorites" %}</a>
+            <a class="heading selected" {% if audio %}{% link "audio/new/" %}{% else %}{% link "new/" %}{% endif %}>{% trans "New Shows" %}</a>
+            <a class="heading" {% if audio %}{% link "audio/popular/" %}{% else %}{% link "popular/" %}{% endif %}>{% trans "Most Popular" %}</a>
+            <a class="heading" {% if audio %}style="display: none;"{% endif %}{% link "hd/" %}>{% trans "HD Favorites" %}</a>
             <div class="heading">
-              <a {% link "genres/" %}>{% trans "Genres" %}</a>
+              <a {% if audio %}{% link "audio/genres/"%}{% else %}{% link "genres/" %}{% endif %}>{% trans "Genres" %}</a>
               {% include "guide/genres_popup.html" %}
             </div>
           </div>
 
-          <div class="sortType">
-            <a {% link "new/" %}>{% trans "View All" %}</a>
-          </div>
         </div>
 
         <ul class="newVideos" style="display: block;">
@@ -204,15 +201,16 @@ See LICENSE for details.
             <li>{% include "guide/channel-mini.html" %}</li>
           {% endfor %}
         </ul>
-
+        {% if not audio %}
         <ul class="newVideos">
           {% for channel in popular_hd_channels %}
             <li>{% include "guide/channel-mini.html" %}</li>
           {% endfor %}
         </ul>
-
+        {% endif %}
         <ul id="genreVideos" class="newVideos" style="display: none;">
           {% for category in categories %}
+          {% if category.popular_channels %}
           <li class="{% cycle "left" "right" %}">
             <h3>
               {{ category.link }}
@@ -224,57 +222,58 @@ See LICENSE for details.
               <li>{% include "guide/channel-mini.html" %}</li>
               {% endfor %}
             </ul>
-            {% endfor %}
           </li>
+          {% endif %}
+          {% endfor %}
         </ul>
+
+        <a class="more_link" {% link "new/" %}>{% trans "More New Shows >>" %}</a>
+
         <script type="text/javascript">
 
 tabs = $('.resultsCount .heading');
 
-function selectTab(link) {
-    tabs.removeClass('selected');
+function selectTab(link, text) {
+    $("#contentSmall .selected").removeClass('selected');
     link.addClass('selected');
-    if (link[0].nodeName === 'A') {
-        href = link.attr('href');
+    if (text === undefined) {
+        $("#contentSmall .more_link").hide();
     } else {
-        href = link.find('a:first').attr('href');
+        if (link[0].nodeName === 'A') {
+            href = link.attr('href');
+        } else {
+            href = link.find('a:first').attr('href');
+        }
+        $('#contentSmall .more_link').attr('href', href).text(text + ' >>').show();
     }
-    $('div.sortType a').attr('href', href);
 };
 
 tabs.eq(0).click(function() {
-    scrollTop = $(document).scrollTop();
-    selectTab($(this));
+    selectTab($(this), "{% trans "More New Shows" %}");
     $('#genreVideos').hide();
     $('.newVideos').hide().eq(0).show();
-    location.hash = "";
-    $(document).scrollTop(scrollTop);
+    location.hash = ""
     return false;
 });
 tabs.eq(1).click(function() {
-    scrollTop = $(document).scrollTop();
-    selectTab($(this));
+    selectTab($(this), "{% trans "More Popular Shows" %}");
     $('#genreVideos').hide();
     $('.newVideos').hide().eq(1).show();
     location.hash = "#popular";
-    $(document).scrollTop(scrollTop);
     return false;
 });
 tabs.eq(2).click(function() {
-    scrollTop = $(document).scrollTop();
-    selectTab($(this));
+    selectTab($(this), "{% trans "More HD Shows" %}");
     $('#genreVideos').hide();
     $('.newVideos').hide().eq(2).show();
     location.hash = "#hd";
-    $(document).scrollTop(scrollTop);
     return false;
 });
 tabs.eq(3).children('a').click(function() {
-    scrollTop = $(document).scrollTop();
     selectTab($(this));
+    location.hash = "#genres";
     $('.newVideos').hide();
     $('#genreVideos').show();
-    $(document).scrollTop(scrollTop);
     return false;
 });
 
@@ -286,6 +285,7 @@ if (location.hash === '#popular') {
     tabs.eq(3).children('a').click();
 }
         </script>
+
       </div><!--container-->
     </div>
   </div>

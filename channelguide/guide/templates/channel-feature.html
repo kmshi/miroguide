@@ -7,7 +7,7 @@
   {% block screenshot %}
   <a {% link channel.get_url %}>
     <span class="thumb featuredItem top_corners"
-         style="background: url({{ channel.thumb_url_194_130 }}); width: 194px; height: 130px;">
+         style="background: url({{ channel.thumb_url_195_130 }}); width: 195px; height: 130px;">
       {% if channel.hi_def %}
         <img class="hd_tag_large"
              src="{{ STATIC_BASE_URL }}images/ico_hd_tag_large.png"
@@ -20,6 +20,7 @@
 </div>
 <a {{ channel.subscription_link }}
    class="large_add_button {% if channel.url %}feed{% else %}site{% endif %}">
+  <span class="only-in-miro">
   {% wrap_translation 20 %}
     {% if channel.url %}
       {% trans "ADD FEED TO SIDEBAR" %}
@@ -27,4 +28,5 @@
       {% trans "ADD SITE TO SIDEBAR" %}
     {% endif %}
   {% endwrap %}
+  </span>
 </a>

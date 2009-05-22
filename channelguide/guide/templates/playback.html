@@ -31,14 +31,17 @@ See LICENSE for details.
   {% if channel.hi_def or bittorrent%}
     <!-- warning to old miro users users -->
     <div class="page">
-      <div class="warningMessage">
-        <p>
+
           {% if bittorrent %}
+          <div class="warningMessage_bit">
           <strong>{% trans "BitTorrent Video" %}:</strong>
           {% blocktrans with channel.subscription_link as subscription_link %}
           BitTorrent videos cannot be streamed. The easiest way to watch is <a {{ subscription_link }}>using Miro</a>.
           {% endblocktrans %}
+          </div>
           {% else %}
+
+          <div class="warningMessage_hd">
           <strong>
             {% trans "This is HD! High-definition videos are often slow to preview." %}
           </strong>
@@ -47,15 +50,14 @@ See LICENSE for details.
             the video or <a {{ subscription_link }}>subscribe</a>
             to the feed. It's free and easy!
           {% endblocktrans %}
+          </div>
           {% endif %}
-        </p>
+
       </div>
     </div>
   {% endif %}
 
-  {% if share_links %}
-    {% include "guide/share-links.html" %}
-  {% endif %}
+  {% include "guide/share-links.html" %}
 
   <div id="videoArea">
     <div class="page">
@@ -85,10 +87,9 @@ See LICENSE for details.
         <div id="videoDetails">
           <div class="meta">
             {% if item.description %}
-              <p class="synopsis_tag">
-                <strong>{% trans "Synopsis" %}</strong>
-              </p>
+
               <p class="synopsis">
+                <strong class="synopsis_tag">{% trans "Synopsis" %}</strong>
                 {{ item.description|striptags }}
               </p>
             {% endif %}
@@ -103,13 +104,14 @@ See LICENSE for details.
                   {% trans "DOWNLOAD" %}
                 </span>
               </a>
-              {% if not share_links %}
+              {% if hide_share %}
                 <a {% if share_button_url %}
                      href="{{ share_button_url }}"
                    {% else %}
                      href="/items/{{ item.id }}?share=true"
                    {% endif %}
-                   class="rollover_button share">
+                   class="rollover_button share"
+                   onclick="$('#share_box').show(); $(this).remove(); return false;">
                   <span>
                     {% trans "SHARE" %}
                     <img src="{{ STATIC_BASE_URL }}images/buttons/grey_stream.png"
