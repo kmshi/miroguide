@@ -235,7 +235,7 @@ def make_thumbnail(source_path, dest_path, width, height):
     try:
         call_command("convert",  source_path,
                      "-strip", '-flatten',
-                     "-resize", "%dx%d>" % (width, height),
+                     "-resize", "%dx%d" % (width, height),
                      "-gravity", "center", "-bordercolor", "black",
                      "-border", "%s" % border_width,
                      "-crop", "%dx%d+0+0" % (width, height),
