@@ -1802,18 +1802,6 @@ margin: 5px 15px 0 0;
     margin: 0px 5px 6px 24px;
 }
 
-
-#channelEpisodes .details .download{
-    margin: 11px 0 0px -4px;
-    float: right;
-}
-
-
-#channelEpisodes .details .preview{
-    float: left;
-}
-
-
 #recentlyOnChannel {
     padding: 0 0 20px 0;
 }
@@ -2430,7 +2418,6 @@ display: block;
 .alert .closeAlert {
     text-transform: uppercase;
     color: #555;
-    border: 1px solid;
     float: left;
     font-size: 9.5px;
     padding: 0 13px 0 0;
