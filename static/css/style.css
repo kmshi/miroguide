@@ -67,6 +67,7 @@ ul {
 clear: both;
 float: right;
 margin: 20px 0 0 0;
+text-decoration: underline;
 }
 
 br.clear_all {

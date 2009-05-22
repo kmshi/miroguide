@@ -226,37 +226,44 @@ See LICENSE for details.
           {% endif %}
           {% endfor %}
         </ul>
+
+        <a class="more_link" {% link "new/" %}>{% trans "More New Shows >>" %}</a>
+
         <script type="text/javascript">
 
 tabs = $('.resultsCount .heading');
 
-function selectTab(link) {
-    tabs.removeClass('selected');
+function selectTab(link, text) {
+    $("#contentSmall .selected").removeClass('selected');
     link.addClass('selected');
-    if (link[0].nodeName === 'A') {
-        href = link.attr('href');
+    if (text === undefined) {
+        $("#contentSmall .more_link").hide();
     } else {
-        href = link.find('a:first').attr('href');
+        if (link[0].nodeName === 'A') {
+            href = link.attr('href');
+        } else {
+            href = link.find('a:first').attr('href');
+        }
+        $('#contentSmall .more_link').attr('href', href).text(text + ' >>').show();
     }
-    $('div.sortType a').attr('href', href);
 };
 
 tabs.eq(0).click(function() {
-    selectTab($(this));
+    selectTab($(this), "{% trans "More New Shows" %}");
     $('#genreVideos').hide();
     $('.newVideos').hide().eq(0).show();
     location.hash = ""
     return false;
 });
 tabs.eq(1).click(function() {
-    selectTab($(this));
+    selectTab($(this), "{% trans "More Popular Shows" %}");
     $('#genreVideos').hide();
     $('.newVideos').hide().eq(1).show();
     location.hash = "#popular";
     return false;
 });
 tabs.eq(2).click(function() {
-    selectTab($(this));
+    selectTab($(this), "{% trans "More HD Shows" %}");
     $('#genreVideos').hide();
     $('.newVideos').hide().eq(2).show();
     location.hash = "#hd";
@@ -278,8 +285,6 @@ if (location.hash === '#popular') {
     tabs.eq(3).children('a').click();
 }
         </script>
-
-            <a class="more_link" {% if audio %}{% link "audio/new/" %}% else %}{% link "new/" %}{% endif %}>{% trans "More NAME HERE" %}</a>
 
       </div><!--container-->
     </div>
