@@ -1145,19 +1145,19 @@ cursor: pointer;
 
 .genres_popup > div{
     background: url(../images/genres_popdown_bg.png) repeat-y;
-    padding: 15px;
+    padding: 25px 0 0;
 }
 
 .genres_popup div div {
-padding-top: 10px;
+    margin-top: -20px;
 }
 
 .genres_popup ul {
     margin-left: 10px;
-    margin-right: 0px;
+    margin-right: 10px;
     float: left;
-width: 180px;
-padding-left: 10px;
+/*width: 180px;
+padding-left: 10px;*/
 }
 
 
@@ -1169,7 +1169,7 @@ padding-left: 10px;
 
 .genres_popup ul a{
     margin: 0;
-    font-size: 13px;
+    font-size: 12px;
     display: block;
     line-height: 1.6em;
 }
