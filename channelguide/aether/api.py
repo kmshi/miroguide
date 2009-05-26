@@ -12,7 +12,9 @@ from channelguide.guide.auth import login_required
 
 from channelguide.guide.models.item import Item
 from channelguide.guide.models.channel import Channel
+
 from channelguide.aether.models import Client
+from channelguide.aether.dbutils import user_lock_required
 
 # decorating these classes would be presumptuous at this point...
 ITEM_PROPS = [
@@ -39,8 +41,8 @@ CHANNEL_PROPS = [
 ]
 
 @login_required
+@user_lock_required
 def get_user_deltas (request, client_id):
-
     user = request.user
 
     try:
@@ -66,7 +68,7 @@ def get_user_deltas (request, client_id):
     d = Document ()
 
     root = d.createElement('aether')
-    set_attribute (root, 'time', str (mktime(end_time.timetuple ())))
+    set_attribute (root, 'time', unicode (mktime(end_time.timetuple ())))
 
     d.appendChild (root)
 
@@ -102,7 +104,6 @@ def get_user_deltas (request, client_id):
         )
 
         if sub_deltas:
-            # I'm a relative python newbie, just wanted to play with list comprehensions!
             new_sub_ids = [s[1] for s in sub_deltas if s[0] > 0]
             removed_sub_ids = [s[1] for s in sub_deltas if s[0] < 0]
 
