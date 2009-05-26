@@ -44,21 +44,24 @@ hover = {
         $('.show_hover + .know_more').not('.hover_' + showID + ' + .know_more').hide();
         existingDiv = hoverDiv.parent().find('.know_more');
         if (existingDiv.find('.inner').length) {
-            existingDiv.show();
-            return;
-        }
-        div = $('<div/>').attr('class', 'know_more').attr('id', 'know_more_' + showID);
-        div.append($("<div/>").addClass('bottom')).children().append(
-            $("<div/>").addClass('extra_for_left')).children().append(
-                $("<div/>").addClass('arrow')).children().append(
-                    $("<div/>").addClass('inner'));
-        if (event.pageX > $(window).width() / 2) {
-            div.addClass('dir_right');
+            if (existingDiv.find('.inner').children().length) {
+                existingDiv.show();
+                return;
+            }
         } else {
-            div.addClass('dir_left');
+            div = $('<div/>').attr('class', 'know_more').attr('id', 'know_more_' + showID);
+            div.append($("<div/>").addClass('bottom')).children().append(
+                $("<div/>").addClass('extra_for_left')).children().append(
+                    $("<div/>").addClass('arrow')).children().append(
+                        $("<div/>").addClass('inner'));
+            if (event.pageX > $(window).width() / 2) {
+                div.addClass('dir_right');
+            } else {
+                div.addClass('dir_left');
+            }
+            div.hide();
+            hoverDiv.after(div);
         }
-        div.hide();
-        hoverDiv.after(div);
         if (hover.cachedData[showID]) {
             hover.JSONcallback(hoverDiv, hover.cachedData[showID]);
             return;
