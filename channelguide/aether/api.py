@@ -10,6 +10,7 @@ from xml.dom.minidom import Document
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from channelguide.guide.auth import login_required
 
+from channelguide.guide.models.item import Item
 from channelguide.guide.models.channel import Channel
 from channelguide.aether.models import Client
 
