@@ -397,7 +397,7 @@ margin: 0;
 
 #featuredItemsCarousel #innerContent ul li {
     height: 192px;
-    width: 224px;
+    width: 223px;
     margin-top: 1px;
     padding: 5px 10px 0 10px;
     background: url(../images/featured_separator.png) right center no-repeat;
@@ -454,7 +454,7 @@ display: none;
     height: 18px;
     margin-left: 14px;
     padding-top: 2px;
-    width: 194px;
+    width: 195px;
 }
 
 /*Carousel buttons*/
