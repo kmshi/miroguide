@@ -4,7 +4,7 @@
 import urlparse
 from datetime import datetime, timedelta
 
-from channelguide import init
+from channelguide import init, util
 init.init_external_libraries()
 from channelguide.guide import api
 from channelguide.guide.models import User
@@ -40,10 +40,20 @@ class MiroFeedGenerator(feedgenerator.DefaultFeed):
         handler.endElement(u"image")
         feedgenerator.DefaultFeed.write_items(self, handler)
 
+    def add_item_elements(self, handler, item):
+        feedgenerator.DefaultFeed.add_item_elements(self, handler, item)
+        handler.addQuickElement('thumbnail', item['thumbnail'])
+
+
 class ChannelsFeed(feeds.Feed):
     title_template = "feeds/channel_title.html"
     description_template = "feeds/channel_description.html"
     feed_type = MiroFeedGenerator
+
+    def item_extra_kwargs(self, item):
+        return {
+            'thumbnail': util.make_absolute_url(item.thumb_url_200_134())
+            }
 
     def item_guid(self, item):
         if item.newest:
