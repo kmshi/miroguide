@@ -1,4 +1,4 @@
-# Copyright (c) 2008 Participatory Culture Foundation
+# Copyright (c) 2008-2009 Participatory Culture Foundation
 # See LICENSE for details.
 
 from datetime import datetime, timedelta
@@ -16,10 +16,11 @@ from channelguide.guide.models import (Channel, Category, Tag, Item, User,
 from channelguide.testframework import TestCase
 
 def test_data_path(filename):
-    return os.path.join(os.path.dirname(__file__), 'data', filename)
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), 'data',
+                                        filename))
 
 def test_data_url(filename):
-    return 'file://' + os.path.abspath(test_data_path(filename))
+    return 'file://' + test_data_path(filename)
 
 class ChannelTestBase(TestCase):
     def setUp(self):
@@ -703,7 +704,7 @@ class SubmitChannelTest(TestCase):
         Check that submitting the channel did not cause an error, and that
         it correctly redirected the user to the after submit page.
         """
-        if response.status_code != 200:
+        if response.status_code != 302:
             try:
                 errors = response.context[0]['form'].errors.items()
             except:
@@ -713,7 +714,7 @@ Submit failed!
 Status code: %s
 Errors: %s""" % (response.status_code, errors)
             raise AssertionError(msg)
-        self.assertEquals(response.content, 'SUBMIT SUCCESS')
+        self.assertEquals(response['Location'], 'http://localhost/submit/after')
         self.check_last_channel_thumbnail(thumb_name)
         return response
 
@@ -773,9 +774,8 @@ Errors: %s""" % (response.status_code, errors)
         form = response.context[0]['form']
         def check_default(key, test_value):
             self.assertEquals(form.fields[key].initial, test_value)
-        check_default('name', 'Rocketboom RSS 2.0 Main Index')
+        check_default('name', 'foo')
         check_default('website_url', 'http://www.rocketboom.com/vlog/')
-        check_default('publisher', self.joe.email)
         thumb_widget = form.fields['thumbnail_file'].widget
         self.assert_(thumb_widget.submitted_thumb_path is not None)
         self.assert_(os.path.exists(os.path.join(settings.MEDIA_ROOT, 'tmp',
@@ -1178,6 +1178,22 @@ class ChannelSearchTest(ChannelTestBase):
         unapproved = self.make_unaprroved_channel()
         self.login(self.make_user('reggie', role=User.MODERATOR))
         self.assertEquals(self.feed_search_count('Unapproved'), 1)
+
+    def test_short_word_search(self):
+        self.channel.name = "foobar y barfoo"
+        self.channel.save(self.connection)
+        self.channel.update_search_data(self.connection)
+        self.refresh_connection()
+
+        def _check(query):
+            results = self.feed_search(query)
+            self.assertEquals(len(results), 1)
+            self.assertEquals(results[0].id, self.channel.id)
+
+        _check("foobar barfoo")
+        _check("foobar y barfoo")
+
+
 
 class EditChannelTest(ChannelTestBase):
     def setUp(self):

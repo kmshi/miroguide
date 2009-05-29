@@ -1,3 +1,6 @@
+# Copyright (c) 2009 Participatory Culture Foundation
+# See LICENSE for details.
+
 from django.http import HttpResponse
 
 from channelguide import util
@@ -19,6 +22,8 @@ def submit_feed(request):
     if request.method != 'POST':
         form = forms.FeedURLForm(
             request.connection, url_required=(not request.user.is_moderator()))
+        form.fields['url'].initial = request.GET.get('url', '')
+        form.fields['name'].initial = request.GET.get('name', '')
     else:
         submit_type = request.POST.get('type', '')
         form = forms.FeedURLForm(
@@ -33,9 +38,6 @@ def submit_feed(request):
                 request.session[SESSION_KEY]['owner-is-fan'] = True
             else:
                 request.session[SESSION_KEY]['owner-is-fan'] = False
-                if request.session[SESSION_KEY].get('publisher') is None:
-                    request.session[SESSION_KEY]['publisher'] = \
-                                                              request.user.email
             return util.redirect("submit/step2")
         else:
             for error in form.error_list():
@@ -82,7 +84,7 @@ def submit_channel(request):
     """
     session_dict = request.session[SESSION_KEY]
     if 'subscribe' in session_dict:
-        return util.redirect('/submit')
+        return util.redirect('/submit/')
     if request.method != 'POST':
         form = forms.SubmitChannelForm(
             request.connection,
@@ -107,7 +109,7 @@ def submit_channel(request):
             request.session.modified = True
             if request.FILES.get('thumbnail_file'):
                 request.FILES['thumbnail_file'].close()
-            return HttpResponse('SUBMIT SUCCESS')
+            return util.redirect('submit/after')
         else:
             form.save_submitted_thumbnail()
     context = form.get_template_data()

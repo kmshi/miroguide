@@ -1,4 +1,4 @@
-# Copyright (c) 2008 Participatory Culture Foundation
+# Copyright (c) 2008-2009 Participatory Culture Foundation
 # See LICENSE for details.
 
 from django.conf.urls.defaults import *
@@ -12,5 +12,5 @@ urlpatterns = patterns('channelguide.guide.views.categories',
     (r'^toggle_frontpage$', 'toggle_frontpage'),
     (r'^(.+)$', filtered_listing, {
     'filter': 'category',
-    'title': 'Category: %(value)s'})
+    'title': 'Genre: %(value)s'})
 )

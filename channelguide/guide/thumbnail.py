@@ -1,4 +1,4 @@
-# Copyright (c) 2008 Participatory Culture Foundation
+# Copyright (c) 2008-2009 Participatory Culture Foundation
 # See LICENSE for details.
 
 """thumbnail.py.  Defines the ThumbnailManager class which manages thumbnails

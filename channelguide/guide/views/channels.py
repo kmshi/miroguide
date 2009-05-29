@@ -1,4 +1,4 @@
-# Copyright (c) 2008 Participatory Culture Foundation
+# Copyright (c) 2008-2009 Participatory Culture Foundation
 # See LICENSE for details.
 
 import urlparse
@@ -616,6 +616,7 @@ def filtered_listing(request, value=None, filter=None, limit=10,
     return util.render_to_response(request, 'listing.html', {
         'title': title % {'value': value},
         'sort': sort,
+        'filter': filter,
         'current_page': page,
         'pages': _calculate_pages(request, biggest),
         'feed_page': feed_page,
@@ -632,6 +633,8 @@ def for_user(request, user_name_or_id):
     except LookupError:
         user = util.get_object_or_404(request.connection, User,
                                       user_name_or_id)
+    if user.blocked:
+        raise Http404
     expected_path = '/user/%s' % user.username
     if request.path != expected_path:
         return util.redirect(expected_path)

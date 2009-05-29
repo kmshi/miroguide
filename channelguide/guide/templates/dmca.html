@@ -1,4 +1,8 @@
 {% extends "base.html" %}
+{% comment %}
+Copyright (c) 2009 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
 {% load i18n %}
 
 {% block title %}
@@ -26,7 +30,7 @@ li  {
 </style>
 {% endblock %}
 {% block content %}
-
+<div class="page bg">
 
 <h2>Copyright Infringement Notification</h2>
 
@@ -156,4 +160,6 @@ Email: {{ "copyright@pculture.org"|urlize }} Subject: Miro DMCA Counter-Notifica
 <p>After we send out the counter-notification, the claimant must then notify us within 10 days that he or she has filed an action seeking a court order to restrain you from engaging in infringing activity relating to the material on the Miro Guide. If we receive such notification we will be unable to restore the material. If we do not receive such notification, we may reinstate the material.</p>
 
 <p>DISCLAIMER: WE ARE NOT YOUR ATTORNEYS, AND THE INFORMATION WE PRESENT HERE IS NOT LEGAL ADVICE. WE PRESENT THIS INFORMATION FOR INFORMATIONAL PURPOSES ONLY.</p>
+
+</div>
 {% endblock %}

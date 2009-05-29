@@ -1,3 +1,7 @@
+{% comment %}
+Copyright (c) 2009 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
 {% load i18n cg_helpers %}
 
 <div id="hover_align">
@@ -22,8 +26,7 @@
         </li>
       {% endif %}
       <li>
-        <a href="{{ BASE_URL }}submit/"
-           onclick="submitAChannel($(this)); return false;">
+        <a href="{{ BASE_URL }}submit/">
           {% trans "Submit a Show" %}
         </a>
       </li>
@@ -120,12 +123,12 @@
     <h3><span>{% trans "Display Shows:" %}</span></h3>
     <form action="{{ BASE_URL }}accounts/set_language_view" method="GET">
       <ul class="default">
-        <li{% if not user.filter_languages %} class="current"{% endif %}>
+        <li{% if not user.filter_languages and not request.session.filter_languages %} class="current"{% endif %}>
           <button type="submit" name="filter" value="0">
             <span>{% trans "In all languages" %}</span>
           </button>
         </li>
-        <li{% if user.filter_languages %} class="current"{% endif %}>
+        <li{% if user.filter_languages or request.session.filter_languages %} class="current"{% endif %}>
           <button type="submit" name="filter" value="1">
             <span>{% trans "In my language" %}</span>
           </button>

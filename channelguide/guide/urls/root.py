@@ -1,4 +1,4 @@
-# Copyright (c) 2008 Participatory Culture Foundation
+# Copyright (c) 2008-2009 Participatory Culture Foundation
 # See LICENSE for details.
 
 from django.conf import settings
@@ -28,7 +28,7 @@ urlpatterns = patterns('channelguide.guide.views',
     (r'^api/', cg_include('api')),
     (r'^recommend/', cg_include('recommend')),
     (r'^ping/', cg_include('ping')),
-    (r'^submit/', cg_include('submit')),
+    (r'^submit/?', cg_include('submit')),
     (r'^share/', cg_include('share')),
     (r'^genres/', cg_include('genres')),
     (r'^dmca$', direct_to_template,
@@ -142,4 +142,13 @@ urlpatterns += patterns (
     '',
     (r'^aether/', include('channelguide.aether.urls'))
 )
+
+js_info_dict = {
+    'packages': ('channelguide.guide',),
+}
+
+urlpatterns += patterns('',
+    (r'^jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict),
+)
+
 handler500 = 'channelguide.guide.views.errors.error_500'

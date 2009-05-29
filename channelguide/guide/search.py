@@ -1,10 +1,10 @@
-# Copyright (c) 2008 Participatory Culture Foundation
+# Copyright (c) 2008-2009 Participatory Culture Foundation
 # See LICENSE for details.
 
 """search channels."""
 from channelguide import util
 from channelguide.guide import tables
-from channelguide.guide.models import Channel, ItemSearchData
+from channelguide.guide.models import Channel
 from sqlhelper import sql
 
 class Match(sql.Expression):
@@ -54,6 +54,7 @@ def search_channels(terms):
     if contains_hd(terms):
         query.where(hi_def=1)
         terms = [t for t in terms if t.lower() != 'hd']
+    terms = [t for t in terms if len(t) >= 3] # strip short terms
     query.where(search_where(search_data_table, terms))
     query.order_by(Channel.c.archived)
     query.order_by(search_score(search_data_table, terms), desc=True)

@@ -1,3 +1,6 @@
+# Copyright (c) 2009 Participatory Culture Foundation
+# See LICENSE for details.
+
 from channelguide.testframework import TestCase
 from channelguide.guide.models import WatchedVideos, Item
 

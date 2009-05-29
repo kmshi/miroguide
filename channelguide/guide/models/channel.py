@@ -1,4 +1,5 @@
-# Copyright (c) 2008 Participatory Culture Foundation
+
+# Copyright (c) 2008-2009 Participatory Culture Foundation
 # See LICENSE for details.
 
 from datetime import datetime, timedelta
@@ -56,8 +57,8 @@ class Channel(Record, Thumbnailable):
     THUMBNAIL_SIZES = [
             (97, 65),
             (165, 110),
-            (194, 130),
-            (200, 133),
+            (195, 130),
+            (200, 134),
             (245, 164),
     ]
 
@@ -532,6 +533,12 @@ class Channel(Record, Thumbnailable):
                 ge.save(connection)
         rating.save(connection)
         return rating
+
+    def can_appear_on_frontpage(self):
+        for category in self.categories:
+            if category.on_frontpage == False:
+                return False
+        return True
 
 for width, height in Channel.THUMBNAIL_SIZES:
     def thumb(self, width=width, height=height):

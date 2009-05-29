@@ -9,11 +9,14 @@ function infiniteCallback(data, textStatus) {
     results = $('.scrolling', newBody);
     // XXX this doesn't handle the case where there are more shows than feeds
     for (i=0; i < 2; i++) {
-        items = results.eq(i).children('li:gt(0)');
+        items = results.eq(i).children('li:not(.tip)');
         items.find('form.rating').rating();
         items.find('.rating').height(25);
         if (typeof setUpItem == 'function') {
             items.find('div.details').each(setUpItem);
+        }
+        if (typeof hover == 'object') {
+            items.find('.show_hover').hover(hover.show, hover.hide);
         }
         $('.scrolling').eq(i).append(items);
     }
@@ -21,6 +24,9 @@ function infiniteCallback(data, textStatus) {
         $('ul.paginator, ul.paginator2', newBody));
     checkScroll.loading = false;
     add_corners();
+    if (typeof hover == 'object') {
+        hover.load();
+    }
     hideLoadIndicator();
 }
 
@@ -54,7 +60,11 @@ function infiniteLoad() {
     nextpage = $('ul.paginator2 li.selected + li, ul.paginator li.selected + li');
     checkScroll.loading = true;
     showLoadIndicator(true);
-    $.get(nextpage.find('a').attr('href'), infiniteCallback);
+    href = nextpage.find('a').attr('href');
+    if (pageTracker) { // Google Analytics
+        pageTracker._trackPageview(href);
+    }
+    $.get(href, infiniteCallback);
 }
 
 function checkHash() {

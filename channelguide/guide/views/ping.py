@@ -1,3 +1,6 @@
+# Copyright (c) 2009 Participatory Culture Foundation
+# See LICENSE for details.
+
 from channelguide.guide.models import WatchedVideos, Channel, Item
 from django.http import HttpResponse
 

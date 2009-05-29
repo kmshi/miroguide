@@ -8,14 +8,7 @@ from django.conf import settings
 import client
 
 from channelguide import util
-
-def date_time_string(timestamp=None):
-    """return the current date and time formatted for a message header."""
-    if timestamp is None:
-        timestamp = time.time()
-    timetuple = time.gmtime(timestamp)
-    s = time.strftime("%a, %02d %3b %4Y %02H:%02M:%02S gmt", timetuple)
-    return s
+from channelguide.guide.country import country_code
 
 class CacheTimingMiddleware(object):
     def process_request(self, request):
@@ -125,13 +118,13 @@ class CacheMiddleware(CacheMiddlewareBase):
     def get_cache_key_tuple(self, request):
         parent = CacheMiddlewareBase.get_cache_key_tuple(self, request)
         cookie = request.META.get('HTTP_COOKIE')
+        head = (request.path, request.META['QUERY_STRING'])
         if type(cookie) is SimpleCookie:
             # Maybe this is the test browser, which sends the HTTP_COOKIE
             # value as an python Cookie object
-            return parent + (request.path, request.META['QUERY_STRING'],
-                    cookie.output())
+            return parent + head + (cookie.output(),)
         else:
-            return parent + (request.path, request.META['QUERY_STRING'], cookie)
+            return parent + head + (cookie,)
 
 class TableDependentCacheMiddleware(CacheMiddlewareBase):
 
@@ -159,11 +152,19 @@ class UserCacheMiddleware(CacheMiddlewareBase):
     that have ratings.
     """
     def get_cache_key_tuple(self, request):
+        filter_languages = ''
         if request.user.is_authenticated():
             user = request.user.username
+            if request.user.filter_languages:
+                request.user.join('shown_languages').execute(request.connection)
+                filter_languages = ''.join(
+                    [lang.name for lang in request.user.shown_languages])
         else:
             user = None
-        return CacheMiddlewareBase.get_cache_key_tuple(self, request) + (request.path, request.META['QUERY_STRING'], user)
+            if request.session.get('filter_languages'):
+                filter_languages = request.LANGUAGE_CODE
+        return CacheMiddlewareBase.get_cache_key_tuple(self, request) + (
+            request.path, request.META['QUERY_STRING'], user, filter_languages)
 
 class AggressiveCacheMiddleware(UserCacheMiddleware):
     """Aggresively Caches a page.  This should only be used for pages that
@@ -224,5 +225,25 @@ class SiteHidingCacheMiddleware(AggressiveCacheMiddleware):
         if miro_version and 'X11' in request.META.get('HTTP_USER_AGENT', ''):
             miro_linux = True
 
+        geoip = request.GET.get('geoip', None)
+        if geoip != 'off':
+            geoip = country_code(request)
+        else:
+            geoip = None
+
+
         return UserCacheMiddleware.get_cache_key_tuple(self, request) + (
-            miro_version_pre_sites, miro_linux)
+            miro_version_pre_sites, miro_linux, geoip)
+
+
+class APICacheMiddleware(CacheMiddlewareBase):
+
+    def get_cache_key_tuple(self, request):
+        if request.user.is_authenticated():
+            user = request.user.id
+        else:
+            user = None
+        # since we're not doing any translating in the API, we can ignore the
+        # LANGUAGE_CODE
+        return CacheMiddlewareBase.get_cache_key_tuple(self, request)[:-1] + \
+            (request.path, request.META['QUERY_STRING'], user)

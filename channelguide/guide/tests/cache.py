@@ -1,4 +1,4 @@
-# Copyright (c) 2008 Participatory Culture Foundation
+# Copyright (c) 2008-2009 Participatory Culture Foundation
 # See LICENSE for details.
 
 from datetime import datetime
@@ -32,6 +32,7 @@ class CacheTestBase(TestCase):
         request.method = "GET"
         request.path = path
         request.user = AnonymousUser()
+        request.session = {}
         request.LANGUAGE_CODE = settings.LANGUAGE_CODE
         request.META['QUERY_STRING'] = query
         return request
@@ -165,33 +166,33 @@ class SiteHidingCacheMiddlewareTest(CacheTestBase):
         cg_cache.clear_cache()
         TestCase.tearDown(self)
 
-    def make_request_with_userauth(self, path, query=None, user_agent=None):
+    def make_request_with_useragent(self, path, query=None, user_agent=None):
         request = self.make_request(path, query)
         if user_agent:
             request.META['HTTP_USER_AGENT'] = user_agent
         return request
 
     def test_old_miro(self):
-        request = self.make_request_with_userauth('/',
+        request = self.make_request_with_useragent('/',
                                                   user_agent='Miro/1.2.8')
         self.assertTrue(self.middleware.process_request(request) is None)
         self.middleware.process_response(request, self.make_response())
-        request = self.make_request_with_userauth('/',
+        request = self.make_request_with_useragent('/',
                                                   user_agent='Miro/1.0')
         self.assertFalse(self.middleware.process_request(request) is None)
-        request = self.make_request_with_userauth('/',
+        request = self.make_request_with_useragent('/',
                                                   user_agent='Miro/2.0.2')
         self.assertTrue(self.middleware.process_request(request) is None)
 
     def test_linux_miro(self):
-        request = self.make_request_with_userauth('/',
+        request = self.make_request_with_useragent('/',
                                                   user_agent='Miro/2.0 (X11; Ubuntu Linux)')
         self.assertTrue(self.middleware.process_request(request) is None)
         self.middleware.process_response(request, self.make_response())
-        request = self.make_request_with_userauth('/',
+        request = self.make_request_with_useragent('/',
                                                   user_agent='Miro/2.0 (X11; Ubuntu Linux)')
         self.assertFalse(self.middleware.process_request(request) is None)
-        request = self.make_request_with_userauth('/',
+        request = self.make_request_with_useragent('/',
                                                   user_agent='Miro/2.0.2')
         self.assertTrue(self.middleware.process_request(request) is None)
 
@@ -200,4 +201,3 @@ if not settings.MEMCACHED_SERVERS:
     del CacheTest
     del CacheMiddlewareTest
     del SiteHidingCacheMiddlewareTest
-    del CacheTestBase

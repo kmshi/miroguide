@@ -9,7 +9,7 @@ from urlparse import urlparse
 
 # We don't actually use the DATABASE_ENGINE variable, but django requires it
 # for the test suite.  Set it to dummy to prevent django from complaining.
-DATABASE_ENGINE = 'dummy'
+DATABASE_ENGINE = 'mysql'
 
 # sitespecific.py stores all server specific data. 
 from sitespecific import *
@@ -32,7 +32,6 @@ MANAGERS = ADMINS
 # http://blogs.law.harvard.edu/tech/stories/storyReader$15
 LANGUAGE_CODE = 'en'
 
-_ = lambda x: x
 ENGLISH_LANGUAGES = (
     ('en', "English"),
     ('ar', "Arabic"),
@@ -66,7 +65,7 @@ ENGLISH_LANGUAGES = (
     ('pt', "Portuguese (Portugal)"),
     ('ro', "Romanian"),
     ('ru', "Russian"),
-    ('sh', "Serbo-Croatian"),
+    ('sr', "Serbian"),
     ('sk', "Slovak"),
     ('sl', "Slovenian"),
     ('es', "Spanish"),
@@ -109,7 +108,7 @@ LANGUAGES = (
     ('pt', u"português (portugal)"),
     ('ro', u"român"),
     ('ru', u"Русский язык"),
-    ('sh', u"Hrvatski"),
+    ('sr', u"Srpski"),
     ('sk', u"slovenčina"),
     ('sl', u"slovenščina"),
     ('es', u"español"),
@@ -206,3 +205,5 @@ MAX_THREADS = 30
 MAX_DB_CONNECTIONS = 5
 
 SOCKET_TIMEOUT = 20
+
+DEFAULT_FROM_EMAIL = EMAIL_FROM # backwards compatibility

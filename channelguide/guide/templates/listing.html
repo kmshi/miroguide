@@ -1,9 +1,44 @@
 {% extends "base.html" %}
+{% comment %}
+Copyright (c) 2009 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
 {% load channels cg_helpers i18n %}
 {% block head-extra %}
     <script src="{{ STATIC_BASE_URL }}js/infinitescroll.js"
             type="text/javascript">
     </script>
+    <script src="{{ STATIC_BASE_URL }}js/jquery.preload-min.js"
+            type="text/javascript">
+    </script>
+    <script type="text/javascript">
+        $.preload(['popup/bottom', 'small_add_feed', 'small_add_button',
+                   'buttons/preview-cap', 'buttons/preview-bg',
+                   'popup/right_arrow', 'popup/border', 'popup/top',
+                   'popup/left_arrow', 'popup/right_shadow',
+                   'misc_button_med_cap', 'misc_button_med',
+                   'big_no-nos', 'big_stars'],
+                  {base: '{{ STATIC_BASE_URL }}images/',
+                   ext: '.png'});
+    </script>
+    <script src="{{ STATIC_BASE_URL }}js/hover.js"
+          type="text/javascript"></script>
+{% comment %}
+    <script type="text/javascript">
+        hover.load([
+            {% for feed in feed_page.object_list %}{{ feed.id }},{% endfor %}
+            {% for site in site_pageb.object_list %}{{ site.id }},{% endfor %}
+        ]);
+    </script>
+    <script type="text/javascript">
+        $.preload(['buttons/play_right', 'buttons/play_left', 'popup/bottom',
+                   'popup/right_arrow', 'popup/border', 'popup/top',
+                   'popup/left_arrow', 'popup/right_shadow',
+                   'misc_button_med_cap', 'misc_button_med',
+                   'big_no-nos', 'big_stars'],
+                  {base: '{{ STATIC_BASE_URL }}images/',
+                   ext: '.png'});
+    </script>{% endcomment %}
 {% endblock %}
 
 {% block content %}
@@ -66,6 +101,7 @@
     <div class="infoBar">
       <div class="innerBar">
         {% block infoBar %}
+        {% ifequal filter "search" %}
         <span class="results">
           <span class="results_tag">{% trans "Search Results" %}</span>
           {% if feed_page.paginator.count %}
@@ -84,6 +120,7 @@
           {% endblocktrans %}
           {% endif %}
         </span>
+        {% endifequal %}
         {% if geoip_filtered %}
           <a href="{{ geoip_filtered }}" class="show_channels">show all</a>
           <span class="extra">
@@ -120,9 +157,11 @@
             </div>
           </div><!--detailsHead-->
           <ul class="searchResults scrolling">
+            {% if site_page.object_list %}
             <li class="feed_tip tip">
               <p>{% trans "Video feeds are downloaded first, and can be watched online or offline. Many are in full HD." %}</p>
             </li>
+            {% endif %}
             {% for channel in feed_page.object_list %}
               <li>
                 {% if forloop.first %}<a name="{{ feed_page.number }}"></a>{% endif %}
@@ -157,7 +196,6 @@
           </ul>
         </div><!--feedColumn-->
       {% endif %}
-
     </div><!--page-->
   {% endif %}
 {% endblock %}

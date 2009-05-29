@@ -1,4 +1,4 @@
-# Copyright (c) 2008 Participatory Culture Foundation
+# Copyright (c) 2008-2009 Participatory Culture Foundation
 # See LICENSE for details.
 
 from django.http import HttpResponseRedirect
@@ -70,11 +70,9 @@ def channel_list(request, state):
         header = _("Featured Queue")
     elif state == 'hd-flagged':
         query = Channel.query().join('owner')
-        query.join('flags')
         query.load('flag_count')
         query.order_by('flag_count', desc=True)
         query.where(hi_def=True)
-        query.where(query.joins['flags'].c.flag == Flag.NOT_HD)
         header = _('Flagged HD Channels')
     else:
         query.where(state=Channel.NEW)
@@ -121,29 +119,37 @@ def how_to_moderate(request):
 @supermoderator_required
 def stats(request):
     todays = [int(request.connection.execute('SELECT SUM(subscription_count_today) FROM cg_channel_generated_stats')[0][0])]
+    today_keys = [('last_24 hours', todays[0])]
     months = [int(request.connection.execute('SELECT SUM(subscription_count_month) FROM cg_channel_generated_stats')[0][0])]
+    month_keys = [('last_31_days', months[0])]
 
     for i in range(1, 100):
-        key = 'stats:day:%i:%i:%i' % (date.today() - timedelta(days=i)).timetuple()[:3]
+        tt = (date.today() - timedelta(days=i)).timetuple()[:3]
+        key = 'stats:day:%i:%i:%i' % tt
         val = cache.client.get(key)
         if val is None:
-            val = request.connection.execute('SELECT COUNT(*) FROM cg_channel_subscription WHERE timestamp > DATE_SUB(NOW(), INTERVAL %s DAY) AND timestamp < DATE_SUB(NOW(), INTERVAL %s DAY)', (i+1, i))[0][0]
+            val = request.connection.execute('SELECT COUNT(*) FROM cg_channel_subscription WHERE YEAR(timestamp) = %s AND MONTH(timestamp) = %s AND DAY(timestamp) = %s', tt)[0][0]
             cache.client.set(key, val)
+        today_keys.append((key, val))
         todays.append(val)
 
     for i in range(1, 12):
-        key = 'stats:month:%i:%i' % (date.today() - timedelta(days=31*i)).timetuple()[:2]
+        tt = (date.today() - timedelta(days=30*i)).timetuple()[:2]
+        key = 'stats:month:%i:%i' % tt
         val = cache.client.get(key)
         if val is None:
-            val = request.connection.execute('SELECT COUNT(*) FROM cg_channel_subscription WHERE timestamp > DATE_SUB(NOW(), INTERVAL %s MONTH) AND timestamp < DATE_SUB(NOW(), INTERVAL %s MONTH)', (i+1, i))[0][0]
+            val = request.connection.execute('SELECT COUNT(*) FROM cg_channel_subscription WHERE YEAR(timestamp) = %s AND MONTH(timestamp) = %s', tt)[0][0]
             cache.client.set(key, val)
+        month_keys.append((key, val))
         months.append(val)
 
     return util.render_to_response(request, 'stats.html', {
-            'todays': todays,
+            'today_keys': today_keys,
+            'todays': reversed(todays),
             'min_today': min(todays),
             'max_today': max(todays),
-            'months': months,
+            'month_keys': month_keys,
+            'months': reversed(months),
             'min_month': min(months),
             'max_month': max(months)})
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2008 Participatory Culture Foundation
+# Copyright (c) 2008-2009 Participatory Culture Foundation
 # See LICENSE for details.
 
 from accounts import *
@@ -18,3 +18,4 @@ from api import *
 from watched import *
 from flagging import *
 from notifications import *
+from sharing import *

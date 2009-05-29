@@ -1,4 +1,4 @@
-# Copyright (c) 2008 Participatory Culture Foundation
+# Copyright (c) 2008-2009 Participatory Culture Foundation
 # See LICENSE for details.
 
 import os
@@ -20,11 +20,14 @@ class Item(Record, Thumbnailable):
     THUMBNAIL_DIR = 'item-thumbnails'
     THUMBNAIL_SIZES = [
             (97, 65),
-            (200, 133),
+            (200, 134),
     ]
 
     def get_url(self):
         return '/items/%i' % self.id
+
+    def get_absolute_url(self):
+        return util.make_absolute_url(self.get_url())
 
     def get_guid(self):
         try:

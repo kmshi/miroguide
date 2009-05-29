@@ -1,4 +1,4 @@
-# Copyright (c) 2008 Participatory Culture Foundation
+# Copyright (c) 2008-2009 Participatory Culture Foundation
 # See LICENSE for details.
 
 import logging
@@ -27,7 +27,6 @@ class UserMiddleware(object):
                 req.user = AnonymousUser()
                 return
             query = User.query(username=username, hashed_password=password)
-            query.join("channels")
             try:
                 req.user = query.get(req.connection)
             except LookupError:
@@ -72,7 +71,8 @@ class NotificationMiddleware(object):
 
     def process_response(self, request, response):
         if hasattr(request, 'notifications') and request.notifications:
-            notification_bar = """      <div class="alert">
+            notification_bar = """    <div id="alertwrapper">
+      <div class="alert">
         <div class="page">
           <div class="alertBox ">
         <ul>"""
@@ -86,7 +86,8 @@ class NotificationMiddleware(object):
             <li>%s</li>""" % line.encode('utf8')
             notification_bar += """          </div>
         </div>
-      </div>"""
+      </div>
+    </div>"""
         else:
             notification_bar = ""
         response.content = response.content.replace(

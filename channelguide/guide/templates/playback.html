@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% comment %}
+Copyright (c) 2009 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
 {% load i18n cg_helpers %}
 
 {% block head-extra %}
@@ -12,35 +16,48 @@
 
 {% block content %}
 
+  <div id="channelInfoPreview">
+    <div>
+      <img src="{{ STATIC_BASE_URL }}images/ico_red_feeds.png" alt="{% trans "RSS Feed" %}">
+      <h1>{{ channel.name_as_link }}</h1>
+      <a class="large_add_button feed"
+          {{ channel.subscription_link }}>
+          {% wrap_translation 25 %}
+          {% trans "Add Feed to Your Sidebar" %}
+          {% endwrap %}
+      </a>
+    </div>
+  </div>
   {% if channel.hi_def or bittorrent%}
     <!-- warning to old miro users users -->
     <div class="page">
-      <div class="warningMessage">
-        <p>
+
           {% if bittorrent %}
+          <div class="warningMessage_bit">
           <strong>{% trans "BitTorrent Video" %}:</strong>
           {% blocktrans with channel.subscription_link as subscription_link %}
           BitTorrent videos cannot be streamed. The easiest way to watch is <a {{ subscription_link }}>using Miro</a>.
           {% endblocktrans %}
+          </div>
           {% else %}
+
+          <div class="warningMessage_hd">
           <strong>
-            {% trans "This is HD!" %}
+            {% trans "This is HD! High-definition videos are often slow to preview." %}
           </strong>
           {% blocktrans with item.url as download_url and channel.subscription_link as subscription_link %}
-            High-definition videos are often slow to preview. You may
-            want to use Miro to <a href="{{ download_url }}">download</a>
+            You may want to use Miro to <a href="{{ download_url }}">download</a>
             the video or <a {{ subscription_link }}>subscribe</a>
             to the feed. It's free and easy!
           {% endblocktrans %}
+          </div>
           {% endif %}
-        </p>
+
       </div>
     </div>
   {% endif %}
 
-  {% if share_links %}
-    {% include "guide/share-links.html" %}
-  {% endif %}
+  {% include "guide/share-links.html" %}
 
   <div id="videoArea">
     <div class="page">
@@ -70,17 +87,16 @@
         <div id="videoDetails">
           <div class="meta">
             {% if item.description %}
-              <p class="synopsis_tag">
-                <strong>{% trans "Synopsis" %}</strong>
-              </p>
+
               <p class="synopsis">
+                <strong class="synopsis_tag">{% trans "Synopsis" %}</strong>
                 {{ item.description|striptags }}
               </p>
             {% endif %}
 
             <br clear="all" />
             <div class="video_buttons_align">
-              <a href="{{ item.url }}"
+              <a href="{{ item.download_url }}"
                  class="rollover_button download">
                 <span>
                   <img src="{{ STATIC_BASE_URL }}images/dl_arrow.png"
@@ -88,13 +104,14 @@
                   {% trans "DOWNLOAD" %}
                 </span>
               </a>
-              {% if not share_links %}
+              {% if hide_share %}
                 <a {% if share_button_url %}
                      href="{{ share_button_url }}"
                    {% else %}
                      href="/items/{{ item.id }}?share=true"
                    {% endif %}
-                   class="rollover_button share">
+                   class="rollover_button share"
+                   onclick="$('#share_box').show(); $(this).remove(); return false;">
                   <span>
                     {% trans "SHARE" %}
                     <img src="{{ STATIC_BASE_URL }}images/buttons/grey_stream.png"

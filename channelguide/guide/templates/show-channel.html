@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% comment %}
-  Copyright (c) 2008 Participatory Culture Foundation
+  Copyright (c) 2008-2009 Participatory Culture Foundation
   See LICENSE for details.
 {% endcomment %}
 
@@ -11,13 +11,14 @@
   <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/playback.js"></script>
   <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/share.js"></script>
   <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/infinitescroll.js"></script>
+  <link rel="image_src" href="{{ channel.thumb_url_245_164 }}" />
 {% endblock %}
 
 {% block onload-extra %}add_share_callbacks();{% endblock %}
 
 {% block title %}{% trans "Miro Guide - " %} {{ channel.name|escape }}{% endblock %}
 
-{% block body-attributes %} {% endblock %}
+{% block body-attributes %}id="details_page"{% endblock %}
 
 {% block content %}
   {% if error %}
@@ -31,7 +32,6 @@
   {% if share_links %}
     {% include "guide/share-links.html" %}
   {% else %}
-  <!-- NOTIFICATION BAR -->
   {% endif %}
   <div id="channelInfo">
     <div class="page">
@@ -69,6 +69,7 @@
 
         <a class="large_add_button {% if channel.url %}feed{% else %}site{% endif %}"
           {{ channel.subscription_link }}>
+          <span class="only-in-miro">
           {% wrap_translation 25 %}
             {% if channel.url %}
               {% trans "Add Feed to Your Sidebar" %}
@@ -76,12 +77,26 @@
               {% trans "Add Site to Your Sidebar" %}
             {% endif %}
           {% endwrap %}
+          </span>
+          <span class="only-in-browser">
+          {% wrap_translation 25 %}
+            {% if channel.url %}
+              {% trans "Add Feed to Miro" %}
+            {% else %}
+              {% trans "Add Site to Miro" %}
+            {% endif %}
+          {% endwrap %}
+          </span>
         </a>
-
-        <a class="url" href="{{ channel.website_url }}">
-          {% trans "Visit Show Website" %}
-          <span>{{ channel.website_url }}</span>
-        </a>
+        {% if channel.url %}
+        <a class="rss only-in-browser" href="{{ channel.url }}">RSS</a>
+        {% endif %}
+        <span class="url">
+          <a href="{{ channel.website_url }}">
+            {% trans "Visit Show Website" %}
+          </a>
+          <span>{{ channel.website_url|urlizetrunc:35 }}</span>
+        </span>
 
         {% showall channel.description 45 "description" %}
         {% ifshowall channel.description 45 %}

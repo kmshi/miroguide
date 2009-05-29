@@ -1,11 +1,14 @@
+# Copyright (c) 2009 Participatory Culture Foundation
+# See LICENSE for details.
+
 import simplejson
 from itertools import izip, count
 import sha
-import cgi
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.utils.translation import ugettext as _
 from channelguide import util
+from channelguide.cache import api_cache
 from channelguide.guide import api
 from channelguide.guide.auth import login_required
 from channelguide import sessions
@@ -46,6 +49,9 @@ def data_for_channel(channel):
     default_keys = ('id', 'name', 'description', 'url', 'website_url',
             'hi_def', 'publisher', 'postal_code')
     data = dict((key, getattr(channel, key)) for key in default_keys)
+    data['details_url'] = channel.get_absolute_url()
+    data['subscribe_url'] = channel.get_subscription_url()
+    data['subscribe_hit_url'] = channel.get_subscribe_hit_url()
     if channel.thumbnail_exists():
         data['thumbnail_url'] = channel.thumb_url(370, 247)
     if hasattr(channel, 'language'):
@@ -71,6 +77,7 @@ def data_for_channel(channel):
         data['subscription_count'] = channel.stats.subscription_count_total
     if getattr(channel, 'rating', None):
         data['average_rating'] = channel.rating.average
+        data['count_rating'] = channel.rating.count
     if hasattr(channel, 'score'):
         data['score'] = channel.score
     if hasattr(channel, 'guessed'):
@@ -83,6 +90,7 @@ def data_for_item(item):
     data = {}
     for key in default_keys:
         data[key] = getattr(item, key)
+    data['playback_url'] = util.make_absolute_url(item.get_url())
     if item.date is not None:
         data['date'] = item.date.isoformat()
     if item.thumbnail_exists():
@@ -106,6 +114,8 @@ def response_for_data(request, data, code=None):
         if 'jsoncallback' in request.REQUEST:
             stringData = '%s(%s);' % (request.REQUEST['jsoncallback'],
                                       stringData)
+    else:
+        raise Http404
     response = HttpResponse(stringData,
                             content_type=contentType)
     if code:
@@ -116,26 +126,26 @@ def test(request):
     data = {'text': 'Valid request' }
     return response_for_data(request, data)
 
+@api_cache
 def get_channel(request):
     if not ('id' in request.GET or 'url' in request.GET):
         return error_response(request, 'MISSING_ARGUMENT',
                               "get_channel requires either an id or a URL")
     channels = []
-    for key, value in cgi.parse_qsl(request.META['QUERY_STRING']):
-        if key == 'id':
-            try:
-                channels.append(api.get_channel(request.connection,
-                                                int(value)))
-            except (LookupError, ValueError):
-                return error_response(request, 'CHANNEL_NOT_FOUND',
-                              'Channel %s not found' % value)
-        elif key == 'url':
-            try:
-                channels.append(api.get_channel_by_url(request.connection,
-                                                       value))
-            except LookupError, e:
-                return error_response(request, 'CHANNEL_NOT_FOUND',
-                                      'Channel %s not found' % value)
+    for value in request.GET.getlist('id'):
+        try:
+            channels.append(api.get_channel(request.connection,
+                                            int(value)))
+        except (LookupError, ValueError):
+            return error_response(request, 'CHANNEL_NOT_FOUND',
+                                  'Channel %s not found' % value)
+    for value in request.GET.getlist('url'):
+        try:
+            channels.append(api.get_channel_by_url(request.connection,
+                                                   value))
+        except LookupError, e:
+            return error_response(request, 'CHANNEL_NOT_FOUND',
+                                  'Channel %s not found' % value)
     if request.user.is_authenticated():
         for channel in channels:
             channel.score = api.get_rating(request.connection,
@@ -147,6 +157,7 @@ def get_channel(request):
         data = map(data_for_channel, channels)
     return response_for_data(request, data)
 
+@api_cache
 @requires_arguments('filter', 'filter_value')
 def get_channels(request):
     filter = request.GET['filter']
@@ -201,12 +212,14 @@ def authenticate(request):
             context['error'] = _("Invalid verification code.")
     return util.render_to_response(request, 'api_authenticate.html',
                                    context)
+
+@api_cache
 @requires_login
 @requires_arguments('id')
 def rate(request):
     try:
-        channel = api.get_channel(request.connection, request.GET.get('id'))
-    except LookupError:
+        channel = api.get_channel(request.connection, int(request.GET.get('id')))
+    except (LookupError, ValueError):
         return error_response(request, 'CHANNEL_NOT_FOUND',
                               'Channel %s not found' % request.GET.get('id'))
     if 'rating' in request.GET:
@@ -225,6 +238,7 @@ def get_recommendations(request):
     return response_for_data(request, map(data_for_channel,
                                           channels))
 
+@api_cache
 @requires_login
 def get_ratings(request):
     rating = request.GET.get('rating')
@@ -241,6 +255,7 @@ def get_ratings(request):
             data[index]['rating'] = ratings[channels]
         return response_for_data(request, data)
 
+@api_cache
 def list_labels(request, type):
     labels = api.list_labels(request.connection, type)
     data = [

@@ -1,10 +1,11 @@
-# Copyright (c) 2008 Participatory Culture Foundation
+# Copyright (c) 2008-2009 Participatory Culture Foundation
 # See LICENSE for details.
 
 import re
 
 from django.core import mail
 from django.conf import settings
+from django.utils.translation import ugettext as _
 
 from channelguide import util
 from channelguide.guide.models import User
@@ -35,10 +36,12 @@ class AccountTest(TestCase):
         response = self.post_data("/accounts/login", self.register_data())
         self.assertRedirect(response, '')
         response = self.get_page('/')
-        self.assertEquals(response.context[0]['user'].username, u'mike\xf6')
-        self.assertEquals(response.context[0]['user'].email, 'mike@mike.com')
-        self.assert_(response.context[0]['user'].check_password(
-            u'password\xdf\xdf'))
+        context = response.context[0]
+        self.assertEquals(context['request'].notifications[0][0], _('Thanks for registering!'))
+        self.assertEquals(context['user'].username, u'mike\xf6')
+        self.assertEquals(context['user'].email, 'mike@mike.com')
+        self.assert_(context['user'].check_password(
+                u'password\xdf\xdf'))
         return response
 
     def bad_login_data(self):

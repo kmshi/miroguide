@@ -1,9 +1,14 @@
+# Copyright (c) 2009 Participatory Culture Foundation
+# See LICENSE for details.
+
+from django.conf import settings
 from channelguide.guide.models import (Category, Channel, Language, Tag, Rating,
                                        User, AddedChannel)
 from channelguide.guide import recommendations
 from channelguide.guide import search as search_mod
 from channelguide.cache import client
 import operator
+import time
 
 def login(connection, id):
     try:
@@ -13,8 +18,18 @@ def login(connection, id):
     return user
 
 def get_channel(connection, id):
-    return Channel.get(connection, id, join=['categories', 'tags', 'items',
-                                             'owner', 'language','rating', 'stats'])
+    channelKey = 'Channel:%s' % id
+    timestamp = client.get(channelKey)
+    if timestamp is None:
+        timestamp = time.time()
+        client.set(channelKey, timestamp)
+    apiKey = 'get_channel:%s:%s' % (id, timestamp)
+    channel = client.get(apiKey)
+    if channel is None:
+        channel = Channel.get(connection, id, join=['categories', 'tags', 'items',
+                                                    'owner', 'language','rating', 'stats'])
+        client.set(apiKey, channel)
+    return channel
 
 def get_channel_by_url(connection, url):
     return Channel.query(url=url).join('categories', 'tags',
@@ -105,13 +120,22 @@ def get_channels_query(request, filter, value, sort=None,
         query.order_by(query.joins['rating'].c.bayes, desc=desc)
     else:
         raise ValueError('unknown sort type: %r' % sort)
-    if filter != 'language' and request.user.is_authenticated() and \
-            request.user.filter_languages:
-        request.user.join('shown_languages').execute(connection)
-        if request.user.shown_languages:
-            query.join('language')
-            query.where(query.joins['language'].c.id.in_([
-                    language.id for language in request.user.shown_languages]))
+    if filter != 'language':
+        if request.user.is_authenticated() and \
+                request.user.filter_languages:
+            request.user.join('shown_languages').execute(connection)
+            if request.user.shown_languages:
+                query.join('language')
+                query.where(query.joins['language'].c.id.in_([
+                            language.id for language in request.user.shown_languages]))
+        elif request.session.get('filter_languages'):
+            languageName = settings.ENGLISH_LANGUAGE_MAP.get(request.LANGUAGE_CODE)
+            if languageName:
+                dbLanguages = Language.query(name=languageName).execute(request.connection)
+                if dbLanguages:
+                    query.join('language')
+                    query.where(query.joins['language'].c.id.in_([
+                                language.id for language in dbLanguages]))
     return query
 
 def _split_loads(loads):

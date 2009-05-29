@@ -1,6 +1,10 @@
+{% comment %}
+Copyright (c) 2009 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
 {% load i18n %}
 
-<div id="share_box" class="alert">
+<div id="share_box" class="alert" {% if hide_share %}style="display: none;"{% endif %}>
   <div class="page">
     <div class="alertBox sharebox">
       <h2>
@@ -49,6 +53,6 @@
       <br />
 
     </div>
-    <a href="#" id="share_close" class="closeAlert">{% trans "Close" %}</a>
+    <a href="" id="share_close" class="closeAlert">{% trans "Close" %}</a>
   </div>
 </div>
