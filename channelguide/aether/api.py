@@ -4,17 +4,72 @@
 from IPy import IP
 from uuid import uuid4
 from time import mktime
+from simplejson import dumps
 from datetime import datetime
 from xml.dom.minidom import Document
 
-from django.http import Http404, HttpResponseRedirect, HttpResponse
+from django.http import Http404, HttpResponse
+
 from channelguide.guide.auth import login_required
+from channelguide.aether.dbutils import user_lock_required
 
 from channelguide.guide.models.item import Item
 from channelguide.guide.models.channel import Channel
 
-from channelguide.aether.models import Client
-from channelguide.aether.dbutils import user_lock_required
+from channelguide.aether.models import (
+    ChannelSubscription, ChannelSubscriptionDelta,
+    DownloadRequest, DownloadRequestDelta, Client
+)
+
+@login_required
+@user_lock_required
+def queue_download (request, item_id):
+    c = request.connection
+
+    try:
+        #Lazy way to generate a LookupError if the item doesn't exist, FIX ME.
+        item = Item.get (c, item_id)
+    except Exception as e:
+        if isinstance (e, LookupError):
+            raise Http404 ()
+        else:
+            raise
+
+    if not queued_for_download (request.user.id, item_id, c):
+        DownloadRequest.insert (
+            DownloadRequest (user=request.user, item_id=item_id),
+            request.connection
+        )
+
+        DownloadRequestDelta.insert (
+            DownloadRequestDelta (user=request.user, item_id=item_id),
+            request.connection
+        )
+
+    return HttpResponse (dumps ({"status": "queued"}), mimetype="application/json")
+
+@login_required
+@user_lock_required
+def cancel_download (request, item_id):
+    if queued_for_download (request.user.id, item_id, request.connection):
+        DownloadRequest.bulk_delete (
+            user_id=request.user.id, item_id=item_id
+        ).execute (request.connection)
+
+        DownloadRequestDelta.insert (
+            DownloadRequestDelta (user=request.user, item_id=item_id, mod_type=-1),
+            request.connection
+        )
+
+    return HttpResponse (dumps ({"status": "unqueued"}), mimetype="application/json")
+
+def queued_for_download (user_id, item_id, conn):
+    query = DownloadRequest.query ().where (user_id=user_id, item_id=item_id)
+
+    if query.count (conn):
+        return True
+
+    return False
 
 # decorating these classes would be presumptuous at this point...
 ITEM_PROPS = [

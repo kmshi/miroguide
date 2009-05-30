@@ -42,7 +42,7 @@ function update_item (id, status)
     var item = $('#aether_item_' + id);
     
     switch (status) {
-    case 'dequeued':
+    case 'unqueued':
         cls = 'aqd';
         queued = false;
         break;

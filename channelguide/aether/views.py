@@ -65,68 +65,8 @@ def add_channel_subscription (request, cid):
         
     return HttpResponseRedirect ('/feeds/%s' % cid)
 
-@login_required
-@user_lock_required
-def queue_download (request, item_id):
-    c = request.connection
-
-    try:
-        #Lazy way to generate a LookupError if the item doesn't exist, FIX ME.
-        item = Item.get (c, item_id)
-    except Exception as e:
-        if isinstance (e, LookupError):
-            raise Http404 ()
-        else:
-            raise
-        
-    ret = {"status": "queued"}
-
-    if not queued_for_download (request.user.id, item_id, c):
-        DownloadRequest.insert (
-            DownloadRequest (user=request.user, item_id=item_id),
-            request.connection
-        )
-
-        DownloadRequestDelta.insert (
-            DownloadRequestDelta (user=request.user, item_id=item_id),
-            request.connection
-        )
-    else:
-        ret['status'] = "dequeued"
-
-    return HttpResponse (dumps (ret), mimetype="application/json")
-
-@login_required
-@user_lock_required
-def cancel_download (request, item_id):
-    ret = {"status": "dequeued"}
-
-    if queued_for_download (request.user.id, item_id, request.connection):
-        DownloadRequest.bulk_delete (
-            user_id=request.user.id, item_id=item_id
-        ).execute (request.connection)
-
-        DownloadRequestDelta.insert (
-            DownloadRequestDelta (user=request.user, item_id=item_id, mod_type=-1),
-            request.connection
-        )
-    else:
-        ret = {"status": "queued"}
-
-    return HttpResponse (dumps (ret), mimetype="application/json")
-
-        
 def subscribed (user_id, channel_id, conn):
     query = ChannelSubscription.query ().where (user_id=user_id, channel_id=channel_id)
-
-    if query.count (conn):
-        return True
-
-    return False
-
-
-def queued_for_download (user_id, item_id, conn):
-    query = DownloadRequest.query ().where (user_id=user_id, item_id=item_id)
 
     if query.count (conn):
         return True
