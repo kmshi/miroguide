@@ -1,6 +1,8 @@
 # Copyright (c) 2009 Michael C. Urbanski
 # See LICENSE for details.
 
+from simplejson import dumps
+
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from channelguide.guide.auth import login_required
 
@@ -63,9 +65,6 @@ def add_channel_subscription (request, cid):
         
     return HttpResponseRedirect ('/feeds/%s' % cid)
 
-# JUST A DEMONSTRATION OF THE CONCEPT!!!!!!!!!!!!!!!!!!
-# NOT IDEMPOTENT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# CHANGE TO POST ONCE YOU AJAX-IFY!!!!!!!!!!!!!!!!!!!!!
 @login_required
 @user_lock_required
 def queue_download (request, item_id):
@@ -79,6 +78,8 @@ def queue_download (request, item_id):
             raise Http404 ()
         else:
             raise
+        
+    ret = {"status": "queued"}
 
     if not queued_for_download (request.user.id, item_id, c):
         DownloadRequest.insert (
@@ -90,18 +91,16 @@ def queue_download (request, item_id):
             DownloadRequestDelta (user=request.user, item_id=item_id),
             request.connection
         )
-    
-    # THIS IS CRAP, CHANGE IT WHEN AJAX-IFIED!!!!!!!!!!
-    return HttpResponseRedirect (
-        '/feeds/%s' % (Item.query (id=item_id).get (request.connection).channel_id)
-    )
+    else:
+        ret['status'] = "dequeued"
 
-# JUST A DEMONSTRATION OF THE CONCEPT!!!!!!!!!!!!!!!!!!
-# NOT IDEMPOTENT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# CHANGE TO POST ONCE YOU AJAX-IFY!!!!!!!!!!!!!!!!!!!!!
+    return HttpResponse (dumps (ret), mimetype="application/json")
+
 @login_required
 @user_lock_required
 def cancel_download (request, item_id):
+    ret = {"status": "dequeued"}
+
     if queued_for_download (request.user.id, item_id, request.connection):
         DownloadRequest.bulk_delete (
             user_id=request.user.id, item_id=item_id
@@ -111,17 +110,11 @@ def cancel_download (request, item_id):
             DownloadRequestDelta (user=request.user, item_id=item_id, mod_type=-1),
             request.connection
         )
+    else:
+        ret = {"status": "queued"}
 
-    try:
-        # THIS IS CRAP, CHANGE IT WHEN AJAX-IFIED!!!!!!!!!!
-        return HttpResponseRedirect (
-            '/feeds/%s' % (Item.query (id=item_id).get (request.connection).channel_id)
-        )
-    except Exception as e:
-        if isinstance (e, LookupError):
-            raise Http404 ()
-        else:
-            raise
+    return HttpResponse (dumps (ret), mimetype="application/json")
+
         
 def subscribed (user_id, channel_id, conn):
     query = ChannelSubscription.query ().where (user_id=user_id, channel_id=channel_id)

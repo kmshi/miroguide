@@ -5411,8 +5411,18 @@ width: 700px;
 margin: 0 auto;
 }
 
-.password-changed-page
+.password-changed-page{
 width: 700px;
 margin: 0 auto;
 }
 
+.aqd, .aqe, .aqc {
+    height:  22px;
+    background: transparent url(../images/aether-sprite.png) no-repeat;
+}
+
+.aqd { background-position:  0px  0px;  }
+.aqc { background-position:  0px -22px; }
+.aqe { background-position:  0px -44px; }
+
+.dummy-span { display: none; }
