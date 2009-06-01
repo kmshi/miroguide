@@ -2,14 +2,17 @@
 # See LICENSE for details.
 
 from django.conf.urls.defaults import *
-from channelguide.aether.views import *
-from channelguide.aether.api import *
+from channelguide.aether.api import (
+    add_channel_subscription, 
+    remove_channel_subscription,
+    queue_download, cancel_download,
+    get_user_deltas, register_client
+)
 
-# submission
 urlpatterns = patterns (
     '',
-    (r'^add/(\d+)$', add_channel_subscription),
-    (r'^remove/(\d+)$', remove_channel_subscription),
+    (r'^subscribe/(\d+)$', add_channel_subscription),
+    (r'^unsubscribe/(\d+)$', remove_channel_subscription),
     (r'^queue/(\d+)$', queue_download),
     (r'^dequeue/(\d+)$', cancel_download),
     (r'^register/?', register_client),

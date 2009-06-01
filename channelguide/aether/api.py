@@ -21,19 +21,18 @@ from channelguide.aether.models import (
     DownloadRequest, DownloadRequestDelta, Client
 )
 
+from channelguide.aether.decorators import post_only
+
+@post_only
 @login_required
 @user_lock_required
 def queue_download (request, item_id):
     c = request.connection
 
-    try:
-        #Lazy way to generate a LookupError if the item doesn't exist, FIX ME.
-        item = Item.get (c, item_id)
-    except Exception as e:
-        if isinstance (e, LookupError):
-            raise Http404 ()
-        else:
-            raise
+    if not check_subscription (request.user, item_id, c):
+        return HttpResponse (
+            dumps ({ "status": "error" }), mimetype="application/json"
+        )
 
     if not queued_for_download (request.user.id, item_id, c):
         DownloadRequest.insert (
@@ -46,11 +45,19 @@ def queue_download (request, item_id):
             request.connection
         )
 
-    return HttpResponse (dumps ({"status": "queued"}), mimetype="application/json")
+    return HttpResponse (
+        dumps ({ "status": "queued" }), mimetype="application/json"
+    )
 
+@post_only
 @login_required
 @user_lock_required
 def cancel_download (request, item_id):
+    if not check_subscription (request.user, item_id, request.connection):
+        return HttpResponse (
+            dumps ({ "status": "error" }), mimetype="application/json"
+        )
+        
     if queued_for_download (request.user.id, item_id, request.connection):
         DownloadRequest.bulk_delete (
             user_id=request.user.id, item_id=item_id
@@ -61,11 +68,82 @@ def cancel_download (request, item_id):
             request.connection
         )
 
-    return HttpResponse (dumps ({"status": "unqueued"}), mimetype="application/json")
+    return HttpResponse (
+        dumps ({ "status": "unqueued" }), mimetype="application/json"
+    )
+    
+@post_only
+@login_required
+@user_lock_required
+def remove_channel_subscription (request, cid):
+    c = request.connection
+
+    if subscribed (request.user.id, cid, c):
+        ChannelSubscription.bulk_delete (
+            channel_id=cid, user_id=request.user.id
+        ).execute (c)
+
+        ChannelSubscriptionDelta.insert (
+            ChannelSubscriptionDelta (
+                user_id=request.user.id, channel_id=cid, mod_type=-1
+            ), c
+        )
+
+    return HttpResponse (
+        dumps ({ "status": "unsubscribed" }), mimetype="application/json"
+    )
+    
+@post_only
+@login_required
+@user_lock_required
+def add_channel_subscription (request, cid):
+    c = request.connection
+
+    try:
+        #Lazy way to generate a LookupError if the channel doesn't exist, FIX ME.
+        chan = Channel.get (c, cid)
+    except Exception as e:
+        if isinstance (e, LookupError):
+            raise Http404 ()
+        else:
+            raise
+
+    if not subscribed (request.user.id, cid, c):
+        ChannelSubscription.insert (
+            ChannelSubscription (user=request.user, channel_id=cid), c
+        )
+
+        ChannelSubscriptionDelta.insert (
+            ChannelSubscriptionDelta (user_id=request.user.id, channel_id=cid), c
+        )
+
+    return HttpResponse (
+        dumps ({ "status": "subscribed" }), mimetype="application/json"
+    )
+    
+def check_subscription (user, item_id, conn):
+    try:
+        #Lazy way to generate a LookupError if the item doesn't exist, FIX ME.
+        item = Item.get (conn, item_id)
+    except Exception as e:
+        if isinstance (e, LookupError):
+            raise Http404 ()
+        else:
+            raise
+
+    return subscribed (user.id, item.channel_id, conn)
 
 def queued_for_download (user_id, item_id, conn):
     query = DownloadRequest.query ().where (user_id=user_id, item_id=item_id)
 
+    if query.count (conn):
+        return True
+
+    return False
+
+def subscribed (user_id, channel_id, conn):
+    query = ChannelSubscription.query ().where (user_id=user_id, channel_id=channel_id)
+    
     if query.count (conn):
         return True
 

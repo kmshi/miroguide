@@ -451,7 +451,7 @@ class Channel(Record, Thumbnailable):
             self.approved_at = datetime.now()
             self.join('owner').execute(connection)
             if self.owner.email is not None:
-                emailmessages.ApprovalEmail(self, self.owner).send_email()
+                pass#emailmessages.ApprovalEmail(self, self.owner).send_email()
             else:
                 logging.warn('not sending approval message for channel %d '
                         '(%s) because the owner email is not set', self.id,

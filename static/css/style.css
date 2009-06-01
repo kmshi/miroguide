@@ -4248,7 +4248,6 @@ text-align: right !important;
     background: url(../images/large_add_feed.png) right 0 no-repeat;
 }
 
-
 .large_add_button.site {
     padding-right: 25px;
     background: url(../images/large_add_site.png) right 0 no-repeat;
@@ -5398,9 +5397,6 @@ border-bottom: none;
 
 /* --- password and email confirmation --- */
 
-
-
-
 .auth-token-sent-page{
 width: 700px;
 margin: 0 auto;
@@ -5416,13 +5412,34 @@ width: 700px;
 margin: 0 auto;
 }
 
-.aqd, .aqe, .aqc {
+.large_add_button.aether-subscribed, .large_add_button.aether-unsubscribed {
+    padding-right: 25px;
+    background: url(../images/large_add_feed.png) right 0 no-repeat;
+}
+
+.large_add_button.aether-unsubscribed:hover, .large_add_button.aether-subscribed:hover {
+    background-position: right -33px;
+}
+
+.aqd, .aqe, .aqc, .uaqc, .uaqd {
     height:  22px;
     background: transparent url(../images/aether-sprite.png) no-repeat;
 }
 
-.aqd { background-position:  0px  0px;  }
-.aqc { background-position:  0px -22px; }
+.aqr {
+    height:  22px;
+    background: transparent url(../images/wait22trans.gif) no-repeat;
+}
+
+.aqd, .uaqd { background-position:  0px  0px;  }
+.aqc, .uaqc { background-position:  0px -22px; }
 .aqe { background-position:  0px -44px; }
+
+.uaqd, .uaqc {
+	opacity:  0.5;
+    -moz-opacity:  0.5;
+	-khtml-opacity:  0.5;
+    filter:  alpha (opacity=50);
+}
 
 .dummy-span { display: none; }

@@ -381,13 +381,8 @@ def show(request, id, featured_form=None):
     try:
         if ChannelSubscription.query (user_id=request.user.id, channel_id=c.id).count (request.connection):
             context['subscribed'] = True
-        query = DownloadRequest.query (user_id=request.user.id).join ('item')
-        query.where (query.joins['item'].c.channel_id == id)
-        ids = query.execute (request.connection)
-
-        ids = [i.item_id for i in ids]
-        if len (ids):
-            context['queued_item_ids'] = ids
+        else:
+            context['subscribed'] = False
     except: pass
     
     if share_url:
