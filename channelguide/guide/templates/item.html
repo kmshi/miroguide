@@ -35,11 +35,11 @@ See LICENSE for details.
 
     {% if subscribed %}
         {% if item.download_queued %}
-          <div id="aether_item_{{item.id}}" class="aqc");">
+          <div id="aether_item_{{item.id}}" class="aqc" onclick="cancel_download ('aether_item_{{item.id}}');">
             <span class="dummy-span" />
           </div>
         {% else %}
-          <div id="aether_item_{{item.id}}" class="aqd");">
+          <div id="aether_item_{{item.id}}" class="aqd" onclick="queue_download ('aether_item_{{item.id}}');">
             <span class="dummy-span" />
           </div>
         {% endif %}

@@ -53,14 +53,18 @@ class ItemObjectList(templateutil.QueryObjectList):
         limit = end - offset
 
         all_items = self.query.limit(limit).offset(offset).execute(self.connection)
-        download_requests = DownloadRequest.query ().where (DownloadRequest.c.item_id.in_ ((i.id for i in all_items))).execute (self.connection)
-        # This filthy hack could be avoided if...
-        # Django templates provided something akin to {% if id in ids %}...{% endif %}
-        for item in all_items:
-            if item.id in [i.item_id for i in download_requests]:
-                setattr (item, 'download_queued', True)
-            else:
-                setattr (item, 'download_queued', False)
+
+        if all_items:
+            download_requests = DownloadRequest.query ().where (
+                DownloadRequest.c.item_id.in_ ((i.id for i in all_items))
+            ).execute (self.connection)
+            # This filthy hack could be avoided if...
+            # Django templates provided something akin to {% if id in ids %}...{% endif %}
+            for item in all_items:
+                if item.id in [i.item_id for i in download_requests]:
+                    setattr (item, 'download_queued', True)
+                else:
+                    setattr (item, 'download_queued', False)
         return all_items
 
 class ApiObjectList:

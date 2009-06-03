@@ -3,18 +3,6 @@
  * See LICENSE for details.
  */
 
-$(document).ready (function () {
-    $('.aqd, .aqc').each (function (pos, item) {
-        item = $(this);
-
-        if (item.attr ('class') == 'aqd') {
-            click_handler (item.attr ('id'), function () { queue_download (item.attr ('id')) });
-        } else {
-            click_handler (item.attr ('id'), function () { dequeue_download (item.attr ('id')) });
-        }
-    });
-});
-
 var aether_queue_url   = '/aether/queue/';
 var aether_dequeue_url = '/aether/dequeue/';
 var aether_subscribe_url   = '/aether/subscribe/';
@@ -30,6 +18,7 @@ function unsubscribe (id)
     handle_subscription_request (id, false);
 }
 
+// TODO:  Add updating whatnot and error handling.
 function handle_subscription_request (id, subscribe)
 {
     var url = subscribe ? aether_subscribe_url : aether_unsubscribe_url ;
@@ -56,7 +45,7 @@ function queue_download (id)
     handle_download_request (id, true);
 }
 
-function dequeue_download (id)
+function cancel_download (id)
 {
     handle_download_request (id, false);
 }
@@ -95,7 +84,7 @@ function update_subscription (channel_id, status)
             if (item.attr ('class') == 'aqd') {
                 click_handler (item.attr ('id'), function () { queue_download (item.attr ('id')) });
             } else {
-                click_handler (item.attr ('id'), function () { dequeue_download (item.attr ('id')) });
+                click_handler (item.attr ('id'), function () { cancel_download (item.attr ('id')) });
             }
         });
     } else {
@@ -107,8 +96,7 @@ function update_subscription (channel_id, status)
         });
     }
 
-    // Not translated == teh suck.
-    // This still needs work.
+    // Not translated == teh suck.  This still needs work.
     if (subscribed) {
         channel.html ('<span>Unsubscribe</span>');
         click_handler (channel_id, function () { unsubscribe (channel_id) });
@@ -149,7 +137,7 @@ function update_item (item_id, status)
     }
 
     if (queued) {
-        click_handler (item_id, function () { dequeue_download (item_id) });
+        click_handler (item_id, function () { cancel_download (item_id) });
     } else {
         click_handler (item_id, function () { queue_download (item_id) });
     }
