@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: miroguide\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-02-12 11:12-0500\n"
-"PO-Revision-Date: 2009-02-20 09:23+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-05-05 13:05-0400\n"
+"PO-Revision-Date: 2009-06-25 17:06+0000\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,390 +16,174 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
-"X-Launchpad-Export-Date: 2009-02-25 19:04+0000\n"
+"X-Launchpad-Export-Date: 2009-06-29 19:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: settings.py:36
-msgid "English"
-msgstr "angleščina"
-
-#: settings.py:37
-msgid "Arabic"
-msgstr "arabščina"
-
-#: settings.py:38
-msgid "Bengali"
-msgstr "bengalščina"
-
-#: settings.py:39
-msgid "Catalan"
-msgstr "katalonščina"
-
-#: settings.py:40
-msgid "Chinese"
-msgstr "kitajščina"
-
-#: settings.py:41
-msgid "Croatian"
-msgstr "hrvaščina"
-
-#: settings.py:42
-msgid "Danish"
-msgstr "danščina"
-
-#: settings.py:43
-msgid "Dutch"
-msgstr "nizozemščina"
-
-#: settings.py:44
-msgid "Estonian"
-msgstr "estonščina"
-
-#: settings.py:45
-msgid "Finnish"
-msgstr "finščina"
-
-#: settings.py:46
-msgid "French"
-msgstr "francoščina"
-
-#: settings.py:47
-msgid "German"
-msgstr "nemščina"
-
-#: settings.py:48
-msgid "Greek"
-msgstr "grščina"
-
-#: settings.py:49
-msgid "Hebrew"
-msgstr "hebrejščina"
-
-#: settings.py:50
-msgid "Hindi"
-msgstr "hindujščina"
-
-#: settings.py:51
-msgid "Hungarian"
-msgstr "madžarščina"
-
-#: settings.py:52
-msgid "Icelandic"
-msgstr "islandščina"
-
-#: settings.py:53
-msgid "Indonesian"
-msgstr "indonezijščina"
-
-#: settings.py:54
-msgid "Italian"
-msgstr "italijanščina"
-
-#: settings.py:55
-msgid "Japanese"
-msgstr "japonščina"
-
-#: settings.py:56
-msgid "Korean"
-msgstr "korejščina"
-
-#: settings.py:57
-msgid "Kurdish (Sorani)"
-msgstr "kurdščina (Sorani)"
-
-#: settings.py:58
-msgid "Latvian"
-msgstr "latvijščina"
-
-#: settings.py:59
-msgid "Lithuanian"
-msgstr "litvanščina"
-
-#: settings.py:60
-msgid "Malay"
-msgstr "malajščina"
-
-#: settings.py:61
-msgid "Norwegian"
-msgstr "norveščina"
-
-#: settings.py:62
-msgid "Persian"
-msgstr "perzijščina"
-
-#: settings.py:63
-msgid "Polish"
-msgstr "poljščina"
-
-#: settings.py:64
-msgid "Portuguese (Brazillian)"
-msgstr "portugalščina (Brazilija)"
-
-#: settings.py:65
-msgid "Portuguese (Portugal)"
-msgstr "portugalščina (Portugalska)"
-
-#: settings.py:66
-msgid "Romanian"
-msgstr "romunščina"
-
-#: settings.py:67
-msgid "Russian"
-msgstr "ruščina"
-
-#: settings.py:68
-msgid "Serbo-Croatian"
-msgstr "srbohrvaščina"
-
-#: settings.py:69
-msgid "Slovak"
-msgstr "slovaščina"
-
-#: settings.py:70
-msgid "Spanish"
-msgstr "španščina"
-
-#: settings.py:71
-msgid "Swedish"
-msgstr "švedščina"
-
-#: settings.py:72
-msgid "Thai"
-msgstr "tajščina"
-
-#: settings.py:73
-msgid "Turkish"
-msgstr "turščina"
-
-#: settings.py:74
-msgid "Vietnamese"
-msgstr "vietnamščina"
-
-#: guide/tables.py:11
+#: tables.py:11
 msgid "New"
 msgstr "Nov"
 
-#: guide/tables.py:13
+#: tables.py:13
 msgid "Approved"
 msgstr "Potrjen"
 
-#: guide/tables.py:15
+#: tables.py:15
 msgid "Waiting"
 msgstr "Čakanje"
 
-#: guide/tables.py:17
+#: tables.py:17
 msgid "Don't Know"
 msgstr "Ni znano"
 
-#: guide/tables.py:19
+#: tables.py:19
 msgid "Rejected"
 msgstr "Zavrnjen"
 
-#: guide/tables.py:21
+#: tables.py:21
 msgid "Suspended"
 msgstr "Blokiran"
 
-#: guide/tables.py:23
+#: tables.py:23 templates/base.html:91
 msgid "Audio"
 msgstr "Zvok"
 
-#: guide/tables.py:25
+#: tables.py:25
 msgid "Unknown"
 msgstr "Neznano"
 
-#: guide/forms/channels.py:29
-#, python-format
-msgid ""
-"Material that is roughly 1080x720, and higher, can be marked as HD. Please "
-"make sure it has a sufficiently high video bitrate to avoid messy "
-"artifacting. Roughly 95% of the material on the channel must meet this "
-"criteria for it to be considered HD. Note: you are welcome to have an HD and "
-"non-HD version of the same channel."
-msgstr ""
-"Gradivo v ločljivosti 1080x720 ali višji lahko označite kot visoko "
-"ločljivostnega (HD). Zagotovite, da ima dovolj visoko bitno hitrost, da se "
-"izognete zapacanim artefaktom. V grobem mora obsegati 95% od vsega gradiva "
-"na kanalu, da ustreza kriteriju kanala visoke ločljivosti. Opomba: "
-"spodbujamo vas, da imate dve različici istega kanala, HD in navadno."
-
-#: guide/forms/channels.py:34
-msgid ""
-"An RSS feed is what makes a podcast a podcast. It's a special URL that "
-"applications like Miro and iTunes check periodically to know when there is a "
-"new video for a channel. Video RSS feeds are strongly recommended for Miro."
-msgstr ""
-"Vir RSS iz podcasta naredi podcast. Gre za poseben URL, ki ga programi, kot "
-"sta Miro in iTunes, periodično preverjata, da izvesta za nov video na "
-"kanalu. Video vire RSS krepko priporočamo za uporabi Miroja."
-
-#: guide/forms/channels.py:55
+#: forms/channels.py:59
 #, python-format
 msgid "%s is already a channel in the guide"
 msgstr "%s že obstaja kot kanal v vodniku"
 
-#: guide/forms/channels.py:60
+#: forms/channels.py:64
 msgid "We can't find a video feed at that address, please try again."
 msgstr "Na tem naslovu ni mogoče najti video vira, poskusite znova."
 
-#: guide/forms/channels.py:77 guide/forms/channels.py:320
-msgid "Channel Name"
-msgstr "Ime kanala"
-
-#: guide/forms/channels.py:78 guide/forms/channels.py:321
+#: forms/channels.py:82 forms/channels.py:319 templates/playback.html:21
 msgid "RSS Feed"
 msgstr "Vir RSS"
 
-#: guide/forms/channels.py:163
+#: forms/channels.py:171
 msgid "1st"
 msgstr "1."
 
-#: guide/forms/channels.py:163
+#: forms/channels.py:171
 msgid "2nd"
 msgstr "2."
 
-#: guide/forms/channels.py:163
+#: forms/channels.py:171
 msgid "3rd"
 msgstr "3."
 
-#: guide/forms/channels.py:185
+#: forms/channels.py:193
 msgid "You must at least enter a primary value."
 msgstr "Vnesti morate vsaj prvotno vrednost."
 
-#: guide/forms/channels.py:202
+#: forms/channels.py:210
 #, python-format
 msgid "you can only enter up to %d tags."
 msgstr "Vnesete lahko največ %d značk."
 
-#: guide/forms/channels.py:301
+#: forms/channels.py:299
 msgid "This field is required."
 msgstr "To polje je obvezno."
 
-#: guide/forms/channels.py:306
+#: forms/channels.py:304
 msgid "Not a valid image"
 msgstr "To ni veljavna slika"
 
-#: guide/forms/channels.py:310
+#: forms/channels.py:308
 msgid "Not an image in a format we support."
 msgstr "Slika ni v podprti obliki."
 
-#: guide/forms/channels.py:323 guide/forms/cobranding.py:15
+#: forms/channels.py:321 forms/cobranding.py:15
 msgid "Website URL"
 msgstr "URL spletnega mesta"
 
-#: guide/forms/channels.py:325
+#: forms/channels.py:325
 msgid "Full Description"
 msgstr "Polni opis"
 
-#: guide/forms/channels.py:327
-msgid "Publisher E-mail"
-msgstr "E-poštni naslov izdajatelja"
+#: forms/channels.py:326
+msgid "Publisher"
+msgstr "Izdajatelj"
 
-#: guide/forms/channels.py:330 guide/templates/show-channel.html:105
-#: templates-optimized/guide/show-channel.html:126
+#: forms/channels.py:332 templates/show-channel.html:96
 msgid "Tags"
 msgstr "Značke"
 
-#: guide/forms/channels.py:331
-msgid "Keywords that describe this channel.  Separate each tag with a comma."
-msgstr ""
-"Ključne besede, ki opisujejo ta kanal. Ločilo med značkami je vejica."
-
-#: guide/forms/channels.py:333 guide/templates/base.html:122
-#: guide/templates/show-channel.html:98 guide/views/categories.py:19
-#: templates-optimized/guide/base.html:118
-#: templates-optimized/guide/frontpage.html:153
+#: forms/channels.py:340 templates/base.html:123 templates/frontpage.html:185
+#: templates/show-channel.html:89 views/categories.py:24
 msgid "Genres"
 msgstr "Žanri"
 
-#: guide/forms/channels.py:334 guide/templates/base.html:131
-#: templates-optimized/guide/base.html:126
+#: forms/channels.py:342 templates/base.html:132
 msgid "Language"
 msgstr "Jezik"
 
-#: guide/forms/channels.py:335
-msgid "What language are most of these videos in?"
-msgstr "V katerem jeziku je večina posnetkov?"
-
-#: guide/forms/channels.py:336
-msgid "Postal Code"
-msgstr "Poštna številka"
-
-#: guide/forms/channels.py:338
+#: forms/channels.py:347
 msgid "High Definition"
 msgstr "Visoka ločljivost"
 
-#: guide/forms/channels.py:340
-msgid "Geographic restrictions"
-msgstr "Geografske omejitve"
-
-#: guide/forms/channels.py:345
+#: forms/channels.py:350
 msgid "Upload Image (optimal size: 400x267)"
 msgstr "Prenesi sliko (optimalna velikost: 400x267)"
 
-#: guide/forms/channels.py:346
-msgid ""
-"Remember that creating a good channel thumbnail is one of the most important "
-"ways to attract new viewers.  It's worth making an effort to do something "
-"beautiful.  You can also update the image after you submit your channel."
-msgstr ""
-"Zapomnite si, da je izdelava dobre sličice kanala eden najpomembnejših "
-"načinov privabljanja novih gledalcev.  Splača se dobro potruditi.  Po objavi "
-"kanala lahko seveda sličico posodobite."
-
-#: guide/forms/channels.py:369
+#: forms/channels.py:376
 msgid "That streaming site already exists."
 msgstr "To mesto pretočnih vsebin že obstaja."
 
-#: guide/forms/channels.py:380
+#: forms/channels.py:387
 #, python-format
 msgid "The following country codes are invalid: %s"
 msgstr "Naslednje kode držav niso veljavne: %s"
 
-#: guide/forms/channels.py:440
+#: forms/channels.py:449
 msgid "Feed URL already exists"
 msgstr "URL vira že obstaja"
 
-#: guide/forms/channels.py:509
+#: forms/channels.py:517
 msgid "Email"
 msgstr "E-pošta"
 
-#: guide/forms/channels.py:510
+#: forms/channels.py:518 templates/share-email.html:25
 msgid "Title"
 msgstr "Naslov"
 
-#: guide/forms/channels.py:511 guide/forms/misc.py:15
+#: forms/channels.py:519 forms/misc.py:15
 msgid "Body"
 msgstr "Telo"
 
-#: guide/forms/cobranding.py:11
+#: forms/cobranding.py:11
 msgid "Title in Miro App"
 msgstr "Naslov v programu Miro"
 
-#: guide/forms/cobranding.py:12
+#: forms/cobranding.py:12
 msgid "This is the title that will appear in the sidebar of Miro."
 msgstr "To je naslov, ki se bo pojavil v stranski vrstici programa Miro."
 
-#: guide/forms/cobranding.py:13
+#: forms/cobranding.py:13
 msgid "Page Title"
 msgstr "Naslov strani"
 
-#: guide/forms/cobranding.py:14
+#: forms/cobranding.py:14
 msgid "This is the title that will be displayed at the top of the page."
 msgstr "To je naslov, ki bo prikazan na vrhu strani."
 
-#: guide/forms/cobranding.py:17
+#: forms/cobranding.py:17
 msgid "Icon URL"
 msgstr "URL ikone"
 
-#: guide/forms/cobranding.py:17
+#: forms/cobranding.py:17
 msgid "Icon should be 175x125 pixels."
 msgstr "Ikona mora imeti 175x125 slikovnih točk."
 
-#: guide/forms/cobranding.py:19
+#: forms/cobranding.py:19
 msgid "Favicon URL"
 msgstr "URL favikone"
 
-#: guide/forms/cobranding.py:19
+#: forms/cobranding.py:19
 msgid ""
 "This is best as a 20x20 png graphic. It shows up in the sidebar of the Miro "
 "App."
@@ -407,210 +191,205 @@ msgstr ""
 "Najboljše je, če je to slika png velikosti 20x20. Prikaže se v stranski "
 "vrstici programa Miro."
 
-#: guide/forms/cobranding.py:21
+#: forms/cobranding.py:21
 msgid "External CSS URL"
 msgstr "URL zunanje datoteke CSS"
 
-#: guide/forms/cobranding.py:22
+#: forms/cobranding.py:22 templates/share-email.html:26
 msgid "Description"
 msgstr "Opis"
 
-#: guide/forms/cobranding.py:24
+#: forms/cobranding.py:24
 msgid "Link 1 URL"
 msgstr "URL povezave 1"
 
-#: guide/forms/cobranding.py:24
+#: forms/cobranding.py:24
 msgid ""
 "Or leave this blank to have plain text.  All these links are optional."
 msgstr ""
 "Ali pustite prazno, če želite navadno besedilo. Vse te povezave so neobvezne."
 
-#: guide/forms/cobranding.py:26
+#: forms/cobranding.py:26
 msgid "Link 1 Text"
 msgstr "Besedilo povezave 1"
 
-#: guide/forms/cobranding.py:28
+#: forms/cobranding.py:28
 msgid "Link 2 URL"
 msgstr "URL povezave 2"
 
-#: guide/forms/cobranding.py:30
+#: forms/cobranding.py:30
 msgid "Link 2 Text"
 msgstr "Besedilo povezave 2"
 
-#: guide/forms/cobranding.py:32
+#: forms/cobranding.py:32
 msgid "Link 3 URL"
 msgstr "URL povezave 3"
 
-#: guide/forms/cobranding.py:34
+#: forms/cobranding.py:34
 msgid "Link 3 Text"
 msgstr "Besedilo povezave 3"
 
-#: guide/forms/fields.py:21
+#: forms/fields.py:21
 #, python-format
 msgid "Ensure this value has at most %(maximum)d bytes (it has %(length)d)."
 msgstr ""
 "Zagotovite, da ima ta vrednost največ %(maximum)d bajtov (ima jih "
 "%(length)d)."
 
-#: guide/forms/misc.py:14
+#: forms/misc.py:14
 msgid "title"
 msgstr "naslov"
 
-#: guide/forms/share.py:52
+#: forms/share.py:52
 msgid ""
 "\"Recipients\" field must be a comma separated list of email addresses"
 msgstr ""
 "Polje \"Prejemniki\" mora vsebovati seznam e-poštnih naslovov, ločenih z "
 "vejicami"
 
-#: guide/forms/share.py:64
+#: forms/share.py:64
 msgid "feed_url not provided despite share_type being set to 'feed'"
 msgstr "feed_url ni podan, čeprav je share_type nastavljen na 'vir'"
 
-#: guide/forms/share.py:75
+#: forms/share.py:75
 msgid "file_url not provided despite share_type being set to 'item'"
 msgstr "file_url ni podan, čeprav je share_type nastavljen na 'predmet'"
 
-#: guide/forms/user.py:19
+#: forms/user.py:19
 msgid "Username already taken"
 msgstr "Uporabniško ime je že zasedeno"
 
-#: guide/forms/user.py:29
+#: forms/user.py:29
 msgid "E-mail already taken"
 msgstr "E-poštni naslov je že uporabljen"
 
-#: guide/forms/user.py:36
+#: forms/user.py:36
 msgid "E-mail not found"
 msgstr "E-poštnega naslova ni mogoče najti"
 
-#: guide/forms/user.py:45
+#: forms/user.py:45
 msgid "That username is not valid."
 msgstr "To uporabniško ime ni veljavno."
 
-#: guide/forms/user.py:59
+#: forms/user.py:59
 msgid "That username or e-mail is not valid."
 msgstr "To uporabniško ime ali e-poštni naslov ni veljaven."
 
-#: guide/forms/user.py:76
+#: forms/user.py:76
 msgid "Display shows in all languages"
 msgstr "Pokaži vsebine v vseh jezikih"
 
-#: guide/forms/user.py:77
+#: forms/user.py:77
 msgid "Only display shows in these languages:"
 msgstr "Pokaži vsebine le v naslednjih jezikih:"
 
-#: guide/forms/user.py:80
+#: forms/user.py:80
 msgid "Hold CTRL to select multiple languages"
 msgstr "Držite pritisnjeno tipko CTRL, če želite izbrati več jezikov"
 
-#: guide/forms/user.py:111
+#: forms/user.py:111
 msgid "That password is not valid."
 msgstr "Geslo ni veljavno."
 
-#: guide/forms/user.py:125
+#: forms/user.py:125
 msgid "Passwords don't match"
 msgstr "Gesli se ne ujemata"
 
-#: guide/forms/user.py:129 guide/templates/topmenu_dropdowns.html:51
-#: guide/templates/topmenu_dropdowns.html:76
-#: templates-optimized/guide/topmenu_dropdowns.html:51
-#: templates-optimized/guide/topmenu_dropdowns.html:76
+#: forms/user.py:129 templates/topmenu_dropdowns.html:54
+#: templates/topmenu_dropdowns.html:79
 msgid "Username"
 msgstr "Uporabniško ime"
 
-#: guide/forms/user.py:130 guide/templates/topmenu_dropdowns.html:82
-#: templates-optimized/guide/topmenu_dropdowns.html:82
+#: forms/user.py:130 templates/topmenu_dropdowns.html:85
 msgid "Email Address"
 msgstr "E-poštni naslov"
 
-#: guide/forms/user.py:132 guide/templates/topmenu_dropdowns.html:88
-#: templates-optimized/guide/topmenu_dropdowns.html:88
+#: forms/user.py:132 templates/topmenu_dropdowns.html:91
 msgid "Pick a Password"
 msgstr "Izberite geslo"
 
-#: guide/forms/user.py:134 guide/forms/user.py:151 guide/forms/user.py:237
-#: guide/templates/topmenu_dropdowns.html:94
-#: templates-optimized/guide/topmenu_dropdowns.html:94
+#: forms/user.py:134 forms/user.py:151 forms/user.py:237
+#: templates/topmenu_dropdowns.html:97
 msgid "Confirm Password"
 msgstr "Potrdite geslo"
 
-#: guide/forms/user.py:149
+#: forms/user.py:149
 msgid "Change Password"
 msgstr "Spremeni geslo"
 
-#: guide/forms/user.py:153
+#: forms/user.py:153
 msgid "First Name"
 msgstr "Ime"
 
-#: guide/forms/user.py:155
+#: forms/user.py:155
 msgid "Last Name"
 msgstr "Priimek"
 
-#: guide/forms/user.py:156
+#: forms/user.py:156
 msgid "Age"
 msgstr "Starost"
 
-#: guide/forms/user.py:160
+#: forms/user.py:160
 msgid "Gender"
 msgstr "Spol"
 
-#: guide/forms/user.py:163
+#: forms/user.py:163
 msgid "City"
 msgstr "Kraj"
 
-#: guide/forms/user.py:165
+#: forms/user.py:165
 msgid "State"
 msgstr "Zvezna država/pokrajina"
 
-#: guide/forms/user.py:167
+#: forms/user.py:167
 msgid "Country"
 msgstr "Država"
 
-#: guide/forms/user.py:169
+#: forms/user.py:169
 msgid "Zip Code"
 msgstr "Poštna številka"
 
-#: guide/forms/user.py:171
+#: forms/user.py:171
 msgid "IM Username"
 msgstr "Uporabniško ime za klepet"
 
-#: guide/forms/user.py:173
+#: forms/user.py:173
 msgid "IM Type"
 msgstr "Vrsta klepeta"
 
-#: guide/forms/user.py:176
+#: forms/user.py:176
 msgid "Show interface in"
 msgstr "Pokaži vmesnik v jeziku"
 
-#: guide/forms/user.py:222
+#: forms/user.py:222
 msgid "Channel Owner Emails"
 msgstr "E-poštni naslov lastnika kanala"
 
-#: guide/forms/user.py:226
+#: forms/user.py:226
 msgid "Moderator Board Emails"
 msgstr "E-poštna sporočila moderatorja"
 
-#: guide/forms/user.py:227
+#: forms/user.py:227
 msgid "Normal"
 msgstr "Navadno"
 
-#: guide/forms/user.py:228
+#: forms/user.py:228
 msgid "No emails"
 msgstr "Ni e-poštnih sporočil"
 
-#: guide/forms/user.py:229
+#: forms/user.py:229
 msgid "Send all emails"
 msgstr "Pošlji vsa e-poštna sporočila"
 
-#: guide/forms/user.py:230
+#: forms/user.py:230
 msgid "Channel Status Emails"
 msgstr "E-poštna sporočila stanja kanala"
 
-#: guide/forms/user.py:235
+#: forms/user.py:235
 msgid "Set a new Password"
 msgstr "Nastavi novo geslo"
 
-#: guide/models/channel.py:180
+#: models/channel.py:205
 #, python-format
 msgid "%(count)d subscriber"
 msgid_plural "%(count)d subscribers"
@@ -619,7 +398,7 @@ msgstr[1] "%(count)d naročnik"
 msgstr[2] "%(count)d naročnika"
 msgstr[3] "%(count)d naročniki"
 
-#: guide/models/channel.py:187
+#: models/channel.py:212
 #, python-format
 msgid "%(count)d episode"
 msgid_plural "%(count)d episodes"
@@ -628,21 +407,19 @@ msgstr[1] "%(count)d epizoda"
 msgstr[2] "%(count)d epizodi"
 msgstr[3] "%(count)d epizode"
 
-#: guide/templates/add-note.html:9 templates-optimized/guide/add-note.html:9
+#: templates/add-note.html:9
 msgid "Post"
 msgstr "Oddaj"
 
-#: guide/templates/after-submit.html:12
-#: templates-optimized/guide/after-submit.html:12
+#: templates/after-submit.html:12
 msgid "Thanks for Submitting Your Feed"
 msgstr "Hvala, ker ste objavili svoj vir"
 
-#: guide/templates/after-submit.html:13
-#: templates-optimized/guide/after-submit.html:13
+#: templates/after-submit.html:13
 msgid "Your feed has been submitted!"
 msgstr "Vaš vir je bil posredovan!"
 
-#: guide/templates/after-submit.html:16
+#: templates/after-submit.html:16
 msgid ""
 "\n"
 "        Our moderators will review your feed in the next few days to make\n"
@@ -658,12 +435,11 @@ msgstr ""
 "        'Ravno dodano' na naslovnici.\n"
 "      "
 
-#: guide/templates/after-submit.html:24
-#: templates-optimized/guide/after-submit.html:24
+#: templates/after-submit.html:24
 msgid "Updating Your Feed Info"
 msgstr "Posodabljanje podatkov o vašem viru"
 
-#: guide/templates/after-submit.html:26
+#: templates/after-submit.html:26
 msgid ""
 "\n"
 "        You can update the details about your feed at anytime.  Just\n"
@@ -676,12 +452,11 @@ msgstr ""
 "        prijavite se in kliknite povezavo 'Moji objavljeni viri'.\n"
 "      "
 
-#: guide/templates/after-submit.html:33
-#: templates-optimized/guide/after-submit.html:33
+#: templates/after-submit.html:33
 msgid "Add a 1-Click Subscribe Button to Your Website"
 msgstr "Dodajte gumb za prijavo z enim klikom na svojo spletno stran"
 
-#: guide/templates/after-submit.html:37
+#: templates/after-submit.html:37
 msgid ""
 "\n"
 "          Visit <a href=\"http://webbalert.com/\">webbalert.com</a> to see\n"
@@ -693,7 +468,7 @@ msgstr ""
 "          če želite videti delovanje pravega gumba za en klik\n"
 "        "
 
-#: guide/templates/after-submit.html:45
+#: templates/after-submit.html:45
 msgid ""
 "\n"
 "        The buttons below point to the feed you've just submitted-- just\n"
@@ -709,7 +484,7 @@ msgstr ""
 "        na gumb, se odpre Miro in samodejno se prijavijo na vaš vir.\n"
 "      "
 
-#: guide/templates/after-submit.html:54
+#: templates/after-submit.html:54
 msgid ""
 "\n"
 "        1-click buttons are a great way to get your viewers connected to\n"
@@ -723,17 +498,15 @@ msgstr ""
 "        gumbih, nam pišite: channels [at] pculture [d] org.\n"
 "      "
 
-#: guide/templates/auth-token-request.html:7
-#: templates-optimized/guide/auth-token-request.html:7
+#: templates/auth-token-request.html:7
 msgid "Miro Guide - Forgot Password"
 msgstr "Vodnik Miro - Pozabljeno geslo"
 
-#: guide/templates/auth-token-request.html:11
-#: templates-optimized/guide/auth-token-request.html:11
+#: templates/auth-token-request.html:11
 msgid "Forgot Password"
 msgstr "Ne spomnim se gesla"
 
-#: guide/templates/auth-token-request.html:12
+#: templates/auth-token-request.html:12
 msgid ""
 "Please enter your email address\n"
 "        below.  A link will be sent to you email that you can use to set a "
@@ -744,22 +517,19 @@ msgstr ""
 "        Po e-pošti boste prejeli povezavo, s katero\n"
 "        nastavite novo geslo."
 
-#: guide/templates/auth-token-request.html:17
-#: guide/templates/email-form.html:32
-#: templates-optimized/guide/auth-token-request.html:17
-#: templates-optimized/guide/email-form.html:32
+#: templates/auth-token-request.html:17 templates/email-form.html:32
 msgid "Send"
 msgstr "Pošlji"
 
-#: guide/templates/auth-token-sent.html:7
+#: templates/auth-token-sent.html:7
 msgid "Email Sent"
 msgstr "E-poštno sporočilo poslano"
 
-#: guide/templates/auth-token-sent.html:10
+#: templates/auth-token-sent.html:10
 msgid "Email Sent!"
 msgstr "E-poštno sporočilo je bilo poslano!"
 
-#: guide/templates/auth-token-sent.html:11
+#: templates/auth-token-sent.html:11
 #, python-format
 msgid ""
 "An email was sent to %(email)s.  You should receive\n"
@@ -770,147 +540,132 @@ msgstr ""
 "prejeli sporočilo.  Vsebuje povezavo, prek katere lahko nastavite\n"
 "novo geslo za svoj račun."
 
-#: guide/templates/bad-auth-token.html:7
-#: guide/templates/change-password.html:7
-#: templates-optimized/guide/bad-auth-token.html:7
-#: templates-optimized/guide/change-password.html:7
+#: templates/bad-auth-token.html:7 templates/change-password.html:7
 msgid "Miro Guide - Create New Password"
 msgstr "Vodnik Miro - Ustvari novo geslo"
 
-#: guide/templates/bad-auth-token.html:10
-#: templates-optimized/guide/bad-auth-token.html:10
+#: templates/bad-auth-token.html:10
 msgid "Link invalid"
 msgstr "Povezava ni veljavna"
 
-#: guide/templates/bad-auth-token.html:11
-#: templates-optimized/guide/bad-auth-token.html:11
+#: templates/bad-auth-token.html:11
 msgid "The link you used to get to this page was not valid."
 msgstr "Uporabljena povezava za dostop do te strani ni veljavna."
 
-#: guide/templates/base.html:11 templates-optimized/guide/base.html:11
+#: templates/base.html:11
 msgid "Miro Guide - Video Podcast Directory"
 msgstr "Vodnik Miro - Mapa za video podcaste"
 
-#: guide/templates/base.html:33 templates-optimized/guide/base.html:31
+#: templates/base.html:34
 msgid "Not interested"
 msgstr "Me ne zanima"
 
-#: guide/templates/base.html:34 templates-optimized/guide/base.html:32
+#: templates/base.html:35
 msgid "I hate this show"
 msgstr "Ogabno"
 
-#: guide/templates/base.html:35 templates-optimized/guide/base.html:33
+#: templates/base.html:36
 msgid "I dislike this show"
 msgstr "Ni mi všeč"
 
-#: guide/templates/base.html:36 templates-optimized/guide/base.html:34
+#: templates/base.html:37
 msgid "I like this show"
 msgstr "Všeč mi je"
 
-#: guide/templates/base.html:37 templates-optimized/guide/base.html:35
+#: templates/base.html:38
 msgid "I really like this show"
 msgstr "Zelo mi je všeč"
 
-#: guide/templates/base.html:38 templates-optimized/guide/base.html:36
+#: templates/base.html:39
 msgid "I love this show!"
 msgstr "Obožujem!"
 
-#: guide/templates/base.html:72
+#: templates/base.html:73
 msgid "FEEDBACK"
 msgstr "Odziv"
 
-#: guide/templates/base.html:79 templates-optimized/guide/base.html:76
+#: templates/base.html:80
 msgid "Miro"
 msgstr "Miro"
 
-#: guide/templates/base.html:84 guide/templates/listing.html:101
-#: templates-optimized/guide/listing.html:61
-msgid "Feeds"
-msgstr "Viri"
-
-#: guide/templates/base.html:90 guide/templates/listing.html:128
-#: templates-optimized/guide/base.html:87
-#: templates-optimized/guide/listing.html:92
-msgid "Sites"
-msgstr "Spletna mesta"
-
-#: guide/templates/base.html:96 templates-optimized/guide/base.html:93
+#: templates/base.html:97
 msgid "Videos you'll love"
-msgstr "Vsebine, ki jih boste ljubili"
+msgstr "Po vašem okusu"
 
-#: guide/templates/base.html:107 templates-optimized/guide/base.html:104
+#: templates/base.html:108
 msgid "Search"
 msgstr "Išči"
 
-#: guide/templates/base.html:123 templates-optimized/guide/base.html:119
+#: templates/base.html:124
 msgid "HD Shows"
 msgstr "Vsebine HD"
 
-#: guide/templates/base.html:124 templates-optimized/guide/base.html:120
+#: templates/base.html:125 templates/frontpage.html:182
 msgid "Most Popular"
-msgstr "Najbolj priljubljeni"
+msgstr "Priljubljeni"
 
-#: guide/templates/base.html:125
+#: templates/base.html:126
 msgid "Top Rated"
-msgstr "Najvišje ocenjeni"
+msgstr "Cenjeni"
 
-#: guide/templates/base.html:126 guide/templates/frontpage.html:124
-#: templates-optimized/guide/base.html:121
-#: templates-optimized/guide/frontpage.html:124
+#: templates/base.html:127 templates/frontpage.html:181
 msgid "New Shows"
 msgstr "Nove oddaje"
 
-#: guide/templates/base.html:127 templates-optimized/guide/base.html:122
+#: templates/base.html:128
 msgid "Video by Language"
 msgstr "Video glede na jezik"
 
-#: guide/templates/base.html:140 templates-optimized/guide/base.html:135
+#: templates/base.html:141
 msgid "Account"
 msgstr "Račun"
 
-#: guide/templates/base.html:162 templates-optimized/guide/base.html:186
+#: templates/base.html:155
+msgid "Get Miro!"
+msgstr "Prenesi Miro!"
+
+#: templates/base.html:155
+msgid "DMCA Information"
+msgstr "Podatki DMCA"
+
+#: templates/base.html:164
 msgid "Loading..."
 msgstr "Nalaganje ..."
 
-#: guide/templates/change-password.html:11
-#: templates-optimized/guide/change-password.html:11
+#: templates/change-password.html:11
 msgid "Create New Password"
 msgstr "Ustvari novo geslo"
 
-#: guide/templates/change-password.html:14
-#: templates-optimized/guide/change-password.html:14
+#: templates/change-password.html:14
 msgid "Create"
 msgstr "Ustvari"
 
-#: guide/templates/channel-feature.html:14
-#: guide/templates/channel-in-category.html:15
-#: guide/templates/channel-in-listing.html:15
-#: templates-optimized/guide/channel-feature.html:14
-#: templates-optimized/guide/channel-in-category.html:15
-#: templates-optimized/guide/channel-in-listing.html:15
+#: templates/channel-feature.html:14 templates/channel-in-category.html:15
+#: templates/channel-in-listing.html:15
 msgid "High-Definition Channel"
 msgstr "Kanal visoke ločljivosti"
 
-#: guide/templates/channel-feature.html:25
+#: templates/channel-feature.html:17
+msgid "Moderator Pick"
+msgstr "Izbor moderatorja"
+
+#: templates/channel-feature.html:25
 msgid "ADD FEED TO SIDEBAR"
 msgstr "Dodaj vir v stransko vrstico"
 
-#: guide/templates/channel-feature.html:27
+#: templates/channel-feature.html:27
 msgid "ADD SITE TO SIDEBAR"
 msgstr "Dodaj spletno mesto v stransko vrstico"
 
-#: guide/templates/channel-form.html:7
-#: templates-optimized/guide/channel-form.html:7
+#: templates/channel-form.html:11
 msgid "Miro Guide - Submit Feed"
 msgstr "Vodnik Miro - Objavi vir"
 
-#: guide/templates/channel-form.html:15
-#: templates-optimized/guide/channel-form.html:15
+#: templates/channel-form.html:19
 msgid "Feed Thumbnail"
 msgstr "Sličica vira za predogled"
 
-#: guide/templates/channel-form.html:16
-#: templates-optimized/guide/channel-form.html:16
+#: templates/channel-form.html:20
 msgid ""
 "Remember that creating a good feed thumbnail is one of\n"
 "the most important ways to attract new viewers.  It's worth making an "
@@ -922,9 +677,7 @@ msgstr ""
 "načinov za privabljanje novih gledalcev.  Splača se potruditi in izdelati\n"
 "nekaj lepega.  Sliko lahko posodobite po tem, ko že objavite svoj vir."
 
-#: guide/templates/channel-form.html:21 guide/templates/submit-channel.html:17
-#: templates-optimized/guide/channel-form.html:21
-#: templates-optimized/guide/submit-channel.html:17
+#: templates/channel-form.html:25 templates/submit-channel.html:37
 msgid ""
 "We have found an image in your feed.  You can either use this image or "
 "upload a different one."
@@ -932,117 +685,127 @@ msgstr ""
 "V vašem viru smo našli sliko. Lahko jo uporabite ali pa na strežnik "
 "prenesete drugo."
 
-#: guide/templates/channel-in-category.html:33
-#: guide/templates/channel-in-listing.html:34
-#: guide/templates/channel-moderate.html:30
-#: templates-optimized/guide/channel-in-listing.html:32
-#: templates-optimized/guide/channel-moderate.html:30
+#: templates/channel-in-category.html:33 templates/channel-in-listing.html:34
 msgid "Add Feed"
 msgstr "Dodaj vir"
 
-#: guide/templates/channel-in-category.html:35
-#: guide/templates/channel-in-listing.html:36
-#: guide/templates/channel-moderate.html:32
-#: templates-optimized/guide/channel-in-listing.html:34
-#: templates-optimized/guide/channel-moderate.html:32
+#: templates/channel-in-category.html:35 templates/channel-in-listing.html:36
 msgid "Add Site"
 msgstr "Dodaj mesto"
 
-#: guide/templates/channel-in-listing.html:42
+#: templates/channel-in-listing.html:43
 #, python-format
-msgid "Added: once today"
-msgid_plural "Added: %(count)s times today"
-msgstr[0] "Dodano: %(count)s-krat danes"
-msgstr[1] "Dodano: %(count)s-krat danes"
-msgstr[2] "Dodano: %(count)s-krat danes"
-msgstr[3] "Dodano: %(count)s-krat danes"
+msgid "1 Rating"
+msgid_plural "%(count)s Ratings"
+msgstr[0] "%(count)s ocen"
+msgstr[1] "%(count)s ocena"
+msgstr[2] "%(count)s oceni"
+msgstr[3] "%(count)s ocene"
 
-#: guide/templates/channel-moderate.html:38
-#: templates-optimized/guide/channel-moderate.html:38
+#: templates/channel-in-listing.html:45
+msgid "Subscriptions Today"
+msgstr "Današnje naročnine"
+
+#: templates/channel-in-listing.html:45
+#, python-format
+msgid "1 Today"
+msgid_plural "%(count)s Today"
+msgstr[0] "danes %(count)s"
+msgstr[1] "danes %(count)s"
+msgstr[2] "danes %(count)s"
+msgstr[3] "danes %(count)s"
+
+#: templates/channel-moderate.html:25
+#, python-format
+msgid "1 flag"
+msgid_plural "%(count)s flags"
+msgstr[0] "%(count)s zastavic"
+msgstr[1] "%(count)s zastavica"
+msgstr[2] "%(count)s zastavici"
+msgstr[3] "%(count)s zastavice"
+
+#: templates/channel-moderate.html:36
+msgid "Add Feed To Your Sidebar"
+msgstr "Dodajte vir v svojo stransko vrstico"
+
+#: templates/channel-moderate.html:38 templates/show-channel.html:64
+msgid "Add Site to Your Sidebar"
+msgstr "Dodaj mesto v stransko vrstico"
+
+#: templates/channel-moderate.html:45
 msgid "Website"
 msgstr "Spletno mesto"
 
-#: guide/templates/channel-moderate.html:43
-#: templates-optimized/guide/channel-moderate.html:43
+#: templates/channel-moderate.html:50 templates/show-channel.html:104
+msgid "Feed"
+msgstr "Vir"
+
+#: templates/channel-moderate.html:56
 msgid "Manager Email"
 msgstr "E-poštni naslov upravitelja"
 
-#: guide/templates/channel-notes.html:7
-#: templates-optimized/guide/channel-notes.html:7
+#: templates/channel-notes.html:7
 msgid "Issues"
 msgstr "Težave"
 
-#: guide/templates/channel-notes.html:7
-#: templates-optimized/guide/channel-notes.html:7
+#: templates/channel-notes.html:7
 msgid "need support? post here."
 msgstr "Potrebujete pomoč? Objavite tukaj."
 
-#: guide/templates/channel-notes.html:14
-#: templates-optimized/guide/channel-notes.html:14
+#: templates/channel-notes.html:14
 msgid "Me"
 msgstr "Jaz"
 
-#: guide/templates/channel-notes.html:17
-#: templates-optimized/guide/channel-notes.html:17
+#: templates/channel-notes.html:17
 msgid "Manager"
 msgstr "Upravitelj"
 
-#: guide/templates/cobranding-admin.html:7
-#: guide/templates/cobranding-admin.html:9
-#: templates-optimized/guide/cobranding-admin.html:7
-#: templates-optimized/guide/cobranding-admin.html:9
+#: templates/cobranding-admin.html:7 templates/cobranding-admin.html.py:9
 msgid "Administration"
 msgstr "Skrbništvo"
 
-#: guide/templates/cobranding.html:146
-#: templates-optimized/guide/cobranding.html:146
+#: templates/cobranding.html:146
 #, python-format
 msgid "All %(title)s Channels"
 msgstr "Vsi kanali %(title)s"
 
-#: guide/templates/cobranding.html:154
-#: templates-optimized/guide/cobranding.html:154
+#: templates/cobranding.html:154
 msgid "archival"
 msgstr "arhivsko"
 
-#: guide/templates/cobranding.html:169
-#: templates-optimized/guide/cobranding.html:169
+#: templates/cobranding.html:169
 msgid "Add"
 msgstr "Dodaj"
 
-#: guide/templates/cobranding.html:172
-#: templates-optimized/guide/cobranding.html:172
+#: templates/cobranding.html:172
 msgid "Subscribe"
 msgstr "Naroči se"
 
-#: guide/templates/cobranding.html:177
-#: templates-optimized/guide/cobranding.html:177
+#: templates/cobranding.html:177
 msgid "Details"
 msgstr "Podrobnosti"
 
-#: guide/templates/cobranding.html:197 guide/templates/playback.html:132
-#: templates-optimized/guide/cobranding.html:197
-#: templates-optimized/guide/playback.html:92
+#: templates/cobranding.html:197 templates/playback.html:147
 msgid "Next"
 msgstr "Naslednji"
 
-#: guide/templates/confirm.html:7 templates-optimized/guide/confirm.html:7
+#: templates/confirm.html:7
 msgid "Miro Guide - Email Sent"
 msgstr "Vodnik Miro - E-poštno sporočilo poslano"
 
-#: guide/templates/confirm.html:11 templates-optimized/guide/confirm.html:11
+#: templates/confirm.html:11
 msgid "Confirmed!"
 msgstr "Potrjeno!"
 
-#: guide/templates/confirm.html:12 templates-optimized/guide/confirm.html:12
+#: templates/confirm.html:12
 msgid "Thanks for confirming your account!"
 msgstr "Hvala, ker ste potrdili svoj račun!"
 
-#: guide/templates/confirm.html:15 templates-optimized/guide/confirm.html:15
+#: templates/confirm.html:15
 msgid "Confirmation sent"
 msgstr "Potrditev poslana"
 
-#: guide/templates/confirm.html:17 templates-optimized/guide/confirm.html:17
+#: templates/confirm.html:17
 msgid ""
 "If the address below isn't the correct one; change it and we'll send a code "
 "to that address."
@@ -1050,178 +813,156 @@ msgstr ""
 "Če spodnji naslov ni pravilen, ga spremenite in kodo bomo poslali na novi "
 "naslov."
 
-#: guide/templates/confirm.html:25 templates-optimized/guide/confirm.html:25
+#: templates/confirm.html:25
 msgid "Resend"
 msgstr "Pošlji znova"
 
-#: guide/templates/confirm.html:29 templates-optimized/guide/confirm.html:29
+#: templates/confirm.html:29
 msgid "Incorrect code"
 msgstr "Neveljavna koda"
 
-#: guide/templates/confirm.html:30 templates-optimized/guide/confirm.html:30
+#: templates/confirm.html:30
 msgid "I'm sorry, that is not the correct code."
 msgstr "Žal to ni veljavna koda."
 
-#: guide/templates/dmca.html:5 templates-optimized/guide/dmca.html:5
+#: templates/dmca.html:9
 msgid "Miro Guide - Copyright Infringement Notification"
 msgstr "Vodnik Miro - Obvestilo o kršenju avtorske in sorodnih pravic"
 
-#: guide/templates/edit-bar.html:11 templates-optimized/guide/edit-bar.html:11
+#: templates/edit-bar.html:13
 msgid "Click to Edit Feed / Assist Manager"
 msgstr "Kliknite za urejanje vira / Pomožni upravitelj"
 
-#: guide/templates/edit-bar.html:13 templates-optimized/guide/edit-bar.html:13
+#: templates/edit-bar.html:15
 msgid "Click to Edit Site / Assist Manager"
 msgstr "Kliknite za urejanje spletnega mesta / Pomožni upravitelj"
 
-#: guide/templates/edit-bar.html:18 templates-optimized/guide/edit-bar.html:18
+#: templates/edit-bar.html:21
 #, python-format
 msgid "%(state)s by %(mod)s on %(mod_time)s"
 msgstr "%(state)s - %(mod)s %(mod_time)s"
 
-#: guide/templates/edit-bar.html:21 templates-optimized/guide/edit-bar.html:21
+#: templates/edit-bar.html:24
 #, python-format
 msgid "%(state)s by %(mod)s"
 msgstr "%(state)s - %(mod)s"
 
-#: guide/templates/edit-bar.html:24 templates-optimized/guide/edit-bar.html:24
+#: templates/edit-bar.html:27
 #, python-format
 msgid "Feed is %(state)s"
 msgstr "Stanje vira: %(state)s"
 
-#: guide/templates/edit-bar.html:26 templates-optimized/guide/edit-bar.html:26
+#: templates/edit-bar.html:29
 #, python-format
 msgid "Site is %(state)s"
 msgstr "Stanje spletnega mesta: %(state)s"
 
-#: guide/templates/edit-bar.html:32 templates-optimized/guide/edit-bar.html:32
+#: templates/edit-bar.html:35
 #, python-format
 msgid "Featured by %(mod)s on %(featured_time)s"
 msgstr "Zanimiv za %(mod)s %(featured_time)s"
 
-#: guide/templates/edit-bar.html:39 templates-optimized/guide/edit-bar.html:39
+#: templates/edit-bar.html:42
 msgid "Edit Your Feed / View Statistics / Get Help"
 msgstr "Uredite svoj vir / Oglejte si statistiko / Poiščite pomoč"
 
-#: guide/templates/edit-bar.html:41 templates-optimized/guide/edit-bar.html:41
+#: templates/edit-bar.html:44
 msgid "Edit Your Site / View Statistics / Get Help"
 msgstr "Uredite svoje spletno mesto / Oglejte si statistiko / Poiščite pomoč"
 
-#: guide/templates/edit-bar.html:113
-#: templates-optimized/guide/edit-bar.html:113
+#: templates/edit-bar.html:116
 msgid "Cancel and go back"
 msgstr "Prekliči in pojdi nazaj"
 
-#: guide/templates/edit-channel.html:10
-#: templates-optimized/guide/edit-channel.html:10
+#: templates/edit-channel.html:10
 msgid "Miro Guide - Edit Feed"
 msgstr "Vodnik Miro - Uredi vir"
 
-#: guide/templates/edit-channel.html:12
-#: templates-optimized/guide/edit-channel.html:12
+#: templates/edit-channel.html:12
 msgid "Miro Guide - Edit Site"
 msgstr "Vodnik Miro - Uredi mesto"
 
-#: guide/templates/edit-channel.html:16
-#: templates-optimized/guide/edit-channel.html:16
+#: templates/edit-channel.html:16
 msgid "Edit Channel"
 msgstr "Uredi kanal"
 
-#: guide/templates/edit-channel.html:18 guide/templates/edit-user.html:46
-#: templates-optimized/guide/edit-channel.html:18
-#: templates-optimized/guide/edit-user.html:46
+#: templates/edit-channel.html:18 templates/edit-user.html:46
 msgid "Update"
 msgstr "Posodobi"
 
-#: guide/templates/edit-channel.html:21
-#: templates-optimized/guide/edit-channel.html:21
+#: templates/edit-channel.html:21
 msgid "Statistics"
 msgstr "Statistika"
 
-#: guide/templates/edit-channel.html:23
-#: templates-optimized/guide/edit-channel.html:23
+#: templates/edit-channel.html:23
 msgid "Subscriptions* Today"
 msgstr "naročnin* danes"
 
-#: guide/templates/edit-channel.html:25
-#: templates-optimized/guide/edit-channel.html:25
+#: templates/edit-channel.html:25
 msgid "Subscriptions* Month"
 msgstr "Naročnin na mesec"
 
-#: guide/templates/edit-channel.html:27
-#: templates-optimized/guide/edit-channel.html:27
+#: templates/edit-channel.html:27
 msgid "Subscriptions* Overall"
 msgstr "Naročnin skupaj"
 
-#: guide/templates/edit-channel.html:30
-#: templates-optimized/guide/edit-channel.html:30
+#: templates/edit-channel.html:30
 msgid "Popularity Rank Today"
 msgstr "Današnja lestvica"
 
-#: guide/templates/edit-channel.html:34
-#: templates-optimized/guide/edit-channel.html:34
+#: templates/edit-channel.html:34
 msgid "Popularity Rank Month"
 msgstr "Mesečna lestvica"
 
-#: guide/templates/edit-channel.html:38
-#: templates-optimized/guide/edit-channel.html:38
+#: templates/edit-channel.html:38
 msgid "Popularity Rank Overall"
 msgstr "Lestvica vseh časov"
 
-#: guide/templates/edit-channel.html:44
-#: templates-optimized/guide/edit-channel.html:44
+#: templates/edit-channel.html:44
 msgid "* unique Miro Guide 'add feed' hits"
 msgstr "* enkratni zadetki Vodnika Miro 'dodaj vir'"
 
-#: guide/templates/edit-channel.html:46
-#: templates-optimized/guide/edit-channel.html:46
+#: templates/edit-channel.html:46
 msgid "* unique Miro Guide 'add site' hits"
 msgstr "* enkratni zadetki Vodnika Miro 'dodaj vir'"
 
-#: guide/templates/edit-user.html:7 templates-optimized/guide/edit-user.html:7
+#: templates/edit-user.html:7
 msgid "Miro Guide - Update My Profile"
 msgstr "Vodnik Miro - Posodobi moj profil"
 
-#: guide/templates/edit-user.html:27
-#: templates-optimized/guide/edit-user.html:27
+#: templates/edit-user.html:27
 msgid "Update My Profile "
 msgstr "Posodobi moj profil "
 
-#: guide/templates/email-channel-owners.html:7
-#: templates-optimized/guide/email-channel-owners.html:7
+#: templates/email-channel-owners.html:7
 msgid "Miro Guide - Email Show Managers"
 msgstr "Vodnik Miro - Pošlji e-sporočilo upraviteljem vsebine"
 
-#: guide/templates/email-form.html:12
-#: templates-optimized/guide/email-form.html:12
+#: templates/email-form.html:16
 msgid "Please Send a Note to the Feed Manager!"
 msgstr "Prosimo, pošljite zaznamek upravitelju vira!"
 
-#: guide/templates/email-form.html:14
-#: templates-optimized/guide/email-form.html:14
+#: templates/email-form.html:18
 msgid "Please Send a Note to the Site Manager!"
 msgstr "Prosimo, pošljite zaznamek upravitelju spletnega mesta!"
 
-#: guide/templates/email-form.html:26
-#: templates-optimized/guide/email-form.html:26
+#: templates/email-form.html:30
 msgid "send e-mail to"
 msgstr "Pošlji e-poštno sporočilo"
 
-#: guide/templates/email-form.html:39
-#: templates-optimized/guide/email-form.html:39
+#: templates/email-form.html:39
 #, python-format
 msgid "Skip the note, just %(type)s"
 msgstr "Preskoči sporočilo, zgolj %(type)s"
 
-#: guide/templates/email-form.html:44
-#: templates-optimized/guide/email-form.html:44
+#: templates/email-form.html:44
 msgid ""
 "* This show has been added by us. You can hunt for the producer's email "
 "address here:"
 msgstr ""
 "* To vsebino smo dodali mi. E-poštni naslov producenta lahko poiščete tukaj:"
 
-#: guide/templates/for-user.html:9
+#: templates/for-user.html:9
 #, python-format
 msgid ""
 "\n"
@@ -1232,96 +973,31 @@ msgstr ""
 "    Vodnik Miro - Vsebine za uporabnika %(username)s\n"
 "  "
 
-#: guide/templates/for-user.html:17 templates-optimized/guide/for-user.html:17
-msgid "My User Info"
-msgstr "Moji uporabniški podatki"
-
-#: guide/templates/for-user.html:19 templates-optimized/guide/for-user.html:19
-msgid "User Info for"
-msgstr "Podatki o uporabniku"
-
-#: guide/templates/for-user.html:36 templates-optimized/guide/for-user.html:36
+#: templates/for-user.html:31
 msgid "Submitted shows: "
 msgstr "Objavljene oddaje: "
 
-#: guide/templates/form-errors.html:8 templates/500.html:11
-#: templates-optimized/500.html:11
-#: templates-optimized/guide/form-errors.html:8
+#: templates/form-errors.html:8 templates/listing.html:69
 msgid "Sorry!"
 msgstr "Žal!"
 
-#: guide/templates/form-field.html:10
-#: templates-optimized/guide/form-field.html:10
+#: templates/form-field.html:10
 msgid "Error"
 msgstr "Napaka"
 
-#: guide/templates/frontpage.html:49
-msgid ""
-"\n"
-"                  Click <a href=\"#\" class=\"add_feed_button_welcome\">ADD "
-"FEED</a>\n"
-"                  to get any show into your sidebar. The first episode\n"
-"                  begins downloading automatically and you'll get show\n"
-"                  updates as soon as they're available.\n"
-"                "
-msgstr ""
-"\n"
-"                  Kliknite <a href=\"#\" "
-"class=\"add_feed_button_welcome\">DODAJ VIR</a>,\n"
-"                  tako da dodate oddajo v stransko vrstico. Prva epizoda\n"
-"                  se začne prenašati nemudoma, posodobitve oddaje\n"
-"                  pa boste prejeli takoj, ko bodo na voljo.\n"
-"                "
-
-#: guide/templates/frontpage.html:55
-#: templates-optimized/guide/frontpage.html:55
+#: templates/frontpage.html:102
 msgid "It's all free!"
 msgstr "Vse je zastonj!"
 
-#: guide/templates/frontpage.html:116
-#: templates-optimized/guide/frontpage.html:116
+#: templates/frontpage.html:172
 msgid "Shows in"
 msgstr "Vsebine v"
 
-#: guide/templates/frontpage.html:127 guide/templates/frontpage.html.py:194
+#: templates/frontpage.html:191 templates/frontpage.html.py:220
 msgid "View All"
 msgstr "Pokaži vse"
 
-#: guide/templates/frontpage.html:141
-#: templates-optimized/guide/frontpage.html:141
-msgid "Please support our sponsors"
-msgstr "Podprite naše sponzorje"
-
-#: guide/templates/frontpage.html:143
-#: templates-optimized/guide/frontpage.html:143
-msgid "Become One"
-msgstr "Postanite sponzor"
-
-#: guide/templates/frontpage.html:153
-msgid "Genre Browser"
-msgstr "Brskalnik po žanrih"
-
-#: guide/templates/frontpage.html:156
-msgid "View All Genres"
-msgstr "Pokaži vse žanre"
-
-#: guide/templates/frontpage.html:161
-#, python-format
-msgid ""
-"\n"
-"              View all shows in <strong>%(category)s</strong>\n"
-"            "
-msgstr ""
-"\n"
-"              Pokaži vse v kategoriji <strong>%(category)s</strong>\n"
-"            "
-
-#: guide/templates/frontpage.html:190
-#: templates-optimized/guide/frontpage.html:190
-msgid "Popular Shows"
-msgstr "Priljubljene vsebine"
-
-#: guide/templates/group-list.html:9
+#: templates/group-list.html:9
 #, python-format
 msgid ""
 "\n"
@@ -1332,43 +1008,27 @@ msgstr ""
 "    Vodnik Miro - %(group_name)s\n"
 "  "
 
-#: guide/templates/group-list.html:23
-#, python-format
-msgid ""
-"\n"
-"                %(count)s Shows\n"
-"              "
-msgstr ""
-"\n"
-"                %(count)s vsebin\n"
-"              "
-
-#: guide/templates/how-to-moderate.html:9
-#: templates-optimized/guide/how-to-moderate.html:9
+#: templates/how-to-moderate.html:9
 msgid "Miro Guide - How to Moderate"
 msgstr "Vodnik Miro - Kako moderirati"
 
-#: guide/templates/item.html:24 templates-optimized/guide/item.html:22
+#: templates/item.html:28
 msgid "(no name)"
 msgstr "(brez imena)"
 
-#: guide/templates/item.html:35 templates-optimized/guide/item.html:35
+#: templates/item.html:39
 msgid "Download"
 msgstr "Prenesi"
 
-#: guide/templates/item.html:43 templates-optimized/guide/item.html:29
+#: templates/item.html:47
 msgid "Read more"
 msgstr "Več o tem"
 
-#: guide/templates/item.html:46 templates-optimized/guide/item.html:34
-msgid "Preview"
-msgstr "Predogled"
-
-#: guide/templates/listing.html:13 templates-optimized/guide/listing.html:12
+#: templates/listing.html:37
 msgid "Terms too short"
 msgstr "Iskani niz je prekratek"
 
-#: guide/templates/listing.html:14
+#: templates/listing.html:38
 msgid ""
 "\n"
 "        I'm sorry, your search term was too short; it must be at least\n"
@@ -1380,11 +1040,11 @@ msgstr ""
 "        tri znake.\n"
 "      "
 
-#: guide/templates/listing.html:31
+#: templates/listing.html:52
 msgid "Time to Upgrade!"
 msgstr "Čas je za posodobitev!"
 
-#: guide/templates/listing.html:33
+#: templates/listing.html:54
 msgid ""
 "\n"
 "              You're not seeing all the Miro Guide content -- adding\n"
@@ -1399,11 +1059,23 @@ msgstr ""
 "href=\"http://getmiro.com\">nadgradite</a>.\n"
 "            "
 
-#: guide/templates/listing.html:57 templates-optimized/guide/listing.html:33
+#: templates/listing.html:71
+msgid ""
+"\n"
+"              Sites aren't supported on Linux due to an incompatibility with "
+"the Flash plugin.\n"
+"            "
+msgstr ""
+"\n"
+"              Mesta v sistemu Linux niso podprta zaradi nekompatibilnosti z "
+"vtičnikom Flash.\n"
+"            "
+
+#: templates/listing.html:94
 msgid "Search Results"
 msgstr "Rezultati iskanja"
 
-#: guide/templates/listing.html:59
+#: templates/listing.html:103
 #, python-format
 msgid ""
 "\n"
@@ -1430,7 +1102,7 @@ msgstr[3] ""
 "          %(feed_count)s viri se ujemajo s/z \"%(t)s\"\n"
 "          "
 
-#: guide/templates/listing.html:67
+#: templates/listing.html:112
 #, python-format
 msgid ""
 "\n"
@@ -1457,7 +1129,11 @@ msgstr[3] ""
 "          %(site_count)s spletna mesta se ujemajo z \"%(t)s\"\n"
 "          "
 
-#: guide/templates/listing.html:111
+#: templates/listing.html:146
+msgid "Feeds"
+msgstr "Viri"
+
+#: templates/listing.html:158
 msgid ""
 "Video feeds are downloaded first, and can be watched online or offline. Many "
 "are in full HD."
@@ -1465,7 +1141,11 @@ msgstr ""
 "Viri posnetkov se najprej prenesejo, nato pa jih lahko gledate povezani ali "
 "v brezpovezavnem načinu. Številni so v visoki ločljivosti (HD)."
 
-#: guide/templates/listing.html:138
+#: templates/listing.html:176
+msgid "Sites"
+msgstr "Mesta"
+
+#: templates/listing.html:186
 msgid ""
 "Most sites require a fast internet connection for streaming video. Bookmark "
 "your favorites with Miro."
@@ -1473,11 +1153,11 @@ msgstr ""
 "Večina spletnih mest zahteva za pretočne posnetke hitro internetno povezavo. "
 "Svoje priljubljene zaznamujte s programom Miro."
 
-#: guide/templates/login-message-language.html:3
+#: templates/login-message-language.html:7
 msgid "You need an account to change language settings"
 msgstr "Za spremembo jezikovnih nastavitev morate imeti svoj račun"
 
-#: guide/templates/login-message-language.html:5
+#: templates/login-message-language.html:9
 msgid ""
 "\n"
 "      We need you to login or register to change your language settings.\n"
@@ -1488,61 +1168,45 @@ msgstr ""
 "registrirati.\n"
 "    "
 
-#: guide/templates/login.html:10 templates-optimized/guide/login.html:10
+#: templates/login.html:9
 msgid "Miro Guide - Login"
 msgstr "Vodnik Miro - Prijava"
 
-#: guide/templates/login.html:17
+#: templates/login.html:15
 msgid "Time to sign up for an account!"
 msgstr "Čas je, da odprete svoj račun!"
 
-#: guide/templates/login.html:18
+#: templates/login.html:16
 msgid ""
-"Miro takes the video you like, compares them with other viewers' tastes, and "
-"then gives you recommendations."
+"Miro takes the videos you have rated, compares them with other viewers' "
+"tastes, and then gives you recommendations."
 msgstr ""
-"Miro si zapomni posnetke, ki so vam všeč, jih primerja z okusom drugih "
-"gledalcev in nato na osnovi sorodnosti ponuja predloge."
+"Miro vzame posnetke, ki ste jih ocenili, jih primerja z okusi drugih "
+"gledalcev in vam nato priporoči vsebine."
 
-#: guide/templates/login.html:19
+#: templates/login.html:17
 msgid "Rate more videos and feeds for more recommendations."
 msgstr ""
 "Ocenite čim več vsebin in virov, da boste prejeli še boljše predloge."
 
-#: guide/templates/login.html:23 guide/templates/login.html.py:28
-#: guide/templates/topmenu_dropdowns.html:64
-#: templates-optimized/guide/login.html:17
-#: templates-optimized/guide/login.html:22
-#: templates-optimized/guide/topmenu_dropdowns.html:64
+#: templates/login.html:20 templates/login.html.py:25
+#: templates/topmenu_dropdowns.html:67
 msgid "Login"
 msgstr "Prijava"
 
-#: guide/templates/login.html:24 templates-optimized/guide/login.html:18
+#: templates/login.html:21
 msgid "Got an account? Just log in!"
 msgstr "Imate račun? Prijavite se!"
 
-#: guide/templates/login.html:38 guide/templates/login.html.py:42
-#: templates-optimized/guide/login.html:32
-#: templates-optimized/guide/login.html:36
+#: templates/login.html:35 templates/login.html.py:39
 msgid "Register"
 msgstr "Registriraj se"
 
-#: guide/templates/moderate-actions.html:20
-#: templates-optimized/guide/moderate-actions.html:20
-msgid "Show marked as HD! Does it meet"
-msgstr "Oddaja, označena s HD! Ali ustreza"
+#: templates/moderate-actions.html:24
+msgid "HD"
+msgstr "HD"
 
-#: guide/templates/moderate-actions.html:20
-#: templates-optimized/guide/moderate-actions.html:20
-msgid "requirements"
-msgstr "zahtevam"
-
-#: guide/templates/moderate-actions.html:20
-#: templates-optimized/guide/moderate-actions.html:20
-msgid "?"
-msgstr "?"
-
-#: guide/templates/moderate.html:14
+#: templates/moderate.html:14
 #, python-format
 msgid ""
 "\n"
@@ -1553,7 +1217,7 @@ msgstr ""
 "        %(count)s neocenjenih vsebin\n"
 "        "
 
-#: guide/templates/moderate.html:19
+#: templates/moderate.html:19
 #, python-format
 msgid ""
 "\n"
@@ -1564,7 +1228,7 @@ msgstr ""
 "        %(count)s nepoznanih vsebin\n"
 "        "
 
-#: guide/templates/moderate.html:24
+#: templates/moderate.html:24
 #, python-format
 msgid ""
 "\n"
@@ -1575,7 +1239,7 @@ msgstr ""
 "        %(count)s vsebin čaka na odgovor\n"
 "        "
 
-#: guide/templates/moderate.html:29
+#: templates/moderate.html:29
 #, python-format
 msgid ""
 "\n"
@@ -1586,7 +1250,7 @@ msgstr ""
 "        %(count)s prekinjenih oddaj\n"
 "        "
 
-#: guide/templates/moderate.html:34
+#: templates/moderate.html:34
 #, python-format
 msgid ""
 "\n"
@@ -1597,7 +1261,18 @@ msgstr ""
 "        %(count)s zavrnjenih vsebin\n"
 "        "
 
-#: guide/templates/moderate.html:39
+#: templates/moderate.html:39
+#, python-format
+msgid ""
+"\n"
+"        %(count)s Flagged HD shows\n"
+"        "
+msgstr ""
+"\n"
+"        %(count)s označenih oddaj HD\n"
+"        "
+
+#: templates/moderate.html:44
 #, python-format
 msgid ""
 "\n"
@@ -1608,80 +1283,113 @@ msgstr ""
 "  %(count)s oddaj v izpostavljeni vrsti\n"
 "  "
 
-#: guide/templates/moderate.html:45 templates-optimized/guide/moderate.html:45
+#: templates/moderate.html:50
 msgid "How to Moderate"
 msgstr "Kako moderirati"
 
-#: guide/templates/moderate.html:46 templates-optimized/guide/moderate.html:46
+#: templates/moderate.html:51
 msgid "Search For Users"
 msgstr "Poišči uporabnike"
 
-#: guide/templates/moderate.html:47 templates-optimized/guide/moderate.html:47
+#: templates/moderate.html:52
 msgid "Moderator list"
 msgstr "Seznam moderatorja"
 
-#: guide/templates/moderate.html:49 templates-optimized/guide/moderate.html:49
+#: templates/moderate.html:54
 msgid "Edit Genres list"
 msgstr "Uredi seznam žanrov"
 
-#: guide/templates/moderate.html:50 templates-optimized/guide/moderate.html:50
+#: templates/moderate.html:55
 msgid "Edit Languages list"
 msgstr "Uredi seznam jezikov"
 
-#: guide/templates/moderate.html:51 guide/templates/moderator-history.html:12
-#: templates-optimized/guide/moderate.html:51
-#: templates-optimized/guide/moderator-history.html:12
+#: templates/moderate.html:56 templates/moderator-history.html:12
 msgid "Moderator History"
 msgstr "Zgodovina moderatorja"
 
-#: guide/templates/moderate.html:52 templates-optimized/guide/moderate.html:52
+#: templates/moderate.html:57
 msgid "Email Show Managers"
 msgstr "Piši e-pismo upraviteljem oddaje"
 
-#: guide/templates/moderator-board.html:9
-#: templates-optimized/guide/moderator-board.html:9
+#: templates/moderate.html:69
+msgid "Make New post:"
+msgstr "Naredite novo objavo:"
+
+#: templates/moderate.html:72
+msgid "Title:"
+msgstr "Naslov:"
+
+#: templates/moderate.html:73
+msgid "Body:"
+msgstr "Telo:"
+
+#: templates/moderate.html:75
+msgid "Email Moderators:"
+msgstr "E-pišite moderatorjem:"
+
+#: templates/moderate.html:81
+msgid "Latest Posts"
+msgstr "Zadnje objave"
+
+#: templates/moderate.html:82 templates/moderate.html.py:85
+#, python-format
+msgid "(See all %(post_count)s posts)"
+msgstr "(Pokaži vseh %(post_count)s objav)"
+
+#: templates/moderate.html:88 templates/shared.html:11
+msgid "Shared by Moderators"
+msgstr "V skupni rabi moderatorjev"
+
+#: templates/moderate.html:91
+#, python-format
+msgid "Shared by %(moderator)s:"
+msgstr "V skupno rabo dal %(moderator)s:"
+
+#: templates/moderate.html:95
+msgid "(See all shared shows)"
+msgstr "(Pokaži vse oddaje v skupni rabi)"
+
+#: templates/moderator-board.html:9
 msgid "Moderator Message Board"
 msgstr "Forum moderatorjev"
 
-#: guide/templates/moderator-history.html:8
-#: templates-optimized/guide/moderator-history.html:8
+#: templates/moderator-history.html:8
 msgid "Miro Guide - Moderator History"
 msgstr "Vodnik Miro - Zgodovina moderatorja"
 
-#: guide/templates/moderator-history.html:18
-#: templates-optimized/guide/moderator-history.html:18
+#: templates/moderator-history.html:18
 msgid "User"
 msgstr "Uporabnik"
 
-#: guide/templates/moderator-history.html:19
-#: templates-optimized/guide/moderator-history.html:19
+#: templates/moderator-history.html:19
 msgid "Show"
 msgstr "Pokaži"
 
-#: guide/templates/moderator-history.html:20
-#: templates-optimized/guide/moderator-history.html:20
+#: templates/moderator-history.html:20
 msgid "Action"
 msgstr "Dejanje"
 
-#: guide/templates/moderator-history.html:21
-#: templates-optimized/guide/moderator-history.html:21
+#: templates/moderator-history.html:21
 msgid "Date"
 msgstr "Datum"
 
-#: guide/templates/password-changed.html:7
-#: guide/templates/password-changed.html:10
+#: templates/password-changed.html:7 templates/password-changed.html.py:10
 msgid "Password Set"
 msgstr "Geslo določeno"
 
-#: guide/templates/password-changed.html:11
+#: templates/password-changed.html:11
 msgid "A new password has been created for your account."
 msgstr "Za vaš račun je bilo izdelano novo geslo."
 
-#: guide/templates/playback.html:21
+#: templates/playback.html:26 templates/show-channel.html:62
+msgid "Add Feed to Your Sidebar"
+msgstr "Dodaj vir v stransko vrstico"
+
+#: templates/playback.html:37
 msgid "BitTorrent Video"
 msgstr "Video BitTorrent"
 
-#: guide/templates/playback.html:22 guide/templates/playback.html.py:61
+#: templates/playback.html:38 templates/playback.html.py:76
 #, python-format
 msgid ""
 "\n"
@@ -1694,130 +1402,87 @@ msgstr ""
 "ogledovanja je kar <a %(subscription_link)s>z Mirom</a>.\n"
 "          "
 
-#: guide/templates/playback.html:27
-msgid "This is HD!"
-msgstr "To je visoka ločljivost!"
-
-#: guide/templates/playback.html:29
-#, python-format
-msgid ""
-"\n"
-"            High-definition videos are often slow to preview. You may\n"
-"            want to use Miro to <a href=\"%(download_url)s\">download</a>\n"
-"            the video or <a %(subscription_link)s>subscribe</a>\n"
-"            to the feed. It's free and easy!\n"
-"          "
-msgstr ""
-"\n"
-"            Posnetki v visoki ločljivosti so pogosto prepočasni za "
-"predogled.\n"
-"            Z Mirom lahko raje <a href=\"%(download_url)s\">prenesete</a>\n"
-"            posnetek ali se <a %(subscription_link)s>naročite</a>\n"
-"            na vir. Zastonj je in enostavno!\n"
-"          "
-
-#: guide/templates/playback.html:48 templates-optimized/guide/playback.html:22
+#: templates/playback.html:63
 msgid "Video Title:"
 msgstr "Naslov posnetka:"
 
-#: guide/templates/playback.html:52 templates-optimized/guide/playback.html:26
+#: templates/playback.html:67
 msgid "Back to Feed:"
 msgstr "Nazaj na vir:"
 
-#: guide/templates/playback.html:74 templates-optimized/guide/playback.html:40
+#: templates/playback.html:89
 msgid "Synopsis"
 msgstr "Sinopsis"
 
-#: guide/templates/playback.html:88 templates-optimized/guide/playback.html:54
+#: templates/playback.html:103
 msgid "DOWNLOAD"
 msgstr "Prenesi"
 
-#: guide/templates/playback.html:99 templates-optimized/guide/playback.html:64
+#: templates/playback.html:114
 msgid "SHARE"
 msgstr "V skupno rabo"
 
-#: guide/templates/playback.html:109
-#: templates-optimized/guide/playback.html:75
+#: templates/playback.html:124
 msgid "Date Posted"
 msgstr "Datum objave"
 
-#: guide/templates/playback.html:125
-#: templates-optimized/guide/playback.html:85
+#: templates/playback.html:140
 msgid "Previous"
 msgstr "Prejšnji"
 
-#: guide/templates/playback.html:150 guide/templates/show-channel.html:154
-#: templates-optimized/guide/playback.html:109
-#: templates-optimized/guide/show-channel.html:159
+#: templates/playback.html:165 templates/show-channel.html:149
 msgid "Recently Aired"
 msgstr "Pred kratkim v etru"
 
-#: guide/templates/popular.html:10
-#, python-format
-msgid ""
-"\n"
-"      Miro Guide - %(title)s\n"
-"    "
-msgstr ""
-"\n"
-"      Vodnik Miro - %(title)s\n"
-"    "
-
-#: guide/templates/popular.html:14 templates-optimized/guide/popular.html:14
-msgid "Miro Guide - Most Popular "
-msgstr "Vodnik Miro - Najbolj priljubljeni "
-
-#: guide/templates/popular.html:49
-#, python-format
-msgid ""
-"\n"
-"        Most Popular %(view)s\n"
-"        "
-msgstr ""
-"\n"
-"        Najbolj priljubljeni %(view)s\n"
-"        "
-
-#: guide/templates/recommend.html:11
-#: templates-optimized/guide/recommend.html:11
+#: templates/recommend.html:11
 msgid "Videos You'll Love"
 msgstr "posnetki, ki vam bodo všeč"
 
-#: guide/templates/recommend.html:15
+#: templates/recommend.html:15
 msgid "Things I've rated"
 msgstr "Vsebine, ki ste jih ocenili"
 
-#: guide/templates/share-form.html:35
-#: templates-optimized/guide/share-form.html:35
+#: templates/share-email.html:12
+msgid "This video podcast was shared via the Miro Guide"
+msgstr "Ta video podcast je v skupni rabi prek Vodnika Miro"
+
+#: templates/share-email.html:12
+msgid "This video was shared via the Miro Guide"
+msgstr "Ta posnetek je v skupni rabi prek Vodnika Miro"
+
+#: templates/share-email.html:14
+msgid "I thought you would like this video podcast!"
+msgstr "Zdelo se nam je, da vam bo ta video podcast všeč!"
+
+#: templates/share-email.html:14
+msgid "I thought you would like this video!"
+msgstr "Zdelo se nam je, da vam bo ta video všeč!"
+
+#: templates/share-form.html:39
 msgid "Via Email"
 msgstr "Prek e-pošte"
 
-#: guide/templates/share-form.html:42
-#: templates-optimized/guide/share-form.html:42
+#: templates/share-form.html:46
 msgid "From"
 msgstr "Pošiljatelj"
 
-#: guide/templates/share-form.html:46
-#: templates-optimized/guide/share-form.html:46
+#: templates/share-form.html:50
 msgid "Your Email"
 msgstr "Vaš e-poštni naslov"
 
-#: guide/templates/share-form.html:54
-#: templates-optimized/guide/share-form.html:54
+#: templates/share-form.html:58
 msgid "Recipients"
 msgstr "Prejemniki"
 
-#: guide/templates/share-form.html:57
-#: templates-optimized/guide/share-form.html:57
+#: templates/share-form.html:61
 msgid "Comma Separated Email Addresses"
 msgstr "Z vejicami ločeni e-poštni naslovi"
 
-#: guide/templates/share-form.html:63
-#: templates-optimized/guide/share-form.html:63
+#: templates/share-form.html:67
 msgid "Leave a Comment (Optional)"
 msgstr "Pusti komentar (neobvezno)"
 
-#: guide/templates/share-links.html:7
+#: templates/share-links.html:11
 msgid ""
 "\n"
 "          Share with your buddies, as well as the world. We all love gifts.\n"
@@ -1828,589 +1493,1051 @@ msgstr ""
 "darila.\n"
 "        "
 
-#: guide/templates/share-links.html:13
-#: templates-optimized/guide/share-links.html:13
+#: templates/share-links.html:17
 msgid "Direct Link"
 msgstr "Neposredna povezava"
 
-#: guide/templates/share-links.html:16
-#: templates-optimized/guide/share-links.html:16
+#: templates/share-links.html:20
 msgid "Right click and copy link location"
 msgstr "Desno kliknite in kopirajte mesto povezave"
 
-#: guide/templates/share-links.html:32
-#: templates-optimized/guide/share-links.html:32
+#: templates/share-links.html:36
 msgid "Facebook"
 msgstr "Facebook"
 
-#: guide/templates/share-links.html:35
-#: templates-optimized/guide/share-links.html:35
+#: templates/share-links.html:39
 msgid "StumbleUpon"
 msgstr "StumbleUpon"
 
-#: guide/templates/share-links.html:38
-#: templates-optimized/guide/share-links.html:38
+#: templates/share-links.html:42
 msgid "Del.icio.us"
 msgstr "Del.icio.us"
 
-#: guide/templates/share-links.html:41
-#: templates-optimized/guide/share-links.html:41
+#: templates/share-links.html:45
 msgid "Digg"
 msgstr "Digg"
 
-#: guide/templates/share-links.html:49
-#: templates-optimized/guide/share-links.html:49
+#: templates/share-links.html:48
+msgid "Twitter"
+msgstr "Twitter"
+
+#: templates/share-links.html:56
 msgid "Close"
 msgstr "Zapri"
 
-#: guide/templates/shared.html:7 templates-optimized/guide/shared.html:7
+#: templates/shared.html:7
 msgid "Miro - Shared"
 msgstr "Miro - Skupna raba"
 
-#: guide/templates/shared.html:11 templates-optimized/guide/shared.html:11
-msgid "Shared by Moderators"
-msgstr "V skupni rabi moderatorjev"
-
-#: guide/templates/show-channel.html:18
-#: templates-optimized/guide/show-channel.html:27
+#: templates/show-channel.html:19
 msgid "Miro Guide - "
 msgstr "Vodnik Miro - "
 
-#: guide/templates/show-channel.html:39
-msgid ""
-"\n"
-"                This show may not be available to you, as it is\n"
-"                restricted to certain countries.\n"
-"              "
-msgstr ""
-"\n"
-"                Ta oddaja morda vam ne bo na voljo, saj je\n"
-"                omejena na določene države.\n"
-"              "
+#: templates/show-channel.html:49
+#, python-format
+msgid "Avg. %(average)s with  1 rating"
+msgid_plural "Avg. %(average)s with %(count)s ratings"
+msgstr[0] "Povp. %(average)s z %(count)s ocenami"
+msgstr[1] "Povp. %(average)s z %(count)s oceno"
+msgstr[2] "Povp. %(average)s z %(count)s ocenama"
+msgstr[3] "Povp. %(average)s z %(count)s ocenami"
 
-#: guide/templates/show-channel.html:75
-msgid "Add Feed to Your Sidebar"
-msgstr "Dodaj vir v stransko vrstico"
-
-#: guide/templates/show-channel.html:77
-msgid "Add Site to Your Sidebar"
-msgstr "Dodaj mesto v stransko vrstico"
-
-#: guide/templates/show-channel.html:83
-#: templates-optimized/guide/show-channel.html:100
+#: templates/show-channel.html:73
 msgid "Visit Show Website"
 msgstr "Obišči spletno stran vsebine"
 
-#: guide/templates/show-channel.html:91
-#: templates-optimized/guide/show-channel.html:114
+#: templates/show-channel.html:82
 msgid "Show all"
 msgstr "Pokaži vse"
 
-#: guide/templates/show-channel.html:114
-msgid "Feed"
-msgstr "Vir"
+#: templates/show-channel.html:109
+msgid "Not HD?"
+msgstr "Ni v visoki ločljivosti (HD)?"
 
-#: guide/templates/show-channel.html:203
+#: templates/show-channel.html:110
+msgid ""
+"High-Definition video means having a resolution of 1080x720 or more pixels.  "
+"If you suspect this may be lower resolution, please press OK."
+msgstr ""
+"Video visoke ločljivosti pomeni ločljivost 1080x720 ali več slikovnih točk. "
+"Če sumite, da ima video manjšo ločljivost, pritisnite V redu."
+
+#: templates/show-channel.html:110
+msgid "Flag it"
+msgstr "Označi z zastavico"
+
+#: templates/show-channel.html:188
 msgid "Related Feeds"
 msgstr "Sorodni viri"
 
-#: guide/templates/show-channel.html:203
+#: templates/show-channel.html:188
 msgid "Related Sites"
 msgstr "Sorodna spletna mesta"
 
-#: guide/templates/tag-list.html:7 templates-optimized/guide/tag-list.html:7
+#: templates/submit-feed-url.html:7
+msgid "Add a Feed to Miro"
+msgstr "Dodaj vir v Miro"
+
+#: templates/submit-feed-url.html:34
+msgid "I am the Creator"
+msgstr "Sem ustvarjalec/ustvarjalka tega"
+
+#: templates/submit-feed-url.html:39
+msgid "I'm a Fan"
+msgstr "Sem oboževalec/oboževalka"
+
+#: templates/tag-list.html:7
 msgid "Miro - Tags"
 msgstr "Miro - Značke"
 
-#: guide/templates/topmenu_dropdowns.html:11
-#: templates-optimized/guide/topmenu_dropdowns.html:11
+#: templates/topmenu_dropdowns.html:15
 msgid "Moderator's Area"
 msgstr "Območje moderatorja"
 
-#: guide/templates/topmenu_dropdowns.html:15
-#: templates-optimized/guide/topmenu_dropdowns.html:15
+#: templates/topmenu_dropdowns.html:19
 msgid "View/Edit Profile"
 msgstr "Pokaži/uredi profil"
 
-#: guide/templates/topmenu_dropdowns.html:20
-#: templates-optimized/guide/topmenu_dropdowns.html:20
+#: templates/topmenu_dropdowns.html:24
 msgid "Shows I Manage"
 msgstr "Vsebine, s katerimi upravljam"
 
-#: guide/templates/topmenu_dropdowns.html:27
-#: templates-optimized/guide/topmenu_dropdowns.html:27
+#: templates/topmenu_dropdowns.html:30
 msgid "Submit a Show"
 msgstr "Objavi oddajo"
 
-#: guide/templates/topmenu_dropdowns.html:34
-#: templates-optimized/guide/topmenu_dropdowns.html:34
+#: templates/topmenu_dropdowns.html:37
 msgid "Log Out"
 msgstr "Odjavi"
 
-#: guide/templates/topmenu_dropdowns.html:55
-#: templates-optimized/guide/topmenu_dropdowns.html:55
+#: templates/topmenu_dropdowns.html:58
 msgid "Password"
 msgstr "Geslo"
 
-#: guide/templates/topmenu_dropdowns.html:61
-#: templates-optimized/guide/topmenu_dropdowns.html:61
+#: templates/topmenu_dropdowns.html:64
 msgid "Forgot password"
 msgstr "Pozabil(a) sem geslo"
 
-#: guide/templates/topmenu_dropdowns.html:100
-#: templates-optimized/guide/topmenu_dropdowns.html:100
+#: templates/topmenu_dropdowns.html:103
 msgid "Register!"
 msgstr "Registriraj me!"
 
-#: guide/templates/topmenu_dropdowns.html:109
-#: templates-optimized/guide/topmenu_dropdowns.html:109
+#: templates/topmenu_dropdowns.html:112
 msgid "Register Now!"
 msgstr "Registrirajte se zdaj!"
 
-#: guide/templates/topmenu_dropdowns.html:110
-#: templates-optimized/guide/topmenu_dropdowns.html:110
+#: templates/topmenu_dropdowns.html:113
 msgid "Always Free"
 msgstr "Vedno brezplačno"
 
-#: guide/templates/topmenu_dropdowns.html:120
+#: templates/topmenu_dropdowns.html:123
 msgid "Display Shows:"
 msgstr "Pokaži oddaje:"
 
-#: guide/templates/topmenu_dropdowns.html:125
+#: templates/topmenu_dropdowns.html:128
 msgid "In all languages"
 msgstr "v vseh jezikih"
 
-#: guide/templates/topmenu_dropdowns.html:130
+#: templates/topmenu_dropdowns.html:133
 msgid "In my language"
 msgstr "v mojem jeziku"
 
-#: guide/templates/topmenu_dropdowns.html:137
+#: templates/topmenu_dropdowns.html:140
 msgid "My Language:"
 msgstr "Moj jezik:"
 
-#: guide/templates/user_ratings.html:9
-#: templates-optimized/guide/user_ratings.html:9
+#: templates/user_ratings.html:13
 msgid "Miro Guide - Shows You've Rated"
 msgstr "Vodnik Miro - Vsebine, ki ste jih ocenili"
 
-#: guide/templates/user_ratings.html:13
-#: templates-optimized/guide/user_ratings.html:13
+#: templates/user_ratings.html:17
 msgid "Shows You've Rated"
 msgstr "Vsebine, ki ste jih ocenili"
 
-#: guide/views/api.py:202
+#: views/api.py:209
 msgid "Invalid verification code."
 msgstr "Neveljavna preveritvena koda."
 
-#: guide/views/categories.py:27
+#: views/categories.py:33
 msgid "Edit Genre"
 msgstr "Uredi žanr"
 
-#: guide/views/categories.py:28
+#: views/categories.py:34
 msgid "New Genre"
 msgstr "Nov žanr"
 
-#: guide/views/channels.py:142 guide/views/moderator.py:50
+#: views/channels.py:142 views/moderator.py:57
 msgid "Channels Waiting For Replies"
 msgstr "Kanali, ki čakajo na odziv"
 
-#: guide/views/channels.py:145 guide/views/moderator.py:53
+#: views/channels.py:145 views/moderator.py:60
 msgid "Channels Flagged Don't Know By a Moderator"
 msgstr "kanalov, ki jih je moderator označil za neznane"
 
-#: guide/views/channels.py:148 guide/views/moderator.py:56
+#: views/channels.py:148 views/moderator.py:63
 msgid "Rejected Channels"
 msgstr "Zavrnjeni kanali"
 
-#: guide/views/channels.py:151 guide/views/moderator.py:59
+#: views/channels.py:151 views/moderator.py:66
 msgid "Suspended Channels"
 msgstr "Blokirani kanali"
 
-#: guide/views/channels.py:156 guide/views/moderator.py:63
+#: views/channels.py:156 views/moderator.py:70
 msgid "Featured Queue"
 msgstr "Vrsta pod žarometom"
 
-#: guide/views/channels.py:159 guide/views/moderator.py:66
+#: views/channels.py:159 views/moderator.py:79
 msgid "Unreviewed Channels"
 msgstr "Neocenjeni kanali"
 
-#: guide/views/channels.py:170
+#: views/channels.py:170
 #, python-format
 msgid "Subscribe to all %i channels"
 msgstr "Naroči se na vseh %i kanalov"
 
-#: guide/views/channels.py:249
+#: views/channels.py:260
 msgid "Rejection emails need a body"
 msgstr "E-poštna sporočila zavrnitve morajo imeti telo sporočila"
 
-#: guide/views/channels.py:254
+#: views/channels.py:265
 #, python-format
 msgid "%s featured on Miro Guide"
 msgstr "%s - v vodniku Miro"
 
-#: guide/views/channels.py:377
+#: views/channels.py:361
+msgid ""
+"This show may not be available to you, as it is restricted to certain "
+"countries."
+msgstr ""
+"Ta oddaja vam morda ne bo na voljo, saj je omejena na določene države."
+
+#: views/channels.py:392
 #, python-format
 msgid "Subscriptions for %s"
 msgstr "Naročnine %s"
 
-#: guide/views/channels.py:615
+#: views/channels.py:416
+msgid "Thanks!"
+msgstr "Hvala!"
+
+#: views/channels.py:417
+msgid "Your flag has been recorded and will be reviewed by a moderator."
+msgstr "Vaša zastavica je bila shranjena in jo bo pregledal moderator."
+
+#: views/channels.py:648
+#, python-format
+msgid "Shows for %s"
+msgstr "Oddaje za %s"
+
+#: views/channels.py:680
 msgid "Current image (no change)"
 msgstr "Trenutna slika (brez spremembe)"
 
-#: guide/views/channels.py:617 guide/views/submit.py:113
+#: views/channels.py:682 views/submit.py:117
 msgid "Current image (uploaded)"
 msgstr "Trenutna slika (prenesena)"
 
-#: guide/views/languages.py:17
+#: views/languages.py:21
 msgid "Shows by Language"
 msgstr "Vsebine po jezikih"
 
-#: guide/views/languages.py:25
+#: views/languages.py:30
 msgid "Edit Languages"
 msgstr "Uredi jezike"
 
-#: guide/views/languages.py:26
+#: views/languages.py:31
 msgid "New Language"
 msgstr "Nov jezik"
 
-#: guide/views/share.py:328
+#: views/moderator.py:76
+msgid "Flagged HD Channels"
+msgstr "Označeni kanali HD"
+
+#: views/moderator.py:96
+#, python-format
+msgid "Subscribe to all %i channels on this page"
+msgstr "Naroči se na vseh %i kanalov na tej strani"
+
+#: views/share.py:356
 #, python-format
 msgid "%(from_email)s wants to share a video feed with you"
 msgstr "%(from_email)s želi z vami deliti vir"
 
-#: guide/views/share.py:331
+#: views/share.py:370
 #, python-format
 msgid "%(from_email)s wants to share a video with you"
 msgstr "%(from_email)s želi z vami deliti posnetek"
 
-#: guide/views/submit.py:111
+#: views/submit.py:115
 msgid "Current image (from the feed)"
 msgstr "Trenutna slika (iz vira)"
 
-#: templates/404.html:9 templates-optimized/404.html:9
-msgid "Page not found"
-msgstr "Strani ni mogoče najti"
+#~ msgid "Channel Name"
+#~ msgstr "Ime kanala"
 
-#: templates/404.html:10 templates/500.html:22 templates-optimized/404.html:10
-#: templates-optimized/500.html:22
-msgid "go to front page"
-msgstr "pojdi na naslovnico"
+#~ msgid "What language are most of these videos in?"
+#~ msgstr "V katerem jeziku je večina posnetkov?"
 
-#: templates/500.html:7 templates-optimized/500.html:7
-msgid "Miro Guide"
-msgstr "Vodnik Miro"
+#~ msgid "Postal Code"
+#~ msgstr "Poštna številka"
 
-#: templates/500.html:12 templates-optimized/500.html:12
-msgid ""
-"Our server is experiencing higher than normal load.\n"
-"Please try again shortly.  Thanks for your patience."
-msgstr ""
-"Naš strežnik je trenutno preveč obremenjen.\n"
-"Poskusite znova v kratkem. Hvala za potrpljenje!"
-
-#: templates/500.html:15 templates-optimized/500.html:15
 #, python-format
-msgid " Server Error (id: %(id)s )"
-msgstr " Napaka strežnika (id:%(id)s)"
+#~ msgid ""
+#~ "\n"
+#~ "        Most Popular %(view)s\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "        Najbolj priljubljeni %(view)s\n"
+#~ "        "
 
-#: templates/500.html:16 templates-optimized/500.html:16
-msgid ""
-"Sorry!  Your request resulted in an error.  We have logged it and our "
-"developers will fix it as soon as they can.  If this error\n"
-"persists, please contact:"
-msgstr ""
-"Oprostite!  Vaša zahteva se je končala z napako.  Zabeležili smo jo in naši "
-"razvijalci jo bodo popravili, ko bo to mogoče.  Če se ta napaka\n"
-"ponavlja, obvestite:"
+#~ msgid ""
+#~ "An RSS feed is what makes a podcast a podcast. It's a special URL that "
+#~ "applications like Miro and iTunes check periodically to know when there is a "
+#~ "new video for a channel. Video RSS feeds are strongly recommended for Miro."
+#~ msgstr ""
+#~ "Vir RSS iz podcasta naredi podcast. Gre za poseben URL, ki ga programi, kot "
+#~ "sta Miro in iTunes, periodično preverjata, da izvesta za nov video na "
+#~ "kanalu. Video vire RSS krepko priporočamo za uporabi Miroja."
 
-#: templates/500.html:19 templates-optimized/500.html:19
-msgid "Make sure to include the error ID at the top of this page."
-msgstr "Prepričajte se, da ste vključili številko napake na vrhu te strani."
+#, python-format
+#~ msgid ""
+#~ "Material that is roughly 1080x720, and higher, can be marked as HD. Please "
+#~ "make sure it has a sufficiently high video bitrate to avoid messy "
+#~ "artifacting. Roughly 95% of the material on the channel must meet this "
+#~ "criteria for it to be considered HD. Note: you are welcome to have an HD and "
+#~ "non-HD version of the same channel."
+#~ msgstr ""
+#~ "Gradivo v ločljivosti 1080x720 ali višji lahko označite kot visoko "
+#~ "ločljivostnega (HD). Zagotovite, da ima dovolj visoko bitno hitrost, da se "
+#~ "izognete zapacanim artefaktom. V grobem mora obsegati 95% od vsega gradiva "
+#~ "na kanalu, da ustreza kriteriju kanala visoke ločljivosti. Opomba: "
+#~ "spodbujamo vas, da imate dve različici istega kanala, HD in navadno."
 
-#: templates-optimized/guide/after-submit.html:16
-msgid ""
-"\n"
-"Our moderators will review your feed in the next few days to make\n"
-"sure that it works in Miro and that the content is not\n"
-"inappropriate.  Once the feed is approved, it will appear in the\n"
-"'Just Added' section on the front page.\n"
-msgstr ""
-"\n"
-"Naši moderatorji bodo pregledali vaš vir v naslednjih dneh in\n"
-"preverili, da deluje z Mirom in da je vsebina primerna za\n"
-"objavo.  Ko bo vir odobren, se bo pojavil v razdelku\n"
-"'Ravno dodano' na naslovnici.\n"
+#~ msgid "Genre Browser"
+#~ msgstr "Brskalnik po žanrih"
 
-#: templates-optimized/guide/after-submit.html:26
-msgid ""
-"\n"
-"You can update the details about your feed at anytime.  Just\n"
-"login to your account and click the 'My Submitted Feeds'\n"
-"link.\n"
-msgstr ""
-"\n"
-"Podrobnosti o viru lahko posodobite kadarkoli.  Le\n"
-"prijavite se in kliknite povezavo 'Moji objavljeni viri'.\n"
+#~ msgid "View All Genres"
+#~ msgstr "Pokaži vse žanre"
 
-#: templates-optimized/guide/after-submit.html:37
-msgid ""
-"\n"
-"Visit <a href=\"http://webbalert.com/\">webbalert.com</a> to see\n"
-"a real 1-click button in action\n"
-msgstr ""
-"\n"
-"Obiščite <a href=\"http://webbalert.com/\">webbalert.com</a>, če želite\n"
-"videti resničen gumb za 1-klik v praksi\n"
+#, python-format
+#~ msgid ""
+#~ "\n"
+#~ "              View all shows in <strong>%(category)s</strong>\n"
+#~ "            "
+#~ msgstr ""
+#~ "\n"
+#~ "              Pokaži vse v kategoriji <strong>%(category)s</strong>\n"
+#~ "            "
 
-#: templates-optimized/guide/after-submit.html:45
-msgid ""
-"\n"
-"The buttons below point to the feed you've just submitted-- just\n"
-"paste the HTML into your blog or website. When users click on\n"
-"the button, Miro will open and they will be automatically\n"
-"subscribed to your feed.\n"
-msgstr ""
-"\n"
-"Spodnji gumbi kažejo na vir, ki ste ga ravnokar objavili -- le\n"
-"prilepite HTML na svoj blog ali spletno stran. Ko uporabniki kliknejo\n"
-"na gumb, se odpre Miro in samodejno se prijavijo na vaš vir.\n"
+#~ msgid "Popular Shows"
+#~ msgstr "Priljubljene vsebine"
 
-#: templates-optimized/guide/after-submit.html:54
-msgid ""
-"\n"
-"1-click buttons are a great way to get your viewers connected to\n"
-"your content on an ongoing basis. If you have any questions\n"
-"about the buttons, email: channels [at] pculture [d] org.\n"
-msgstr ""
-"\n"
-"Gumbi za en klik so krasen način za povezovanje gledalcev\n"
-"z vašo vsebino na daljši rok. Če imate kakšno vprašanje o\n"
-"gumbih, nam pišite: channels [at] pculture [d] org.\n"
+#~ msgid "Preview"
+#~ msgstr "Predogled"
 
-#: templates-optimized/guide/auth-token-request.html:12
-msgid ""
-"Please enter your email address\n"
-"below.  A link will be sent to you email that you can use to set a new\n"
-"password."
-msgstr ""
-"Svoj e-poštni naslov vnesite spodaj.\n"
-"Prejeli boste povezavo, s katero lahko nastavite\n"
-"novo geslo."
+#~ msgid "This is HD!"
+#~ msgstr "To je visoka ločljivost!"
 
-#: templates-optimized/guide/base.html:81
-msgid "Video feeds"
-msgstr "Video viri"
+#, python-format
+#~ msgid ""
+#~ "\n"
+#~ "      Miro Guide - %(title)s\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "      Vodnik Miro - %(title)s\n"
+#~ "    "
 
-#: templates-optimized/guide/channel-feature.html:23
-msgid "ADD TO YOUR FEEDS"
-msgstr "Dodajte svojim virom"
+#~ msgid "Miro Guide - Most Popular "
+#~ msgstr "Vodnik Miro - Najbolj priljubljeni "
 
-#: templates-optimized/guide/channel-feature.html:25
-msgid "ADD TO YOUR SITES"
-msgstr "Dodajte svojim spletnim mestom"
-
-#: templates-optimized/guide/channel-in-category.html:31
-msgid "ADD FEED"
-msgstr "Dodaj vir"
-
-#: templates-optimized/guide/channel-in-category.html:33
-msgid "ADD SITE"
-msgstr "Dodaj spletno mesto"
-
-#: templates-optimized/guide/for-user.html:9
+#: forms/channels.py:29
 #, python-format
 msgid ""
-"\n"
-"Miro Guide - Shows for %(username)s\n"
+"Only mark your channel as HD if you the video resolution is 1080x720 or "
+"higher. Roughly 95% of the material on the channel should meet this criteria "
+"for it to be considered HD."
 msgstr ""
-"\n"
-"Vodnik Miro - Vsebine za uporabnika %(username)s\n"
+"Svoj kanal označite kot HD le v primeru, da je ločljivost slike 1080x720 ali "
+"višja. Okoli 95% od gradiv na kanalu mora ustrezati temu pogoju, če ga "
+"želite razglasiti za visoko ločljivostnega (HD)."
 
-#: templates-optimized/guide/frontpage.html:49
+#: forms/channels.py:32
 msgid ""
-"\n"
-"Click <a href=\"#\" class=\"add_feed_button_welcome\">ADD FEED</a>\n"
-"to get any show into your sidebar. The first episode\n"
-"begins downloading automatically and you'll get show\n"
-"updates as soon as they're available.\n"
+"Our <a href=\"http://getmiro.com/publish/\">Publishers Guide</a> has details "
+"on finding your RSS feed. Chances are, you already have one (YouTube, "
+"blip.tv, Vimeo, etc. all have them)."
 msgstr ""
-"\n"
-"Kliknite <a href=\"#\" class=\"add_feed_button_welcome\">DODAJ VIR</a>,\n"
-"tako da dodate oddajo v stransko vrstico. Prva epizoda\n"
-"se začne prenašati nemudoma, posodobitve oddaje\n"
-"pa boste prejeli takoj, ko bodo na voljo.\n"
+"Naš <a href=\"http://getmiro.com/publish/\">Vodnik za izdajatelje</a> "
+"vsebuje podrobnosti o iskanju vira RSS vaših vsebin. Verjetno ga že imate "
+"(YouTube, blip.tv, Vimeo, itn. ga vsi imajo)."
 
-#: templates-optimized/guide/frontpage.html:127
-#: templates-optimized/guide/frontpage.html:156
-#: templates-optimized/guide/frontpage.html:194
-#: templates-optimized/guide/playback.html:117
-#: templates-optimized/guide/show-channel.html:167
-#: templates-optimized/guide/show-channel.html:209
-msgid "All"
-msgstr "Vse"
+#: forms/channels.py:36
+msgid ""
+"This is the single most important part of submitting a channel &mdash; a "
+"good channel thumbnail is proven to attract more viewers. It's worth making "
+"an effort to do something beautiful. If your channel is featured, it will "
+"need to have the name of your show in it. You can update this image at any "
+"time."
+msgstr ""
+"To je najpomembnejši del objave kanala &mdash; dobra sličica za predogled "
+"dokazano pritegne več gledalcev. Splača se potruditi in objaviti nekaj "
+"zanimivega. Če je vaš kanal v vodniku izpostavljen, mora slika vsebovati "
+"tudi ime oddaje. Sliko lahko posodobite kadarkoli."
 
-#: templates-optimized/guide/frontpage.html:161
+#: forms/channels.py:81 forms/channels.py:318
+msgid "Show Name"
+msgstr "Pokaži ime"
+
+#: forms/channels.py:322
+msgid "Don't forget to add a website URL for the show."
+msgstr "Ne pozabite dodati URL spletne strani za oddajo."
+
+#: forms/channels.py:328
+msgid "The person or company responsible for publishing this show."
+msgstr "Oseba ali podjetje, odgovorno za objavo te oddaje."
+
+#: forms/channels.py:333
+msgid "Separate each tag with a comma."
+msgstr "Ločite vsako značko z vejico."
+
+#: forms/channels.py:334
+msgid "Geo restrictions"
+msgstr "Ozemeljske omejitve"
+
+#: forms/channels.py:335
+msgid ""
+"Use commas to separate two letter country codes. Countries listed here are "
+"the ONLY ones that will see this site or show."
+msgstr ""
+"Dvočrkovne kode držav ločite z vejicami. Tukaj navedene države so EDINE, ki "
+"vidijo to mesto ali oddajo."
+
+#: forms/channels.py:341
+msgid "Pick at least one genre."
+msgstr "Izberite vsaj en žanr."
+
+#: forms/channels.py:343
+msgid "Users can filter their searches by language."
+msgstr "Uporabniki lahko filtrirajo iskano glede na jezik."
+
+#: templates/base.html:11
+msgid "Miro Guide - Podcast Directory"
+msgstr "Vodnik Miro - Imenik podcastov"
+
+#: templates/base.html:85
+msgid "Video"
+msgstr "Video"
+
+#: templates/base.html:128
+msgid "Audio By Language"
+msgstr "Zvok glede na jezik"
+
+#: templates/base.html:155
+msgid "Submit a Feed"
+msgstr "Objavi vir"
+
+#: templates/frontpage.html:49
+msgid "Welcome to the Miro Guide!"
+msgstr "Dobrodošli v Vodniku Miro!"
+
+#: templates/frontpage.html:50
+msgid ""
+"Miro Guide has thousands of video shows and podcasts — you can browse and "
+"watch most of them right here."
+msgstr ""
+"Vodnik Miro vključuje na tisoče oddaj in podcastov — brskate lahko med "
+"večino njih in si jih ogledate kar tukaj."
+
+#: templates/frontpage.html:51
 #, python-format
+msgid "Make this message disappear by <a href=\"%(link)s\">logging in</a>."
+msgstr ""
+"To sporočilo skrijete tako, da se <a href=\"%(link)s\">prijavite</a>."
+
+#: templates/frontpage.html:54
+msgid ""
+"We also make Miro, a free internet TV application. Miro makes subscribing, "
+"managing, and watching programs easy, and it works extra well with all the "
+"HD programming you'll find here in the guide."
+msgstr ""
+"Izdelali smo tudi Miro, brezplačen program za spletno TV. Z Mirom je "
+"naročanje, upravljanje in gledanje programov enostavno, deluje zelo dobro z "
+"vsemi vsebinami HD, ki jih najdete v tem vodniku."
+
+#: templates/frontpage.html:55
+msgid "Try it now"
+msgstr "Poskusite zdaj"
+
+#: templates/frontpage.html:57
+msgid "Download Miro"
+msgstr "Prenesi Miro"
+
+#: templates/frontpage.html:96
 msgid ""
 "\n"
-"View all of <strong>%(category)s</strong>\n"
+"            Click <a href=\"#\" class=\"add_feed_button_welcome\">ADD "
+"FEED</a>\n"
+"            to get any show into your sidebar. The first episode\n"
+"            begins downloading automatically and you'll get show\n"
+"            updates as soon as they're available.\n"
+"            "
 msgstr ""
 "\n"
-"Pokaži vse iz kategorije <strong>%(category)s</strong>\n"
+"            Kliknite <a href=\"#\" class=\"add_feed_button_welcome\">DODAJ "
+"VIR</a>,\n"
+"            če želite spraviti oddajo v stransko vrstico. Prva epizoda\n"
+"            se začne prenašati samodejno in posodobitve oddaje\n"
+"            boste prejeli takoj, ko bodo na voljo.\n"
+"            "
 
-#: templates-optimized/guide/group-list.html:9
-#, python-format
-msgid ""
-"\n"
-"Miro Guide - %(group_name)s\n"
-msgstr ""
-"\n"
-"Vodnik Miro - %(group_name)s\n"
+#: templates/frontpage.html:162
+msgid "Find shows about your favorite topic here."
+msgstr "Tukaj poiščite oddaje na svojo priljubljeno temo."
 
-#: templates-optimized/guide/group-list.html:19
-#, python-format
-msgid "%(count)s Shows"
-msgstr "%(count)s vsebin"
+#: templates/frontpage.html:183
+msgid "HD Favorites"
+msgstr "Priljubljeno v HD"
 
-#: templates-optimized/guide/item.html:11
-msgid "High-Definition Show"
-msgstr "Vsebina v visoki ločljivosti"
-
-#: templates-optimized/guide/listing.html:13
-msgid ""
-"\n"
-"I'm sorry, your search term was too short; it must be at least\n"
-"3 characters.\n"
-msgstr ""
-"\n"
-"Iskani niz je prekratek; vsebovati mora vsaj\n"
-"tri znake.\n"
-
-#: templates-optimized/guide/listing.html:76
-msgid ""
-"Video feeds can be downloaded and watched without an internet connection. "
-"Many are in full HD."
-msgstr ""
-"Video vire lahko prenesete in gledate brez internetne povezave. Številni so "
-"v polni visoki ločljivosti."
-
-#: templates-optimized/guide/listing.html:107
-msgid ""
-"Streaming sites require a fast internet connection. You can bookmark them as "
-"favorites with Miro."
-msgstr ""
-"Pretočna spletna mesta zahtevajo hitro internetno povezavo. V programu Miro "
-"jih lahko zaznamujete kot priljubljene."
-
-#: templates-optimized/guide/moderate.html:14
-#, python-format
-msgid ""
-"\n"
-"%(count)s Unreviewed shows\n"
-msgstr ""
-"\n"
-"%(count)s neocenjenih vsebin\n"
-
-#: templates-optimized/guide/moderate.html:19
-#, python-format
-msgid ""
-"\n"
-"%(count)s Don't know shows\n"
-msgstr ""
-"\n"
-"%(count)s nepoznanih vsebin\n"
-
-#: templates-optimized/guide/moderate.html:24
+#: templates/group-list.html:28
 #, python-format
 msgid ""
 "\n"
-"%(count)s Shows waiting for Reply\n"
-msgstr ""
+"                1 Podcast\n"
+"              "
+msgid_plural ""
 "\n"
-"%(count)s vsebin čaka na odgovor\n"
+"                %(count)s Podcasts\n"
+"              "
+msgstr[0] ""
+"\n"
+"                1 podcast\n"
+"              "
+msgstr[1] ""
+"\n"
+"                %(count)s podcasta\n"
+"              "
+msgstr[2] ""
+"\n"
+"                %(count)s podcasti\n"
+"              "
+msgstr[3] ""
+"\n"
+"                %(count)s podcastov\n"
+"              "
 
-#: templates-optimized/guide/moderate.html:29
+#: templates/group-list.html:34
 #, python-format
 msgid ""
 "\n"
-"%(count)s Suspended Shows\n"
-msgstr ""
+"                1 Show\n"
+"              "
+msgid_plural ""
 "\n"
-"%(count)s prekinjenih oddaj\n"
+"                %(count)s Shows\n"
+"              "
+msgstr[0] ""
+"\n"
+"                1 oddaja\n"
+"              "
+msgstr[1] ""
+"\n"
+"                %(count)s oddaji\n"
+"              "
+msgstr[2] ""
+"\n"
+"                %(count)s oddaje\n"
+"              "
+msgstr[3] ""
+"\n"
+"                %(count)s oddaj\n"
+"              "
 
-#: templates-optimized/guide/moderate.html:34
+#: templates/item.html:50
+msgid "Watch"
+msgstr "Glej"
+
+#: templates/listing.html:97
 #, python-format
 msgid ""
 "\n"
-"%(count)s Rejected shows\n"
-msgstr ""
+"          1 podcast matches \"%(t)s\"\n"
+"          "
+msgid_plural ""
 "\n"
-"%(count)s zavrnjenih vsebin\n"
+"          %(feed_count)s podcasts match \"%(t)s\"\n"
+"          "
+msgstr[0] ""
+"\n"
+"          1 podcast se ujema z \"%(t)s\"\n"
+"          "
+msgstr[1] ""
+"\n"
+"          %(feed_count)s podcasta se ujemata z \"%(t)s\"\n"
+"          "
+msgstr[2] ""
+"\n"
+"          %(feed_count)s podcasti se ujemajo z \"%(t)s\"\n"
+"          "
+msgstr[3] ""
+"\n"
+"          %(feed_count)s podcastov se ujema z \"%(t)s\"\n"
+"          "
 
-#: templates-optimized/guide/moderate.html:39
+#: templates/listing.html:146
+msgid "Podcasts"
+msgstr "Podcasti"
+
+#: templates/playback.html:43
+msgid "This is HD! High-definition videos are often slow to preview."
+msgstr ""
+"To je HD! Vsebine v visoki ločljivosti se ponavadi zelo počasne za predogled."
+
+#: templates/playback.html:45
 #, python-format
 msgid ""
 "\n"
-"%(count)s shows in Featured Queue\n"
+"            You may want to use Miro to <a "
+"href=\"%(download_url)s\">download</a>\n"
+"            the video or <a %(subscription_link)s>subscribe</a>\n"
+"            to the feed. It's free and easy!\n"
+"          "
 msgstr ""
 "\n"
-"%(count)s oddaj v izpostavljeni vrsti\n"
+"            Morda želite uporabiti Miro za <a "
+"href=\"%(download_url)s\">prenos</a>\n"
+"            posnetka ali <a %(subscription_link)s>naročanje</a>\n"
+"            na vir. Brezplačen je in enostaven za uporabo!\n"
+"          "
 
-#: templates-optimized/guide/popular.html:10
-#, python-format
+#: templates/submit-feed-url.html:36
 msgid ""
-"\n"
-"Miro Guide - %(title)s\n"
+"Click here if you're the person responsible for creating the video and/or "
+"RSS feed in this show."
 msgstr ""
-"\n"
-"Vodnik Miro - %(title)s\n"
+"Kliknite tukaj, če ste vi odgovorni za izdelavo posnetka in/ali vira RSS za "
+"to oddajo."
 
-#: templates-optimized/guide/popular.html:49
-#, python-format
+#: templates/submit-feed-url.html:41
 msgid ""
-"\n"
-"Most Popular %(view)s\n"
+"Anyone can submit a new show to the Miro Guide — they will be the manager of "
+"the show, unless the publisher or creator claims the show."
 msgstr ""
-"\n"
-"Najbolj priljubljenih %(view)s\n"
+"Vsakdo lahko objavi oddajo v Vodniku Miro — postane upravitelj oddaje, v "
+"kolikor izdajatelj ali ustvarjalec ne zahteva drugače."
 
-#: templates-optimized/guide/share-links.html:7
-msgid ""
-"\n"
-"Share with your buddies, as well as the world. We all love gifts.\n"
-msgstr ""
-"\n"
-"Delite s svojimi prijatelji in s celim svetom. Vsi imamo radi darila.\n"
+#: tests/accounts.py:40 views/accounts.py:42
+msgid "Thanks for registering!"
+msgstr "Hvala, ker ste se registrirali!"
 
-#: templates-optimized/guide/show-channel.html:48
-msgid ""
-"\n"
-"This show may not be available to you, as it is restricted to certain "
-"countries.\n"
-msgstr ""
-"\n"
-"Ta oddaja morda ne bo na voljo, saj je omejena na določene države.\n"
+#: views/accounts.py:43
+msgid "We've sent a confirmation e-mail to the address you provided."
+msgstr "Na naslov, ki ste ga navedli, smo poslali potrditveno e-sporočilo."
 
-#: templates-optimized/guide/show-channel.html:72
-msgid "Add to your feeds"
-msgstr "Dodaj med svoje vire"
+#~ msgid "English"
+#~ msgstr "angleščina"
 
-#: templates-optimized/guide/show-channel.html:77
-msgid "Add to your sites"
-msgstr "Dodaj svojim spletnim mestom"
+#~ msgid "Arabic"
+#~ msgstr "arabščina"
 
-#: templates-optimized/guide/show-channel.html:110
-msgid "Site Details"
-msgstr "Podrobnosti spletnega mesta"
+#~ msgid "Bengali"
+#~ msgstr "bengalščina"
 
-#: templates-optimized/guide/show-channel.html:119
-msgid "Categories"
-msgstr "Kategorije"
+#~ msgid "Catalan"
+#~ msgstr "katalonščina"
 
-#: templates-optimized/guide/show-channel.html:206
-msgid "Related Videos"
-msgstr "Sorodni posnetki"
+#~ msgid "Chinese"
+#~ msgstr "kitajščina"
 
-#: templates-optimized/guide/user_ratings.html:13
-msgid "Shows You'll &hearts;"
-msgstr "Vsebine, ki jih boste &hearts;"
+#~ msgid "Croatian"
+#~ msgstr "hrvaščina"
+
+#~ msgid "Danish"
+#~ msgstr "danščina"
+
+#~ msgid "Estonian"
+#~ msgstr "estonščina"
+
+#~ msgid "Finnish"
+#~ msgstr "finščina"
+
+#~ msgid "French"
+#~ msgstr "francoščina"
+
+#~ msgid "German"
+#~ msgstr "nemščina"
+
+#~ msgid "Greek"
+#~ msgstr "grščina"
+
+#~ msgid "Hebrew"
+#~ msgstr "hebrejščina"
+
+#~ msgid "Hindi"
+#~ msgstr "hindujščina"
+
+#~ msgid "Hungarian"
+#~ msgstr "madžarščina"
+
+#~ msgid "Icelandic"
+#~ msgstr "islandščina"
+
+#~ msgid "Indonesian"
+#~ msgstr "indonezijščina"
+
+#~ msgid "Italian"
+#~ msgstr "italijanščina"
+
+#~ msgid "Japanese"
+#~ msgstr "japonščina"
+
+#~ msgid "Korean"
+#~ msgstr "korejščina"
+
+#~ msgid "Kurdish (Sorani)"
+#~ msgstr "kurdščina (Sorani)"
+
+#~ msgid "Latvian"
+#~ msgstr "latvijščina"
+
+#~ msgid "Lithuanian"
+#~ msgstr "litvanščina"
+
+#~ msgid "Malay"
+#~ msgstr "malajščina"
+
+#~ msgid "Norwegian"
+#~ msgstr "norveščina"
+
+#~ msgid "Persian"
+#~ msgstr "perzijščina"
+
+#~ msgid "Polish"
+#~ msgstr "poljščina"
+
+#~ msgid "Portuguese (Brazillian)"
+#~ msgstr "portugalščina (Brazilija)"
+
+#~ msgid "Portuguese (Portugal)"
+#~ msgstr "portugalščina (Portugalska)"
+
+#~ msgid "Romanian"
+#~ msgstr "romunščina"
+
+#~ msgid "Russian"
+#~ msgstr "ruščina"
+
+#~ msgid "Serbo-Croatian"
+#~ msgstr "srbohrvaščina"
+
+#~ msgid "Slovak"
+#~ msgstr "slovaščina"
+
+#~ msgid "Spanish"
+#~ msgstr "španščina"
+
+#~ msgid "Swedish"
+#~ msgstr "švedščina"
+
+#~ msgid "Thai"
+#~ msgstr "tajščina"
+
+#~ msgid "Turkish"
+#~ msgstr "turščina"
+
+#~ msgid "Vietnamese"
+#~ msgstr "vietnamščina"
+
+#~ msgid "My User Info"
+#~ msgstr "Moji uporabniški podatki"
+
+#~ msgid "User Info for"
+#~ msgstr "Podatki o uporabniku"
+
+#~ msgid "Please support our sponsors"
+#~ msgstr "Podprite naše sponzorje"
+
+#~ msgid "requirements"
+#~ msgstr "zahtevam"
+
+#~ msgid "?"
+#~ msgstr "?"
+
+#~ msgid "Page not found"
+#~ msgstr "Strani ni mogoče najti"
+
+#~ msgid "go to front page"
+#~ msgstr "pojdi na naslovnico"
+
+#~ msgid "Miro Guide"
+#~ msgstr "Vodnik Miro"
+
+#~ msgid " Server Error (id: %(id)s )"
+#~ msgstr " Napaka strežnika (id:%(id)s)"
+
+#~ msgid ""
+#~ "Sorry!  Your request resulted in an error.  We have logged it and our "
+#~ "developers will fix it as soon as they can.  If this error\n"
+#~ "persists, please contact:"
+#~ msgstr ""
+#~ "Oprostite!  Vaša zahteva se je končala z napako.  Zabeležili smo jo in naši "
+#~ "razvijalci jo bodo popravili, ko bo to mogoče.  Če se ta napaka\n"
+#~ "ponavlja, obvestite:"
+
+#~ msgid "Make sure to include the error ID at the top of this page."
+#~ msgstr "Prepričajte se, da ste vključili številko napake na vrhu te strani."
+
+#~ msgid "ADD FEED"
+#~ msgstr "Dodaj vir"
+
+#~ msgid "ADD SITE"
+#~ msgstr "Dodaj spletno mesto"
+
+#~ msgid "All"
+#~ msgstr "Vse"
+
+#~ msgid ""
+#~ "\n"
+#~ "View all of <strong>%(category)s</strong>\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Pokaži vse iz kategorije <strong>%(category)s</strong>\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Miro Guide - %(group_name)s\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Vodnik Miro - %(group_name)s\n"
+
+#~ msgid "%(count)s Shows"
+#~ msgstr "%(count)s vsebin"
+
+#~ msgid ""
+#~ "\n"
+#~ "Miro Guide - %(title)s\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Vodnik Miro - %(title)s\n"
+
+#~ msgid "Categories"
+#~ msgstr "Kategorije"
+
+#~ msgid "Related Videos"
+#~ msgstr "Sorodni posnetki"
+
+#~ msgid "Shows You'll &hearts;"
+#~ msgstr "Vsebine, ki jih boste &hearts;"
+
+#~ msgid "Added: once today"
+#~ msgid_plural "Added: %(count)s times today"
+#~ msgstr[0] "Dodano: %(count)s-krat danes"
+#~ msgstr[1] "Dodano: %(count)s-krat danes"
+#~ msgstr[2] "Dodano: %(count)s-krat danes"
+#~ msgstr[3] "Dodano: %(count)s-krat danes"
+
+#~ msgid "Become One"
+#~ msgstr "Postanite sponzor"
+
+#~ msgid "Show marked as HD! Does it meet"
+#~ msgstr "Oddaja, označena s HD! Ali ustreza"
+
+#~ msgid ""
+#~ "\n"
+#~ "                This show may not be available to you, as it is\n"
+#~ "                restricted to certain countries.\n"
+#~ "              "
+#~ msgstr ""
+#~ "\n"
+#~ "                Ta oddaja morda vam ne bo na voljo, saj je\n"
+#~ "                omejena na določene države.\n"
+#~ "              "
+
+#~ msgid ""
+#~ "Our server is experiencing higher than normal load.\n"
+#~ "Please try again shortly.  Thanks for your patience."
+#~ msgstr ""
+#~ "Naš strežnik je trenutno preveč obremenjen.\n"
+#~ "Poskusite znova v kratkem. Hvala za potrpljenje!"
+
+#~ msgid ""
+#~ "\n"
+#~ "Our moderators will review your feed in the next few days to make\n"
+#~ "sure that it works in Miro and that the content is not\n"
+#~ "inappropriate.  Once the feed is approved, it will appear in the\n"
+#~ "'Just Added' section on the front page.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Naši moderatorji bodo pregledali vaš vir v naslednjih dneh in\n"
+#~ "preverili, da deluje z Mirom in da je vsebina primerna za\n"
+#~ "objavo.  Ko bo vir odobren, se bo pojavil v razdelku\n"
+#~ "'Ravno dodano' na naslovnici.\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "You can update the details about your feed at anytime.  Just\n"
+#~ "login to your account and click the 'My Submitted Feeds'\n"
+#~ "link.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Podrobnosti o viru lahko posodobite kadarkoli.  Le\n"
+#~ "prijavite se in kliknite povezavo 'Moji objavljeni viri'.\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Visit <a href=\"http://webbalert.com/\">webbalert.com</a> to see\n"
+#~ "a real 1-click button in action\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Obiščite <a href=\"http://webbalert.com/\">webbalert.com</a>, če želite\n"
+#~ "videti resničen gumb za 1-klik v praksi\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "The buttons below point to the feed you've just submitted-- just\n"
+#~ "paste the HTML into your blog or website. When users click on\n"
+#~ "the button, Miro will open and they will be automatically\n"
+#~ "subscribed to your feed.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Spodnji gumbi kažejo na vir, ki ste ga ravnokar objavili -- le\n"
+#~ "prilepite HTML na svoj blog ali spletno stran. Ko uporabniki kliknejo\n"
+#~ "na gumb, se odpre Miro in samodejno se prijavijo na vaš vir.\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "1-click buttons are a great way to get your viewers connected to\n"
+#~ "your content on an ongoing basis. If you have any questions\n"
+#~ "about the buttons, email: channels [at] pculture [d] org.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Gumbi za en klik so krasen način za povezovanje gledalcev\n"
+#~ "z vašo vsebino na daljši rok. Če imate kakšno vprašanje o\n"
+#~ "gumbih, nam pišite: channels [at] pculture [d] org.\n"
+
+#~ msgid ""
+#~ "Please enter your email address\n"
+#~ "below.  A link will be sent to you email that you can use to set a new\n"
+#~ "password."
+#~ msgstr ""
+#~ "Svoj e-poštni naslov vnesite spodaj.\n"
+#~ "Prejeli boste povezavo, s katero lahko nastavite\n"
+#~ "novo geslo."
+
+#~ msgid "ADD TO YOUR FEEDS"
+#~ msgstr "Dodajte svojim virom"
+
+#~ msgid "ADD TO YOUR SITES"
+#~ msgstr "Dodajte svojim spletnim mestom"
+
+#~ msgid ""
+#~ "\n"
+#~ "Miro Guide - Shows for %(username)s\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Vodnik Miro - Vsebine za uporabnika %(username)s\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Click <a href=\"#\" class=\"add_feed_button_welcome\">ADD FEED</a>\n"
+#~ "to get any show into your sidebar. The first episode\n"
+#~ "begins downloading automatically and you'll get show\n"
+#~ "updates as soon as they're available.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Kliknite <a href=\"#\" class=\"add_feed_button_welcome\">DODAJ VIR</a>,\n"
+#~ "tako da dodate oddajo v stransko vrstico. Prva epizoda\n"
+#~ "se začne prenašati nemudoma, posodobitve oddaje\n"
+#~ "pa boste prejeli takoj, ko bodo na voljo.\n"
+
+#~ msgid "High-Definition Show"
+#~ msgstr "Vsebina v visoki ločljivosti"
+
+#~ msgid ""
+#~ "\n"
+#~ "I'm sorry, your search term was too short; it must be at least\n"
+#~ "3 characters.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Iskani niz je prekratek; vsebovati mora vsaj\n"
+#~ "tri znake.\n"
+
+#~ msgid ""
+#~ "Video feeds can be downloaded and watched without an internet connection. "
+#~ "Many are in full HD."
+#~ msgstr ""
+#~ "Video vire lahko prenesete in gledate brez internetne povezave. Številni so "
+#~ "v polni visoki ločljivosti."
+
+#~ msgid ""
+#~ "Streaming sites require a fast internet connection. You can bookmark them as "
+#~ "favorites with Miro."
+#~ msgstr ""
+#~ "Pretočna spletna mesta zahtevajo hitro internetno povezavo. V programu Miro "
+#~ "jih lahko zaznamujete kot priljubljene."
+
+#~ msgid ""
+#~ "\n"
+#~ "%(count)s Unreviewed shows\n"
+#~ msgstr ""
+#~ "\n"
+#~ "%(count)s neocenjenih vsebin\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "%(count)s Don't know shows\n"
+#~ msgstr ""
+#~ "\n"
+#~ "%(count)s nepoznanih vsebin\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "%(count)s Shows waiting for Reply\n"
+#~ msgstr ""
+#~ "\n"
+#~ "%(count)s vsebin čaka na odgovor\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "%(count)s Suspended Shows\n"
+#~ msgstr ""
+#~ "\n"
+#~ "%(count)s prekinjenih oddaj\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "%(count)s Rejected shows\n"
+#~ msgstr ""
+#~ "\n"
+#~ "%(count)s zavrnjenih vsebin\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "%(count)s shows in Featured Queue\n"
+#~ msgstr ""
+#~ "\n"
+#~ "%(count)s oddaj v izpostavljeni vrsti\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Most Popular %(view)s\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Najbolj priljubljenih %(view)s\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Share with your buddies, as well as the world. We all love gifts.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Delite s svojimi prijatelji in s celim svetom. Vsi imamo radi darila.\n"
+
+#~ msgid "Add to your feeds"
+#~ msgstr "Dodaj med svoje vire"
+
+#~ msgid "Add to your sites"
+#~ msgstr "Dodaj svojim spletnim mestom"
+
+#~ msgid "Site Details"
+#~ msgstr "Podrobnosti spletnega mesta"
