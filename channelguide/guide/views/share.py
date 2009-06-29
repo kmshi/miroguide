@@ -211,7 +211,7 @@ def get_item(connection, file_url, channel, channel_items, item_name):
 
 def share_feed(request):
     try:
-        feed_url = str(request.GET['feed_url'])
+        feed_url = request.GET['feed_url'].encode('utf8')
     except KeyError:
         return HttpResponse("you must supply a feed_url")
 
