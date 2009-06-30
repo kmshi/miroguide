@@ -59,7 +59,7 @@
 
 # Extract files:
   tar -xvf ./launchpad-export.tar.gz > /dev/null 2>&1
-  mv $base_name-* $staging/. > /dev/null 2>&1
+  mv po/$base_name/$base_name-* $staging/. > /dev/null 2>&1
 
 # Ok, now let's process them:
   ls $staging/*.po > $tempfile
