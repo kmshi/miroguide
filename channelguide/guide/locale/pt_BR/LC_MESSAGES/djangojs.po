@@ -1,0 +1,58 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-05-05 13:08-0400\n"
+"PO-Revision-Date: 2009-04-22 00:27+0000\n"
+"Last-Translator: zopostyle <Unknown>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Launchpad-Export-Date: 2009-06-29 19:37+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: js/genrebrowser.js:93
+#, perl-format
+msgid "%s Subscribed Today"
+msgstr "%s inscrito(s) hoje"
+
+#: js/hover.js:86
+msgid "Add to Sidebar"
+msgstr "Adicione a barra lateral"
+
+#: js/hover.js:95
+msgid "More Details"
+msgstr "Mais detalhes"
+
+#: js/hover.js:116
+msgid "Genres"
+msgstr "Gêneros"
+
+#: js/hover.js:127
+msgid "Tags"
+msgstr "Marcadores"
+
+#: js/hover.js:90
+msgid "Watch"
+msgstr ""
+
+#: js/hover.js:104
+#, perl-format
+msgid "Avg. of %s Rating:"
+msgid_plural "Avg. of %s Ratings:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: js/hover.js:104
+#, perl-format
+msgid "1 Star"
+msgid_plural "%s Stars"
+msgstr[0] ""
+msgstr[1] ""
