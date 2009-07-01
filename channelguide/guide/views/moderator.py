@@ -50,7 +50,9 @@ def index(request):
 
 @moderator_required
 def channel_list(request, state):
-    query = Channel.query().join('owner').order_by('creation_time')
+    query = Channel.query().join('owner').load('owned_by_freelance')
+    query = query.order_by('owned_by_freelance')
+    query = query.order_by('creation_time')
     if state == 'waiting':
         query.where(Channel.c.waiting_for_reply_date.is_not(None))
         query.order_by('waiting_for_reply_date')
