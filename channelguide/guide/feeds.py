@@ -6,11 +6,12 @@ from datetime import datetime, timedelta
 
 from channelguide import init, util
 init.init_external_libraries()
+from channelguide import cache
 from channelguide.guide import api
 from channelguide.guide.models import User
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.syndication import feeds
+from django.contrib.syndication import feeds, views
 from django.utils import feedgenerator
 from django.http import Http404
 
@@ -98,7 +99,8 @@ class ChannelsFeed(feeds.Feed):
             return item.newest.mime_type
 
     def get_date_for_item(self, item):
-        # default to last Sunday; keeps us from having more than one new show a week
+        # default to last Sunday; keeps us from having more than one new show a
+        # week
         now = datetime.now()
         return (now - timedelta(days=now.isoweekday())).replace(
             hour=0, minute=0, second=0, microsecond=0)
@@ -254,3 +256,7 @@ class RecommendationsFeed(ChannelsFeed):
     def items(self, user):
         return api.get_recommendations(self.request.connection,
                                        user)
+
+
+cached_feed = cache.cache_page_externally_for(3600)(cache.aggresively_cache(
+        views.feed))
