@@ -226,6 +226,8 @@ cobranding = Table('cg_cobranding',
         columns.String('link2_text', 100),
         columns.String('link3_url', 100),
         columns.String('link3_text', 100))
+channel.add_subquery_column('owned_by_freelance', """\
+#table#.owner_id = (SELECT id FROM user WHERE username="freelance")""")
 # set up count subquery columns.  These are a little more complex than the
 # other columns, so they are separated out
 category.add_subquery_column('channel_count', """\
