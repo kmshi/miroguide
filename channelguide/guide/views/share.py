@@ -144,14 +144,14 @@ def get_channels_and_items(feed_url, connection):
             # item is in this feed if it's being faked...
             for entry in parsed.entries:
                 enclosure = feedutil.get_first_video_enclosure(entry)
-                if not enclosure:
+                link = None
+                if enclosure is not None and 'href' in enclosure:
+                    link = enclosure['href']
+                if not link:
                     if not entry.get('link'):
                         continue
                     link = entry.link
-                elif 'href' in enclosure:
-                    link = enclosure['href']
-                else:
-                    continue
+
                 updated_datetime = None
                 if entry.get('updated_parsed'):
                     updated_datetime = datetime.datetime(*entry.updated_parsed[:7])
