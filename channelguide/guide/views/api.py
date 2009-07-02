@@ -169,8 +169,11 @@ def get_channels(request):
     offset = request.GET.get('offset')
     if offset is not None:
         offset = int(offset)
-    channels = api.get_channels(request, filter, value, sort,
-            limit, offset)
+    try:
+        channels = api.get_channels(request, filter, value, sort,
+                                    limit, offset)
+    except ValueError:
+        raise Http404
     data = map(data_for_channel, channels)
     return response_for_data(request, data)
 

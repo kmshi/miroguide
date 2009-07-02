@@ -144,12 +144,14 @@ def get_channels_and_items(feed_url, connection):
             # item is in this feed if it's being faked...
             for entry in parsed.entries:
                 enclosure = feedutil.get_first_video_enclosure(entry)
-                if not enclosure:
+                link = None
+                if enclosure is not None and 'href' in enclosure:
+                    link = enclosure['href']
+                if not link:
                     if not entry.get('link'):
                         continue
                     link = entry.link
-                else:
-                    link = enclosure['href']
+
                 updated_datetime = None
                 if entry.get('updated_parsed'):
                     updated_datetime = datetime.datetime(*entry.updated_parsed[:7])
@@ -261,7 +263,7 @@ def share_item(request):
     #   let's create a "fake" item to preview
     # render that item preview
     try:
-        file_url = str(request.GET['file_url'])
+        file_url = request.GET['file_url'].encode('utf8')
     except KeyError:
         return HttpResponse("you must supply a file_url")
 
@@ -275,10 +277,10 @@ def share_item(request):
     previous = None
 
     if webpage_url:
-        webpage_url = str(webpage_url)
+        webpage_url = webpage_url.encode('utf8')
 
     if feed_url:
-        feed_url = str(feed_url)
+        feed_url = feed_url.encode('utf8')
         try:
             channel, channel_items = get_channels_and_items(
                 feed_url, request.connection)
