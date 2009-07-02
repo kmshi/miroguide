@@ -61,7 +61,7 @@ function infiniteLoad() {
     checkScroll.loading = true;
     showLoadIndicator(true);
     href = nextpage.find('a').attr('href');
-    if (pageTracker) { // Google Analytics
+    if (typeof pageTracker !== 'undefined') { // Google Analytics
         pageTracker._trackPageview(href);
     }
     $.get(href, infiniteCallback);
