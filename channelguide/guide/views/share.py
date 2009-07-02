@@ -148,8 +148,10 @@ def get_channels_and_items(feed_url, connection):
                     if not entry.get('link'):
                         continue
                     link = entry.link
-                else:
+                elif 'href' in enclosure:
                     link = enclosure['href']
+                else:
+                    continue
                 updated_datetime = None
                 if entry.get('updated_parsed'):
                     updated_datetime = datetime.datetime(*entry.updated_parsed[:7])
