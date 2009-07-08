@@ -179,11 +179,11 @@ See LICENSE for details.
       <div id="contentSmall">
         <div class="detailsHead3">
           <div class="resultsCount">
-            <a class="heading selected" {% if audio %}{% link "audio/new/" %}{% else %}{% link "new/" %}{% endif %}>{% trans "New Shows" %}</a>
-            <a class="heading" {% if audio %}{% link "audio/popular/" %}{% else %}{% link "popular/" %}{% endif %}>{% trans "Most Popular" %}</a>
-            <a class="heading" {% if audio %}style="display: none;"{% endif %}{% link "hd/" %}>{% trans "HD Favorites" %}</a>
+            <a name="new" class="heading selected" {% if audio %}{% link "audio/new/" %}{% else %}{% link "new/" %}{% endif %}>{% trans "New Shows" %}</a>
+            <a name="popular" class="heading" {% if audio %}{% link "audio/popular/" %}{% else %}{% link "popular/" %}{% endif %}>{% trans "Most Popular" %}</a>
+            <a name="hd" class="heading" {% if audio %}style="display: none;"{% endif %}{% link "hd/" %}>{% trans "HD Favorites" %}</a>
             <div class="heading">
-              <a {% if audio %}{% link "audio/genres/"%}{% else %}{% link "genres/" %}{% endif %}>{% trans "Genres" %}</a>
+              <a name="genres" {% if audio %}{% link "audio/genres/"%}{% else %}{% link "genres/" %}{% endif %}>{% trans "Genres" %}</a>
               {% include "guide/genres_popup.html" %}
             </div>
           </div>
