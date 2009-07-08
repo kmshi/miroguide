@@ -59,7 +59,7 @@ hover = {
             } else {
                 div.addClass('dir_left');
             }
-            div.hide();
+            div.hide().css('display', 'none');
             hoverDiv.after(div);
         }
         if (hover.cachedData[showID]) {
