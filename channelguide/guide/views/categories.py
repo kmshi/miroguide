@@ -6,20 +6,30 @@ from django.utils.translation import gettext as _
 
 from channelguide import util, cache
 from channelguide.guide.auth import admin_required
-from channelguide.guide.models import Category
+from channelguide.guide.models import Category, Channel
 
 @cache.aggresively_cache
 def index(request):
-    query = Category.query().load('channel_count')
-    query.order_by('channel_count', desc=True)
+    audio = request.path.startswith('/audio')
+    if audio:
+        query = Category.query().load('audio_count')
+        query.order_by('audio_count', desc=True)
+    else:
+        query = Category.query().load('channel_count')
+        query.order_by('channel_count', desc=True)
     query.cacheable = cache.client
     query.cacheable_time = 3600
     categories = list(query.execute(request.connection))
     for category in categories:
-        channels = category.get_list_channels(request.connection)
+        if audio:
+            channels = category.get_list_channels(request.connection,
+                                                  show_state=Channel.AUDIO)
+        else:
+            channels = category.get_list_channels(request.connection)
         category.popular_channels = channels
     return util.render_to_response(request, 'genres-list.html', {
         'group_name': _('Genres'),
+        'audio': audio,
         'categories': categories,
     })
 

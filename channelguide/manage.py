@@ -494,9 +494,10 @@ def shuffle_featured_channel_queue(args=None):
     Shuffle the featured queue table.
     """
     from channelguide import db
-    from channelguide.guide.models import FeaturedQueue
+    from channelguide.guide.models import FeaturedQueue, Channel
     conn = db.connect()
-    FeaturedQueue.shuffle_queue(conn)
+    FeaturedQueue.shuffle_queue(conn, Channel.APPROVED)
+    FeaturedQueue.shuffle_queue(conn, Channel.AUDIO)
     conn.commit()
     conn.close()
 shuffle_featured_channel_queue.args = ''
@@ -526,7 +527,7 @@ action_mapping['shuffle_featured_channel_queue'] = shuffle_featured_channel_queu
 def add_static_urls():
     static_patterns = []
     base_dir = os.path.abspath(os.path.join(__file__, '..', '..', 'static'))
-    for dir in ('css', 'media', 'images', 'js', 'movies'):
+    for dir in ('css', 'media', 'images', 'js', 'movies', 'swf'):
         static_patterns.append((r'^%s/(?P<path>.*)$' % dir, 
             'django.views.static.serve',
             {'document_root': os.path.join(base_dir, dir)}))

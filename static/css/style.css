@@ -1155,10 +1155,8 @@ cursor: pointer;
 
 .genres_popup ul {
     margin-left: 10px;
-    margin-right: 10px;
+    margin-right: 0px;
     float: left;
-/*width: 180px;
-padding-left: 10px;*/
 }
 
 
@@ -1170,7 +1168,7 @@ padding-left: 10px;*/
 
 .genres_popup ul a{
     margin: 0;
-    font-size: 12px;
+    font-size: 13px;
     display: block;
     line-height: 1.6em;
 }
@@ -1485,9 +1483,10 @@ margin-left: 10px;
     clear: both;
 }
 
-.channelDetailsContent .read_more{
-float: right;
-margin: 5px 15px 0 0;
+.channelDetailsContent .read_more, .synopsis .read_more {
+    float: right;
+    margin: 5px 15px 0 0;
+    line-height: 12px;
 }
 
 .read_more_video {
@@ -2307,7 +2306,6 @@ margin-top: 3px;
 #videoBox div#video {
     float: left;
     display: block;
-border: 1px solid #666;
 }
 
 #videoBox #videoDetails {
@@ -2336,12 +2334,12 @@ float: right;
 margin-top: -15px;
 }
 
-#videoBox #videoDetails p {
+#videoBox #videoDetails .meta > p {
     margin: 10px 0 0;
     padding: 0;
 }
 
-#videoBox #videoDetails p.synopsis, #videoBox #videoDetails p.more {
+#videoBox #videoDetails div.synopsis, #videoBox #videoDetails p.more {
     color: #292929;
     font-size: 11px;
     line-height: 16px;
@@ -2351,12 +2349,20 @@ margin-top: -15px;
     height: 100%;
 }
 
-#videoBox #videoDetails p.synopsis {
+#videoBox #videoDetails div.synopsis {
     margin: 10px 0 0 0;
     border: 1px solid #fff;
     background: url(../images/buttons/clear.png);
     padding: 15px;
-min-height: 175px;
+    min-height: 75px;
+}
+
+#videoBox #videoDetails .synopsis p {
+    display: none;
+}
+
+#videoBox #videoDetails .synopsis p.on {
+    display: inline;
 }
 
 #videoBox #videoDetails .synopsis_tag {
@@ -2365,7 +2371,7 @@ min-height: 175px;
 display: block;
 }
 
-#videoBox #videoDetails p.synopsis strong, #videoBox #videoDetails p.more strong {
+#videoBox #videoDetails div.synopsis strong, #videoBox #videoDetails p.more strong {
     color: black;
 }
 
@@ -2419,6 +2425,7 @@ display: block;
 .alert .closeAlert {
     text-transform: uppercase;
     color: #555;
+    border: 1px solid;
     float: left;
     font-size: 9.5px;
     padding: 0 13px 0 0;
@@ -3475,7 +3482,7 @@ text-align: right !important;
     list-style: none;
     margin: 0;
     padding: 0 30px;
-    height: 240px;
+    height: 150px;
     overflow: hidden;
     background: url(../images/hover_menu.png) 0 0 repeat-y;
 }
@@ -5411,8 +5418,23 @@ width: 700px;
 margin: 0 auto;
 }
 
-.password-changed-page
+.password-changed-page {
 width: 700px;
 margin: 0 auto;
 }
 
+/* Audio badges */
+
+#now_with_audio{
+position: absolute;
+margin-top: 126px;
+z-index: 10000;
+}
+
+
+#curated_by_prx{
+position: absolute;
+margin-top: 188px;
+z-index: 10000;
+margin-left: 300px;
+}

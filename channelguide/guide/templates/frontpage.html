@@ -48,7 +48,7 @@ See LICENSE for details.
     <div class="inner2">
       <div class="message">
         <h2>{% trans "Welcome to the Miro Guide!" %}</h2>
-        <p>{% trans "Miro Guide has thousands of video shows and podcasts — you can browse and watch most of them right here." %}</p>
+        <p>{% trans "Miro Guide has thousands of video and audio shows — you can browse and watch most of them right here." %}</p>
         <p>{% blocktrans with "/accounts/login" as link %}Make this message disappear by <a href="{{ link }}">logging in</a>.{% endblocktrans %}
       </div>
       <div class="miro_message">
@@ -89,6 +89,11 @@ See LICENSE for details.
     {% endcomment %}
 
     <div id="featured">
+      {% if not audio %}
+      <img id="now_with_audio" src="{{ STATIC_BASE_URL }}images/audio_badge.png" />
+      {% else %}
+      <img id="curated_by_prx" src="{{ STATIC_BASE_URL }}images/audio_badge2.png" />
+      {% endif %}
       <div class="page">
         {% if show_welcome %}
         <div class="welcomeMessage">
@@ -213,9 +218,13 @@ See LICENSE for details.
           {% if category.popular_channels %}
           <li class="{% cycle "left" "right" %}">
             <h3>
+              {% if audio %}
+              {{ category.audio_link }}
+              {% else %}
               {{ category.link }}
+              {% endif %}
               <span class="dash"></span>
-              <a {% link category.get_url %}>{% trans "View All" %}</a>
+              <a href="{% if audio %}{{ category.get_audio_url }}{% else %}{{ category.get_url }}{% endif %}">{% trans "View All" %}</a>
             </h3>
             <ul>
               {% for channel in category.popular_channels %}
@@ -227,7 +236,7 @@ See LICENSE for details.
           {% endfor %}
         </ul>
 
-        <a class="more_link" {% link "new/" %}>{% trans "More New Shows >>" %}</a>
+        <a class="more_link" {% if audio %}{% link "audio/new/" %}{% else %}{% link "new/" %}{% endif %}>{% trans "More New Shows >>" %}</a>
 
         <script type="text/javascript">
 

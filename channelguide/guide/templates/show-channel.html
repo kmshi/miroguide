@@ -99,7 +99,12 @@
             <p>
               <strong>{% trans "Genres" %}</strong> -
               {% for category in channel.categories %}
-                {{ category.link }}{% if not forloop.last %}, {% endif %}
+              {% if audio %}
+              {{ category.audio_link }}
+              {% else %}
+              {{ category.link }}
+              {% endif %}
+              {% if not forloop.last %}, {% endif %}
               {% endfor %}
             </p>
             {% if channel.tags %}

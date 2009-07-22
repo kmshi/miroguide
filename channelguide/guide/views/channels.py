@@ -350,8 +350,9 @@ def show(request, id, featured_form=None):
         'share_url': share_url,
         'share_type': 'feed',
         'share_links': share_links,
-        'country': country}
-    
+        'country': country,
+        'audio': c.state == c.AUDIO}
+
     if share_url:
         context['google_analytics_ua'] = None
 
@@ -518,6 +519,12 @@ def filtered_listing(request, value=None, filter=None, limit=10,
         geoip = country_code(request)
     else:
         geoip = None
+    if isinstance(filter, basestring):
+        filter = [filter]
+        value = [value]
+    if request.path.startswith('/audio') and 'audio' not in filter:
+        filter.append('audio')
+        value.append(True)
     feed_object_list = FeedObjectList(request,
                                       filter, value, sort,
                                       ('stats', 'rating'), geoip)
@@ -575,8 +582,25 @@ def filtered_listing(request, value=None, filter=None, limit=10,
             args = request.GET.copy()
             args['geoip'] = 'off'
             geoip_filtered = util.make_absolute_url(request.path, args)
+
+    video_count = audio_count = None
+    
+    if 'audio' in filter:
+        video_filter = filter[:]
+        video_values = value[:]
+        index = video_filter.index('audio')
+        del video_filter[index]
+        del video_values[index]
+        video_count = len(FeedObjectList(request, video_filter, video_values,
+                                         sort, geoip))
+    else:
+        audio_filter = filter + ['audio']
+        audio_values = value + [True]
+        audio_count = len(FeedObjectList(request, audio_filter, audio_values,
+                                         sort, geoip))
+
     return util.render_to_response(request, 'listing.html', {
-        'title': title % {'value': value},
+        'title': title % {'value': value[0]},
         'sort': sort,
         'filter': filter,
         'current_page': page,
@@ -587,6 +611,10 @@ def filtered_listing(request, value=None, filter=None, limit=10,
         'geoip_filtered': geoip_filtered,
         'miro_version_pre_sites': miro_version_pre_sites,
         'miro_on_linux': miro_on_linux,
+        'search': 'search' in filter,
+        'audio': 'audio' in filter,
+        'video_count': video_count,
+        'audio_count': audio_count
         })
 
 def for_user(request, user_name_or_id):

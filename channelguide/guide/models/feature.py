@@ -17,17 +17,21 @@ class FeaturedQueue(Record):
     PAST = 2
 
     @classmethod
-    def featured(cls, state=None):
+    def featured(cls, state=None, channel_state=None):
         if state == None:
             state = cls.CURRENT
-        return cls.query().where(cls.c.state==state).order_by(cls.c.featured_at,desc=True)
+        query = cls.query().where(cls.c.state==state).order_by(
+            cls.c.featured_at, desc=True).join('channel')
+        channel_join = query.joins['channel']
+        if channel_state is None:
+            channel_state = 'A'
+        channel_join.where(channel_join.c.state == channel_state)
+        return query
 
     @classmethod
-    def users_in_queue(cls):
-        query = cls.featured(cls.IN_QUEUE)
-        select = query.make_select()
-        select.columns = [cls.c.featured_by_id]
-        return select
+    def users_in_queue(cls, connection, channel_state):
+        query = cls.featured(cls.IN_QUEUE, channel_state)
+        return set(fq.featured_by_id for fq in query.execute(connection))
 
     @classmethod
     def feature_channel(cls, channel, user, connection):
@@ -53,35 +57,43 @@ class FeaturedQueue(Record):
             cls.shuffle_queue(connection)
 
     @classmethod
-    def shuffle_queue(cls, connection):
-        count = cls.featured().count(connection)
+    def shuffle_queue(cls, connection, channel_state=None):
+        count = cls.featured(channel_state=channel_state).count(connection)
         while count >= settings.MAX_FEATURES:
-            query = cls.featured().order_by(None).order_by(cls.c.featured_at).limit(1)
-            old = query.join('channel').get(connection)
+            query = cls.featured(channel_state=channel_state).order_by(
+                None).order_by(cls.c.featured_at).limit(1)
+            old = query.get(connection)
             old.channel.change_featured(None, connection)
             old.state = cls.PAST
             old.save(connection)
             count -= 1
         for i in range(count, settings.MAX_FEATURES):
-            fq = cls.get_next_feature(connection)
+            fq = cls.get_next_feature(connection, channel_state=channel_state)
             if fq is None:
                 return
-            fq.join('channel', 'featured_by').execute(connection)
+            fq.join('featured_by').execute(connection)
             fq.state = cls.CURRENT
             fq.featured_at = datetime.datetime.now()
             fq.channel.change_featured(fq.featured_by, connection)
             fq.save(connection)
 
     @classmethod
-    def get_next_feature(cls, connection):
+    def get_next_feature(cls, connection, channel_state=None):
+        if channel_state is None:
+            channel_state = 'A'
+        valid_user_ids = cls.users_in_queue(connection, channel_state)
+        if not valid_user_ids:
+            return None
+        query = cls.query().load('last_time').join('channel')
+        query.joins['channel'].where(
+            query.joins['channel'].c.state == channel_state)
+        query.where(cls.c.featured_by_id.in_(valid_user_ids))
+        query.group_by(cls.c.featured_by_id)
+        query.order_by('last_time').order_by('featured_at').limit(1)
         try:
-            last_user = cls.query().load('last_time').where(
-                cls.c.featured_by_id.in_(cls.users_in_queue())).group_by(
-                cls.c.featured_by_id).order_by(
-                    'last_time').order_by('featured_at').limit(1).get(
-                    connection).featured_by_id
+            last_user_id = query.get(connection).featured_by_id
         except NotFoundError:
             return None
-        return cls.query().where(cls.c.state==cls.IN_QUEUE,
-                cls.c.featured_by_id==last_user).order_by(
-                        cls.c.featured_at).limit(1).execute(connection)[0]
+        return cls.featured(cls.IN_QUEUE, channel_state).where(
+            cls.c.featured_by_id == last_user_id).order_by(
+            None).order_by(cls.c.featured_at).limit(1).execute(connection)[0]

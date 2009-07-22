@@ -4,7 +4,7 @@
       {% for slice in categories_loop %}
       <ul class="index_{{ forloop.counter }}">
         {% for category in categories|slice:slice %}
-        <li>{{ category.link }}</li>
+        <li>{% if audio %}{{ category.audio_link }}{% else %}{{ category.link }}{% endif %}</li>
         {% endfor %}
       </ul>
       {% endfor %}

@@ -83,11 +83,14 @@ class NavLinkNode(template.Node):
         try:
             request_path = context['request'].path
         except KeyError:
-            request_path = None
+            request_path = ''
         if self.path == request_path:
             css_class = 'current-page'
         else:
             css_class = None
+        if request_path.startswith('/audio') and self.relative_path:
+            if not self.relative_path.startswith('/'):
+                self.relative_path = 'audio/' + self.relative_path
         return util.make_link_attributes(self.relative_path, css_class)
 
 @register.inclusion_tag('guide/page-links.html', takes_context=True)

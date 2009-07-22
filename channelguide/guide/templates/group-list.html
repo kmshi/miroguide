@@ -16,13 +16,27 @@ See LICENSE for details.
     <h1 class="group-list-name">{{ group_name }}</h1>
     <ul class="group-list">
       {% for group in groups %}
-        {% if group.channel_count %}
+        {% if group.channel_count or group.audio_count %}
           <li>
+            {% if audio %}
+            {{ group.audio_link }}
+            {% else %}
             {{ group.link }}
+            {% endif %}
             <span class="channel-count">
-              {% blocktrans with  group.channel_count as count %}
+              {% if audio %}
+              {% blocktrans count group.audio_count as count %}
+                1 Audio Feed
+              {% plural %}
+                {{ count }} Audio Feeds
+              {% endblocktrans %}
+              {% else %}
+              {% blocktrans count group.channel_count as count %}
+                1 Show
+              {% plural %}
                 {{ count }} Shows
               {% endblocktrans %}
+              {% endif %}
             </span>
           </li>
         {% endif %}

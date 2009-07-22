@@ -88,10 +88,24 @@ See LICENSE for details.
           <div class="meta">
             {% if item.description %}
 
-              <p class="synopsis">
+              <div class="synopsis">
                 <strong class="synopsis_tag">{% trans "Synopsis" %}</strong>
-                {{ item.description|striptags }}
-              </p>
+                {% if audio %}
+                {% with item.description|striptags as description %}
+                {% showall description 30 %}
+                {% ifshowall description 30 %}
+                <a href="#" class="read_more" onclick="$(this).parent().children('p').toggleClass('on'); return false;">{% trans "Show all" %}</a>
+                {% endifshowall %}
+                {% endwith %}
+                {% else %}
+                {% with item.description|striptags as description %}
+                {% showall description 300 %}
+                {% ifshowall description 300 %}
+                <a href="#" class="read_more" onclick="$(this).parent().children('p').toggleClass('on'); return false;">{% trans "Show all" %}</a>
+                {% endifshowall %}
+                {% endwith %}
+                {% endif %}
+              </div>
             {% endif %}
 
             <br clear="all" />

@@ -237,6 +237,13 @@ JOIN cg_category_map ON cg_channel.id=cg_category_map.channel_id
 WHERE cg_channel.state='A' AND
       cg_category_map.category_id=#table#.id""")
 
+category.add_subquery_column('audio_count', """\
+SELECT COUNT(*)
+FROM cg_channel
+JOIN cg_category_map ON cg_channel.id=cg_category_map.channel_id
+WHERE cg_channel.state='U' AND
+      cg_category_map.category_id=#table#.id""")
+
 tag.add_subquery_column('user_count', """\
 SELECT COUNT(DISTINCT(cg_tag_map.user_id))
 FROM cg_tag_map
@@ -250,6 +257,10 @@ WHERE cg_channel.state='A' AND cg_tag_map.tag_id=#table#.id""")
 language.add_subquery_column('channel_count', """
 SELECT COUNT(DISTINCT(cg_channel.id)) FROM cg_channel
 WHERE cg_channel.STATE='A' AND cg_channel.primary_language_id=#table#.id""")
+
+language.add_subquery_column('audio_count', """
+SELECT COUNT(DISTINCT(cg_channel.id)) FROM cg_channel
+WHERE cg_channel.STATE='U' AND cg_channel.primary_language_id=#table#.id""")
 
 user.add_subquery_column('moderator_action_count', """\
 SELECT COUNT(DISTINCT(cg_moderator_action.channel_id))

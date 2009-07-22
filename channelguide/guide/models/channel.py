@@ -82,7 +82,9 @@ class Channel(Record, Thumbnailable):
 
     @classmethod
     def query_new(cls, *args, **kwargs):
-        query = cls.query_approved(*args, **kwargs)
+        if 'state' not in kwargs:
+            kwargs['state'] == cls.APPROVED
+        query = cls.query(*args, **kwargs)
         query.where(cls.c.approved_at<=expression.Expression("SELECT timestamp FROM cg_channel_last_approved"))
         query.order_by(cls.c.approved_at, desc=True)
         return query
@@ -95,7 +97,10 @@ class Channel(Record, Thumbnailable):
 
     def get_url(self):
         if self.url:
-            head = 'feeds'
+            if self.state == Channel.AUDIO:
+                head = 'audio'
+            else:
+                head = 'feeds'
         else:
             head = 'sites'
         return util.make_url('%s/%i' % (head, self.id))
@@ -121,8 +126,14 @@ class Channel(Record, Thumbnailable):
 
     def get_subscription_url(self):
         if self.url:
+            if self.state == Channel.AUDIO:
+                section = 'audio'
+            else:
+                
+                section = 'video'
             return util.get_subscription_url(self.url,
-                                             trackback=self.get_subscribe_hit_url())
+                                             trackback=self.get_subscribe_hit_url(),
+                                             section=section)
         else:
             return util.get_subscription_url(self.website_url,
                                              type='site',
@@ -132,7 +143,7 @@ class Channel(Record, Thumbnailable):
         return self.get_absolute_url() + '/flag'
 
     def is_approved(self):
-        return self.state == self.APPROVED
+        return self.state in (self.APPROVED, self.AUDIO)
 
     def add_note(self, connection, note):
         self.join('notes').execute(connection)
@@ -436,7 +447,7 @@ class Channel(Record, Thumbnailable):
             self.save(connection)
             return
         self.state = newstate
-        if newstate == self.APPROVED:
+        if self.is_approved():
             self.approved_at = datetime.now()
             self.join('owner').execute(connection)
             if self.owner.email is not None:
