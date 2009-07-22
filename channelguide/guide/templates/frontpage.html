@@ -165,10 +165,10 @@ See LICENSE for details.
     {% endcomment %}
 
     <div class="big_search">
-      <p>{% trans "Search for Shows" %}</p>
+      <p>{% if audio %}{% trans "Search for Audio" %}{% else %}{% trans "Search for Video" %}{% endif %}</p>
       <form method="GET" action="{{ BASE_URL }}{% if audio %}audio/{% endif %}search">
         <div>
-          <input type="text" class="field" name="query"><button value="Search" name="submit" class="submit_search">Search</button>
+          <input type="text" class="field" name="query"><button class="submit_search">{% trans "Search" %}</button>
         </div>
       </form>
     </div>
@@ -184,10 +184,10 @@ See LICENSE for details.
       <div id="contentSmall">
         <div class="detailsHead3">
           <div class="resultsCount">
-            <a name="new" class="heading selected" {% if audio %}{% link "audio/new/" %}{% else %}{% link "new/" %}{% endif %}>{% trans "New Shows" %}</a>
+            <a name="new" class="heading{% if not audio%} selected{% endif %}" {% if audio %}{% link "audio/new/" %}{% else %}{% link "new/" %}{% endif %}>{% trans "New Shows" %}</a>
             <a name="popular" class="heading" {% if audio %}{% link "audio/popular/" %}{% else %}{% link "popular/" %}{% endif %}>{% trans "Most Popular" %}</a>
             <a name="hd" class="heading" {% if audio %}style="display: none;"{% endif %}{% link "hd/" %}>{% trans "HD Favorites" %}</a>
-            <div class="heading">
+            <div class="heading{% if audio %} selected{% endif %}">
               <a name="genres" {% if audio %}{% link "audio/genres/"%}{% else %}{% link "genres/" %}{% endif %}>{% trans "Genres" %}</a>
               {% include "guide/genres_popup.html" %}
             </div>
@@ -195,7 +195,7 @@ See LICENSE for details.
 
         </div>
 
-        <ul class="newVideos" style="display: block;">
+        <ul class="newVideos"{% if not audio %} style="display: block;"{% endif %}>
           {% for channel in new_channels %}
             <li>{% include "guide/channel-mini.html" %}</li>
           {% endfor %}
@@ -213,7 +213,7 @@ See LICENSE for details.
           {% endfor %}
         </ul>
         {% endif %}
-        <ul id="genreVideos" class="newVideos" style="display: none;">
+        <ul id="genreVideos" class="newVideos" {% if audio %}style="display: block;"{% else %}style="display: none;"{% endif %}>
           {% for category in categories %}
           {% if category.popular_channels %}
           <li class="{% cycle "left" "right" %}">
@@ -236,7 +236,7 @@ See LICENSE for details.
           {% endfor %}
         </ul>
 
-        <a class="more_link" {% if audio %}{% link "audio/new/" %}{% else %}{% link "new/" %}{% endif %}>{% trans "More New Shows >>" %}</a>
+        <a class="more_link" {% if audio %}{% link "audio/genres/" %}{% else %}{% link "new/" %}{% endif %}>{% if not audio %}{% trans "More New Shows >>" %}{% else %}{% trans "More Genres >>" %}{% endif %}</a>
 
         <script type="text/javascript">
 
