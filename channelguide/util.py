@@ -463,12 +463,13 @@ def ensure_list(object):
 def get_subscription_url(*links, **kwargs):
     parts = ['url%i=%s' % (index, quote(url)) for (index, url) in
                 izip(count(1), links)]
-    if kwargs.get('trackback'):
-        trackback = kwargs['trackback']
-        if isinstance(trackback, (str, unicode)):
-            trackback = [trackback]
-        parts.extend('trackback%i=%s' % (index, quote(url)) for (index, url) in
-                     izip(count(1), trackback))
+    for extraName in ('trackback', 'section'):
+        if kwargs.get(extraName):
+            extra = kwargs[extraName]
+            if isinstance(extra, (str, unicode)):
+                extra = [extra]
+            parts.extend('%s%i=%s' % (extraName, index, quote(value)) for (index, value) in
+                         izip(count(1), extra))
 
     attributes = '&'.join(parts)
 

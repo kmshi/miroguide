@@ -90,7 +90,13 @@ hover = {
         html += '</a>';
         if (show.item.length) {
             // preview button
-            html += '<a href="' + show.item[0].playback_url + '" class="preview"><span>' + gettext('Watch') + '</span></a>';
+            html += '<a href="' + show.item[0].playback_url + '" class="preview"><span>';
+            if (show.details_url.indexOf('audio') != -1) {
+                html += gettext('Listen');
+            } else {
+                html += gettext('Watch');
+            }
+            html += '</span></a>';
         }
         html += '</div>';
         html += '<div class="rate">';

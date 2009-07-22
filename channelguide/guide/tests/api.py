@@ -539,6 +539,21 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         self.assertEquals(len(objs2), 1)
         self.assertEquals(objs2[0].id, self.channels[0].id)
 
+    def test_get_channels_filter_audio(self):
+        """
+        api.get_channels(connection', 'audio', True) should return Channels that
+        are marked as audio.  False should return a list of Channels that are not.
+        """
+        self.channels[1].state = self.channels[1].AUDIO
+        self.channels[1].save(self.connection)
+        objs = api.get_channels(self.make_request(), 'audio', True)
+        self.assertEquals(len(objs), 1)
+        self.assertEquals(objs[0].id, self.channels[1].id)
+
+        objs2 = api.get_channels(self.make_request(), 'audio', False)
+        self.assertEquals(len(objs2), 1)
+        self.assertEquals(objs2[0].id, self.channels[0].id)
+
     def test_get_channels_filter_search(self):
         self.channels[1].change_state(self.owner, 'N', self.connection)
         for channel in self.channels:
@@ -557,6 +572,14 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         self.assertEquals(objs[0].id, self.channels[0].id)
         self.assertEquals(objs[1].id, self.channels[1].id)
 
+    def test_get_channels_filter_hide_unapproved(self):
+        """
+        The default should be to only show approved channels.
+        """
+        self.channels[1].change_state(self.owner, 'N', self.connection)
+        objs = api.get_channels(self.make_request(), 'name', self.channels[1].name)
+        self.assertEquals(len(objs), 0)
+
     def test_get_channels_filter_search_unicode(self):
         unicode_name = u'\u6771\u68ee\u65b0\u805e'
         self.channels[0].name = unicode_name
@@ -565,6 +588,24 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         objs = api.get_channels(self.make_request(), 'search', unicode_name)
         self.assertEquals(len(objs), 1)
         self.assertEquals(objs[0].id, self.channels[0].id)
+
+    def test_get_channels_filter_multiple(self):
+        self.channels.append(self.make_channel(self.owner, state='A'))
+        self.channels[1].name = 'Testing Testing'
+        self.channels[1].url = None
+        self.channels[1].save(self.connection)
+        self.channels[2].name = 'Testing Testing'
+        self.channels[2].save(self.connection)
+
+        objs = api.get_channels(self.make_request(), 'feed', True)
+        self.assertEquals(len(objs), 2)
+        self.assertEquals(objs[0].id, self.channels[0].id)
+        self.assertEquals(objs[1].id, self.channels[2].id)
+
+        objs2 = api.get_channels(self.make_request(), ('feed', 'name'),
+                                (True, self.channels[2].name))
+        self.assertEquals(len(objs2), 1)
+        self.assertEquals(objs2[0].id, self.channels[2].id)
 
     def test_get_channels_sort_name(self):
         """

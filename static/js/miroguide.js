@@ -86,7 +86,7 @@ function ajaxLink(url, id) {
  * channelguide URL redirects te the subscribe_url.
  */
 function handleSubscriptionLink(channel_guide_url, subscribe_url) {
-    if (pageTracker) { // Google Analytics
+    if (typeof pageTracker !== 'undefined') { // Google Analytics
         showID = /(\d+)\/subscribe-hit/.exec(channel_guide_url)[1];
         pageTracker._trackEvent('Subscriptions', 'Shows', showID);
     }
@@ -249,7 +249,7 @@ function languageUp() {
     ul = $("#hoverMenuLanguage ul:last");
     ul.scrollTop(ul.scrollTop() - 30);
     languageStop();
-    languageTimeout = setTimeout(languageUp, 50);
+    languageTimeout = setTimeout(languageUp, 100);
 }
 
 function languageDown() {
@@ -257,7 +257,7 @@ function languageDown() {
     ul = $("#hoverMenuLanguage ul:last");
     ul.scrollTop(ul.scrollTop() + 30);
     languageStop();
-    languageTimeout = setTimeout(languageDown, 50);
+    languageTimeout = setTimeout(languageDown, 100);
 }
 
 function add_corners() {

@@ -41,9 +41,13 @@ hover.load(
       {% for category in categories %}
       <li class="{% cycle "left" "right" %}">
         <h3>
+          {% if audio %}
+          {{ category.audio_link }}
+          {% else %}
           {{ category.link }}
+          {% endif %}
           <span class="dash"></span>
-          <a {% link category.get_url %}>{% trans "View All" %}</a>
+          <a href="{% if audio %}{{ category.get_audio_url }}{% else %}{{ category.get_url }}{% endif %}">{% trans "View All" %}</a>
         </h3>
         <ul>
           {% for channel in category.popular_channels %}

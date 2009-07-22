@@ -45,6 +45,16 @@ def flash_embed(item):
 </object>""" % (DEFAULT_WIDTH, DEFAULT_HEIGHT + 36, url,
                 DEFAULT_WIDTH, DEFAULT_HEIGHT + 36, url)
 
+def mp3_embed(item):
+    src = ''.join([settings.STATIC_BASE_URL, 'swf/xspf_player_slim.swf?song_url=', util.urlquote(item.url), '&song_title=', util.urlquote(item.name), '&autoplay=true'])
+    return """<object height="15" width="400" align="middle" id="xspf_player" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000">
+<param value="sameDomain" name="allowScriptAccess"/>
+<param value="%s" name="movie"/>
+<param value="high" name="quality"/>
+<param value="#e6e6e6" name="bgcolor"/>
+<embed height="15" width="400" align="middle" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" allowscriptaccess="sameDomain" name="xspf_player" bgcolor="#e6e6e6" quality="high" src="%s"/>
+</object>""" % (src, src)
+
 def default_embed(item):
     return """<embed width="%i" height="%i" src="%s"></embed>""" % (
         DEFAULT_WIDTH, DEFAULT_HEIGHT, item.url)
@@ -52,15 +62,15 @@ def default_embed(item):
 EMBED_MAPPING = {
     'video/mp4': quicktime_embed,
     'video/quicktime': quicktime_embed,
-    'audio/mpeg': quicktime_embed,
     'video/x-m4v': quicktime_embed,
     'video/mpeg': quicktime_embed,
     'video/m4v': quicktime_embed,
     'video/mov': quicktime_embed,
-    'audio/x-m4a': quicktime_embed,
-    'audio/mp4': quicktime_embed,
+    'audio/mpeg': mp3_embed,
+    'audio/x-m4a': mp3_embed,
+    'audio/mp4': mp3_embed,
     'video/x-mp4': quicktime_embed,
-    'audio/mp3': quicktime_embed,
+    'audio/mp3': mp3_embed,
     'application/x-shockwave-flash': flash_embed,
     'video/x-flv': flash_embed,
     'video/flv': flash_embed,
@@ -106,6 +116,7 @@ def item(request, id):
 
     context = {'item': item,
                'channel': item.channel,
+               'audio': item.channel.state == item.channel.AUDIO,
                'bittorrent': item.mime_type == 'application/x-bittorrent',
                'previous': previous,
                'next': next,

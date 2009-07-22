@@ -41,61 +41,72 @@ def get_channel_by_url(connection, url):
 def get_channels_query(request, filter, value, sort=None,
                        country_code=None):
     connection = request.connection
-    query = Channel.query_approved()
+    query = Channel.query().where((Channel.c.state == Channel.APPROVED) |
+                                  (Channel.c.state == Channel.AUDIO))
     query.order_by(Channel.c.archived)
-    join = None
-    if filter == 'category':
-        try:
-            category_id = Category.query(name=value).get(connection).id
-        except LookupError:
-            return None
-        join = 'categories'
+    def _add_join(join):
         query.join(join)
-        query.joins[join].where(id=category_id)
-    elif filter == 'tag':
-        try:
-            tag_id = Tag.query(name=value).get(connection).id
-        except LookupError:
-            return None
-        join = 'tags'
-        query.join(join)
-        query.joins[join].where(id=tag_id)
-    elif filter == 'language':
-        try:
-            language_id = Language.query(name=value).get(connection).id
-        except LookupError:
-            return None
-        query.where(Channel.c.primary_language_id == language_id)
-    elif filter == 'featured':
-        if value:
-            query.where(Channel.c.featured)
+        return query.joins[join]
+
+    if not isinstance(filter, (list, tuple)):
+        filter = [filter]
+    if not isinstance(value, (list, tuple)):
+        value = [value]
+    for filter, value in zip(filter, value):
+        if filter == 'category':
+            try:
+                category_id = Category.query(name=value).get(connection).id
+            except LookupError:
+                return None
+            _add_join('categories').where(id=category_id)
+        elif filter == 'tag':
+            try:
+                tag_id = Tag.query(name=value).get(connection).id
+            except LookupError:
+                return None
+            _add_join('tags').where(id=tag_id)
+        elif filter == 'language':
+            try:
+                language_id = Language.query(name=value).get(connection).id
+            except LookupError:
+                return None
+            query.where(Channel.c.primary_language_id == language_id)
+        elif filter == 'featured':
+            if value:
+                query.where(Channel.c.featured)
+            else:
+                query.where(Channel.c.featured.negate())
+        elif filter == 'hd':
+            if value:
+                query.where(Channel.c.hi_def)
+            else:
+                query.where(Channel.c.hi_def.negate())
+        elif filter == 'feed':
+            if value:
+                query.where(Channel.c.url.is_not(None))
+            else:
+                query.where(Channel.c.url.is_(None))
+        elif filter == 'user':
+            try:
+                user_id = User.query(username=value).get(connection).id
+            except LookupError:
+                return None
+            query.where(owner_id=user_id)
+        elif filter == 'name':
+            if value:
+                query.where(Channel.c.name.like(value + '%'))
+        elif filter == 'audio':
+            if value:
+                query.where(Channel.c.state == Channel.AUDIO)
+            else:
+                query.where(Channel.c.state != Channel.AUDIO)
+        elif filter == 'search':
+            query = search_mod.search_channels(value.split())
+            if not request.user.is_moderator():
+                query.where((Channel.c.state==Channel.APPROVED) |
+                            (Channel.c.state==Channel.AUDIO))
         else:
-            query.where(Channel.c.featured.negate())
-    elif filter == 'hd':
-        if value:
-            query.where(Channel.c.hi_def)
-        else:
-            query.where(Channel.c.hi_def.negate())
-    elif filter == 'feed':
-        if value:
-            query.where(Channel.c.url.is_not(None))
-        else:
-            query.where(Channel.c.url.is_(None))
-    elif filter == 'user':
-        try:
-            user_id = User.query(username=value).get(connection).id
-        except LookupError:
-            return None
-        query.where(owner_id=user_id)
-    elif filter == 'name':
-        if value:
-            query.where(Channel.c.name.like(value + '%'))
-    elif filter == 'search':
-        query = search_mod.search_channels(value.split())
-        if not request.user.is_moderator():
-            query.where(state=Channel.APPROVED)
-    else:
-        raise ValueError('unknown filter: %r' % (filter,))
+            raise ValueError('unknown filter: %r' % (filter,))
     if country_code:
         query.where((Channel.c.geoip == "") |
                     Channel.c.geoip.like(country_code))
@@ -120,7 +131,7 @@ def get_channels_query(request, filter, value, sort=None,
         query.order_by(query.joins['rating'].c.bayes, desc=desc)
     else:
         raise ValueError('unknown sort type: %r' % sort)
-    if filter != 'language':
+    if 'language' not in filter:
         if request.user.is_authenticated() and \
                 request.user.filter_languages:
             request.user.join('shown_languages').execute(connection)
@@ -196,6 +207,28 @@ def get_sites(request, filter, value, sort=None, limit=None, offset=None,
                                country_code)
     if query:
         query.where(Channel.c.url.is_(None))
+    if sort != use_sort:
+        if query:
+            return query.count(request.connection)
+        else:
+            return 0
+    if not query:
+        return []
+    _add_limit_and_offset(query, limit, offset)
+    joins, loads = _split_loads(loads)
+    query.load(*loads)
+    results = query.execute(request.connection)
+    if results:
+        results.join(*joins).execute(request.connection)
+    return results
+
+def get_audio(request, filter, value, sort=None, limit=None, offset=None,
+              loads=None, country_code=None):
+    use_sort = _use_sort(sort)
+    query = get_channels_query(request, filter, value, use_sort,
+                               country_code)
+    if query:
+        query.where(Channel.c.state == Channel.AUDIO)
     if sort != use_sort:
         if query:
             return query.count(request.connection)

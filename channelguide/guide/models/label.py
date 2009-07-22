@@ -21,6 +21,9 @@ class Label(Record):
     def link(self):
         return util.make_link(self.get_url(), self.name)
 
+    def audio_link(self):
+        return util.make_link(self.get_audio_url(), self.name)
+
     def __unicode__(self):
         return self.name
 
@@ -44,14 +47,21 @@ class Category(Label):
         return util.make_url('genres/%s' % self.name.encode('utf8'),
                              ignore_qmark=True)
 
+    def get_audio_url(self):
+        return util.make_url('audio/genres/%s' % self.name.encode('utf8'),
+                             ignore_qmark=True)
+
     def get_rss_url(self):
         return util.make_url('feeds/genres/%s' % self.name.encode('utf8'),
                              ignore_qmark=True)
 
-    def get_list_channels(self, connection, filter_front_page=False):
+    def get_list_channels(self, connection, filter_front_page=False, show_state=None):
+        from channelguide.guide.models import Channel
+        if show_state is None:
+                show_state = Channel.APPROVED
         def _q(filter_by_rating):
-            from channelguide.guide.models import Channel
-            query = Channel.query_approved(archived=0)
+            query = Channel.query(archived=0)
+            query.where(Channel.c.state == show_state)
             query.join("categories", 'stats')
             query.where(query.joins['categories'].c.id==self.id)
             query.order_by(query.joins['stats'].c.subscription_count_today, desc=True)
@@ -73,7 +83,10 @@ class Category(Label):
         most_popular = _q(True)
         if len(most_popular) < 2:
             most_popular = _q(False)
-        return most_popular[0], random.choice(most_popular[1:])
+        if len(most_popular) > 1:
+            return most_popular[0], random.choice(most_popular[1:])
+        else:
+            return most_popular
 
 class Tag(Label):
     """Tags are user created labels.  Any string of text can be a tag and any
