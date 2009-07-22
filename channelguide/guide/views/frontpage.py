@@ -16,7 +16,11 @@ def get_current_language(request):
     Returns a Language object for the current language, or None if it's
     the default language.
     """
-    if request.LANGUAGE_CODE != settings.LANGUAGE_CODE:
+    if request.user.is_authenticated():
+        filter_languages = request.user.filter_languages
+    else:
+        filter_languages = request.session.get('filter_languages', False)
+    if request.LANGUAGE_CODE != settings.LANGUAGE_CODE or filter_languages:
         languageName = settings.LANGUAGE_MAP[request.LANGUAGE_CODE]
         try:
             return Language.query().where(name=languageName).get(
@@ -81,9 +85,10 @@ class FrontpageView:
     def __call__(klass, request, show_welcome):
         featured_channels = klass.get_featured_channels(request)
         categories = get_categories(request.connection)
+        language = get_current_language(request)
         for category in categories:
             category.popular_channels = category.get_list_channels(
-                request.connection, True, klass.show_state)
+                request.connection, True, klass.show_state, language)
         context = {
             'show_welcome': show_welcome,
             'new_channels': klass.get_new_channels(request, True, 20),
@@ -92,7 +97,7 @@ class FrontpageView:
             'featured_channels': featured_channels[:2],
             'featured_channels_hidden': featured_channels[2:],
             'categories': categories,
-            'language' : get_current_language(request),
+            'language' : language,
         }
         context.update(klass.additional_context)
         return util.render_to_response(request, 'frontpage.html', context)

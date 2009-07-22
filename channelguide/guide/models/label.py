@@ -55,13 +55,16 @@ class Category(Label):
         return util.make_url('feeds/genres/%s' % self.name.encode('utf8'),
                              ignore_qmark=True)
 
-    def get_list_channels(self, connection, filter_front_page=False, show_state=None):
+    def get_list_channels(self, connection, filter_front_page=False,
+                          show_state=None, language=None):
         from channelguide.guide.models import Channel
         if show_state is None:
                 show_state = Channel.APPROVED
         def _q(filter_by_rating):
             query = Channel.query(archived=0)
             query.where(Channel.c.state == show_state)
+            if language is not None:
+                query.where(Channel.c.primary_language_id == language.id)
             query.join("categories", 'stats')
             query.where(query.joins['categories'].c.id==self.id)
             query.order_by(query.joins['stats'].c.subscription_count_today, desc=True)
