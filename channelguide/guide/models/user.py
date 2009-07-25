@@ -153,6 +153,10 @@ class User(UserBase, Record):
     def set_password(self, password):
         self.hashed_password = util.hash_string(password + self.PASSWORD_SALT)
 
+    # This should be fine unless the passwords are spiced in the future.
+    def check_hashed_password(self, hashed):
+        return self.hashed_password == hashed
+
     def check_password(self, password):
         hashed = util.hash_string(password + self.PASSWORD_SALT)
         return self.hashed_password == hashed

@@ -5436,10 +5436,10 @@ margin: 0 auto;
 .aqe { background-position:  0px -44px; }
 
 .uaqd, .uaqc {
-	opacity:  0.5;
+    opacity:  0.5;
     -moz-opacity:  0.5;
-	-khtml-opacity:  0.5;
-    filter:  alpha (opacity=50);
+    -khtml-opacity:  0.5;
+    filter:  alpha(opacity=50);
 }
 
 .dummy-span { display: none; }

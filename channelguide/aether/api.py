@@ -10,7 +10,9 @@ from xml.dom.minidom import Document
 
 from django.http import Http404, HttpResponse
 
-from channelguide.guide.auth import login_required
+from channelguide import sessions
+
+from channelguide.guide.auth import login, login_required, SESSION_KEY
 from channelguide.aether.dbutils import user_lock_required
 
 from channelguide.guide.models.item import Item
@@ -21,7 +23,52 @@ from channelguide.aether.models import (
     DownloadRequest, DownloadRequestDelta, Client
 )
 
-from channelguide.aether.decorators import post_only
+from channelguide.aether.forms import HashedPasswordLoginForm
+from channelguide.aether.decorators import post_only, aether_login_required
+
+# Wishing the desktop client API were more like Last.FM's.  Will not require
+# users to login on MG site when their session expires.  This will create 2
+# sessions, one user session, one api session.
+
+@post_only
+#@aether_login_required
+def aether_authenticate (request):
+    if request.method == 'POST':
+        context = {}
+        
+        try:
+            login_form = HashedPasswordLoginForm (
+                request.connection, request.POST
+            )
+
+            if not login_form.is_valid ():
+                raise Exception ('Login invalid!')
+            
+            user = login_form.get_user ()
+            sessionID = request.REQUEST.get ('session')
+
+            if not sessionID:
+                sessionID = sessions.util.make_new_session_key (
+                    request.connection
+                )
+
+            session = sessions.util.get_session_from_key (
+                request.connection, sessionID
+            )
+
+            data = session.get_data ()
+            data['apiUser'] = user.id
+
+            session.session_key = sessionID
+            session.set_data (data)
+
+            session.save (request.connection)
+
+            context['status'] = 'authenticated'
+            context['session'] = sessionID
+        except Exception as e:
+            context['status'] = 'error'
+    return HttpResponse (dumps (context), mimetype='application/json')
 
 @post_only
 @login_required
@@ -166,6 +213,7 @@ ITEM_PROPS = [
 CHANNEL_PROPS = [
     'id',
     'name',
+    'feed_modified',
     'description',
     'license',
     'publisher',
@@ -256,7 +304,6 @@ def get_user_deltas (request, client_id):
                 for s in subs:
                     sub = d.createElement ('channel')
                     sub.setAttribute ('action', 'added')
-
                     for cp in CHANNEL_PROPS:
                         sub.appendChild (to_element (d, cp, getattr(s, cp)))
 
@@ -310,10 +357,14 @@ def register_client (request):
         c.last_updated_ip = c.registration_ip = IP(request.META['REMOTE_ADDR']).int ()
         c.save (request.connection)
 
-        ret = c.client_id
+        ret = { 'client_id': c.client_id }
     except:
-        ret = 'fail'
-    
+        ret = { 'error': 'yer fucked.' }
+
+    return HttpResponse (
+        dumps (ret), mimetype="application/json"
+    )
+
     return HttpResponse (ret)
 
 def to_element (doc, name, val):

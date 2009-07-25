@@ -68,6 +68,8 @@ CREATE TABLE aether_download_request_delta (
 
   PRIMARY KEY (id),
 
+  CONSTRAINT fk_item_download_request_user_id FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
+
   INDEX (created_at),
   INDEX (item_id),
   INDEX (mod_type),
