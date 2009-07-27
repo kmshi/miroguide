@@ -172,7 +172,7 @@ def moderator_channel_list(request, state):
 
 
 def channel(request, id):
-    if request.method == 'GET':
+    if request.method in ('GET', 'HEAD'):
         return show(request, id)
     else:
         channel = util.get_object_or_404(request.connection, Channel, id)
@@ -289,6 +289,8 @@ def channel(request, id):
                     channel.delete_tag(request.connection, channel.owner, tag)
                 channel.owner_id = user.id
                 channel.add_tags(request.connection, user, [tag.name for tag in tags])
+        else:
+            raise Http404
         channel.save(request.connection)
     return util.redirect_to_referrer(request)
 
