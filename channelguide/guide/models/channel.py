@@ -353,8 +353,16 @@ class Channel(Record, Thumbnailable):
         if self.items:
             self._check_archived(connection)
         else:
-            self.archived = True
             miroguide = User.query(username='miroguide').get(connection)
+            if self.state == Channel.SUSPENDED:
+                self.join('moderator_actions').execute(connection)
+                moderator_actions = sorted(self.moderator_actions,
+                                           key=operator.attrgetter('id'),
+                                           reverse=True)
+                if (datetime.now() - moderator_actions[0].timestamp).days > 90:
+                    self.change_state(miroguide, Channel.REJECTED, connection)
+                    return
+            self.archived = True
             self.change_state(miroguide, Channel.SUSPENDED, connection)
 
     def _check_archived(self, connection):

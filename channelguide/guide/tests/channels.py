@@ -503,6 +503,7 @@ class ChannelSuspensionTest(ChannelTestBase):
         """
         self.channel.update_items(self.connection,
                                   feedparser_input=open(test_data_path('badfeed.html')))
+        self.channel = self.refresh_record(self.channel, 'items')
         self.channel.update_items(self.connection,
                                   feedparser_input=open(test_data_path('badfeed.html')))
         self.channel = self.refresh_record(self.channel)
