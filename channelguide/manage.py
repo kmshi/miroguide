@@ -132,13 +132,29 @@ def spawn_threads_for_channels(task_description, callback, thread_count):
 def update_items(args=None):
     """Update the items for each channel."""
     from channelguide import db
+    from datetime import datetime
     db.pool.max_connections = 20
     set_short_socket_timeout()
 
+    now = datetime.now()
     def callback(connection, channel):
+        if channel.state == channel.SUSPENDED and now.weekday() != 6:
+            # only check suspended feeds on Sunday
+            return
+        if not channel.is_approved() and channel.state != channel.SUSPENDED:
+            # only check approved/suspended feeds
+            return
+        if channel.id % 24 != now.hour:
+            # check channels throughout the day, some each hour
+            return
         channel.join('items').execute(connection)
         try:
+            start = time.time()
             channel.update_items(connection)
+            length = time.time() - start
+            if length > 6:
+                logging.warn("Update too slow for %s: %f" % (channel.url,
+                                                             length))
         except:
             logging.warn("\nError updating items for %s\n\n%s\n" % 
                     (channel, traceback.format_exc()))
