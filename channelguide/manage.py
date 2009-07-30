@@ -432,8 +432,10 @@ def refresh_stats_table(args=None):
     conn = db.connect()
     copy_holding = """INSERT INTO cg_channel_subscription
     SELECT channel_id, timestamp, ip_address, ignore_for_recommendations
-    FROM cg_channel_subscription_holding"""
-    delete_holding = "DELETE FROM cg_channel_subscription_holding"
+    FROM cg_channel_subscription_holding
+    WHERE DATE_SUB(NOW(), INTERVAL 1 MONTH) > timestamp"""
+    delete_holding = """DELETE FROM cg_channel_subscription_holding
+    WHERE DATE_SUB(NOW(), INTERVAL 1 MONTH) > timestamp"""
     conn.execute(copy_holding)
     conn.execute(delete_holding)
     conn.commit()
@@ -449,28 +451,34 @@ def refresh_stats_table(args=None):
            cg_channel_subscription
         WHERE 
            cg_channel_subscription.channel_id=cg_channel.id
+       ) +
+       (
+        SELECT
+           COUNT(*)
+        FROM 
+           cg_channel_subscription_holding
+        WHERE 
+           cg_channel_subscription_holding.channel_id=cg_channel.id
        )
        AS cg_channel_subscription_count,
         (
         SELECT 
            COUNT(*)
         FROM 
-           cg_channel_subscription
+           cg_channel_subscription_holding
         WHERE 
-           cg_channel_subscription.channel_id=cg_channel.id 
-        AND 
-           cg_channel_subscription.timestamp > DATE_SUB(NOW(), INTERVAL 1 MONTH)
+           cg_channel_subscription_holding.channel_id=cg_channel.id 
       ) 
       AS cg_channel_subscription_count_month,
         (
         SELECT 
            COUNT(*)
         FROM 
-           cg_channel_subscription
+           cg_channel_subscription_holding
         WHERE 
-           cg_channel_subscription.channel_id=cg_channel.id 
+           cg_channel_subscription_holding.channel_id=cg_channel.id 
         AND 
-           cg_channel_subscription.timestamp > DATE_SUB(NOW(), INTERVAL 1 DAY)
+           cg_channel_subscription_holding.timestamp > DATE_SUB(NOW(), INTERVAL 1 DAY)
       ) 
       AS cg_channel_subscription_count_today
     FROM 
