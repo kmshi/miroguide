@@ -7,16 +7,18 @@ from channelguide.aether.api import (
     add_channel_subscription,
     remove_channel_subscription,
     queue_download, cancel_download,
-    get_user_deltas, register_client
+    get_user_deltas, register_client,
+    api_unsubscribe
 )
 
 urlpatterns = patterns (
     '',
-    (r'^auth/$', aether_authenticate),
     (r'^subscribe/(\d+)$', add_channel_subscription),
     (r'^unsubscribe/(\d+)$', remove_channel_subscription),
     (r'^queue/(\d+)$', queue_download),
     (r'^dequeue/(\d+)$', cancel_download),
-    (r'^register/?', register_client),
-    (r'^deltas/([a-f0-9]{32})$', get_user_deltas),
+    (r'^api/auth/$', aether_authenticate),
+    (r'^api/register/?', register_client),
+    (r'^api/deltas/$', get_user_deltas),
+    (r'^api/unsubscribe/$', api_unsubscribe),
 )

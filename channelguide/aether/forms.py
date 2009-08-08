@@ -14,7 +14,6 @@ class HashedPasswordLoginForm (Form):
         user = self.cleaned_data.get ('username')
         password_hash = self.cleaned_data.get ('password_hash')
 
-        print password_hash
         if user is not None:
             if not user.check_hashed_password (password_hash) or user.blocked:
                 raise forms.ValidationError(_("That password is not valid."))
