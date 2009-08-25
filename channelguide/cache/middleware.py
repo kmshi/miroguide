@@ -5,37 +5,20 @@ from Cookie import SimpleCookie
 import time
 from django.conf import settings
 
+from mongo_stats.middleware import MongoStatsMiddleware
+
 import client
 
 from channelguide import util
 from channelguide.guide.country import country_code
 
-class CacheTimingMiddleware(object):
-    def process_request(self, request):
-        if settings.DISABLE_CACHE:
-            return
-        request.start_time = time.time()
+class CacheTimingMiddleware(MongoStatsMiddleware):
 
-    def process_response(self, request, response):
-        if not hasattr(request, 'start_time'):
-            return response
-        total = time.time() - request.start_time
-        f = file('/tmp/page_timing', 'a')
+    def request_was_cached(self, request):
         if hasattr(request, '_cache_hit'):
-            type = 'C'
+            return True
         else:
-            type = 'R'
-        if hasattr(request, 'user'):
-            if request.user.is_authenticated():
-                type = type + 'A'
-        line = '%s!%s!%i!%s!%s!%f\n' % (time.asctime(),type, response.status_code, request.path, request.META.get('QUERY_STRING', ''), total)
-        f.write(line.encode('utf8'))
-        f.close()
-        del request.start_time
-        if response['Content-Type'].startswith('text/html'):
-            footer = '\n<!-- %s -->' % line
-            response.content = response.content + footer.encode('utf-8')
-        return response
+            return MongoStatsMiddleware.request_was_cached(self, request)
 
 class CacheMiddlewareBase(object):
     cache_time = 0 # how many seconds to cache for
