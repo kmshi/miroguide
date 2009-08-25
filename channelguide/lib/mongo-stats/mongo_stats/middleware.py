@@ -37,8 +37,6 @@ class MongoStatsMiddleware(object):
         return
 
     def request_was_cached(self, request):
-        if hasattr(request, 'view_func'):
-            return False
         if (hasattr(request, '_cache_update_cache') and
             request._cache_update_cache == False and
             request.method in ('GET', 'HEAD') and
