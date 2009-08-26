@@ -1,0 +1,3 @@
+[submodule "channelguide/lib/mongo-stats"]
+	path = channelguide/lib/mongo-stats
+	url = pcf1:/var/git/mongo-stats
