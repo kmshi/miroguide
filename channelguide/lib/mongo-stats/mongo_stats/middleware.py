@@ -5,9 +5,37 @@ try:
     import pymongo
 except ImportError:
     pymongo = None
+else:
+    from pymongo import bson, errors
 
 import time, datetime
 from django.conf import settings
+
+def _fix_dict(d):
+    """
+    Strip out non-BSON-able keys/values from dictionaries.
+    """
+    new_d = {}
+    for k, v in d.items():
+        new_d[k.replace('.', '_').lstrip('$')] = _fix_values([v])[0]
+    return new_d
+
+def _fix_values(l):
+    """
+    Strip out non-BSON-able values from lists.
+    """
+    l = list(l)
+    for index, item in enumerate(l):
+        if isinstance(item, (list, tuple)):
+            l[index] = _fix_values(item)
+        elif isinstance(item, dict):
+            l[index] = _fix_dict(item)
+        else:
+            try:
+                bson._element_to_bson('', item, False)
+            except errors.InvalidDocument:
+                l[index] = str(item)
+    return l
 
 class MongoStatsMiddleware(object):
 
@@ -66,14 +94,13 @@ class MongoStatsMiddleware(object):
             'ajax?': request.is_ajax(),
             'host': request.get_host(),
             'path': request.path,
-            'GET': dict(request.GET),
-            'POST': dict(request.POST),
-            'META': dict((k, v) for k, v in request.META.items()
-                         if not k.startswith('wsgi.')),
+            'GET': _fix_dict(request.GET),
+            'POST': _fix_dict(request.POST),
+            'META': _fix_dict(request.META),
             'raw_post_data': pymongo.binary.Binary(request.raw_post_data),
             'view_func': getattr(request, 'view_func', ''),
-            'view_args': list(getattr(request, 'view_args', [])),
-            'view_kwargs': getattr(request, 'view_kwargs', {})
+            'view_args': _fix_values(getattr(request, 'view_args', [])),
+            'view_kwargs': _fix_dict(getattr(request, 'view_kwargs', {}))
             }
         self.collection.insert(doc)
         return response
