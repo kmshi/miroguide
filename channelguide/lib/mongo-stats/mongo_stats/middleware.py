@@ -80,6 +80,10 @@ class MongoStatsMiddleware(object):
             return response
         timestamp = time.time()
         total = timestamp - request.start_time
+        if hasattr(request, 'user'):
+            authenticated = bool(request.user.is_authenticated())
+        else:
+            authenticated = False
         doc = {
             'time': datetime.datetime.utcnow(),
             'timestamp': timestamp,
@@ -89,7 +93,7 @@ class MongoStatsMiddleware(object):
             'encoding': request.encoding or settings.DEFAULT_CHARSET,
             'method': request.method,
             'cached?': bool(self.request_was_cached(request)),
-            'authenticated?': bool(request.user.is_authenticated()),
+            'authenticated?': authenticated,
             'secure?': request.is_secure(),
             'ajax?': request.is_ajax(),
             'host': request.get_host(),
