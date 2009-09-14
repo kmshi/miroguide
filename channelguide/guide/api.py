@@ -91,7 +91,7 @@ def get_channels_query(request, filter, value, sort=None,
         if value:
             query.where(Channel.c.name.like(value + '%'))
     elif filter == 'search':
-        query = search_mod.search_channels(value.split())
+        query = search_mod.search_channels(value.split(), False)
         if not request.user.is_moderator():
             query.where(state=Channel.APPROVED)
     else:
@@ -229,6 +229,7 @@ def get_channels(request, filter, value, sort=None, limit=None, offset=None,
     _add_limit_and_offset(query, limit, offset)
     joins, loads = _split_loads(loads)
     query.load(*loads)
+
     results = query.execute(request.connection)
     if results:
         results.join(*joins).execute(request.connection)

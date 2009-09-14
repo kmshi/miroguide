@@ -341,7 +341,7 @@ def get_user_deltas (request):
                     sub.appendChild (to_element (d, cp, getattr(s, cp)))
 
                 sub.appendChild (
-                    to_element (d, 'thumb_url', s.thumb_url_245_164 ())
+                    to_element (d, 'thumb_url', s.thumb_url_48_48 ())
                 )
 
                 channels.appendChild (sub)

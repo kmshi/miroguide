@@ -55,6 +55,7 @@ class Channel(Record, Thumbnailable):
 
     THUMBNAIL_DIR = 'thumbnails'
     THUMBNAIL_SIZES = [
+            (48, 48),            
             (97, 65),
             (165, 110),
             (195, 130),
@@ -431,7 +432,7 @@ class Channel(Record, Thumbnailable):
     def fake_feature_thumb(self):
         thumb_url = self.thumb_url(252, 169)
         return 'src: "%s" alt:"%s"' % (thumb_url, cgi.escape(self.name))
-
+    
     def name_as_link(self):
         return util.make_link(self.get_absolute_url(), self.name)
 

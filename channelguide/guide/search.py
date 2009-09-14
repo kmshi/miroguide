@@ -46,7 +46,7 @@ GROUP BY channel_id"""
 def contains_hd(terms):
     return 'hd' in [term.lower() for term in terms]
 
-def search_channels(terms):
+def search_channels(terms, order_by_score=True):
     terms = util.ensure_list(terms)
 #    terms = [t.encode('utf-8') for t in terms]
     query = Channel.query().join('search_data')
@@ -56,8 +56,9 @@ def search_channels(terms):
         terms = [t for t in terms if t.lower() != 'hd']
     terms = [t for t in terms if len(t) >= 3] # strip short terms
     query.where(search_where(search_data_table, terms))
+    if order_by_score:
+        query.order_by(search_score(search_data_table, terms), desc=True)
     query.order_by(Channel.c.archived)
-    query.order_by(search_score(search_data_table, terms), desc=True)
     return query
 
 def search_feeds(terms):
