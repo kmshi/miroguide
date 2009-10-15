@@ -313,6 +313,8 @@ def show(request, id, featured_form=None):
     if request.user.is_supermoderator():
         query.join('featured_queue', 'featured_queue.featured_by')
     c = util.get_object_or_404(request.connection, query, id)
+    if not c.is_approved() and not request.user.is_moderator():
+        raise Http404
     if c.rating is None:
         c.rating = GeneratedRatings()
         c.rating.channel_id = c.id
