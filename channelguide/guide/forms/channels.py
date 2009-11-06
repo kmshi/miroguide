@@ -64,7 +64,7 @@ class RSSFeedField(WideCharField):
         missing_feed_msg = _("We can't find a video feed at that address, "
                 "please try again.")
         try:
-            stream = urllib2.urlopen(url)
+            stream = util.open_url_while_lying_about_agent(url)
             data = stream.read()
         except:
             raise forms.ValidationError(missing_feed_msg)

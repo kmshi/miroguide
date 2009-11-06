@@ -21,6 +21,7 @@ import subprocess
 import sys
 import textwrap
 import threading
+import urllib
 import socket # for socket.error
 
 from django.template import loader
@@ -504,3 +505,21 @@ def donation_decorator (func):
                                 secure=settings.USE_SECURE_COOKIES or None)
         return response
     return wrapper
+
+
+class LiarOpener(urllib.FancyURLopener):
+    """
+    Some APIs (*cough* vimeo *cough) don't allow urllib's user agent
+    to access their site.
+
+    (Why on earth would you ban Python's most common url fetching
+    library from accessing an API??)
+    """
+    version = (
+        'Mozilla/5.0 (X11; U; Linux x86_64; rv:1.8.1.6) Gecko/20070802 Firefox')
+
+
+def open_url_while_lying_about_agent(url):
+    opener = LiarOpener()
+    return opener.open(url)
+
