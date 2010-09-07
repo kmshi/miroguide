@@ -237,6 +237,26 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assert_(isinstance(data, list))
         self.assertEquals(data[0]['id'], self.channels[0].id)
 
+    def test_get_feeds_sites(self):
+        self.channels[1].url = None
+        self.channels[1].save ()
+
+        response = self.make_api_request('get_feeds', filter='name',
+            filter_value='My')
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assert_(isinstance(data, list))
+        self.assertEquals(len(data), 1)
+        self.assertEquals(data[0]['id'], self.channels[0].id)
+
+        response = self.make_api_request('get_sites', filter='name',
+            filter_value='My')
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assert_(isinstance(data, list))
+        self.assertEquals(len(data), 1)
+        self.assertEquals(data[0]['id'], self.channels[1].id)
+
     def test_get_session(self):
         response = self.make_api_request('get_session')
         self.assertEquals(response.status_code, 200)

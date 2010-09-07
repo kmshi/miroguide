@@ -145,7 +145,7 @@ def _add_limit_and_offset(query, limit, offset):
         limit = 100
     if offset is None or offset < 0:
         offset = 0
-    return query[offset:offset+limit]
+    return list(query[offset:offset+limit])
 
 def get_feeds(request, filter, value, sort=None, limit=None, offset=None,
               loads=None, country_code=None):
@@ -179,13 +179,18 @@ def get_sites(request, filter, value, sort=None, limit=None, offset=None,
         return []
     return _add_limit_and_offset(query, limit, offset)
 
-def get_channels(request, filter, value, sort=None, limit=None, offset=None):
+def get_channels(request, filter, value, sort=None, limit=None, offset=None,
+        loads=None, country_code=None):
     """
     The old API method which returns a list of channels.  With the redesign and
     the inclusion of sites, you should use either get_feeds or get_sites.
     """
     use_sort = _use_sort(sort)
-    query = get_channels_query(request, filter, value, sort=use_sort)
+
+    query = get_channels_query(
+        request, filter, value, sort=use_sort, country_code=country_code
+    )
+
     if sort != use_sort:
         if query is not None:
             return query.count()

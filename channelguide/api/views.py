@@ -156,25 +156,40 @@ def get_channel(request):
         data = map(data_for_channel, channels)
     return response_for_data(request, data)
 
-@api_cache
-@requires_arguments('filter', 'filter_value')
-def get_channels(request):
+def _get_channels(request, api_method=api_utils.get_channels):
     filter = request.GET['filter']
     value = request.GET['filter_value']
     sort = request.GET.get('sort')
     limit = request.GET.get('limit')
+    country_code = request.GET.get('country_code')
+
     if limit is not None:
         limit = int(limit)
     offset = request.GET.get('offset')
     if offset is not None:
         offset = int(offset)
     try:
-        channels = api_utils.get_channels(request, filter, value, sort,
-                                          limit, offset)
+        channels = api_method(request, filter, value, sort,
+            limit, offset, country_code=country_code)
     except ValueError:
         raise Http404
     data = map(data_for_channel, channels)
     return response_for_data(request, data)
+
+@api_cache
+@requires_arguments('filter', 'filter_value')
+def get_channels(request):
+    return _get_channels (request)
+
+@api_cache
+@requires_arguments('filter', 'filter_value')
+def get_feeds(request):
+    return _get_channels (request, api_utils.get_feeds)
+
+@api_cache
+@requires_arguments('filter', 'filter_value')
+def get_sites(request):
+    return _get_channels (request, api_utils.get_sites)
 
 def get_session(request):
     engine = import_module(settings.SESSION_ENGINE)
