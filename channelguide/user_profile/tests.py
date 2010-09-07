@@ -46,6 +46,7 @@ class UserProfileTest(TestCase):
                 u'password\xdf\xdf'))
         self.assertEquals(context['user'].get_profile().user,
                           context['user'])
+        self.assertEquals(context['user'].is_active, True)
         return response
 
     def bad_login_data(self):
@@ -225,8 +226,8 @@ class ModerateUserTest(TestCase):
         self.check_search('blahblah') # no users should be returned
 
     def check_promote_demote(self, user, action, permission=None):
-        self.post_data("/accounts/profile/", {'action': action,
-                                              'id': user.pk})
+        self.post_data("/accounts/profile/%i/" % user.pk, {'action': action})
+
         user = User.objects.get(pk=user.pk)
         if permission is not None:
             self.assert_(user.has_perm(permission))
@@ -279,8 +280,8 @@ class EditUserTest(TestCase):
                                          group='cg_moderator')
 
     def check_can_see_edit_page(self, user, should_see):
-        page = self.get_page('/accounts/profile', user,
-                             {'id': self.user.id})
+        page = self.get_page('/accounts/profile/%i/' % self.user.id, user)
+
         if should_see:
             self.assertCanAccess(page)
         else:

@@ -63,6 +63,11 @@ class UserProfile(models.Model):
 
     @models.permalink
     def get_url(self):
+        return ('channelguide.user_profile.views.for_user',
+                (self.user.username,))
+
+    @models.permalink
+    def get_profile_url(self):
         return ('channelguide.user_profile.views.user',
                 (self.user.pk,))
 

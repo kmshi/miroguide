@@ -8,8 +8,8 @@ See LICENSE for details.
     <div class="role-info">
       {% with user.get_profile as profile %}
         <div class="role">{{ profile.role_string }}</div>
-        {% formbutton profile.get_url "promote" %}
-        {% formbutton profile.get_url "demote" %}
+        {% formbutton profile.get_profile_url "promote" %}
+        {% formbutton profile.get_profile_url "demote" %}
       {% endwith %}
     </div>
     {% endif %}
