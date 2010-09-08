@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'guide/base.html' %}
 {% comment %}
 Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
@@ -7,7 +7,7 @@ See LICENSE for details.
 {% block title %}{% trans "Miro Guide" %}{%endblock %}
 {% block content %}
 <div class="error-500">
-  {% if database_error %}
+  {% if database_error or not id %}
   <h1>{% trans "Sorry!" %}</h1>
   <p>{% blocktrans %}Our server is experiencing higher than normal load.
 Please try again shortly.  Thanks for your patience.{% endblocktrans %}</p>

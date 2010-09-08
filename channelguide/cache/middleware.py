@@ -1,42 +1,46 @@
-# Copyright (c) 2008 Participatory Culture Foundation
+
 # See LICENSE for details.
 
-from Cookie import SimpleCookie
 import time
 from django.conf import settings
+from django.core import cache
 
 from mongo_stats.middleware import MongoStatsMiddleware
-
-import client
 
 from channelguide import util
 from channelguide.guide.country import country_code
 
 class CacheTimingMiddleware(MongoStatsMiddleware):
-
     def request_was_cached(self, request):
         if hasattr(request, '_cache_hit'):
-            return True
-        else:
-            return MongoStatsMiddleware.request_was_cached(self, request)
+            return True # our cache middleware
+        return MongoStatsMiddleware.request_was_cached(self, request)
 
 class CacheMiddlewareBase(object):
-    cache_time = 0 # how many seconds to cache for
+    cache_time = settings.CACHE_MIDDLEWARE_SECONDS # how many seconds to cache
+                                                   # for
     namespace = 'namespace'
+
+    def __init__(self, namespace=None):
+        if namespace is not None:
+            # used to separately cache search pages
+            self.namespace = namespace
+
     def get_cache_key_tuple(self, request):
         """Return a tuple that will be used to create the cache key."""
         if not isinstance(self.namespace, tuple):
             namespace_names = (self.namespace,)
         else:
             namespace_names = self.namespace
-        namespace_values = client.get_multi(namespace_names)
+        namespace_values = cache.cache.get_many(namespace_names)
         for name in namespace_names:
             if type(namespace_values.get(name, None)) is not float:
                 namespace_values[name] = None
             if namespace_values.get(name, None) is None:
                 namespace_values[name] = time.time()
-                client.set(name, namespace_values[name])
-        return tuple([namespace_values[k] for k in namespace_names]) + (request.LANGUAGE_CODE,)
+                cache.cache.set(name, namespace_values[name])
+        return tuple([namespace_values[k] for k in namespace_names]) + (
+            request.LANGUAGE_CODE,)
 
     def response_to_cache_object(self, request, response):
         return response
@@ -54,22 +58,10 @@ class CacheMiddlewareBase(object):
                 'no-cache' not in request.META.get('HTTP_CACHE_CONTROL', ''))
 
     def process_request(self, request):
-        if settings.DISABLE_CACHE:
-            return
         if not self.can_cache_request(request):
             return None
-#        lastModified = request.META.get('HTTP_IF_MODIFIED_SINCE')
-#        etag = request.META.get('HTTP_IF_NONE_MATCH')
         key = self.get_cache_key(request)
-#        httpKeys = {}
-#        if lastModified:
-#            httpKeys[key+':last_modified'] = lastModified
-#        if etag:
-#            httpKeys[key+':etag'] = etag
-#        if client.get_multi(httpKeys.keys()) == httpKeys: # same file as before
-#            request._cache_hit = True
-#            return HttpResponseNotModified()
-        cached_object = client.get(key)
+        cached_object = cache.cache.get(key)
         if cached_object is None:
             return None
         else:
@@ -78,56 +70,13 @@ class CacheMiddlewareBase(object):
             return response
 
     def process_response(self, request, response):
-        if not response.has_header('Cache-Control'):
-            response['Cache-Control'] = 'max-age=0'
         if (request.method == 'GET' and response.status_code == 200 and
-                not hasattr(request, '_cache_hit') and
-                not settings.DISABLE_CACHE):
+                not hasattr(request, '_cache_hit')):
             key = self.get_cache_key(request)
-            client.set(key,
+            cache.cache.set(key,
                     self.response_to_cache_object(request, response),
-                    time=self.cache_time)
-#            etag = md5.new(response.content).hexdigest()
-#            client.set(key+':etag', etag)
-#            lastModified = date_time_string()
-#            client.set(key+':last_modified', lastModified)
-#            response.headers['ETag'] = etag
-#            response.headers['Last-Modified'] = date_time_string()
+                    self.cache_time)
         return response
-
-
-class CacheMiddleware(CacheMiddlewareBase):
-
-    def get_cache_key_tuple(self, request):
-        parent = CacheMiddlewareBase.get_cache_key_tuple(self, request)
-        cookie = request.META.get('HTTP_COOKIE')
-        head = (request.path, request.META['QUERY_STRING'])
-        if type(cookie) is SimpleCookie:
-            # Maybe this is the test browser, which sends the HTTP_COOKIE
-            # value as an python Cookie object
-            return parent + head + (cookie.output(),)
-        else:
-            return parent + head + (cookie,)
-
-class TableDependentCacheMiddleware(CacheMiddlewareBase):
-
-    def __init__(self, *tables):
-        self.table_keys = ['Table:' + (hasattr(t, 'name') and t.name or t)
-                for t in tables]
-
-    def get_cache_key(self, request):
-        cache_key = CacheMiddlewareBase.get_cache_key(self, request)
-        if not getattr(self, 'table_keys', None):
-            return cache_key
-        ret = client.get_multi(self.table_keys)
-        if len(ret) != len(self.table_keys):
-            for k in (key for key in self.table_keys if key not in ret):
-                v = time.time()
-                client.set(k, v)
-                ret[k] = v
-        appends = ['%s' % ret[k] for k in self.table_keys]
-        key = cache_key + ':' + ':'.join(appends)
-        return key
 
 class UserCacheMiddleware(CacheMiddlewareBase):
     """
@@ -138,10 +87,10 @@ class UserCacheMiddleware(CacheMiddlewareBase):
         filter_languages = ''
         if request.user.is_authenticated():
             user = request.user.username
-            if request.user.filter_languages:
-                request.user.join('shown_languages').execute(request.connection)
+            profile = request.user.get_profile()
+            if profile.filter_languages:
                 filter_languages = ''.join(
-                    [lang.name for lang in request.user.shown_languages])
+                    [lang.name for lang in profile.shown_languages.all()])
         else:
             user = None
             if request.session.get('filter_languages'):
@@ -149,51 +98,7 @@ class UserCacheMiddleware(CacheMiddlewareBase):
         return CacheMiddlewareBase.get_cache_key_tuple(self, request) + (
             request.path, request.META['QUERY_STRING'], user, filter_languages)
 
-class AggressiveCacheMiddleware(UserCacheMiddleware):
-    """Aggresively Caches a page.  This should only be used for pages that
-     * Don't use any session data, or any cookie data
-     * Are displayed the same for each user (except the account bar)
-     * Don't do any authentication
-
-    This middleware caches pages without regard to the cookies.  When a
-    request is about to be processed, if there is a page in the cache, it uses
-    that page, but replaces the account bar with a newly generated account
-    bar.
-    """
-
-    account_bar_start = '<!-- START ACCOUNT BAR -->'
-    account_bar_end = '<!-- END ACCOUNT BAR -->'
-
-    def __init__(self, namespace=None):
-        UserCacheMiddleware.__init__(self)
-        if namespace:
-            self.namespace = namespace
-    """
-    def get_cache_key_tuple(self, request):
-        if request.user.is_authenticated():
-            user = request.user.username
-        else:
-            user = None
-        return CacheMiddlewareBase.get_cache_key_tuple(self, request) + (request.path, request.META['QUERY_STRING'], user)
-
-    def response_from_cache_object(self, request, cached_response):
-        t = loader.get_template("guide/account-bar.html")
-        # sometimes new_account_bar is of type
-        # django.utils.safestring.SafeString
-        # if there are problems here, it's probably because of that
-        new_account_bar = t.render(Context({'user': request.user})).encode('utf8')
-        content = cached_response.content
-        start = content.find(self.account_bar_start)
-        head = content[:start]
-        end = content.find(self.account_bar_end, start) + len(self.account_bar_end)
-        tail = content[end:]
-        cached_response.content = head
-        cached_response.content += new_account_bar
-        cached_response.content += tail
-        return cached_response"""
-
-
-class SiteHidingCacheMiddleware(AggressiveCacheMiddleware):
+class SiteHidingCacheMiddleware(UserCacheMiddleware):
     """
     This middleware caches pages which might hide sites from old Miro users or
     Miro users on Linux.
@@ -202,7 +107,8 @@ class SiteHidingCacheMiddleware(AggressiveCacheMiddleware):
         # XXX to a certain extent, this is copied from
         # XXX channelguide/guide/views/channels.py:filtered_listing
         miro_version_pre_sites = miro_linux = False
-        miro_version = util.get_miro_version(request.META.get('HTTP_USER_AGENT'))
+        miro_version = util.get_miro_version(
+            request.META.get('HTTP_USER_AGENT'))
         if miro_version and int(miro_version.split('.')[0]) < 2:
             miro_version_pre_sites = True
         if miro_version and 'X11' in request.META.get('HTTP_USER_AGENT', ''):
@@ -228,5 +134,30 @@ class APICacheMiddleware(CacheMiddlewareBase):
             user = None
         # since we're not doing any translating in the API, we can ignore the
         # LANGUAGE_CODE
+        GET_args = dict(request.GET)
+        if 'jsoncallback' in GET_args:
+            del GET_args['jsoncallback']
+        if '_' in GET_args:
+            del GET_args['_']
         return CacheMiddlewareBase.get_cache_key_tuple(self, request)[:-1] + \
-            (request.path, request.META['QUERY_STRING'], user)
+            (request.path, str(GET_args), user)
+
+    def response_to_cache_object(self, request, response):
+        if request.GET.get('datatype') == 'json' and \
+                'jsoncallback' in request.GET:
+            response.content = response.content[
+                len(request.GET['jsoncallback'])+1:-2]
+        return response
+
+    def response_from_cache_object(self, request, response):
+        if request.GET.get('datatype') == 'json' and \
+                'jsoncallback' in request.GET:
+            response.content = '%s(%s);' % (
+                request.GET['jsoncallback'],
+                response.content)
+        return response
+
+    def process_response(self, request, response):
+        response = CacheMiddlewareBase.process_response(self, request,
+                                                        response)
+        return self.response_from_cache_object(request, response)

@@ -1,0 +1,28 @@
+{% extends "guide/base.html" %}
+{% comment %}
+Copyright (c) 2009 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load ratings i18n cg_helpers %}
+{% comment %}
+Copyright (c) 2008 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+
+{% block title %}
+  {% trans "Miro Guide - Shows You've Rated" %}
+{% endblock %}
+
+{% block content %}
+<div class="page bg">
+  <h1>{% trans "Shows You've Rated" %}</h1>
+  <table id="user_ratings" class="bg">
+    {% for rating in ratings %}
+    <tr>
+      <td>{{rating.channel.name_as_link}}</td>
+      <td>{% show_rating_stars rating.channel %}</td>
+    </tr>
+        {% endfor %}
+  </table>
+</div>
+{% endblock %}

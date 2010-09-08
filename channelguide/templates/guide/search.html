@@ -1,0 +1,13 @@
+{% extends "channels/listing.html" %}
+{% comment %}
+Copyright (c) 2009 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% block listing-pre-content %}
+		<h2 class="searchResults">
+			<span class="main_results">"{{ search_query }}" search results: {{ count }} {{ title }} and {{ sidebar_count }} {{ sidebar_type }} found</span>
+                        {% if comprehensive_url %}
+			<span class="comprehensive_results">Comprehensive results: <a href="{{ comprehensive_url }}">{{ comprehensive_count }} feeds contain videos that match "{{ search_query }}"</a></span>
+                        {% endif %}
+		</h2>
+{% endblock %}

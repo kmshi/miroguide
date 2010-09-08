@@ -1,0 +1,41 @@
+{% extends 'guide/base.html' %}
+{% comment %}
+Copyright (c) 2008_2009 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% block content %}
+<div class="edit_categories_page">
+{% if add_perm %}
+<h2>{{ new_label }}</h2>
+<form method="POST" action="{{ add_url }}" onsubmit="showLoadIndicator();">
+    <input name="name"> <input type="submit" value="add">
+</form>
+{% endif %}
+<BR>
+<h2>{{ header }}</h2>
+<BR>
+<UL>
+{% for label in labels %}
+    <LI>
+    <div class="name">{{ label }}</div>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    {% if change_perm %}
+    {% block change_extra %}
+    {% endblock %}
+    <form class="inline" method="POST" action="{{ change_url }}" onsubmit="showLoadIndicator();">
+        <input type="hidden" name="id" value="{{ label.pk }}">
+        <input name="name">
+        <input type="submit" value="change name">
+    </form>
+    {% endif %}
+    {% if delete_perm %}
+    <form class="inline" method="POST" action="{{ delete_view }}" onsubmit="showLoadIndicator();">
+      <input type="hidden" name="id" value="{{ label.pk }}">
+      <input class="delete-button" type="submit" value="delete">
+    </form>
+    {% endif %}
+    </LI>
+{% endfor %}
+</UL>
+</div>
+{% endblock %}

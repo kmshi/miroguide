@@ -93,46 +93,6 @@ class NavLinkNode(template.Node):
                 self.relative_path = 'audio/' + self.relative_path
         return util.make_link_attributes(self.relative_path, css_class)
 
-@register.inclusion_tag('guide/page-links.html', takes_context=True)
-def pagelinks(context, page, default_page=1):
-    request = context['request']
-    page_range = page and page.paginator.page_range or []
-    if len(page_range) > 9:
-        low = page.number - 5
-        high = page.number + 4
-        if low < 0:
-            high -= low
-            low = 0
-        if high > page.paginator.num_pages and low > 0:
-            low += (page.paginator.num_pages - high)
-            if low < 0:
-                low = 0
-        middle = page_range[low:high]
-        if middle[:2] != [1, 2]:
-            middle = [1, 2, None] + middle[3:]
-        if middle[-2:] != [page.paginator.num_pages - 1, page.paginator.num_pages]:
-            middle = middle[:-3] + [None, page.paginator.num_pages - 1,
-                                    page.paginator.num_pages]
-    else:
-        middle = page_range
-    path = request.path
-    get_data = dict(request.GET)
-    links = []
-    for number in middle:
-        if number is not None:
-            if number != default_page:
-                get_data['page'] = str(number)
-            else:
-                try:
-                    del get_data['page']
-                except KeyError:
-                    pass
-            links.append((number, path + util.format_get_data(get_data)))
-        else:
-            links.append(('tag', None))
-    return {'page': page,
-            'links': links}
-
 @register.inclusion_tag('guide/show-all.html')
 def showall(text, length, css_class=None):
     if len(text.split()) > length:

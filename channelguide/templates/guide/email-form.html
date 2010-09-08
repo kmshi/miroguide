@@ -1,0 +1,48 @@
+{% extends "guide/base.html" %}
+{% comment %}
+Copyright (c) 2009 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load i18n cg_helpers %}
+{% comment %}
+Copyright (c) 2008 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% block underwriting %}{% endblock %}
+{% block content %}
+<div class="email-form">
+    <h2>
+      {% if channel.url %}
+        {% trans "Please Send a Note to the Feed Manager!" %}
+      {% else %}
+        {% trans "Please Send a Note to the Site Manager!" %}
+      {% endif %}
+    </h2>
+    <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">
+        {% ifequal type "Reject" %}
+        <input type="hidden" name="action" value="reject">
+        {% else %}
+        <input type="hidden" name="action" value="email">
+        <input type="hidden" name="type" value="{{ type }}">
+        {% endifequal %}
+        <textarea cols=70 rows=8 name="body">{{ body }}</textarea>
+        <div>
+            <label for="email">{% trans "send e-mail to" %}</label>
+            <input type="text" name="email" value="{{ email }}">
+            <input class="submit" type="submit" value="{% trans "Send" %}">
+        </div>
+    </form>
+    {% if skipable %}
+    <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">
+        <input type="hidden" name="action" value="{{ action }}">
+        <input type="hidden" name="submit" value="{{ type }}">
+        <input type="submit" class="skip" value="{% blocktrans %}Skip the note, just {{ type }}{% endblocktrans %}">
+    </form>
+    {% endif %}
+    <span>
+    {% if not email %}
+    {% trans "* This show has been added by us. You can hunt for the producer's email address here:" %} <a target="_blank" {% link channel.website_url %}>{{ channel.website_url }}</a>
+    {% endif %}
+    </span>
+</div>
+{% endblock %}

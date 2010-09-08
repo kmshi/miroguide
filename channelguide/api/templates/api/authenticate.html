@@ -1,0 +1,32 @@
+{% extends "guide/base.html" %}
+{% comment %}g
+Copyright (c) 2009 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% block body %}
+  {% if success %}
+  <h1>Success!</h1>
+  You have successfully authenticated with the application.
+  {% else %}
+  {% if error %}
+  <h1>Error!</h1>
+  {{ error }}
+  {% else %}
+  <h1>API Authentication</h1>
+  {% endif %}
+  An application {% if redirect %} at <strong>{{ redirect }}</strong> {% endif %}has
+  asked for access to your account.  Do you wish to allow it?
+  <form method="POST" action="{{ request.path }}">
+    <input type="hidden" name="key" value="{{ key }}" />
+    <input type="hidden" name="verification" value="{{ verification }}" />
+    {% if redirect %}
+    <input type="hidden" name="redirect" value="{{ redirect }}" />
+    {% endif %}
+    {% if session %}
+    <input type="hidden" name="session" value="{{ session }}" />
+    {% endif %}
+    <input type="submit" name="submit" value="No" />
+    <input type="submit" name="submit" value="Yes" />
+  </form>
+  {% endif %}
+{% endblock %}

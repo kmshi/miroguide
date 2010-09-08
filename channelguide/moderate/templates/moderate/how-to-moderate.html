@@ -1,0 +1,170 @@
+{% extends 'guide/base.html' %}
+{% comment %}
+Copyright (c) 2008-2009 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load i18n %}
+
+{% block title %}
+  {% trans "Miro Guide - How to Moderate" %}
+{% endblock %}
+
+{% block content %}
+<div id="moderatorguide">
+  <h1>Moderator's Handbook</h1>
+  <p class="subtext">(<a href="http://tinyurl.com/38xy3b">open in browser</a>)</p>
+  <ul class="toc">
+    <li><a href="#appreject">How to Approve/Reject Shows</a></li>
+    <li><a href="#hd">Is a Show HD?</a></li>
+    <li><a href="#comown">Communicating with Show Managers</a></li>
+    <li><a href="#commod">Communicating with Fellow Moderators</a></li>
+    <li><a href="#share">Sharing Favorite Shows with Moderators</a></li>
+    <li><a href="#dontknow">Dealing with "Don't Know" Shows</a></li>
+    <li><a href="#supermod">What is Super Moderator Status?</a></li>
+    <li><a href="#bugs">Reporting Bugs and Suggesting Features</a></li>
+  </ul>
+  <h2><a name="appreject">How to Approve/Reject Shows</a></h2>
+
+  <ol>
+    <li>
+      Log in and go to the <a href="{{ BASE_URL }}moderate">moderate</a> link.
+      <br />
+      <img src="{{ STATIC_BASE_URL }}images/how-to-moderate/appreject-01.jpg" alt="" />
+    </li>
+
+    <li>
+      Go to the <a href="{{ BASE_URL }}channels/moderator-list/new">Unreviewed Shows</a> (it is possible to do this in Firefox or Miro).
+      <br />
+      <img src="{{ STATIC_BASE_URL }}images/how-to-moderate/appreject-02.jpg" alt="" />
+    </li>
+
+    <li>
+      Add the first show (the shows that have been waiting longest are at top). You can optionally click the "Subscribe to all 10 shows" link at the top of the page to save time.
+      <br />
+      <img src="{{ STATIC_BASE_URL }}images/how-to-moderate/appreject-03.jpg" alt="" />
+    </li>
+
+    <li>
+      Now it's time to kick the show's tires:
+
+      <ol>
+        <li>
+          Does the feed work? If you get an error, just
+          choose "No" and then click the "Broken" button from the Standard
+          Rejections. The show manager will get a helpful email with
+          information and links.
+          <br />
+          <img src="{{ STATIC_BASE_URL }}images/how-to-moderate/appreject-04a.jpg" alt="" />
+          <img src="{{ STATIC_BASE_URL }}images/how-to-moderate/appreject-04aa.jpg" alt="" />
+        </li>
+
+        <li>
+          Does the media obviously violate copyright?
+          You are not a copyright cop. However, if you see full episodes of the Simpsons, and they aren't coming from Fox's website (hulu.com), the show probably isn't legit. If something is unclear, approve it and the copyright holder can file a DMCA request. If you click the reject for "Copyright" button, the show manager will be contacted and have a chance to respond.
+          <br />
+          <img src="{{ STATIC_BASE_URL }}images/how-to-moderate/appreject-04b.jpg" alt="" />
+          The explicit stuff and spam is the most subjective and difficult to deal with. We will eventually have an user based solution (i.e. Miro users will decide what they think is inappropriate or explicit, and get warnings based on what other users do). However, for the time being, we make the call.
+          Our rule of thumb is that if a feed would get an X rating (esp. if it involves explicit sex), we don't allow it in the guide. Also, if the show looks like pure spam you can reject it. If you're not comfortable making this judgement, just click the "Don't Know" button. Otherwise, choose "Explicit" from the Standard Rejections. The show manager will be contacted and have a chance to respond.
+          <br />
+          <img src="{{ STATIC_BASE_URL }}images/how-to-moderate/appreject-04c.jpg" alt="" />
+        </li>
+
+        <li>
+          If you see a show that is all audio files (.mp3 or similar), just click the "Audio" button.
+          <br />
+          <img src="{{ STATIC_BASE_URL }}images/how-to-moderate/appreject-04d.jpg" alt="" />
+        </li>
+
+        <li>
+          If you find other problems, such as video formats
+          that don't play back, you can make a custom rejection. It will send the
+          show manager an email that they can respond to.
+          <br />
+          <img src="{{ STATIC_BASE_URL }}images/how-to-moderate/appreject-04e.jpg" alt="" />
+        </li>
+
+        <li>
+          If you are ever not sure what to do, simply click the "Don't Know" button and let someone else help you make the decision.
+          <br />
+          <img src="{{ STATIC_BASE_URL }}images/how-to-moderate/appreject-04f.jpg" alt="" />
+        </li>
+
+        <li>
+          If the show made it through all the tests, you
+          can Approve it! The show manager will automatically receive a
+          congratulatory email.
+          <br />
+          <img src="{{ STATIC_BASE_URL }}images/how-to-moderate/appreject-05.jpg" alt="" />
+        </li>
+      </ol>
+    </li>
+
+    <li class="last">Rinse and repeat.</li>
+  </ol>
+  <h2><a name="hd">Is a Show HD?</a></h2>
+  <p>Material that is roughly 640x480 non-interlaced, and higher, can be marked as HD. This basically translates to DVD quality (without a lot of ugly compression artifacts) or better. Roughly 80% of the material on the show must meet this criteria for it to be considered HD. If you're not sure what the resolution is, open the video in VLC and click ctrl+I for details.</p>
+
+  <p class="last">Note:  it is OK to have an HD and non-HD version of the same show.</p>
+  <h2><a name="comown">Communicating with Show Managers</a></h2>
+
+  <p>Any time you reject a feed or add a message to the "Conversation
+  with Show Manager" (this is at the bottom of every show page), an
+  email message is sent to the manager. They will get your note and be able
+  to respond.</p>
+  <img src="{{ STATIC_BASE_URL }}images/how-to-moderate/comown-01.jpg" alt="" />
+
+  <p>Whenever a show manager adds a message or replies in the
+  conversation, their show will appear in the "Shows waiting for
+  Reply" section. The shows in this section should be treated as high
+  priority.</p>
+  <img src="{{ STATIC_BASE_URL }}images/how-to-moderate/comown-02.jpg" alt="" />
+
+  <p class="last">When a show is "Waiting for Reply", you simply reply to the
+  message (or re-reject the show, if it is still not approvable) and
+  the show will fall out of the "Waiting for Reply" section.</p>
+
+  <h2><a name="commod">Communicating with Fellow Moderators</a></h2>
+
+  <p>There is a very basic bulletin board built into the channel guide.
+  The latest posts show up on the main moderation page, in order to see
+  the history and/or post your own message, click the (<a href="{{ BASE_URL }}notes/moderator-board">see all posts</a>) link.</p>
+  <img src="{{ STATIC_BASE_URL }}images/how-to-moderate/commod-01.jpg" alt="" />
+
+  <p><strong>IRC Channel:</strong> <a href="irc://irc.freenode.net#miro">#miro</a> (irc.freenode.net).</p>
+  <p>You can access the channel with a traditional client, or through this <a href="http://www.getmiro.com/teammiro/">web interface</a>. Remember, just type anyone's full nickname into a conversation to get their attention.
+  </p>
+
+  <p>GetSatisfaction is where a lot of support for Miro happens. If you're able to join in and answer a few <a href="http://getsatisfaction.com/participatoryculturefoundation/unanswered/topics">unanswered questions</a>, that is excellent.</p>
+
+  <p class="last"><strong>Team Miro Mailing List:</strong> this <a href="http://participatoryculture.org/mailman/listinfo/teammiro">list</a> is intended for volunteers, Miro enthusiasts, and anyone else who is excited about getting involved.</p>
+
+  <h2><a name="share">Sharing Favorite Shows with Moderators</a></h2>
+
+  <p>Just click the "Share with Moderators" button and the show will
+  be available on the main moderation control panel. If you approve a
+  show that seems interesting or appealing, definitely <strong>share the love</strong>.</p>
+  <img class="last" src="{{ STATIC_BASE_URL }}images/how-to-moderate/share-01.jpg" alt="" />
+
+  <h2><a name="dontknow">Dealing with "Don't Know" Shows</a></h2>
+
+  <p>If you see something in here, you should basically treat it as an
+  "unapproved show" that someone else wasn't sure how to deal with. If
+you're a more experienced moderator, you should treat these as higher
+  priority. Use the same guidelines for approving it, as <a href="#appreject">outlined above</a>.</p>
+  <img class="last" src="{{ STATIC_BASE_URL}}images/how-to-moderate/dontknow-01.jpg" alt="" />
+
+  <h2><a name="supermod">What is Super Moderator Status?</a></h2>
+
+  <p>There are two levels of moderator -- Moderator and Super Moderator.
+  They are very similar, except that Super Mods can feature shows.</p>
+
+  <p class="last">Super Mod status is pretty powerful &mdash; we promote people who have: been around the community for a while, proven themselves to be a reliable moderator, and are a good judge of shows (ie. share your favorites!).</p>
+
+  <h2><a name="bugs">Reporting Miro Guide Bugs and Suggesting Features</a></h2>
+
+  <p>If you find something that seems buggy or wrong, you can add a <a href="http://bugzilla.pculture.org/enter_bug.cgi?product=miroguide&format=guided">ticket</a> to the channel guide <a href="http://bugzilla.pculture.org/buglist.cgi?bug_severity=blocker&bug_severity=critical&bug_severity=major&bug_severity=normal&bug_severity=minor&bug_severity=trivial&bug_status=NEW&bug_status=ASSIGNED&bug_status=REOPENED&bugidtype=include&chfield=%5BBug%20creation%5D&chfieldvalue=&field-1-0-0=product&field-1-1-0=bug_status&field-1-2-0=bug_severity&field0-0-0=noop&product=MiroGuide&query_format=advanced&remaction=&type-1-0-0=anyexact&type-1-1-0=anyexact&type-1-2-0=anyexact&type0-0-0=noop&value-1-0-0=MiroGuide&value-1-1-0=NEW%2CASSIGNED%2CREOPENED&value-1-2-0=blocker%2Ccritical%2Cmajor%2Cnormal%2Cminor%2Ctrivial&value0-0-0=&query_based_on=">bug tracker</a>.</p>
+  <p>If you have a great idea, please submit it as a <a href="http://bugzilla.pculture.org/enter_bug.cgi?product=miroguide&format=enhancement">feature request</a>;
+  please keep in mind that we run a tight ship and must very carefully consider each new feature.</p>
+
+</div>
+{% endblock %}

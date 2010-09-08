@@ -1,0 +1,33 @@
+{% comment %}
+Copyright (c) 2008-2009 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load i18n %}
+{% include "moderate/moderate-actions-simple.html" %}
+<ul class="reject-moderate-actions moderate-actions">
+    <li class="channel-action">
+    <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">
+      <div>
+        <input type="hidden" name="action" value="standard-reject">
+        {% if channel.url %}<input type="submit" name="submit" value="Broken">
+        {% endif %}<input type="submit" name="submit" value="Copyrighted">
+        <input type="submit" name="submit" value="Explicit">
+        <input type="submit" name="submit" value="No Media">
+        <input class="email-form" type="submit" name="submit" value="Custom">
+      </div>
+    </form>
+    </li>
+    {% if channel.flags %}
+    <li>
+      <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">
+        <div>
+          {% trans "HD" %}:
+          <input type="hidden" name="action" value="set-hd">
+          <input type="submit" name="value" value="On" {% if channel.hi_def %}style="border: 2px solid green;" {% endif %}>
+          <input type="submit" name="value" value="Off"{% if not channel.hi_def %}style="border: 2px solid green;" {% endif %}>
+        </div>
+      </form>
+    </li>
+    {% endif %}
+</ul>
+

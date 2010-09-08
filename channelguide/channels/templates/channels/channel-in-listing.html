@@ -1,0 +1,48 @@
+{% comment %}
+Copyright (c) 2008-2009 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+
+{% load i18n cg_helpers ratings %}
+
+<div class="searchThumb show_hover hover_{{ channel.id }}">
+  <a {% link channel.get_url %}>
+    <span class="thumb corners"
+         style="background: url({{ channel.thumb_url_97_65}});">
+      {% if channel.hi_def %}
+        <img class="hd_tag_tiny2"
+             src="{{ STATIC_BASE_URL }}images/ico_hd_tag_tiny.png"
+             alt="{% trans "High-Definition Channel" %}">
+      {% endif %}
+    </span>
+  </a>
+</div>
+<div class="searchResultContent">
+  <h4>{{ channel.name_as_link }}</h4>
+  <p>{% autoescape off %}{{ channel.description|striptags }}{% endautoescape %}</p>
+</div>
+<br class="clear_all">
+
+<div class="searchResultsMeta">
+
+  <ul style="height: 25px;" class="rating">
+    <li class="score">
+      <a {{ channel.subscription_link }}
+         class="small_add_button {% if channel.url %}feed{% else %}site{% endif %}">
+        {% wrap_translation 15 %}
+          {% if channel.url %}
+            {% trans "Add Feed" %}
+          {% else %}
+            {% trans "Add Site" %}
+          {% endif %}
+        {% endwrap %}
+      </a>
+    </li>
+    <li>
+        {% show_small_rating_stars channel %}
+        {% if channel.rating.count %}<span class="count">{% blocktrans count channel.rating.count as count %}1 Rating{% plural %}{{ count }} Ratings{% endblocktrans %}</span>{% endif %} 
+    </li>
+    {% if channel.stats.subscription_count_today %}<li class="subscribers"><img src="{{ STATIC_BASE_URL }}images/added.png" alt="{% trans "Subscriptions Today" %}"/> {% blocktrans count channel.stats.subscription_count_today as count %}1 Today{% plural %}{{ count }} Today{% endblocktrans %} </li>{% endif %}
+    {% if channel.guessed %}<li class="our_bet">Our Bet: <span class="score">{{ channel.guessed|floatformat }} stars</span></li>{% endif %}
+  </ul>
+</div>

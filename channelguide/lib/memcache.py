@@ -1,1 +1,0 @@
-python-memcached-1.40/memcache.py

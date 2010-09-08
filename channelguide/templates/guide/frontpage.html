@@ -1,0 +1,296 @@
+{% extends 'guide/base.html' %}
+{% comment %}
+Copyright (c) 2008-2009 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load cg_helpers i18n cache %}
+
+{% block head-extra %}
+  <script src="{{ STATIC_BASE_URL }}js/jquery.preload-min.js"
+          type="text/javascript">
+  </script>
+  <script type="text/javascript">
+      $.preload(['popup/bottom', 'small_add_feed', 'small_add_button',
+                 'buttons/preview-cap', 'buttons/preview-bg',
+                 'popup/right_arrow', 'popup/border', 'popup/top',
+                 'popup/left_arrow', 'popup/right_shadow',
+                 'misc_button_med_cap', 'misc_button_med',
+                 'big_no-nos', 'big_stars'],
+                {base: '{{ STATIC_BASE_URL }}images/',
+                 ext: '.png'});
+  </script>
+  <script src="{{ STATIC_BASE_URL }}js/feature_rotate.js"
+          type="text/javascript" defer></script>
+  <script src="{{ STATIC_BASE_URL }}js/hover.js"
+          type="text/javascript"></script>
+{% comment %}  <script type="text/javascript">
+      hover.load(
+          [
+              {% for channel in new_channels %}{{ channel.id }},{% endfor %}
+              {% for channel in popular_channels %}{{ channel.id }},{% endfor %}
+              {% for channel in popular_hd_channels %}{{ channel.id }},{% endfor %}
+              {% for category in categories %}{% for channel in category.popular_channels %}{{ channel.id }},{% endfor %}{% endfor %}
+          ]);
+      </script>{% endcomment %}
+  <link rel="alternate" type="application/rss+xml" title="Featured Shows"
+        href="https://www.miroguide.com/rss/featured">
+  <link rel="alternate" type="application/rss+xml" title="New Shows"
+        href="https://www.miroguide.com/rss/new">
+{% endblock %}
+
+{% block onload-extra %}carouselOnLoad();{% endblock %}
+{% block underwriting %}{% endblock %}
+
+{% block content %}
+{% if not request.user.is_authenticated %}
+<div id="welcome">
+  <div class="inner">
+    <div class="inner2">
+      <div class="message">
+        <h2>{% trans "Welcome to the Miro Guide!" %}</h2>
+        <p>{% trans "Miro Guide has thousands of video and audio shows — you can browse and watch most of them right here." %}</p>
+        <p>{% blocktrans with settings.LOGIN_URL as link %}Make this message disappear by <a href="{{ link }}">logging in</a>.{% endblocktrans %}
+      </div>
+      <div class="miro_message">
+        <p>{% trans "We also make Miro, a free internet TV application. Miro makes subscribing, managing, and watching programs easy, and it works extra well with all the HD programming you'll find here in the guide." %}</p>
+        <span>{% trans "Try it now" %}</span>
+        <a class="large_add_button" href="http://www.getmiro.com/download/">
+          <span>{% trans "Download Miro" %}</span>
+        </a>
+      </div>
+      <br style="clear: both;">
+    </div>
+  </div>
+</div>
+ <script type="text/javascript">
+     if (!isMiro()) {
+         document.getElementById('welcome').style.display = 'block';
+     }
+ </script>
+{% endif %}
+{% cache 600 frontpage language request.LANGUAGE_CODE audio %}
+<div id="content" class="page">
+  <div class="front-page">
+    {% comment %}
+        {# store stuff #}
+           <div id="store">
+          <a href="http://www.getmiro.com/store/">
+            <img src="{{ STATIC_BASE_URL }}images/visit-the-store.png">
+          </a>
+        </div>
+        {# donate stuff #}
+        <div class="shadow">
+          <div id="donate">
+            <img alt="heart" src="{{ STATIC_BASE_URL }}images/donate-heart.gif">
+            <h1>YOU ROCK!</h1>
+            <img id="rainbow" src="{{ STATIC_BASE_URL }}images/rainbowoverlay.png" alt="Donation Thermometer at $50k with rainbow out the end">
+          </div>
+        </div>
+    {% endcomment %}
+
+    <div id="featured">
+      {% if not audio %}
+      <a href="/audio/"><img id="now_with_audio" alt="Now With Audio!" src="{{ STATIC_BASE_URL }}images/audio_badge.png"></a>
+      {% else %}
+      <a href="http://www.prx.org/"><img id="curated_by_prx" alt="Curated by PRX" src="{{ STATIC_BASE_URL }}images/audio_badge2.png"></a>
+      {% endif %}
+      <div class="page">
+        {% if show_welcome %}
+        <div class="welcomeMessage">
+          <p>
+            <strong>Welcome to Miro!</strong>
+            {% blocktrans %}
+            Click <a href="#" class="add_feed_button_welcome">ADD FEED</a>
+            to get any show into your sidebar. The first episode
+            begins downloading automatically and you'll get show
+            updates as soon as they're available.
+            {% endblocktrans %}
+            <strong>{% trans "It's all free!" %}</strong>
+          </p>
+        </div><!--welcomeMessage-->
+        {% endif %}
+
+        <!--Carousel-->
+        <div id="featuredItemsCarousel" class="largeCarousel">
+          <div id="button_previous">
+            <span class="hidden">
+              previous features
+            </span>
+          </div>
+          <div id="innerContent">
+            <ul id="featured-list">
+              {% for channel in featured_channels %}
+              <li>{% include "channels/channel-feature.html" %}</li>
+              {% endfor %}
+              {% for channel in featured_channels_hidden %}
+              <li class="column">
+                {% include "channels/channel-feature.html" %}
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div id="button_next"></div>
+        </div>
+      </div>
+    </div>
+
+    {% comment %}
+    <div id="survey">
+      <!--/* OpenX Javascript Tag v2.4.7 */-->
+
+      <script type='text/javascript'>
+        <!--//<![CDATA[
+     var m3_u = (location.protocol=='https:'?'https://www.miroguide.com/openx/www/delivery/ajs.php':'http://www.miroguide.com/openx/www/delivery/ajs.php');
+     var m3_r = Math.floor(Math.random()*99999999999);
+     if (!document.MAX_used) document.MAX_used = ',';
+     document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+     document.write ("?zoneid=1");
+     document.write ('&amp;cb=' + m3_r);
+     if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+     document.write ("&amp;loc=" + escape(window.location));
+     if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+     if (document.context) document.write ("&context=" + escape(document.context));
+     if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+     document.write ("'><\/scr"+"ipt>");
+           //]]>-->
+      </script>
+      <noscript>
+        <a href='http://www.miroguide.com/openx/www/delivery/ck.php?n=a2b24d67&amp;cb=INSERT_RANDOM_NUMBER_HERE'
+           target='_blank'>
+          <img src='http://www.miroguide.com/openx/www/delivery/avw.php?zoneid=1&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a2b24d67'
+               border='0' alt=''>
+        </a>
+      </noscript>
+    </div>
+    {% endcomment %}
+
+    <div class="big_search">
+      <p>{% if audio %}{% trans "Search for Audio" %}{% else %}{% trans "Search for Video" %}{% endif %}</p>
+      <form method="GET" action="{{ BASE_URL }}{% if audio %}audio/{% endif %}search">
+        <div>
+          <input type="text" class="field" name="query"><button class="submit_search">{% trans "Search" %}</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="container">
+      <div id="contentSmall">
+        <div class="detailsHead3">
+          <div class="resultsCount">
+            <a name="new" class="heading{% if not audio%} selected{% endif %}" {% if audio %}{% link "audio/new/" %}{% else %}{% link "new/" %}{% endif %}>{% trans "New Shows" %}</a>
+            <a name="popular" class="heading" {% if audio %}{% link "audio/popular/" %}{% else %}{% link "popular/" %}{% endif %}>{% trans "Most Popular" %}</a>
+            <a name="hd" class="heading" {% if audio %}style="display: none;"{% endif %}{% link "hd/" %}>{% trans "HD Favorites" %}</a>
+            <div class="heading{% if audio %} selected{% endif %}">
+              <a name="genres" {% if audio %}{% link "audio/genres/"%}{% else %}{% link "genres/" %}{% endif %}>{% trans "Genres" %}</a>
+              {% include "guide/genres_popup.html" %}
+            </div>
+          </div>
+
+        </div>
+
+        <ul class="newVideos"{% if not audio %} style="display: block;"{% endif %}>
+          {% for channel in new_channels %}
+            <li>{% include "channels/channel-mini.html" %}</li>
+          {% endfor %}
+        </ul>
+
+        <ul class="newVideos">
+          {% for channel in popular_channels %}
+            <li>{% include "channels/channel-mini.html" %}</li>
+          {% endfor %}
+        </ul>
+        {% if not audio %}
+        <ul class="newVideos">
+          {% for channel in popular_hd_channels %}
+            <li>{% include "channels/channel-mini.html" %}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        <ul id="genreVideos" class="newVideos" {% if audio %}style="display: block;"{% else %}style="display: none;"{% endif %}>
+          {% for category in categories %}
+          {% if category.popular_channels %}
+          <li class="{% cycle "left" "right" %}">
+            <h3>
+              {% if audio %}
+              {{ category.audio_link }}
+              {% else %}
+              {{ category.link }}
+              {% endif %}
+              <span class="dash"></span>
+              <a href="{% if audio %}{{ category.get_audio_url }}{% else %}{{ category.get_url }}{% endif %}">{% trans "View All" %}</a>
+            </h3>
+            <ul>
+              {% for channel in category.popular_channels %}
+              <li>{% include "channels/channel-mini.html" %}</li>
+              {% endfor %}
+            </ul>
+          </li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+
+        <a class="more_link" {% if audio %}{% link "audio/genres/" %}{% else %}{% link "new/" %}{% endif %}>{% if not audio %}{% trans "More New Shows >>" %}{% else %}{% trans "More Genres >>" %}{% endif %}</a>
+
+        <script type="text/javascript">
+
+tabs = $('.resultsCount .heading');
+
+function selectTab(link, text) {
+    $("#contentSmall .selected").removeClass('selected');
+    link.addClass('selected');
+    if (text === undefined) {
+        $("#contentSmall .more_link").hide();
+    } else {
+        if (link[0].nodeName === 'A') {
+            href = link.attr('href');
+        } else {
+            href = link.find('a:first').attr('href');
+        }
+        $('#contentSmall .more_link').attr('href', href).text(text + ' >>').show();
+    }
+};
+
+tabs.eq(0).click(function() {
+    selectTab($(this), "{% trans "More New Shows" %}");
+    $('#genreVideos').hide();
+    $('.newVideos').hide().eq(0).show();
+    location.hash = "#new"
+    return false;
+});
+tabs.eq(1).click(function() {
+    selectTab($(this), "{% trans "More Popular Shows" %}");
+    $('#genreVideos').hide();
+    $('.newVideos').hide().eq(1).show();
+    location.hash = "#popular";
+    return false;
+});
+tabs.eq(2).click(function() {
+    selectTab($(this), "{% trans "More HD Shows" %}");
+    $('#genreVideos').hide();
+    $('.newVideos').hide().eq(2).show();
+    location.hash = "#hd";
+    return false;
+});
+tabs.eq(3).children('a').click(function() {
+    selectTab($(this));
+    location.hash = "#genres";
+    $('.newVideos').hide();
+    $('#genreVideos').show();
+    return false;
+});
+
+if (location.hash === '#popular') {
+    tabs.eq(1).click();
+} else if (location.hash === "#hd") {
+    tabs.eq(2).click();
+} else if (location.hash === '#genres') {
+    tabs.eq(3).children('a').click();
+}
+        </script>
+
+      </div><!--container-->
+    </div>
+  </div>
+</div>
+{% endcache %}
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends "labels/edit-labels.html" %}
+{% block change_extra %}
+    <form class="inline" method="POST" action="{% url category-toggle-frontpage %}" onsubmit="showLoadIndicator();">
+      <input type="hidden" name="id" value="{{ label.pk }}">
+        <input type="submit" value="{% if label.on_frontpage %}hide{% else %}show{% endif %} on frontpage">
+    </form>
+{% endblock %}

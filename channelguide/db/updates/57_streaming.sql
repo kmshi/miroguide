@@ -1,1 +1,0 @@
-ALTER TABLE cg_channel CHANGE url url VARCHAR(200);

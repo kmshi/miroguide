@@ -1,1 +1,0 @@
-DROP TABLE cg_api_key;

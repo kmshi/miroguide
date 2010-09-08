@@ -46,7 +46,7 @@ the Guide.
 
 **Unsubscribe Info**
 You can change your subscription settings in your user profile: (%s)
-""" % (owner.channels[0].get_absolute_url(), owner.get_absolute_url()))
+""" % (owner.channels.all()[0].get_absolute_url(), owner.get_absolute_url()))
 
     def send_email(self, email_from):
         EmailMessage.send_email(self, self.owner.email, email_from)

@@ -1,0 +1,51 @@
+{% extends 'channels/channel-form.html' %}
+{% comment %}
+Copyright (c) 2008-2009 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load i18n notes %}
+{% block underwriting %}{% endblock %}
+{% block title %}
+  {% if channel.url %}
+    {% trans "Miro Guide - Edit Feed" %}
+  {% else %}
+    {% trans "Miro Guide - Edit Site" %}
+  {% endif %}
+{% endblock %}
+{% block heading %}
+<h1>{% trans "Edit Channel" %}</h1>
+{%endblock%}
+{% block submit-text %}{% trans "Update" %} &gt;&gt;{% endblock %}
+{% block edit-extra %}
+<div class="statistics">
+    <h2>{% trans "Statistics" %}</h2>
+    <dl>
+        <dt>{% trans "Subscriptions* Today" %}:</dt>
+        <dd>{{ channel.stats.subscription_count_today }}</dd>
+        <dt>{% trans "Subscriptions* Month" %}:</dt>
+        <dd>{{ channel.stats.subscription_count_month }}</dd>
+        <dt>{% trans "Subscriptions* Overall" %}:</dt>
+        <dd>{{ channel.stats.subscription_count }}</dd>
+        {% if channel.stats.subscription_count_today %}
+        <dt class="ranking">{% trans "Popularity Rank Today" %}:</dt>
+        <dd>{{ channel.stats.subscription_count_today_rank }}</dd>
+        {% endif %}
+        {% if channel.stats.subscription_count_month %}
+        <dt>{% trans "Popularity Rank Month" %}:</dt>
+        <dd>{{ channel.stats.subscription_count_month_rank }}</dd>
+        {% endif %}
+        {% if channel.stats.subscription_count %}
+        <dt>{% trans "Popularity Rank Overall" %}:</dt>
+        <dd>{{ channel.stats.subscription_count_rank }}</dd>
+        {% endif %}
+    </dl>
+    <span>
+      {% if channel.url %}
+        {% trans "* unique Miro Guide 'add feed' hits" %}
+      {% else %}
+        {% trans "* unique Miro Guide 'add site' hits" %}
+      {% endif %}
+    </span>
+</div>
+{% show_channel_notes notes %}
+{% endblock %}

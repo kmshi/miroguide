@@ -1,0 +1,15 @@
+<ul class="paginator">
+  {% for pagesection in pagesections %}
+    {% for page in pagesection %}
+      <li {% ifequal page.number selected_page.number %}
+            class="selected"
+          {% endifequal %}>
+        <span><a href="{{ request.path }}?{% if request.META.QUERY_STRING %}{{ request.META.QUERY_STRING }}&{% endif %}page={{ page.number }}">
+          {{ page.number }}</a></span>
+      </li>
+    {% endfor %}
+    {% if not forloop.last %}
+      <li class="tag">...</li>
+    {% endif %}
+  {% endfor %}
+</ul>

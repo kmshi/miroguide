@@ -132,6 +132,7 @@ span.thumb.corners {
 }
 
 #container {
+    clear: left;
     width: 790px;
     overflow: hidden;
     margin: 0 auto;

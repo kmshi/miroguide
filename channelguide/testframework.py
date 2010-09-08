@@ -3,17 +3,34 @@
 
 import logging
 import os
-import shutil
-import unittest
 import traceback
 
 from django.conf import settings
 from django.core import signals, mail
+from django.contrib.auth.models import User, Group
 from django.http import HttpRequest, HttpResponse
-from django.test.client import Client
+from django import test
 
-from channelguide import db
 from channelguide import util
+
+def test_data_path(filename):
+    return os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                        'testdata',
+                                        filename))
+
+def test_data_url(filename):
+    return 'file://' + test_data_path(filename)
+
+def clear_cache():
+    from django.core.cache import cache
+    if hasattr(cache, '_cache'):
+        if isinstance(cache._cache, dict):
+            cache._cache = {}
+            cache._expire_info = {}
+        else:
+            raise ValueError('cannot clear cache')
+    else:
+        raise ValueError('cannot clear cache')
 
 class TestLogFilter(logging.Filter):
     def __init__(self):
@@ -33,22 +50,19 @@ class TestLogFilter(logging.Filter):
     def reset(self):
         self.records_seen = []
 
-class TestCase(unittest.TestCase):
+class TestCase(test.TestCase):
     """Base class for the channelguide unittests."""
 
     def setUp(self):
-        from channelguide.guide.models import Language
-        setup_test_environment()
-        db.pool.timeout = 0.01
-        self.connection = db.connect()
+        test.TestCase.setUp(self)
+        from channelguide.labels.models import Language
         self.log_filter = TestLogFilter()
-        self.language = Language("booyarish")
-        self.save_to_db(self.language)
-        settings.DISABLE_CACHE = True
+        self.language = Language(name=u"booyarish")
+        self.language.save()
         settings.USE_S3 = False
-        settings.BASE_URL_FULL = 'http://localhost/'
-        self.client = Client(SERVER_NAME='localhost')
+        settings.BASE_URL_FULL = 'http://testserver/'
         self.changed_settings = []
+        clear_cache()
 
     def change_setting_for_test(self, name, value):
         self.changed_settings.append((name, getattr(settings, name)))
@@ -61,27 +75,16 @@ class TestCase(unittest.TestCase):
         return recipients
 
     def tearDown(self):
-        try:
-            self.resume_logging()
-            util.emailer = None
-            self.connection.commit()
-            self.connection.close()
-            if os.path.exists(settings.MEDIA_ROOT):
-                shutil.rmtree(settings.MEDIA_ROOT)
-            if os.path.exists(settings.IMAGE_DOWNLOAD_CACHE_DIR):
-                shutil.rmtree(settings.IMAGE_DOWNLOAD_CACHE_DIR)
-            for name, oldvalue in self.changed_settings:
-                setattr(settings, name, oldvalue)
-            signals.request_finished.send(None)
-            # The above line should close any open request connections
-            for connection in db.pool.free:
-                connection.close_raw_connection()
-            db.pool.free = []
-            for connection in list(db.pool.used):
-                connection.destroy()
-            db.pool.used = set()
-        finally:
-            teardown_test_environment()
+        test.TestCase.tearDown(self)
+        self.resume_logging()
+        #if os.path.exists(settings.MEDIA_ROOT):
+        #    shutil.rmtree(settings.MEDIA_ROOT)
+        #if os.path.exists(settings.IMAGE_DOWNLOAD_CACHE_DIR):
+        #    shutil.rmtree(settings.IMAGE_DOWNLOAD_CACHE_DIR)
+        for name, oldvalue in self.changed_settings:
+            setattr(settings, name, oldvalue)
+        signals.request_finished.send(None)
+
 
     def assertSameSet(self, iterable1, iterable2):
         self.assertEquals(set(iterable1), set(iterable2))
@@ -102,7 +105,7 @@ class TestCase(unittest.TestCase):
             response = self.get_page(response_or_url, login_as)
         else:
             response = response_or_url
-        self.assertRedirect(response, 'accounts/login')
+        self.assertRedirect(response, settings.LOGIN_URL)
 
     def assertCanAccess(self, response_or_url, login_as=None):
         if isinstance(response_or_url, basestring):
@@ -114,7 +117,9 @@ class TestCase(unittest.TestCase):
         elif response.status_code == 302:
             location_path = response['Location'].split('?')[0]
             self.assertNotEquals(location_path,
-                    util.make_absolute_url('accounts/login'))
+                    util.make_absolute_url(settings.LOGIN_URL),
+                                 '%s could not access %s' % (
+                    login_as, response_or_url))
         else:
             raise AssertionError("Bad status code: %s" % response.status_code)
 
@@ -138,77 +143,46 @@ class TestCase(unittest.TestCase):
         logging.getLogger('').removeFilter(self.log_filter)
         self.log_filter.reset()
 
-    def all_tables(self):
-        rows = self.connection.execute("SHOW TABLES;")
-        return [row[0] for row in rows]
-
-    def delete_all_tables(self):
-        all_tables = set(self.all_tables())
-        # this is a little tricky because of foreign key constraints.  The
-        # stragegy is just brute force
-        while all_tables:
-            start_len = len(all_tables)
-            for table in list(all_tables):
-                try:
-                    self.connection.execute("DELETE FROM %s" % table)
-                except:
-                    pass
-                else:
-                    all_tables.remove(table)
-            if len(all_tables) == start_len:
-                raise AssertionError("Can't delete any tables")
-
-
-    def save_to_db(self, *objects):
-        for object in objects:
-            object.save(self.connection)
-        self.connection.commit()
-
-    def refresh_record(self, record, *joins):
-        self.refresh_connection()
-        pk = self.rowid = record.primary_key_values()
-        retval = record.__class__.get(self.connection, pk, join=joins)
-        return retval
-
     def debug_response_context(self, context):
         for dict in context.dicts:
             for key, value in dict.items():
                 print '%s => %s' % (key, value)
 
-    def refresh_connection(self):
-        self.connection.commit()
-
-    def make_user(self, username, password='password', role='U'):
-        from channelguide.guide.models import User
-        user = User(username, password, "%s@test.test" % username)
-        user.role = role
-        self.save_to_db(user)
+    def make_user(self, username, password='password', group=None):
+        user = User.objects.create_user(username,
+                                        "%s@test.test" % username,
+                                        password)
+        if group is not None:
+            if isinstance(group, (str, unicode)):
+                group = [group]
+            for name in group:
+                obj = Group.objects.get(name=name)
+                user.groups.add(obj)
         return user
 
     def make_channel(self, owner, state='N', keep_download=False):
-        from channelguide.guide.models import Channel
-        channel = Channel()
-        channel.state = state
-        channel.language = self.language
-        channel.owner = owner
-        channel.name = u"My Channel \u1111"
-        channel.url = "http://myblog.com/videos/rss/"
-        channel.url += util.random_string(20)
-        channel.website_url = "http://myblog.com/"
-        channel.publisher = "TestVision@TestVision.com"
-        channel.description = u"lots of stuff \u3333"
+        from channelguide.channels.models import Channel
+        channel = Channel.objects.create(
+            state=state,
+            language=self.language,
+            owner=owner,
+            name=u"My Channel \u1111",
+            url="http://myblog.com/videos/rss/" + util.random_string(20),
+            website_url="http://myblog.com/",
+            publisher="TestVision@TestVision.com",
+            description=u"lots of stuff \u3333"
+        )
         if not keep_download:
             channel.download_feed = lambda: None # don't try to download feed
-        self.save_to_db(channel)
         return channel
 
     def login(self, username, password='password'):
         data = {'username': unicode(username), 'password': password,
                 'which-form': 'login' }
-        return self.client.post('/accounts/login', data)
+        return self.client.post(settings.LOGIN_URL, data)
 
     def logout(self):
-        return self.client.get('/accounts/logout')
+        return self.client.get(settings.LOGOUT_URL)
 
     def get_traceback_from_response(self, response):
         if type(response.context) != list:
@@ -280,12 +254,8 @@ class TestCase(unittest.TestCase):
     def process_response(self, request):
         response = HttpResponse()
         self.process_response_middleware(request, response)
-        try:
-            signals.request_finished.send(None)
-        except AttributeError:
-            # this is for backwards-compatibility with pre-Django 1.0
-            from django.dispatch import dispatcher
-            dispatcher.send(signals.request_finished)
+        signals.request_finished.send(sender=self.request.__class__,
+                                      instance=self.request)
         return response
 
     def process_response_middleware(self, request, response):
@@ -300,23 +270,3 @@ class TestCase(unittest.TestCase):
                 if response:
                     return response
         return self.process_response(request)
-
-def setup_test_environment():
-    settings.OLD_DATABASE_NAME = settings.DATABASE_NAME
-    if not settings.DATABASE_NAME.startswith('test_'):
-        settings.DATABASE_NAME = 'test_' + settings.DATABASE_NAME
-    reload(db)
-    import django.test.utils
-    try:
-        db.dbinfo.create_database()
-    except:
-        db.dbinfo.drop_database()
-        db.dbinfo.create_database()
-    db.syncdb()
-    django.test.utils.setup_test_environment()
-
-def teardown_test_environment():
-    import django.test.utils
-    django.test.utils.teardown_test_environment()
-    db.dbinfo.drop_database()
-    settings.DATABASE_NAME = settings.OLD_DATABASE_NAME

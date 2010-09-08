@@ -1,0 +1,165 @@
+{% extends "guide/base.html" %}
+{% comment %}
+Copyright (c) 2009 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load i18n %}
+
+{% block title %}
+  {% trans "Miro Guide - Copyright Infringement Notification" %}
+{% endblock %}
+
+{% block head-extra %}
+<style type="text/css">
+h2 {
+  margin-bottom: 20px;
+}
+
+h3 {
+  margin-bottom: 15px;
+}
+
+
+p {
+  margin-bottom: 10px;
+}
+
+li  {
+  margin-bottom: 5px;
+}
+</style>
+{% endblock %}
+{% block content %}
+<div class="page bg">
+
+<h2>Copyright Infringement Notification</h2>
+
+<p>To file a copyright infringement notification with us, you will need to send a written communication that includes substantially the following (please consult your legal counsel or see Section 512(c)(3) of the Copyright Act to confirm these requirements):</p>
+
+<ol>
+
+<li> A physical or electronic signature of a person authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.</li>
+
+<li> Identification of the copyrighted work claimed to have been infringed, or, if multiple copyrighted works at a single online site are covered by a single notification, a representative list of such works at that site.</li>
+
+<li> Identification of the material that is claimed to be infringing or to be the subject of infringing activity and that is to be removed or access to which is to be disabled, and information reasonably sufficient to permit the service provider to locate the material. Providing URLs in the body of an email is the best way to help us locate content quickly.</li>
+
+<li> Information reasonably sufficient to permit the service provider to contact the complaining party, such as an address, telephone number, and, if available, an electronic mail address at which the complaining party may be contacted.
+
+<li> A statement that the complaining party has a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.</li>
+
+<li> A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.</li>
+
+</ol>
+
+<p>Such written notice should be sent to our designated agent as follows:</p>
+
+<p>DMCA Complaints
+
+<br />
+
+Participatory Culture Foundation
+
+<br />
+
+51 Channing St
+
+<br />
+
+Worcester, MA 01605
+
+<br />
+
+or
+
+<br />
+
+Fax: 617.896.3964
+
+<br />
+
+or
+
+<br />
+
+Email: {{ "copyright@pculture.org"|urlize }}
+
+</p>
+
+<p>Please also note that under Section 512(f) any person who knowingly materially misrepresents that material or activity is infringing may be subject to liability.</p>
+
+<h2>Counter-Notification</h2>
+
+<p>Please note that under Section 512(f) of the Copyright Act, any person who knowingly materially misrepresents that material or activity was removed or disabled by mistake or misidentification may be subject to liability. Please also be advised that we enforce a policy that provides for the termination in appropriate circumstances of subscribers who are repeat infringers.</p>
+
+<h3>How do I file a DMCA counter notice?</h3>
+
+<p>The process for counter-notifications is governed by Section 512(g) of the Digital Millennium Copyright Act: {{ "http://www.copyright.gov/legislation/dmca.pdf"|urlize }}</p>
+
+<p>To file a counter notification with us, you must provide a written communication that sets forth the items specified below.</p>
+
+<p>Please note that under Section 512(f) of the Copyright Act, any person who knowingly materially misrepresents that material or activity was removed or disabled by mistake or misidentification may be subject to liability. Please also be advised that we enforce a policy that provides for the termination in appropriate circumstances of subscribers who are repeat infringers. Accordingly, if you are not sure whether certain material infringes the copyrights of others, we suggest that you first contact an attorney.</p>
+
+<h3>Elements of Counter-Notification</h3>
+
+<p>A sample counter notification may be found at: {{ "http://www.chillingeffects.org/dmca/counter512.pdf"|urlize }}. To expedite our ability to process your counter notification, please use the following format (including section numbers):</p>
+
+<ol>
+
+<li> Identify the specific URLs of material that Miro Guide has removed or to which Miro Guide has disabled access.</li>
+
+<li> Provide your full name, address, telephone number, and email address, and the username of your Miro Guide account.</li>
+
+<li> Provide a statement that you consent to the jurisdiction of Federal District Court for the judicial district in which your address is located (or San Francisco County, California if your address is outside of the United States), and that you will accept service of process from the person who provided notification under subsection (c)(1)(C) or an agent of such person.</li>
+
+<li> Include the following statement: "I swear, under penalty of perjury, that I have a good faith belief that the material was removed or disabled as a result of a mistake or misidentification of the material to be removed or disabled."</li>
+
+<li> Sign the notice. If you are providing notice by e-mail, a scanned physical signature or a valid electronic signature will be accepted.</li>
+
+</ol>
+
+<p>Send the written communication to the following address:</p>
+
+
+<p>Participatory Culture Foundation
+
+<br />
+
+ATTN: DMCA Counter-Notification
+
+<br />
+
+51 Channing St
+
+<br />
+
+Worcester, MA 01605
+
+<br />
+
+or
+
+<br />
+
+Fax: 617.896.3964 Subject: Miro DMCA Counter-Notification
+
+<br />
+
+or
+
+<br />
+
+Email: {{ "copyright@pculture.org"|urlize }} Subject: Miro DMCA Counter-Notification
+
+</p>
+
+<h3>What happens next?</h3>
+
+<p>After we receive your counter-notification, we will forward it to the party who submitted the original claim of copyright infringement. Please note that when we forward the counter-notification, it includes your personal information. By submitting a counter-notification, you consent to having your information revealed in this way. We will not forward the counter-notification to any party other than the original claimant.</p>
+
+<p>After we send out the counter-notification, the claimant must then notify us within 10 days that he or she has filed an action seeking a court order to restrain you from engaging in infringing activity relating to the material on the Miro Guide. If we receive such notification we will be unable to restore the material. If we do not receive such notification, we may reinstate the material.</p>
+
+<p>DISCLAIMER: WE ARE NOT YOUR ATTORNEYS, AND THE INFORMATION WE PRESENT HERE IS NOT LEGAL ADVICE. WE PRESENT THIS INFORMATION FOR INFORMATIONAL PURPOSES ONLY.</p>
+
+</div>
+{% endblock %}

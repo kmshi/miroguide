@@ -1,0 +1,210 @@
+{% extends "guide/base.html" %}
+
+{% comment %}
+Copyright (c) 2009 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load i18n cg_helpers pagetabs video %}
+
+{% block head-extra %}
+  <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/playback.js"></script>
+  <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/share.js"></script>
+  <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/infinitescroll.js"></script>
+{% endblock %}
+
+{% block onload-extra %}add_share_callbacks();{% endblock %}
+
+{% block content %}
+
+  <div id="channelInfoPreview">
+    <div>
+      <img src="{{ STATIC_BASE_URL }}images/ico_red_feeds.png" alt="{% trans "RSS Feed" %}">
+      <h1>{{ channel.name_as_link }}</h1>
+      <a class="large_add_button feed"
+          {{ channel.subscription_link }}>
+          {% wrap_translation 25 %}
+          {% trans "Add Feed to Your Sidebar" %}
+          {% endwrap %}
+      </a>
+    </div>
+  </div>
+  {% if channel.hi_def or bittorrent%}
+    <!-- warning to old miro users users -->
+    <div class="page">
+
+          {% if bittorrent %}
+          <div class="warningMessage_bit">
+          <strong>{% trans "BitTorrent Video" %}:</strong>
+          {% blocktrans with channel.subscription_link as subscription_link %}
+          BitTorrent videos cannot be streamed. The easiest way to watch is <a {{ subscription_link }}>using Miro</a>.
+          {% endblocktrans %}
+          </div>
+          {% else %}
+
+          <div class="warningMessage_hd">
+          <strong>
+            {% trans "This is HD! High-definition videos are often slow to preview." %}
+          </strong>
+          {% blocktrans with item.url as download_url and channel.subscription_link as subscription_link %}
+            You may want to use Miro to <a href="{{ download_url }}">download</a>
+            the video or <a {{ subscription_link }}>subscribe</a>
+            to the feed. It's free and easy!
+          {% endblocktrans %}
+          </div>
+          {% endif %}
+
+      </div>
+    </div>
+  {% endif %}
+
+  {% include "sharing/links.html" %}
+
+  <div id="videoArea">
+    <div class="page">
+      <div id="videoBoxTop">
+        <h1><b>{% trans "Video Title:" %}</b> {{ item.name }}</h1>
+        {% if channel and not channel.fake %}
+          <span class="returnLink">
+            <a href="{{ channel.get_absolute_url }}{% if page.number %}{% ifequal page.number 1 %}{% else %}?page={{ page.number }}{% endifequal %}{% endif %}">
+              <b>{% trans "Back to Feed:" %}</b> {{ channel.name }}
+            </a>
+          </span>
+        {% endif %}
+      </div><!--videoBoxTop-->
+      <div id="videoBox">
+        <div id="video">
+          {% if bittorrent %}
+          <div id="bt-no-stream">
+          {% blocktrans with channel.subscription_link as subscription_link %}
+          BitTorrent videos cannot be streamed. The easiest way to watch is <a {{ subscription_link }}>using Miro</a>.
+          {% endblocktrans %}
+          </div>
+          {% else %}
+          {% video item.url mime_type=item.mime_type title=item.name %}
+          {{ embed }}
+          {% endif %}
+        </div><!--video-->
+
+        <div id="videoDetails">
+          <div class="meta">
+            {% if item.description %}
+
+              <div class="synopsis">
+                <strong class="synopsis_tag">{% trans "Synopsis" %}</strong>
+                {% if audio %}
+                {% with item.description|striptags as description %}
+                {% showall description 30 %}
+                {% ifshowall description 30 %}
+                <a href="#" class="read_more" onclick="$(this).parent().children('p').toggleClass('on'); return false;">{% trans "Show all" %}</a>
+                {% endifshowall %}
+                {% endwith %}
+                {% else %}
+                {% with item.description|striptags as description %}
+                {% showall description 300 %}
+                {% ifshowall description 300 %}
+                <a href="#" class="read_more" onclick="$(this).parent().children('p').toggleClass('on'); return false;">{% trans "Show all" %}</a>
+                {% endifshowall %}
+                {% endwith %}
+                {% endif %}
+              </div>
+            {% endif %}
+
+            <br clear="all" />
+            <div class="video_buttons_align">
+              <a href="{{ item.download_url }}"
+                 class="rollover_button download">
+                <span>
+                  <img src="{{ STATIC_BASE_URL }}images/dl_arrow.png"
+                       alt="Download" />
+                  {% trans "DOWNLOAD" %}
+                </span>
+              </a>
+              {% if hide_share %}
+                <a {% if share_button_url %}
+                     href="{{ share_button_url }}"
+                   {% else %}
+                     href="/items/{{ item.id }}?share=true"
+                   {% endif %}
+                   class="rollover_button share"
+                   onclick="$('#share_box').show(); $(this).remove(); return false;">
+                  <span>
+                    {% trans "SHARE" %}
+                    <img src="{{ STATIC_BASE_URL }}images/buttons/grey_stream.png"
+                         alt="" />
+                  </span>
+                </a>
+              {% endif %}
+            </div>
+
+            <p class="more">
+              {% if item.date %}
+                <strong class="tag">{% trans "Date Posted" %}</strong>
+                <span class="detail">{{ item.date|date:"j.m.Y" }}</span>
+              {% endif %}
+            </p>
+          </div>
+
+          <br>
+          {% if previous or next %}
+          <p class="center">
+            Additional Videos from this Feed
+          </p>
+
+          <div class="buttons">
+            {% if previous %}
+              <div class="previous_button">
+                <a href="{{ previous.get_url }}">
+                  {% trans "Previous" %}
+                </a>
+              </div>
+            {% endif %}
+            {% if next %}
+              <div class="next_button">
+                <a href="{{ next.get_url }}">
+                  {% trans "Next" %}
+                </a>
+              </div>
+            {% endif %}
+          </div>
+          {% endif %}
+        </div><!--videoDetails-->
+      </div><!--videoBox-->
+    </div><!--page-->
+  </div><!--videoArea-->
+
+  <br />
+
+  {% if page %}
+    <div id="channelEpisodes">
+      <div class="page">
+        <div class="detailsHeadLarge">
+          <h3 class="resultsCount">
+            <span class="heading">{% trans "Recently Aired" %}</span>
+            <span class="button">
+              <a href="#">
+                <img src="{{ STATIC_BASE_URL }}images/ico_refresh.png" alt="" />
+              </a>
+            </span>
+          </h3>
+        </div><!--detailsHead-->
+
+        {% pagetabs page %}
+
+        <br clear="all" />
+        <ul class="scrolling">
+          <a href="{{ page.number }}"></a>
+          {% for item in page.object_list %}
+          <li>
+            <div class="detailsTopLarge"></div>
+            {% include "channels/item.html" %}
+          </li>
+        {% endfor %}
+        </ul>
+        <script type="text/javascript">
+          $("#channelEpisodes div.details").each(setUpItem);
+        </script>
+
+      </div><!--page-->
+    </div><!--channelEpisodes-->
+  {% endif %}
+{% endblock %}

@@ -270,7 +270,7 @@ function add_corners() {
 function setup_login_form() {
     $("#hoverMenuLogin form").ajaxForm(
         function(data, textStatus) {
-            result = $('.form-errors ul li', data).addClass('form-errors');
+            result = $('.login-form ul.errorlist li', data).addClass('form-errors');
             if (!result.length) {
                 location.href = location.href;
                 return;

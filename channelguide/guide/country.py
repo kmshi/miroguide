@@ -16,4 +16,4 @@ def country_code(request):
         return
 
 CountryDict = ip2cc.CountryByIP(os.path.join(
-    os.path.dirname(ip2cc.__file__), 'ip2cc', 'ip2cc.db'))
+    os.path.dirname(ip2cc.__file__), 'ip2cc.db'))

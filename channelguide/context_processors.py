@@ -5,20 +5,18 @@ import math
 
 from django.conf import settings
 
-from channelguide.guide.forms import LoginForm, RegisterForm
-from channelguide.guide.models import Language, Category
+from channelguide.labels.models import Language, Category
+from channelguide.user_profile.models import UserProfile
+from channelguide.user_profile.forms import LoginForm, RegisterForm
 
 def guide(request):
     """Channelguide context processor.  These attributes get added to every
     template context.
     """
-    if getattr(request, 'connection', None) is not None:
-        categories = Category.query().order_by('name').execute(request.connection)
-        category_column_length = math.ceil(len(categories) / 4.0)
-        categories_loop = ['%i:%i' % (i*category_column_length, (i + 1) *
+    categories = Category.objects.order_by('name')
+    category_column_length = math.ceil(len(categories) / 4.0)
+    categories_loop = ['%i:%i' % (i*category_column_length, (i + 1) *
                                   category_column_length) for i in range(4)]
-    else:
-        categories_loop = categories = []
     context = {
         'DEBUG': settings.DEBUG,
         'BASE_URL': settings.BASE_URL,
@@ -28,27 +26,47 @@ def guide(request):
         'LANGUAGES': settings.LANGUAGES,
         'google_analytics_ua': settings.GOOGLE_ANALYTICS_UA,
         'request': request,
-        'user': request.user,
+        'settings': settings,
         'language_options': False,
         'categories_list': categories,
         'categories_loop': categories_loop,
         }
+    context['login'] = LoginForm()
+    context['register'] = RegisterForm()
+
     if not request.user.is_authenticated():
-        context['login'] = LoginForm(request)
-        context['register'] = RegisterForm(request)
         context['language_options'] = True
     else:
-        # figure out language options
-        if hasattr(request, 'connection') and request.user.language:
-            languageName = settings.ENGLISH_LANGUAGE_MAP.get(request.user.language)
-            if languageName:
-                dbLanguages = Language.query(name=languageName).execute(request.connection)
-                if dbLanguages:
-                    if not request.user.filter_languages:
-                        context['language_options'] = True
+        try:
+            profile = request.user.get_profile()
+        except UserProfile.DoesNotExist:
+            pass # happens during the test cases, if the user is loaded via
+                 # fixture
+        else:
+
+            context['profile'] = profile
+
+            # figure out whether to show language options
+            if 'django_language' in request.session:
+                if request.session['django_language'] != profile.language:
+                    profile.language = request.session['django_language']
+                    profile.save()
+            if profile.language:
+                if 'django_language' not in request.session:
+                    request.session['django_language'] = profile.language
+                languageName = settings.ENGLISH_LANGUAGE_MAP.get(
+                    profile.language)
+                if languageName:
+                    try:
+                        dbLanguage = Language.objects.get(name=languageName)
+                    except Language.DoesNotExist:
+                        pass
                     else:
-                        request.user.join('shown_languages').execute(request.connection)
-                        if len(request.user.shown_languages) == 1 and \
-                                request.user.shown_languages[0].id == dbLanguages[0].id:
+                        if not profile.filter_languages:
                             context['language_options'] = True
+                        else:
+                            if profile.shown_languages.count() == 1 and \
+                                    profile.shown_languages.all()[0] == \
+                                    dbLanguage:
+                                context['language_options'] = True
     return context

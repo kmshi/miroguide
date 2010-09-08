@@ -1,0 +1,16 @@
+{% extends 'guide/base.html' %}
+{% comment %}
+Copyright (c) 2008-2009 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load i18n cg_helpers %}
+{% block title %}{{ cobrand.long_title }} {% trans "Administration" %}{% endblock %}
+{% block body %}
+<h1>{{ cobrand.long_title }} {% trans "Administration" %}</h1>
+<div class="big-form">
+    <form method="POST" action="{{ request.path }}" onsubmit="showLoadIndicator();">
+        {% show_form form %}
+        <input type="submit" class="submit" value="Update Cobrand">
+    </form>
+</div>
+{% endblock %}

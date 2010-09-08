@@ -8,8 +8,6 @@ ripped out from democracy.
 from datetime import datetime
 import re
 
-from sqlhelper.orm import columns
-
 import filetypes
 
 def get_first_video_enclosure(entry):
@@ -98,28 +96,6 @@ def to_utf8(feedparser_string):
         return decoded.encode('utf-8')
     elif isinstance(feedparser_string, unicode):
         return feedparser_string.encode('utf-8')
-
-string_column_cache = {}
-def get_string_columns(obj):
-    try:
-        return string_column_cache[obj.__class__]
-    except KeyError:
-        cols = [c for c in obj.c if isinstance(c, columns.String)]
-        string_column_cache[obj.__class__] = cols
-        return cols
-
-def fix_utf8_strings(obj):
-    # cache string columns for fast access
-    changed = False
-    for c in get_string_columns(obj):
-        org = obj.__dict__.get(c.name)
-        if org is None:
-            continue
-        fixed = to_utf8(org)
-        if org != fixed:
-            changed = True
-            setattr(obj, c.name, fixed)
-    return changed
 
 def struct_time_to_datetime(time):
     return datetime(*time[:6])

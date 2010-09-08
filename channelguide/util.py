@@ -4,7 +4,6 @@
 
 """Util package.  Used for often used convenience functions. """
 
-from datetime import datetime, timedelta
 from itertools import cycle, count, izip
 from urllib import quote, urlopen, unquote_plus
 from xml.sax import saxutils
@@ -15,7 +14,6 @@ import md5
 import os
 import re
 import random
-import simplejson
 import string
 import subprocess
 import sys
@@ -24,13 +22,16 @@ import threading
 import urllib
 import socket # for socket.error
 
-from django.template import loader
+from django import shortcuts
 from django.template.context import RequestContext
 from django.core.mail import send_mail as django_send_mail
+from django.core import cache
 from django.conf import settings
 from django.utils.http import urlquote
 from django.utils.translation import ugettext as _
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect
+
+from django_bitly.models import Bittle
 
 try:
     from django.utils.safestring import mark_safe
@@ -61,25 +62,20 @@ def get_miro_version(http_user_agent):
         return None
 
 def bitly_shorten(url):
-    from channelguide import cache
-    if not settings.BITLY_USERNAME or not settings.BITLY_API_KEY:
-        return url
     key = 'bitly_shorten:%s' % md5.new(url).hexdigest()
-    shortURL = cache.client.get(key)
+    shortURL = cache.cache.get(key)
     if shortURL is not None:
         return shortURL
     for i in range(5):
         try:
-            json = urlopen('http://api.bit.ly/shorten?version=2.0.1&longUrl=%s&login=%s&apiKey=%s' % (
-                    quote(url), settings.BITLY_USERNAME, settings.BITLY_API_KEY)).read()
-            parsed = simplejson.loads(json)
-            shortURL = parsed['results'][url]['shortUrl']
+            b = Bittle.objects.bitlify(url)
         except (ValueError, IOError, KeyError):
             continue
         else:
-            cache.client.set(key, shortURL)
-            return shortURL
-    return make_absolute_url(url)
+            # memcached has a 30 day limit
+            cache.cache.set(key, b.shortUrl, 3600 * 24 * 30)
+            return b.shortUrl
+    return url
 
 def get_share_links(url, name):
     share_delicious = DELICIOUS_URL % (quote(url),
@@ -89,7 +85,8 @@ def get_share_links(url, name):
     share_stumbleupon = STUMBLEUPON_URL % (quote(url),
                                            quote(name.encode('utf8')))
     share_facebook = FACEBOOK_URL % (quote(url))
-    share_twitter = TWITTER_URL % (_('Watching in Miro: %s') % bitly_shorten(url)).replace(' ', '+')
+    share_twitter = TWITTER_URL % (
+        _('Watching in Miro: %s') % bitly_shorten(url)).replace(' ', '+')
 
     ## Generate dictionary
     share_links = {
@@ -109,8 +106,11 @@ def render_to_response(request, template_name, context=None, **kwargs):
     RequestContext object instead of the standard Context object.
     """
     template_name = 'guide/' + template_name
-    kwargs['context_instance'] = RequestContext(request)
-    return HttpResponse(loader.render_to_string(template_name, context, **kwargs))
+    return shortcuts.render_to_response(
+        template_name,
+        context,
+        context_instance=RequestContext(request),
+        **kwargs)
 
 def import_last_component(name):
     mod = __import__(name)
@@ -166,15 +166,11 @@ def redirect(url, get_data=None):
 def redirect_to_referrer(request):
     try:
         referrer = request.META['HTTP_REFERER']
-        if '/accounts/login' in referrer:
+        if settings.LOGIN_URL in referrer:
             raise KeyError
         return redirect(referrer)
     except KeyError:
         return redirect(settings.BASE_URL)
-
-def send_to_login_page(request):
-    login_url = '/accounts/login?next=%s' % quote(get_relative_path(request))
-    return redirect(login_url)
 
 def make_qs(**query_dict):
     parts = []
@@ -182,24 +178,24 @@ def make_qs(**query_dict):
         parts.append('%s=%s' % (quote(key, safe=''), quote(value, safe='')))
     return '?' + parts.join('&')
 
-def read_file(path, mode='b'):
-    f = open(path, 'r' + mode)
+
+def copy_obj(dest_path, file_obj):
+    # naive implementaton
+    file_obj.seek(0)
+    f = open(dest_path, 'wb')
     try:
-        return f.read()
+        f.write(file_obj.read())
     finally:
         f.close()
 
-def write_file(path, data, mode='b'):
-    f = open(path, 'w' + mode)
+def get_image_extension(image_file):
+    image_file.seek(0)
     try:
-        f.write(data)
-    finally:
-        f.close()
-
-def get_image_extension(image_data):
-    try:
-        identify_output = call_command('identify', '-', data=image_data)
+        identify_output = call_command('identify', '-',
+                                       data=image_file)
     except EnvironmentError:
+        raise ValueError('not an image we could identify')
+    if identify_output is '':
         raise ValueError('not an image we could identify')
     return identify_output.split(" ")[1].lower()
 
@@ -213,7 +209,7 @@ def push_media_to_s3(subpath, content_type):
     conn = S3.AWSAuthConnection(settings.S3_ACCESS_KEY, settings.S3_SECRET_KEY)
     localPath = os.path.join(settings.MEDIA_ROOT, subpath)
     obj = S3.S3Object(file(localPath).read())
-    count = 5
+    tries = 5
     while True:
         try:
             conn.put(settings.S3_BUCKET,
@@ -222,8 +218,8 @@ def push_media_to_s3(subpath, content_type):
                      {'Content-Type': content_type,
                       'x-amz-acl': 'public-read'})
         except:
-            count -= 1
-            if not count:
+            tries -= 1
+            if not tries:
                 raise
         else:
             return
@@ -245,46 +241,8 @@ def make_thumbnail(source_path, dest_path, width, height):
         logging.exception('error resizing image')
         raise ValueError('could not resize image')
 
-def copy_post_and_files(request):
-    data = request.POST.copy()
-    data.update(request.FILES)
-    return data
-
-def set_cookie(response, key, value, seconds):
-    expires_at = datetime.now() + timedelta(seconds=seconds)
-    if settings.USE_SECURE_COOKIES:
-        secure=True
-    else:
-        secure=None
-    response.set_cookie(key, value, max_age=seconds,
-            expires=expires_at.strftime("%a, %d-%b-%Y %H:%M:%S GMT"),
-            secure=secure)
-
 def hash_string(str):
     return md5.new(str.encode('utf8')).hexdigest()
-
-def get_object_or_404(connection, record_or_query, id):
-    from sqlhelper.orm import Record
-    if isinstance(record_or_query, Record):
-        query = record_or_query.query()
-    else:
-        query = record_or_query
-    try:
-        return query.get(connection, id)
-    except LookupError:
-        raise Http404
-
-def get_object_or_404_by_name(connection, record_or_query, name):
-    if hasattr(record_or_query, 'query'):
-        query = record_or_query.query()
-    else:
-        query = record_or_query
-    query.where(query.c.name==name)
-    ret = query.execute(connection)
-    if len(ret) == 1:
-        return ret[0]
-    else:
-        raise Http404
 
 def send_mail(title, body, recipient_list, email_from=None, break_lines=True):
     if break_lines:
@@ -373,7 +331,7 @@ def call_command(*args, **kwargs):
         pipe = subprocess.Popen(args, stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         if data is not None:
-            pipe.stdin.write(data)
+            pipe.stdin.write(data.read())
         pipe.stdin.close()
         stdout = pipe.stdout.read()
         stderr = pipe.stderr.read()
@@ -403,20 +361,6 @@ def make_link_attributes(href, css_class=None, **extra_link_attributes):
         attributes.append('%s="%s"' % (name, saxutils.escape(value)))
     return mark_safe(' '.join(attributes))
 
-def rotate_grid(list, columns):
-    """Used to make columned lists be ordered by column instead of rows.  For
-    example the category list on the front page.
-    """
-
-    retval = []
-    row_in_retval = 0
-    rows = (len(list) + columns - 1) / columns
-    while len(retval) < len(list):
-        column_from_list = list[row_in_retval:len(list):rows]
-        retval.extend(column_from_list)
-        row_in_retval += 1
-    return retval
-
 def random_string(length):
     return ''.join(random.choice(string.letters) for i in xrange(length))
 
@@ -433,27 +377,6 @@ def chop_prefix(value, prefix):
         return value[len(prefix):]
     else:
         return value
-
-def create_post_form(form, request):
-    if request.method == 'POST':
-        return form(request.connection, request.POST)
-    else:
-        return form(request.connection)
-
-def select_random(connection, query, count=1):
-    row_count = query.count(connection)
-    # The following is a completely blind opmitization without any numbers
-    # behind it, but my intuition tells me that method 1 is faster when the
-    # number of rows in the table is large compared to the count argument.
-    # Method two is faster when the number of rows we're looking for is close
-    # to the size of the table, and also works if count is greater than the
-    # table size.
-    if row_count == 0:
-        return []
-    elif float(count) / row_count < 0.5:
-        return random.sample(query.execute(connection), count)
-    else:
-        return query.order_by('RAND()').limit(count).execute(connection)
 
 def ensure_list(object):
     if hasattr(object, '__iter__'):
@@ -479,33 +402,6 @@ def get_subscription_url(*links, **kwargs):
     else:
         return settings.SUBSCRIBE_URL + attributes
 
-def unicodify(s, encoding='utf8'):
-    """
-    Returns a Unicode string.  If u is already Unicode, return it, otherwise
-    decode it using the given encoding (default: utf8)
-    """
-    if isinstance(s, unicode):
-        return s
-    else:
-        return s.decode(encoding)
-
-def donation_decorator (func):
-    """ """
-    def wrapper (request, *args):
-        """ """
-        referrer = request.META.get('HTTP_REFERER', '')
-        hasCookie = request.COOKIES.get('donate_pitch') or \
-            request.COOKIES.get('donate_donated')
-        if referrer.startswith(settings.BASE_URL_FULL) or hasCookie:
-            response = func(request, *args)
-        else:
-            response = redirect('/donate', {'next': request.path})
-        if not hasCookie:
-            response.set_cookie('donate_pitch', 'yes', max_age=None,
-                                secure=settings.USE_SECURE_COOKIES or None)
-        return response
-    return wrapper
-
 
 class LiarOpener(urllib.FancyURLopener):
     """
@@ -523,3 +419,7 @@ def open_url_while_lying_about_agent(url):
     opener = LiarOpener()
     return opener.open(url)
 
+def copy_function_metadata(wrapper, func):
+    wrapper.__name__ = func.__name__
+    wrapper.__doc__ = func.__doc__
+    return wrapper

@@ -3,97 +3,91 @@
 
 from django.conf import settings
 
-from channelguide import util, cache
-from channelguide.guide.models import Channel, Category, Language
-from sqlhelper.exceptions import NotFoundError
+from channelguide import util
+from channelguide.cache.decorators import cache_for_user
+from channelguide.channels.models import Channel
+from channelguide.labels.models import Category, Language
 
 def _filter_categories(result, count):
-    return [channel for channel in result
-            if channel.can_appear_on_frontpage()][:count]
+    return result.exclude(categories__on_frontpage=False)[:count]
 
 def get_current_language(request):
     """
     Returns a Language object for the current language, or None if it's
     the default language.
     """
-    if request.user.is_authenticated():
-        filter_languages = request.user.filter_languages
-    else:
-        filter_languages = request.session.get('filter_languages', False)
-    if request.LANGUAGE_CODE != settings.LANGUAGE_CODE or filter_languages:
-        languageName = settings.LANGUAGE_MAP[request.LANGUAGE_CODE]
+    if not hasattr(request, '_current_language_cache'):
+        language_code = request.LANGUAGE_CODE
+        if request.user.is_authenticated():
+            language_code = request.user.get_profile().language
+            if not request.user.get_profile().filter_languages:
+                request._current_language_cache = None
+                return
+        languageName = settings.LANGUAGE_MAP[language_code]
         try:
-            return Language.query().where(name=languageName).get(
-                    request.connection)
-        except NotFoundError:
-            pass
-
-def get_categories(connection):
-        return Category.query(on_frontpage=True).order_by('name').execute(connection)
+            request._current_language_cache = Language.objects.get(
+                name=languageName)
+        except Language.DoesNotExist:
+            request._current_language_cache = None
+    return request._current_language_cache
 
 
 class FrontpageView:
 
     show_state = None
-    additional_context = {}
+    additional_context = {'audio': False}
 
     @classmethod
-    def get_popular_channels(klass, request, count, language=None, hi_def=None):
-        query = Channel.query(archived=0, user=request.user)
-        query.where(Channel.c.state == klass.show_state)
+    def get_popular_channels(klass, request, count, language=None,
+                             hi_def=None):
+        query = Channel.objects.filter(state=klass.show_state, archived=0)
         lang = get_current_language(request)
         if lang is not None:
-            query.where(Channel.c.primary_language_id==lang.id)
+            query = query.filter(language=lang)
         if hi_def is not None:
-            query.where(Channel.c.hi_def==hi_def)
-        query.join('categories', 'stats')
-        query.order_by(query.joins['stats'].c.subscription_count_today, desc=True)
-        query.limit(count*3)
-        query.cacheable = cache.client
-        query.cacheable_time = 3600
-        result = query.execute(request.connection)
-        return list(_filter_categories(result, count))
+            query = query.filter(hi_def=hi_def)
+        query = query.order_by('-stats__subscription_count_today')
+        return _filter_categories(query, count)
 
     @classmethod
     def get_featured_channels(klass, request):
-        query = Channel.query(featured=1, archived=0, user=request.user)
-        query.where(Channel.c.state == klass.show_state)
-        return query.order_by('RAND()').execute(request.connection)
+        query = Channel.objects.approved(state=klass.show_state,
+                                         featured=1, archived=0)
+        return query.order_by('?')
 
     @classmethod
     def get_new_channels(klass, request, type, count):
         lang = get_current_language(request)
         if lang is not None:
-            query = Channel.query(user=request.user)
-            query.where(Channel.c.state == klass.show_state)
-            query.where(Channel.c.primary_language_id==lang.id)
-            query.where(archived=0)
-            query.order_by(Channel.c.approved_at, desc=True).limit(count * 3)
+            query = Channel.objects.filter(state=klass.show_state,
+                                           language=lang)
+            query = query.order_by('-approved_at')
         else:
-            query = Channel.query_new(state=klass.show_state, archived=0,
-                                      user=request.user).limit(count *3)
+            query = Channel.objects.new(state=klass.show_state, archived=0)
         if type:
-            query.where(Channel.c.url.is_not(None))
+            query = query.filter(url__isnull=False)
         else:
-            query.where(Channel.c.url.is_(None))
-        query.join('categories')
-        query.cacheable = cache.client
-        query.cacheable_time = 3600
-        return list(_filter_categories(query.execute(request.connection), count))
+            query = query.filter(url__isnull=True)
+
+        return _filter_categories(query, count)
 
     @classmethod
     def __call__(klass, request, show_welcome):
-        featured_channels = klass.get_featured_channels(request)
-        categories = get_categories(request.connection)
+        featured_channels = list(klass.get_featured_channels(request))
+        categories = Category.objects.filter(
+            on_frontpage=True).order_by('name')
         language = get_current_language(request)
         for category in categories:
-            category.popular_channels = category.get_list_channels(
-                request.connection, True, klass.show_state, language)
+            def popular_channels(category=category):
+                return category.get_list_channels(True, klass.show_state,
+                                                  language)
+            category.popular_channels = popular_channels
         context = {
             'show_welcome': show_welcome,
             'new_channels': klass.get_new_channels(request, True, 20),
             'popular_channels': klass.get_popular_channels(request, 20),
-            'popular_hd_channels': klass.get_popular_channels(request, 20, hi_def=True),
+            'popular_hd_channels': klass.get_popular_channels(request, 20,
+                                                              hi_def=True),
             'featured_channels': featured_channels[:2],
             'featured_channels_hidden': featured_channels[2:],
             'categories': categories,
@@ -114,10 +108,10 @@ class AudioFrontpage(FrontpageView):
 video_frontpage = VideoFrontpage()
 audio_frontpage = AudioFrontpage()
 
-@cache.cache_for_user
+@cache_for_user
 def index(request, show_welcome=False):
     return video_frontpage(request, show_welcome)
 
-@cache.cache_for_user
+@cache_for_user
 def audio_index(request, show_welcome=False):
     return audio_frontpage(request, show_welcome)

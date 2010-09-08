@@ -4,18 +4,16 @@
 import urlparse
 from datetime import datetime, timedelta
 
-from channelguide import init, util
-init.init_external_libraries()
-from channelguide import cache
-from channelguide.guide import api
-from channelguide.guide.models import User
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.models import User
 from django.contrib.syndication import feeds, views
 from django.utils import feedgenerator
+from django.views.decorators.cache import cache_page
 from django.http import Http404
 
-from operator import attrgetter
+from channelguide.api import utils as api_utils
+from channelguide import util
 
 def https_add_domain(domain, url):
     """
@@ -65,12 +63,11 @@ class ChannelsFeed(feeds.Feed):
             return item.newest.date
 
     def item_enclosure_url(self, item):
-        item.join('items').execute(self.request.connection)
-        results = [i for i in item.items.records[:] if i.date is not None
-                   and i.date < self.get_date_for_item(item)]
-        if results:
-            results.sort(key=attrgetter('date'), reverse=True)
-            item.newest = results[0]
+        results = item.items.filter(
+            date__isnull=False,
+            date__lt=self.get_date_for_item(item))
+        if results.count():
+            item.newest = results.order_by('-date')[0]
 
             # We shouldn't produce a redirect-enclosure for anything that
             # ends in .swf or comes from youtube (since youtube also
@@ -112,8 +109,8 @@ class FeaturedChannelsFeed(ChannelsFeed):
     description = "Featured channels on the Miro Guide."
 
     def items(self):
-        return api.get_feeds(self.request, 'featured', True,
-                                limit=20)
+        return api_utils.get_feeds(self.request, 'featured', True,
+                                   limit=20)
 
 
     def get_date_for_item(self, item):
@@ -126,8 +123,8 @@ class NewChannelsFeed(ChannelsFeed):
     description = "The newest channels on the Miro Guide."
 
     def items(self):
-        return api.get_feeds(self.request, 'name', None,
-                                sort='-age', limit=20)
+        return api_utils.get_feeds(self.request, 'name', None,
+                                   sort='-age', limit=20)
 
 
     def get_date_for_item(self, item):
@@ -140,8 +137,8 @@ class PopularChannelsFeed(ChannelsFeed):
     description = "The most popular channels on the Miro Guide."
 
     def items(self):
-        return api.get_feeds(self.request, 'name', None,
-                                sort='-popular', limit=20)
+        return api_utils.get_feeds(self.request, 'name', None,
+                                   sort='-popular', limit=20)
 
 
 class TopRatedChannelsFeed(ChannelsFeed):
@@ -150,8 +147,8 @@ class TopRatedChannelsFeed(ChannelsFeed):
     description = "The highest rated channels on the Miro Guide."
 
     def items(self):
-        return api.get_feeds(self.request, 'name', None,
-                                sort='-rating', limit=20)
+        return api_utils.get_feeds(self.request, 'name', None,
+                                   sort='-rating', limit=20)
 
 
 class FilteredFeed(ChannelsFeed):
@@ -179,8 +176,8 @@ class FilteredFeed(ChannelsFeed):
     def items(self, obj):
         if obj is None:
             return ''
-        return api.get_feeds(self.request, self.filter, obj,
-                             sort='-age', limit=20)
+        return api_utils.get_feeds(self.request, self.filter, obj,
+                                   sort='-age', limit=20)
 
     def get_date_for_item(self, item):
         return item.approved_at
@@ -225,7 +222,7 @@ class SearchFeed(ChannelsFeed):
     def items(self, obj):
         if obj is None:
             return ''
-        return api.search(self.request.connection, obj)
+        return api_utils.search(obj)
 
 
 class RecommendationsFeed(ChannelsFeed):
@@ -235,8 +232,8 @@ class RecommendationsFeed(ChannelsFeed):
             raise ObjectDoesNotExist
         username, password = bits
         try:
-            user = User.query(username=username).get(self.request.connection)
-        except LookupError:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
             raise ObjectDoesNotExist
         if user.check_password(password):
             return user
@@ -254,9 +251,7 @@ class RecommendationsFeed(ChannelsFeed):
         return settings.BASE_URL_FULL + '/recommend/'
 
     def items(self, user):
-        return api.get_recommendations(self.request.connection,
-                                       user)
+        return api_utils.get_recommendations(user)
 
 
-cached_feed = cache.cache_page_externally_for(3600)(cache.aggresively_cache(
-        views.feed))
+cached_feed =  cache_page(views.feed, 3600)
