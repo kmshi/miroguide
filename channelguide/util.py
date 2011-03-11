@@ -31,7 +31,7 @@ from django.utils.http import urlquote
 from django.utils.translation import ugettext as _
 from django.http import HttpResponseRedirect
 
-from django_bitly.models import Bittle
+from django_bitly.models import Bittle, StringHolder
 
 try:
     from django.utils.safestring import mark_safe
@@ -66,9 +66,14 @@ def bitly_shorten(url):
     shortURL = cache.cache.get(key)
     if shortURL is not None:
         return shortURL
+    try:
+        sh, created = StringHolder.objects.get_or_create(absolute_url=url)
+    except StringHolder.MultipleObjectsReturned:
+        sh = StringHolder.objects.filter(absolute_url=url)[0]
+        StringHolder.objects.filter(id!=sh.id, absolute_url=url).delete()
     for i in range(5):
         try:
-            b = Bittle.objects.bitlify(url)
+            b = Bittle.objects.bitlify(sh)
         except (ValueError, IOError, KeyError):
             continue
         else:
