@@ -70,7 +70,8 @@ def bitly_shorten(url):
         sh, created = StringHolder.objects.get_or_create(absolute_url=url)
     except StringHolder.MultipleObjectsReturned:
         sh = StringHolder.objects.filter(absolute_url=url)[0]
-        StringHolder.objects.filter(id!=sh.id, absolute_url=url).delete()
+        StringHolder.objects.filter(
+            absolute_url=url).exclude(id=sh.id).delete()
     for i in range(5):
         try:
             b = Bittle.objects.bitlify(sh)
