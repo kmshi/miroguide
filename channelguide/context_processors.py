@@ -49,7 +49,8 @@ def guide(request):
             # figure out whether to show language options
             if 'django_language' in request.session:
                 if request.session['django_language'] != profile.language:
-                    profile.language = request.session['django_language']
+                    profile.language = unicode(
+                        request.session['django_language']).encode('utf-8')
                     profile.save()
             if profile.language:
                 if 'django_language' not in request.session:
