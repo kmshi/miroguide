@@ -4256,7 +4256,6 @@ text-align: right !important;
     background: url(../images/large_add_feed.png) right 0 no-repeat;
 }
 
-
 .large_add_button.site {
     padding-right: 25px;
     background: url(../images/large_add_site.png) right 0 no-repeat;
@@ -5405,9 +5404,6 @@ border-bottom: none;
 }
 
 /* --- password and email confirmation --- */
-
-
-
 
 .auth-token-sent-page{
 width: 700px;
