@@ -11,7 +11,6 @@
   <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/playback.js"></script>
   <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/share.js"></script>
   <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/infinitescroll.js"></script>
-  <script type="text/javascript" src="{{ STATIC_BASE_URL }}js/aether.js"></script>
   <link rel="image_src" href="{{ channel.thumb_url_245_164 }}" />
 {% endblock %}
 
@@ -56,18 +55,6 @@
   <div id="channelDetails2">
     <div class="page">
       <div class="channelDetailsContent">
-        {% if channel.url %}
-        <div id="aether_channel_{{channel.id}}"  
-              {% if subscribed %}
-                class="large_add_button aether-subscribed" onclick="unsubscribe ('aether_channel_{{channel.id}}');">
-                {% wrap_translation 25 %}{% trans "Unsubscribe" %}{% endwrap %}
-              {% else %}
-                class="large_add_button aether-unsubscribed" onclick="subscribe ('aether_channel_{{channel.id}}');">
-                {% wrap_translation 25 %}{% trans "Subscribe" %}{% endwrap %}
-              {% endif %}
-        </div>
-        {% endif %}
-
         <a class="large_add_button {% if channel.url %}feed{% else %}site{% endif %}"
           {{ channel.subscription_link }}>
           <span class="only-in-miro">

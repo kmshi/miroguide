@@ -147,10 +147,6 @@ urlpatterns += patterns('',
                         (r'^categories/', include('channelguide.labels.categories.urls')),
                         (r'^cobranding/', include('channelguide.cobranding.urls')))
 
-urlpatterns += patterns ('',
-    (r'^aether/', include('channelguide.aether.urls'))
-)
-
 js_info_dict = {
     'packages': ('channelguide.guide',),
 }
@@ -158,6 +154,7 @@ js_info_dict = {
 urlpatterns += patterns('',
     (r'^jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict),
 )
+
 
 handler500 = 'channelguide.guide.views.errors.error_500'
 

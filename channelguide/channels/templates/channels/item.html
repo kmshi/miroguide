@@ -7,10 +7,10 @@ See LICENSE for details.
 Copyright (c) 2008 Participatory Culture Foundation
 See LICENSE for details.
 {% endcomment %}
-
 <div class="details">
   <a href="{{ item.get_url }}">
-    <span class="thumb corners" style="background: url({{ item.thumb_url_97_65 }}); width: 97px; height: 65px;{% if item.fake %} background-position: center; {% endif %}">
+    <span class="thumb corners"
+          style="background: url({{ item.thumb_url_97_65 }}); width: 97px; height: 65px;{% if item.fake %} background-position: center;{% endif %}">
       {% if channel.hi_def %}
         <img class="hd_tag_small"
              src="{{ STATIC_BASE_URL }}images/ico_hd_tag_small.png"
