@@ -448,7 +448,7 @@ class SubmitChannelForm(forms.Form):
         string_cols = ('name', 'website_url',
                 'description', 'publisher', 'geoip')
         for attr in string_cols:
-            setattr(channel, attr, self.cleaned_data[attr])
+            setattr(channel, attr, unicode(self.cleaned_data[attr]))
         channel.hi_def = self.cleaned_data['hi_def']
         channel.language_id = int(self.cleaned_data['language'])
         channel.save()
