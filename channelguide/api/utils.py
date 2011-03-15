@@ -6,7 +6,7 @@ from django.core import cache
 from django.contrib.auth.models import User
 from django.db.models import Q
 from channelguide.search import utils as search_mod
-from channelguide.channels.models import Channel, AddedChannel
+from channelguide.channels.models import Channel, AddedChannel, Item
 from channelguide.labels.models import Category, Language
 from channelguide.ratings.models import Rating
 from channelguide.recommendations.models import Similarity
@@ -20,6 +20,28 @@ def login(id):
     except User.DoesNotExist:
         return None
     return user
+
+def get_item(id):
+    itemKey = 'Item:%s' % id
+    timestamp = cache.cache.get(itemKey)
+    if timestamp is None:
+        timestamp = time.time()
+        cache.cache.set(itemKey, timestamp)
+    apiKey = 'get_item:%s:%s' % (id, timestamp)
+    item = cache.cache.get(apiKey)
+    if item is None:
+        try:
+            item = Item.objects.get(pk=id)
+        except Item.DoesNotExist:
+            raise LookupError('item %s does not exist' % id)
+        cache.cache.set(apiKey, item)
+    return item
+
+def get_item_by_url(url):
+    try:
+        return Item.objects.get(url=url)
+    except Item.DoesNotExist:
+        raise LookupError('item %s does not exist' % url)
 
 def get_channel(id):
     channelKey = 'Channel:%s' % id

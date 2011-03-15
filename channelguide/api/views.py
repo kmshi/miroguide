@@ -85,7 +85,8 @@ def data_for_channel(channel):
     return data
 
 def data_for_item(item):
-    default_keys = ('name', 'description', 'url', 'size')
+    default_keys = ('id', 'name', 'description', 'url', 'size', 'channel_id',
+                    'mime_type')
     data = {}
     for key in default_keys:
         data[key] = getattr(item, key)
@@ -123,6 +124,33 @@ def response_for_data(request, data, code=None):
 
 def test(request):
     data = {'text': 'Valid request' }
+    return response_for_data(request, data)
+
+@api_cache
+def get_item(request):
+    if not ('id' in request.GET or 'url' in request.GET):
+        return error_response(request, 'MISSING_ARGUMENT',
+                              "get_item requires either an id or a URL")
+    items = []
+    for value in request.GET.getlist('id'):
+        try:
+            items.append(api_utils.get_item(int(value)))
+        except (LookupError, ValueError):
+            return error_response(request, 'ITEM_NOT_FOUND',
+                                  'Item %s not found' % value)
+    for value in request.GET.getlist('url'):
+        try:
+            items.append(api_utils.get_item_by_url(value))
+        except LookupError:
+            return error_response(request, 'ITEM_NOT_FOUND',
+                                  'Item %s not found' % value)
+    if request.user.is_authenticated():
+        for item in items:
+            item.score = api_utils.get_rating(request.user, item)
+    if len(items) == 1:
+        data = data_for_item(items[0])
+    else:
+        data = map(data_for_item, items)
     return response_for_data(request, data)
 
 @api_cache

@@ -5,6 +5,7 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('channelguide.api.views',
                        (r'^test$', 'test'),
+                       (r'^get_item$', 'get_item'),
                        (r'^get_channel$', 'get_channel'),
                        (r'^get_channels$', 'get_channels'),
                        (r'^get_feeds$', 'get_feeds'),
