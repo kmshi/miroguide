@@ -29,7 +29,7 @@ def get_item(id):
         cache.cache.set(itemKey, timestamp)
     apiKey = 'get_item:%s:%s' % (id, timestamp)
     item = cache.cache.get(apiKey)
-    if item is None:
+    if item is None or not hasattr(item, '_state'):
         try:
             item = Item.objects.get(pk=id)
         except Item.DoesNotExist:
@@ -51,7 +51,7 @@ def get_channel(id):
         cache.cache.set(channelKey, timestamp)
     apiKey = 'get_channel:%s:%s' % (id, timestamp)
     channel = cache.cache.get(apiKey)
-    if channel is None:
+    if channel is None or not hasattr(channel, '_state'):
         try:
             channel = Channel.objects.select_related().get(pk=id)
         except Channel.DoesNotExist:
