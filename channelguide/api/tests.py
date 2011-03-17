@@ -413,7 +413,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
                           {'error': 'CHANNEL_NOT_FOUND',
                            'text': 'Channel -1 not found'})
         response = self.make_api_request('rate', id=self.channels[0].id,
-                                         session='invalid session')
+                                         session='0')
         self.assertEquals(response.status_code, 403)
         self.assertEquals(eval(response.content),
                           {'error': 'INVALID_SESSION',
@@ -484,7 +484,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
     def test_get_recommendations(self):
         session = self._get_session()
         response = self.make_api_request('get_recommendations',
-                                         session='invalid session')
+                                         session='0')
         self.assertEquals(response.status_code, 403)
         self.assertEquals(eval(response.content),
                           {'error': 'INVALID_SESSION',

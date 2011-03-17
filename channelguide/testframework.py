@@ -27,10 +27,6 @@ def clear_cache():
         if isinstance(cache._cache, dict):
             cache._cache = {}
             cache._expire_info = {}
-        else:
-            raise ValueError('cannot clear cache')
-    else:
-        raise ValueError('cannot clear cache')
 
 class TestLogFilter(logging.Filter):
     def __init__(self):

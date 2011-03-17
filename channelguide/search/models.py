@@ -48,33 +48,35 @@ class ItemSearchData(models.Model):
 
 
 from django.conf import settings
-from django.db import connection
-from django.db.models import signals
+if settings.DATABASE_ENGINE == 'mysql':
+    from django.db import connections
+    from django.db.models import signals
 
-def create_fulltext_indexes(created_models=None, **kwargs):
-    """
-    Code borrowed from
-    http://onebiglibrary.net/story/automatically-create-mysql-fulltext-index-with-django-syncdb
-    """
-    if ChannelSearchData not in created_models:
-        return
-    cursor = connection.cursor()
-    indexes = [
-        ('important_text_index', 'important_text'),
-        ('text_index', 'important_text,text')
-        ]
-    for index, fields in indexes:
-        cursor.execute("""
-            SELECT * FROM information_schema.statistics
-            WHERE table_schema=%s AND table_name='cg_channel_search_data'
-            AND index_name=%s
-            """, (settings.DATABASE_NAME, index))
-        rows = cursor.fetchall()
-        if len(rows) == 0:
-            print 'Creating fulltext index %s' % index
+    def create_fulltext_indexes(created_models=None, **kwargs):
+        """
+        Code borrowed from
+        http://onebiglibrary.net/story/automatically-create-mysql-fulltext-index-with-django-syncdb
+        """
+        if ChannelSearchData not in created_models:
+            return
+        name = connections['default'].settings_dict['NAME']
+        cursor = connections['default'].cursor()
+        indexes = [
+            ('important_text_index', 'important_text'),
+            ('text_index', 'important_text,text')
+            ]
+        for index, fields in indexes:
             cursor.execute("""
-                CREATE FULLTEXT INDEX %s
-                ON cg_channel_search_data (%s)
-                """ % (index, fields))
+                SELECT * FROM information_schema.statistics
+                WHERE table_schema=%s AND table_name='cg_channel_search_data'
+                AND index_name=%s
+                """, (name, index))
+            rows = cursor.fetchall()
+            if len(rows) == 0:
+                print 'Creating fulltext index %s' % index
+                cursor.execute("""
+                    CREATE FULLTEXT INDEX %s
+                    ON cg_channel_search_data (%s)
+                    """ % (index, fields))
 
-signals.post_syncdb.connect(create_fulltext_indexes)
+    signals.post_syncdb.connect(create_fulltext_indexes)
