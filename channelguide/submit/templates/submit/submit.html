@@ -11,7 +11,7 @@ See LICENSE for details.
       <span class="header">{% block top %}{% endblock %}</span>
     </h5>
   </div>
-  <form method="POST" action="{% block url %}{% endblock %}" enctype="multipart/form-data">
+  <form method="POST" action="{% block url %}{% endblock %}" enctype="multipart/form-data">{% csrf_token %}
     <ul>
       <li class="upper">
       {% block upper %}{% endblock %}

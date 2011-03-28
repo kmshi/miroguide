@@ -26,7 +26,7 @@ $(document).ready(function() {
     <div class="big-form">
         <h2>{% trans "Update My Profile " %}</h2>
         <!-- User: {{ for_user.username }} -->
-        <form method="POST" action="{{ for_user.get_url }}" onsubmit="showLoadIndicator();">
+        <form method="POST" action="{{ for_user.get_url }}" onsubmit="showLoadIndicator();">{% csrf_token %}
             <input type="hidden" name="action" value="edit">
             {% show_form_errors form %}
             <ul class="form-inputs">

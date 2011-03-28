@@ -4,7 +4,7 @@ See LICENSE for details.
 {% endcomment %}
 {% load i18n %}
 
-<form id="share_form" action="{{ BASE_URL }}share/email/" method="POST">
+<form id="share_form" action="{{ BASE_URL }}share/email/" method="POST">{% csrf_token %}
   {% if share_form.share_type.errors %}
     {{ share_form.share_type.errors.as_ul }}
   {% endif %}

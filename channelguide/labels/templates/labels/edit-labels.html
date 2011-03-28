@@ -7,7 +7,7 @@ See LICENSE for details.
 <div class="edit_categories_page">
 {% if add_perm %}
 <h2>{{ new_label }}</h2>
-<form method="POST" action="{{ add_url }}" onsubmit="showLoadIndicator();">
+<form method="POST" action="{{ add_url }}" onsubmit="showLoadIndicator();">{% csrf_token %}
     <input name="name"> <input type="submit" value="add">
 </form>
 {% endif %}
@@ -22,14 +22,14 @@ See LICENSE for details.
     {% if change_perm %}
     {% block change_extra %}
     {% endblock %}
-    <form class="inline" method="POST" action="{{ change_url }}" onsubmit="showLoadIndicator();">
+    <form class="inline" method="POST" action="{{ change_url }}" onsubmit="showLoadIndicator();">{% csrf_token %}
         <input type="hidden" name="id" value="{{ label.pk }}">
         <input name="name">
         <input type="submit" value="change name">
     </form>
     {% endif %}
     {% if delete_perm %}
-    <form class="inline" method="POST" action="{{ delete_view }}" onsubmit="showLoadIndicator();">
+    <form class="inline" method="POST" action="{{ delete_view }}" onsubmit="showLoadIndicator();">{% csrf_token %}
       <input type="hidden" name="id" value="{{ label.pk }}">
       <input class="delete-button" type="submit" value="delete">
     </form>
