@@ -63,9 +63,13 @@ class ChannelsFeed(feeds.Feed):
             return item.newest.date
 
     def item_enclosure_url(self, item):
+        max_date = self.get_date_for_item()
+        if not max_date:
+            item.newest = None
+            return
         results = item.items.filter(
             date__isnull=False,
-            date__lt=self.get_date_for_item(item))
+            date__lt=max_date)
         if results.count():
             item.newest = results.order_by('-date')[0]
 
