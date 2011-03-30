@@ -4,6 +4,7 @@
 import urlparse
 
 from django import forms
+from django.core.validators import email_re
 from django.conf import settings
 from django.utils.translation import ugettext as _
 
@@ -47,7 +48,7 @@ class ShareForm(forms.Form):
         cleaned_recipients = []
         for recipient in self.cleaned_data['recipients'].split(','):
             recipient = recipient.strip()
-            if not forms.fields.email_re.match(recipient):
+            if not email_re.match(recipient):
                 raise forms.ValidationError(
                     _(u'"Recipients" field must be a comma '
                       u'separated list of email addresses'))

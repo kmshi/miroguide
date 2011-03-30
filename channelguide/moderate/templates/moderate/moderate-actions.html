@@ -6,7 +6,7 @@ See LICENSE for details.
 {% include "moderate/moderate-actions-simple.html" %}
 <ul class="reject-moderate-actions moderate-actions">
     <li class="channel-action">
-    <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">
+    <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">{% csrf_token %}
       <div>
         <input type="hidden" name="action" value="standard-reject">
         {% if channel.url %}<input type="submit" name="submit" value="Broken">
@@ -19,7 +19,7 @@ See LICENSE for details.
     </li>
     {% if channel.flags %}
     <li>
-      <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">
+      <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">{% csrf_token %}
         <div>
           {% trans "HD" %}:
           <input type="hidden" name="action" value="set-hd">

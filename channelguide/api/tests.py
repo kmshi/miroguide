@@ -31,7 +31,7 @@ class ChannelApiTestBase(TestCase):
             self.channels.append(channel)
         self.categories = categories = []
         self.languages = languages = []
-        items = []
+        self.items = []
         for n in range(2):
             cat = Category(name='category%i' % n)
             cat.save()
@@ -41,7 +41,7 @@ class ChannelApiTestBase(TestCase):
 
             item = Item()
             item.channel_id = self.channels[0].id
-            item.url = self.channels[0].url
+            item.url = self.channels[0].url + '?item=%i' % n
             item.name = 'item%i' % n
             item.description = 'Item'
             item.size = i
@@ -52,7 +52,7 @@ class ChannelApiTestBase(TestCase):
 
             categories.append(cat)
             languages.append(lang)
-            items.append(item)
+            self.items.append(item)
         self.channels[0].categories.add(*categories)
         self.channels[0].language = languages[0]
         self.channels[0].add_tags(self.owner,
@@ -122,6 +122,93 @@ class ChannelApiViewTest(ChannelApiTestBase):
         self.assertEquals(simplejson.loads(response.content[4:-2]),
                           {'text': 'Valid request'})
 
+    def _verifyItemResponse(self, response, item):
+        self.assertEquals(response.status_code, 200)
+
+        data = eval(response.content)
+        self.assertEquals(data['id'], item.id)
+        self.assertEquals(data['name'], item.name)
+        self.assertEquals(data['url'], item.url)
+        self.assertEquals(data['description'], item.description)
+        self.assertEquals(data['size'], item.size)
+        self.assertEquals(data['channel_id'], item.channel_id)
+        self.assert_('thumbnail_url' in data)
+
+    def test_get_item(self):
+        """
+        /api/get_item should return the information for a item given
+        its id.
+        """
+
+        item = self.items[0]
+        response = self.make_api_request('get_item', id=item.id)
+        self._verifyItemResponse(response, item)
+
+        data = eval(response.content)
+        self.assertEquals(data['name'], item.name)
+        self.assertEquals(data['channel_id'], item.channel_id)
+
+    def test_get_item_404(self):
+        """
+        /api/get_item with a item id that doesn't exist should return a
+        404.
+        """
+        response = self.make_api_request('get_item', id=-1)
+        self.assertEquals(response.status_code, 404)
+        self.assertEquals(eval(response.content),
+                {'error': 'ITEM_NOT_FOUND',
+                 'text': 'Item -1 not found'})
+
+        response = self.make_api_request('get_item', id='all')
+        self.assertEquals(response.status_code, 404)
+        self.assertEquals(eval(response.content),
+                {'error': 'ITEM_NOT_FOUND',
+                 'text': 'Item all not found'})
+
+
+    def test_get_item_multiple_ids(self):
+        """
+        /api/get_item should take multiple ids and return a list of the
+        items.
+        """
+        response = self.make_api_request('get_item', id=(self.items[0].id,
+                                                         self.items[1].id))
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assertEquals(type(data), list)
+        self.assertEquals(data[0]['id'], self.items[0].id)
+        self.assertEquals(data[1]['id'], self.items[1].id)
+
+    def test_get_item_url(self):
+        """
+        A get_item request with a URL should function just like a request
+        with a item ID.
+        """
+        item = self.items[0]
+        response = self.make_api_request('get_item', url=item.url)
+        self._verifyItemResponse(response, item)
+
+        response = self.make_api_request('get_item', url=item.url[:-5])
+        self.assertEquals(response.status_code, 404)
+        self.assertEquals(eval(response.content),
+                {'error': 'ITEM_NOT_FOUND',
+                 'text': 'Item %s not found' % item.url[:-5]})
+
+    def test_get_item_combine_url_id(self):
+        """
+        /api/get_item should handle mixing url and id lookups.
+        """
+        response = self.get_page('/api/get_item', data=
+                                 [('url', self.items[0].url),
+                                  ('id', self.items[1].id)])
+        self.assertEquals(response.status_code, 200)
+        data = eval(response.content)
+        self.assertEquals(len(data), 2)
+        # id goes first
+        self.assertEquals(data[0]['id'], self.items[1].id)
+        self.assertEquals(data[1]['id'], self.items[0].id)
+
+
     def _verifyChannelResponse(self, response, channel):
         self.assertEquals(response.status_code, 200)
 
@@ -140,7 +227,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
             item = data['item'][i]
             self.assertEquals(item['name'], 'item%i' % (1-i))
             self.assertEquals(item['description'], 'Item')
-            self.assertEquals(item['url'], channel.url)
+            self.assertEquals(item['url'], channel.url + '?item=%i' % (1-i))
             self.assert_(item.get('size') is not None)
             self.assert_(item.get('date') is not None)
             self.assert_('thumbnail_url' in item)
@@ -326,7 +413,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
                           {'error': 'CHANNEL_NOT_FOUND',
                            'text': 'Channel -1 not found'})
         response = self.make_api_request('rate', id=self.channels[0].id,
-                                         session='invalid session')
+                                         session='0')
         self.assertEquals(response.status_code, 403)
         self.assertEquals(eval(response.content),
                           {'error': 'INVALID_SESSION',
@@ -397,7 +484,7 @@ class ChannelApiViewTest(ChannelApiTestBase):
     def test_get_recommendations(self):
         session = self._get_session()
         response = self.make_api_request('get_recommendations',
-                                         session='invalid session')
+                                         session='0')
         self.assertEquals(response.status_code, 403)
         self.assertEquals(eval(response.content),
                           {'error': 'INVALID_SESSION',
@@ -794,6 +881,30 @@ class ChannelApiFunctionTest(ChannelApiTestBase):
         objs = utils.get_channels(self.make_request(), 'name', '',
                                   sort='-name')
         self.assertSameChannels(objs, list(reversed(self.channels)) + [new])
+
+    def test_get_item(self):
+        """
+        utils.get_item(id) should return an Item object.
+        """
+        obj = utils.get_item(self.items[0].id)
+        self.assertEquals(obj.id, self.items[0].id)
+        self.assertEquals(obj.url, self.items[0].url)
+        self.assertEquals(obj.name, self.items[0].name)
+        self.assertEquals(obj.description, self.items[0].description)
+        self.assertEquals(obj.size, self.items[0].size)
+        self.assertEquals(obj.channel_id, self.items[0].channel_id)
+
+    def test_get_item_by_url(self):
+        """
+        utils.get_item_by_url(url) should return an Item object.
+        """
+        obj = utils.get_item_by_url(self.items[0].url)
+        self.assertEquals(obj.id, self.items[0].id)
+        self.assertEquals(obj.url, self.items[0].url)
+        self.assertEquals(obj.name, self.items[0].name)
+        self.assertEquals(obj.description, self.items[0].description)
+        self.assertEquals(obj.size, self.items[0].size)
+        self.assertEquals(obj.channel_id, self.items[0].channel_id)
 
     def test_search(self):
         """

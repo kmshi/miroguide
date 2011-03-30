@@ -23,15 +23,24 @@ class ChannelSearchTest(TestCase):
             c = self.make_channel(state=Channel.APPROVED)
             ChannelSearchData.objects.update(c)
 
+        self.pages = {}
+
     def make_channel(self, **kwargs):
         return TestCase.make_channel(self, self.ralph, **kwargs)
 
+    def get_search_page(self, query):
+        # a second request hits the cache and so we don't get the context we
+        # need
+        if query not in self.pages:
+            self.pages[query] = self.get_page('/search', data={'query': query})
+        return self.pages[query]
+
     def feed_search(self, query):
-        page = self.get_page('/search', data={'query': query})
+        page = self.get_search_page(query)
         return page.context[0]['feed_page'].object_list
 
     def feed_search_count(self, query):
-        page = self.get_page('/search', data={'query': query})
+        page = self.get_search_page(query)
         return page.context[0]['feed_page'].paginator.count
 
     def test_feed_search(self):

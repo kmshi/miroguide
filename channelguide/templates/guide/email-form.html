@@ -18,7 +18,7 @@ See LICENSE for details.
         {% trans "Please Send a Note to the Site Manager!" %}
       {% endif %}
     </h2>
-    <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">
+    <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">{% csrf_token %}
         {% ifequal type "Reject" %}
         <input type="hidden" name="action" value="reject">
         {% else %}
@@ -33,7 +33,7 @@ See LICENSE for details.
         </div>
     </form>
     {% if skipable %}
-    <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">
+    <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">{% csrf_token %}
         <input type="hidden" name="action" value="{{ action }}">
         <input type="hidden" name="submit" value="{{ type }}">
         <input type="submit" class="skip" value="{% blocktrans %}Skip the note, just {{ type }}{% endblocktrans %}">

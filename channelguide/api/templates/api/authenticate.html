@@ -16,7 +16,7 @@ See LICENSE for details.
   {% endif %}
   An application {% if redirect %} at <strong>{{ redirect }}</strong> {% endif %}has
   asked for access to your account.  Do you wish to allow it?
-  <form method="POST" action="{{ request.path }}">
+  <form method="POST" action="{{ request.path }}">{% csrf_token %}
     <input type="hidden" name="key" value="{{ key }}" />
     <input type="hidden" name="verification" value="{{ verification }}" />
     {% if redirect %}

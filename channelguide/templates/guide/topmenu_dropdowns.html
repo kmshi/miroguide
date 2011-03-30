@@ -46,7 +46,7 @@ See LICENSE for details.
       <ul>
         <li class="form-errors"></li>
         <li id="login">
-          <form method="post" action="{{ settings.LOGIN_URL }}">
+          <form method="POST" action="{{ settings.LOGIN_URL }}">{% csrf_token %}
             <div class="form_row">
               <label for="id_username">{% trans "Username" %}</label>
               <input id="id_username" name="username" maxlength="20" type="text">
@@ -67,7 +67,7 @@ See LICENSE for details.
           </form>
         </li>
         <li id="registerHidden">
-          <form method="post" action="{{ BASE_URL }}accounts/register/">
+          <form method="POST" action="{{ BASE_URL }}accounts/register/">{% csrf_token %}
             <div class="form_row">
               <label for="id_newusername">
                 {% trans "Username" %} *
@@ -132,7 +132,7 @@ See LICENSE for details.
     {% endif %}
     <div id="upButton"></div>
     {% if language_options %}<h3><span>{% trans "My Language:" %}</span></h3>{% endif %}
-    <form action="{{ BASE_URL }}i18n/setlang/" method="POST">
+    <form action="{{ BASE_URL }}i18n/setlang/" method="POST">{% csrf_token %}
       <ul>
         {% get_current_language as LANGUAGE_CODE %}
         {% for language in LANGUAGES %}

@@ -112,6 +112,7 @@ def channel(request, id):
             if not request.user.has_perm('featured.add_featuredqueue'):
                 return redirect_to_login(request.path)
             FeaturedQueue.objects.feature(channel, request.user)
+            return util.redirect_to_referrer(request)
         elif action == 'unfeature':
             if not request.user.has_perm('featured.add_featuredqueue'):
                 return redirect_to_login(request.path)
@@ -119,6 +120,7 @@ def channel(request, id):
                 FeaturedQueue.objects.feature(channel, request.user)
             else:
                 FeaturedQueue.objects.unfeature(channel)
+            return util.redirect_to_referrer(request)
         elif action == 'change-state':
             if not request.user.has_perm('channels.change_channel'):
                 return redirect_to_login(request.path)
@@ -316,7 +318,7 @@ def user_add(request, id):
                                            user=request.user)
     return HttpResponse("Added!")
 
-@cache_with_sites
+@cache_with_sites('namespace')
 def filtered_listing(request, value=None, filter=None, limit=10,
                      title='Filtered Listing', default_sort=None):
     if not filter:
