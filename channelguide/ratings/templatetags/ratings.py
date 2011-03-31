@@ -23,7 +23,7 @@ def _get_rating_context(context, channel):
     if rating is None:
         rating = Rating(channel=channel)
         rating.has_user_rating = False
-        generatedratings, created = GeneratedRatings.objects.get_or_create(
+        channel.rating, created = GeneratedRatings.objects.get_or_create(
             channel=channel)
         rating.average_rating = channel.rating.average
 
