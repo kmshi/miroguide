@@ -28,7 +28,7 @@ def item(request, id):
 
     try:
         previous = previousSet[0]
-    except Item.DoesNotExist:
+    except IndexError:
         previous = None
 
     index = nextSet.count()
