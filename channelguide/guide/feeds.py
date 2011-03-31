@@ -63,7 +63,7 @@ class ChannelsFeed(feeds.Feed):
             return item.newest.date
 
     def item_enclosure_url(self, item):
-        max_date = self.get_date_for_item()
+        max_date = self.get_date_for_item(item)
         if not max_date:
             item.newest = None
             return
