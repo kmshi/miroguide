@@ -278,7 +278,8 @@ class Channel(Thumbnailable):
         return ''
 
     def can_edit(self, user):
-        return user == self.owner or user.has_perm('channels.change_channel')
+        return user.id == self.owner_id or \
+            user.has_perm('channels.change_channel')
 
     def download_feed(self):
         if self.feed_modified:

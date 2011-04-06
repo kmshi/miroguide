@@ -7,8 +7,8 @@ user-created.
 """
 
 from django.db import models
-
-import random
+from django.conf import settings
+from django.core import cache
 
 from channelguide import util
 from django.utils.translation import gettext as _
@@ -65,6 +65,13 @@ class Category(Label):
 
     def get_list_channels(self, filter_front_page=False,
                           show_state=None, language=None):
+        key = 'list-channels:%i:%i:%i:%s:%s' % (
+            settings.SITE_ID, self.pk, filter_front_page,
+            show_state, language)
+        retval = cache.cache.get(key)
+        if retval:
+            return retval
+
         def _q(filter_by_rating):
             from channelguide.channels.models import Channel
             query = Channel.objects.approved(archived=0)
@@ -82,14 +89,17 @@ class Category(Label):
                 query = query.exclude(categories__on_frontpage=False)
             return query
 
-        most_popular = _q(True)
+        filter_by_rating = True
+        most_popular = _q(filter_by_rating)[:2]
         if len(most_popular) < 2:
-            most_popular = _q(False)
+            filter_by_rating = False
+            most_popular = _q(filter_by_rating)[:2]
         if len(most_popular) > 1:
-            return most_popular[0], most_popular.exclude(
-                pk=most_popular[0].pk).order_by('?')[0]
-        else:
-            return most_popular
+            first = most_popular[0]
+            most_popular = (first, _q(filter_by_rating).exclude(
+                    pk=first.pk).order_by('?')[0])
+        cache.cache.set(key, most_popular)
+        return most_popular
 
 
 class Tag(Label):

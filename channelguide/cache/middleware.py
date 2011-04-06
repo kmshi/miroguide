@@ -5,16 +5,19 @@ import time
 from django.conf import settings
 from django.core import cache
 
-from mongo_stats.middleware import MongoStatsMiddleware
-
 from channelguide import util
 from channelguide.guide.country import country_code
 
-class CacheTimingMiddleware(MongoStatsMiddleware):
-    def request_was_cached(self, request):
-        if hasattr(request, '_cache_hit'):
-            return True # our cache middleware
-        return MongoStatsMiddleware.request_was_cached(self, request)
+try:
+    from mongo_stats.middleware import MongoStatsMiddleware
+except ImportError:
+    pass
+else:
+    class CacheTimingMiddleware(MongoStatsMiddleware):
+        def request_was_cached(self, request):
+            if hasattr(request, '_cache_hit'):
+                return True # our cache middleware
+            return MongoStatsMiddleware.request_was_cached(self, request)
 
 class CacheMiddlewareBase(object):
     cache_time = settings.CACHE_MIDDLEWARE_SECONDS # how many seconds to cache

@@ -1,0 +1,5 @@
+-e git+git://git.participatoryculture.org/miroguide@master#egg=miroguide
+-e git+git://git.participatoryculture.org/djpagetabs@master#egg=djpagetabs
+-e git+git://git.participatoryculture.org/djvideo/@master#egg=djvideo
+-e hg+ssh://hg@bitbucket.org/paulswartz/ip2cc@tip#egg=ip2cc
+

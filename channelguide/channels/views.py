@@ -222,6 +222,8 @@ def show(request, id, featured_form=None):
         item_page = item_paginator.page(request.GET.get('page', 1))
     except InvalidPage:
         raise Http404
+    for i in item_page.object_list:
+        i.channel = c
 
     is_miro = bool(util.get_miro_version(request.META.get('HTTP_USER_AGENT')))
 

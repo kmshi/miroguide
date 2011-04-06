@@ -14,7 +14,7 @@ from channelguide import util
 from channelguide.channels.models import Item
 
 def item(request, id):
-    item = get_object_or_404(Item, pk=id)
+    item = get_object_or_404(Item.objects.select_related(), pk=id)
     if item.date is None:
         previousSet = Item.objects.filter(channel=item.channel,
                                           pk__lt=item.pk).order_by('-pk')
@@ -26,9 +26,9 @@ def item(request, id):
         nextSet = Item.objects.filter(channel=item.channel,
                                       date__gt=item.date).order_by('date')
 
-    if previousSet.count():
+    try:
         previous = previousSet[0]
-    else:
+    except IndexError:
         previous = None
 
     index = nextSet.count()
@@ -44,6 +44,8 @@ def item(request, id):
         page = paginator.page(request.GET.get('page', default_page))
     except InvalidPage:
         raise Http404
+    for i in page.object_list:
+        i.channel = item.channel
 
     share_url = urlparse.urljoin(
         settings.BASE_URL_FULL,

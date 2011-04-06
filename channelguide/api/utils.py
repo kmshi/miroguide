@@ -68,13 +68,23 @@ def get_channel_by_url(url):
 
 def get_channels_query(request, filter_list, value_list, sort=None,
                        country_code=None):
-    if request.user.has_perm('channels.change_channel'):
-        query = Channel.objects.all()
-    else:
-        query = Channel.objects.approved()
     if isinstance(filter_list, basestring):
         filter_list = [filter_list]
         value_list = [value_list]
+    if request.user.has_perm('channels.change_channel'):
+        query = Channel.objects.all()
+    else:
+        if 'audio' in filter_list:
+            index = filter_list.index('audio')
+            filter_list = filter_list[:index] + filter_list[index+1:]
+            value_list = value_list[:]
+            value = value_list.pop(index)
+            if value:
+                query = Channel.objects.filter(state=Channel.AUDIO)
+            else:
+                query = Channel.objects.filter(state=Channel.APPROVED)
+        else:
+            query = Channel.objects.approved()
     for filter, value in zip(filter_list, value_list):
         if filter == 'audio':
             if value:
@@ -160,13 +170,15 @@ def _use_sort(sort):
     else:
         return sort
 
-def _add_limit_and_offset(query, limit, offset):
+def _add_limit_and_offset(query, limit, offset, loads):
     if limit is None:
         limit = 20
     if limit > 100:
         limit = 100
     if offset is None or offset < 0:
         offset = 0
+    if loads:
+        query = query.select_related(*loads)
     return list(query[offset:offset+limit])
 
 def get_feeds(request, filter, value, sort=None, limit=None, offset=None,
@@ -183,7 +195,7 @@ def get_feeds(request, filter, value, sort=None, limit=None, offset=None,
             return 0
     elif query is None:
         return []
-    return _add_limit_and_offset(query, limit, offset)
+    return _add_limit_and_offset(query, limit, offset, loads)
 
 def get_sites(request, filter, value, sort=None, limit=None, offset=None,
               loads=None, country_code=None):
@@ -199,7 +211,7 @@ def get_sites(request, filter, value, sort=None, limit=None, offset=None,
             return 0
     elif query is None:
         return []
-    return _add_limit_and_offset(query, limit, offset)
+    return _add_limit_and_offset(query, limit, offset, loads)
 
 def get_channels(request, filter, value, sort=None, limit=None, offset=None,
         loads=None, country_code=None):
@@ -220,7 +232,7 @@ def get_channels(request, filter, value, sort=None, limit=None, offset=None,
             return 0
     elif query is None:
         return []
-    return _add_limit_and_offset(query, limit, offset)
+    return _add_limit_and_offset(query, limit, offset, loads)
 
 def search(terms):
     return search_mod.search_channels(Channel.objects.approved(), terms)
@@ -258,7 +270,7 @@ def get_recommendations(user, start=0, length=10, filter=None):
     ratings = Rating.objects.filter(user=user).order_by('-timestamp')
     added_channels = AddedChannel.objects.filter(user=user).order_by(
         '-timestamp')
-    if ratings.count():
+    if len(ratings):
         if added_channels.count():
             key = str(
                 max(ratings[0].timestamp,
@@ -293,7 +305,8 @@ def get_recommendations(user, start=0, length=10, filter=None):
                 return 0
             else:
                 return []
-        query = Channel.objects.filter(id__in=ids)
+        query = Channel.objects.filter(id__in=ids).select_related('stats',
+                                                                  'rating')
         if filter is not None:
             if filter == 'feed':
                 query = query.filter(url__isnull=False)
@@ -313,6 +326,9 @@ def get_recommendations(user, start=0, length=10, filter=None):
         channels = list(query)
         for channel in channels:
             channel.guessed = estimatedRatings[channel.id]
+        channels.sort(key=operator.attrgetter('guessed'), reverse=True)
+        channels = channels[start:start+length]
+        for channel in channels:
             if channel.id in reasons:
                 channelReasons = dict((cid, score) for (score, cid) in
                                       reasons[channel.id][-3:])
@@ -322,8 +338,7 @@ def get_recommendations(user, start=0, length=10, filter=None):
                     reason.score = channelReasons[reason.id]
                 channel.reasons.sort(key=operator.attrgetter('score'),
                                      reverse=True)
-        channels.sort(key=operator.attrgetter('guessed'), reverse=True)
-        return channels[start:start+length]
+        return channels
     else:
         if start is None:
             return 0
