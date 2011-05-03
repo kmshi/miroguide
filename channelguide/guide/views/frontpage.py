@@ -92,6 +92,7 @@ class FrontpageView:
             'featured_channels_hidden': featured_channels[2:],
             'categories': categories,
             'language' : language,
+	    'request': request,
         }
         context.update(klass.additional_context)
         return util.render_to_response(request, 'frontpage.html', context)

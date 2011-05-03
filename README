@@ -50,3 +50,18 @@ Mailing list: http://participatoryculture.org/mailman/listinfo/develop
 IRC Channel: #miro-hackers
 
 Happy Hacking!
+
+---------------------------------------------------------------------
+make miroguide run under cygwin env
+---------------------------------------------------------------------
+ 1.install cygwin with python, imagemagick
+ 2.install Django-1.2.5
+ 3.install setuptools-0.6c11
+ 4.install feedparser-5.0.1
+ 5.install South-0.7.3
+ 6.install django_bitly-0.5.1
+ 7.install djpagetabs
+ 8.install djvideo
+ 9.install python-memcached-1.47 (optional)
+10.install MySQL-python-1.2.3 (optional -- if use MySQL db)
+11.install SQLAlchemy-0.5.0 (not needed)
