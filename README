@@ -65,3 +65,7 @@ make miroguide run under cygwin env
  9.install python-memcached-1.47 (optional)
 10.install MySQL-python-1.2.3 (optional -- if use MySQL db)
 11.install SQLAlchemy-0.5.0 (not needed)
+12.run ./manage.py syncdb
+13.run ./manage.py migrate
+14.run ./manage.py shell (?)
+15.run ./manage.py runserver

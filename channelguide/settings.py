@@ -143,7 +143,7 @@ INSTALLED_APPS = (
     'djvideo',
     #'debug_toolbar',
     'django_bitly',
-
+    'south',
 )
 
 # directories
