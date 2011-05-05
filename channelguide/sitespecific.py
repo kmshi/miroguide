@@ -10,7 +10,7 @@
 MEMCACHED_SERVERS = []
 
 # name to put on outgoing emails
-#EMAIL_FROM = FILL ME IN
+EMAIL_FROM = 'kmshi_array@yahoo.com'
 
 # Local time zone for this installation. All choices can be found here:
 # http://www.postgresql.org/docs/current/static/datetime-keywords.html#DATETIME-TIMEZONE-SET-TABLE
@@ -21,7 +21,7 @@ MEMCACHED_SERVERS = []
 # Example: 'sdzqwb$$dw0ojx^i(^wkskp3c@xu4unq$qyzj2_5ng3d05a+74'
 #SECRET_KEY = FILL ME IN
 
-BASE_URL = ''
+BASE_URL = '/'
 BASE_URL_FULL = BASE_URL
 # Change this if the location for static stuff (images, javascript, css files)
 # is separate from the rest of the URLs.

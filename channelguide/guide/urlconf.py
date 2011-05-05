@@ -10,7 +10,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('channelguide.guide.views',
     (r'^$', 'frontpage.index'),
-    (r'^admin/(.*)$', admin.site.root),
+    (r'^admin/(.*)$', admin.site.urls),
     (r'^favicon.ico$', redirect_to, {'url': '/images/favicon.ico'}),
     (r'^frontpage$', 'frontpage.index'),
     (r'^audio/', include('channelguide.guide.audio_urlconf')),
