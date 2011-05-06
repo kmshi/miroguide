@@ -74,7 +74,7 @@ MEDIA_URL = ''
 ADMIN_MEDIA_PREFIX = '/media/'
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = ''
+SECRET_KEY = '=s&)6r@jvig&nr3f+i=!!!i067ruzu=qde7rj0d+c)^q6dipxw'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -164,8 +164,6 @@ ROOT_DIR = os.path.abspath(os.path.join(SITE_DIR, '..'))
 STATIC_DIR = os.path.join(ROOT_DIR, 'static')
 IMAGES_DIR = os.path.join(STATIC_DIR, 'images')
 MEDIA_ROOT = os.path.join(STATIC_DIR, 'media')
-
-#EXTERNAL_LIBRARY_DIR = os.path.join(SITE_DIR, 'lib')
 
 AUTH_PROFILE_MODULE = 'user_profile.UserProfile'
 AUTHENTICATION_BACKENDS = (

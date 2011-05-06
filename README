@@ -68,5 +68,5 @@ make miroguide run under cygwin env
 12.comment 'south' app in setting.py, run ./manage.py syncdb (create new complete db)
 13.add 'south' app in setting.py, run ./manage.py syncdb (enable South support)
 14.run ./manage.py migrate --fake (it can not work by migrate from startup???)
-15.run ./manage.py shell (?)
+15.run cd lib && ./update.py (to download ip2cc.db)
 16.run ./manage.py runserver
