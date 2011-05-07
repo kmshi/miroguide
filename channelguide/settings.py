@@ -5,6 +5,7 @@ from datetime import timedelta
 from urlparse import urlparse
 
 from sitespecific import *
+from emailsetting import *
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -16,10 +17,19 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+# directories
+
+SITE_DIR = os.path.abspath(os.path.dirname(__file__))
+ROOT_DIR = os.path.abspath(os.path.join(SITE_DIR, '..'))
+
+STATIC_DIR = os.path.join(ROOT_DIR, 'static')
+IMAGES_DIR = os.path.join(STATIC_DIR, 'images')
+MEDIA_ROOT = os.path.join(STATIC_DIR, 'media')
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/cygdrive/c/opt/miro_projs/miroguide/guide.db',                      # Or path to database file if using sqlite3.
+        'NAME': os.path.join(ROOT_DIR,'guide.db'), # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -84,15 +94,15 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    #'django.middleware.common.CommonMiddleware',
-    #'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
     #'django.middleware.csrf.CsrfViewMiddleware',
-    #'django.contrib.auth.middleware.AuthenticationMiddleware',
-    #'django.contrib.messages.middleware.MessageMiddleware',
+    'channelguide.notifications.middleware.NotificationMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'channelguide.notifications.middleware.NotificationMiddleware',
+    #'django.middleware.csrf.CsrfResponseMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',    
+    #'channelguide.disable.DisableCSRF',
 )
 
 ROOT_URLCONF = 'channelguide.guide.urlconf'
@@ -111,7 +121,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '/cygdrive/c/opt/miro_projs/miroguide/channelguide/templates',
+    os.path.join(SITE_DIR,'templates'),
 )
 
 INSTALLED_APPS = (
@@ -155,15 +165,6 @@ INSTALLED_APPS = (
     'django_bitly',
     #'south',
 )
-
-# directories
-
-SITE_DIR = os.path.abspath(os.path.dirname(__file__))
-ROOT_DIR = os.path.abspath(os.path.join(SITE_DIR, '..'))
-
-STATIC_DIR = os.path.join(ROOT_DIR, 'static')
-IMAGES_DIR = os.path.join(STATIC_DIR, 'images')
-MEDIA_ROOT = os.path.join(STATIC_DIR, 'media')
 
 AUTH_PROFILE_MODULE = 'user_profile.UserProfile'
 AUTHENTICATION_BACKENDS = (

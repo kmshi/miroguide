@@ -55,7 +55,7 @@ def guide(request):
             if profile.language:
                 if 'django_language' not in request.session:
                     request.session['django_language'] = profile.language
-                languageName = settings.ENGLISH_LANGUAGE_MAP.get(
+                languageName = settings.LANGUAGE_MAP.get(
                     profile.language)
                 if languageName:
                     try:
