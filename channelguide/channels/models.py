@@ -616,7 +616,7 @@ class Item(Thumbnailable):
         try:
             rv.guid = feedutil.to_utf8(entry['id'])
         except KeyError:
-            rv.guid = None
+            rv.guid = ''
         try:
             updated_parsed = entry['updated_parsed']
             if updated_parsed is None:
