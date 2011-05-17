@@ -10,7 +10,7 @@ from xml.sax import saxutils
 import Queue
 import cgi
 import logging
-import md5
+from hashlib import md5
 import os
 import re
 import random
@@ -62,7 +62,7 @@ def get_miro_version(http_user_agent):
         return None
 
 def bitly_shorten(url):
-    key = 'bitly_shorten:%s' % md5.new(url).hexdigest()
+    key = 'bitly_shorten:%s' % md5(url).hexdigest()
     shortURL = cache.cache.get(key)
     if shortURL is not None:
         return shortURL
@@ -248,7 +248,7 @@ def make_thumbnail(source_path, dest_path, width, height):
         raise ValueError('could not resize image')
 
 def hash_string(str):
-    return md5.new(str.encode('utf8')).hexdigest()
+    return md5(str.encode('utf8')).hexdigest()
 
 def send_mail(title, body, recipient_list, email_from=None, break_lines=True):
     if break_lines:

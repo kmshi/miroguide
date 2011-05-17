@@ -5,12 +5,12 @@ from django.conf import settings
 from django.conf.urls.defaults import patterns, include, handler404
 from django.views.generic.simple import direct_to_template, redirect_to
 
-from django.contrib import admin
-admin.autodiscover()
+#from django.contrib import admin
+#admin.autodiscover()
 
 urlpatterns = patterns('channelguide.guide.views',
     (r'^$', 'frontpage.index'),
-    (r'^admin/(.*)$', admin.site.urls),
+#    (r'^admin/(.*)$', admin.site.urls),
     (r'^favicon.ico$', redirect_to, {'url': '/images/favicon.ico'}),
     (r'^frontpage$', 'frontpage.index'),
     (r'^audio/', include('channelguide.guide.audio_urlconf')),
@@ -167,6 +167,6 @@ if settings.DEBUG:
             {'document_root': os.path.join(settings.STATIC_DIR, dir)}))
     urlpatterns.extend(patterns ('', *static_patterns))
     urlpatterns += patterns('',
-                            (r'^media/(?P<path>.*)$',
+                            (r'^thumbmedia/(?P<path>.*)$',
                              'django.views.static.serve',
                              {'document_root': settings.MEDIA_ROOT}))

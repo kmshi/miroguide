@@ -21,3 +21,7 @@ S3_SECRET_KEY = None
 S3_BUCKET = None
 S3_PATH = None
 
+#BITLY_USERNAME = None
+BITLY_LOGIN = None
+BITLY_API_KEY = None
+

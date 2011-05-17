@@ -1,7 +1,7 @@
 # Copyright (c) 2008-2009 Participatory Culture Foundation
 # See LICENSE for details.
 
-import sha
+from hashlib import sha1
 
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
@@ -198,7 +198,7 @@ class UserProfile(models.Model):
     def generate_confirmation_code(self):
         s = '%s%s%s' % (self.user.id, self.user.username,
                         self.user.date_joined.timetuple())
-        return sha.new(s.encode('utf8')).hexdigest()[:16]
+        return sha1(s.encode('utf8')).hexdigest()[:16]
 
     def generate_confirmation_url(self):
         return settings.BASE_URL_FULL + 'accounts/confirm/%s/%s' % (self.id,

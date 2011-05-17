@@ -24,7 +24,7 @@ ROOT_DIR = os.path.abspath(os.path.join(SITE_DIR, '..'))
 
 STATIC_DIR = os.path.join(ROOT_DIR, 'static')
 IMAGES_DIR = os.path.join(STATIC_DIR, 'images')
-MEDIA_ROOT = os.path.join(STATIC_DIR, 'media')
+
 
 DATABASES = {
     'default': {
@@ -71,17 +71,17 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = os.path.join(STATIC_DIR, 'media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_URL = '/thumbmedia/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+#ADMIN_MEDIA_PREFIX = '/media/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '=s&)6r@jvig&nr3f+i=!!!i067ruzu=qde7rj0d+c)^q6dipxw'
@@ -95,14 +95,12 @@ TEMPLATE_LOADERS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
-    'channelguide.notifications.middleware.NotificationMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
-    #'django.middleware.csrf.CsrfResponseMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',    
-    #'channelguide.disable.DisableCSRF',
+    'django.contrib.messages.middleware.MessageMiddleware', 
+    'django.middleware.locale.LocaleMiddleware',   
+    'channelguide.notifications.middleware.NotificationMiddleware',
 )
 
 ROOT_URLCONF = 'channelguide.guide.urlconf'
@@ -138,7 +136,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.auth',
     'django.contrib.sessions',
-    'django.contrib.admin',
+#    'django.contrib.admin',
     'channelguide.guide',
     'channelguide.cache',
     'channelguide.api',
