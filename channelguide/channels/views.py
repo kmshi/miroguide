@@ -8,6 +8,9 @@ from django.utils.decorators import decorator_from_middleware
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.views import redirect_to_login
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.sites.models import Site
+from django.contrib import comments
 from django.http import Http404, HttpResponse
 from django.template.context import RequestContext
 from django.utils.translation import gettext as _
@@ -189,6 +192,27 @@ def channel(request, id):
             if _type == 'Approve & Feature':
                 channel.change_state(request.user, Channel.APPROVED)
             FeaturedQueue.objects.feature(channel, request.user)
+        elif action == 'editors_comment':
+            text = request.POST.get('featured_comment')
+            Comment = comments.get_model()
+            content_type = ContentType.objects.get_for_model(channel)
+            Comment.objects.filter(
+                content_type=content_type,
+                object_pk=channel.pk,
+                flags__flag='editors comment').delete()
+            if text:
+                obj = Comment.objects.create(
+                    site=Site.objects.get_current(),
+                    user=request.user,
+                    comment=text,
+                    content_type=content_type,
+                    object_pk=channel.pk,
+                    is_removed=True,
+                    is_public=False)
+                comments.models.CommentFlag.objects.get_or_create(
+                    comment=obj,
+                    user=request.user,
+                    flag='editors comment')
         elif action == "change-owner":
             if not request.user.has_perm('channels.change_owner'):
                 return redirect_to_login(request.path)
@@ -528,6 +552,19 @@ Currently we're managing your channel -- if you'd like to take control, view stg
         action = 'reject'
         body = ''
         skipable = False
+    elif email_type == 'Comment':
+        action = 'editors_comment'
+        email = True
+        skipable = False
+        Comment = comments.get_model()
+        content_type = ContentType.objects.get_for_model(channel)
+        try:
+            body = Comment.objects.get(
+                content_type=content_type,
+                object_pk=channel.pk,
+                flags__flag='editors comment').comment
+        except Comment.DoesNotExist:
+            body = ''
     else:
         raise Http404
     if action != 'reject' and channel.owner.email != 'Dean@NottheMessiah.net':

@@ -2,6 +2,8 @@
 # See LICENSE for details.
 
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
+from django.contrib import comments
 
 from channelguide import util
 from channelguide.cache.decorators import cache_for_user
@@ -53,7 +55,18 @@ class FrontpageView:
     def get_featured_channels(klass, request):
         query = Channel.objects.approved(state=klass.show_state,
                                          featured=1, archived=0)
-        return query.order_by('?')
+        channels = list(query.order_by('?'))
+        Comment = comments.get_model()
+        content_type = ContentType.objects.get_for_model(Channel)
+        for c in channels:
+            try:
+                c.editors_comment = Comment.objects.get(
+                    content_type=content_type,
+                    object_pk=c.pk,
+                    flags__flag='editors comment')
+            except Comment.DoesNotExist:
+                c.editors_comment = None
+        return channels
 
     @classmethod
     def get_new_channels(klass, request, type, count):
