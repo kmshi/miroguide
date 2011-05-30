@@ -2,8 +2,12 @@
 # See LICENSE for details.
 
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.sites.models import Site
+from django.contrib import comments
 
 from channelguide import util
+from channelguide.guide.auth import admin_required
 from channelguide.cache.decorators import cache_for_user
 from channelguide.channels.models import Channel
 from channelguide.labels.models import Category, Language
@@ -53,7 +57,18 @@ class FrontpageView:
     def get_featured_channels(klass, request):
         query = Channel.objects.approved(state=klass.show_state,
                                          featured=1, archived=0)
-        return query.order_by('?')
+        channels = list(query.order_by('?'))
+        Comment = comments.get_model()
+        content_type = ContentType.objects.get_for_model(Channel)
+        for c in channels:
+            try:
+                c.editors_comment = Comment.objects.get(
+                    content_type=content_type,
+                    object_pk=c.pk,
+                    flags__flag='editors comment')
+            except Comment.DoesNotExist:
+                c.editors_comment = None
+        return channels
 
     @classmethod
     def get_new_channels(klass, request, type, count):
@@ -70,6 +85,18 @@ class FrontpageView:
             query = query.filter(url__isnull=True)
 
         return _filter_categories(query, count)
+
+    @classmethod
+    def get_header(klass):
+        Comment = comments.get_model()
+        content_type = ContentType.objects.get_for_model(Site)
+        try:
+            return util.mark_safe(Comment.objects.get(
+                    content_type=content_type,
+                    object_pk=settings.SITE_ID,
+                    flags__flag='site header').comment)
+        except Comment.DoesNotExist:
+            return None
 
     @classmethod
     def __call__(klass, request, show_welcome):
@@ -92,6 +119,7 @@ class FrontpageView:
             'featured_channels_hidden': featured_channels[2:],
             'categories': categories,
             'language' : language,
+            'header': klass.get_header()
         }
         context.update(klass.additional_context)
         return util.render_to_response(request, 'frontpage.html', context)
@@ -115,3 +143,38 @@ def index(request, show_welcome=False):
 @cache_for_user
 def audio_index(request, show_welcome=False):
     return audio_frontpage(request, show_welcome)
+
+@admin_required
+def edit_header(request):
+    Comment = comments.get_model()
+    content_type = ContentType.objects.get_for_model(Site)
+    site = Site.objects.get_current()
+    headers = Comment.objects.filter(
+        content_type=content_type,
+        object_pk=site.pk,
+        flags__flag='site header')
+    if request.method == 'POST':
+        header = request.POST.get('header')
+        headers.delete()
+        if header:
+            obj = Comment.objects.create(
+                site=site,
+                user=request.user,
+                comment=header,
+                content_type=content_type,
+                object_pk=site.pk,
+                is_removed=True,
+                is_public=False)
+            comments.models.CommentFlag.objects.get_or_create(
+                comment=obj,
+                user=request.user,
+                flag='site header')
+        return util.redirect_to_referrer(request)
+
+    if headers:
+        header = headers[0].comment
+    else:
+        header = ''
+    return util.render_to_response(request, 'edit-header.html',
+                                   {'header': header})
+

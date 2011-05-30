@@ -52,6 +52,7 @@ See LICENSE for details.
     <li><h2><a {% link "accounts/moderators" %}>{% trans "Moderator list" %}</a></h2></li>
     {% if perms.labels.change_category %}<li><h2><a {% link "genres/moderate" %}>{% trans "Edit Genres list" %}</a></h2></li>{% endif %}
     {% if perms.labels.change_language %}<li><h2><a {% link "languages/moderate" %}>{% trans "Edit Languages list" %}</a></h2></li>{% endif %}
+    {% if user.is_superuser %}<li><h2><a {% link "frontpage/edit-header" %}>{% trans "Edit Frontpage Header" %}</a></h2></li>{% endif %}
     {% if user.is_superuser %}<li><h2><a {% link "channels/moderator-history" %}>{% trans "Moderator History" %}</a></h2></li>{% endif %}
     {% if user.is_superuser %}<li><h2><a {% link "channels/email-owners" %}>{% trans "Email Show Managers" %}</a></h2></li>{% endif %}
 </ul>

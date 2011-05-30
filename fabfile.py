@@ -1,5 +1,5 @@
 from fabric.api import *
-env.hosts = ['pcf8'] # credentials setup in .ssh/config
+env.hosts = ['pcf8.pculture.org'] # credentials setup in .ssh/config
 
 REQUIREMENTS = 'http://git.participatoryculture.org/miroguide/plain/requirements.txt'
 

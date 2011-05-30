@@ -24,11 +24,11 @@ class FeaturedQueueManager(models.Manager):
         return fq
 
     def unfeature(self, channel, do_shuffle=True):
+        channel.change_featured(None)
         fq = self.get(channel=channel)
         if fq.state == self.model.IN_QUEUE:
             fq.delete()
         elif fq.state == self.model.CURRENT:
-            channel.change_featured(None)
             fq.state = self.model.PAST
             fq.save()
             if do_shuffle:

@@ -1,0 +1,18 @@
+{% extends 'guide/base.html' %}
+{% comment %}
+Copyright (c) 2008-2011 Participatory Culture Foundation
+See LICENSE for details.
+{% endcomment %}
+{% load i18n cg_helpers %}
+{% block title %}{% trans "Miro Guide - Edit Header" %}{% endblock %}
+{% block content %}
+<div class="edit-header-page">
+    <div class="big-form">
+        <h2>{% trans "Edit Site Header" %}</h2>
+        <form method="POST" action="" onsubmit="showLoadIndicator();">{% csrf_token %}
+            <textarea rows=8 cols=70 name="header">{{ header }}</textarea>
+            <input type="submit" class="submit" value="{% trans "Save" %} &gt;&gt;">
+        </form>
+    </div>
+</div>
+{% endblock %}

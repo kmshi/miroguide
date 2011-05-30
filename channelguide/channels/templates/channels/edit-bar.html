@@ -105,12 +105,14 @@ function toggleEditBox() {
 
 function showEmailForm(event) {
     var type = $(this).attr('value');
+    var csrftoken = $(this).parents('form').find('input[name=csrfmiddlewaretoken]').attr('value');
     var top = (window.innerHeight - 300) / 2;
     var left = (window.innerWidth - 600) / 2;
     $('body div').fadeTo('slow', 0.7);
-    $('body').prepend('<div class="email-form embedded" style="width: 600px; height: 300px; border: 2px solid black; background: white; z-index: 1; top: ' + top +'px; left: ' + left + 'px; position: fixed;"><\/div>');
+    $('body').prepend('<div class="email-form embedded" style="width: 600px; height: 300px; border: 2px solid black; background: white; z-index: 1; top: ' + top +'px; left: ' + left + 'px; position: fixed; overflow: auto;"><\/div>');
     var url = $(this).parent().parent().attr('action') + '/email';
-    $('body div.email-form').load(url + ' div.email-form > *', {type: type},
+    $('body div.email-form').load(url + ' div.email-form > *', {type: type,
+                                                                csrfmiddlewaretoken: csrftoken},
             function() {
                 var emailForm = $('div.email-form');
                 button = '<input type="button" class="cancelemail" value="{% trans "Cancel and go back" %}">'

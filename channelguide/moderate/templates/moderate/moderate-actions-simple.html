@@ -26,6 +26,16 @@ See LICENSE for details.
           </div>
         </form>
         {% endif %}
+        {% if channel.featured_queue or channel.featured %}
+        </li>
+<li class="channel-action">
+        <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">{% csrf_token %}
+          <div>
+            <input type="hidden" name="action" value="editors_comment">
+              <input class="email-form" type="submit" value="Comment">
+            </div>
+        </form>
+        {% endif %}
     {% else %}
         <form method="POST" action="{{ channel.get_url }}" onsubmit="showLoadIndicator();">{% csrf_token %}
           <div>
